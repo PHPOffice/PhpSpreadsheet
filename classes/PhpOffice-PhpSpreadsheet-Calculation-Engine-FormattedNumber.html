@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -130,6 +130,8 @@
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -151,7 +153,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_CURRENCY_CONVERSION_LIST">CURRENCY_CONVERSION_LIST</a>
     <span>
-        &nbsp;= &#039;\\$€£¥%s&#039;                            </span>
+        &nbsp;= &#039;\$€£¥%s&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
@@ -163,14 +165,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_FRACTION">STRING_REGEXP_FRACTION</a>
     <span>
-        &nbsp;= &#039;~^\\s*(-?)((\\d*)\\s+)?(\\d+\\/\\d+)\\s*$~&#039;                            </span>
+        &nbsp;= &#039;~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~&#039;                            </span>
 </dt>
 <dd>Regular Expressions</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_PERCENT">STRING_REGEXP_PERCENT</a>
     <span>
-        &nbsp;= &#039;~^(?:(?: *(?&lt;PrefixedSign&gt;[-+])? *\\% *(?&lt;PrefixedSign2&gt;[-+])? *(?&lt;PrefixedValue&gt;[0-9]+\\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?&lt;PostfixedSign&gt;[-+])? *(?&lt;PostfixedValue&gt;[0-9]+\\.?[0-9]*(?:E[-+]?[0-9]*)?) *\\% *))$~i&#039;                            </span>
+        &nbsp;= &#039;~^(?:(?: *(?&lt;PrefixedSign&gt;[-+])? *\% *(?&lt;PrefixedSign2&gt;[-+])? *(?&lt;PrefixedValue&gt;[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?&lt;PostfixedSign&gt;[-+])? *(?&lt;PostfixedValue&gt;[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *\% *))$~i&#039;                            </span>
 </dt>
 
     </dl>
@@ -233,7 +235,6 @@ convert it to a numeric.</dd>
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -260,12 +261,14 @@ convert it to a numeric.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CURRENCY_CONVERSION_LIST</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;\\$€£¥%s&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;\$€£¥%s&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -296,6 +299,8 @@ convert it to a numeric.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_STRING_REGEXP_FRACTION">
@@ -317,12 +322,14 @@ convert it to a numeric.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">STRING_REGEXP_FRACTION</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;~^\\s*(-?)((\\d*)\\s+)?(\\d+\\/\\d+)\\s*$~&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -345,12 +352,14 @@ convert it to a numeric.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">STRING_REGEXP_PERCENT</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;~^(?:(?: *(?&lt;PrefixedSign&gt;[-+])? *\\% *(?&lt;PrefixedSign2&gt;[-+])? *(?&lt;PrefixedValue&gt;[0-9]+\\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?&lt;PostfixedSign&gt;[-+])? *(?&lt;PostfixedValue&gt;[0-9]+\\.?[0-9]*(?:E[-+]?[0-9]*)?) *\\% *))$~i&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;~^(?:(?: *(?&lt;PrefixedSign&gt;[-+])? *\% *(?&lt;PrefixedSign2&gt;[-+])? *(?&lt;PrefixedValue&gt;[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?&lt;PostfixedSign&gt;[-+])? *(?&lt;PostfixedValue&gt;[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *\% *))$~i&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -407,6 +416,8 @@ convert it to a numeric.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -453,6 +464,8 @@ and convert it to a numeric if it is.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -505,6 +518,8 @@ and convert it to a numeric if it is.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -551,6 +566,8 @@ and convert it to a numeric if it is.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -603,6 +620,8 @@ convert it to a numeric.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -636,6 +655,8 @@ convert it to a numeric.</p>
         </div>
     
     
+    
+
     
 
             <section>

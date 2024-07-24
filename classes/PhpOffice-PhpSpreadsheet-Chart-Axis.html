@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -132,6 +132,8 @@
 Date: 6/17/14
 Time: 12:11 PM.</p>
 </section>
+
+
 
 
 
@@ -764,7 +766,7 @@ Time: 12:11 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TRILLION_INDEX">TRILLION_INDEX</a>
     <span>
-        &nbsp;= PHP_INT_SIZE &gt; 4 ? 1000000000000 : &#039;1000000000000&#039;                            </span>
+        &nbsp;= (PHP_INT_SIZE &gt; 4) ? 1000000000000 : &#039;1000000000000&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
@@ -894,7 +896,7 @@ Time: 12:11 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisNumber">$axisNumber</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array{format: string, source_linked: int, numeric: ?bool}            </span>
 </dt>
 <dd>Axis Number.</dd>
 
@@ -1416,7 +1418,6 @@ Time: 12:11 PM.</p>
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -1451,6 +1452,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_AXIS_LABELS_HIGH">
@@ -1477,6 +1480,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1507,6 +1512,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_AXIS_LABELS_NEXT_TO">
@@ -1533,6 +1540,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1563,6 +1572,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_AXIS_TYPE_CATEGORY">
@@ -1589,6 +1600,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1619,6 +1632,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_AXIS_TYPE_VALUE">
@@ -1645,6 +1660,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1675,6 +1692,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_DISP_UNITS_BUILTIN_INT">
@@ -1701,6 +1720,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1731,6 +1752,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_DISP_UNITS_HUNDRED_THOUSANDS">
@@ -1757,6 +1780,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1787,6 +1812,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_DISP_UNITS_MILLIONS">
@@ -1813,6 +1840,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1843,6 +1872,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_DISP_UNITS_TEN_THOUSANDS">
@@ -1869,6 +1900,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1899,6 +1932,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_DISP_UNITS_TRILLIONS">
@@ -1925,6 +1960,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -1955,6 +1992,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_CURRENCY">
@@ -1981,6 +2020,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2011,6 +2052,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_DATE_ISO8601">
@@ -2037,6 +2080,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2067,6 +2112,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_GENERAL">
@@ -2093,6 +2140,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2123,6 +2172,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_PERCENTAGE">
@@ -2149,6 +2200,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2179,6 +2232,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_SPECIAL">
@@ -2205,6 +2260,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2235,6 +2292,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CODE_TIME">
@@ -2261,6 +2320,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2291,6 +2352,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_HORIZONTAL_CROSSES_MAXIMUM">
@@ -2317,6 +2380,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2347,6 +2412,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_SIZE_2">
@@ -2373,6 +2440,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2403,6 +2472,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_SIZE_4">
@@ -2429,6 +2500,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2459,6 +2532,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_SIZE_6">
@@ -2485,6 +2560,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2515,6 +2592,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_SIZE_8">
@@ -2541,6 +2620,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2571,6 +2652,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_TYPE_ARROW">
@@ -2597,6 +2680,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2627,6 +2712,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_TYPE_NOARROW">
@@ -2653,6 +2740,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2683,6 +2772,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_ARROW_TYPE_OVAL">
@@ -2709,6 +2800,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2739,6 +2832,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_CAP_FLAT">
@@ -2765,6 +2860,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2795,6 +2892,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_CAP_SQUARE">
@@ -2821,6 +2920,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2851,6 +2952,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_COMPOUND_SIMPLE">
@@ -2877,6 +2980,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2907,6 +3012,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_COMPOUND_THINTHICK">
@@ -2933,6 +3040,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2963,6 +3072,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_DASH_DASH_DOT">
@@ -2989,6 +3100,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3019,6 +3132,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_DASH_LONG_DASH_DOT">
@@ -3045,6 +3160,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3075,6 +3192,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_DASH_ROUND_DOT">
@@ -3101,6 +3220,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3131,6 +3252,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_DASH_SQUARE_DOT">
@@ -3157,6 +3280,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3187,6 +3312,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYLE_JOIN_MITER">
@@ -3213,6 +3340,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3243,6 +3372,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LINE_STYPE_DASH_DASH">
@@ -3269,6 +3400,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3299,6 +3432,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_ORIENTATION_REVERSED">
@@ -3325,6 +3460,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3355,6 +3492,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_POINTS_WIDTH_MULTIPLIER">
@@ -3381,6 +3520,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3411,6 +3552,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_INNER_BOTTOM_LEFT">
@@ -3437,6 +3580,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3467,6 +3612,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_INNER_CENTER">
@@ -3493,6 +3640,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3523,6 +3672,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_INNER_RIGHT">
@@ -3549,6 +3700,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3579,6 +3732,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_INNER_TOP_LEFT">
@@ -3605,6 +3760,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3635,6 +3792,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_NOSHADOW">
@@ -3661,6 +3820,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3691,6 +3852,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_OUTER_BOTTOM_LEFT">
@@ -3717,6 +3880,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3747,6 +3912,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_OUTER_CENTER">
@@ -3773,6 +3940,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3803,6 +3972,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_OUTER_RIGHT">
@@ -3829,6 +4000,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3859,6 +4032,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_OUTER_TOP_LEFT">
@@ -3885,6 +4060,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3915,6 +4092,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_PERSPECTIVE_BELOW">
@@ -3941,6 +4120,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -3971,6 +4152,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT">
@@ -3997,6 +4180,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4027,6 +4212,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_PRESETS_PERSPECTIVE_UPPER_RIGHT">
@@ -4053,6 +4240,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4083,6 +4272,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TICK_MARK_INSIDE">
@@ -4109,6 +4300,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4139,6 +4332,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TICK_MARK_OUTSIDE">
@@ -4165,6 +4360,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4195,6 +4392,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TIME_UNIT_MONTHS">
@@ -4221,6 +4420,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4251,6 +4452,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TRILLION_INDEX">
@@ -4271,12 +4474,14 @@ Time: 12:11 PM.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">TRILLION_INDEX</span>
-    = <span class="phpdocumentor-signature__default-value">PHP_INT_SIZE &gt; 4 ? 1000000000000 : &#039;1000000000000&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">(PHP_INT_SIZE &gt; 4) ? 1000000000000 : &#039;1000000000000&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -4290,7 +4495,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">831</span>
+    <span class="phpdocumentor-element-found-in__line">848</span>
 
     </aside>
 
@@ -4305,6 +4510,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4378,6 +4585,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -protected ">
     <h4 class="phpdocumentor-element__name" id="constant_SHADOW_ARRAY_KEYS">
@@ -4406,6 +4615,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_NUMERIC_FORMAT">
@@ -4432,6 +4643,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4476,6 +4689,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4509,6 +4724,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4527,7 +4744,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">664</span>
+    <span class="phpdocumentor-element-found-in__line">672</span>
 
     </aside>
 
@@ -4540,6 +4757,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4560,7 +4779,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">666</span>
+    <span class="phpdocumentor-element-found-in__line">674</span>
 
     </aside>
 
@@ -4601,6 +4820,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4632,6 +4853,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4667,6 +4890,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4698,6 +4923,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4733,6 +4960,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4759,12 +4988,14 @@ Time: 12:11 PM.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array{format: string, source_linked: int, numeric: ?bool}</span>
     <span class="phpdocumentor-signature__name">$axisNumber</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;format&#039; =&gt; self::FORMAT_CODE_GENERAL, &#039;source_linked&#039; =&gt; 1, &#039;numeric&#039; =&gt; null]</span></code>
 
     
     
+    
+
     
 
 </article>
@@ -4801,6 +5032,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4832,6 +5065,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4867,6 +5102,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4900,6 +5137,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4931,6 +5170,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -4967,6 +5208,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -4999,6 +5242,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -5035,6 +5280,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -5066,6 +5313,8 @@ Time: 12:11 PM.</p>
 
     
     
+    
+
     
 
 </article>
@@ -5108,6 +5357,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -5136,6 +5387,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
     
@@ -5168,6 +5421,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5215,6 +5470,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -5235,7 +5492,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">688</span>
+    <span class="phpdocumentor-element-found-in__line">696</span>
 
     </aside>
 
@@ -5257,6 +5514,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5289,6 +5548,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5327,6 +5588,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -5361,6 +5624,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5409,6 +5674,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string|null</span>
@@ -5442,6 +5709,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5479,6 +5748,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -5512,6 +5783,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5549,6 +5822,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
@@ -5582,6 +5857,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5627,6 +5904,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5676,6 +5955,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">null|int|string</span>
@@ -5709,6 +5990,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5757,6 +6040,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">null|array&lt;string|int, mixed&gt;|float|int|string</span>
@@ -5793,6 +6078,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|null</span>
@@ -5813,7 +6100,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">698</span>
+    <span class="phpdocumentor-element-found-in__line">706</span>
 
     </aside>
 
@@ -5826,6 +6113,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5848,7 +6137,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">721</span>
+    <span class="phpdocumentor-element-found-in__line">729</span>
 
     </aside>
 
@@ -5874,6 +6163,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">null|int|string</span>
@@ -5894,7 +6185,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">790</span>
+    <span class="phpdocumentor-element-found-in__line">798</span>
 
     </aside>
 
@@ -5907,6 +6198,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -5929,7 +6222,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">870</span>
+    <span class="phpdocumentor-element-found-in__line">887</span>
 
     </aside>
 
@@ -5955,6 +6248,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string|null</span>
@@ -5975,7 +6270,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">854</span>
+    <span class="phpdocumentor-element-found-in__line">871</span>
 
     </aside>
 
@@ -6008,6 +6303,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -6028,7 +6325,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">862</span>
+    <span class="phpdocumentor-element-found-in__line">879</span>
 
     </aside>
 
@@ -6054,6 +6351,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string|null</span>
@@ -6074,7 +6373,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">826</span>
+    <span class="phpdocumentor-element-found-in__line">834</span>
 
     </aside>
 
@@ -6097,6 +6396,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6135,6 +6436,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
@@ -6170,6 +6473,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
@@ -6203,6 +6508,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -6241,6 +6548,8 @@ Time: 12:11 PM.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -6261,7 +6570,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">654</span>
+    <span class="phpdocumentor-element-found-in__line">662</span>
 
     </aside>
 
@@ -6274,6 +6583,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -6309,6 +6620,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -6357,6 +6670,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string|null</span>
@@ -6391,6 +6706,8 @@ Time: 12:11 PM.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -6435,6 +6752,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6499,6 +6818,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -6543,6 +6864,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6701,6 +7024,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -6743,6 +7068,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -6780,6 +7107,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6828,6 +7157,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -6873,6 +7204,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -6915,6 +7248,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6975,6 +7310,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7042,6 +7379,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7057,7 +7396,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">706</span>
+    <span class="phpdocumentor-element-found-in__line">714</span>
 
     </aside>
 
@@ -7098,6 +7437,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7113,7 +7454,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">795</span>
+    <span class="phpdocumentor-element-found-in__line">803</span>
 
     </aside>
 
@@ -7138,6 +7479,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -7158,7 +7501,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">729</span>
+    <span class="phpdocumentor-element-found-in__line">737</span>
 
     </aside>
 
@@ -7269,6 +7612,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7284,7 +7629,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">815</span>
+    <span class="phpdocumentor-element-found-in__line">823</span>
 
     </aside>
 
@@ -7313,6 +7658,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7361,6 +7708,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -7406,6 +7755,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -7448,6 +7799,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7540,6 +7893,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7584,6 +7939,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7634,6 +7991,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7671,6 +8030,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7719,6 +8080,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
@@ -7764,6 +8127,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
@@ -7806,6 +8171,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7863,6 +8230,8 @@ Time: 12:11 PM.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -7878,7 +8247,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">846</span>
+    <span class="phpdocumentor-element-found-in__line">863</span>
 
     </aside>
 
@@ -7908,6 +8277,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -7953,6 +8324,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -8015,6 +8388,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -8058,6 +8433,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -8107,6 +8484,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
@@ -8150,6 +8529,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -8199,6 +8580,8 @@ Time: 12:11 PM.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
@@ -8242,6 +8625,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -8295,6 +8680,8 @@ Time: 12:11 PM.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 

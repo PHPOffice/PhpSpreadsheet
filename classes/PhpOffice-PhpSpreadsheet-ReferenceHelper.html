@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -128,6 +128,8 @@
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -149,31 +151,31 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_CELLRANGE">REFHELPER_REGEXP_CELLRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}\\$?\\d+):(\\$?[a-z]{1,3}\\$?\\d+)&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}\$?\d+):(\$?[a-z]{1,3}\$?\d+)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_CELLREF">REFHELPER_REGEXP_CELLREF</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\\.\\$])(\\$?[a-z]{1,3}\\$?\\d+)(?=[^:!\\d\&#039;])&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\.\$])(\$?[a-z]{1,3}\$?\d+)(?=[^:!\d\&#039;])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_COLRANGE">REFHELPER_REGEXP_COLRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_ROWRANGE">REFHELPER_REGEXP_ROWRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?\\d+):(\\$?\\d+)&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?\d+):(\$?\d+)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_SHEETNAME_PART">SHEETNAME_PART</a>
     <span>
-        &nbsp;= &#039;((\\w*|\&#039;[^!]*\&#039;)!)&#039;                            </span>
+        &nbsp;= &#039;((\w*|\&#039;[^!]*\&#039;)!)&#039;                            </span>
 </dt>
 <dd>Regular Expressions</dd>
 
@@ -501,7 +503,6 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -528,12 +529,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_CELLRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}\\$?\\d+):(\\$?[a-z]{1,3}\\$?\\d+)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}\$?\d+):(\$?[a-z]{1,3}\$?\d+)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -556,12 +559,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_CELLREF</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\\.\\$])(\\$?[a-z]{1,3}\\$?\\d+)(?=[^:!\\d\&#039;])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\.\$])(\$?[a-z]{1,3}\$?\d+)(?=[^:!\d\&#039;])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -584,12 +589,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_COLRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -612,12 +619,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_ROWRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?\\d+):(\\$?\\d+)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?\d+):(\$?\d+)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -641,12 +650,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SHEETNAME_PART</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;((\\w*|\&#039;[^!]*\&#039;)!)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;((\w*|\&#039;[^!]*\&#039;)!)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -675,6 +686,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
     
+    
+
     
 
 </article>
@@ -719,6 +732,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -751,6 +766,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
     
+    
+
     
 
 </article>
@@ -790,6 +807,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
     
@@ -843,6 +862,8 @@ Intended for use as a Callback function for sorting cell addresses by column and
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -904,6 +925,8 @@ Intended for use as a Callback function for sorting cell addresses by column and
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -959,6 +982,8 @@ Intended for use as a Callback function for reverse sorting column addresses by 
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1020,6 +1045,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -1054,6 +1081,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
             <section>
@@ -1128,6 +1157,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1225,6 +1256,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -1286,6 +1319,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1356,6 +1391,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1385,6 +1422,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
     
@@ -1432,6 +1471,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1472,6 +1513,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1538,6 +1581,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1596,6 +1641,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1662,6 +1709,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1702,6 +1751,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1768,6 +1819,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1826,6 +1879,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1892,6 +1947,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1943,6 +2000,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2009,6 +2068,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2067,6 +2128,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2133,6 +2196,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2184,6 +2249,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2250,6 +2317,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2308,6 +2377,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2374,6 +2445,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2432,6 +2505,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2505,6 +2580,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2549,6 +2626,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2622,6 +2701,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2691,6 +2772,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2735,6 +2818,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2797,6 +2882,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2856,6 +2943,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2925,6 +3014,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2988,6 +3079,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -3037,6 +3130,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3103,6 +3198,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3176,6 +3273,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3245,6 +3344,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3289,6 +3390,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 

@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -111,7 +111,7 @@
     
     
             <span class="phpdocumentor-element__extends">
-            Uses
+            uses
                             <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled">ArrayEnabled</abbr></a>                    </span>
     </h2>
 
@@ -128,6 +128,8 @@
     </aside>
 
         
+
+
 
 
 
@@ -154,7 +156,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#constant_ROUNDING_ADJUSTMENT">ROUNDING_ADJUSTMENT</a>
     <span>
-        &nbsp;= PHP_VERSION_ID &lt; 80400 ? 0 : 1.0E-14                            </span>
+        &nbsp;= (PHP_VERSION_ID &lt; 80400) ? 0 : 1.0E-14                            </span>
 </dt>
 
     </dl>
@@ -283,7 +285,6 @@
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -310,12 +311,14 @@
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">ROUNDING_ADJUSTMENT</span>
-    = <span class="phpdocumentor-signature__default-value">PHP_VERSION_ID &lt; 80400 ? 0 : 1.0E-14</span>
+    = <span class="phpdocumentor-signature__default-value">(PHP_VERSION_ID &lt; 80400) ? 0 : 1.0E-14</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -360,6 +363,8 @@
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -391,6 +396,8 @@
 
     
     
+    
+
     
 
 </article>
@@ -455,6 +462,8 @@
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
@@ -514,6 +523,8 @@ EVEN(number)</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -582,6 +593,8 @@ with the same dimensions</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|int|string</span>
@@ -635,6 +648,8 @@ with the same dimensions</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -703,6 +718,8 @@ with the same dimensions</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
@@ -768,6 +785,8 @@ with the same dimensions</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
@@ -828,6 +847,8 @@ ROUND() or DATE().</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -896,6 +917,8 @@ rather than as an array argument.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -958,6 +981,8 @@ to be treated as a such rather than as an array arguments.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1026,6 +1051,8 @@ rather than as an array argument.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -1082,6 +1109,8 @@ DAYOFMONTH() or FACT().</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -1130,6 +1159,8 @@ DAYOFMONTH() or FACT().</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1167,6 +1198,8 @@ DAYOFMONTH() or FACT().</p>
                 
             </dd>
             </dl>
+
+    
 
     
 

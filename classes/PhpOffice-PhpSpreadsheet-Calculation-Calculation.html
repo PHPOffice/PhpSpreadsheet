@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -129,6 +129,8 @@
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -150,68 +152,68 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_CELLREF">CALCULATION_REGEXP_CELLREF</a>
     <span>
-        &nbsp;= &#039;((([^\\s,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?\\$?\\b([a-z]{1,3})\\$?(\\d{1,7})(?![\\w.])&#039;                            </span>
+        &nbsp;= &#039;((([^\s,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_CELLREF_RELATIVE">CALCULATION_REGEXP_CELLREF_RELATIVE</a>
     <span>
-        &nbsp;= &#039;((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?(\\$?\\b[a-z]{1,3})(\\$?\\d{1,7})(?![\\w.])&#039;                            </span>
+        &nbsp;= &#039;((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_COLUMN_RANGE">CALCULATION_REGEXP_COLUMN_RANGE</a>
     <span>
-        &nbsp;= &#039;(((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;.(?:[^\\&quot;]|\\&quot;[^!])?\\&quot;))!)?(\\$?[a-z]{1,3})):(?![.*])&#039;                            </span>
+        &nbsp;= &#039;(((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;.(?:[^\&quot;]|\&quot;[^!])?\&quot;))!)?(\$?[a-z]{1,3})):(?![.*])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_COLUMNRANGE_RELATIVE">CALCULATION_REGEXP_COLUMNRANGE_RELATIVE</a>
     <span>
-        &nbsp;= &#039;(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;                            </span>
+        &nbsp;= &#039;(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_DEFINEDNAME">CALCULATION_REGEXP_DEFINEDNAME</a>
     <span>
-        &nbsp;= &#039;((([^\\s,!&amp;%^\\/\\*\\+&lt;&gt;=-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?([_\\p{L}][_\\p{L}\\p{N}\\.]*)&#039;                            </span>
+        &nbsp;= &#039;((([^\s,!&amp;%^\/\*\+&lt;&gt;=-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?([_\p{L}][_\p{L}\p{N}\.]*)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_ERROR">CALCULATION_REGEXP_ERROR</a>
     <span>
-        &nbsp;= &#039;\\#[A-Z][A-Z0_\\/]*[!\\?]?&#039;                            </span>
+        &nbsp;= &#039;\#[A-Z][A-Z0_\/]*[!\?]?&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_FUNCTION">CALCULATION_REGEXP_FUNCTION</a>
     <span>
-        &nbsp;= &#039;@?(?:_xlfn\\.)?(?:_xlws\\.)?([\\p{L}][\\p{L}\\p{N}\\.]*)[\\s]*\\(&#039;                            </span>
+        &nbsp;= &#039;@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_NUMBER">CALCULATION_REGEXP_NUMBER</a>
     <span>
-        &nbsp;= &#039;[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?&#039;                            </span>
+        &nbsp;= &#039;[-+]?\d*\.?\d+(e[-+]?\d+)?&#039;                            </span>
 </dt>
 <dd>Regular Expressions</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_OPENBRACE">CALCULATION_REGEXP_OPENBRACE</a>
     <span>
-        &nbsp;= &#039;\\(&#039;                            </span>
+        &nbsp;= &#039;\(&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_ROW_RANGE">CALCULATION_REGEXP_ROW_RANGE</a>
     <span>
-        &nbsp;= &#039;(((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?(\\$?[1-9][0-9]{0,6})):(?![.*])&#039;                            </span>
+        &nbsp;= &#039;(((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?(\$?[1-9][0-9]{0,6})):(?![.*])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_ROWRANGE_RELATIVE">CALCULATION_REGEXP_ROWRANGE_RELATIVE</a>
     <span>
-        &nbsp;= &#039;(\\$?\\d{1,7}):(\\$?\\d{1,7})&#039;                            </span>
+        &nbsp;= &#039;(\$?\d{1,7}):(\$?\d{1,7})&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -223,13 +225,13 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_STRIP_XLFN_XLWS">CALCULATION_REGEXP_STRIP_XLFN_XLWS</a>
     <span>
-        &nbsp;= &#039;/(_xlfn[.])?(_xlws[.])?(?=[\\p{L}][\\p{L}\\p{N}\\.]*[\\s]*[(])/&#039;                            </span>
+        &nbsp;= &#039;/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_REGEXP_STRUCTURED_REFERENCE">CALCULATION_REGEXP_STRUCTURED_REFERENCE</a>
     <span>
-        &nbsp;= &#039;([\\p{L}_\\\\][\\p{L}\\p{N}\\._]+)?(\\[(?:[^\\d\\]+-])?)&#039;                            </span>
+        &nbsp;= &#039;([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-])?)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -502,7 +504,7 @@ Constant conversion from text name/value to actual (datatyped) value.</dd>
 <dd>Instance of the spreadsheet this Calculation Engine is using.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrorsNew">$suppressFormulaErrorsNew</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrors">$suppressFormulaErrors</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
@@ -999,7 +1001,6 @@ Retained for backward compatibility.</dd>
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -1026,12 +1027,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_CELLREF</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;((([^\\s,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?\\$?\\b([a-z]{1,3})\\$?(\\d{1,7})(?![\\w.])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;((([^\s,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1054,12 +1057,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_CELLREF_RELATIVE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?(\\$?\\b[a-z]{1,3})(\\$?\\d{1,7})(?![\\w.])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1082,12 +1087,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_COLUMN_RANGE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;.(?:[^\\&quot;]|\\&quot;[^!])?\\&quot;))!)?(\\$?[a-z]{1,3})):(?![.*])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;(((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;.(?:[^\&quot;]|\&quot;[^!])?\&quot;))!)?(\$?[a-z]{1,3})):(?![.*])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1110,12 +1117,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_COLUMNRANGE_RELATIVE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1138,12 +1147,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_DEFINEDNAME</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;((([^\\s,!&amp;%^\\/\\*\\+&lt;&gt;=-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?([_\\p{L}][_\\p{L}\\p{N}\\.]*)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;((([^\s,!&amp;%^\/\*\+&lt;&gt;=-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?([_\p{L}][_\p{L}\p{N}\.]*)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1166,12 +1177,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_ERROR</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;\\#[A-Z][A-Z0_\\/]*[!\\?]?&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;\#[A-Z][A-Z0_\/]*[!\?]?&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1194,12 +1207,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_FUNCTION</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;@?(?:_xlfn\\.)?(?:_xlws\\.)?([\\p{L}][\\p{L}\\p{N}\\.]*)[\\s]*\\(&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1223,12 +1238,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_NUMBER</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;[-+]?\d*\.?\d+(e[-+]?\d+)?&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1251,12 +1268,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_OPENBRACE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;\\(&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;\(&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1279,12 +1298,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_ROW_RANGE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(((([^\\s\\(,!&amp;%^\\/\\*\\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\\&quot;(?:[^\\&quot;]|\\&quot;[^!])+?\\&quot;))!)?(\\$?[1-9][0-9]{0,6})):(?![.*])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;(((([^\s\(,!&amp;%^\/\*\+&lt;&gt;=:`-]*)|(\&#039;(?:[^\&#039;]|\&#039;[^!])+?\&#039;)|(\&quot;(?:[^\&quot;]|\&quot;[^!])+?\&quot;))!)?(\$?[1-9][0-9]{0,6})):(?![.*])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1307,12 +1328,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_ROWRANGE_RELATIVE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(\\$?\\d{1,7}):(\\$?\\d{1,7})&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;(\$?\d{1,7}):(\$?\d{1,7})&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1343,6 +1366,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_CALCULATION_REGEXP_STRIP_XLFN_XLWS">
@@ -1363,12 +1388,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_STRIP_XLFN_XLWS</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;/(_xlfn[.])?(_xlws[.])?(?=[\\p{L}][\\p{L}\\p{N}\\.]*[\\s]*[(])/&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1391,12 +1418,14 @@ Retained for backward compatibility.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CALCULATION_REGEXP_STRUCTURED_REFERENCE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;([\\p{L}_\\\\][\\p{L}\\p{N}\\._]+)?(\\[(?:[^\\d\\]+-])?)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-])?)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -1427,6 +1456,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMULA_CLOSE_MATRIX_BRACE">
@@ -1453,6 +1484,8 @@ Retained for backward compatibility.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1483,6 +1516,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMULA_OPEN_MATRIX_BRACE">
@@ -1509,6 +1544,8 @@ Retained for backward compatibility.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1539,6 +1576,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_RETURN_ARRAY_AS_ARRAY">
@@ -1565,6 +1604,8 @@ Retained for backward compatibility.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1596,6 +1637,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_RETURN_ARRAY_AS_VALUE">
@@ -1622,6 +1665,8 @@ Retained for backward compatibility.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1653,6 +1698,8 @@ Retained for backward compatibility.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_CALCULATION_OPERATORS">
@@ -1681,6 +1728,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
 
     
     
+    
+
     
 
 </article>
@@ -1726,6 +1775,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1758,6 +1809,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
 
     
     
+    
+
     
 
 </article>
@@ -1793,6 +1846,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1824,6 +1879,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
 
     
     
+    
+
     
 
 </article>
@@ -1860,6 +1917,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1894,6 +1953,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1925,6 +1986,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
 
     
     
+    
+
     
 
 </article>
@@ -1963,6 +2026,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1997,6 +2062,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2028,6 +2095,8 @@ The true/false value indicates whether it is a binary operator or a unary operat
 
     
     
+    
+
     
 
 </article>
@@ -2066,6 +2135,8 @@ otherwise they will iterate to the limit defined here before returning a result.
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2100,6 +2171,8 @@ otherwise they will iterate to the limit defined here before returning a result.
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2132,6 +2205,8 @@ otherwise they will iterate to the limit defined here before returning a result.
 
     
     
+    
+
     
 
 </article>
@@ -2169,6 +2244,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2200,6 +2277,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2235,6 +2314,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2268,6 +2349,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2299,6 +2382,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2335,6 +2420,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2367,6 +2454,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2403,6 +2492,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2434,6 +2525,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2468,6 +2561,8 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2526,6 +2621,8 @@ Array key is the operator, the value indicates whether this is a left or right a
 </section>
 
     
+    
+
     
 
 </article>
@@ -2592,6 +2689,8 @@ Array key is the operator, the value is its precedence.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2629,6 +2728,8 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2663,6 +2764,8 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2694,6 +2797,8 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2730,6 +2835,8 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2738,9 +2845,9 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_suppressFormulaErrorsNew">
-        $suppressFormulaErrorsNew
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrorsNew" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_suppressFormulaErrors">
+        $suppressFormulaErrors
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrors" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
@@ -2756,11 +2863,13 @@ however, Phpstan breaks trying to analyze it when attempted.</p>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$suppressFormulaErrorsNew</span>
+    <span class="phpdocumentor-signature__name">$suppressFormulaErrors</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
     
+    
+
     
 
 </article>
@@ -2796,6 +2905,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
 
     
     
+    
+
     
 
 </article>
@@ -2838,6 +2949,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2875,6 +2988,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2950,6 +3065,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3013,6 +3130,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
                                              
                                     </dd>
                                             </dl>
+
+    
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -3083,6 +3202,8 @@ Note that this is read for the locale subdirectory only when requested.</p>
                                     </dd>
                                             </dl>
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -3129,6 +3250,8 @@ Retained for backward compatibility.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3182,6 +3305,8 @@ Retained for backward compatibility.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3248,6 +3373,8 @@ Retained for backward compatibility.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3277,6 +3404,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
     
@@ -3322,6 +3451,8 @@ Retained for backward compatibility.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3350,6 +3481,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
     
@@ -3385,6 +3518,8 @@ Retained for backward compatibility.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3413,6 +3548,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
     
@@ -3448,6 +3585,8 @@ Retained for backward compatibility.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3463,7 +3602,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5370</span>
+    <span class="phpdocumentor-element-found-in__line">5383</span>
 
     </aside>
 
@@ -3509,6 +3648,8 @@ Retained for backward compatibility.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -3533,7 +3674,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5422</span>
+    <span class="phpdocumentor-element-found-in__line">5435</span>
 
     </aside>
 
@@ -3579,6 +3720,8 @@ Retained for backward compatibility.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span>
@@ -3621,6 +3764,8 @@ Retained for backward compatibility.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3650,6 +3795,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -3692,6 +3839,8 @@ Retained for backward compatibility.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -3726,6 +3875,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -3773,6 +3924,8 @@ Retained for backward compatibility.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool|null</span>
@@ -3809,6 +3962,8 @@ Retained for backward compatibility.</p>
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -3833,7 +3988,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5492</span>
+    <span class="phpdocumentor-element-found-in__line">5505</span>
 
     </aside>
 
@@ -3847,6 +4002,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -3869,7 +4026,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5500</span>
+    <span class="phpdocumentor-element-found-in__line">5513</span>
 
     </aside>
 
@@ -3883,6 +4040,8 @@ Retained for backward compatibility.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -3934,6 +4093,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3968,6 +4129,8 @@ or NULL to create a standalone calculation engine</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -4012,6 +4175,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4063,6 +4228,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, int&gt;</span>
@@ -4087,7 +4254,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5640</span>
+    <span class="phpdocumentor-element-found-in__line">5653</span>
 
     </aside>
 
@@ -4100,6 +4267,8 @@ or NULL to create a standalone calculation engine</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -4136,6 +4305,8 @@ or NULL to create a standalone calculation engine</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -4194,6 +4365,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -4214,7 +4387,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5481</span>
+    <span class="phpdocumentor-element-found-in__line">5494</span>
 
     </aside>
 
@@ -4239,6 +4412,8 @@ or NULL to create a standalone calculation engine</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4287,6 +4462,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -4329,6 +4506,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4377,6 +4556,8 @@ or NULL to create a standalone calculation engine</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4434,6 +4615,8 @@ or NULL to create a standalone calculation engine</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4482,6 +4665,8 @@ or NULL to create a standalone calculation engine</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4522,6 +4707,8 @@ or NULL to create a standalone calculation engine</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4576,6 +4763,8 @@ or NULL to create a standalone calculation engine</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4614,6 +4803,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4661,6 +4852,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -4681,7 +4874,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5635</span>
+    <span class="phpdocumentor-element-found-in__line">5648</span>
 
     </aside>
 
@@ -4703,6 +4896,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4744,6 +4939,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4789,6 +4986,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4872,6 +5071,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -4919,6 +5120,8 @@ or NULL to create a standalone calculation engine</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4961,6 +5164,8 @@ or NULL to create a standalone calculation engine</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4976,7 +5181,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5349</span>
+    <span class="phpdocumentor-element-found-in__line">5362</span>
 
     </aside>
 
@@ -5016,6 +5221,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">false</span>
@@ -5036,7 +5243,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5563</span>
+    <span class="phpdocumentor-element-found-in__line">5576</span>
 
     </aside>
 
@@ -5083,6 +5290,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -5103,7 +5312,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5512</span>
+    <span class="phpdocumentor-element-found-in__line">5525</span>
 
     </aside>
 
@@ -5142,6 +5351,8 @@ or NULL to create a standalone calculation engine</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -5162,7 +5373,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5645</span>
+    <span class="phpdocumentor-element-found-in__line">5658</span>
 
     </aside>
 
@@ -5184,6 +5395,8 @@ or NULL to create a standalone calculation engine</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5254,6 +5467,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -5296,6 +5511,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5349,6 +5566,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -5364,7 +5583,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5583</span>
+    <span class="phpdocumentor-element-found-in__line">5596</span>
 
     </aside>
 
@@ -5411,6 +5630,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -5426,7 +5647,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5161</span>
+    <span class="phpdocumentor-element-found-in__line">5174</span>
 
     </aside>
 
@@ -5479,6 +5700,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -5499,7 +5722,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5200</span>
+    <span class="phpdocumentor-element-found-in__line">5213</span>
 
     </aside>
 
@@ -5552,6 +5775,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|bool</span>
@@ -5572,7 +5797,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5217</span>
+    <span class="phpdocumentor-element-found-in__line">5230</span>
 
     </aside>
 
@@ -5619,6 +5844,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -5634,7 +5861,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5537</span>
+    <span class="phpdocumentor-element-found-in__line">5550</span>
 
     </aside>
 
@@ -5656,6 +5883,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5721,6 +5950,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -5773,6 +6004,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;int, mixed&gt;|false</span>
@@ -5793,7 +6026,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5656</span>
+    <span class="phpdocumentor-element-found-in__line">5669</span>
 
     </aside>
 
@@ -5815,6 +6048,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5854,6 +6089,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -5869,7 +6106,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5661</span>
+    <span class="phpdocumentor-element-found-in__line">5674</span>
 
     </aside>
 
@@ -5891,6 +6128,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -5950,6 +6189,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6047,6 +6288,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -6136,6 +6379,8 @@ larger should shrink.
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -6176,6 +6421,8 @@ larger should shrink.
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6224,6 +6471,8 @@ larger should shrink.
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6293,6 +6542,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6383,6 +6634,8 @@ larger should shrink.
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -6403,7 +6656,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5123</span>
+    <span class="phpdocumentor-element-found-in__line">5136</span>
 
     </aside>
 
@@ -6432,6 +6685,8 @@ larger should shrink.
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -6613,7 +6868,7 @@ larger should shrink.
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_referenceHelper">$referenceHelper<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_returnArrayAsType">$returnArrayAsType<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_spreadsheet">$spreadsheet<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrorsNew">$suppressFormulaErrorsNew<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_suppressFormulaErrors">$suppressFormulaErrors<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_validLocaleLanguages">$validLocaleLanguages<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html"></li>
                                             </ul>
                 </li>

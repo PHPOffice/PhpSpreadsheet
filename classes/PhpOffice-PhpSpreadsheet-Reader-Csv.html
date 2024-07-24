@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -127,6 +127,8 @@
     </aside>
 
         
+
+
 
 
 
@@ -266,6 +268,14 @@
     <span>
                         &nbsp;: resource            </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_ignoreRowsWithNoCells">$ignoreRowsWithNoCells</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Ignore rows with no cells?
+Identifies whether the Reader should ignore rows with no cells.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_includeCharts">$includeCharts</a>
@@ -484,6 +494,12 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIgnoreRowsWithNoCells">getIgnoreRowsWithNoCells()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIncludeCharts">getIncludeCharts()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -629,6 +645,12 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setFallbackEncoding">setFallbackEncoding()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells">setIgnoreRowsWithNoCells()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
@@ -819,7 +841,6 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -854,6 +875,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_GUESS_ENCODING">
@@ -880,6 +903,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -910,6 +935,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF16BE_BOM_LEN">
@@ -936,6 +963,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -966,6 +995,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF16LE_BOM">
@@ -992,6 +1023,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1022,6 +1055,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF16LE_LF">
@@ -1048,6 +1083,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1078,6 +1115,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF32BE_BOM_LEN">
@@ -1104,6 +1143,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1134,6 +1175,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF32LE_BOM">
@@ -1160,6 +1203,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1190,6 +1235,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF32LE_LF">
@@ -1216,6 +1263,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1246,6 +1295,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_UTF8_BOM_LEN">
@@ -1272,6 +1323,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
     
 
 </article>
@@ -1316,6 +1369,8 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1334,7 +1389,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -1347,6 +1402,47 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     
     
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_ignoreRowsWithNoCells">
+        $ignoreRowsWithNoCells
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_ignoreRowsWithNoCells" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Ignore rows with no cells?
+Identifies whether the Reader should ignore rows with no cells.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$ignoreRowsWithNoCells</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+        <section class="phpdocumentor-description"><p>Currently implemented only for Xlsx.</p>
+</section>
+
+    
+    
+
     
 
 </article>
@@ -1382,6 +1478,8 @@ Identifies whether the Reader should read the definitions for any charts that ex
 
     
     
+    
+
     
 
 </article>
@@ -1421,6 +1519,8 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1452,6 +1552,8 @@ This property holds an array of worksheet names to be loaded. If null, then all 
 
     
     
+    
+
     
 
 </article>
@@ -1490,6 +1592,8 @@ Identifies whether the Reader should only read data values for cells, and ignore
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1526,6 +1630,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1544,7 +1650,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
@@ -1558,6 +1664,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1578,7 +1686,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -1591,6 +1699,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1627,6 +1737,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1661,6 +1773,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1692,6 +1806,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1728,6 +1844,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1760,6 +1878,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1796,6 +1916,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1828,6 +1950,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1863,6 +1987,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1894,6 +2020,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1930,6 +2058,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -1961,6 +2091,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -1997,6 +2129,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2028,6 +2162,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -2064,6 +2200,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
 </article>
                     <article
         class="
@@ -2095,6 +2233,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
     
     
+    
+
     
 
 </article>
@@ -2137,6 +2277,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2175,6 +2317,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2231,6 +2375,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2259,6 +2405,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
         </div>
     
     
+    
+
     
 
             <section>
@@ -2296,6 +2444,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -2329,6 +2479,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
         </div>
     
     
+    
+
     
 
             <section>
@@ -2366,6 +2518,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2399,6 +2553,8 @@ Identifies whether the Reader should read data values for cells all cells, or sh
         </div>
     
     
+    
+
     
 
             <section>
@@ -2436,9 +2592,48 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getIgnoreRowsWithNoCells">
+        getIgnoreRowsWithNoCells()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIgnoreRowsWithNoCells" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">88</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getIgnoreRowsWithNoCells</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -2456,7 +2651,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
@@ -2474,6 +2669,8 @@ If false (the default) it will ignore any charts defined in the workbook file.</
 </section>
 
     
+    
+
     
 
             <section>
@@ -2511,6 +2708,8 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2531,7 +2730,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -2547,6 +2746,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
         </div>
     
     
+    
+
     
 
             <section>
@@ -2569,7 +2770,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">640</span>
+    <span class="phpdocumentor-element-found-in__line">641</span>
 
     </aside>
 
@@ -2582,6 +2783,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
         </div>
     
     
+    
+
     
 
             <section>
@@ -2604,7 +2807,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
@@ -2622,6 +2825,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </section>
 
     
+    
+
     
 
             <section>
@@ -2644,7 +2849,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -2661,6 +2866,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </section>
 
     
+    
+
     
 
             <section>
@@ -2683,7 +2890,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
@@ -2697,6 +2904,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
         </div>
     
     
+    
+
     
 
             <section>
@@ -2719,7 +2928,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 
     </aside>
 
@@ -2732,6 +2941,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
         </div>
     
     
+    
+
     
 
             <section>
@@ -2754,7 +2965,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
@@ -2767,6 +2978,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
         </div>
     
     
+    
+
     
 
             <section>
@@ -2804,6 +3017,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
     
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -2824,7 +3039,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">623</span>
+    <span class="phpdocumentor-element-found-in__line">624</span>
 
     </aside>
 
@@ -2853,6 +3068,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -2902,6 +3119,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -2922,7 +3141,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
@@ -2952,6 +3171,8 @@ they can override this method.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -2972,7 +3193,7 @@ they can override this method.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
@@ -3008,6 +3229,8 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3064,6 +3287,8 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
@@ -3107,6 +3332,8 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3160,6 +3387,8 @@ and it should return void.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3197,6 +3426,8 @@ and it should return void.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3245,6 +3476,8 @@ and it should return void.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3287,6 +3520,8 @@ and it should return void.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3335,6 +3570,8 @@ and it should return void.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3380,6 +3617,55 @@ and it should return void.</p>
 
     
 
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setIgnoreRowsWithNoCells">
+        setIgnoreRowsWithNoCells()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">93</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setIgnoreRowsWithNoCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignoreRowsWithNoCells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ignoreRowsWithNoCells</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3400,7 +3686,7 @@ and it should return void.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
@@ -3427,6 +3713,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3475,6 +3763,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3495,7 +3785,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
@@ -3510,6 +3800,8 @@ Set to false (the default) to discard charts.</p>
         </div>
     
     
+    
+
     
 
             <section>
@@ -3532,7 +3824,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
@@ -3558,6 +3850,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
@@ -3578,7 +3872,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">633</span>
+    <span class="phpdocumentor-element-found-in__line">634</span>
 
     </aside>
 
@@ -3603,6 +3897,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3623,7 +3919,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -3653,6 +3949,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
@@ -3673,7 +3971,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
@@ -3702,6 +4000,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
@@ -3722,7 +4022,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -3745,6 +4045,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3793,6 +4095,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3813,7 +4117,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">645</span>
+    <span class="phpdocumentor-element-found-in__line">646</span>
 
     </aside>
 
@@ -3835,6 +4139,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -3883,6 +4189,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
@@ -3920,6 +4228,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3949,6 +4259,8 @@ Set to false (the default) to discard charts.</p>
         </div>
     
     
+    
+
     
 
     
@@ -3993,6 +4305,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
@@ -4013,7 +4327,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
+    <span class="phpdocumentor-element-found-in__line">203</span>
 
     </aside>
 
@@ -4040,6 +4354,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4055,7 +4371,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
@@ -4077,6 +4393,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4110,6 +4428,8 @@ Set to false (the default) to discard charts.</p>
         </div>
     
     
+    
+
     
 
     
@@ -4155,6 +4475,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4196,6 +4518,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -4216,7 +4540,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">608</span>
+    <span class="phpdocumentor-element-found-in__line">609</span>
 
     </aside>
 
@@ -4241,6 +4565,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -4261,7 +4587,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">585</span>
 
     </aside>
 
@@ -4286,6 +4612,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -4306,7 +4634,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">599</span>
+    <span class="phpdocumentor-element-found-in__line">600</span>
 
     </aside>
 
@@ -4353,6 +4681,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4368,7 +4698,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">575</span>
 
     </aside>
 
@@ -4411,6 +4741,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4470,6 +4802,8 @@ Set to false (the default) to discard charts.</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
@@ -4517,6 +4851,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4558,6 +4894,8 @@ Set to false (the default) to discard charts.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -4595,6 +4933,8 @@ Set to false (the default) to discard charts.</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -4741,6 +5081,7 @@ Set to false (the default) to discard charts.</p>
                     <ul class="phpdocumentor-list -clean">
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_castFormattedNumberToNumeric">$castFormattedNumberToNumeric<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_ignoreRowsWithNoCells">$ignoreRowsWithNoCells<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_includeCharts">$includeCharts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_preserveNumericFormatting">$preserveNumericFormatting<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
@@ -4778,6 +5119,7 @@ Set to false (the default) to discard charts.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getEnclosure">getEnclosure()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getEscapeCharacter">getEscapeCharacter()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getFallbackEncoding">getFallbackEncoding()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIgnoreRowsWithNoCells">getIgnoreRowsWithNoCells()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIncludeCharts">getIncludeCharts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getInputEncoding">getInputEncoding()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a></li>
@@ -4800,6 +5142,7 @@ Set to false (the default) to discard charts.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEnclosure">setEnclosure()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEscapeCharacter">setEscapeCharacter()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setFallbackEncoding">setFallbackEncoding()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells">setIgnoreRowsWithNoCells()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIncludeCharts">setIncludeCharts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setInputEncoding">setInputEncoding()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadAllSheets">setLoadAllSheets()</a></li>
