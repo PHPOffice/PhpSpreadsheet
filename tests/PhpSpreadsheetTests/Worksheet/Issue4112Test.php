@@ -21,7 +21,7 @@ class Issue4112Test extends AbstractFunctional
         $mySpreadsheet->removeSheetByIndex(0);
         $worksheet = new Worksheet($mySpreadsheet, 'addedsheet');
         self::assertSame(-1, $mySpreadsheet->getActiveSheetIndex());
-        $mySpreadsheet->addSheet($worksheet, 0);
+        $mySpreadsheet->addSheet($worksheet, $sheetNumber);
         self::assertSame('addedsheet', $mySpreadsheet->getActiveSheet()->getTitle());
         $row = 1;
         $col = 1;
