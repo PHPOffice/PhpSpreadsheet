@@ -558,6 +558,9 @@ class Spreadsheet implements JsonSerializable
             if ($this->activeSheetIndex >= $sheetIndex) {
                 ++$this->activeSheetIndex;
             }
+            if ($this->activeSheetIndex < 0) {
+                $this->activeSheetIndex = 0;
+            }
         }
 
         if ($worksheet->getParent() === null) {

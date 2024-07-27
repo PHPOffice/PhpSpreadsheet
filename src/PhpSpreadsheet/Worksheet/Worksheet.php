@@ -3673,4 +3673,21 @@ class Worksheet implements IComparable
             }
         }
     }
+
+    public function applyStylesFromArray(string $coordinate, array $styleArray): bool
+    {
+        $spreadsheet = $this->parent;
+        if ($spreadsheet === null) {
+            return false;
+        }
+        $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
+        $originalSelected = $this->selectedCells;
+        $this->getStyle($coordinate)->applyFromArray($styleArray);
+        $this->selectedCells = $originalSelected;
+        if ($activeSheetIndex >= 0) {
+            $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+        }
+
+        return true;
+    }
 }

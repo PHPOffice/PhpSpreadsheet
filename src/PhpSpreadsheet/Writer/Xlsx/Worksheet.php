@@ -1528,7 +1528,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 's':            // String
-                    $this->writeCellString($objWriter, $mappedType, $cellValueString, $flippedStringTable);
+                    $this->writeCellString($objWriter, $mappedType, ($cellValue instanceof RichText) ? $cellValue : $cellValueString, $flippedStringTable);
 
                     break;
                 case 'f':            // Formula

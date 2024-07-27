@@ -6,6 +6,7 @@ use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
+use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
@@ -403,8 +404,11 @@ class Ods extends BaseReader
                             }
 
                             $columnID = 'A';
-                            /** @var DOMElement $cellData */
+                            /** @var DOMElement|DOMText $cellData */
                             foreach ($childNode->childNodes as $cellData) {
+                                if ($cellData instanceof DOMText) {
+                                    continue; // should just be whitespace
+                                }
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -436,14 +440,25 @@ class Ods extends BaseReader
 
                                 if ($annotation->length > 0 && $annotation->item(0) !== null) {
                                     $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
+                                    $textNodeLength = $textNode->length;
+                                    $newLineOwed = false;
+                                    for ($textNodeIndex = 0; $textNodeIndex < $textNodeLength; ++$textNodeIndex) {
+                                        $textNodeItem = $textNode->item($textNodeIndex);
+                                        if ($textNodeItem !== null) {
+                                            $text = $this->scanElementForText($textNodeItem);
+                                            if ($newLineOwed) {
+                                                $spreadsheet->getActiveSheet()
+                                                    ->getComment($columnID . $rowID)
+                                                    ->getText()
+                                                    ->createText("\n");
+                                            }
+                                            $newLineOwed = true;
 
-                                    if ($textNode->length > 0 && $textNode->item(0) !== null) {
-                                        $text = $this->scanElementForText($textNode->item(0));
-
-                                        $spreadsheet->getActiveSheet()
-                                            ->getComment($columnID . $rowID)
-                                            ->setText($this->parseRichText($text));
-//                                                                    ->setAuthor( $author )
+                                            $spreadsheet->getActiveSheet()
+                                                ->getComment($columnID . $rowID)
+                                                ->getText()
+                                                ->createText($this->parseRichText($text));
+                                        }
                                     }
                                 }
 
@@ -492,7 +507,7 @@ class Ods extends BaseReader
                                             break;
                                         case 'boolean':
                                             $type = DataType::TYPE_BOOL;
-                                            $dataValue = ($allCellDataText == 'TRUE') ? true : false;
+                                            $dataValue = ($cellData->getAttributeNS($officeNs, 'boolean-value') === 'true') ? true : false;
 
                                             break;
                                         case 'percentage':
@@ -731,6 +746,8 @@ class Ods extends BaseReader
             /** @var DOMNode $child */
             if ($child->nodeType == XML_TEXT_NODE) {
                 $str .= $child->nodeValue;
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:line-break') {
+                $str .= "\n";
             } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
                 // It's a space
 
