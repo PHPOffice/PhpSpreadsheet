@@ -33,4 +33,5 @@ return [
     [0, 'B1, 0'],
     ['exception', ''],
     ['exception', '35.51'],
+    'negative number and precision' => [-31500, '-31415.92654, -2'],
 ];
