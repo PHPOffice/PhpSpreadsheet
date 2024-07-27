@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Add Sheet may leave Active Sheet uninitialized. [Issue #4112](https://github.com/PHPOffice/PhpSpreadsheet/issues/4112) [PR #4114](https://github.com/PHPOffice/PhpSpreadsheet/pull/4114)
 
 ## 2024-07-24 - 2.2.0
 
