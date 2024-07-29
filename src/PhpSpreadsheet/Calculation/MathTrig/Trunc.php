@@ -51,8 +51,9 @@ class Trunc
 
             return ($minusSign === '') ? $result : -$result;
         }
-        $digitsPlus1 = $digits + 1;
-        $result = substr($minusSign . sprintf("%.{$digitsPlus1}f", $value), 0, -1);
+        $resultString = (string) $value;
+        $regExp = '/([.]\\d{' . $digits . '})\\d+$/';
+        $result = $minusSign . (preg_replace($regExp, '$1', $resultString) ?? $resultString);
 
         return (float) $result;
     }

@@ -41,4 +41,8 @@ return [
     'issue4113 small negative fraction keep all' => [-0.04, '-0.04, 2'],
     'issue4113 small fraction lose some' => [0.0, '0.01, 1'],
     'issue4113 small negative fraction lose some' => [0.0, '-0.001, 1'],
+    'issue4113 example 3' => [-43747, '-43747.99122596, 0'],
+    'issue4113 example 3 positive' => [43747, '43747.99122596, 0'],
+    'issue4113 example 4' => [-9.11, '-9.1196419, 2'],
+    'issue4113 example 5' => [-42300.65, '-42300.65099338, 3'],
 ];
