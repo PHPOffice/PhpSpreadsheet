@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## TBD - 3.0.0
 
+### Security Fix
+
+- Prevent XXE when loading files
+
 ### Added
 
 - Nothing
