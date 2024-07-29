@@ -15636,6 +15636,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#method_toUtf8"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Security\\XmlScanner\u003A\u003AfindCharSet\u0028\u0029",
+            "name": "findCharSet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#method_findCharSet"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Security\\XmlScanner\u003A\u003Ascan\u0028\u0029",
             "name": "scan",
             "summary": "Scan\u0020the\u0020XML\u0020for\u0020use\u0020of\u0020\u003C\u0021ENTITY\u0020to\u0020prevent\u0020XXE\/XEE\u0020attacks.",
