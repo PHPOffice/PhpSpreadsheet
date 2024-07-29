@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
-use PhpOffice\PhpSpreadsheet\Shared\Escher;
+use PhpOffice\PhpSpreadsheet\Shared\Escher as SharedEscher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
@@ -145,8 +145,8 @@ class LoadSpreadsheet extends Xls
         // treat MSODRAWINGGROUP records, workbook-level Escher
         $escherWorkbook = null;
         if (!$xls->readDataOnly && $xls->drawingGroupData) {
-            $escher = new Escher();
-            $reader = new Xls\Escher($escher);
+            $escher = new SharedEscher();
+            $reader = new Escher($escher);
             $escherWorkbook = $reader->load($xls->drawingGroupData);
         }
 
@@ -425,8 +425,8 @@ class LoadSpreadsheet extends Xls
 
             // treat MSODRAWING records, sheet-level Escher
             if (!$xls->readDataOnly && $xls->drawingData) {
-                $escherWorksheet = new Escher();
-                $reader = new Xls\Escher($escherWorksheet);
+                $escherWorksheet = new SharedEscher();
+                $reader = new Escher($escherWorksheet);
                 $escherWorksheet = $reader->load($xls->drawingData);
 
                 // get all spContainers in one long array, so they can be mapped to OBJ records
