@@ -45,4 +45,10 @@ return [
     'issue4113 example 3 positive' => [43747, '43747.99122596, 0'],
     'issue4113 example 4' => [-9.11, '-9.1196419, 2'],
     'issue4113 example 5' => [-42300.65, '-42300.65099338, 3'],
+    'issue4113 example 6 variant 1' => [0.000012, '0.0000123, 6'],
+    'issue4113 example 6 variant 2' => [0.0000123, '0.0000123, 8'],
+    'issue4113 example 6 variant 3' => [-0.000012, '-0.0000123, 6'],
+    'issue4113 example 6 variant 4' => [-0.0000123, '-0.0000123, 8'],
+    'issue4113 example 6 variant 5' => [0.000012, '1.23E-5, 6'],
+    'issue4113 example 6 variant 6' => [-0.0000123, '-1.23E-5, 8'],
 ];
