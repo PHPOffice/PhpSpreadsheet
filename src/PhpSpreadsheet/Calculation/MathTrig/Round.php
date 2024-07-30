@@ -72,7 +72,7 @@ class Round
             if ($digitsPlus1 < 0) {
                 return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
             }
-            $result = sprintf("%.{$digitsPlus1}f", $number - 0.5 * 0.1 ** $digits);
+            $result = sprintf("%.{$digitsPlus1}F", $number - 0.5 * 0.1 ** $digits);
 
             return round((float) $result, $digits, PHP_ROUND_HALF_DOWN);
         }
@@ -80,7 +80,7 @@ class Round
         if ($digitsPlus1 < 0) {
             return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
         }
-        $result = sprintf("%.{$digitsPlus1}f", $number + 0.5 * 0.1 ** $digits);
+        $result = sprintf("%.{$digitsPlus1}F", $number + 0.5 * 0.1 ** $digits);
 
         return round((float) $result, $digits, PHP_ROUND_HALF_DOWN);
     }
@@ -119,7 +119,7 @@ class Round
             if ($digitsPlus1 < 0) {
                 return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
             }
-            $result = sprintf("%.{$digitsPlus1}f", $number + 0.5 * 0.1 ** $digits);
+            $result = sprintf("%.{$digitsPlus1}F", $number + 0.5 * 0.1 ** $digits);
 
             return round((float) $result, $digits, PHP_ROUND_HALF_UP);
         }
@@ -128,7 +128,7 @@ class Round
             return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
         }
 
-        $result = sprintf("%.{$digitsPlus1}f", $number - 0.5 * 0.1 ** $digits);
+        $result = sprintf("%.{$digitsPlus1}F", $number - 0.5 * 0.1 ** $digits);
 
         return round((float) $result, $digits, PHP_ROUND_HALF_UP);
     }

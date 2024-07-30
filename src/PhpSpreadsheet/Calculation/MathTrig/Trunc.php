@@ -52,7 +52,7 @@ class Trunc
             return ($minusSign === '') ? $result : -$result;
         }
         $decimals = PHP_FLOAT_DIG - strlen((string) (int) $value);
-        $resultString = sprintf('%.' . $decimals . 'f', $value);
+        $resultString = sprintf('%.' . $decimals . 'F', $value);
         $regExp = '/([.]\\d{' . $digits . '})\\d+$/';
         $result = $minusSign . (preg_replace($regExp, '$1', $resultString) ?? $resultString);
 
