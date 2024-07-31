@@ -13,6 +13,11 @@ class Trunc
      * TRUNC.
      *
      * Truncates value to the number of fractional digits by number_digits.
+     * This will probably not be the precise result in the unlikely
+     * event that the number of digits to the left of the decimal
+     * plus the number of digits to the right exceeds PHP_FLOAT_DIG
+     * (or possibly that value minus 1).
+     * Excel is unlikely to do any better.
      *
      * @param array|float $value Or can be an array of values
      * @param array|int $digits Or can be an array of values
@@ -52,7 +57,7 @@ class Trunc
             return ($minusSign === '') ? $result : -$result;
         }
         $decimals = PHP_FLOAT_DIG - strlen((string) (int) $value);
-        $resultString = sprintf('%.' . $decimals . 'F', $value);
+        $resultString = ($decimals < 0) ? sprintf('%F', $value) : sprintf('%.' . $decimals . 'F', $value);
         $regExp = '/([.]\\d{' . $digits . '})\\d+$/';
         $result = $minusSign . (preg_replace($regExp, '$1', $resultString) ?? $resultString);
 

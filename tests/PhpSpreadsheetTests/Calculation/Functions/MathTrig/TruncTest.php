@@ -47,4 +47,36 @@ class TruncTest extends AllSetupTeardown
             'matrix' => [[[3.14, 3.141], [3.14159, 3.14159265]], '3.1415926536', '{2, 3; 5, 8}'],
         ];
     }
+
+    public function testTooMuchPrecision(): void
+    {
+        // This test is pretty screwy. Possibly shouldn't even attempt it.
+        // At any rate, these results seem to indicate that PHP
+        // maximum precision is PHP_FLOAT_DIG - 1 digits, not PHP_FLOAT_DIG.
+        // If that changes, at least one of these tests will have to change.
+        $sheet = $this->getSheet();
+        $sheet->getCell('E1')->setValue(10.0 ** (PHP_FLOAT_DIG - 3) + 1.2);
+        $sheet->getCell('E2')->setValue('=TRUNC(E1,1)');
+        $result = $sheet->getCell('E2')->getCalculatedValue();
+        $expectedResult = '1' . str_repeat('0', PHP_FLOAT_DIG - 4) . '1.2';
+        self::assertSame($expectedResult, (string) $result);
+
+        $sheet->getCell('F1')->setValue(10.0 ** (PHP_FLOAT_DIG - 2) + 1.2);
+        $sheet->getCell('F2')->setValue('=TRUNC(F1,1)');
+        $result = $sheet->getCell('F2')->getCalculatedValue();
+        $expectedResult = '1' . str_repeat('0', PHP_FLOAT_DIG - 3) . '1';
+        self::assertSame($expectedResult, (string) $result);
+
+        $sheet->getCell('G1')->setValue(10.0 ** (PHP_FLOAT_DIG - 1) + 1.2);
+        $sheet->getCell('G2')->setValue('=TRUNC(G1,1)');
+        $result = $sheet->getCell('G2')->getCalculatedValue();
+        $expectedResult = '1.0E+' . (PHP_FLOAT_DIG - 1);
+        self::assertSame($expectedResult, (string) $result);
+
+        $sheet->getCell('H1')->setValue(10.0 ** PHP_FLOAT_DIG + 1.2);
+        $sheet->getCell('H2')->setValue('=TRUNC(H1,1)');
+        $result = $sheet->getCell('H2')->getCalculatedValue();
+        $expectedResult = '1.0E+' . PHP_FLOAT_DIG;
+        self::assertSame($expectedResult, (string) $result);
+    }
 }
