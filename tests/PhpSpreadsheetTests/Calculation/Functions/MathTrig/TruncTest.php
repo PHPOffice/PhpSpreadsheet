@@ -48,35 +48,35 @@ class TruncTest extends AllSetupTeardown
         ];
     }
 
-    public function testTooMuchPrecision(): void
+    /**
+     * @dataProvider providerTooMuchPrecision
+     */
+    public function testTooMuchPrecision(mixed $expectedResult, float|int|string $value, int $digits = 1): void
     {
         // This test is pretty screwy. Possibly shouldn't even attempt it.
         // At any rate, these results seem to indicate that PHP
         // maximum precision is PHP_FLOAT_DIG - 1 digits, not PHP_FLOAT_DIG.
         // If that changes, at least one of these tests will have to change.
         $sheet = $this->getSheet();
-        $sheet->getCell('E1')->setValue(10.0 ** (PHP_FLOAT_DIG - 3) + 1.2);
-        $sheet->getCell('E2')->setValue('=TRUNC(E1,1)');
+        $sheet->getCell('E1')->setValue($value);
+        $sheet->getCell('E2')->setValue("=TRUNC(E1,$digits)");
         $result = $sheet->getCell('E2')->getCalculatedValue();
-        $expectedResult = '1' . str_repeat('0', PHP_FLOAT_DIG - 4) . '1.2';
         self::assertSame($expectedResult, (string) $result);
+    }
 
-        $sheet->getCell('F1')->setValue(10.0 ** (PHP_FLOAT_DIG - 2) + 1.2);
-        $sheet->getCell('F2')->setValue('=TRUNC(F1,1)');
-        $result = $sheet->getCell('F2')->getCalculatedValue();
-        $expectedResult = '1' . str_repeat('0', PHP_FLOAT_DIG - 3) . '1';
-        self::assertSame($expectedResult, (string) $result);
+    public static function providerTooMuchPrecision(): array
+    {
+        $max64Plus1 = 9223372036854775808;
+        $stringMax = (string) $max64Plus1;
 
-        $sheet->getCell('G1')->setValue(10.0 ** (PHP_FLOAT_DIG - 1) + 1.2);
-        $sheet->getCell('G2')->setValue('=TRUNC(G1,1)');
-        $result = $sheet->getCell('G2')->getCalculatedValue();
-        $expectedResult = '1.0E+' . (PHP_FLOAT_DIG - 1);
-        self::assertSame($expectedResult, (string) $result);
-
-        $sheet->getCell('H1')->setValue(10.0 ** PHP_FLOAT_DIG + 1.2);
-        $sheet->getCell('H2')->setValue('=TRUNC(H1,1)');
-        $result = $sheet->getCell('H2')->getCalculatedValue();
-        $expectedResult = '1.0E+' . PHP_FLOAT_DIG;
-        self::assertSame($expectedResult, (string) $result);
+        return [
+            '2 digits less than PHP_FLOAT_DIG' => ['1' . str_repeat('0', PHP_FLOAT_DIG - 4) . '1.2', 10.0 ** (PHP_FLOAT_DIG - 3) + 1.2, 1],
+            '1 digit less than PHP_FLOAT_DIG' => ['1' . str_repeat('0', PHP_FLOAT_DIG - 3) . '1', 10.0 ** (PHP_FLOAT_DIG - 2) + 1.2, 1],
+            'PHP_FLOAT_DIG' => ['1.0E+' . (PHP_FLOAT_DIG - 1), 10.0 ** (PHP_FLOAT_DIG - 1) + 1.2, 1],
+            '1 digit more than PHP_FLOAT_DIG' => ['1.0E+' . PHP_FLOAT_DIG, 10.0 ** PHP_FLOAT_DIG + 1.2, 1],
+            '32bit exceed int max' => ['3123456780', 3123456789, -1],
+            '64bit exceed int max neg decimals' => [$stringMax, $max64Plus1, -1],
+            '64bit exceed int max pos decimals' => [$stringMax, $max64Plus1, 1],
+        ];
     }
 }

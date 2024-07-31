@@ -51,12 +51,11 @@ class Trunc
         }
         $digits = (int) floor($digits);
         if ($digits < 0) {
-            $power = (int) (10 ** -$digits);
-            $result = intdiv((int) floor($value), $power) * $power;
+            $result = (float) (substr(sprintf('%.0F', $value), 0, $digits) . str_repeat('0', -$digits));
 
             return ($minusSign === '') ? $result : -$result;
         }
-        $decimals = PHP_FLOAT_DIG - strlen((string) (int) $value);
+        $decimals = (floor($value) == (int) $value) ? (PHP_FLOAT_DIG - strlen((string) (int) $value)) : $digits;
         $resultString = ($decimals < 0) ? sprintf('%F', $value) : sprintf('%.' . $decimals . 'F', $value);
         $regExp = '/([.]\\d{' . $digits . '})\\d+$/';
         $result = $minusSign . (preg_replace($regExp, '$1', $resultString) ?? $resultString);

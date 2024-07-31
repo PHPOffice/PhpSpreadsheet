@@ -51,4 +51,5 @@ return [
     'issue4113 example 6 variant 4' => [-0.0000123, '-0.0000123, 8'],
     'issue4113 example 6 variant 5' => [0.000012, '1.23E-5, 6'],
     'issue4113 example 6 variant 6' => [-0.0000123, '-1.23E-5, 8'],
+    'exceed 32-bit int max' => [3123456780, '3123456789, -1'],
 ];
