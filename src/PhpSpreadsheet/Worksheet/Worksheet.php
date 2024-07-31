@@ -3684,7 +3684,9 @@ class Worksheet implements IComparable
         $originalSelected = $this->selectedCells;
         $this->getStyle($coordinate)->applyFromArray($styleArray);
         $this->selectedCells = $originalSelected;
-        $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+        if ($activeSheetIndex >= 0) {
+            $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+        }
 
         return true;
     }
