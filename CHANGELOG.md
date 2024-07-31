@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## TBD - 3.0.0
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Fixed
+
+- Html Reader Preserve Unicode Whitespace. [Issue #1284](https://github.com/PHPOffice/PhpSpreadsheet/issues/1284) [PR #4106](https://github.com/PHPOffice/PhpSpreadsheet/pull/4106)
+- RATE Function Floating Point Number of Periods. [PR #4107](https://github.com/PHPOffice/PhpSpreadsheet/pull/4107)
+
 ## 2024-07-29 - 2.2.1
 
 ### Security Fix
