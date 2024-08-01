@@ -157,7 +157,7 @@ class Workbook extends WriterPart
         //     because the file has changed
         $objWriter->writeAttribute('calcId', '999999');
         $objWriter->writeAttribute('calcMode', 'auto');
-        //    fullCalcOnLoad isn't needed if we arve calculating for the save
+        //    fullCalcOnLoad isn't needed if we will calculate before writing
         $objWriter->writeAttribute('calcCompleted', ($preCalculateFormulas) ? '1' : '0');
         $objWriter->writeAttribute('fullCalcOnLoad', ($preCalculateFormulas) ? '0' : '1');
         $objWriter->writeAttribute('forceFullCalc', ($preCalculateFormulas) ? '0' : '1');
