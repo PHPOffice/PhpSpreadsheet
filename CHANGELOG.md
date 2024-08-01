@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Html Reader Preserve Unicode Whitespace. [Issue #1284](https://github.com/PHPOffice/PhpSpreadsheet/issues/1284) [PR #4106](https://github.com/PHPOffice/PhpSpreadsheet/pull/4106)
 - RATE Function Floating Point Number of Periods. [PR #4107](https://github.com/PHPOffice/PhpSpreadsheet/pull/4107)
+- Parameter Name Change Xlsx Writer Workbook. [Issue #4108](https://github.com/PHPOffice/PhpSpreadsheet/issues/4108) [PR #4111](https://github.com/PHPOffice/PhpSpreadsheet/pull/4111)
 
 ## 2024-07-29 - 2.2.1
 
