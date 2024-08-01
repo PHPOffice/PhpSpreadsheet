@@ -52,7 +52,7 @@ class TimeValue
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];
         if ((count($arraySplit) == 2 || count($arraySplit) == 3) && $arraySplit[0] > 24) {
-            $arraySplit[0] = ($arraySplit[0] % 24);
+            $arraySplit[0] = ((int) $arraySplit[0] % 24);
             $timeValue = implode(':', $arraySplit);
         }
 

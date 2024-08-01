@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class NamedRange2Test extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function setUp(): void
