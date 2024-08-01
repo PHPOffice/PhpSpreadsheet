@@ -15,14 +15,8 @@ class AllSetupTeardown extends TestCase
 {
     private string $compatibilityMode;
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
     private ?Worksheet $sheet = null;
 
     protected function setUp(): void

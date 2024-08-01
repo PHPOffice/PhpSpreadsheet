@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
 
 class ByColumnAndRowUndeprecatedTest extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void

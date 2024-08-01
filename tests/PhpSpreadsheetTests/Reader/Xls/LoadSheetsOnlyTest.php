@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class LoadSheetsOnlyTest extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     private static string $testbook = 'tests/data/Reader/XLS/HiddenSheet.xls';
