@@ -375,7 +375,7 @@ $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 
 ### Array Formulas
 
-With version 2.0.3 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
+With version 3.0.0 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
 **It is an opt-in feature.** You need to enable it with the following code:
 ```php
 // preferred method

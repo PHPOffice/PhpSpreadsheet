@@ -365,15 +365,15 @@
         <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Array</td>
+        <td style="padding-left: 1em;">Array Formula</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Rich Text</td>
@@ -1005,6 +1005,7 @@
 5. <span id="footnote5">Xlsx macros can be read and written; their values can be retrieved and changed, but only in a binary form which is unlikely to be useful</span>
 6. <span id="footnote6">There is very limited support for reading styles from an Ods spreadsheet. Writing styles has better support, although Number Format is incomplete.</span>
 7. <span id="footnote7">In most cases, Html reader processes only inline styles; styles provided by Css classes may be ignored.</span>
+8. <span id="footnote8">Code must [opt in](../topics/recipes.md#array-formulas) to array output.</span>
 
 ## Writers
 
@@ -1174,6 +1175,15 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 0.5em;"><strong>Array Formula<a href="#footnote8"><sup>8</sup></a></strong></td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 0.5em;"><strong>Rows and Column Properties</strong></td>

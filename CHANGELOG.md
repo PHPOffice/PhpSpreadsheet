@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## TBD - 3.0.0
 
+### Dynamic Arrays
+
+- Support for Excel dynamic arrays is added. It is an opt-in feature, so our hope is that there will be no BC breaks, but it is a very large change. Full support is added for Xlsx. It is emulated as Ctrl-Shift-Enter arrays for Ods read and write and Excel2003 and Gnumeric read. Html/Pdf and Csv writers will populate cells on output if they are the result of array formulas. No support is added for Xls or Slk.
+
 ### Added
 
-- Nothing yet.
+- Excel Dynamic Arrays. [Issue #3901](https://github.com/PHPOffice/PhpSpreadsheet/issues/3901) [Issue #3659](https://github.com/PHPOffice/PhpSpreadsheet/issues/3659) [Issue #1834](https://github.com/PHPOffice/PhpSpreadsheet/issues/1834) [PR #3962](https://github.com/PHPOffice/PhpSpreadsheet/pull/3962)
 
 ### Changed
 
