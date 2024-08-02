@@ -75,8 +75,6 @@ class Calculation
 
     /**
      * Instance of this class.
-     *
-     * @var ?Calculation
      */
     private static ?Calculation $instance = null;
 
@@ -3316,10 +3314,8 @@ class Calculation
         return $formula;
     }
 
-    /** @var ?array */
     private static ?array $functionReplaceFromExcel;
 
-    /** @var ?array */
     private static ?array $functionReplaceToLocale;
 
     /**
@@ -3365,10 +3361,8 @@ class Calculation
         );
     }
 
-    /** @var ?array */
     private static ?array $functionReplaceFromLocale;
 
-    /** @var ?array */
     private static ?array $functionReplaceToExcel;
 
     /**

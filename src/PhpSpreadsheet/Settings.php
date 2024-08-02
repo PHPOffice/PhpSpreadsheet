@@ -27,8 +27,6 @@ class Settings
 
     /**
      * The cache implementation to be used for cell collection.
-     *
-     * @var ?CacheInterface
      */
     private static ?CacheInterface $cache = null;
 
