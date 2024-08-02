@@ -69,8 +69,6 @@ class Calculation
 
     /**
      * Instance of this class.
-     *
-     * @var ?Calculation
      */
     private static ?Calculation $instance = null;
 
@@ -3272,10 +3270,8 @@ class Calculation
         return $formula;
     }
 
-    /** @var ?array */
     private static ?array $functionReplaceFromExcel;
 
-    /** @var ?array */
     private static ?array $functionReplaceToLocale;
 
     /**
@@ -3321,10 +3317,8 @@ class Calculation
         );
     }
 
-    /** @var ?array */
     private static ?array $functionReplaceFromLocale;
 
-    /** @var ?array */
     private static ?array $functionReplaceToExcel;
 
     /**
@@ -5087,9 +5081,10 @@ class Calculation
                     if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");
                     }
+                    $specifiedWorksheet = trim($matches[2], "'");
 
                     $this->debugLog->writeDebugLog('Evaluating Defined Name %s', $definedName);
-                    $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet);
+                    $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet, $specifiedWorksheet);
                     // If not Defined Name, try as Table.
                     if ($namedRange === null && $this->spreadsheet !== null) {
                         $table = $this->spreadsheet->getTableByName($definedName);
@@ -5114,7 +5109,7 @@ class Calculation
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
 
-                    $result = $this->evaluateDefinedName($cell, $namedRange, $pCellWorksheet, $stack);
+                    $result = $this->evaluateDefinedName($cell, $namedRange, $pCellWorksheet, $stack, $specifiedWorksheet !== '');
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }
@@ -5593,10 +5588,10 @@ class Calculation
         return $args;
     }
 
-    private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack): mixed
+    private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack, bool $ignoreScope = false): mixed
     {
         $definedNameScope = $namedRange->getScope();
-        if ($definedNameScope !== null && $definedNameScope !== $cellWorksheet) {
+        if ($definedNameScope !== null && $definedNameScope !== $cellWorksheet && !$ignoreScope) {
             // The defined name isn't in our current scope, so #REF
             $result = ExcelError::REF();
             $stack->push('Error', $result, $namedRange->getName());

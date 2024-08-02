@@ -15,9 +15,6 @@ class PageSetupTest extends TestCase
 
     private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
     private string $filename = 'tests/data/Reader/Xml/PageSetup.xml';
