@@ -115,6 +115,9 @@ class RetainSelectedCellsTest extends AbstractFunctional
         $sheet2->setSelectedCells('C3');
         $sheet3->setSelectedCells('D4');
         $spreadsheet->setActiveSheetIndex(1);
+        $activeCellSheet1 = $sheet1->getActiveCell();
+        $activeCellSheet2 = $sheet2->getActiveCell();
+        $activeCellSheet3 = $sheet3->getActiveCell();
 
         $this->fileName = File::temporaryFilename();
         $writer = IOFactory::createWriter($spreadsheet, $type);
@@ -124,6 +127,9 @@ class RetainSelectedCellsTest extends AbstractFunctional
         self::assertSame('B2', $spreadsheet->getSheet(0)->getSelectedCells());
         self::assertSame('C3', $spreadsheet->getSheet(1)->getSelectedCells());
         self::assertSame('D4', $spreadsheet->getSheet(2)->getSelectedCells());
+        self::assertSame($activeCellSheet1, $spreadsheet->getSheet(0)->getActiveCell());
+        self::assertSame($activeCellSheet2, $spreadsheet->getSheet(1)->getActiveCell());
+        self::assertSame($activeCellSheet3, $spreadsheet->getSheet(2)->getActiveCell());
 
         $spreadsheet->disconnectWorksheets();
     }
