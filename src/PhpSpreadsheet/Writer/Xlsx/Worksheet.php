@@ -456,8 +456,6 @@ class Worksheet extends WriterPart
     {
         // cols
         if (count($worksheet->getColumnDimensions()) > 0) {
-            $activeSheet = $worksheet->getParent()?->getActiveSheetIndex();
-            $selectedCells = $worksheet->getSelectedCells();
             $objWriter->startElement('cols');
 
             $worksheet->calculateColumnWidths();
@@ -509,10 +507,6 @@ class Worksheet extends WriterPart
             }
 
             $objWriter->endElement();
-            if ($activeSheet !== null && $activeSheet >= 0) {
-                $worksheet->getParent()?->setActiveSheetIndex($activeSheet);
-            }
-            $worksheet->setSelectedCells($selectedCells);
         }
     }
 
