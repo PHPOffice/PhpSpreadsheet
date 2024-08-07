@@ -38,10 +38,8 @@ class Font extends Supervisor
 
     private string $strikeType = '';
 
-    /** @var ?ChartColor */
     private ?ChartColor $underlineColor = null;
 
-    /** @var ?ChartColor */
     private ?ChartColor $chartColor = null;
     // end of chart title items
 
