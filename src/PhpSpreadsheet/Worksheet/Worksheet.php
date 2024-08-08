@@ -685,7 +685,6 @@ class Worksheet implements IComparable
     {
         $activeSheet = $this->getParent()?->getActiveSheetIndex();
         $selectedCells = $this->selectedCells;
-        $activeCell = $this->activeCell;
         // initialize $autoSizes array
         $autoSizes = [];
         foreach ($this->getColumnDimensions() as $colDimension) {
@@ -786,8 +785,7 @@ class Worksheet implements IComparable
         if ($activeSheet !== null && $activeSheet >= 0) {
             $this->getParent()?->setActiveSheetIndex($activeSheet);
         }
-        $this->selectedCells = $selectedCells;
-        $this->activeCell = $activeCell;
+        $this->setSelectedCells($selectedCells);
 
         return $this;
     }
