@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ConcatenateTest extends AllSetupTeardown
@@ -16,13 +17,23 @@ class ConcatenateTest extends AllSetupTeardown
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
         $finalArg = '';
-        $row = 0;
+        $comma = '';
         foreach ($args as $arg) {
-            ++$row;
-            $this->setCell("A$row", $arg);
-            $finalArg = "A1:A$row";
+            $finalArg .= $comma;
+            $comma = ',';
+            if (is_bool($arg)) {
+                $finalArg .= $arg ? 'true' : 'false';
+            } elseif ($arg === 'A2') {
+                $finalArg .= 'A2';
+                $sheet->getCell('A2')->setValue('=2/0');
+            } elseif ($arg === 'A3') {
+                $finalArg .= 'A3';
+                $sheet->getCell('A3')->setValue(str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5));
+            } else {
+                $finalArg .= '"' . (string) $arg . '"';
+            }
         }
-        $this->setCell('B1', "=CONCAT($finalArg)");
+        $this->setCell('B1', "=CONCATENATE($finalArg)");
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
@@ -40,7 +51,7 @@ class ConcatenateTest extends AllSetupTeardown
         $sheet1->fromArray(
             [
                 ['Number', 'Formula'],
-                [52101293, '=CONCAT(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
+                [52101293, '=CONCATENATE(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
             ]
         );
         $sheet2 = $spreadsheet->createSheet();

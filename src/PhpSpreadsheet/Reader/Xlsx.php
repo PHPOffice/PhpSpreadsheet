@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -310,7 +311,9 @@ class Xlsx extends BaseReader
         }
         $attr = $c->f->attributes();
         $cellDataType = DataType::TYPE_FORMULA;
-        $value = "={$c->f}";
+        $formula = (string) $c->f;
+        $formula = str_replace(['_xlfn.', '_xlws.'], '', $formula);
+        $value = "=$formula";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?
@@ -856,7 +859,7 @@ class Xlsx extends BaseReader
 
                                                 break;
                                             case 'b':
-                                                if (!isset($c->f)) {
+                                                if (!isset($c->f) || ((string) $c->f) === '') {
                                                     if (isset($c->v)) {
                                                         $value = self::castToBoolean($c);
                                                     } else {
@@ -887,6 +890,12 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
+                                                    $eattr = $c->attributes();
+                                                    if (isset($eattr['vm'])) {
+                                                        if ($calculatedValue === ExcelError::VALUE()) {
+                                                            $calculatedValue = ExcelError::SPILL();
+                                                        }
+                                                    }
                                                 }
 
                                                 break;
@@ -896,9 +905,16 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
-                                                    if (isset($c->f['t'])) {
-                                                        $attributes = $c->f['t'];
-                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);
+                                                    $formulaAttributes = [];
+                                                    $attributes = $c->f->attributes();
+                                                    if (isset($attributes['t'])) {
+                                                        $formulaAttributes['t'] = (string) $attributes['t'];
+                                                    }
+                                                    if (isset($attributes['ref'])) {
+                                                        $formulaAttributes['ref'] = (string) $attributes['ref'];
+                                                    }
+                                                    if (!empty($formulaAttributes)) {
+                                                        $docSheet->getCell($r)->setFormulaAttributes($formulaAttributes);
                                                     }
                                                 }
 

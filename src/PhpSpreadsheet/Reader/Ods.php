@@ -429,10 +429,26 @@ class Ods extends BaseReader
                                 $formatting = $hyperlink = null;
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
+                                $cellDataType = '';
+                                $cellDataRef = '';
 
                                 if ($cellData->hasAttributeNS($tableNs, 'formula')) {
                                     $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
+                                }
+                                if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
+                                    if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
+                                        $cellDataType = 'array';
+                                        $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                                        $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
+                                        $lastRow = $rowID + $arrayRow - 1;
+                                        $lastCol = $columnID;
+                                        while ($arrayCol > 1) {
+                                            ++$lastCol;
+                                            --$arrayCol;
+                                        }
+                                        $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
+                                    }
                                 }
 
                                 // Annotations
@@ -605,6 +621,9 @@ class Ods extends BaseReader
                                                 // Set value
                                                 if ($hasCalculatedValue) {
                                                     $cell->setValueExplicit($cellDataFormula, $type);
+                                                    if ($cellDataType === 'array') {
+                                                        $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
+                                                    }
                                                 } else {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }

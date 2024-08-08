@@ -131,6 +131,8 @@ class CellMatcher
 
     protected function wrapCellValue(): float|int|string
     {
+        $this->cell = $this->worksheet->getCell([$this->cellColumn, $this->cellRow]);
+
         return $this->wrapValue($this->cell->getCalculatedValue());
     }
 

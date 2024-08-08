@@ -31,6 +31,7 @@ class TextSplitTest extends AllSetupTeardown
      */
     public function testTextSplit(array $expectedResult, array $arguments): void
     {
+        Calculation::getInstance($this->getSpreadsheet())->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $text = $arguments[0];
         $columnDelimiter = $arguments[1];
         $rowDelimiter = $arguments[2];

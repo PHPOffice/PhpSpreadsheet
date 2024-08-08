@@ -220,6 +220,7 @@ class ConditionalStyles
             if (count($cfRule->formula) >= 1) {
                 foreach ($cfRule->formula as $formulax) {
                     $formula = (string) $formulax;
+                    $formula = str_replace(['_xlfn.', '_xlws.'], '', $formula);
                     if ($formula === 'TRUE') {
                         $objConditional->addCondition(true);
                     } elseif ($formula === 'FALSE') {
