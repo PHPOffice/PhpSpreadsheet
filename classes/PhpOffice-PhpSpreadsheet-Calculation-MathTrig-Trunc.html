@@ -338,7 +338,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Trunc.php"><a href="files/src-phpspreadsheet-calculation-mathtrig-trunc.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Trunc.php">Trunc.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -350,7 +350,12 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>Truncates value to the number of fractional digits by number_digits.</p>
+        <section class="phpdocumentor-description"><p>Truncates value to the number of fractional digits by number_digits.
+This will probably not be the precise result in the unlikely
+event that the number of digits to the left of the decimal
+plus the number of digits to the right exceeds PHP_FLOAT_DIG
+(or possibly that value minus 1).
+Excel is unlikely to do any better.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>

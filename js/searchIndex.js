@@ -5371,11 +5371,6 @@ Search.appendIndex(
             "summary": "ODD.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_odd"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Round\u003A\u003AROUNDING_ADJUSTMENT",
-            "name": "ROUNDING_ADJUSTMENT",
-            "summary": "",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#constant_ROUNDING_ADJUSTMENT"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\SeriesSum",
             "name": "SeriesSum",
             "summary": "",
