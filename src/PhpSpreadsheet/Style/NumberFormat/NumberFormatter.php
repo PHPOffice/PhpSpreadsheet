@@ -236,6 +236,7 @@ class NumberFormatter extends BaseFormatter
 
         if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
             //  Currency or Accounting
+            $value = preg_replace('/-0+(( |\\xc2\\xa0))?\\[/', '- [', (string) $value) ?? $value;
             $currencyCode = $m[1];
             [$currencyCode] = explode('-', $currencyCode);
             if ($currencyCode == '') {
