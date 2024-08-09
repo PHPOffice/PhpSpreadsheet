@@ -50,8 +50,6 @@ class Cell implements Stringable
 
     /**
      * The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).
-     *
-     * @var ?Cells
      */
     private ?Cells $parent;
 

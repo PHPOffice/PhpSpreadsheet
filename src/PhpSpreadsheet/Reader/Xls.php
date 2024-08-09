@@ -222,8 +222,6 @@ class Xls extends XlsBase
 
     /**
      * The current RC4 decryption object.
-     *
-     * @var ?Xls\RC4
      */
     protected ?Xls\RC4 $rc4Key = null;
 
