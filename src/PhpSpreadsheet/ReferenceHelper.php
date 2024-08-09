@@ -24,8 +24,6 @@ class ReferenceHelper
 
     /**
      * Instance of this class.
-     *
-     * @var ?ReferenceHelper
      */
     private static ?ReferenceHelper $instance = null;
 

@@ -14,7 +14,6 @@ class WorkbookTest extends TestCase
 {
     private Workbook $workbook;
 
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
