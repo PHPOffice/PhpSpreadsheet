@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## 2024-08-07 - 2.2.2
+## TBD - 3.0.0
 
 ### Dynamic Arrays
 
@@ -14,6 +14,28 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Excel Dynamic Arrays. [Issue #3901](https://github.com/PHPOffice/PhpSpreadsheet/issues/3901) [Issue #3659](https://github.com/PHPOffice/PhpSpreadsheet/issues/3659) [Issue #1834](https://github.com/PHPOffice/PhpSpreadsheet/issues/1834) [PR #3962](https://github.com/PHPOffice/PhpSpreadsheet/pull/3962)
+
+### Changed
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2024-08-07 - 2.2.2
+
+### Added
+
+- Nothing yet.
 
 ### Changed
 
