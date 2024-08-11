@@ -9,7 +9,7 @@ class Accounting extends CurrencyBase
 {
     protected ?bool $overrideSpacing = true;
 
-    protected ?string $overrideNegative = self::NEGATIVE_PARENS;
+    protected ?CurrencyNegative $overrideNegative = CurrencyNegative::parentheses;
 
     /**
      * @throws Exception if the Intl extension and ICU version don't support Accounting formats

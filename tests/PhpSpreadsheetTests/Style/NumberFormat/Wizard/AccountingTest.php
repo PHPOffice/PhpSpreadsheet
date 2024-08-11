@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Formatter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +27,7 @@ class AccountingTest extends TestCase
         bool $thousandsSeparator,
         bool $currencySymbolPosition,
         bool $currencySymbolSpacing,
-        string $negative = Accounting::DEFAULT_NEGATIVE
+        CurrencyNegative $negative = CurrencyNegative::minus
     ): void {
         $wizard = new Accounting($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing, negative: $negative);
         self::assertSame($expectedResultPositive, Formatter::toFormattedString(1234.56, $wizard->format()));

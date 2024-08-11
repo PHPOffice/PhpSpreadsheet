@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Formatter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +27,7 @@ class CurrencyTest extends TestCase
         bool $thousandsSeparator,
         bool $currencySymbolPosition,
         bool $currencySymbolSpacing,
-        string $negative = Currency::NEGATIVE_MINUS
+        CurrencyNegative $negative = CurrencyNegative::minus
     ): void {
         $wizard = new Currency($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing, negative: $negative);
         self::assertSame($expectedResultPositive, Formatter::toFormattedString(1234.56, $wizard->format()));
@@ -43,7 +44,7 @@ class CurrencyTest extends TestCase
             [' 1234.56€ ', ' -1234.56€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
             [' 1,234.56€ ', ' -1,234.56€ ', ' 0.00€ ', '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
             [' 1234.56€ ', ' -1234.56€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
-            [' 1234.56€ ', ' (1234.56)€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING, Currency::NEGATIVE_PARENS],
+            [' 1234.56€ ', ' (1234.56)€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING, CurrencyNegative::parentheses],
         ];
     }
 

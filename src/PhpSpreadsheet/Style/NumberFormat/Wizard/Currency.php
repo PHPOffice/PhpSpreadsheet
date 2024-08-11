@@ -6,5 +6,5 @@ class Currency extends CurrencyBase
 {
     protected ?bool $overrideSpacing = false;
 
-    protected ?string $overrideNegative = null;
+    protected ?CurrencyNegative $overrideNegative = null;
 }

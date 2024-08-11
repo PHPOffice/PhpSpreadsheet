@@ -25,37 +25,13 @@ class CurrencyBase extends Number
 
     protected bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM;
 
-    public const NEGATIVE_MINUS = '-';
-    public const NEGATIVE_RED_MINUS = 'red-';
-    public const NEGATIVE_PARENS = '()';
-    public const NEGATIVE_RED_PARENS = 'red()';
+    public const DEFAULT_NEGATIVE = CurrencyNegative::minus;
 
-    protected const NEGATIVE_START = [
-        self::NEGATIVE_MINUS => '-',
-        self::NEGATIVE_RED_MINUS => '-',
-        self::NEGATIVE_PARENS => '\\(',
-        self::NEGATIVE_RED_PARENS => '\\(',
-    ];
-
-    protected const NEGATIVE_END = [
-        self::NEGATIVE_MINUS => '',
-        self::NEGATIVE_RED_MINUS => '',
-        self::NEGATIVE_PARENS => '\\)',
-        self::NEGATIVE_RED_PARENS => '\\)',
-    ];
-
-    protected const NEGATIVE_COLOR = [
-        self::NEGATIVE_RED_MINUS => '[Red]',
-        self::NEGATIVE_RED_PARENS => '[Red]',
-    ];
-
-    public const DEFAULT_NEGATIVE = self::NEGATIVE_MINUS;
-
-    protected string $negative = self::NEGATIVE_MINUS;
+    protected CurrencyNegative $negative = CurrencyNegative::minus;
 
     protected ?bool $overrideSpacing = null;
 
-    protected ?string $overrideNegative = null;
+    protected ?CurrencyNegative $overrideNegative = null;
 
     // Not sure why original code uses nbsp
     private string $spaceOrNbsp = ' '; // or "\u{a0}"
@@ -75,7 +51,7 @@ class CurrencyBase extends Number
      *          other than the currency code; or decimals (unless the decimals value is set to 0).
      * @param bool $stripLeadingRLM remove leading RLM added with
      *          ICU 72.1+.
-     * @param string $negative How to display negative numbers.
+     * @param CurrencyNegative $negative How to display negative numbers.
      *                         Always use parentheses for Accounting.
      *                         4 options for Currency.
      *
@@ -89,7 +65,7 @@ class CurrencyBase extends Number
         bool $currencySymbolSpacing = self::SYMBOL_WITHOUT_SPACING,
         ?string $locale = null,
         bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM,
-        string $negative = self::NEGATIVE_MINUS
+        CurrencyNegative $negative = CurrencyNegative::minus
     ) {
         $this->setCurrencyCode($currencyCode);
         $this->setThousandsSeparator($thousandsSeparator);
@@ -121,7 +97,7 @@ class CurrencyBase extends Number
         $this->stripLeadingRLM = $stripLeadingRLM;
     }
 
-    public function setNegative(string $negative): void
+    public function setNegative(CurrencyNegative $negative): void
     {
         $this->negative = $negative;
     }
@@ -184,8 +160,8 @@ class CurrencyBase extends Number
 
         // format if negative
         $format .= ';_(';
-        $format .= self::NEGATIVE_COLOR[$negative] ?? '';
-        $negativeStart = self::NEGATIVE_START[$negative] ?? '';
+        $format .= $negative->color();
+        $negativeStart = $negative->start();
         if ($this->currencySymbolPosition === self::LEADING_SYMBOL) {
             if ($negativeStart === '-' && !$symbolWithSpacing) {
                 $format .= $negativeStart;
@@ -201,13 +177,13 @@ class CurrencyBase extends Number
                 $format .= $negativeStart;
             }
         } else {
-            $format .= self::NEGATIVE_START[$negative] ?? '';
+            $format .= $negative->start();
         }
         $format .= $this->thousandsSeparator ? '#,##0' : '0';
         if ($this->decimals > 0) {
             $format .= '.' . str_repeat('0', $this->decimals);
         }
-        $format .= self::NEGATIVE_END[$negative] ?? '';
+        $format .= $negative->end();
         if ($this->currencySymbolPosition === self::TRAILING_SYMBOL) {
             if ($symbolWithSpacing) {
                 // Do nothing - I can't figure out how to get

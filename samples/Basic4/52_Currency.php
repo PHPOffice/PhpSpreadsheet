@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyBase;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 
 $spreadsheet = new Spreadsheet();
 
@@ -66,7 +67,7 @@ $sheet->getStyle('G5:J5')->getNumberFormat()->setFormatCode('_("￥"* #,##0.00_)
 
 $sheet->getCell('A6')->setValue('AcctWiz￥');
 $sheet->getCell('E6')->setValue(true);
-$sheet->getCell('F6')->setValue(Currency::NEGATIVE_MINUS);
+$sheet->getCell('F6')->setValue(CurrencyNegative::minus->name);
 $sheet->getCell('G6')->setValue(1234.56);
 $sheet->getCell('H6')->setValue(0);
 $sheet->getCell('I6')->setValue(-1234.56);
@@ -74,14 +75,14 @@ $sheet->getCell('J6')->setValue('Text');
 $sheet->getStyle('G6:J6')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Accounting('￥', currencySymbolSpacing: true, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new Accounting('￥', currencySymbolSpacing: true, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
 
 $sheet->getCell('A7')->setValue('AcctWiz￥');
 $sheet->getCell('E7')->setValue(false);
-$sheet->getCell('F7')->setValue(Currency::NEGATIVE_MINUS);
+$sheet->getCell('F7')->setValue(CurrencyNegative::minus->name);
 $sheet->getCell('G7')->setValue(1234.56);
 $sheet->getCell('H7')->setValue(0);
 $sheet->getCell('I7')->setValue(-1234.56);
@@ -89,14 +90,14 @@ $sheet->getCell('J7')->setValue('Text');
 $sheet->getStyle('G7:J7')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Accounting('￥', currencySymbolSpacing: false, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new Accounting('￥', currencySymbolSpacing: false, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
 
 $sheet->getCell('A8')->setValue('AcctWiz￥');
 $sheet->getCell('E8')->setValue(false);
-$sheet->getCell('F8')->setValue(Currency::NEGATIVE_PARENS);
+$sheet->getCell('F8')->setValue(CurrencyNegative::parentheses->name);
 $sheet->getCell('G8')->setValue(1234.56);
 $sheet->getCell('H8')->setValue(0);
 $sheet->getCell('I8')->setValue(-1234.56);
@@ -104,7 +105,7 @@ $sheet->getCell('J8')->setValue('Text');
 $sheet->getStyle('G8:J8')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Accounting('￥', currencySymbolSpacing: false, negative: Currency::NEGATIVE_PARENS))->format(),
+            'formatCode' => (new Accounting('￥', currencySymbolSpacing: false, negative: CurrencyNegative::parentheses))->format(),
         ],
     ]
 );
@@ -125,7 +126,8 @@ $sheet->getStyle('G9:J9')->applyFromArray(
 
 $sheet->getCell('A10')->setValue('AcctW HUF');
 $sheet->getCell('E10')->setValue(true);
-$sheet->getCell('F10')->setValue(Currency::NEGATIVE_RED_PARENS);
+$sheet->getCell('F10')->setValue(CurrencyNegative::redParentheses->name);
+$sheet->getStyle('F10')->getFont()->getColor()->setRgb('FF0000');
 $sheet->getCell('G10')->setValue(1234.56);
 $sheet->getCell('H10')->setValue(0);
 $sheet->getCell('I10')->setValue(-1234.56);
@@ -133,7 +135,7 @@ $sheet->getCell('J10')->setValue('Text');
 $sheet->getStyle('G10:J10')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Accounting('HUF', currencySymbolSpacing: true, negative: Currency::NEGATIVE_RED_PARENS))->format(),
+            'formatCode' => (new Accounting('HUF', currencySymbolSpacing: true, negative: CurrencyNegative::redParentheses))->format(),
         ],
     ]
 );
@@ -156,7 +158,8 @@ $sheet->getCell('A12')->setValue('AcctW $');
 $sheet->getCell('B12')->setValue(3);
 $sheet->getCell('C12')->setValue(false);
 $sheet->getCell('D12')->setValue(false);
-$sheet->getCell('F12')->setValue(Currency::NEGATIVE_RED_MINUS);
+$sheet->getCell('F12')->setValue(CurrencyNegative::redMinus->name);
+$sheet->getStyle('F12')->getFont()->getColor()->setRgb('FF0000');
 $sheet->getCell('G12')->setValue(1234.56);
 $sheet->getCell('H12')->setValue(0);
 $sheet->getCell('I12')->setValue(-1234.56);
@@ -166,7 +169,7 @@ $format = new Accounting(
     decimals: 3,
     thousandsSeparator: false,
     currencySymbolPosition: Accounting::TRAILING_SYMBOL,
-    negative: Currency::NEGATIVE_RED_MINUS
+    negative: CurrencyNegative::redMinus
 );
 
 $sheet->getStyle('G12:J12')->applyFromArray(
@@ -202,6 +205,7 @@ $sheet->getStyle('M2:M4')->applyFromArray(
 );
 
 $sheet->getColumnDimension('A')->setAutoSize(true);
+$sheet->getColumnDimension('F')->setAutoSize(true);
 $sheet->getColumnDimension('G')->setAutoSize(true);
 $sheet->getColumnDimension('I')->setAutoSize(true);
 $sheet->getColumnDimension('L')->setAutoSize(true);
@@ -263,7 +267,7 @@ $sheet->getStyle('G5:J5')->getNumberFormat()->setFormatCode('￥ #,##0');
 
 $sheet->getCell('A6')->setValue('CurrWiz￥');
 $sheet->getCell('E6')->setValue(true);
-$sheet->getCell('F6')->setValue(Currency::NEGATIVE_MINUS);
+$sheet->getCell('F6')->setValue(CurrencyNegative::minus->name);
 $sheet->getCell('G6')->setValue(1234.56);
 $sheet->getCell('H6')->setValue(0);
 $sheet->getCell('I6')->setValue(-1234.56);
@@ -271,14 +275,14 @@ $sheet->getCell('J6')->setValue('Text');
 $sheet->getStyle('G6:J6')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Currency('￥', currencySymbolSpacing: true, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new Currency('￥', currencySymbolSpacing: true, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
 
 $sheet->getCell('A7')->setValue('CurrWiz￥');
 $sheet->getCell('E7')->setValue(false);
-$sheet->getCell('F7')->setValue(Currency::NEGATIVE_MINUS);
+$sheet->getCell('F7')->setValue(CurrencyNegative::minus->name);
 $sheet->getCell('G7')->setValue(1234.56);
 $sheet->getCell('H7')->setValue(0);
 $sheet->getCell('I7')->setValue(-1234.56);
@@ -286,14 +290,14 @@ $sheet->getCell('J7')->setValue('Text');
 $sheet->getStyle('G7:J7')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Currency('￥', currencySymbolSpacing: false, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new Currency('￥', currencySymbolSpacing: false, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
 
 $sheet->getCell('A8')->setValue('CurrWiz￥');
 $sheet->getCell('E8')->setValue(false);
-$sheet->getCell('F8')->setValue(Currency::NEGATIVE_PARENS);
+$sheet->getCell('F8')->setValue(CurrencyNegative::parentheses->name);
 $sheet->getCell('G8')->setValue(1234.56);
 $sheet->getCell('H8')->setValue(0);
 $sheet->getCell('I8')->setValue(-1234.56);
@@ -301,7 +305,7 @@ $sheet->getCell('J8')->setValue('Text');
 $sheet->getStyle('G8:J8')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Currency('￥', currencySymbolSpacing: false, negative: Currency::NEGATIVE_PARENS))->format(),
+            'formatCode' => (new Currency('￥', currencySymbolSpacing: false, negative: CurrencyNegative::parentheses))->format(),
         ],
     ]
 );
@@ -322,7 +326,8 @@ $sheet->getStyle('G9:J9')->applyFromArray(
 
 $sheet->getCell('A10')->setValue('CurrW HUF');
 $sheet->getCell('E10')->setValue(true);
-$sheet->getCell('F10')->setValue(Currency::NEGATIVE_RED_PARENS);
+$sheet->getCell('F10')->setValue(CurrencyNegative::redParentheses->name);
+$sheet->getStyle('F10')->getFont()->getColor()->setRgb('FF0000');
 $sheet->getCell('G10')->setValue(1234.56);
 $sheet->getCell('H10')->setValue(0);
 $sheet->getCell('I10')->setValue(-1234.56);
@@ -330,7 +335,7 @@ $sheet->getCell('J10')->setValue('Text');
 $sheet->getStyle('G10:J10')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new Currency('HUF', currencySymbolSpacing: true, negative: Currency::NEGATIVE_RED_PARENS))->format(),
+            'formatCode' => (new Currency('HUF', currencySymbolSpacing: true, negative: CurrencyNegative::redParentheses))->format(),
         ],
     ]
 );
@@ -353,7 +358,8 @@ $sheet->getCell('A12')->setValue('CurrW $');
 $sheet->getCell('B12')->setValue(3);
 $sheet->getCell('C12')->setValue(false);
 $sheet->getCell('D12')->setValue(false);
-$sheet->getCell('F12')->setValue(Currency::NEGATIVE_RED_MINUS);
+$sheet->getCell('F12')->setValue(CurrencyNegative::redMinus->name);
+$sheet->getStyle('F12')->getFont()->getColor()->setRgb('FF0000');
 $sheet->getCell('G12')->setValue(1234.56);
 $sheet->getCell('H12')->setValue(0);
 $sheet->getCell('I12')->setValue(-1234.56);
@@ -363,7 +369,7 @@ $format = new Currency(
     decimals: 3,
     thousandsSeparator: false,
     currencySymbolPosition: Currency::TRAILING_SYMBOL,
-    negative: Currency::NEGATIVE_RED_MINUS
+    negative: CurrencyNegative::redMinus
 );
 
 $sheet->getStyle('G12:J12')->applyFromArray(
@@ -375,6 +381,7 @@ $sheet->getStyle('G12:J12')->applyFromArray(
 );
 
 $sheet->getColumnDimension('A')->setAutoSize(true);
+$sheet->getColumnDimension('F')->setAutoSize(true);
 $sheet->getColumnDimension('G')->setAutoSize(true);
 $sheet->getColumnDimension('H')->setAutoSize(true);
 $sheet->getColumnDimension('I')->setAutoSize(true);
@@ -406,7 +413,7 @@ $sheet->getStyle('G2:J2')->getNumberFormat()->setFormatCode('_("￥"* #,##0.00_)
 
 $sheet->getCell('A3')->setValue('CurBase ￥');
 $sheet->getCell('E3')->setValue(true);
-$sheet->getCell('F3')->setValue(Currency::NEGATIVE_MINUS);
+$sheet->getCell('F3')->setValue(CurrencyNegative::minus->name);
 $sheet->getCell('G3')->setValue(1234.56);
 $sheet->getCell('H3')->setValue(0);
 $sheet->getCell('I3')->setValue(-1234.56);
@@ -414,7 +421,7 @@ $sheet->getCell('J3')->setValue('Text');
 $sheet->getStyle('G3:J3')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
@@ -422,7 +429,7 @@ $sheet->getCell('G4')->setValue(-1234.56);
 $sheet->getStyle('G4')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
@@ -430,7 +437,7 @@ $sheet->getCell('G5')->setValue(0);
 $sheet->getStyle('G5')->applyFromArray(
     [
         'numberFormat' => [
-            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: Currency::NEGATIVE_MINUS))->format(),
+            'formatCode' => (new CurrencyBase('￥', currencySymbolSpacing: true, negative: CurrencyNegative::minus))->format(),
         ],
     ]
 );
@@ -457,6 +464,7 @@ $sheet->getStyle('G7:J7')->applyFromArray(
 );
 
 $sheet->getColumnDimension('A')->setAutoSize(true);
+$sheet->getColumnDimension('F')->setAutoSize(true);
 $sheet->getColumnDimension('G')->setAutoSize(true);
 $sheet->getColumnDimension('H')->setAutoSize(true);
 $sheet->getColumnDimension('I')->setAutoSize(true);
@@ -464,6 +472,5 @@ $sheet->setSelectedCells('J1');
 
 $spreadsheet->setActiveSheetIndex(0);
 
-// Save
 $helper->write($spreadsheet, __FILE__, ['Xls', 'Xlsx']);
 $spreadsheet->disconnectWorksheets();
