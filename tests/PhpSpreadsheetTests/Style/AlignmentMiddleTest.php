@@ -14,7 +14,6 @@ use ZipArchive;
 
 class AlignmentMiddleTest extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     private string $outputFileName = '';

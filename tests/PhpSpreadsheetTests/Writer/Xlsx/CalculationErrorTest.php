@@ -11,10 +11,8 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CalculationErrorTest extends AbstractFunctional
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $reloadedSpreadsheet = null;
 
     protected function tearDown(): void
