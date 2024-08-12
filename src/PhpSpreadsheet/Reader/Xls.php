@@ -350,8 +350,6 @@ class Xls extends BaseReader
 
     /**
      * The current RC4 decryption object.
-     *
-     * @var ?Xls\RC4
      */
     private ?Xls\RC4 $rc4Key = null;
 

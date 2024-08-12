@@ -533,13 +533,10 @@ class Html
         'yellowgreen' => '9acd32',
     ];
 
-    /** @var ?string */
     private ?string $face = null;
 
-    /** @var ?string */
     private ?string $size = null;
 
-    /** @var ?string */
     private ?string $color = null;
 
     private bool $bold = false;

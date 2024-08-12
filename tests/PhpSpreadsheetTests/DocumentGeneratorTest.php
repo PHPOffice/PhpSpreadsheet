@@ -147,6 +147,11 @@ class DocumentGeneratorTest extends TestCase
                     Excel Function           | PhpSpreadsheet Function
                     -------------------------|--------------------------------------
 
+                    ## CATEGORY_MICROSOFT_INTERNAL
+
+                    Excel Function           | PhpSpreadsheet Function
+                    -------------------------|--------------------------------------
+
                     EXPECTED
 
             ],

@@ -151,6 +151,17 @@ class Rels extends WriterPart
             ++$i; //increment i if needed for an another relation
         }
 
+        // Metadata needed for Dynamic Arrays
+        if ($this->getParentWriter()->useDynamicArrays()) {
+            $this->writeRelationShip(
+                $objWriter,
+                ($i + 1 + 3),
+                Namespaces::RELATIONSHIPS_METADATA,
+                'metadata.xml'
+            );
+            ++$i; //increment i if needed for an another relation
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();

@@ -65,7 +65,7 @@ class ContentTest extends TestCase
 
         $worksheet1->setCellValueExplicit(
             'C2',
-            '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))',
+            '=IF(A3, CONCAT(A1, " ", A2), CONCAT(A2, " ", A1))',
             DataType::TYPE_FORMULA
         ); // Formula
 
