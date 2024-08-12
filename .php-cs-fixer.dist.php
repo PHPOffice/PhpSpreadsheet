@@ -22,7 +22,6 @@ $config
         'blank_lines_before_namespace' => ['max_line_breaks' => 2, 'min_line_breaks' => 2], // we want 1 blank line before namespace
         'blank_line_after_opening_tag' => true,
         'blank_line_before_statement' => true,
-        //'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
         'class_definition' => false, // phpcs disagree
@@ -169,7 +168,6 @@ $config
         'phpdoc_align' => false, // Waste of time
         'phpdoc_annotation_without_dot' => true,
         'phpdoc_indent' => true,
-        //'phpdoc_inline_tag' => true,
         'phpdoc_line_span' => false, // Unfortunately our old comments turn even uglier with this
         'phpdoc_no_access' => true,
         'phpdoc_no_alias_tag' => true,
@@ -215,7 +213,6 @@ $config
         'single_line_comment_style' => true,
         'single_line_throw' => false, // I don't see any reason for having a special case for Exception
         'single_quote' => true,
-        //'single_space_after_construct' => true,
         'single_trait_insert_per_statement' => true,
         'space_after_semicolon' => true,
         'spaces_inside_parentheses' => ['space' => 'none'],
