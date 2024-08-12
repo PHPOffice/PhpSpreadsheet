@@ -7,25 +7,68 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## TBD - 3.0.0
 
+### Dynamic Arrays
+
+- Support for Excel dynamic arrays is added. It is an opt-in feature, so our hope is that there will be no BC breaks, but it is a very large change. Full support is added for Xlsx. It is emulated as Ctrl-Shift-Enter arrays for Ods read and write and Excel2003 and Gnumeric read. Html/Pdf and Csv writers will populate cells on output if they are the result of array formulas. No support is added for Xls or Slk.
+
 ### Added
 
-- Nothing
+- Excel Dynamic Arrays. [Issue #3901](https://github.com/PHPOffice/PhpSpreadsheet/issues/3901) [Issue #3659](https://github.com/PHPOffice/PhpSpreadsheet/issues/3659) [Issue #1834](https://github.com/PHPOffice/PhpSpreadsheet/issues/1834) [PR #3962](https://github.com/PHPOffice/PhpSpreadsheet/pull/3962)
 
 ### Changed
 
-- Nothing
+- Nothing yet.
 
 ### Deprecated
 
-- Nothing
+- Nothing yet.
 
 ### Moved
 
-- Nothing
+- Nothing yet.
 
 ### Fixed
 
-- Nothing
+- Nothing yet.
+
+## 2024-08-07 - 2.2.2
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Fixed
+
+- Html Reader Preserve Unicode Whitespace. [Issue #1284](https://github.com/PHPOffice/PhpSpreadsheet/issues/1284) [PR #4106](https://github.com/PHPOffice/PhpSpreadsheet/pull/4106)
+- RATE Function Floating Point Number of Periods. [PR #4107](https://github.com/PHPOffice/PhpSpreadsheet/pull/4107)
+- Parameter Name Change Xlsx Writer Workbook. [Issue #4108](https://github.com/PHPOffice/PhpSpreadsheet/issues/4108) [PR #4111](https://github.com/PHPOffice/PhpSpreadsheet/pull/4111)
+- New Algorithm for TRUNC, ROUNDUP, ROUNDDOWN. [Issue #4113](https://github.com/PHPOffice/PhpSpreadsheet/issues/4113) [PR #4115](https://github.com/PHPOffice/PhpSpreadsheet/pull/4115)
+- Worksheet applyStylesFromArray Retain Active Cell (Excel 16 was having a problem with some files). [Issue #4128](https://github.com/PHPOffice/PhpSpreadsheet/issues/4128) [PR #4132](https://github.com/PHPOffice/PhpSpreadsheet/pull/4132)
+
+## 2024-07-29 - 2.2.1
+
+### Security Fix
+
+- Prevent XXE when loading files [PR #4119](https://github.com/PHPOffice/PhpSpreadsheet/pull/4119)
+
+### Fixed
+
+- Add Sheet may leave Active Sheet uninitialized. [Issue #4112](https://github.com/PHPOffice/PhpSpreadsheet/issues/4112) [PR #4114](https://github.com/PHPOffice/PhpSpreadsheet/pull/4114)
+- Reference to Defined Name Specifying Worksheet. [Issue #206](https://github.com/PHPOffice/PhpSpreadsheet/issues/296) [PR #4096](https://github.com/PHPOffice/PhpSpreadsheet/pull/4096)
+- Xls Reader Print/Show Gridlines. [Issue #912](https://github.com/PHPOffice/PhpSpreadsheet/issues/912) [PR #4098](https://github.com/PHPOffice/PhpSpreadsheet/pull/4098)
+- ODS Reader Allow Omission of Page Settings Tags. [Issue #4099](https://github.com/PHPOffice/PhpSpreadsheet/issues/4099) [PR #4101](https://github.com/PHPOffice/PhpSpreadsheet/pull/4101)
 
 ## 2024-07-24 - 2.2.0
 

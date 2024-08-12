@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -14,7 +15,7 @@ class Concatenate
     use ArrayEnabled;
 
     /**
-     * CONCATENATE.
+     * This implements the CONCAT function, *not* CONCATENATE.
      *
      * @param array $args
      */
@@ -41,6 +42,62 @@ class Concatenate
         }
 
         return $returnValue;
+    }
+
+    /**
+     * This implements the CONCATENATE function.
+     *
+     * @param array $args data to be concatenated
+     */
+    public static function actualCONCATENATE(...$args): array|string
+    {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_GNUMERIC) {
+            return self::CONCATENATE(...$args);
+        }
+        $result = '';
+        foreach ($args as $operand2) {
+            $result = self::concatenate2Args($result, $operand2);
+            if (ErrorValue::isError($result, true) === true) {
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    private static function concatenate2Args(array|string $operand1, null|array|bool|float|int|string $operand2): array|string
+    {
+        if (is_array($operand1) || is_array($operand2)) {
+            $operand1 = Calculation::boolToString($operand1);
+            $operand2 = Calculation::boolToString($operand2);
+            [$rows, $columns] = Calculation::checkMatrixOperands($operand1, $operand2, 2);
+            $errorFound = false;
+            for ($row = 0; $row < $rows && !$errorFound; ++$row) {
+                for ($column = 0; $column < $columns; ++$column) {
+                    if (ErrorValue::isError($operand2[$row][$column])) {
+                        return $operand2[$row][$column];
+                    }
+                    $operand1[$row][$column]
+                        = Calculation::boolToString($operand1[$row][$column])
+                        . Calculation::boolToString($operand2[$row][$column]);
+                    if (mb_strlen($operand1[$row][$column]) > DataType::MAX_STRING_LENGTH) {
+                        $operand1 = ExcelError::CALC();
+                        $errorFound = true;
+
+                        break;
+                    }
+                }
+            }
+        } elseif (ErrorValue::isError($operand2, true) === true) {
+            $operand1 = (string) $operand2;
+        } else {
+            $operand1 .= (string) Calculation::boolToString($operand2);
+            if (mb_strlen($operand1) > DataType::MAX_STRING_LENGTH) {
+                $operand1 = ExcelError::CALC();
+            }
+        }
+
+        return $operand1;
     }
 
     /**

@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class CellDetachTest extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void

@@ -170,7 +170,7 @@ class IndirectTest extends AllSetupTeardown
             'absolute row absolute column' => ['c2', 'R2C3'],
             'absolute row relative column' => ['a2', 'R2C[-1]'],
             'relative row absolute column lowercase' => ['a2', 'rc1'],
-            'uninitialized cell' => [null, 'RC[+2]'], // Excel result is 0
+            'uninitialized cell' => [0, 'RC[+2]'], // Excel result is 0, PhpSpreadsheet was null
         ];
     }
 
