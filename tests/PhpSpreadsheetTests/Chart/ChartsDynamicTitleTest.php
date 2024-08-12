@@ -34,6 +34,7 @@ class ChartsDynamicTitleTest extends AbstractFunctional
         $writer->setIncludeCharts(true);
     }
 
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testDynamicTitle(): void
     {
         // based on samples/templates/issue.3797.2007.xlsx
