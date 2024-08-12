@@ -13,7 +13,7 @@ class LinEstTest extends TestCase
     /**
      * @dataProvider providerLINEST
      */
-    public function testLINEST(array $expectedResult, mixed $yValues, mixed $xValues, mixed $const, mixed $stats): void
+    public function testLINEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LINEST($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);

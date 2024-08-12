@@ -12,13 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    /**
-     * @var Properties
-     */
-    private $properties;
+    private Properties $properties;
 
-    /** @var float */
-    private $startTime;
+    private float $startTime;
 
     protected function setup(): void
     {
@@ -51,7 +47,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerCreationTime
      */
-    public function testSetCreated(mixed $expectedCreationTime, mixed $created): void
+    public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
         $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
 
@@ -80,7 +76,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerModifiedTime
      */
-    public function testSetModified(mixed $expectedModifiedTime, mixed $modified): void
+    public function testSetModified(mixed $expectedModifiedTime, null|int|string $modified): void
     {
         $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
 
@@ -157,7 +153,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerCustomProperties
      */
-    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, mixed $propertyValue, ?string $propertyType = null): void
+    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, null|bool|float|int|string $propertyValue, ?string $propertyType = null): void
     {
         if ($propertyType === null) {
             $this->properties->setCustomProperty($propertyName, $propertyValue);
@@ -166,6 +162,7 @@ class PropertiesTest extends TestCase
         }
         self::assertTrue($this->properties->isCustomPropertySet($propertyName));
         self::assertSame($expectedType, $this->properties->getCustomPropertyType($propertyName));
+        /** @var float|int|string */
         $result = $this->properties->getCustomPropertyValue($propertyName);
         if ($expectedType === Properties::PROPERTY_TYPE_DATE) {
             $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));

@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class CsvNumberFormatTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    protected $filename;
+    protected string $filename;
 
-    /**
-     * @var Csv
-     */
-    protected $csvReader;
+    protected Csv $csvReader;
 
     protected function setUp(): void
     {

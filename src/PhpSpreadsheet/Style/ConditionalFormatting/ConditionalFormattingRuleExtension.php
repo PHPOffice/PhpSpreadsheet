@@ -44,7 +44,7 @@ class ConditionalFormattingRuleExtension
             }
         }
 
-        return implode('', /** @scrutinizer ignore-type */ $chars);
+        return implode('', $chars);
     }
 
     public static function parseExtLstXml(?SimpleXMLElement $extLstXml): array
@@ -146,8 +146,7 @@ class ConditionalFormattingRuleExtension
         }
         $cfvoIndex = 0;
         foreach ($dataBarXml->cfvo as $cfvo) {
-            $f = (string) $cfvo->/** @scrutinizer ignore-call */ children($ns['xm'])->f;
-            /** @scrutinizer ignore-call */
+            $f = (string) $cfvo->children($ns['xm'])->f;
             $attributes = $cfvo->attributes();
             if (!($attributes)) {
                 continue;
@@ -163,15 +162,12 @@ class ConditionalFormattingRuleExtension
         }
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(mixed $id): self
+    public function setId(string $id): self
     {
         $this->id = $id;
 

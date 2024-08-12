@@ -16,24 +16,20 @@ class ColumnDimension extends Dimension
      * Column width.
      *
      * When this is set to a negative value, the column width should be ignored by IWriter
-     *
-     * @var float
      */
-    private $width = -1;
+    private float $width = -1;
 
     /**
      * Auto size?
-     *
-     * @var bool
      */
-    private $autoSize = false;
+    private bool $autoSize = false;
 
     /**
      * Create a new ColumnDimension.
      *
      * @param ?string $index Character column index
      */
-    public function __construct($index = 'A')
+    public function __construct(?string $index = 'A')
     {
         // Initialise values
         $this->columnIndex = $index;

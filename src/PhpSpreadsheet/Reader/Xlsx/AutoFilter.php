@@ -11,17 +11,11 @@ use SimpleXMLElement;
 
 class AutoFilter
 {
-    /**
-     * @var Table|Worksheet
-     */
-    private $parent;
+    private Table|Worksheet $parent;
 
     private SimpleXMLElement $worksheetXml;
 
-    /**
-     * @param Table|Worksheet $parent
-     */
-    public function __construct($parent, SimpleXMLElement $worksheetXml)
+    public function __construct(Table|Worksheet $parent, SimpleXMLElement $worksheetXml)
     {
         $this->parent = $parent;
         $this->worksheetXml = $worksheetXml;
@@ -43,7 +37,7 @@ class AutoFilter
         $autoFilter->setRange($autoFilterRange);
 
         foreach ($this->worksheetXml->autoFilter->filterColumn as $filterColumn) {
-            $attributes = $filterColumn->/** @scrutinizer ignore-call */ attributes() ?? [];
+            $attributes = $filterColumn->attributes() ?? [];
             $column = $autoFilter->getColumnByOffset((int) ($attributes['colId'] ?? 0));
             //    Check for standard filters
             if ($filterColumn->filters) {
@@ -57,7 +51,7 @@ class AutoFilter
                 //    Entries can be either filter elements
                 foreach ($filterColumn->filters->filter as $filterRule) {
                     //    Operator is undefined, but always treated as EQUAL
-                    $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? ['val' => ''];
+                    $attr2 = $filterRule->attributes() ?? ['val' => ''];
                     $column->createRule()->setRule('', (string) $attr2['val'])->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
                 }
 
@@ -79,7 +73,7 @@ class AutoFilter
     {
         foreach ($filters->dateGroupItem as $dateGroupItemx) {
             //    Operator is undefined, but always treated as EQUAL
-            $dateGroupItem = $dateGroupItemx->/** @scrutinizer ignore-call */ attributes();
+            $dateGroupItem = $dateGroupItemx->attributes();
             if ($dateGroupItem !== null) {
                 $column->createRule()->setRule(
                     '',
@@ -109,7 +103,7 @@ class AutoFilter
                 $column->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
             }
             foreach ($customFilters->customFilter as $filterRule) {
-                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? ['operator' => '', 'val' => ''];
+                $attr2 = $filterRule->attributes() ?? ['operator' => '', 'val' => ''];
                 $column->createRule()->setRule(
                     (string) $attr2['operator'],
                     (string) $attr2['val']
@@ -125,7 +119,7 @@ class AutoFilter
             //    We should only ever have one dynamic filter
             foreach ($filterColumn->dynamicFilter as $filterRule) {
                 //    Operator is undefined, but always treated as EQUAL
-                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? [];
+                $attr2 = $filterRule->attributes() ?? [];
                 $column->createRule()->setRule(
                     '',
                     (string) ($attr2['val'] ?? ''),
@@ -147,7 +141,7 @@ class AutoFilter
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
             //    We should only ever have one top10 filter
             foreach ($filterColumn->top10 as $filterRule) {
-                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? [];
+                $attr2 = $filterRule->attributes() ?? [];
                 $column->createRule()->setRule(
                     (
                         ((isset($attr2['percent'])) && ((string) $attr2['percent'] === '1'))

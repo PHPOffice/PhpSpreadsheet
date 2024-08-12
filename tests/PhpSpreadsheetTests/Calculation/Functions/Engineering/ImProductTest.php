@@ -17,7 +17,7 @@ class ImProductTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -27,10 +27,11 @@ class ImProductTest extends TestCase
 
     /**
      * @dataProvider providerIMPRODUCT
+     *
+     * @param string ...$args variadic arguments
      */
-    public function testDirectCallToIMPRODUCT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMPRODUCT(mixed $expectedResult, ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMPRODUCT(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
@@ -53,6 +54,7 @@ class ImProductTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMPRODUCT({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

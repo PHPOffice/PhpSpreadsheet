@@ -3,7 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Stringable;
 
 class Csv extends BaseWriter
 {
@@ -24,44 +26,41 @@ class Csv extends BaseWriter
 
     /**
      * Line ending.
-     *
-     * @var string
      */
-    private $lineEnding = PHP_EOL;
+    private string $lineEnding = PHP_EOL;
 
     /**
      * Sheet index to write.
-     *
-     * @var int
      */
-    private $sheetIndex = 0;
+    private int $sheetIndex = 0;
 
     /**
      * Whether to write a UTF8 BOM.
-     *
-     * @var bool
      */
-    private $useBOM = false;
+    private bool $useBOM = false;
 
     /**
      * Whether to write a Separator line as the first line of the file
      *     sep=x.
-     *
-     * @var bool
      */
-    private $includeSeparatorLine = false;
+    private bool $includeSeparatorLine = false;
 
     /**
      * Whether to write a fully Excel compatible CSV file.
-     *
-     * @var bool
      */
-    private $excelCompatibility = false;
+    private bool $excelCompatibility = false;
 
     /**
      * Output encoding.
      */
     private string $outputEncoding = '';
+
+    /**
+     * Whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    private bool $variableColumns = false;
 
     /**
      * Create a new CSV.
@@ -85,8 +84,7 @@ class Csv extends BaseWriter
 
         $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
+        $sheet->calculateArrays($this->preCalculateFormulas);
 
         // Open file
         $this->openFileHandle($filename);
@@ -114,15 +112,21 @@ class Csv extends BaseWriter
         $maxRow = $sheet->getHighestDataRow();
 
         // Write rows to file
-        for ($row = 1; $row <= $maxRow; ++$row) {
-            // Convert the row to an array...
-            $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
-            // ... and write to the file
-            $this->writeLine($this->fileHandle, $cellsArray[0]);
+        $row = 0;
+        foreach ($sheet->rangeToArrayYieldRows("A1:$maxCol$maxRow", '', $this->preCalculateFormulas) as $cellsArray) {
+            ++$row;
+            if ($this->variableColumns) {
+                $column = $sheet->getHighestDataColumn($row);
+                if ($column === 'A' && !$sheet->cellExists("A$row")) {
+                    $cellsArray = [];
+                } else {
+                    array_splice($cellsArray, Coordinate::columnIndexFromString($column));
+                }
+            }
+            $this->writeLine($this->fileHandle, $cellsArray);
         }
 
         $this->maybeCloseFileHandle();
-        Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
@@ -243,8 +247,7 @@ class Csv extends BaseWriter
         return $this;
     }
 
-    /** @var bool */
-    private $enclosureRequired = true;
+    private bool $enclosureRequired = true;
 
     public function setEnclosureRequired(bool $value): self
     {
@@ -260,6 +263,8 @@ class Csv extends BaseWriter
 
     /**
      * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
+     *
+     * @param null|bool|float|int|string|Stringable $element element to be converted
      */
     private static function elementToString(mixed $element): string
     {
@@ -284,6 +289,7 @@ class Csv extends BaseWriter
         // Build the line
         $line = '';
 
+        /** @var null|bool|float|int|string|Stringable $element */
         foreach ($values as $element) {
             $element = self::elementToString($element);
             // Add delimiter
@@ -311,6 +317,28 @@ class Csv extends BaseWriter
         if ($this->outputEncoding != '') {
             $line = mb_convert_encoding($line, $this->outputEncoding);
         }
-        fwrite($fileHandle, /** @scrutinizer ignore-type */ $line);
+        fwrite($fileHandle, $line);
+    }
+
+    /**
+     * Get whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    public function getVariableColumns(): bool
+    {
+        return $this->variableColumns;
+    }
+
+    /**
+     * Set whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    public function setVariableColumns(bool $pValue): self
+    {
+        $this->variableColumns = $pValue;
+
+        return $this;
     }
 }

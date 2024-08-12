@@ -127,7 +127,7 @@ class IndirectTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('A2');
         $sheet->getCell('A2')->setValue('This is it');
-        $result = /** @scrutinizer ignore-deprecated */ \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));
+        $result = \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT('A2', true, $sheet->getCell('A1'));
         $result = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenSingleValue($result);
         self::assertSame('This is it', $result);
     }
@@ -170,12 +170,11 @@ class IndirectTest extends AllSetupTeardown
             'absolute row absolute column' => ['c2', 'R2C3'],
             'absolute row relative column' => ['a2', 'R2C[-1]'],
             'relative row absolute column lowercase' => ['a2', 'rc1'],
-            'uninitialized cell' => [null, 'RC[+2]'], // Excel result is 0
+            'uninitialized cell' => [0, 'RC[+2]'], // Excel result is 0, PhpSpreadsheet was null
         ];
     }
 
-    /** @var bool */
-    private static $definedFormulaWorking = false;
+    private static bool $definedFormulaWorking = false;
 
     public function testAboveCell(): void
     {

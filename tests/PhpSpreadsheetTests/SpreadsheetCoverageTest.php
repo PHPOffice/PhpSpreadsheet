@@ -10,11 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class SpreadsheetCoverageTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var ?Spreadsheet */
-    private $spreadsheet2;
+    private ?Spreadsheet $spreadsheet2 = null;
 
     protected function tearDown(): void
     {

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
+use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
@@ -532,77 +533,67 @@ class Html
         'yellowgreen' => '9acd32',
     ];
 
-    /** @var ?string */
-    private $face;
+    private ?string $face = null;
 
-    /** @var ?string */
-    private $size;
+    private ?string $size = null;
 
-    /** @var ?string */
-    private $color;
+    private ?string $color = null;
 
-    /** @var bool */
-    private $bold = false;
+    private bool $bold = false;
 
-    /** @var bool */
-    private $italic = false;
+    private bool $italic = false;
 
-    /** @var bool */
-    private $underline = false;
+    private bool $underline = false;
 
-    /** @var bool */
-    private $superscript = false;
+    private bool $superscript = false;
 
-    /** @var bool */
-    private $subscript = false;
+    private bool $subscript = false;
 
-    /** @var bool */
-    private $strikethrough = false;
+    private bool $strikethrough = false;
 
-    private const START_TAG_CALLBACKS = [
-        'font' => 'startFontTag',
-        'b' => 'startBoldTag',
-        'strong' => 'startBoldTag',
-        'i' => 'startItalicTag',
-        'em' => 'startItalicTag',
-        'u' => 'startUnderlineTag',
-        'ins' => 'startUnderlineTag',
-        'del' => 'startStrikethruTag',
-        'sup' => 'startSuperscriptTag',
-        'sub' => 'startSubscriptTag',
+    /** @var callable[] */
+    private array $startTagCallbacks = [
+        'font' => [self::class, 'startFontTag'],
+        'b' => [self::class, 'startBoldTag'],
+        'strong' => [self::class, 'startBoldTag'],
+        'i' => [self::class, 'startItalicTag'],
+        'em' => [self::class, 'startItalicTag'],
+        'u' => [self::class, 'startUnderlineTag'],
+        'ins' => [self::class, 'startUnderlineTag'],
+        'del' => [self::class, 'startStrikethruTag'],
+        'sup' => [self::class, 'startSuperscriptTag'],
+        'sub' => [self::class, 'startSubscriptTag'],
     ];
 
-    private const END_TAG_CALLBACKS = [
-        'font' => 'endFontTag',
-        'b' => 'endBoldTag',
-        'strong' => 'endBoldTag',
-        'i' => 'endItalicTag',
-        'em' => 'endItalicTag',
-        'u' => 'endUnderlineTag',
-        'ins' => 'endUnderlineTag',
-        'del' => 'endStrikethruTag',
-        'sup' => 'endSuperscriptTag',
-        'sub' => 'endSubscriptTag',
-        'br' => 'breakTag',
-        'p' => 'breakTag',
-        'h1' => 'breakTag',
-        'h2' => 'breakTag',
-        'h3' => 'breakTag',
-        'h4' => 'breakTag',
-        'h5' => 'breakTag',
-        'h6' => 'breakTag',
+    /** @var callable[] */
+    private array $endTagCallbacks = [
+        'font' => [self::class, 'endFontTag'],
+        'b' => [self::class, 'endBoldTag'],
+        'strong' => [self::class, 'endBoldTag'],
+        'i' => [self::class, 'endItalicTag'],
+        'em' => [self::class, 'endItalicTag'],
+        'u' => [self::class, 'endUnderlineTag'],
+        'ins' => [self::class, 'endUnderlineTag'],
+        'del' => [self::class, 'endStrikethruTag'],
+        'sup' => [self::class, 'endSuperscriptTag'],
+        'sub' => [self::class, 'endSubscriptTag'],
+        'br' => [self::class, 'breakTag'],
+        'p' => [self::class, 'breakTag'],
+        'h1' => [self::class, 'breakTag'],
+        'h2' => [self::class, 'breakTag'],
+        'h3' => [self::class, 'breakTag'],
+        'h4' => [self::class, 'breakTag'],
+        'h5' => [self::class, 'breakTag'],
+        'h6' => [self::class, 'breakTag'],
     ];
 
-    /** @var array */
-    private $stack = [];
+    private array $stack = [];
 
-    /** @var string */
-    private $stringData = '';
+    public string $stringData = '';
 
-    /**
-     * @var RichText
-     */
-    private $richTextObject;
+    private RichText $richTextObject;
+
+    private bool $preserveWhiteSpace = false;
 
     private function initialise(): void
     {
@@ -616,10 +607,8 @@ class Html
 
     /**
      * Parse HTML formatting and return the resulting RichText.
-     *
-     * @return RichText
      */
-    public function toRichTextObject(string $html)
+    public function toRichTextObject(string $html, bool $preserveWhiteSpace = false): RichText
     {
         $this->initialise();
 
@@ -628,13 +617,14 @@ class Html
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
         $prefix = '<?xml encoding="UTF-8">';
-        /** @scrutinizer ignore-unhandled */
         @$dom->loadHTML($prefix . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
         $this->richTextObject = new RichText();
+        $this->preserveWhiteSpace = $preserveWhiteSpace;
         $this->parseElements($dom);
+        $this->preserveWhiteSpace = false;
 
         // Clean any further spurious whitespace
         $this->cleanWhitespace();
@@ -701,7 +691,7 @@ class Html
     {
         preg_match_all('/\d+/', $rgbValue, $values);
         foreach ($values[0] as &$value) {
-            $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
+            $value = str_pad(dechex((int) $value), 2, '0', STR_PAD_LEFT);
         }
 
         return implode('', $values[0]);
@@ -716,8 +706,10 @@ class Html
     {
         $attrs = $tag->attributes;
         if ($attrs !== null) {
+            /** @var DOMAttr $attribute */
             foreach ($attrs as $attribute) {
                 $attributeName = strtolower($attribute->name);
+                $attributeName = preg_replace('/^html:/', '', $attributeName) ?? $attributeName; // in case from Xml spreadsheet
                 $attributeValue = $attribute->value;
 
                 if ($attributeName == 'color') {
@@ -800,30 +792,43 @@ class Html
         $this->strikethrough = false;
     }
 
-    protected function breakTag(): void
+    public function breakTag(): void
     {
         $this->stringData .= "\n";
     }
 
     private function parseTextNode(DOMText $textNode): void
     {
-        $domText = (string) preg_replace(
-            '/\s+/u',
-            ' ',
-            str_replace(["\r", "\n"], ' ', $textNode->nodeValue ?? '')
-        );
+        if ($this->preserveWhiteSpace) {
+            $domText = $textNode->nodeValue ?? '';
+        } else {
+            $domText = (string) preg_replace(
+                '/\s+/u',
+                ' ',
+                str_replace(["\r", "\n"], ' ', $textNode->nodeValue ?? '')
+            );
+        }
         $this->stringData .= $domText;
         $this->buildTextRun();
     }
 
+    public function addStartTagCallback(string $tag, callable $callback): void
+    {
+        $this->startTagCallbacks[$tag] = $callback;
+    }
+
+    public function addEndTagCallback(string $tag, callable $callback): void
+    {
+        $this->endTagCallbacks[$tag] = $callback;
+    }
+
+    /** @param callable[] $callbacks */
     private function handleCallback(DOMElement $element, string $callbackTag, array $callbacks): void
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
-            if (method_exists($this, $elementHandler)) {
-                /** @var callable */
-                $callable = [$this, $elementHandler];
-                call_user_func($callable, $element);
+            if (is_callable($elementHandler)) {
+                call_user_func($elementHandler, $element, $this);
             }
         }
     }
@@ -833,12 +838,12 @@ class Html
         $callbackTag = strtolower($element->nodeName);
         $this->stack[] = $callbackTag;
 
-        $this->handleCallback($element, $callbackTag, self::START_TAG_CALLBACKS);
+        $this->handleCallback($element, $callbackTag, $this->startTagCallbacks);
 
         $this->parseElements($element);
         array_pop($this->stack);
 
-        $this->handleCallback($element, $callbackTag, self::END_TAG_CALLBACKS);
+        $this->handleCallback($element, $callbackTag, $this->endTagCallbacks);
     }
 
     private function parseElements(DOMNode $element): void

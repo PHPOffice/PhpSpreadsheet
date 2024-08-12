@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Date
@@ -25,7 +24,7 @@ class Date
      *
      * @var string[]
      */
-    public static $monthNames = [
+    public static array $monthNames = [
         'Jan' => 'January',
         'Feb' => 'February',
         'Mar' => 'March',
@@ -43,7 +42,7 @@ class Date
     /**
      * @var string[]
      */
-    public static $numberSuffixes = [
+    public static array $numberSuffixes = [
         'st',
         'nd',
         'rd',
@@ -53,30 +52,26 @@ class Date
     /**
      * Base calendar year to use for calculations
      * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).
-     *
-     * @var int
      */
-    protected static $excelCalendar = self::CALENDAR_WINDOWS_1900;
+    protected static int $excelCalendar = self::CALENDAR_WINDOWS_1900;
 
     /**
      * Default timezone to use for DateTime objects.
-     *
-     * @var null|DateTimeZone
      */
-    protected static $defaultTimeZone;
+    protected static ?DateTimeZone $defaultTimeZone = null;
 
     /**
      * Set the Excel calendar (Windows 1900 or Mac 1904).
      *
-     * @param int $baseYear Excel base date (1900 or 1904)
+     * @param ?int $baseYear Excel base date (1900 or 1904)
      *
      * @return bool Success or failure
      */
-    public static function setExcelCalendar($baseYear): bool
+    public static function setExcelCalendar(?int $baseYear): bool
     {
         if (
-            ($baseYear == self::CALENDAR_WINDOWS_1900)
-            || ($baseYear == self::CALENDAR_MAC_1904)
+            ($baseYear === self::CALENDAR_WINDOWS_1900)
+            || ($baseYear === self::CALENDAR_MAC_1904)
         ) {
             self::$excelCalendar = $baseYear;
 
@@ -91,7 +86,7 @@ class Date
      *
      * @return int Excel base date (1900 or 1904)
      */
-    public static function getExcelCalendar()
+    public static function getExcelCalendar(): int
     {
         return self::$excelCalendar;
     }
@@ -163,10 +158,8 @@ class Date
      * @param mixed $value Converts a date/time in ISO-8601 standard format date string to an Excel
      *                         serialized timestamp.
      *                     See https://en.wikipedia.org/wiki/ISO_8601 for details of the ISO-8601 standard format.
-     *
-     * @return float|int
      */
-    public static function convertIsoDate(mixed $value)
+    public static function convertIsoDate(mixed $value): float|int
     {
         if (!is_string($value)) {
             throw new Exception('Non-string value supplied for Iso Date conversion');
@@ -179,7 +172,7 @@ class Date
             throw new Exception("Invalid string $value supplied for datatype Date");
         }
 
-        $newValue = SharedDate::PHPToExcel($date);
+        $newValue = self::PHPToExcel($date);
         if ($newValue === false) {
             throw new Exception("Invalid string $value supplied for datatype Date");
         }
@@ -201,7 +194,7 @@ class Date
      *
      * @return DateTime PHP date/time object
      */
-    public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
+    public static function excelToDateTimeObject(float|int $excelTimestamp, null|DateTimeZone|string $timeZone = null): DateTime
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
@@ -237,7 +230,7 @@ class Date
         $interval = $days . ' days';
 
         return $baseDate->modify($interval)
-            ->setTime((int) $hours, (int) $minutes, (int) $seconds, (int) $microseconds);
+            ->setTime($hours, $minutes, $seconds, $microseconds);
     }
 
     /**
@@ -324,16 +317,9 @@ class Date
     /**
      * formattedPHPToExcel.
      *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hours
-     * @param int $minutes
-     * @param float|int $seconds
-     *
      * @return float Excel date/time value
      */
-    public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0): float
+    public static function formattedPHPToExcel(int $year, int $month, int $day, int $hours = 0, int $minutes = 0, float|int $seconds = 0): float
     {
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //
@@ -411,10 +397,8 @@ class Date
 
     /**
      * Is a given number format code a date/time?
-     *
-     * @param string $excelFormatCode
      */
-    public static function isDateTimeFormatCode($excelFormatCode, bool $dateWithoutTimeOkay = true): bool
+    public static function isDateTimeFormatCode(string $excelFormatCode, bool $dateWithoutTimeOkay = true): bool
     {
         if (strtolower($excelFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
@@ -426,6 +410,7 @@ class Date
         }
 
         // Switch on formatcode
+        $excelFormatCode = (string) NumberFormat::convertSystemFormats($excelFormatCode);
         if (in_array($excelFormatCode, NumberFormat::DATE_TIME_OR_DATETIME_ARRAY, true)) {
             return $dateWithoutTimeOkay || in_array($excelFormatCode, NumberFormat::TIME_OR_DATETIME_ARRAY);
         }
@@ -474,7 +459,7 @@ class Date
      *
      * @return false|float Excel date/time serial value
      */
-    public static function stringToExcel($dateValue): bool|float
+    public static function stringToExcel(string $dateValue): bool|float
     {
         if (strlen($dateValue) < 2) {
             return false;
@@ -507,7 +492,7 @@ class Date
      *
      * @return int|string Month number (1 - 12), or the original string argument if it isn't a valid month name
      */
-    public static function monthStringToNumber($monthName)
+    public static function monthStringToNumber(string $monthName)
     {
         $monthIndex = 1;
         foreach (self::$monthNames as $shortMonthName => $longMonthName) {
@@ -527,7 +512,7 @@ class Date
      *
      * @return int|string The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
      */
-    public static function dayStringToNumber($day)
+    public static function dayStringToNumber(string $day)
     {
         $strippedDayValue = (str_replace(self::$numberSuffixes, '', $day));
         if (is_numeric($strippedDayValue)) {

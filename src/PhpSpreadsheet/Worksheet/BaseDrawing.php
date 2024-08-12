@@ -26,10 +26,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Image counter.
-     *
-     * @var int
      */
-    private static $imageCounter = 0;
+    private static int $imageCounter = 0;
 
     /**
      * Image index.
@@ -58,17 +56,13 @@ class BaseDrawing implements IComparable
 
     /**
      * Offset X.
-     *
-     * @var int
      */
-    protected $offsetX = 0;
+    protected int $offsetX = 0;
 
     /**
      * Offset Y.
-     *
-     * @var int
      */
-    protected $offsetY = 0;
+    protected int $offsetY = 0;
 
     /**
      * Coordinates2.
@@ -77,59 +71,47 @@ class BaseDrawing implements IComparable
 
     /**
      * Offset X2.
-     *
-     * @var int
      */
-    protected $offsetX2 = 0;
+    protected int $offsetX2 = 0;
 
     /**
      * Offset Y2.
-     *
-     * @var int
      */
-    protected $offsetY2 = 0;
+    protected int $offsetY2 = 0;
 
     /**
      * Width.
-     *
-     * @var int
      */
-    protected $width = 0;
+    protected int $width = 0;
 
     /**
      * Height.
-     *
-     * @var int
      */
-    protected $height = 0;
+    protected int $height = 0;
 
     /**
      * Pixel width of image. See $width for the size the Drawing will be in the sheet.
-     *
-     * @var int
      */
-    protected $imageWidth = 0;
+    protected int $imageWidth = 0;
 
     /**
      * Pixel width of image. See $height for the size the Drawing will be in the sheet.
-     *
-     * @var int
      */
-    protected $imageHeight = 0;
+    protected int $imageHeight = 0;
 
     /**
      * Proportional resize.
-     *
-     * @var bool
      */
-    protected $resizeProportional = true;
+    protected bool $resizeProportional = true;
 
     /**
      * Rotation.
-     *
-     * @var int
      */
-    protected $rotation = 0;
+    protected int $rotation = 0;
+
+    protected bool $flipVertical = false;
+
+    protected bool $flipHorizontal = false;
 
     /**
      * Shadow.
@@ -143,10 +125,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Image type.
-     *
-     * @var int
      */
-    protected $type = IMAGETYPE_UNKNOWN;
+    protected int $type = IMAGETYPE_UNKNOWN;
 
     /** @var null|SimpleXMLElement|string[] */
     protected $srcRect = [];
@@ -224,7 +204,7 @@ class BaseDrawing implements IComparable
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
 
                         break;
@@ -406,14 +386,14 @@ class BaseDrawing implements IComparable
         return $this;
     }
 
-    public function getShadow(): Drawing\Shadow
+    public function getShadow(): Shadow
     {
         return $this->shadow;
     }
 
-    public function setShadow(?Drawing\Shadow $shadow = null): self
+    public function setShadow(?Shadow $shadow = null): self
     {
-        $this->shadow = $shadow ?? new Drawing\Shadow();
+        $this->shadow = $shadow ?? new Shadow();
 
         return $this;
     }
@@ -541,5 +521,29 @@ class BaseDrawing implements IComparable
         $this->srcRect = $srcRect;
 
         return $this;
+    }
+
+    public function setFlipHorizontal(bool $flipHorizontal): self
+    {
+        $this->flipHorizontal = $flipHorizontal;
+
+        return $this;
+    }
+
+    public function getFlipHorizontal(): bool
+    {
+        return $this->flipHorizontal;
+    }
+
+    public function setFlipVertical(bool $flipVertical): self
+    {
+        $this->flipVertical = $flipVertical;
+
+        return $this;
+    }
+
+    public function getFlipVertical(): bool
+    {
+        return $this->flipVertical;
     }
 }

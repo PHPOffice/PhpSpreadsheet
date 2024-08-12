@@ -130,10 +130,7 @@ class Operations
         return !$logical;
     }
 
-    /**
-     * @return bool|string
-     */
-    private static function countTrueValues(array $args, callable $func)
+    private static function countTrueValues(array $args, callable $func): bool|string
     {
         $trueValueCount = 0;
         $count = 0;

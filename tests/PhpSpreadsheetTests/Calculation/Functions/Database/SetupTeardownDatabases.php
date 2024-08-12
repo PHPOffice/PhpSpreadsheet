@@ -14,15 +14,9 @@ class SetupTeardownDatabases extends TestCase
 {
     protected const RESULT_CELL = 'Z1';
 
-    /**
-     * @var ?Spreadsheet
-     */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
-    private $sheet;
+    private ?Worksheet $sheet = null;
 
     protected function setUp(): void
     {

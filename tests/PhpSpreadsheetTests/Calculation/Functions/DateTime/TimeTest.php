@@ -39,9 +39,9 @@ class TimeTest extends TestCase
     /**
      * @dataProvider providerTIME
      */
-    public function testDirectCallToTIME(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToTIME(float|string $expectedResult, int|string $hour, bool|int $minute, int $second): void
     {
-        $result = Time::fromHMS(...$args);
+        $result = Time::fromHMS($hour, $minute, $second);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

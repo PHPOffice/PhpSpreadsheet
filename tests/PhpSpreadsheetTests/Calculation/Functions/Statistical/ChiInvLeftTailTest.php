@@ -28,6 +28,7 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         $degrees = 7;
         $calculation = Calculation::getInstance();
         $formula = "=CHISQ.INV($probability, $degrees)";
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
         $formula = "=CHISQ.DIST($result, $degrees)";

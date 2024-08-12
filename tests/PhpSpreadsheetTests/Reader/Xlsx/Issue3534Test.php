@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class Issue3534Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.3534.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.3534.xlsx';
 
     public function testReadColumnStyles(): void
     {

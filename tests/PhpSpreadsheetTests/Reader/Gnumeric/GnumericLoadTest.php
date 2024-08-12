@@ -200,4 +200,13 @@ class GnumericLoadTest extends TestCase
         $reader = new Gnumeric();
         $reader->load($filename);
     }
+
+    public function testDoctype(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('prevent XXE');
+        $filename = 'tests/data/Reader/Gnumeric/xmlwithdoctype.gnumeric';
+        $reader = new Gnumeric();
+        $reader->load($filename);
+    }
 }

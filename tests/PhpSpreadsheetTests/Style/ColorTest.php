@@ -133,9 +133,9 @@ class ColorTest extends TestCase
     /**
      * @dataProvider providerColorChangeBrightness
      */
-    public function testChangeBrightness(mixed $expectedResult, mixed ...$args): void
+    public function testChangeBrightness(string $expectedResult, string $hexColorValue, float $adjustPercentages): void
     {
-        $result = Color::changeBrightness(...$args);
+        $result = Color::changeBrightness($hexColorValue, $adjustPercentages);
         self::assertEquals($expectedResult, $result);
     }
 

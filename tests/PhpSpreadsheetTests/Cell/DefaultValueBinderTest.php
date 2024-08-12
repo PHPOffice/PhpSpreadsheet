@@ -8,6 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -48,6 +49,29 @@ class DefaultValueBinderTest extends TestCase
         ];
     }
 
+    public function testNonStringableBindValue(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        try {
+            $sheet->getCell('A1')->setValue($this);
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $sheet->getCell('A2')->setValue(new StringableObject());
+        self::assertSame('abc', $sheet->getCell('A2')->getValue());
+
+        try {
+            $sheet->getCell('A3')->setValue(fopen(__FILE__, 'rb'));
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerDataTypeForValue
      */
@@ -83,5 +107,28 @@ class DefaultValueBinderTest extends TestCase
         $binder->bindValue($cell, 123);
         self::assertTrue($binder::$called);
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDataTypeForValueExceptions(): void
+    {
+        try {
+            self::assertSame('s', DefaultValueBinder::dataTypeForValue(new SpreadsheetException()));
+        } catch (SpreadsheetException $e) {
+            self::fail('Should not have failed for stringable');
+        }
+
+        try {
+            DefaultValueBinder::dataTypeForValue([]);
+            self::fail('Should have failed for array');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('unusable type array', $e->getMessage());
+        }
+
+        try {
+            DefaultValueBinder::dataTypeForValue(new DateTime());
+            self::fail('Should have failed for DateTime');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('unusable type DateTime', $e->getMessage());
+        }
     }
 }

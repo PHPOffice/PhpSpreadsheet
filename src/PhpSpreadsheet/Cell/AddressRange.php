@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+/**
+ * @template T
+ */
 interface AddressRange
 {
     public const MAX_ROW = 1048576;
@@ -11,14 +14,14 @@ interface AddressRange
     public const MAX_COLUMN_INT = 16384;
 
     /**
-     * @return mixed
+     * @return T
      */
-    public function from();
+    public function from(): mixed;
 
     /**
-     * @return mixed
+     * @return T
      */
-    public function to();
+    public function to(): mixed;
 
     public function __toString(): string;
 }

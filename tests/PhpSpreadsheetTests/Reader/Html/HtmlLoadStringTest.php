@@ -106,7 +106,7 @@ class HtmlLoadStringTest extends TestCase
             </body>
             </html>
             EOF;
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+        $reader = new Html();
         $spreadsheet = $reader->loadFromString($html);
         $reader->setSheetIndex(1);
         $reader->loadFromString($html, $spreadsheet);

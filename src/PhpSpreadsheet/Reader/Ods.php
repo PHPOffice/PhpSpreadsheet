@@ -6,6 +6,7 @@ use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
+use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
@@ -66,7 +67,6 @@ class Ods extends BaseReader
                         if (isset($namespacesContent['manifest'])) {
                             $manifest = $xml->children($namespacesContent['manifest']);
                             foreach ($manifest as $manifestDataSet) {
-                                /** @scrutinizer ignore-call */
                                 $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                                 if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
                                     $mimeType = (string) $manifestAttributes->{'media-type'};
@@ -404,8 +404,11 @@ class Ods extends BaseReader
                             }
 
                             $columnID = 'A';
-                            /** @var DOMElement $cellData */
+                            /** @var DOMElement|DOMText $cellData */
                             foreach ($childNode->childNodes as $cellData) {
+                                if ($cellData instanceof DOMText) {
+                                    continue; // should just be whitespace
+                                }
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -426,10 +429,26 @@ class Ods extends BaseReader
                                 $formatting = $hyperlink = null;
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
+                                $cellDataType = '';
+                                $cellDataRef = '';
 
                                 if ($cellData->hasAttributeNS($tableNs, 'formula')) {
                                     $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
+                                }
+                                if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
+                                    if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
+                                        $cellDataType = 'array';
+                                        $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                                        $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
+                                        $lastRow = $rowID + $arrayRow - 1;
+                                        $lastCol = $columnID;
+                                        while ($arrayCol > 1) {
+                                            ++$lastCol;
+                                            --$arrayCol;
+                                        }
+                                        $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
+                                    }
                                 }
 
                                 // Annotations
@@ -437,14 +456,25 @@ class Ods extends BaseReader
 
                                 if ($annotation->length > 0 && $annotation->item(0) !== null) {
                                     $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
+                                    $textNodeLength = $textNode->length;
+                                    $newLineOwed = false;
+                                    for ($textNodeIndex = 0; $textNodeIndex < $textNodeLength; ++$textNodeIndex) {
+                                        $textNodeItem = $textNode->item($textNodeIndex);
+                                        if ($textNodeItem !== null) {
+                                            $text = $this->scanElementForText($textNodeItem);
+                                            if ($newLineOwed) {
+                                                $spreadsheet->getActiveSheet()
+                                                    ->getComment($columnID . $rowID)
+                                                    ->getText()
+                                                    ->createText("\n");
+                                            }
+                                            $newLineOwed = true;
 
-                                    if ($textNode->length > 0 && $textNode->item(0) !== null) {
-                                        $text = $this->scanElementForText($textNode->item(0));
-
-                                        $spreadsheet->getActiveSheet()
-                                            ->getComment($columnID . $rowID)
-                                            ->setText($this->parseRichText($text));
-//                                                                    ->setAuthor( $author )
+                                            $spreadsheet->getActiveSheet()
+                                                ->getComment($columnID . $rowID)
+                                                ->getText()
+                                                ->createText($this->parseRichText($text));
+                                        }
                                     }
                                 }
 
@@ -493,7 +523,7 @@ class Ods extends BaseReader
                                             break;
                                         case 'boolean':
                                             $type = DataType::TYPE_BOOL;
-                                            $dataValue = ($allCellDataText == 'TRUE') ? true : false;
+                                            $dataValue = ($cellData->getAttributeNS($officeNs, 'boolean-value') === 'true') ? true : false;
 
                                             break;
                                         case 'percentage':
@@ -549,7 +579,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', /** @scrutinizer ignore-type */ sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -591,6 +621,9 @@ class Ods extends BaseReader
                                                 // Set value
                                                 if ($hasCalculatedValue) {
                                                     $cell->setValueExplicit($cellDataFormula, $type);
+                                                    if ($cellDataType === 'array') {
+                                                        $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
+                                                    }
                                                 } else {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }
@@ -732,6 +765,8 @@ class Ods extends BaseReader
             /** @var DOMNode $child */
             if ($child->nodeType == XML_TEXT_NODE) {
                 $str .= $child->nodeValue;
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:line-break') {
+                $str .= "\n";
             } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
                 // It's a space
 

@@ -22,7 +22,7 @@ class AndTest extends AllSetupTeardown
     /**
      * @dataProvider providerANDLiteral
      */
-    public function testANDLiteral(mixed $expectedResult, mixed $formula): void
+    public function testANDLiteral(bool|string $expectedResult, float|int|string $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=AND($formula)");

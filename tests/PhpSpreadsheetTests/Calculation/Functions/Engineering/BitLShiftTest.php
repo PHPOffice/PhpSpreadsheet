@@ -16,9 +16,9 @@ class BitLShiftTest extends TestCase
     /**
      * @dataProvider providerBITLSHIFT
      */
-    public function testDirectCallToBITLSHIFT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToBITLSHIFT(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
-        $result = BitWise::BITLSHIFT(...$args);
+        $result = BitWise::BITLSHIFT($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 

@@ -13,6 +13,7 @@ class FontFileNameTest extends TestCase
 {
     private const DEFAULT_DIRECTORY = 'tests/data/Shared/FakeFonts/Default';
     private const MAC_DIRECTORY = 'tests/data/Shared/FakeFonts/Mac';
+    private const RECURSE_DIRECTORY = 'tests/data/Shared/FakeFonts/Recurse';
 
     private string $holdDirectory;
 
@@ -180,6 +181,31 @@ class FontFileNameTest extends TestCase
             'absolute path italic' => ['Arial Italic.ttf', ['name' => 'Arial', 'italic' => true]],
             'absolute path bold italic' => ['Arial Bold Italic.ttf', ['name' => 'Arial', 'bold' => true, 'italic' => true]],
             'non-absolute path uses TrueTypeFontPath' => ['cour.ttf', ['name' => 'Courier New']],
+        ];
+    }
+
+    /**
+     * @dataProvider providerRecurse
+     */
+    public function testRecurseFilenames(string $expected, array $fontArray): void
+    {
+        if ($expected === 'exception') {
+            $this->expectException(SSException::class);
+            $this->expectExceptionMessage('TrueType Font file not found');
+        }
+        Font::setTrueTypeFontPath(self::RECURSE_DIRECTORY);
+        $font = (new StyleFont())->applyFromArray($fontArray);
+        $result = Font::getTrueTypeFontFileFromFont($font);
+        self::assertSame($expected, basename($result));
+    }
+
+    public static function providerRecurse(): array
+    {
+        return [
+            'in subdirectory' => ['arial.ttf', ['name' => 'Arial']],
+            'in subdirectory bold' => ['arialbd.ttf', ['name' => 'Arial', 'bold' => true]],
+            'in main directory' => ['cour.ttf', ['name' => 'Courier New']],
+            'not in main or subdirectory' => ['exception', ['name' => 'Courier New', 'bold' => true]],
         ];
     }
 }

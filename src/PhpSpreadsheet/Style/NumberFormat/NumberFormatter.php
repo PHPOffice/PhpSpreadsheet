@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class NumberFormatter
+class NumberFormatter extends BaseFormatter
 {
     private const NUMBER_REGEX = '/(0+)(\\.?)(0*)/';
 
@@ -30,7 +30,7 @@ class NumberFormatter
 
     private static function processComplexNumberFormatMask(mixed $number, string $mask): string
     {
-        /** @var string */
+        /** @var string $result */
         $result = $number;
         $maskingBlockCount = preg_match_all('/0+/', $mask, $maskingBlocks, PREG_OFFSET_CAPTURE);
 
@@ -43,13 +43,13 @@ class NumberFormatter
                 $divisor = 10 ** $size;
                 $offset = $block[1];
 
-                /** @var float */
+                /** @var float $numberFloat */
                 $numberFloat = $number;
                 $blockValue = sprintf("%0{$size}d", fmod($numberFloat, $divisor));
                 $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
-            /** @var string */
+            /** @var string $numberString */
             $numberString = $number;
             if ($number > 0) {
                 $mask = substr_replace($mask, $numberString, $offset, 0);
@@ -62,7 +62,7 @@ class NumberFormatter
 
     private static function complexNumberFormatMask(mixed $number, string $mask, bool $splitOnPoint = true): string
     {
-        /** @var float */
+        /** @var float $numberFloat */
         $numberFloat = $number;
         if ($splitOnPoint) {
             $masks = explode('.', $mask);
@@ -134,7 +134,7 @@ class NumberFormatter
 
     private static function formatStraightNumericValue(mixed $value, string $format, array $matches, bool $useThousands): string
     {
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
         $left = $matches[1];
         $dec = $matches[2];
@@ -176,15 +176,16 @@ class NumberFormatter
             return $result;
         }
 
-        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
+        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'F';
 
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
-        $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
+        $value = self::adjustSeparators(sprintf($sprintf_pattern, round($valueFloat, strlen($right))));
 
         return self::pregReplace(self::NUMBER_REGEX, $value, $format);
     }
 
+    /** @param float|int|numeric-string $value value to be formatted */
     public static function format(mixed $value, string $format): string
     {
         // The "_" in this string has already been stripped out,
@@ -253,10 +254,7 @@ class NumberFormatter
         return (string) $value;
     }
 
-    /**
-     * @param array|string $value
-     */
-    private static function makeString($value): string
+    private static function makeString(array|string $value): string
     {
         return is_array($value) ? '' : "$value";
     }
@@ -268,8 +266,12 @@ class NumberFormatter
 
     public static function padValue(string $value, string $baseFormat): string
     {
-        /** @phpstan-ignore-next-line */
-        [$preDecimal, $postDecimal] = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
+        $preDecimal = $postDecimal = '';
+        $pregArray = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
+        if (is_array($pregArray)) {
+            $preDecimal = $pregArray[0] ?? '';
+            $postDecimal = $pregArray[1] ?? '';
+        }
 
         $length = strlen($value);
         if (str_contains($postDecimal, '?')) {

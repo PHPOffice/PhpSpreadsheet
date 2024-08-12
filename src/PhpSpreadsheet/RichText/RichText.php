@@ -27,8 +27,8 @@ class RichText implements IComparable, Stringable
         // Rich-Text string attached to cell?
         if ($cell !== null) {
             // Add cell text and style
-            if ($cell->getValue() != '') {
-                $objRun = new Run($cell->getValue());
+            if ($cell->getValueString() !== '') {
+                $objRun = new Run($cell->getValueString());
                 $objRun->setFont(clone $cell->getWorksheet()->getStyle($cell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
@@ -57,7 +57,7 @@ class RichText implements IComparable, Stringable
      *
      * @param string $text Text
      */
-    public function createText($text): TextElement
+    public function createText(string $text): TextElement
     {
         $objText = new TextElement($text);
         $this->addText($objText);
@@ -70,7 +70,7 @@ class RichText implements IComparable, Stringable
      *
      * @param string $text Text
      */
-    public function createTextRun($text): Run
+    public function createTextRun(string $text): Run
     {
         $objText = new Run($text);
         $this->addText($objText);
@@ -107,7 +107,7 @@ class RichText implements IComparable, Stringable
      *
      * @return ITextElement[]
      */
-    public function getRichTextElements()
+    public function getRichTextElements(): array
     {
         return $this->richTextElements;
     }

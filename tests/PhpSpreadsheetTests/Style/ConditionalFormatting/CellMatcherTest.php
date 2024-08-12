@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class CellMatcherTest extends TestCase
 {
-    /**
-     * @var ?Spreadsheet
-     */
-    protected $spreadsheet;
+    protected ?Spreadsheet $spreadsheet = null;
 
     protected function loadSpreadsheet(): Spreadsheet
     {

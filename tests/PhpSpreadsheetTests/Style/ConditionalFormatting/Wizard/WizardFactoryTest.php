@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class WizardFactoryTest extends TestCase
 {
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {

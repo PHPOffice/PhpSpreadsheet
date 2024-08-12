@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Pane;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 class FreezePaneTest extends AbstractFunctional
 {
@@ -94,8 +95,23 @@ class FreezePaneTest extends AbstractFunctional
         // Read written file
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
 
-        $expected = 'C3';
-        self::assertSame($expected, $reloadedActive->getSelectedCells());
+        self::assertSame('C3', $reloadedActive->getSelectedCells());
+        self::assertSame('A2', $reloadedActive->getFreezePane());
+        if ($format === 'Xlsx') {
+            $writer = new XlsxWriter($reloadedSpreadsheet);
+            $writerSheet = new XlsxWriter\Worksheet($writer);
+            $data = $writerSheet->writeWorksheet($reloadedActive);
+            $expectedString = '<pane ySplit="1" activePane="bottomLeft" state="frozen" topLeftCell="A2"/><selection pane="bottomLeft" activeCell="C3" sqref="C3"/>';
+            self::assertStringContainsString($expectedString, $data);
+
+            $reloadedActive->freezePane('C1');
+            $reloadedActive->setSelectedCells('A2');
+            $writer = new XlsxWriter($reloadedSpreadsheet);
+            $writerSheet = new XlsxWriter\Worksheet($writer);
+            $data = $writerSheet->writeWorksheet($reloadedActive);
+            $expectedString = '<pane xSplit="2" activePane="topRight" state="frozen" topLeftCell="C1"/><selection pane="topRight" activeCell="A2" sqref="A2"/>';
+            self::assertStringContainsString($expectedString, $data);
+        }
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
@@ -254,6 +270,31 @@ class FreezePaneTest extends AbstractFunctional
         ];
         self::assertEquals($expected, $sheet->getPanes());
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testAutoWidthDoesNotCorruptActivePane(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray(
+            [
+                [1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12],
+            ]
+        );
+        $sheet->freezePane('A2');
+        $sheet->setSelectedCell('B1');
+        $paneBefore = $sheet->getActivePane();
+        self::assertSame('topLeft', $paneBefore);
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->calculateColumnWidths();
+        $paneAfter = $sheet->getActivePane();
+        self::assertSame('topLeft', $paneAfter);
         $spreadsheet->disconnectWorksheets();
     }
 }

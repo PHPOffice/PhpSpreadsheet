@@ -12,8 +12,10 @@ class CodePageTest extends TestCase
 {
     /**
      * @dataProvider providerCodePage
+     *
+     * @param string|string[] $expectedResult
      */
-    public function testCodePageNumberToName(mixed $expectedResult, mixed $codePageIndex): void
+    public function testCodePageNumberToName(array|string $expectedResult, int $codePageIndex): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(Exception::class);

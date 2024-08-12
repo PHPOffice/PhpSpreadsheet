@@ -13,15 +13,9 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class SlkTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = __DIR__ . '/../../../../samples/templates/SylkTest.slk';
+    private static string $testbook = __DIR__ . '/../../../../samples/templates/SylkTest.slk';
 
-    /**
-     * @var string
-     */
-    private $filename = '';
+    private string $filename = '';
 
     protected function teardown(): void
     {

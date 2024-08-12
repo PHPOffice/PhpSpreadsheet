@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Category as Cat;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
 class DocumentGeneratorTest extends TestCase
 {
+    private static bool $succeededByName = false;
+
+    private static bool $succeededByCategory = false;
+
     /**
      * @dataProvider providerGenerateFunctionListByName
      */
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions));
+        self::$succeededByName = true;
     }
 
     /**
@@ -27,6 +33,7 @@ class DocumentGeneratorTest extends TestCase
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions));
+        self::$succeededByCategory = true;
     }
 
     public static function providerGenerateFunctionListByName(): array
@@ -35,7 +42,7 @@ class DocumentGeneratorTest extends TestCase
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -46,7 +53,7 @@ class DocumentGeneratorTest extends TestCase
                     Excel Function           | Category                       | PhpSpreadsheet Function
                     -------------------------|--------------------------------|--------------------------------------
                     ABS                      | CATEGORY_MATH_AND_TRIG         | abs
-                    AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+                    AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 
                     ## I
 
@@ -66,7 +73,7 @@ class DocumentGeneratorTest extends TestCase
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -106,7 +113,7 @@ class DocumentGeneratorTest extends TestCase
 
                     Excel Function           | PhpSpreadsheet Function
                     -------------------------|--------------------------------------
-                    AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+                    AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
                     IFS                      | **Not yet Implemented**
 
                     ## CATEGORY_LOOKUP_AND_REFERENCE
@@ -140,6 +147,11 @@ class DocumentGeneratorTest extends TestCase
                     Excel Function           | PhpSpreadsheet Function
                     -------------------------|--------------------------------------
 
+                    ## CATEGORY_MICROSOFT_INTERNAL
+
+                    Excel Function           | PhpSpreadsheet Function
+                    -------------------------|--------------------------------------
+
                     EXPECTED
 
             ],
@@ -153,5 +165,25 @@ class DocumentGeneratorTest extends TestCase
             'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 1],
         ];
         DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions);
+    }
+
+    public function testGenerateDocuments(): void
+    {
+        if (!self::$succeededByName || !self::$succeededByCategory) {
+            self::markTestSkipped('Not run because prior test failed');
+        }
+        $directory = 'docs/references/';
+        self::assertNotEmpty($directory);
+        $phpSpreadsheetFunctions = Calculation::getFunctions();
+        ksort($phpSpreadsheetFunctions);
+
+        self::assertNotFalse(file_put_contents(
+            $directory . 'function-list-by-category.md',
+            DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+        ));
+        self::assertNotFalse(file_put_contents(
+            $directory . 'function-list-by-name.md',
+            DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+        ));
     }
 }

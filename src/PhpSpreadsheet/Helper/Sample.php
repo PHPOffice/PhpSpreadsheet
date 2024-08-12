@@ -81,17 +81,13 @@ class Sample
         $regex = new RegexIterator($iterator, '/^.+\.php$/', RecursiveRegexIterator::GET_MATCH);
 
         $files = [];
+        /** @var string[] $file */
         foreach ($regex as $file) {
             $file = str_replace(str_replace('\\', '/', $baseDir) . '/', '', str_replace('\\', '/', $file[0]));
-            if (is_array($file)) {
-                // @codeCoverageIgnoreStart
-                throw new RuntimeException('str_replace returned array');
-                // @codeCoverageIgnoreEnd
-            }
             $info = pathinfo($file);
             $category = str_replace('_', ' ', $info['dirname'] ?? '');
             $name = str_replace('_', ' ', (string) preg_replace('/(|\.php)/', '', $info['filename']));
-            if (!in_array($category, ['.', 'boostrap', 'templates'])) {
+            if (!in_array($category, ['.', 'bootstrap', 'templates']) && $name !== 'Header') {
                 if (!isset($files[$category])) {
                     $files[$category] = [];
                 }
@@ -111,13 +107,14 @@ class Sample
     /**
      * Write documents.
      *
-     * @param string $filename
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
+    public function write(Spreadsheet $spreadsheet, string $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null, bool $resetActiveSheet = true): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
+        if ($resetActiveSheet) {
+            $spreadsheet->setActiveSheetIndex(0);
+        }
 
         // Write documents
         foreach ($writers as $writerType) {
@@ -129,9 +126,11 @@ class Sample
             }
             $callStartTime = microtime(true);
             $writer->save($path);
-            $this->logWrite($writer, $path, /** @scrutinizer ignore-type */ $callStartTime);
+            $this->logWrite($writer, $path, $callStartTime);
             if ($this->isCli() === false) {
+                // @codeCoverageIgnoreStart
                 echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
+                // @codeCoverageIgnoreEnd
             }
         }
 
@@ -158,14 +157,12 @@ class Sample
 
     /**
      * Returns the filename that should be used for sample output.
-     *
-     * @param string $filename
      */
-    public function getFilename($filename, string $extension = 'xlsx'): string
+    public function getFilename(string $filename, string $extension = 'xlsx'): string
     {
         $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        return $this->getTemporaryFolder() . '/' . str_replace('.' . /** @scrutinizer ignore-type */ $originalExtension, '.' . $extension, basename($filename));
+        return $this->getTemporaryFolder() . '/' . str_replace('.' . $originalExtension, '.' . $extension, basename($filename));
     }
 
     /**
@@ -187,29 +184,49 @@ class Sample
     public function log(string $message): void
     {
         $eol = $this->isCli() ? PHP_EOL : '<br />';
-        echo($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
+        echo ($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
     }
 
-    public function renderChart(Chart $chart, string $fileName): void
+    /**
+     * Render chart as part of running chart samples in browser.
+     * Charts are not rendered in unit tests, which are command line.
+     *
+     * @codeCoverageIgnore
+     */
+    public function renderChart(Chart $chart, string $fileName, ?Spreadsheet $spreadsheet = null): void
     {
         if ($this->isCli() === true) {
             return;
         }
-
         Settings::setChartRenderer(MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
+        $title = $chart->getTitle();
+        $caption = null;
+        if ($title !== null) {
+            $calculatedTitle = $title->getCalculatedTitle($spreadsheet);
+            if ($calculatedTitle !== null) {
+                $caption = $title->getCaption();
+                $title->setCaption($calculatedTitle);
+            }
+        }
 
         try {
             $chart->render($fileName);
             $this->log('Rendered image: ' . $fileName);
-            $imageData = file_get_contents($fileName);
+            $imageData = @file_get_contents($fileName);
             if ($imageData !== false) {
                 echo '<div><img src="data:image/gif;base64,' . base64_encode($imageData) . '" /></div>';
+            } else {
+                $this->log('Unable to open chart' . PHP_EOL);
             }
         } catch (Throwable $e) {
             $this->log('Error rendering chart: ' . $e->getMessage() . PHP_EOL);
         }
+        if (isset($title, $caption)) {
+            $title->setCaption($caption);
+        }
+        Settings::unsetChartRenderer();
     }
 
     public function titles(string $category, string $functionName, ?string $description = null): void
@@ -233,10 +250,10 @@ class Sample
         ?string $descriptionCell = null
     ): void {
         if ($descriptionCell !== null) {
-            $this->log($worksheet->getCell($descriptionCell)->getValue());
+            $this->log($worksheet->getCell($descriptionCell)->getValueString());
         }
-        $this->log($worksheet->getCell($formulaCell)->getValue());
-        $this->log(sprintf('%s() Result is ', $functionName) . $worksheet->getCell($formulaCell)->getCalculatedValue());
+        $this->log($worksheet->getCell($formulaCell)->getValueString());
+        $this->log(sprintf('%s() Result is ', $functionName) . $worksheet->getCell($formulaCell)->getCalculatedValueString());
     }
 
     /**
@@ -250,32 +267,24 @@ class Sample
 
     /**
      * Log a line about the write operation.
-     *
-     * @param string $path
-     * @param float $callStartTime
      */
-    public function logWrite(IWriter $writer, $path, $callStartTime): void
+    public function logWrite(IWriter $writer, string $path, float $callStartTime): void
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;
         $reflection = new ReflectionClass($writer);
         $format = $reflection->getShortName();
 
-        $message = ($this->isCli() === true)
-            ? "Write {$format} format to {$path}  in " . sprintf('%.4f', $callTime) . ' seconds'
-            : "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
+        $codePath = $this->isCli() ? $path : "<code>$path</code>";
+        $message = "Write {$format} format to {$codePath}  in " . sprintf('%.4f', $callTime) . ' seconds';
 
         $this->log($message);
     }
 
     /**
      * Log a line about the read operation.
-     *
-     * @param string $format
-     * @param string $path
-     * @param float $callStartTime
      */
-    public function logRead($format, $path, $callStartTime): void
+    public function logRead(string $format, string $path, float $callStartTime): void
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;

@@ -6,8 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 
 class OLERead
 {
-    /** @var string */
-    private $data = '';
+    private string $data = '';
 
     // Size of a sector = 512 bytes
     const BIG_BLOCK_SIZE = 0x200;
@@ -35,64 +34,31 @@ class OLERead
     const START_BLOCK_POS = 0x74;
     const SIZE_POS = 0x78;
 
-    /** @var int */
-    public $wrkbook;
+    public ?int $wrkbook = null;
 
-    /** @var int */
-    public $summaryInformation;
+    public ?int $summaryInformation = null;
 
-    /** @var int */
-    public $documentSummaryInformation;
+    public ?int $documentSummaryInformation = null;
 
-    /**
-     * @var int
-     */
-    private $numBigBlockDepotBlocks;
+    private int $numBigBlockDepotBlocks;
 
-    /**
-     * @var int
-     */
-    private $rootStartBlock;
+    private int $rootStartBlock;
 
-    /**
-     * @var int
-     */
-    private $sbdStartBlock;
+    private int $sbdStartBlock;
 
-    /**
-     * @var int
-     */
-    private $extensionBlock;
+    private int $extensionBlock;
 
-    /**
-     * @var int
-     */
-    private $numExtensionBlocks;
+    private int $numExtensionBlocks;
 
-    /**
-     * @var string
-     */
-    private $bigBlockChain;
+    private string $bigBlockChain;
 
-    /**
-     * @var string
-     */
-    private $smallBlockChain;
+    private string $smallBlockChain;
 
-    /**
-     * @var string
-     */
-    private $entry;
+    private string $entry;
 
-    /**
-     * @var int
-     */
-    private $rootentry;
+    private int $rootentry;
 
-    /**
-     * @var array
-     */
-    private $props = [];
+    private array $props = [];
 
     /**
      * Read the file.
@@ -188,10 +154,8 @@ class OLERead
 
     /**
      * Extract binary stream data.
-     *
-     * @param ?int $stream
      */
-    public function getStream($stream): ?string
+    public function getStream(?int $stream): ?string
     {
         if ($stream === null) {
             return null;
@@ -240,7 +204,7 @@ class OLERead
      *
      * @return string Data for standard stream
      */
-    private function readData($block): string
+    private function readData(int $block): string
     {
         $data = '';
 
@@ -314,10 +278,8 @@ class OLERead
 
     /**
      * Read 4 bytes of data at specified position.
-     *
-     * @param int $pos
      */
-    private static function getInt4d(string $data, $pos): int
+    private static function getInt4d(string $data, int $pos): int
     {
         if ($pos < 0) {
             // Invalid position

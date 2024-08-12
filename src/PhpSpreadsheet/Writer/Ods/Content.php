@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -9,7 +11,6 @@ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Style;
@@ -117,9 +118,10 @@ class Content extends WriterPart
      */
     private function writeSheets(XMLWriter $objWriter): void
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /** @var Spreadsheet $spreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         $sheetCount = $spreadsheet->getSheetCount();
         for ($sheetIndex = 0; $sheetIndex < $sheetCount; ++$sheetIndex) {
+            $spreadsheet->getSheet($sheetIndex)->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
             $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
@@ -195,6 +197,7 @@ class Content extends WriterPart
         foreach ($cells as $cell) {
             /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
+            $attributes = $cell->getFormulaAttributes() ?? [];
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
@@ -209,8 +212,8 @@ class Content extends WriterPart
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $objWriter->writeAttribute('office:boolean-value', $cell->getValue() ? 'true' : 'false');
+                    $objWriter->writeElement('text:p', Calculation::getInstance()->getLocaleBoolean($cell->getValue() ? 'TRUE' : 'FALSE'));
 
                     break;
                 case DataType::TYPE_ERROR:
@@ -221,15 +224,31 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_FORMULA:
-                    $formulaValue = $cell->getValue();
+                    $formulaValue = $cell->getValueString();
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
-                            $formulaValue = $cell->getCalculatedValue();
-                        } catch (Exception) {
+                            $formulaValue = $cell->getCalculatedValueString();
+                        } catch (CalculationException $e) {
                             // don't do anything
                         }
                     }
-                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
+                    if (isset($attributes['ref'])) {
+                        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches) == 1) {
+                            $matrixRowSpan = 1;
+                            $matrixColSpan = 1;
+                            if (isset($matches[3])) {
+                                $minRow = (int) $matches[2];
+                                $maxRow = (int) $matches[5];
+                                $matrixRowSpan = $maxRow - $minRow + 1;
+                                $minCol = Coordinate::columnIndexFromString($matches[1]);
+                                $maxCol = Coordinate::columnIndexFromString($matches[4]);
+                                $matrixColSpan = $maxCol - $minCol + 1;
+                            }
+                            $objWriter->writeAttribute('table:number-matrix-columns-spanned', "$matrixColSpan");
+                            $objWriter->writeAttribute('table:number-matrix-rows-spanned', "$matrixRowSpan");
+                        }
+                    }
+                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
                     if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {
@@ -241,8 +260,8 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $objWriter->writeAttribute('office:value', $cell->getValueString());
+                    $objWriter->writeElement('text:p', $cell->getValueString());
 
                     break;
                 case DataType::TYPE_INLINE:
@@ -251,7 +270,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $url = $cell->getHyperlink()->getUrl();
                     if (empty($url)) {
-                        $objWriter->writeElement('text:p', $cell->getValue());
+                        $objWriter->writeElement('text:p', $cell->getValueString());
                     } else {
                         $objWriter->startElement('text:p');
                         $objWriter->startElement('text:a');
@@ -262,7 +281,7 @@ class Content extends WriterPart
                         }
                         $objWriter->writeAttribute('xlink:href', $url);
                         $objWriter->writeAttribute('xlink:type', 'simple');
-                        $objWriter->text($cell->getValue());
+                        $objWriter->text($cell->getValueString());
                         $objWriter->endElement(); // text:a
                         $objWriter->endElement(); // text:p
                     }

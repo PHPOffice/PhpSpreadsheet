@@ -11,10 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class Issue3552Test extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.3552.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.3552.xlsx';
 
     public function testRowBreaks(): void
     {

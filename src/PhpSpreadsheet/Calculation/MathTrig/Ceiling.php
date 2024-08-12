@@ -137,7 +137,7 @@ class Ceiling
      */
     private static function ceilingMathTest(float $significance, float $number, int $mode): bool
     {
-        return ((float) $significance < 0) || ((float) $number < 0 && !empty($mode));
+        return ($significance < 0) || ($number < 0 && !empty($mode));
     }
 
     /**

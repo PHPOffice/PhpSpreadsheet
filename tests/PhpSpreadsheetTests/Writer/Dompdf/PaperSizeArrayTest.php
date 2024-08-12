@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class PaperSizeArrayTest extends TestCase
 {
-    /** @var string */
-    private $outfile = '';
+    private string $outfile = '';
 
     protected function tearDown(): void
     {

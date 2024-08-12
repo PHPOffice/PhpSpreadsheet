@@ -9,14 +9,14 @@ class Style
 {
     /**
      * Formats.
-     *
-     * @var array
      */
-    protected $styles = [];
+    protected array $styles = [];
 
     public function parseStyles(SimpleXMLElement $xml, array $namespaces): array
     {
-        if (!isset($xml->Styles) || !is_iterable($xml->Styles[0])) {
+        $children = $xml->children('urn:schemas-microsoft-com:office:spreadsheet');
+        $stylesXml = $children->Styles[0];
+        if (!isset($stylesXml) || !is_iterable($stylesXml)) {
             return [];
         }
 
@@ -26,7 +26,7 @@ class Style
         $fillStyleParser = new Style\Fill();
         $numberFormatStyleParser = new Style\NumberFormat();
 
-        foreach ($xml->Styles[0] as $style) {
+        foreach ($stylesXml as $style) {
             $style_ss = self::getAttributes($style, $namespaces['ss']);
             $styleID = (string) $style_ss['ID'];
             $this->styles[$styleID] = $this->styles['Default'] ?? [];

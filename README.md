@@ -11,83 +11,9 @@
 PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
 
-## PHP Version Support
-
-LTS: Support for PHP versions will only be maintained for a period of six months beyond the
-[end of life](https://www.php.net/supported-versions) of that PHP version.
-
-Currently the required PHP minimum version is PHP __8.0__, and we [will support that version](https://www.php.net/eol.php) until May 2024.
-
-See the `composer.json` for other requirements.
-
 ## Installation
 
-Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your project:
-
-```sh
-composer require phpoffice/phpspreadsheet
-```
-
-If you are building your installation on a development machine that is on a different PHP version to the server where it will be deployed, or if your PHP CLI version is not the same as your run-time such as `php-fpm` or Apache's `mod_php`, then you might want to add the following to your `composer.json` before installing:
-```json
-{
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.28"
-    },
-    "config": {
-        "platform": {
-            "php": "8.0"
-        }
-    }
-}
-```
-and then run
-```sh
-composer install
-```
-to ensure that the correct dependencies are retrieved to match your deployment environment.
-
-See [CLI vs Application run-time](https://php.watch/articles/composer-platform-check) for more details.
-
-### Additional Installation Options
-
-If you want to write to PDF, or to include Charts when you write to HTML or PDF, then you will need to install additional libraries:
-
-#### PDF
-
-For PDF Generation, you can install any of the following, and then configure PhpSpreadsheet to indicate which library you are going to use:
- - mpdf/mpdf
- - dompdf/dompdf
- - tecnickcom/tcpdf
-
-and configure PhpSpreadsheet using:
-
-```php
-// Dompdf, Mpdf or Tcpdf (as appropriate)
-$className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class;
-IOFactory::registerWriter('Pdf', $className);
-```
-or the appropriate PDF Writer wrapper for the library that you have chosen to install.
-
-#### Chart Export
-
-For Chart export, we support following packages, which you will also need to install yourself using `composer require`
- - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0. 
-   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
- - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) - up to date fork with modern PHP versions support and some bugs fixed.
-
-and then configure PhpSpreadsheet using:
-```php
-// to use jpgraph/jpgraph
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
-//or
-// to use mitoteam/jpgraph
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
-```
-
-One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts; or to render a Chart to an Image format from within your code.
-They are not necessary to define charts for writing to `Xlsx` files.
-Other file formats don't support writing Charts.
+See the [install instructions](https://phpspreadsheet.readthedocs.io/en/latest/#installation).
 
 ## Documentation
 

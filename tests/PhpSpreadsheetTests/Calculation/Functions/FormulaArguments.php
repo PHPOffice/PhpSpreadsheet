@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Stringable;
@@ -81,7 +82,11 @@ class FormulaArguments implements Stringable
             return $value ? 'TRUE' : 'FALSE';
         }
 
-        return (string) $value;
+        if (is_scalar($value) || $value instanceof Stringable) {
+            return (string) $value;
+        }
+
+        throw new Exception('Cannot convert object to string');
     }
 
     public function __toString(): string

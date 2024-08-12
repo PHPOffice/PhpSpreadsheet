@@ -15,24 +15,20 @@ class RowDimension extends Dimension
      * Row height (in pt).
      *
      * When this is set to a negative value, the row height should be ignored by IWriter
-     *
-     * @var float
      */
-    private $height = -1;
+    private float $height = -1;
 
     /**
      * ZeroHeight for Row?
-     *
-     * @var bool
      */
-    private $zeroHeight = false;
+    private bool $zeroHeight = false;
 
     /**
      * Create a new RowDimension.
      *
      * @param ?int $index Numeric row index
      */
-    public function __construct($index = 0)
+    public function __construct(?int $index = 0)
     {
         // Initialise values
         $this->rowIndex = $index;
@@ -66,10 +62,8 @@ class RowDimension extends Dimension
      * By default, this will be in points; but this method also accepts an optional unit of measure
      *    argument, and will convert the value from points to the specified UoM.
      *    A value of -1 tells Excel to display this column in its default height.
-     *
-     * @return float
      */
-    public function getRowHeight(?string $unitOfMeasure = null)
+    public function getRowHeight(?string $unitOfMeasure = null): float
     {
         return ($unitOfMeasure === null || $this->height < 0)
             ? $this->height
@@ -85,7 +79,7 @@ class RowDimension extends Dimension
      *
      * @return $this
      */
-    public function setRowHeight($height, ?string $unitOfMeasure = null): static
+    public function setRowHeight(float $height, ?string $unitOfMeasure = null): static
     {
         $this->height = ($unitOfMeasure === null || $height < 0)
             ? $height

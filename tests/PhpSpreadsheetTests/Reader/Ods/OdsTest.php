@@ -21,8 +21,7 @@ class OdsTest extends TestCase
 
     private const ODS_DATA_FILE = 'tests/data/Reader/Ods/data.ods';
 
-    /** @var string */
-    private $incompleteMessage = 'Features not implemented yet';
+    private string $incompleteMessage = 'Features not implemented yet';
 
     private string $timeZone;
 

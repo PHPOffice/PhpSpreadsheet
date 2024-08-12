@@ -21,7 +21,7 @@ function replaceBody(string $html): string
         </body>
         EOF;
 
-    return preg_replace($bodystring, $bodyrepl, $html);
+    return preg_replace($bodystring, $bodyrepl, $html) ?? '';
 }
 
 require __DIR__ . '/../Header.php';

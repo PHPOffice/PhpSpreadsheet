@@ -8,10 +8,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ExplicitDateTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/explicitdate.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/explicitdate.xlsx';
 
     public function testPreliminaries(): void
     {

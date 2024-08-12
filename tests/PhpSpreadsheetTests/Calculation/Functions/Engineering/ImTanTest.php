@@ -17,7 +17,7 @@ class ImTanTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +28,9 @@ class ImTanTest extends TestCase
     /**
      * @dataProvider providerIMTAN
      */
-    public function testDirectCallToIMTAN(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMTAN(string $expectedResult, string $arg): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ComplexFunctions::IMTAN(...$args);
+        $result = ComplexFunctions::IMTAN($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -53,6 +52,7 @@ class ImTanTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMTAN({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

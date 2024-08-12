@@ -5,6 +5,9 @@ body {
 .navbar {
     margin-bottom: 20px;
 }
+.navbar + h1 {
+    margin-top: 70px;
+}
 .passed {
     color: #339900;
 }

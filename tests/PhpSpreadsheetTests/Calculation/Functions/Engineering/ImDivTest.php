@@ -17,7 +17,7 @@ class ImDivTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +28,9 @@ class ImDivTest extends TestCase
     /**
      * @dataProvider providerIMDIV
      */
-    public function testDirectCallToIMDIV(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMDIV(string $expectedResult, string $dividend, string $divisor): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ComplexOperations::IMDIV(...$args);
+        $result = ComplexOperations::IMDIV($dividend, $divisor);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -53,6 +52,7 @@ class ImDivTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMDIV({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

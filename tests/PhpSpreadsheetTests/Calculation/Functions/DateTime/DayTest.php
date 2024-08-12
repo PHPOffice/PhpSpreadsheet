@@ -35,7 +35,6 @@ class DayTest extends TestCase
      */
     public function testDirectCallToDAY(mixed $expectedResultExcel, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = DateParts::day(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
@@ -86,7 +85,6 @@ class DayTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = DateParts::day(...$args);
         self::assertSame($expectedResultOpenOffice, $result);
     }

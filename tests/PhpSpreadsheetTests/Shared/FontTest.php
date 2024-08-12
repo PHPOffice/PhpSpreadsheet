@@ -44,7 +44,7 @@ class FontTest extends TestCase
     /**
      * @dataProvider providerFontSizeToPixels
      */
-    public function testFontSizeToPixels(mixed $expectedResult, mixed $size): void
+    public function testFontSizeToPixels(float|int $expectedResult, float|int $size): void
     {
         $result = Font::fontSizeToPixels($size);
         self::assertEquals($expectedResult, $result);
@@ -58,7 +58,7 @@ class FontTest extends TestCase
     /**
      * @dataProvider providerInchSizeToPixels
      */
-    public function testInchSizeToPixels(mixed $expectedResult, mixed $size): void
+    public function testInchSizeToPixels(float|int $expectedResult, float|int $size): void
     {
         $result = Font::inchSizeToPixels($size);
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
@@ -72,7 +72,7 @@ class FontTest extends TestCase
     /**
      * @dataProvider providerCentimeterSizeToPixels
      */
-    public function testCentimeterSizeToPixels(mixed $expectedResult, mixed $size): void
+    public function testCentimeterSizeToPixels(float $expectedResult, float $size): void
     {
         $result = Font::centimeterSizeToPixels($size);
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);

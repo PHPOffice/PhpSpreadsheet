@@ -17,7 +17,7 @@ class ImCotTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +28,9 @@ class ImCotTest extends TestCase
     /**
      * @dataProvider providerIMCOT
      */
-    public function testDirectCallToIMCOT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCOT(float|string $expectedResult, string $arg): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ComplexFunctions::IMCOT(...$args);
+        $result = ComplexFunctions::IMCOT($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -53,6 +52,7 @@ class ImCotTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCOT({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

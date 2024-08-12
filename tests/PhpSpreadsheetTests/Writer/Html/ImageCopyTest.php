@@ -13,8 +13,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImageCopyTest extends Functional\AbstractFunctional
 {
-    /** @var string */
-    private $xlsxFile = '';
+    private string $xlsxFile = '';
 
     protected function tearDown(): void
     {

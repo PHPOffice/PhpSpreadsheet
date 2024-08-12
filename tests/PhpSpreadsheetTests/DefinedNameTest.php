@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameTest extends TestCase
 {
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     protected function setUp(): void
     {

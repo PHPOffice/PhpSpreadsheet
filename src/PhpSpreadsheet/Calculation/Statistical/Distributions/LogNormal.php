@@ -131,7 +131,7 @@ class LogNormal
         if ($stdDev <= 0) {
             return ExcelError::NAN();
         }
-        /** @var float */
+        /** @var float $inverse */
         $inverse = StandardNormal::inverse($probability);
 
         return exp($mean + $stdDev * $inverse);

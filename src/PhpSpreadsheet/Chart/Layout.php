@@ -171,10 +171,8 @@ class Layout
 
     /**
      * Get Layout Target.
-     *
-     * @return ?string
      */
-    public function getLayoutTarget()
+    public function getLayoutTarget(): ?string
     {
         return $this->layoutTarget;
     }
@@ -193,10 +191,8 @@ class Layout
 
     /**
      * Get X-Mode.
-     *
-     * @return ?string
      */
-    public function getXMode()
+    public function getXMode(): ?string
     {
         return $this->xMode;
     }
@@ -204,11 +200,9 @@ class Layout
     /**
      * Set X-Mode.
      *
-     * @param ?string $mode
-     *
      * @return $this
      */
-    public function setXMode($mode): static
+    public function setXMode(?string $mode): static
     {
         $this->xMode = (string) $mode;
 
@@ -217,10 +211,8 @@ class Layout
 
     /**
      * Get Y-Mode.
-     *
-     * @return ?string
      */
-    public function getYMode()
+    public function getYMode(): ?string
     {
         return $this->yMode;
     }
@@ -228,11 +220,9 @@ class Layout
     /**
      * Set Y-Mode.
      *
-     * @param ?string $mode
-     *
      * @return $this
      */
-    public function setYMode($mode): static
+    public function setYMode(?string $mode): static
     {
         $this->yMode = (string) $mode;
 
@@ -241,10 +231,8 @@ class Layout
 
     /**
      * Get X-Position.
-     *
-     * @return null|float|int
      */
-    public function getXPosition()
+    public function getXPosition(): null|float|int
     {
         return $this->xPos;
     }
@@ -263,10 +251,8 @@ class Layout
 
     /**
      * Get Y-Position.
-     *
-     * @return null|float
      */
-    public function getYPosition()
+    public function getYPosition(): ?float
     {
         return $this->yPos;
     }
@@ -285,10 +271,8 @@ class Layout
 
     /**
      * Get Width.
-     *
-     * @return ?float
      */
-    public function getWidth()
+    public function getWidth(): ?float
     {
         return $this->width;
     }
@@ -307,10 +291,8 @@ class Layout
 
     /**
      * Get Height.
-     *
-     * @return null|float
      */
-    public function getHeight()
+    public function getHeight(): ?float
     {
         return $this->height;
     }
@@ -527,5 +509,16 @@ class Layout
         $this->numFmtLinked = $numFmtLinked;
 
         return $this;
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->labelFillColor = ($this->labelFillColor === null) ? null : clone $this->labelFillColor;
+        $this->labelBorderColor = ($this->labelBorderColor === null) ? null : clone $this->labelBorderColor;
+        $this->labelFont = ($this->labelFont === null) ? null : clone $this->labelFont;
+        $this->labelEffects = ($this->labelEffects === null) ? null : clone $this->labelEffects;
     }
 }

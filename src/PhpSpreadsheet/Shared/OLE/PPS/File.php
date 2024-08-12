@@ -37,7 +37,7 @@ class File extends PPS
      *
      * @see OLE::ascToUcs()
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct(null, $name, OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
     }

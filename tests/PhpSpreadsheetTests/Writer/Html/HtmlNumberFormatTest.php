@@ -13,27 +13,18 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
-    private string $currency;
-
-    private string $decsep;
-
-    private string $thosep;
-
     protected function setUp(): void
     {
-        $this->currency = StringHelper::getCurrencyCode();
         StringHelper::setCurrencyCode('$');
-        $this->decsep = StringHelper::getDecimalSeparator();
         StringHelper::setDecimalSeparator('.');
-        $this->thosep = StringHelper::getThousandsSeparator();
         StringHelper::setThousandsSeparator(',');
     }
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->currency);
-        StringHelper::setDecimalSeparator($this->decsep);
-        StringHelper::setThousandsSeparator($this->thosep);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
     }
 
     public function testColorNumberFormat(): void
@@ -147,7 +138,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
     /**
      * @dataProvider providerNumberFormat
      */
-    public function testFormatValueWithMask(mixed $expectedResult, mixed $val, mixed $fmt): void
+    public function testFormatValueWithMask(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -179,7 +170,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
     /**
      * @dataProvider providerNumberFormatDates
      */
-    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, mixed $fmt): void
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

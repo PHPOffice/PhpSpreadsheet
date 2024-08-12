@@ -12,7 +12,7 @@ class ValueToTextTest extends AllSetupTeardown
     /**
      * @dataProvider providerVALUE
      */
-    public function testVALUETOTEXT(mixed $expectedResult, mixed $value, mixed $format): void
+    public function testVALUETOTEXT(mixed $expectedResult, mixed $value, int|string $format): void
     {
         $sheet = $this->getSheet();
         $this->setCell('A1', $value);

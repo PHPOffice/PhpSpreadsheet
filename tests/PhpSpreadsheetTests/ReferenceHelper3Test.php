@@ -81,8 +81,7 @@ class ReferenceHelper3Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /** @var bool */
-    private static $sumFormulaWorking = false;
+    private static bool $sumFormulaWorking = false;
 
     public function testSumAboveCell(): void
     {

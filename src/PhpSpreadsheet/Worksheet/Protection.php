@@ -99,10 +99,8 @@ class Protection
 
     /**
      * Hashed password.
-     *
-     * @var string
      */
-    private $password = '';
+    private string $password = '';
 
     /**
      * Algorithm name.
@@ -116,10 +114,8 @@ class Protection
 
     /**
      * Spin count.
-     *
-     * @var int
      */
-    private $spinCount = 10000;
+    private int $spinCount = 10000;
 
     /**
      * Create a new Protection.
@@ -347,10 +343,8 @@ class Protection
 
     /**
      * Get hashed password.
-     *
-     * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -358,12 +352,11 @@ class Protection
     /**
      * Set Password.
      *
-     * @param string $password
      * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setPassword($password, $alreadyHashed = false): static
+    public function setPassword(string $password, bool $alreadyHashed = false): static
     {
         if (!$alreadyHashed) {
             $salt = $this->generateSalt();

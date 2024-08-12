@@ -19,14 +19,14 @@ class RandArrayTest extends AllSetupTeardown
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, true);
         self::assertIsArray($result);
-        self::assertCount($rows, /** @scrutinizer ignore-type */ $result);
+        self::assertCount($rows, $result);
         self::assertIsArray($result[0]);
         self::assertCount($cols, $result[0]);
 
         $values = Functions::flattenArray($result);
         array_walk(
             $values,
-            function ($value) use ($min, $max): void {
+            function (mixed $value) use ($min, $max): void {
                 self::assertIsInt($value);
                 self::assertTrue($value >= $min && $value <= $max);
             }
@@ -42,14 +42,14 @@ class RandArrayTest extends AllSetupTeardown
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
         self::assertIsArray($result);
-        self::assertCount($rows, /** @scrutinizer ignore-type */ $result);
+        self::assertCount($rows, $result);
         self::assertIsArray($result[0]);
         self::assertCount($cols, $result[0]);
 
         $values = Functions::flattenArray($result);
         array_walk(
             $values,
-            function ($value) use ($min, $max): void {
+            function (mixed $value) use ($min, $max): void {
                 self::assertIsFloat($value);
                 self::assertTrue($value >= $min && $value <= $max);
             }

@@ -34,6 +34,7 @@ class SettingsTest extends TestCase
     {
         $this->expectException(SpException::class);
         $this->expectExceptionMessage('Chart renderer must implement');
+        // @phpstan-ignore-next-line
         Settings::setChartRenderer(self::class);
     }
 

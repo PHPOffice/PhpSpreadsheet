@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class Issue3464Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.3464.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.3464.xlsx';
 
     public function testReadFontColor(): void
     {

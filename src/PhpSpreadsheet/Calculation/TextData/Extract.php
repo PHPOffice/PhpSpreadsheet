@@ -31,7 +31,7 @@ class Extract
         }
 
         try {
-            $value = Helpers::extractString($value);
+            $value = Helpers::extractString($value, true);
             $chars = Helpers::extractInt($chars, 0, 1);
         } catch (CalcExp $e) {
             return $e->getMessage();
@@ -61,7 +61,7 @@ class Extract
         }
 
         try {
-            $value = Helpers::extractString($value);
+            $value = Helpers::extractString($value, true);
             $start = Helpers::extractInt($start, 1);
             $chars = Helpers::extractInt($chars, 0);
         } catch (CalcExp $e) {
@@ -90,7 +90,7 @@ class Extract
         }
 
         try {
-            $value = Helpers::extractString($value);
+            $value = Helpers::extractString($value, true);
             $chars = Helpers::extractInt($chars, 0, 1);
         } catch (CalcExp $e) {
             return $e->getMessage();
@@ -132,7 +132,13 @@ class Extract
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
         }
 
-        $text = Helpers::extractString($text ?? '');
+        try {
+            $text = Helpers::extractString($text ?? '', true);
+            Helpers::extractString(Functions::flattenSingleValue($delimiter ?? ''), true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
+
         $instance = (int) $instance;
         $matchMode = (int) $matchMode;
         $matchEnd = (int) $matchEnd;
@@ -190,7 +196,13 @@ class Extract
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
         }
 
-        $text = Helpers::extractString($text ?? '');
+        try {
+            $text = Helpers::extractString($text ?? '', true);
+            Helpers::extractString(Functions::flattenSingleValue($delimiter ?? ''), true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
+
         $instance = (int) $instance;
         $matchMode = (int) $matchMode;
         $matchEnd = (int) $matchEnd;
@@ -216,13 +228,7 @@ class Extract
         return implode('', $split);
     }
 
-    /**
-     * @param null|array|string $delimiter
-     * @param int $matchEnd
-     *
-     * @return array|string
-     */
-    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, int $matchMode, $matchEnd, mixed $ifNotFound)
+    private static function validateTextBeforeAfter(string $text, null|array|string $delimiter, int $instance, int $matchMode, int $matchEnd, mixed $ifNotFound): array|string
     {
         $flags = self::matchFlags($matchMode);
         $delimiter = self::buildDelimiter($delimiter);

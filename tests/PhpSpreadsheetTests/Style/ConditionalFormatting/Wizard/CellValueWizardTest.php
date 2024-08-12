@@ -12,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class CellValueWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {

@@ -29,6 +29,7 @@ class ChiDistLeftTailTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=CHISQ.DIST({$values}, {$degrees}, false)";
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }

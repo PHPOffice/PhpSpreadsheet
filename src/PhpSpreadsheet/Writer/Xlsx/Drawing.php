@@ -20,7 +20,7 @@ class Drawing extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $includeCharts = false)
+    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
         // Create XML writer
         $objWriter = null;
@@ -82,10 +82,8 @@ class Drawing extends WriterPart
 
     /**
      * Write drawings to XML format.
-     *
-     * @param int $relationId
      */
-    public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $chart, $relationId = -1): void
+    public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $chart, int $relationId = -1): void
     {
         $tl = $chart->getTopLeftPosition();
         $tlColRow = Coordinate::indexesFromString($tl['cell']);
@@ -178,11 +176,8 @@ class Drawing extends WriterPart
 
     /**
      * Write drawings to XML format.
-     *
-     * @param int $relationId
-     * @param null|int $hlinkClickId
      */
-    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $drawing, $relationId = -1, $hlinkClickId = null): void
+    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $drawing, int $relationId = -1, ?int $hlinkClickId = null): void
     {
         if ($relationId >= 0) {
             $isTwoCellAnchor = $drawing->getCoordinates2() !== '';
@@ -294,6 +289,8 @@ class Drawing extends WriterPart
             // a:xfrm
             $objWriter->startElement('a:xfrm');
             $objWriter->writeAttribute('rot', (string) SharedDrawing::degreesToAngle($drawing->getRotation()));
+            self::writeAttributeIf($objWriter, $drawing->getFlipVertical(), 'flipV', '1');
+            self::writeAttributeIf($objWriter, $drawing->getFlipHorizontal(), 'flipH', '1');
             if ($isTwoCellAnchor) {
                 $objWriter->startElement('a:ext');
                 $objWriter->writeAttribute('cx', self::stringEmu($drawing->getWidth()));
@@ -356,7 +353,7 @@ class Drawing extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): string
     {
         // Create XML writer
         $objWriter = null;
@@ -560,10 +557,7 @@ class Drawing extends WriterPart
         return $aDrawings;
     }
 
-    /**
-     * @param null|int $hlinkClickId
-     */
-    private function writeHyperLinkDrawing(XMLWriter $objWriter, $hlinkClickId): void
+    private function writeHyperLinkDrawing(XMLWriter $objWriter, ?int $hlinkClickId): void
     {
         if ($hlinkClickId === null) {
             return;
@@ -578,5 +572,12 @@ class Drawing extends WriterPart
     private static function stringEmu(int $pixelValue): string
     {
         return (string) SharedDrawing::pixelsToEMU($pixelValue);
+    }
+
+    private static function writeAttributeIf(XMLWriter $objWriter, ?bool $condition, string $attr, string $val): void
+    {
+        if ($condition) {
+            $objWriter->writeAttribute($attr, $val);
+        }
     }
 }

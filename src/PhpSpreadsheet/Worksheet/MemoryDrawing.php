@@ -101,10 +101,8 @@ class MemoryDrawing extends BaseDrawing
             // If the image has transparency...
             $transparent = imagecolortransparent($this->imageResource);
             if ($transparent >= 0) {
+                // Starting with Php8.0, next function throws rather than return false
                 $rgb = imagecolorsforindex($this->imageResource, $transparent);
-                if (empty($rgb)) {
-                    throw new Exception('Could not get image colors');
-                }
 
                 imagesavealpha($clone, true);
                 $color = imagecolorallocatealpha($clone, $rgb['red'], $rgb['green'], $rgb['blue'], $rgb['alpha']);
@@ -217,7 +215,7 @@ class MemoryDrawing extends BaseDrawing
         if (function_exists('getimagesize')) {
             $imageSize = @getimagesize($temporaryFileName);
             if (is_array($imageSize)) {
-                $mimeType = $imageSize['mime'] ?? null; // @phpstan-ignore-line
+                $mimeType = $imageSize['mime'];
 
                 return self::supportedMimeTypes($mimeType);
             }
@@ -263,10 +261,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get rendering function.
-     *
-     * @return string
      */
-    public function getRenderingFunction()
+    public function getRenderingFunction(): string
     {
         return $this->renderingFunction;
     }
@@ -278,7 +274,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setRenderingFunction($value): static
+    public function setRenderingFunction(string $value): static
     {
         $this->renderingFunction = $value;
 
@@ -287,10 +283,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get mime type.
-     *
-     * @return string
      */
-    public function getMimeType()
+    public function getMimeType(): string
     {
         return $this->mimeType;
     }
@@ -302,7 +296,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setMimeType($value): static
+    public function setMimeType(string $value): static
     {
         $this->mimeType = $value;
 

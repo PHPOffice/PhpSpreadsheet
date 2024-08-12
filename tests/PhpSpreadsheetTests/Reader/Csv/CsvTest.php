@@ -61,13 +61,13 @@ class CsvTest extends TestCase
                 'Number of items with weight <= 50kg',
             ],
             [
-                'samples/Reader/sampleData/example1.csv',
+                'samples/Reader2/sampleData/example1.csv',
                 ',',
                 'I4',
                 '100%',
             ],
             [
-                'samples/Reader/sampleData/example2.csv',
+                'samples/Reader2/sampleData/example2.csv',
                 ',',
                 'D8',
                 -58.373161,
@@ -107,8 +107,8 @@ class CsvTest extends TestCase
             [true, 'tests/data/Reader/CSV/csv_without_extension'],
             [true, 'tests/data/Reader/HTML/csv_with_angle_bracket.csv'],
             [true, 'tests/data/Reader/CSV/empty.csv'],
-            [true, 'samples/Reader/sampleData/example1.csv'],
-            [true, 'samples/Reader/sampleData/example2.csv'],
+            [true, 'samples/Reader2/sampleData/example1.csv'],
+            [true, 'samples/Reader2/sampleData/example2.csv'],
         ];
     }
 
@@ -246,24 +246,12 @@ class CsvTest extends TestCase
         ];
     }
 
-    /**
-     * This test could be simpler, but Scrutinizer has a minor (and silly) problem.
-     *
-     * @dataProvider providerNull
-     */
-    public function testSetDelimiterNull(?string $setNull): void
+    public function testSetDelimiterNull(): void
     {
         $reader = new Csv();
         $reader->setDelimiter(',');
         self::assertSame(',', $reader->getDelimiter());
-        $reader->setDelimiter($setNull);
-        self::assertSame($setNull, $reader->getDelimiter());
-    }
-
-    public static function providerNull(): array
-    {
-        return [
-            [null],
-        ];
+        $reader->setDelimiter(null);
+        self::assertNull($reader->getDelimiter());
     }
 }

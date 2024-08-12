@@ -16,10 +16,9 @@ class GeStepTest extends TestCase
     /**
      * @dataProvider providerGESTEP
      */
-    public function testDirectCallToGESTEP(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToGESTEP(int|string $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
-        /** @scrutinizer ignore-call */
-        $result = Compare::geStep(...$args);
+        $result = ($arg2 === null) ? Compare::geStep($arg1) : Compare::geStep($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 

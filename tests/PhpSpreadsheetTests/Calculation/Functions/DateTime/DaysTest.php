@@ -6,11 +6,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
 use DateTimeImmutable;
-use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
@@ -20,9 +18,9 @@ class DaysTest extends TestCase
     /**
      * @dataProvider providerDAYS
      */
-    public function testDirectCallToDAYS(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToDAYS(int|string $expectedResult, int|string $date1, int|string $date2): void
     {
-        $result = Days::between(...$args);
+        $result = Days::between($date1, $date2);
         self::assertSame($expectedResult, $result);
     }
 
@@ -98,14 +96,6 @@ class DaysTest extends TestCase
         $obj1 = new DateTime('2000-3-31');
         $obj2 = new DateTimeImmutable('2000-2-29');
         self::assertSame(31, Days::between($obj1, $obj2));
-    }
-
-    public function testNonDateObject(): void
-    {
-        $obj1 = new Exception();
-        $obj2 = new DateTimeImmutable('2000-2-29');
-        // @phpstan-ignore-next-line
-        self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 
     /**

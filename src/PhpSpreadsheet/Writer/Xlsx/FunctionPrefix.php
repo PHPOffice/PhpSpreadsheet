@@ -2,10 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class FunctionPrefix
 {
     const XLFNREGEXP = '/(?:_xlfn\.)?((?:_xlws\.)?\b('
-            // functions added with Excel 2010
+        // functions added with Excel 2010
         . 'beta[.]dist'
         . '|beta[.]inv'
         . '|binom[.]dist'
@@ -125,32 +127,50 @@ class FunctionPrefix
         . '|switch'
         // functions added with Excel 2019
         . '|concat'
-        . '|countifs'
         . '|ifs'
         . '|maxifs'
         . '|minifs'
         . '|sumifs'
         . '|textjoin'
         // functions added with Excel 365
-        . '|filter'
-        . '|randarray'
         . '|anchorarray'
+        . '|arraytotext'
+        . '|bycol'
+        . '|byrow'
+        . '|call'
+        . '|choosecols'
+        . '|chooserows'
+        . '|drop'
+        . '|expand'
+        . '|filter'
+        . '|hstack'
+        . '|isomitted'
+        . '|lambda'
+        . '|let'
+        . '|makearray'
+        . '|map'
+        . '|randarray'
+        . '|reduce'
+        . '|register[.]id'
+        . '|scan'
         . '|sequence'
+        . '|single'
         . '|sort'
         . '|sortby'
-        . '|unique'
-        . '|xlookup'
-        . '|xmatch'
-        . '|arraytotext'
-        . '|call'
-        . '|let'
-        . '|lambda'
-        . '|single'
-        . '|register[.]id'
+        . '|take'
         . '|textafter'
         . '|textbefore'
+        . '|textjoin'
         . '|textsplit'
+        . '|tocol'
+        . '|torow'
+        . '|unique'
         . '|valuetotext'
+        . '|vstack'
+        . '|wrapcols'
+        . '|wraprows'
+        . '|xlookup'
+        . '|xmatch'
         . '))\s*\(/Umui';
 
     const XLWSREGEXP = '/(?<!_xlws\.)('
@@ -180,6 +200,12 @@ class FunctionPrefix
      */
     public static function addFunctionPrefix(string $functionString): string
     {
+        $functionString = (string) preg_replace_callback(
+            Calculation::CALCULATION_REGEXP_CELLREF_SPILL,
+            fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
+            $functionString
+        );
+
         return self::addXlwsPrefix(self::addXlfnPrefix($functionString));
     }
 

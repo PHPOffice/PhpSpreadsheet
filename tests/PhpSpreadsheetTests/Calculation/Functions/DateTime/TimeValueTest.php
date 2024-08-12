@@ -33,10 +33,9 @@ class TimeValueTest extends TestCase
     /**
      * @dataProvider providerTIMEVALUE
      */
-    public function testDirectCallToTIMEVALUE(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToTIMEVALUE(int|float|string $expectedResult, bool|int|string $value): void
     {
-        /** @scrutinizer ignore-call */
-        $result = TimeValue::fromString(...$args);
+        $result = TimeValue::fromString($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 

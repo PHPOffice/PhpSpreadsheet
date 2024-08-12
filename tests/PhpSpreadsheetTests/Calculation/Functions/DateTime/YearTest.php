@@ -17,7 +17,6 @@ class YearTest extends TestCase
      */
     public function testDirectCallToYEAR(mixed $expectedResultExcel, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = DateParts::year(...$args);
         self::assertSame($expectedResultExcel, $result);
     }

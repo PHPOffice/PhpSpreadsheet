@@ -30,10 +30,9 @@ class Oct2HexTest extends TestCase
     /**
      * @dataProvider providerOCT2HEX
      */
-    public function testDirectCallToOCT2HEX(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToOCT2HEX(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ConvertOctal::toHex(...$args);
+        $result = ($digits === null) ? ConvertOctal::toHex($value) : ConvertOctal::toHex($value, $digits);
         self::assertSame($expectedResult, $result);
     }
 
@@ -52,6 +51,7 @@ class Oct2HexTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=OCT2HEX({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
@@ -112,12 +112,11 @@ class Oct2HexTest extends TestCase
     /**
      * @dataProvider providerOCT2HEXOds
      */
-    public function testOCT2HEXOds(mixed $expectedResult, mixed ...$args): void
+    public function testOCT2HEXOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
-        $result = ConvertOctal::toHex(...$args);
+        $result = ($digits === null) ? ConvertOctal::toHex($value) : ConvertOctal::toHex($value, $digits);
         self::assertSame($expectedResult, $result);
     }
 
@@ -132,14 +131,17 @@ class Oct2HexTest extends TestCase
         $formula = '=OCT2HEX(20.1)';
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame('10', $this->trimIfQuoted((string) $result), 'Gnumeric');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }

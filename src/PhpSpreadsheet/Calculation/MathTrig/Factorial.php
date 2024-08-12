@@ -99,7 +99,7 @@ class Factorial
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
     public static function multinomial(...$args): string|int|float
     {

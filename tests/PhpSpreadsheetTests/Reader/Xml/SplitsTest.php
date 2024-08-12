@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class SplitsTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/Xml/splits.xml';
+    private static string $testbook = 'tests/data/Reader/Xml/splits.xml';
 
     public function testSplits(): void
     {

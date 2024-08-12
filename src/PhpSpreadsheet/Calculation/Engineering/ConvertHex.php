@@ -15,7 +15,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @param array|string $value The hexadecimal number you want to convert.
+     * @param array|bool|float|string $value The hexadecimal number you want to convert.
      *                      Number cannot contain more than 10 characters.
      *                      The most significant bit of number is the sign bit (40th bit from the right).
      *                      The remaining 9 bits are magnitude bits.
@@ -65,7 +65,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @param array|string $value The hexadecimal number you want to convert. This number cannot
+     * @param array|bool|float|int|string $value The hexadecimal number you want to convert. This number cannot
      *                          contain more than 10 characters (40 bits). The most significant
      *                          bit of number is the sign bit. The remaining 39 bits are magnitude
      *                          bits. Negative numbers are represented using two's-complement
@@ -118,7 +118,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @param array|string $value The hexadecimal number you want to convert. Number cannot
+     * @param array|bool|float|int|string $value The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
      *                                    number is the sign bit. The remaining 39 bits are magnitude
      *                                    bits. Negative numbers are represented using two's-complement

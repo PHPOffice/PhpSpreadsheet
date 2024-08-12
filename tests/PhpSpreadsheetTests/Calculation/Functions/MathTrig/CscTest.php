@@ -11,7 +11,7 @@ class CscTest extends AllSetupTeardown
     /**
      * @dataProvider providerCSC
      */
-    public function testCSC(mixed $expectedResult, mixed $angle): void
+    public function testCSC(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -92,4 +92,24 @@ return [
         'fr',
         '=3*ROW(B1)',
     ],
+    'handle _xlfn' => [
+        '=MAXWENNS(C5:C10; C5:C10; "<30")',
+        'de',
+        '=_xlfn.MAXIFS(C5:C10, C5:C10, "<30")',
+    ],
+    'handle _xlfn and _xlws' => [
+        '=ФИЛЬТР(A5:D20;C5:C20=H2;"")',
+        'ru',
+        '=_xlfn._xlws.FILTER(A5:D20,C5:C20=H2,"")',
+    ],
+    'implicit intersection' => [
+        '=@INDEKS(A1:A10;B1)',
+        'nb',
+        '=@INDEX(A1:A10,B1)',
+    ],
+    'preserve literal _xlfn.' => [
+        '=@INDEKS(A1:A10;"_xlfn.")',
+        'nb',
+        '=@INDEX(A1:A10,"_xlfn.")',
+    ],
 ];

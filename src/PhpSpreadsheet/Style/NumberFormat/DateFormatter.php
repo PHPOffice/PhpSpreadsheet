@@ -115,6 +115,7 @@ class DateFormatter
         }
     }
 
+    /** @param float|int $value value to be formatted */
     public static function format(mixed $value, string $format): string
     {
         // strip off first part containing e.g. [$-F800] or [$USD-409]
@@ -125,7 +126,7 @@ class DateFormatter
 
         // OpenOffice.org uses upper-case number formats, e.g. 'YYYY', convert to lower-case;
         //    but we don't want to change any quoted strings
-        /** @var callable */
+        /** @var callable $callable */
         $callable = [self::class, 'setLowercaseCallback'];
         $format = (string) preg_replace_callback('/(?:^|")([^"]*)(?:$|")/', $callable, $format);
 
@@ -155,7 +156,7 @@ class DateFormatter
         $format = implode('"', $blocks);
 
         // escape any quoted characters so that DateTime format() will render them correctly
-        /** @var callable */
+        /** @var callable $callback */
         $callback = [self::class, 'escapeQuotesCallback'];
         $format = (string) preg_replace_callback('/"(.*)"/U', $callback, $format);
 
@@ -206,6 +207,6 @@ class DateFormatter
 
     private static function escapeQuotesCallback(array $matches): string
     {
-        return '\\' . implode('\\', /** @scrutinizer ignore-type */ str_split($matches[1]));
+        return '\\' . implode('\\', str_split($matches[1]));
     }
 }

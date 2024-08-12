@@ -42,33 +42,35 @@ class DateValueTest extends TestCase
         return is_string($expectedResult) && str_starts_with($expectedResult, 'Y-');
     }
 
-    private function parseTemplatedExpectation(string $expectedResult): string
+    private function parseTemplatedExpectation(float|int|string $expectedResult): string
     {
-        return (string) DateValue::fromString(
+        /** @var float */
+        $x = DateValue::fromString(
             (new DateTimeImmutable(
-                str_replace('Y', (new DateTimeImmutable('now'))->format('Y'), $expectedResult)
+                str_replace('Y', (new DateTimeImmutable('now'))->format('Y'), (string) $expectedResult)
             ))->format('Y-m-d')
         );
+
+        return (string) $x;
     }
 
     /**
      * @dataProvider providerDATEVALUE
      */
-    public function testDirectCallToDATEVALUE(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToDATEVALUE(int|string $expectedResult, bool|int|string $value): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
-            $expectedResult = $this->parseTemplatedExpectation($expectedResult);
+            $expectedResult = $this->parseTemplatedExpectation((string) $expectedResult);
         }
 
-        /** @scrutinizer ignore-call */
-        $result = DateValue::fromString(...$args);
+        $result = DateValue::fromString($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
     /**
      * @dataProvider providerDATEVALUE
      */
-    public function testDATEVALUEAsFormula(mixed $expectedResult, mixed ...$args): void
+    public function testDATEVALUEAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -86,7 +88,7 @@ class DateValueTest extends TestCase
     /**
      * @dataProvider providerDATEVALUE
      */
-    public function testDATEVALUEInWorksheet(mixed $expectedResult, mixed ...$args): void
+    public function testDATEVALUEInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);

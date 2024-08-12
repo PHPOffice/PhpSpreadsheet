@@ -14,15 +14,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ConditionalTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    protected $cellRange;
+    protected string $cellRange;
 
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
     protected function setUp(): void
     {

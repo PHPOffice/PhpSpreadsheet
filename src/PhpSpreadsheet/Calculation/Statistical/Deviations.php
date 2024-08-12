@@ -56,8 +56,6 @@ class Deviations
      * relatively flat distribution.
      *
      * @param array ...$args Data Series
-     *
-     * @return float|string
      */
     public static function kurtosis(...$args): string|int|float
     {

@@ -5,6 +5,10 @@
     <file>samples</file>
     <file>src</file>
     <file>tests</file>
+    <file>infra</file>
+    <file>bin/generate-document</file>
+    <file>bin/generate-locales</file>
+    <file>bin/check-phpdoc-types</file>
 
     <exclude-pattern>samples/Header.php</exclude-pattern>
     <exclude-pattern>*/tests/Core/*/*Test\.(inc|css|js)$</exclude-pattern>

@@ -19,4 +19,4 @@ foreach ($paths as $path) {
     }
 }
 
-throw new \Exception('Composer autoloader could not be found. Install dependencies with `composer install` and try again.');
+throw new Exception('Composer autoloader could not be found. Install dependencies with `composer install` and try again.');

@@ -18,7 +18,6 @@ class HourTest extends TestCase
      */
     public function testDirectCallToHOUR(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = TimeParts::hour(...$args);
         self::assertSame($expectedResult, $result);
     }

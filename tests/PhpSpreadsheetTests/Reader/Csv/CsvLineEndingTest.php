@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvLineEndingTest extends TestCase
 {
-    /** @var string */
-    private $tempFile = '';
+    private string $tempFile = '';
 
     protected function tearDown(): void
     {

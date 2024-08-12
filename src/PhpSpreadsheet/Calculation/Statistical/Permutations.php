@@ -46,16 +46,17 @@ class Permutations
         if ($numObjs < $numInSet) {
             return ExcelError::NAN();
         }
+        /** @var float|int|string */
         $result1 = MathTrig\Factorial::fact($numObjs);
         if (is_string($result1)) {
             return $result1;
         }
+        /** @var float|int|string */
         $result2 = MathTrig\Factorial::fact($numObjs - $numInSet);
         if (is_string($result2)) {
             return $result2;
         }
-        // phpstan thinks result1 and result2 can be arrays; they can't.
-        $result = round($result1 / $result2); // @phpstan-ignore-line
+        $result = round($result1 / $result2);
 
         return IntOrFloat::evaluate($result);
     }

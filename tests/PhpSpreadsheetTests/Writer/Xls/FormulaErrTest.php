@@ -12,11 +12,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class FormulaErrTest extends AbstractFunctional
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var ?Spreadsheet */
-    private $reloadedSpreadsheet;
+    private ?Spreadsheet $reloadedSpreadsheet = null;
 
     private bool $allowThrow;
 

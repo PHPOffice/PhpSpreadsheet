@@ -10,24 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class FormattedNumberSlashTest extends TestCase
 {
-    private string $originalCurrencyCode;
-
-    private string $originalDecimalSeparator;
-
-    private string $originalThousandsSeparator;
-
-    protected function setUp(): void
-    {
-        $this->originalCurrencyCode = StringHelper::getCurrencyCode();
-        $this->originalDecimalSeparator = StringHelper::getDecimalSeparator();
-        $this->originalThousandsSeparator = StringHelper::getThousandsSeparator();
-    }
-
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->originalCurrencyCode);
-        StringHelper::setDecimalSeparator($this->originalDecimalSeparator);
-        StringHelper::setThousandsSeparator($this->originalThousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
     }
 
     /**

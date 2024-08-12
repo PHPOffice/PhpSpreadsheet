@@ -23,16 +23,6 @@ class XmlScanner
         return new self($pattern);
     }
 
-    /**
-     * @codeCoverageIgnore
-     *
-     * @deprecated this has no effect at all and always return false. All usages must be removed.
-     */
-    public static function threadSafeLibxmlDisableEntityLoaderAvailability(): bool
-    {
-        return false;
-    }
-
     public function setAdditionalCallback(callable $callback): void
     {
         $this->callback = $callback;
@@ -45,21 +35,33 @@ class XmlScanner
 
     private function toUtf8(string $xml): string
     {
-        $pattern = '/encoding="(.*?)"/';
-        $result = preg_match($pattern, $xml, $matches);
-        $charset = strtoupper($result ? $matches[1] : 'UTF-8');
-
+        $charset = $this->findCharSet($xml);
         if ($charset !== 'UTF-8') {
             $xml = self::forceString(mb_convert_encoding($xml, 'UTF-8', $charset));
 
-            $result = preg_match($pattern, $xml, $matches);
-            $charset = strtoupper($result ? $matches[1] : 'UTF-8');
+            $charset = $this->findCharSet($xml);
             if ($charset !== 'UTF-8') {
                 throw new Reader\Exception('Suspicious Double-encoded XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
             }
         }
 
         return $xml;
+    }
+
+    private function findCharSet(string $xml): string
+    {
+        $patterns = [
+            '/encoding="([^"]*]?)"/',
+            "/encoding='([^']*?)'/",
+        ];
+
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $xml, $matches)) {
+                return strtoupper($matches[1]);
+            }
+        }
+
+        return 'UTF-8';
     }
 
     /**
@@ -74,7 +76,7 @@ class XmlScanner
         $xml = $this->toUtf8($xml);
 
         // Don't rely purely on libxml_disable_entity_loader()
-        $pattern = '/\\0?' . implode('\\0?', /** @scrutinizer ignore-type */ str_split($this->pattern)) . '\\0?/';
+        $pattern = '/\\0?' . implode('\\0?', str_split($this->pattern)) . '\\0?/';
 
         if (preg_match($pattern, $xml)) {
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');

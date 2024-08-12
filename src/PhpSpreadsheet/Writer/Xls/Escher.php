@@ -16,56 +16,46 @@ class Escher
 {
     /**
      * The object we are writing.
-     *
-     * @var Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer
      */
-    private $object;
+    private Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer|SharedEscher $object;
 
     /**
      * The written binary data.
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Shape offsets. Positions in binary stream where a new shape record begins.
-     *
-     * @var array
      */
-    private $spOffsets;
+    private array $spOffsets;
 
     /**
      * Shape types.
-     *
-     * @var array
      */
-    private $spTypes;
+    private array $spTypes;
 
     /**
      * Constructor.
      */
-    public function __construct(mixed $object)
+    public function __construct(Blip|BSE|BstoreContainer|DgContainer|DggContainer|self|SpContainer|SpgrContainer|SharedEscher $object)
     {
         $this->object = $object;
     }
 
     /**
      * Process the object to be written.
-     *
-     * @return string
      */
-    public function close()
+    public function close(): string
     {
         // initialize
         $this->data = '';
 
         switch ($this->object::class) {
             case SharedEscher::class:
-                if ($dggContainer = $this->object->/** @scrutinizer ignore-call */ getDggContainer()) {
+                if ($dggContainer = $this->object->getDggContainer()) {
                     $writer = new self($dggContainer);
                     $this->data = $writer->close();
-                } elseif ($dgContainer = $this->object->/** @scrutinizer ignore-call */ getDgContainer()) {
+                } elseif ($dgContainer = $this->object->getDgContainer()) {
                     $writer = new self($dgContainer);
                     $this->data = $writer->close();
                     $this->spOffsets = $writer->getSpOffsets();
@@ -91,14 +81,13 @@ class Escher
                 $dggData
                     = pack(
                         'VVVV',
-                        $this->object->/** @scrutinizer ignore-call */ getSpIdMax(), // maximum shape identifier increased by one
-                        $this->object->/** @scrutinizer ignore-call */ getCDgSaved() + 1, // number of file identifier clusters increased by one
-                        $this->object->/** @scrutinizer ignore-call */ getCSpSaved(),
-                        $this->object->/** @scrutinizer ignore-call */ getCDgSaved() // count total number of drawings saved
+                        $this->object->getSpIdMax(), // maximum shape identifier increased by one
+                        $this->object->getCDgSaved() + 1, // number of file identifier clusters increased by one
+                        $this->object->getCSpSaved(),
+                        $this->object->getCDgSaved() // count total number of drawings saved
                     );
 
                 // add file identifier clusters (one per drawing)
-                /** @scrutinizer ignore-call */
                 $IDCLs = $this->object->getIDCLs();
 
                 foreach ($IDCLs as $dgId => $maxReducedSpId) {
@@ -109,7 +98,7 @@ class Escher
                 $innerData .= $header . $dggData;
 
                 // write the bstoreContainer
-                if ($bstoreContainer = $this->object->/** @scrutinizer ignore-call */ getBstoreContainer()) {
+                if ($bstoreContainer = $this->object->getBstoreContainer()) {
                     $writer = new self($bstoreContainer);
                     $innerData .= $writer->close();
                 }
@@ -135,7 +124,7 @@ class Escher
                 $innerData = '';
 
                 // treat the inner data
-                if ($BSECollection = $this->object->/** @scrutinizer ignore-call */ getBSECollection()) {
+                if ($BSECollection = $this->object->getBSECollection()) {
                     foreach ($BSECollection as $BSE) {
                         $writer = new self($BSE);
                         $innerData .= $writer->close();
@@ -144,7 +133,7 @@ class Escher
 
                 // write the record
                 $recVer = 0xF;
-                $recInstance = count($this->object->/** @scrutinizer ignore-call */ getBSECollection());
+                $recInstance = count($this->object->getBSECollection());
                 $recType = 0xF001;
                 $length = strlen($innerData);
 
@@ -163,7 +152,7 @@ class Escher
                 $innerData = '';
 
                 // here we treat the inner data
-                if ($blip = $this->object->/** @scrutinizer ignore-call */ getBlip()) {
+                if ($blip = $this->object->getBlip()) {
                     $writer = new self($blip);
                     $innerData .= $writer->close();
                 }
@@ -171,9 +160,7 @@ class Escher
                 // initialize
                 $data = '';
 
-                /** @scrutinizer ignore-call */
                 $btWin32 = $this->object->getBlipType();
-                /** @scrutinizer ignore-call */
                 $btMacOS = $this->object->getBlipType();
                 $data .= pack('CC', $btWin32, $btMacOS);
 
@@ -194,7 +181,6 @@ class Escher
 
                 // write the record
                 $recVer = 0x2;
-                /** @scrutinizer ignore-call */
                 $recInstance = $this->object->getBlipType();
                 $recType = 0xF007;
                 $length = strlen($data);
@@ -213,7 +199,7 @@ class Escher
                 // this is an atom record
 
                 // write the record
-                switch ($this->object->/** @scrutinizer ignore-call */ getParent()->/** @scrutinizer ignore-call */ getBlipType()) {
+                switch ($this->object->getParent()->getBlipType()) {
                     case BSE::BLIPTYPE_JPEG:
                         // initialize
                         $innerData = '';
@@ -224,7 +210,7 @@ class Escher
                         $tag = 0xFF; // todo
                         $innerData .= pack('C', $tag);
 
-                        $innerData .= $this->object->/** @scrutinizer ignore-call */ getData();
+                        $innerData .= $this->object->getData();
 
                         $recVer = 0x0;
                         $recInstance = 0x46A;
@@ -251,7 +237,7 @@ class Escher
                         $tag = 0xFF; // todo
                         $innerData .= pack('C', $tag);
 
-                        $innerData .= $this->object->/** @scrutinizer ignore-call */ getData();
+                        $innerData .= $this->object->getData();
 
                         $recVer = 0x0;
                         $recInstance = 0x6E0;
@@ -279,7 +265,6 @@ class Escher
 
                 // write the dg
                 $recVer = 0x0;
-                /** @scrutinizer ignore-call */
                 $recInstance = $this->object->getDgId();
                 $recType = 0xF008;
                 $length = 8;
@@ -290,11 +275,11 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 // number of shapes in this drawing (including group shape)
-                $countShapes = count($this->object->/** @scrutinizer ignore-call */ getSpgrContainerOrThrow()->getChildren());
-                $innerData .= $header . pack('VV', $countShapes, $this->object->/** @scrutinizer ignore-call */ getLastSpId());
+                $countShapes = count($this->object->getSpgrContainerOrThrow()->getChildren());
+                $innerData .= $header . pack('VV', $countShapes, $this->object->getLastSpId());
 
                 // write the spgrContainer
-                if ($spgrContainer = $this->object->/** @scrutinizer ignore-call */ getSpgrContainer()) {
+                if ($spgrContainer = $this->object->getSpgrContainer()) {
                     $writer = new self($spgrContainer);
                     $innerData .= $writer->close();
 
@@ -337,7 +322,7 @@ class Escher
                 $spTypes = [];
 
                 // treat the inner data
-                foreach ($this->object->/** @scrutinizer ignore-call */ getChildren() as $spContainer) {
+                foreach ($this->object->getChildren() as $spContainer) {
                     $writer = new self($spContainer);
                     $spData = $writer->close();
                     $innerData .= $spData;
@@ -372,7 +357,7 @@ class Escher
                 // build the data
 
                 // write group shape record, if necessary?
-                if ($this->object->/** @scrutinizer ignore-call */ getSpgr()) {
+                if ($this->object->getSpgr()) {
                     $recVer = 0x1;
                     $recInstance = 0x0000;
                     $recType = 0xF009;
@@ -385,12 +370,10 @@ class Escher
 
                     $data .= $header . pack('VVVV', 0, 0, 0, 0);
                 }
-                /** @scrutinizer ignore-call */
                 $this->spTypes[] = ($this->object->getSpType());
 
                 // write the shape record
                 $recVer = 0x2;
-                /** @scrutinizer ignore-call */
                 $recInstance = $this->object->getSpType(); // shape type
                 $recType = 0xF00A;
                 $length = 0x00000008;
@@ -400,16 +383,16 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $data .= $header . pack('VV', $this->object->/** @scrutinizer ignore-call */ getSpId(), $this->object->/** @scrutinizer ignore-call */ getSpgr() ? 0x0005 : 0x0A00);
+                $data .= $header . pack('VV', $this->object->getSpId(), $this->object->getSpgr() ? 0x0005 : 0x0A00);
 
                 // the options
-                if ($this->object->/** @scrutinizer ignore-call */ getOPTCollection()) {
+                if ($this->object->getOPTCollection()) {
                     $optData = '';
 
                     $recVer = 0x3;
-                    $recInstance = count($this->object->/** @scrutinizer ignore-call */ getOPTCollection());
+                    $recInstance = count($this->object->getOPTCollection());
                     $recType = 0xF00B;
-                    foreach ($this->object->/** @scrutinizer ignore-call */ getOPTCollection() as $property => $value) {
+                    foreach ($this->object->getOPTCollection() as $property => $value) {
                         $optData .= pack('vV', $property, $value);
                     }
                     $length = strlen($optData);
@@ -422,38 +405,34 @@ class Escher
                 }
 
                 // the client anchor
-                if ($this->object->/** @scrutinizer ignore-call */ getStartCoordinates()) {
+                if ($this->object->getStartCoordinates()) {
                     $recVer = 0x0;
                     $recInstance = 0x0;
                     $recType = 0xF010;
 
                     // start coordinates
-                    [$column, $row] = Coordinate::indexesFromString($this->object->/** @scrutinizer ignore-call */ getStartCoordinates());
+                    [$column, $row] = Coordinate::indexesFromString($this->object->getStartCoordinates());
                     $c1 = $column - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
-                    /** @scrutinizer ignore-call */
                     $startOffsetX = $this->object->getStartOffsetX();
 
                     // start offsetY
-                    /** @scrutinizer ignore-call */
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    [$column, $row] = Coordinate::indexesFromString($this->object->/** @scrutinizer ignore-call */ getEndCoordinates());
+                    [$column, $row] = Coordinate::indexesFromString($this->object->getEndCoordinates());
                     $c2 = $column - 1;
                     $r2 = $row - 1;
 
                     // end offsetX
-                    /** @scrutinizer ignore-call */
                     $endOffsetX = $this->object->getEndOffsetX();
 
                     // end offsetY
-                    /** @scrutinizer ignore-call */
                     $endOffsetY = $this->object->getEndOffsetY();
 
-                    $clientAnchorData = pack('vvvvvvvvv', $this->object->/** @scrutinizer ignore-call */ getSpFlag(), $c1, $startOffsetX, $r1, $startOffsetY, $c2, $endOffsetX, $r2, $endOffsetY);
+                    $clientAnchorData = pack('vvvvvvvvv', $this->object->getSpFlag(), $c1, $startOffsetX, $r1, $startOffsetY, $c2, $endOffsetX, $r2, $endOffsetY);
 
                     $length = strlen($clientAnchorData);
 
@@ -465,7 +444,7 @@ class Escher
                 }
 
                 // the client data, just empty for now
-                if (!$this->object->/** @scrutinizer ignore-call */ getSpgr()) {
+                if (!$this->object->getSpgr()) {
                     $clientDataData = '';
 
                     $recVer = 0x0;
@@ -502,20 +481,16 @@ class Escher
 
     /**
      * Gets the shape offsets.
-     *
-     * @return array
      */
-    public function getSpOffsets()
+    public function getSpOffsets(): array
     {
         return $this->spOffsets;
     }
 
     /**
      * Gets the shape types.
-     *
-     * @return array
      */
-    public function getSpTypes()
+    public function getSpTypes(): array
     {
         return $this->spTypes;
     }

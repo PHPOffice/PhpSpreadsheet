@@ -36,31 +36,23 @@ class Xls extends BaseWriter
 
     /**
      * Total number of shared strings in workbook.
-     *
-     * @var int
      */
-    private $strTotal = 0;
+    private int $strTotal = 0;
 
     /**
      * Number of unique shared strings in workbook.
-     *
-     * @var int
      */
-    private $strUnique = 0;
+    private int $strUnique = 0;
 
     /**
      * Array of unique shared strings in workbook.
-     *
-     * @var array
      */
-    private $strTable = [];
+    private array $strTable = [];
 
     /**
      * Color cache. Mapping between RGB value and color index.
-     *
-     * @var array
      */
-    private $colors;
+    private array $colors;
 
     /**
      * Formula parser.
@@ -69,34 +61,25 @@ class Xls extends BaseWriter
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.
-     *
-     * @var array
      */
-    private $IDCLs;
+    private array $IDCLs;
 
     /**
      * Basic OLE object summary information.
-     *
-     * @var string
      */
-    private $summaryInformation;
+    private string $summaryInformation;
 
     /**
      * Extended OLE object document summary information.
-     *
-     * @var string
      */
-    private $documentSummaryInformation;
+    private string $documentSummaryInformation;
 
-    /**
-     * @var Workbook
-     */
-    private $writerWorkbook;
+    private Workbook $writerWorkbook;
 
     /**
      * @var Worksheet[]
      */
-    private $writerWorksheets;
+    private array $writerWorksheets;
 
     /**
      * Create a new Xls Writer.
@@ -107,7 +90,7 @@ class Xls extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
 
-        $this->parser = new Xls\Parser($spreadsheet);
+        $this->parser = new Parser($spreadsheet);
     }
 
     /**
@@ -131,12 +114,12 @@ class Xls extends BaseWriter
         $this->colors = [];
 
         // Initialise workbook writer
-        $this->writerWorkbook = new Xls\Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
+        $this->writerWorkbook = new Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
 
         // Initialise worksheet writers
         $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writerWorksheets[$i] = new Xls\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
+            $this->writerWorksheets[$i] = new Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i), $this->writerWorkbook);
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
@@ -747,12 +730,6 @@ class Xls extends BaseWriter
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-                /* Condition below can never be true
-                } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                    $dataSection_Content .= $dataProp['data']['data'];
-
-                    $dataSection_Content_Offset += 4 + 8;
-                */
             } else {
                 $dataSection_Content .= $dataProp['data']['data'];
 
@@ -775,10 +752,7 @@ class Xls extends BaseWriter
         return $data;
     }
 
-    /**
-     * @param float|int $dataProp
-     */
-    private function writeSummaryPropOle($dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
+    private function writeSummaryPropOle(float|int $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
             $dataSection[] = [

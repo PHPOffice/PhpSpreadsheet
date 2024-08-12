@@ -26,19 +26,17 @@ class Functions
     const RETURNDATE_PHP_DATETIME_OBJECT = 'O';
     const RETURNDATE_EXCEL = 'E';
 
+    public const NOT_YET_IMPLEMENTED = '#Not Yet Implemented';
+
     /**
      * Compatibility mode to use for error checking and responses.
-     *
-     * @var string
      */
-    protected static $compatibilityMode = self::COMPATIBILITY_EXCEL;
+    protected static string $compatibilityMode = self::COMPATIBILITY_EXCEL;
 
     /**
      * Data Type to use when returning date values.
-     *
-     * @var string
      */
-    protected static $returnDateType = self::RETURNDATE_EXCEL;
+    protected static string $returnDateType = self::RETURNDATE_EXCEL;
 
     /**
      * Set the Compatibility Mode.
@@ -51,7 +49,7 @@ class Functions
      *
      * @return bool (Success or Failure)
      */
-    public static function setCompatibilityMode($compatibilityMode): bool
+    public static function setCompatibilityMode(string $compatibilityMode): bool
     {
         if (
             ($compatibilityMode == self::COMPATIBILITY_EXCEL)
@@ -75,7 +73,7 @@ class Functions
      *                    Functions::COMPATIBILITY_GNUMERIC     'Gnumeric'
      *                    Functions::COMPATIBILITY_OPENOFFICE   'OpenOfficeCalc'
      */
-    public static function getCompatibilityMode()
+    public static function getCompatibilityMode(): string
     {
         return self::$compatibilityMode;
     }
@@ -91,7 +89,7 @@ class Functions
      *
      * @return bool Success or failure
      */
-    public static function setReturnDateType($returnDateType): bool
+    public static function setReturnDateType(string $returnDateType): bool
     {
         if (
             ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP)
@@ -115,7 +113,7 @@ class Functions
      *                    Functions::RETURNDATE_PHP_DATETIME_OBJECT    'O'
      *                    Functions::RETURNDATE_EXCEL            '     'E'
      */
-    public static function getReturnDateType()
+    public static function getReturnDateType(): string
     {
         return self::$returnDateType;
     }
@@ -127,7 +125,7 @@ class Functions
      */
     public static function DUMMY(): string
     {
-        return '#Not Yet Implemented';
+        return self::NOT_YET_IMPLEMENTED;
     }
 
     public static function isMatrixValue(mixed $idx): bool
@@ -180,10 +178,7 @@ class Functions
         return str_replace('""""', '""', $operator . $operand);
     }
 
-    /**
-     * @return mixed
-     */
-    private static function operandSpecialHandling(mixed $operand)
+    private static function operandSpecialHandling(mixed $operand): mixed
     {
         if (is_numeric($operand) || is_bool($operand)) {
             return $operand;
@@ -205,330 +200,13 @@ class Functions
     }
 
     /**
-     * NULL.
-     *
-     * Returns the error value #NULL!
-     *
-     * @deprecated 1.23.0 Use the null() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::null()
-     *
-     * @return string #NULL!
-     */
-    public static function null(): string
-    {
-        return Information\ExcelError::null();
-    }
-
-    /**
-     * NaN.
-     *
-     * Returns the error value #NUM!
-     *
-     * @deprecated 1.23.0 Use the NAN() method in the Information\Error class instead
-     * @see Information\ExcelError::NAN()
-     *
-     * @return string #NUM!
-     */
-    public static function NAN(): string
-    {
-        return Information\ExcelError::NAN();
-    }
-
-    /**
-     * REF.
-     *
-     * Returns the error value #REF!
-     *
-     * @deprecated 1.23.0 Use the REF() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::REF()
-     *
-     * @return string #REF!
-     */
-    public static function REF(): string
-    {
-        return Information\ExcelError::REF();
-    }
-
-    /**
-     * NA.
-     *
-     * Excel Function:
-     *        =NA()
-     *
-     * Returns the error value #N/A
-     *        #N/A is the error value that means "no value is available."
-     *
-     * @deprecated 1.23.0 Use the NA() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::NA()
-     *
-     * @return string #N/A!
-     */
-    public static function NA(): string
-    {
-        return Information\ExcelError::NA();
-    }
-
-    /**
-     * VALUE.
-     *
-     * Returns the error value #VALUE!
-     *
-     * @deprecated 1.23.0 Use the VALUE() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::VALUE()
-     *
-     * @return string #VALUE!
-     */
-    public static function VALUE(): string
-    {
-        return Information\ExcelError::VALUE();
-    }
-
-    /**
-     * NAME.
-     *
-     * Returns the error value #NAME?
-     *
-     * @deprecated 1.23.0 Use the NAME() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::NAME()
-     *
-     * @return string #NAME?
-     */
-    public static function NAME(): string
-    {
-        return Information\ExcelError::NAME();
-    }
-
-    /**
-     * DIV0.
-     *
-     * @deprecated 1.23.0 Use the DIV0() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::DIV0()
-     *
-     * @return string #Not Yet Implemented
-     */
-    public static function DIV0(): string
-    {
-        return Information\ExcelError::DIV0();
-    }
-
-    /**
-     * ERROR_TYPE.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the type() method in the Information\ExcelError class instead
-     * @see Information\ExcelError::type()
-     *
-     * @return array|int|string
-     */
-    public static function errorType(mixed $value = '')
-    {
-        return Information\ExcelError::type($value);
-    }
-
-    /**
-     * IS_BLANK.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isBlank() method in the Information\Value class instead
-     * @see Information\Value::isBlank()
-     *
-     * @return array|bool
-     */
-    public static function isBlank(mixed $value = null)
-    {
-        return Information\Value::isBlank($value);
-    }
-
-    /**
-     * IS_ERR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isErr() method in the Information\ErrorValue class instead
-     * @see Information\ErrorValue::isErr()
-     *
-     * @return array|bool
-     */
-    public static function isErr(mixed $value = '')
-    {
-        return Information\ErrorValue::isErr($value);
-    }
-
-    /**
-     * IS_ERROR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isError() method in the Information\ErrorValue class instead
-     * @see Information\ErrorValue::isError()
-     *
-     * @return array|bool
-     */
-    public static function isError(mixed $value = '')
-    {
-        return Information\ErrorValue::isError($value);
-    }
-
-    /**
-     * IS_NA.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isNa() method in the Information\ErrorValue class instead
-     * @see Information\ErrorValue::isNa()
-     *
-     * @return array|bool
-     */
-    public static function isNa(mixed $value = '')
-    {
-        return Information\ErrorValue::isNa($value);
-    }
-
-    /**
-     * IS_EVEN.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isEven() method in the Information\Value class instead
-     * @see Information\Value::isEven()
-     *
-     * @return array|bool|string
-     */
-    public static function isEven(mixed $value = null)
-    {
-        return Information\Value::isEven($value);
-    }
-
-    /**
-     * IS_ODD.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isOdd() method in the Information\Value class instead
-     * @see Information\Value::isOdd()
-     *
-     * @return array|bool|string
-     */
-    public static function isOdd(mixed $value = null)
-    {
-        return Information\Value::isOdd($value);
-    }
-
-    /**
-     * IS_NUMBER.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isNumber() method in the Information\Value class instead
-     * @see Information\Value::isNumber()
-     *
-     * @return array|bool
-     */
-    public static function isNumber(mixed $value = null)
-    {
-        return Information\Value::isNumber($value);
-    }
-
-    /**
-     * IS_LOGICAL.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
-     * @see Information\Value::isLogical()
-     */
-    public static function isLogical(mixed $value = null): bool|array
-    {
-        return Information\Value::isLogical($value);
-    }
-
-    /**
-     * IS_TEXT.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isText() method in the Information\Value class instead
-     * @see Information\Value::isText()
-     *
-     * @return array|bool
-     */
-    public static function isText(mixed $value = null)
-    {
-        return Information\Value::isText($value);
-    }
-
-    /**
-     * IS_NONTEXT.
-     *
-     * @param mixed $value Value to check
-     *
-     * @deprecated 1.23.0 Use the isNonText() method in the Information\Value class instead
-     * @see Information\Value::isNonText()
-     *
-     * @return array|bool
-     */
-    public static function isNonText(mixed $value = null)
-    {
-        return Information\Value::isNonText($value);
-    }
-
-    /**
-     * N.
-     *
-     * Returns a value converted to a number
-     *
-     * @deprecated 1.23.0 Use the asNumber() method in the Information\Value class instead
-     * @see Information\Value::asNumber()
-     *
-     * @param null|mixed $value The value you want converted
-     *
-     * @return number|string N converts values listed in the following table
-     *        If value is or refers to N returns
-     *        A number            That number
-     *        A date                The serial number of that date
-     *        TRUE                1
-     *        FALSE                0
-     *        An error value        The error value
-     *        Anything else        0
-     */
-    public static function n($value = null)
-    {
-        return Information\Value::asNumber($value);
-    }
-
-    /**
-     * TYPE.
-     *
-     * Returns a number that identifies the type of a value
-     *
-     * @deprecated 1.23.0 Use the type() method in the Information\Value class instead
-     * @see Information\Value::type()
-     *
-     * @param null|mixed $value The value you want tested
-     *
-     * @return int N converts values listed in the following table
-     *        If value is or refers to N returns
-     *        A number            1
-     *        Text                2
-     *        Logical Value        4
-     *        An error value        16
-     *        Array or Matrix        64
-     */
-    public static function TYPE($value = null): int
-    {
-        return Information\Value::type($value);
-    }
-
-    /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
-     * @param array|mixed $array Array to be flattened
+     * @param mixed $array Array to be flattened
      *
      * @return array Flattened array
      */
-    public static function flattenArray($array): array
+    public static function flattenArray(mixed $array): array
     {
         if (!is_array($array)) {
             return (array) $array;
@@ -550,10 +228,7 @@ class Functions
         return $flattened;
     }
 
-    /**
-     * @return null|mixed
-     */
-    public static function scalar(mixed $value)
+    public static function scalar(mixed $value): mixed
     {
         if (!is_array($value)) {
             return $value;
@@ -573,7 +248,7 @@ class Functions
      *
      * @return array Flattened array
      */
-    public static function flattenArrayIndexed($array)
+    public static function flattenArrayIndexed($array): array
     {
         if (!is_array($array)) {
             return (array) $array;
@@ -603,32 +278,14 @@ class Functions
      * Convert an array to a single scalar value by extracting the first element.
      *
      * @param mixed $value Array or scalar value
-     *
-     * @return mixed
      */
-    public static function flattenSingleValue(mixed $value = '')
+    public static function flattenSingleValue(mixed $value): mixed
     {
         while (is_array($value)) {
             $value = array_shift($value);
         }
 
         return $value;
-    }
-
-    /**
-     * ISFORMULA.
-     *
-     * @deprecated 1.23.0 Use the isFormula() method in the Information\Value class instead
-     * @see Information\Value::isFormula()
-     *
-     * @param mixed $cellReference The cell to check
-     * @param ?Cell $cell The current cell (containing this formula)
-     *
-     * @return array|bool|string
-     */
-    public static function isFormula(mixed $cellReference = '', ?Cell $cell = null)
-    {
-        return Information\Value::isFormula($cellReference, $cell);
     }
 
     public static function expandDefinedName(string $coordinate, Cell $cell): string

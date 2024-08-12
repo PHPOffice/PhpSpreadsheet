@@ -6,17 +6,14 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Stringable;
 
+/**
+ * @implements AddressRange<CellAddress>
+ */
 class CellRange implements AddressRange, Stringable
 {
-    /**
-     * @var CellAddress
-     */
-    protected $from;
+    protected CellAddress $from;
 
-    /**
-     * @var CellAddress
-     */
-    protected $to;
+    protected CellAddress $to;
 
     public function __construct(CellAddress $from, CellAddress $to)
     {

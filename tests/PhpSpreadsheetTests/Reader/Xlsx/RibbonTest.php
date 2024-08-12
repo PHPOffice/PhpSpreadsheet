@@ -26,7 +26,7 @@ class RibbonTest extends AbstractFunctional
         self::assertSame('customUI/customUI.xml', $target);
         $data = $spreadsheet->getRibbonXMLData('data');
         self::assertIsString($data);
-        self::assertSame(1522, strlen(/** @scrutinizer ignore-type */ $data));
+        self::assertSame(1522, strlen($data));
         $vbaCode = (string) $spreadsheet->getMacrosCode();
         self::assertSame(13312, strlen($vbaCode));
         self::assertNull($spreadsheet->getRibbonBinObjects());
@@ -60,7 +60,7 @@ class RibbonTest extends AbstractFunctional
         self::assertSame('customUI/customUI.xml', $target);
         $data = $spreadsheet->getRibbonXMLData('data');
         self::assertIsString($data);
-        self::assertSame(1522, strlen(/** @scrutinizer ignore-type */ $data));
+        self::assertSame(1522, strlen($data));
         $vbaCode = (string) $spreadsheet->getMacrosCode();
         self::assertSame(13312, strlen($vbaCode));
         $spreadsheet->discardMacros();

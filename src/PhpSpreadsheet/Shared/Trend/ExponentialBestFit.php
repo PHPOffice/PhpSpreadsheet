@@ -7,10 +7,8 @@ class ExponentialBestFit extends BestFit
     /**
      * Algorithm type to use for best-fit
      * (Name of this Trend class).
-     *
-     * @var string
      */
-    protected $bestFitType = 'exponential';
+    protected string $bestFitType = 'exponential';
 
     /**
      * Return the Y-Value for a specified value of X.
@@ -19,7 +17,7 @@ class ExponentialBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue): float
+    public function getValueOfYForX(float $xValue): float
     {
         return $this->getIntersect() * $this->getSlope() ** ($xValue - $this->xOffset);
     }
@@ -31,7 +29,7 @@ class ExponentialBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue): float
+    public function getValueOfXForY(float $yValue): float
     {
         return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
     }
@@ -41,7 +39,7 @@ class ExponentialBestFit extends BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      */
-    public function getEquation($dp = 0): string
+    public function getEquation(int $dp = 0): string
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
@@ -54,7 +52,7 @@ class ExponentialBestFit extends BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      */
-    public function getSlope($dp = 0): float
+    public function getSlope(int $dp = 0): float
     {
         if ($dp != 0) {
             return round(exp($this->slope), $dp);
@@ -68,7 +66,7 @@ class ExponentialBestFit extends BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      */
-    public function getIntersect($dp = 0): float
+    public function getIntersect(int $dp = 0): float
     {
         if ($dp != 0) {
             return round(exp($this->intersect), $dp);
@@ -98,9 +96,8 @@ class ExponentialBestFit extends BestFit
      *
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
-     * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct(array $yValues, array $xValues = [], bool $const = true)
     {
         parent::__construct($yValues, $xValues);
 

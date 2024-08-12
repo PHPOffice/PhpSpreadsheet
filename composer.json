@@ -12,6 +12,9 @@
         "spreadsheet"
     ],
     "config": {
+        "platform": {
+            "php" : "8.1.99"
+        },
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -43,26 +46,26 @@
     "scripts": {
         "check": [
             "./bin/check-phpdoc-types",
-            "phpcs src/ tests/ --report=checkstyle",
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
+            "phpcs samples/ src/ tests/ --report=checkstyle",
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
             "phpunit --color=always",
             "phpstan analyse --ansi --memory-limit=2048M"
         ],
         "style": [
-            "phpcs src/ tests/ --report=checkstyle",
+            "phpcs samples/ src/ tests/ --report=checkstyle",
             "php-cs-fixer fix --ansi --dry-run --diff"
         ],
         "fix": [
-            "phpcbf src/ tests/ --report=checkstyle",
+            "phpcbf samples/ src/ tests/ --report=checkstyle",
             "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
         ]
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
@@ -81,19 +84,18 @@
         "markbaker/matrix": "^3.0",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
-        "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
-        "voku/anti-xss": "^4.1"
+        "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
-        "dompdf/dompdf": "^2.0",
+        "dompdf/dompdf": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.2",
         "mitoteam/jpgraph": "^10.3",
         "mpdf/mpdf": "^8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^9.6 || ^10.5",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },

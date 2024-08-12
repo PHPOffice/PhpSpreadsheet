@@ -32,37 +32,19 @@ class CellMatcher
 
     protected Cell $cell;
 
-    /**
-     * @var int
-     */
-    protected $cellRow;
+    protected int $cellRow;
 
     protected Worksheet $worksheet;
 
-    /**
-     * @var int
-     */
-    protected $cellColumn;
+    protected int $cellColumn;
 
-    /**
-     * @var string
-     */
-    protected $conditionalRange;
+    protected string $conditionalRange;
 
-    /**
-     * @var string
-     */
-    protected $referenceCell;
+    protected string $referenceCell;
 
-    /**
-     * @var int
-     */
-    protected $referenceRow;
+    protected int $referenceRow;
 
-    /**
-     * @var int
-     */
-    protected $referenceColumn;
+    protected int $referenceColumn;
 
     protected Calculation $engine;
 
@@ -132,10 +114,7 @@ class CellMatcher
         };
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapValue(mixed $value)
+    protected function wrapValue(mixed $value): float|int|string
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {
@@ -150,18 +129,14 @@ class CellMatcher
         return $value;
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapCellValue()
+    protected function wrapCellValue(): float|int|string
     {
+        $this->cell = $this->worksheet->getCell([$this->cellColumn, $this->cellRow]);
+
         return $this->wrapValue($this->cell->getCalculatedValue());
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function conditionCellAdjustment(array $matches)
+    protected function conditionCellAdjustment(array $matches): float|int|string
     {
         $column = $matches[6];
         $row = $matches[7];
@@ -262,7 +237,7 @@ class CellMatcher
             self::COMPARISON_DUPLICATES_OPERATORS[$conditional->getConditionType()],
             $worksheetName,
             $this->conditionalRange,
-            $this->cellConditionCheck($this->cell->getCalculatedValue())
+            $this->cellConditionCheck($this->cell->getCalculatedValueString())
         );
 
         return $this->evaluateExpression($expression);

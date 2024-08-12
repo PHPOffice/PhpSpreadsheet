@@ -298,7 +298,7 @@ versions of Microsoft Excel.
 **Excel 2003 XML limitations** Please note that Excel 2003 XML format
 has some limits regarding to styling cells and handling large
 spreadsheets via PHP.
-Also, only files using charset UTF-8 are supported.
+Also, only files using charset UTF-8 or ISO-8859-* are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Xml
 
@@ -577,12 +577,10 @@ $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
 
 Line endings for Unix (`\n`) and Windows (`\r\n`) are supported.
 
-Mac line endings (`\r`) are supported as long as PHP itself
-supports them, which it does through release 8.0.
-Support for Mac line endings is deprecated for 8.1,
+Support for Mac line endings  (`\r`) is deprecated since PHP 8.1,
 and is scheduled to remain deprecated for all later PHP8 releases;
-PhpSpreadsheet will continue to support them for 8.*.
-Support is scheduled to be dropped with release 9;
+PhpSpreadsheet will continue to support them for PHP 8.*.
+Support is scheduled to be dropped with PHP 9;
 PhpSpreadsheet will then no longer handle CSV files
 with Mac line endings correctly.
 
@@ -681,6 +679,18 @@ $writer->setOutputEncoding('SJIS-WIN');
 $writer->save("05featuredemo.csv");
 ```
 
+#### Writing CSV files with varying numbers of columns
+
+A CSV file can have a different number of columns in each row. This
+differs from the default behavior when saving as a .csv in Excel, but
+can be enabled in PhpSpreadsheet by using the following code:
+
+``` php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setVariableColumns(true);
+$writer->save("05featuredemo.csv");
+```
+
 #### Decimal and thousands separators
 
 If the worksheet you are exporting contains numbers with decimal or
@@ -718,7 +728,7 @@ extension.
 
 **HTML limitations** Please note that HTML file format has some limits
 regarding to styling cells, number formatting, ...
-Also, only files using charset UTF-8 are supported.
+Declared charsets compatible with ASCII in range 00-7F, and UTF-8/16 with BOM are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Html
 

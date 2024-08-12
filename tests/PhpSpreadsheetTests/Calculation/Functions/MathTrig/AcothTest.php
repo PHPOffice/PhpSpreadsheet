@@ -11,7 +11,7 @@ class AcothTest extends AllSetupTeardown
     /**
      * @dataProvider providerACOTH
      */
-    public function testACOTH(mixed $expectedResult, mixed $number): void
+    public function testACOTH(float|int|string $expectedResult, float|int|string $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

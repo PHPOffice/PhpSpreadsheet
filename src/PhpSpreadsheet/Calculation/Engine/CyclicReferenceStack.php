@@ -9,7 +9,7 @@ class CyclicReferenceStack
      *
      * @var mixed[]
      */
-    private $stack = [];
+    private array $stack = [];
 
     /**
      * Return the number of entries on the stack.
@@ -29,10 +29,8 @@ class CyclicReferenceStack
 
     /**
      * Pop the last entry from the stack.
-     *
-     * @return mixed
      */
-    public function pop()
+    public function pop(): mixed
     {
         return array_pop($this->stack);
     }
@@ -60,7 +58,7 @@ class CyclicReferenceStack
      *
      * @return mixed[]
      */
-    public function showStack()
+    public function showStack(): array
     {
         return $this->stack;
     }

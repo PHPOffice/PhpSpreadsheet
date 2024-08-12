@@ -11,7 +11,7 @@ class AcotTest extends AllSetupTeardown
     /**
      * @dataProvider providerACOT
      */
-    public function testACOT(mixed $expectedResult, mixed $number): void
+    public function testACOT(float|int|string $expectedResult, float|int|string $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

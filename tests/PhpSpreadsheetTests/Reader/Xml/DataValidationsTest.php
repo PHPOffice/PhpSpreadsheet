@@ -11,8 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class DataValidationsTest extends AbstractFunctional
 {
-    /** @var string */
-    private $filename = 'tests/data/Reader/Xml/datavalidations.xml';
+    private string $filename = 'tests/data/Reader/Xml/datavalidations.xml';
 
     public function testValidation(): void
     {

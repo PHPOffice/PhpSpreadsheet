@@ -9,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
 {
+    private const ROUNDING_ADJUSTMENT = (PHP_VERSION_ID < 80400) ? 0 : 1e-14;
+
     /**
      * AMORDEGRC.
      *
@@ -74,12 +76,13 @@ class Amortization
         if (is_string($yearFracx)) {
             return $yearFracx;
         }
-        /** @var float */
+        /** @var float $yearFrac */
         $yearFrac = $yearFracx;
 
         $amortiseCoeff = self::getAmortizationCoefficient($rate);
 
         $rate *= $amortiseCoeff;
+        $rate += self::ROUNDING_ADJUSTMENT;
         $fNRate = round($yearFrac * $rate * $cost, 0);
         $cost -= $fNRate;
         $fRest = $cost - $salvage;
@@ -164,7 +167,7 @@ class Amortization
         if (is_string($yearFracx)) {
             return $yearFracx;
         }
-        /** @var float */
+        /** @var float $yearFrac */
         $yearFrac = $yearFracx;
 
         if (

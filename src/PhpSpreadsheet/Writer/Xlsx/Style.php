@@ -22,7 +22,7 @@ class Style extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeStyles(Spreadsheet $spreadsheet)
+    public function writeStyles(Spreadsheet $spreadsheet): string
     {
         // Create XML writer
         $objWriter = null;
@@ -406,9 +406,6 @@ class Style extends WriterPart
         $objWriter->endElement();
     }
 
-    /** @var mixed */
-    private static $scrutinizerFalse = false;
-
     /**
      * Write Cell Style Xf.
      */
@@ -422,7 +419,7 @@ class Style extends WriterPart
             $objWriter->writeAttribute('quotePrefix', '1');
         }
 
-        if ($style->getNumberFormat()->getBuiltInFormatCode() === self::$scrutinizerFalse) {
+        if ($style->getNumberFormat()->getBuiltInFormatCode() === false) {
             $objWriter->writeAttribute('numFmtId', (string) (int) ($this->getParentWriter()->getNumFmtHashTable()->getIndexForHashCode($style->getNumberFormat()->getHashCode()) + 164));
         } else {
             $objWriter->writeAttribute('numFmtId', (string) (int) $style->getNumberFormat()->getBuiltInFormatCode());
@@ -509,55 +506,8 @@ class Style extends WriterPart
         // fill
         $this->writeFill($objWriter, $style->getFill());
 
-        // alignment
-        $horizontal = Alignment::HORIZONTAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getHorizontal()] ?? '';
-        $vertical = Alignment::VERTICAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getVertical()] ?? '';
-        $rotation = $style->getAlignment()->getTextRotation();
-        if ($horizontal || $vertical || $rotation !== null) {
-            $objWriter->startElement('alignment');
-            if ($horizontal) {
-                $objWriter->writeAttribute('horizontal', $horizontal);
-            }
-            if ($vertical) {
-                $objWriter->writeAttribute('vertical', $vertical);
-            }
-
-            if ($rotation !== null) {
-                if ($rotation >= 0) {
-                    $textRotation = $rotation;
-                } else {
-                    $textRotation = 90 - $rotation;
-                }
-                $objWriter->writeAttribute('textRotation', (string) $textRotation);
-            }
-            $objWriter->endElement();
-        }
-
         // border
         $this->writeBorder($objWriter, $style->getBorders());
-
-        // protection
-        if ((!empty($style->getProtection()->getLocked())) || (!empty($style->getProtection()->getHidden()))) {
-            if (
-                $style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT
-                || $style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT
-            ) {
-                $objWriter->startElement('protection');
-                if (
-                    ($style->getProtection()->getLocked() !== null)
-                    && ($style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT)
-                ) {
-                    $objWriter->writeAttribute('locked', ($style->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
-                }
-                if (
-                    ($style->getProtection()->getHidden() !== null)
-                    && ($style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT)
-                ) {
-                    $objWriter->writeAttribute('hidden', ($style->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
-                }
-                $objWriter->endElement();
-            }
-        }
 
         $objWriter->endElement();
     }
@@ -611,7 +561,7 @@ class Style extends WriterPart
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Style[] All styles in PhpSpreadsheet
      */
-    public function allStyles(Spreadsheet $spreadsheet)
+    public function allStyles(Spreadsheet $spreadsheet): array
     {
         return $spreadsheet->getCellXfCollection();
     }
@@ -643,7 +593,7 @@ class Style extends WriterPart
      *
      * @return Fill[] All fills in PhpSpreadsheet
      */
-    public function allFills(Spreadsheet $spreadsheet)
+    public function allFills(Spreadsheet $spreadsheet): array
     {
         // Get an array of unique fills
         $aFills = [];
@@ -658,7 +608,6 @@ class Style extends WriterPart
         $aFills[] = $fill1;
         // The remaining fills
         $aStyles = $this->allStyles($spreadsheet);
-        /** @var \PhpOffice\PhpSpreadsheet\Style\Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aFills[$style->getFill()->getHashCode()])) {
                 $aFills[$style->getFill()->getHashCode()] = $style->getFill();
@@ -679,7 +628,6 @@ class Style extends WriterPart
         $aFonts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style\Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aFonts[$style->getFont()->getHashCode()])) {
                 $aFonts[$style->getFont()->getHashCode()] = $style->getFont();
@@ -700,7 +648,6 @@ class Style extends WriterPart
         $aBorders = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style\Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aBorders[$style->getBorders()->getHashCode()])) {
                 $aBorders[$style->getBorders()->getHashCode()] = $style->getBorders();
@@ -721,7 +668,6 @@ class Style extends WriterPart
         $aNumFmts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style\Style $style */
         foreach ($aStyles as $style) {
             if ($style->getNumberFormat()->getBuiltInFormatCode() === false && !isset($aNumFmts[$style->getNumberFormat()->getHashCode()])) {
                 $aNumFmts[$style->getNumberFormat()->getHashCode()] = $style->getNumberFormat();

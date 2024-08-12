@@ -13,14 +13,11 @@ class Delimiter
 
     protected string $enclosure;
 
-    /** @var array */
-    protected $counts = [];
+    protected array $counts = [];
 
-    /** @var int */
-    protected $numberLines = 0;
+    protected int $numberLines = 0;
 
-    /** @var ?string */
-    protected $delimiter;
+    protected ?string $delimiter = null;
 
     /**
      * @param resource $fileHandle

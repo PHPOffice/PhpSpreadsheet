@@ -31,7 +31,7 @@ class Days
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function between($endDate, $startDate)
+    public static function between(array|DateTimeInterface|float|int|string $endDate, array|DateTimeInterface|float|int|string $startDate): array|int|string
     {
         if (is_array($endDate) || is_array($startDate)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $endDate, $startDate);

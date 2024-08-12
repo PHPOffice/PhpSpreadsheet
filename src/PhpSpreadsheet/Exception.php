@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-class Exception extends \Exception
+use RuntimeException;
+
+class Exception extends RuntimeException
 {
 }

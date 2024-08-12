@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\TextElement;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -47,5 +48,21 @@ class RichTextTest extends TestCase
         $sheet->getCell('B1')->setValue(-3.5);
         self::assertSame([['ABC', '-3.5']], $sheet->toArray());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNullFont(): void
+    {
+        $richText = new RichText();
+        $textRun = $richText->createTextRun('hello');
+        self::assertNotNull($textRun->getFontOrThrow());
+        $textRun->setFont(null);
+
+        try {
+            $textRun->getFontOrThrow();
+            $foundFont = true;
+        } catch (SpreadsheetException $e) {
+            $foundFont = false;
+        }
+        self::assertFalse($foundFont, 'expected exception not received');
     }
 }

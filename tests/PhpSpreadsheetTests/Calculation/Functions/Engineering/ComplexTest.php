@@ -17,7 +17,6 @@ class ComplexTest extends TestCase
      */
     public function testDirectCallToCOMPLEX(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Complex::complex(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -37,6 +36,7 @@ class ComplexTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=COMPLEX({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }

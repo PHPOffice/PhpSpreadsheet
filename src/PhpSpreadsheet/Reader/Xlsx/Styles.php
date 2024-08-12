@@ -19,25 +19,18 @@ class Styles extends BaseParserClass
 {
     /**
      * Theme instance.
-     *
-     * @var ?Theme
      */
-    private $theme;
+    private ?Theme $theme = null;
 
-    /** @var array */
-    private $workbookPalette = [];
+    private array $workbookPalette = [];
 
-    /** @var array */
-    private $styles = [];
+    private array $styles = [];
 
-    /** @var array */
-    private $cellStyles = [];
+    private array $cellStyles = [];
 
-    /** @var SimpleXMLElement */
-    private $styleXml;
+    private SimpleXMLElement $styleXml;
 
-    /** @var string */
-    private $namespace = '';
+    private string $namespace = '';
 
     public function setNamespace(string $namespace): void
     {
@@ -49,28 +42,17 @@ class Styles extends BaseParserClass
         $this->workbookPalette = $palette;
     }
 
-    /**
-     * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
-     */
-    private static function castBool(mixed $value): bool
-    {
-        return (bool) $value;
-    }
-
     private function getStyleAttributes(SimpleXMLElement $value): SimpleXMLElement
     {
-        $attr = null;
-        if (self::castBool($value)) {
-            $attr = $value->attributes('');
-            if ($attr === null || count($attr) === 0) {
-                $attr = $value->attributes($this->namespace);
-            }
+        $attr = $value->attributes('');
+        if ($attr === null || count($attr) === 0) {
+            $attr = $value->attributes($this->namespace);
         }
 
         return Xlsx::testSimpleXml($attr);
     }
 
-    public function setStyleXml(SimpleXmlElement $styleXml): void
+    public function setStyleXml(SimpleXMLElement $styleXml): void
     {
         $this->styleXml = $styleXml;
     }
@@ -164,8 +146,8 @@ class Styles extends BaseParserClass
             }
             $fillStyle->setRotation((float) ($attr['degree']));
             $gradientFill->registerXPathNamespace('sml', Namespaces::MAIN);
-            $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color));
-            $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color));
+            $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color)); //* @phpstan-ignore-line
+            $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)); //* @phpstan-ignore-line
         } elseif ($fillStyleXml->patternFill) {
             $defaultFillStyle = Fill::FILL_NONE;
             if ($fillStyleXml->patternFill->fgColor) {
@@ -291,10 +273,8 @@ class Styles extends BaseParserClass
 
     /**
      * Read style.
-     *
-     * @param SimpleXMLElement|stdClass $style
      */
-    public function readStyle(Style $docStyle, $style): void
+    public function readStyle(Style $docStyle, SimpleXMLElement|stdClass $style): void
     {
         if ($style instanceof SimpleXMLElement) {
             $this->readNumberFormat($docStyle->getNumberFormat(), $style->numFmt);
@@ -446,11 +426,9 @@ class Styles extends BaseParserClass
      * Get array item.
      *
      * @param mixed $array (usually array, in theory can be false)
-     *
-     * @return stdClass
      */
-    private static function getArrayItem(mixed $array, int $key = 0)
+    private static function getArrayItem(mixed $array): ?SimpleXMLElement
     {
-        return is_array($array) ? ($array[$key] ?? null) : null;
+        return is_array($array) ? ($array[0] ?? null) : null;
     }
 }

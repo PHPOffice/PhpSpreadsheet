@@ -13,7 +13,7 @@ class LogEstTest extends TestCase
     /**
      * @dataProvider providerLOGEST
      */
-    public function testLOGEST(array $expectedResult, mixed $yValues, mixed $xValues, mixed $const, mixed $stats): void
+    public function testLOGEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LOGEST($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);

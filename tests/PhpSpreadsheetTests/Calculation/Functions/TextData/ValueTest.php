@@ -9,26 +9,12 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class ValueTest extends AllSetupTeardown
 {
-    private string $currencyCode;
-
-    private string $decimalSeparator;
-
-    private string $thousandsSeparator;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->currencyCode = StringHelper::getCurrencyCode();
-        $this->decimalSeparator = StringHelper::getDecimalSeparator();
-        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
-    }
-
     protected function tearDown(): void
     {
         parent::tearDown();
-        StringHelper::setCurrencyCode($this->currencyCode);
-        StringHelper::setDecimalSeparator($this->decimalSeparator);
-        StringHelper::setThousandsSeparator($this->thousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
     }
 
     /**

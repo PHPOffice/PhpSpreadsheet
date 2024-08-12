@@ -6,10 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ArrayArgumentProcessor
 {
-    /**
-     * @var ArrayArgumentHelper
-     */
-    private static $arrayArgumentHelper;
+    private static ArrayArgumentHelper $arrayArgumentHelper;
 
     public static function processArguments(
         ArrayArgumentHelper $arrayArgumentHelper,

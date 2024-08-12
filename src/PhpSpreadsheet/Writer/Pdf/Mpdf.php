@@ -10,8 +10,12 @@ class Mpdf extends Pdf
     public const SIMULATED_BODY_START = '<!-- simulated body start -->';
     private const BODY_TAG = '<body>';
 
-    /** @var bool */
-    protected $isMPdf = true;
+    /**
+     * Is the current writer creating mPDF?
+     *
+     * @deprecated 2.0.1 use instanceof Mpdf instead
+     */
+    protected bool $isMPdf = true;
 
     /**
      * Gets the implementation of external PDF library that should be used.
@@ -20,7 +24,7 @@ class Mpdf extends Pdf
      *
      * @return \Mpdf\Mpdf implementation
      */
-    protected function createExternalWriterInstance($config)
+    protected function createExternalWriterInstance(array $config): \Mpdf\Mpdf
     {
         return new \Mpdf\Mpdf($config);
     }
@@ -89,10 +93,8 @@ class Mpdf extends Pdf
 
     /**
      * Convert inches to mm.
-     *
-     * @param float $inches
      */
-    private function inchesToMm($inches): float
+    private function inchesToMm(float $inches): float
     {
         return $inches * 25.4;
     }

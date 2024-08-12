@@ -2,23 +2,22 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Run extends TextElement implements ITextElement
 {
     /**
      * Font.
-     *
-     * @var ?Font
      */
-    private $font;
+    private ?Font $font;
 
     /**
      * Create a new Run instance.
      *
      * @param string $text Text
      */
-    public function __construct($text = '')
+    public function __construct(string $text = '')
     {
         parent::__construct($text);
         // Initialise variables
@@ -27,18 +26,25 @@ class Run extends TextElement implements ITextElement
 
     /**
      * Get font.
-     *
-     * @return null|Font
      */
-    public function getFont()
+    public function getFont(): ?Font
     {
+        return $this->font;
+    }
+
+    public function getFontOrThrow(): Font
+    {
+        if ($this->font === null) {
+            throw new SpreadsheetException('unexpected null font');
+        }
+
         return $this->font;
     }
 
     /**
      * Set font.
      *
-     * @param Font $font Font
+     * @param ?Font $font Font
      *
      * @return $this
      */

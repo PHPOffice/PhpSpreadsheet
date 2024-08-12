@@ -126,7 +126,7 @@ $helper->log('Set country code filter (Column C) to "Germany"');
 $autoFilter->getColumn('D')
     ->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER)
     ->createRule()
-    ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, null, Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE)
+    ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, '', Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE)
     ->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
 
 $helper->log('Add filter on the Date (Column D) to display year to date');

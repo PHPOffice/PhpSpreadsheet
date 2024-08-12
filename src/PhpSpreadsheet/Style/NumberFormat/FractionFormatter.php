@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class FractionFormatter extends BaseFormatter
 {
+    /** @param null|bool|float|int|string $value  value to be formatted */
     public static function format(mixed $value, string $format): string
     {
         $format = self::stripQuotes($format);
@@ -29,7 +30,7 @@ class FractionFormatter extends BaseFormatter
         if (is_numeric($matches[2])) {
             $fractionDivisor = 100 / (int) $matches[2];
         } else {
-            /** @var float */
+            /** @var float $fractionDivisor */
             $fractionDivisor = MathTrig\Gcd::evaluate((int) $decimalPart, $decimalDivisor);
         }
 

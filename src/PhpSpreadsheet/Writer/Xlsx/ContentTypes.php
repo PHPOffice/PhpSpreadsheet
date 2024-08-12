@@ -18,7 +18,7 @@ class ContentTypes extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeContentTypes(Spreadsheet $spreadsheet, $includeCharts = false)
+    public function writeContentTypes(Spreadsheet $spreadsheet, bool $includeCharts = false): string
     {
         // Create XML writer
         $objWriter = null;
@@ -186,6 +186,13 @@ class ContentTypes extends WriterPart
                     }
                 }
             }
+
+            $bgImage = $spreadsheet->getSheet($i)->getBackgroundImage();
+            $mimeType = $spreadsheet->getSheet($i)->getBackgroundMime();
+            $extension = $spreadsheet->getSheet($i)->getBackgroundExtension();
+            if ($bgImage !== '' && !isset($aMediaContentTypes[$mimeType])) {
+                $this->writeDefaultContentType($objWriter, $extension, $mimeType);
+            }
         }
 
         // unparsed defaults
@@ -200,6 +207,11 @@ class ContentTypes extends WriterPart
             foreach ($unparsedLoadedData['override_content_types'] as $partName => $overrideType) {
                 $this->writeOverrideContentType($objWriter, $partName, $overrideType);
             }
+        }
+
+        // Metadata needed for Dynamic Arrays
+        if ($this->getParentWriter()->useDynamicArrays()) {
+            $this->writeOverrideContentType($objWriter, '/xl/metadata.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml');
         }
 
         $objWriter->endElement();
@@ -217,7 +229,7 @@ class ContentTypes extends WriterPart
      *
      * @return string Mime Type
      */
-    private function getImageMimeType($filename): string
+    private function getImageMimeType(string $filename): string
     {
         if (File::fileExists($filename)) {
             $image = getimagesize($filename);
@@ -234,7 +246,7 @@ class ContentTypes extends WriterPart
      * @param string $partName Part name
      * @param string $contentType Content type
      */
-    private function writeDefaultContentType(XMLWriter $objWriter, $partName, $contentType): void
+    private function writeDefaultContentType(XMLWriter $objWriter, string $partName, string $contentType): void
     {
         if ($partName != '' && $contentType != '') {
             // Write content type
@@ -253,7 +265,7 @@ class ContentTypes extends WriterPart
      * @param string $partName Part name
      * @param string $contentType Content type
      */
-    private function writeOverrideContentType(XMLWriter $objWriter, $partName, $contentType): void
+    private function writeOverrideContentType(XMLWriter $objWriter, string $partName, string $contentType): void
     {
         if ($partName != '' && $contentType != '') {
             // Write content type

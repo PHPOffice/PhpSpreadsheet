@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -20,17 +21,13 @@ class Table implements Stringable
 
     /**
      * Show Header Row.
-     *
-     * @var bool
      */
-    private $showHeaderRow = true;
+    private bool $showHeaderRow = true;
 
     /**
      * Show Totals Row.
-     *
-     * @var bool
      */
-    private $showTotalsRow = false;
+    private bool $showTotalsRow = false;
 
     /**
      * Table Range.
@@ -44,17 +41,15 @@ class Table implements Stringable
 
     /**
      * Table allow filter.
-     *
-     * @var bool
      */
-    private $allowFilter = true;
+    private bool $allowFilter = true;
 
     /**
      * Table Column.
      *
      * @var Table\Column[]
      */
-    private $columns = [];
+    private array $columns = [];
 
     /**
      * Table Style.
@@ -69,13 +64,13 @@ class Table implements Stringable
     /**
      * Create a new Table.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      * @param string $name (e.g. Table1)
      */
-    public function __construct($range = '', string $name = '')
+    public function __construct(AddressRange|string|array $range = '', string $name = '')
     {
         $this->style = new TableStyle();
         $this->autoFilter = new AutoFilter($range);
@@ -184,7 +179,7 @@ class Table implements Stringable
         foreach ($worksheet->getCoordinates(false) as $coordinate) {
             $cell = $worksheet->getCell($coordinate);
             if ($cell->getDataType() === DataType::TYPE_FORMULA) {
-                $formula = $cell->getValue();
+                $formula = $cell->getValueString();
                 if (preg_match($pattern, $formula) === 1) {
                     $formula = preg_replace($pattern, "{$newName}[", $formula);
                     $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
@@ -200,8 +195,8 @@ class Table implements Stringable
         foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
             $formula = $namedFormula->getValue();
             if (preg_match($pattern, $formula) === 1) {
-                $formula = preg_replace($pattern, "{$newName}[", $formula);
-                $namedFormula->setValue($formula); // @phpstan-ignore-line
+                $formula = preg_replace($pattern, "{$newName}[", $formula) ?? '';
+                $namedFormula->setValue($formula);
             }
         }
     }
@@ -273,12 +268,12 @@ class Table implements Stringable
     /**
      * Set Table Cell Range.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
-    public function setRange($range = ''): self
+    public function setRange(AddressRange|string|array $range = ''): self
     {
         // extract coordinate
         if ($range !== '') {
@@ -413,7 +408,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function getColumn($column): Table\Column
+    public function getColumn(string $column): Table\Column
     {
         $this->isColumnInRange($column);
 
@@ -429,7 +424,7 @@ class Table implements Stringable
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
-    public function getColumnByOffset($columnOffset): Table\Column
+    public function getColumnByOffset(int $columnOffset): Table\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -443,7 +438,7 @@ class Table implements Stringable
      * @param string|Table\Column $columnObjectOrString
      *            A simple string containing a Column ID like 'A' is permitted
      */
-    public function setColumn($columnObjectOrString): self
+    public function setColumn(string|Table\Column $columnObjectOrString): self
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
@@ -470,7 +465,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function clearColumn($column): self
+    public function clearColumn(string $column): self
     {
         $this->isColumnInRange($column);
 
@@ -491,7 +486,7 @@ class Table implements Stringable
      * @param string $fromColumn Column name (e.g. A)
      * @param string $toColumn Column name (e.g. B)
      */
-    public function shiftColumn($fromColumn, $toColumn): self
+    public function shiftColumn(string $fromColumn, string $toColumn): self
     {
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);
@@ -512,7 +507,7 @@ class Table implements Stringable
     /**
      * Get table Style.
      */
-    public function getStyle(): Table\TableStyle
+    public function getStyle(): TableStyle
     {
         return $this->style;
     }

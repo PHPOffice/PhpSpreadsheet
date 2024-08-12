@@ -13,14 +13,17 @@ class LinearBestFitTest extends TestCase
 
     /**
      * @dataProvider providerLinearBestFit
+     *
+     * @param array<float> $yValues
+     * @param array<float> $xValues
      */
     public function testLinearBestFit(
-        mixed $expectedSlope,
-        mixed $expectedIntersect,
-        mixed $expectedGoodnessOfFit,
+        array $expectedSlope,
+        array $expectedIntersect,
+        array $expectedGoodnessOfFit,
         mixed $expectedEquation,
-        mixed $yValues,
-        mixed $xValues
+        array $yValues,
+        array $xValues
     ): void {
         $bestFit = new LinearBestFit($yValues, $xValues);
         $slope = $bestFit->getSlope(1);

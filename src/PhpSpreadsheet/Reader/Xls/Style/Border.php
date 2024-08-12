@@ -9,7 +9,7 @@ class Border
     /**
      * @var array<int, string>
      */
-    protected static $borderStyleMap = [
+    protected static array $borderStyleMap = [
         0x00 => StyleBorder::BORDER_NONE,
         0x01 => StyleBorder::BORDER_THIN,
         0x02 => StyleBorder::BORDER_MEDIUM,

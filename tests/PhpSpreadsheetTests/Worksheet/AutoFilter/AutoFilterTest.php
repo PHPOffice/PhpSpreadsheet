@@ -282,18 +282,6 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setColumn($invalidColumn);
     }
 
-    public function testSetColumnWithInvalidDataType(): void
-    {
-        $this->expectException(PhpSpreadsheetException::class);
-
-        $sheet = $this->getSheet();
-        $autoFilter = $sheet->getAutoFilter();
-        $autoFilter->setRange(self::INITIAL_RANGE);
-        $invalidColumn = 123.456;
-        // @phpstan-ignore-next-line
-        $autoFilter->setColumn($invalidColumn);
-    }
-
     public function testGetColumns(): void
     {
         $sheet = $this->getSheet();
@@ -375,7 +363,7 @@ class AutoFilterTest extends SetupTeardown
 
     public function testGetColumnWithoutRangeSet(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException(PhpSpreadsheetException::class);
         $sheet = $this->getSheet();
         $autoFilter = $sheet->getAutoFilter();
         $autoFilter->setRange(self::INITIAL_RANGE);

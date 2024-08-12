@@ -6,33 +6,27 @@ class Theme
 {
     /**
      * Theme Name.
-     *
-     * @var string
      */
-    private $themeName;
+    private string $themeName;
 
     /**
      * Colour Scheme Name.
-     *
-     * @var string
      */
-    private $colourSchemeName;
+    private string $colourSchemeName;
 
     /**
      * Colour Map.
      *
      * @var string[]
      */
-    private $colourMap;
+    private array $colourMap;
 
     /**
      * Create a new Theme.
      *
-     * @param string $themeName
-     * @param string $colourSchemeName
      * @param string[] $colourMap
      */
-    public function __construct($themeName, $colourSchemeName, $colourMap)
+    public function __construct(string $themeName, string $colourSchemeName, array $colourMap)
     {
         // Initialise values
         $this->themeName = $themeName;
@@ -43,11 +37,9 @@ class Theme
     /**
      * Not called by Reader, never accessible any other time.
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      */
-    public function getThemeName()
+    public function getThemeName(): string
     {
         return $this->themeName;
     }
@@ -55,23 +47,17 @@ class Theme
     /**
      * Not called by Reader, never accessible any other time.
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      */
-    public function getColourSchemeName()
+    public function getColourSchemeName(): string
     {
         return $this->colourSchemeName;
     }
 
     /**
      * Get colour Map Value by Position.
-     *
-     * @param int $index
-     *
-     * @return null|string
      */
-    public function getColourByIndex($index)
+    public function getColourByIndex(int $index): ?string
     {
         return $this->colourMap[$index] ?? null;
     }

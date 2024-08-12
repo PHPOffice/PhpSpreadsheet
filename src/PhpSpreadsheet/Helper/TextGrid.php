@@ -12,10 +12,7 @@ class TextGrid
 
     protected array $columns;
 
-    /**
-     * @var string
-     */
-    private $gridDisplay;
+    private string $gridDisplay;
 
     public function __construct(array $matrix, bool $isCli = true)
     {

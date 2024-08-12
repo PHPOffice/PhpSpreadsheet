@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf2;
 
 require __DIR__ . '/../Header.php';
-require_once __DIR__ . '/mpdf2.inc';
+require_once __DIR__ . '/Mpdf2.php';
 
 $spreadsheet = new Spreadsheet();
 

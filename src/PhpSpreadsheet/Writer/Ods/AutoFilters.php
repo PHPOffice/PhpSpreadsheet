@@ -19,12 +19,9 @@ class AutoFilters
         $this->spreadsheet = $spreadsheet;
     }
 
-    /** @var mixed */
-    private static $scrutinizerFalse = false;
-
     public function write(): void
     {
-        $wrapperWritten = self::$scrutinizerFalse;
+        $wrapperWritten = false;
         $sheetCount = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
             $worksheet = $this->spreadsheet->getSheet($i);
@@ -50,7 +47,7 @@ class AutoFilters
         }
     }
 
-    protected function formatRange(Worksheet $worksheet, Autofilter $autofilter): string
+    protected function formatRange(Worksheet $worksheet, AutoFilter $autofilter): string
     {
         $title = $worksheet->getTitle();
         $range = $autofilter->getRange();

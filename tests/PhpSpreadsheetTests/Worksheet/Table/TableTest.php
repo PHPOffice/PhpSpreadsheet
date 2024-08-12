@@ -156,7 +156,7 @@ class TableTest extends SetupTeardown
     }
 
     /**
-     * @param AddressRange|array<int>|string $fullRange
+     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $fullRange
      */
     public function xtestSetRangeValidRange(string|array|AddressRange $fullRange, string $actualRange): void
     {
@@ -372,16 +372,6 @@ class TableTest extends SetupTeardown
         $table->setColumn($invalidColumn);
     }
 
-    public function testSetColumnWithInvalidDataType(): void
-    {
-        $this->expectException(PhpSpreadsheetException::class);
-
-        $table = new Table(self::INITIAL_RANGE);
-        $invalidColumn = 123.456;
-        // @phpstan-ignore-next-line
-        $table->setColumn($invalidColumn);
-    }
-
     public function testGetColumns(): void
     {
         $table = new Table(self::INITIAL_RANGE);
@@ -455,7 +445,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnWithoutRangeSet(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException(PhpSpreadsheetException::class);
         $table = new Table(self::INITIAL_RANGE);
 
         //  Clear the range

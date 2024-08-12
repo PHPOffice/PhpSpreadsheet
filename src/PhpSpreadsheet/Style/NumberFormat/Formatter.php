@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Formatter
+class Formatter extends BaseFormatter
 {
     /**
      * Matches any @ symbol that isn't enclosed in quotes.
@@ -42,6 +42,7 @@ class Formatter
         };
     }
 
+    /** @param float|int|string $value value to be formatted */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
@@ -107,15 +108,18 @@ class Formatter
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
-     * @param null|bool|float|int|RichText|string $value Value to format
+     * @param null|array|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param array $callBack Callback function for additional formatting of string
+     * @param ?array $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, $format, $callBack = null)
+    public static function toFormattedString($value, string $format, ?array $callBack = null): string
     {
+        while (is_array($value)) {
+            $value = array_shift($value);
+        }
         if (is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();
         }
@@ -133,7 +137,7 @@ class Formatter
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
         // it seems to round numbers to a total of 10 digits.
         if (($format === NumberFormat::FORMAT_GENERAL) || ($format === NumberFormat::FORMAT_TEXT)) {
-            return (string) $value;
+            return self::adjustSeparators((string) $value);
         }
 
         // Ignore square-$-brackets prefix in format string, like "[$-411]ge.m.d", "[$-010419]0%", etc

@@ -11,30 +11,23 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    private string $currencyCode;
-
-    private string $decimalSeparator;
-
-    private string $thousandsSeparator;
-
     protected function setUp(): void
     {
-        $this->currencyCode = StringHelper::getCurrencyCode();
-        $this->decimalSeparator = StringHelper::getDecimalSeparator();
-        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(',');
     }
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->currencyCode);
-        StringHelper::setDecimalSeparator($this->decimalSeparator);
-        StringHelper::setThousandsSeparator($this->thousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
     }
 
     /**
      * @dataProvider providerNumberFormat
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
@@ -49,6 +42,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatFractions
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
@@ -63,6 +58,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatDates
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {

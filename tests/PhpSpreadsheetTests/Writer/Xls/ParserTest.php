@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {

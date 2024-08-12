@@ -176,10 +176,8 @@ class Rule
 
     /**
      * Autofilter Rule Type.
-     *
-     * @var string
      */
-    private $ruleType = self::AUTOFILTER_RULETYPE_FILTER;
+    private string $ruleType = self::AUTOFILTER_RULETYPE_FILTER;
 
     /**
      * Autofilter Rule Value.
@@ -190,17 +188,13 @@ class Rule
 
     /**
      * Autofilter Rule Operator.
-     *
-     * @var string
      */
-    private $operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
+    private string $operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
 
     /**
      * DateTimeGrouping Group Value.
-     *
-     * @var string
      */
-    private $grouping = '';
+    private string $grouping = '';
 
     /**
      * Create a new Rule.
@@ -219,10 +213,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Type.
-     *
-     * @return string
      */
-    public function getRuleType()
+    public function getRuleType(): string
     {
         return $this->ruleType;
     }
@@ -234,7 +226,7 @@ class Rule
      *
      * @return $this
      */
-    public function setRuleType($ruleType): static
+    public function setRuleType(string $ruleType): static
     {
         $this->setEvaluatedFalse();
         if (!in_array($ruleType, self::RULE_TYPES)) {
@@ -291,10 +283,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Operator.
-     *
-     * @return string
      */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
@@ -306,7 +296,7 @@ class Rule
      *
      * @return $this
      */
-    public function setOperator($operator): static
+    public function setOperator(string $operator): static
     {
         $this->setEvaluatedFalse();
         if (empty($operator)) {
@@ -325,10 +315,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Grouping.
-     *
-     * @return string
      */
-    public function getGrouping()
+    public function getGrouping(): string
     {
         return $this->grouping;
     }
@@ -336,11 +324,9 @@ class Rule
     /**
      * Set AutoFilter Rule Grouping.
      *
-     * @param string $grouping
-     *
      * @return $this
      */
-    public function setGrouping($grouping): static
+    public function setGrouping(string $grouping): static
     {
         $this->setEvaluatedFalse();
         if (
@@ -361,11 +347,10 @@ class Rule
      *
      * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
      * @param int|int[]|string|string[] $value
-     * @param string $grouping
      *
      * @return $this
      */
-    public function setRule($operator, $value, $grouping = null): static
+    public function setRule(string $operator, $value, ?string $grouping = null): static
     {
         $this->setEvaluatedFalse();
         $this->setOperator($operator);
@@ -382,10 +367,8 @@ class Rule
 
     /**
      * Get this Rule's AutoFilter Column Parent.
-     *
-     * @return ?Column
      */
-    public function getParent()
+    public function getParent(): ?Column
     {
         return $this->parent;
     }

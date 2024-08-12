@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Pane
 {
-    private string $sqref = '';
+    private string $sqref;
 
-    private string $activeCell = '';
+    private string $activeCell;
 
     private string $position;
 

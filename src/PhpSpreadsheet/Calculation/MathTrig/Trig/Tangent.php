@@ -134,8 +134,7 @@ class Tangent
      * @param mixed $xCoordinate should be float, the x-coordinate of the point, or can be an array of numbers
      * @param mixed $yCoordinate should be float, the y-coordinate of the point, or can be an array of numbers
      *
-     * @return array|float|string
-     *         The inverse tangent of the specified x- and y-coordinates, or a string containing an error
+     * @return array|float|string The inverse tangent of the specified x- and y-coordinates, or a string containing an error
      *         If an array of numbers is passed as one of the arguments, then the returned result will also be an array
      *            with the same dimensions
      */

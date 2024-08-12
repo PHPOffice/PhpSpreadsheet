@@ -42,7 +42,7 @@ class LeftTest extends AllSetupTeardown
     /**
      * @dataProvider providerLocaleLEFT
      */
-    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $characters): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

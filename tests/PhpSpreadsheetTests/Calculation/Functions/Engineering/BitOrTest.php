@@ -16,16 +16,16 @@ class BitOrTest extends TestCase
     /**
      * @dataProvider providerBITOR
      */
-    public function testDirectCallToBITOR(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToBITOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
-        $result = BitWise::BITOR(...$args);
+        $result = BitWise::BITOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
     /**
      * @dataProvider providerBITOR
      */
-    public function testBITORAsFormula(mixed $expectedResult, mixed ...$args): void
+    public function testBITORAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -39,7 +39,7 @@ class BitOrTest extends TestCase
     /**
      * @dataProvider providerBITOR
      */
-    public function testBITORInWorksheet(mixed $expectedResult, mixed ...$args): void
+    public function testBITORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -24,7 +24,7 @@ class SwitchTest extends AllSetupTeardown
     /**
      * @dataProvider providerSwitchArray
      */
-    public function testIfsArray(array $expectedResult, mixed $expression, mixed $value1, string $result1, mixed $value2, string $result2, string $default): void
+    public function testIfsArray(array $expectedResult, int $expression, int $value1, string $result1, int $value2, string $result2, string $default): void
     {
         $calculation = Calculation::getInstance();
 

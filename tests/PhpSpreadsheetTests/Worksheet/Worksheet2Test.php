@@ -86,7 +86,6 @@ class Worksheet2Test extends TestCase
         self::assertSame('D3', $selected);
         self::assertSame('bottomLeft', $pane);
         $worksheet->unfreezePane();
-        // Scrutinizer is an idiot. If it still complains, I give up.
         self::assertNull($this->getPane($worksheet));
         $freeze = $this->getPane($worksheet);
         $pane = $worksheet->getActivePane();

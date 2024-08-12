@@ -9,7 +9,7 @@ class ConditionalFormatting
     /**
      * @var array<int, string>
      */
-    private static $types = [
+    private static array $types = [
         0x01 => Conditional::CONDITION_CELLIS,
         0x02 => Conditional::CONDITION_EXPRESSION,
     ];
@@ -17,7 +17,7 @@ class ConditionalFormatting
     /**
      * @var array<int, string>
      */
-    private static $operators = [
+    private static array $operators = [
         0x00 => Conditional::OPERATOR_NONE,
         0x01 => Conditional::OPERATOR_BETWEEN,
         0x02 => Conditional::OPERATOR_NOTBETWEEN,

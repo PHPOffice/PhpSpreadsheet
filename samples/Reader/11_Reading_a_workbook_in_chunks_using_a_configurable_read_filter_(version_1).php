@@ -13,23 +13,20 @@ $inputFileName = __DIR__ . '/sampleData/example2.xls';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private $startRow = 0;
+    private int $startRow;
 
-    private $endRow = 0;
+    private int $endRow;
 
     /**
      * We expect a list of the rows that we want to read to be passed into the constructor.
-     *
-     * @param mixed $startRow
-     * @param mixed $chunkSize
      */
-    public function __construct($startRow, $chunkSize)
+    public function __construct(int $startRow, int $chunkSize)
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         //  Only read the heading row, and the rows that were configured in the constructor
         if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
@@ -40,7 +37,7 @@ class ChunkReadFilter implements IReadFilter
     }
 }
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 // Create a new Reader of the type defined in $inputFileType
 $reader = IOFactory::createReader($inputFileType);
 

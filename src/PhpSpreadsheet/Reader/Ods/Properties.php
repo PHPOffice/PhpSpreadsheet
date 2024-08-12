@@ -21,14 +21,12 @@ class Properties
         $officeProperty = $xml->children($namespacesMeta['office']);
         foreach ($officeProperty as $officePropertyData) {
             if (isset($namespacesMeta['dc'])) {
-                /** @scrutinizer ignore-call */
                 $officePropertiesDC = $officePropertyData->children($namespacesMeta['dc']);
                 $this->setCoreProperties($docProps, $officePropertiesDC);
             }
 
             $officePropertyMeta = null;
             if (isset($namespacesMeta['dc'])) {
-                /** @scrutinizer ignore-call */
                 $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
             }
             $officePropertyMeta = $officePropertyMeta ?? [];
@@ -103,7 +101,7 @@ class Properties
         }
     }
 
-    private function setUserDefinedProperty(mixed $propertyValueAttributes, string $propertyValue, DocumentProperties $docProps): void
+    private function setUserDefinedProperty(iterable $propertyValueAttributes, string $propertyValue, DocumentProperties $docProps): void
     {
         $propertyValueName = '';
         $propertyValueType = DocumentProperties::PROPERTY_TYPE_STRING;

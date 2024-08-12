@@ -6,8 +6,13 @@ includes:
 parameters:
     level: 8
     paths:
+        - samples/
         - src/
         - tests/
+        - infra/
+        - bin/generate-document
+        - bin/generate-locales
+        - bin/check-phpdoc-types
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
@@ -17,7 +22,8 @@ parameters:
         - src/PhpSpreadsheet/Writer/ZipStream3.php
     parallel:
         processTimeout: 300.0
-    checkMissingIterableValueType: false
     ignoreErrors:
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
+        - '~^Variable \$helper might not be defined\.$~'
+        - identifier: missingType.iterableValue

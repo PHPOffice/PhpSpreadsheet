@@ -76,10 +76,9 @@ class Errors extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments): self
+    public function __call(string $methodName, array $arguments): self
     {
         if (!array_key_exists($methodName, self::OPERATORS)) {
             throw new Exception('Invalid Operation for Errors CF Rule Wizard');

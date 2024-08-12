@@ -39,8 +39,6 @@ class Coupons
      *                         2               Actual/360
      *                         3               Actual/365
      *                         4               European 30/360
-     *
-     * @return float|string
      */
     public static function COUPDAYBS(
         mixed $settlement,
@@ -102,8 +100,6 @@ class Coupons
      *                         2               Actual/360
      *                         3               Actual/365
      *                         4               European 30/360
-     *
-     * @return float|string
      */
     public static function COUPDAYS(
         mixed $settlement,
@@ -197,7 +193,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        /** @var int */
+        /** @var int $daysPerYear */
         $daysPerYear = Helpers::daysPerYear(Functions::Scalar(DateTimeExcel\DateParts::year($settlement)), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
@@ -257,8 +253,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -310,8 +305,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -370,8 +364,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -410,10 +403,5 @@ class Coupons
         if ($settlement >= $maturity) {
             throw new Exception(ExcelError::NAN());
         }
-    }
-
-    private static function doNothing(mixed $basis): bool
-    {
-        return $basis;
     }
 }

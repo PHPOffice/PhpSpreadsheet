@@ -5,6 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Stringable;
 
+/**
+ * @implements AddressRange<int>
+ */
 class RowRange implements AddressRange, Stringable
 {
     protected ?Worksheet $worksheet;

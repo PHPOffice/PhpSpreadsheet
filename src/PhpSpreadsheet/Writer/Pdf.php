@@ -16,10 +16,8 @@ abstract class Pdf extends Html
 
     /**
      * Font.
-     *
-     * @var string
      */
-    protected $font = 'freesans';
+    protected string $font = 'freesans';
 
     /**
      * Orientation (Over-ride).
@@ -28,17 +26,13 @@ abstract class Pdf extends Html
 
     /**
      * Paper size (Over-ride).
-     *
-     * @var ?int
      */
-    protected $paperSize;
+    protected ?int $paperSize = null;
 
     /**
      * Paper Sizes xRef List.
-     *
-     * @var array
      */
-    protected static $paperSizes = [
+    protected static array $paperSizes = [
         PageSetup::PAPERSIZE_LETTER => 'LETTER', //    (8.5 in. by 11 in.)
         PageSetup::PAPERSIZE_LETTER_SMALL => 'LETTER', //    (8.5 in. by 11 in.)
         PageSetup::PAPERSIZE_TABLOID => [792.00, 1224.00], //    (11 in. by 17 in.)
@@ -122,10 +116,8 @@ abstract class Pdf extends Html
 
     /**
      * Get Font.
-     *
-     * @return string
      */
-    public function getFont()
+    public function getFont(): string
     {
         return $this->font;
     }
@@ -137,11 +129,9 @@ abstract class Pdf extends Html
      *      'arialunicid0-korean'
      *      'arialunicid0-japanese'.
      *
-     * @param string $fontName
-     *
      * @return $this
      */
-    public function setFont($fontName)
+    public function setFont(string $fontName)
     {
         $this->font = $fontName;
 
@@ -150,10 +140,8 @@ abstract class Pdf extends Html
 
     /**
      * Get Paper Size.
-     *
-     * @return ?int
      */
-    public function getPaperSize()
+    public function getPaperSize(): ?int
     {
         return $this->paperSize;
     }
@@ -162,10 +150,8 @@ abstract class Pdf extends Html
      * Set Paper Size.
      *
      * @param int $paperSize Paper size see PageSetup::PAPERSIZE_*
-     *
-     * @return self
      */
-    public function setPaperSize($paperSize)
+    public function setPaperSize(int $paperSize): self
     {
         $this->paperSize = $paperSize;
 
@@ -184,10 +170,8 @@ abstract class Pdf extends Html
      * Set Orientation.
      *
      * @param string $orientation Page orientation see PageSetup::ORIENTATION_*
-     *
-     * @return self
      */
-    public function setOrientation($orientation)
+    public function setOrientation(string $orientation): self
     {
         $this->orientation = $orientation;
 
@@ -196,10 +180,8 @@ abstract class Pdf extends Html
 
     /**
      * Get temporary storage directory.
-     *
-     * @return string
      */
-    public function getTempDir()
+    public function getTempDir(): string
     {
         return $this->tempDir;
     }
@@ -208,10 +190,8 @@ abstract class Pdf extends Html
      * Set temporary storage directory.
      *
      * @param string $temporaryDirectory Temporary storage directory
-     *
-     * @return self
      */
-    public function setTempDir($temporaryDirectory)
+    public function setTempDir(string $temporaryDirectory): self
     {
         if (is_dir($temporaryDirectory)) {
             $this->tempDir = $temporaryDirectory;
@@ -225,7 +205,7 @@ abstract class Pdf extends Html
     /**
      * Save Spreadsheet to PDF file, pre-save.
      *
-     * @param string $filename Name of the file to save as
+     * @param resource|string $filename Name of the file to save as
      *
      * @return resource
      */

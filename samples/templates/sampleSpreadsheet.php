@@ -74,19 +74,19 @@ $helper->log('Add comments');
 
 $spreadsheet->getActiveSheet()->getComment('E11')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFont()->setBold(true);
+$commentRichText->getFontOrThrow()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun('Total amount on the current invoice, excluding VAT.');
 
 $spreadsheet->getActiveSheet()->getComment('E12')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFont()->setBold(true);
+$commentRichText->getFontOrThrow()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun('Total amount of VAT on the current invoice.');
 
 $spreadsheet->getActiveSheet()->getComment('E13')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFont()->setBold(true);
+$commentRichText->getFontOrThrow()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun('Total amount on the current invoice, including VAT.');
 $spreadsheet->getActiveSheet()->getComment('E13')->setWidth('100pt');
@@ -100,9 +100,9 @@ $richText = new RichText();
 $richText->createText('This invoice is ');
 
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
-$payable->getFont()->setBold(true);
-$payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
+$payable->getFontOrThrow()->setBold(true);
+$payable->getFontOrThrow()->setItalic(true);
+$payable->getFontOrThrow()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 

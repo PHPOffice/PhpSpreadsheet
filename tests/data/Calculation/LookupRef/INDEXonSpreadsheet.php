@@ -82,7 +82,7 @@ return [
         2,
     ],
     'Column number omitted from 2-column matrix' => [
-        '#REF!', // Expected
+        'abc', // Expected
         [
             ['abc', 'def'],
             ['xyz', 'tuv'],

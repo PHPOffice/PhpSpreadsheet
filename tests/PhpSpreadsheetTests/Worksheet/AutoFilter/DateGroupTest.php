@@ -128,6 +128,7 @@ class DateGroupTest extends SetupTeardown
     {
         $year = 2011;
         $sheet = $this->initSheet($year);
+        /** @var int|string */
         $cellA2 = $sheet->getCell('A2')->getCalculatedValue();
         $columnFilter = $sheet->getAutoFilter()->getColumn('C');
         $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER);

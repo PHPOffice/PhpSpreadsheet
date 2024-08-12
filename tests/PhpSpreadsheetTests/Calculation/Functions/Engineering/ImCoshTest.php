@@ -17,7 +17,7 @@ class ImCoshTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +28,9 @@ class ImCoshTest extends TestCase
     /**
      * @dataProvider providerIMCOSH
      */
-    public function testDirectCallToIMCOSH(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCOSH(string $expectedResult, string $arg): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ComplexFunctions::IMCOSH(...$args);
+        $result = ComplexFunctions::IMCOSH($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -53,6 +52,7 @@ class ImCoshTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCOSH({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

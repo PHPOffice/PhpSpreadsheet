@@ -13,10 +13,8 @@ abstract class WriterPart
 
     /**
      * Get parent Xlsx object.
-     *
-     * @return Xlsx
      */
-    public function getParentWriter()
+    public function getParentWriter(): Xlsx
     {
         return $this->parentWriter;
     }

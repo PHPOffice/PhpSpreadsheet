@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
-use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -16,10 +15,8 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
-     *
-     * @return bool
      */
-    public function bindValue(Cell $cell, $value = null)
+    public function bindValue(Cell $cell, mixed $value = null): bool
     {
         if ($value === null) {
             return parent::bindValue($cell, $value);
@@ -32,7 +29,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         $dataType = parent::dataTypeForValue($value);
 
         // Style logic - strings
-        if ($dataType === DataType::TYPE_STRING && !$value instanceof RichText) {
+        if ($dataType === DataType::TYPE_STRING && is_string($value)) {
             //    Test for booleans using locale-setting
             if (StringHelper::strToUpper($value) === Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
@@ -45,9 +42,9 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for fractions
-            if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
+            if (preg_match('~^([+-]?)\s*(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setProperFraction($matches, $cell);
-            } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
+            } elseif (preg_match('~^([+-]?)(\d+)\s+(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setImproperFraction($matches, $cell);
             }
 
@@ -56,18 +53,20 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
 
             // Check for percentage
-            if (preg_match('/^\-?\d*' . $decimalSeparator . '?\d*\s?\%$/', preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value))) {
-                return $this->setPercentage(preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $cell);
+            if (preg_match('/^\-?\d*' . $decimalSeparator . '?\d*\s?\%$/', (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value))) {
+                return $this->setPercentage((string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $cell);
             }
 
             // Check for currency
-            if (preg_match(FormattedNumber::currencyMatcherRegexp(), preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $matches, PREG_UNMATCHED_AS_NULL)) {
+            if (preg_match(FormattedNumber::currencyMatcherRegexp(), (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $matches, PREG_UNMATCHED_AS_NULL)) {
                 // Convert value to number
                 $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null;
                 $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'];
-                $value = (float) ($sign . trim(str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value)))); // @phpstan-ignore-line
+                /** @var string */
+                $temp = str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value));
+                $value = (float) ($sign . trim($temp));
 
-                return $this->setCurrency($value, $cell, $currencyCode); // @phpstan-ignore-line
+                return $this->setCurrency($value, $cell, $currencyCode ?? '');
             }
 
             // Check for time without seconds e.g. '9:45', '09:45'

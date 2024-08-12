@@ -42,17 +42,13 @@ class Style extends Supervisor
 
     /**
      * Index of style in collection. Only used for real style.
-     *
-     * @var int
      */
-    protected $index;
+    protected int $index;
 
     /**
      * Use Quote Prefix when displaying in cell editor. Only used for real style.
-     *
-     * @var bool
      */
-    protected $quotePrefix = false;
+    protected bool $quotePrefix = false;
 
     /**
      * Internal cache for styles
@@ -71,7 +67,7 @@ class Style extends Supervisor
      *
      * @var null|array<string, array>
      */
-    private static $cachedStyles;
+    private static ?array $cachedStyles = null;
 
     /**
      * Create a new Style.
@@ -83,7 +79,7 @@ class Style extends Supervisor
      *       Leave this value at default unless you understand exactly what
      *    its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         parent::__construct($isSupervisor);
 
@@ -134,10 +130,8 @@ class Style extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['quotePrefix' => $array];
     }
@@ -187,7 +181,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray, $advancedBorders = true): static
+    public function applyFromArray(array $styleArray, bool $advancedBorders = true): static
     {
         if ($this->isSupervisor) {
             $pRange = $this->getSelectedCells();
@@ -546,20 +540,16 @@ class Style extends Supervisor
 
     /**
      * Get Fill.
-     *
-     * @return Fill
      */
-    public function getFill()
+    public function getFill(): Fill
     {
         return $this->fill;
     }
 
     /**
      * Get Font.
-     *
-     * @return Font
      */
-    public function getFont()
+    public function getFont(): Font
     {
         return $this->font;
     }
@@ -578,30 +568,24 @@ class Style extends Supervisor
 
     /**
      * Get Borders.
-     *
-     * @return Borders
      */
-    public function getBorders()
+    public function getBorders(): Borders
     {
         return $this->borders;
     }
 
     /**
      * Get Alignment.
-     *
-     * @return Alignment
      */
-    public function getAlignment()
+    public function getAlignment(): Alignment
     {
         return $this->alignment;
     }
 
     /**
      * Get Number Format.
-     *
-     * @return NumberFormat
      */
-    public function getNumberFormat()
+    public function getNumberFormat(): NumberFormat
     {
         return $this->numberFormat;
     }
@@ -632,20 +616,16 @@ class Style extends Supervisor
 
     /**
      * Get Protection.
-     *
-     * @return Protection
      */
-    public function getProtection()
+    public function getProtection(): Protection
     {
         return $this->protection;
     }
 
     /**
      * Get quote prefix.
-     *
-     * @return bool
      */
-    public function getQuotePrefix()
+    public function getQuotePrefix(): bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getQuotePrefix();
@@ -657,11 +637,9 @@ class Style extends Supervisor
     /**
      * Set quote prefix.
      *
-     * @param bool $quotePrefix
-     *
      * @return $this
      */
-    public function setQuotePrefix($quotePrefix): static
+    public function setQuotePrefix(bool $quotePrefix): static
     {
         if ($quotePrefix == '') {
             $quotePrefix = false;
@@ -697,20 +675,16 @@ class Style extends Supervisor
 
     /**
      * Get own index in style collection.
-     *
-     * @return int
      */
-    public function getIndex()
+    public function getIndex(): int
     {
         return $this->index;
     }
 
     /**
      * Set own index in style collection.
-     *
-     * @param int $index
      */
-    public function setIndex($index): void
+    public function setIndex(int $index): void
     {
         $this->index = $index;
     }

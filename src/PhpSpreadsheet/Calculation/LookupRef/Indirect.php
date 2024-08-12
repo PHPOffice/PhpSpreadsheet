@@ -34,10 +34,8 @@ class Indirect
 
     /**
      * Convert cellAddress to string, verify not null string.
-     *
-     * @param array|string $cellAddress
      */
-    private static function validateAddress($cellAddress): string
+    private static function validateAddress(array|string|null $cellAddress): string
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
         if (!is_string($cellAddress) || !$cellAddress) {

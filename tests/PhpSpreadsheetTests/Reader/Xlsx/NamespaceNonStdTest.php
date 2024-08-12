@@ -11,10 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class NamespaceNonStdTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/namespacenonstd.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/namespacenonstd.xlsx';
 
     public function testPreliminaries(): void
     {

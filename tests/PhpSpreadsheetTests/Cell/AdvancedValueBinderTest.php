@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -18,20 +19,11 @@ class AdvancedValueBinderTest extends TestCase
 
     private string $originalLocale;
 
-    private string $originalCurrencyCode;
-
-    private string $originalDecimalSeparator;
-
-    private string $originalThousandsSeparator;
-
     private IValueBinder $valueBinder;
 
     protected function setUp(): void
     {
         $this->originalLocale = Settings::getLocale();
-        $this->originalCurrencyCode = StringHelper::getCurrencyCode();
-        $this->originalDecimalSeparator = StringHelper::getDecimalSeparator();
-        $this->originalThousandsSeparator = StringHelper::getThousandsSeparator();
 
         $this->valueBinder = Cell::getValueBinder();
         Cell::setValueBinder(new AdvancedValueBinder());
@@ -39,9 +31,9 @@ class AdvancedValueBinderTest extends TestCase
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->originalCurrencyCode);
-        StringHelper::setDecimalSeparator($this->originalDecimalSeparator);
-        StringHelper::setThousandsSeparator($this->originalThousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
         Settings::setLocale($this->originalLocale);
         Cell::setValueBinder($this->valueBinder);
     }
@@ -95,7 +87,7 @@ class AdvancedValueBinderTest extends TestCase
     /**
      * @dataProvider currencyProvider
      */
-    public function testCurrency(mixed $value, mixed $valueBinded, mixed $thousandsSeparator, mixed $decimalSeparator, mixed $currencyCode): void
+    public function testCurrency(string $value, float $valueBinded, string $thousandsSeparator, string $decimalSeparator, string $currencyCode): void
     {
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);
@@ -159,6 +151,12 @@ class AdvancedValueBinderTest extends TestCase
             ['1 16/20', 1.8],
             ['12 20/100', 12.2],
             ['-1 4/20', -1.2],
+            ['407 / ', '407 / '],
+            ['407 /', '407 /'],
+            ['407 3/', '407 3/'],
+            ['-407 /4', -101.75],
+            [' /', ' /'],
+            [' / ', ' / '],
         ];
     }
 
@@ -233,6 +231,33 @@ class AdvancedValueBinderTest extends TestCase
         return [
             ['Hello World', false],
             ["Hello\nWorld", true],
+        ];
+    }
+
+    /**
+     * @dataProvider formulaProvider
+     */
+    public function testFormula(string $value, string $dataType): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue($value);
+        self::assertSame($dataType, $sheet->getCell('A1')->getDataType());
+        if ($dataType === DataType::TYPE_FORMULA) {
+            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
+        } else {
+            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        }
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function formulaProvider(): array
+    {
+        return [
+            'normal formula' => ['=SUM(A1:C3)', DataType::TYPE_FORMULA],
+            'issue 1310' => ['======', DataType::TYPE_STRING],
         ];
     }
 }

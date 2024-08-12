@@ -13,20 +13,14 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    private $startRow = 0;
-
-    private $endRow = 0;
-
-    private $columns = [];
-
-    public function __construct($startRow, $endRow, $columns)
-    {
-        $this->startRow = $startRow;
-        $this->endRow = $endRow;
-        $this->columns = $columns;
+    public function __construct(
+        private int $startRow,
+        private int $endRow,
+        private array $columns
+    ) {
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         if ($row >= $this->startRow && $row <= $this->endRow) {
             if (in_array($columnAddress, $this->columns)) {
@@ -40,7 +34,7 @@ class MyReadFilter implements IReadFilter
 
 $filterSubset = new MyReadFilter(9, 15, range('G', 'K'));
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $helper->log('Filter range is G9:K15');
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');

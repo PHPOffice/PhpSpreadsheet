@@ -17,7 +17,7 @@ class ImSecTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+    private ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +28,9 @@ class ImSecTest extends TestCase
     /**
      * @dataProvider providerIMSEC
      */
-    public function testDirectCallToIMSEC(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSEC(string $expectedResult, string $arg): void
     {
-        /** @scrutinizer ignore-call */
-        $result = ComplexFunctions::IMSEC(...$args);
+        $result = ComplexFunctions::IMSEC($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -53,6 +52,7 @@ class ImSecTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSEC({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

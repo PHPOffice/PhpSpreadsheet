@@ -11,13 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class LoadSheetsOnlyTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLS/HiddenSheet.xls';
+    private static string $testbook = 'tests/data/Reader/XLS/HiddenSheet.xls';
 
     protected function tearDown(): void
     {
