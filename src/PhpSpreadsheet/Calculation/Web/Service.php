@@ -29,7 +29,7 @@ class Service
             return ExcelError::VALUE(); // Invalid protocol
         }
 
-        // Get results from the the webservice
+        // Get results from the webservice
         $client = Settings::getHttpClient();
         $requestFactory = Settings::getRequestFactory();
         $request = $requestFactory->createRequest('GET', $url);
