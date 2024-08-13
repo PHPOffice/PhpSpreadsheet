@@ -1640,7 +1640,9 @@ class Xlsx extends BaseReader
                                         foreach ($xmlSheet->legacyDrawing as $drawing) {
                                             $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                             if (isset($vmlDrawingContents[$drawingRelId])) {
-                                                $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['legacyDrawing'] = $vmlDrawingContents[$drawingRelId];
+                                                if (self::onlyNoteVml($vmlDrawingContents[$drawingRelId]) === false) {
+                                                    $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['legacyDrawing'] = $vmlDrawingContents[$drawingRelId];
+                                                }
                                             }
                                         }
                                     }
@@ -2372,5 +2374,37 @@ class Xlsx extends BaseReader
                 }
             }
         }
+    }
+
+    private static function onlyNoteVml(string $data): bool
+    {
+        $data = str_replace('<br>', '<br/>', $data);
+
+        try {
+            $sxml = @simplexml_load_string($data);
+        } catch (Throwable) {
+            $sxml = false;
+        }
+
+        if ($sxml === false) {
+            return false;
+        }
+        $shapes = $sxml->children(Namespaces::URN_VML);
+        foreach ($shapes->shape as $shape) {
+            $clientData = $shape->children(Namespaces::URN_EXCEL);
+            if (!isset($clientData->ClientData)) {
+                return false;
+            }
+            $attrs = $clientData->ClientData->attributes();
+            if (!isset($attrs['ObjectType'])) {
+                return false;
+            }
+            $objectType = (string) $attrs['ObjectType'];
+            if ($objectType !== 'Note') {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
