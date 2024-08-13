@@ -92,7 +92,7 @@ class DataValidationsTest extends AbstractFunctional
             'Float between 2 and 5: 7' => [false, 'G1', 7],
             'Integer not between -5 and 5: 3' => [false, 'F2', 3],
             'Integer not between -5 and 5: -1' => [false, 'F2', -1],
-            'Integer not not between -5 and 5: 7' => [true, 'F2', 7],
+            'Integer not between -5 and 5: 7' => [true, 'F2', 7],
             'Any integer except 7: -1' => [true, 'F3', -1],
             'Any integer except 7: 7' => [false, 'F3', 7],
             'Only -3: -1' => [false, 'F4', -1],
