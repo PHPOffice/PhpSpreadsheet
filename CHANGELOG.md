@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Better Handling of legacyDrawing Xml. [Issue #4105](https://github.com/PHPOffice/PhpSpreadsheet/issues/4105) [PR #4122](https://github.com/PHPOffice/PhpSpreadsheet/pull/4122)
 
 ## 2024-08-07 - 2.2.2
 
