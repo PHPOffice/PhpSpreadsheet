@@ -18,6 +18,15 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
 
     protected bool $convertFormula = true;
 
+    protected bool $setIgnoredErrors = false;
+
+    public function setSetIgnoredErrors(bool $setIgnoredErrors = false): self
+    {
+        $this->setIgnoredErrors = $setIgnoredErrors;
+
+        return $this;
+    }
+
     public function setNullConversion(bool $suppressConversion = false): self
     {
         $this->convertNull = $suppressConversion;
@@ -90,6 +99,9 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
         } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === false && parent::dataTypeForValue($value) === DataType::TYPE_FORMULA) {
             $cell->setValueExplicit($value, DataType::TYPE_FORMULA);
         } else {
+            if ($this->setIgnoredErrors && is_numeric($value)) {
+                $cell->getIgnoredErrors()->setNumberStoredAsText(true);
+            }
             $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
         }
 
