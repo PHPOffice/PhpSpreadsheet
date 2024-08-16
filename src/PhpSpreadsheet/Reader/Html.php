@@ -1044,31 +1044,7 @@ class Html extends BaseReader
         if (!isset($attributes['src'])) {
             return;
         }
-        $styleArray = [];
-        if (isset($attributes['style'])) {
-            $styles = explode(';', $attributes['style']);
-            foreach ($styles as $style) {
-                $value = explode(':', $style);
-                if (count($value) === 2) {
-                    $arrayKey = trim($value[0]);
-                    $arrayValue = trim($value[1]);
-                    if ($arrayKey === 'width') {
-                        if (substr($arrayValue, -2) === 'px') {
-                            $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
-                        } else {
-                            $arrayValue = (new CssDimension($arrayValue))->width();
-                        }
-                    } elseif ($arrayKey === 'height') {
-                        if (substr($arrayValue, -2) === 'px') {
-                            $arrayValue = substr($arrayValue, 0, -2);
-                        } else {
-                            $arrayValue = (new CssDimension($arrayValue))->height();
-                        }
-                    }
-                    $styleArray[$arrayKey] = $arrayValue;
-                }
-            }
-        }
+        $styleArray = self::getStyleArray($attributes);
 
         $src = $attributes['src'];
         if (substr($src, 0, 5) !== 'data:') {
@@ -1114,6 +1090,37 @@ class Html extends BaseReader
                 $drawing->setOpacity((int) ($opacity * 100000));
             }
         }
+    }
+
+    private static function getStyleArray(array $attributes): array
+    {
+        $styleArray = [];
+        if (isset($attributes['style'])) {
+            $styles = explode(';', $attributes['style']);
+            foreach ($styles as $style) {
+                $value = explode(':', $style);
+                if (count($value) === 2) {
+                    $arrayKey = trim($value[0]);
+                    $arrayValue = trim($value[1]);
+                    if ($arrayKey === 'width') {
+                        if (substr($arrayValue, -2) === 'px') {
+                            $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
+                        } else {
+                            $arrayValue = (new CssDimension($arrayValue))->width();
+                        }
+                    } elseif ($arrayKey === 'height') {
+                        if (substr($arrayValue, -2) === 'px') {
+                            $arrayValue = substr($arrayValue, 0, -2);
+                        } else {
+                            $arrayValue = (new CssDimension($arrayValue))->height();
+                        }
+                    }
+                    $styleArray[$arrayKey] = $arrayValue;
+                }
+            }
+        }
+
+        return $styleArray;
     }
 
     private const BORDER_MAPPINGS = [
