@@ -230,7 +230,6 @@ class Xlsx extends BaseReader
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($relTarget);
 
-                    /** @var SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) self::getAttributes($eleSheet)['name'],
@@ -738,7 +737,6 @@ class Xlsx extends BaseReader
                     $charts = $chartDetails = [];
 
                     if ($xmlWorkbookNS->sheets) {
-                        /** @var SimpleXMLElement $eleSheet */
                         foreach ($xmlWorkbookNS->sheets->sheet as $eleSheet) {
                             $eleSheetAttr = self::getAttributes($eleSheet);
                             ++$oldSheetId;
@@ -1420,14 +1418,17 @@ class Xlsx extends BaseReader
                                             foreach ($xmlDrawingChildren->oneCellAnchor as $oneCellAnchor) {
                                                 $oneCellAnchor = self::testSimpleXml($oneCellAnchor);
                                                 if ($oneCellAnchor->pic->blipFill) {
-                                                    /** @var SimpleXMLElement $blip */
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $blip = $oneCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
-                                                    /** @var SimpleXMLElement $xfrm */
+                                                    if (isset($blip, $blip->alphaModFix)) {
+                                                        $temp = (string) $blip->alphaModFix->attributes()->amt;
+                                                        if (is_numeric($temp)) {
+                                                            $objDrawing->setOpacity((int) $temp);
+                                                        }
+                                                    }
                                                     $xfrm = $oneCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
-                                                    /** @var SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
 
-                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
                                                     $embedImageKey = (string) self::getArrayItem(
@@ -1486,7 +1487,6 @@ class Xlsx extends BaseReader
                                                     $height = Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy'));
 
                                                     $graphic = $oneCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
-                                                    /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
                                                     $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
 
@@ -1508,6 +1508,12 @@ class Xlsx extends BaseReader
                                                 if ($twoCellAnchor->pic->blipFill) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $blip = $twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
+                                                    if (isset($blip, $blip->alphaModFix)) {
+                                                        $temp = (string) $blip->alphaModFix->attributes()->amt;
+                                                        if (is_numeric($temp)) {
+                                                            $objDrawing->setOpacity((int) $temp);
+                                                        }
+                                                    }
                                                     if (isset($twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->srcRect)) {
                                                         $objDrawing->setSrcRect($twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->srcRect->attributes());
                                                     }
@@ -1581,7 +1587,6 @@ class Xlsx extends BaseReader
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
-                                                    /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
                                                     $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
 
@@ -1601,7 +1606,6 @@ class Xlsx extends BaseReader
                                             foreach ($xmlDrawingChildren->absoluteAnchor as $absoluteAnchor) {
                                                 if (($this->includeCharts) && ($absoluteAnchor->graphicFrame)) {
                                                     $graphic = $absoluteAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
-                                                    /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
                                                     $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
                                                     $width = Drawing::EMUToPixels((int) self::getArrayItem(self::getAttributes($absoluteAnchor->ext), 'cx')[0]);
@@ -1882,7 +1886,6 @@ class Xlsx extends BaseReader
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } elseif ($is !== null) {
             if (is_object($is->r)) {
-                /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
                         $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $run->t));

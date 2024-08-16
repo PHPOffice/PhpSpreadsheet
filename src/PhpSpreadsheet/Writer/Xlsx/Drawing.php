@@ -263,7 +263,13 @@ class Drawing extends WriterPart
             $objWriter->startElement('a:blip');
             $objWriter->writeAttribute('xmlns:r', Namespaces::SCHEMA_OFFICE_DOCUMENT);
             $objWriter->writeAttribute('r:embed', 'rId' . $relationId);
-            $objWriter->endElement();
+            $temp = $drawing->getOpacity();
+            if (is_int($temp) && $temp >= 0 && $temp <= 100000) {
+                $objWriter->startElement('a:alphaModFix');
+                $objWriter->writeAttribute('amt', "$temp");
+                $objWriter->endElement(); // a:alphaModFix
+            }
+            $objWriter->endElement(); // a:blip
 
             $srcRect = $drawing->getSrcRect();
             if (!empty($srcRect)) {
