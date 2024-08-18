@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheetTests\Reader\Utility\File;
@@ -40,5 +41,15 @@ class URLImageTest extends TestCase
             $extension = File::mime2ext($mimeType);
             self::assertSame('png', $extension);
         }
+    }
+
+    public function testURLImageSourceBadProtocol(): void
+    {
+        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.bad.xlsx');
+        self::assertNotFalse($filename);
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Invalid protocol for linked drawing');
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->load($filename);
     }
 }

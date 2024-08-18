@@ -97,6 +97,9 @@ class Drawing extends BaseDrawing
         if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
             // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
             if (filter_var($path, FILTER_VALIDATE_URL)) {
+                if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+                    throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+                }
                 $this->path = $path;
                 // Implicit that it is a URL, rather store info than running check above on value in other places.
                 $this->isUrl = true;
