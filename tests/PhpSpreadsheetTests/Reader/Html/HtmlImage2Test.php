@@ -42,6 +42,6 @@ class HtmlImage2Test extends TestCase
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
     }
 }
