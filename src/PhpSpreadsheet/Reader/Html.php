@@ -1056,6 +1056,9 @@ class Html extends BaseReader
 
         $drawing = new Drawing();
         $drawing->setPath($src);
+        if ($drawing->getPath() === '') {
+            return;
+        }
         $drawing->setWorksheet($sheet);
         $drawing->setCoordinates($column . $row);
         $drawing->setOffsetX(0);

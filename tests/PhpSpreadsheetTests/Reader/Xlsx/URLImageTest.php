@@ -43,6 +43,20 @@ class URLImageTest extends TestCase
         }
     }
 
+    public function testURLImageSourceNotFound(): void
+    {
+        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
+        }
+        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.notfound.xlsx');
+        self::assertNotFalse($filename);
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $collection = $worksheet->getDrawingCollection();
+        self::assertCount(0, $collection);
+    }
+
     public function testURLImageSourceBadProtocol(): void
     {
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.bad.xlsx');
