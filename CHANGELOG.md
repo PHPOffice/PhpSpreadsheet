@@ -23,6 +23,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Nothing yet.
 
+### Removed
+
+- The following items were deprecated in release 2 and are now removed.
+- Writer\Xls\Style\ColorMap (no longer needed).
+- Reader\Xml::trySimpleXMLLoadString (should not have been public, no public replacement).
+- Calculation\Calculation::_translateFormulaToLocale (use method name translateFormulaToLocale without leading underscore).
+- Calculation\Calculation::_translateFormulaToEnglish (use method name translateFormulaToEnglish without leading underscore).
+
 ### Moved
 
 - Nothing yet.
