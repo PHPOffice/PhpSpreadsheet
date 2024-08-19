@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
@@ -134,7 +134,7 @@ class ContentTypes extends WriterPart
             $mimeType = '';
 
             $drawing = $this->getParentWriter()->getDrawingHashTable()->getByIndex($i);
-            if ($drawing instanceof Drawing) {
+            if ($drawing instanceof WorksheetDrawing) {
                 $extension = strtolower($drawing->getExtension());
                 if ($drawing->getIsUrl()) {
                     $mimeType = image_type_to_mime_type($drawing->getType());
