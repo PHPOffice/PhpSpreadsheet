@@ -846,7 +846,7 @@ class Xlsx extends BaseReader
 
                                         // Read cell!
                                         switch ($cellDataType) {
-                                            case 's':
+                                            case DataType::TYPE_STRING:
                                                 if ((string) $c->v != '') {
                                                     $value = $sharedStrings[(int) ($c->v)];
 
@@ -858,7 +858,7 @@ class Xlsx extends BaseReader
                                                 }
 
                                                 break;
-                                            case 'b':
+                                            case DataType::TYPE_BOOL:
                                                 if (!isset($c->f) || ((string) $c->f) === '') {
                                                     if (isset($c->v)) {
                                                         $value = self::castToBoolean($c);
@@ -869,22 +869,29 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToBoolean');
-                                                    if (isset($c->f['t'])) {
-                                                        $att = $c->f;
-                                                        $docSheet->getCell($r)->setFormulaAttributes($att);
-                                                    }
+                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
                                                 }
 
                                                 break;
-                                            case 'inlineStr':
+                                            case DataType::TYPE_STRING2:
+                                                if (isset($c->f)) {
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
+                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
+                                                } else {
+                                                     $value = self::castToString($c);
+                                                }
+
+                                                break;
+                                            case DataType::TYPE_INLINE:
                                                 if (isset($c->f)) {
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
+                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
                                                 } else {
                                                     $value = $this->parseRichText($c->is);
                                                 }
 
                                                 break;
-                                            case 'e':
+                                            case DataType::TYPE_ERROR:
                                                 if (!isset($c->f)) {
                                                     $value = self::castToError($c);
                                                 } else {
@@ -902,20 +909,16 @@ class Xlsx extends BaseReader
                                             default:
                                                 if (!isset($c->f)) {
                                                     $value = self::castToString($c);
+                                                    if (is_numeric($value)) {
+                                                        $value += 0;
+                                                    }
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
-                                                    $formulaAttributes = [];
-                                                    $attributes = $c->f->attributes();
-                                                    if (isset($attributes['t'])) {
-                                                        $formulaAttributes['t'] = (string) $attributes['t'];
+                                                    if (is_numeric($calculatedValue)) {
+                                                        $calculatedValue += 0;
                                                     }
-                                                    if (isset($attributes['ref'])) {
-                                                        $formulaAttributes['ref'] = (string) $attributes['ref'];
-                                                    }
-                                                    if (!empty($formulaAttributes)) {
-                                                        $docSheet->getCell($r)->setFormulaAttributes($formulaAttributes);
-                                                    }
+                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
                                                 }
 
                                                 break;
@@ -2373,6 +2376,21 @@ class Xlsx extends BaseReader
                     }
                 }
             }
+        }
+    }
+
+    private static function storeFormulaAttributes(SimpleXMLElement $f, Worksheet $docSheet, string $r): void
+    {
+        $formulaAttributes = [];
+        $attributes = $f->attributes();
+        if (isset($attributes['t'])) {
+            $formulaAttributes['t'] = (string) $attributes['t'];
+        }
+        if (isset($attributes['ref'])) {
+            $formulaAttributes['ref'] = (string) $attributes['ref'];
+        }
+        if (!empty($formulaAttributes)) {
+            $docSheet->getCell($r)->setFormulaAttributes($formulaAttributes);
         }
     }
 
