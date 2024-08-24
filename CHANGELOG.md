@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- Xlsx Reader default datatype when none is specified in Xml is changed from string to numeric, which is how Excel treats it. There is expected to be little impact because DefaultValueBinder and AdvancedValueBinder correct mis-identification as string, and StringValueBinder usually expects string. [PR #4139](https://github.com/PHPOffice/PhpSpreadsheet/pull/4139)
 
 ### Deprecated
 
