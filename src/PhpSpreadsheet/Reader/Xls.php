@@ -6859,9 +6859,9 @@ class Xls extends BaseReader
             $lc = '$' . $lc;
         } else {
             // column offset
-            // offset: 4; size: 2; first column with relative/absolute flags
+            // offset: 6; size: 2; last column with relative/absolute flags
             // bit: 7-0; mask 0x00FF; column index
-            $relativeLcIndex = 0x00FF & self::getInt2d($subData, 4);
+            $relativeLcIndex = 0x00FF & self::getInt2d($subData, 6);
             $lcIndex = $baseCol + $relativeLcIndex;
             $lcIndex = ($lcIndex < 256) ? $lcIndex : $lcIndex - 256;
             $lcIndex = ($lcIndex >= 0) ? $lcIndex : $lcIndex + 256;
