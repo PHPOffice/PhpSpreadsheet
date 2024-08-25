@@ -26,7 +26,7 @@ class ArrayFormulaTest extends TestCase
         $cell = $worksheet->getCell($cellAddress);
         self::assertSame(DataType::TYPE_FORMULA, $cell->getDataType());
         self::assertSame(['t' => 'array', 'ref' => $expectedRange], $cell->getFormulaAttributes());
-        self::assertSame($expectedFormula, strtoupper($cell->getValue()));
+        self::assertSame($expectedFormula, strtoupper($cell->getValueString()));
         Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $worksheet->calculateArrays();
         $cell = $worksheet->getCell($cellAddress);
