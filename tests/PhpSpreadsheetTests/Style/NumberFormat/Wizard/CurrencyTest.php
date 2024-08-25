@@ -6,8 +6,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Formatter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
 use PHPUnit\Framework\TestCase;
 
@@ -17,26 +19,32 @@ class CurrencyTest extends TestCase
      * @dataProvider providerCurrency
      */
     public function testCurrency(
-        string $expectedResult,
+        string $expectedResultPositive,
+        string $expectedResultNegative,
+        string $expectedResultZero,
         string $currencyCode,
         int $decimals,
         bool $thousandsSeparator,
         bool $currencySymbolPosition,
-        bool $currencySymbolSpacing
+        bool $currencySymbolSpacing,
+        CurrencyNegative $negative = CurrencyNegative::minus
     ): void {
-        $wizard = new Currency($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing);
-        self::assertSame($expectedResult, (string) $wizard);
+        $wizard = new Currency($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing, negative: $negative);
+        self::assertSame($expectedResultPositive, Formatter::toFormattedString(1234.56, $wizard->format()));
+        self::assertSame($expectedResultNegative, Formatter::toFormattedString(-1234.56, $wizard->format()));
+        self::assertSame($expectedResultZero, Formatter::toFormattedString(0, $wizard->format()));
     }
 
     public static function providerCurrency(): array
     {
         return [
-            ["\$\u{a0}0", '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ["\$\u{a0}#,##0", '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ['$#,##0', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
-            ["0.00\u{a0}€", '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ["#,##0.00\u{a0}€", '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ['0.00€', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
+            [' $1235 ', ' -$1235', ' $0 ', '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' $1,235 ', ' -$1,235', ' $0 ', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' $1,235 ', ' -$1,235', ' $0 ', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
+            [' 1234.56€ ', ' -1234.56€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' 1,234.56€ ', ' -1,234.56€ ', ' 0.00€ ', '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' 1234.56€ ', ' -1234.56€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
+            [' 1234.56€ ', ' (1234.56)€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING, CurrencyNegative::parentheses],
         ];
     }
 
