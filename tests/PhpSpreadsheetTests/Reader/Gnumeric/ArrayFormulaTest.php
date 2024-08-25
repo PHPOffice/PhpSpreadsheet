@@ -30,7 +30,7 @@ class ArrayFormulaTest extends TestCase
         } else {
             self::assertEmpty($cell->getFormulaAttributes());
         }
-        self::assertSame($expectedFormula, strtoupper($cell->getValue()));
+        self::assertSame($expectedFormula, strtoupper($cell->getValueString()));
         Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $worksheet->calculateArrays();
         $cell = $worksheet->getCell($cellAddress);
