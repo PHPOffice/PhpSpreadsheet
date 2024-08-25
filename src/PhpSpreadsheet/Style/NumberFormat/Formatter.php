@@ -165,6 +165,8 @@ class Formatter extends BaseFormatter
         if (
             //  Check for date/time characters (not inside quotes)
             (preg_match('/(\[\$[A-Z]*-[0-9A-F]*\])*[hmsdy](?=(?:[^"]|"[^"]*")*$)/miu', $format))
+            //  Look out for Currency formats Issue 4124
+            && !(preg_match('/\[\$[A-Z]{3}\]/miu', $format))
             // A date/time with a decimal time shouldn't have a digit placeholder before the decimal point
             && (preg_match('/[0\?#]\.(?![^\[]*\])/miu', $format) === 0)
         ) {
