@@ -18,7 +18,7 @@ $reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 
 
-$dataArray = $worksheet->toArray();
+$dataArray = $spreadsheet->toArray();
 
 foreach ($dataArray as $row) {
     foreach ($row as $cellValue) {
