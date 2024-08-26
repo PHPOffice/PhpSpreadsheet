@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -248,5 +249,20 @@ class DateTest extends TestCase
             ->getNumberFormat()
             ->setFormatCode('yyyy-mm-dd');
         self::assertFalse(Date::isDateTime($cella4));
+    }
+
+    public function testRoundMicroseconds(): void
+    {
+        $dti = new DateTime('2000-01-02 03:04:05.999999');
+        Date::roundMicroseconds($dti);
+        self::assertEquals(new DateTime('2000-01-02 03:04:06.000000'), $dti);
+
+        $dti = new DateTime('2000-01-02 03:04:05.500000');
+        Date::roundMicroseconds($dti);
+        self::assertEquals(new DateTime('2000-01-02 03:04:06.000000'), $dti);
+
+        $dti = new DateTime('2000-01-02 03:04:05.499999');
+        Date::roundMicroseconds($dti);
+        self::assertEquals(new DateTime('2000-01-02 03:04:05.000000'), $dti);
     }
 }
