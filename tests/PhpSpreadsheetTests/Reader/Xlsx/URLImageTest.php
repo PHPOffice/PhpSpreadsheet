@@ -59,7 +59,7 @@ class URLImageTest extends TestCase
 
     public function testURLImageSourceBadProtocol(): void
     {
-        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.bad.xlsx');
+        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.bad.dontuse');
         self::assertNotFalse($filename);
         $this->expectException(SpreadsheetException::class);
         $this->expectExceptionMessage('Invalid protocol for linked drawing');
