@@ -107,20 +107,6 @@ class Xml extends BaseReader
         return $valid;
     }
 
-    /**
-     * Check if the file is a valid SimpleXML.
-     *
-     * @return false|SimpleXMLElement
-     *
-     * @deprecated 2.0.1 Should never have had public visibility
-     *
-     * @codeCoverageIgnore
-     */
-    public function trySimpleXMLLoadString(string $filename, string $fileOrString = 'file'): SimpleXMLElement|bool
-    {
-        return $this->trySimpleXMLLoadStringPrivate($filename, $fileOrString);
-    }
-
     /** @return false|SimpleXMLElement */
     private function trySimpleXMLLoadStringPrivate(string $filename, string $fileOrString = 'file'): SimpleXMLElement|bool
     {
