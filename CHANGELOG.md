@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Backported security fix from PHPOffice/PhpSpreadsheet#4119 to v1
 
 
 ## 1.28.0 - 2023-02-25
