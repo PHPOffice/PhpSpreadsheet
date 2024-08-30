@@ -320,12 +320,12 @@ class Cell implements Stringable
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
         $worksheet = $this->getWorksheet();
         $spreadsheet = $worksheet->getParent();
-        $originalSelected = $worksheet->getSelectedCells();
         if (isset($spreadsheet)) {
+            $originalSelected = $worksheet->getSelectedCells();
             $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
             $style = $this->getStyle();
             $oldQuotePrefix = $style->getQuotePrefix();
-            if ($oldQuotePrefix != $quotePrefix) {
+            if ($oldQuotePrefix !== $quotePrefix) {
                 $style->setQuotePrefix($quotePrefix);
             }
             $worksheet->setSelectedCells($originalSelected);
