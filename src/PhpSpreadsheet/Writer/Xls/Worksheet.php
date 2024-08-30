@@ -489,6 +489,31 @@ class Worksheet extends BIFFwriter
         $this->storeEof();
     }
 
+    public const MAX_XLS_COLUMN = 256;
+    public const MAX_XLS_COLUMN_STRING = 'IV';
+    public const MAX_XLS_ROW = 65536;
+
+    private static function limitRange(string $exploded): string
+    {
+        $retVal = '';
+        $ranges = Coordinate::getRangeBoundaries($exploded);
+        $firstCol = Coordinate::columnIndexFromString($ranges[0][0]);
+        $firstRow = (int) $ranges[0][1];
+        if ($firstCol <= self::MAX_XLS_COLUMN && $firstRow <= self::MAX_XLS_ROW) {
+            $retVal = $exploded;
+            if (str_contains($exploded, ':')) {
+                $lastCol = Coordinate::columnIndexFromString($ranges[1][0]);
+                $ranges[1][1] = min(self::MAX_XLS_ROW, (int) $ranges[1][1]);
+                if ($lastCol > self::MAX_XLS_COLUMN) {
+                    $ranges[1][0] = self::MAX_XLS_COLUMN_STRING;
+                }
+                $retVal = "{$ranges[0][0]}{$ranges[0][1]}:{$ranges[1][0]}{$ranges[1][1]}";
+            }
+        }
+
+        return $retVal;
+    }
+
     private function writeConditionalFormatting(): void
     {
         $conditionalFormulaHelper = new ConditionalHelper($this->parser);
@@ -497,7 +522,10 @@ class Worksheet extends BIFFwriter
         foreach ($this->phpSheet->getConditionalStylesCollection() as $key => $value) {
             $keyExplode = explode(',', Coordinate::resolveUnionAndIntersection($key));
             foreach ($keyExplode as $exploded) {
-                $arrConditionalStyles[$exploded] = $value;
+                $range = self::limitRange($exploded);
+                if ($range !== '') {
+                    $arrConditionalStyles[$range] = $value;
+                }
             }
         }
         if (!empty($arrConditionalStyles)) {
