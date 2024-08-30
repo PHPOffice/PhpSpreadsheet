@@ -31,7 +31,7 @@ class ApplyStylesTest extends TestCase
         self::assertSame('A6', $sheet3->getSelectedCells());
         $cell = 'D12';
         $styleArray = ['font' => ['name' => 'Courier New']];
-        $sheet2->getStyle('D12')->applyFromArray($styleArray);
+        $sheet2->getStyle($cell)->applyFromArray($styleArray);
         self::assertSame(1, $spreadsheet->getActiveSheetIndex());
         self::assertSame('B4', $sheet1->getSelectedCells());
         self::assertSame('D12', $sheet2->getSelectedCells());
@@ -60,7 +60,7 @@ class ApplyStylesTest extends TestCase
         self::assertSame('A6', $sheet3->getSelectedCells());
         $cell = 'D12';
         $styleArray = ['font' => ['name' => 'Courier New']];
-        $sheet2->applyStylesFromArray($cell, ['font' => ['name' => 'Courier New']]);
+        $sheet2->applyStylesFromArray($cell, $styleArray);
         self::assertSame(2, $spreadsheet->getActiveSheetIndex(), 'should be unchanged');
         self::assertSame('B4', $sheet1->getSelectedCells(), 'should be unchanged');
         self::assertSame('C9', $sheet2->getSelectedCells(), 'should be unchanged');
