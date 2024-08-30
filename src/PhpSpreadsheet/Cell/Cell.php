@@ -318,7 +318,21 @@ class Cell implements Stringable
         $this->updateInCollection();
         $cellCoordinate = $this->getCoordinate();
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
-        $this->getWorksheet()->applyStylesFromArray($cellCoordinate, ['quotePrefix' => $quotePrefix]);
+        $worksheet = $this->getWorksheet();
+        $spreadsheet = $worksheet->getParent();
+        $originalSelected = $worksheet->getSelectedCells();
+        if (isset($spreadsheet)) {
+            $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
+            $style = $this->getStyle();
+            $oldQuotePrefix = $style->getQuotePrefix();
+            if ($oldQuotePrefix != $quotePrefix) {
+                $style->setQuotePrefix($quotePrefix);
+            }
+            $worksheet->setSelectedCells($originalSelected);
+            if ($activeSheetIndex >= 0) {
+                $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+            }
+        }
 
         return $this->getParent()?->get($cellCoordinate) ?? $this;
     }
