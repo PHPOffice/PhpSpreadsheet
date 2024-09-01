@@ -2346,8 +2346,9 @@ class Xlsx extends BaseReader
                     $firstRow = $matches[2];
                     $firstCol = $matches[1];
                     if (array_key_exists(3, $matches)) {
-                        $lastCol = $matches[4];
-                        $lastRow = $matches[5];
+                        // https://github.com/phpstan/phpstan/issues/11602
+                        $lastCol = $matches[4]; // @phpstan-ignore-line
+                        $lastRow = $matches[5]; // @phpstan-ignore-line
                     } else {
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
