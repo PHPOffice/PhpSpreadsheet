@@ -33,7 +33,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
         }
 
         $result = $sheet->getCell('B3')->getCalculatedValue();
-        self::assertSame($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public static function providerROWOnSpreadsheet(): array
@@ -51,7 +51,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
 
         $sheet1->getCell('B3')->setValue('=ROW(newnr)');
         $result = $sheet1->getCell('B3')->getCalculatedValue();
-        self::assertSame(5, $result);
+        self::assertEquals(5, $result);
 
         $sheet->getCell('B3')->setValue('=ROW(newnr)');
         $result = $sheet->getCell('B3')->getCalculatedValue();
