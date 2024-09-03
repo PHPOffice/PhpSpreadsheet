@@ -12,10 +12,7 @@ jobs:
           - '8.0'
           - '8.1'
           - '8.2'
-
-        include:
-          - php-version: 'nightly'
-            experimental: true
+          - '8.3'
 
     name: PHP ${{ matrix.php-version }}
 
@@ -43,7 +40,7 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == 'nightly' }}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' }}
         run: |
           rm composer.lock
           echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
@@ -66,7 +63,7 @@ jobs:
       - name: "Run PHPUnit tests 2 (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == 'nightly' }}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' }}
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
   php-cs-fixer:
