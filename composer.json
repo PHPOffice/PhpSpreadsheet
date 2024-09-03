@@ -92,7 +92,7 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^8.5 || ^9.0 || ^10.0",
+        "phpunit/phpunit": "^8.5 || ^9.0",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },
