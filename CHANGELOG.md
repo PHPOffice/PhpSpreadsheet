@@ -29,7 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Xls Reader Some Ranges Not Handled Properly. [Issue #1570](https://github.com/PHPOffice/PhpSpreadsheet/issues/1570) [PR #4140](https://github.com/PHPOffice/PhpSpreadsheet/pull/4140)
+- Better Handling of legacyDrawing Xml. [Issue #4105](https://github.com/PHPOffice/PhpSpreadsheet/issues/4105) [PR #4122](https://github.com/PHPOffice/PhpSpreadsheet/pull/4122)
+-  Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
 
 ## 2024-08-07 - 2.2.2
 
