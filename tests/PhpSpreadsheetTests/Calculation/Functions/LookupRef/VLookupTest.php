@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -77,5 +78,25 @@ class VLookupTest extends TestCase
                 '{2,3,2}',
             ],
         ];
+    }
+
+    public function testIssue1402(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $worksheet->setCellValueExplicit('A1', 1, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B1', 'Text Nr 1');
+        $worksheet->setCellValue('A2', 2);
+        $worksheet->setCellValue('B2', 'Numeric result');
+        $worksheet->setCellValueExplicit('A3', 2, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B3', 'Text Nr 2');
+        $worksheet->setCellValueExplicit('A4', 2, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B4', '=VLOOKUP(A4,$A$1:$B$3,2,0)');
+        self::assertSame('Text Nr 2', $worksheet->getCell('B4')->getCalculatedValue());
+        $worksheet->setCellValue('A5', 2);
+        $worksheet->setCellValue('B5', '=VLOOKUP(A5,$A$1:$B$3,2,0)');
+        self::assertSame('Numeric result', $worksheet->getCell('B5')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }

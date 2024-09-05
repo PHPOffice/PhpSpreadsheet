@@ -14,14 +14,24 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Excel Dynamic Arrays. [Issue #3901](https://github.com/PHPOffice/PhpSpreadsheet/issues/3901) [Issue #3659](https://github.com/PHPOffice/PhpSpreadsheet/issues/3659) [Issue #1834](https://github.com/PHPOffice/PhpSpreadsheet/issues/1834) [PR #3962](https://github.com/PHPOffice/PhpSpreadsheet/pull/3962)
+- String Value Binder Allow Setting "Ignore Number Stored as Text". [PR #4141](https://github.com/PHPOffice/PhpSpreadsheet/pull/4141)
 
 ### Changed
 
-- Nothing yet.
+- Xlsx Reader default datatype when none is specified in Xml is changed from string to numeric, which is how Excel treats it. There is expected to be little impact because DefaultValueBinder and AdvancedValueBinder correct mis-identification as string, and StringValueBinder usually expects string. [PR #4139](https://github.com/PHPOffice/PhpSpreadsheet/pull/4139)
+- Currency and Accounting Wizards are changed to act like Excel, and a new CurrencyBase Wizard is added for for non-Excel formats. [Issue #4125](https://github.com/PHPOffice/PhpSpreadsheet/issues/4125) [Issue #4124](https://github.com/PHPOffice/PhpSpreadsheet/issues/4124) [PR #4127](https://github.com/PHPOffice/PhpSpreadsheet/pull/4127)
 
 ### Deprecated
 
 - Nothing yet.
+
+### Removed
+
+- The following items were deprecated in release 2 and are now removed.
+- Writer\Xls\Style\ColorMap (no longer needed).
+- Reader\Xml::trySimpleXMLLoadString (should not have been public, no public replacement).
+- Calculation\Calculation::_translateFormulaToLocale (use method name translateFormulaToLocale without leading underscore).
+- Calculation\Calculation::_translateFormulaToEnglish (use method name translateFormulaToEnglish without leading underscore).
 
 ### Moved
 
@@ -31,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Xls Reader Some Ranges Not Handled Properly. [Issue #1570](https://github.com/PHPOffice/PhpSpreadsheet/issues/1570) [PR #4140](https://github.com/PHPOffice/PhpSpreadsheet/pull/4140)
 - Better Handling of legacyDrawing Xml. [Issue #4105](https://github.com/PHPOffice/PhpSpreadsheet/issues/4105) [PR #4122](https://github.com/PHPOffice/PhpSpreadsheet/pull/4122)
--  Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
+- Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
 
 ## 2024-08-07 - 2.2.2
 

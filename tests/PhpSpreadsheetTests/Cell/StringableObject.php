@@ -6,8 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 class StringableObject
 {
+    private int|string $value;
+
+    public function __construct(int|string $value = 'abc')
+    {
+        $this->value = $value;
+    }
+
     public function __toString(): string
     {
-        return 'abc';
+        return (string) $this->value;
     }
 }

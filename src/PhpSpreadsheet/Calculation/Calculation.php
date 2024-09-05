@@ -3318,16 +3318,6 @@ class Calculation
 
     private static ?array $functionReplaceToLocale;
 
-    /**
-     * @deprecated 1.30.0 use translateFormulaToLocale() instead
-     *
-     * @codeCoverageIgnore
-     */
-    public function _translateFormulaToLocale(string $formula): string
-    {
-        return $this->translateFormulaToLocale($formula);
-    }
-
     public function translateFormulaToLocale(string $formula): string
     {
         $formula = preg_replace(self::CALCULATION_REGEXP_STRIP_XLFN_XLWS, '', $formula) ?? '';
@@ -3364,16 +3354,6 @@ class Calculation
     private static ?array $functionReplaceFromLocale;
 
     private static ?array $functionReplaceToExcel;
-
-    /**
-     * @deprecated 1.30.0 use translateFormulaToEnglish() instead
-     *
-     * @codeCoverageIgnore
-     */
-    public function _translateFormulaToEnglish(string $formula): string
-    {
-        return $this->translateFormulaToEnglish($formula);
-    }
 
     public function translateFormulaToEnglish(string $formula): string
     {
