@@ -14,7 +14,7 @@ if ($helper->isCli()) {
 }
 ?>
 <form action="45_Quadratic_equation_solver.php" method="POST">
-    Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
+    Enter the coefficients for Ax<sup>2</sup> + Bx + C = 0
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td>
@@ -47,7 +47,9 @@ if ($helper->isCli()) {
 <?php
 /**     If the user has submitted the form, then we need to execute a calculation * */
 if (isset($_POST['submit'])) {
-    if ($_POST['A'] == 0) {
+    if (!is_numeric($_POST['A']) || !is_numeric($_POST['B']) || !is_numeric($_POST['C'])) { // validate input
+        $helper->log('Non-numeric input');
+    } elseif ($_POST['A'] == 0) {
         $helper->log('The equation is not quadratic');
     } else {
         // Calculate and Display the results
@@ -59,8 +61,12 @@ if (isset($_POST['submit'])) {
         $r1Formula = '=IMDIV(IMSUM(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . ')';
         $r2Formula = '=IF(' . $discriminant . '=0,"Only one root",IMDIV(IMSUB(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . '))';
 
-        $helper->log(Calculation::getInstance()->calculateFormula($r1Formula));
-        $helper->log(Calculation::getInstance()->calculateFormula($r2Formula));
+        /** @var string */
+        $output = Calculation::getInstance()->calculateFormula($r1Formula);
+        $helper->log("$output");
+        /** @var string */
+        $output = Calculation::getInstance()->calculateFormula($r2Formula);
+        $helper->log("$output");
         $callEndTime = microtime(true);
         $helper->logEndingNotes();
     }
