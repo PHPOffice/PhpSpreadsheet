@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## TBD - 2.2.3
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Fixed
+
+- Improve Xlsx Reader speed (backport of PR #4153 intended for 3.0.0). [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917)
+
 ## 2024-08-07 - 2.2.2
 
 ### Added
