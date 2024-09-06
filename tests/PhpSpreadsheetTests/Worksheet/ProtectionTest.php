@@ -32,8 +32,8 @@ class ProtectionTest extends TestCase
         $protection->setPassword('foo');
         $hash2 = $protection->getPassword();
 
-        self::assertSame(24, mb_strlen($hash1)); // @phpstan-ignore-line
-        self::assertSame(24, mb_strlen($hash2)); // @phpstan-ignore-line
+        self::assertSame(24, mb_strlen($hash1));
+        self::assertSame(24, mb_strlen($hash2));
         self::assertNotSame($hash1, $hash2, 'was hashed with automatic salt');
         self::assertTrue($protection->verify('foo'), 'setting password again, will hash with proper algorithm and will match');
     }

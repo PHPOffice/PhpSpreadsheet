@@ -168,7 +168,7 @@ class Html extends BaseReader
     private function readEnding(): string
     {
         $meta = stream_get_meta_data($this->fileHandle);
-        $filename = $meta['uri'];
+        $filename = $meta['uri']; // @phpstan-ignore-line
 
         $size = (int) filesize($filename);
         if ($size === 0) {

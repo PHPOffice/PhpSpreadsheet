@@ -36,15 +36,26 @@ class Trunc
             return $e->getMessage();
         }
 
-        $digits = floor($digits);
-
-        // Truncate
-        $adjust = 10 ** $digits;
-
-        if (($digits > 0) && (rtrim((string) (int) ((abs($value) - abs((int) $value)) * $adjust), '0') < $adjust / 10)) {
+        if ($value == 0) {
             return $value;
         }
 
-        return ((int) ($value * $adjust)) / $adjust;
+        if ($value >= 0) {
+            $minusSign = '';
+        } else {
+            $minusSign = '-';
+            $value = -$value;
+        }
+
+        $digits = (int) floor($digits);
+        if ($digits < 0) {
+            $power = (int) (10 ** -$digits);
+            $result = intdiv((int) floor($value), $power) * $power;
+            return ($minusSign === '') ? $result : -$result;
+        }
+        $digitsPlus1 = $digits + 1;
+        $result = substr($minusSign . sprintf("%.{$digitsPlus1}f", $value), 0, -1);
+
+        return (float) $result;
     }
 }

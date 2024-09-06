@@ -9,6 +9,7 @@ $config = new PhpCsFixer\Config();
 $config
     ->setRiskyAllowed(true)
     ->setFinder($finder)
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect(null, 600))
     ->setCacheFile(sys_get_temp_dir() . '/php-cs-fixer' . preg_replace('~\W~', '-', __DIR__))
     ->setRules([
         'align_multiline_comment' => true,
@@ -18,7 +19,8 @@ $config
         'binary_operator_spaces' => true,
         'blank_line_after_namespace' => true,
         'blank_line_after_opening_tag' => true,
-        'blank_line_before_statement' => true,
+        'blank_line_before_statement' => false,
+        'blank_lines_before_namespace' => ['max_line_breaks' => 2, 'min_line_breaks' => 2], // we want 1 blank line before namespace
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
         'class_definition' => false,
@@ -26,7 +28,7 @@ $config
         'combine_consecutive_unsets' => true,
         'combine_nested_dirname' => true,
         'comment_to_phpdoc' => false, // interferes with annotations
-        'compact_nullable_typehint' => true,
+        'compact_nullable_type_declaration' => true,
         'concat_space' => ['spacing' => 'one'],
         'constant_case' => true,
         'date_time_immutable' => false, // Break our unit tests
@@ -40,7 +42,6 @@ $config
         'elseif' => true,
         'encoding' => true,
         'ereg_to_preg' => true,
-        'escape_implicit_backslashes' => true,
         'explicit_indirect_variable' => false, // I feel it makes the code actually harder to read
         'explicit_string_variable' => false, // I feel it makes the code actually harder to read
         'final_class' => false, // We need non-final classes
@@ -50,10 +51,9 @@ $config
         'fopen_flag_order' => true,
         'fopen_flags' => true,
         'full_opening_tag' => true,
-        'fully_qualified_strict_types' => true,
+        'fully_qualified_strict_types' => false,
         'function_declaration' => true,
         'function_to_constant' => true,
-        'function_typehint_space' => true,
         'general_phpdoc_annotation_remove' => ['annotations' => ['access', 'category', 'copyright']],
         'global_namespace_import' => true,
         'header_comment' => false, // We don't use common header in all our files
@@ -82,14 +82,12 @@ $config
         'native_constant_invocation' => false, // Micro optimization that look messy
         'native_function_casing' => true,
         'native_function_invocation' => false, // I suppose this would be best, but I am still unconvinced about the visual aspect of it
-        'native_function_type_declaration_casing' => true,
-        'new_with_braces' => true,
+        'new_with_parentheses' => ['anonymous_class' => true, 'named_class' => true],
         'no_alias_functions' => true,
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
         'no_blank_lines_after_class_opening' => true,
         'no_blank_lines_after_phpdoc' => true,
-        'no_blank_lines_before_namespace' => false, // we want 1 blank line before namespace
         'no_break_comment' => true,
         'no_closing_tag' => true,
         'no_empty_comment' => true,
@@ -108,14 +106,13 @@ $config
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
-        'no_spaces_inside_parenthesis' => true,
         'no_superfluous_elseif' => false, // Might be risky on a huge code base
-        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
+        //'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
         'no_trailing_comma_in_singleline' => ['elements' => ['arguments', 'array_destructuring', 'array', 'group_import']],
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_unneeded_control_parentheses' => true,
-        'no_unneeded_curly_braces' => true,
+        'no_unneeded_braces' => true,
         'no_unneeded_final_method' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
@@ -175,7 +172,7 @@ $config
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'phpdoc_types' => true,
-        'phpdoc_types_order' => true,
+        'phpdoc_types_order' => false,
         'phpdoc_var_annotation_correct_order' => true,
         'phpdoc_var_without_name' => true,
         'pow_to_exponentiation' => true,
@@ -193,20 +190,21 @@ $config
         'simple_to_complex_string_variable' => false, // Would differ from TypeScript without obvious advantages
         'simplified_null_return' => false, // Even if technically correct we prefer to be explicit
         'single_blank_line_at_eof' => true,
-        'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
         'single_import_per_statement' => true,
         'single_line_after_imports' => true,
         'single_line_comment_style' => true,
         'single_line_throw' => false, // I don't see any reason for having a special case for Exception
-        'single_quote' => true,
+        'single_quote' => false,
         'single_trait_insert_per_statement' => true,
         'space_after_semicolon' => true,
+        'spaces_inside_parentheses' => ['space' => 'none'],
         'standardize_increment' => true,
         'standardize_not_equals' => true,
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
         'strict_param' => false, // No, too dangerous to change that
+        'string_implicit_backslashes' => false, // was escape_implicit_backslashes, too confusing
         'string_line_ending' => true,
         'switch_case_semicolon_to_colon' => true,
         'switch_case_space' => true,
@@ -214,6 +212,7 @@ $config
         'ternary_to_null_coalescing' => true,
         'trailing_comma_in_multiline' => true,
         'trim_array_spaces' => true,
+        'type_declaration_spaces' => ['elements' => ['function', 'property']], // was function_typehint_space
         'unary_operator_spaces' => true,
         'visibility_required' => ['elements' => ['property', 'method']], // not const
         'void_return' => true,

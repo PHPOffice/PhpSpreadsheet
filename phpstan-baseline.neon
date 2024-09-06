@@ -1,6 +1,76 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string, 2\\: '\\+', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string, 2\\: ',', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string, 2\\: '\\-', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\: ''\\|numeric\\-string, 2\\: '\\-', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string, 2\\: ',', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string, 2\\: '\\-', 3\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 8 on array\\{string, string, string, string, string, string, non\\-empty\\-string, numeric\\-string\\} in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between mixed and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Binary operation \"%%\" between int\\|string and 100 results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
+
+		-
+			message: "#^Binary operation \"%%\" between int\\|string and 4 results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
+
+		-
+			message: "#^Binary operation \"%%\" between int\\|string and 400 results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
+
+		-
+			message: "#^Binary operation \"%%\" between string and 24 results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
+
+		-
+			message: "#^Binary operation \"\\-\" between 1 and array\\|float\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
+		-
 			message: "#^Cannot call method getTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
@@ -24,3 +94,258 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-falsy\\-string, 2\\?\\: string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Functions.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-falsy\\-string, 2\\?\\: string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Functions.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Offset 6 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Offset 7 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Formula.php
+
+		-
+			message: "#^Offset 6 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Formula.php
+
+		-
+			message: "#^Offset 7 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string, 3\\?\\: string, 4\\?\\: string, 5\\?\\: string, 6\\?\\: non\\-empty\\-string, 7\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Formula.php
+
+		-
+			message: "#^Binary operation \"/\" between float\\|int and float\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Deviations.php
+
+		-
+			message: "#^Binary operation \"\\-\" between 1 and array\\|float\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
+		-
+			message: "#^Binary operation \"\\-\" between 1 and array\\|float\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
+
+		-
+			message: "#^Offset 'col' does not exist on array\\{0\\?\\: string, col\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, row\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Cell/AddressHelper.php
+
+		-
+			message: "#^Offset 'row' does not exist on array\\{0\\?\\: string, col\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, row\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Cell/AddressHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$num of function dechex expects int, string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Helper/Html.php
+
+		-
+			message: "#^Offset 'size' does not exist on array\\{0\\?\\: string, size\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, unit\\?\\: non\\-falsy\\-string, 2\\?\\: non\\-falsy\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Helper/Size.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function fgetcsv expects int\\<0, max\\>\\|null, int\\|null given\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Csv.php
+
+		-
+			message: "#^Parameter \\#1 \\$namespace of method DOMDocument\\:\\:getElementsByTagNameNS\\(\\) expects string, string\\|null given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#1 \\$namespace of method DOMElement\\:\\:getElementsByTagNameNS\\(\\) expects string, string\\|null given\\.$#"
+			count: 7
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#2 \\$tableNs of class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\AutoFilter constructor expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#2 \\$tableNs of class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\DefinedNames constructor expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#2 \\$tableNs of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:processMergedCells\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#3 \\$configNs of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForActiveSheet\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Parameter \\#3 \\$configNs of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$officeNs \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesFo \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesNs \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$tableNs \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
+		-
+			message: "#^Parameter \\#1 \\$column of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getColumnDimension\\(\\) expects string, \\(float\\|int\\) given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Slk.php
+
+		-
+			message: "#^Offset 4 does not exist on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\: numeric\\-string, 3\\: string, 4\\?\\: string, 5\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx.php
+
+		-
+			message: "#^Offset 5 does not exist on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\: numeric\\-string, 3\\: string, 4\\?\\: string, 5\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx.php
+
+		-
+			message: "#^Variable \\$column in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-falsy\\-string, 2\\?\\: non\\-empty\\-string\\|numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Style/NumberFormat/FractionFormatter.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-falsy\\-string, 2\\?\\: non\\-empty\\-string\\|numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Style/NumberFormat/FractionFormatter.php
+
+		-
+			message: "#^Variable \\$language on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Style/NumberFormat/Wizard/NumberBase.php
+
+		-
+			message: "#^Offset 'mime' on array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
+
+		-
+			message: "#^Variable \\$rgb in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of function fopen expects string, resource\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/BaseWriter.php
+
+		-
+			message: "#^Parameter \\#1 \\$url of function parse_url expects string, resource\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/BaseWriter.php
+
+		-
+			message: "#^Offset 'mime' does not exist on array\\{\\}\\|array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\}\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Writer/Html.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\{\\}\\|array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Html.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{\\}\\|array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Html.php
+
+		-
+			message: "#^Variable \\$column in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
+
+		-
+			message: "#^Variable \\$column in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
+
+		-
+			message: "#^Offset 2 on array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: non\\-falsy\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: numeric\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
+
+		-
+			message: "#^Offset 4 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: non\\-falsy\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
+
+		-
+			message: "#^Offset 4 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: numeric\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between int\\<5, 7\\> and 3 is always true\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
