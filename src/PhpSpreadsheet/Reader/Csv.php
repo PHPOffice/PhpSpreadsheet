@@ -649,6 +649,8 @@ class Csv extends BaseReader
      * as escape Character.
      *
      * @param resource $stream
+     *
+     * @return array|false
      */
     private static function getCsv(
         $stream,
@@ -656,7 +658,7 @@ class Csv extends BaseReader
         string $separator = ",",
         string $enclosure = "\"",
         string $escape = "\\"
-    ): array|false {
+    ) {
         if (PHP_VERSION_ID >= 80400 && $escape !== '') {
             return @fgetcsv($stream, $length, $separator, $enclosure, $escape);
         }
