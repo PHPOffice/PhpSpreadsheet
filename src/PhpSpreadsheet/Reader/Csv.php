@@ -650,14 +650,14 @@ class Csv extends BaseReader
      *
      * @param resource $stream
      *
-     * @return array|false
+     * @return array<int,?string>|false
      */
     private static function getCsv(
         $stream,
         ?int $length = null,
-        string $separator = ",",
-        string $enclosure = "\"",
-        string $escape = "\\"
+        string $separator = ',',
+        string $enclosure = '"',
+        string $escape = '\\'
     ) {
         if (PHP_VERSION_ID >= 80400 && $escape !== '') {
             return @fgetcsv($stream, $length, $separator, $enclosure, $escape);
