@@ -25,6 +25,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Nothing yet.
 
+### Removed
+
+- The following items were deprecated in release 2 and are now removed.
+- Writer\Xls\Style\ColorMap (no longer needed).
+- Reader\Xml::trySimpleXMLLoadString (should not have been public, no public replacement).
+- Calculation\Calculation::_translateFormulaToLocale (use method name translateFormulaToLocale without leading underscore).
+- Calculation\Calculation::_translateFormulaToEnglish (use method name translateFormulaToEnglish without leading underscore).
+
 ### Moved
 
 - Nothing yet.
@@ -33,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Xls Reader Some Ranges Not Handled Properly. [Issue #1570](https://github.com/PHPOffice/PhpSpreadsheet/issues/1570) [PR #4140](https://github.com/PHPOffice/PhpSpreadsheet/pull/4140)
 - Better Handling of legacyDrawing Xml. [Issue #4105](https://github.com/PHPOffice/PhpSpreadsheet/issues/4105) [PR #4122](https://github.com/PHPOffice/PhpSpreadsheet/pull/4122)
+- Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
 
 ## 2024-08-07 - 2.2.2
 
