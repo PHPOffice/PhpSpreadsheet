@@ -75,9 +75,17 @@ class Csv extends BaseReader
     /**
      * The character that can escape the enclosure.
      *
-     * @var string
+     * @var ?string
      */
-    private $escapeCharacter = '\\';
+    private $escapeCharacter;
+
+    /**
+     * The character that will be supplied to fgetcsv
+     * when escapeCharacter is null.
+     * It is anticipated that it will conditionally be set
+     * to null-string for Php9 and above.
+     */
+    private static string $defaultEscapeCharacter = '\\';
 
     /**
      * Callback for setting defaults in construction.
@@ -198,7 +206,7 @@ class Csv extends BaseReader
             return;
         }
 
-        $inferenceEngine = new Delimiter($this->fileHandle, $this->escapeCharacter, $this->enclosure);
+        $inferenceEngine = new Delimiter($this->fileHandle, $this->escapeCharacter ?? self::$defaultEscapeCharacter, $this->enclosure);
 
         // If number of lines is 0, nothing to infer : fall back to the default
         if ($inferenceEngine->linesCounted() === 0) {
@@ -529,6 +537,11 @@ class Csv extends BaseReader
         return $this->contiguous;
     }
 
+    /**
+     * Php9 intends to drop support for this parameter in fgetcsv.
+     * Not yet ready to mark deprecated in order to give users
+     * a migration path.
+     */
     public function setEscapeCharacter(string $escapeCharacter): self
     {
         $this->escapeCharacter = $escapeCharacter;
@@ -538,7 +551,7 @@ class Csv extends BaseReader
 
     public function getEscapeCharacter(): string
     {
-        return $this->escapeCharacter;
+        return $this->escapeCharacter ?? self::$defaultEscapeCharacter;
     }
 
     /**
@@ -657,8 +670,9 @@ class Csv extends BaseReader
         ?int $length = null,
         string $separator = ',',
         string $enclosure = '"',
-        string $escape = '\\'
+        ?string $escape = null
     ) {
+        $escape = $escape ?? self::$defaultEscapeCharacter;
         if (PHP_VERSION_ID >= 80400 && $escape !== '') {
             return @fgetcsv($stream, $length, $separator, $enclosure, $escape);
         }

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.29.2 - TBD
+
+### Fixed
+
+- Backported security patches.
+- Support for Php8.4.
+- Change to Csv Reader (see below under Deprecated). Backport of PR #4162 intended for 3.0.0. [Issue #4161](https://github.com/PHPOffice/PhpSpreadsheet/issues/4161)
+- Tweaks to ROUNDUP, ROUNDDOWN, TRUNC, AMORDEGRC (results had been different under 8.4).
+
+### Deprecated
+
+- Php8.4 will deprecate the escape parameter of fgetcsv. Csv Reader is affected by this; code is changed to be unaffected, but this will mean a breaking change is coming with Php9. Any code which uses the default escape value of backslash will fail in Php9. It is recommended to explicitly set the escape value to null string before then.
+
 ## 1.29.1 - 2024-09-03
 
 ### Fixed
