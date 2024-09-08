@@ -18,18 +18,17 @@ $config
         'backtick_to_shell_exec' => true,
         'binary_operator_spaces' => true,
         'blank_line_after_namespace' => true,
+        'blank_lines_before_namespace' => ['max_line_breaks' => 2, 'min_line_breaks' => 2], // we want 1 blank line before namespace
         'blank_line_after_opening_tag' => true,
         'blank_line_before_statement' => true,
-        'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
         'class_definition' => false, // phpcs disagree
-        'class_keyword_remove' => false, // Deprecated, and ::class keyword gives us better support in IDE
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'combine_nested_dirname' => true,
         'comment_to_phpdoc' => false, // interferes with annotations
-        'compact_nullable_typehint' => true,
+        'compact_nullable_type_declaration' => true,
         'concat_space' => ['spacing' => 'one'],
         'constant_case' => true,
         'date_time_immutable' => false, // Break our unit tests
@@ -46,7 +45,6 @@ $config
         'encoding' => true,
         'ereg_to_preg' => true,
         'error_suppression' => false, // it breaks \PhpOffice\PhpSpreadsheet\Helper\Handler
-        'escape_implicit_backslashes' => true,
         'explicit_indirect_variable' => false, // I feel it makes the code actually harder to read
         'explicit_string_variable' => false, // I feel it makes the code actually harder to read
         'final_class' => false, // We need non-final classes
@@ -58,7 +56,6 @@ $config
         'fully_qualified_strict_types' => true,
         'function_declaration' => true,
         'function_to_constant' => true,
-        'function_typehint_space' => true,
         'general_phpdoc_annotation_remove' => ['annotations' => ['access', 'category', 'copyright']],
         'general_phpdoc_tag_rename' => true,
         'global_namespace_import' => true,
@@ -92,15 +89,14 @@ $config
         'native_constant_invocation' => false, // Micro optimization that look messy
         'native_function_casing' => true,
         'native_function_invocation' => false, // I suppose this would be best, but I am still unconvinced about the visual aspect of it
-        'native_function_type_declaration_casing' => true,
-        'new_with_braces' => true,
+        'native_type_declaration_casing' => true,
+        'new_with_parentheses' => ['anonymous_class' => true, 'named_class' => true],
         'no_alias_functions' => true,
         'no_alias_language_construct_call' => true,
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
         'no_blank_lines_after_class_opening' => true,
         'no_blank_lines_after_phpdoc' => true,
-        'no_blank_lines_before_namespace' => false, // we want 1 blank line before namespace
         'no_break_comment' => true,
         'no_closing_tag' => true,
         'no_empty_comment' => true,
@@ -120,16 +116,14 @@ $config
         'no_space_around_double_colon' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
-        'no_spaces_inside_parenthesis' => true,
         'no_superfluous_elseif' => false, // Might be risky on a huge code base
         'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
-        'no_trailing_comma_in_list_call' => true,
-        'no_trailing_comma_in_singleline_array' => true,
+        'no_trailing_comma_in_singleline' => ['elements' => ['arguments', 'array_destructuring', 'array', 'group_import']],
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_trailing_whitespace_in_string' => false, // Too dangerous
         'no_unneeded_control_parentheses' => true,
-        'no_unneeded_curly_braces' => true,
+        'no_unneeded_braces' => true,
         'no_unneeded_final_method' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
@@ -214,21 +208,22 @@ $config
         'simplified_if_return' => false, // Even if technically correct we prefer to be explicit
         'simplified_null_return' => false, // Even if technically correct we prefer to be explicit
         'single_blank_line_at_eof' => true,
-        'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
         'single_import_per_statement' => true,
         'single_line_after_imports' => true,
         'single_line_comment_style' => true,
         'single_line_throw' => false, // I don't see any reason for having a special case for Exception
         'single_quote' => true,
-        'single_space_after_construct' => true,
+        'single_space_around_construct' => true,
         'single_trait_insert_per_statement' => true,
         'space_after_semicolon' => true,
+        'spaces_inside_parentheses' => ['space' => 'none'],
         'standardize_increment' => true,
         'standardize_not_equals' => true,
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
         'strict_param' => false, // No, too dangerous to change that
+        'string_implicit_backslashes' => false, // was escape_implicit_backslashes, too confusing
         'string_length_to_empty' => true,
         'string_line_ending' => true,
         'switch_case_semicolon_to_colon' => true,
@@ -239,6 +234,7 @@ $config
         'ternary_to_null_coalescing' => true,
         'trailing_comma_in_multiline' => true,
         'trim_array_spaces' => true,
+        'type_declaration_spaces' => ['elements' => ['function', 'property']], // was function_typehint_space
         'types_spaces' => true,
         'unary_operator_spaces' => true,
         'use_arrow_functions' => true,
