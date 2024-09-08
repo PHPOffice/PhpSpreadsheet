@@ -5,27 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 2.2.3
-
-### Added
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
+## TBD - 2.3.0
 
 ### Fixed
 
 - Improve Xlsx Reader speed (backport of PR #4153 intended for 3.0.0). [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917)
+- Change to Csv Reader (see below under Deprecated). Backport of PR #4162 intended for 3.0.0. [Issue #4161](https://github.com/PHPOffice/PhpSpreadsheet/issues/4161)
+- Tweak to AMORDEGRC. Backport of PR #4164 intended for 3.0.0.
+
+### Deprecated
+
+- Php8.4 will deprecate the escape parameter of fgetcsv. Csv Reader is affected by this; code is changed to be unaffected, but this will mean a breaking change is coming with Php9. Any code which uses the default escape value of backslash will fail in Php9. It is recommended to explicitly set the escape value to null string before then.
 
 ## 2024-08-07 - 2.2.2
 
