@@ -134,7 +134,7 @@ class ContentTypes extends WriterPart
             $mimeType = '';
 
             $drawing = $this->getParentWriter()->getDrawingHashTable()->getByIndex($i);
-            if ($drawing instanceof WorksheetDrawing) {
+            if ($drawing instanceof WorksheetDrawing && $drawing->getPath() !== '') {
                 $extension = strtolower($drawing->getExtension());
                 if ($drawing->getIsUrl()) {
                     $mimeType = image_type_to_mime_type($drawing->getType());
@@ -149,7 +149,7 @@ class ContentTypes extends WriterPart
                 $mimeType = $drawing->getMimeType();
             }
 
-            if (!isset($aMediaContentTypes[$extension])) {
+            if ($mimeType !== '' && !isset($aMediaContentTypes[$extension])) {
                 $aMediaContentTypes[$extension] = $mimeType;
 
                 $this->writeDefaultContentType($objWriter, $extension, $mimeType);
@@ -168,7 +168,7 @@ class ContentTypes extends WriterPart
         for ($i = 0; $i < $sheetCount; ++$i) {
             if (count($spreadsheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
                 foreach ($spreadsheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
-                    if (!isset($aMediaContentTypes[strtolower($image->getExtension())])) {
+                    if ($image->getPath() !== '' && !isset($aMediaContentTypes[strtolower($image->getExtension())])) {
                         $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
 
                         $this->writeDefaultContentType($objWriter, strtolower($image->getExtension()), $aMediaContentTypes[strtolower($image->getExtension())]);

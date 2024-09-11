@@ -629,7 +629,7 @@ class Html extends BaseWriter
             }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
-            if ($drawing instanceof Drawing) {
+            if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
                 $filename = $drawing->getPath();
 
                 // Strip off eventual '.'
@@ -648,12 +648,15 @@ class Html extends BaseWriter
                 $imageData = self::winFileToUrl($filename, $this instanceof Pdf\Mpdf);
 
                 if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
+                    $imageData = 'data:,';
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
                         $imageDetails = getimagesize($filename) ?: ['mime' => ''];
-                        // base64 encode the binary data
-                        $base64 = base64_encode($picture);
-                        $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
+                        if (str_starts_with($imageDetails['mime'], 'image/')) {
+                            // base64 encode the binary data
+                            $base64 = base64_encode($picture);
+                            $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
+                        }
                     }
                 }
 

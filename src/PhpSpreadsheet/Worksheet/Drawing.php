@@ -94,46 +94,59 @@ class Drawing extends BaseDrawing
      */
     public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
     {
-        if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
-            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-            if (filter_var($path, FILTER_VALIDATE_URL)) {
-                if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
-                    throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
-                }
-                $this->path = $path;
-                // Implicit that it is a URL, rather store info than running check above on value in other places.
-                $this->isUrl = true;
-                $imageContents = @file_get_contents($path);
-                if ($imageContents === false) {
-                    $this->path = '';
-                } else {
-                    $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
-                    if ($filePath) {
-                        file_put_contents($filePath, $imageContents);
-                        if (file_exists($filePath)) {
+        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+            $this->path = $path;
+
+            return $this;
+        }
+
+        if ($verifyFile === false && !str_starts_with($path, 'zip:')) {
+            throw new PhpSpreadsheetException('Only zip files can set verifyFile to false');
+        }
+
+        $this->path = '';
+        // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+                throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+            }
+            // Implicit that it is a URL, rather store info than running check above on value in other places.
+            $this->isUrl = true;
+            $imageContents = @file_get_contents($path);
+            if ($imageContents !== false) {
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                if ($filePath) {
+                    file_put_contents($filePath, $imageContents);
+                    if (file_exists($filePath)) {
+                        if ($this->isImage($filePath)) {
+                            $this->path = $path;
                             $this->setSizesAndType($filePath);
-                            unlink($filePath);
                         }
+                        unlink($filePath);
                     }
                 }
-            } elseif (file_exists($path)) {
-                $this->path = $path;
-                $this->setSizesAndType($path);
-            } elseif ($zip instanceof ZipArchive) {
-                $zipPath = explode('#', $path)[1];
-                if ($zip->locateName($zipPath) !== false) {
+            }
+        } elseif ($zip instanceof ZipArchive) {
+            $zipPath = explode('#', $path)[1];
+            if ($zip->locateName($zipPath) !== false) {
+                if ($this->isImage($path)) {
                     $this->path = $path;
                     $this->setSizesAndType($path);
                 }
-            } else {
-                //throw new PhpSpreadsheetException("File $path not found!");
-                $this->path = '';
             }
-        } else {
-            $this->path = $path;
+        } elseif (file_exists($path)) {
+            if ($this->isImage($path)) {
+                $this->path = $path;
+                $this->setSizesAndType($path);
+            }
         }
 
         return $this;
+    }
+
+    private function isImage(string $path): bool
+    {
+        return str_starts_with((string) mime_content_type($path), 'image/');
     }
 
     /**

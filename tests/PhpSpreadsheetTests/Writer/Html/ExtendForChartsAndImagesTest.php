@@ -59,7 +59,7 @@ class ExtendForChartsAndImagesTest extends Functional\AbstractFunctional
 
         // Add a drawing to the worksheet
         $drawing = new Drawing();
-        $drawing->setPath('foo.png', false);
+        $drawing->setPath('tests/data/Writer/XLSX/blue_square.png');
         $drawing->setCoordinates('A5');
         $drawing->setWorksheet($sheet);
 
@@ -74,7 +74,7 @@ class ExtendForChartsAndImagesTest extends Functional\AbstractFunctional
 
         // Add a drawing to the worksheet
         $drawing = new Drawing();
-        $drawing->setPath('foo.png', false);
+        $drawing->setPath('tests/data/Writer/XLSX/blue_square.png');
         $drawing->setCoordinates('E1');
         $drawing->setWorksheet($sheet);
 
