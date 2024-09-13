@@ -131,4 +131,20 @@ class XmlScannerTest extends TestCase
         $output = $scanner->scan($input = '<?xml version="1.0" encoding="utf-8"?><foo>bar</foo>');
         self::assertSame($input, $output);
     }
+
+    public function testUtf7Whitespace(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Double-encoded');
+        $reader = new Xlsx();
+        $reader->load('tests/data/Reader/XLSX/utf7white.dontuse');
+    }
+
+    public function testUtf8Entity(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Detected use of ENTITY');
+        $reader = new Xlsx();
+        $reader->load('tests/data/Reader/XLSX/utf8entity.dontuse');
+    }
 }
