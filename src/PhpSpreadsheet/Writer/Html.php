@@ -1520,7 +1520,14 @@ class Html extends BaseWriter
 
             // Hyperlink?
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
-                $cellData = '<a href="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getUrl(), Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
+                $url = $worksheet->getHyperlink($coordinate)->getUrl();
+                $urldecode = strtolower(html_entity_decode(trim($url), encoding: 'UTF-8'));
+                $parseScheme = preg_match('/^(\\w+):/', $urldecode, $matches);
+                if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
+                    $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
+                } else {
+                    $cellData = '<a href="' . htmlspecialchars($url, Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
+                }
             }
 
             // Should the cell be written or is it swallowed by a rowspan or colspan?
