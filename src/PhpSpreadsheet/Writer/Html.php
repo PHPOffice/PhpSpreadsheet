@@ -1513,7 +1513,7 @@ class Html extends BaseWriter
             // Hyperlink?
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
-                $urldecode = strtolower(html_entity_decode(trim($url), encoding: 'UTF-8'));
+                $urldecode = strtolower(html_entity_decode(trim($url), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'));
                 $parseScheme = preg_match('/^(\\w+):/', $urldecode, $matches);
                 if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
