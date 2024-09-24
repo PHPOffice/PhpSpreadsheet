@@ -287,7 +287,7 @@ parameters:
 
 		-
 			message: "#^Offset 'mime' does not exist on array\\{\\}\\|array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\}\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
