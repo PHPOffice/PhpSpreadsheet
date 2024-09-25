@@ -112,7 +112,7 @@ class Drawing extends BaseDrawing
             $ctx = null;
             // https://github.com/php/php-src/issues/16023
             if (str_starts_with($path, 'https:')) {
-                $ctx = stream_context_create(['ssl' => ['crypto_method'=>STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+                $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
             }
             $imageContents = @file_get_contents($path, false, $ctx);
             if ($imageContents !== false) {
