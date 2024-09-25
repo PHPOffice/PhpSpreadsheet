@@ -1411,7 +1411,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url);
+                                                            $objDrawing->setPath($url, false);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -1500,7 +1500,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url);
+                                                            $objDrawing->setPath($url, false);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
