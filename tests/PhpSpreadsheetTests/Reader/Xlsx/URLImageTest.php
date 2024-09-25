@@ -34,6 +34,7 @@ class URLImageTest extends TestCase
             self::assertSame(84, $drawing->getWidth());
             self::assertSame(44, $drawing->getHeight());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testURLImageSourceNotFound(): void
@@ -48,6 +49,7 @@ class URLImageTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
         $collection = $worksheet->getDrawingCollection();
         self::assertCount(0, $collection);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testURLImageSourceBadProtocol(): void
