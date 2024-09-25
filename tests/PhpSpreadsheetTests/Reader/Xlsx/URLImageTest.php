@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
 {
-    // https://github.com/readthedocs/readthedocs.org/issues/11615
-    public function xtestURLImageSource(): void
+    public function testURLImageSource(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -31,20 +30,13 @@ class URLImageTest extends TestCase
             // Check if the source is a URL or a file path
             self::assertTrue($drawing->getIsURL());
             self::assertSame('https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-03-filter-icon-1.png', $drawing->getPath());
-            $imageContents = file_get_contents($drawing->getPath());
-            self::assertNotFalse($imageContents);
-            $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
-            self::assertNotFalse($filePath);
-            self::assertNotFalse(file_put_contents($filePath, $imageContents));
-            $mimeType = mime_content_type($filePath);
-            unlink($filePath);
-            self::assertNotFalse($mimeType);
-            $extension = File::mime2ext($mimeType);
-            self::assertSame('png', $extension);
+            self::assertSame(IMAGETYPE_PNG, $drawing->getType());
+            self::assertSame(84, $drawing->getWidth());
+            self::assertSame(44, $drawing->getHeight());
         }
     }
 
-    public function xtestURLImageSourceNotFound(): void
+    public function testURLImageSourceNotFound(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
