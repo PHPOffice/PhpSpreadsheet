@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
 {
-    // https://github.com/readthedocs/readthedocs.org/issues/11615
-    public function xtestURLImageSource(): void
+    public function testURLImageSource(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -41,6 +40,10 @@ class URLImageTest extends TestCase
             self::assertNotFalse($mimeType);
             $extension = File::mime2ext($mimeType);
             self::assertSame('png', $extension);
+            self::assertSame(IMAGETYPE_PNG, $drawing->getType());
+            self::assertSame(84, $drawing->getWidth());
+            self::assertSame(44, $drawing->getHeight());
+            $spreadsheet->disconnectWorksheets();
         }
     }
 
@@ -56,6 +59,7 @@ class URLImageTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
         $collection = $worksheet->getDrawingCollection();
         self::assertCount(0, $collection);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testURLImageSourceBadProtocol(): void
