@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -124,6 +124,8 @@
     </aside>
 
         
+
+
 
 
 
@@ -200,7 +202,6 @@
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -235,6 +236,8 @@
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_SETMAXROW">
@@ -261,6 +264,8 @@
 
     
     
+    
+
     
 
 </article>
@@ -320,6 +325,8 @@
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -369,6 +376,8 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -397,7 +406,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateCellOrCellRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRange</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateCellOrCellRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>&gt;|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRange</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -406,7 +415,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$cellRange</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|int|string</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>&gt;|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|int|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Coordinate of the cells as a string, eg: 'C5:F12';
@@ -416,6 +425,8 @@ or as a CellAddress or AddressRange object.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -447,7 +458,7 @@ or as a CellAddress or AddressRange object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateCellRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRange</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateCellRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>&gt;|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRange</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -456,7 +467,7 @@ or as a CellAddress or AddressRange object.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$cellRange</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\AddressRange">AddressRange</abbr></a>&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>&gt;|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Coordinate of the cells as a string, eg: 'C5:F12';
@@ -466,6 +477,8 @@ or as an AddressRange object.</p>
 
             </dd>
             </dl>
+
+    
 
     
 
