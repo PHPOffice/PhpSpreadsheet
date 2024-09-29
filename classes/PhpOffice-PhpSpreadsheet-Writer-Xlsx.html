@@ -273,11 +273,23 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
 <dd>Private unique Conditional HashTable.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useCSEArrays">$useCSEArrays</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_useDiskCaching">$useDiskCaching</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
 <dd>Use disk caching where possible?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useDynamicArray">$useDynamicArray</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartChart">$writerPartChart</a>
@@ -634,11 +646,23 @@ with LibreOffice or Gnumeric.</dd>
 <dd>Set Spreadsheet object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setUseCSEArrays">setUseCSEArrays()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching">setUseDiskCaching()</a>
     <span>
                                 &nbsp;: $this    </span>
 </dt>
 <dd>Set use disk caching where possible?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_useDynamicArrays">useDynamicArrays()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_maybeCloseFileHandle">maybeCloseFileHandle()</a>
@@ -661,6 +685,12 @@ with LibreOffice or Gnumeric.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_addZipFiles">addZipFiles()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_determineUseDynamicArrays">determineUseDynamicArrays()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -1098,7 +1128,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">641</span>
+    <span class="phpdocumentor-element-found-in__line">651</span>
 
     </aside>
 
@@ -1302,6 +1332,41 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_useCSEArrays">
+        $useCSEArrays
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useCSEArrays" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$useCSEArrays</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_useDiskCaching">
         $useDiskCaching
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_useDiskCaching" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1322,6 +1387,41 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$useDiskCaching</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_useDynamicArray">
+        $useDynamicArray
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useDynamicArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">141</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$useDynamicArray</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
@@ -1879,7 +1979,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">146</span>
 
     </aside>
 
@@ -1925,7 +2025,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">594</span>
+    <span class="phpdocumentor-element-found-in__line">604</span>
 
     </aside>
 
@@ -2001,7 +2101,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">614</span>
+    <span class="phpdocumentor-element-found-in__line">624</span>
 
     </aside>
 
@@ -2039,7 +2139,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">706</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 
     </aside>
 
@@ -2076,7 +2176,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">584</span>
 
     </aside>
 
@@ -2114,7 +2214,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">594</span>
 
     </aside>
 
@@ -2193,7 +2293,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">604</span>
+    <span class="phpdocumentor-element-found-in__line">614</span>
 
     </aside>
 
@@ -2231,7 +2331,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">622</span>
+    <span class="phpdocumentor-element-found-in__line">632</span>
 
     </aside>
 
@@ -2312,7 +2412,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">530</span>
 
     </aside>
 
@@ -2350,7 +2450,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">544</span>
+    <span class="phpdocumentor-element-found-in__line">554</span>
 
     </aside>
 
@@ -2388,7 +2488,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">554</span>
+    <span class="phpdocumentor-element-found-in__line">564</span>
 
     </aside>
 
@@ -2426,7 +2526,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">564</span>
+    <span class="phpdocumentor-element-found-in__line">574</span>
 
     </aside>
 
@@ -2502,7 +2602,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
@@ -2539,7 +2639,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -2576,7 +2676,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -2613,7 +2713,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -2650,7 +2750,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">192</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
@@ -2687,7 +2787,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 
     </aside>
 
@@ -2724,7 +2824,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -2761,7 +2861,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
     </aside>
 
@@ -2798,7 +2898,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">217</span>
 
     </aside>
 
@@ -2835,7 +2935,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">217</span>
+    <span class="phpdocumentor-element-found-in__line">222</span>
 
     </aside>
 
@@ -2872,7 +2972,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">227</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
@@ -2909,7 +3009,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">227</span>
 
     </aside>
 
@@ -2946,7 +3046,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">232</span>
+    <span class="phpdocumentor-element-found-in__line">237</span>
 
     </aside>
 
@@ -2983,7 +3083,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 
     </aside>
 
@@ -3064,7 +3164,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">247</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 
     </aside>
 
@@ -3119,7 +3219,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">716</span>
+    <span class="phpdocumentor-element-found-in__line">726</span>
 
     </aside>
 
@@ -3220,7 +3320,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">634</span>
+    <span class="phpdocumentor-element-found-in__line">644</span>
 
     </aside>
 
@@ -3322,7 +3422,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">532</span>
+    <span class="phpdocumentor-element-found-in__line">542</span>
 
     </aside>
 
@@ -3357,6 +3457,49 @@ with LibreOffice or Gnumeric.</p>
         <span class="phpdocumentor-signature__response_type">$this</span>
             </section>
 
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setUseCSEArrays">
+        setUseCSEArrays()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setUseCSEArrays" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">733</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setUseCSEArrays</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$useCSEArrays</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$useCSEArrays</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3412,6 +3555,43 @@ with LibreOffice or Gnumeric.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_useDynamicArrays">
+        useDynamicArrays()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_useDynamicArrays" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">741</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">useDynamicArrays</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -3506,7 +3686,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">643</span>
+    <span class="phpdocumentor-element-found-in__line">653</span>
 
     </aside>
 
@@ -3556,7 +3736,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">651</span>
+    <span class="phpdocumentor-element-found-in__line">661</span>
 
     </aside>
 
@@ -3591,6 +3771,39 @@ with LibreOffice or Gnumeric.</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_determineUseDynamicArrays">
+        determineUseDynamicArrays()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_determineUseDynamicArrays" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">746</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">determineUseDynamicArrays</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_processDrawing">
         processDrawing()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_processDrawing" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3599,7 +3812,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">658</span>
+    <span class="phpdocumentor-element-found-in__line">668</span>
 
     </aside>
 
@@ -3762,7 +3975,9 @@ with LibreOffice or Gnumeric.</p>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_stringTable">$stringTable<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_styleHashTable">$styleHashTable<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_stylesConditionalHashTable">$stylesConditionalHashTable<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useCSEArrays">$useCSEArrays<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_useDiskCaching">$useDiskCaching<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useDynamicArray">$useDynamicArray<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartChart">$writerPartChart<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartComments">$writerPartComments<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartContentTypes">$writerPartContentTypes<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"></li>
@@ -3821,11 +4036,14 @@ with LibreOffice or Gnumeric.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setOffice2003Compatibility">setOffice2003Compatibility()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setPreCalculateFormulas">setPreCalculateFormulas()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setSpreadsheet">setSpreadsheet()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setUseCSEArrays">setUseCSEArrays()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching">setUseDiskCaching()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_useDynamicArrays">useDynamicArrays()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_maybeCloseFileHandle">maybeCloseFileHandle()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_processFlags">processFlags()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_addZipFile">addZipFile()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_addZipFiles">addZipFiles()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_determineUseDynamicArrays">determineUseDynamicArrays()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_processDrawing">processDrawing()</a></li>
                                     </ul>
             </li>

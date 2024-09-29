@@ -494,6 +494,12 @@ window width.</dd>
 <dd>Create sheet and add it to this workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_deleteLegacyDrawing">deleteLegacyDrawing()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_discardMacros">discardMacros()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -648,6 +654,12 @@ filtering optiomd in the user interface.</dd>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Get index for sheet.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getLegacyDrawing">getLegacyDrawing()</a>
+    <span>
+                                &nbsp;: string|null    </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getMacrosCertificate">getMacrosCertificate()</a>
@@ -2859,6 +2871,49 @@ window width.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_deleteLegacyDrawing">
+        deleteLegacyDrawing()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_deleteLegacyDrawing" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1585</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">deleteLegacyDrawing</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_discardMacros">
         discardMacros()
         <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_discardMacros" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3767,6 +3822,53 @@ filtering optiomd in the user interface.</p>
                 <section class="phpdocumentor-description"><p>index</p>
 </section>
 
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getLegacyDrawing">
+        getLegacyDrawing()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getLegacyDrawing" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1590</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getLegacyDrawing</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
             </section>
 
 </article>
@@ -6760,6 +6862,7 @@ user interface.</li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_cellXfExists">cellXfExists()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_copy">copy()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_createSheet">createSheet()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_deleteLegacyDrawing">deleteLegacyDrawing()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_discardMacros">discardMacros()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_disconnectWorksheets">disconnectWorksheets()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_garbageCollect">garbageCollect()</a></li>
@@ -6782,6 +6885,7 @@ user interface.</li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getFirstSheetIndex">getFirstSheetIndex()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getID">getID()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getIndex">getIndex()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getLegacyDrawing">getLegacyDrawing()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getMacrosCertificate">getMacrosCertificate()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getMacrosCode">getMacrosCode()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getMinimized">getMinimized()</a></li>

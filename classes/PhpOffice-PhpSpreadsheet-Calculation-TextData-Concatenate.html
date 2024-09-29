@@ -123,7 +123,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
@@ -176,6 +176,13 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_actualCONCATENATE">actualCONCATENATE()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
+</dt>
+<dd>This implements the CONCATENATE function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_builtinREPT">builtinREPT()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
@@ -187,7 +194,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>CONCATENATE.</dd>
+<dd>This implements the CONCAT function, *not* CONCATENATE.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_TEXTJOIN">TEXTJOIN()</a>
@@ -234,6 +241,12 @@
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Handles array argument processing when the function accepts a single argument that can be an array argument.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_concatenate2Args">concatenate2Args()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_evaluateTextJoinArray">evaluateTextJoinArray()</a>
@@ -350,6 +363,56 @@
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_actualCONCATENATE">
+        actualCONCATENATE()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_actualCONCATENATE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This implements the CONCATENATE function.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">actualCONCATENATE</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$args</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>data to be concatenated</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_builtinREPT">
         builtinREPT()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_builtinREPT" class="headerlink"><i class="fas fa-link"></i></a>
@@ -358,7 +421,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 
@@ -427,11 +490,11 @@ will also be an array with matching dimensions</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">22</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">CONCATENATE.</p>
+        <p class="phpdocumentor-summary">This implements the CONCAT function, *not* CONCATENATE.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -475,7 +538,7 @@ will also be an array with matching dimensions</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">116</span>
 
     </aside>
 
@@ -861,6 +924,60 @@ DAYOFMONTH() or FACT().</p>
             -private
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_concatenate2Args">
+        concatenate2Args()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_concatenate2Args" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">68</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">concatenate2Args</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|bool|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand2</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$operand1</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$operand2</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|bool|float|int|string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_evaluateTextJoinArray">
         evaluateTextJoinArray()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_evaluateTextJoinArray" class="headerlink"><i class="fas fa-link"></i></a>
@@ -869,7 +986,7 @@ DAYOFMONTH() or FACT().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php"><a href="files/src-phpspreadsheet-calculation-textdata-concatenate.html"><abbr title="src/PhpSpreadsheet/Calculation/TextData/Concatenate.php">Concatenate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">141</span>
 
     </aside>
 
@@ -1122,6 +1239,7 @@ DAYOFMONTH() or FACT().</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_actualCONCATENATE">actualCONCATENATE()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_builtinREPT">builtinREPT()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_CONCATENATE">CONCATENATE()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_TEXTJOIN">TEXTJOIN()</a></li>
@@ -1130,6 +1248,7 @@ DAYOFMONTH() or FACT().</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArgumentsSubset">evaluateArrayArgumentsSubset()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArgumentsSubsetFrom">evaluateArrayArgumentsSubsetFrom()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateSingleArgumentArray">evaluateSingleArgumentArray()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_concatenate2Args">concatenate2Args()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Concatenate.html#method_evaluateTextJoinArray">evaluateTextJoinArray()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_initialiseHelper">initialiseHelper()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_testFalse">testFalse()</a></li>
