@@ -5,13 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 2.3.0
+## 2024-09-29 - 2.3.0
 
 ### Fixed
 
+- Backported security patches.
 - Improve Xlsx Reader speed (backport of PR #4153 intended for 3.0.0). [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917)
 - Change to Csv Reader (see below under Deprecated). Backport of PR #4162 intended for 3.0.0. [Issue #4161](https://github.com/PHPOffice/PhpSpreadsheet/issues/4161)
 - Tweak to AMORDEGRC. Backport of PR #4164 intended for 3.0.0.
+
+### Changed
+
+- Images will not be added to spreadsheet if they cannot be validated as images.
 
 ### Deprecated
 
