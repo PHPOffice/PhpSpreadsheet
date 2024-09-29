@@ -14,7 +14,7 @@ if ($helper->isCli()) {
 }
 ?>
 <form action="45_Quadratic_equation_solver.php" method="POST">
-    Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
+    Enter the coefficients for Ax<sup>2</sup> + Bx + C = 0
     <table border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td>
@@ -47,7 +47,9 @@ if ($helper->isCli()) {
 <?php
 /**     If the user has submitted the form, then we need to execute a calculation * */
 if (isset($_POST['submit'])) {
-    if ($_POST['A'] == 0) {
+    if (!is_numeric($_POST['A']) || !is_numeric($_POST['B']) || !is_numeric($_POST['C'])) { // validate input
+        $helper->log('Non-numeric input');
+    } elseif ($_POST['A'] == 0) {
         $helper->log('The equation is not quadratic');
     } else {
         // Calculate and Display the results
