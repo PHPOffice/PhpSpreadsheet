@@ -579,6 +579,9 @@ class Html extends BaseWriter
             }
         }
         foreach ($worksheet->getDrawingCollection() as $drawing) {
+            if ($drawing instanceof Drawing && $drawing->getPath() === '') {
+                continue;
+            }
             $imageTL = Coordinate::indexesFromString($drawing->getCoordinates());
             $this->sheetDrawings[$drawing->getCoordinates()] = $drawing;
             if ($imageTL[1] > $rowMax) {
@@ -651,11 +654,11 @@ class Html extends BaseWriter
                     $imageData = 'data:,';
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
-                        $imageDetails = getimagesize($filename) ?: ['mime' => ''];
-                        if (str_starts_with($imageDetails['mime'], 'image/')) {
+                        $mimeContentType = (string) @mime_content_type($filename);
+                        if (str_starts_with($mimeContentType, 'image/')) {
                             // base64 encode the binary data
                             $base64 = base64_encode($picture);
-                            $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
+                            $imageData = 'data:' . $mimeContentType . ';base64,' . $base64;
                         }
                     }
                 }

@@ -19,7 +19,7 @@ class ImageEmbedTest extends TestCase
         $drawing = new Drawing();
         $drawing->setName('Not an image');
         $drawing->setDescription('Non-image');
-        $drawing->setPath(__FILE__);
+        $drawing->setPath(__FILE__, false);
         $drawing->setCoordinates('A1');
         $drawing->setCoordinates2('E4');
         $drawing->setWorksheet($sheet);

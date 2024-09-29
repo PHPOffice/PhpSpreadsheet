@@ -94,14 +94,11 @@ class Drawing extends BaseDrawing
      */
     public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
     {
+        $this->isUrl = false;
         if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
             $this->path = $path;
 
             return $this;
-        }
-
-        if ($verifyFile === false && !str_starts_with($path, 'zip:')) {
-            throw new PhpSpreadsheetException('Only zip files can set verifyFile to false');
         }
 
         $this->path = '';
@@ -112,12 +109,17 @@ class Drawing extends BaseDrawing
             }
             // Implicit that it is a URL, rather store info than running check above on value in other places.
             $this->isUrl = true;
-            $imageContents = @file_get_contents($path);
+            $ctx = null;
+            // https://github.com/php/php-src/issues/16023
+            if (str_starts_with($path, 'https:')) {
+                $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+            }
+            $imageContents = @file_get_contents($path, false, $ctx);
             if ($imageContents !== false) {
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                 if ($filePath) {
-                    file_put_contents($filePath, $imageContents);
-                    if (file_exists($filePath)) {
+                    $put = @file_put_contents($filePath, $imageContents);
+                    if ($put !== false) {
                         if ($this->isImage($filePath)) {
                             $this->path = $path;
                             $this->setSizesAndType($filePath);
@@ -128,17 +130,22 @@ class Drawing extends BaseDrawing
             }
         } elseif ($zip instanceof ZipArchive) {
             $zipPath = explode('#', $path)[1];
-            if ($zip->locateName($zipPath) !== false) {
+            $locate = @$zip->locateName($zipPath);
+            if ($locate !== false) {
                 if ($this->isImage($path)) {
                     $this->path = $path;
                     $this->setSizesAndType($path);
                 }
             }
-        } elseif (file_exists($path)) {
-            if ($this->isImage($path)) {
+        } else {
+            $exists = @file_exists($path);
+            if ($exists !== false && $this->isImage($path)) {
                 $this->path = $path;
                 $this->setSizesAndType($path);
             }
+        }
+        if ($this->path === '' && $verifyFile) {
+            throw new PhpSpreadsheetException("File $path not found!");
         }
 
         return $this;
@@ -146,7 +153,16 @@ class Drawing extends BaseDrawing
 
     private function isImage(string $path): bool
     {
-        return str_starts_with((string) mime_content_type($path), 'image/');
+        $mime = (string) @mime_content_type($path);
+        $retVal = false;
+        if (str_starts_with($mime, 'image/')) {
+            $retVal = true;
+        } elseif ($mime === 'application/octet-stream') {
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $retVal = in_array($extension, ['bin', 'emf'], true);
+        }
+
+        return $retVal;
     }
 
     /**
