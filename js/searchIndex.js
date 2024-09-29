@@ -16008,7 +16008,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetEscapeCharacter\u0028\u0029",
             "name": "setEscapeCharacter",
-            "summary": "",
+            "summary": "Php9\u0020intends\u0020to\u0020drop\u0020support\u0020for\u0020this\u0020parameter\u0020in\u0020fgetcsv.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEscapeCharacter"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AgetEscapeCharacter\u0028\u0029",
@@ -16055,6 +16055,11 @@ Search.appendIndex(
             "name": "getPreserveNullString",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getPreserveNullString"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AgetCsv\u0028\u0029",
+            "name": "getCsv",
+            "summary": "Php8.4\u0020deprecates\u0020use\u0020of\u0020anything\u0020other\u0020than\u0020null\u0020string\nas\u0020escape\u0020Character.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getCsv"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003ADEFAULT_FALLBACK_ENCODING",
             "name": "DEFAULT_FALLBACK_ENCODING",
@@ -16170,6 +16175,11 @@ Search.appendIndex(
             "name": "escapeCharacter",
             "summary": "The\u0020character\u0020that\u0020can\u0020escape\u0020the\u0020enclosure.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024defaultEscapeCharacter",
+            "name": "defaultEscapeCharacter",
+            "summary": "The\u0020character\u0020that\u0020will\u0020be\u0020supplied\u0020to\u0020fgetcsv\nwhen\u0020escapeCharacter\u0020is\u0020null.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_defaultEscapeCharacter"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024constructorCallback",
             "name": "constructorCallback",
@@ -31520,6 +31530,11 @@ Search.appendIndex(
             "name": "setPath",
             "summary": "Set\u0020Path.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_setPath"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Drawing\u003A\u003AisImage\u0028\u0029",
+            "name": "isImage",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_isImage"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Drawing\u003A\u003AgetIsURL\u0028\u0029",
             "name": "getIsURL",
