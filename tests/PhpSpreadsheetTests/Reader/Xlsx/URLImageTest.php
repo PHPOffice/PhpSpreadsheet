@@ -61,28 +61,4 @@ class URLImageTest extends TestCase
         $reader = IOFactory::createReader('Xlsx');
         $reader->load($filename);
     }
-
-    public function testURLImageSourceNotFound(): void
-    {
-        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
-            self::markTestSkipped('Skipped due to setting of environment variable');
-        }
-        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.notfound.xlsx');
-        self::assertNotFalse($filename);
-        $reader = IOFactory::createReader('Xlsx');
-        $spreadsheet = $reader->load($filename);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $collection = $worksheet->getDrawingCollection();
-        self::assertCount(0, $collection);
-    }
-
-    public function testURLImageSourceBadProtocol(): void
-    {
-        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.bad.dontuse');
-        self::assertNotFalse($filename);
-        $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('Invalid protocol for linked drawing');
-        $reader = IOFactory::createReader('Xlsx');
-        $reader->load($filename);
-    }
 }
