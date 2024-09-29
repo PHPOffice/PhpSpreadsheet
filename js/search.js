@@ -111,7 +111,7 @@ var Search = (function () {
         results.forEach(function (result) {
             var entry = document.createElement("li");
             entry.classList.add("phpdocumentor-search-results__entry");
-            entry.innerHTML += '<h3><a href="' + document.baseURI + result.url + '">' + result.name + "</h3>\n";
+            entry.innerHTML += '<h3><a href="' + document.baseURI + result.url + '">' + result.name + "</a></h3>\n";
             entry.innerHTML += '<small>' + result.fqsen + "</small>\n";
             entry.innerHTML += '<div class="phpdocumentor-summary">' + result.summary + '</div>';
             searchResultEntries.appendChild(entry)

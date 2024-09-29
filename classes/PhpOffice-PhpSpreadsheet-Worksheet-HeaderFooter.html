@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+            <title>Documentation</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/template.js"></script>
         <script src="js/search.js"></script>
         <script defer src="js/searchIndex.js"></script>
     </head>
@@ -47,17 +53,28 @@
 <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
     Menu
 </label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                                    </ul>
-                        </section>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpoffice-phpspreadsheet.html" class="">PhpSpreadsheet</a>
+                
+            </li>
+            </ul>
 
-    
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -71,8 +88,9 @@
     </section>
 </aside>
 
-            <div class="phpdocumentor-column -eight phpdocumentor-content">
-                    <ul class="phpdocumentor-breadcrumbs">
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
@@ -83,15 +101,27 @@
     HeaderFooter
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">66</span>
-</aside>
+
+    </aside>
 
             <p class="phpdocumentor-summary">&lt;code&gt;
 Header/Footer Formatting Syntax taken from Office Open XML Part 4 - Markup Language Reference, page 1970:.</p>
@@ -156,317 +186,338 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
 
 
 
-
-
-
 <h3 id="toc">
     Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
 </h3>
 
+
+
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_CENTER">IMAGE_FOOTER_CENTER</a>
     <span>
-        &nbsp;= &#039;CF&#039;                    </span>
+        &nbsp;= &#039;CF&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_LEFT">IMAGE_FOOTER_LEFT</a>
     <span>
-        &nbsp;= &#039;LF&#039;                    </span>
+        &nbsp;= &#039;LF&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_RIGHT">IMAGE_FOOTER_RIGHT</a>
     <span>
-        &nbsp;= &#039;RF&#039;                    </span>
+        &nbsp;= &#039;RF&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_CENTER">IMAGE_HEADER_CENTER</a>
     <span>
-        &nbsp;= &#039;CH&#039;                    </span>
+        &nbsp;= &#039;CH&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_LEFT">IMAGE_HEADER_LEFT</a>
     <span>
-        &nbsp;= &#039;LH&#039;                    </span>
+        &nbsp;= &#039;LH&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_RIGHT">IMAGE_HEADER_RIGHT</a>
     <span>
-        &nbsp;= &#039;RH&#039;                    </span>
+        &nbsp;= &#039;RH&#039;                            </span>
 </dt>
-<dd></dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    </dl>
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_alignWithMargins">$alignWithMargins</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
 <dd>Align with margins, defaults to true.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentFirst">$differentFirst</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
 <dd>Different header for first page, defaults to false.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentOddEven">$differentOddEven</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
 <dd>Different header for Odd/Even, defaults to false.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenFooter">$evenFooter</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>EvenFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenHeader">$evenHeader</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>EvenHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstFooter">$firstFooter</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>FirstFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstHeader">$firstHeader</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>FirstHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_headerFooterImages">$headerFooterImages</a>
     <span>
-                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;            </span>
+                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;            </span>
 </dt>
 <dd>Header/footer images.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddFooter">$oddFooter</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>OddFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddHeader">$oddHeader</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>OddHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_scaleWithDocument">$scaleWithDocument</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
 <dd>Scale with document, defaults to true.</dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___clone">__clone()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
 <dd>Implement PHP __clone to create a deep clone, not just a shallow copy.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___construct">__construct()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
 <dd>Create a new HeaderFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_addImage">addImage()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Add header/footer image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getAlignWithMargins">getAlignWithMargins()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Get AlignWithMargins.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentFirst">getDifferentFirst()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Get DifferentFirst.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentOddEven">getDifferentOddEven()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Get DifferentOddEven.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenFooter">getEvenFooter()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get EvenFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenHeader">getEvenHeader()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get EvenHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstFooter">getFirstFooter()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get FirstFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstHeader">getFirstHeader()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get FirstHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getImages">getImages()</a>
     <span>
-                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;    </span>
+                                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;    </span>
 </dt>
 <dd>Get header/footer images.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddFooter">getOddFooter()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get OddFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddHeader">getOddHeader()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Get OddHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getScaleWithDocument">getScaleWithDocument()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Get ScaleWithDocument.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_removeImage">removeImage()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Remove header/footer image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setAlignWithMargins">setAlignWithMargins()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set AlignWithMargins.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentFirst">setDifferentFirst()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set DifferentFirst.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentOddEven">setDifferentOddEven()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set DifferentOddEven.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenFooter">setEvenFooter()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set EvenFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenHeader">setEvenHeader()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set EvenHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstFooter">setFirstFooter()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set FirstFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstHeader">setFirstHeader()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set FirstHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setImages">setImages()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set header/footer images.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddFooter">setOddFooter()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set OddFooter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddHeader">setOddHeader()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set OddHeader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setScaleWithDocument">setScaleWithDocument()</a>
     <span>
-                        &nbsp;: $this    </span>
+                                &nbsp;: $this    </span>
 </dt>
 <dd>Set ScaleWithDocument.</dd>
 
-        </dl>
+    </dl>
+
 
 
 
@@ -475,28 +526,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_FOOTER_CENTER">
         IMAGE_FOOTER_CENTER
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_CENTER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">73</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_FOOTER_CENTER</span>
     = <span class="phpdocumentor-signature__default-value">&#039;CF&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -505,23 +560,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_FOOTER_LEFT">
         IMAGE_FOOTER_LEFT
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_LEFT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">72</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_FOOTER_LEFT</span>
     = <span class="phpdocumentor-signature__default-value">&#039;LF&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -530,23 +588,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_FOOTER_RIGHT">
         IMAGE_FOOTER_RIGHT
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_RIGHT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">74</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_FOOTER_RIGHT</span>
     = <span class="phpdocumentor-signature__default-value">&#039;RF&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -555,23 +616,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_HEADER_CENTER">
         IMAGE_HEADER_CENTER
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_CENTER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">70</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_HEADER_CENTER</span>
     = <span class="phpdocumentor-signature__default-value">&#039;CH&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -580,23 +644,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_HEADER_LEFT">
         IMAGE_HEADER_LEFT
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_LEFT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">69</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_HEADER_LEFT</span>
     = <span class="phpdocumentor-signature__default-value">&#039;LH&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -605,23 +672,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="constant_IMAGE_HEADER_RIGHT">
         IMAGE_HEADER_RIGHT
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_RIGHT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">71</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">IMAGE_HEADER_RIGHT</span>
     = <span class="phpdocumentor-signature__default-value">&#039;RH&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -633,6 +703,7 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="
@@ -644,14 +715,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_alignWithMargins">
         $alignWithMargins
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_alignWithMargins" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">124</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Align with margins, defaults to true.</p>
 
@@ -661,8 +734,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$alignWithMargins</span>
      = <span class="phpdocumentor-signature__default-value">true</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -676,14 +749,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_differentFirst">
         $differentFirst
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentFirst" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">114</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Different header for first page, defaults to false.</p>
 
@@ -693,8 +768,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$differentFirst</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -708,14 +783,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_differentOddEven">
         $differentOddEven
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentOddEven" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">109</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Different header for Odd/Even, defaults to false.</p>
 
@@ -725,8 +802,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$differentOddEven</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -740,14 +817,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_evenFooter">
         $evenFooter
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">94</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">EvenFooter.</p>
 
@@ -757,8 +836,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$evenFooter</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -772,14 +851,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_evenHeader">
         $evenHeader
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">89</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">EvenHeader.</p>
 
@@ -789,8 +870,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$evenHeader</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -804,14 +885,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_firstFooter">
         $firstFooter
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">104</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">FirstFooter.</p>
 
@@ -821,8 +904,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$firstFooter</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -836,14 +919,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_firstHeader">
         $firstHeader
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">99</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">FirstHeader.</p>
 
@@ -853,8 +938,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$firstHeader</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -868,14 +953,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_headerFooterImages">
         $headerFooterImages
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_headerFooterImages" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">151</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">131</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Header/footer images.</p>
 
@@ -885,8 +972,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$headerFooterImages</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -900,14 +987,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_oddFooter">
         $oddFooter
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">84</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">OddFooter.</p>
 
@@ -917,8 +1006,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$oddFooter</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -932,14 +1021,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_oddHeader">
         $oddHeader
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">79</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">OddHeader.</p>
 
@@ -949,8 +1040,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$oddHeader</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -964,14 +1055,16 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="property_scaleWithDocument">
         $scaleWithDocument
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_scaleWithDocument" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">119</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Scale with document, defaults to true.</p>
 
@@ -981,8 +1074,8 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <span class="phpdocumentor-signature__name">$scaleWithDocument</span>
      = <span class="phpdocumentor-signature__default-value">true</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -992,6 +1085,7 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="phpdocumentor-element
@@ -1002,28 +1096,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method___clone">
         __clone()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___clone" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">479</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">415</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__clone</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__clone</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1036,28 +1128,26 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">136</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Create a new HeaderFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1070,21 +1160,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_addImage">
         addImage()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_addImage" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">407</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">345</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Add header/footer image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">addImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$image</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$location</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">addImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$image</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$location</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1099,19 +1192,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1122,30 +1213,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getAlignWithMargins">
         getAlignWithMargins()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getAlignWithMargins" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">323</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get AlignWithMargins.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAlignWithMargins</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">getAlignWithMargins</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1156,30 +1249,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getDifferentFirst">
         getDifferentFirst()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentFirst" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">333</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">283</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get DifferentFirst.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getDifferentFirst</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">getDifferentFirst</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1190,30 +1285,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getDifferentOddEven">
         getDifferentOddEven()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentOddEven" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">309</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">263</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get DifferentOddEven.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getDifferentOddEven</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">getDifferentOddEven</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1224,30 +1321,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getEvenFooter">
         getEvenFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">203</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get EvenFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getEvenFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getEvenFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1258,30 +1357,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getEvenHeader">
         getEvenHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">183</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get EvenHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getEvenHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getEvenHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1292,30 +1393,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getFirstFooter">
         getFirstFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">285</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">243</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get FirstFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getFirstFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getFirstFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1326,30 +1429,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getFirstHeader">
         getFirstHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">223</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get FirstHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getFirstHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getFirstHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1360,30 +1465,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getImages">
         getImages()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getImages" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">449</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">385</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get header/footer images.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getImages</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getImages</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1394,30 +1501,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getOddFooter">
         getOddFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">163</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get OddFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getOddFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getOddFooter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1428,30 +1537,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getOddHeader">
         getOddHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">143</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get OddHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getOddHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getOddHeader</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1462,30 +1573,32 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_getScaleWithDocument">
         getScaleWithDocument()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getScaleWithDocument" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">357</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">303</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Get ScaleWithDocument.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getScaleWithDocument</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">getScaleWithDocument</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1496,21 +1609,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_removeImage">
         removeImage()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_removeImage" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">421</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">357</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Remove header/footer image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">removeImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$location</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">removeImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$location</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1518,19 +1634,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1541,21 +1655,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setAlignWithMargins">
         setAlignWithMargins()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setAlignWithMargins" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">393</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">333</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set AlignWithMargins.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAlignWithMargins</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alignWithMargins</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setAlignWithMargins</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alignWithMargins</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1563,19 +1680,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1586,21 +1701,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setDifferentFirst">
         setDifferentFirst()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentFirst" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">345</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">293</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set DifferentFirst.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setDifferentFirst</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$differentFirst</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setDifferentFirst</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$differentFirst</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1608,19 +1726,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1631,21 +1747,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setDifferentOddEven">
         setDifferentOddEven()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentOddEven" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">321</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">273</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set DifferentOddEven.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setDifferentOddEven</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$differentOddEvent</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setDifferentOddEven</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$differentOddEvent</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1653,19 +1772,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1676,21 +1793,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setEvenFooter">
         setEvenFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">213</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set EvenFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setEvenFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$evenFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setEvenFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$evenFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1698,19 +1818,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1721,21 +1839,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setEvenHeader">
         setEvenHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">225</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">193</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set EvenHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setEvenHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$eventHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setEvenHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$eventHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1743,19 +1864,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1766,21 +1885,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setFirstFooter">
         setFirstFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">297</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">253</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set FirstFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setFirstFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firstFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setFirstFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firstFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1788,19 +1910,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1811,21 +1931,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setFirstHeader">
         setFirstHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">273</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">233</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set FirstHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setFirstHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firstHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setFirstHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$firstHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1833,19 +1956,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1856,21 +1977,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setImages">
         setImages()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setImages" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">437</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">373</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set header/footer images.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setImages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$images</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setImages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$images</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1878,19 +2002,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a>&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1901,21 +2023,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setOddFooter">
         setOddFooter()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddFooter" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">173</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set OddFooter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setOddFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oddFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setOddFooter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oddFooter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1923,19 +2048,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1946,21 +2069,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setOddHeader">
         setOddHeader()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddHeader" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">153</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set OddHeader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setOddHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oddHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setOddHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oddHeader</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1968,19 +2094,17 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1991,21 +2115,24 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <h4 class="phpdocumentor-element__name" id="method_setScaleWithDocument">
         setScaleWithDocument()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setScaleWithDocument" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">369</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">313</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Set ScaleWithDocument.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setScaleWithDocument</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scaleWithDocument</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setScaleWithDocument</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scaleWithDocument</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2013,24 +2140,194 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            </section>
 
-    
 </article>
             </section>
 
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Worksheet/HeaderFooter.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
     </article>
-                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_CENTER">IMAGE_FOOTER_CENTER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_LEFT">IMAGE_FOOTER_LEFT</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_RIGHT">IMAGE_FOOTER_RIGHT</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_CENTER">IMAGE_HEADER_CENTER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_LEFT">IMAGE_HEADER_LEFT</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_RIGHT">IMAGE_HEADER_RIGHT</a></li>
+                                            </ul>
+                </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_alignWithMargins">$alignWithMargins<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentFirst">$differentFirst<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentOddEven">$differentOddEven<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenFooter">$evenFooter<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenHeader">$evenHeader<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstFooter">$firstFooter<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstHeader">$firstHeader<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_headerFooterImages">$headerFooterImages<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddFooter">$oddFooter<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddHeader">$oddHeader<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_scaleWithDocument">$scaleWithDocument<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___clone">__clone()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_addImage">addImage()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getAlignWithMargins">getAlignWithMargins()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentFirst">getDifferentFirst()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentOddEven">getDifferentOddEven()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenFooter">getEvenFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenHeader">getEvenHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstFooter">getFirstFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstHeader">getFirstHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getImages">getImages()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddFooter">getOddFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddHeader">getOddHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getScaleWithDocument">getScaleWithDocument()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_removeImage">removeImage()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setAlignWithMargins">setAlignWithMargins()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentFirst">setDifferentFirst()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentOddEven">setDifferentOddEven()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenFooter">setEvenFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenHeader">setEvenHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstFooter">setFirstFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstHeader">setFirstHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setImages">setImages()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddFooter">setOddFooter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddHeader">setOddHeader()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setScaleWithDocument">setScaleWithDocument()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
         <header class="phpdocumentor-search-results__header">
             <h2 class="phpdocumentor-search-results__title">Search results</h2>
@@ -2041,7 +2338,6 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
         </section>
     </section>
 </section>
-            </div>
         </div>
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -2050,5 +2346,9 @@ name, it means &quot;none specified&quot;. Both of font name and font type can b
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
