@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## 1.29.2 - TBD
+## 1.29.2 - 2024-09-29
 
 ### Fixed
 
@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Support for Php8.4.
 - Change to Csv Reader (see below under Deprecated). Backport of PR #4162 intended for 3.0.0. [Issue #4161](https://github.com/PHPOffice/PhpSpreadsheet/issues/4161)
 - Tweaks to ROUNDUP, ROUNDDOWN, TRUNC, AMORDEGRC (results had been different under 8.4).
+
+### Changed
+
+- Images will not be added to spreadsheet if they cannot be validated as images.
 
 ### Deprecated
 
