@@ -15,6 +15,14 @@ class ArrayFunctionsTest extends TestCase
 {
     private string $outputFile = '';
 
+    protected function tearDown(): void
+    {
+        if ($this->outputFile !== '') {
+            unlink($this->outputFile);
+            $this->outputFile = '';
+        }
+    }
+
     public function testArrayOutput(): void
     {
         $spreadsheet = new Spreadsheet();
