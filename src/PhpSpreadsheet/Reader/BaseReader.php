@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -55,6 +56,8 @@ abstract class BaseReader implements IReader
     protected $fileHandle;
 
     protected ?XmlScanner $securityScanner = null;
+
+    protected ?IValueBinder $valueBinder = null;
 
     public function __construct()
     {
@@ -241,5 +244,17 @@ abstract class BaseReader implements IReader
         }
 
         return $returnArray;
+    }
+
+    public function getValueBinder(): ?IValueBinder
+    {
+        return $this->valueBinder;
+    }
+
+    public function setValueBinder(?IValueBinder $valueBinder): self
+    {
+        $this->valueBinder = $valueBinder;
+
+        return $this;
     }
 }

@@ -117,7 +117,10 @@ If you wish to emulate the MS Excel behaviour, and automatically convert string 
 
 You can do this by changing the Value Binder, which will then apply every time you set a Cell value.
 ```php
+// Old method using static property
 Cell::setValueBinder(new AdvancedValueBinder());
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder(new AdvancedValueBinder());
 
 // Set Cell C21 using a formatted string value
 $worksheet->getCell('C20')->setValue('€ -12345.6789');

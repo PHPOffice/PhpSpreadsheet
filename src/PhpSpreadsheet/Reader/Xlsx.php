@@ -395,6 +395,7 @@ class Xlsx extends BaseReader
 
         // Initialisations
         $excel = new Spreadsheet();
+        $excel->setValueBinder($this->valueBinder);
         $excel->removeSheetByIndex(0);
         $addingFirstCellStyleXf = true;
         $addingFirstCellXf = true;
@@ -911,6 +912,7 @@ class Xlsx extends BaseReader
                                                     $value = self::castToString($c);
                                                     if (is_numeric($value)) {
                                                         $value += 0;
+                                                        $cellDataType = DataType::TYPE_NUMERIC;
                                                     }
                                                 } else {
                                                     // Formula
