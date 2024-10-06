@@ -6,13 +6,36 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 interface IReader
 {
+    /**
+     * Flag used to load the charts.
+     *
+     * This flag is supported only for some formats.
+     */
     public const LOAD_WITH_CHARTS = 1;
 
+    /**
+     * Flag used to read data only, not style or structure information.
+     */
     public const READ_DATA_ONLY = 2;
 
-    public const SKIP_EMPTY_CELLS = 4;
+    /**
+     * @deprecated 3.4.0 use IGNORE_EMPTY_CELLS instead.
+     */
+    public const SKIP_EMPTY_CELLS = self::IGNORE_EMPTY_CELLS;
+
+    /**
+     * Flag used to ignore empty cells when reading.
+     *
+     * The ignored cells will not be instantiated.
+     */
     public const IGNORE_EMPTY_CELLS = 4;
 
+    /**
+     * Flag used to ignore rows without cells.
+     *
+     * This flag is supported only for some formats.
+     * This can heavily improve performance for some files.
+     */
     public const IGNORE_ROWS_WITH_NO_CELLS = 8;
 
     public function __construct();
@@ -119,7 +142,7 @@ interface IReader
      * @param int $flags Flags that can change the behaviour of the Writer:
      *            self::LOAD_WITH_CHARTS    Load any charts that are defined (if the Reader supports Charts)
      *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
-     *            self::SKIP_EMPTY_CELLS    Don't read empty cells (cells that contain a null value,
+     *            self::IGNORE_EMPTY_CELLS  Don't read empty cells (cells that contain a null value,
      *                                      empty string, or a string containing only whitespace characters)
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
