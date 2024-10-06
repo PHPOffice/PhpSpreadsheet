@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xls Writer Condtional Rules Applied to Whole Rows or Columns. [Issue #3185](https://github.com/PHPOffice/PhpSpreadsheet/issues/3185) [PR #4152](https://github.com/PHPOffice/PhpSpreadsheet/pull/4152)
 - Xlsx Writer Duplicate ContentTypes Entry for Background Image. [Issue #4179](https://github.com/PHPOffice/PhpSpreadsheet/issues/4179) [PR #4180](https://github.com/PHPOffice/PhpSpreadsheet/pull/4180)
 - Check strictNullComparison outside of loops. [PR #3347](https://github.com/PHPOffice/PhpSpreadsheet/pull/3347)
-- SUMIFS Does Not Require _xlfn. [Issue #4182](https://github.com/PHPOffice/PhpSpreadsheet/issues/4182) [PR #4186](https://github.com/PHPOffice/PhpSpreadsheet/pull/4186)
+- SUMIFS Does Not Require xlfn. [Issue #4182](https://github.com/PHPOffice/PhpSpreadsheet/issues/4182) [PR #4186](https://github.com/PHPOffice/PhpSpreadsheet/pull/4186)
 
 ## 2024-09-29 - 3.3.0 (no 3.0.\*, 3.1.\*, 3.2.\*)
 
