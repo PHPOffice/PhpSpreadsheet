@@ -18,6 +18,15 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
 
     protected bool $convertFormula = true;
 
+    protected bool $setIgnoredErrors = false;
+
+    public function setSetIgnoredErrors(bool $setIgnoredErrors = false): self
+    {
+        $this->setIgnoredErrors = $setIgnoredErrors;
+
+        return $this;
+    }
+
     public function setNullConversion(bool $suppressConversion = false): self
     {
         $this->convertNull = $suppressConversion;
@@ -81,6 +90,7 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
             $value = StringHelper::sanitizeUTF8($value);
         }
 
+        $ignoredErrors = false;
         if ($value === null && $this->convertNull === false) {
             $cell->setValueExplicit($value, DataType::TYPE_NULL);
         } elseif (is_bool($value) && $this->convertBoolean === false) {
@@ -90,7 +100,11 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
         } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === false && parent::dataTypeForValue($value) === DataType::TYPE_FORMULA) {
             $cell->setValueExplicit($value, DataType::TYPE_FORMULA);
         } else {
+            $ignoredErrors = is_numeric($value);
             $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+        }
+        if ($this->setIgnoredErrors) {
+            $cell->getIgnoredErrors()->setNumberStoredAsText($ignoredErrors);
         }
 
         return true;
@@ -99,15 +113,21 @@ class StringValueBinder extends DefaultValueBinder implements IValueBinder
     protected function bindObjectValue(Cell $cell, object $value): bool
     {
         // Handle any objects that might be injected
+        $ignoredErrors = false;
         if ($value instanceof DateTimeInterface) {
             $value = $value->format('Y-m-d H:i:s');
             $cell->setValueExplicit($value, DataType::TYPE_STRING);
         } elseif ($value instanceof RichText) {
             $cell->setValueExplicit($value, DataType::TYPE_INLINE);
+            $ignoredErrors = is_numeric($value->getPlainText());
         } elseif ($value instanceof Stringable) {
             $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+            $ignoredErrors = is_numeric((string) $value);
         } else {
             throw new SpreadsheetException('Unable to bind unstringable object of type ' . get_class($value));
+        }
+        if ($this->setIgnoredErrors) {
+            $cell->getIgnoredErrors()->setNumberStoredAsText($ignoredErrors);
         }
 
         return true;

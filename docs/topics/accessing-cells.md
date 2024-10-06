@@ -551,6 +551,7 @@ By default, the StringValueBinder will cast any datatype passed to it into a str
 // Set value binder
 $stringValueBinder = new \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder();
 $stringValueBinder->setNumericConversion(false)
+    ->setSetIgnoredErrors(true) // suppresses "number stored as text" indicators
     ->setBooleanConversion(false)
     ->setNullConversion(false)
     ->setFormulaConversion(false);

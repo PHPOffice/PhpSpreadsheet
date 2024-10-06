@@ -94,38 +94,75 @@ class Drawing extends BaseDrawing
      */
     public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
     {
-        if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
-            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-            if (filter_var($path, FILTER_VALIDATE_URL)) {
-                $this->path = $path;
-                // Implicit that it is a URL, rather store info than running check above on value in other places.
-                $this->isUrl = true;
-                $imageContents = file_get_contents($path);
+        $this->isUrl = false;
+        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+            $this->path = $path;
+
+            return $this;
+        }
+
+        $this->path = '';
+        // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+                throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+            }
+            // Implicit that it is a URL, rather store info than running check above on value in other places.
+            $this->isUrl = true;
+            $ctx = null;
+            // https://github.com/php/php-src/issues/16023
+            if (str_starts_with($path, 'https:')) {
+                $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+            }
+            $imageContents = @file_get_contents($path, false, $ctx);
+            if ($imageContents !== false) {
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                 if ($filePath) {
-                    file_put_contents($filePath, $imageContents);
-                    if (file_exists($filePath)) {
-                        $this->setSizesAndType($filePath);
+                    $put = @file_put_contents($filePath, $imageContents);
+                    if ($put !== false) {
+                        if ($this->isImage($filePath)) {
+                            $this->path = $path;
+                            $this->setSizesAndType($filePath);
+                        }
                         unlink($filePath);
                     }
                 }
-            } elseif (file_exists($path)) {
-                $this->path = $path;
-                $this->setSizesAndType($path);
-            } elseif ($zip instanceof ZipArchive) {
-                $zipPath = explode('#', $path)[1];
-                if ($zip->locateName($zipPath) !== false) {
+            }
+        } elseif ($zip instanceof ZipArchive) {
+            $zipPath = explode('#', $path)[1];
+            $locate = @$zip->locateName($zipPath);
+            if ($locate !== false) {
+                if ($this->isImage($path)) {
                     $this->path = $path;
                     $this->setSizesAndType($path);
                 }
-            } else {
-                throw new PhpSpreadsheetException("File $path not found!");
             }
         } else {
-            $this->path = $path;
+            $exists = @file_exists($path);
+            if ($exists !== false && $this->isImage($path)) {
+                $this->path = $path;
+                $this->setSizesAndType($path);
+            }
+        }
+        if ($this->path === '' && $verifyFile) {
+            throw new PhpSpreadsheetException("File $path not found!");
         }
 
         return $this;
+    }
+
+    private function isImage(string $path): bool
+    {
+        $mime = (string) @mime_content_type($path);
+        $retVal = false;
+        if (str_starts_with($mime, 'image/')) {
+            $retVal = true;
+        } elseif ($mime === 'application/octet-stream') {
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $retVal = in_array($extension, ['bin', 'emf'], true);
+        }
+
+        return $retVal;
     }
 
     /**

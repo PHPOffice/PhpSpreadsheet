@@ -51,8 +51,8 @@ class XmlScanner
     private function findCharSet(string $xml): string
     {
         $patterns = [
-            '/encoding="([^"]*]?)"/',
-            "/encoding='([^']*?)'/",
+            '/encoding\\s*=\\s*"([^"]*]?)"/',
+            "/encoding\\s*=\\s*'([^']*?)'/",
         ];
 
         foreach ($patterns as $pattern) {
