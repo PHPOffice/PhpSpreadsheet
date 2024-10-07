@@ -495,9 +495,10 @@ class Cell implements Stringable
                                 if (isset($matches[3])) {
                                     $minCol = $matches[1];
                                     $minRow = (int) $matches[2];
-                                    $maxCol = $matches[4];
+                                    // https://github.com/phpstan/phpstan/issues/11602
+                                    $maxCol = $matches[4]; // @phpstan-ignore-line
                                     ++$maxCol;
-                                    $maxRow = (int) $matches[5];
+                                    $maxRow = (int) $matches[5]; // @phpstan-ignore-line
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
                                         for ($col = $minCol; $col !== $maxCol; ++$col) {
                                             if ("$col$row" !== $coordinate) {

@@ -501,7 +501,11 @@ class Drawing extends WriterPart
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, string $reference, HeaderFooterDrawing $image): void
     {
         // Calculate object id
-        preg_match('{(\d+)}', md5($reference), $m);
+        if (preg_match('{(\d+)}', md5($reference), $m) !== 1) {
+            // @codeCoverageIgnoreStart
+            throw new WriterException('Regexp failure in writeVMLHeaderFooterImage');
+            // @codeCoverageIgnoreEnd
+        }
         $id = 1500 + ((int) substr($m[1], 0, 2) * 1);
 
         // Calculate offset

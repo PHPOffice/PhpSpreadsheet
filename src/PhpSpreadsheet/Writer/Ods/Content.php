@@ -238,10 +238,11 @@ class Content extends WriterPart
                             $matrixColSpan = 1;
                             if (isset($matches[3])) {
                                 $minRow = (int) $matches[2];
-                                $maxRow = (int) $matches[5];
+                                // https://github.com/phpstan/phpstan/issues/11602
+                                $maxRow = (int) $matches[5]; // @phpstan-ignore-line
                                 $matrixRowSpan = $maxRow - $minRow + 1;
                                 $minCol = Coordinate::columnIndexFromString($matches[1]);
-                                $maxCol = Coordinate::columnIndexFromString($matches[4]);
+                                $maxCol = Coordinate::columnIndexFromString($matches[4]); // @phpstan-ignore-line
                                 $matrixColSpan = $maxCol - $minCol + 1;
                             }
                             $objWriter->writeAttribute('table:number-matrix-columns-spanned', "$matrixColSpan");
