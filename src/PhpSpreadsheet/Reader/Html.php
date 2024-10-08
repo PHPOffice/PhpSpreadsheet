@@ -315,6 +315,7 @@ class Html extends BaseReader
 
             try {
                 $sheet->setTitle($cellContent, true, true);
+                $sheet->getParent()?->getProperties()?->setTitle($cellContent);
             } catch (SpreadsheetException) {
                 // leave default title if too long or illegal chars
             }
@@ -476,6 +477,11 @@ class Html extends BaseReader
     private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
+            if (isset($attributeArray['class'])) {
+                $classes = explode(' ', $attributeArray['class']);
+                $sheet->setShowGridlines(in_array('gridlines', $classes, true));
+                $sheet->setPrintGridlines(in_array('gridlinesp', $classes, true));
+            }
             $this->currentColumn = 'A';
             $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
             $column = $this->setTableStartColumn($column);
@@ -1038,14 +1044,21 @@ class Html extends BaseReader
         if (!isset($attributes['src'])) {
             return;
         }
+        $styleArray = self::getStyleArray($attributes);
 
-        $src = urldecode($attributes['src']);
-        $width = isset($attributes['width']) ? (float) $attributes['width'] : null;
-        $height = isset($attributes['height']) ? (float) $attributes['height'] : null;
+        $src = $attributes['src'];
+        if (substr($src, 0, 5) !== 'data:') {
+            $src = urldecode($src);
+        }
+        $width = isset($attributes['width']) ? (float) $attributes['width'] : ($styleArray['width'] ?? null);
+        $height = isset($attributes['height']) ? (float) $attributes['height'] : ($styleArray['height'] ?? null);
         $name = $attributes['alt'] ?? null;
 
         $drawing = new Drawing();
-        $drawing->setPath($src);
+        $drawing->setPath($src, false);
+        if ($drawing->getPath() === '') {
+            return;
+        }
         $drawing->setWorksheet($sheet);
         $drawing->setCoordinates($column . $row);
         $drawing->setOffsetX(0);
@@ -1057,10 +1070,12 @@ class Html extends BaseReader
         }
 
         if ($width) {
-            $drawing->setWidth((int) $width);
-        }
-
-        if ($height) {
+            if ($height) {
+                $drawing->setWidthAndHeight((int) $width, (int) $height);
+            } else {
+                $drawing->setWidth((int) $width);
+            }
+        } elseif ($height) {
             $drawing->setHeight((int) $height);
         }
 
@@ -1071,6 +1086,44 @@ class Html extends BaseReader
         $sheet->getRowDimension($row)->setRowHeight(
             $drawing->getHeight() * 0.9
         );
+
+        if (isset($styleArray['opacity'])) {
+            $opacity = $styleArray['opacity'];
+            if (is_numeric($opacity)) {
+                $drawing->setOpacity((int) ($opacity * 100000));
+            }
+        }
+    }
+
+    private static function getStyleArray(array $attributes): array
+    {
+        $styleArray = [];
+        if (isset($attributes['style'])) {
+            $styles = explode(';', $attributes['style']);
+            foreach ($styles as $style) {
+                $value = explode(':', $style);
+                if (count($value) === 2) {
+                    $arrayKey = trim($value[0]);
+                    $arrayValue = trim($value[1]);
+                    if ($arrayKey === 'width') {
+                        if (substr($arrayValue, -2) === 'px') {
+                            $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
+                        } else {
+                            $arrayValue = (new CssDimension($arrayValue))->width();
+                        }
+                    } elseif ($arrayKey === 'height') {
+                        if (substr($arrayValue, -2) === 'px') {
+                            $arrayValue = substr($arrayValue, 0, -2);
+                        } else {
+                            $arrayValue = (new CssDimension($arrayValue))->height();
+                        }
+                    }
+                    $styleArray[$arrayKey] = $arrayValue;
+                }
+            }
+        }
+
+        return $styleArray;
     }
 
     private const BORDER_MAPPINGS = [
