@@ -191,7 +191,7 @@ class Cell implements Stringable
         $currentCalendar = SharedDate::getExcelCalendar();
         SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
         $formattedValue = (string) NumberFormat::toFormattedString(
-            $this->getCalculatedValue(),
+            $this->getCalculatedValueString(),
             (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
         );
         SharedDate::setExcelCalendar($currentCalendar);
@@ -318,7 +318,21 @@ class Cell implements Stringable
         $this->updateInCollection();
         $cellCoordinate = $this->getCoordinate();
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
-        $this->getWorksheet()->applyStylesFromArray($cellCoordinate, ['quotePrefix' => $quotePrefix]);
+        $worksheet = $this->getWorksheet();
+        $spreadsheet = $worksheet->getParent();
+        if (isset($spreadsheet)) {
+            $originalSelected = $worksheet->getSelectedCells();
+            $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
+            $style = $this->getStyle();
+            $oldQuotePrefix = $style->getQuotePrefix();
+            if ($oldQuotePrefix !== $quotePrefix) {
+                $style->setQuotePrefix($quotePrefix);
+            }
+            $worksheet->setSelectedCells($originalSelected);
+            if ($activeSheetIndex >= 0) {
+                $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+            }
+        }
 
         return $this->getParent()?->get($cellCoordinate) ?? $this;
     }
@@ -481,9 +495,10 @@ class Cell implements Stringable
                                 if (isset($matches[3])) {
                                     $minCol = $matches[1];
                                     $minRow = (int) $matches[2];
-                                    $maxCol = $matches[4];
+                                    // https://github.com/phpstan/phpstan/issues/11602
+                                    $maxCol = $matches[4]; // @phpstan-ignore-line
                                     ++$maxCol;
-                                    $maxRow = (int) $matches[5];
+                                    $maxRow = (int) $matches[5]; // @phpstan-ignore-line
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
                                         for ($col = $minCol; $col !== $maxCol; ++$col) {
                                             if ("$col$row" !== $coordinate) {
@@ -920,7 +935,7 @@ class Cell implements Stringable
      *
      * @return $this
      */
-    public function setFormulaAttributes(mixed $attributes): self
+    public function setFormulaAttributes(?array $attributes): self
     {
         $this->formulaAttributes = $attributes;
 

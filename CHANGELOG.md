@@ -5,7 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.0.0
+## TBD - 3.4.0
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Deprecated
+
+- IREADER::SKIP_EMPTY_CELLS - use its alias IGNORE_EMPTY_CELLS instead.
+
+### Moved
+
+- Nothing yet.
+
+### Fixed
+
+- Xls Writer Condtional Rules Applied to Whole Rows or Columns. [Issue #3185](https://github.com/PHPOffice/PhpSpreadsheet/issues/3185) [PR #4152](https://github.com/PHPOffice/PhpSpreadsheet/pull/4152)
+- Xlsx Writer Duplicate ContentTypes Entry for Background Image. [Issue #4179](https://github.com/PHPOffice/PhpSpreadsheet/issues/4179) [PR #4180](https://github.com/PHPOffice/PhpSpreadsheet/pull/4180)
+- Check strictNullComparison outside of loops. [PR #3347](https://github.com/PHPOffice/PhpSpreadsheet/pull/3347)
+- SUMIFS Does Not Require xlfn. [Issue #4182](https://github.com/PHPOffice/PhpSpreadsheet/issues/4182) [PR #4186](https://github.com/PHPOffice/PhpSpreadsheet/pull/4186)
+- Image Transparency/Opacity with Html Reader Changes. [Discussion #4117](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4117) [PR #4142](https://github.com/PHPOffice/PhpSpreadsheet/pull/4142)
+
+## 2024-09-29 - 3.3.0 (no 3.0.\*, 3.1.\*, 3.2.\*)
 
 ### Dynamic Arrays
 
@@ -20,10 +46,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Xlsx Reader default datatype when none is specified in Xml is changed from string to numeric, which is how Excel treats it. There is expected to be little impact because DefaultValueBinder and AdvancedValueBinder correct mis-identification as string, and StringValueBinder usually expects string. [PR #4139](https://github.com/PHPOffice/PhpSpreadsheet/pull/4139)
 - Currency and Accounting Wizards are changed to act like Excel, and a new CurrencyBase Wizard is added for for non-Excel formats. [Issue #4125](https://github.com/PHPOffice/PhpSpreadsheet/issues/4125) [Issue #4124](https://github.com/PHPOffice/PhpSpreadsheet/issues/4124) [PR #4127](https://github.com/PHPOffice/PhpSpreadsheet/pull/4127)
+- Images will not be added to spreadsheet if they cannot be validated as images.
 
 ### Deprecated
 
 - Nothing yet.
+
+### Removed
+
+- The following items were deprecated in release 2 and are now removed.
+- Writer\Xls\Style\ColorMap (no longer needed).
+- Reader\Xml::trySimpleXMLLoadString (should not have been public, no public replacement).
+- Calculation\Calculation::_translateFormulaToLocale (use method name translateFormulaToLocale without leading underscore).
+- Calculation\Calculation::_translateFormulaToEnglish (use method name translateFormulaToEnglish without leading underscore).
 
 ### Moved
 
@@ -31,8 +66,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Several security patches.
 - Xls Reader Some Ranges Not Handled Properly. [Issue #1570](https://github.com/PHPOffice/PhpSpreadsheet/issues/1570) [PR #4140](https://github.com/PHPOffice/PhpSpreadsheet/pull/4140)
 - Better Handling of legacyDrawing Xml. [Issue #4105](https://github.com/PHPOffice/PhpSpreadsheet/issues/4105) [PR #4122](https://github.com/PHPOffice/PhpSpreadsheet/pull/4122)
+- Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
 
 ## 2024-08-07 - 2.2.2
 

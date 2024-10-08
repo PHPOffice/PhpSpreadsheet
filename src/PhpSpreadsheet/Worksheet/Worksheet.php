@@ -2784,23 +2784,30 @@ class Worksheet implements IComparable
         [$startColumn, $startRow] = Coordinate::coordinateFromString($startCell);
 
         // Loop through $source
-        foreach ($source as $rowData) {
-            $currentColumn = $startColumn;
-            foreach ($rowData as $cellValue) {
-                if ($strictNullComparison) {
+        if ($strictNullComparison) {
+            foreach ($source as $rowData) {
+                $currentColumn = $startColumn;
+                foreach ($rowData as $cellValue) {
                     if ($cellValue !== $nullValue) {
                         // Set cell value
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
-                } else {
+                    ++$currentColumn;
+                }
+                ++$startRow;
+            }
+        } else {
+            foreach ($source as $rowData) {
+                $currentColumn = $startColumn;
+                foreach ($rowData as $cellValue) {
                     if ($cellValue != $nullValue) {
                         // Set cell value
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
+                    ++$currentColumn;
                 }
-                ++$currentColumn;
+                ++$startRow;
             }
-            ++$startRow;
         }
 
         return $this;
@@ -3730,10 +3737,8 @@ class Worksheet implements IComparable
         }
         $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
         $originalSelected = $this->selectedCells;
-        $originalActive = $this->activeCell;
         $this->getStyle($coordinate)->applyFromArray($styleArray);
-        $this->activeCell = $originalActive;
-        $this->selectedCells = $originalSelected;
+        $this->setSelectedCells($originalSelected);
         if ($activeSheetIndex >= 0) {
             $spreadsheet->setActiveSheetIndex($activeSheetIndex);
         }
