@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
 
 class Csv extends BaseReader
 {
@@ -74,7 +75,7 @@ class Csv extends BaseReader
      * It is anticipated that it will conditionally be set
      * to null-string for Php9 and above.
      */
-    private static string $defaultEscapeCharacter = '\\';
+    private static string $defaultEscapeCharacter = PHP_VERSION_ID < 90000 ? '\\' : '';
 
     /**
      * Callback for setting defaults in construction.
@@ -286,6 +287,12 @@ class Csv extends BaseReader
         if (!$fhandle) {
             throw new ReaderException($filename . ' is an Invalid Spreadsheet file.');
         }
+        if ($this->inputEncoding === 'UTF-8') {
+            $encoding = self::guessEncodingBom($filename);
+            if ($encoding !== '') {
+                $this->inputEncoding = $encoding;
+            }
+        }
         if ($this->inputEncoding === self::GUESS_ENCODING) {
             $this->inputEncoding = self::guessEncoding($filename, $this->fallbackEncoding);
         }
@@ -313,7 +320,7 @@ class Csv extends BaseReader
     private function setAutoDetect(?string $value): ?string
     {
         $retVal = null;
-        if ($value !== null && $this->testAutodetect) {
+        if ($value !== null && $this->testAutodetect && PHP_VERSION_ID < 90000) {
             $retVal2 = @ini_set('auto_detect_line_endings', $value);
             if (is_string($retVal2)) {
                 $retVal = $retVal2;
@@ -361,6 +368,21 @@ class Csv extends BaseReader
     {
         // Deprecated in Php8.1
         $iniset = $this->setAutoDetect('1');
+
+        try {
+            $this->loadStringOrFile2($filename, $spreadsheet, $dataUri);
+            $this->setAutoDetect($iniset);
+        } catch (Throwable $e) {
+            $this->setAutoDetect($iniset);
+
+            throw $e;
+        }
+
+        return $spreadsheet;
+    }
+
+    private function loadStringOrFile2(string $filename, Spreadsheet $spreadsheet, bool $dataUri): void
+    {
 
         // Open file
         if ($dataUri) {
@@ -433,11 +455,6 @@ class Csv extends BaseReader
 
         // Close file
         fclose($fileHandle);
-
-        $this->setAutoDetect($iniset);
-
-        // Return
-        return $spreadsheet;
     }
 
     /**
@@ -545,7 +562,9 @@ class Csv extends BaseReader
      */
     public function setEscapeCharacter(string $escapeCharacter): self
     {
-        $this->escapeCharacter = $escapeCharacter;
+        if (PHP_VERSION_ID < 90000) {
+            $this->escapeCharacter = $escapeCharacter;
+        }
 
         return $this;
     }
@@ -688,5 +707,40 @@ class Csv extends BaseReader
         }
 
         return fgetcsv($stream, $length, $separator, $enclosure, $escape);
+    }
+
+    public static function affectedByPhp9(
+        string $filename,
+        string $inputEncoding = 'UTF-8',
+        ?string $delimiter = null,
+        string $enclosure = '"',
+        string $escapeCharacter = '\\'
+    ): bool {
+        if (PHP_VERSION_ID < 70400 || PHP_VERSION_ID >= 90000) {
+            throw new ReaderException('Function valid only for Php7.4 or Php8'); // @codeCoverageIgnore
+        }
+        $reader1 = new self();
+        $reader1->setInputEncoding($inputEncoding)
+            ->setTestAutoDetect(true)
+            ->setEscapeCharacter($escapeCharacter)
+            ->setDelimiter($delimiter)
+            ->setEnclosure($enclosure);
+        $spreadsheet1 = $reader1->load($filename);
+        $sheet1 = $spreadsheet1->getActiveSheet();
+        $array1 = $sheet1->toArray(null, false, false);
+        $spreadsheet1->disconnectWorksheets();
+
+        $reader2 = new self();
+        $reader2->setInputEncoding($inputEncoding)
+            ->setTestAutoDetect(false)
+            ->setEscapeCharacter('')
+            ->setDelimiter($delimiter)
+            ->setEnclosure($enclosure);
+        $spreadsheet2 = $reader2->load($filename);
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        $array2 = $sheet2->toArray(null, false, false);
+        $spreadsheet2->disconnectWorksheets();
+
+        return $array1 !== $array2;
     }
 }
