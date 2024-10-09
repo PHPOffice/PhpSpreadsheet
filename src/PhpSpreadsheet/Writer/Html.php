@@ -622,6 +622,14 @@ class Html extends BaseWriter
         // Write images
         $drawing = $this->sheetDrawings[$coordinates] ?? null;
         if ($drawing !== null) {
+            $opacity = '';
+            $opacityValue = $drawing->getOpacity();
+            if ($opacityValue !== null) {
+                $opacityValue = $opacityValue / 100000;
+                if ($opacityValue >= 0.0 && $opacityValue <= 1.0) {
+                    $opacity = "opacity:$opacityValue; ";
+                }
+            }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
             if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
@@ -655,7 +663,7 @@ class Html extends BaseWriter
                     }
                 }
 
-                $html .= '<img style="position: absolute; z-index: 1; left: '
+                $html .= '<img style="' . $opacity . 'position: absolute; z-index: 1; left: '
                     . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: '
                     . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="'
                     . $imageData . '" alt="' . $filedesc . '" />';
@@ -678,7 +686,7 @@ class Html extends BaseWriter
                     //    Its use here is suspect and is being eliminated.
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
-                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: '
+                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="' . $opacity . 'width:' . $drawing->getWidth() . 'px;left: '
                         . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }

@@ -62,6 +62,8 @@ class Csv extends BaseWriter
      */
     private bool $variableColumns = false;
 
+    private bool $preferHyperlinkToLabel = false;
+
     /**
      * Create a new CSV.
      */
@@ -121,6 +123,14 @@ class Csv extends BaseWriter
                     $cellsArray = [];
                 } else {
                     array_splice($cellsArray, Coordinate::columnIndexFromString($column));
+                }
+            }
+            if ($this->preferHyperlinkToLabel) {
+                foreach ($cellsArray as $key => $value) {
+                    $url = $sheet->getCell([$key + 1, $row])->getHyperlink()->getUrl();
+                    if ($url !== '') {
+                        $cellsArray[$key] = $url;
+                    }
                 }
             }
             $this->writeLine($this->fileHandle, $cellsArray);
@@ -338,6 +348,24 @@ class Csv extends BaseWriter
     public function setVariableColumns(bool $pValue): self
     {
         $this->variableColumns = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get whether hyperlink or label should be output.
+     */
+    public function getPreferHyperlinkToLabel(): bool
+    {
+        return $this->preferHyperlinkToLabel;
+    }
+
+    /**
+     * Set whether hyperlink or label should be output.
+     */
+    public function setPreferHyperlinkToLabel(bool $preferHyperlinkToLabel): self
+    {
+        $this->preferHyperlinkToLabel = $preferHyperlinkToLabel;
 
         return $this;
     }

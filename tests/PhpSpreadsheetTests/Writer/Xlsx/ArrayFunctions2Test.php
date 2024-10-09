@@ -268,7 +268,9 @@ class ArrayFunctions2Test extends TestCase
     {
         $json = file_get_contents('tests/data/Writer/XLSX/ArrayFunctions2.json');
         self::assertNotFalse($json);
-        $this->trn = json_decode($json, true);
+        $trn = json_decode($json, true);
+        self::assertIsArray($trn);
+        $this->trn = $trn;
         $spreadsheet = new Spreadsheet();
         Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
 
