@@ -173,6 +173,7 @@ class Html extends BaseReader
         // Phpstan incorrectly flags following line for Php8.2-, corrected in 8.3
         $filename = $meta['uri']; //@phpstan-ignore-line
 
+        clearstatcache(true, $filename);
         $size = (int) filesize($filename);
         if ($size === 0) {
             return '';
