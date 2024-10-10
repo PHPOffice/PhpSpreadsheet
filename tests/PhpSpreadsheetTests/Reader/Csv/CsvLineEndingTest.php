@@ -25,6 +25,9 @@ class CsvLineEndingTest extends TestCase
      */
     public function testEndings(string $ending): void
     {
+        if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
+            self::markTestSkipped('Mac line endings not supported for Php9+');
+        }
         $this->tempFile = $filename = File::temporaryFilename();
         $data = ['123', '456', '789'];
         file_put_contents($filename, implode($ending, $data));
