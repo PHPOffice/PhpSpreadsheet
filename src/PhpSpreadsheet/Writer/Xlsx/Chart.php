@@ -118,7 +118,7 @@ class Chart extends WriterPart
             $this->writeColor($objWriter, $fillColor);
         }
         $borderLines = $chart->getBorderLines();
-        $this->writeLineStyles($objWriter, $borderLines);
+        $this->writeLineStyles($objWriter, $borderLines, $chart->getNoBorder());
         $this->writeEffects($objWriter, $borderLines);
         $objWriter->endElement(); // c:spPr
 

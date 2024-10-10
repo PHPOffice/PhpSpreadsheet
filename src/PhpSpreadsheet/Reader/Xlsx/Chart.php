@@ -95,6 +95,7 @@ class Chart
         $gapWidth = null;
         $useUpBars = null;
         $useDownBars = null;
+        $noBorder = false;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
@@ -108,6 +109,9 @@ class Chart
                     if (isset($children->ln)) {
                         $chartBorderLines = new GridLines();
                         $this->readLineStyle($chartElementsC, $chartBorderLines);
+                        if (isset($children->ln->noFill)) {
+                            $noBorder = true;
+                        }
                     }
 
                     break;
@@ -470,6 +474,7 @@ class Chart
         if ($chartBorderLines !== null) {
             $chart->setBorderLines($chartBorderLines);
         }
+        $chart->setNoBorder($noBorder);
         $chart->setRoundedCorners($roundedCorners);
         if (is_bool($autoTitleDeleted)) {
             $chart->setAutoTitleDeleted($autoTitleDeleted);

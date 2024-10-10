@@ -91,6 +91,8 @@ $chart = new Chart(
 $chart->setTopLeftPosition('A7');
 $chart->setBottomRightPosition('H20');
 
+$chart->setNoBorder(true);
+
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 

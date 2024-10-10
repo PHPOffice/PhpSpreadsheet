@@ -106,6 +106,8 @@ class Chart
 
     private bool $noFill = false;
 
+    private bool $noBorder = false;
+
     private bool $roundedCorners = false;
 
     private GridLines $borderLines;
@@ -692,6 +694,18 @@ class Chart
     public function setNoFill(bool $noFill): self
     {
         $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getNoBorder(): bool
+    {
+        return $this->noBorder;
+    }
+
+    public function setNoBorder(bool $noBorder): self
+    {
+        $this->noBorder = $noBorder;
 
         return $this;
     }
