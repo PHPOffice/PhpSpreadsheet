@@ -164,8 +164,10 @@ class Functions
 
             return str_replace('""""', '""', '=' . $condition);
         }
-        preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
-        [, $operator, $operand] = $matches;
+        $operator = $operand = '';
+        if (1 === preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches)) {
+            [, $operator, $operand] = $matches;
+        }
 
         $operand = self::operandSpecialHandling($operand);
         if (is_numeric(trim($operand, '"'))) {

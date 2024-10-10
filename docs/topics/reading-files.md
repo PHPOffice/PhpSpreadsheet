@@ -755,14 +755,18 @@ So using a Value Binder allows a great deal more flexibility in the
 loader logic when reading unformatted text files.
 
 ```php
-/**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
-\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
-
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $reader->setDelimiter("\t");
+
+/**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
+// Old method using static property
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+// Preferred method using dynamic property since 3.4.0
+$reader::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+
 $spreadsheet = $reader->load($inputFileName);
 ```
 
@@ -774,7 +778,7 @@ Loading using a Value Binder applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N
 ----------|:---:|--------|:---:|--------------|:---:
 Xlsx      | NO  | Xls    | NO  | Xml          | NO
-Ods       | NO  | SYLK   | NO  | Gnumeric     | NO
+Ods       | NO  | SYLK   | YES | Gnumeric     | NO
 CSV       | YES | HTML   | YES
 
 Note that you can also use the Binder to determine how PhpSpreadsheet identified datatypes for values when you set a cell value without explicitly setting a datatype.

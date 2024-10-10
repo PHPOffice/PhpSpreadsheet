@@ -759,7 +759,7 @@ class ReferenceHelper
             $column = $columns[$splitCount][0];
             $row = $rows[$splitCount][0];
 
-            if (!empty($column) && $column[0] !== '$') {
+            if ($column[0] !== '$') {
                 $column = ((Coordinate::columnIndexFromString($column) + $numberOfColumns) % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
                 $column = Coordinate::stringFromColumnIndex($column);
                 $rowOffset -= ($columnLength - strlen($column));

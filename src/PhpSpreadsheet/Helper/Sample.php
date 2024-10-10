@@ -120,6 +120,9 @@ class Sample
         // Write documents
         foreach ($writers as $writerType) {
             $path = $this->getFilename($filename, mb_strtolower($writerType));
+            if (preg_match('/(mpdf|tcpdf)$/', $path)) {
+                $path .= '.pdf';
+            }
             $writer = IOFactory::createWriter($spreadsheet, $writerType);
             $writer->setIncludeCharts($withCharts);
             if ($writerCallback !== null) {

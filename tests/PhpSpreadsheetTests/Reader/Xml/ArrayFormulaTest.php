@@ -17,7 +17,7 @@ class ArrayFormulaTest extends TestCase
 
         self::assertSame(DataType::TYPE_FORMULA, $sheet->getCell('B1')->getDataType());
         self::assertSame(['t' => 'array', 'ref' => 'B1:B3'], $sheet->getCell('B1')->getFormulaAttributes());
-        self::assertSame('=CONCATENATE(A1:A3,"-",C1:C3)', strtoupper($sheet->getCell('B1')->getValue()));
+        self::assertSame('=CONCATENATE(A1:A3,"-",C1:C3)', strtoupper($sheet->getCell('B1')->getValueString()));
         self::assertSame('a-1', $sheet->getCell('B1')->getOldCalculatedValue());
         self::assertSame('b-2', $sheet->getCell('B2')->getValue());
         self::assertSame('c-3', $sheet->getCell('B3')->getValue());

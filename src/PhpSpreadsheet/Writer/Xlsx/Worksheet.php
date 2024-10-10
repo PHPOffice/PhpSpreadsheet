@@ -1542,10 +1542,11 @@ class Worksheet extends WriterPart
             return $coordinate;
         }
         $minRow = (int) $matches[2];
-        $maxRow = (int) $matches[5];
+        // https://github.com/phpstan/phpstan/issues/11602
+        $maxRow = (int) $matches[5]; // @phpstan-ignore-line
         $rows = $maxRow - $minRow + 1;
         $minCol = Coordinate::columnIndexFromString($matches[1]);
-        $maxCol = Coordinate::columnIndexFromString($matches[4]);
+        $maxCol = Coordinate::columnIndexFromString($matches[4]); // @phpstan-ignore-line
         $cols = $maxCol - $minCol + 1;
         $firstCellArray = Coordinate::indexesFromString($coordinate);
         $lastRow = $firstCellArray[1] + $rows - 1;
