@@ -575,6 +575,7 @@ class Xls extends BaseReader
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setValueBinder($this->valueBinder);
         $this->spreadsheet->removeSheetByIndex(0); // remove 1st sheet
         if (!$this->readDataOnly) {
             $this->spreadsheet->removeCellStyleXfByIndex(0); // remove the default style

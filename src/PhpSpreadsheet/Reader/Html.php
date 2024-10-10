@@ -211,6 +211,7 @@ class Html extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
         return $this->loadIntoExisting($filename, $spreadsheet);
@@ -793,6 +794,7 @@ class Html extends BaseReader
             throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
         $spreadsheet = $spreadsheet ?? new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
         self::loadProperties($dom, $spreadsheet);
 
         return $this->loadDocument($dom, $spreadsheet);
