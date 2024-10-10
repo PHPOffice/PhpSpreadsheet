@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xlsx Writer Duplicate ContentTypes Entry for Background Image. [Issue #4179](https://github.com/PHPOffice/PhpSpreadsheet/issues/4179) [PR #4180](https://github.com/PHPOffice/PhpSpreadsheet/pull/4180)
 - Check strictNullComparison outside of loops. [PR #3347](https://github.com/PHPOffice/PhpSpreadsheet/pull/3347)
 - SUMIFS Does Not Require xlfn. [Issue #4182](https://github.com/PHPOffice/PhpSpreadsheet/issues/4182) [PR #4186](https://github.com/PHPOffice/PhpSpreadsheet/pull/4186)
+- Image Transparency/Opacity with Html Reader Changes. [Discussion #4117](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4117) [PR #4142](https://github.com/PHPOffice/PhpSpreadsheet/pull/4142)
+- Option to Write Hyperlink Rather Than Label to Csv. [Issue #1412](https://github.com/PHPOffice/PhpSpreadsheet/issues/1412) [PR #4151](https://github.com/PHPOffice/PhpSpreadsheet/pull/4151)
+- Invalid Html Due to Cached Filesize. [Issue #1107](https://github.com/PHPOffice/PhpSpreadsheet/issues/1107) [PR #4184](https://github.com/PHPOffice/PhpSpreadsheet/pull/4184)
+- Add Dynamic valueBinder Property to Spreadsheet and Readers. [Issue #1395](https://github.com/PHPOffice/PhpSpreadsheet/issues/1395) [PR #4185](https://github.com/PHPOffice/PhpSpreadsheet/pull/4185)
 
 ## 2024-09-29 - 3.3.0 (no 3.0.\*, 3.1.\*, 3.2.\*)
 

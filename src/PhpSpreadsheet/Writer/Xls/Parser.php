@@ -894,7 +894,11 @@ class Parser
      */
     private function rangeToPackedRange(string $range): array
     {
-        preg_match('/(\$)?(\d+)\:(\$)?(\d+)/', $range, $match);
+        if (preg_match('/(\$)?(\d+)\:(\$)?(\d+)/', $range, $match) !== 1) {
+            // @codeCoverageIgnoreStart
+            throw new WriterException('Regexp failure in rangeToPackedRange');
+            // @codeCoverageIgnoreEnd
+        }
         // return absolute rows if there is a $ in the ref
         $row1_rel = empty($match[1]) ? 1 : 0;
         $row1 = $match[2];
@@ -933,7 +937,11 @@ class Parser
      */
     private function cellToRowcol(string $cell): array
     {
-        preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/', $cell, $match);
+        if (preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/', $cell, $match) !== 1) {
+            // @codeCoverageIgnoreStart
+            throw new WriterException('Regexp failure in cellToRowcol');
+            // @codeCoverageIgnoreEnd
+        }
         // return absolute column if there is a $ in the ref
         $col_rel = empty($match[1]) ? 1 : 0;
         $col_ref = $match[2];
