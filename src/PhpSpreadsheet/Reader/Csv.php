@@ -562,9 +562,11 @@ class Csv extends BaseReader
      */
     public function setEscapeCharacter(string $escapeCharacter): self
     {
-        if (PHP_VERSION_ID < 90000) {
-            $this->escapeCharacter = $escapeCharacter;
+        if (PHP_VERSION_ID >= 90000 && $escapeCharacter !== '') {
+            throw new ReaderException('Escape character must be null string for Php9+');
         }
+
+        $this->escapeCharacter = $escapeCharacter;
 
         return $this;
     }
