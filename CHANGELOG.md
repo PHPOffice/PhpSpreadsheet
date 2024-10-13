@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Add Dynamic valueBinder Property to Spreadsheet and Readers. [Issue #1395](https://github.com/PHPOffice/PhpSpreadsheet/issues/1395) [PR #4185](https://github.com/PHPOffice/PhpSpreadsheet/pull/4185)
+- Allow Omitting Chart Border. [Issue #562](https://github.com/PHPOffice/PhpSpreadsheet/issues/562) [PR #4188](https://github.com/PHPOffice/PhpSpreadsheet/pull/4188)
 
 ### Changed
 
