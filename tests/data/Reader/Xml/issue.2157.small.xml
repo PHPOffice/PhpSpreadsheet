@@ -1,0 +1,109 @@
+					<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+<Worksheet ss:Name="ProductsAPIData">
+<Table>
+<Row>
+<Cell><Data ss:Type="String">id</Data></Cell>
+<Cell><Data ss:Type="String">isbn</Data></Cell>
+<Cell><Data ss:Type="String">barcode</Data></Cell>
+<Cell><Data ss:Type="String">url</Data></Cell>
+<Cell><Data ss:Type="String">title</Data></Cell>
+<Cell><Data ss:Type="String">short_description</Data></Cell>
+<Cell><Data ss:Type="String">description</Data></Cell>
+<Cell><Data ss:Type="String">category</Data></Cell>
+<Cell><Data ss:Type="String">weight</Data></Cell>
+<Cell><Data ss:Type="String">pages</Data></Cell>
+<Cell><Data ss:Type="String">publication_date</Data></Cell>
+<Cell><Data ss:Type="String">3d_photo</Data></Cell>
+<Cell><Data ss:Type="String">photo</Data></Cell>
+<Cell><Data ss:Type="String">pdf_preview</Data></Cell>
+<Cell><Data ss:Type="String">flipping_book</Data></Cell>
+<Cell><Data ss:Type="String">offer</Data></Cell>
+<Cell><Data ss:Type="String">active</Data></Cell>
+<Cell><Data ss:Type="String">availability</Data></Cell>
+<Cell><Data ss:Type="String">size</Data></Cell>
+<Cell><Data ss:Type="String">country</Data></Cell>
+<Cell><Data ss:Type="String">subject</Data></Cell>
+<Cell><Data ss:Type="String">retail_price</Data></Cell>
+<Cell><Data ss:Type="String">wholesale_price</Data></Cell>
+<Cell><Data ss:Type="String">ebook-isbn</Data></Cell>
+<Cell><Data ss:Type="String">ebook-barcode</Data></Cell>
+<Cell><Data ss:Type="String">ebook-retail_price</Data></Cell>
+<Cell><Data ss:Type="String">ebook-wholesale_price</Data></Cell>
+<Cell><Data ss:Type="String">ebook-urn</Data></Cell>
+<Cell><Data ss:Type="String">ebook-drm</Data></Cell>
+<Cell><Data ss:Type="String">ebook-format</Data></Cell>
+<Cell><Data ss:Type="String">ebook-active</Data></Cell>
+<Cell><Data ss:Type="String">author1-name</Data></Cell>
+<Cell><Data ss:Type="String">author1-url</Data></Cell>
+<Cell><Data ss:Type="String">author1-photo</Data></Cell>
+<Cell><Data ss:Type="String">author1-description</Data></Cell>
+<Cell><Data ss:Type="String">author1-link</Data></Cell>
+<Cell><Data ss:Type="String">author2-name</Data></Cell>
+<Cell><Data ss:Type="String">author2-url</Data></Cell>
+<Cell><Data ss:Type="String">author2-photo</Data></Cell>
+<Cell><Data ss:Type="String">author2-description</Data></Cell>
+<Cell><Data ss:Type="String">author2-link</Data></Cell>
+<Cell><Data ss:Type="String">translator-name</Data></Cell>
+<Cell><Data ss:Type="String">translator-photo</Data></Cell>
+<Cell><Data ss:Type="String">translator-description</Data></Cell>
+<Cell><Data ss:Type="String">editor-name</Data></Cell>
+<Cell><Data ss:Type="String">editor-photo</Data></Cell>
+<Cell><Data ss:Type="String">editor-description</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2</Data></Cell>
+<Cell><Data ss:Type="String">978-960-364-004-2</Data></Cell>
+<Cell><Data ss:Type="String">9789603640042</Data></Cell>
+<Cell><Data ss:Type="String">https://www.dioptra.gr/vivlio/ygeia-diatrofi/teleia-orasi-xoris-gualia/</Data></Cell>
+<Cell><Data ss:Type="String">&Tau;έ&lambda;&epsilon;&iota;&alpha; ό&rho;&alpha;&sigma;&eta; &chi;&omega;&rho;ί&sigmaf; &gamma;&upsilon;&alpha;&lambda;&iota;ά</Data></Cell>
+<Cell><Data ss:Type="String">&Mu;&epsilon; &tau;&eta; &mu;έ&theta;&omicron;&delta;&omicron; Bates &beta;&epsilon;&lambda;&tau;&iota;ώ&nu;&omicron;&upsilon;&mu;&epsilon; &tau;&eta;&nu; ό&rho;&alpha;&sigma;ή &mu;&alpha;&sigmaf; ή &pi;&rho;&omicron;&lambda;&alpha;&mu;&beta;ά&nu;&omicron;&upsilon;&mu;&epsilon; &tau;&alpha; &pi;&rho;&omicron;&beta;&lambda;ή&mu;&alpha;&tau;&alpha; &tau;&omicron;&upsilon; &pi;&iota;&omicron; &epsilon;&upsilon;&alpha;ί&sigma;&theta;&eta;&tau;&omicron;&upsilon; &omicron;&rho;&gamma;ά&nu;&omicron;&upsilon; &tau;&omicron;&upsilon; &sigma;ώ&mu;&alpha;&tau;&omicron;&sigmaf; &ndash; &tau;&omega;&nu; &mu;&alpha;&tau;&iota;ώ&nu;.</Data></Cell>
+<Cell><Data ss:Type="String">&Phi;&omicron;&rho;ώ&nu;&tau;&alpha;&sigmaf; &tau;&alpha; &gamma;&upsilon;&alpha;&lambda;&iota;ά &laquo;&kappa;&alpha;&tau;&alpha;&lambda;&alpha;&beta;&alpha;ί&nu;&epsilon;&iota;&sigmaf; &alpha;&mu;έ&sigma;&omega;&sigmaf; &tau;&eta; &delta;&iota;&alpha;&phi;&omicron;&rho;ά&raquo;. &Delta;&epsilon;&nu; &nu;&omicron;&iota;ά&zeta;&epsilon;&sigma;&alpha;&iota; &alpha;&nu; &theta;&alpha; &chi;&rho;&epsilon;&iota;&alpha;&sigma;&tau;&epsilon;ί&sigmaf; &alpha;&rho;&gamma;ό&tau;&epsilon;&rho;&alpha; &pi;&iota;&omicron; &delta;&upsilon;&nu;&alpha;&tau;&omicron;ύ&sigmaf; &phi;&alpha;&kappa;&omicron;ύ&sigmaf;, &gamma;&iota;&alpha;&tau;ί &nu;&omicron;&mu;ί&zeta;&epsilon;&iota;&sigmaf; ό&tau;&iota; &delta;&epsilon;&nu; &upsilon;&pi;ά&rho;&chi;&epsilon;&iota; &theta;&epsilon;&rho;&alpha;&pi;&epsilon;ί&alpha; &gamma;&iota;&alpha; &tau;&alpha; &tau;&alpha;&lambda;&alpha;&iota;&pi;&omega;&rho;&eta;&mu;έ&nu;&alpha; &mu;ά&tau;&iota;&alpha;.&lt;/br&gt;
+&Kappa;&iota; ό&mu;&omega;&sigmaf; &tau;&alpha; &pi;&rho;ά&gamma;&mu;&alpha;&tau;&alpha; &delta;&epsilon;&nu; &epsilon;ί&nu;&alpha;&iota; έ&tau;&sigma;&iota;.&lt;/br&gt;
+&Omicron;&iota; &pi;&epsilon;&rho;&iota;&sigma;&sigma;ό&tau;&epsilon;&rho;&omicron;&iota; &alpha;&pi;ό &alpha;&upsilon;&tau;&omicron;ύ&sigmaf; &pi;&omicron;&upsilon; &phi;&omicron;&rho;&omicron;ύ&nu; &gamma;&upsilon;&alpha;&lambda;&iota;ά &theta;&alpha; &mu;&pi;&omicron;&rho;&omicron;ύ&sigma;&alpha;&nu; &nu;&alpha; &tau;&alpha; &epsilon;ί&chi;&alpha;&nu; &alpha;&pi;&omicron;&phi;ύ&gamma;&epsilon;&iota;. &Alpha;&kappa;ό&mu;&alpha; &kappa;&alpha;&iota; &tau;ώ&rho;&alpha; &mu;&pi;&omicron;&rho;&omicron;ύ&nu; &nu;&alpha; &beta;&epsilon;&lambda;&tau;&iota;ώ&sigma;&omicron;&upsilon;&nu; &tau;&eta;&nu; ό&rho;&alpha;&sigma;ή &tau;&omicron;&upsilon;&sigmaf; &mu;&epsilon; &tau;&eta; &mu;έ&theta;&omicron;&delta;&omicron; Bates.&lt;/br&gt;
+&Eta; &mu;έ&theta;&omicron;&delta;&omicron;&sigmaf; Bates &epsilon;ί&nu;&alpha;&iota; &mu;&iota;&alpha; &sigma;&epsilon;&iota;&rho;ά &alpha;&sigma;&kappa;ή&sigma;&epsilon;&omega;&nu; &kappa;&alpha;&iota; &tau;&epsilon;&chi;&nu;&iota;&kappa;ώ&nu; &pi;&omicron;&upsilon; &chi;&alpha;&lambda;&alpha;&rho;ώ&nu;&omicron;&upsilon;&nu; &tau;&omicron;&upsilon;&sigmaf; &omicron;&phi;&theta;&alpha;&lambda;&mu;&omicron;&lambda;&omicron;&gamma;&iota;&kappa;&omicron;ύ&sigmaf; &mu;&upsilon;&sigmaf; &kappa;&alpha;&iota; &tau;&omicron;&upsilon;&sigmaf; &epsilon;&pi;&alpha;&nu;&epsilon;&kappa;&pi;&alpha;&iota;&delta;&epsilon;ύ&omicron;&upsilon;&nu; &nu;&alpha; &epsilon;&sigma;&tau;&iota;ά&zeta;&omicron;&upsilon;&nu; &alpha;&pi;&omicron;&tau;&epsilon;&lambda;&epsilon;&sigma;&mu;&alpha;&tau;&iota;&kappa;ά &tau;&iota;&sigmaf; &phi;&omega;&tau;&epsilon;&iota;&nu;έ&sigmaf; &alpha;&kappa;&tau;ί&nu;&epsilon;&sigmaf; &pi;&omicron;&upsilon; &epsilon;&iota;&sigma;έ&rho;&chi;&omicron;&nu;&tau;&alpha;&iota; &sigma;&tau;&omicron; &mu;ά&tau;&iota;, &epsilon;&pi;&iota;&tau;&rho;έ&pi;&omicron;&nu;&tau;ά&sigmaf; &mu;&alpha;&sigmaf; &nu;&alpha; &beta;&lambda;έ&pi;&omicron;&upsilon;&mu;&epsilon; &kappa;&alpha;&lambda;ά &kappa;&alpha;&iota; &kappa;&alpha;&theta;&alpha;&rho;ά &chi;&omega;&rho;ί&sigmaf; &gamma;&upsilon;&alpha;&lambda;&iota;ά.&lt;/br&gt;
+&Epsilon;&phi;&alpha;&rho;&mu;ό&sigma;&tau;&epsilon; &sigma;ή&mu;&epsilon;&rho;&alpha; &kappa;&iota;ό&lambda;&alpha;&sigmaf;, &tau;&eta; &mu;έ&theta;&omicron;&delta;&omicron; Bates &gamma;&iota;&alpha; &nu;&alpha; &beta;&epsilon;&lambda;&tau;&iota;ώ&sigma;&epsilon;&tau;&epsilon; &tau;&eta;&nu; ό&rho;&alpha;&sigma;ή &sigma;&alpha;&sigmaf; ή &nu;&alpha; &pi;&rho;&omicron;&lambda;ά&beta;&epsilon;&tau;&epsilon; &tau;&alpha; &pi;&rho;&omicron;&beta;&lambda;ή&mu;&alpha;&tau;&alpha; &tau;&omicron;&upsilon; &pi;&iota;&omicron; &epsilon;&upsilon;&alpha;ί&sigma;&theta;&eta;&tau;&omicron;&upsilon; &omicron;&rho;&gamma;ά&nu;&omicron;&upsilon; &tau;&omicron;&upsilon; &sigma;ώ&mu;&alpha;&tau;&omicron;&sigmaf; &ndash; &tau;&omega;&nu; &mu;&alpha;&tau;&iota;ώ&nu; &sigma;&alpha;&sigmaf;.&lt;/br&gt;</Data></Cell>
+<Cell><Data ss:Type="String">&Upsilon;&gamma;&epsilon;ί&alpha; - &Delta;&iota;&alpha;&tau;&rho;&omicron;&phi;ή</Data></Cell>
+<Cell><Data ss:Type="String">0.272</Data></Cell>
+<Cell><Data ss:Type="String">160</Data></Cell>
+<Cell><Data ss:Type="String">2002-06-03 00:00:00</Data></Cell>
+<Cell><Data ss:Type="String">https://www.dioptra.gr/Images/Products/004_list.jpg</Data></Cell>
+<Cell><Data ss:Type="String">https://www.dioptra.gr/Images/Products/004.jpg</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String">0</Data></Cell>
+<Cell><Data ss:Type="String">1</Data></Cell>
+<Cell><Data ss:Type="String">1</Data></Cell>
+<Cell><Data ss:Type="String">140 x 205</Data></Cell>
+<Cell><Data ss:Type="String">&Epsilon;&lambda;&lambda;ά&delta;&alpha;</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">13.19</Data></Cell>
+<Cell><Data ss:Type="String">12.44</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">George Kypreotakis</Data></Cell>
+<Cell><Data ss:Type="String">https://www.dioptra.gr/suggrafeas/171/</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+<Cell><Data ss:Type="String">-</Data></Cell>
+</Row>
+</Table>
+</Worksheet>
+</Workbook>
