@@ -643,10 +643,10 @@ class Csv extends BaseReader
         }
     }
 
-    private static function guessEncodingBom(string $filename): string
+    public static function guessEncodingBom(string $filename, ?string $convertString = null): string
     {
         $encoding = '';
-        $first4 = file_get_contents($filename, false, null, 0, 4);
+        $first4 = $convertString ?? file_get_contents($filename, false, null, 0, 4);
         if ($first4 !== false) {
             self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
             self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
