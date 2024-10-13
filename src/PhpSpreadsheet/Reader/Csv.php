@@ -646,14 +646,12 @@ class Csv extends BaseReader
     public static function guessEncodingBom(string $filename, ?string $convertString = null): string
     {
         $encoding = '';
-        $first4 = $convertString ?? file_get_contents($filename, false, null, 0, 4);
-        if ($first4 !== false) {
-            self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
-            self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
-            self::guessEncodingTestBom($encoding, $first4, self::UTF32BE_BOM, 'UTF-32BE');
-            self::guessEncodingTestBom($encoding, $first4, self::UTF32LE_BOM, 'UTF-32LE');
-            self::guessEncodingTestBom($encoding, $first4, self::UTF16LE_BOM, 'UTF-16LE');
-        }
+        $first4 = $convertString ?? (string) file_get_contents($filename, false, null, 0, 4);
+        self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
+        self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
+        self::guessEncodingTestBom($encoding, $first4, self::UTF32BE_BOM, 'UTF-32BE');
+        self::guessEncodingTestBom($encoding, $first4, self::UTF32LE_BOM, 'UTF-32LE');
+        self::guessEncodingTestBom($encoding, $first4, self::UTF16LE_BOM, 'UTF-16LE');
 
         return $encoding;
     }
