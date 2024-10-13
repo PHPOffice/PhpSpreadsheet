@@ -518,14 +518,14 @@ style information. The following example demonstrates how to set the
 value binder in PhpSpreadsheet:
 
 ```php
-/** PhpSpreadsheet */
-require_once 'src/Boostrap.php';
-
-// Set value binder
+// Older method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
-
 // Create new Spreadsheet object
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 // ...
 // Add some data, resembling some different data types
@@ -555,13 +555,20 @@ $stringValueBinder->setNumericConversion(false)
     ->setBooleanConversion(false)
     ->setNullConversion(false)
     ->setFormulaConversion(false);
+// Older method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet->setValueBinder( $stringValueBinder );
 ```
 
 You can override the current binder when setting individual cell values by specifying a different Binder to use in the Cell's `setValue()` or the Worksheet's `setCellValue()` methods.
 ```php
 $spreadsheet = new Spreadsheet();
+// Old method using static property
 Cell::setValueBinder(new AdvancedValueBinder());
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder(new AdvancedValueBinder());
 
 $value = '12.5%';
 
