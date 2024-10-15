@@ -263,6 +263,7 @@ class Csv extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
         return $this->loadIntoExisting($filename, $spreadsheet);
@@ -275,6 +276,7 @@ class Csv extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
         return $this->loadStringOrFile('data://text/plain,' . urlencode($contents), $spreadsheet, true);
@@ -413,7 +415,7 @@ class Csv extends BaseReader
         // Loop through each line of the file in turn
         $delimiter = $this->delimiter ?? '';
         $rowData = self::getCsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
-        $valueBinder = Cell::getValueBinder();
+        $valueBinder = $this->valueBinder ?? Cell::getValueBinder();
         $preserveBooleanString = method_exists($valueBinder, 'getBooleanConversion') && $valueBinder->getBooleanConversion();
         $this->getTrue = Calculation::getTRUE();
         $this->getFalse = Calculation::getFALSE();

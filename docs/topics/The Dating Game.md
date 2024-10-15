@@ -257,7 +257,10 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 // Use the Advanced Value Binder so that our string date/time values will be automatically converted
 //     to Excel serialized date/timestamps
+// Old method using static property
 Cell::setValueBinder(new AdvancedValueBinder());
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder(new AdvancedValueBinder());
 
 // Write our data to the worksheet
 $worksheet->fromArray($projectHeading);

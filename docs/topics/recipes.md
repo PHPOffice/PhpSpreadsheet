@@ -233,7 +233,10 @@ method that suits you the best. Here are some examples:
 
 ```php
 // MySQL-like timestamp '2008-12-31' or date string
+// Old method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
@@ -599,7 +602,10 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ```php
+// Old method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
