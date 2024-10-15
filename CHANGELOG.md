@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## TBD - 1.29.3
+
+### Added
+
+- Method to Test Whether Csv Will Be Affected by Php9 (backport of PR #4189 intended for 3.4.0)
+
 ## 1.29.2 - 2024-09-29
 
 ### Fixed

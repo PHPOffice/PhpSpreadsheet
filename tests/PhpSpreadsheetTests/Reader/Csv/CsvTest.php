@@ -120,6 +120,10 @@ class CsvTest extends TestCase
 
     public function testEscapeCharacters(): void
     {
+        if (PHP_VERSION_ID >= 90000) {
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage('Escape character must be null string');
+        }
         $reader = (new Csv())->setEscapeCharacter('"');
         $worksheet = $reader->load('tests/data/Reader/CSV/backslash.csv')
             ->getActiveSheet();
@@ -236,6 +240,10 @@ class CsvTest extends TestCase
      */
     public function testInferSeparator(string $escape, string $delimiter): void
     {
+        if (PHP_VERSION_ID >= 90000 && $escape !== '') {
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage('Escape character must be null string');
+        }
         $reader = new Csv();
         $reader->setEscapeCharacter($escape);
         $filename = 'tests/data/Reader/CSV/escape.csv';
