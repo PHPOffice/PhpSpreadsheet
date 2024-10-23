@@ -54,6 +54,8 @@ class RuleCustomTest extends SetupTeardown
             [[3, 4], Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL],
             [[2], Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN],
             [[2, 3], Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL],
+            [[1,2,3,4], Rule::AUTOFILTER_COLUMN_RULE_CONTAINS],
+            [[1,2,4], Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN],
         ];
     }
 }

@@ -40,6 +40,8 @@ class AutoFilterCustomNumericTest extends SetupTeardown
             'greater than or equal to 3' => [[3, 4, 6, 7, 8, 9, 10], Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL, 3],
             'less than 3' => [[2, 11], Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN, 3],
             'less than or equal to 3' => [[2, 3, 10, 11], Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL, 3],
+            'contains 3' => [[3, 10], Rule::AUTOFILTER_COLUMN_RULE_CONTAINS, 3],
+            'does not contain 3' => [[2, 4, 5, 6, 7, 8, 9, 11, 12], Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN, 3],
         ];
     }
 
@@ -220,5 +222,41 @@ class AutoFilterCustomNumericTest extends SetupTeardown
         $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
 
         self::assertEquals([2, 5, 7, 11, 12], $this->getVisible());
+    }
+
+    public function testContais(): void
+    {
+        $sheet = $this->initSheet();
+        $maxRow = $this->maxRow;
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange("A1:A$maxRow");
+        $columnFilter = $autoFilter->getColumn('A');
+        $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_CONTAINS,
+                3
+            )
+            ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+        self::assertEquals([3, 10], $this->getVisible());
+    }
+
+    public function testDoesntContain(): void
+    {
+        $sheet = $this->initSheet();
+        $maxRow = $this->maxRow;
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange("A1:A$maxRow");
+        $columnFilter = $autoFilter->getColumn('A');
+        $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN,
+                3
+            )
+            ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+        self::assertEquals([2, 4, 5, 6, 7, 8, 9, 11, 12], $this->getVisible());
     }
 }

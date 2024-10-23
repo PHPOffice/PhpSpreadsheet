@@ -179,6 +179,42 @@ class AutoFilterCustomTextTest extends SetupTeardown
         self::assertEquals([5, 11, 12], $this->getVisible());
     }
 
+    public function testContais()
+    {
+        $sheet = $this->initSheet();
+        $maxRow = $this->maxRow;
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange("A1:A$maxRow");
+        $columnFilter = $autoFilter->getColumn('A');
+        $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_CONTAINS,
+                'c'
+            )
+            ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+        self::assertEquals([2, 3, 4, 6, 7, 9, 10], $this->getVisible());
+    }
+
+    public function testDoesntContain()
+    {
+        $sheet = $this->initSheet();
+        $maxRow = $this->maxRow;
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange("A1:A$maxRow");
+        $columnFilter = $autoFilter->getColumn('A');
+        $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN,
+                'c'
+            )
+            ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+        self::assertEquals([5, 8, 11, 12], $this->getVisible());
+    }
+
     public static function providerCustomRule(): array
     {
         return [
@@ -188,6 +224,8 @@ class AutoFilterCustomTextTest extends SetupTeardown
             'greater than or equal to cba' => [[3, 9, 10, 11, 12], Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL, 'cba'],
             'less than cba' => [[2, 4, 5, 6, 7, 8], Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN, 'cba'],
             'less than or equal to cba' => [[2, 3, 4, 5, 6, 7, 8], Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL, 'cba'],
+            'contains cba' => [[3], Rule::AUTOFILTER_COLUMN_RULE_CONTAINS, 'cba'],
+            'does not contain cba' => [[2, 4, 5, 6, 7, 8, 9, 10, 11, 12], Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN, 'cba'],
         ];
     }
 
