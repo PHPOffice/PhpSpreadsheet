@@ -132,6 +132,8 @@ class Rule
     const AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL = 'greaterThanOrEqual';
     const AUTOFILTER_COLUMN_RULE_LESSTHAN = 'lessThan';
     const AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL = 'lessThanOrEqual';
+    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';
+    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'doesNotContain';
 
     private const OPERATORS = [
         self::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -140,6 +142,8 @@ class Rule
         self::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
         self::AUTOFILTER_COLUMN_RULE_LESSTHAN,
         self::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
+        self::AUTOFILTER_COLUMN_RULE_CONTAINS,
+        self::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN,
     ];
 
     const AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE = 'byValue';
@@ -164,8 +168,6 @@ class Rule
     // Rule Operators (String) which are set as wild-carded values
     //    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
     //    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
-    //    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
-    //    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
     // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
     //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
     //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';

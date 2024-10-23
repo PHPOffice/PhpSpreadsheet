@@ -421,6 +421,14 @@ class AutoFilter implements Stringable
                         $retVal = $numericTest && ($cellValue <= $ruleValue);
 
                         break;
+                    case Rule::AUTOFILTER_COLUMN_RULE_CONTAINS:
+
+                        $retVal = (stripos($cellValueString, $ruleValue) !== false);
+                        break;
+                    case Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN:
+
+                        $retVal = (stripos($cellValueString, $ruleValue) === false);
+                        break;
                 }
             } elseif ($ruleValue == '') {
                 $retVal = match ($ruleOperator) {
@@ -454,6 +462,14 @@ class AutoFilter implements Stringable
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL:
                         $retVal = strcasecmp($cellValueString, $ruleValue) <= 0;
 
+                        break;
+                    case Rule::AUTOFILTER_COLUMN_RULE_CONTAINS:
+
+                        $retVal = (stripos($cellValueString, $ruleValue) !== false);
+                        break;
+                    case Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN:
+
+                        $retVal = (stripos($cellValueString, $ruleValue) === false);
                         break;
                 }
             }
