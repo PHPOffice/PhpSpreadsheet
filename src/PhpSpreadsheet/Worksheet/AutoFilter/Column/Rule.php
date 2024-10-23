@@ -132,8 +132,8 @@ class Rule
     const AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL = 'greaterThanOrEqual';
     const AUTOFILTER_COLUMN_RULE_LESSTHAN = 'lessThan';
     const AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL = 'lessThanOrEqual';
-    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';
-    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'doesNotContain';
+    const AUTOFILTER_COLUMN_RULE_CONTAINS = 'contains';
+    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN = 'doesNotContain';
 
     private const OPERATORS = [
         self::AUTOFILTER_COLUMN_RULE_EQUAL,

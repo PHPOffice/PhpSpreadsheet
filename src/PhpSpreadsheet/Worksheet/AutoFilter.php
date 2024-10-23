@@ -422,12 +422,12 @@ class AutoFilter implements Stringable
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_CONTAINS:
-
                         $retVal = (stripos($cellValueString, $ruleValue) !== false);
+
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN:
-
                         $retVal = (stripos($cellValueString, $ruleValue) === false);
+
                         break;
                 }
             } elseif ($ruleValue == '') {
@@ -464,12 +464,12 @@ class AutoFilter implements Stringable
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_CONTAINS:
-
                         $retVal = (stripos($cellValueString, $ruleValue) !== false);
+
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN:
-
                         $retVal = (stripos($cellValueString, $ruleValue) === false);
+
                         break;
                 }
             }

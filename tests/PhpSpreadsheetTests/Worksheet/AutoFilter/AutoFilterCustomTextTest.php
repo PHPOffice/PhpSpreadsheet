@@ -179,7 +179,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         self::assertEquals([5, 11, 12], $this->getVisible());
     }
 
-    public function testContais()
+    public function testContais(): void
     {
         $sheet = $this->initSheet();
         $maxRow = $this->maxRow;
@@ -197,7 +197,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         self::assertEquals([2, 3, 4, 6, 7, 9, 10], $this->getVisible());
     }
 
-    public function testDoesntContain()
+    public function testDoesntContain(): void
     {
         $sheet = $this->initSheet();
         $maxRow = $this->maxRow;
