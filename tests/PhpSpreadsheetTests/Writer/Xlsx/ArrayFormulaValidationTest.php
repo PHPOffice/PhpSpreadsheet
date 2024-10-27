@@ -30,9 +30,6 @@ class ArrayFormulaValidationTest extends TestCase
     public function testWriteArrayFormulaValidation(string $formula): void
     {
         $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        $spreadsheet = new Spreadsheet();
         Calculation::getInstance($spreadsheet)
             ->setInstanceArrayReturnType(
                 Calculation::RETURN_ARRAY_AS_ARRAY
