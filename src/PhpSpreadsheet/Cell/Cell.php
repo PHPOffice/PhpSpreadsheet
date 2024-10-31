@@ -324,7 +324,7 @@ class Cell implements Stringable
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
         $worksheet = $this->getWorksheet();
         $spreadsheet = $worksheet->getParent();
-        if (isset($spreadsheet)) {
+        if (isset($spreadsheet) && $spreadsheet->getIndex($worksheet, true) >= 0) {
             $originalSelected = $worksheet->getSelectedCells();
             $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
             $style = $this->getStyle();
