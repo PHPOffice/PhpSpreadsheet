@@ -983,10 +983,10 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('sqref', $dv->getSqref() ?? $coordinate);
 
                 if ($dv->getFormula1() !== '') {
-                    $objWriter->writeElement('formula1', $dv->getFormula1());
+                    $objWriter->writeElement('formula1', FunctionPrefix::addFunctionPrefix($dv->getFormula1()));
                 }
                 if ($dv->getFormula2() !== '') {
-                    $objWriter->writeElement('formula2', $dv->getFormula2());
+                    $objWriter->writeElement('formula2', FunctionPrefix::addFunctionPrefix($dv->getFormula2()));
                 }
 
                 $objWriter->endElement();
