@@ -98,7 +98,7 @@ jobs:
           coverage: none
 
       - name: Find code that might require polyfill
-        run: ./bin/findpolyfill.php
+        run: php ./bin/findpolyfill.php
 
   php-cs-fixer:
     runs-on: ubuntu-latest
