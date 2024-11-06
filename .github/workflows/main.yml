@@ -82,6 +82,24 @@ jobs:
       - name: Check PHPDoc types
         run: ./bin/check-phpdoc-types
 
+  find-polyfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      - name: Find code that might require polyfill
+        run: ./bin/findpolyfill.php
+
   php-cs-fixer:
     runs-on: ubuntu-latest
     steps:
