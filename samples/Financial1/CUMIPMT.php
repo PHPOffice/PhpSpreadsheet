@@ -12,7 +12,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data
 $arguments = [
-    ['Interest Rate (per period)', fdiv(0.05, 12)],
+    ['Interest Rate (per period)', 0.05 / 12],
     ['Number of Periods', 5 * 12],
     ['Present Value', 50000],
 ];
