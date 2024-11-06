@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Option to Write Hyperlink Rather Than Label to Csv. [Issue #1412](https://github.com/PHPOffice/PhpSpreadsheet/issues/1412) [PR #4151](https://github.com/PHPOffice/PhpSpreadsheet/pull/4151)
 - Invalid Html Due to Cached Filesize. [Issue #1107](https://github.com/PHPOffice/PhpSpreadsheet/issues/1107) [PR #4184](https://github.com/PHPOffice/PhpSpreadsheet/pull/4184)
 - Excel 2003 Allows Html Entities. [Issue #2157](https://github.com/PHPOffice/PhpSpreadsheet/issues/2157) [PR #4187](https://github.com/PHPOffice/PhpSpreadsheet/pull/4187)
+- Changes to ROUNDDOWN/ROUNDUP/TRUNC. [Issue #4213](https://github.com/PHPOffice/PhpSpreadsheet/issues/4213) [PR #4214](https://github.com/PHPOffice/PhpSpreadsheet/pull/4214)
 - Writer Xlsx ignoredErrors Before Drawings. [Issue #4200](https://github.com/PHPOffice/PhpSpreadsheet/issues/4200) [Issue #4145](https://github.com/PHPOffice/PhpSpreadsheet/issues/4145)  [PR #4212](https://github.com/PHPOffice/PhpSpreadsheet/pull/4212)
 - Allow ANCHORARRAY as Data Validation list. [Issue #4197](https://github.com/PHPOffice/PhpSpreadsheet/issues/4197) [PR #4203](https://github.com/PHPOffice/PhpSpreadsheet/pull/4203)
 
