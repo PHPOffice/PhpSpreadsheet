@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- IREADER::SKIP_EMPTY_CELLS - use its alias IGNORE_EMPTY_CELLS instead.
+- IReader::SKIP_EMPTY_CELLS - use its alias IGNORE_EMPTY_CELLS instead.
+- Worksheet::getProtectedCells was deprecated in release 2, but was not properly documented, and not removed in release 3. Use getProtectedCellRanges instead.
+- Writer/Html::isMpdf property was deprecated in release 2, but was not properly documented, and not removed in release 3. Use instanceof Mpdf instead.
 
 ### Moved
 
@@ -36,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Invalid Html Due to Cached Filesize. [Issue #1107](https://github.com/PHPOffice/PhpSpreadsheet/issues/1107) [PR #4184](https://github.com/PHPOffice/PhpSpreadsheet/pull/4184)
 - Excel 2003 Allows Html Entities. [Issue #2157](https://github.com/PHPOffice/PhpSpreadsheet/issues/2157) [PR #4187](https://github.com/PHPOffice/PhpSpreadsheet/pull/4187)
 - Changes to ROUNDDOWN/ROUNDUP/TRUNC. [Issue #4213](https://github.com/PHPOffice/PhpSpreadsheet/issues/4213) [PR #4214](https://github.com/PHPOffice/PhpSpreadsheet/pull/4214)
+- Writer Xlsx ignoredErrors Before Drawings. [Issue #4200](https://github.com/PHPOffice/PhpSpreadsheet/issues/4200) [Issue #4145](https://github.com/PHPOffice/PhpSpreadsheet/issues/4145)  [PR #4212](https://github.com/PHPOffice/PhpSpreadsheet/pull/4212)
+- Allow ANCHORARRAY as Data Validation list. [Issue #4197](https://github.com/PHPOffice/PhpSpreadsheet/issues/4197) [PR #4203](https://github.com/PHPOffice/PhpSpreadsheet/pull/4203)
 
 ## 2024-09-29 - 3.3.0 (no 3.0.\*, 3.1.\*, 3.2.\*)
 
