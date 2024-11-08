@@ -9,6 +9,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\TestCase;
 
@@ -207,7 +208,7 @@ class DateTest extends TestCase
         $date = Date::PHPToExcel('2020-01-01');
         self::assertEquals(43831.0, $date);
 
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('B1', 'x');
         /** @var float|int|string */
@@ -249,6 +250,7 @@ class DateTest extends TestCase
             ->getNumberFormat()
             ->setFormatCode('yyyy-mm-dd');
         self::assertFalse(Date::isDateTime($cella4));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testRoundMicroseconds(): void

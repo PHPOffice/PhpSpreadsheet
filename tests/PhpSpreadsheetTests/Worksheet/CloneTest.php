@@ -52,7 +52,6 @@ class CloneTest extends TestCase
         serialize($sheet1);
     }
 
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testSerialize2(): void
     {
         $sheet1 = new Worksheet();
