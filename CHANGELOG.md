@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 2024-11-10 - 3.4.0
 
+### Security Fix
+
+- Several security patches.
+
 ### Added
 
 - Add Dynamic valueBinder Property to Spreadsheet and Readers. [Issue #1395](https://github.com/PHPOffice/PhpSpreadsheet/issues/1395) [PR #4185](https://github.com/PHPOffice/PhpSpreadsheet/pull/4185)
