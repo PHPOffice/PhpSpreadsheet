@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+            <title>Documentation</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/template.js"></script>
         <script src="js/search.js"></script>
         <script defer src="js/searchIndex.js"></script>
     </head>
@@ -47,17 +53,28 @@
 <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
     Menu
 </label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                                    </ul>
-                        </section>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpoffice-phpspreadsheet.html" class="">PhpSpreadsheet</a>
+                
+            </li>
+            </ul>
 
-    
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -71,8 +88,9 @@
     </section>
 </aside>
 
-            <div class="phpdocumentor-column -eight phpdocumentor-content">
-                    <ul class="phpdocumentor-breadcrumbs">
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
@@ -84,15 +102,27 @@
     BranchPruner
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">7</span>
-</aside>
+
+    </aside>
 
         
 
@@ -100,205 +130,200 @@
 
 
 
-
-
-
 <h3 id="toc">
     Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
 </h3>
 
+
+
+
+
+
+
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
 <dl class="phpdocumentor-table-of-contents">
-                <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_braceDepthMap">$braceDepthMap</a>
     <span>
-                &nbsp;: array&lt;string|int, int&gt;            </span>
+                        &nbsp;: array&lt;string|int, int&gt;            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchPruningEnabled">$branchPruningEnabled</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_conditionMap">$conditionMap</a>
     <span>
-                &nbsp;: array&lt;string|int, bool&gt;            </span>
+                        &nbsp;: array&lt;string|int, bool&gt;            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentCondition">$currentCondition</a>
     <span>
-                &nbsp;: null|string            </span>
+                        &nbsp;: string|null            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIf">$currentOnlyIf</a>
     <span>
-                &nbsp;: null|string            </span>
+                        &nbsp;: string|null            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIfNot">$currentOnlyIfNot</a>
     <span>
-                &nbsp;: null|string            </span>
+                        &nbsp;: string|null            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_elseMap">$elseMap</a>
     <span>
-                &nbsp;: array&lt;string|int, bool&gt;            </span>
+                        &nbsp;: array&lt;string|int, bool&gt;            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_pendingStoreKey">$pendingStoreKey</a>
     <span>
-                &nbsp;: string|null            </span>
+                        &nbsp;: string|null            </span>
 </dt>
 <dd>currently pending storeKey (last item of the storeKeysStack.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_previousStoreKey">$previousStoreKey</a>
     <span>
-                &nbsp;: null|string            </span>
+                        &nbsp;: string|null            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_storeKeysStack">$storeKeysStack</a>
     <span>
-                &nbsp;: array&lt;string|int, string&gt;            </span>
+                        &nbsp;: array&lt;string|int, string&gt;            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_thenMap">$thenMap</a>
     <span>
-                &nbsp;: array&lt;string|int, bool&gt;            </span>
+                        &nbsp;: array&lt;string|int, bool&gt;            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchStoreKeyCounter">$branchStoreKeyCounter</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>Used to generate unique store keys.</dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method___construct">__construct()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_argumentSeparator">argumentSeparator()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_clearBranchStore">clearBranchStore()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_closingBrace">closingBrace()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentCondition">currentCondition()</a>
     <span>
-                        &nbsp;: string|null    </span>
+                                &nbsp;: string|null    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIf">currentOnlyIf()</a>
     <span>
-                        &nbsp;: string|null    </span>
+                                &nbsp;: string|null    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIfNot">currentOnlyIfNot()</a>
     <span>
-                        &nbsp;: string|null    </span>
+                                &nbsp;: string|null    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_decrementDepth">decrementDepth()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_functionCall">functionCall()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_incrementDepth">incrementDepth()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseForLoop">initialiseForLoop()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_getUnusedBranchStoreKey">getUnusedBranchStoreKey()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseCondition">initialiseCondition()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseElse">initialiseElse()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseThen">initialiseThen()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
-        </dl>
+    </dl>
+
 
 
 
@@ -309,6 +334,7 @@
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="
@@ -320,14 +346,16 @@
     <h4 class="phpdocumentor-element__name" id="property_braceDepthMap">
         $braceDepthMap
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_braceDepthMap" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">44</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -336,8 +364,8 @@
     <span class="phpdocumentor-signature__name">$braceDepthMap</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -351,24 +379,26 @@
     <h4 class="phpdocumentor-element__name" id="property_branchPruningEnabled">
         $branchPruningEnabled
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchPruningEnabled" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">9</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$branchPruningEnabled</span>
-     = <span class="phpdocumentor-signature__default-value">true</span></code>
+    </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -382,14 +412,16 @@
     <h4 class="phpdocumentor-element__name" id="property_conditionMap">
         $conditionMap
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_conditionMap" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">29</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -398,8 +430,8 @@
     <span class="phpdocumentor-signature__name">$conditionMap</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -413,24 +445,26 @@
     <h4 class="phpdocumentor-element__name" id="property_currentCondition">
         $currentCondition
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentCondition" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">46</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$currentCondition</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -444,24 +478,26 @@
     <h4 class="phpdocumentor-element__name" id="property_currentOnlyIf">
         $currentOnlyIf
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIf" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">48</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$currentOnlyIf</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -475,24 +511,26 @@
     <h4 class="phpdocumentor-element__name" id="property_currentOnlyIfNot">
         $currentOnlyIfNot
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIfNot" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">50</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$currentOnlyIfNot</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -506,14 +544,16 @@
     <h4 class="phpdocumentor-element__name" id="property_elseMap">
         $elseMap
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_elseMap" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">39</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -522,8 +562,8 @@
     <span class="phpdocumentor-signature__name">$elseMap</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -537,14 +577,16 @@
     <h4 class="phpdocumentor-element__name" id="property_pendingStoreKey">
         $pendingStoreKey
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_pendingStoreKey" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">19</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">currently pending storeKey (last item of the storeKeysStack.</p>
 
@@ -552,10 +594,10 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$pendingStoreKey</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -569,24 +611,26 @@
     <h4 class="phpdocumentor-element__name" id="property_previousStoreKey">
         $previousStoreKey
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_previousStoreKey" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$previousStoreKey</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -600,14 +644,16 @@
     <h4 class="phpdocumentor-element__name" id="property_storeKeysStack">
         $storeKeysStack
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_storeKeysStack" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -616,8 +662,8 @@
     <span class="phpdocumentor-signature__name">$storeKeysStack</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -631,14 +677,16 @@
     <h4 class="phpdocumentor-element__name" id="property_thenMap">
         $thenMap
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_thenMap" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -647,8 +695,8 @@
     <span class="phpdocumentor-signature__name">$thenMap</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -662,14 +710,16 @@
     <h4 class="phpdocumentor-element__name" id="property_branchStoreKeyCounter">
         $branchStoreKeyCounter
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchStoreKeyCounter" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">14</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Used to generate unique store keys.</p>
 
@@ -679,8 +729,8 @@
     <span class="phpdocumentor-signature__name">$branchStoreKeyCounter</span>
      = <span class="phpdocumentor-signature__default-value">0</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -690,6 +740,7 @@
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="phpdocumentor-element
@@ -700,18 +751,22 @@
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">54</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$branchPruningEnabled</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$branchPruningEnabled</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -726,11 +781,6 @@
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
     
 </article>
                     <article
@@ -742,26 +792,25 @@
     <h4 class="phpdocumentor-element__name" id="method_argumentSeparator">
         argumentSeparator()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_argumentSeparator" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">143</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">argumentSeparator</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">argumentSeparator</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -774,26 +823,25 @@
     <h4 class="phpdocumentor-element__name" id="method_clearBranchStore">
         clearBranchStore()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_clearBranchStore" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">59</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">clearBranchStore</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">clearBranchStore</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -806,20 +854,23 @@
     <h4 class="phpdocumentor-element__name" id="method_closingBrace">
         closingBrace()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_closingBrace" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">159</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">closingBrace</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">closingBrace</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -827,17 +878,11 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -850,28 +895,31 @@
     <h4 class="phpdocumentor-element__name" id="method_currentCondition">
         currentCondition()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentCondition" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">179</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">currentCondition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">currentCondition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|null</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -882,28 +930,31 @@
     <h4 class="phpdocumentor-element__name" id="method_currentOnlyIf">
         currentOnlyIf()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIf" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">184</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">currentOnlyIf</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">currentOnlyIf</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|null</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -914,28 +965,31 @@
     <h4 class="phpdocumentor-element__name" id="method_currentOnlyIfNot">
         currentOnlyIfNot()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIfNot" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">189</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">currentOnlyIfNot</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">currentOnlyIfNot</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|null</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -946,26 +1000,25 @@
     <h4 class="phpdocumentor-element__name" id="method_decrementDepth">
         decrementDepth()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_decrementDepth" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">115</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">decrementDepth</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">decrementDepth</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -978,18 +1031,22 @@
     <h4 class="phpdocumentor-element__name" id="method_functionCall">
         functionCall()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_functionCall" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">129</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">functionCall</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">functionCall</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1004,11 +1061,6 @@
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
     
 </article>
                     <article
@@ -1020,26 +1072,25 @@
     <h4 class="phpdocumentor-element__name" id="method_incrementDepth">
         incrementDepth()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_incrementDepth" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">141</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">122</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">incrementDepth</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">incrementDepth</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1052,26 +1103,25 @@
     <h4 class="phpdocumentor-element__name" id="method_initialiseForLoop">
         initialiseForLoop()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseForLoop" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">64</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">initialiseForLoop</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">initialiseForLoop</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1084,28 +1134,31 @@
     <h4 class="phpdocumentor-element__name" id="method_getUnusedBranchStoreKey">
         getUnusedBranchStoreKey()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_getUnusedBranchStoreKey" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">194</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">getUnusedBranchStoreKey</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getUnusedBranchStoreKey</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1116,26 +1169,25 @@
     <h4 class="phpdocumentor-element__name" id="method_initialiseCondition">
         initialiseCondition()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseCondition" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">79</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">initialiseCondition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">initialiseCondition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1148,26 +1200,25 @@
     <h4 class="phpdocumentor-element__name" id="method_initialiseElse">
         initialiseElse()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseElse" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">103</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">initialiseElse</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">initialiseElse</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1180,33 +1231,182 @@
     <h4 class="phpdocumentor-element__name" id="method_initialiseThen">
         initialiseThen()
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseThen" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php"><a href="files/src-phpspreadsheet-calculation-engine-branchpruner.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php">BranchPruner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">91</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">initialiseThen</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">initialiseThen</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
             </section>
 
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
     </article>
-                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_braceDepthMap">$braceDepthMap<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchPruningEnabled">$branchPruningEnabled<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_conditionMap">$conditionMap<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentCondition">$currentCondition<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIf">$currentOnlyIf<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_currentOnlyIfNot">$currentOnlyIfNot<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_elseMap">$elseMap<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_pendingStoreKey">$pendingStoreKey<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_previousStoreKey">$previousStoreKey<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_storeKeysStack">$storeKeysStack<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_thenMap">$thenMap<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#property_branchStoreKeyCounter">$branchStoreKeyCounter<a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_argumentSeparator">argumentSeparator()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_clearBranchStore">clearBranchStore()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_closingBrace">closingBrace()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentCondition">currentCondition()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIf">currentOnlyIf()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_currentOnlyIfNot">currentOnlyIfNot()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_decrementDepth">decrementDepth()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_functionCall">functionCall()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_incrementDepth">incrementDepth()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseForLoop">initialiseForLoop()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_getUnusedBranchStoreKey">getUnusedBranchStoreKey()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseCondition">initialiseCondition()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseElse">initialiseElse()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#method_initialiseThen">initialiseThen()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
         <header class="phpdocumentor-search-results__header">
             <h2 class="phpdocumentor-search-results__title">Search results</h2>
@@ -1217,7 +1417,6 @@
         </section>
     </section>
 </section>
-            </div>
         </div>
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-BranchPruner.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -1226,5 +1425,9 @@
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
