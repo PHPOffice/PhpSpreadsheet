@@ -30,7 +30,11 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $expectedResult = file_get_contents($file);
+            $expectedResult = (string) file_get_contents($file);
+            if (preg_match('/UTF-16(LE|BE)?/', $file, $matches) == 1) {
+                $expectedResult = (string) mb_convert_encoding($expectedResult, 'UTF-8', $matches[0]);
+                $expectedResult = preg_replace('/encoding\\s*=\\s*[\'"]UTF-\\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
+            }
             $tests[basename($file)] = [$filename, $expectedResult];
         }
 
@@ -132,19 +136,47 @@ class XmlScannerTest extends TestCase
         self::assertSame($input, $output);
     }
 
-    public function testUtf7Whitespace(): void
+    /**
+     * @dataProvider providerInvalidXlsx
+     */
+    public function testInvalidXlsx(string $filename, string $message): void
     {
         $this->expectException(ReaderException::class);
-        $this->expectExceptionMessage('Double-encoded');
+        $this->expectExceptionMessage($message);
         $reader = new Xlsx();
-        $reader->load('tests/data/Reader/XLSX/utf7white.dontuse');
+        $reader->load("tests/data/Reader/XLSX/$filename");
     }
 
-    public function testUtf8Entity(): void
+    public static function providerInvalidXlsx(): array
     {
-        $this->expectException(ReaderException::class);
-        $this->expectExceptionMessage('Detected use of ENTITY');
+        return [
+            ['utf7white.dontuse', 'UTF-7 encoding not permitted'],
+            ['utf7quoteorder.dontuse', 'UTF-7 encoding not permitted'],
+            ['utf8and16.dontuse', 'Double encoding not permitted'],
+            ['utf8and16.entity.dontuse', 'Detected use of ENTITY'],
+            ['utf8entity.dontuse', 'Detected use of ENTITY'],
+            ['utf16entity.dontuse', 'Detected use of ENTITY'],
+            ['ebcdic.dontuse', 'EBCDIC encoding not permitted'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerValidUtf16
+     */
+    public function testValidUtf16(string $filename): void
+    {
         $reader = new Xlsx();
-        $reader->load('tests/data/Reader/XLSX/utf8entity.dontuse');
+        $spreadsheet = $reader->load("tests/data/Reader/XLSX/$filename");
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1, $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerValidUtf16(): array
+    {
+        return [
+            ['utf16be.xlsx'],
+            ['utf16be.bom.xlsx'],
+        ];
     }
 }
