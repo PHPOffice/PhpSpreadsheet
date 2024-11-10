@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Add support for `<s>` tag when converting HTML to RichText. [Issue #4223](https://github.com/PHPOffice/PhpSpreadsheet/issues/4223) [PR #4224](https://github.com/PHPOffice/PhpSpreadsheet/pull/4224)
 
 ## 2024-11-10 - 3.4.0
 
@@ -66,7 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Changes to ROUNDDOWN/ROUNDUP/TRUNC. [Issue #4213](https://github.com/PHPOffice/PhpSpreadsheet/issues/4213) [PR #4214](https://github.com/PHPOffice/PhpSpreadsheet/pull/4214)
 - Writer Xlsx ignoredErrors Before Drawings. [Issue #4200](https://github.com/PHPOffice/PhpSpreadsheet/issues/4200) [Issue #4145](https://github.com/PHPOffice/PhpSpreadsheet/issues/4145)  [PR #4212](https://github.com/PHPOffice/PhpSpreadsheet/pull/4212)
 - Allow ANCHORARRAY as Data Validation list. [Issue #4197](https://github.com/PHPOffice/PhpSpreadsheet/issues/4197) [PR #4203](https://github.com/PHPOffice/PhpSpreadsheet/pull/4203)
-- Add support for `<s>` tag when converting HTML to RichText. [Issue #4223](https://github.com/PHPOffice/PhpSpreadsheet/issues/4223) [PR #4224](https://github.com/PHPOffice/PhpSpreadsheet/pull/4224)
 
 ## 2024-09-29 - 3.3.0 (no 3.0.\*, 3.1.\*, 3.2.\*)
 
