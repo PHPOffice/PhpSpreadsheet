@@ -76,7 +76,7 @@ audio:not([controls]) {
 
 [hidden],
 template {
-    display: none !important;
+    display: none;
 }
 
 /* Links
@@ -230,7 +230,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: var(--font-monospace);
+    font-family: monospace, monospace;
     font-size: 1em;
 }
 
