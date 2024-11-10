@@ -5,13 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.4.0
+## TBD - 3.5.0
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2024-11-10 - 3.4.0
+
+### Security Fix
+
+- Several security patches.
 
 ### Added
 
 - Add Dynamic valueBinder Property to Spreadsheet and Readers. [Issue #1395](https://github.com/PHPOffice/PhpSpreadsheet/issues/1395) [PR #4185](https://github.com/PHPOffice/PhpSpreadsheet/pull/4185)
 - Allow Omitting Chart Border. [Issue #562](https://github.com/PHPOffice/PhpSpreadsheet/issues/562) [PR #4188](https://github.com/PHPOffice/PhpSpreadsheet/pull/4188)
-- Method to Test Whether Csv Will Be Affected by Php0. [PR #4189](https://github.com/PHPOffice/PhpSpreadsheet/pull/4189)
+- Method to Test Whether Csv Will Be Affected by Php9. [PR #4189](https://github.com/PHPOffice/PhpSpreadsheet/pull/4189)
 
 ### Changed
 
