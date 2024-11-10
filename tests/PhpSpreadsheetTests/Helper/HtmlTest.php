@@ -59,12 +59,15 @@ class HtmlTest extends TestCase
         self::assertSame(count($elements), 3);
 
         self::assertSame($elements[0]->getText(), 'Hello ');
-        self::assertTrue($elements[0]->getFont() === null || !$elements[0]->getFont()->getStrikethrough());
+        self::assertNotNull($elements[0]->getFont());
+        self::assertFalse($elements[0]->getFont()->getStrikethrough());
 
         self::assertSame($elements[1]->getText(), 'test');
-        self::assertTrue($elements[1]->getFont() !== null && $elements[1]->getFont()->getStrikethrough());
+        self::assertNotNull($elements[1]->getFont());
+        self::assertTrue($elements[1]->getFont()->getStrikethrough());
 
         self::assertSame($elements[2]->getText(), 'world');
-        self::assertTrue($elements[2]->getFont() === null || !$elements[2]->getFont()->getStrikethrough());
+        self::assertNotNull($elements[2]->getFont());
+        self::assertFalse($elements[2]->getFont()->getStrikethrough());
     }
 }
