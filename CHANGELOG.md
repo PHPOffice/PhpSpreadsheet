@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Add support for `<s>` tag when converting HTML to RichText. [Issue #4223](https://github.com/PHPOffice/PhpSpreadsheet/issues/4223) [PR #4224](https://github.com/PHPOffice/PhpSpreadsheet/pull/4224)
 
 ## 2024-11-10 - 3.4.0
 
