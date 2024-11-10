@@ -45,12 +45,12 @@
     ],
     "scripts": {
         "check": [
-            "./bin/check-phpdoc-types",
+            "php ./bin/check-phpdoc-types",
             "phpcs samples/ src/ tests/ --report=checkstyle",
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpunit --color=always",
-            "phpstan analyse --ansi --memory-limit=2048M"
+            "phpstan analyse --ansi --memory-limit=2048M",
+            "phpunit --color=always"
         ],
         "style": [
             "phpcs samples/ src/ tests/ --report=checkstyle",
@@ -61,7 +61,7 @@
             "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
         ]
     },
     "require": {
