@@ -99,7 +99,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    ConditionalFormatting
+    ListFunctions
 
         <span class="phpdocumentor-element__extends">
         extends <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>
@@ -121,9 +121,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php"><a href="files/src-phpspreadsheet-reader-xls-listfunctions.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php">ListFunctions.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 
     </aside>
 
@@ -137,7 +137,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -149,7 +149,7 @@
 
 <h4 id="toc-constants">
     Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -718,7 +718,7 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -1054,23 +1054,11 @@ refers to a shared formula.</dd>
 </dt>
 <dd>The current MD5 context state.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_operators">$operators</a>
-    <span>
-                        &nbsp;: array&lt;int, string&gt;            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_types">$types</a>
-    <span>
-                        &nbsp;: array&lt;int, string&gt;            </span>
-</dt>
-
     </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -1214,12 +1202,6 @@ Returns either an array of worksheet names (the list of worksheets that should b
 <dd>Loads Spreadsheet from file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_operator">operator()</a>
-    <span>
-                                &nbsp;: string|null    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_setCodepage">setCodepage()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -1284,12 +1266,6 @@ Returns either an array of worksheet names (the list of worksheets that should b
                                 &nbsp;: self    </span>
 </dt>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_type">type()</a>
-    <span>
-                                &nbsp;: string|null    </span>
-</dt>
-
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_decodeCodepage">decodeCodepage()</a>
     <span>
@@ -1323,6 +1299,20 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <span>
                                 &nbsp;: float|int    </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetInfo2">listWorksheetInfo2()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetNames2">listWorksheetNames2()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_loadOLE">loadOLE()</a>
@@ -1411,20 +1401,7 @@ OpenOffice documentation: 2.5.2.</dd>
 <dd>Parse conditional formatting blocks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFHeader2">readCFHeader2()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>Parse conditional formatting blocks.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readCFRule">readCFRule()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFRule2">readCFRule2()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -1983,24 +1960,6 @@ function will automatically find out where the Unicode string ends.</dd>
 <dd>Take array of tokens together with additional data for formula and return human readable formula.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFBorderStyle">getCFBorderStyle()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFillStyle">getCFFillStyle()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFontStyle">getCFFontStyle()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getFormulaFromData">getFormulaFromData()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -2037,18 +1996,6 @@ is in one piece.</dd>
 <dd>Make an RC4 decryptor for the given block.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFFormula">readCFFormula()</a>
-    <span>
-                                &nbsp;: float|int|string|null    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_setCFRules">setCFRules()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_verifyPassword">verifyPassword()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -2063,7 +2010,7 @@ is in one piece.</dd>
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
@@ -4744,7 +4691,7 @@ is in one piece.</dd>
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -6448,82 +6395,12 @@ refers to a shared formula.</p>
     
 
 </article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_operators">
-        $operators
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_operators" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">25</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;int, string&gt;</span>
-    <span class="phpdocumentor-signature__name">$operators</span>
-     = <span class="phpdocumentor-signature__default-value">[0x0 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NONE, 0x1 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN, 0x2 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NOTBETWEEN, 0x3 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_EQUAL, 0x4 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NOTEQUAL, 0x5 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHAN, 0x6 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN, 0x7 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL, 0x8 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHANOREQUAL]</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_types">
-        $types
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_types" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">17</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;int, string&gt;</span>
-    <span class="phpdocumentor-signature__name">$types</span>
-     = <span class="phpdocumentor-signature__default-value">[0x1 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS, 0x2 =&gt; \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION]</span></code>
-
-    
-    
-    
-
-    
-
-</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -7414,53 +7291,6 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_operator">
-        operator()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_operator" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">46</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">operator</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operator</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$operator</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_setCodepage">
@@ -7887,53 +7717,6 @@ Set to false (the default) to discard charts.</p>
                     <article
         class="phpdocumentor-element
             -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_type">
-        type()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_type" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">37</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">type</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
             -protected
                                                         "
 >
@@ -8191,6 +7974,116 @@ Set to false (the default) to discard charts.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|int</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_listWorksheetInfo2">
+        listWorksheetInfo2()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetInfo2" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php"><a href="files/src-phpspreadsheet-reader-xls-listfunctions.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php">ListFunctions.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">listWorksheetInfo2</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$xls</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_listWorksheetNames2">
+        listWorksheetNames2()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetNames2" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php"><a href="files/src-phpspreadsheet-reader-xls-listfunctions.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ListFunctions.php">ListFunctions.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">listWorksheetNames2</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$xls</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             </section>
 
 </article>
@@ -8720,71 +8613,6 @@ OpenOffice documentation: 2.5.2.</p>
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_readCFHeader2">
-        readCFHeader2()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFHeader2" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">60</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Parse conditional formatting blocks.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">readCFHeader2</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFHeader2#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="https://www.openoffice.org/sc/excelfileformat.pdf">https://www.openoffice.org/sc/excelfileformat.pdf</a></span>
-                                        
-                                                 <section class="phpdocumentor-description"><p>Search for CFHEADER followed by CFRULE</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_readCFRule">
         readCFRule()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readCFRule" class="headerlink"><i class="fas fa-link"></i></a>
@@ -8810,56 +8638,6 @@ OpenOffice documentation: 2.5.2.</p>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_readCFRule2">
-        readCFRule2()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFRule2" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">84</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">readCFRule2</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -11719,205 +11497,6 @@ Excel File Format&quot;</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getCFBorderStyle">
-        getCFBorderStyle()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFBorderStyle" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">231</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getCFBorderStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hasBorderLeft</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hasBorderRight</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hasBorderTop</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hasBorderBottom</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hasBorderLeft</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hasBorderRight</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hasBorderTop</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hasBorderBottom</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getCFFillStyle">
-        getCFFillStyle()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFillStyle" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">271</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getCFFillStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getCFFontStyle">
-        getCFFontStyle()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFontStyle" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">196</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getCFFontStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$options</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$options</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_getFormulaFromData">
         getFormulaFromData()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getFormulaFromData" class="headerlink"><i class="fas fa-link"></i></a>
@@ -12197,166 +11776,6 @@ is in one piece.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_readCFFormula">
-        readCFFormula()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFFormula" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">302</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">readCFFormula</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$recordData</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|int|string|null</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$recordData</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$size</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|int|string|null</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setCFRules">
-        setCFRules()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_setCFRules" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php"><a href="files/src-phpspreadsheet-reader-xls-conditionalformatting.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php">ConditionalFormatting.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">319</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">setCFRules</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRanges</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operator</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$noFormatSet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellRanges</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$operator</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$formula1</span>
-                : <span class="phpdocumentor-signature__argument__return-type">null|float|int|string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$formula2</span>
-                : <span class="phpdocumentor-signature__argument__return-type">null|float|int|string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$noFormatSet</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$xls</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Xls">Xls</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_verifyPassword">
         verifyPassword()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_verifyPassword" class="headerlink"><i class="fas fa-link"></i></a>
@@ -12447,7 +11866,7 @@ is in one piece.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/Xls/ConditionalFormatting.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/Xls/ListFunctions.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -12546,9 +11965,9 @@ is in one piece.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#toc-methods">Methods</a></li>
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
@@ -12648,55 +12067,53 @@ is in one piece.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_activeSheetSet">$activeSheetSet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_baseCell">$baseCell<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_cellNotes">$cellNotes<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#property_codepage">$codepage<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_data">$data<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_dataSize">$dataSize<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_definedname">$definedname<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_documentSummaryInformation">$documentSummaryInformation<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingData">$drawingData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingGroupData">$drawingGroupData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryption">$encryption<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionStartPos">$encryptionStartPos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalBooks">$externalBooks<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalNames">$externalNames<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_formats">$formats<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_frozen">$frozen<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_ignoreRowsWithNoCells">$ignoreRowsWithNoCells<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_includeCharts">$includeCharts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_isFitToPages">$isFitToPages<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellStyleXfIndex">$mapCellStyleXfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellXfIndex">$mapCellXfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_objFonts">$objFonts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_objs">$objs<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_palette">$palette<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_phpSheet">$phpSheet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_pos">$pos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_rc4Key">$rc4Key<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_rc4Pos">$rc4Pos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readDataOnly">$readDataOnly<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readEmptyCells">$readEmptyCells<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readFilter">$readFilter<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_ref">$ref<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_securityScanner">$securityScanner<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sharedFormulaParts">$sharedFormulaParts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sharedFormulas">$sharedFormulas<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sheets">$sheets<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_spreadsheet">$spreadsheet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sst">$sst<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_summaryInformation">$summaryInformation<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_textObjects">$textObjects<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_textObjRef">$textObjRef<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_valueBinder">$valueBinder<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_version">$version<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_xfIndex">$xfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_md5Ctxt">$md5Ctxt<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_operators">$operators<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#property_types">$types<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_activeSheetSet">$activeSheetSet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_baseCell">$baseCell<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_cellNotes">$cellNotes<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#property_codepage">$codepage<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_data">$data<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_dataSize">$dataSize<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_definedname">$definedname<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_documentSummaryInformation">$documentSummaryInformation<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingData">$drawingData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingGroupData">$drawingGroupData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryption">$encryption<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionStartPos">$encryptionStartPos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalBooks">$externalBooks<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalNames">$externalNames<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_formats">$formats<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_frozen">$frozen<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_ignoreRowsWithNoCells">$ignoreRowsWithNoCells<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_includeCharts">$includeCharts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_isFitToPages">$isFitToPages<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellStyleXfIndex">$mapCellStyleXfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellXfIndex">$mapCellXfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_objFonts">$objFonts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_objs">$objs<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_palette">$palette<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_phpSheet">$phpSheet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_pos">$pos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_rc4Key">$rc4Key<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_rc4Pos">$rc4Pos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readDataOnly">$readDataOnly<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readEmptyCells">$readEmptyCells<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readFilter">$readFilter<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_ref">$ref<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_securityScanner">$securityScanner<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sharedFormulaParts">$sharedFormulaParts<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sharedFormulas">$sharedFormulas<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sheets">$sheets<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_spreadsheet">$spreadsheet<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sst">$sst<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_summaryInformation">$summaryInformation<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_textObjects">$textObjects<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_textObjRef">$textObjRef<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_valueBinder">$valueBinder<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_version">$version<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_xfIndex">$xfIndex<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_md5Ctxt">$md5Ctxt<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html"></li>
                                             </ul>
                 </li>
             
@@ -12723,7 +12140,6 @@ is in one piece.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetInfo">listWorksheetInfo()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetNames">listWorksheetNames()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_load">load()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_operator">operator()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_setCodepage">setCodepage()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells">setIgnoreRowsWithNoCells()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIncludeCharts">setIncludeCharts()</a></li>
@@ -12733,12 +12149,13 @@ is in one piece.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadEmptyCells">setReadEmptyCells()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadFilter">setReadFilter()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setValueBinder">setValueBinder()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_type">type()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_decodeCodepage">decodeCodepage()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_encodeUTF16">encodeUTF16()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_extractNumber">extractNumber()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getFormulaFromStructure">getFormulaFromStructure()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_getIEEE754">getIEEE754()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetInfo2">listWorksheetInfo2()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#method_listWorksheetNames2">listWorksheetNames2()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_loadOLE">loadOLE()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_loadSpreadsheetFromFile">loadSpreadsheetFromFile()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_openFile">openFile()</a></li>
@@ -12751,9 +12168,7 @@ is in one piece.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readByteStringLong">readByteStringLong()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readByteStringShort">readByteStringShort()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readCFHeader">readCFHeader()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFHeader2">readCFHeader2()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readCFRule">readCFRule()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFRule2">readCFRule2()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readCodepage">readCodepage()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readColInfo">readColInfo()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readContinue">readContinue()</a></li>
@@ -12828,16 +12243,11 @@ is in one piece.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_uncompressByteString">uncompressByteString()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_UTF8toExcelDoubleQuoted">UTF8toExcelDoubleQuoted()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_createFormulaFromTokens">createFormulaFromTokens()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFBorderStyle">getCFBorderStyle()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFillStyle">getCFFillStyle()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_getCFFontStyle">getCFFontStyle()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getFormulaFromData">getFormulaFromData()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getNextToken">getNextToken()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getSplicedRecordData">getSplicedRecordData()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_includeCellRangeFiltered">includeCellRangeFiltered()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_makeKey">makeKey()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_readCFFormula">readCFFormula()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_setCFRules">setCFRules()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_verifyPassword">verifyPassword()</a></li>
                                     </ul>
             </li>
@@ -12858,7 +12268,7 @@ is in one piece.</p>
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ListFunctions.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
