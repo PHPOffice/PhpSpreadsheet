@@ -13,6 +13,7 @@ jobs:
           - '8.1'
           - '8.2'
           - '8.3'
+          - '8.4'
 
         include:
           - php-version: 'nightly'
@@ -44,7 +45,7 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' || matrix.php-version == 'nightly'}}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' || matrix.php-version == '8.4' || matrix.php-version == 'nightly'}}
         run: |
           rm composer.lock
           echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
@@ -67,8 +68,26 @@ jobs:
       - name: "Run PHPUnit tests 2 (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' || matrix.php-version == 'nightly'}}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' || matrix.php-version == '8.4' || matrix.php-version == 'nightly'}}
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
+
+  find-polyfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      - name: Find code that might require polyfill
+        run: php ./bin/findpolyfill.php
 
   php-cs-fixer:
     runs-on: ubuntu-latest
