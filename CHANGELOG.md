@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## 1.29.3 - 2024-11-10
+## 1.29.4 - 2024-11-10
 
 ### Fixed
 
+- 1.29.3 omitted
 - Backported security patches.
 - Write ignoredErrors Tag Before Drawings. Backport of [PR #4212](https://github.com/PHPOffice/PhpSpreadsheet/pull/4212) intended for 3.4.0.
 - Changes to ROUNDDOWN/ROUNDUP/TRUNC. Backport of [PR #4214](https://github.com/PHPOffice/PhpSpreadsheet/pull/4214) intended for 3.4.0.
