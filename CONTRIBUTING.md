@@ -7,7 +7,7 @@ If you would like to contribute, here are some notes and guidelines:
  - The code must work with all PHP versions that we support.
    - You can call `composer versions` to test version compatibility. 
  - Code style should be maintained.
-   - `composer style` will identify any issues with Coding Style`.
+   - `composer style` will identify any issues with Coding Style.
    - `composer fix` will fix most issues with Coding Style.
  - All code changes must be validated by `composer check`.
  - Please include Unit Tests to verify that a bug exists, and that this PR fixes it.

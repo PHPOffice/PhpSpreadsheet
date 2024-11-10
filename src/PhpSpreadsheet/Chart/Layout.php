@@ -450,6 +450,13 @@ class Layout
         return $this->labelFont;
     }
 
+    public function setLabelFont(?Font $labelFont): self
+    {
+        $this->labelFont = $labelFont;
+
+        return $this;
+    }
+
     public function getLabelEffects(): ?Properties
     {
         return $this->labelEffects;

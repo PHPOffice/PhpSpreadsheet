@@ -95,6 +95,7 @@ class Chart
         $gapWidth = null;
         $useUpBars = null;
         $useDownBars = null;
+        $noBorder = false;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
@@ -108,6 +109,9 @@ class Chart
                     if (isset($children->ln)) {
                         $chartBorderLines = new GridLines();
                         $this->readLineStyle($chartElementsC, $chartBorderLines);
+                        if (isset($children->ln->noFill)) {
+                            $noBorder = true;
+                        }
                     }
 
                     break;
@@ -470,6 +474,7 @@ class Chart
         if ($chartBorderLines !== null) {
             $chart->setBorderLines($chartBorderLines);
         }
+        $chart->setNoBorder($noBorder);
         $chart->setRoundedCorners($roundedCorners);
         if (is_bool($autoTitleDeleted)) {
             $chart->setAutoTitleDeleted($autoTitleDeleted);
@@ -1187,6 +1192,9 @@ class Chart
         }
         $fontArray = [];
         $fontArray['size'] = self::getAttributeInteger($titleDetailPart->pPr->defRPr, 'sz');
+        if ($fontArray['size'] !== null && $fontArray['size'] >= 100) {
+            $fontArray['size'] /= 100.0;
+        }
         $fontArray['bold'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
         $fontArray['italic'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
         $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
@@ -1299,6 +1307,10 @@ class Chart
                     break;
                 case 'showLeaderLines':
                     $plotArea->setShowLeaderLines($plotAttributeValue);
+
+                    break;
+                case 'labelFont':
+                    $plotArea->setLabelFont($plotAttributeValue);
 
                     break;
             }

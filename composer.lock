@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "maennchen/zipstream-php",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maennchen/ZipStream-PHP.git",
-                "reference": "b8174494eda667f7d13876b4a7bfef0f62a7c0d1"
+                "reference": "6187e9cc4493da94b9b63eb2315821552015fca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/b8174494eda667f7d13876b4a7bfef0f62a7c0d1",
-                "reference": "b8174494eda667f7d13876b4a7bfef0f62a7c0d1",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/6187e9cc4493da94b9b63eb2315821552015fca9",
+                "reference": "6187e9cc4493da94b9b63eb2315821552015fca9",
                 "shasum": ""
             },
             "require": {
@@ -73,19 +73,15 @@
             ],
             "support": {
                 "issues": "https://github.com/maennchen/ZipStream-PHP/issues",
-                "source": "https://github.com/maennchen/ZipStream-PHP/tree/3.1.0"
+                "source": "https://github.com/maennchen/ZipStream-PHP/tree/3.1.1"
             },
             "funding": [
                 {
                     "url": "https://github.com/maennchen",
                     "type": "github"
-                },
-                {
-                    "url": "https://opencollective.com/zipstream",
-                    "type": "open_collective"
                 }
             ],
-            "time": "2023-06-21T14:59:35+00:00"
+            "time": "2024-10-10T12:33:01+00:00"
         },
         {
             "name": "markbaker/complex",
@@ -4973,20 +4969,20 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.30.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433"
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/77fa7995ac1b21ab60769b7323d600a991a90433",
-                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "type": "library",
             "extra": {
@@ -5033,7 +5029,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.30.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -5049,7 +5045,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T15:07:36+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
@@ -5129,16 +5125,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.4.8",
+            "version": "v6.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "8d92dd79149f29e89ee0f480254db595f6a6a2c5"
+                "reference": "25214adbb0996d18112548de20c281be9f27279f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/8d92dd79149f29e89ee0f480254db595f6a6a2c5",
-                "reference": "8d92dd79149f29e89ee0f480254db595f6a6a2c5",
+                "url": "https://api.github.com/repos/symfony/process/zipball/25214adbb0996d18112548de20c281be9f27279f",
+                "reference": "25214adbb0996d18112548de20c281be9f27279f",
                 "shasum": ""
             },
             "require": {
@@ -5170,7 +5166,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.8"
+                "source": "https://github.com/symfony/process/tree/v6.4.14"
             },
             "funding": [
                 {
@@ -5186,7 +5182,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T14:49:08+00:00"
+            "time": "2024-11-06T09:25:01+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -5421,16 +5417,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.7.5",
+            "version": "6.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "951eabf0338ec2522bd0d5d9c79b08a3a3d36b36"
+                "reference": "cfbc0028cc23f057f2baf9e73bdc238153c22086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/951eabf0338ec2522bd0d5d9c79b08a3a3d36b36",
-                "reference": "951eabf0338ec2522bd0d5d9c79b08a3a3d36b36",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/cfbc0028cc23f057f2baf9e73bdc238153c22086",
+                "reference": "cfbc0028cc23f057f2baf9e73bdc238153c22086",
                 "shasum": ""
             },
             "require": {
@@ -5481,7 +5477,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.7.5"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.7.7"
             },
             "funding": [
                 {
@@ -5489,7 +5485,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-04-20T17:25:10+00:00"
+            "time": "2024-10-26T12:15:02+00:00"
         },
         {
             "name": "theseer/tokenizer",
