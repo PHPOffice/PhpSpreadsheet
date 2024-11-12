@@ -130,7 +130,6 @@ class FunctionPrefix
         . '|ifs'
         . '|maxifs'
         . '|minifs'
-        . '|sumifs'
         . '|textjoin'
         // functions added with Excel 365
         . '|anchorarray'

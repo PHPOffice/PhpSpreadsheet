@@ -210,10 +210,11 @@ class Value
 
         $fullCellReference = Functions::trimTrailingRange($fullCellReference);
 
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $fullCellReference, $matches);
-
-        $fullCellReference = $matches[6] . $matches[7];
-        $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
+        $worksheetName = '';
+        if (1 == preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $fullCellReference, $matches)) {
+            $fullCellReference = $matches[6] . $matches[7];
+            $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
+        }
 
         $worksheet = (!empty($worksheetName))
             ? $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheetName)

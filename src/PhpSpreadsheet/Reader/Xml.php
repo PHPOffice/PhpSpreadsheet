@@ -18,7 +18,6 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -44,6 +43,18 @@ class Xml extends BaseReader
     {
         parent::__construct();
         $this->securityScanner = XmlScanner::getInstance($this);
+        /** @var callable */
+        $unentity = [self::class, 'unentity'];
+        $this->securityScanner->setAdditionalCallback($unentity);
+    }
+
+    public static function unentity(string $contents): string
+    {
+        $contents = preg_replace('/&(amp|lt|gt|quot|apos);/', "\u{fffe}\u{feff}\$1;", trim($contents)) ?? $contents;
+        $contents = html_entity_decode($contents, ENT_NOQUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8');
+        $contents = str_replace("\u{fffe}\u{feff}", '&', $contents);
+
+        return $contents;
     }
 
     private string $fileContents = '';
@@ -79,7 +90,8 @@ class Xml extends BaseReader
         ];
 
         // Open file
-        $data = file_get_contents($filename) ?: '';
+        $data = (string) file_get_contents($filename);
+        $data = $this->getSecurityScannerOrThrow()->scan($data);
 
         // Why?
         //$data = str_replace("'", '"', $data); // fix headers with single quote
@@ -94,14 +106,6 @@ class Xml extends BaseReader
             }
         }
 
-        //    Retrieve charset encoding
-        if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/m', $data, $matches)) {
-            $charSet = strtoupper($matches[1]);
-            if (preg_match('/^ISO-8859-\d[\dL]?$/i', $charSet) === 1) {
-                $data = StringHelper::convertEncoding($data, 'UTF-8', $charSet);
-                $data = (string) preg_replace('/(<?xml.*encoding=[\'"]).*?([\'"].*?>)/um', '$1' . 'UTF-8' . '$2', $data, 1);
-            }
-        }
         $this->fileContents = $data;
 
         return $valid;
@@ -242,6 +246,7 @@ class Xml extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
@@ -255,6 +260,7 @@ class Xml extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
@@ -512,9 +518,6 @@ class Xml extends BaseReader
                         if (isset($cell_ss['StyleID'])) {
                             $style = (string) $cell_ss['StyleID'];
                             if ((isset($this->styles[$style])) && (!empty($this->styles[$style]))) {
-                                //if (!$spreadsheet->getActiveSheet()->cellExists($columnID . $rowID)) {
-                                //    $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValue(null);
-                                //}
                                 $spreadsheet->getActiveSheet()->getStyle($cellRange)
                                     ->applyFromArray($this->styles[$style]);
                             }

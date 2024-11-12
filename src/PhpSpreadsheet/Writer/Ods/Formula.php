@@ -102,9 +102,9 @@ class Formula
             }
             $newRange .= '.';
 
-            if (!empty($column)) {
-                $newRange .= $column;
-            }
+            //if (!empty($column)) { // phpstan says always true
+            $newRange .= $column;
+            //}
             if (!empty($row)) {
                 $newRange .= $row;
             }

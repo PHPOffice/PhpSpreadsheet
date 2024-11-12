@@ -196,7 +196,7 @@ class ContentTypes extends WriterPart
             $bgImage = $spreadsheet->getSheet($i)->getBackgroundImage();
             $mimeType = $spreadsheet->getSheet($i)->getBackgroundMime();
             $extension = $spreadsheet->getSheet($i)->getBackgroundExtension();
-            if ($bgImage !== '' && !isset($aMediaContentTypes[$mimeType])) {
+            if ($bgImage !== '' && !isset($aMediaContentTypes[$extension])) {
                 $this->writeDefaultContentType($objWriter, $extension, $mimeType);
             }
         }
