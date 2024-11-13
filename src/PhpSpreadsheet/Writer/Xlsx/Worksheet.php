@@ -129,6 +129,9 @@ class Worksheet extends WriterPart
         // Breaks
         $this->writeBreaks($objWriter, $worksheet);
 
+        // IgnoredErrors
+        $this->writeIgnoredErrors($objWriter);
+
         // Drawings and/or Charts
         $this->writeDrawings($objWriter, $worksheet, $includeCharts);
 
@@ -140,9 +143,6 @@ class Worksheet extends WriterPart
 
         // AlternateContent
         $this->writeAlternateContent($objWriter, $worksheet);
-
-        // IgnoredErrors
-        $this->writeIgnoredErrors($objWriter);
 
         // BackgroundImage must come after ignored, before table
         $this->writeBackgroundImage($objWriter, $worksheet);
@@ -983,10 +983,10 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('sqref', $dv->getSqref() ?? $coordinate);
 
                 if ($dv->getFormula1() !== '') {
-                    $objWriter->writeElement('formula1', $dv->getFormula1());
+                    $objWriter->writeElement('formula1', FunctionPrefix::addFunctionPrefix($dv->getFormula1()));
                 }
                 if ($dv->getFormula2() !== '') {
-                    $objWriter->writeElement('formula2', $dv->getFormula2());
+                    $objWriter->writeElement('formula2', FunctionPrefix::addFunctionPrefix($dv->getFormula2()));
                 }
 
                 $objWriter->endElement();
