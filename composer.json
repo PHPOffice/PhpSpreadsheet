@@ -97,6 +97,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.6",
         "squizlabs/php_codesniffer": "^3.7",
+        "symfony/process": "^5",
         "tecnickcom/tcpdf": "^6.5"
     },
     "suggest": {
