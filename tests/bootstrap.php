@@ -25,20 +25,6 @@ function phpunit10ErrorHandler(int $errno, string $errstr, string $filename, int
             return true; // message suppressed - stop error handling
         }
 
-        // This code applies only when running release210 with Php8.4.
-        // I don't get it at all. I think mitoteam is the victim of circumstance.
-        // We need to run PhpUnit 9 because we need to support Php8.0.
-        // We are at the highest release of PhpUnit9,
-        // but it refers to E_STRICT,
-        // which is deprecated in 8.4.
-        if (
-            str_contains($errstr, 'Constant ')
-            && str_contains($errstr, ' already defined')
-            && str_contains($filename, 'mitoteam')
-        ) {
-            return true;
-        }
-
         if (!method_exists(PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
             throw new Exception("$errstr $filename $lineno");
         }

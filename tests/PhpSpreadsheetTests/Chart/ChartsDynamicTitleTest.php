@@ -17,6 +17,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
+/**
+ * Seems to need to be separate for Php8.4 PhpUnit9 combination.
+ *
+ * @runTestsInSeparateProcesses
+ */
 class ChartsDynamicTitleTest extends AbstractFunctional
 {
     protected function tearDown(): void
