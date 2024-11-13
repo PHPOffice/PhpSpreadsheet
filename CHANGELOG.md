@@ -21,11 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing yet.
+- Worksheet::getHashCode is no longer needed.
 
 ### Fixed
 
 - Add support for `<s>` tag when converting HTML to RichText. [Issue #4223](https://github.com/PHPOffice/PhpSpreadsheet/issues/4223) [PR #4224](https://github.com/PHPOffice/PhpSpreadsheet/pull/4224)
+- Change hash code for worksheet. [Issue #4192](https://github.com/PHPOffice/PhpSpreadsheet/issues/4192) [PR #4207](https://github.com/PHPOffice/PhpSpreadsheet/pull/4207)
 
 ## 2024-11-10 - 3.4.0
 
