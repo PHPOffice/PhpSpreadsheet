@@ -66,6 +66,7 @@ class WizardFactoryTest extends TestCase
             $wizard = Wizard::fromConditional($conditional);
             self::assertEquals($expectedWizads[$index], $wizard::class);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function conditionalProvider(): array
