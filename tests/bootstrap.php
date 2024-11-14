@@ -35,7 +35,7 @@ function phpunit10ErrorHandler(int $errno, string $errstr, string $filename, int
     return false; // continue error handling
 }
 
-if (!method_exists(PHPUnit\Framework\TestCase::class, 'setOutputCallback') || PHP_VERSION_ID >= 80400) {
+if (!method_exists(PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
     ini_set('error_reporting', (string) E_ALL);
     set_error_handler('phpunit10ErrorHandler');
 }
