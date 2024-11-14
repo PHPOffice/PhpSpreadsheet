@@ -4149,9 +4149,9 @@ class Calculation
                     $expectedArgumentCountString = null;
                     if (is_numeric($expectedArgumentCount)) {
                         if ($expectedArgumentCount < 0) {
-                            if ($argumentCount > abs($expectedArgumentCount)) {
+                            if ($argumentCount > abs($expectedArgumentCount + 0)) {
                                 $argumentCountError = true;
-                                $expectedArgumentCountString = 'no more than ' . abs($expectedArgumentCount);
+                                $expectedArgumentCountString = 'no more than ' . abs($expectedArgumentCount + 0);
                             }
                         } else {
                             if ($argumentCount != $expectedArgumentCount) {
@@ -4236,7 +4236,7 @@ class Calculation
                 // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
-                $val = $match[1] ?? '';
+                $val = $match[1] ?? ''; //* @phpstan-ignore-line
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
