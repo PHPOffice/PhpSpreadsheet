@@ -993,30 +993,30 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.5.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b"
+                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/0a0fa9780f5d4e507415a065172d26a98d02047b",
-                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9 || ^11",
+                "doctrine/coding-standard": "^11",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.16 || ^1",
-                "phpstan/phpstan": "^1.4",
-                "phpstan/phpstan-phpunit": "^1",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
-                "vimeo/psalm": "^4.30 || ^5.4"
+                "phpbench/phpbench": "^1.2",
+                "phpstan/phpstan": "^1.9.4",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^9.5.27",
+                "vimeo/psalm": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -1043,7 +1043,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/1.5.0"
+                "source": "https://github.com/doctrine/instantiator/tree/2.0.0"
             },
             "funding": [
                 {
@@ -1059,7 +1059,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-30T00:15:36+00:00"
+            "time": "2022-12-30T00:23:10+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -1623,16 +1623,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.12.0",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c"
+                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c",
-                "reference": "3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/123267b2c49fbf30d78a7b2d333f6be754b94845",
+                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.12.0"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.12.1"
             },
             "funding": [
                 {
@@ -1679,20 +1679,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-12T14:39:25+00:00"
+            "time": "2024-11-08T17:47:46+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.1.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -1735,9 +1735,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
-            "time": "2024-07-01T20:03:41+00:00"
+            "time": "2024-10-08T18:51:32+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2490,16 +2490,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.20",
+            "version": "9.6.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "49d7820565836236411f5dc002d16dd689cde42f"
+                "reference": "de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/49d7820565836236411f5dc002d16dd689cde42f",
-                "reference": "49d7820565836236411f5dc002d16dd689cde42f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa",
+                "reference": "de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa",
                 "shasum": ""
             },
             "require": {
@@ -2514,7 +2514,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=7.3",
-                "phpunit/php-code-coverage": "^9.2.31",
+                "phpunit/php-code-coverage": "^9.2.32",
                 "phpunit/php-file-iterator": "^3.0.6",
                 "phpunit/php-invoker": "^3.1.1",
                 "phpunit/php-text-template": "^2.0.4",
@@ -2573,7 +2573,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.20"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.21"
             },
             "funding": [
                 {
@@ -2589,7 +2589,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-10T11:45:39+00:00"
+            "time": "2024-09-19T10:50:18+00:00"
         },
         {
             "name": "psr/container",
@@ -4980,20 +4980,20 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.30.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "0424dff1c58f028c451efff2045f5d92410bd540"
+                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/0424dff1c58f028c451efff2045f5d92410bd540",
-                "reference": "0424dff1c58f028c451efff2045f5d92410bd540",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/a3cc8b044a6ea513310cbd48ef7333b384945638",
+                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "provide": {
                 "ext-ctype": "*"
@@ -5039,7 +5039,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.30.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -5055,7 +5055,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T15:07:36+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
