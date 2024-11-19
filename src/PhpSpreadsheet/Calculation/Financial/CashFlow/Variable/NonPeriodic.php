@@ -239,6 +239,7 @@ class NonPeriodic
         return $rslt;
     }
 
+    /** @param array<int,float|int|numeric-string> $values> */
     private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false): float|string
     {
         $rate = Functions::flattenSingleValue($rate);
@@ -276,7 +277,7 @@ class NonPeriodic
                 return $dif;
             }
             if ($rate <= -1.0) {
-                $xnpv += -abs($values[$i]) / (-1 - $rate) ** ($dif / 365);
+                $xnpv += -abs($values[$i] + 0) / (-1 - $rate) ** ($dif / 365);
             } else {
                 $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
             }
