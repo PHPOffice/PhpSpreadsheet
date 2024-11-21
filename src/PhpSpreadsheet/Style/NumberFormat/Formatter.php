@@ -42,7 +42,7 @@ class Formatter extends BaseFormatter
         };
     }
 
-    /** @param float|int|string $value value to be formatted */
+    /** @param float|int|numeric-string $value value to be formatted */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
@@ -79,7 +79,7 @@ class Formatter extends BaseFormatter
         $absval = $value;
         switch ($sectionCount) {
             case 2:
-                $absval = abs($value);
+                $absval = abs($value + 0);
                 if (!self::splitFormatComparison($value, $conditionOperations[0], $conditionComparisonValues[0], '>=', 0)) {
                     $color = $colors[1];
                     $format = $sections[1];
@@ -88,7 +88,7 @@ class Formatter extends BaseFormatter
                 break;
             case 3:
             case 4:
-                $absval = abs($value);
+                $absval = abs($value + 0);
                 if (!self::splitFormatComparison($value, $conditionOperations[0], $conditionComparisonValues[0], '>', 0)) {
                     if (self::splitFormatComparison($value, $conditionOperations[1], $conditionComparisonValues[1], '<', 0)) {
                         $color = $colors[1];

@@ -221,7 +221,7 @@ class BitWise
         $value = self::nullFalseTrueToNumber($value);
 
         if (is_numeric($value)) {
-            if (abs($value) > 53) {
+            if (abs($value + 0) > 53) {
                 throw new Exception(ExcelError::NAN());
             }
 

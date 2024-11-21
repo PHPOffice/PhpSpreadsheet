@@ -13,16 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class AutoSizeTest extends TestCase
 {
-    protected Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
-    protected Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
-        $spreadsheet = new Spreadsheet();
-        $this->worksheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $this->worksheet = $this->spreadsheet->getActiveSheet();
 
         $this->worksheet->setCellValue('A1', 'YEAR')
             ->setCellValue('B1', 'QUARTER')
@@ -44,7 +42,13 @@ class AutoSizeTest extends TestCase
         }
     }
 
-    protected function setTable(): Table
+    protected function tearDown(): void
+    {
+        $this->spreadsheet->disconnectWorksheets();
+        unset($this->spreadsheet, $this->worksheet);
+    }
+
+    private function setTable(): Table
     {
         $table = new Table('A1:D5', 'Sales_Data');
         $tableStyle = new TableStyle();
@@ -55,7 +59,7 @@ class AutoSizeTest extends TestCase
         return $table;
     }
 
-    protected function readColumnSizes(): array
+    private function readColumnSizes(): array
     {
         $columnSizes = [];
         $toColumn = $this->worksheet->getHighestColumn();

@@ -234,7 +234,7 @@ class Xls extends XlsBase
      * The current MD5 context state.
      * It is never set in the program, so code which uses it is suspect.
      */
-    private string $md5Ctxt; // @phpstan-ignore-line
+    private string $md5Ctxt = '';
 
     protected int $textObjRef;
 
