@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -128,6 +128,8 @@
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -149,31 +151,31 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_CELLRANGE">REFHELPER_REGEXP_CELLRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}\\$?\\d+):(\\$?[a-z]{1,3}\\$?\\d+)&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}\$?\d+):(\$?[a-z]{1,3}\$?\d+)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_CELLREF">REFHELPER_REGEXP_CELLREF</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\\.\\$])(\\$?[a-z]{1,3}\\$?\\d+)(?=[^:!\\d\&#039;])&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\.\$])(\$?[a-z]{1,3}\$?\d+)(?=[^:!\d\&#039;])&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_COLRANGE">REFHELPER_REGEXP_COLRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_REFHELPER_REGEXP_ROWRANGE">REFHELPER_REGEXP_ROWRANGE</a>
     <span>
-        &nbsp;= self::SHEETNAME_PART . &#039;?(\\$?\\d+):(\\$?\\d+)&#039;                            </span>
+        &nbsp;= self::SHEETNAME_PART . &#039;?(\$?\d+):(\$?\d+)&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-ReferenceHelper.html#constant_SHEETNAME_PART">SHEETNAME_PART</a>
     <span>
-        &nbsp;= &#039;((\\w*|\&#039;[^!]*\&#039;)!)&#039;                            </span>
+        &nbsp;= &#039;((\w*|\&#039;[^!]*\&#039;)!)&#039;                            </span>
 </dt>
 <dd>Regular Expressions</dd>
 
@@ -501,7 +503,6 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -528,12 +529,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_CELLRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}\\$?\\d+):(\\$?[a-z]{1,3}\\$?\\d+)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}\$?\d+):(\$?[a-z]{1,3}\$?\d+)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -556,12 +559,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_CELLREF</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\\.\\$])(\\$?[a-z]{1,3}\\$?\\d+)(?=[^:!\\d\&#039;])&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(?&lt;![:a-z1-9_\.\$])(\$?[a-z]{1,3}\$?\d+)(?=[^:!\d\&#039;])&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -584,12 +589,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_COLRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?[a-z]{1,3}):(\\$?[a-z]{1,3})&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?[a-z]{1,3}):(\$?[a-z]{1,3})&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -612,12 +619,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REFHELPER_REGEXP_ROWRANGE</span>
-    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\\$?\\d+):(\\$?\\d+)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">self::SHEETNAME_PART . &#039;?(\$?\d+):(\$?\d+)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -641,12 +650,14 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SHEETNAME_PART</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;((\\w*|\&#039;[^!]*\&#039;)!)&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;((\w*|\&#039;[^!]*\&#039;)!)&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -677,6 +688,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
     
 
+    
+
 </article>
             </section>
 
@@ -704,7 +717,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -717,6 +730,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
     
+    
+
     
 
 </article>
@@ -737,7 +752,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -751,6 +766,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
     
+    
+
     
 
 </article>
@@ -776,7 +793,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1231</span>
+    <span class="phpdocumentor-element-found-in__line">1229</span>
 
     </aside>
 
@@ -790,6 +807,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
     
@@ -808,7 +827,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -846,6 +865,8 @@ Intended for use as a Callback function for sorting cell addresses by column and
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -866,7 +887,7 @@ Intended for use as a Callback function for sorting cell addresses by column and
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
@@ -904,6 +925,8 @@ Intended for use as a Callback function for sorting cell addresses by column and
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -924,7 +947,7 @@ Intended for use as a Callback function for sorting cell addresses by column and
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -962,6 +985,8 @@ Intended for use as a Callback function for reverse sorting column addresses by 
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -982,7 +1007,7 @@ Intended for use as a Callback function for reverse sorting column addresses by 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -1020,6 +1045,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -1040,7 +1067,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -1054,6 +1081,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
             <section>
@@ -1076,7 +1105,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">368</span>
 
     </aside>
 
@@ -1132,6 +1161,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1147,7 +1178,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">575</span>
+    <span class="phpdocumentor-element-found-in__line">573</span>
 
     </aside>
 
@@ -1225,6 +1256,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -1249,7 +1282,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">723</span>
+    <span class="phpdocumentor-element-found-in__line">721</span>
 
     </aside>
 
@@ -1289,6 +1322,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -1309,7 +1344,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">890</span>
+    <span class="phpdocumentor-element-found-in__line">888</span>
 
     </aside>
 
@@ -1356,6 +1391,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1371,7 +1408,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -1385,6 +1422,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
         </div>
     
     
+    
+
     
 
     
@@ -1403,7 +1442,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">313</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
@@ -1432,6 +1471,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1447,7 +1488,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -1476,6 +1517,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1491,7 +1534,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 
     </aside>
 
@@ -1538,6 +1581,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1553,7 +1598,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">253</span>
+    <span class="phpdocumentor-element-found-in__line">251</span>
 
     </aside>
 
@@ -1600,6 +1645,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1615,7 +1662,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
@@ -1662,6 +1709,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1677,7 +1726,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 
     </aside>
 
@@ -1706,6 +1755,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1721,7 +1772,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
@@ -1768,6 +1819,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1783,7 +1836,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">293</span>
+    <span class="phpdocumentor-element-found-in__line">291</span>
 
     </aside>
 
@@ -1830,6 +1883,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1845,7 +1900,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">336</span>
+    <span class="phpdocumentor-element-found-in__line">334</span>
 
     </aside>
 
@@ -1892,6 +1947,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1907,7 +1964,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1037</span>
+    <span class="phpdocumentor-element-found-in__line">1035</span>
 
     </aside>
 
@@ -1947,6 +2004,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1962,7 +2021,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1101</span>
+    <span class="phpdocumentor-element-found-in__line">1099</span>
 
     </aside>
 
@@ -2009,6 +2068,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2024,7 +2085,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1072</span>
+    <span class="phpdocumentor-element-found-in__line">1070</span>
 
     </aside>
 
@@ -2071,6 +2132,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2086,7 +2149,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1088</span>
+    <span class="phpdocumentor-element-found-in__line">1086</span>
 
     </aside>
 
@@ -2133,6 +2196,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2148,7 +2213,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1115</span>
+    <span class="phpdocumentor-element-found-in__line">1113</span>
 
     </aside>
 
@@ -2188,6 +2253,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2203,7 +2270,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1180</span>
+    <span class="phpdocumentor-element-found-in__line">1178</span>
 
     </aside>
 
@@ -2250,6 +2317,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2265,7 +2334,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1151</span>
+    <span class="phpdocumentor-element-found-in__line">1149</span>
 
     </aside>
 
@@ -2312,6 +2381,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2327,7 +2398,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1167</span>
+    <span class="phpdocumentor-element-found-in__line">1165</span>
 
     </aside>
 
@@ -2374,6 +2445,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2389,7 +2462,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">998</span>
+    <span class="phpdocumentor-element-found-in__line">996</span>
 
     </aside>
 
@@ -2436,6 +2509,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2451,7 +2526,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1011</span>
+    <span class="phpdocumentor-element-found-in__line">1009</span>
 
     </aside>
 
@@ -2505,6 +2580,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2520,7 +2597,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1024</span>
+    <span class="phpdocumentor-element-found-in__line">1022</span>
 
     </aside>
 
@@ -2553,6 +2630,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2568,7 +2647,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1194</span>
+    <span class="phpdocumentor-element-found-in__line">1192</span>
 
     </aside>
 
@@ -2622,6 +2701,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2637,7 +2718,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1211</span>
+    <span class="phpdocumentor-element-found-in__line">1209</span>
 
     </aside>
 
@@ -2691,6 +2772,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2706,7 +2789,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">552</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 
     </aside>
 
@@ -2738,6 +2821,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -2758,7 +2843,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">557</span>
+    <span class="phpdocumentor-element-found-in__line">555</span>
 
     </aside>
 
@@ -2797,6 +2882,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2817,7 +2904,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">966</span>
+    <span class="phpdocumentor-element-found-in__line">964</span>
 
     </aside>
 
@@ -2859,6 +2946,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2883,7 +2972,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">864</span>
+    <span class="phpdocumentor-element-found-in__line">862</span>
 
     </aside>
 
@@ -2925,6 +3014,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -2949,7 +3040,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">738</span>
+    <span class="phpdocumentor-element-found-in__line">736</span>
 
     </aside>
 
@@ -2988,6 +3079,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -3008,7 +3101,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">779</span>
+    <span class="phpdocumentor-element-found-in__line">777</span>
 
     </aside>
 
@@ -3040,6 +3133,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -3060,7 +3155,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">911</span>
+    <span class="phpdocumentor-element-found-in__line">909</span>
 
     </aside>
 
@@ -3107,6 +3202,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3122,7 +3219,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">943</span>
+    <span class="phpdocumentor-element-found-in__line">941</span>
 
     </aside>
 
@@ -3176,6 +3273,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3191,7 +3290,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">922</span>
+    <span class="phpdocumentor-element-found-in__line">920</span>
 
     </aside>
 
@@ -3245,6 +3344,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3260,7 +3361,7 @@ Intended for use as a Callback function for sorting column addresses by column.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/ReferenceHelper.php"><a href="files/src-phpspreadsheet-referencehelper.html"><abbr title="src/PhpSpreadsheet/ReferenceHelper.php">ReferenceHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">818</span>
+    <span class="phpdocumentor-element-found-in__line">816</span>
 
     </aside>
 
@@ -3289,6 +3390,8 @@ Intended for use as a Callback function for sorting column addresses by column.<
                 
             </dd>
             </dl>
+
+    
 
     
 

@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -133,6 +133,8 @@
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,7 +156,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#constant_NUMBER_REGEX">NUMBER_REGEX</a>
     <span>
-        &nbsp;= &#039;/(0+)(\\.?)(0*)/&#039;                            </span>
+        &nbsp;= &#039;/(0+)(\.?)(0*)/&#039;                            </span>
 </dt>
 
     </dl>
@@ -259,7 +261,6 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -286,12 +287,14 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">NUMBER_REGEX</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;/(0+)(\\.?)(0*)/&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/(0+)(\.?)(0*)/&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -319,7 +322,7 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">290</span>
+    <span class="phpdocumentor-element-found-in__line">291</span>
 
     </aside>
 
@@ -343,6 +346,8 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -391,6 +396,8 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -436,6 +443,8 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -456,14 +465,14 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">format</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">format</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|int|numeric-string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -472,10 +481,12 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|int|numeric-string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>value to be formatted</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$format</span>
@@ -485,6 +496,8 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -508,7 +521,7 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">266</span>
+    <span class="phpdocumentor-element-found-in__line">267</span>
 
     </aside>
 
@@ -540,6 +553,8 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -560,7 +575,7 @@ This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">304</span>
+    <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 
@@ -584,6 +599,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -632,6 +649,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -674,6 +693,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -733,6 +754,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -802,6 +825,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -822,7 +847,7 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">256</span>
+    <span class="phpdocumentor-element-found-in__line">257</span>
 
     </aside>
 
@@ -844,6 +869,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -899,6 +926,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -919,7 +948,7 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 
     </aside>
 
@@ -955,6 +984,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1007,6 +1038,8 @@ This is indicated by a number of commas after a digit placeholder: #, or 0.0,, o
                 
             </dd>
             </dl>
+
+    
 
     
 

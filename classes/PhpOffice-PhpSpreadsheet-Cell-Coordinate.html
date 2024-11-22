@@ -54,7 +54,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -three phpdocumentor-sidebar">
-                    <section class="phpdocumentor-sidebar__category">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
             <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
@@ -67,7 +67,7 @@
             </ul>
 
                         </section>
-                <section class="phpdocumentor-sidebar__category">
+                <section class="phpdocumentor-sidebar__category -packages">
             <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -75,14 +75,14 @@
 
                         </section>
             
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -reports">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <section class="phpdocumentor-sidebar__category">
+    <section class="phpdocumentor-sidebar__category -indices">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
         <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
@@ -135,6 +135,8 @@ that Excel users are used to, and also match the Excel functions <code class="pr
 
 
 
+
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -156,7 +158,7 @@ that Excel users are used to, and also match the Excel functions <code class="pr
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_A1_COORDINATE_REGEX">A1_COORDINATE_REGEX</a>
     <span>
-        &nbsp;= &#039;/^(?&lt;col&gt;\\$?[A-Z]{1,3})(?&lt;row&gt;\\$?\\d{1,7})$/i&#039;                            </span>
+        &nbsp;= &#039;/^(?&lt;col&gt;\$?[A-Z]{1,3})(?&lt;row&gt;\$?\d{1,7})$/i&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -169,7 +171,7 @@ that Excel users are used to, and also match the Excel functions <code class="pr
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_FULL_REFERENCE_REGEX">FULL_REFERENCE_REGEX</a>
     <span>
-        &nbsp;= &#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\\d{1,7})(?:\\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\\d{1,7}))?)$/i&#039;                            </span>
+        &nbsp;= &#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7})(?:\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7}))?)$/i&#039;                            </span>
 </dt>
 
     </dl>
@@ -276,6 +278,13 @@ value will be merged.  If the value is an object, it must implement the method g
 <dd>Calculate range dimension.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get all cell references applying union and intersection.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -335,7 +344,6 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
 
 
-
         
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
@@ -362,12 +370,14 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">A1_COORDINATE_REGEX</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;/^(?&lt;col&gt;\\$?[A-Z]{1,3})(?&lt;row&gt;\\$?\\d{1,7})$/i&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/^(?&lt;col&gt;\$?[A-Z]{1,3})(?&lt;row&gt;\$?\d{1,7})$/i&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -399,6 +409,8 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
     
     
 
+    
+
 </article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FULL_REFERENCE_REGEX">
@@ -419,12 +431,14 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FULL_REFERENCE_REGEX</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\\d{1,7})(?:\\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\\d{1,7}))?)$/i&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7})(?:\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7}))?)$/i&#039;</span>
 </code>
 
 
     
     
+    
+
     
 
 </article>
@@ -477,6 +491,8 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -533,6 +549,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -582,6 +600,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -637,6 +657,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
@@ -686,6 +708,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -750,6 +774,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
@@ -799,6 +825,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -854,6 +882,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -903,6 +933,8 @@ Note that this value can be a row or column reference as well as a cell referenc
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -959,6 +991,8 @@ where Start Cell and End Cell are arrays [Column ID, Row Number]</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array{0: int, 1: int, 2: string}</span>
@@ -983,7 +1017,7 @@ where Start Cell and End Cell are arrays [Column ID, Row Number]</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">578</span>
+    <span class="phpdocumentor-element-found-in__line">616</span>
 
     </aside>
 
@@ -1015,6 +1049,8 @@ value will be merged.  If the value is an object, it must implement the method g
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1067,6 +1103,8 @@ value will be merged.  If the value is an object, it must implement the method g
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1123,11 +1161,76 @@ where Start Cell and End Cell are arrays (Column Number, Row Number)</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Range dimension (width, height)</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_resolveUnionAndIntersection">
+        resolveUnionAndIntersection()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">516</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get all cell references applying union and intersection.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resolveUnionAndIntersection</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellBlock</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$implodeCharacter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cellBlock</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>A cell range e.g. A1:B5,D1:E5 B2:C4</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$implodeCharacter</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A string without intersection operator.
+If there was no intersection to begin with, return original argument.
+Otherwise, return cells and/or cell ranges in that range separated by comma.</p>
 </section>
 
             </section>
@@ -1172,6 +1275,8 @@ where Start Cell and End Cell are arrays (Column Number, Row Number)</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1229,6 +1334,8 @@ or ['B4']</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
@@ -1249,7 +1356,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">653</span>
+    <span class="phpdocumentor-element-found-in__line">691</span>
 
     </aside>
 
@@ -1277,6 +1384,8 @@ or ['B4']</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
@@ -1297,7 +1406,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">552</span>
 
     </aside>
 
@@ -1322,6 +1431,8 @@ or ['B4']</p>
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1381,6 +1492,8 @@ or ['B4']</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -1426,6 +1539,8 @@ or ['B4']</p>
 
     
 
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
@@ -1446,7 +1561,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">672</span>
+    <span class="phpdocumentor-element-found-in__line">710</span>
 
     </aside>
 
@@ -1504,6 +1619,8 @@ row.</p>
     
 
     
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1545,6 +1662,8 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
             </dd>
             </dl>
+
+    
 
     
 
@@ -1693,6 +1812,7 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeBoundaries">rangeBoundaries()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeDimension">rangeDimension()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_stringFromColumnIndex">stringFromColumnIndex()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getCellBlocksFromRangeString">getCellBlocksFromRangeString()</a></li>
