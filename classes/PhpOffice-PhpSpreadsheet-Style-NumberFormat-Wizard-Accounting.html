@@ -103,7 +103,7 @@
     Accounting
 
         <span class="phpdocumentor-element__extends">
-        extends <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency">Currency</abbr></a>
+        extends <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyBase">CurrencyBase</abbr></a>
     </span>
     
             <div class="phpdocumentor-element__package">
@@ -155,25 +155,31 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_LEADING_SYMBOL">LEADING_SYMBOL</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_NEGATIVE">DEFAULT_NEGATIVE</a>
+    <span>
+        &nbsp;= \PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative::minus                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_LEADING_SYMBOL">LEADING_SYMBOL</a>
     <span>
         &nbsp;= true                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITH_SPACING">SYMBOL_WITH_SPACING</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITH_SPACING">SYMBOL_WITH_SPACING</a>
     <span>
         &nbsp;= true                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITHOUT_SPACING">SYMBOL_WITHOUT_SPACING</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITHOUT_SPACING">SYMBOL_WITHOUT_SPACING</a>
     <span>
         &nbsp;= false                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_TRAILING_SYMBOL">TRAILING_SYMBOL</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_TRAILING_SYMBOL">TRAILING_SYMBOL</a>
     <span>
         &nbsp;= false                            </span>
 </dt>
@@ -191,7 +197,7 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_DEFAULT_STRIP_LEADING_RLM">DEFAULT_STRIP_LEADING_RLM</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_STRIP_LEADING_RLM">DEFAULT_STRIP_LEADING_RLM</a>
     <span>
         &nbsp;= false                            </span>
 </dt>
@@ -212,19 +218,19 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencyCode">$currencyCode</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencyCode">$currencyCode</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolPosition">$currencySymbolPosition</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolPosition">$currencySymbolPosition</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolSpacing">$currencySymbolSpacing</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolSpacing">$currencySymbolSpacing</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
@@ -254,7 +260,25 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_stripLeadingRLM">$stripLeadingRLM</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_negative">$negative</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a>            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideNegative">$overrideNegative</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a>|null            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideSpacing">$overrideSpacing</a>
+    <span>
+                        &nbsp;: bool|null            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_stripLeadingRLM">$stripLeadingRLM</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
@@ -263,6 +287,12 @@
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Number.html#property_thousandsSeparator">$thousandsSeparator</a>
     <span>
                         &nbsp;: bool            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_spaceOrNbsp">$spaceOrNbsp</a>
+    <span>
+                        &nbsp;: string            </span>
 </dt>
 
     </dl>
@@ -274,7 +304,7 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method___construct">__construct()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
@@ -286,7 +316,7 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_format">format()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_format">format()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -298,19 +328,19 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencyCode">setCurrencyCode()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencyCode">setCurrencyCode()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolPosition">setCurrencySymbolPosition()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolPosition">setCurrencySymbolPosition()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolSpacing">setCurrencySymbolSpacing()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolSpacing">setCurrencySymbolSpacing()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -329,7 +359,13 @@
 <dd>Setting a locale will override any settings defined in this class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setStripLeadingRLM">setStripLeadingRLM()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setNegative">setNegative()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setStripLeadingRLM">setStripLeadingRLM()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -372,14 +408,44 @@
 
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_LEADING_SYMBOL">
-        LEADING_SYMBOL
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_LEADING_SYMBOL" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="constant_DEFAULT_NEGATIVE">
+        DEFAULT_NEGATIVE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_NEGATIVE" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DEFAULT_NEGATIVE</span>
+    = <span class="phpdocumentor-signature__default-value">\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative::minus</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LEADING_SYMBOL">
+        LEADING_SYMBOL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_LEADING_SYMBOL" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">10</span>
 
@@ -404,12 +470,12 @@
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SYMBOL_WITH_SPACING">
         SYMBOL_WITH_SPACING
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITH_SPACING" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITH_SPACING" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">14</span>
 
@@ -434,12 +500,12 @@
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_SYMBOL_WITHOUT_SPACING">
         SYMBOL_WITHOUT_SPACING
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITHOUT_SPACING" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITHOUT_SPACING" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
@@ -464,12 +530,12 @@
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TRAILING_SYMBOL">
         TRAILING_SYMBOL
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_TRAILING_SYMBOL" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_TRAILING_SYMBOL" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">12</span>
 
@@ -554,12 +620,12 @@
                     <article class="phpdocumentor-element -constant -protected ">
     <h4 class="phpdocumentor-element__name" id="constant_DEFAULT_STRIP_LEADING_RLM">
         DEFAULT_STRIP_LEADING_RLM
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_DEFAULT_STRIP_LEADING_RLM" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_STRIP_LEADING_RLM" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">24</span>
 
@@ -629,13 +695,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_currencyCode">
         $currencyCode
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencyCode" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencyCode" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">18</span>
 
@@ -664,13 +730,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_currencySymbolPosition">
         $currencySymbolPosition
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolPosition" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolPosition" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">20</span>
 
@@ -699,13 +765,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_currencySymbolSpacing">
         $currencySymbolSpacing
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolSpacing" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolSpacing" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">22</span>
 
@@ -872,15 +938,120 @@
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_stripLeadingRLM">
-        $stripLeadingRLM
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_stripLeadingRLM" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_negative">
+        $negative
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_negative" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$negative</span>
+     = <span class="phpdocumentor-signature__default-value">\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative::minus</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_overrideNegative">
+        $overrideNegative
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideNegative" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$overrideNegative</span>
+     = <span class="phpdocumentor-signature__default-value">\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative::parentheses</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_overrideSpacing">
+        $overrideSpacing
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideSpacing" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">10</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool|null</span>
+    <span class="phpdocumentor-signature__name">$overrideSpacing</span>
+     = <span class="phpdocumentor-signature__default-value">true</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_stripLeadingRLM">
+        $stripLeadingRLM
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_stripLeadingRLM" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">26</span>
 
@@ -935,6 +1106,41 @@
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_spaceOrNbsp">
+        $spaceOrNbsp
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_spaceOrNbsp" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$spaceOrNbsp</span>
+     = <span class="phpdocumentor-signature__default-value">&#039; &#039;</span></code>
+
+    
+    
+    
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
@@ -951,20 +1157,20 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencyCode</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;$&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$decimals</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">2</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$thousandsSeparator</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencySymbolPosition</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::LEADING_SYMBOL</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencySymbolSpacing</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::SYMBOL_WITHOUT_SPACING</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$locale</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stripLeadingRLM</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_STRIP_LEADING_RLM</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencyCode</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;$&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$decimals</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">2</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$thousandsSeparator</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencySymbolPosition</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::LEADING_SYMBOL</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currencySymbolSpacing</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::SYMBOL_WITHOUT_SPACING</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$locale</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stripLeadingRLM</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_STRIP_LEADING_RLM</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$negative</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">CurrencyNegative::minus</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1014,7 +1220,8 @@ Possible values are Currency::LEADING_SYMBOL and Currency::TRAILING_SYMBOL</p>
                  = <span class="phpdocumentor-signature__argument__default-value">self::SYMBOL_WITHOUT_SPACING</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>indicates whether there is spacing between the currency symbol and the value
-Possible values are Currency::SYMBOL_WITH_SPACING and Currency::SYMBOL_WITHOUT_SPACING</p>
+Possible values are Currency::SYMBOL_WITH_SPACING and Currency::SYMBOL_WITHOUT_SPACING
+However, Currency always uses WITHOUT and Accounting always uses WITH</p>
 </section>
 
             </dd>
@@ -1040,12 +1247,23 @@ ICU 72.1+.</p>
 </section>
 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$negative</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">CurrencyNegative::minus</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>How to display negative numbers.
+Always use parentheses for Accounting.
+4 options for Currency.</p>
+</section>
+
+            </dd>
             </dl>
 
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -1110,13 +1328,13 @@ ICU 72.1+.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_format">
         format()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_format" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_format" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">125</span>
 
     </aside>
 
@@ -1153,7 +1371,7 @@ ICU 72.1+.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -1184,13 +1402,13 @@ ICU 72.1+.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_setCurrencyCode">
         setCurrencyCode()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencyCode" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencyCode" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -1227,13 +1445,13 @@ ICU 72.1+.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_setCurrencySymbolPosition">
         setCurrencySymbolPosition()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolPosition" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolPosition" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1270,13 +1488,13 @@ ICU 72.1+.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_setCurrencySymbolSpacing">
         setCurrencySymbolSpacing()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolSpacing" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolSpacing" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -1415,15 +1633,58 @@ ICU 72.1+.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setStripLeadingRLM">
-        setStripLeadingRLM()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setStripLeadingRLM" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setNegative">
+        setNegative()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setNegative" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currency.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Currency.php">Currency.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setNegative</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$negative</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$negative</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyNegative.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative">CurrencyNegative</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStripLeadingRLM">
+        setStripLeadingRLM()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setStripLeadingRLM" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-currencybase.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/CurrencyBase.php">CurrencyBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -1509,7 +1770,7 @@ ICU 72.1+.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -1565,7 +1826,7 @@ ICU 72.1+.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-accounting.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Accounting.php">Accounting.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -1765,13 +2026,14 @@ ICU 72.1+.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_LEADING_SYMBOL">LEADING_SYMBOL</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITH_SPACING">SYMBOL_WITH_SPACING</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_SYMBOL_WITHOUT_SPACING">SYMBOL_WITHOUT_SPACING</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_TRAILING_SYMBOL">TRAILING_SYMBOL</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_NEGATIVE">DEFAULT_NEGATIVE</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_LEADING_SYMBOL">LEADING_SYMBOL</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITH_SPACING">SYMBOL_WITH_SPACING</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_SYMBOL_WITHOUT_SPACING">SYMBOL_WITHOUT_SPACING</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_TRAILING_SYMBOL">TRAILING_SYMBOL</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Number.html#constant_WITH_THOUSANDS_SEPARATOR">WITH_THOUSANDS_SEPARATOR</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Number.html#constant_WITHOUT_THOUSANDS_SEPARATOR">WITHOUT_THOUSANDS_SEPARATOR</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#constant_DEFAULT_STRIP_LEADING_RLM">DEFAULT_STRIP_LEADING_RLM</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#constant_DEFAULT_STRIP_LEADING_RLM">DEFAULT_STRIP_LEADING_RLM</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#constant_MAX_DECIMALS">MAX_DECIMALS</a></li>
                                             </ul>
                 </li>
@@ -1779,31 +2041,36 @@ ICU 72.1+.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencyCode">$currencyCode<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolPosition">$currencySymbolPosition<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_currencySymbolSpacing">$currencySymbolSpacing<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencyCode">$currencyCode<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolPosition">$currencySymbolPosition<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_currencySymbolSpacing">$currencySymbolSpacing<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#property_decimals">$decimals<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#property_fullLocale">$fullLocale<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#property_locale">$locale<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#property_localeFormat">$localeFormat<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#property_stripLeadingRLM">$stripLeadingRLM<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_negative">$negative<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideNegative">$overrideNegative<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#property_overrideSpacing">$overrideSpacing<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_stripLeadingRLM">$stripLeadingRLM<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Number.html#property_thousandsSeparator">$thousandsSeparator<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#property_spaceOrNbsp">$spaceOrNbsp<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html"></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method___construct">__construct()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#method___toString">__toString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_format">format()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_format">format()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_icuVersion">icuVersion()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencyCode">setCurrencyCode()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolPosition">setCurrencySymbolPosition()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setCurrencySymbolSpacing">setCurrencySymbolSpacing()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencyCode">setCurrencyCode()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolPosition">setCurrencySymbolPosition()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setCurrencySymbolSpacing">setCurrencySymbolSpacing()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#method_setDecimals">setDecimals()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-NumberBase.html#method_setLocale">setLocale()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Currency.html#method_setStripLeadingRLM">setStripLeadingRLM()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setNegative">setNegative()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-CurrencyBase.html#method_setStripLeadingRLM">setStripLeadingRLM()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Number.html#method_setThousandsSeparator">setThousandsSeparator()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_getLocaleFormat">getLocaleFormat()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Accounting.html#method_formatCurrencyCode">formatCurrencyCode()</a></li>

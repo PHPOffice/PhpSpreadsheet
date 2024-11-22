@@ -94,14 +94,16 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xls.html">Xls</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xls-style.html">Style</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    ColorMap
+    Metadata
 
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a>
+    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -119,9 +121,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php"><a href="files/src-phpspreadsheet-writer-xls-style-colormap.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php">ColorMap.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Metadata.php"><a href="files/src-phpspreadsheet-writer-xlsx-metadata.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Metadata.php">Metadata.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 
     </aside>
 
@@ -135,7 +137,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -149,29 +151,45 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#property_colorMap">$colorMap</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter">$parentWriter</a>
     <span>
-                        &nbsp;: array&lt;string, int&gt;            </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>            </span>
 </dt>
+<dd>Parent Xlsx object.</dd>
 
     </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#method_lookup">lookup()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: mixed    </span>
 </dt>
+<dd>Set parent Xlsx object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a>
+    <span>
+                                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>    </span>
+</dt>
+<dd>Get parent Xlsx object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#method_writeMetadata">writeMetadata()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Write content types to XML format.</dd>
 
     </dl>
 
@@ -183,7 +201,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -191,85 +209,29 @@
             phpdocumentor-element
             -property
             -private
-            -static                                            "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="property_colorMap">
-        $colorMap
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#property_colorMap" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_parentWriter">
+        $parentWriter
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php"><a href="files/src-phpspreadsheet-writer-xls-style-colormap.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php">ColorMap.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Parent Xlsx object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, int&gt;</span>
-    <span class="phpdocumentor-signature__name">$colorMap</span>
-     = <span class="phpdocumentor-signature__default-value">[
-    &#039;#000000&#039; =&gt; 0x8,
-    &#039;#FFFFFF&#039; =&gt; 0x9,
-    &#039;#FF0000&#039; =&gt; 0xa,
-    &#039;#00FF00&#039; =&gt; 0xb,
-    &#039;#0000FF&#039; =&gt; 0xc,
-    &#039;#FFFF00&#039; =&gt; 0xd,
-    &#039;#FF00FF&#039; =&gt; 0xe,
-    &#039;#00FFFF&#039; =&gt; 0xf,
-    &#039;#800000&#039; =&gt; 0x10,
-    &#039;#008000&#039; =&gt; 0x11,
-    &#039;#000080&#039; =&gt; 0x12,
-    &#039;#808000&#039; =&gt; 0x13,
-    &#039;#800080&#039; =&gt; 0x14,
-    &#039;#008080&#039; =&gt; 0x15,
-    &#039;#C0C0C0&#039; =&gt; 0x16,
-    &#039;#808080&#039; =&gt; 0x17,
-    &#039;#9999FF&#039; =&gt; 0x18,
-    &#039;#993366&#039; =&gt; 0x19,
-    &#039;#FFFFCC&#039; =&gt; 0x1a,
-    &#039;#CCFFFF&#039; =&gt; 0x1b,
-    &#039;#660066&#039; =&gt; 0x1c,
-    &#039;#FF8080&#039; =&gt; 0x1d,
-    &#039;#0066CC&#039; =&gt; 0x1e,
-    &#039;#CCCCFF&#039; =&gt; 0x1f,
-    //        &#039;#000080&#039; =&gt; 0x20,
-    //        &#039;#FF00FF&#039; =&gt; 0x21,
-    //        &#039;#FFFF00&#039; =&gt; 0x22,
-    //        &#039;#00FFFF&#039; =&gt; 0x23,
-    //        &#039;#800080&#039; =&gt; 0x24,
-    //        &#039;#800000&#039; =&gt; 0x25,
-    //        &#039;#008080&#039; =&gt; 0x26,
-    //        &#039;#0000FF&#039; =&gt; 0x27,
-    &#039;#00CCFF&#039; =&gt; 0x28,
-    //        &#039;#CCFFFF&#039; =&gt; 0x29,
-    &#039;#CCFFCC&#039; =&gt; 0x2a,
-    &#039;#FFFF99&#039; =&gt; 0x2b,
-    &#039;#99CCFF&#039; =&gt; 0x2c,
-    &#039;#FF99CC&#039; =&gt; 0x2d,
-    &#039;#CC99FF&#039; =&gt; 0x2e,
-    &#039;#FFCC99&#039; =&gt; 0x2f,
-    &#039;#3366FF&#039; =&gt; 0x30,
-    &#039;#33CCCC&#039; =&gt; 0x31,
-    &#039;#99CC00&#039; =&gt; 0x32,
-    &#039;#FFCC00&#039; =&gt; 0x33,
-    &#039;#FF9900&#039; =&gt; 0x34,
-    &#039;#FF6600&#039; =&gt; 0x35,
-    &#039;#666699&#039; =&gt; 0x36,
-    &#039;#969696&#039; =&gt; 0x37,
-    &#039;#003366&#039; =&gt; 0x38,
-    &#039;#339966&#039; =&gt; 0x39,
-    &#039;#003300&#039; =&gt; 0x3a,
-    &#039;#333300&#039; =&gt; 0x3b,
-    &#039;#993300&#039; =&gt; 0x3c,
-    //        &#039;#993366&#039; =&gt; 0x3D,
-    &#039;#333399&#039; =&gt; 0x3e,
-    &#039;#333333&#039; =&gt; 0x3f,
-]</span></code>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$parentWriter</span>
+    </code>
 
     
     
@@ -283,31 +245,32 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_lookup">
-        lookup()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#method_lookup" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php"><a href="files/src-phpspreadsheet-writer-xls-style-colormap.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php">ColorMap.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set parent Xlsx object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">lookup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$color</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$defaultIndex</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0x0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$writer</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -315,16 +278,9 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$color</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$writer</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$defaultIndex</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">0x0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -334,9 +290,85 @@
 
     
 
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParentWriter">
+        getParentWriter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">17</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get parent Xlsx object.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getParentWriter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_writeMetadata">
+        writeMetadata()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#method_writeMetadata" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Metadata.php"><a href="files/src-phpspreadsheet-writer-xlsx-metadata.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Metadata.php">Metadata.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Write content types to XML format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">writeMetadata</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>XML Output</p>
+</section>
+
             </section>
 
 </article>
@@ -346,7 +378,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Xls/Style/ColorMap.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Xlsx/Metadata.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -445,22 +477,24 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#property_colorMap">$colorMap<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter">$parentWriter<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html"></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#method_lookup">lookup()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#method_writeMetadata">writeMetadata()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -480,7 +514,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Style-ColorMap.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
