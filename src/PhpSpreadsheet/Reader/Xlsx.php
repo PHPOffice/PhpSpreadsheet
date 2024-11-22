@@ -25,7 +25,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\WorkbookView;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -137,7 +136,7 @@ class Xlsx extends BaseReader
         $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
             'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions(),
+            0,
             $ns
         );
 
@@ -152,7 +151,7 @@ class Xlsx extends BaseReader
         $rels = simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
             'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions(),
+            0,
             ($ns === '' ? $ns : '')
         );
 
@@ -268,11 +267,13 @@ class Xlsx extends BaseReader
 
                         $xml = new XMLReader();
                         $xml->xml(
-                            $this->getSecurityScannerOrThrow()->scan(
-                                $this->getFromZipArchive($this->zip, $fileWorksheetPath)
-                            ),
-                            null,
-                            Settings::getLibXmlLoaderOptions()
+                            $this->getSecurityScannerOrThrow()
+                                ->scan(
+                                    $this->getFromZipArchive(
+                                        $this->zip,
+                                        $fileWorksheetPath
+                                    )
+                                )
                         );
                         $xml->setParserProperty(2, true);
 
@@ -1940,9 +1941,8 @@ class Xlsx extends BaseReader
         if ($dataRels) {
             // exists and not empty if the ribbon have some pictures (other than internal MSO)
             $UIRels = simplexml_load_string(
-                $this->getSecurityScannerOrThrow()->scan($dataRels),
-                'SimpleXMLElement',
-                Settings::getLibXmlLoaderOptions()
+                $this->getSecurityScannerOrThrow()
+                    ->scan($dataRels)
             );
             if (false !== $UIRels) {
                 // we need to save id and target to avoid parsing customUI.xml and "guess" if it's a pseudo callback who load the image

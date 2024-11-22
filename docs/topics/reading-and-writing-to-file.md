@@ -298,7 +298,6 @@ versions of Microsoft Excel.
 **Excel 2003 XML limitations** Please note that Excel 2003 XML format
 has some limits regarding to styling cells and handling large
 spreadsheets via PHP.
-Also, only files using charset UTF-8 are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Xml
 
@@ -718,7 +717,7 @@ extension.
 
 **HTML limitations** Please note that HTML file format has some limits
 regarding to styling cells, number formatting, ...
-Also, only files using charset UTF-8 are supported.
+Also, only files using ASCII characters, or charset UTF-8 (without BOM) are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Html
 
@@ -733,7 +732,7 @@ $spreadsheet = $reader->load("05featuredemo.html");
 ```
 
 **HTML limitations** Please note that HTML reader is still experimental
-and does not yet support merged cells or nested tables cleanly
+and does not yet support merged cells or nested tables cleanly.
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Html
 

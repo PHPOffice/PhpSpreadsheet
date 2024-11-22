@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\Style;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -105,9 +104,8 @@ class Xml extends BaseReader
     {
         try {
             $xml = simplexml_load_string(
-                $this->getSecurityScannerOrThrow()->scan($this->fileContents ?: file_get_contents($filename)),
-                'SimpleXMLElement',
-                Settings::getLibXmlLoaderOptions()
+                $this->getSecurityScannerOrThrow()
+                    ->scan($this->fileContents ?: file_get_contents($filename))
             );
         } catch (\Exception $e) {
             throw new Exception('Cannot load invalid XML file: ' . $filename, 0, $e);

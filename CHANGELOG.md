@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.29.5 - 2024-11-22
+
+### Changed
+
+- Settings::libXmlLoaderOptions is ignored. Backport of [PR #4233](https://github.com/PHPOffice/PhpSpreadsheet/pull/4233)
+
+### Deprecated
+
+- Settings::setLibXmlLoaderOptions() and Settings::getLibXmlLoaderOptions() are no longer needed - no replacement.
+
 ## 1.29.4 - 2024-11-10
 
 ### Fixed
