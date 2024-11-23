@@ -12,7 +12,7 @@ function findPolyfill(string $directory): int
         . '|enum_exists[(]';
     $polyfill = '/\\b(?:'
         . $polyfill81
-        . '})/';
+        . ')/';
 
     $it = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($directory, FilesystemIterator::UNIX_PATHS)
