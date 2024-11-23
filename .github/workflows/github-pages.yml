@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - 'master'
-    tags:
-      - '*'
 
 jobs:
   github-pages:

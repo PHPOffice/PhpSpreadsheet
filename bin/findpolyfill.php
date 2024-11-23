@@ -22,7 +22,7 @@ function findPolyfill(string $directory): int
         . $polyfill80
         . '|'
         . $polyfill81
-        . '})/';
+        . ')/';
 
     $it = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($directory, FilesystemIterator::UNIX_PATHS)
