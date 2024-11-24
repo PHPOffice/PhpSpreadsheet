@@ -3316,6 +3316,8 @@ class Worksheet
                 }
             }
         }
+
+        return false;
     }
 
     /**
