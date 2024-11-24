@@ -43,9 +43,7 @@ class AutoFilterCustomNumericTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCustomRule
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomRule')]
     public function testCustomTest(array $expectedVisible, string $rule, int $comparand): void
     {
         $sheet = $this->initSheet();

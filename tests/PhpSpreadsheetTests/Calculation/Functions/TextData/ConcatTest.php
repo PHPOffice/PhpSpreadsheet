@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ConcatTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCONCAT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONCAT')]
     public function testCONCAT(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);

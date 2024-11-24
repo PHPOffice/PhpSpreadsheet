@@ -27,9 +27,7 @@ class Hex2DecTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerHEX2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2DEC')]
     public function testDirectCallToHEX2DEC(mixed $expectedResult, bool|float|int|string $value): void
     {
         $result = ConvertHex::toDecimal($value);
@@ -41,9 +39,7 @@ class Hex2DecTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerHEX2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2DEC')]
     public function testHEX2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,9 +52,7 @@ class Hex2DecTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerHEX2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2DEC')]
     public function testHEX2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +75,7 @@ class Hex2DecTest extends TestCase
         return require 'tests/data/Calculation/Engineering/HEX2DEC.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyHEX2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyHEX2DEC')]
     public function testHEX2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +101,7 @@ class Hex2DecTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerHEX2DECOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2DECOds')]
     public function testHEX2DECOds(mixed $expectedResult, bool|float|int|string $value): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -146,9 +136,7 @@ class Hex2DecTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerHex2DecArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHex2DecArray')]
     public function testHex2DecArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

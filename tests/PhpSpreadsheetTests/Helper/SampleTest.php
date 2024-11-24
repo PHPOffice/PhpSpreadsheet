@@ -9,13 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class SampleTest extends TestCase
 {
-    /**
-     * @runInSeparateProcess
-     *
-     * @preserveGlobalState disabled
-     *
-     * @dataProvider providerSample
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSample')]
     public function testSample(string $sample): void
     {
         ob_start();

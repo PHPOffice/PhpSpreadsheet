@@ -27,9 +27,7 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider validTableNamesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('validTableNamesProvider')]
     public function testValidTableNames(string $name, string $expected): void
     {
         $table = new Table(self::INITIAL_RANGE);
@@ -52,9 +50,7 @@ class TableTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider invalidTableNamesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidTableNamesProvider')]
     public function testInvalidTableNames(string $name): void
     {
         $table = new Table(self::INITIAL_RANGE);
@@ -201,9 +197,7 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider invalidTableRangeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('invalidTableRangeProvider')]
     public function testSetRangeInvalidRange(string $range): void
     {
         $this->expectException(PhpSpreadsheetException::class);

@@ -25,9 +25,7 @@ class ImLnTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLN')]
     public function testDirectCallToIMLN(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMLN($arg);
@@ -42,9 +40,7 @@ class ImLnTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLN')]
     public function testIMLNAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImLnTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLN')]
     public function testIMLNInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImLnTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMLN.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMLN')]
     public function testIMLNUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImLnTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImLnArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImLnArray')]
     public function testImLnArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

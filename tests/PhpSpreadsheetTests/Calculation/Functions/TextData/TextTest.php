@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TextTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXT')]
     public function testTEXT(mixed $expectedResult, mixed $value = 'omitted', mixed $format = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -34,9 +32,7 @@ class TextTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/TEXT.php';
     }
 
-    /**
-     * @dataProvider providerTextArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTextArray')]
     public function testTextArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

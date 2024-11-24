@@ -10,9 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 
 class IndirectTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINDIRECT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINDIRECT')]
     public function testINDIRECT(mixed $expectedResult, mixed $cellReference = 'omitted', mixed $a1 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -132,9 +130,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame('This is it', $result);
     }
 
-    /**
-     * @dataProvider providerRelative
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRelative')]
     public function testR1C1Relative(string|int|null $expectedResult, string $address): void
     {
         $sheet = $this->getSheet();

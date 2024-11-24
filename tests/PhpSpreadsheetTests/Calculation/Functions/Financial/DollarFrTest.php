@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class DollarFrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDOLLARFR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDOLLARFR')]
     public function testDOLLARFR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DOLLARFR', $expectedResult, $args);

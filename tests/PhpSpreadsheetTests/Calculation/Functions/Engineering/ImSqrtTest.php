@@ -25,9 +25,7 @@ class ImSqrtTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMSQRT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
     public function testDirectCallToIMSQRT(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMSQRT($arg);
@@ -42,9 +40,7 @@ class ImSqrtTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMSQRT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
     public function testIMSQRTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImSqrtTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMSQRT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
     public function testIMSQRTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImSqrtTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMSQRT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSQRT')]
     public function testIMSQRTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImSqrtTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImSqrtArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSqrtArray')]
     public function testImSqrtArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

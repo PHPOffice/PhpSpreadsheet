@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormulaAsStringTest extends TestCase
 {
-    /**
-     * @dataProvider providerFunctionsAsString
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFunctionsAsString')]
     public function testFunctionsAsString(mixed $expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

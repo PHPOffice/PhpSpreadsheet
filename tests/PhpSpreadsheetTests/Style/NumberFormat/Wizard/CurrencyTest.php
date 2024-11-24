@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class CurrencyTest extends TestCase
 {
-    /**
-     * @dataProvider providerCurrency
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrency')]
     public function testCurrency(
         string $expectedResultPositive,
         string $expectedResultNegative,
@@ -48,9 +46,7 @@ class CurrencyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCurrencyLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencyLocale')]
     public function testCurrencyLocale(
         string $expectedResult,
         string $currencyCode,
@@ -110,9 +106,7 @@ class CurrencyTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerCurrencyLocaleNoDecimals
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencyLocaleNoDecimals')]
     public function testCurrencyLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,

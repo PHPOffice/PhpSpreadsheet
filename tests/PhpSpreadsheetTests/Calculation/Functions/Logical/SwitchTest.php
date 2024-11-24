@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SwitchTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSwitch
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSwitch')]
     public function testSWITCH(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('SWITCH', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class SwitchTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/SWITCH.php';
     }
 
-    /**
-     * @dataProvider providerSwitchArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSwitchArray')]
     public function testIfsArray(array $expectedResult, int $expression, int $value1, string $result1, int $value2, string $result2, string $default): void
     {
         $calculation = Calculation::getInstance();

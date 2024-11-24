@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingBasicTest extends TestCase
 {
-    /**
-     * @dataProvider conditionalFormattingProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('conditionalFormattingProvider')]
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRules): void
     {
         $filename = 'tests/data/Reader/XLS/CF_Basic_Comparisons.xls';

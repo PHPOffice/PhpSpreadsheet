@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class InterceptTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINTERCEPT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINTERCEPT')]
     public function testINTERCEPT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('INTERCEPT', $expectedResult, ...$args);

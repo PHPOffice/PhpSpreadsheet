@@ -18,9 +18,8 @@ class ActiveSheetTest extends AbstractFunctional
 
     /**
      * Test load file with correct active sheet.
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testActiveSheet(string $format): void
     {
         $spreadsheet = new Spreadsheet();

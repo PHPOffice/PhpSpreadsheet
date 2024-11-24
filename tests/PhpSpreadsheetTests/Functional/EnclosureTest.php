@@ -19,9 +19,7 @@ class EnclosureTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testEnclosure(string $format): void
     {
         $value = '<img alt="" src="http://example.com/image.jpg" />';

@@ -12,18 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 class NetworkDaysTest extends TestCase
 {
-    /**
-     * @dataProvider providerNETWORKDAYS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
     public function testDirectCallToNETWORKDAYS(mixed $expectedResult, mixed ...$args): void
     {
         $result = NetworkDays::count(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerNETWORKDAYS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
     public function testNETWORKDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -35,9 +31,7 @@ class NetworkDaysTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerNETWORKDAYS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
     public function testNETWORKDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +54,7 @@ class NetworkDaysTest extends TestCase
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyNETWORKDAYS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyNETWORKDAYS')]
     public function testNETWORKDAYSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,9 +81,7 @@ class NetworkDaysTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNetWorkDaysArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNetWorkDaysArray')]
     public function testNetWorkDaysArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
     {
         $calculation = Calculation::getInstance();

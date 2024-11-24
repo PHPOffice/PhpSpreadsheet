@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NormSDist2Test extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNORMSDIST2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNORMSDIST2')]
     public function testNORMSDIST2(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORM.S.DIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class NormSDist2Test extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/NORMSDIST2.php';
     }
 
-    /**
-     * @dataProvider providerNormSDist2Array
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNormSDist2Array')]
     public function testNormSDist2Array(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

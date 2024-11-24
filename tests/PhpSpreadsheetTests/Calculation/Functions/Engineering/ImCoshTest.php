@@ -25,9 +25,7 @@ class ImCoshTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMCOSH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOSH')]
     public function testDirectCallToIMCOSH(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMCOSH($arg);
@@ -42,9 +40,7 @@ class ImCoshTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMCOSH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOSH')]
     public function testIMCOSHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImCoshTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMCOSH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOSH')]
     public function testIMCOSHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImCoshTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMCOSH.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMCOSH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMCOSH')]
     public function testIMCOSHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImCoshTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImCoshArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImCoshArray')]
     public function testImCoshArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

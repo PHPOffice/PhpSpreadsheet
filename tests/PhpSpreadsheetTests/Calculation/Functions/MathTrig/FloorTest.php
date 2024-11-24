@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FloorTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFLOOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFLOOR')]
     public function testFLOOR(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -56,9 +54,7 @@ class FloorTest extends AllSetupTeardown
         self::assertEqualsWithDelta(5, $result, 1E-12);
     }
 
-    /**
-     * @dataProvider providerFloorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFloorArray')]
     public function testFloorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

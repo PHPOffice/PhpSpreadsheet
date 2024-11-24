@@ -51,18 +51,14 @@ class ConvertUoMTest extends TestCase
         self::assertSame(['multiplier' => 1024, 'name' => 'kibi'], $result['ki']);
     }
 
-    /**
-     * @dataProvider providerCONVERTUOM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
     public function testDirectCallToCONVERTUOM(float|int|string $expectedResult, float|int|string $value, string $from, string $to): void
     {
         $result = ConvertUOM::convert($value, $from, $to);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    /**
-     * @dataProvider providerCONVERTUOM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
     public function testCONVERTUOMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -74,9 +70,7 @@ class ConvertUoMTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    /**
-     * @dataProvider providerCONVERTUOM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
     public function testCONVERTUOMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -99,9 +93,7 @@ class ConvertUoMTest extends TestCase
         return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyCONVERTUOM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyCONVERTUOM')]
     public function testCONVERTUOMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -129,9 +121,7 @@ class ConvertUoMTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerConvertUoMArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerConvertUoMArray')]
     public function testConvertUoMArray(array $expectedResult, string $value, string $fromUoM, string $toUoM): void
     {
         $calculation = Calculation::getInstance();

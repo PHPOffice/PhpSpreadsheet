@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class NPerTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNPER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNPER')]
     public function testNPER(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('NPER', $expectedResult, $args);

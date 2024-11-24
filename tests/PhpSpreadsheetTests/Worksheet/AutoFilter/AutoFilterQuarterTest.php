@@ -36,9 +36,7 @@ class AutoFilterQuarterTest extends SetupTeardown
         $this->maxRow = 9;
     }
 
-    /**
-     * @dataProvider providerQuarter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerQuarter')]
     public function testQuarters(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

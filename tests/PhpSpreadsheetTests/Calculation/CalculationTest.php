@@ -27,9 +27,7 @@ class CalculationTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBinaryComparisonOperation
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryComparisonOperation')]
     public function testBinaryComparisonOperation(string $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -374,9 +372,8 @@ class CalculationTest extends TestCase
      *  be set in cache
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
-     *
-     * @dataProvider dataProviderBranchPruningFullExecution
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderBranchPruningFullExecution')]
     public function testFullExecutionDataPruning(
         mixed $expectedResult,
         array $dataArray,

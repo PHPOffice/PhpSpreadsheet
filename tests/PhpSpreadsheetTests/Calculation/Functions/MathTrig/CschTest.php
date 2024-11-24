@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CschTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCSCH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCSCH')]
     public function testCSCH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class CschTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/CSCH.php';
     }
 
-    /**
-     * @dataProvider providerCschArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCschArray')]
     public function testCschArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

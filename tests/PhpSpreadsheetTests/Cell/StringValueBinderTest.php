@@ -28,9 +28,7 @@ class StringValueBinderTest extends TestCase
         Cell::setValueBinder($this->valueBinder);
     }
 
-    /**
-     * @dataProvider providerDataValuesDefault
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesDefault')]
     public function testStringValueBinderDefaultBehaviour(
         mixed $value,
         mixed $expectedValue,
@@ -98,9 +96,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressNullConversion
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressNullConversion')]
     public function testStringValueBinderSuppressNullConversion(
         mixed $value,
         mixed $expectedValue,
@@ -127,9 +123,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressBooleanConversion
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressBooleanConversion')]
     public function testStringValueBinderSuppressBooleanConversion(
         mixed $value,
         mixed $expectedValue,
@@ -157,9 +151,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressNumericConversion
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressNumericConversion')]
     public function testStringValueBinderSuppressNumericConversion(
         mixed $value,
         mixed $expectedValue,
@@ -194,9 +186,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressFormulaConversion
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressFormulaConversion')]
     public function testStringValueBinderSuppressFormulaConversion(
         mixed $value,
         mixed $expectedValue,
@@ -227,9 +217,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressAllConversion
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressAllConversion')]
     public function testStringValueBinderSuppressAllConversion(
         mixed $value,
         mixed $expectedValue,

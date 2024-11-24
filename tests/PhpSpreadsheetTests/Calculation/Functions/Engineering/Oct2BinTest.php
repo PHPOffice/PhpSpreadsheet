@@ -27,9 +27,7 @@ class Oct2BinTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerOCT2BIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOCT2BIN')]
     public function testDirectCallToOCT2BIN(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         $result = ($digits === null) ? ConvertOctal::toBinary($value) : ConvertOctal::toBinary($value, $digits);
@@ -41,9 +39,7 @@ class Oct2BinTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerOCT2BIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOCT2BIN')]
     public function testOCT2BINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,9 +52,7 @@ class Oct2BinTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerOCT2BIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOCT2BIN')]
     public function testOCT2BINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +75,7 @@ class Oct2BinTest extends TestCase
         return require 'tests/data/Calculation/Engineering/OCT2BIN.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyOCT2BIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyOCT2BIN')]
     public function testOCT2BINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +101,7 @@ class Oct2BinTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerOCT2BINOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOCT2BINOds')]
     public function testOCT2BINOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -146,9 +136,7 @@ class Oct2BinTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerOct2BinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOct2BinArray')]
     public function testOct2BinArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

@@ -16,9 +16,7 @@ class IsLogicalTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsLogical
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsLogical')]
     public function testIsLogical(bool $expectedResult, mixed $value): void
     {
         $result = Value::isLogical($value);
@@ -30,9 +28,7 @@ class IsLogicalTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_LOGICAL.php';
     }
 
-    /**
-     * @dataProvider providerIsLogicalArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsLogicalArray')]
     public function testIsLogicalArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

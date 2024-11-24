@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DVarPTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDVarP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVarP')]
     public function testDirectCallToDVarP(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVarP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDVarP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVarP')]
     public function testDVarPAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVARP', $database, $field, $criteria);

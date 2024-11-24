@@ -30,18 +30,14 @@ class TimeValueTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    /**
-     * @dataProvider providerTIMEVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIMEVALUE')]
     public function testDirectCallToTIMEVALUE(int|float|string $expectedResult, bool|int|string $value): void
     {
         $result = TimeValue::fromString($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerTIMEVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIMEVALUE')]
     public function testTIMEVALUEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -53,9 +49,7 @@ class TimeValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerTIMEVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIMEVALUE')]
     public function testTIMEVALUEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +103,7 @@ class TimeValueTest extends TestCase
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
 
-    /**
-     * @dataProvider providerUnhappyTIMEVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyTIMEVALUE')]
     public function testTIMEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -137,9 +129,7 @@ class TimeValueTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerTimeValueArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeValueArray')]
     public function testTimeValueArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

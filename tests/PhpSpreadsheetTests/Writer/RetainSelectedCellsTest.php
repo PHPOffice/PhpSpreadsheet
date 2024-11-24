@@ -34,9 +34,8 @@ class RetainSelectedCellsTest extends AbstractFunctional
 
     /**
      * Test selected cell is retained in memory and in file written to disk.
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testRetainSelectedCells(string $format): void
     {
         $spreadsheet = new Spreadsheet();
@@ -89,7 +88,7 @@ class RetainSelectedCellsTest extends AbstractFunctional
         }
     }
 
-    /** @dataProvider providerFormats */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testRetainAutoSize(string $type): void
     {
         $spreadsheet = new Spreadsheet();

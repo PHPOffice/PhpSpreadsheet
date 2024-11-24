@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class BitXorTest extends TestCase
 {
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITXOR')]
     public function testDirectCallToBITXOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITXOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITXOR')]
     public function testBITXORAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class BitXorTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITXOR')]
     public function testBITXORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class BitXorTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBITXOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITXOR')]
     public function testBITXORUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -90,9 +82,7 @@ class BitXorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBitXorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitXorArray')]
     public function testBitXorArray(array $expectedResult, string $number1, string $number2): void
     {
         $calculation = Calculation::getInstance();

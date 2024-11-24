@@ -27,9 +27,7 @@ class Hex2OctTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerHEX2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2OCT')]
     public function testDirectCallToHEX2OCT(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         $result = ($digits === null) ? ConvertHex::toOctal($value) : ConvertHex::toOctal($value, $digits);
@@ -41,9 +39,7 @@ class Hex2OctTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerHEX2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2OCT')]
     public function testHEX2OCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,9 +52,7 @@ class Hex2OctTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerHEX2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2OCT')]
     public function testHEX2OCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +75,7 @@ class Hex2OctTest extends TestCase
         return require 'tests/data/Calculation/Engineering/HEX2OCT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyHEX2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyHEX2OCT')]
     public function testHEX2OCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +101,7 @@ class Hex2OctTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerHEX2OCTOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHEX2OCTOds')]
     public function testHEX2OCTOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -146,9 +136,7 @@ class Hex2OctTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerHex2OctArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHex2OctArray')]
     public function testHex2OctArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

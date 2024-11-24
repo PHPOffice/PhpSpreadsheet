@@ -12,9 +12,8 @@ class Issue4112Test extends AbstractFunctional
 {
     /**
      * Problem deleting all sheets then adding one.
-     *
-     * @dataProvider providerSheetNumber
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetNumber')]
     public function testIssue4112(?int $sheetNumber): void
     {
         $mySpreadsheet = new Spreadsheet();

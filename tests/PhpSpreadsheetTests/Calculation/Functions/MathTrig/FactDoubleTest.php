@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FactDoubleTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFACTDOUBLE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFACTDOUBLE')]
     public function testFACTDOUBLE(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class FactDoubleTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/FACTDOUBLE.php';
     }
 
-    /**
-     * @dataProvider providerFactDoubleArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFactDoubleArray')]
     public function testFactDoubleArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

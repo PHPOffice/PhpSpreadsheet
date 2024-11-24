@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BinomDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBINOMDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBINOMDIST')]
     public function testBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOMDIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class BinomDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/BINOMDIST.php';
     }
 
-    /**
-     * @dataProvider providerBinomDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinomDistArray')]
     public function testBinomDistArray(
         array $expectedResult,
         string $values,

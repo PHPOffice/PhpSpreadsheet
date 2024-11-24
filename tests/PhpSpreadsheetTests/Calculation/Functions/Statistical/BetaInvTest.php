@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BetaInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBETAINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBETAINV')]
     public function testBETAINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETAINV', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class BetaInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/BETAINV.php';
     }
 
-    /**
-     * @dataProvider providerBetaInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBetaInvArray')]
     public function testBetaInvArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();

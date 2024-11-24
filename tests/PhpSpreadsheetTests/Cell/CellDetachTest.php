@@ -21,9 +21,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerMethodName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMethodName')]
     public function testDetach(string $method): void
     {
         $this->expectException(SpreadsheetException::class);
@@ -51,9 +49,7 @@ class CellDetachTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerMethodNameSet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMethodNameSet')]
     public function testDetachSet(string $method): void
     {
         $this->expectException(SpreadsheetException::class);

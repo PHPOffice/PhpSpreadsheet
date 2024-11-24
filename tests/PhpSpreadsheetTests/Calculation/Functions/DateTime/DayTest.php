@@ -30,18 +30,14 @@ class DayTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAY')]
     public function testDirectCallToDAY(mixed $expectedResultExcel, mixed ...$args): void
     {
         $result = DateParts::day(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
-    /**
-     * @dataProvider providerDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAY')]
     public function testDAYAsFormula(mixed $expectedResultExcel, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -53,9 +49,7 @@ class DayTest extends TestCase
         self::assertSame($expectedResultExcel, $result);
     }
 
-    /**
-     * @dataProvider providerDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAY')]
     public function testDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,9 +72,7 @@ class DayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DAY.php';
     }
 
-    /**
-     * @dataProvider providerDAYOpenOffice
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAYOpenOffice')]
     public function testDirectCallToDAYOpenOffice(mixed $expectedResultOpenOffice, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -89,9 +81,7 @@ class DayTest extends TestCase
         self::assertSame($expectedResultOpenOffice, $result);
     }
 
-    /**
-     * @dataProvider providerDAYOpenOffice
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAYOpenOffice')]
     public function testDAYAsFormulaOpenOffice(mixed $expectedResultOpenOffice, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -110,9 +100,7 @@ class DayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DAYOpenOffice.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDAY')]
     public function testDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -144,9 +132,7 @@ class DayTest extends TestCase
         self::assertSame(0, $result);
     }
 
-    /**
-     * @dataProvider providerDayArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDayArray')]
     public function testDayArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

@@ -146,6 +146,7 @@ $config
         'ordered_imports' => true,
         'ordered_interfaces' => true,
         'ordered_traits' => true,
+        'php_unit_attributes' => ['keep_annotations' => false],
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,
         'php_unit_dedicate_assert_internal_type' => true,

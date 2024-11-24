@@ -18,9 +18,7 @@ class SortByTest extends TestCase
         self::assertSame($value, $result);
     }
 
-    /**
-     * @dataProvider providerSortWithScalarArgumentErrorReturns
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSortWithScalarArgumentErrorReturns')]
     public function testSortByWithArgumentErrorReturns(mixed $sortIndex, mixed $sortOrder = 1): void
     {
         $value = [[1, 2], [3, 4], [5, 6]];
@@ -41,9 +39,7 @@ class SortByTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerSortByRow
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSortByRow')]
     public function testSortByRow(array $expectedResult, array $matrix, mixed ...$args): void
     {
         $result = Sort::sortBy($matrix, ...$args);

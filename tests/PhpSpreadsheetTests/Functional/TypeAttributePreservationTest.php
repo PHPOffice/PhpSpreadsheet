@@ -31,9 +31,8 @@ class TypeAttributePreservationTest extends AbstractFunctional
 
     /**
      * Ensure saved spreadsheets maintain the correct data type.
-     *
-     * @dataProvider providerFormulae
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulae')]
     public function testFormulae(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();
@@ -63,9 +62,8 @@ class TypeAttributePreservationTest extends AbstractFunctional
 
     /**
      * Ensure saved spreadsheets maintain the correct data type.
-     *
-     * @dataProvider providerFormulae
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulae')]
     public function testFormulaeNoPrecalc(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();

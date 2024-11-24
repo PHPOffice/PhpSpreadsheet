@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TextJoinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXTJOIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXTJOIN')]
     public function testTEXTJOIN(mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);
@@ -35,9 +33,7 @@ class TextJoinTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
 
-    /**
-     * @dataProvider providerTextjoinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTextjoinArray')]
     public function testTextjoinArray(array $expectedResult, string $delimiter, string $blanks, string $texts): void
     {
         $calculation = Calculation::getInstance();

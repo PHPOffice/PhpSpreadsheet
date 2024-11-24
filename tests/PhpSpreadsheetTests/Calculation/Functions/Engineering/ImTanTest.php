@@ -25,9 +25,7 @@ class ImTanTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMTAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
     public function testDirectCallToIMTAN(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMTAN($arg);
@@ -42,9 +40,7 @@ class ImTanTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMTAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
     public function testIMTANAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImTanTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMTAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
     public function testIMTANInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImTanTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMTAN.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMTAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMTAN')]
     public function testIMTANUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImTanTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImTanArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImTanArray')]
     public function testImTanArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

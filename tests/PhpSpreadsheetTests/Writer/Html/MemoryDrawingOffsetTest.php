@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class MemoryDrawingOffsetTest extends TestCase
 {
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testMemoryDrawingOffset(int $w, int $h, int $x, int $y): void
     {
         $spreadsheet = new Spreadsheet();

@@ -25,9 +25,7 @@ class ImDivTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMDIV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMDIV')]
     public function testDirectCallToIMDIV(string $expectedResult, string $dividend, string $divisor): void
     {
         $result = ComplexOperations::IMDIV($dividend, $divisor);
@@ -42,9 +40,7 @@ class ImDivTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMDIV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMDIV')]
     public function testIMDIVAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImDivTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMDIV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMDIV')]
     public function testIMDIVInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImDivTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMDIV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMDIV')]
     public function testIMDIVUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -117,9 +109,7 @@ class ImDivTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImDivArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImDivArray')]
     public function testImDivArray(array $expectedResult, string $dividend, string $divisor): void
     {
         $calculation = Calculation::getInstance();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class MRoundTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMROUND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMROUND')]
     public function testMROUND(float|int|string $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class MRoundTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/MROUND.php';
     }
 
-    /**
-     * @dataProvider providerMRoundArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMRoundArray')]
     public function testMRoundArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

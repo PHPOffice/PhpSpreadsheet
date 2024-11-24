@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerArrayFormulae
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerArrayFormulae')]
     public function testArrayFormula(string $formula, mixed $expectedResult): void
     {
         $result = Calculation::getInstance()->_calculateFormulaValue($formula);

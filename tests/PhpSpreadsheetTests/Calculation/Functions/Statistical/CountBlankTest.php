@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 
 class CountBlankTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUNTBLANK
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUNTBLANK')]
     public function testCOUNTBLANK(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTBLANK', $expectedResult, ...$args);

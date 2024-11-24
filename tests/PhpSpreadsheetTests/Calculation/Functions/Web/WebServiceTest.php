@@ -26,9 +26,7 @@ class WebServiceTest extends TestCase
         Settings::unsetHttpClient();
     }
 
-    /**
-     * @dataProvider providerWEBSERVICE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEBSERVICE')]
     public function testWEBSERVICE(string $expectedResult, string $url, ?array $responseData): void
     {
         if (!empty($responseData)) {

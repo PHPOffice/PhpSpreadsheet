@@ -12,11 +12,10 @@ class LinearBestFitTest extends TestCase
     const LBF_PRECISION = 1.0E-8;
 
     /**
-     * @dataProvider providerLinearBestFit
-     *
      * @param array<float> $yValues
      * @param array<float> $xValues
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLinearBestFit')]
     public function testLinearBestFit(
         array $expectedSlope,
         array $expectedIntersect,

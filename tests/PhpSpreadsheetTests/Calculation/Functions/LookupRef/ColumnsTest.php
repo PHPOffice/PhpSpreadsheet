@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
 {
-    /**
-     * @dataProvider providerCOLUMNS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOLUMNS')]
     public function testCOLUMNS(mixed $expectedResult, null|array|string $arg): void
     {
         $result = LookupRef\RowColumnInformation::COLUMNS($arg);
@@ -24,9 +22,7 @@ class ColumnsTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
 
-    /**
-     * @dataProvider providerColumnsArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColumnsArray')]
     public function testColumnsArray(int $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();

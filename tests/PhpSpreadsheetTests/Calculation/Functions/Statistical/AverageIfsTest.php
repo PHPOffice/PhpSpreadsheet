@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 
 class AverageIfsTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAVERAGEIFS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAVERAGEIFS')]
     public function testAVERAGEIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('AVERAGEIFS', $expectedResult, ...$args);

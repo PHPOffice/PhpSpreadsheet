@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlTest extends TestCase
 {
-    /**
-     * @dataProvider providerInvalidSimpleXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidSimpleXML')]
     public function testInvalidSimpleXML(string $filename): void
     {
         $xmlReader = new Xml();

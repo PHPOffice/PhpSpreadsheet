@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlCharsetTest extends TestCase
 {
-    /**
-     * @dataProvider providerCharset
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCharset')]
     public function testCharset(string $filename, string $expectedResult): void
     {
         if ($expectedResult === 'exception') {

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ReplaceTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerREPLACE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerREPLACE')]
     public function testREPLACE(mixed $expectedResult, mixed $oldText = 'omitted', mixed $start = 'omitted', mixed $count = 'omitted', mixed $newText = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -45,9 +43,7 @@ class ReplaceTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
 
-    /**
-     * @dataProvider providerReplaceArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerReplaceArray')]
     public function testReplaceArray(
         array $expectedResult,
         string $oldText,

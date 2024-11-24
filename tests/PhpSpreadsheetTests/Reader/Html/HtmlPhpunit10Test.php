@@ -11,9 +11,8 @@ use PHPUnit\Framework\TestCase;
  * There were problems running this test in HtmlTest with PhpUnit 10.
  * This replacement seem to work. I want it run in a separate
  * process because I am nervous about set_error_handler.
- *
- * @runTestsInSeparateProcesses
  */
+#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class HtmlPhpunit10Test extends TestCase
 {
     private static string $errorString;

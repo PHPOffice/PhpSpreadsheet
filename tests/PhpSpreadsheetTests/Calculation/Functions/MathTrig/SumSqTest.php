@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class SumSqTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMSQ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMSQ')]
     public function testSUMSQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);

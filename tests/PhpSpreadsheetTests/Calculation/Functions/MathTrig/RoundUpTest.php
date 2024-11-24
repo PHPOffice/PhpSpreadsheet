@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RoundUpTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRoundUp
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundUp')]
     public function testRoundUp(float|int|string $expectedResult, float|int|string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class RoundUpTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ROUNDUP.php';
     }
 
-    /**
-     * @dataProvider providerRoundUpArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundUpArray')]
     public function testRoundUpArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
