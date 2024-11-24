@@ -3265,6 +3265,14 @@ class Worksheet
         if (isset($this->dataValidationCollection[$cellCoordinate])) {
             return $this->dataValidationCollection[$cellCoordinate];
         }
+        foreach ($this->dataValidationCollection as $dataValidation) {
+            $sqref = $dataValidation->getSqref() ?? '';
+            if (str_contains($sqref, ':')) {
+                if (Coordinate::coordinateIsInsideRange($sqref, $cellCoordinate)) {
+                    return $dataValidation;
+                }
+            }
+        }
 
         // else create data validation
         $this->dataValidationCollection[$cellCoordinate] = new DataValidation();
@@ -3297,7 +3305,17 @@ class Worksheet
      */
     public function dataValidationExists(string $coordinate): bool
     {
-        return isset($this->dataValidationCollection[$coordinate]);
+        if (isset($this->dataValidationCollection[$coordinate])) {
+            return true;
+        }
+        foreach ($this->dataValidationCollection as $dataValidation) {
+            $sqref = $dataValidation->getSqref() ?? '';
+            if (str_contains($sqref, ':')) {
+                if (Coordinate::coordinateIsInsideRange($sqref, $coordinate)) {
+                    return true;
+                }
+            }
+        }
     }
 
     /**
