@@ -1682,4 +1682,24 @@ return [
         '#,##0.00;;"---"',
     ],
     'issue 4124' => ['1 HUF', 1, '#,##0_-[$HUF]'],
+    'issue 4242-0' => [
+        'General $200 - 200', // expected result
+        'General $200 - 200', // cell contents
+        NumberFormat::FORMAT_GENERAL, // cell style
+    ],
+    'issue 4242-1' => [
+        'Text $200 - 200',
+        'Text $200 - 200',
+        NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242-2' => [
+        '"Hello" she said and "Hello" I replied',
+        '"Hello" she said and "Hello" I replied',
+        NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242-3' => [
+        'Text: $200 - 200',
+        '$200 - 200',
+        '"Text: "' . NumberFormat::FORMAT_TEXT,
+    ],
 ];

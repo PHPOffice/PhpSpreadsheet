@@ -126,7 +126,13 @@ class Formatter extends BaseFormatter
         // For now we do not treat strings in sections, although section 4 of a format code affects strings
         // Process a single block format code containing @ for text substitution
         if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $format) === 1) {
-            return str_replace('"', '', preg_replace(self::SYMBOL_AT, (string) $value, $format) ?? '');
+            if (!str_contains($format, '"')) {
+                return str_replace('@', $value, $format);
+            }
+            //escape any dollar signs on the string, so they are not replaced with an empty value
+            $value = str_replace('$', '\\$', (string) $value);
+
+            return str_replace('"', '', preg_replace(self::SYMBOL_AT, $value, $format) ?? $value);
         }
 
         // If we have a text value, return it "as is"

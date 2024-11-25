@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Ignore cell formatting when the format is a single @. [Issue #4242](https://github.com/PHPOffice/PhpSpreadsheet/issues/4242) [PR #4243](https://github.com/PHPOffice/PhpSpreadsheet/pull/4243)
 
 ## 2024-11-22 - 3.5.0
 
