@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperDVTest extends TestCase
 {
-
     public function testInsertRowsWithDataValidation(): void
     {
         $spreadsheet = new Spreadsheet();
