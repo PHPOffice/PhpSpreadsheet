@@ -94,6 +94,8 @@ class Settings
      * Set default options for libxml loader.
      *
      * @param ?int $options Default options for libxml loader
+     *
+     * @deprecated 3.5.0 no longer needed
      */
     public static function setLibXmlLoaderOptions(?int $options): int
     {
@@ -110,14 +112,12 @@ class Settings
      * Defaults to LIBXML_DTDLOAD | LIBXML_DTDATTR when not set explicitly.
      *
      * @return int Default options for libxml loader
+     *
+     * @deprecated 3.5.0 no longer needed
      */
     public static function getLibXmlLoaderOptions(): int
     {
-        if (self::$libXmlLoaderOptions === null) {
-            return self::setLibXmlLoaderOptions(null);
-        }
-
-        return self::$libXmlLoaderOptions;
+        return self::$libXmlLoaderOptions ?? (defined('LIBXML_DTDLOAD') ? (LIBXML_DTDLOAD | LIBXML_DTDATTR) : 0);
     }
 
     /**

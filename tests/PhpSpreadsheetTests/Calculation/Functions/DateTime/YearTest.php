@@ -12,18 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 class YearTest extends TestCase
 {
-    /**
-     * @dataProvider providerYEAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
     public function testDirectCallToYEAR(mixed $expectedResultExcel, mixed ...$args): void
     {
         $result = DateParts::year(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
-    /**
-     * @dataProvider providerYEAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
     public function testYEARAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -35,9 +31,7 @@ class YearTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerYEAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
     public function testYEARInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +54,7 @@ class YearTest extends TestCase
         return require 'tests/data/Calculation/DateTime/YEAR.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyYEAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyYEAR')]
     public function testYEARUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +80,7 @@ class YearTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerYearArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYearArray')]
     public function testYearArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class MatchTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMATCH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMATCH')]
     public function testMATCH(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         if (is_array($expectedResult)) {
@@ -39,9 +37,7 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerMATCH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMATCH')]
     public function testMATCHLibre(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         $this->setOpenOffice();
@@ -76,9 +72,7 @@ class MatchTest extends AllSetupTeardown
         return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }
 
-    /**
-     * @dataProvider providerMatchArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMatchArray')]
     public function testMatchArray(array $expectedResult, string $values, string $selections): void
     {
         $calculation = Calculation::getInstance();

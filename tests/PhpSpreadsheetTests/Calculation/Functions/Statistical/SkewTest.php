@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class SkewTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSKEW
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSKEW')]
     public function testSKEW(mixed $expectedResult, array $args): void
     {
         $this->runTestCaseReference('SKEW', $expectedResult, ...$args);

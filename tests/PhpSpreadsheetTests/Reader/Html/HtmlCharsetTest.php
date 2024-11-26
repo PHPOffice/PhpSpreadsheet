@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlCharsetTest extends TestCase
 {
-    /**
-     * @dataProvider providerCharset
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCharset')]
     public function testCharset(string $filename, string $expectedResult): void
     {
         if ($expectedResult === 'exception') {
@@ -40,6 +38,7 @@ class HtmlCharsetTest extends TestCase
             ['charset.UTF-16.lebom.html', 'À1'],
             ['charset.gb18030.html', '电视机'],
             ['charset.unknown.html', 'exception'],
+            ['xhtml4.entity.xhtml', 'exception'],
         ];
     }
 }

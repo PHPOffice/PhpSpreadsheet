@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
 {
-    /**
-     * @dataProvider providerINDEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINDEX')]
     public function testINDEX(mixed $expectedResult, mixed $matrix, mixed $rowNum = null, mixed $colNum = null): void
     {
         if ($rowNum === null) {
@@ -31,9 +29,7 @@ class IndexTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }
 
-    /**
-     * @dataProvider providerIndexArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIndexArray')]
     public function testIndexArray(array $expectedResult, string $matrix, string $rows, string $columns): void
     {
         $calculation = Calculation::getInstance();

@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class FvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFV')]
     public function testFV(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('FV', $expectedResult, $args);

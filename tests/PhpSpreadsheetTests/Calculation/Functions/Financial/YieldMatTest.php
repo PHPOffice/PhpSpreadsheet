@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class YieldMatTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerYIELDMAT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYIELDMAT')]
     public function testYIELDMAT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('YIELDMAT', $expectedResult, $args);

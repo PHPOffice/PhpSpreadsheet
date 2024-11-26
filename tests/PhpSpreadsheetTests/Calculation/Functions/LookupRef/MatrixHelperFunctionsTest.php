@@ -9,18 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class MatrixHelperFunctionsTest extends TestCase
 {
-    /**
-     * @dataProvider columnVectorProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('columnVectorProvider')]
     public function testIsColumnVector(bool $expectedResult, array $array): void
     {
         $result = Matrix::isColumnVector($array);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider rowVectorProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rowVectorProvider')]
     public function testIsRowVector(bool $expectedResult, array $array): void
     {
         $result = Matrix::isRowVector($array);

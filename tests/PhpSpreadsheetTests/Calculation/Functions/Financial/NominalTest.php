@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class NominalTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNOMINAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNOMINAL')]
     public function testNOMINAL(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOMINAL', $expectedResult, $args);

@@ -26,9 +26,7 @@ class Dec2HexTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerDEC2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2HEX')]
     public function testDirectCallToDEC2HEX(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         $result = ($digits === null) ? ConvertDecimal::toHex($value) : ConvertDecimal::toHex($value, $digits);
@@ -40,9 +38,7 @@ class Dec2HexTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerDEC2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2HEX')]
     public function testDEC2HEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,9 +51,7 @@ class Dec2HexTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerDEC2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2HEX')]
     public function testDEC2HEXInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -80,9 +74,7 @@ class Dec2HexTest extends TestCase
         return require 'tests/data/Calculation/Engineering/DEC2HEX.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDEC2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDEC2HEX')]
     public function testDEC2HEXUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,9 +100,7 @@ class Dec2HexTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDEC2HEXOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2HEXOds')]
     public function testDEC2HEXOds(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -152,9 +142,7 @@ class Dec2HexTest extends TestCase
         self::assertEquals('FFFFFFFFFF', ConvertDecimal::hex32bit(-1, 'FFFFFFFF', true));
     }
 
-    /**
-     * @dataProvider providerDec2HexArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDec2HexArray')]
     public function testDec2HexArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

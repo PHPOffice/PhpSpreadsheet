@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingExpressionTest extends TestCase
 {
-    /**
-     * @dataProvider conditionalFormattingProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('conditionalFormattingProvider')]
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/CF_Expression_Comparisons.xls';

@@ -24,9 +24,7 @@ class ExpressionWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    /**
-     * @dataProvider expressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('expressionDataProvider')]
     public function testExpressionWizard(string $expression, string $expectedExpression): void
     {
         $ruleType = Wizard::EXPRESSION;
@@ -46,9 +44,7 @@ class ExpressionWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    /**
-     * @dataProvider expressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('expressionDataProvider')]
     public function testExpressionWizardUsingAlias(string $expression, string $expectedExpression): void
     {
         $ruleType = Wizard::EXPRESSION;

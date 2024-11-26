@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CoupPcdTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUPPCD
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUPPCD')]
     public function testCOUPPCD(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPPCD', $expectedResult, $args);

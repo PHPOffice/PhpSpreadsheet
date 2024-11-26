@@ -24,9 +24,7 @@ class DateValueWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    /**
-     * @dataProvider dateValueWizardProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dateValueWizardProvider')]
     public function testDateValueWizard(string $operator, string $expectedReference, string $expectedExpression): void
     {
         $ruleType = Wizard::DATES_OCCURRING;

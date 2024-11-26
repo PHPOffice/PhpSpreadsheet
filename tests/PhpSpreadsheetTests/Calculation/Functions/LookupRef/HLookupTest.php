@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class HLookupTest extends TestCase
 {
-    /**
-     * @dataProvider providerHLOOKUP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLOOKUP')]
     public function testHLOOKUP(mixed $expectedResult, mixed $lookup, array $values, mixed $rowIndex, ?bool $rangeLookup = null): void
     {
         $spreadsheet = new Spreadsheet();
@@ -72,9 +70,7 @@ class HLookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }
 
-    /**
-     * @dataProvider providerHLookupNamedRange
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLookupNamedRange')]
     public function testHLookupNamedRange(string $expectedResult, string $cellAddress): void
     {
         $lookupData = [
@@ -110,9 +106,7 @@ class HLookupTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerHLookupArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLookupArray')]
     public function testHLookupArray(array $expectedResult, string $values, string $database, string $index): void
     {
         $calculation = Calculation::getInstance();

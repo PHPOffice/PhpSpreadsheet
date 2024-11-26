@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvEncodingTest extends TestCase
 {
-    /**
-     * @dataProvider providerEncodings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
     public function testEncodings(string $filename, string $encoding): void
     {
         $reader = new Csv();
@@ -21,9 +19,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('Å', $sheet->getCell('A1')->getValue());
     }
 
-    /**
-     * @dataProvider providerEncodings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
     public function testWorkSheetInfo(string $filename, string $encoding): void
     {
         $reader = new Csv();
@@ -51,9 +47,7 @@ class CsvEncodingTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerGuessEncoding
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
     public function testGuessEncoding(string $filename): void
     {
         $reader = new Csv();
@@ -86,9 +80,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('�', $sheet->getCell('C3')->getValue());
     }
 
-    /**
-     * @dataProvider providerGuessEncoding
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
     public function testFallbackEncoding(string $filename): void
     {
         $reader = new Csv();

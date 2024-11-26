@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class StandardizeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSTANDARDIZE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSTANDARDIZE')]
     public function testSTANDARDIZE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('STANDARDIZE', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class StandardizeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/STANDARDIZE.php';
     }
 
-    /**
-     * @dataProvider providerStandardizeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerStandardizeArray')]
     public function testStandardizeArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();

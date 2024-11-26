@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FisherTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFISHER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFISHER')]
     public function testFISHER(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHER', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class FisherTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/FISHER.php';
     }
 
-    /**
-     * @dataProvider providerFisherArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFisherArray')]
     public function testFisherArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

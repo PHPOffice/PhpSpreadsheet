@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 class IfTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerIF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIF')]
     public function testIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IF', $expectedResult, ...$args);

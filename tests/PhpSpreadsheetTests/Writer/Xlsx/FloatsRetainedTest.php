@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class FloatsRetainedTest extends TestCase
 {
-    /**
-     * @dataProvider providerIntyFloatsRetainedByWriter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIntyFloatsRetainedByWriter')]
     public function testIntyFloatsRetainedByWriter(float|int $value): void
     {
         $outputFilename = File::temporaryFilename();

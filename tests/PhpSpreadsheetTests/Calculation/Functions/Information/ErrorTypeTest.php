@@ -16,9 +16,7 @@ class ErrorTypeTest extends TestCase
         self::assertSame(ExcelError::NA(), $result);
     }
 
-    /**
-     * @dataProvider providerErrorType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerErrorType')]
     public function testErrorType(int|string $expectedResult, mixed $value): void
     {
         $result = ExcelError::type($value);
@@ -30,9 +28,7 @@ class ErrorTypeTest extends TestCase
         return require 'tests/data/Calculation/Information/ERROR_TYPE.php';
     }
 
-    /**
-     * @dataProvider providerErrorTypeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerErrorTypeArray')]
     public function testErrorTypeArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

@@ -29,9 +29,7 @@ class CalculationSettingsTest extends TestCase
         $calculation->setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerCanLoadAllSupportedLocales
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCanLoadAllSupportedLocales')]
     public function testCanLoadAllSupportedLocales(string $locale): void
     {
         $calculation = Calculation::getInstance();

@@ -11,9 +11,7 @@ class HyperlinkTest extends AllSetupTeardown
 {
     private bool $issue2464 = true;
 
-    /**
-     * @dataProvider providerHYPERLINK
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPERLINK')]
     public function testHYPERLINK(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +37,7 @@ class HyperlinkTest extends AllSetupTeardown
         }
     }
 
-    /**
-     * @dataProvider providerHYPERLINK
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPERLINK')]
     public function testHYPERLINKcellRef(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);

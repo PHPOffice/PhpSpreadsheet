@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ModeTest extends TestCase
 {
-    /**
-     * @dataProvider providerMODE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMODE')]
     public function testMODE(mixed $expectedResult, string $str): void
     {
         $workbook = new Spreadsheet();

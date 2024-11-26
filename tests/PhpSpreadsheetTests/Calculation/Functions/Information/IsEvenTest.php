@@ -17,9 +17,7 @@ class IsEvenTest extends TestCase
         self::assertSame(ExcelError::NAME(), $result);
     }
 
-    /**
-     * @dataProvider providerIsEven
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEven')]
     public function testIsEven(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isEven($value);
@@ -31,9 +29,7 @@ class IsEvenTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_EVEN.php';
     }
 
-    /**
-     * @dataProvider providerIsEvenArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEvenArray')]
     public function testIsEvenArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

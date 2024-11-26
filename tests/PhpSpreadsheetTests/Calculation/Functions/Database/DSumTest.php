@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DSumTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDSum
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
     public function testDirectCallToDSum(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DSum::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDSum
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
     public function testDSumAsWorksheetFormula(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSUM', $database, $field, $criteria);

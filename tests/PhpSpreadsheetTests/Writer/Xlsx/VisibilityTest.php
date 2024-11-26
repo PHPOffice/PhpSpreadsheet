@@ -10,9 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class VisibilityTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider dataProviderRowVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderRowVisibility')]
     public function testRowVisibility(array $visibleRows): void
     {
         $spreadsheet = new Spreadsheet();
@@ -38,9 +36,7 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderColumnVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderColumnVisibility')]
     public function testColumnVisibility(array $visibleColumns): void
     {
         $spreadsheet = new Spreadsheet();
@@ -66,9 +62,7 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderSheetVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderSheetVisibility')]
     public function testSheetVisibility(array $visibleSheets): void
     {
         $spreadsheet = new Spreadsheet();

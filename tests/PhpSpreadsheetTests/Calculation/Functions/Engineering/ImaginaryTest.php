@@ -21,18 +21,14 @@ class ImaginaryTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    /**
-     * @dataProvider providerIMAGINARY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
     public function testDirectCallToIMAGINARY(float|int|string $expectedResult, float|int|string $arg): void
     {
         $result = Complex::IMAGINARY((string) $arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMAGINARY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
     public function testIMAGINARYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -44,9 +40,7 @@ class ImaginaryTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMAGINARY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
     public function testIMAGINARYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -69,9 +63,7 @@ class ImaginaryTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMAGINARY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMAGINARY')]
     public function testIMAGINARYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -97,9 +89,7 @@ class ImaginaryTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImaginaryArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImaginaryArray')]
     public function testImaginaryArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

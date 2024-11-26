@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class IfNaTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerIFNA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFNA')]
     public function testIFNA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFNA', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class IfNaTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFNA.php';
     }
 
-    /**
-     * @dataProvider providerIfNaArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfNaArray')]
     public function testIfNaArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

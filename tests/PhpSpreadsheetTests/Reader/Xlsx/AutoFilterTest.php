@@ -30,9 +30,7 @@ class AutoFilterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider loadDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('loadDataProvider')]
     public function testLoad(string $ref, int $expectedReadAutoFilterCalled, string $expectedRef): void
     {
         $worksheetAutoFilter = $this->getMockBuilder(WorksheetAutoFilter::class)
