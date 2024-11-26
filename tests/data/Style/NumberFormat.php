@@ -1682,24 +1682,44 @@ return [
         '#,##0.00;;"---"',
     ],
     'issue 4124' => ['1 HUF', 1, '#,##0_-[$HUF]'],
-    'issue 4242-0' => [
+    'issue 4242 General with dollar sign' => [
         'General $200 - 200', // expected result
         'General $200 - 200', // cell contents
         NumberFormat::FORMAT_GENERAL, // cell style
     ],
-    'issue 4242-1' => [
+    'issue 4242 Text with dollar sign' => [
         'Text $200 - 200',
         'Text $200 - 200',
         NumberFormat::FORMAT_TEXT,
     ],
-    'issue 4242-2' => [
+    'issue 4242 Text with quotes, format without' => [
         '"Hello" she said and "Hello" I replied',
         '"Hello" she said and "Hello" I replied',
         NumberFormat::FORMAT_TEXT,
     ],
-    'issue 4242-3' => [
+    'issue 4242 Format with quotes, text without' => [
         'Text: $200 - 200',
         '$200 - 200',
+        '"Text: "' . NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242 single quote mark' => [
+        '"',
+        '"',
+        '@',
+    ],
+    'issue 4242 dollar sign' => [
+        '$100',
+        '$100',
+        '@',
+    ],
+    'issue 4242 repeat unquoted at signs' => [
+        'xy xy xy',
+        'xy',
+        '@ @ @',
+    ],
+    'issue 4242 quotes in format and text' => [
+        'Text: "Hooray" for me',
+        '"Hooray" for me',
         '"Text: "' . NumberFormat::FORMAT_TEXT,
     ],
 ];

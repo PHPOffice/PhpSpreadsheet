@@ -14,6 +14,7 @@ class Formatter extends BaseFormatter
      * Matches any @ symbol that isn't enclosed in quotes.
      */
     private const SYMBOL_AT = '/@(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
+    private const QUOTE_REPLACEMENT = "\u{fffe}"; // invalid Unicode character
 
     /**
      * Matches any ; symbol that isn't enclosed in quotes, for a "section" split.
@@ -130,9 +131,17 @@ class Formatter extends BaseFormatter
                 return str_replace('@', $value, $format);
             }
             //escape any dollar signs on the string, so they are not replaced with an empty value
-            $value = str_replace('$', '\\$', (string) $value);
+            $value = str_replace(
+                ['$', '"'],
+                ['\\$', self::QUOTE_REPLACEMENT],
+                (string) $value
+            );
 
-            return str_replace('"', '', preg_replace(self::SYMBOL_AT, $value, $format) ?? $value);
+            return str_replace(
+                ['"', self::QUOTE_REPLACEMENT],
+                ['', '"'],
+                preg_replace(self::SYMBOL_AT, $value, $format) ?? $value
+            );
         }
 
         // If we have a text value, return it "as is"
