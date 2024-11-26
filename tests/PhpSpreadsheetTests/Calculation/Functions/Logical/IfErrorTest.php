@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class IfErrorTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerIFERROR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFERROR')]
     public function testIFERROR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFERROR', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class IfErrorTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
 
-    /**
-     * @dataProvider providerIfErrorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfErrorArray')]
     public function testIfErrorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

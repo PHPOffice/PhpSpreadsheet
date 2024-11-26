@@ -25,9 +25,7 @@ class ImLog2Test extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMLOG2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLOG2')]
     public function testDirectCallToIMLOG2(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMLOG2($arg);
@@ -42,9 +40,7 @@ class ImLog2Test extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMLOG2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLOG2')]
     public function testIMLOG2AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImLog2Test extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMLOG2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMLOG2')]
     public function testIMLOG2InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImLog2Test extends TestCase
         return require 'tests/data/Calculation/Engineering/IMLOG2.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMLOG2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMLOG2')]
     public function testIMLOG2UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImLog2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImLog2Array
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImLog2Array')]
     public function testImLog2Array(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

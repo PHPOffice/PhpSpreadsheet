@@ -82,7 +82,7 @@ class ExactFontTest extends TestCase
         $this->directoryName = '';
     }
 
-    /** @dataProvider providerFontData */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFontData')]
     public function testExact(string $fontName, float $excelWidth, float $xmlWidth, float $winWidth, float $ubuntuWidth): void
     {
         if ($this->incompleteMessage !== '') {

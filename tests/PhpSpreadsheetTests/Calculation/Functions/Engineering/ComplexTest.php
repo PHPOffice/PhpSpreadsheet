@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComplexTest extends TestCase
 {
-    /**
-     * @dataProvider providerCOMPLEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
     public function testDirectCallToCOMPLEX(mixed $expectedResult, mixed ...$args): void
     {
         $result = Complex::complex(...$args);
@@ -26,9 +24,7 @@ class ComplexTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerCOMPLEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
     public function testCOMPLEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -41,9 +37,7 @@ class ComplexTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerCOMPLEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
     public function testCOMPLEXInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -66,9 +60,7 @@ class ComplexTest extends TestCase
         return require 'tests/data/Calculation/Engineering/COMPLEX.php';
     }
 
-    /**
-     * @dataProvider providerComplexArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerComplexArray')]
     public function testComplexArray(array $expectedResult, string $real, string $imaginary): void
     {
         $calculation = Calculation::getInstance();

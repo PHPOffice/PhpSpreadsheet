@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class InternalFunctionsTest extends TestCase
 {
-    /**
-     * @dataProvider anchorArrayDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('anchorArrayDataProvider')]
     public function testAnchorArrayFormula(string $reference, string $range, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -51,9 +49,7 @@ class InternalFunctionsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider singleDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('singleDataProvider')]
     public function testSingleArrayFormula(string $reference, mixed $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();

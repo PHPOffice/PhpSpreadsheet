@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class AmorDegRcTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAMORDEGRC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAMORDEGRC')]
     public function testAMORDEGRC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('AMORDEGRC', $expectedResult, $args);

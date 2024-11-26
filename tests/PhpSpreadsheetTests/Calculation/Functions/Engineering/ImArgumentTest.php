@@ -21,18 +21,14 @@ class ImArgumentTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    /**
-     * @dataProvider providerIMARGUMENT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMARGUMENT')]
     public function testDirectCallToIMARGUMENT(float|int|string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMARGUMENT($arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMARGUMENT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMARGUMENT')]
     public function testIMARGUMENTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -44,9 +40,7 @@ class ImArgumentTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMARGUMENT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMARGUMENT')]
     public function testIMARGUMENTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -69,9 +63,7 @@ class ImArgumentTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMARGUMENT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMARGUMENT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMARGUMENT')]
     public function testIMARGUMENTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CodeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCODE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCODE')]
     public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -30,9 +28,7 @@ class CodeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/CODE.php';
     }
 
-    /**
-     * @dataProvider providerCodeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCodeArray')]
     public function testCodeArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    /**
-     * @dataProvider dataValidationProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataValidationProvider')]
     public function testDataValidation(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/DataValidation.xls';

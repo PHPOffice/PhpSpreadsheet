@@ -13,9 +13,7 @@ use XMLReader;
 
 class XmlScannerTest extends TestCase
 {
-    /**
-     * @dataProvider providerValidXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXML')]
     public function testValidXML(string $filename, string $expectedResult): void
     {
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
@@ -41,9 +39,7 @@ class XmlScannerTest extends TestCase
         return $tests;
     }
 
-    /**
-     * @dataProvider providerInvalidXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXML')]
     public function testInvalidXML(string $filename): void
     {
         $this->expectException(ReaderException::class);
@@ -94,9 +90,7 @@ class XmlScannerTest extends TestCase
         $fileReader->getSecurityScannerOrThrow();
     }
 
-    /**
-     * @dataProvider providerValidXMLForCallback
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXMLForCallback')]
     public function testSecurityScanWithCallback(string $filename, string $expectedResult): void
     {
         $fileReader = new Xlsx();
@@ -136,9 +130,7 @@ class XmlScannerTest extends TestCase
         self::assertSame($input, $output);
     }
 
-    /**
-     * @dataProvider providerInvalidXlsx
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXlsx')]
     public function testInvalidXlsx(string $filename, string $message): void
     {
         $this->expectException(ReaderException::class);
@@ -160,9 +152,7 @@ class XmlScannerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerValidUtf16
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidUtf16')]
     public function testValidUtf16(string $filename): void
     {
         $reader = new Xlsx();

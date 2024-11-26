@@ -24,9 +24,7 @@ class BinaryComparisonTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBinaryComparison
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryComparison')]
     public function testBinaryComparisonOperation(
         mixed $operand1,
         mixed $operand2,

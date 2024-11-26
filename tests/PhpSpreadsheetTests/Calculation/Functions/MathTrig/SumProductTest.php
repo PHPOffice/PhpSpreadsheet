@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SumProductTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMPRODUCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMPRODUCT')]
     public function testSUMPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();

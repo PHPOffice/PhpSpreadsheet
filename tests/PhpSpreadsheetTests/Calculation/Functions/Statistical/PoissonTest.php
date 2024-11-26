@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class PoissonTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPOISSON
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPOISSON')]
     public function testPOISSON(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('POISSON', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class PoissonTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/POISSON.php';
     }
 
-    /**
-     * @dataProvider providerPoissonArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPoissonArray')]
     public function testPoissonArray(array $expectedResult, string $values, string $mean): void
     {
         $calculation = Calculation::getInstance();

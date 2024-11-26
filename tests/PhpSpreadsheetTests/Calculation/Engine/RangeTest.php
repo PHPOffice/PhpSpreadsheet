@@ -33,9 +33,7 @@ class RangeTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerRangeEvaluation
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeEvaluation')]
     public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -97,9 +95,7 @@ class RangeTest extends TestCase
         $workSheet->getCell('E1')->getCalculatedValue();
     }
 
-    /**
-     * @dataProvider providerNamedRangeEvaluation
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNamedRangeEvaluation')]
     public function testNamedRangeEvaluation(array $ranges, string $formula, int $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -134,11 +130,10 @@ class RangeTest extends TestCase
     }
 
     /**
-     * @dataProvider providerUTF8NamedRangeEvaluation
-     *
      * @param string[] $names
      * @param string[] $ranges
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUTF8NamedRangeEvaluation')]
     public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, int $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -162,9 +157,7 @@ class RangeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCompositeNamedRangeEvaluation
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompositeNamedRangeEvaluation')]
     public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
         if ($this->incompleteMessage !== '') {

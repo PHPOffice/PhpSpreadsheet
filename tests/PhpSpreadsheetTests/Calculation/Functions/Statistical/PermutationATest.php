@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class PermutationATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPERMUT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPERMUT')]
     public function testPERMUT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('PERMUTATIONA', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class PermutationATest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/PERMUTATIONA.php';
     }
 
-    /**
-     * @dataProvider providerPermutationAArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPermutationAArray')]
     public function testPermutationAArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

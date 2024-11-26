@@ -20,9 +20,7 @@ class CsvNumberFormatTest extends TestCase
         $this->csvReader = new Csv();
     }
 
-    /**
-     * @dataProvider providerNumberFormatNoConversionTest
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatNoConversionTest')]
     public function testNumberFormatNoConversion(int|string $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         $spreadsheet = $this->csvReader->load($this->filename);
@@ -55,9 +53,7 @@ class CsvNumberFormatTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberValueConversionTest
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberValueConversionTest')]
     public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         $this->csvReader->castFormattedNumberToNumeric(true);
@@ -104,9 +100,7 @@ class CsvNumberFormatTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberFormatConversionTest
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatConversionTest')]
     public function testNumberFormatConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         $this->csvReader->castFormattedNumberToNumeric(true, true);

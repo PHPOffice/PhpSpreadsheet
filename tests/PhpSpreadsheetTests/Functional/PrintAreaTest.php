@@ -17,9 +17,7 @@ class PrintAreaTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testPageSetup(string $format): void
     {
         // Create new workbook with 6 sheets and different print areas

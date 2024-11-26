@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class TrimMeanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTRIMMEAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTRIMMEAN')]
     public function testTRIMMEAN(mixed $expectedResult, array $args, mixed $percentage): void
     {
         $this->runTestCaseReference('TRIMMEAN', $expectedResult, $args, $percentage);

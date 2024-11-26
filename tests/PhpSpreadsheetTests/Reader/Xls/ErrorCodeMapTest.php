@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ErrorCodeMapTest extends TestCase
 {
-    /**
-     * @dataProvider errorCodeMapProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('errorCodeMapProvider')]
     public function testErrorCode(bool|string $expected, int $index): void
     {
         self::assertSame($expected, ErrorCode::lookup($index));

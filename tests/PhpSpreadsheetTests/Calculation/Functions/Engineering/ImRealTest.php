@@ -21,18 +21,14 @@ class ImRealTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    /**
-     * @dataProvider providerIMREAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMREAL')]
     public function testDirectCallToIMREAL(float|int|string $expectedResult, float|int|string $arg): void
     {
         $result = Complex::IMREAL((string) $arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMREAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMREAL')]
     public function testIMREALAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -44,9 +40,7 @@ class ImRealTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMREAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMREAL')]
     public function testIMREALInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -69,9 +63,7 @@ class ImRealTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMREAL.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMREAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMREAL')]
     public function testIMREALUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -97,9 +89,7 @@ class ImRealTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImRealArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImRealArray')]
     public function testImRealArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

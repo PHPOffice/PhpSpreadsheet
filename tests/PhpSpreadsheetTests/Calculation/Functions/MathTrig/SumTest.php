@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class SumTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUM')]
     public function testSUM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
@@ -29,9 +27,7 @@ class SumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUM.php';
     }
 
-    /**
-     * @dataProvider providerSUMLiterals
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMLiterals')]
     public function testSUMLiterals(mixed $expectedResult, string $args): void
     {
         $sheet = $this->getSheet();
@@ -45,9 +41,7 @@ class SumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
     }
 
-    /**
-     * @dataProvider providerSUMWITHINDEXMATCH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMWITHINDEXMATCH')]
     public function testSumWithIndexMatch(mixed $expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

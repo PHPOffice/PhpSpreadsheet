@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReferenceHelper4Test extends TestCase
 {
-    /**
-     * @dataProvider dataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
     public function testIssue3907(string $expectedResult, string $settingsTitle, string $formula, string $dataTitle = 'DATA'): void
     {
         $spreadsheet = new Spreadsheet();

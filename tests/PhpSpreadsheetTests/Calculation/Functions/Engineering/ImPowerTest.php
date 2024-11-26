@@ -25,9 +25,7 @@ class ImPowerTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMPOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
     public function testDirectCallToIMPOWER(float|int|string $expectedResult, string $arg1, float|int|string $arg2): void
     {
         $result = ComplexFunctions::IMPOWER($arg1, $arg2);
@@ -42,9 +40,7 @@ class ImPowerTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMPOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
     public function testIMPOWERAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImPowerTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMPOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
     public function testIMPOWERInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImPowerTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMPOWER.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMPOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMPOWER')]
     public function testIMPOWERUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImPowerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImPowerArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImPowerArray')]
     public function testImPowerArray(array $expectedResult, string $complex, string $real): void
     {
         $calculation = Calculation::getInstance();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class SumIfsTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMIFS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMIFS')]
     public function testSUMIFS(mixed $expectedResult, mixed ...$args): void
     {
         $result = Statistical\Conditional::SUMIFS(...$args);

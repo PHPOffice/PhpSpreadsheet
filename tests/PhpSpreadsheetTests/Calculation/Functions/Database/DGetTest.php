@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DGetTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDGet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDGet')]
     public function testDirectCallToDGet(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DGet::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDGet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDGet')]
     public function testDGetAsWorksheetFormula(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DGET', $database, $field, $criteria);

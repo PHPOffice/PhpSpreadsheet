@@ -24,9 +24,7 @@ class CellValueWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    /**
-     * @dataProvider basicCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicCellValueDataProvider')]
     public function testBasicCellValueWizard(string $operator, mixed $operand, string $expectedOperator, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -63,9 +61,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider relativeCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('relativeCellValueDataProvider')]
     public function testRelativeCellValueWizard(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -94,9 +90,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider formulaCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('formulaCellValueDataProvider')]
     public function testCellValueWizardWithFormula(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -129,9 +123,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeCellValueDataProvider')]
     public function testRangeCellValueWizard(string $operator, array $operands, string $expectedOperator): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -161,9 +153,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeRelativeCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeRelativeCellValueDataProvider')]
     public function testRelativeRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -193,9 +183,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeFormulaCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeFormulaCellValueDataProvider')]
     public function testFormulaRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;

@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class Font2Test extends TestCase
 {
-    /**
-     * @dataProvider providerCharsetFromFontName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCharsetFromFontName')]
     public function testCharsetFromFontName(string $fontName, int $expectedResult): void
     {
         $result = Font::getCharsetFromFontName($fontName);

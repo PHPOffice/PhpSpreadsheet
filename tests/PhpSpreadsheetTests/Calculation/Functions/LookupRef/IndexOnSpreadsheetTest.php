@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 class IndexOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINDEXonSpreadsheet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINDEXonSpreadsheet')]
     public function testIndexOnSpreadsheet(mixed $expectedResult, array $matrix, null|int|string $rowNum = null, null|int|string $colNum = null): void
     {
         $this->mightHaveException($expectedResult);
@@ -35,9 +33,7 @@ class IndexOnSpreadsheetTest extends AllSetupTeardown
         return require 'tests/data/Calculation/LookupRef/INDEXonSpreadsheet.php';
     }
 
-    /**
-     * @dataProvider providerIndexLiteralArrays
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIndexLiteralArrays')]
     public function testLiteralArrays(mixed $expectedResult, string $indexArgs): void
     {
         $sheet = $this->getSheet();

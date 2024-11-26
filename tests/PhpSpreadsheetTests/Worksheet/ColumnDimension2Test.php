@@ -11,9 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ColumnDimension2Test extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerType')]
     public function testSetsAndDefaults(string $type): void
     {
         $columns = ['J', 'A', 'F', 'M', 'N', 'T', 'S'];

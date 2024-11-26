@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class PowerTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPOWER')]
     public function testPOWER(mixed $expectedResult, mixed $base = 'omitted', mixed $exponent = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -37,9 +35,7 @@ class PowerTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/POWER.php';
     }
 
-    /**
-     * @dataProvider providerPowerArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPowerArray')]
     public function testPowerArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
