@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.29.6 - TBD
+
+### Fixed
+
+- Fix Minor Break Handling Drawings. Backport of [PR #4244](https://github.com/PHPOffice/PhpSpreadsheet/pull/4244)
+
 ## 1.29.5 - 2024-11-22
 
 ### Changed
