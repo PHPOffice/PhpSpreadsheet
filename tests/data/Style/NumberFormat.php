@@ -1722,4 +1722,9 @@ return [
         '"Hooray" for me',
         '"Text: "' . NumberFormat::FORMAT_TEXT,
     ],
+    'issue 4242 escaped quote in format' => [
+        '"Hello"',
+        'Hello',
+        '\\"@\\"',
+    ],
 ];

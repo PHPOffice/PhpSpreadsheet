@@ -126,7 +126,8 @@ class Formatter extends BaseFormatter
         }
         // For now we do not treat strings in sections, although section 4 of a format code affects strings
         // Process a single block format code containing @ for text substitution
-        if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $format) === 1) {
+        $formatx = str_replace('\\"', self::QUOTE_REPLACEMENT, $format);
+        if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
             if (!str_contains($format, '"')) {
                 return str_replace('@', $value, $format);
             }
@@ -140,7 +141,7 @@ class Formatter extends BaseFormatter
             return str_replace(
                 ['"', self::QUOTE_REPLACEMENT],
                 ['', '"'],
-                preg_replace(self::SYMBOL_AT, $value, $format) ?? $value
+                preg_replace(self::SYMBOL_AT, $value, $formatx) ?? $value
             );
         }
 
