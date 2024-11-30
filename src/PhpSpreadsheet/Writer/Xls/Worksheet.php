@@ -2875,9 +2875,9 @@ class Worksheet extends BIFFwriter
             $bFormatBorder = 0;
         }
         // Pattern
-        $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
-        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
-        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
+        $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() == null ? 0 : 1);
+        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
+        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
         if ($bFillStyle == 1 || $bFillColor == 1 || $bFillColorBg == 1) {
             $bFormatFill = 1;
         } else {
