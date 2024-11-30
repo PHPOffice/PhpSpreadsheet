@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ChooseTest extends TestCase
 {
-    /**
-     * @dataProvider providerCHOOSE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHOOSE')]
     public function testCHOOSE(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Selection::choose(...$args);
@@ -24,9 +22,7 @@ class ChooseTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }
 
-    /**
-     * @dataProvider providerChooseArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChooseArray')]
     public function testChooseArray(array $expectedResult, string $values, array $selections): void
     {
         $calculation = Calculation::getInstance();

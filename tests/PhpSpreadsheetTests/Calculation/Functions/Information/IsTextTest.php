@@ -16,9 +16,7 @@ class IsTextTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsText')]
     public function testIsText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isText($value);
@@ -30,9 +28,7 @@ class IsTextTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_TEXT.php';
     }
 
-    /**
-     * @dataProvider providerIsTextArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsTextArray')]
     public function testIsTextArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

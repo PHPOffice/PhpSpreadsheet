@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class SumIfTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMIF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMIF')]
     public function testSUMIF2(mixed $expectedResult, array $array1, mixed $condition, ?array $array2 = null): void
     {
         $this->mightHaveException($expectedResult);

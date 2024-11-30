@@ -31,9 +31,7 @@ class FormulaParserTest extends TestCase
         self::assertSame(0, $result->getTokenCount());
     }
 
-    /**
-     * @dataProvider providerFormulaParser
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulaParser')]
     public function testFormulaParser(string $formula, array $expectedResult): void
     {
         $formula = "=$formula";

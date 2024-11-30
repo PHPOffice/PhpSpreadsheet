@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class SlopeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSLOPE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSLOPE')]
     public function testSLOPE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('SLOPE', $expectedResult, ...$args);

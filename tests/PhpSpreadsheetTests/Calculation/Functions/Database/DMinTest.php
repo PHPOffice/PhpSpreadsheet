@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DMinTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDMin
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDMin')]
     public function testDirectCallToDMin(int|float|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $result = DMin::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDMin
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDMin')]
     public function testDMinAsWorksheetFormula(int|float|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DMIN', $database, $field, $criteria);

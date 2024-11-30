@@ -49,9 +49,8 @@ class LocaleFloatsTest extends AbstractFunctional
 
     /**
      * Use separate process because this calls native Php setlocale.
-     *
-     * @runInSeparateProcess
      */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testLocaleFloatsCorrectlyConvertedByWriter(): void
     {
         if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra.utf8')) {
@@ -105,9 +104,8 @@ class LocaleFloatsTest extends AbstractFunctional
 
     /**
      * Use separate process because this calls native Php setlocale.
-     *
-     * @runInSeparateProcess
      */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testPercentageStoredAsString2(): void
     {
         if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra.utf8')) {

@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 // TODO run test in spreadsheet context
 class LogEstTest extends TestCase
 {
-    /**
-     * @dataProvider providerLOGEST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGEST')]
     public function testLOGEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LOGEST($yValues, $xValues, $const, $stats);

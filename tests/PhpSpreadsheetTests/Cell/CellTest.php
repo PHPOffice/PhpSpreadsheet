@@ -76,9 +76,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerSetValueExplicit
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSetValueExplicit')]
     public function testSetValueExplicit(mixed $expected, mixed $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();
@@ -105,9 +103,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($dateValue, DataType::TYPE_ISO_DATE);
     }
 
-    /**
-     * @dataProvider providerSetValueExplicitException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSetValueExplicitException')]
     public function testSetValueExplicitException(mixed $value, string $dataType): void
     {
         $this->expectException(Exception::class);
@@ -250,9 +246,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider appliedStyling
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('appliedStyling')]
     public function testAppliedStyleSingleCell(string $cellAddress, string $fillStyle, ?string $fillColor): void
     {
         $spreadsheet = new Spreadsheet();

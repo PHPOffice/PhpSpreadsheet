@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class NpvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNPV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNPV')]
     public function testNPV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NPV', $expectedResult, $args);

@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class PercentageTest extends TestCase
 {
-    /**
-     * @dataProvider providerPercentage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentage')]
     public function testPercentage(string $expectedResult, int $decimals): void
     {
         $wizard = new Percentage($decimals);
@@ -32,9 +30,7 @@ class PercentageTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentageLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentageLocale')]
     public function testPercentageLocale(
         string $expectedResult,
         string $locale

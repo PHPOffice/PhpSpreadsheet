@@ -94,9 +94,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider mergeCellsMergeBehaviourProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('mergeCellsMergeBehaviourProvider')]
     public function testMergeCellsMergeBehaviour(array $testData, string $mergeRange, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();

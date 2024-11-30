@@ -24,9 +24,7 @@ class ArrayFormulaValidationTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider validationProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('validationProvider')]
     public function testWriteArrayFormulaValidation(string $formula): void
     {
         $spreadsheet = new Spreadsheet();

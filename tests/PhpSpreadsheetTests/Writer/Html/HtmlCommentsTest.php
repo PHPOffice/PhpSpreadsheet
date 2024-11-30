@@ -77,9 +77,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerCommentRichText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCommentRichText')]
     public function testComments(RichText $richText, string $expected): void
     {
         $spreadsheet = new Spreadsheet();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @covers \PhpOffice\PhpSpreadsheet\Helper\Sample
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(Sample::class)]
 class SampleCoverageTest extends TestCase
 {
     public function testSample(): void

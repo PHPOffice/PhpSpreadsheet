@@ -42,9 +42,7 @@ class CellMatcherTest extends TestCase
         return $cfRange;
     }
 
-    /**
-     * @dataProvider basicCellIsComparisonDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicCellIsComparisonDataProvider')]
     public function testBasicCellIsComparison(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -112,9 +110,7 @@ class CellMatcherTest extends TestCase
         $this->spreadsheet->getSheetByNameOrThrow($sheetname);
     }
 
-    /**
-     * @dataProvider rangeCellIsComparisonDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeCellIsComparisonDataProvider')]
     public function testRangeCellIsComparison(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -153,9 +149,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider cellIsExpressionMultipleDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellIsExpressionMultipleDataProvider')]
     public function testCellIsMultipleExpression(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -187,9 +181,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider cellIsExpressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellIsExpressionDataProvider')]
     public function testCellIsExpression(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -231,9 +223,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider textExpressionsDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('textExpressionsDataProvider')]
     public function testTextExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -339,9 +329,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider blanksDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('blanksDataProvider')]
     public function testBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -370,9 +358,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider errorDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('errorDataProvider')]
     public function testErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -400,9 +386,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dateOccurringDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dateOccurringDataProvider')]
     public function testDateOccurringExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -442,9 +426,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider duplicatesDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('duplicatesDataProvider')]
     public function testDuplicatesExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -476,9 +458,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider textCrossWorksheetDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('textCrossWorksheetDataProvider')]
     public function testCrossWorksheetExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();

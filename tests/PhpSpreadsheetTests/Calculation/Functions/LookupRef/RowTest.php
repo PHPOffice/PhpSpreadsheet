@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class RowTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerROW
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerROW')]
     public function testROW(mixed $expectedResult, null|array|string $cellReference = null): void
     {
         $result = LookupRef\RowColumnInformation::ROW($cellReference);

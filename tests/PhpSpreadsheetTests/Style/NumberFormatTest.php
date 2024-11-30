@@ -25,10 +25,9 @@ class NumberFormatTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNumberFormat
-     *
      * @param null|bool|float|int|string $args string to be formatted
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormat')]
     public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -41,10 +40,9 @@ class NumberFormatTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNumberFormatFractions
-     *
      * @param null|bool|float|int|string $args string to be formatted
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatFractions')]
     public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -57,10 +55,9 @@ class NumberFormatTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNumberFormatDates
-     *
      * @param null|bool|float|int|string $args string to be formatted
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatDates')]
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -86,9 +83,7 @@ class NumberFormatTest extends TestCase
         StringHelper::setCurrencyCode($cur);
     }
 
-    /**
-     * @dataProvider providerNoScientific
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNoScientific')]
     public function testNoScientific(string $expectedResult, string $numericString): void
     {
         $result = NumberFormatter::floatStringConvertScientific($numericString);

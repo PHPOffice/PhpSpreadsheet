@@ -22,9 +22,7 @@ class AutoFilterYearTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerYear
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYear')]
     public function testYears(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

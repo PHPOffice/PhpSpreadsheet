@@ -25,9 +25,7 @@ class ImConjugateTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMCONJUGATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCONJUGATE')]
     public function testDirectCallToIMCONJUGATE(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMCONJUGATE($arg);
@@ -42,9 +40,7 @@ class ImConjugateTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMCONJUGATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCONJUGATE')]
     public function testIMCONJUGATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImConjugateTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMCONJUGATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCONJUGATE')]
     public function testIMCONJUGATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImConjugateTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMCONJUGATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMCONJUGATE')]
     public function testIMCONJUGATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImConjugateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImConjugateArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImConjugateArray')]
     public function testImConjugateArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

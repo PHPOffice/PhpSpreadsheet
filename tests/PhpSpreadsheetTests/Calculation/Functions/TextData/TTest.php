@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerT')]
     public function testT(mixed $expectedResult, mixed $value = 'no arguments'): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class TTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/T.php';
     }
 
-    /**
-     * @dataProvider providerTArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTArray')]
     public function testTArray(array $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();

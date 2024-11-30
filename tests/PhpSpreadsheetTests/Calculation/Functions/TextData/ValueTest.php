@@ -17,9 +17,7 @@ class ValueTest extends AllSetupTeardown
         StringHelper::setThousandsSeparator(null);
     }
 
-    /**
-     * @dataProvider providerVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVALUE')]
     public function testVALUE(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         StringHelper::setDecimalSeparator('.');
@@ -43,9 +41,7 @@ class ValueTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/VALUE.php';
     }
 
-    /**
-     * @dataProvider providerValueArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValueArray')]
     public function testValueArray(array $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();

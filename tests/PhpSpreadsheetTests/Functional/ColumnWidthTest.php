@@ -16,9 +16,7 @@ class ColumnWidthTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testReadColumnWidth(string $format): void
     {
         // create new sheet with column width

@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerRangeOrFormula
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeOrFormula')]
     public function testRangeOrFormula(string $value, bool $expectedResult): void
     {
         $actualResult = DefinedName::testIfFormula($value);

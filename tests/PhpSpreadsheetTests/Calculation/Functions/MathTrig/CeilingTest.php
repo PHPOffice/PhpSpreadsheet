@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CeilingTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCEILING
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCEILING')]
     public function testCEILING(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -56,9 +54,7 @@ class CeilingTest extends AllSetupTeardown
         self::assertEqualsWithDelta(6, $result, 1E-12);
     }
 
-    /**
-     * @dataProvider providerCeilingArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCeilingArray')]
     public function testCeilingArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

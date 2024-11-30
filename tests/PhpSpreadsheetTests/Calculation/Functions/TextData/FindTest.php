@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FindTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFIND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFIND')]
     public function testFIND(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted', mixed $start = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +37,7 @@ class FindTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/FIND.php';
     }
 
-    /**
-     * @dataProvider providerFindArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFindArray')]
     public function testFindArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

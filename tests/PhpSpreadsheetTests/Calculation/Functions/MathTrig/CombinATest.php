@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CombinATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOMBINA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMBINA')]
     public function testCOMBINA(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
@@ -31,9 +29,7 @@ class CombinATest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/COMBINA.php';
     }
 
-    /**
-     * @dataProvider providerCombinAArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCombinAArray')]
     public function testCombinAArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

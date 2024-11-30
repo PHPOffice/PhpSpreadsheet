@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class BitAndTest extends TestCase
 {
-    /**
-     * @dataProvider providerBITAND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITAND')]
     public function testDirectCallToBITAND(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITAND($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITAND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITAND')]
     public function testBITANDAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class BitAndTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITAND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITAND')]
     public function testBITANDInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class BitAndTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITAND.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBITAND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITAND')]
     public function testBITANDUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -90,9 +82,7 @@ class BitAndTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBitAndArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitAndArray')]
     public function testBitAndArray(array $expectedResult, string $number1, string $number2): void
     {
         $calculation = Calculation::getInstance();

@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ConcatenateTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCONCATENATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONCATENATE')]
     public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);

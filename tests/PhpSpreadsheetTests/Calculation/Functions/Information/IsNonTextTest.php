@@ -16,9 +16,7 @@ class IsNonTextTest extends TestCase
         self::assertTrue($result);
     }
 
-    /**
-     * @dataProvider providerIsNonText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNonText')]
     public function testIsNonText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isNonText($value);
@@ -30,9 +28,7 @@ class IsNonTextTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_NONTEXT.php';
     }
 
-    /**
-     * @dataProvider providerIsNonTextArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNonTextArray')]
     public function testIsNonTextArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

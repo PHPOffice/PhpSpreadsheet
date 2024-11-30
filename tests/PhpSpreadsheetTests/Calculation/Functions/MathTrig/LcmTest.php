@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class LcmTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLCM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLCM')]
     public function testLCM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();

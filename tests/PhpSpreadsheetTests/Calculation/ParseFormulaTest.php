@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ParseFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerBinaryOperations
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryOperations')]
     public function testParseOperations(array $expectedStack, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

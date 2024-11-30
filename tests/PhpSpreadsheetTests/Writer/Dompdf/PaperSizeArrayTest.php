@@ -13,9 +13,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Not clear that Dompdf will be Php8.4 compatible in time.
  * Run in separate process and add version test till it is ready.
- *
- * @runTestsInSeparateProcesses
  */
+#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class PaperSizeArrayTest extends TestCase
 {
     private string $outfile = '';

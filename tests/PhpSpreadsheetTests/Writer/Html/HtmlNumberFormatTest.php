@@ -135,9 +135,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    /**
-     * @dataProvider providerNumberFormat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormat')]
     public function testFormatValueWithMask(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
@@ -167,9 +165,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         return require __DIR__ . '/../../../data/Style/NumberFormat.php';
     }
 
-    /**
-     * @dataProvider providerNumberFormatDates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatDates')]
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();

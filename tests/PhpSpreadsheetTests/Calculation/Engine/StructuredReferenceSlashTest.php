@@ -54,9 +54,7 @@ class StructuredReferenceSlashTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderColumnData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderColumnData')]
     public function testStructuredReferenceColumns(string $expectedCellRange, string $structuredReference): void
     {
         $spreadsheet = $this->getSpreadsheet();
@@ -65,9 +63,7 @@ class StructuredReferenceSlashTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderRowData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderRowData')]
     public function testStructuredReferenceRows(string $expectedCellRange, string $structuredReference): void
     {
         $spreadsheet = $this->getSpreadsheet();

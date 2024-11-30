@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnCellIterator2Test extends TestCase
 {
-    /**
-     * @dataProvider providerExistingCell
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExistingCell')]
     public function testEndRange(?bool $existing, string $expectedResultFirst, string $expectedResultLast): void
     {
         $spreadsheet = new Spreadsheet();
@@ -48,9 +46,7 @@ class ColumnCellIterator2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerEmptyColumn
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEmptyColumn')]
     public function testEmptyColumn(?bool $existing, int $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -78,9 +74,7 @@ class ColumnCellIterator2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNullOrCreate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNullOrCreate')]
     public function testNullOrCreateOption(?bool $existingBehaviour, int $expectedCreatedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -93,9 +87,7 @@ class ColumnCellIterator2Test extends TestCase
         self::assertSame($expectedCreatedResult > 0, $notExistsBehaviour);
     }
 
-    /**
-     * @dataProvider providerNullOrCreate
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNullOrCreate')]
     public function testNullOrCreate(?bool $existing, int $expectedCreatedResult, int $expectedNullResult): void
     {
         $spreadsheet = new Spreadsheet();

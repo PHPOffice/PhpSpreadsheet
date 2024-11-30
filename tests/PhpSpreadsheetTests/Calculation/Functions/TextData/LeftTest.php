@@ -11,11 +11,10 @@ use PhpOffice\PhpSpreadsheet\Settings;
 class LeftTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerLEFT
-     *
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLEFT')]
     public function testLEFT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +38,7 @@ class LeftTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/LEFT.php';
     }
 
-    /**
-     * @dataProvider providerLocaleLEFT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleLEFT')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -71,9 +68,7 @@ class LeftTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeLEFTTrue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeLEFTTrue')]
     public function testCalculationTypeTrue(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -107,9 +102,7 @@ class LeftTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeLEFTFalse
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeLEFTFalse')]
     public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -143,9 +136,7 @@ class LeftTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeLEFTNull
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeLEFTNull')]
     public function testCalculationTypeNull(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -178,9 +169,7 @@ class LeftTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerLeftArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLeftArray')]
     public function testLeftArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

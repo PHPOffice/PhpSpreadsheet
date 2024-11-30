@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FloorMathTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFLOORMATH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFLOORMATH')]
     public function testFLOORMATH(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class FloorMathTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/FLOORMATH.php';
     }
 
-    /**
-     * @dataProvider providerFloorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFloorArray')]
     public function testFloorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

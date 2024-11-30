@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class IsPmtTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerISPMT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerISPMT')]
     public function testISPMT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('ISPMT', $expectedResult, $args);

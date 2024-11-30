@@ -20,9 +20,7 @@ class CsvLineEndingTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerEndings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
     public function testEndings(string $ending): void
     {
         if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
@@ -40,9 +38,7 @@ class CsvLineEndingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerEndings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
     public function testEndingsNoDetect(string $ending): void
     {
         $this->tempFile = $filename = File::temporaryFilename();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class MMultTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMMULT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMMULT')]
     public function testMMULT(mixed $expectedResult, mixed ...$args): void
     {
         $result = MathTrig\MatrixFunctions::multiply(...$args);

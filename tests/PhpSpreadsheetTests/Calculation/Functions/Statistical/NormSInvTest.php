@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NormSInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNORMSINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNORMSINV')]
     public function testNORMSINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMSINV', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class NormSInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/NORMSINV.php';
     }
 
-    /**
-     * @dataProvider providerNormSInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNormSInvArray')]
     public function testNormSInvArray(array $expectedResult, string $probabilities): void
     {
         $calculation = Calculation::getInstance();

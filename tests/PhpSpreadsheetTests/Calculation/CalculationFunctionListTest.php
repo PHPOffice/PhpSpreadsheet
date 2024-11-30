@@ -24,9 +24,7 @@ class CalculationFunctionListTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerGetFunctions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGetFunctions')]
     public function testGetFunctions(array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);

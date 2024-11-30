@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BinomDistRangeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBINOMDISTRANGE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBINOMDISTRANGE')]
     public function testBINOMDISTRANGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.DIST.RANGE', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class BinomDistRangeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/BINOMDISTRANGE.php';
     }
 
-    /**
-     * @dataProvider providerBinomDistRangeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinomDistRangeArray')]
     public function testBinomDistRangeArray(
         array $expectedResult,
         string $trials,
