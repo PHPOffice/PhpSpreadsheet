@@ -37,9 +37,7 @@ class AutoFilterWeekTest extends SetupTeardown
         $this->maxRow = 9;
     }
 
-    /**
-     * @dataProvider providerWeek
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWeek')]
     public function testWeek(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

@@ -7,10 +7,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 class PercentRankTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerPERCENTRANK
-     *
      * @param mixed[] $valueSet
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPERCENTRANK')]
     public function testPERCENTRANK(mixed $expectedResult, mixed $valueSet, mixed $value, mixed $digits = null): void
     {
         if ($digits === null) {

@@ -15,18 +15,14 @@ class ErfTest extends TestCase
 {
     const ERF_PRECISION = 1E-14;
 
-    /**
-     * @dataProvider providerERF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERF')]
     public function testDirectCallToERF(mixed $expectedResult, mixed ...$args): void
     {
         $result = Erf::erf(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERF')]
     public function testERFAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -38,9 +34,7 @@ class ErfTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERF')]
     public function testERFInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +57,7 @@ class ErfTest extends TestCase
         return require 'tests/data/Calculation/Engineering/ERF.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyERF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyERF')]
     public function testERFUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -91,9 +83,7 @@ class ErfTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerErfArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerErfArray')]
     public function testErfArray(array $expectedResult, string $lower, string $upper = 'NULL'): void
     {
         $calculation = Calculation::getInstance();

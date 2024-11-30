@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase
 {
-    /**
-     * @dataProvider providerNumber
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumber')]
     public function testNumber(string $expectedResult, int $decimals, bool $thousandsSeparator): void
     {
         $wizard = new Number($decimals, $thousandsSeparator);
@@ -32,9 +30,7 @@ class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberLocale')]
     public function testNumberLocale(
         string $expectedResult,
         string $locale

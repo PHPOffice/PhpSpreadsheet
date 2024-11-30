@@ -37,9 +37,7 @@ class Date2Test extends TestCase
         Cell::setCalculateDateTimeType(-1);
     }
 
-    /**
-     * @dataProvider providerTimeOnly
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeOnly')]
     public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_TIME_FLOAT);
@@ -82,9 +80,7 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDateAndTime
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateAndTime')]
     public function testDateAndTime(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_FLOAT);
@@ -127,9 +123,7 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerAsis
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsis')]
     public function testDefault(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         //Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
@@ -149,9 +143,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    /**
-     * @dataProvider providerAsis
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsis')]
     public function testAsis(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SubstituteTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUBSTITUTE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBSTITUTE')]
     public function testSUBSTITUTE(mixed $expectedResult, mixed $text = 'omitted', mixed $oldText = 'omitted', mixed $newText = 'omitted', mixed $instance = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -45,9 +43,7 @@ class SubstituteTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/SUBSTITUTE.php';
     }
 
-    /**
-     * @dataProvider providerSubstituteArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSubstituteArray')]
     public function testSubstituteArray(array $expectedResult, string $oldText, string $fromText, string $toText): void
     {
         $calculation = Calculation::getInstance();

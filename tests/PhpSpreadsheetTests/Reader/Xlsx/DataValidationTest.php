@@ -25,9 +25,8 @@ class DataValidationTest extends TestCase
     /**
      * Test for load drop down lists of another sheet.
      * Pull #2150, issue #2149. Also issue #2677.
-     *
-     * @dataProvider providerExternalSheet
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExternalSheet')]
     public function testDataValidationOfAnotherSheet(string $expectedB14, string $filename): void
     {
         $reader = new Xlsx();

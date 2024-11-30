@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LnTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLN')]
     public function testLN(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,9 +30,7 @@ class LnTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/LN.php';
     }
 
-    /**
-     * @dataProvider providerLnArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLnArray')]
     public function testLnArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

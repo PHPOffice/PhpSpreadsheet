@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ModTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMOD
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMOD')]
     public function testMOD(mixed $expectedResult, mixed $dividend = 'omitted', mixed $divisor = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -37,9 +35,7 @@ class ModTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/MOD.php';
     }
 
-    /**
-     * @dataProvider providerModArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerModArray')]
     public function testModArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

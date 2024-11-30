@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LenTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLEN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLEN')]
     public function testLEN(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -30,9 +28,7 @@ class LenTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/LEN.php';
     }
 
-    /**
-     * @dataProvider providerLenArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLenArray')]
     public function testLenArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

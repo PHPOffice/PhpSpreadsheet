@@ -15,18 +15,14 @@ class ImAbsTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMABS')]
     public function testDirectCallToIMABS(float|int|string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMABS($arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMABS')]
     public function testIMABSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -38,9 +34,7 @@ class ImAbsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMABS')]
     public function testIMABSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +57,7 @@ class ImAbsTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMABS.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMABS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMABS')]
     public function testIMABSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -91,9 +83,7 @@ class ImAbsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImAbsArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImAbsArray')]
     public function testImAbsArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

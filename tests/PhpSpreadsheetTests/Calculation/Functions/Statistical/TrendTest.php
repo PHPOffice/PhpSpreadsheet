@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 // TODO Run test in spreadsheet context.
 class TrendTest extends TestCase
 {
-    /**
-     * @dataProvider providerGROWTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGROWTH')]
     public function testTREND(mixed $expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RadiansTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRADIANS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRADIANS')]
     public function testRADIANS(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
@@ -30,9 +28,7 @@ class RadiansTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/RADIANS.php';
     }
 
-    /**
-     * @dataProvider providerRadiansArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRadiansArray')]
     public function testRadiansArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

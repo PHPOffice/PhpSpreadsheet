@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class SlnTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSLN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSLN')]
     public function testSLN(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('SLN', $expectedResult, $args);

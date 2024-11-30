@@ -11,9 +11,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Not clear that Dompdf will be Php8.4 compatible in time.
  * Run in separate process and add version test till it is ready.
- *
- * @runTestsInSeparateProcesses
  */
+#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class StreamTest extends TestCase
 {
     public static function providerFormats(): array
@@ -32,9 +31,7 @@ class StreamTest extends TestCase
         return $providerFormats;
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testAllWritersCanWriteToStream(string $format): void
     {
         $spreadsheet = new Spreadsheet();

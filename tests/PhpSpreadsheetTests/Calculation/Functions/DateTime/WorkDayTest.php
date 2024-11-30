@@ -12,18 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 class WorkDayTest extends TestCase
 {
-    /**
-     * @dataProvider providerWORKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
     public function testDirectCallToWORKDAY(mixed $expectedResult, mixed ...$args): void
     {
         $result = WorkDay::date(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWORKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
     public function testWORKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -35,9 +31,7 @@ class WorkDayTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWORKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
     public function testWORKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +54,7 @@ class WorkDayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyWORKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWORKDAY')]
     public function testWORKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +80,7 @@ class WorkDayTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerWorkDayArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWorkDayArray')]
     public function testWorkDayArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
     {
         $calculation = Calculation::getInstance();

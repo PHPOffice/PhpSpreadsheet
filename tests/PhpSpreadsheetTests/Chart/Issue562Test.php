@@ -29,9 +29,7 @@ class Issue562Test extends AbstractFunctional
         $writer->setIncludeCharts(true);
     }
 
-    /**
-     * @dataProvider providerNoBorder
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNoBorder')]
     public function testNoBorder(?bool $noBorder, bool $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();

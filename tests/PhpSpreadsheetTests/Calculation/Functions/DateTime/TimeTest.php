@@ -36,18 +36,14 @@ class TimeTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    /**
-     * @dataProvider providerTIME
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
     public function testDirectCallToTIME(float|string $expectedResult, int|string $hour, bool|int $minute, int $second): void
     {
         $result = Time::fromHMS($hour, $minute, $second);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerTIME
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
     public function testTIMEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -64,9 +60,7 @@ class TimeTest extends TestCase
         return require 'tests/data/Calculation/DateTime/TIME.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyTIME
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyTIME')]
     public function testTIMEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -127,9 +121,7 @@ class TimeTest extends TestCase
         self::assertEquals(0, $result);
     }
 
-    /**
-     * @dataProvider providerTimeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArray')]
     public function testTimeArray(array $expectedResult, string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();
@@ -193,9 +185,7 @@ class TimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerTimeArrayException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArrayException')]
     public function testTimeArrayException(string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();

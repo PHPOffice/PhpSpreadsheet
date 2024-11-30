@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class RefErrorTest extends TestCase
 {
-    /**
-     * @dataProvider providerRefError
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRefError')]
     public function testRefError(mixed $expected, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

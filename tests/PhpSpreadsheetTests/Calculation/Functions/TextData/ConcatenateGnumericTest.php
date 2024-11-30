@@ -10,9 +10,8 @@ class ConcatenateGnumericTest extends AllSetupTeardown
 {
     /**
      * Gnumeric, unlike Excel or LibreOffice, implements CONCATENATE like CONCAT.
-     *
-     * @dataProvider providerCONCAT
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONCAT')]
     public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         self::setGnumeric();

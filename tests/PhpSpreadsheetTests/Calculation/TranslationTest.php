@@ -33,9 +33,7 @@ class TranslationTest extends TestCase
         Settings::setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerTranslations
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTranslations')]
     public function testTranslation(string $expectedResult, string $locale, string $formula): void
     {
         $validLocale = Settings::setLocale($locale);

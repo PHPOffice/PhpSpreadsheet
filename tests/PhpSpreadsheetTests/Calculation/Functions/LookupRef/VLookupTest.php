@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class VLookupTest extends TestCase
 {
-    /**
-     * @dataProvider providerVLOOKUP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVLOOKUP')]
     public function testVLOOKUP(mixed $expectedResult, mixed $value, mixed $table, mixed $index, ?bool $lookup = null): void
     {
         $spreadsheet = new Spreadsheet();
@@ -50,9 +48,7 @@ class VLookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
 
-    /**
-     * @dataProvider providerVLookupArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVLookupArray')]
     public function testVLookupArray(array $expectedResult, string $values, string $database, string $index): void
     {
         $calculation = Calculation::getInstance();

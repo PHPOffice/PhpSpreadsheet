@@ -39,9 +39,7 @@ class FontFileNameTest extends TestCase
         Font::setExtraFontArray($this->holdExtraFontArray);
     }
 
-    /**
-     * @dataProvider providerDefault
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDefault')]
     public function testDefaultFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {
@@ -81,9 +79,7 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerMac
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMac')]
     public function testMacFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {
@@ -123,9 +119,7 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerOverride
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOverride')]
     public function testOverrideFilenames(string $expected, array $fontArray): void
     {
         Font::setTrueTypeFontPath(self::DEFAULT_DIRECTORY);
@@ -153,9 +147,7 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerOverrideAbsolute
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOverrideAbsolute')]
     public function testOverrideFilenamesAbsolute(string $expected, array $fontArray): void
     {
         $realPath = realpath(self::MAC_DIRECTORY) . DIRECTORY_SEPARATOR;
@@ -184,9 +176,7 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerRecurse
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRecurse')]
     public function testRecurseFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {

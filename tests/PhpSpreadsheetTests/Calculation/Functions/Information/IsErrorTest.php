@@ -16,9 +16,7 @@ class IsErrorTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsError
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsError')]
     public function testIsError(bool $expectedResult, mixed $value): void
     {
         $result = ErrorValue::isError($value);
@@ -30,9 +28,7 @@ class IsErrorTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_ERROR.php';
     }
 
-    /**
-     * @dataProvider providerIsErrorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsErrorArray')]
     public function testIsErrorArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

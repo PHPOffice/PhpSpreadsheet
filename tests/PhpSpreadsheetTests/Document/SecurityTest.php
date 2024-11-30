@@ -54,9 +54,7 @@ class SecurityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerLocks
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocks')]
     public function testLocks(bool $revision, bool $windows, bool $structure): void
     {
         $spreadsheet = new Spreadsheet();

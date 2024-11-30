@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class IOFactoryTest extends TestCase
 {
-    /**
-     * @dataProvider providerCreateWriter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateWriter')]
     public function testCreateWriter(string $name, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -45,9 +43,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Writer\Pdf\Mpdf::class, $actual);
     }
 
-    /**
-     * @dataProvider providerCreateReader
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateReader')]
     public function testCreateReader(string $name, string $expected): void
     {
         $actual = IOFactory::createReader($name);
@@ -75,9 +71,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Reader\Html::class, $actual);
     }
 
-    /**
-     * @dataProvider providerIdentify
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIdentify')]
     public function testIdentifyCreateLoad(string $file, string $expectedName, string $expectedClass): void
     {
         $actual = IOFactory::identify($file);

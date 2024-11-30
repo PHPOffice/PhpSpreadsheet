@@ -17,9 +17,7 @@ class IsOddTest extends TestCase
         self::assertSame(ExcelError::NAME(), $result);
     }
 
-    /**
-     * @dataProvider providerIsOdd
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsOdd')]
     public function testIsOdd(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isOdd($value);
@@ -31,9 +29,7 @@ class IsOddTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_ODD.php';
     }
 
-    /**
-     * @dataProvider providerIsOddArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsOddArray')]
     public function testIsOddArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

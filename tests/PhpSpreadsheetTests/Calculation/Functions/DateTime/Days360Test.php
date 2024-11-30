@@ -16,18 +16,14 @@ use PHPUnit\Framework\TestCase;
 
 class Days360Test extends TestCase
 {
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAYS360')]
     public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
         $result = Days360::between(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAYS360')]
     public function testDAYS360AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -39,9 +35,7 @@ class Days360Test extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAYS360')]
     public function testDAYS360InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -64,9 +58,7 @@ class Days360Test extends TestCase
         return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDAYS360
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDAYS360')]
     public function testDAYS360UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -99,9 +91,7 @@ class Days360Test extends TestCase
         self::assertSame(31, Days::between($obj1, $obj2));
     }
 
-    /**
-     * @dataProvider providerDays360Array
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDays360Array')]
     public function testDays360Array(array $expectedResult, string $startDate, string $endDate, ?string $methods): void
     {
         $calculation = Calculation::getInstance();

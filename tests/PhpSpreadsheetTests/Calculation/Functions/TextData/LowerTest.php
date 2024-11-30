@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class LowerTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOWER')]
     public function testLOWER(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -31,9 +29,7 @@ class LowerTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/LOWER.php';
     }
 
-    /**
-     * @dataProvider providerLocaleLOWER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleLOWER')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -61,9 +57,7 @@ class LowerTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerLowerArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLowerArray')]
     public function testLowerArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

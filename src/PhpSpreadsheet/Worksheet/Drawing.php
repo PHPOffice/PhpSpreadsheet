@@ -148,6 +148,12 @@ class Drawing extends BaseDrawing
             throw new PhpSpreadsheetException("File $path not found!");
         }
 
+        if ($this->worksheet !== null) {
+            if ($this->path !== '') {
+                $this->worksheet->getCell($this->coordinates);
+            }
+        }
+
         return $this;
     }
 

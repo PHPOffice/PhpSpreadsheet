@@ -52,9 +52,7 @@ class SpreadsheetTest extends TestCase
         return $array;
     }
 
-    /**
-     * @dataProvider dataProviderForSheetNames
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSheetNames')]
     public function testGetSheetByName(?int $index, string $sheetName): void
     {
         $spreadsheet = $this->getSpreadsheet();

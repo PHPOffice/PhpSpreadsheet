@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DAverageTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDAverage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAverage')]
     public function testDirectCallToDAverage(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DAverage::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDAverage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAverage')]
     public function testDAverageAsWorksheetFormula(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DAVERAGE', $database, $field, $criteria);

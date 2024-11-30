@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DMaxTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDMax
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDMax')]
     public function testDirectCallToDMax(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $result = DMax::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDMax
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDMax')]
     public function testDMaxAsWorksheetFormula(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DMAX', $database, $field, $criteria);

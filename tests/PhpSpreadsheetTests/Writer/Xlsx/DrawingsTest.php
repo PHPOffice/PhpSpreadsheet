@@ -501,9 +501,8 @@ class DrawingsTest extends AbstractFunctional
 
     /**
      * Test editAs attribute for two-cell anchors.
-     *
-     * @dataProvider providerEditAs
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEditAs')]
     public function testTwoCellEditAs(string $editAs, ?string $expectedResult = null): void
     {
         if ($expectedResult === null) {

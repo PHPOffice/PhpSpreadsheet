@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AsinhTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAsinh
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsinh')]
     public function testAsinh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class AsinhTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ASINH.php';
     }
 
-    /**
-     * @dataProvider providerAsinhArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsinhArray')]
     public function testAsinhArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

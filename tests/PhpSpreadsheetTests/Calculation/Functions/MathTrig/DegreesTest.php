@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class DegreesTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDEGREES
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEGREES')]
     public function testDegrees(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
@@ -30,9 +28,7 @@ class DegreesTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/DEGREES.php';
     }
 
-    /**
-     * @dataProvider providerDegreesArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDegreesArray')]
     public function testDegreesArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

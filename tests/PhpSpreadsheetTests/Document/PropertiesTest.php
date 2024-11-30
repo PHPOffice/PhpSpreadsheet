@@ -44,9 +44,7 @@ class PropertiesTest extends TestCase
         self::assertSame($creator, $this->properties->getCreator());
     }
 
-    /**
-     * @dataProvider providerCreationTime
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreationTime')]
     public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
         $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
@@ -73,9 +71,7 @@ class PropertiesTest extends TestCase
         self::assertSame($creator, $this->properties->getLastModifiedBy());
     }
 
-    /**
-     * @dataProvider providerModifiedTime
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerModifiedTime')]
     public function testSetModified(mixed $expectedModifiedTime, null|int|string $modified): void
     {
         $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
@@ -150,9 +146,7 @@ class PropertiesTest extends TestCase
         self::assertSame($manager, $this->properties->getManager());
     }
 
-    /**
-     * @dataProvider providerCustomProperties
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomProperties')]
     public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, null|bool|float|int|string $propertyValue, ?string $propertyType = null): void
     {
         if ($propertyType === null) {

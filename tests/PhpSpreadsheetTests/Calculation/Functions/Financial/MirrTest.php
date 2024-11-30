@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class MirrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMIRR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMIRR')]
     public function testMIRR(mixed $expectedResult, mixed $values, mixed $financeRate = null, mixed $reinvestRate = null): void
     {
         $this->mightHaveException($expectedResult);

@@ -25,9 +25,7 @@ class ImSechTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMSECH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
     public function testDirectCallToIMSECH(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMSECH($arg);
@@ -42,9 +40,7 @@ class ImSechTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMSECH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
     public function testIMSECHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImSechTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMSECH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
     public function testIMSECHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImSechTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSECH.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMSECH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSECH')]
     public function testIMSECHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImSechTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImSecHArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSecHArray')]
     public function testImSecHArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();
