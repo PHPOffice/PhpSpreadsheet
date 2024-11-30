@@ -27,7 +27,6 @@ class Issue4248Test extends TestCase
         $file = 'tests/data/Reader/XLSX/issue.4248.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($file);
-        $sheet = $spreadsheet->getActiveSheet();
         $writer = new XlsxWriter($spreadsheet);
         $this->outfile = File::temporaryFilename();
         $writer->save($this->outfile);
@@ -85,7 +84,6 @@ class Issue4248Test extends TestCase
         $file = 'tests/data/Reader/XLSX/issue.4248.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($file);
-        $sheet = $spreadsheet->getActiveSheet();
         $writer = new HtmlWriter($spreadsheet);
 
         $file = 'zip://';
