@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
@@ -35,6 +36,9 @@ class Html extends BaseWriter
     private const DEFAULT_CELL_WIDTH_POINTS = 42;
 
     private const DEFAULT_CELL_WIDTH_PIXELS = 56;
+
+    private const TRUE_SUBSTITUTE = "\u{fffe}";
+    private const FALSE_SUBSTITUTE = "\u{feff}";
 
     /**
      * Migration aid to tell if html tags will be treated as plaintext in comments.
@@ -141,6 +145,12 @@ class Html extends BaseWriter
     /** @var Chart[] */
     private $sheetCharts;
 
+    private bool $betterBoolean = false;
+
+    private string $getTrue = 'TRUE';
+
+    private string $getFalse = 'FALSE';
+
     /**
      * Create a new HTML.
      */
@@ -148,6 +158,9 @@ class Html extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
         $this->defaultFont = $this->spreadsheet->getDefaultStyle()->getFont();
+        $calc = Calculation::getInstance($this->spreadsheet);
+        $this->getTrue = $calc->getTRUE();
+        $this->getFalse = $calc->getFALSE();
     }
 
     /**
@@ -1346,8 +1359,21 @@ class Html extends BaseWriter
         if ($cell->getValue() instanceof RichText) {
             $cellData .= $this->generateRowCellDataValueRich($cell->getValue());
         } else {
-            $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
-            $origData2 = $this->preCalculateFormulas ? $cell->getCalculatedValueString() : $cell->getValueString();
+            if ($this->preCalculateFormulas) {
+                $origData = $cell->getCalculatedValue();
+                if ($this->betterBoolean && is_bool($origData)) {
+                    $origData2 = $origData ? self::TRUE_SUBSTITUTE : self::FALSE_SUBSTITUTE;
+                } else {
+                    $origData2 = $cell->getCalculatedValueString();
+                }
+            } else {
+                $origData = $cell->getValue();
+                if ($this->betterBoolean && is_bool($origData)) {
+                    $origData2 = $origData ? self::TRUE_SUBSTITUTE : self::FALSE_SUBSTITUTE;
+                } else {
+                    $origData2 = $cell->getValueString();
+                }
+            }
             $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
@@ -1448,6 +1474,13 @@ class Html extends BaseWriter
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start
         $html .= '            <' . $cellType;
+        if ($cellData === self::TRUE_SUBSTITUTE) {
+            $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+            $cellData = $this->getTrue;
+        } elseif ($cellData === self::FALSE_SUBSTITUTE) {
+            $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+            $cellData = $this->getFalse;
+        }
         if (!$this->useInlineCss && !$this->isPdf && is_string($cssClass)) {
             $html .= ' class="' . $cssClass . '"';
             if ($htmlx) {
@@ -1902,5 +1935,17 @@ class Html extends BaseWriter
         }
 
         return $sheet->getColumnDimension($colStr)->getVisible();
+    }
+
+    public function getBetterBoolean(): bool
+    {
+        return $this->betterBoolean;
+    }
+
+    public function setBetterBoolean(bool $betterBoolean): self
+    {
+        $this->betterBoolean = $betterBoolean;
+
+        return $this;
     }
 }

@@ -3141,6 +3141,53 @@ class Calculation
         return $localeFileName;
     }
 
+    /** @var array<int, array<int, string>> */
+    private static array $falseTrueArray = [];
+
+    /** @return array<int, array<int, string>> */
+    public function getFalseTrueArray(): array
+    {
+        if (!empty(self::$falseTrueArray)) {
+            return self::$falseTrueArray;
+        }
+        if (count(self::$validLocaleLanguages) == 1) {
+            self::loadLocales();
+        }
+        $falseTrueArray = [['FALSE'], ['TRUE']];
+        foreach (self::$validLocaleLanguages as $language) {
+            if (str_starts_with($language, 'en')) {
+                continue;
+            }
+            $locale = $language;
+            if (str_contains($locale, '_')) {
+                [$language] = explode('_', $locale);
+            }
+            $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
+
+            try {
+                $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
+            } catch (Exception $e) {
+                continue;
+            }
+            //    Retrieve the list of locale or language specific function names
+            $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+            foreach ($localeFunctions as $localeFunction) {
+                [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
+                if (str_contains($localeFunction, '=')) {
+                    [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
+                    if ($fName === 'FALSE') {
+                        $falseTrueArray[0][] = $lfName;
+                    } elseif ($fName === 'TRUE') {
+                        $falseTrueArray[1][] = $lfName;
+                    }
+                }
+            }
+        }
+        self::$falseTrueArray = $falseTrueArray;
+
+        return $falseTrueArray;
+    }
+
     /**
      * Set the locale code.
      *
