@@ -37,9 +37,6 @@ class Html extends BaseWriter
 
     private const DEFAULT_CELL_WIDTH_PIXELS = 56;
 
-    private const TRUE_SUBSTITUTE = "\u{fffe}";
-    private const FALSE_SUBSTITUTE = "\u{feff}";
-
     /**
      * Migration aid to tell if html tags will be treated as plaintext in comments.
      *     if (
@@ -1362,14 +1359,14 @@ class Html extends BaseWriter
             if ($this->preCalculateFormulas) {
                 $origData = $cell->getCalculatedValue();
                 if ($this->betterBoolean && is_bool($origData)) {
-                    $origData2 = $origData ? self::TRUE_SUBSTITUTE : self::FALSE_SUBSTITUTE;
+                    $origData2 = $origData ? $this->getTrue : $this->getFalse;
                 } else {
                     $origData2 = $cell->getCalculatedValueString();
                 }
             } else {
                 $origData = $cell->getValue();
                 if ($this->betterBoolean && is_bool($origData)) {
-                    $origData2 = $origData ? self::TRUE_SUBSTITUTE : self::FALSE_SUBSTITUTE;
+                    $origData2 = $origData ? $this->getTrue : $this->getFalse;
                 } else {
                     $origData2 = $cell->getValueString();
                 }
@@ -1414,8 +1411,19 @@ class Html extends BaseWriter
 
             // Extend CSS class?
             if (!$this->useInlineCss && is_string($cssClass)) {
+                $dataType = $cell->getDataType();
+                if ($this->betterBoolean && $this->preCalculateFormulas && $dataType === DataType::TYPE_FORMULA) {
+                    $calculatedValue = $cell->getCalculatedValue();
+                    if (is_bool($calculatedValue)) {
+                        $dataType = DataType::TYPE_BOOL;
+                    } elseif (is_numeric($calculatedValue)) {
+                        $dataType = DataType::TYPE_NUMERIC;
+                    } elseif (is_string($calculatedValue)) {
+                        $dataType = DataType::TYPE_STRING;
+                    }
+                }
                 $cssClass .= ' style' . $cell->getXfIndex();
-                $cssClass .= ' ' . $cell->getDataType();
+                $cssClass .= ' ' . $dataType;
             } elseif (is_array($cssClass)) {
                 $index = $cell->getXfIndex();
                 $styleIndex = 'td.style' . $index . ', th.style' . $index;
@@ -1474,12 +1482,15 @@ class Html extends BaseWriter
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start
         $html .= '            <' . $cellType;
-        if ($cellData === self::TRUE_SUBSTITUTE) {
-            $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            $cellData = $this->getTrue;
-        } elseif ($cellData === self::FALSE_SUBSTITUTE) {
-            $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            $cellData = $this->getFalse;
+        if ($this->betterBoolean) {
+            $dataType = $worksheet->getCell($coordinate)->getDataType();
+            if ($dataType === DataType::TYPE_BOOL) {
+                $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+            } elseif ($dataType === DataType::TYPE_FORMULA && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
+                $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+            } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
+                $html .= ' data-type="' . DataType::TYPE_STRING . '"';
+            }
         }
         if (!$this->useInlineCss && !$this->isPdf && is_string($cssClass)) {
             $html .= ' class="' . $cssClass . '"';

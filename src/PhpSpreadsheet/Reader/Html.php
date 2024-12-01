@@ -301,7 +301,7 @@ class Html extends BaseReader
     /** @var array<int, array<int, string>> */
     private static array $falseTrueArray = [];
 
-    private function convertBoolean(?string $cellContent): bool|string
+    private static function convertBoolean(?string $cellContent): bool|string
     {
         if ($cellContent === '1') {
             return true;
