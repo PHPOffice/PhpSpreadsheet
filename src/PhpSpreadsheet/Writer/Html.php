@@ -1410,18 +1410,18 @@ class Html extends BaseWriter
             $cellData = nl2br($cellData);
 
             // Extend CSS class?
-            if (!$this->useInlineCss && is_string($cssClass)) {
-                $dataType = $cell->getDataType();
-                if ($this->betterBoolean && $this->preCalculateFormulas && $dataType === DataType::TYPE_FORMULA) {
-                    $calculatedValue = $cell->getCalculatedValue();
-                    if (is_bool($calculatedValue)) {
-                        $dataType = DataType::TYPE_BOOL;
-                    } elseif (is_numeric($calculatedValue)) {
-                        $dataType = DataType::TYPE_NUMERIC;
-                    } elseif (is_string($calculatedValue)) {
-                        $dataType = DataType::TYPE_STRING;
-                    }
+            $dataType = $cell->getDataType();
+            if ($this->betterBoolean && $this->preCalculateFormulas && $dataType === DataType::TYPE_FORMULA) {
+                $calculatedValue = $cell->getCalculatedValue();
+                if (is_bool($calculatedValue)) {
+                    $dataType = DataType::TYPE_BOOL;
+                } elseif (is_numeric($calculatedValue)) {
+                    $dataType = DataType::TYPE_NUMERIC;
+                } elseif (is_string($calculatedValue)) {
+                    $dataType = DataType::TYPE_STRING;
                 }
+            }
+            if (!$this->useInlineCss && is_string($cssClass)) {
                 $cssClass .= ' style' . $cell->getXfIndex();
                 $cssClass .= ' ' . $dataType;
             } elseif (is_array($cssClass)) {
@@ -1437,7 +1437,7 @@ class Html extends BaseWriter
                     $sharedStyle->getAlignment()->getHorizontal() == Alignment::HORIZONTAL_GENERAL
                     && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
                 ) {
-                    $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
+                    $cssClass['text-align'] = $this->cssStyles['.' . $dataType]['text-align'];
                 }
             }
         } else {
