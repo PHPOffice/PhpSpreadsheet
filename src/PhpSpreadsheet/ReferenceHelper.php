@@ -248,7 +248,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows, string $beforeCellAddress): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -256,6 +256,32 @@ class ReferenceHelper
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
+            $formula = $dataValidation->getFormula1();
+            if ($formula !== '') {
+                $dataValidation->setFormula1(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $formula = $dataValidation->getFormula2();
+            if ($formula !== '') {
+                $dataValidation->setFormula2(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
                 $dataValidation->setSqref($newReference);
@@ -491,7 +517,7 @@ class ReferenceHelper
         $this->adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows);
+        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows, $beforeCellAddress);
 
         // Update worksheet: merge cells
         $this->adjustMergeCells($worksheet);

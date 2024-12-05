@@ -1313,8 +1313,17 @@ class Worksheet extends WriterPart
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
             [$column, $row] = Coordinate::coordinateFromString($coordinate);
-            $cellsByRow[$row] = $cellsByRow[$row] ?? '';
-            $cellsByRow[$row] .= "{$column},";
+            if (!isset($cellsByRow[$row])) {
+                $pCell = $worksheet->getCell("$column$row");
+                $xfi = $pCell->getXfIndex();
+                $cellValue = $pCell->getValue();
+                $writeValue = $cellValue !== '' && $cellValue !== null;
+                if (!empty($xfi) || $writeValue) {
+                    $cellsByRow[$row] = "{$column},";
+                }
+            } else {
+                $cellsByRow[$row] .= "{$column},";
+            }
         }
 
         $currentRow = 0;
