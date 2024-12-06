@@ -24,7 +24,6 @@
                     <table:table-cell office:value="1" office:value-type="float" table:style-name="ce0">
                         <text:p>1</text:p>
                     </table:table-cell>
-                    <table:table-cell table:number-columns-repeated="1023"/>
                 </table:table-row>
             </table:table>
             <table:table table:name="New Worksheet" table:style-name="ta2">
@@ -33,7 +32,6 @@
                     <table:table-cell office:value="2" office:value-type="float" table:style-name="ce0">
                         <text:p>2</text:p>
                     </table:table-cell>
-                    <table:table-cell table:number-columns-repeated="1023" />
                 </table:table-row>
             </table:table>
             <table:named-expressions />

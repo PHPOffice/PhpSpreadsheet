@@ -17,10 +17,6 @@
             <table:calculation-settings />
             <table:table table:name="Worksheet" table:style-name="ta1">
                 <office:forms />
-                <table:table-row>
-                    <table:table-cell table:style-name="ce0" />
-                    <table:table-cell table:number-columns-repeated="1023" />
-                </table:table-row>
             </table:table>
             <table:named-expressions />
         </office:spreadsheet>
