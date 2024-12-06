@@ -102,9 +102,7 @@ class ReferenceHelperTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerFormulaUpdates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulaUpdates')]
     public function testUpdateFormula(string $formula, int $insertRows, int $insertColumns, string $worksheet, string $expectedResult): void
     {
         $referenceHelper = ReferenceHelper::getInstance();
@@ -119,9 +117,7 @@ class ReferenceHelperTest extends TestCase
         return require 'tests/data/ReferenceHelperFormulaUpdates.php';
     }
 
-    /**
-     * @dataProvider providerMultipleWorksheetFormulaUpdates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMultipleWorksheetFormulaUpdates')]
     public function testUpdateFormulaForMultipleWorksheets(string $formula, int $insertRows, int $insertColumns, string $expectedResult): void
     {
         $referenceHelper = ReferenceHelper::getInstance();

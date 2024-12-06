@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class DeltaTest extends TestCase
 {
-    /**
-     * @dataProvider providerDELTA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
     public function testDirectCallToDELTA(mixed $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
         $result = ($arg2 === null) ? Compare::delta($arg1) : Compare::delta($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDELTA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
     public function testDELTAAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class DeltaTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDELTA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
     public function testDELTAInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class DeltaTest extends TestCase
         return require 'tests/data/Calculation/Engineering/DELTA.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDELTA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDELTA')]
     public function testDELTAUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,9 +81,7 @@ class DeltaTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDeltaArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDeltaArray')]
     public function testDeltaArray(array $expectedResult, string $a, string $b): void
     {
         $calculation = Calculation::getInstance();

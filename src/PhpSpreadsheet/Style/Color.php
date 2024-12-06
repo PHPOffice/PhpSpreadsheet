@@ -230,12 +230,14 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setARGB(?string $colorValue = self::COLOR_BLACK): static
+    public function setARGB(?string $colorValue = self::COLOR_BLACK, bool $nullStringOkay = false): static
     {
         $this->hasChanged = true;
-        $colorValue = $this->validateColor($colorValue);
-        if ($colorValue === '') {
-            return $this;
+        if (!$nullStringOkay || $colorValue !== '') {
+            $colorValue = $this->validateColor($colorValue);
+            if ($colorValue === '') {
+                return $this;
+            }
         }
 
         if ($this->isSupervisor) {

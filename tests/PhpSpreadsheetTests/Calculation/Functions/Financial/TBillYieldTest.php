@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class TBillYieldTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTBILLYIELD
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTBILLYIELD')]
     public function testTBILLYIELD(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('TBILLYIELD', $expectedResult, $args);

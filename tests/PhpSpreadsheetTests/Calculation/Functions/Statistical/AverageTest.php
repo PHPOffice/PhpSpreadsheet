@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class AverageTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAVERAGE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAVERAGE')]
     public function testAVERAGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('AVERAGE', $expectedResult, ...$args);

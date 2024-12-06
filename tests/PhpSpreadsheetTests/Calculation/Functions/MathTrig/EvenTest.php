@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class EvenTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEVEN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEVEN')]
     public function testEVEN(int|string $expectedResult, float|int|string $value): void
     {
         $this->mightHaveException($expectedResult);
@@ -25,9 +23,7 @@ class EvenTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }
 
-    /**
-     * @dataProvider providerEvenArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEvenArray')]
     public function testEvenArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

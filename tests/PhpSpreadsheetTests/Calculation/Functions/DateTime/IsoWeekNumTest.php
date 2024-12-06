@@ -30,18 +30,14 @@ class IsoWeekNumTest extends TestCase
         SharedDate::setExcelCalendar($this->excelCalendar);
     }
 
-    /**
-     * @dataProvider providerISOWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerISOWEEKNUM')]
     public function testDirectCallToISOWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
         $result = Week::isoWeekNumber(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerISOWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerISOWEEKNUM')]
     public function testISOWEEKNUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -53,9 +49,7 @@ class IsoWeekNumTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerISOWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerISOWEEKNUM')]
     public function testISOWEEKNUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,9 +72,7 @@ class IsoWeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyISOWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyISOWEEKNUM')]
     public function testISOWEEKNUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -106,9 +98,7 @@ class IsoWeekNumTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerISOWEEKNUM1904
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerISOWEEKNUM1904')]
     public function testISOWEEKNUMWith1904Calendar(mixed $expectedResult, mixed ...$args): void
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
@@ -122,9 +112,7 @@ class IsoWeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM1904.php';
     }
 
-    /**
-     * @dataProvider providerIsoWeekNumArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsoWeekNumArray')]
     public function testIsoWeekNumArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

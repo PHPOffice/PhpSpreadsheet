@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class YieldDiscTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerYIELDDISC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYIELDDISC')]
     public function testYIELDDISC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('YIELDDISC', $expectedResult, $args);

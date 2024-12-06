@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CountIfTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUNTIF
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUNTIF')]
     public function testCOUNTIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTIF', $expectedResult, ...$args);

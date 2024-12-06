@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NegBinomDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNEGBINOMDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNEGBINOMDIST')]
     public function testNEGBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class NegBinomDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/NEGBINOMDIST.php';
     }
 
-    /**
-     * @dataProvider providerNegBinomDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNegBinomDistArray')]
     public function testNegBinomDistArray(
         array $expectedResult,
         string $failures,

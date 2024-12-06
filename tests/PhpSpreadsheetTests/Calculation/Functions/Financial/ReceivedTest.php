@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class ReceivedTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRECEIVED
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRECEIVED')]
     public function testRECEIVED(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('RECEIVED', $expectedResult, $args);

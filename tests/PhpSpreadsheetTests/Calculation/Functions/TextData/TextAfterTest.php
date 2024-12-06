@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class TextAfterTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXTAFTER
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXTAFTER')]
     public function testTextAfter(string $expectedResult, array $arguments): void
     {
         $text = $arguments[0];

@@ -26,9 +26,7 @@ class TextSplitTest extends AllSetupTeardown
         }
     }
 
-    /**
-     * @dataProvider providerTEXTSPLIT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXTSPLIT')]
     public function testTextSplit(array $expectedResult, array $arguments): void
     {
         Calculation::getInstance($this->getSpreadsheet())->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);

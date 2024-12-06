@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CoshTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCosh
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCosh')]
     public function testCosh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class CoshTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/COSH.php';
     }
 
-    /**
-     * @dataProvider providerCoshArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCoshArray')]
     public function testCoshArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

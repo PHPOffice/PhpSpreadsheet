@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class DollarDeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDOLLARDE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDOLLARDE')]
     public function testDOLLARDE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DOLLARDE', $expectedResult, $args);
@@ -21,9 +19,7 @@ class DollarDeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
 
-    /**
-     * @dataProvider providerDollarDeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDollarDeArray')]
     public function testDollarDeArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

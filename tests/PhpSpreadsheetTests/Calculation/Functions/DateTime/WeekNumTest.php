@@ -30,18 +30,14 @@ class WeekNumTest extends TestCase
         SharedDate::setExcelCalendar($this->excelCalendar);
     }
 
-    /**
-     * @dataProvider providerWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
     public function testDirectCallToWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
         $result = Week::number(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
     public function testWEEKNUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -53,9 +49,7 @@ class WeekNumTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
     public function testWEEKNUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,9 +72,7 @@ class WeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyWEEKNUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWEEKNUM')]
     public function testWEEKNUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -106,9 +98,7 @@ class WeekNumTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerWEEKNUM1904
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM1904')]
     public function testWEEKNUMWith1904Calendar(mixed $expectedResult, mixed ...$args): void
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
@@ -122,9 +112,7 @@ class WeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKNUM1904.php';
     }
 
-    /**
-     * @dataProvider providerWeekNumArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWeekNumArray')]
     public function testWeekNumArray(array $expectedResult, string $dateValues, string $methods): void
     {
         $calculation = Calculation::getInstance();

@@ -78,9 +78,7 @@ class HtmlBorderTest extends TestCase
         self::assertEquals('333333', $border->getColor()->getRGB());
     }
 
-    /**
-     * @dataProvider providerBorderStyle
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBorderStyle')]
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $borders = Html::getBorderMappings();

@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    /**
-     * @dataProvider binderProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('binderProvider')]
     public function testBindValue(null|string|bool|int|float|DateTime|DateTimeImmutable $value): void
     {
         $spreadsheet = new Spreadsheet();
@@ -72,9 +70,7 @@ class DefaultValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerDataTypeForValue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataTypeForValue')]
     public function testDataTypeForValue(mixed $expectedResult, mixed $value): void
     {
         $result = DefaultValueBinder::dataTypeForValue($value);

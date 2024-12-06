@@ -48,9 +48,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCustomText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomText')]
     public function testCustomTest(array $expectedVisible, string $pattern): void
     {
         $sheet = $this->initSheet();
@@ -191,9 +189,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCustomRule
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomRule')]
     public function testCustomRuleTest(array $expectedVisible, string $rule, string $comparand): void
     {
         $sheet = $this->initSheet();

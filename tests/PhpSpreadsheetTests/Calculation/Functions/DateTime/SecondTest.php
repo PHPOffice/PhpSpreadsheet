@@ -12,18 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 class SecondTest extends TestCase
 {
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSECOND')]
     public function testDirectCallToSECOND(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::second(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSECOND')]
     public function testSECONDAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -35,9 +31,7 @@ class SecondTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSECOND')]
     public function testSECONDInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +54,7 @@ class SecondTest extends TestCase
         return require 'tests/data/Calculation/DateTime/SECOND.php';
     }
 
-    /**
-     * @dataProvider providerUnhappySECOND
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappySECOND')]
     public function testSECONDUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +80,7 @@ class SecondTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerSecondArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSecondArray')]
     public function testSecondArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

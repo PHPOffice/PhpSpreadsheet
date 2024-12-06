@@ -44,11 +44,8 @@ class CsvNumberFormatLocaleTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerNumberFormatNoConversionTest
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatNoConversionTest')]
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testNumberFormatNoConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
@@ -88,11 +85,8 @@ class CsvNumberFormatLocaleTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberValueConversionTest
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberValueConversionTest')]
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {

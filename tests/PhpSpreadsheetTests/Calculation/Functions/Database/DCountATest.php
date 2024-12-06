@@ -9,18 +9,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DCountATest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDCountA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCountA')]
     public function testDirectCallToDCountA(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $result = DCountA::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDCountA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCountA')]
     public function testDCountAAsWorksheetFormula(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNTA', $database, $field, $criteria);

@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ScientificTest extends TestCase
 {
-    /**
-     * @dataProvider providerScientific
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerScientific')]
     public function testScientific(string $expectedResult, int $decimals): void
     {
         $wizard = new Scientific($decimals);
@@ -32,9 +30,7 @@ class ScientificTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerScientificLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerScientificLocale')]
     public function testScientificLocale(
         string $expectedResult,
         string $locale

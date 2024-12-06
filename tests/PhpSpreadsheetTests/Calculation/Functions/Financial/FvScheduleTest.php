@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class FvScheduleTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFVSCHEDULE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFVSCHEDULE')]
     public function testFVSCHEDULE(mixed $expectedResult, mixed $principal = null, ?array $schedule = null): void
     {
         $this->mightHaveException($expectedResult);

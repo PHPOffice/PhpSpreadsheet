@@ -54,9 +54,7 @@ class ConditionalStyleTest extends TestCase
             );
     }
 
-    /**
-     * @dataProvider cellConditionalStylesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellConditionalStylesProvider')]
     public function testCellHasConditionalStyles(string $cellReference, bool $expectedHasConditionalStyles): void
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->conditionalStylesExists($cellReference);
@@ -64,9 +62,7 @@ class ConditionalStyleTest extends TestCase
         self::assertSame($expectedHasConditionalStyles, $cellHasConditionalStyles);
     }
 
-    /**
-     * @dataProvider cellConditionalStylesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellConditionalStylesProvider')]
     public function testCellGetConditionalStyles(string $cellReference, bool $expectedGetConditionalStyles): void
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->getConditionalStyles($cellReference);

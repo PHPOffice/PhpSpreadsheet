@@ -16,9 +16,7 @@ class IsNaTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsNa
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNa')]
     public function testIsNa(bool $expectedResult, mixed $value): void
     {
         $result = ErrorValue::isNa($value);
@@ -30,9 +28,7 @@ class IsNaTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_NA.php';
     }
 
-    /**
-     * @dataProvider providerIsNaArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNaArray')]
     public function testIsNaArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

@@ -12,6 +12,8 @@ class CsvLineEndingTest extends TestCase
 {
     private string $tempFile = '';
 
+    private static bool $alwaysFalse = false;
+
     protected function tearDown(): void
     {
         if ($this->tempFile !== '') {
@@ -20,9 +22,7 @@ class CsvLineEndingTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerEndings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
     public function testEndings(string $ending): void
     {
         if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
@@ -32,6 +32,9 @@ class CsvLineEndingTest extends TestCase
         $data = ['123', '456', '789'];
         file_put_contents($filename, implode($ending, $data));
         $reader = new Csv();
+        if (Csv::DEFAULT_TEST_AUTODETECT === self::$alwaysFalse) {
+            $reader->setTestAutoDetect(true);
+        }
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals($data[0], $sheet->getCell('A1')->getValue());
@@ -40,9 +43,7 @@ class CsvLineEndingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerEndings
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
     public function testEndingsNoDetect(string $ending): void
     {
         $this->tempFile = $filename = File::temporaryFilename();

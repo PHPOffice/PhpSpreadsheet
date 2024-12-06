@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ChiDistLeftTailTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCHIDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHIDIST')]
     public function testCHIDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.DIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class ChiDistLeftTailTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/CHIDISTLeftTail.php';
     }
 
-    /**
-     * @dataProvider providerChiDistLeftTailArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiDistLeftTailArray')]
     public function testChiDistLeftTailArray(array $expectedResult, string $values, string $degrees): void
     {
         $calculation = Calculation::getInstance();

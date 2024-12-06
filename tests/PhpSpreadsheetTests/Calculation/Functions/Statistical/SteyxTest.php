@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class SteyxTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSTEYX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSTEYX')]
     public function testSTEYX(mixed $expectedResult, array $xargs, array $yargs): void
     {
         //$result = Statistical\Trends::STEYX($xargs, $yargs);

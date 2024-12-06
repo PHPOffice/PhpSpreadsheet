@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class HypGeomDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerHYPGEOMDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPGEOMDIST')]
     public function testHYPGEOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class HypGeomDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/HYPGEOMDIST.php';
     }
 
-    /**
-     * @dataProvider providerHypGeomDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHypGeomDistArray')]
     public function testHypGeomDistArray(
         array $expectedResult,
         string $sampleSuccesses,

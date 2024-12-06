@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RoundDownTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRoundDown
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundDown')]
     public function testRoundDown(float|int|string $expectedResult, float|int|string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class RoundDownTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ROUNDDOWN.php';
     }
 
-    /**
-     * @dataProvider providerRoundDownArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundDownArray')]
     public function testRoundDownArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

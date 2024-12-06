@@ -50,9 +50,8 @@ class ReadBlankCellsTest extends AbstractFunctional
 
     /**
      * Test generate file with some empty cells.
-     *
-     * @dataProvider providerSheetFormat
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetFormat')]
     public function testLoadAndSaveReadEmpty(string $format, bool $expected): void
     {
         $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';
@@ -72,9 +71,8 @@ class ReadBlankCellsTest extends AbstractFunctional
 
     /**
      * Test generate file with some empty cells.
-     *
-     * @dataProvider providerSheetFormat
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetFormat')]
     public function testLoadAndSaveDontReadEmpty(string $format): void
     {
         $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';

@@ -17,9 +17,7 @@ class FormattedNumberSlashTest extends TestCase
         StringHelper::setThousandsSeparator(null);
     }
 
-    /**
-     * @dataProvider providerNumbers
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumbers')]
     public function testNumber(float $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         StringHelper::setThousandsSeparator($thousandsSeparator);
@@ -38,9 +36,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentages
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         $originalValue = $value;
@@ -61,9 +57,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCurrencies
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.', ?string $currencyCode = null): void
     {
         $originalValue = $value;

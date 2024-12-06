@@ -15,9 +15,7 @@ class TransposeTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    /**
-     * @dataProvider providerTRANSPOSE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTRANSPOSE')]
     public function testTRANSPOSE(mixed $expectedResult, mixed $matrix): void
     {
         $result = LookupRef\Matrix::transpose($matrix);

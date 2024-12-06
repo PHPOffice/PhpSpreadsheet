@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CeilingMathTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCEILINGMATH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCEILINGMATH')]
     public function testCEILINGMATH(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class CeilingMathTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/CEILINGMATH.php';
     }
 
-    /**
-     * @dataProvider providerCeilingArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCeilingArray')]
     public function testCeilingArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
