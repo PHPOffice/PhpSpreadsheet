@@ -165,6 +165,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         self::assertStringContainsString('<td style="text-align:left;">Hello</td>', $html);
         self::assertStringContainsString('<td data-type="b" style="text-align:center;">VRAI</td>', $html);
         self::assertStringContainsString('<td data-type="b" style="text-align:center;">FAUX</td>', $html);
+        self::assertStringContainsString('<td data-type="s" style="text-align:left;">1</td>', $html);
         self::assertStringContainsString('<td style="text-align:left;">AB</td>', $html);
         self::assertStringContainsString('<td style="text-align:right;">3</td>', $html);
 

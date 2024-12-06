@@ -25,7 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Html Reader/Writer Better Handling of Booleans. [PR #4257](https://github.com/PHPOffice/PhpSpreadsheet/pull/4257)
+- Fill Patterns/Colors When Xml Attributes are Missing. [Issue #4248](https://github.com/PHPOffice/PhpSpreadsheet/issues/4248) [PR #4250](https://github.com/PHPOffice/PhpSpreadsheet/pull/4250)
+- Remove Unneccesary files from Composer Package. [PR #4262](https://github.com/PHPOffice/PhpSpreadsheet/pull/4262)
 
 ## 2024-11-22 - 3.5.0
 
