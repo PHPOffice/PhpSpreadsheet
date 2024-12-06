@@ -1139,9 +1139,16 @@ class Html extends BaseWriter
 
         // Create CSS
         if ($fill->getFillType() !== Fill::FILL_NONE) {
-            $value = $fill->getFillType() == Fill::FILL_NONE
-                ? 'white' : '#' . $fill->getStartColor()->getRGB();
-            $css['background-color'] = $value;
+            if (
+                (in_array($fill->getFillType(), ['', Fill::FILL_SOLID], true) || !$fill->getEndColor()->getRGB())
+                && $fill->getStartColor()->getRGB()
+            ) {
+                $value = '#' . $fill->getStartColor()->getRGB();
+                $css['background-color'] = $value;
+            } elseif ($fill->getEndColor()->getRGB()) {
+                $value = '#' . $fill->getEndColor()->getRGB();
+                $css['background-color'] = $value;
+            }
         }
 
         return $css;
