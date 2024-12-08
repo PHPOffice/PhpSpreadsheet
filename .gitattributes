@@ -4,7 +4,7 @@
 /.github export-ignore
 /.gitignore export-ignore
 /.phpcs.xml.dist export-ignore
-/.php-cs-fixer.dist export-ignore
+/.php-cs-fixer.dist.php export-ignore
 /.scrutinizer.yml export-ignore
 /CHANGELOG.PHPExcel.md export-ignore
 /bin export-ignore
@@ -14,7 +14,8 @@
 /mkdocs.yml export-ignore
 /phpstan.neon.dist export-ignore
 /phpstan-baseline.neon export-ignore
-/phpstan-conditional.neon export-ignore
+/phpstan-conditional.php export-ignore
+/phpunit10.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
 /samples export-ignore
 /tests export-ignore
