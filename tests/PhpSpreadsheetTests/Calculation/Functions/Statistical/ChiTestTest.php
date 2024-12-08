@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 // TODO Convert to Spreadsheet context.
 class ChiTestTest extends TestCase
 {
-    /**
-     * @dataProvider providerCHITEST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHITEST')]
     public function testCHITEST(mixed $expectedResult, mixed $actual, mixed $expected): void
     {
         $result = Statistical\Distributions\ChiSquared::test($actual, $expected);

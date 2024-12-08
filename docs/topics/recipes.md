@@ -1293,8 +1293,8 @@ style object:
 
 ```php
 $spreadsheet->getActiveSheet()
-    ->duplicateStyle(
-        $spreadsheet->getActiveSheet()->getStyle('B2'),
+    ->duplicateConditionalStyle(
+        $spreadsheet->getActiveSheet()->getConditionalStyles('B2'),
         'B3:B7'
     );
 ```

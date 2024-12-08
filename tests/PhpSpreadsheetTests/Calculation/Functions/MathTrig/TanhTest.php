@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TanhTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTanh
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTanh')]
     public function testTanh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class TanhTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/TANH.php';
     }
 
-    /**
-     * @dataProvider providerTanhArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTanhArray')]
     public function testTanhArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

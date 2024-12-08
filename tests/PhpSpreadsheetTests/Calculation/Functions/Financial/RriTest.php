@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class RriTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRRI
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRRI')]
     public function testRRI(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('RRI', $expectedResult, $args);

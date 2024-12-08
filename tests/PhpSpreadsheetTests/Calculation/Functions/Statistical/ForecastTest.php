@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 // Note that null in reference is treated differently than null in array.
 class ForecastTest extends TestCase
 {
-    /**
-     * @dataProvider providerFORECAST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFORECAST')]
     public function testFORECAST(mixed $expectedResult, mixed ...$args): void
     {
         $result = Statistical\Trends::FORECAST(...$args);
@@ -26,9 +24,7 @@ class ForecastTest extends TestCase
         return require 'tests/data/Calculation/Statistical/FORECAST.php';
     }
 
-    /**
-     * @dataProvider providerForecastArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerForecastArray')]
     public function testForecastArray(array $expectedResult, string $testValues, string $yValues, string $xValues): void
     {
         $calculation = Calculation::getInstance();

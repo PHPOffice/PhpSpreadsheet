@@ -41,9 +41,7 @@ class FontTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerFontSizeToPixels
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFontSizeToPixels')]
     public function testFontSizeToPixels(float|int $expectedResult, float|int $size): void
     {
         $result = Font::fontSizeToPixels($size);
@@ -55,9 +53,7 @@ class FontTest extends TestCase
         return require 'tests/data/Shared/FontSizeToPixels.php';
     }
 
-    /**
-     * @dataProvider providerInchSizeToPixels
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInchSizeToPixels')]
     public function testInchSizeToPixels(float|int $expectedResult, float|int $size): void
     {
         $result = Font::inchSizeToPixels($size);
@@ -69,9 +65,7 @@ class FontTest extends TestCase
         return require 'tests/data/Shared/InchSizeToPixels.php';
     }
 
-    /**
-     * @dataProvider providerCentimeterSizeToPixels
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCentimeterSizeToPixels')]
     public function testCentimeterSizeToPixels(float $expectedResult, float $size): void
     {
         $result = Font::centimeterSizeToPixels($size);
@@ -95,9 +89,7 @@ class FontTest extends TestCase
         self::assertEquals(4, $width);
     }
 
-    /**
-     * @dataProvider providerCalculateApproximateColumnWidth
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculateApproximateColumnWidth')]
     public function testCalculateApproximateColumnWidth(
         float $expectedWidth,
         StyleFont $font,

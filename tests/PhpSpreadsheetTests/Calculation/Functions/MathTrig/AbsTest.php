@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AbsTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAbs
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAbs')]
     public function testAbs(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
@@ -30,9 +28,7 @@ class AbsTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ABS.php';
     }
 
-    /**
-     * @dataProvider providerAbsArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAbsArray')]
     public function testAbsoluteArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

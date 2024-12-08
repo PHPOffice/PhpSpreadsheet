@@ -360,7 +360,7 @@ class Column
     public function __clone()
     {
         $vars = get_object_vars($this);
-        /** @var AutoFilter\Column\Rule[] $value */
+        /** @var Column\Rule[] $value */
         foreach ($vars as $key => $value) {
             if ($key === 'parent') {
                 // Detach from autofilter parent

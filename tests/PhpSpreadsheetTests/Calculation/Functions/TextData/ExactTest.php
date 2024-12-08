@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ExactTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEXACT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEXACT')]
     public function testEXACT(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -34,9 +32,7 @@ class ExactTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 
-    /**
-     * @dataProvider providerExactArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExactArray')]
     public function testExactArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

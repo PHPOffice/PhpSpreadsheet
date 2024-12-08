@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FixedTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFIXED
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFIXED')]
     public function testFIXED(mixed $expectedResult, mixed $number = 'omitted', mixed $decimals = 'omitted', mixed $noCommas = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +37,7 @@ class FixedTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/FIXED.php';
     }
 
-    /**
-     * @dataProvider providerFixedArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFixedArray')]
     public function testFixedArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

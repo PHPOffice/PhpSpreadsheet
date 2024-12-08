@@ -26,9 +26,7 @@ class StreamTest extends TestCase
         return $providerFormats;
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testAllWritersCanWriteToStream(string $format): void
     {
         $spreadsheet = new Spreadsheet();

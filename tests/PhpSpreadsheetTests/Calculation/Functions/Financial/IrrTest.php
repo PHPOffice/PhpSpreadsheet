@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class IrrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerIRR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIRR')]
     public function testIRR(mixed $expectedResult, mixed $values = null): void
     {
         $this->mightHaveException($expectedResult);

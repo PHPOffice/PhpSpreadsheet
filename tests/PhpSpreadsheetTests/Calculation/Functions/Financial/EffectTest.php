@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class EffectTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEFFECT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEFFECT')]
     public function testEFFECT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('EFFECT', $expectedResult, $args);

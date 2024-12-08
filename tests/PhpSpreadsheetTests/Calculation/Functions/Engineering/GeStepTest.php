@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class GeStepTest extends TestCase
 {
-    /**
-     * @dataProvider providerGESTEP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
     public function testDirectCallToGESTEP(int|string $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
         $result = ($arg2 === null) ? Compare::geStep($arg1) : Compare::geStep($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerGESTEP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
     public function testGESTEPAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class GeStepTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerGESTEP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
     public function testGESTEPInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class GeStepTest extends TestCase
         return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyGESTEP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyGESTEP')]
     public function testGESTEPUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,9 +81,7 @@ class GeStepTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerGeStepArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGeStepArray')]
     public function testGeStepArray(array $expectedResult, string $a, string $b): void
     {
         $calculation = Calculation::getInstance();

@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
 {
-    /**
-     * @dataProvider providerADDRESS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerADDRESS')]
     public function testADDRESS(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Address::cell(...$args);
@@ -24,9 +22,7 @@ class AddressTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/ADDRESS.php';
     }
 
-    /**
-     * @dataProvider providerAddressArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAddressArray')]
     public function testAddressArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

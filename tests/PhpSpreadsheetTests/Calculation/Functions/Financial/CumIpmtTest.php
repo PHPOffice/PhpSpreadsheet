@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CumIpmtTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCUMIPMT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCUMIPMT')]
     public function testCUMIPMT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('CUMIPMT', $expectedResult, $args);

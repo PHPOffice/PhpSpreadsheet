@@ -34,9 +34,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider setTitleInvalidProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('setTitleInvalidProvider')]
     public function testSetTitleInvalid(string $title, string $expectMessage): void
     {
         // First, test setting title with validation disabled -- should be successful
@@ -91,9 +89,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider setCodeNameInvalidProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('setCodeNameInvalidProvider')]
     public function testSetCodeNameInvalid(string $codeName, string $expectMessage): void
     {
         // First, test setting code name with validation disabled -- should be successful
@@ -151,9 +147,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider extractSheetTitleProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('extractSheetTitleProvider')]
     public function testExtractSheetTitle(string $range, string $expectTitle, string $expectCell, string $expectCell2): void
     {
         // only cell reference
@@ -276,9 +270,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider removeColumnProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('removeColumnProvider')]
     public function testRemoveColumn(
         array $initialData,
         string $columnToBeRemoved,
@@ -427,9 +419,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider removeRowsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('removeRowsProvider')]
     public function testRemoveRows(
         array $initialData,
         int $rowToRemove,
@@ -485,9 +475,7 @@ class WorksheetTest extends TestCase
         return $sheet;
     }
 
-    /**
-     * @dataProvider emptyRowProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowProvider')]
     public function testIsEmptyRow(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -514,9 +502,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyColumnProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnProvider')]
     public function testIsEmptyColumn(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -566,9 +552,7 @@ class WorksheetTest extends TestCase
         self::assertInstanceOf(Table::class, $table);
     }
 
-    /**
-     * @dataProvider toArrayHiddenRowsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('toArrayHiddenRowsProvider')]
     public function testHiddenRows(
         array $initialData,
         array $hiddenRows,
@@ -601,9 +585,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider toArrayHiddenColumnsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('toArrayHiddenColumnsProvider')]
     public function testHiddenColumns(
         array $initialData,
         array $hiddenColumns,
@@ -636,9 +618,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeToArrayProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeToArrayProvider')]
     public function testRangeToArrayWithCellRangeObject(array $expected, string $fromCell, string $toCell): void
     {
         $initialData = array_chunk(range('A', 'Y'), 5);

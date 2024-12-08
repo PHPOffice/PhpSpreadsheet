@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class LookupTest extends TestCase
 {
-    /**
-     * @dataProvider providerLOOKUP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOOKUP')]
     public function testLOOKUP(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Lookup::lookup(...$args);
@@ -25,9 +23,7 @@ class LookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/LOOKUP.php';
     }
 
-    /**
-     * @dataProvider providerLookupArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLookupArray')]
     public function testLookupArray(array $expectedResult, string $values, string $lookup, string $return): void
     {
         $calculation = Calculation::getInstance();

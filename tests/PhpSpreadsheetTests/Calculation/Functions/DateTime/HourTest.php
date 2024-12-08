@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class HourTest extends TestCase
 {
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
     public function testDirectCallToHOUR(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::hour(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
     public function testHOURAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class HourTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
     public function testHOURInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class HourTest extends TestCase
         return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyHOUR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyHOUR')]
     public function testHOURUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,9 +81,7 @@ class HourTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerHourArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHourArray')]
     public function testHourArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

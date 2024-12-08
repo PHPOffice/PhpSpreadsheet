@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CountATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUNTA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUNTA')]
     public function testCOUNTA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('COUNTA', $expectedResult, ...$args);

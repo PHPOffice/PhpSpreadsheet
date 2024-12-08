@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class GridlinesTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider loadDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('loadDataProvider')]
     public function testGridlines(bool $display, bool $print): void
     {
         $spreadsheet = new Spreadsheet();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NotTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNOT')]
     public function testNOT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOT', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class NotTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/NOT.php';
     }
 
-    /**
-     * @dataProvider providerNotArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNotArray')]
     public function testNotArray(array $expectedResult, string $argument1): void
     {
         $calculation = Calculation::getInstance();

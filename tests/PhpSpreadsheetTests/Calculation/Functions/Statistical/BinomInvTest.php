@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BinomInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBINOMINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBINOMINV')]
     public function testBINOMINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.INV', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class BinomInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/BINOMINV.php';
     }
 
-    /**
-     * @dataProvider providerBinomInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinomInvArray')]
     public function testBinomInvArray(
         array $expectedResult,
         string $trials,

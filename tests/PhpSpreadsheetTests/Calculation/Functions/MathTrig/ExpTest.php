@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ExpTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEXP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEXP')]
     public function testEXP(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,9 +30,7 @@ class ExpTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/EXP.php';
     }
 
-    /**
-     * @dataProvider providerExpArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExpArray')]
     public function testExpArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

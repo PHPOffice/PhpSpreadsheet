@@ -15,9 +15,7 @@ class NTest extends TestCase
         self::assertSame(0, $result);
     }
 
-    /**
-     * @dataProvider providerN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerN')]
     public function testN(mixed $expectedResult, mixed $value): void
     {
         $result = Value::asNumber($value);

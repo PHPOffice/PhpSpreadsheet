@@ -29,18 +29,14 @@ class WeekDayTest extends TestCase
         SharedDate::setExcelCalendar($this->excelCalendar);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKDAY')]
     public function testDirectCallToWEEKDAY(int|string $expectedResult, bool|int|string $dateValue, null|int|string $style = null): void
     {
         $result = ($style === null) ? Week::day($dateValue) : Week::day($dateValue, $style);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKDAY')]
     public function testWEEKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -52,9 +48,7 @@ class WeekDayTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKDAY')]
     public function testWEEKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -77,9 +71,7 @@ class WeekDayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyWEEKDAY
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWEEKDAY')]
     public function testWEEKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -114,9 +106,7 @@ class WeekDayTest extends TestCase
         self::assertEquals(6, Week::day(null));
     }
 
-    /**
-     * @dataProvider providerWeekDayArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWeekDayArray')]
     public function testWeekDayArray(array $expectedResult, string $dateValues, string $styles): void
     {
         $calculation = Calculation::getInstance();

@@ -25,9 +25,7 @@ class ImCscTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMCSC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCSC')]
     public function testDirectCallToIMCSC(float|string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMCSC($arg);
@@ -42,9 +40,7 @@ class ImCscTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMCSC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCSC')]
     public function testIMCSCAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImCscTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMCSC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCSC')]
     public function testIMCSCInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImCscTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMCSC.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMCSC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMCSC')]
     public function testIMCSCUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImCscTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImCscArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImCscArray')]
     public function testImCscArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

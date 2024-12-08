@@ -7,9 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 // TODO There are some commented out cases which don't return correct value
 class CountIfsTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUNTIFS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUNTIFS')]
     public function testCOUNTIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTIFS', $expectedResult, ...$args);

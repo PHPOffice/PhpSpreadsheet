@@ -52,9 +52,7 @@ class AutoFilterMonthTest extends SetupTeardown
         $this->maxRow = 9;
     }
 
-    /**
-     * @dataProvider providerMonth
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMonth')]
     public function testMonths(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFormula2Test extends TestCase
 {
-    /**
-     * @dataProvider arrayFormulaReaderProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('arrayFormulaReaderProvider')]
     public function testArrayFormulaReader(
         string $cellAddress,
         string $expectedRange,

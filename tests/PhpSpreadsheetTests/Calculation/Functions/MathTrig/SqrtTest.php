@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SqrtTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSQRT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSQRT')]
     public function testSQRT(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
@@ -30,9 +28,7 @@ class SqrtTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SQRT.php';
     }
 
-    /**
-     * @dataProvider providerSqrtArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSqrtArray')]
     public function testSqrtArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

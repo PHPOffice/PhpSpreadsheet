@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class ProductTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPRODUCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPRODUCT')]
     public function testPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();

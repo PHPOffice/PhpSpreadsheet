@@ -64,9 +64,7 @@ class HtmlTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCanReadVerySmallFile
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCanReadVerySmallFile')]
     public function testCanReadVerySmallFile(bool $expected, string $content): void
     {
         $filename = HtmlHelper::createHtml($content);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AtanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAtan
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAtan')]
     public function testAtan(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class AtanTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ATAN.php';
     }
 
-    /**
-     * @dataProvider providerAtanArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAtanArray')]
     public function testAtanArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

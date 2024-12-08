@@ -13,18 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class BitRShiftTest extends TestCase
 {
-    /**
-     * @dataProvider providerBITRSHIFT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
     public function testDirectCallToBITRSHIFT(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITRSHIFT($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITRSHIFT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
     public function testBITRSHIFTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,9 +32,7 @@ class BitRShiftTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITRSHIFT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
     public function testBITRSHIFTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +55,7 @@ class BitRShiftTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITRSHIFT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBITRSHIFT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITRSHIFT')]
     public function testBITRSHIFTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -90,9 +82,7 @@ class BitRShiftTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBitRShiftArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitRShiftArray')]
     public function testBitRShiftArray(array $expectedResult, string $number, string $bits): void
     {
         $calculation = Calculation::getInstance();

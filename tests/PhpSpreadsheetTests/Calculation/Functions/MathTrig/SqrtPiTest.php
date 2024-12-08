@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SqrtPiTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSQRTPI
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSQRTPI')]
     public function testSQRTPI(mixed $expectedResult, mixed $number): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,9 +30,7 @@ class SqrtPiTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }
 
-    /**
-     * @dataProvider providerSqrtPiArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSqrtPiArray')]
     public function testSqrtPiArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

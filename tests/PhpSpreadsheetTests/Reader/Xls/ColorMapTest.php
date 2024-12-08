@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColorMapTest extends TestCase
 {
-    /**
-     * @dataProvider colorMapProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('colorMapProvider')]
     public function testColorMap(int $index, string $expectedBiff5, string $expectedBiff8, string $expectedBuiltin): void
     {
         self::assertSame($expectedBiff5, BIFF5::lookup($index)['rgb']);

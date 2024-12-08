@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GammaLnTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAMMALN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMALN')]
     public function testGAMMALN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMALN', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class GammaLnTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
 
-    /**
-     * @dataProvider providerGammaLnArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGammaLnArray')]
     public function testGammaLnArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

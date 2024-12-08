@@ -11,12 +11,11 @@ use PhpOffice\PhpSpreadsheet\Settings;
 class MidTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerMID
-     *
      * @param mixed $str string from which to extract
      * @param mixed $start position at which to start
      * @param mixed $cnt number of characters to extract
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMID')]
     public function testMID(mixed $expectedResult, mixed $str = 'omitted', mixed $start = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -45,9 +44,7 @@ class MidTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/MID.php';
     }
 
-    /**
-     * @dataProvider providerLocaleMID
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleMID')]
     public function testMiddleWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $offset, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -78,9 +75,7 @@ class MidTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeMIDTrue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeMIDTrue')]
     public function testCalculationTypeTrue(string $type, string $resultB1, string $resultB2, string $resultB3): void
     {
         Functions::setCompatibilityMode($type);
@@ -119,9 +114,7 @@ class MidTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeMIDFalse
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeMIDFalse')]
     public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -159,9 +152,7 @@ class MidTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeMIDNull
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeMIDNull')]
     public function testCalculationTypeNull(string $type, string $resultB1, string $resultB2, string $resultB3): void
     {
         Functions::setCompatibilityMode($type);
@@ -199,9 +190,7 @@ class MidTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerMidArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMidArray')]
     public function testMidArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();

@@ -26,10 +26,9 @@ class ImProductTest extends TestCase
     }
 
     /**
-     * @dataProvider providerIMPRODUCT
-     *
      * @param string ...$args variadic arguments
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPRODUCT')]
     public function testDirectCallToIMPRODUCT(mixed $expectedResult, ...$args): void
     {
         $result = ComplexOperations::IMPRODUCT(...$args);
@@ -44,9 +43,7 @@ class ImProductTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMPRODUCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPRODUCT')]
     public function testIMPRODUCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -62,9 +59,7 @@ class ImProductTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMPRODUCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPRODUCT')]
     public function testIMPRODUCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -90,9 +85,7 @@ class ImProductTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMPRODUCT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMPRODUCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMPRODUCT')]
     public function testIMPRODUCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);

@@ -5,9 +5,6 @@ require __DIR__ . '/../Header.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-//var_dump(realpath(__DIR__ . '/../images/blue_square.png'));
-//exit();
-
 $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'images/blue_square.png';
 $spreadsheet = new Spreadsheet();
 $spreadsheet->getProperties()->setTitle('53_ImageOpacity');
@@ -33,12 +30,12 @@ $drawing->setOpacity(80000);
 $drawing->setWorksheet($sheet);
 
 $drawing = new Drawing();
+$drawing->setWorksheet($sheet);
 $drawing->setName('Blue Square opacity 60%');
 $drawing->setPath($path);
 $drawing->setCoordinates('E1');
 $drawing->setCoordinates2('F5');
 $drawing->setOpacity(60000);
-$drawing->setWorksheet($sheet);
 
 $drawing = new Drawing();
 $drawing->setName('Blue Square opacity 40%');
@@ -57,12 +54,12 @@ $drawing->setOpacity(20000);
 $drawing->setWorksheet($sheet);
 
 $drawing = new Drawing();
+$drawing->setWorksheet($sheet);
 $drawing->setName('Blue Square opacity 0%');
 $drawing->setPath($path);
 $drawing->setCoordinates('E8');
 $drawing->setCoordinates2('F12');
 $drawing->setOpacity(0);
-$drawing->setWorksheet($sheet);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Html', 'Dompdf', 'Mpdf']);

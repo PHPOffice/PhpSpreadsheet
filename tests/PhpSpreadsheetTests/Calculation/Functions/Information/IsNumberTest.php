@@ -16,9 +16,7 @@ class IsNumberTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsNumber
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNumber')]
     public function testIsNumber(bool $expectedResult, mixed $value): void
     {
         $result = Value::isNumber($value);
@@ -30,9 +28,7 @@ class IsNumberTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_NUMBER.php';
     }
 
-    /**
-     * @dataProvider providerIsNumberArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNumberArray')]
     public function testIsNumberArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

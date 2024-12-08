@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionPrefixTest extends TestCase
 {
-    /**
-     * @dataProvider functionPrefixProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('functionPrefixProvider')]
     public function testFunctionPrefix(string $expectedResult, string $functionString): void
     {
         $result = FunctionPrefix::addFunctionPrefix($functionString);

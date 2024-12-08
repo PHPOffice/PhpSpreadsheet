@@ -32,9 +32,7 @@ class ColumnIteratorEmptyTest extends TestCase
         return $sheet;
     }
 
-    /**
-     * @dataProvider emptyColumnBasic
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnBasic')]
     public function testIteratorEmptyColumn(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -62,9 +60,7 @@ class ColumnIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyColumnNullAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnNullAsEmpty')]
     public function testIteratorEmptyColumnWithNull(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -92,9 +88,7 @@ class ColumnIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyColumnEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnEmptyStringAsEmpty')]
     public function testIteratorEmptyColumnWithEmptyString(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -122,9 +116,7 @@ class ColumnIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyColumnNullAndEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnNullAndEmptyStringAsEmpty')]
     public function testIteratorEmptyColumnWithNullAndEmptyString(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();

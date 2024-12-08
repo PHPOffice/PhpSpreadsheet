@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class GeoMeanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGEOMEAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGEOMEAN')]
     public function testGEOMEAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GEOMEAN', $expectedResult, ...$args);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class MInverseTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMINVERSE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINVERSE')]
     public function testMINVERSE(mixed $expectedResult, array $args): void
     {
         $result = MathTrig\MatrixFunctions::inverse($args);
