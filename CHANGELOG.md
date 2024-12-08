@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## 1.29.6 - TBD
+## 1.29.6 - 2024-12-08
 
 ### Fixed
 
 - Fix Minor Break Handling Drawings. Backport of [PR #4244](https://github.com/PHPOffice/PhpSpreadsheet/pull/4244)
+- Upgrade locked version of Tcpdf (security advisory).
+- Upgrade locked version of Dompdf (Php8.4 compatibility).
+- Remove unnecessary files from Composer package.
 
 ## 1.29.5 - 2024-11-22
 
