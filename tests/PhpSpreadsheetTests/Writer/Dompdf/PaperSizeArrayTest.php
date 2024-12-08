@@ -10,12 +10,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Not clear that Dompdf will be Php8.4 compatible in time.
- * Run in separate process and add version test till it is ready.
- *
- * @runTestsInSeparateProcesses
- */
 class PaperSizeArrayTest extends TestCase
 {
     private string $outfile = '';
@@ -42,11 +36,7 @@ class PaperSizeArrayTest extends TestCase
         $sheet->setCellValue('A7', 'Lorem Ipsum');
         $writer = new Dompdf($spreadsheet);
         $this->outfile = File::temporaryFilename();
-        if (PHP_VERSION_ID >= 80400) { // hopefully temporary
-            @$writer->save($this->outfile);
-        } else {
-            $writer->save($this->outfile);
-        }
+        $writer->save($this->outfile);
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
         $contents = file_get_contents($this->outfile);
@@ -66,11 +56,7 @@ class PaperSizeArrayTest extends TestCase
         $sheet->setCellValue('A7', 'Lorem Ipsum');
         $writer = new Dompdf($spreadsheet);
         $this->outfile = File::temporaryFilename();
-        if (PHP_VERSION_ID >= 80400) { // hopefully temporary
-            @$writer->save($this->outfile);
-        } else {
-            $writer->save($this->outfile);
-        }
+        $writer->save($this->outfile);
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
         $contents = file_get_contents($this->outfile);
