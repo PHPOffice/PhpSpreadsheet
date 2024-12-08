@@ -8,11 +8,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Not clear that Dompdf will be Php8.4 compatible in time.
- * Run in separate process and add version test till it is ready.
- */
-#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class StreamTest extends TestCase
 {
     public static function providerFormats(): array
@@ -45,11 +40,7 @@ class StreamTest extends TestCase
         } else {
             self::assertSame(0, $stat['size']);
 
-            if ($format === 'Dompdf' && PHP_VERSION_ID >= 80400) {
-                @$writer->save($stream);
-            } else {
-                $writer->save($stream);
-            }
+            $writer->save($stream);
 
             self::assertIsResource($stream, 'should not close the stream for further usage out of PhpSpreadsheet');
             $stat = fstat($stream);

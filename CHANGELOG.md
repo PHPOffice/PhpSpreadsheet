@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.6.0
+## 2024-12-08 - 3.6.0
 
 ### Added
 
@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Swapped row and column indexes in ReferenceHelper. [Issue #4246](https://github.com/PHPOffice/PhpSpreadsheet/issues/4246) [PR #4247](https://github.com/PHPOffice/PhpSpreadsheet/pull/4247)
 - Fix minor break handling drawings. [Issue #4241](https://github.com/PHPOffice/PhpSpreadsheet/issues/4241) [PR #4244](https://github.com/PHPOffice/PhpSpreadsheet/pull/4244)
 - Ignore cell formatting when the format is a single @. [Issue #4242](https://github.com/PHPOffice/PhpSpreadsheet/issues/4242) [PR #4243](https://github.com/PHPOffice/PhpSpreadsheet/pull/4243)
+- Upgrade Dompdf to Php-8.4 compatible version [PR #4267](https://github.com/PHPOffice/PhpSpreadsheet/pull/4267)
 
 ## 2024-11-22 - 3.5.0
 
