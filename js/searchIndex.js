@@ -251,6 +251,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_getLocaleFile"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AgetFalseTrueArray\u0028\u0029",
+            "name": "getFalseTrueArray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_getFalseTrueArray"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AsetLocale\u0028\u0029",
             "name": "setLocale",
             "summary": "Set\u0020the\u0020locale\u0020code.",
@@ -730,6 +735,11 @@ Search.appendIndex(
             "name": "controlFunctions",
             "summary": "Internal\u0020functions\u0020used\u0020for\u0020special\u0020control\u0020purposes.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_controlFunctions"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003A\u0024falseTrueArray",
+            "name": "falseTrueArray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_falseTrueArray"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003A\u0024functionReplaceFromExcel",
             "name": "functionReplaceFromExcel",
@@ -14571,6 +14581,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32LE_LF"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003ADEFAULT_TEST_AUTODETECT",
+            "name": "DEFAULT_TEST_AUTODETECT",
+            "summary": "Will\u0020be\u0020changed\u0020to\u0020false\u0020in\u0020next\u0020major\u0020release",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_DEFAULT_TEST_AUTODETECT"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024inputEncoding",
             "name": "inputEncoding",
             "summary": "Input\u0020encoding.",
@@ -15096,6 +15111,11 @@ Search.appendIndex(
             "summary": "Flush\u0020cell.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_flushCell"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003AconvertBoolean\u0028\u0029",
+            "name": "convertBoolean",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_convertBoolean"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003AprocessDomElementBody\u0028\u0029",
             "name": "processDomElementBody",
             "summary": "",
@@ -15340,6 +15360,11 @@ Search.appendIndex(
             "name": "nestedColumn",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_nestedColumn"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024falseTrueArray",
+            "name": "falseTrueArray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_falseTrueArray"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024currentColumn",
             "name": "currentColumn",
@@ -26846,6 +26871,11 @@ Search.appendIndex(
             "summary": "Matches\u0020any\u0020\u0040\u0020symbol\u0020that\u0020isn\u0027t\u0020enclosed\u0020in\u0020quotes.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Formatter.html#constant_SYMBOL_AT"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\NumberFormat\\Formatter\u003A\u003AQUOTE_REPLACEMENT",
+            "name": "QUOTE_REPLACEMENT",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Formatter.html#constant_QUOTE_REPLACEMENT"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\NumberFormat\\Formatter\u003A\u003ASECTION_SPLIT",
             "name": "SECTION_SPLIT",
             "summary": "Matches\u0020any\u0020\u003B\u0020symbol\u0020that\u0020isn\u0027t\u0020enclosed\u0020in\u0020quotes,\u0020for\u0020a\u0020\u0022section\u0022\u0020split.",
@@ -35531,6 +35561,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_shouldGenerateColumn"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AgetBetterBoolean\u0028\u0029",
+            "name": "getBetterBoolean",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_getBetterBoolean"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AsetBetterBoolean\u0028\u0029",
+            "name": "setBetterBoolean",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setBetterBoolean"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003ADEFAULT_CELL_WIDTH_POINTS",
             "name": "DEFAULT_CELL_WIDTH_POINTS",
             "summary": "",
@@ -35655,6 +35695,21 @@ Search.appendIndex(
             "name": "sheetCharts",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_sheetCharts"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003A\u0024betterBoolean",
+            "name": "betterBoolean",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_betterBoolean"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003A\u0024getTrue",
+            "name": "getTrue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_getTrue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003A\u0024getFalse",
+            "name": "getFalse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_getFalse"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\IWriter",
             "name": "IWriter",
