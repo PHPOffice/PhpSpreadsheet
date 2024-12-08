@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fix Minor Break Handling Drawings. Backport of [PR #4244](https://github.com/PHPOffice/PhpSpreadsheet/pull/4244)
+- Swapped Row and Column Indexes in Reference Helper. Backport of [PR #4247](https://github.com/PHPOffice/PhpSpreadsheet/pull/4247)
+- Upgrade locked version of Dompdf (Php8.4 compatibility).
+- Remove unnecessary files from Composer package.
 
 ## 2024-11-22 - 2.3.3
 

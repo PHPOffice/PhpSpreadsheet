@@ -1215,7 +1215,7 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeRow; $j <= $beforeRow - 1 + $numberOfRows; ++$j) {
-                    if (!empty($xfIndex) || $worksheet->cellExists([$j, $i])) {
+                    if (!empty($xfIndex) || $worksheet->cellExists([$i, $j])) {
                         $worksheet->getCell(Coordinate::stringFromColumnIndex($i) . $j)->setXfIndex($xfIndex);
                     }
                 }

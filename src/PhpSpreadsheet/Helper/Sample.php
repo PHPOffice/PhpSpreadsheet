@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
@@ -126,11 +125,7 @@ class Sample
                 $writerCallback($writer);
             }
             $callStartTime = microtime(true);
-            if (PHP_VERSION_ID >= 80400 && $writer instanceof Dompdf) {
-                @$writer->save($path);
-            } else {
-                $writer->save($path);
-            }
+            $writer->save($path);
             $this->logWrite($writer, $path, $callStartTime);
             if ($this->isCli() === false) {
                 // @codeCoverageIgnoreStart
