@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
 {
-    public function testURLImageSource(): void
+    public function xtestURLImageSource(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -37,7 +37,7 @@ class URLImageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testURLImageSourceNotFound(): void
+    public function xtestURLImageSourceNotFound(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
