@@ -12,6 +12,7 @@ class HtmlImage2Test extends TestCase
 {
     public function testCanInsertImageGoodProtocol(): void
     {
+        self::assertTrue(function_exists('curl_init')); // just make sure environment is as expected
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
         }
