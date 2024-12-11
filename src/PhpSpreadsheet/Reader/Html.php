@@ -7,6 +7,7 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Comment;
@@ -271,6 +272,12 @@ class Html extends BaseReader
                                 ->setQuotePrefix(true);
                         }
                     }
+                    if ($datatype === DataType::TYPE_BOOL) {
+                        $cellContent = self::convertBoolean($cellContent);
+                        if (!is_bool($cellContent)) {
+                            $attributeArray['data-type'] = DataType::TYPE_STRING;
+                        }
+                    }
 
                     //catching the Exception and ignoring the invalid data types
                     try {
@@ -289,6 +296,31 @@ class Html extends BaseReader
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . $cellContent;
         }
         $cellContent = (string) '';
+    }
+
+    /** @var array<int, array<int, string>> */
+    private static array $falseTrueArray = [];
+
+    private static function convertBoolean(?string $cellContent): bool|string
+    {
+        if ($cellContent === '1') {
+            return true;
+        }
+        if ($cellContent === '0' || $cellContent === '' || $cellContent === null) {
+            return false;
+        }
+        if (empty(self::$falseTrueArray)) {
+            $calc = Calculation::getInstance();
+            self::$falseTrueArray = $calc->getFalseTrueArray();
+        }
+        if (in_array(mb_strtoupper($cellContent), self::$falseTrueArray[1], true)) {
+            return true;
+        }
+        if (in_array(mb_strtoupper($cellContent), self::$falseTrueArray[0], true)) {
+            return false;
+        }
+
+        return $cellContent;
     }
 
     private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
