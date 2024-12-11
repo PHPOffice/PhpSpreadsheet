@@ -100,6 +100,7 @@
         "tecnickcom/tcpdf": "^6.5"
     },
     "suggest": {
+        "ext-curl": "PHP Curl",
         "ext-intl": "PHP Internationalization Functions",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",

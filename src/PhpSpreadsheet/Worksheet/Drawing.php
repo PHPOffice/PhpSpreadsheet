@@ -110,11 +110,23 @@ class Drawing extends BaseDrawing
             // Implicit that it is a URL, rather store info than running check above on value in other places.
             $this->isUrl = true;
             $ctx = null;
-            // https://github.com/php/php-src/issues/16023
-            if (str_starts_with($path, 'https:')) {
-                $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+            $imageContents = false;
+            if (str_starts_with($path, 'https:') && function_exists('curl_init')) {
+                $curlparam = curl_init($path);
+                if ($curlparam !== false) {
+                    curl_setopt($curlparam, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($curlparam, CURLOPT_TIMEOUT, 30);
+                    curl_setopt($curlparam, CURLOPT_SSL_VERIFYPEER, false);
+                    $imageContents = curl_exec($curlparam);
+                    curl_close($curlparam);
+                }
+            } else {
+                // https://github.com/php/php-src/issues/16023
+                if (str_starts_with($path, 'https:')) {
+                    $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+                }
+                $imageContents = @file_get_contents($path, false, $ctx);
             }
-            $imageContents = @file_get_contents($path, false, $ctx);
             if ($imageContents !== false) {
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                 if ($filePath) {
