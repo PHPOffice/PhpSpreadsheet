@@ -8,9 +8,10 @@ use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PHPUnit\Framework\TestCase;
 
+// not sure why succeeding now
 class HtmlImage2Test extends TestCase
 {
-    public function testCanInsertImageGoodProtocol(): void
+    public function testCanInsertImageGoodProtocolxx(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
