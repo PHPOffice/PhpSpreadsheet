@@ -111,6 +111,7 @@ class Drawing extends BaseDrawing
             $this->isUrl = true;
             $ctx = null;
             // https://github.com/php/php-src/issues/16023
+            // experiment with stream context
             if (str_starts_with($path, 'https:')) {
                 $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
             }
