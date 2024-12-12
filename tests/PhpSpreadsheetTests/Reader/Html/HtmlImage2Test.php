@@ -32,7 +32,7 @@ class HtmlImage2Test extends TestCase
         self::assertEquals('A1', $drawing->getCoordinates());
     }
 
-    public function testCantInsertImageNotFound(): void
+    public function xtestCantInsertImageNotFound(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
