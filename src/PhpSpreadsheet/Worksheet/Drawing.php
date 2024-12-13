@@ -111,9 +111,9 @@ class Drawing extends BaseDrawing
             $this->isUrl = true;
             $ctx = null;
             // https://github.com/php/php-src/issues/16023
-            if (str_starts_with($path, 'https:')) {
-                $ctx = stream_context_create([
-                    'ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT],
+            // https://github.com/php/php-src/issues/17121
+            if (str_starts_with($path, 'https:') || str_starts_with($path, 'http:')) {
+                $ctxArray = [
                     'http' => [
                         'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
                         'header' => [
@@ -122,7 +122,11 @@ class Drawing extends BaseDrawing
                             'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
                         ],
                     ],
-                ]);
+                ];
+                if (str_starts_with($path, 'https:')) {
+                    $ctxArray['ssl'] = ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT];
+                }
+                $ctx = stream_context_create($ctxArray);
             }
             $imageContents = @file_get_contents($path, false, $ctx);
             if ($imageContents !== false) {
@@ -193,6 +197,8 @@ class Drawing extends BaseDrawing
      * Set isURL.
      *
      * @return $this
+     *
+     * @deprecated 3.7.0 not needed, property is set by setPath
      */
     public function setIsURL(bool $isUrl): self
     {
