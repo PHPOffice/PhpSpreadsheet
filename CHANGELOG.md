@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+# TBD - 2.1.6
+
+### Deprecated
+
+- Nothing yet.
+- Drawing::setIsUrl is unneeded. The property is set when setPath determines whether path is a url.
+
+### Fixed
+
+-  More context options may be needed for http(s) image. Backport of [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+
 ## 2024-12-08 - 2.1.5
 
 ### Fixed
