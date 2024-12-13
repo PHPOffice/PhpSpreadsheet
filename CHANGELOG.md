@@ -21,11 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing yet.
+- Drawing::setIsUrl is unneeded. The property is set when setPath determines whether path is a url.
 
 ### Fixed
 
-- Nothing yet.
+-  More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
 
 ## 2024-12-08 - 3.6.0
 
