@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing yet.
 - Drawing::setIsUrl is unneeded. The property is set when setPath determines whether path is a url.
 
 ### Fixed
