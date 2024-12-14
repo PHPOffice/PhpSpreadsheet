@@ -44,12 +44,10 @@ class ListFunctions extends Xls
         }
 
         foreach ($xls->sheets as $sheet) {
-            if ($sheet['sheetType'] != 0x00) {
+            if ($sheet['sheetType'] === 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
-                continue;
+                $worksheetNames[] = $sheet['name'];
             }
-
-            $worksheetNames[] = $sheet['name'];
         }
 
         return $worksheetNames;
@@ -93,7 +91,7 @@ class ListFunctions extends Xls
 
         // Parse the individual sheets
         foreach ($xls->sheets as $sheet) {
-            if ($sheet['sheetType'] != 0x00) {
+            if ($sheet['sheetType'] !== 0x00) {
                 // 0x00: Worksheet
                 // 0x02: Chart
                 // 0x06: Visual Basic module
