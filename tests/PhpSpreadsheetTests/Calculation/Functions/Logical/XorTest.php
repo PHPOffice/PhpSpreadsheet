@@ -25,7 +25,7 @@ class XorTest extends AllSetupTeardown
      * @param mixed $expectedResult
      * @param string $formula
      */
-    public function xtestXORLiteral($expectedResult, $formula): void
+    public function testXORLiteral($expectedResult, $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=XOR($formula)");
