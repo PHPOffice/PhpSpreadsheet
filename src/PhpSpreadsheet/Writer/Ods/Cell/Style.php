@@ -299,6 +299,7 @@ class Style
             'style:name',
             sprintf('%s%d', self::TABLE_STYLE_PREFIX, $sheetId)
         );
+        $this->writer->writeAttribute('style:master-page-name', 'Default');
 
         $this->writer->startElement('style:table-properties');
 

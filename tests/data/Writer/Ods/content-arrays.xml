@@ -3,7 +3,7 @@
 <office:scripts/>
 <office:font-face-decls/>
 <office:automatic-styles>
-<style:style style:family="table" style:name="ta1">
+<style:style style:master-page-name="Default" style:family="table" style:name="ta1">
 <style:table-properties table:display="true"/>
 </style:style>
 <style:style style:name="ce0" style:family="table-cell" style:parent-style-name="Default">
