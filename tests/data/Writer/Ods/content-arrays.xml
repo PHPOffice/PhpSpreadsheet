@@ -23,7 +23,6 @@
 <table:table-cell table:style-name="ce0" table:number-matrix-columns-spanned="1" table:number-matrix-rows-spanned="2" table:formula="of:=UNIQUE([.A1:.A3])" office:value-type="float" office:value="1">
 <text:p>1</text:p>
 </table:table-cell>
-<table:table-cell table:number-columns-repeated="1022"/>
 </table:table-row>
 <table:table-row>
 <table:table-cell table:style-name="ce0" office:value-type="float" office:value="1">
@@ -32,14 +31,11 @@
 <table:table-cell table:style-name="ce0" office:value-type="float" office:value="3">
 <text:p>3</text:p>
 </table:table-cell>
-<table:table-cell table:number-columns-repeated="1022"/>
 </table:table-row>
 <table:table-row>
 <table:table-cell table:style-name="ce0" office:value-type="float" office:value="3">
 <text:p>3</text:p>
 </table:table-cell>
-<table:table-cell table:style-name="ce0"/>
-<table:table-cell table:number-columns-repeated="1022"/>
 </table:table-row>
 </table:table>
 <table:named-expressions/>
