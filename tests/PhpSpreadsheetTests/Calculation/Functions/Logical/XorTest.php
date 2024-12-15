@@ -22,7 +22,7 @@ class XorTest extends AllSetupTeardown
     /**
      * @dataProvider providerXORLiteral
      */
-    public function xtestXORLiteral(mixed $expectedResult, string $formula): void
+    public function testXORLiteral(mixed $expectedResult, float|string $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=XOR($formula)");
