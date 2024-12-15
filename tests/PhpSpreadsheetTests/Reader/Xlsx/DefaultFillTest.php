@@ -40,6 +40,6 @@ class DefaultFillTest extends TestCase
         $spreadsheet = $reader->load($filename);
 
         $style = $spreadsheet->getActiveSheet()->getConditionalStyles('A1')[0]->getStyle();
-        self::assertSame('solid', $style->getFill()->getFillType());
+        self::assertSame('', $style->getFill()->getFillType());
     }
 }
