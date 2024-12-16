@@ -169,6 +169,12 @@ $writer->save("05featuredemo.xlsx");
 **Note** Formulas will still be calculated in any column set to be autosized
 even if pre-calculated is set to false
 
+**Note** Prior to release 3.7.0, the use of this feature will cause Excel to be used in a mode where opening a sheet saved in this manner *might* not automatically recalculate a cell's formula when a cell used it the formula changes. Furthermore, that behavior might be applied to all spreadsheets open at the time. To avoid this behavior, add the following statement after `setPreCalculateFormulas` above:
+```php
+$writer->setForceFullCalc(false);
+```
+In a future release, the property's default may change to `false` and that statement may no longer be required.
+
 #### Office 2003 compatibility pack
 
 Because of a bug in the Office2003 compatibility pack, there can be some
