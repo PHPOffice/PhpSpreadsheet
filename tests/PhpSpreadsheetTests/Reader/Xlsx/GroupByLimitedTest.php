@@ -19,7 +19,6 @@ class GroupByLimitedTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $reloadedSheet = $reloadedSpreadsheet->getActiveSheet();
         self::assertSame(['t' => 'array', 'ref' => 'E3:F7'], $reloadedSheet->getCell('E3')->getFormulaAttributes());
-        $group = $reloadedSheet->rangeToArray('E3:F8');
         $expected = [
             ['Design', '$505,000 '],
             ['Development', '$346,000 '],
