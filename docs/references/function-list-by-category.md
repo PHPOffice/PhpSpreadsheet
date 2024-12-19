@@ -245,6 +245,7 @@ COLUMNS                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowCo
 FILTER                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Filter::filter
 FORMULATEXT              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula::text
 GETPIVOTDATA             | **Not yet Implemented**
+GROUPBY                  | **Not yet Implemented**
 HLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
 HYPERLINK                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 INDEX                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index

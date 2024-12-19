@@ -1256,6 +1256,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2+',
         ],
+        'GROUPBY' => [
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '3-7',
+        ],
         'GROWTH' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical\Trends::class, 'GROWTH'],
@@ -4601,7 +4606,7 @@ class Calculation
     private static int $matchIndex10 = 10;
 
     /**
-     * @return array<int, mixed>|false
+     * @return array<int, mixed>|false|string
      */
     private function processTokenStack(mixed $tokens, ?string $cellID = null, ?Cell $cell = null)
     {
@@ -5182,6 +5187,9 @@ class Calculation
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
                     $definedName = $matches[6];
+                    if (str_starts_with($definedName, '_xleta')) {
+                        return Functions::NOT_YET_IMPLEMENTED;
+                    }
                     if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");
                     }
@@ -5214,6 +5222,7 @@ class Calculation
                     }
 
                     $result = $this->evaluateDefinedName($cell, $namedRange, $pCellWorksheet, $stack, $specifiedWorksheet !== '');
+
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }
