@@ -25,6 +25,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install locales
+        run: sudo apt-get install -y locales
+
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
