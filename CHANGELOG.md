@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Add forceFullCalc option to Xlsx Writer. [Issue #4269](https://github.com/PHPOffice/PhpSpreadsheet/issues/4269) [PR #4271](https://github.com/PHPOffice/PhpSpreadsheet/pull/4271)
 -  More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
 -  Several fixed to ODS Writer. [Issue #4261](https://github.com/PHPOffice/PhpSpreadsheet/issues/4261) [PR #4263](https://github.com/PHPOffice/PhpSpreadsheet/pull/4263) [PR #4264](https://github.com/PHPOffice/PhpSpreadsheet/pull/4264) [PR #4266](https://github.com/PHPOffice/PhpSpreadsheet/pull/4266)
 
