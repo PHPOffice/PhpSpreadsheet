@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 -  More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+-  Avoid unexpected charset in currency symbol. [PR #4279](https://github.com/PHPOffice/PhpSpreadsheet/pull/4279)
 
 ## 2024-12-08 - 3.6.0
 
