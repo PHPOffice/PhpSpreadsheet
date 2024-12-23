@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Add forceFullCalc option to Xlsx Writer. [Issue #4269](https://github.com/PHPOffice/PhpSpreadsheet/issues/4269) [PR #4271](https://github.com/PHPOffice/PhpSpreadsheet/pull/4271)
 
 ## 2024-12-08 - 3.6.0
 
