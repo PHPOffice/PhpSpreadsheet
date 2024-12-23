@@ -37,8 +37,8 @@ class StringHelperLocaleTest extends TestCase
         }
         $result = StringHelper::getCurrencyCode();
         self::assertSame('€', $result);
-        if (!setlocale(LC_ALL, 'en_ca', 'en_CA')) {
-            self::markTestSkipped('Unable to set en_ca locale for testing.');
+        if (!setlocale(LC_ALL, $this->currentLocale)) {
+            self::markTestSkipped('Unable to restore default locale.');
         }
         $result = StringHelper::getCurrencyCode();
         self::assertSame('€', $result, 'result persists despite locale change');
