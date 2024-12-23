@@ -28,6 +28,9 @@ jobs:
       - name: Install locales
         run: sudo apt-get install -y language-pack-fr language-pack-de
 
+      - name: Install single-byte locale
+        run: sudo sed -i -e 's/# de_DE@euro/de_DE@euro/g' /etc/locale.gen && sudo locale-gen de_DE@euro
+
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:

@@ -32,7 +32,7 @@ class StringHelperLocaleTest extends TestCase
 
     public function testCurrency(): void
     {
-        if (!setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu.utf8')) {
+        if ($this->currentLocale === false || !setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu.utf8')) {
             self::markTestSkipped('Unable to set German UTF8 locale for testing.');
         }
         $result = StringHelper::getCurrencyCode();
@@ -46,10 +46,9 @@ class StringHelperLocaleTest extends TestCase
         $result = StringHelper::getCurrencyCode();
         self::assertSame('$', $result, 'locale now used');
         StringHelper::setCurrencyCode(null);
-        if (!setlocale(LC_ALL, 'deu_deu', 'de_DE')) {
+        if (!setlocale(LC_ALL, 'deu_deu', 'de_DE@euro')) {
             self::markTestSkipped('Unable to set German single-byte locale for testing.');
         }
-        // Seems like Linux returns trailing blank, Win doesn't
         $result = StringHelper::getCurrencyCode(true); // trim if alt symbol is used
         self::assertSame('EUR', $result, 'non-UTF8 result ignored');
     }
