@@ -6,8 +6,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PHPUnit\Framework\Attributes;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+// separate processes due to setLocale
+#[Attributes\RunTestsInSeparateProcesses]
 class CsvNumberFormatLocaleTest extends TestCase
 {
     private bool $localeAdjusted;
@@ -44,8 +48,7 @@ class CsvNumberFormatLocaleTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatNoConversionTest')]
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[DataProvider('providerNumberFormatNoConversionTest')]
     public function testNumberFormatNoConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
@@ -85,8 +88,7 @@ class CsvNumberFormatLocaleTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberValueConversionTest')]
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[DataProvider('providerNumberValueConversionTest')]
     public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {

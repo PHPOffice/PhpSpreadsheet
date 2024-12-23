@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+- Avoid unexpected charset in currency symbol. [PR #4279](https://github.com/PHPOffice/PhpSpreadsheet/pull/4279)
 - Add forceFullCalc option to Xlsx Writer. [Issue #4269](https://github.com/PHPOffice/PhpSpreadsheet/issues/4269) [PR #4271](https://github.com/PHPOffice/PhpSpreadsheet/pull/4271)
 - More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
 - Coverage-related tweaks to Xls Reader. [PR #4277](https://github.com/PHPOffice/PhpSpreadsheet/pull/4277)
