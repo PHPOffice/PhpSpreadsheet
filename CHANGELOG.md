@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
--  More context options may be needed for http(s) image. Backport of [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+- More context options may be needed for http(s) image. Backport of [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+- Backported security patches for Samples.
 
 ## 2024-12-08 - 2.3.4
 
