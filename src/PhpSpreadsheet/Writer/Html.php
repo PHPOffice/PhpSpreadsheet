@@ -1721,6 +1721,17 @@ class Html extends BaseWriter
      */
     public function formatColor(string $value, string $format): string
     {
+        return self::formatColorStatic($value, $format);
+    }
+
+    /**
+     * Add color to formatted string as inline style.
+     *
+     * @param string $value Plain formatted value without color
+     * @param string $format Format code
+     */
+    public static function formatColorStatic(string $value, string $format): string
+    {
         // Color information, e.g. [Red] is always at the beginning
         $color = null; // initialize
         $matches = [];
