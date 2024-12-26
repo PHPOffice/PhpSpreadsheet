@@ -24,18 +24,18 @@ class Downloader
     public function __construct(string $folder, string $filename, ?string $filetype = null)
     {
         if ((is_dir($folder) === false) || (is_readable($folder) === false)) {
-            throw new Exception("Folder {$folder} is not accessable");
+            throw new Exception('Folder is not accessible');
         }
         $filepath = "{$folder}/{$filename}";
         $this->filepath = (string) realpath($filepath);
         $this->filename = basename($filepath);
         if ((file_exists($this->filepath) === false) || (is_readable($this->filepath) === false)) {
-            throw new Exception("{$this->filename} not found, or cannot be read");
+            throw new Exception('File not found, or cannot be read');
         }
 
         $filetype ??= pathinfo($filename, PATHINFO_EXTENSION);
         if (array_key_exists(strtolower($filetype), self::CONTENT_TYPES) === false) {
-            throw new Exception("Invalid filetype: {$filetype} cannot be downloaded");
+            throw new Exception('Invalid filetype: cannot be downloaded');
         }
         $this->filetype = strtolower($filetype);
     }

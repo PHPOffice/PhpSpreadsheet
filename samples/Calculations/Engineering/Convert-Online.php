@@ -14,6 +14,7 @@ if ($helper->isCli()) {
 }
 
 $categories = ConvertUOM::getConversionCategories();
+$defaultCategory = $_POST['category'] ?? $categories[0];
 $units = [];
 foreach ($categories as $category) {
     $categoryUnits = ConvertUOM::getConversionCategoryUnitDetails($category)[$category];
@@ -48,7 +49,7 @@ foreach ($categories as $category) {
         <label for="fromUnit" class="col-sm-2 col-form-label">From Unit</label>
         <div class="col-sm-10">
             <select name="fromUnit" class="form-select">
-                <?php foreach ($units[$_POST['category']] as $fromUnitCode => $fromUnitName) {
+                <?php foreach ($units[$defaultCategory] as $fromUnitCode => $fromUnitName) {
                     echo "<option value=\"{$fromUnitCode}\" " . ((isset($_POST['fromUnit']) && $_POST['fromUnit'] === $fromUnitCode) ? 'selected' : '') . ">{$fromUnitName}</option>", PHP_EOL;
                 } ?>
             </select>
@@ -58,7 +59,7 @@ foreach ($categories as $category) {
         <label for="toUnit" class="col-sm-2 col-form-label">To Unit</label>
         <div class="col-sm-10">
             <select name="toUnit" class="form-select">
-                <?php foreach ($units[$_POST['category']] as $toUnitCode => $toUnitName) {
+                <?php foreach ($units[$defaultCategory] as $toUnitCode => $toUnitName) {
                     echo "<option value=\"{$toUnitCode}\" " . ((isset($_POST['toUnit']) && $_POST['toUnit'] === $toUnitCode) ? 'selected' : '') . ">{$toUnitName}</option>", PHP_EOL;
                 } ?>
             </select>
@@ -73,11 +74,20 @@ foreach ($categories as $category) {
 
 <?php
 /**     If the user has submitted the form, then we need to calculate the value and display the result */
-if (isset($_POST['submit'])) {
+if (isset($_POST['quantity'], $_POST['fromUnit'], $_POST['toUnit'])) {
     $quantity = $_POST['quantity'];
     $fromUnit = $_POST['fromUnit'];
     $toUnit = $_POST['toUnit'];
-    $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
+    if (!is_numeric($quantity)) {
+        $helper->log('Quantity is not numeric');
+    } elseif (isset($units[$_POST['category']][$fromUnit], $units[$_POST['category']][$toUnit])) {
+        /** @var float|string */
+        $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
 
-    echo "{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}", PHP_EOL;
+        $helper->log("{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}");
+    } else {
+        $helper->log('Please enter quantity and select From Unit and To Unit');
+    }
+} else {
+    $helper->log('Please enter quantity and select From Unit and To Unit');
 }
