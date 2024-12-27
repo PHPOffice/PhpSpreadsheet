@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlImage2Test extends TestCase
 {
-    public function xtestCanInsertImageGoodProtocol(): void
+    public function testCanInsertImageGoodProtocol(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -31,7 +31,7 @@ class HtmlImage2Test extends TestCase
         self::assertEquals('A1', $drawing->getCoordinates());
     }
 
-    public function xtestCantInsertImageNotFound(): void
+    public function testCantInsertImageNotFound(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
