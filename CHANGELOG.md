@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## TBD - 3.8.0
+
+### Added
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
 ## 2024-12-26 - 3.7.0
 
 ### Deprecated
