@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
 {
-    /**
-     * @dataProvider providerUtf8EncodingSupport
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUtf8EncodingSupport')]
     public function testUtf8EncodingSupport(string $expected, string $input): void
     {
         $html = new Html();

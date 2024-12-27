@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class MinATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMINA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINA')]
     public function testMINA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('MINA', $expectedResult, ...$args);

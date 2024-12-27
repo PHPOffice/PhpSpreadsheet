@@ -10,9 +10,7 @@ class FactTest extends AllSetupTeardown
 {
     const FACT_PRECISION = 1E-12;
 
-    /**
-     * @dataProvider providerFACT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFACT')]
     public function testFACT(mixed $expectedResult, mixed $arg1): void
     {
         $this->mightHaveException($expectedResult);
@@ -34,9 +32,7 @@ class FactTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
 
-    /**
-     * @dataProvider providerFACTGnumeric
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFACTGnumeric')]
     public function testFACTGnumeric(mixed $expectedResult, mixed $arg1): void
     {
         $this->mightHaveException($expectedResult);
@@ -59,9 +55,7 @@ class FactTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/FACTGNUMERIC.php';
     }
 
-    /**
-     * @dataProvider providerFactArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFactArray')]
     public function testFactArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

@@ -19,9 +19,7 @@ class AutoFilterTodayTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerYesterdayTodayTomorrow
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYesterdayTodayTomorrow')]
     public function testYesterdayTodayTomorrow(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

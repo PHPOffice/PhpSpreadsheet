@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFDIST')]
     public function testFDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('F.DIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class FDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/FDIST.php';
     }
 
-    /**
-     * @dataProvider providerFDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFDistArray')]
     public function testFDistArray(array $expectedResult, string $values, string $u, string $v): void
     {
         $calculation = Calculation::getInstance();

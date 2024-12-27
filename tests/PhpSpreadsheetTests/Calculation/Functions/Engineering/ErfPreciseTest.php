@@ -14,18 +14,14 @@ class ErfPreciseTest extends TestCase
 {
     const ERF_PRECISION = 1E-14;
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFPRECISE')]
     public function testDirectCallToERFPRECISE(mixed $expectedResult, mixed ...$args): void
     {
         $result = Erf::ERFPRECISE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFPRECISE')]
     public function testERFPRECISEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -37,9 +33,7 @@ class ErfPreciseTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFPRECISE')]
     public function testERFPRECISEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -62,9 +56,7 @@ class ErfPreciseTest extends TestCase
         return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }
 
-    /**
-     * @dataProvider providerErfPreciseArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerErfPreciseArray')]
     public function testErfPreciseArray(array $expectedResult, string $limit): void
     {
         $calculation = Calculation::getInstance();

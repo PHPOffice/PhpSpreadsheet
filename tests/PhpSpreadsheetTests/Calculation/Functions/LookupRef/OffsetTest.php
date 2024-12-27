@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 
 class OffsetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerOFFSET
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOFFSET')]
     public function testOFFSET(mixed $expectedResult, null|string $cellReference = null): void
     {
         $result = LookupRef\Offset::OFFSET($cellReference);

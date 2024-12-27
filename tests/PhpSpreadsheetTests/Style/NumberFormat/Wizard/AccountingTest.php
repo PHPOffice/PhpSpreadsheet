@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccountingTest extends TestCase
 {
-    /**
-     * @dataProvider providerAccounting
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccounting')]
     public function testAccounting(
         string $expectedResultPositive,
         string $expectedResultNegative,
@@ -47,9 +45,7 @@ class AccountingTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerAccountingLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccountingLocale')]
     public function testAccountingLocale(
         string $expectedResult,
         string $currencyCode,
@@ -109,9 +105,7 @@ class AccountingTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerAccountingLocaleNoDecimals
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccountingLocaleNoDecimals')]
     public function testAccountingLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,

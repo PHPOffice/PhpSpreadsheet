@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormattedNumberTest extends TestCase
 {
-    /**
-     * @dataProvider providerNumbers
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumbers')]
     public function testNumber(float $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
@@ -31,9 +29,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerFractions
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFractions')]
     public function testFraction(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -60,9 +56,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentages
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -189,9 +183,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCurrencies
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value): void
     {
         $originalValue = $value;

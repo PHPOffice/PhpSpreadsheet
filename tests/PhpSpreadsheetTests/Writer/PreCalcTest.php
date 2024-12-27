@@ -174,9 +174,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    /**
-     * @dataProvider providerPreCalc
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPreCalc')]
     public function testPreCalc(?bool $preCalc, string $type): void
     {
         $spreadsheet = new Spreadsheet();

@@ -21,10 +21,9 @@ class WizardFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider basicWizardFactoryProvider
-     *
      * @psalm-param class-string<object> $expectedWizard
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicWizardFactoryProvider')]
     public function testBasicWizardFactory(string $ruleType, string $expectedWizard): void
     {
         $wizard = $this->wizardFactory->newRule($ruleType);
@@ -45,9 +44,7 @@ class WizardFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider conditionalProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('conditionalProvider')]
     public function testWizardFromConditional(string $sheetName, string $cellAddress, array $expectedWizads): void
     {
         $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';

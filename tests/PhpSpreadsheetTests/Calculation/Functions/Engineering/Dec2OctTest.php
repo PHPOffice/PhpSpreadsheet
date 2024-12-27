@@ -26,9 +26,7 @@ class Dec2OctTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerDEC2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2OCT')]
     public function testDirectCallToDEC2OCT(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         $result = ($digits === null) ? ConvertDecimal::toOctal($value) : ConvertDecimal::toOctal($value, $digits);
@@ -40,9 +38,7 @@ class Dec2OctTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerDEC2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2OCT')]
     public function testDEC2OCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,9 +51,7 @@ class Dec2OctTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerDEC2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2OCT')]
     public function testDEC2OCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -80,9 +74,7 @@ class Dec2OctTest extends TestCase
         return require 'tests/data/Calculation/Engineering/DEC2OCT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDEC2OCT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDEC2OCT')]
     public function testDEC2OCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,9 +100,7 @@ class Dec2OctTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDEC2OCTOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2OCTOds')]
     public function testDEC2OCTOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -145,9 +135,7 @@ class Dec2OctTest extends TestCase
         self::assertSame('21', $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerDec2OctArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDec2OctArray')]
     public function testDec2OctArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

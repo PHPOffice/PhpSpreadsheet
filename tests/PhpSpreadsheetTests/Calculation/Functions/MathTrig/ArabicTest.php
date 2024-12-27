@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ArabicTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerARABIC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerARABIC')]
     public function testARABIC(mixed $expectedResult, string $romanNumeral): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class ArabicTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }
 
-    /**
-     * @dataProvider providerArabicArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerArabicArray')]
     public function testArabicArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

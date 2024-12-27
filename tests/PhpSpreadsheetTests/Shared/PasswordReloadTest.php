@@ -10,9 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class PasswordReloadTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerPasswords
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPasswords')]
     public function testPasswordReload(string $format, string $algorithm, bool $supported = true): void
     {
         $password = 'hello';

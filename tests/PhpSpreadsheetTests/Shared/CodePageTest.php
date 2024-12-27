@@ -11,10 +11,9 @@ use PHPUnit\Framework\TestCase;
 class CodePageTest extends TestCase
 {
     /**
-     * @dataProvider providerCodePage
-     *
      * @param string|string[] $expectedResult
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCodePage')]
     public function testCodePageNumberToName(array|string $expectedResult, int $codePageIndex): void
     {
         if ($expectedResult === 'exception') {

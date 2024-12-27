@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SinhTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCosh
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCosh')]
     public function testSinh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class SinhTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SINH.php';
     }
 
-    /**
-     * @dataProvider providerSinhArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSinhArray')]
     public function testSinhArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

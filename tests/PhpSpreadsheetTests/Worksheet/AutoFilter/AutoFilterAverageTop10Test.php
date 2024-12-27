@@ -36,9 +36,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerAverage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAverage')]
     public function testAboveAverage(array $expectedVisible, string $rule): void
     {
         $sheet = $this->initSheet();
@@ -68,9 +66,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTop10
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10')]
     public function testTop10(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheet();
@@ -120,9 +116,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTop10Ties
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10Ties')]
     public function testTop10Ties(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheetTies();

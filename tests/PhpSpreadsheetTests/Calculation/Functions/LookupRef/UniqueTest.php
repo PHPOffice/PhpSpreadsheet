@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueTest extends TestCase
 {
-    /**
-     * @dataProvider uniqueTestProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('uniqueTestProvider')]
     public function testUnique(array $expectedResult, array $lookupRef, bool $byColumn = false, bool $exactlyOnce = false): void
     {
         $result = LookupRef\Unique::unique($lookupRef, $byColumn, $exactlyOnce);

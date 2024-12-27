@@ -35,9 +35,7 @@ class RowColumnReferenceTest extends TestCase
         $this->spreadSheet->setActiveSheetIndexByName('summary sheet');
     }
 
-    /**
-     * @dataProvider providerCurrentWorksheetFormulae
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrentWorksheetFormulae')]
     public function testCurrentWorksheet(string $formula, float $expectedResult): void
     {
         $worksheet = $this->spreadSheet->getActiveSheet();

@@ -15,9 +15,7 @@ class TypeTest extends TestCase
         self::assertSame(1, $result);
     }
 
-    /**
-     * @dataProvider providerTYPE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTYPE')]
     public function testTYPE(int $expectedResult, mixed $value): void
     {
         $result = Value::type($value);

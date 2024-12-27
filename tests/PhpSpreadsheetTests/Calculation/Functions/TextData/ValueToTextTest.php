@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class ValueToTextTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerVALUE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVALUE')]
     public function testVALUETOTEXT(mixed $expectedResult, mixed $value, int|string $format): void
     {
         $sheet = $this->getSheet();

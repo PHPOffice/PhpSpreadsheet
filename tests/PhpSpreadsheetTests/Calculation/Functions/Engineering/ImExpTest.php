@@ -25,9 +25,7 @@ class ImExpTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMEXP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMEXP')]
     public function testDirectCallToIMEXP(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMEXP($arg);
@@ -42,9 +40,7 @@ class ImExpTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMEXP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMEXP')]
     public function testIMEXPAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImExpTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMEXP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMEXP')]
     public function testIMEXPInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImExpTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMEXP.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMEXP
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMEXP')]
     public function testIMEXPUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImExpTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImExpArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImExpArray')]
     public function testImExpArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

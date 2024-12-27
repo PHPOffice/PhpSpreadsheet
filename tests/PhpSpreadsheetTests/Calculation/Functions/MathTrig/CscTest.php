@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CscTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCSC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCSC')]
     public function testCSC(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class CscTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/CSC.php';
     }
 
-    /**
-     * @dataProvider providerCscArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCscArray')]
     public function testCscArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

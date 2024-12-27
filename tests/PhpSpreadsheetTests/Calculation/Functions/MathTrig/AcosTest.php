@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AcosTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAcos
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAcos')]
     public function testAcos(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,9 +24,7 @@ class AcosTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ACOS.php';
     }
 
-    /**
-     * @dataProvider providerAcosArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAcosArray')]
     public function testAcosArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

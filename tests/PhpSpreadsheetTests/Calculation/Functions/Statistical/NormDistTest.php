@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NormDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNORMDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNORMDIST')]
     public function testNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMDIST', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class NormDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/NORMDIST.php';
     }
 
-    /**
-     * @dataProvider providerNormDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNormDistArray')]
     public function testNormDistArray(array $expectedResult, string $values, string $mean, string $stdDev): void
     {
         $calculation = Calculation::getInstance();

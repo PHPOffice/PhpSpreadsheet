@@ -30,18 +30,14 @@ class EoMonthTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    /**
-     * @dataProvider providerEOMONTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
     public function testDirectCallToEOMONTH(mixed $expectedResult, mixed ...$args): void
     {
         $result = Month::lastDay(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerEOMONTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
     public function testEOMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -53,9 +49,7 @@ class EoMonthTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerEOMONTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
     public function testEOMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,9 +72,7 @@ class EoMonthTest extends TestCase
         return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyEOMONTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyEOMONTH')]
     public function testEOMONTHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -128,9 +120,7 @@ class EoMonthTest extends TestCase
         self::assertSame($result->format('d-M-Y'), '31-Dec-2011');
     }
 
-    /**
-     * @dataProvider providerEoMonthArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEoMonthArray')]
     public function testEoMonthArray(array $expectedResult, string $dateValues, string $methods): void
     {
         $calculation = Calculation::getInstance();

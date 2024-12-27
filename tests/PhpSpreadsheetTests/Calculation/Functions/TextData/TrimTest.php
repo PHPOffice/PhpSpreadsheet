@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TrimTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTRIM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTRIM')]
     public function testTRIM(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -30,9 +28,7 @@ class TrimTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/TRIM.php';
     }
 
-    /**
-     * @dataProvider providerTrimArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTrimArray')]
     public function testTrimArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

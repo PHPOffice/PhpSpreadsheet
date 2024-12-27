@@ -21,9 +21,8 @@ class CommentsTest extends AbstractFunctional
     /**
      * Test load file with comment in sheet to load proper
      * count of comments in correct coords.
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testComments(string $format): void
     {
         $spreadsheet = new Spreadsheet();

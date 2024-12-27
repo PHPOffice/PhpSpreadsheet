@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SumXMY2Test extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMXMY2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMXMY2')]
     public function testSUMXMY2(mixed $expectedResult, array $matrixData1, array $matrixData2): void
     {
         $this->mightHaveException($expectedResult);

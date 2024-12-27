@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class IfsTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerIFS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFS')]
     public function testIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFS', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class IfsTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFS.php';
     }
 
-    /**
-     * @dataProvider providerIfsArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfsArray')]
     public function testIfsArray(array $expectedResult, string $bool1, string $argument1, string $bool2, string $argument2): void
     {
         $calculation = Calculation::getInstance();

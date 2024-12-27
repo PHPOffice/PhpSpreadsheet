@@ -15,18 +15,14 @@ class BesselJTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-8;
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
     public function testDirectCallToBESSELJ(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselJ::besselJ(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
     public function testBESSELJAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -38,9 +34,7 @@ class BesselJTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
     public function testBESSELJInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +57,7 @@ class BesselJTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBESSELJ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBESSELJ')]
     public function testBESSELJUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -92,9 +84,7 @@ class BesselJTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBesselJArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBesselJArray')]
     public function testBesselJArray(array $expectedResult, string $value, string $ord): void
     {
         $calculation = Calculation::getInstance();

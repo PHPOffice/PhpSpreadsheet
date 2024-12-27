@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class TextBeforeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXTBEFORE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXTBEFORE')]
     public function testTextBefore(string $expectedResult, array $arguments): void
     {
         $text = $arguments[0];

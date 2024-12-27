@@ -36,18 +36,14 @@ class DateTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    /**
-     * @dataProvider providerDATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
     public function testDirectCallToDATE(float|string $expectedResult, int|string $year, float|int|string $month, float|int|string $day): void
     {
         $result = Date::fromYMD($year, $month, $day);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
     public function testDATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -59,9 +55,7 @@ class DateTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
     public function testDATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -84,9 +78,7 @@ class DateTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDATE')]
     public function testDATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -144,9 +136,7 @@ class DateTest extends TestCase
         self::assertEquals($result, ExcelError::NAN());
     }
 
-    /**
-     * @dataProvider providerDateArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateArray')]
     public function testDateArray(array $expectedResult, string $year, string $month, string $day): void
     {
         $calculation = Calculation::getInstance();
@@ -210,9 +200,7 @@ class DateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDateArrayException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateArrayException')]
     public function testDateArrayException(string $year, string $month, string $day): void
     {
         $calculation = Calculation::getInstance();

@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlStyleCoverageTest extends TestCase
 {
-    /**
-     * @dataProvider providerBorderStyle
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBorderStyle')]
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $styles = Xml::XmlMappings();
@@ -38,9 +36,7 @@ class XmlStyleCoverageTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerfillType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerfillType')]
     public function testFillType(string $style, string $expectedResult): void
     {
         $styles = Xml::xmlMappings();

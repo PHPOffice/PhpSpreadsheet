@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class AccrintTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerACCRINT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerACCRINT')]
     public function testACCRINT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('ACCRINT', $expectedResult, $args);

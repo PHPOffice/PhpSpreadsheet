@@ -234,9 +234,8 @@ class XlsxTest extends TestCase
     /**
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
-     *
-     * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerStripsWhiteSpaceFromStyleString')]
     public function testStripsWhiteSpaceFromStyleString(string $string): void
     {
         $string = Xlsx::stripWhiteSpaceFromStyleString($string);

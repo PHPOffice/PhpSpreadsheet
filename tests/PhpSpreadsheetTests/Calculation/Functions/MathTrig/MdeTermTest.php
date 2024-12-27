@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class MdeTermTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMDETERM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMDETERM')]
     public function testMDETERM2(float|int|string $expectedResult, array|int|float|string $matrix): void
     {
         $this->mightHaveException($expectedResult);

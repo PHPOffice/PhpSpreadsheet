@@ -11,11 +11,10 @@ use PhpOffice\PhpSpreadsheet\Settings;
 class RightTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerRIGHT
-     *
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRIGHT')]
     public function testRIGHT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +38,7 @@ class RightTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 
-    /**
-     * @dataProvider providerLocaleRIGHT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleRIGHT')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -71,9 +68,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTTrue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTTrue')]
     public function testCalculationTypeTrue(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -107,9 +102,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTFalse
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTFalse')]
     public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -143,9 +136,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTNull
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTNull')]
     public function testCalculationTypeNull(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -178,9 +169,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerRightArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRightArray')]
     public function testRightArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

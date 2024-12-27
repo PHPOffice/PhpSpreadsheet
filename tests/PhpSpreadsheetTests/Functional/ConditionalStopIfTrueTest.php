@@ -18,9 +18,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testConditionalStopIfTrue(string $format): void
     {
         $pCoordinate = 'A1:A3';

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GammaInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAMMAINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMAINV')]
     public function testGAMMAINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMA.INV', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class GammaInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/GAMMAINV.php';
     }
 
-    /**
-     * @dataProvider providerGammaInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGammaInvArray')]
     public function testGammaInvArray(array $expectedResult, string $values, string $alpha, string $beta): void
     {
         $calculation = Calculation::getInstance();

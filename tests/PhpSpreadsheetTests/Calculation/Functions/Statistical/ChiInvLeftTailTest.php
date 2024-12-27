@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ChiInvLeftTailTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCHIINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHIINV')]
     public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.INV', $expectedResult, ...$args);
@@ -36,9 +34,7 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerChiInvLeftTailArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiInvLeftTailArray')]
     public function testChiInvLeftTailArray(array $expectedResult, string $probabilities, string $degrees): void
     {
         $calculation = Calculation::getInstance();
