@@ -15,7 +15,7 @@ class HtmlImage2Test extends TestCase
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
         }
-        $imagePath = 'https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-03-filter-icon-1.png';
+        $imagePath = 'https://phpspreadsheet.readthedocs.io/en/stable/topics/images/01-03-filter-icon-1.png';
         $html = '<table>
                     <tr>
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
