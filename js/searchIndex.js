@@ -22306,6 +22306,16 @@ Search.appendIndex(
             "summary": "Reverse\u0020the\u0020case\u0020of\u0020a\u0020string,\u0020so\u0020that\u0020all\u0020uppercase\u0020characters\u0020become\u0020lowercase\nand\u0020all\u0020lowercase\u0020characters\u0020become\u0020uppercase.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strCaseReverse"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003AuseAlt\u0028\u0029",
+            "name": "useAlt",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_useAlt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003AgetLocaleValue\u0028\u0029",
+            "name": "getLocaleValue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getLocaleValue"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003AgetDecimalSeparator\u0028\u0029",
             "name": "getDecimalSeparator",
             "summary": "Get\u0020the\u0020decimal\u0020separator.\u0020If\u0020it\u0020has\u0020not\u0020yet\u0020been\u0020set\u0020explicitly,\u0020try\u0020to\u0020obtain\u0020number\nformatting\u0020information\u0020from\u0020locale.",
@@ -35526,6 +35536,11 @@ Search.appendIndex(
             "summary": "Add\u0020color\u0020to\u0020formatted\u0020string\u0020as\u0020inline\u0020style.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_formatColor"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AformatColorStatic\u0028\u0029",
+            "name": "formatColorStatic",
+            "summary": "Add\u0020color\u0020to\u0020formatted\u0020string\u0020as\u0020inline\u0020style.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_formatColorStatic"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcalculateSpans\u0028\u0029",
             "name": "calculateSpans",
             "summary": "Calculate\u0020information\u0020about\u0020HTML\u0020colspan\u0020and\u0020rowspan\u0020which\u0020is\u0020not\u0020always\u0020the\u0020same\u0020as\u0020Excel\u0027s.",
@@ -35921,6 +35936,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#constant_TABLE_STYLE_PREFIX"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AINDENT_TO_INCHES",
+            "name": "INDENT_TO_INCHES",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#constant_INDENT_TO_INCHES"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003A\u0024writer",
             "name": "writer",
             "summary": "",
@@ -35970,16 +35990,6 @@ Search.appendIndex(
             "name": "writeCellMerge",
             "summary": "Write\u0020attributes\u0020for\u0020merged\u0020cell.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#method_writeCellMerge"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003ANUMBER_COLS_REPEATED_MAX",
-            "name": "NUMBER_COLS_REPEATED_MAX",
-            "summary": "",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#constant_NUMBER_COLS_REPEATED_MAX"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003ANUMBER_ROWS_REPEATED_MAX",
-            "name": "NUMBER_ROWS_REPEATED_MAX",
-            "summary": "",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#constant_NUMBER_ROWS_REPEATED_MAX"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003A\u0024formulaConvertor",
             "name": "formulaConvertor",
@@ -39146,6 +39156,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_determineUseDynamicArrays"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AsetForceFullCalc\u0028\u0029",
+            "name": "setForceFullCalc",
+            "summary": "If\u0020this\u0020is\u0020set\u0020when\u0020a\u0020spreadsheet\u0020is\u0020opened,\nvalues\u0020may\u0020not\u0020be\u0020automatically\u0020re\u002Dcalculated,\nand\u0020a\u0020button\u0020will\u0020be\u0020available\u0020to\u0020force\u0020re\u002Dcalculation.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setForceFullCalc"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003A\u0024office2003compatibility",
             "name": "office2003compatibility",
             "summary": "Office2003\u0020compatibility.",
@@ -39286,6 +39301,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_useDynamicArray"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003A\u0024forceFullCalc",
+            "name": "forceFullCalc",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_forceFullCalc"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003A\u0024pathNames",
             "name": "pathNames",
             "summary": "",
@@ -39303,7 +39323,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\ZipStream2",
             "name": "ZipStream2",
-            "summary": "",
+            "summary": "Either\u0020ZipStream2\u0020or\u0020ZipStream3,\u0020but\u0020not\u0020both,\u0020may\u0020be\u0020used.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-ZipStream2.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\ZipStream2\u003A\u003AnewZipStream\u0028\u0029",
