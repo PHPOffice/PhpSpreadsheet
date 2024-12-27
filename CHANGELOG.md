@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-# TBD - 1.29.7
+# 2024-12-26 - 1.29.7
 
 ### Deprecated
 
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - More context options may be needed for http(s) image. Backport of [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
 - Backported security patches for Samples.
+- Backported security patches for Html Writer.
 
 ## 1.29.6 - 2024-12-08
 
