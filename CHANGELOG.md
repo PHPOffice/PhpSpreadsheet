@@ -5,19 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.7.0
-
-### Added
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
+## 2024-12-26 - 3.7.0
 
 ### Deprecated
 
@@ -25,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
+- Security patches for Samples.
+- Security patches for Html Writer.
 - Avoid unexpected charset in currency symbol. [PR #4279](https://github.com/PHPOffice/PhpSpreadsheet/pull/4279)
 - Add forceFullCalc option to Xlsx Writer. [Issue #4269](https://github.com/PHPOffice/PhpSpreadsheet/issues/4269) [PR #4271](https://github.com/PHPOffice/PhpSpreadsheet/pull/4271)
 - More context options may be needed for http(s) image. [Php issue 17121](https://github.com/php/php-src/issues/17121) [PR #4276](https://github.com/PHPOffice/PhpSpreadsheet/pull/4276)
