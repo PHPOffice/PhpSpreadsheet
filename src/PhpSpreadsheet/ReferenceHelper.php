@@ -282,7 +282,13 @@ class ReferenceHelper
                     )
                 );
             }
-            $newReference = $this->updateCellReference($cellAddress);
+            $addressParts = explode(' ', $cellAddress);
+            $newReference = '';
+            $separator = '';
+            foreach ($addressParts as $addressPart) {
+                $newReference .= $separator . $this->updateCellReference($addressPart);
+                $separator = ' ';
+            }
             if ($cellAddress !== $newReference) {
                 $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($newReference, $dataValidation);

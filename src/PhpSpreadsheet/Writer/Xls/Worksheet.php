@@ -2605,7 +2605,14 @@ class Worksheet extends BIFFwriter
     private function writeDataValidity(): void
     {
         // Datavalidation collection
-        $dataValidationCollection = $this->phpSheet->getDataValidationCollection();
+        $dataValidationCollection1 = $this->phpSheet->getDataValidationCollection();
+        $dataValidationCollection = [];
+        foreach ($dataValidationCollection1 as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                $dataValidationCollection[$keyPart] = $dataValidation;
+            }
+        }
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {

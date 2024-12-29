@@ -130,4 +130,38 @@ class ReferenceHelperDVTest extends TestCase
         $validation->setPrompt('Please pick a value from the drop-down list.');
         $validation->setFormula1('$A$5:$A$8');
     }
+
+    public function testMultipleRanges(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('B1')->setValue(1);
+        $sheet->getCell('B2')->setValue(2);
+        $sheet->getCell('B3')->setValue(3);
+        $dv = $sheet->getDataValidation('A1:A4 C5 D6:D7');
+        $dv->setType(DataValidation::TYPE_LIST)
+            ->setShowDropDown(true)
+            ->setFormula1('$B$1:$B$3')
+            ->setErrorStyle(DataValidation::STYLE_STOP)
+            ->setShowErrorMessage(true)
+            ->setErrorTitle('Input Error')
+            ->setError('Value is not a member of allowed list');
+        $sheet->insertNewColumnBefore('A');
+        $dvs = $sheet->getDataValidationCollection();
+        self::assertCount(1, $dvs);
+        $expected = 'B1:B4 D5 E6:E7';
+        self::assertSame([$expected], array_keys($dvs));
+        $dv = $dvs[$expected];
+        self::assertSame($expected, $dv->getSqref());
+        self::assertSame('$C$1:$C$3', $dv->getFormula1());
+        $sheet->getCell('B2')->setValue(3);
+        self::assertTrue($sheet->getCell('B2')->hasValidValue());
+        $sheet->getCell('D5')->setValue(7);
+        self::assertFalse($sheet->getCell('D5')->hasValidValue());
+        $sheet->getCell('E6')->setValue(7);
+        self::assertFalse($sheet->getCell('E6')->hasValidValue());
+        $sheet->getCell('E7')->setValue(1);
+        self::assertTrue($sheet->getCell('E7')->hasValidValue());
+        $spreadsheet->disconnectWorksheets();
+    }
 }

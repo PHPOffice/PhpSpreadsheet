@@ -943,7 +943,6 @@ class Worksheet extends WriterPart
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {
-            $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
             $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', (string) count($dataValidationCollection));
 
