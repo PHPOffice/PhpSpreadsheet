@@ -13,6 +13,8 @@ class DataValidationsTest extends AbstractFunctional
 {
     private string $filename = 'tests/data/Reader/Xml/datavalidations.xml';
 
+    private string $filename2 = 'tests/data/Reader/Xml/datavalidations.wholerow.xml';
+
     public function testValidation(): void
     {
         $reader = new Xml();
@@ -31,6 +33,27 @@ class DataValidationsTest extends AbstractFunctional
         $sheet->getCell('F1')->getDataValidation()->setType(DataValidation::TYPE_NONE);
         $sheet->getCell('F1')->setValue(1);
         self::assertTrue($sheet->getCell('F1')->hasValidValue(), 'validation type is NONE');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testValidationWholeRow(): void
+    {
+        $reader = new Xml();
+        $spreadsheet = $reader->load($this->filename2);
+        $sheet = $spreadsheet->getActiveSheet();
+        $collection = $sheet->getDataValidationCollection();
+        self::assertSame(['A1', 'A1:XFD1'], array_keys($collection));
+        $dv = $collection['A1'];
+        self::assertSame('"Item A,Item B,Item D"', $dv->getFormula1());
+        self::assertSame('warn', $dv->getErrorStyle());
+        self::assertFalse($dv->getShowDropDown());
+        self::assertFalse($dv->getShowErrorMessage());
+
+        $dv = $collection['A1:XFD1'];
+        self::assertSame('"Item A,Item B,Item C"', $dv->getFormula1());
+        self::assertSame('stop', $dv->getErrorStyle());
+        self::assertTrue($dv->getShowDropDown());
+        self::assertTrue($dv->getShowErrorMessage());
         $spreadsheet->disconnectWorksheets();
     }
 
