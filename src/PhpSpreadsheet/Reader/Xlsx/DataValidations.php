@@ -52,7 +52,6 @@ class DataValidations
             $docValidation->setPrompt((string) $dataValidation['prompt']);
             $docValidation->setFormula1(Xlsx::replacePrefixes((string) $dataValidation->formula1));
             $docValidation->setFormula2(Xlsx::replacePrefixes((string) $dataValidation->formula2));
-            $docValidation->setSqref($range);
             $this->worksheet->setDataValidation($range, $docValidation);
         }
     }

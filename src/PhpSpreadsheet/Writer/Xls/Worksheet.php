@@ -567,12 +567,22 @@ class Worksheet extends BIFFwriter
 
         // extract first cell, e.g. 'A1'
         $firstCell = $explodes[0];
+        if (ctype_alpha($firstCell)) {
+            $firstCell .= '1';
+        } elseif (ctype_digit($firstCell)) {
+            $firstCell = "A$firstCell";
+        }
 
         // extract last cell, e.g. 'B6'
         if (count($explodes) == 1) {
             $lastCell = $firstCell;
         } else {
             $lastCell = $explodes[1];
+        }
+        if (ctype_alpha($lastCell)) {
+            $lastCell .= (string) self::MAX_XLS_ROW;
+        } elseif (ctype_digit($lastCell)) {
+            $lastCell = self::MAX_XLS_COLUMN_STRING . $lastCell;
         }
 
         $firstCellCoordinates = Coordinate::indexesFromString($firstCell); // e.g. [0, 1]

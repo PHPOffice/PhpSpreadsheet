@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -178,23 +177,21 @@ class DataValidationHelper extends Xls
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
 
         foreach ($cellRangeAddresses as $cellRange) {
-            $stRange = $xls->phpSheet->shrinkRangeToFit($cellRange);
-            foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $coordinate) {
-                $objValidation = $xls->phpSheet->getCell($coordinate)->getDataValidation();
-                $objValidation->setType($type);
-                $objValidation->setErrorStyle($errorStyle);
-                $objValidation->setAllowBlank((bool) $allowBlank);
-                $objValidation->setShowInputMessage((bool) $showInputMessage);
-                $objValidation->setShowErrorMessage((bool) $showErrorMessage);
-                $objValidation->setShowDropDown(!$suppressDropDown);
-                $objValidation->setOperator($operator);
-                $objValidation->setErrorTitle($errorTitle);
-                $objValidation->setError($error);
-                $objValidation->setPromptTitle($promptTitle);
-                $objValidation->setPrompt($prompt);
-                $objValidation->setFormula1($formula1);
-                $objValidation->setFormula2($formula2);
-            }
+            $objValidation = new DataValidation();
+            $objValidation->setType($type);
+            $objValidation->setErrorStyle($errorStyle);
+            $objValidation->setAllowBlank((bool) $allowBlank);
+            $objValidation->setShowInputMessage((bool) $showInputMessage);
+            $objValidation->setShowErrorMessage((bool) $showErrorMessage);
+            $objValidation->setShowDropDown(!$suppressDropDown);
+            $objValidation->setOperator($operator);
+            $objValidation->setErrorTitle($errorTitle);
+            $objValidation->setError($error);
+            $objValidation->setPromptTitle($promptTitle);
+            $objValidation->setPrompt($prompt);
+            $objValidation->setFormula1($formula1);
+            $objValidation->setFormula2($formula2);
+            $xls->phpSheet->setDataValidation($cellRange, $objValidation);
         }
     }
 }

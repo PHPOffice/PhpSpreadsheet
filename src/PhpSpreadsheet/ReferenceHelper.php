@@ -290,7 +290,6 @@ class ReferenceHelper
                 $separator = ' ';
             }
             if ($cellAddress !== $newReference) {
-                $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
             }

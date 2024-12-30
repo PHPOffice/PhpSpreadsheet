@@ -43,7 +43,8 @@ class DataValidations
         /** @var callable $pregCallback */
         $pregCallback = [$this, 'replaceR1C1'];
         foreach ($xmlX->DataValidation as $dataValidation) {
-            $cells = [];
+            $combinedCells = '';
+            $separator = '';
             $validation = new DataValidation();
 
             // set defaults
@@ -72,6 +73,8 @@ class DataValidations
                                 $this->thisRow = (int) $selectionMatches[1];
                                 $this->thisColumn = (int) $selectionMatches[2];
                                 $sheet->getCell($firstCell);
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             } elseif (preg_match('/^R(\d+)C(\d+)$/', (string) $range, $selectionMatches) === 1) {
                                 // cell
                                 $cell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])
@@ -79,6 +82,8 @@ class DataValidations
                                 $sheet->getCell($cell);
                                 $this->thisRow = (int) $selectionMatches[1];
                                 $this->thisColumn = (int) $selectionMatches[2];
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             } elseif (preg_match('/^C(\d+)$/', (string) $range, $selectionMatches) === 1) {
                                 // column
                                 $firstCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[1])
@@ -89,6 +94,8 @@ class DataValidations
                                     . ((string) AddressRange::MAX_ROW);
                                 $this->thisColumn = (int) $selectionMatches[1];
                                 $sheet->getCell($firstCell);
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             } elseif (preg_match('/^R(\d+)$/', (string) $range, $selectionMatches)) {
                                 // row
                                 $firstCell = 'A'
@@ -99,11 +106,9 @@ class DataValidations
                                     . $selectionMatches[1];
                                 $this->thisRow = (int) $selectionMatches[1];
                                 $sheet->getCell($firstCell);
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             }
-
-                            $validation->setSqref($cell);
-                            $stRange = $sheet->shrinkRangeToFit($cell);
-                            $cells = array_merge($cells, Coordinate::extractAllCellReferencesInRange($stRange));
                         }
 
                         break;
@@ -169,9 +174,7 @@ class DataValidations
                 }
             }
 
-            foreach ($cells as $cell) {
-                $sheet->getCell($cell)->setDataValidation(clone $validation);
-            }
+            $sheet->setDataValidation($combinedCells, $validation);
         }
     }
 }
