@@ -2,9 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet as XlsWorksheet;
 
 class DataValidationHelper extends Xls
 {
@@ -175,8 +177,27 @@ class DataValidationHelper extends Xls
         // offset: var; size: var; cell range address list with
         $cellRangeAddressList = Biff8::readBIFF8CellRangeAddressList(substr($recordData, $offset));
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
+        $maxRow = (string) AddressRange::MAX_ROW;
+        $maxCol = AddressRange::MAX_COLUMN;
+        $maxXlsRow = (string) XlsWorksheet::MAX_XLS_ROW;
+        $maxXlsColumnString = (string) XlsWorksheet::MAX_XLS_COLUMN_STRING;
 
         foreach ($cellRangeAddresses as $cellRange) {
+            $cellRange = preg_replace(
+                [
+                    "/([a-z]+)1:([a-z]+)$maxXlsRow/i",
+                    "/([a-z]+\\d+):([a-z]+)$maxXlsRow/i",
+                    "/A(\\d+):$maxXlsColumnString(\\d+)/i",
+                    "/([a-z]+\\d+):$maxXlsColumnString(\\d+)/i",
+                ],
+                [
+                    '$1:$2',
+                    '$1:${2}' . $maxRow,
+                    '$1:$2',
+                    '$1:' . $maxCol . '$2',
+                ],
+                $cellRange
+            ) ?? $cellRange;
             $objValidation = new DataValidation();
             $objValidation->setType($type);
             $objValidation->setErrorStyle($errorStyle);

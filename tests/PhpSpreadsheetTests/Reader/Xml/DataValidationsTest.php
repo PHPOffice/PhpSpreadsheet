@@ -22,7 +22,7 @@ class DataValidationsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
         $validation = $sheet->getCell('A1')->getDataValidation();
-        self::assertSame('A1:A1048576', $validation->getSqref());
+        self::assertSame('A:A', $validation->getSqref());
         $validation = $sheet->getCell('B3')->getDataValidation();
         self::assertSame('B2:B1048576', $validation->getSqref());
 
@@ -42,14 +42,14 @@ class DataValidationsTest extends AbstractFunctional
         $spreadsheet = $reader->load($this->filename2);
         $sheet = $spreadsheet->getActiveSheet();
         $collection = $sheet->getDataValidationCollection();
-        self::assertSame(['A1', 'A1:XFD1'], array_keys($collection));
+        self::assertSame(['A1', '1:1'], array_keys($collection));
         $dv = $collection['A1'];
         self::assertSame('"Item A,Item B,Item D"', $dv->getFormula1());
         self::assertSame('warn', $dv->getErrorStyle());
         self::assertFalse($dv->getShowDropDown());
         self::assertFalse($dv->getShowErrorMessage());
 
-        $dv = $collection['A1:XFD1'];
+        $dv = $collection['1:1'];
         self::assertSame('"Item A,Item B,Item C"', $dv->getFormula1());
         self::assertSame('stop', $dv->getErrorStyle());
         self::assertTrue($dv->getShowDropDown());
@@ -67,7 +67,7 @@ class DataValidationsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
         $validation = $sheet->getCell('A1')->getDataValidation();
-        self::assertSame('A1:A1048576', $validation->getSqref());
+        self::assertSame('A:A', $validation->getSqref());
         $validation = $sheet->getCell('B3')->getDataValidation();
         self::assertSame('B2:B1048576', $validation->getSqref());
 
@@ -87,10 +87,10 @@ class DataValidationsTest extends AbstractFunctional
 
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
-        //$validation = $sheet->getCell('A1')->getDataValidation();
-        //self::assertSame('A1:A1048576', $validation->getSqref());
-        //$validation = $sheet->getCell('B3')->getDataValidation();
-        //self::assertSame('B2:B1048576', $validation->getSqref());
+        $validation = $sheet->getCell('A1')->getDataValidation();
+        self::assertSame('A:A', $validation->getSqref(), 'limited number of rows in Xls');
+        $validation = $sheet->getCell('B3')->getDataValidation();
+        self::assertSame('B2:B1048576', $validation->getSqref());
 
         foreach ($assertions as $title => $assertion) {
             $sheet->getCell($assertion[1])->setValue($assertion[2]);

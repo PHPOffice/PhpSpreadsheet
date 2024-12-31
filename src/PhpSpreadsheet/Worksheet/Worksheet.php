@@ -3262,10 +3262,12 @@ class Worksheet
      */
     public function getDataValidation(string $cellCoordinate): DataValidation
     {
+        // return data validation if we already have one
         if (isset($this->dataValidationCollection[$cellCoordinate])) {
             return $this->dataValidationCollection[$cellCoordinate];
         }
 
+        // or if cell is part of a data validation range
         foreach ($this->dataValidationCollection as $key => $dataValidation) {
             $keyParts = explode(' ', $key);
             foreach ($keyParts as $keyPart) {

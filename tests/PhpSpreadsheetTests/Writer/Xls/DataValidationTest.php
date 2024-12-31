@@ -33,7 +33,7 @@ class DataValidationTest extends AbstractFunctional
         $robj = $this->writeAndReload($spreadsheet, 'Xls');
         $spreadsheet->disconnectWorksheets();
         $sheet0 = $robj->getActiveSheet();
-        self::assertSame(['H1', 'C1:F1', 'A1:IV1'], array_keys($sheet0->getDataValidationCollection()));
+        self::assertSame(['H1', 'C1:F1', '1:1'], array_keys($sheet0->getDataValidationCollection()));
         self::assertTrue(true);
         $robj->disconnectWorksheets();
     }
