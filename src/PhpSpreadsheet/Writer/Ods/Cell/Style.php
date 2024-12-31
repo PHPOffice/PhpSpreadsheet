@@ -20,6 +20,7 @@ class Style
     public const COLUMN_STYLE_PREFIX = 'co';
     public const ROW_STYLE_PREFIX = 'ro';
     public const TABLE_STYLE_PREFIX = 'ta';
+    public const INDENT_TO_INCHES = 0.1043; // undocumented, used trial and error
 
     private XMLWriter $writer;
 
@@ -28,12 +29,13 @@ class Style
         $this->writer = $writer;
     }
 
-    private function mapHorizontalAlignment(string $horizontalAlignment): string
+    private function mapHorizontalAlignment(?string $horizontalAlignment): string
     {
         return match ($horizontalAlignment) {
             Alignment::HORIZONTAL_CENTER, Alignment::HORIZONTAL_CENTER_CONTINUOUS, Alignment::HORIZONTAL_DISTRIBUTED => 'center',
             Alignment::HORIZONTAL_RIGHT => 'end',
             Alignment::HORIZONTAL_FILL, Alignment::HORIZONTAL_JUSTIFY => 'justify',
+            Alignment::HORIZONTAL_GENERAL, '', null => '',
             default => 'start',
         };
     }
@@ -145,8 +147,10 @@ class Style
     {
         // Align
         $hAlign = $style->getAlignment()->getHorizontal();
+        $hAlign = $this->mapHorizontalAlignment($hAlign);
         $vAlign = $style->getAlignment()->getVertical();
         $wrap = $style->getAlignment()->getWrapText();
+        $indent = $style->getAlignment()->getIndent();
 
         $this->writer->startElement('style:table-cell-properties');
         if (!empty($vAlign) || $wrap) {
@@ -168,10 +172,16 @@ class Style
 
         $this->writer->endElement();
 
-        if (!empty($hAlign)) {
-            $hAlign = $this->mapHorizontalAlignment($hAlign);
-            $this->writer->startElement('style:paragraph-properties');
-            $this->writer->writeAttribute('fo:text-align', $hAlign);
+        if ($hAlign !== '' || !empty($indent)) {
+            $this->writer
+                ->startElement('style:paragraph-properties');
+            if ($hAlign !== '') {
+                $this->writer->writeAttribute('fo:text-align', $hAlign);
+            }
+            if (!empty($indent)) {
+                $indentString = sprintf('%.4f', $indent * self::INDENT_TO_INCHES) . 'in';
+                $this->writer->writeAttribute('fo:margin-left', $indentString);
+            }
             $this->writer->endElement();
         }
     }
@@ -289,6 +299,7 @@ class Style
             'style:name',
             sprintf('%s%d', self::TABLE_STYLE_PREFIX, $sheetId)
         );
+        $this->writer->writeAttribute('style:master-page-name', 'Default');
 
         $this->writer->startElement('style:table-properties');
 
