@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- CHOOSECOLS, CHOOSEROWS, DROP, TAKE, and EXPAND. [PR #4286](https://github.com/PHPOffice/PhpSpreadsheet/pull/4286)
 
 ### Changed
 
