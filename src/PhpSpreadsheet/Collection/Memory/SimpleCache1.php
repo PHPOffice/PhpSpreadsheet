@@ -9,6 +9,11 @@ use Psr\SimpleCache\CacheInterface;
  *
  * Alternative implementation should leverage off-memory, non-volatile storage
  * to reduce overall memory usage.
+ *
+ * Either SimpleCache1 or SimpleCache3, but not both, may be used.
+ * For code coverage testing, it will always be SimpleCache3.
+ *
+ * @codeCoverageIgnore
  */
 class SimpleCache1 implements CacheInterface
 {
