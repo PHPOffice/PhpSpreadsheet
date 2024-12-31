@@ -79,8 +79,8 @@ CHISQ.INV.RT             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 CHISQ.TEST               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
 CHITEST                  | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
 CHOOSE                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection::CHOOSE
-CHOOSECOLS               | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
-CHOOSEROWS               | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+CHOOSECOLS               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseCols
+CHOOSEROWS               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseRows
 CLEAN                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 COLUMN                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMN
@@ -158,7 +158,7 @@ DOLLAR                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpread
 DOLLARDE                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::decimal
 DOLLARFR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::fractional
 DPRODUCT                 | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct::evaluate
-DROP                     | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+DROP                     | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::drop
 DSTDEV                   | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev::evaluate
 DSTDEVP                  | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDevP::evaluate
 DSUM                     | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DSum::evaluate
@@ -183,7 +183,7 @@ ERROR.TYPE               | CATEGORY_INFORMATION           | \PhpOffice\PhpSpread
 EVEN                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::even
 EXACT                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::exact
 EXP                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp::evaluate
-EXPAND                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+EXPAND                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::expand
 EXPON.DIST               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
 EXPONDIST                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
 
@@ -553,7 +553,7 @@ T.DIST.RT                | CATEGORY_STATISTICAL           | **Not yet Implemente
 T.INV                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
 T.INV.2T                 | CATEGORY_STATISTICAL           | **Not yet Implemented**
 T.TEST                   | CATEGORY_STATISTICAL           | **Not yet Implemented**
-TAKE                     | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TAKE                     | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::take
 TAN                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
 TANH                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
 TBILLEQ                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill::bondEquivalentYield
