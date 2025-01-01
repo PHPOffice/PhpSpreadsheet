@@ -216,4 +216,32 @@ class ReferenceHelperDVTest extends TestCase
         self::assertSame(DataValidation::TYPE_NONE, $sheet->getDataValidation('H1')->getType());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testFormula2(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(5);
+        $sheet->getCell('A5')->setValue(9);
+        $dv = new DataValidation();
+        $dv->setType(DataValidation::TYPE_WHOLE)
+            ->setOperator(DataValidation::OPERATOR_BETWEEN)
+            ->setFormula1('$A$1')
+            ->setFormula2('$A$5')
+            ->setErrorStyle(DataValidation::STYLE_STOP)
+            ->setShowErrorMessage(true)
+            ->setErrorTitle('Input Error')
+            ->setError('Value is not whole number within bounds');
+        $sheet->setDataValidation('B2', $dv);
+        $sheet->insertNewRowBefore(2);
+        $dv2 = $sheet->getCell('B3')->getDataValidation();
+        self::assertSame('$A$1', $dv2->getFormula1());
+        self::assertSame('$A$6', $dv2->getFormula2());
+
+        $sheet->getCell('B3')->setValue(7);
+        self::assertTrue($sheet->getCell('B3')->hasValidValue());
+        $sheet->getCell('B3')->setValue(1);
+        self::assertFalse($sheet->getCell('B3')->hasValidValue());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
