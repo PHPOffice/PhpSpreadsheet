@@ -52,63 +52,55 @@ class DataValidator
         return $returnValue;
     }
 
-    private function numericOperator(DataValidation $dataValidation, int|float $cellValue, Cell $cell): bool
+    private const TWO_FORMULAS = [DataValidation::OPERATOR_BETWEEN, DataValidation::OPERATOR_NOTBETWEEN];
+
+    private static function evaluateNumericFormula(mixed $formula, Cell $cell): mixed
     {
-        $calculation = null;
-        $operator = $dataValidation->getOperator();
-        $formula1 = $dataValidation->getFormula1();
-        if (!is_numeric($formula1)) {
+        if (!is_numeric($formula)) {
             $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
 
             try {
                 $result = $calculation
-                    ->calculateFormula("=$formula1", $cell->getCoordinate(), $cell);
+                    ->calculateFormula("=$formula", $cell->getCoordinate(), $cell);
                 while (is_array($result)) {
                     $result = array_pop($result);
                 }
-                $formula1 = $result;
+                $formula = $result;
             } catch (Exception) {
                 // do nothing
             }
         }
+
+        return $formula;
+    }
+
+    private function numericOperator(DataValidation $dataValidation, int|float $cellValue, Cell $cell): bool
+    {
+        $operator = $dataValidation->getOperator();
+        $formula1 = self::evaluateNumericFormula(
+            $dataValidation->getFormula1(),
+            $cell
+        );
+
         $formula2 = 0;
-        if ($operator === DataValidation::OPERATOR_BETWEEN || $operator === DataValidation::OPERATOR_NOTBETWEEN) {
-            $formula2 = $dataValidation->getFormula2();
-            if (!is_numeric($formula2)) {
-                $calculation ??= Calculation::getInstance($cell->getWorksheet()->getParent());
-
-                try {
-                    $result = $calculation
-                        ->calculateFormula("=$formula2", $cell->getCoordinate(), $cell);
-                    while (is_array($result)) {
-                        $result = array_pop($result);
-                    }
-                    $formula2 = $result;
-                } catch (Exception) {
-                    // do nothing
-                }
-            }
-        }
-        $returnValue = false;
-        if ($operator === DataValidation::OPERATOR_BETWEEN) {
-            $returnValue = $cellValue >= $formula1 && $cellValue <= $formula2;
-        } elseif ($operator === DataValidation::OPERATOR_NOTBETWEEN) {
-            $returnValue = $cellValue < $formula1 || $cellValue > $formula2;
-        } elseif ($operator === DataValidation::OPERATOR_EQUAL) {
-            $returnValue = $cellValue == $formula1;
-        } elseif ($operator === DataValidation::OPERATOR_NOTEQUAL) {
-            $returnValue = $cellValue != $formula1;
-        } elseif ($operator === DataValidation::OPERATOR_LESSTHAN) {
-            $returnValue = $cellValue < $formula1;
-        } elseif ($operator === DataValidation::OPERATOR_LESSTHANOREQUAL) {
-            $returnValue = $cellValue <= $formula1;
-        } elseif ($operator === DataValidation::OPERATOR_GREATERTHAN) {
-            $returnValue = $cellValue > $formula1;
-        } elseif ($operator === DataValidation::OPERATOR_GREATERTHANOREQUAL) {
-            $returnValue = $cellValue >= $formula1;
+        if (in_array($operator, self::TWO_FORMULAS, true)) {
+            $formula2 = self::evaluateNumericFormula(
+                $dataValidation->getFormula2(),
+                $cell
+            );
         }
 
-        return $returnValue;
+        return match ($operator) {
+            DataValidation::OPERATOR_BETWEEN => $cellValue >= $formula1 && $cellValue <= $formula2,
+            DataValidation::OPERATOR_NOTBETWEEN => $cellValue < $formula1 || $cellValue > $formula2,
+            DataValidation::OPERATOR_EQUAL => $cellValue == $formula1,
+            DataValidation::OPERATOR_NOTEQUAL => $cellValue != $formula1,
+            DataValidation::OPERATOR_LESSTHAN => $cellValue < $formula1,
+            DataValidation::OPERATOR_LESSTHANOREQUAL => $cellValue <= $formula1,
+            DataValidation::OPERATOR_GREATERTHAN => $cellValue > $formula1,
+            DataValidation::OPERATOR_GREATERTHANOREQUAL => $cellValue >= $formula1,
+            default => false,
+        };
     }
 
     /**
