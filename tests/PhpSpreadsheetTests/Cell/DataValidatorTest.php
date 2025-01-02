@@ -17,6 +17,7 @@ class DataValidatorTest extends TestCase
         $testCell = $sheet->getCell('A1');
 
         self::assertTrue($testCell->hasValidValue(), 'a cell without any validation data is always valid');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testUnsupportedType(): void
@@ -30,6 +31,7 @@ class DataValidatorTest extends TestCase
         $validation->setAllowBlank(true);
 
         self::assertFalse($testCell->hasValidValue(), 'cannot assert that value is valid when the validation type is not supported');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testList(): void
@@ -71,5 +73,24 @@ class DataValidatorTest extends TestCase
         $validation->setFormula1('broken : cell : coordinates');
 
         self::assertFalse($testCell->hasValidValue(), 'invalid formula should not throw exceptions');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testInvalidNumeric(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $validation = $sheet->getCell('A1')->getDataValidation();
+        $validation->setType(DataValidation::TYPE_WHOLE)
+            ->setOperator(DataValidation::OPERATOR_EQUAL)
+            ->setFormula1('broken : cell : coordinates');
+        $sheet->getCell('A1')->setValue(0);
+        self::assertFalse($sheet->getCell('A1')->hasValidValue(), 'invalid formula should return false');
+        $validation->setOperator('invalid operator')
+            ->setFormula1('0');
+        self::assertFalse($sheet->getCell('A1')->hasValidValue(), 'invalid operator should return false');
+
+        $spreadsheet->disconnectWorksheets();
     }
 }
