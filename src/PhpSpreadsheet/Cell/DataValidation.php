@@ -96,13 +96,6 @@ class DataValidation
     private string $prompt = '';
 
     /**
-     * Create a new DataValidation.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Get Formula 1.
      */
     public function getFormula1(): string
@@ -388,21 +381,6 @@ class DataValidation
             . $this->sqref
             . __CLASS__
         );
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 
     private ?string $sqref = null;
