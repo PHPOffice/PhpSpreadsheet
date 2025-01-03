@@ -925,6 +925,8 @@ getStyle('A1:M500'), rather than styling the cells individually in a
 loop. This is much faster compared to looping through cells and styling
 them individually.
 
+**Tip** If you are styling entire row(s) or column(s), e.g. getStyle('A:A'), it is recommended to use applyFromArray as described below rather than setting the styles individually as described above.
+
 There is also an alternative manner to set styles. The following code
 sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
