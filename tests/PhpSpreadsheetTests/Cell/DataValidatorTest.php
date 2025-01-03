@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -62,7 +63,7 @@ class DataValidatorTest extends TestCase
         $sheet->getCell('B2')->setValue(6);
         $sheet->getCell('B3')->setValue(7);
         $testCell = $sheet->getCell('A1'); // redefine $testCell, because it has broken coordinates after using other cells
-        $validation->setFormula1('B1:B3');
+        $validation->setFormula1('$B$1:$B$3');
         $testCell->setValue('10');
         self::assertFalse($testCell->hasValidValue(), "cell value ('10') is not allowed");
         $testCell = $sheet->getCell('A1'); // redefine $testCell, because it has broken coordinates after using other cells
@@ -90,6 +91,27 @@ class DataValidatorTest extends TestCase
         $validation->setOperator('invalid operator')
             ->setFormula1('0');
         self::assertFalse($sheet->getCell('A1')->hasValidValue(), 'invalid operator should return false');
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDefinedNameAsList(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(1);
+        $sheet->getCell('A2')->setValue(3);
+        $sheet->getCell('A3')->setValue(5);
+        $sheet->getCell('A4')->setValue(7);
+        $spreadsheet->addNamedRange(new NamedRange('listvalues', $sheet, '$A$1:$A$4'));
+
+        $validation = $sheet->getCell('D4')->getDataValidation();
+        $validation->setType(DataValidation::TYPE_LIST)
+            ->setFormula1('listvalues');
+        $sheet->getCell('D4')->setValue(2);
+        self::assertFalse($sheet->getCell('D4')->hasValidValue());
+        $sheet->getCell('D4')->setValue(3);
+        self::assertTrue($sheet->getCell('D4')->hasValidValue());
 
         $spreadsheet->disconnectWorksheets();
     }

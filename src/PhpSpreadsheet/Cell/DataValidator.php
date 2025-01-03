@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 /**
@@ -118,22 +118,22 @@ class DataValidator
             // inline values list
             if ($formula1[0] === '"') {
                 return in_array(strtolower($cellValueString), explode(',', strtolower(trim($formula1, '"'))), true);
-            } elseif (strpos($formula1, ':') > 0) {
-                // values list cells
-                $matchFormula = '=MATCH(' . $cell->getCoordinate() . ', ' . $formula1 . ', 0)';
-                $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
-
-                try {
-                    $result = $calculation->calculateFormula($matchFormula, $cell->getCoordinate(), $cell);
-                    while (is_array($result)) {
-                        $result = array_pop($result);
-                    }
-
-                    return $result !== ExcelError::NA();
-                } catch (Exception) {
-                    return false;
-                }
             }
+            $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
+
+            try {
+                $result = $calculation->calculateFormula("=$formula1", $cell->getCoordinate(), $cell);
+                $result = is_array($result) ? Functions::flattenArray($result) : [$result];
+                foreach ($result as $oneResult) {
+                    if (is_scalar($oneResult) && strcasecmp((string) $oneResult, $cellValueString) === 0) {
+                        return true;
+                    }
+                }
+            } catch (Exception) {
+                // do nothing
+            }
+
+            return false;
         }
 
         return true;
