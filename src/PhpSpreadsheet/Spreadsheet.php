@@ -514,6 +514,16 @@ class Spreadsheet implements JsonSerializable
     public function createSheet(?int $sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
+        $title = $newSheet->getTitle();
+        if ($this->sheetNameExists($title)) {
+            $i = 1;
+            $newTitle = "$title $i";
+            while ($this->sheetNameExists($newTitle)) {
+                ++$i;
+                $newTitle = "$title $i";
+            }
+            $newSheet->setTitle($newTitle);
+        }
         $this->addSheet($newSheet, $sheetIndex);
 
         return $newSheet;
