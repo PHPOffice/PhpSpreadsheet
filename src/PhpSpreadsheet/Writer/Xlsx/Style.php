@@ -142,6 +142,7 @@ class Style extends WriterPart
 
         // dxf
         for ($i = 0; $i < $this->getParentWriter()->getStylesConditionalHashTable()->count(); ++$i) {
+            /** @var ?Conditional */
             $thisstyle = $this->getParentWriter()->getStylesConditionalHashTable()->getByIndex($i);
             if ($thisstyle !== null) {
                 $this->writeCellStyleDxf($objWriter, $thisstyle->getStyle());

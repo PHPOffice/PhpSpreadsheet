@@ -22,6 +22,7 @@ class StyleTest extends TestCase
         $styleArray = ['alignment' => ['textRotation' => 45]];
         $outArray = $cell1style->getStyleArray($styleArray);
         self::assertEquals($styleArray, $outArray['quotePrefix']);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleColumn(): void
@@ -56,6 +57,7 @@ class StyleTest extends TestCase
         self::assertTrue($sheet->getStyle('A1')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getItalic());
         self::assertFalse($sheet->getStyle('C3')->getFont()->getItalic());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleIsReused(): void
@@ -79,6 +81,7 @@ class StyleTest extends TestCase
         $spreadsheet->garbageCollect();
 
         self::assertCount(3, $spreadsheet->getCellXfCollection());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleRow(): void
@@ -113,6 +116,7 @@ class StyleTest extends TestCase
         self::assertFalse($sheet->getStyle('A1')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('C3')->getFont()->getItalic());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIssue1712A(): void
@@ -135,6 +139,7 @@ class StyleTest extends TestCase
             ->setRGB($rgb);
         self::assertEquals($rgb, $sheet->getCell('A1')->getStyle()->getFill()->getStartColor()->getRGB());
         self::assertEquals($rgb, $sheet->getCell('B1')->getStyle()->getFill()->getStartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIssue1712B(): void
@@ -157,6 +162,7 @@ class StyleTest extends TestCase
         $sheet->fromArray(['OK', 'KO']);
         self::assertEquals($rgb, $sheet->getCell('A1')->getStyle()->getFill()->getStartColor()->getRGB());
         self::assertEquals($rgb, $sheet->getCell('B1')->getStyle()->getFill()->getStartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleLoopUpwards(): void
@@ -182,6 +188,7 @@ class StyleTest extends TestCase
         self::assertFalse($sheet->getStyle('A1')->getFont()->getBold());
         self::assertFalse($sheet->getStyle('B2')->getFont()->getBold());
         self::assertTrue($sheet->getStyle('C3')->getFont()->getBold());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleCellAddressObject(): void
@@ -193,6 +200,7 @@ class StyleTest extends TestCase
         $style->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
         self::assertSame(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH, $style->getNumberFormat()->getFormatCode());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleCellRangeObject(): void
@@ -206,5 +214,6 @@ class StyleTest extends TestCase
         $style->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
         self::assertSame(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH, $style->getNumberFormat()->getFormatCode());
+        $spreadsheet->disconnectWorksheets();
     }
 }
