@@ -514,7 +514,6 @@ class Spreadsheet implements JsonSerializable
     public function createSheet(?int $sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
-        $title = $newSheet->getTitle();
         $this->addSheet($newSheet, $sheetIndex, true);
 
         return $newSheet;
