@@ -72,10 +72,25 @@ class Issue641Test extends TestCase
             $totalWs2->getCell("A{$step}")->setValue($formula);
         }
 
-        self::assertSame("=SUM('Detailed A'!A1:A10)", $xlsx->getSheetByName('Condensed A')?->getCell('A1')?->getValue());
-        self::assertSame("=SUM('Detailed B'!A1:A10)", $xlsx->getSheetByName('Condensed B')?->getCell('A1')?->getValue());
-        self::assertSame("=SUM('Detailed Total'!A1:A10)", $xlsx->getSheetByName('Condensed Total')?->getCell('A1')?->getValue());
-        self::assertSame("=+'Detailed A'!A1+'Detailed B'!A1", $xlsx->getSheetByName('Detailed Total')?->getCell('A1')?->getValue());
+        $xsheet = $xlsx->getSheetByNameOrThrow('Condensed A');
+        $cell = $xsheet->getCell('A1');
+        self::assertNotNull($cell);
+        self::assertSame("=SUM('Detailed A'!A1:A10)", $cell->getValue());
+
+        $xsheet = $xlsx->getSheetByNameOrThrow('Condensed B');
+        $cell = $xsheet->getCell('A1');
+        self::assertNotNull($cell);
+        self::assertSame("=SUM('Detailed B'!A1:A10)", $cell->getValue());
+
+        $xsheet = $xlsx->getSheetByNameOrThrow('Condensed Total');
+        $cell = $xsheet->getCell('A1');
+        self::assertNotNull($cell);
+        self::assertSame("=SUM('Detailed Total'!A1:A10)", $cell->getValue());
+
+        $xsheet = $xlsx->getSheetByNameOrThrow('Detailed Total');
+        $cell = $xsheet->getCell('A1');
+        self::assertNotNull($cell);
+        self::assertSame("=+'Detailed A'!A1+'Detailed B'!A1", $cell->getValue());
 
         $xlsx->disconnectWorksheets();
     }
