@@ -43,5 +43,6 @@ class StringHelperInvalidCharTest extends TestCase
                 $sheet->getCell("A$row")->getValue()
             );
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }
