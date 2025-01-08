@@ -444,7 +444,7 @@ class BaseDrawing implements IComparable
         return md5(
             $this->name .
             $this->description .
-            (($this->worksheet === null) ? '' : $this->worksheet->getHashCode()) .
+            (($this->worksheet === null) ? '' : (string) $this->worksheet->getHashInt()) .
             $this->coordinates .
             $this->offsetX .
             $this->offsetY .

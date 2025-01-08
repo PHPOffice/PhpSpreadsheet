@@ -20,7 +20,6 @@ use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Exception;
-use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared;
@@ -31,7 +30,7 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
-class Worksheet implements IComparable
+class Worksheet
 {
     // Break types
     public const BREAK_NONE = 0;
@@ -339,16 +338,9 @@ class Worksheet implements IComparable
     private $tabColor;
 
     /**
-     * Dirty flag.
-     *
-     * @var bool
-     */
-    private $dirty = true;
-
-    /**
      * Hash.
      *
-     * @var string
+     * @var int
      */
     private $hash;
 
@@ -368,6 +360,7 @@ class Worksheet implements IComparable
     {
         // Set parent and title
         $this->parent = $parent;
+        $this->hash = spl_object_id($this);
         $this->setTitle($title, false);
         // setTitle can change $pTitle
         $this->setCodeName($this->getTitle());
@@ -422,6 +415,12 @@ class Worksheet implements IComparable
 
         $this->disconnectCells();
         $this->rowDimensions = [];
+    }
+
+    public function __wakeup(): void
+    {
+        $this->hash = spl_object_id($this);
+        $this->parent = null;
     }
 
     /**
@@ -914,7 +913,7 @@ class Worksheet implements IComparable
             // Syntax check
             self::checkSheetTitle($title);
 
-            if ($this->parent) {
+            if ($this->parent && $this->parent->getIndex($this, true) >= 0) {
                 // Is there already such sheet name?
                 if ($this->parent->sheetNameExists($title)) {
                     // Use name, but append with lowest possible integer
@@ -943,9 +942,8 @@ class Worksheet implements IComparable
 
         // Set title
         $this->title = $title;
-        $this->dirty = true;
 
-        if ($this->parent && $this->parent->getCalculationEngine()) {
+        if ($this->parent && $this->parent->getIndex($this, true) >= 0 && $this->parent->getCalculationEngine()) {
             // New title
             $newTitle = $this->getTitle();
             $this->parent->getCalculationEngine()
@@ -1088,7 +1086,6 @@ class Worksheet implements IComparable
     public function setProtection(Protection $protection)
     {
         $this->protection = $protection;
-        $this->dirty = true;
 
         return $this;
     }
@@ -3137,7 +3134,7 @@ class Worksheet implements IComparable
 
         if ($namedRange->getLocalOnly()) {
             $worksheet = $namedRange->getWorksheet();
-            if ($worksheet === null || $this->getHashCode() !== $worksheet->getHashCode()) {
+            if ($worksheet === null || $this->getHashInt() !== $worksheet->getHashInt()) {
                 if ($returnNullIfInvalid) {
                     return null;
                 }
@@ -3278,17 +3275,20 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get hash code.
+     * @deprecated 3.5.0 use getHashInt instead.
      *
      * @return string Hash code
      */
     public function getHashCode()
     {
-        if ($this->dirty) {
-            $this->hash = md5($this->title . $this->autoFilter . ($this->protection->isProtectionEnabled() ? 't' : 'f') . __CLASS__);
-            $this->dirty = false;
-        }
+        return (string) $this->hash;
+    }
 
+    /**
+     * @return int Hash code
+     */
+    public function getHashInt()
+    {
         return $this->hash;
     }
 
@@ -3620,6 +3620,7 @@ class Worksheet implements IComparable
                 }
             }
         }
+        $this->hash = spl_object_id($this);
     }
 
     /**

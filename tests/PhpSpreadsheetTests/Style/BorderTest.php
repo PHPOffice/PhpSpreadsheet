@@ -29,6 +29,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_THIN, $borders->getRight()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $borders->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $borders->getDiagonal()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testAllBordersArray(): void
@@ -43,6 +44,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_THIN, $borders->getRight()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $borders->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $borders->getDiagonal()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testAllBordersArrayNotSupervisor(): void
@@ -84,6 +86,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_THIN, $sheet->getCell('B2')->getStyle()->getBorders()->getBottom()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testInside(): void
@@ -113,6 +116,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getBottom()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $sheet->getCell('B2')->getStyle()->getBorders()->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $sheet->getCell('B2')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testHorizontal(): void
@@ -142,6 +146,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getBottom()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $sheet->getCell('B2')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testVertical(): void
@@ -171,6 +176,7 @@ class BorderTest extends TestCase
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getBottom()->getBorderStyle());
         self::assertSame(Border::BORDER_THIN, $sheet->getCell('B2')->getStyle()->getBorders()->getLeft()->getBorderStyle());
         self::assertSame(Border::BORDER_NONE, $sheet->getCell('B2')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testNoSupervisorAllBorders(): void
@@ -215,6 +221,7 @@ class BorderTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getStyle('A1')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_MEDIUM);
         $sheet->getStyle('A1')->getBorders()->getHorizontal()->getSharedComponent();
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderStyle(): void
@@ -231,6 +238,7 @@ class BorderTest extends TestCase
         $border->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('FFFF0000'));
         self::assertEquals('FFFF0000', $border->getColor()->getARGB());
         self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDiagonalDirection(): void
@@ -243,5 +251,6 @@ class BorderTest extends TestCase
 
         self::assertSame(Border::BORDER_MEDIUM, $borders->getDiagonal()->getBorderStyle());
         self::assertSame(Borders::DIAGONAL_BOTH, $borders->getDiagonalDirection());
+        $spreadsheet->disconnectWorksheets();
     }
 }

@@ -913,7 +913,7 @@ class ReferenceHelper
     {
         $cellAddress = $definedName->getValue();
         $asFormula = ($cellAddress[0] === '=');
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
             /**
              * If we delete the entire range that is referenced by a Named Range, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Range will still reference Cells.
@@ -932,7 +932,7 @@ class ReferenceHelper
 
     private function updateNamedFormula(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
     {
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
             /**
              * If we delete the entire range that is referenced by a Named Formula, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Formula will still reference Cells.
