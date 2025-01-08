@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+# TBD - 2.3.6
+
+### Deprecated
+
+- Worksheet::getHashCode is no longer needed.
+
+### Fixed
+
+- Change hash code for worksheet. Backport of [PR #4207](https://github.com/PHPOffice/PhpSpreadsheet/pull/4207)
+- Retitling cloned worksheets. Backport of [PR #4302](https://github.com/PHPOffice/PhpSpreadsheet/pull/4302)
+
+
 # 2024-12-26 - 2.3.5
 
 ### Deprecated
