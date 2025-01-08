@@ -39,6 +39,7 @@ class RowRangeTest extends TestCase
         self::assertSame(3, $rowRange->from());
         self::assertSame(5, $rowRange->to());
         self::assertSame("'Mark''s Worksheet'!3:5", (string) $rowRange);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCreateRowRangeFromArray(): void
@@ -73,5 +74,21 @@ class RowRangeTest extends TestCase
 
         // Check that original Row Range isn't changed
         self::assertSame('3:5', (string) $rowRange);
+    }
+
+    public function testIssue4309(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $rowRange = new RowRange(1, 1);
+        $rowStyle = $sheet->getStyle($rowRange);
+        $rowStyle->applyFromArray([
+            'font' => ['name' => 'Arial'],
+        ]);
+        $rowXf = $sheet->getRowDimension(1)->getXfIndex();
+        self::assertNotNull($rowXf);
+        self::assertSame('Arial', $spreadsheet->getCellXfByIndex($rowXf)->getFont()->getName());
+
+        $spreadsheet->disconnectWorksheets();
     }
 }
