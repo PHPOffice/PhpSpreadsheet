@@ -553,13 +553,13 @@ class Calculation
             'argumentCount' => '2+',
         ],
         'CHOOSECOLS' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\ChooseRowsEtc::class, 'chooseCols'],
             'argumentCount' => '2+',
         ],
         'CHOOSEROWS' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\ChooseRowsEtc::class, 'chooseRows'],
             'argumentCount' => '2+',
         ],
         'CLEAN' => [
@@ -925,8 +925,8 @@ class Calculation
             'argumentCount' => '3',
         ],
         'DROP' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\ChooseRowsEtc::class, 'drop'],
             'argumentCount' => '2-3',
         ],
         'DSTDEV' => [
@@ -1025,8 +1025,8 @@ class Calculation
             'argumentCount' => '1',
         ],
         'EXPAND' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\ChooseRowsEtc::class, 'expand'],
             'argumentCount' => '2-4',
         ],
         'EXPONDIST' => [
@@ -2490,8 +2490,8 @@ class Calculation
             'argumentCount' => '1',
         ],
         'TAKE' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\ChooseRowsEtc::class, 'take'],
             'argumentCount' => '2-3',
         ],
         'TAN' => [

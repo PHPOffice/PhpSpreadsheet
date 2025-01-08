@@ -112,11 +112,11 @@ class Formatter extends BaseFormatter
      * @param null|array|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param ?array $callBack Callback function for additional formatting of string
+     * @param null|array|callable $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, string $format, ?array $callBack = null): string
+    public static function toFormattedString($value, string $format, null|array|callable $callBack = null): string
     {
         while (is_array($value)) {
             $value = array_shift($value);
@@ -200,9 +200,8 @@ class Formatter extends BaseFormatter
         }
 
         // Additional formatting provided by callback function
-        if ($callBack !== null) {
-            [$writerInstance, $function] = $callBack;
-            $value = $writerInstance->$function($value, $colors);
+        if (is_callable($callBack)) {
+            $value = $callBack($value, $colors);
         }
 
         return str_replace(chr(0x00), '.', $value);
