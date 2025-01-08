@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Xlsx Reader Shared Formula with Boolean Result. Partial solution for [Issue #4280](https://github.com/PHPOffice/PhpSpreadsheet/issues/4280) [PR #4281](https://github.com/PHPOffice/PhpSpreadsheet/pull/4281)
+- Retitling cloned Worksheets. [Issue #641](https://github.com/PHPOffice/PhpSpreadsheet/issues/641) [PR #4302](https://github.com/PHPOffice/PhpSpreadsheet/pull/4302)
 
 ## 2024-12-26 - 3.7.0
 
