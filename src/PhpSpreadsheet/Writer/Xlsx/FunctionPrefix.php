@@ -142,6 +142,7 @@ class FunctionPrefix
         . '|drop'
         . '|expand'
         . '|filter'
+        . '|groupby'
         . '|hstack'
         . '|isomitted'
         . '|lambda'
