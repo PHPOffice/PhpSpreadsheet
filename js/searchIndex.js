@@ -4026,6 +4026,11 @@ Search.appendIndex(
             "summary": "Convert\u0020a\u0020multi\u002Ddimensional\u0020array\u0020to\u0020a\u0020simple\u00201\u002Ddimensional\u0020array.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#method_flattenArray"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003AflattenArray2\u0028\u0029",
+            "name": "flattenArray2",
+            "summary": "Convert\u0020a\u0020multi\u002Ddimensional\u0020array\u0020to\u0020a\u0020simple\u00201\u002Ddimensional\u0020array.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#method_flattenArray2"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003Ascalar\u0028\u0029",
             "name": "scalar",
             "summary": "",
@@ -4445,6 +4450,56 @@ Search.appendIndex(
             "name": "REFERENCE_STYLE_R1C1",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Address.html#constant_REFERENCE_STYLE_R1C1"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc",
+            "name": "ChooseRowsEtc",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003Atranspose\u0028\u0029",
+            "name": "transpose",
+            "summary": "Transpose\u00202\u002Ddimensional\u0020array.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_transpose"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003AarrayValues\u0028\u0029",
+            "name": "arrayValues",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_arrayValues"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003AchooseCols\u0028\u0029",
+            "name": "chooseCols",
+            "summary": "CHOOSECOLS.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_chooseCols"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003AchooseRows\u0028\u0029",
+            "name": "chooseRows",
+            "summary": "CHOOSEROWS.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_chooseRows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003AdropRows\u0028\u0029",
+            "name": "dropRows",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_dropRows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003Adrop\u0028\u0029",
+            "name": "drop",
+            "summary": "DROP.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_drop"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003AtakeRows\u0028\u0029",
+            "name": "takeRows",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_takeRows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003Atake\u0028\u0029",
+            "name": "take",
+            "summary": "TAKE.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_take"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ChooseRowsEtc\u003A\u003Aexpand\u0028\u0029",
+            "name": "expand",
+            "summary": "EXPAND.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-ChooseRowsEtc.html#method_expand"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\ExcelMatch",
             "name": "ExcelMatch",
@@ -34680,6 +34735,11 @@ Search.appendIndex(
             "name": "MERGE_CELL_CONTENT_MERGE",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_MERGE_CELL_CONTENT_MERGE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AFUNCTION_LIKE_GROUPBY",
+            "name": "FUNCTION_LIKE_GROUPBY",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_FUNCTION_LIKE_GROUPBY"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003ASHEET_NAME_REQUIRES_NO_QUOTES",
             "name": "SHEET_NAME_REQUIRES_NO_QUOTES",
