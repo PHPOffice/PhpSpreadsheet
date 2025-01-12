@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.8.0
+## TBD - 3.9.0
 
 ### Added
 
-- CHOOSECOLS, CHOOSEROWS, DROP, TAKE, and EXPAND. [PR #4286](https://github.com/PHPOffice/PhpSpreadsheet/pull/4286)
+- Nothing yet.
 
 ### Changed
 
@@ -25,6 +25,17 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Nothing yet.
+
+## 2025-01-11 - 3.8.0
+
+### Added
+
+- CHOOSECOLS, CHOOSEROWS, DROP, TAKE, and EXPAND. [PR #4286](https://github.com/PHPOffice/PhpSpreadsheet/pull/4286)
+
+### Fixed
+
+- Security patch for Html navigation.
 - Xlsx Reader Shared Formula with Boolean Result. Partial solution for [Issue #4280](https://github.com/PHPOffice/PhpSpreadsheet/issues/4280) [PR #4281](https://github.com/PHPOffice/PhpSpreadsheet/pull/4281)
 - Retitling cloned Worksheets. [Issue #641](https://github.com/PHPOffice/PhpSpreadsheet/issues/641) [PR #4302](https://github.com/PHPOffice/PhpSpreadsheet/pull/4302)
 - Extremely limited support for GROUPBY function. Partial response to [Issue #4282](https://github.com/PHPOffice/PhpSpreadsheet/issues/4282) [PR #4283](https://github.com/PHPOffice/PhpSpreadsheet/pull/4283)
