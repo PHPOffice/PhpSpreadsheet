@@ -66,13 +66,13 @@ class Issue4248Test extends TestCase
         $file .= '#xl/worksheets/sheet1.xml';
         $data = file_get_contents($file) ?: '';
         $expected = '<conditionalFormatting sqref="C16:C38 E17:H18 I17:J37 D18 J23:J38 E38 I38">'
-            . '<cfRule type="containsText" dxfId="0" priority="1" operator="containsText" text="Oui">'
+            . '<cfRule type="containsText" dxfId="0" priority="15" operator="containsText" text="Oui">'
             . '<formula>NOT(ISERROR(SEARCH(&quot;Oui&quot;,C16)))</formula>'
             . '</cfRule>'
             . '</conditionalFormatting>';
         self::assertStringContainsString($expected, $data, 'first condition for D18');
         $expected = '<conditionalFormatting sqref="C16:C38 I17:J37 E17:H18 D18 J23:J38 E38 I38">'
-            . '<cfRule type="containsText" dxfId="1" priority="2" operator="containsText" text="Non">'
+            . '<cfRule type="containsText" dxfId="1" priority="14" operator="containsText" text="Non">'
             . '<formula>NOT(ISERROR(SEARCH(&quot;Non&quot;,C16)))</formula>'
             . '</cfRule>'
             . '</conditionalFormatting>';

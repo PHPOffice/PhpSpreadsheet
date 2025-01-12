@@ -125,6 +125,7 @@ class ConditionalStyles
     {
         $conditionType = (string) $attributes->type;
         $operatorType = (string) $attributes->operator;
+        $priority = (int) (string) $attributes->priority;
 
         $operands = [];
         foreach ($cfRuleXml->children($this->ns['xm']) as $cfRuleOperandsXml) {
@@ -134,6 +135,7 @@ class ConditionalStyles
         $conditional = new Conditional();
         $conditional->setConditionType($conditionType);
         $conditional->setOperatorType($operatorType);
+        $conditional->setPriority($priority);
         if (
             $conditionType === Conditional::CONDITION_CONTAINSTEXT
             || $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT
@@ -184,7 +186,7 @@ class ConditionalStyles
     private function setConditionalStyles(Worksheet $worksheet, array $conditionals, SimpleXMLElement $xmlExtLst): void
     {
         foreach ($conditionals as $cellRangeReference => $cfRules) {
-            ksort($cfRules);
+            ksort($cfRules); // no longer needed for Xlsx, but helps Xls
             $conditionalStyles = $this->readStyleRules($cfRules, $xmlExtLst);
 
             // Extract all cell references in $cellRangeReference
@@ -205,6 +207,7 @@ class ConditionalStyles
             $objConditional = new Conditional();
             $objConditional->setConditionType((string) $cfRule['type']);
             $objConditional->setOperatorType((string) $cfRule['operator']);
+            $objConditional->setPriority((int) (string) $cfRule['priority']);
             $objConditional->setNoFormatSet(!isset($cfRule['dxfId']));
 
             if ((string) $cfRule['text'] != '') {

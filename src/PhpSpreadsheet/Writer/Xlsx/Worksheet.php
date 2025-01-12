@@ -861,7 +861,12 @@ class Worksheet extends WriterPart
     private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // Conditional id
-        $id = 1;
+        $id = 0;
+        foreach ($worksheet->getConditionalStylesCollection() as $conditionalStyles) {
+            foreach ($conditionalStyles as $conditional) {
+                $id = max($id, $conditional->getPriority());
+            }
+        }
 
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
@@ -888,7 +893,8 @@ class Worksheet extends WriterPart
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
-                $objWriter->writeAttribute('priority', (string) $id++);
+                $priority = $conditional->getPriority() ?: ++$id;
+                $objWriter->writeAttribute('priority', (string) $priority);
 
                 self::writeAttributeif(
                     $objWriter,
