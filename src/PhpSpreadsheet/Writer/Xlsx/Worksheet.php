@@ -1586,7 +1586,11 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                $tempCalc = $pCell->getCalculatedValue();
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValue) === 1) {
+                    $tempCalc = [];
+                } else {
+                    $tempCalc = $pCell->getCalculatedValue();
+                }
                 if (is_array($tempCalc)) {
                     $objWriter->writeAttribute('cm', '1');
                 }
