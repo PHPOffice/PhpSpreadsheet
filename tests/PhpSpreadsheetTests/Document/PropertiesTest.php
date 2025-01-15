@@ -49,9 +49,16 @@ class PropertiesTest extends TestCase
      */
     public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
-        $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
-
-        $this->properties->setCreated($created);
+        if ($expectedCreationTime === null) {
+            do {
+                // loop to avoid rare situation where timestamp changes
+                $expectedCreationTime = (float) (new DateTime())->format('U');
+                $this->properties->setCreated($created);
+                $endTime = (float) (new DateTime())->format('U');
+            } while ($expectedCreationTime !== $endTime);
+        } else {
+            $this->properties->setCreated($created);
+        }
         self::assertEquals($expectedCreationTime, $this->properties->getCreated());
     }
 
@@ -78,9 +85,16 @@ class PropertiesTest extends TestCase
      */
     public function testSetModified(mixed $expectedModifiedTime, null|int|string $modified): void
     {
-        $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
-
-        $this->properties->setModified($modified);
+        if ($expectedModifiedTime === null) {
+            do {
+                // loop to avoid rare situation where timestamp changes
+                $expectedModifiedTime = (float) (new DateTime())->format('U');
+                $this->properties->setModified($modified);
+                $endTime = (float) (new DateTime())->format('U');
+            } while ($expectedModifiedTime !== $endTime);
+        } else {
+            $this->properties->setModified($modified);
+        }
         self::assertEquals($expectedModifiedTime, $this->properties->getModified());
     }
 
