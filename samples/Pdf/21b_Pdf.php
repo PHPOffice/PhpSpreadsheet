@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
@@ -21,7 +22,7 @@ function replaceBody(string $html): string
         </body>
         EOF;
 
-    return preg_replace($bodystring, $bodyrepl, $html) ?? '';
+    return preg_replace($bodystring, $bodyrepl, $html) ?? throw new SpreadsheetException('preg failed');
 }
 
 require __DIR__ . '/../Header.php';
