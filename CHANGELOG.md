@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Methods to get style for row or column. [PR #4317](https://github.com/PHPOffice/PhpSpreadsheet/pull/4317)
+- Method for duplicating worksheet in spreadsheet. [PR #4315](https://github.com/PHPOffice/PhpSpreadsheet/pull/4315)
 
 ### Changed
 
@@ -25,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Ods Reader Sheet Names with Period. [Issue #4311](https://github.com/PHPOffice/PhpSpreadsheet/issues/4311) [PR #4313](https://github.com/PHPOffice/PhpSpreadsheet/pull/4313)
 
 ## 2025-01-11 - 3.8.0
 

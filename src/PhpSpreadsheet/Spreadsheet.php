@@ -529,6 +529,15 @@ class Spreadsheet implements JsonSerializable
         return $this->getSheetByName($worksheetName) !== null;
     }
 
+    public function duplicateWorksheetByTitle(string $title): Worksheet
+    {
+        $original = $this->getSheetByNameOrThrow($title);
+        $index = $this->getIndex($original) + 1;
+        $clone = clone $original;
+
+        return $this->addSheet($clone, $index, true);
+    }
+
     /**
      * Add sheet.
      *
