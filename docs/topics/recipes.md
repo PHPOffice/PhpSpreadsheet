@@ -926,6 +926,7 @@ loop. This is much faster compared to looping through cells and styling
 them individually.
 
 **Tip** If you are styling entire row(s) or column(s), e.g. getStyle('A:A'), it is recommended to use applyFromArray as described below rather than setting the styles individually as described above.
+Also, starting with release 3.9.0, you should use getRowStyle or getColumnStyle to get the style for an entire row or column.
 
 There is also an alternative manner to set styles. The following code
 sets a cell's style to font bold, alignment right, top border thin and a

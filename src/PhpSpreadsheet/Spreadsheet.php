@@ -1101,6 +1101,11 @@ class Spreadsheet implements JsonSerializable
         return $this->cellXfCollection[$cellStyleIndex];
     }
 
+    public function getCellXfByIndexOrNull(?int $cellStyleIndex): ?Style
+    {
+        return ($cellStyleIndex === null) ? null : ($this->cellXfCollection[$cellStyleIndex] ?? null);
+    }
+
     /**
      * Get cellXf by hash code.
      *
