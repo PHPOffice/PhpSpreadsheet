@@ -562,7 +562,7 @@ class Html extends BaseWriter
             $html .= '<ul class="navigation">' . PHP_EOL;
 
             foreach ($sheets as $sheet) {
-                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . $sheet->getTitle() . '</a></li>' . PHP_EOL;
+                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . htmlspecialchars($sheet->getTitle()) . '</a></li>' . PHP_EOL;
                 ++$sheetId;
             }
 
@@ -1566,7 +1566,7 @@ class Html extends BaseWriter
     /**
      * Generate row.
      *
-     * @param array $values Array containing cells in a row
+     * @param array<int, mixed> $values Array containing cells in a row
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */
@@ -1578,7 +1578,19 @@ class Html extends BaseWriter
 
         // Write cells
         $colNum = 0;
-        foreach ($values as $cellAddress) {
+        $tcpdfInited = false;
+        foreach ($values as $key => $cellAddress) {
+            if ($this instanceof Pdf\Mpdf) {
+                $colNum = $key - 1;
+            } elseif ($this instanceof Pdf\Tcpdf) {
+                // It appears that Tcpdf requires first cell in tr.
+                $colNum = $key - 1;
+                if (!$tcpdfInited && $key !== 1) {
+                    $tempspan = ($colNum > 1) ? " colspan='$colNum'" : '';
+                    $html .= "<td$tempspan></td>\n";
+                }
+                $tcpdfInited = true;
+            }
             [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($worksheet, $cellAddress, $row, $colNum);
 
             // Cell Data
@@ -1590,10 +1602,15 @@ class Html extends BaseWriter
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
                 $urlTrim = Preg::replace('/^\\s+/u', '', $urlDecode1);
                 $parseScheme = Preg::isMatch('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
-                if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
+                if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
                 } else {
-                    $cellData = '<a href="' . htmlspecialchars($url, Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
+                    $tooltip = $worksheet->getHyperlink($coordinate)->getTooltip();
+                    $tooltipOut = empty($tooltip) ? '' : (' title="' . htmlspecialchars($tooltip) . '"');
+                    $cellData = '<a href="'
+                        . htmlspecialchars($url) . '"'
+                        . $tooltipOut
+                        . '>' . $cellData . '</a>';
                 }
             }
 

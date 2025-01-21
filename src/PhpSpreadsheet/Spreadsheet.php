@@ -514,7 +514,7 @@ class Spreadsheet implements JsonSerializable
     public function createSheet(?int $sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
-        $this->addSheet($newSheet, $sheetIndex);
+        $this->addSheet($newSheet, $sheetIndex, true);
 
         return $newSheet;
     }
@@ -529,14 +529,35 @@ class Spreadsheet implements JsonSerializable
         return $this->getSheetByName($worksheetName) !== null;
     }
 
+    public function duplicateWorksheetByTitle(string $title): Worksheet
+    {
+        $original = $this->getSheetByNameOrThrow($title);
+        $index = $this->getIndex($original) + 1;
+        $clone = clone $original;
+
+        return $this->addSheet($clone, $index, true);
+    }
+
     /**
      * Add sheet.
      *
      * @param Worksheet $worksheet The worksheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
      */
-    public function addSheet(Worksheet $worksheet, ?int $sheetIndex = null): Worksheet
+    public function addSheet(Worksheet $worksheet, ?int $sheetIndex = null, bool $retitleIfNeeded = false): Worksheet
     {
+        if ($retitleIfNeeded) {
+            $title = $worksheet->getTitle();
+            if ($this->sheetNameExists($title)) {
+                $i = 1;
+                $newTitle = "$title $i";
+                while ($this->sheetNameExists($newTitle)) {
+                    ++$i;
+                    $newTitle = "$title $i";
+                }
+                $worksheet->setTitle($newTitle);
+            }
+        }
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception(
                 "Workbook already contains a worksheet named '{$worksheet->getTitle()}'. Rename this worksheet first."
@@ -1078,6 +1099,11 @@ class Spreadsheet implements JsonSerializable
     public function getCellXfByIndex(int $cellStyleIndex): Style
     {
         return $this->cellXfCollection[$cellStyleIndex];
+    }
+
+    public function getCellXfByIndexOrNull(?int $cellStyleIndex): ?Style
+    {
+        return ($cellStyleIndex === null) ? null : ($this->cellXfCollection[$cellStyleIndex] ?? null);
     }
 
     /**
