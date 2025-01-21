@@ -1601,10 +1601,15 @@ class Html extends BaseWriter
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
                 $urlTrim = preg_replace('/^\\s+/u', '', $urlDecode1) ?? $urlDecode1;
                 $parseScheme = preg_match('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
-                if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
+                if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
                 } else {
-                    $cellData = '<a href="' . htmlspecialchars($url, Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
+                    $tooltip = $worksheet->getHyperlink($coordinate)->getTooltip();
+                    $tooltipOut = empty($tooltip) ? '' : (' title="' . htmlspecialchars($tooltip) . '"');
+                    $cellData = '<a href="'
+                        . htmlspecialchars($url) . '"'
+                        . $tooltipOut
+                        . '>' . $cellData . '</a>';
                 }
             }
 
