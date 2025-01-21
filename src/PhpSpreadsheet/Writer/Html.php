@@ -1740,7 +1740,7 @@ class Html extends BaseWriter
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
         if (Preg::isMatch($color_regex, $format, $matches)) {
-            $color = str_replace(['[', ']'], '', $matches[0]); // @phpstan-ignore-line
+            $color = str_replace(['[', ']'], '', $matches[0]);
             $color = strtolower($color);
         }
 

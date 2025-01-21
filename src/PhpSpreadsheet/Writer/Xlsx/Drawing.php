@@ -513,7 +513,7 @@ class Drawing extends WriterPart
             throw new WriterException('Regexp failure in writeVMLHeaderFooterImage');
             // @codeCoverageIgnoreEnd
         }
-        $id = 1500 + ((int) substr($m[1], 0, 2) * 1); // @phpstan-ignore-line
+        $id = 1500 + ((int) substr($m[1], 0, 2) * 1);
 
         // Calculate offset
         $width = $image->getWidth();
