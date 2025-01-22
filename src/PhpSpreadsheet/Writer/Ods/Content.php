@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -227,16 +228,15 @@ class Content extends WriterPart
                         }
                     }
                     if (isset($attributes['ref'])) {
-                        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches) == 1) {
+                        if (Preg::isMatch('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches)) {
                             $matrixRowSpan = 1;
                             $matrixColSpan = 1;
                             if (isset($matches[3])) {
                                 $minRow = (int) $matches[2];
-                                // https://github.com/phpstan/phpstan/issues/11602
-                                $maxRow = (int) $matches[5]; // @phpstan-ignore-line
+                                $maxRow = (int) $matches[5];
                                 $matrixRowSpan = $maxRow - $minRow + 1;
                                 $minCol = Coordinate::columnIndexFromString($matches[1]);
-                                $maxCol = Coordinate::columnIndexFromString($matches[4]); // @phpstan-ignore-line
+                                $maxCol = Coordinate::columnIndexFromString($matches[4]);
                                 $matrixColSpan = $maxCol - $minCol + 1;
                             }
                             $objWriter->writeAttribute('table:number-matrix-columns-spanned', "$matrixColSpan");
