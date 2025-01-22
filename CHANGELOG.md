@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Methods to get style for row or column. [PR #4317](https://github.com/PHPOffice/PhpSpreadsheet/pull/4317)
+- Method for duplicating worksheet in spreadsheet. [PR #4315](https://github.com/PHPOffice/PhpSpreadsheet/pull/4315)
 
 ### Changed
 
@@ -25,7 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Ods Reader Sheet Names with Period. [Issue #4311](https://github.com/PHPOffice/PhpSpreadsheet/issues/4311) [PR #4313](https://github.com/PHPOffice/PhpSpreadsheet/pull/4313)
+- Mpdf and Tcpdf Hidden Columns and Merged Cells. [Issue #4319](https://github.com/PHPOffice/PhpSpreadsheet/issues/4319) [PR #4320](https://github.com/PHPOffice/PhpSpreadsheet/pull/4320)
+- Html Writer Allow mailto. [Issue #4316](https://github.com/PHPOffice/PhpSpreadsheet/issues/4316) [PR #4322](https://github.com/PHPOffice/PhpSpreadsheet/pull/4322)
+- Use composer/pcre rather than preg_* in Writer. [PR #4323](https://github.com/PHPOffice/PhpSpreadsheet/pull/4323)
 
 ## 2025-01-11 - 3.8.0
 

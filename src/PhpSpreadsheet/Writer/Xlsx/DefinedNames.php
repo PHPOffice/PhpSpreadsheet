@@ -2,10 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as ActualWorksheet;
@@ -192,14 +194,13 @@ class DefinedNames
     private function getDefinedRange(DefinedName $definedName): string
     {
         $definedRange = $definedName->getValue();
-        $splitCount = preg_match_all(
+        $splitCount = Preg::matchAllWithOffsets(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
             $definedRange,
-            $splitRanges,
-            PREG_OFFSET_CAPTURE
+            $splitRanges
         );
 
-        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $lengths = array_map([StringHelper::class, 'strlenAllowNull'], array_column($splitRanges[0], 0));
         $offsets = array_column($splitRanges[0], 1);
 
         $worksheets = $splitRanges[2];
