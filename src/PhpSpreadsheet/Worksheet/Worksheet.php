@@ -1336,6 +1336,13 @@ class Worksheet
         return $this->rowDimensions[$row];
     }
 
+    public function getRowStyle(int $row): ?Style
+    {
+        return $this->parent?->getCellXfByIndexOrNull(
+            ($this->rowDimensions[$row] ?? null)?->getXfIndex()
+        );
+    }
+
     public function rowDimensionExists(int $row): bool
     {
         return isset($this->rowDimensions[$row]);
@@ -1377,6 +1384,13 @@ class Worksheet
     public function getColumnDimensionByColumn(int $columnIndex): ColumnDimension
     {
         return $this->getColumnDimension(Coordinate::stringFromColumnIndex($columnIndex));
+    }
+
+    public function getColumnStyle(string $column): ?Style
+    {
+        return $this->parent?->getCellXfByIndexOrNull(
+            ($this->columnDimensions[$column] ?? null)?->getXfIndex()
+        );
     }
 
     /**

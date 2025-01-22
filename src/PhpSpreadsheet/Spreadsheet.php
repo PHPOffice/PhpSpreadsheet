@@ -529,6 +529,15 @@ class Spreadsheet implements JsonSerializable
         return $this->getSheetByName($worksheetName) !== null;
     }
 
+    public function duplicateWorksheetByTitle(string $title): Worksheet
+    {
+        $original = $this->getSheetByNameOrThrow($title);
+        $index = $this->getIndex($original) + 1;
+        $clone = clone $original;
+
+        return $this->addSheet($clone, $index, true);
+    }
+
     /**
      * Add sheet.
      *
@@ -1090,6 +1099,11 @@ class Spreadsheet implements JsonSerializable
     public function getCellXfByIndex(int $cellStyleIndex): Style
     {
         return $this->cellXfCollection[$cellStyleIndex];
+    }
+
+    public function getCellXfByIndexOrNull(?int $cellStyleIndex): ?Style
+    {
+        return ($cellStyleIndex === null) ? null : ($this->cellXfCollection[$cellStyleIndex] ?? null);
     }
 
     /**
