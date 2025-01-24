@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -621,13 +622,13 @@ class Html extends BaseWriter
                 $filename = $drawing->getPath();
 
                 // Strip off eventual '.'
-                $filename = (string) preg_replace('/^[.]/', '', $filename);
+                $filename = Preg::replace('/^[.]/', '', $filename);
 
                 // Prepend images root
                 $filename = $this->getImagesRoot() . $filename;
 
                 // Strip off eventual '.' if followed by non-/
-                $filename = (string) preg_replace('@^[.]([^/])@', '$1', $filename);
+                $filename = Preg::replace('@^[.]([^/])@', '$1', $filename);
 
                 // Convert UTF8 data to PCDATA
                 $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
@@ -1350,7 +1351,7 @@ class Html extends BaseWriter
 
             // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
             // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-            $cellData = (string) preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
+            $cellData = Preg::replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
 
             // convert newline "\n" to '<br>'
             $cellData = nl2br($cellData);
@@ -1495,10 +1496,11 @@ class Html extends BaseWriter
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-                $urlTrim = preg_replace('/^\\s+/u', '', $urlDecode1) ?? $urlDecode1;
-                $parseScheme = preg_match('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
-                if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
+                $urlTrim = Preg::replace('/^\\s+/u', '', $urlDecode1);
+                $parseScheme = Preg::isMatch('/^([\\w\\s\\x00-\\x1f]+):/u', strtolower($urlTrim), $matches);
+                if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
+                    $cellData = self::replaceControlChars($cellData);
                 } else {
                     $cellData = '<a href="' . htmlspecialchars($url, Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
                 }
@@ -1538,6 +1540,20 @@ class Html extends BaseWriter
 
         // Return
         return $html;
+    }
+
+    public static function replaceNonAscii(array $matches): string
+    {
+        return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
+    }
+
+    private static function replaceControlChars(string $convert): string
+    {
+        return Preg::replaceCallback(
+            '/[\\x00-\\x1f]/',
+            [self::class, 'replaceNonAscii'],
+            $convert
+        );
     }
 
     /**
@@ -1627,8 +1643,8 @@ class Html extends BaseWriter
         $matches = [];
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
-        if (preg_match($color_regex, $format, $matches)) {
-            $color = str_replace(['[', ']'], '', $matches[0]);
+        if (Preg::isMatch($color_regex, $format, $matches)) {
+            $color = str_replace(['[', ']'], '', $matches[0]); // @phpstan-ignore-line
             $color = strtolower($color);
         }
 

@@ -447,7 +447,7 @@ class Slk extends BaseReader
     private function processPColors(string $rowDatum, array &$formatArray): void
     {
         if (preg_match('/L([1-9]\\d*)/', $rowDatum, $matches)) {
-            $fontColor = $matches[1] % 8;
+            $fontColor = $matches[1] % 8; // @phpstan-ignore-line
             $formatArray['font']['color']['argb'] = self::COLOR_ARRAY[$fontColor];
         }
     }
