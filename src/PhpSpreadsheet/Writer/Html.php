@@ -1601,9 +1601,10 @@ class Html extends BaseWriter
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
                 $urlTrim = Preg::replace('/^\\s+/u', '', $urlDecode1);
-                $parseScheme = Preg::isMatch('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
+                $parseScheme = Preg::isMatch('/^([\\w\\s\\x00-\\x1f]+):/u', strtolower($urlTrim), $matches);
                 if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
+                    $cellData = self::replaceControlChars($cellData);
                 } else {
                     $tooltip = $worksheet->getHyperlink($coordinate)->getTooltip();
                     $tooltipOut = empty($tooltip) ? '' : (' title="' . htmlspecialchars($tooltip) . '"');
@@ -1656,6 +1657,20 @@ class Html extends BaseWriter
 
         // Return
         return $html;
+    }
+
+    private static function replaceNonAscii(array $matches): string
+    {
+        return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
+    }
+
+    private static function replaceControlChars(string $convert): string
+    {
+        return (string) preg_replace_callback(
+            '/[\\x00-\\x1f]/',
+            [self::class, 'replaceNonAscii'],
+            $convert
+        );
     }
 
     /**

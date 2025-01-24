@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class HtmlImage2Test extends TestCase
@@ -49,11 +50,11 @@ class HtmlImage2Test extends TestCase
         self::assertCount(0, $drawingCollection);
     }
 
-    public function testCannotInsertImageBadProtocol(): void
+    #[DataProvider('providerBadProtocol')]
+    public function testCannotInsertImageBadProtocol(string $imagePath): void
     {
         $this->expectException(SpreadsheetException::class);
         $this->expectExceptionMessage('Invalid protocol for linked drawing');
-        $imagePath = 'httpx://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-03-filter-icon-1.png';
         $html = '<table>
                     <tr>
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
@@ -61,5 +62,18 @@ class HtmlImage2Test extends TestCase
                 </table>';
         $filename = HtmlHelper::createHtml($html);
         HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+    }
+
+    public static function providerBadProtocol(): array
+    {
+        return [
+            'unknown protocol' => ['httpx://example.com/image.png'],
+            'embedded whitespace' => ['ht tp://example.com/image.png'],
+            'control character' => ["\x14http://example.com/image.png"],
+            'mailto' => ['mailto:xyz@example.com'],
+            'mailto whitespace' => ['mail to:xyz@example.com'],
+            'phar' => ['phar://example.com/image.phar'],
+            'phar control' => ["\x14phar://example.com/image.phar"],
+        ];
     }
 }
