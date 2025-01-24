@@ -75,6 +75,7 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
+        "composer/pcre": "^3.3",
         "ezyang/htmlpurifier": "^4.15",
         "maennchen/zipstream-php": "^2.1 || ^3.0",
         "markbaker/complex": "^3.0",

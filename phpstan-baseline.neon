@@ -316,26 +316,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
-			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: non\\-falsy\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: numeric\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 4 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: non\\-falsy\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 4 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\$', 2\\?\\: numeric\\-string, 3\\?\\: ''\\|'\\$', 4\\?\\: numeric\\-string\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php

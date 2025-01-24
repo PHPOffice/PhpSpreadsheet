@@ -3,6 +3,7 @@ includes:
     - phpstan-conditional.php
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/composer/pcre/extension.neon
 
 parameters:
     level: 8

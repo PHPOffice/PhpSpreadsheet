@@ -115,7 +115,7 @@ class Drawing extends BaseDrawing
 
         $this->path = '';
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-        if (filter_var($path, FILTER_VALIDATE_URL)) {
+        if (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\\w\\s\\x00-\\x1f]+):/u', $path) && !preg_match('/^([\\w]+):/u', $path))) {
             if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }
