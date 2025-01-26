@@ -15611,6 +15611,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods-FormulaTranslator.html"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\\FormulaTranslator\u003A\u003AreplaceQuotedPeriod\u0028\u0029",
+            "name": "replaceQuotedPeriod",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods-FormulaTranslator.html#method_replaceQuotedPeriod"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\\FormulaTranslator\u003A\u003AconvertToExcelAddressValue\u0028\u0029",
             "name": "convertToExcelAddressValue",
             "summary": "",
@@ -22411,6 +22416,11 @@ Search.appendIndex(
             "summary": "Retrieve\u0020any\u0020leading\u0020numeric\u0020part\u0020of\u0020a\u0020string,\u0020or\u0020return\u0020the\u0020full\u0020string\u0020if\u0020no\u0020leading\u0020numeric\n\u0028handles\u0020basic\u0020integer\u0020or\u0020float,\u0020but\u0020not\u0020exponent\u0020or\u0020non\u0020decimal\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_testStringAsNumeric"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003AstrlenAllowNull\u0028\u0029",
+            "name": "strlenAllowNull",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strlenAllowNull"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003A\u0024controlCharacters",
             "name": "controlCharacters",
             "summary": "Control\u0020characters\u0020array.",
@@ -23221,6 +23231,11 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020a\u0020sheet\u0020with\u0020a\u0020specified\u0020name\u0020already\u0020exists.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_sheetNameExists"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AduplicateWorksheetByTitle\u0028\u0029",
+            "name": "duplicateWorksheetByTitle",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_duplicateWorksheetByTitle"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AaddSheet\u0028\u0029",
             "name": "addSheet",
             "summary": "Add\u0020sheet.",
@@ -23385,6 +23400,11 @@ Search.appendIndex(
             "name": "getCellXfByIndex",
             "summary": "Get\u0020cellXf\u0020by\u0020index.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfByIndex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AgetCellXfByIndexOrNull\u0028\u0029",
+            "name": "getCellXfByIndexOrNull",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfByIndexOrNull"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AgetCellXfByHashCode\u0028\u0029",
             "name": "getCellXfByHashCode",
@@ -34011,6 +34031,11 @@ Search.appendIndex(
             "summary": "Get\u0020row\u0020dimension\u0020at\u0020a\u0020specific\u0020row.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowDimension"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetRowStyle\u0028\u0029",
+            "name": "getRowStyle",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowStyle"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003ArowDimensionExists\u0028\u0029",
             "name": "rowDimensionExists",
             "summary": "",
@@ -34030,6 +34055,11 @@ Search.appendIndex(
             "name": "getColumnDimensionByColumn",
             "summary": "Get\u0020column\u0020dimension\u0020at\u0020a\u0020specific\u0020column\u0020by\u0020using\u0020numeric\u0020cell\u0020coordinates.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnDimensionByColumn"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetColumnStyle\u0028\u0029",
+            "name": "getColumnStyle",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnStyle"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetStyles\u0028\u0029",
             "name": "getStyles",
@@ -35556,6 +35586,16 @@ Search.appendIndex(
             "summary": "Generate\u0020row.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_generateRow"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AreplaceNonAscii\u0028\u0029",
+            "name": "replaceNonAscii",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_replaceNonAscii"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AreplaceControlChars\u0028\u0029",
+            "name": "replaceControlChars",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_replaceControlChars"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AassembleCSS\u0028\u0029",
             "name": "assembleCSS",
             "summary": "Takes\u0020array\u0020where\u0020of\u0020CSS\u0020properties\u0020\/\u0020values\u0020and\u0020converts\u0020to\u0020CSS\u0020string.",
@@ -36911,6 +36951,16 @@ Search.appendIndex(
             "summary": "Builds\u0020a\u0020string\u0020containing\u0020the\u0020tree\u0020in\u0020reverse\u0020polish\u0020notation\u0020\u0028What\u0020you\nwould\u0020use\u0020in\u0020a\u0020HP\u0020calculator\u0020stack\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_toReversePolish"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003AmatchCellSheetnameQuoted\u0028\u0029",
+            "name": "matchCellSheetnameQuoted",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_matchCellSheetnameQuoted"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003AmatchRangeSheetnameQuoted\u0028\u0029",
+            "name": "matchRangeSheetnameQuoted",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_matchRangeSheetnameQuoted"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003AREGEX_SHEET_TITLE_UNQUOTED",
             "name": "REGEX_SHEET_TITLE_UNQUOTED",
             "summary": "Constants",
@@ -36920,6 +36970,16 @@ Search.appendIndex(
             "name": "REGEX_SHEET_TITLE_QUOTED",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_QUOTED"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003AREGEX_CELL_TITLE_QUOTED",
+            "name": "REGEX_CELL_TITLE_QUOTED",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_CELL_TITLE_QUOTED"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003AREGEX_RANGE_TITLE_QUOTED",
+            "name": "REGEX_RANGE_TITLE_QUOTED",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_RANGE_TITLE_QUOTED"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003A\u0024currentCharacter",
             "name": "currentCharacter",
