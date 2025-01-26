@@ -1498,6 +1498,9 @@ class Worksheet extends WriterPart
 
         if (isset($attributes['ref'])) {
             $ref = $this->parseRef($coordinate, $attributes['ref']);
+            if ($ref === "$coordinate:$coordinate") {
+                $ref = $coordinate;
+            }
         } else {
             $ref = $coordinate;
         }

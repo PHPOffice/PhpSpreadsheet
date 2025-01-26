@@ -9,6 +9,7 @@ class XorTest extends AllSetupTeardown
     #[\PHPUnit\Framework\Attributes\DataProvider('providerXOR')]
     public function testXOR(mixed $expectedResult, mixed ...$args): void
     {
+        $this->setArrayAsValue();
         $this->runTestCase('XOR', $expectedResult, ...$args);
     }
 
