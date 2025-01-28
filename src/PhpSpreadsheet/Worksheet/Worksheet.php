@@ -63,7 +63,7 @@ class Worksheet
     /**
      * Invalid characters in sheet title.
      */
-    private static array $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
+    private const INVALID_CHARACTERS = ['*', ':', '/', '\\', '?', '[', ']'];
 
     /**
      * Parent spreadsheet.
@@ -156,13 +156,6 @@ class Worksheet
      * Protection.
      */
     private Protection $protection;
-
-    /**
-     * Collection of styles.
-     *
-     * @var Style[]
-     */
-    private array $styles = [];
 
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
@@ -399,7 +392,7 @@ class Worksheet
      */
     public static function getInvalidCharacters(): array
     {
-        return self::$invalidCharacters;
+        return self::INVALID_CHARACTERS;
     }
 
     /**
@@ -417,7 +410,7 @@ class Worksheet
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
-            (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName)
+            (str_replace(self::INVALID_CHARACTERS, '', $sheetCodeName) !== $sheetCodeName)
             || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
             || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
@@ -442,7 +435,7 @@ class Worksheet
     private static function checkSheetTitle(string $sheetTitle): string
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
-        if (str_replace(self::$invalidCharacters, '', $sheetTitle) !== $sheetTitle) {
+        if (str_replace(self::INVALID_CHARACTERS, '', $sheetTitle) !== $sheetTitle) {
             throw new Exception('Invalid character found in sheet title');
         }
 
@@ -1390,16 +1383,6 @@ class Worksheet
         return $this->parent?->getCellXfByIndexOrNull(
             ($this->columnDimensions[$column] ?? null)?->getXfIndex()
         );
-    }
-
-    /**
-     * Get styles.
-     *
-     * @return Style[]
-     */
-    public function getStyles(): array
-    {
-        return $this->styles;
     }
 
     /**
