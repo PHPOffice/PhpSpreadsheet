@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -1535,18 +1536,17 @@ class Worksheet extends WriterPart
 
     private function parseRef(string $coordinate, string $ref): string
     {
-        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) !== 1) {
+        if (!Preg::isMatch('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches)) {
             return $ref;
         }
         if (!isset($matches[3])) { // single cell, not range
             return $coordinate;
         }
         $minRow = (int) $matches[2];
-        // https://github.com/phpstan/phpstan/issues/11602
-        $maxRow = (int) $matches[5]; // @phpstan-ignore-line
+        $maxRow = (int) $matches[5];
         $rows = $maxRow - $minRow + 1;
         $minCol = Coordinate::columnIndexFromString($matches[1]);
-        $maxCol = Coordinate::columnIndexFromString($matches[4]); // @phpstan-ignore-line
+        $maxCol = Coordinate::columnIndexFromString($matches[4]);
         $cols = $maxCol - $minCol + 1;
         $firstCellArray = Coordinate::indexesFromString($coordinate);
         $lastRow = $firstCellArray[1] + $rows - 1;
@@ -1578,7 +1578,11 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                $tempCalc = $pCell->getCalculatedValue();
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValue) === 1) {
+                    $tempCalc = [];
+                } else {
+                    $tempCalc = $pCell->getCalculatedValue();
+                }
                 if (is_array($tempCalc)) {
                     $objWriter->writeAttribute('cm', '1');
                 }

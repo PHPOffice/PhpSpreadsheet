@@ -25,7 +25,7 @@ class NoJavascriptLinksTest extends TestCase
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        self::assertStringContainsString('<td class="column0 style0 s"><a href="http://www.example.com" title="">Click me</a></td>', $html, 'http hyperlink retained');
+        self::assertStringContainsString('<td class="column0 style0 s"><a href="http://www.example.com">Click me</a></td>', $html, 'http hyperlink retained');
         self::assertStringContainsString('<td class="column0 style0 s">javascript:alert(\'hello1\')</td>', $html, 'javascript hyperlink dropped');
         self::assertStringContainsString('<td class="column0 style0 f">javascript:alert(\'hello2\')</td>', $html, 'javascript hyperlink function dropped');
         $spreadsheet->disconnectWorksheets();

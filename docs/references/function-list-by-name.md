@@ -239,6 +239,7 @@ GCD                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpread
 GEOMEAN                  | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean::geometric
 GESTEP                   | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare::GESTEP
 GETPIVOTDATA             | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+GROUPBY                  | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
 GROWTH                   | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::GROWTH
 
 ## H
