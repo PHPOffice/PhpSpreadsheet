@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Pdf Charts and Drawings. [Discussion #4129](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4129) [Discussion #4168](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4168) [PR #4327](https://github.com/PHPOffice/PhpSpreadsheet/pull/4327)
 
 ### Changed
 
