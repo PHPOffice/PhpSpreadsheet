@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Xls writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
 
 ## 2025-01-26 - 3.9.0
 
