@@ -1624,7 +1624,9 @@ class Parser
             }
 
             // add its left subtree and return.
-            return $left_tree . $this->convertFunction($tree['value'], $tree['right']);
+            if ($left_tree !== '' || $tree['right'] !== '') {
+                return $left_tree . $this->convertFunction($tree['value'], $tree['right'] ?: 0);
+            }
         }
         $converted_tree = $this->convert($tree['value']);
 
