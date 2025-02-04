@@ -31,8 +31,8 @@ class BetterBooleanTest extends Functional\AbstractFunctional
     {
         $spreadsheet = new Spreadsheet();
         $writer = new HtmlWriter($spreadsheet);
-        // Default will change with next PhpSpreadsheet release
-        self::assertFalse($writer->getBetterBoolean());
+        // Default change with release 4.0.0
+        self::assertTrue($writer->getBetterBoolean());
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -58,9 +58,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $sheet->getCell('F1')->setValue('="A"&"B"');
         $sheet->getCell('G1')->setValue('=1+2');
 
-        /** @var callable */
-        $callableWriter = [$this, 'setBetter'];
-        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $callableWriter);
+        $reloaded = $this->writeAndReload($spreadsheet, 'Html');
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
@@ -86,9 +84,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $sheet->getCell('F1')->setValue('="A"&"B"');
         $sheet->getCell('G1')->setValue('=1+2');
 
-        /** @var callable */
-        $callableWriter = [$this, 'setNotBetter'];
-        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $callableWriter);
+        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $this->setNotBetter(...));
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
@@ -125,9 +121,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         self::assertStringContainsString('<td class="column5 style0 s">AB</td>', $html);
         self::assertStringContainsString('<td class="column6 style0 n">3</td>', $html);
 
-        /** @var callable */
-        $callableWriter = [$this, 'setBetter'];
-        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $callableWriter);
+        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $this->setBetter(...));
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
@@ -169,9 +163,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         self::assertStringContainsString('<td style="text-align:left;">AB</td>', $html);
         self::assertStringContainsString('<td style="text-align:right;">3</td>', $html);
 
-        /** @var callable */
-        $callableWriter = [$this, 'setBetter'];
-        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $callableWriter);
+        $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $this->setBetter(...));
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
