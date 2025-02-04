@@ -568,12 +568,22 @@ class Worksheet extends BIFFwriter
 
         // extract first cell, e.g. 'A1'
         $firstCell = $explodes[0];
+        if (ctype_alpha($firstCell)) {
+            $firstCell .= '1';
+        } elseif (ctype_digit($firstCell)) {
+            $firstCell = "A$firstCell";
+        }
 
         // extract last cell, e.g. 'B6'
         if (count($explodes) == 1) {
             $lastCell = $firstCell;
         } else {
             $lastCell = $explodes[1];
+        }
+        if (ctype_alpha($lastCell)) {
+            $lastCell .= (string) self::MAX_XLS_ROW;
+        } elseif (ctype_digit($lastCell)) {
+            $lastCell = self::MAX_XLS_COLUMN_STRING . $lastCell;
         }
 
         $firstCellCoordinates = Coordinate::indexesFromString($firstCell); // e.g. [0, 1]
@@ -2605,7 +2615,14 @@ class Worksheet extends BIFFwriter
     private function writeDataValidity(): void
     {
         // Datavalidation collection
-        $dataValidationCollection = $this->phpSheet->getDataValidationCollection();
+        $dataValidationCollection1 = $this->phpSheet->getDataValidationCollection();
+        $dataValidationCollection = [];
+        foreach ($dataValidationCollection1 as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                $dataValidationCollection[$keyPart] = $dataValidation;
+            }
+        }
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {

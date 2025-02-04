@@ -298,6 +298,7 @@ class Worksheet
 
     /**
      * Data validation objects. Indexed by cell coordinate, e.g. 'A1'.
+     * Index can include ranges, and multiple cells/ranges.
      */
     private array $dataValidationCollection = [];
 
@@ -3282,10 +3283,27 @@ class Worksheet
             return $this->dataValidationCollection[$cellCoordinate];
         }
 
-        // else create data validation
-        $this->dataValidationCollection[$cellCoordinate] = new DataValidation();
+        // or if cell is part of a data validation range
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                if ($keyPart === $cellCoordinate) {
+                    return $dataValidation;
+                }
+                if (str_contains($keyPart, ':')) {
+                    if (Coordinate::coordinateIsInsideRange($keyPart, $cellCoordinate)) {
+                        return $dataValidation;
+                    }
+                }
+            }
+        }
 
-        return $this->dataValidationCollection[$cellCoordinate];
+        // else create data validation
+        $dataValidation = new DataValidation();
+        $dataValidation->setSqref($cellCoordinate);
+        $this->dataValidationCollection[$cellCoordinate] = $dataValidation;
+
+        return $dataValidation;
     }
 
     /**
@@ -3300,6 +3318,7 @@ class Worksheet
         if ($dataValidation === null) {
             unset($this->dataValidationCollection[$cellCoordinate]);
         } else {
+            $dataValidation->setSqref($cellCoordinate);
             $this->dataValidationCollection[$cellCoordinate] = $dataValidation;
         }
 
@@ -3313,7 +3332,24 @@ class Worksheet
      */
     public function dataValidationExists(string $coordinate): bool
     {
-        return isset($this->dataValidationCollection[$coordinate]);
+        if (isset($this->dataValidationCollection[$coordinate])) {
+            return true;
+        }
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                if ($keyPart === $coordinate) {
+                    return true;
+                }
+                if (str_contains($keyPart, ':')) {
+                    if (Coordinate::coordinateIsInsideRange($keyPart, $coordinate)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -3323,7 +3359,17 @@ class Worksheet
      */
     public function getDataValidationCollection(): array
     {
-        return $this->dataValidationCollection;
+        $collectionCells = [];
+        $collectionRanges = [];
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            if (preg_match('/[: ]/', $key) === 1) {
+                $collectionRanges[$key] = $dataValidation;
+            } else {
+                $collectionCells[$key] = $dataValidation;
+            }
+        }
+
+        return array_merge($collectionCells, $collectionRanges);
     }
 
     /**

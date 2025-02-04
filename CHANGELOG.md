@@ -7,9 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## TBD - 4.0.0
 
+### BREAKING CHANGES
+
+- Data Validations will be stored by worksheet, not cell. Index can be one or more cells or cell ranges. [Issue #797](https://github.com/PHPOffice/PhpSpreadsheet/issues/797) [Issue #4091](https://github.com/PHPOffice/PhpSpreadsheet/issues/4091) [Issue #4206](https://github.com/PHPOffice/PhpSpreadsheet/issues/4206) [PR #4240](https://github.com/PHPOffice/PhpSpreadsheet/pull/4240)
+- Conditional Formatting adds Priority property and handles overlapping ranges better. [Issue #4312](https://github.com/PHPOffice/PhpSpreadsheet/issues/4312) [Issue #4318](https://github.com/PHPOffice/PhpSpreadsheet/issues/4318) [PR #4314](https://github.com/PHPOffice/PhpSpreadsheet/pull/4314)
+- Deletion of items deprecated in Release 3. See "removed" below.
+
 ### Added
 
 - Pdf Charts and Drawings. [Discussion #4129](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4129) [Discussion #4168](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4168) [PR #4327](https://github.com/PHPOffice/PhpSpreadsheet/pull/4327)
+
+### Removed
+
+- Nothing yet.
 
 ### Changed
 
