@@ -1958,24 +1958,6 @@ class Worksheet
     }
 
     /**
-     * Get password for protected cells.
-     *
-     * @return string[]
-     *
-     * @deprecated 2.0.1 use getProtectedCellRanges instead
-     * @see Worksheet::getProtectedCellRanges()
-     */
-    public function getProtectedCells(): array
-    {
-        $array = [];
-        foreach ($this->protectedCells as $key => $protectedRange) {
-            $array[$key] = $protectedRange->getPassword();
-        }
-
-        return $array;
-    }
-
-    /**
      * Get protected cells.
      *
      * @return ProtectedRange[]
@@ -3196,14 +3178,6 @@ class Worksheet
 
         // Return
         return $this;
-    }
-
-    /**
-     * @deprecated 3.5.0 use getHashInt instead.
-     */
-    public function getHashCode(): string
-    {
-        return (string) $this->hash;
     }
 
     public function getHashInt(): int
