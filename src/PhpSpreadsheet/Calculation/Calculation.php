@@ -4887,17 +4887,18 @@ class Calculation
                             }
                             $result = $operand1;
                         } else {
-                            // In theory, we should truncate here.
-                            // But I can't figure out a formula
-                            // using the concatenation operator
-                            // with literals that fits in 32K,
-                            // so I don't think we can overflow here.
                             if (Information\ErrorValue::isError($operand1)) {
                                 $result = $operand1;
                             } elseif (Information\ErrorValue::isError($operand2)) {
                                 $result = $operand2;
                             } else {
-                                $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
+                                $result = str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2));
+                                $result = Shared\StringHelper::substring(
+                                    $result,
+                                    0,
+                                    DataType::MAX_STRING_LENGTH
+                                );
+                                $result = self::FORMULA_STRING_QUOTE . $result . self::FORMULA_STRING_QUOTE;
                             }
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
@@ -5045,6 +5046,9 @@ class Calculation
                 if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
                     while (is_array($cellValue)) {
                         $cellValue = array_shift($cellValue);
+                    }
+                    if (is_string($cellValue)) {
+                        $cellValue = preg_replace('/"/', '""', $cellValue);
                     }
                     $this->debugLog->writeDebugLog('Scalar Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                 }

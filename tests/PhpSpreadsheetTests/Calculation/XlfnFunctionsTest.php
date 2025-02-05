@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -34,6 +35,10 @@ class XlfnFunctionsTest extends \PHPUnit\Framework\TestCase
             ['365', 'A1', '=SORT({7;1;5})', '=SORT({7;1;5})', 1],
         ];
         $workbook = new Spreadsheet();
+        $calculation = Calculation::getInstance($workbook);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet = $workbook->getActiveSheet();
         $sheet->setTitle('2010');
         $sheet = $workbook->createSheet();
@@ -112,6 +117,10 @@ class XlfnFunctionsTest extends \PHPUnit\Framework\TestCase
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
         $rdobj = $reader->load($oufil);
         unlink($oufil);
+        $calculation = Calculation::getInstance($rdobj);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         foreach ($formulas as $values) {
             $sheet = $rdobj->setActiveSheetIndexByName($values[0]);
             self::assertEquals($values[3], $sheet->getCell($values[1])->getValue());

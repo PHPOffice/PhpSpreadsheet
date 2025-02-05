@@ -5,11 +5,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('arrayFormulaReaderProvider')]
+    #[DataProvider('arrayFormulaReaderProvider')]
     public function testArrayFormulaReader(
         string $cellAddress,
         string $expectedRange,
@@ -25,12 +26,19 @@ class ArrayFormulaTest extends TestCase
         self::assertSame(DataType::TYPE_FORMULA, $cell->getDataType());
         self::assertSame(['t' => 'array', 'ref' => $expectedRange], $cell->getFormulaAttributes());
         self::assertSame($expectedFormula, strtoupper($cell->getValueString()));
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        Calculation::getInstance($spreadsheet)
+            ->setInstanceArrayReturnType(
+                Calculation::RETURN_ARRAY_AS_ARRAY
+            );
         $worksheet->calculateArrays();
         $cell = $worksheet->getCell($cellAddress);
         self::assertSame($expectedValue, $cell->getCalculatedValue());
         if (is_array($expectedValue)) {
-            self::assertSame($expectedValue, $worksheet->rangeToArray($expectedRange, formatData: false, reduceArrays: true));
+            if ($expectedRange === "$cellAddress:$cellAddress") {
+                self::assertSame([$expectedValue], $worksheet->rangeToArray($expectedRange, formatData: false, reduceArrays: true));
+            } else {
+                self::assertSame($expectedValue, $worksheet->rangeToArray($expectedRange, formatData: false, reduceArrays: true));
+            }
         } else {
             self::assertSame([[$expectedValue]], $worksheet->rangeToArray($expectedRange, formatData: false, reduceArrays: true));
         }
@@ -56,7 +64,7 @@ class ArrayFormulaTest extends TestCase
                 'E3',
                 'E3:E3',
                 '=MAX(SIN({-1,0,1,2}))',
-                0.9092974268256817,
+                [0.9092974268256817],
             ],
             [
                 'D5',

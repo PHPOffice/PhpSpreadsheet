@@ -41,9 +41,9 @@ class CountBlankTest extends AllSetupTeardown
         } catch (CalcException $e) {
             self::assertStringContainsString('Must specify range of cells', $e->getMessage());
         }
-        $sheet->getCell('A3')->setValue('=COUNTBLANK(C1)');
+        $sheet->getCell('A3')->setValue('=COUNTBLANK(C1:C1)');
         self::assertSame(0, $sheet->getCell('A3')->getCalculatedValue(), 'arg is single non-blank cell');
-        $sheet->getCell('A4')->setValue('=COUNTBLANK(D2)');
+        $sheet->getCell('A4')->setValue('=COUNTBLANK(D2:D2)');
         self::assertSame(1, $sheet->getCell('A4')->getCalculatedValue(), 'arg is single null cell');
         $sheet->getCell('A5')->setValue('=COUNTBLANK(D3:D4)');
         self::assertSame(2, $sheet->getCell('A5')->getCalculatedValue(), 'arg is two cells both null');

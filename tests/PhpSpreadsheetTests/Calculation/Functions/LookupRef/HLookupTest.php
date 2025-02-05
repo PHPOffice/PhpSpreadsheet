@@ -7,16 +7,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class HLookupTest extends TestCase
+class HLookupTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLOOKUP')]
+    #[DataProvider('providerHLOOKUP')]
     public function testHLOOKUP(mixed $expectedResult, mixed $lookup, array $values, mixed $rowIndex, ?bool $rangeLookup = null): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
         $maxRow = 0;
         $maxCol = 0;
         $maxColLetter = 'A';
@@ -52,8 +51,6 @@ class HLookupTest extends TestCase
         }
         $sheet->getCell('ZZ1')->setValue("=HLOOKUP(ZZ8, A1:$maxColLetter$maxRow, $indexarg$boolArg)");
         self::assertEquals($expectedResult, $sheet->getCell('ZZ1')->getCalculatedValue());
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     private static function parseRangeLookup(?bool $rangeLookup): string
@@ -70,7 +67,7 @@ class HLookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLookupNamedRange')]
+    #[DataProvider('providerHLookupNamedRange')]
     public function testHLookupNamedRange(string $expectedResult, string $cellAddress): void
     {
         $lookupData = [
@@ -85,12 +82,11 @@ class HLookupTest extends TestCase
             ['Cleanliness', 3, '=HLOOKUP(C8,Lookup_Table,2,FALSE)'],
         ];
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $worksheet->fromArray($lookupData, null, 'F4');
         $worksheet->fromArray($formData, null, 'B4');
 
-        $spreadsheet->addNamedRange(new NamedRange('Lookup_Table', $worksheet, '=$G$4:$J$5'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('Lookup_Table', $worksheet, '=$G$4:$J$5'));
 
         $result = $worksheet->getCell($cellAddress)->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
@@ -106,7 +102,7 @@ class HLookupTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHLookupArray')]
+    #[DataProvider('providerHLookupArray')]
     public function testHLookupArray(array $expectedResult, string $values, string $database, string $index): void
     {
         $calculation = Calculation::getInstance();

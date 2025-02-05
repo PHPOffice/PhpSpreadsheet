@@ -82,6 +82,15 @@ class Matrix
 
         $rowNum = $rowNum ?? 0;
         $columnNum = $columnNum ?? 0;
+        if (is_scalar($matrix)) {
+            if ($rowNum === 0 || $rowNum === 1) {
+                if ($columnNum === 0 || $columnNum === 1) {
+                    if ($columnNum === 1 || $rowNum === 1) {
+                        return $matrix;
+                    }
+                }
+            }
+        }
 
         try {
             $rowNum = LookupRefValidations::validatePositiveInt($rowNum);

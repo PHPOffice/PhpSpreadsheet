@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -8,6 +9,10 @@ $helper->log('Returns the column index of a cell.');
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
+$calculation = Calculation::getInstance($spreadsheet);
+$calculation->setInstanceArrayReturnType(
+    Calculation::RETURN_ARRAY_AS_VALUE
+);
 $worksheet = $spreadsheet->getActiveSheet();
 
 $worksheet->getCell('A1')->setValue('=COLUMN(C13)');
