@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Data Validations will be stored by worksheet, not cell. Index can be one or more cells or cell ranges. [Issue #797](https://github.com/PHPOffice/PhpSpreadsheet/issues/797) [Issue #4091](https://github.com/PHPOffice/PhpSpreadsheet/issues/4091) [Issue #4206](https://github.com/PHPOffice/PhpSpreadsheet/issues/4206) [PR #4240](https://github.com/PHPOffice/PhpSpreadsheet/pull/4240)
 - Conditional Formatting adds Priority property and handles overlapping ranges better. [Issue #4312](https://github.com/PHPOffice/PhpSpreadsheet/issues/4312) [Issue #4318](https://github.com/PHPOffice/PhpSpreadsheet/issues/4318) [PR #4314](https://github.com/PHPOffice/PhpSpreadsheet/pull/4314)
+- Csv Reader will no longer auto-detect Mac line endings by default. Prior behavior can be explicitly enabled via `setTestAutoDetect(true)`, and it will not be possible at all with Php9+. [Issue #4092](https://github.com/PHPOffice/PhpSpreadsheet/issues/4092) [PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
+- Html Writer will now use "better boolean" logic. Booleans will now be output by default as TRUE/FALSE rather than 1/null-string. Prior behavior can be explicitly enabled via `setBetterBoolean(false)`. [PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
+- Xlsx Writer will now use false as the default for `forceFullCalc`. This affects writes with `preCalculateFormulas` set to false. Prior behavior can be explicitly enabled via `setForceFullCalc(null)`.[PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
 - Deletion of items deprecated in Release 3. See "removed" below.
 
 ### Added
@@ -35,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Xls writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls Writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
 
 ## 2025-01-26 - 3.9.0
 
