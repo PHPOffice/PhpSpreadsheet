@@ -7,15 +7,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Document\Security;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 class Spreadsheet implements JsonSerializable
 {
@@ -1063,17 +1060,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        $filename = File::temporaryFilename();
-        $writer = new XlsxWriter($this);
-        $writer->setIncludeCharts(true);
-        $writer->save($filename);
-
-        $reader = new XlsxReader();
-        $reader->setIncludeCharts(true);
-        $reloadedSpreadsheet = $reader->load($filename);
-        unlink($filename);
-
-        return $reloadedSpreadsheet;
+        return unserialize(serialize($this));
     }
 
     public function __clone()
@@ -1540,14 +1527,6 @@ class Spreadsheet implements JsonSerializable
                 $filter->showHideRows();
             }
         }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function __serialize(): array
-    {
-        throw new Exception('Spreadsheet objects cannot be serialized');
     }
 
     /**
