@@ -22,7 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Removed
 
-- Nothing yet.
+- Worksheet::getStyles - no replacement. [PR #4330](https://github.com/PHPOffice/PhpSpreadsheet/pull/4330)
+- The following items were deprecated in release 3 and are now removed.
+- Drawing::setIsUrl - no replacement.
+- Settings::setLibXmlLoaderOptions() and Settings::getLibXmlLoaderOptions() - no replacement.
+- Worksheet::getHashCode - no replacement.
+- IReader::SKIP_EMPTY_CELLS - use its alias IGNORE_EMPTY_CELLS instead.
+- Worksheet::getProtectedCells - use getProtectedCellRanges instead.
+- Writer/Html::isMpdf property - use instanceof Mpdf instead.
 
 ### Changed
 

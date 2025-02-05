@@ -193,20 +193,6 @@ class Drawing extends BaseDrawing
     }
 
     /**
-     * Set isURL.
-     *
-     * @return $this
-     *
-     * @deprecated 3.7.0 not needed, property is set by setPath
-     */
-    public function setIsURL(bool $isUrl): self
-    {
-        $this->isUrl = $isUrl;
-
-        return $this;
-    }
-
-    /**
      * Get hash code.
      *
      * @return string Hash code

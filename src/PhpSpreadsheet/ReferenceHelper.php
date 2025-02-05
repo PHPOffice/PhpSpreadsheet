@@ -321,14 +321,14 @@ class ReferenceHelper
      */
     protected function adjustProtectedCells(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
-        $aProtectedCells = $worksheet->getProtectedCells();
+        $aProtectedCells = $worksheet->getProtectedCellRanges();
         ($numberOfColumns > 0 || $numberOfRows > 0)
             ? uksort($aProtectedCells, [self::class, 'cellReverseSort'])
             : uksort($aProtectedCells, [self::class, 'cellSort']);
-        foreach ($aProtectedCells as $cellAddress => $value) {
+        foreach ($aProtectedCells as $cellAddress => $protectedRange) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->protectCells($newReference, $value, true);
+                $worksheet->protectCells($newReference, $protectedRange->getPassword(), true);
                 $worksheet->unprotectCells($cellAddress);
             }
         }
