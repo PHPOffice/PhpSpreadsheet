@@ -19,11 +19,6 @@ interface IReader
     public const READ_DATA_ONLY = 2;
 
     /**
-     * @deprecated 3.4.0 use IGNORE_EMPTY_CELLS instead.
-     */
-    public const SKIP_EMPTY_CELLS = self::IGNORE_EMPTY_CELLS;
-
-    /**
      * Flag used to ignore empty cells when reading.
      *
      * The ignored cells will not be instantiated.
