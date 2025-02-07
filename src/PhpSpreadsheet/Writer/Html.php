@@ -119,13 +119,6 @@ class Html extends BaseWriter
     protected bool $isPdf = false;
 
     /**
-     * Is the current writer creating mPDF?
-     *
-     * @deprecated 2.0.1 use instanceof Mpdf instead
-     */
-    protected bool $isMPdf = false;
-
-    /**
      * Generate the Navigation block.
      */
     private bool $generateSheetNavigationBlock = true;
@@ -143,7 +136,7 @@ class Html extends BaseWriter
     /** @var Chart[] */
     private $sheetCharts;
 
-    private bool $betterBoolean = false;
+    private bool $betterBoolean = true;
 
     private string $getTrue = 'TRUE';
 
@@ -1494,7 +1487,7 @@ class Html extends BaseWriter
             $dataType = $worksheet->getCell($coordinate)->getDataType();
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            } elseif ($dataType === DataType::TYPE_FORMULA && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
+            } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
             } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';

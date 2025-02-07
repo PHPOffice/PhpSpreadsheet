@@ -63,7 +63,7 @@ class Worksheet
     /**
      * Invalid characters in sheet title.
      */
-    private static array $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
+    private const INVALID_CHARACTERS = ['*', ':', '/', '\\', '?', '[', ']'];
 
     /**
      * Parent spreadsheet.
@@ -156,13 +156,6 @@ class Worksheet
      * Protection.
      */
     private Protection $protection;
-
-    /**
-     * Collection of styles.
-     *
-     * @var Style[]
-     */
-    private array $styles = [];
 
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
@@ -400,7 +393,7 @@ class Worksheet
      */
     public static function getInvalidCharacters(): array
     {
-        return self::$invalidCharacters;
+        return self::INVALID_CHARACTERS;
     }
 
     /**
@@ -418,7 +411,7 @@ class Worksheet
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
-            (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName)
+            (str_replace(self::INVALID_CHARACTERS, '', $sheetCodeName) !== $sheetCodeName)
             || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
             || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
@@ -443,7 +436,7 @@ class Worksheet
     private static function checkSheetTitle(string $sheetTitle): string
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
-        if (str_replace(self::$invalidCharacters, '', $sheetTitle) !== $sheetTitle) {
+        if (str_replace(self::INVALID_CHARACTERS, '', $sheetTitle) !== $sheetTitle) {
             throw new Exception('Invalid character found in sheet title');
         }
 
@@ -1394,16 +1387,6 @@ class Worksheet
     }
 
     /**
-     * Get styles.
-     *
-     * @return Style[]
-     */
-    public function getStyles(): array
-    {
-        return $this->styles;
-    }
-
-    /**
      * Get style for cell.
      *
      * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellCoordinate
@@ -1955,24 +1938,6 @@ class Worksheet
         }
 
         return $this;
-    }
-
-    /**
-     * Get password for protected cells.
-     *
-     * @return string[]
-     *
-     * @deprecated 2.0.1 use getProtectedCellRanges instead
-     * @see Worksheet::getProtectedCellRanges()
-     */
-    public function getProtectedCells(): array
-    {
-        $array = [];
-        foreach ($this->protectedCells as $key => $protectedRange) {
-            $array[$key] = $protectedRange->getPassword();
-        }
-
-        return $array;
     }
 
     /**
@@ -3196,14 +3161,6 @@ class Worksheet
 
         // Return
         return $this;
-    }
-
-    /**
-     * @deprecated 3.5.0 use getHashInt instead.
-     */
-    public function getHashCode(): string
-    {
-        return (string) $this->hash;
     }
 
     public function getHashInt(): int

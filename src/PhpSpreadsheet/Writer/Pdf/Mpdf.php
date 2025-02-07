@@ -11,13 +11,6 @@ class Mpdf extends Pdf
     private const BODY_TAG = '<body>';
 
     /**
-     * Is the current writer creating mPDF?
-     *
-     * @deprecated 2.0.1 use instanceof Mpdf instead
-     */
-    protected bool $isMPdf = true;
-
-    /**
      * Gets the implementation of external PDF library that should be used.
      *
      * @param array $config Configuration array
