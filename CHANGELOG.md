@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Pdf Charts and Drawings. [Discussion #4129](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4129) [Discussion #4168](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4168) [PR #4327](https://github.com/PHPOffice/PhpSpreadsheet/pull/4327)
+- Allow spreadsheet serialization. [Discussion #4324](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4324) [Issue #1741](https://github.com/PHPOffice/PhpSpreadsheet/issues/1741) [Issue #1757](https://github.com/PHPOffice/PhpSpreadsheet/issues/1757) [PR #4326](https://github.com/PHPOffice/PhpSpreadsheet/pull/4326)
 
 ### Removed
 
