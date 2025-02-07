@@ -46,7 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Xls Writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls writer Parser Parse By Character Not Byte. [PR #4344](https://github.com/PHPOffice/PhpSpreadsheet/pull/4344)
 - Minor changes to dynamic array calculations exposed by using explicit array return types in some tests. [PR #4328](https://github.com/PHPOffice/PhpSpreadsheet/pull/4328)
 
 ## 2025-01-26 - 3.9.0
