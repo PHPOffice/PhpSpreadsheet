@@ -925,6 +925,9 @@ getStyle('A1:M500'), rather than styling the cells individually in a
 loop. This is much faster compared to looping through cells and styling
 them individually.
 
+**Tip** If you are styling entire row(s) or column(s), e.g. getStyle('A:A'), it is recommended to use applyFromArray as described below rather than setting the styles individually as described above.
+Also, starting with release 3.9.0, you should use getRowStyle or getColumnStyle to get the style for an entire row or column.
+
 There is also an alternative manner to set styles. The following code
 sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
@@ -1560,6 +1563,8 @@ directly in some cell range, say A1:A3, and instead use, say,
 `$validation->setFormula1('\'Sheet title\'!$A$1:$A$3')`. Another benefit is that
 the item values themselves can contain the comma `,` character itself.
 
+### Setting Validation on Multiple Cells - Release 3 and Below
+
 If you need data validation on multiple cells, one can clone the
 ruleset:
 
@@ -1570,6 +1575,33 @@ $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validati
 Alternatively, one can apply the validation to a range of cells:
 ```php
 $validation->setSqref('B5:B1048576');
+```
+
+### Setting Validation on Multiple Cells - Release 4 and Above
+
+Starting with Release 4, Data Validation can be set simultaneously on several cells/cell ranges.
+
+```php
+$spreadsheet->getActiveSheet()->getDataValidation('A1:A4 D5 E6:E7')
+    ->set...(...);
+```
+
+In theory, this means that more than one Data Validation can apply to a cell.
+It appears that, when Excel reads a spreadsheet with more than one Data Validation applying to a cell,
+whichever appears first in the Xml is what Xml uses.
+PhpSpreadsheet will instead apply a DatValidation applying to a single cell first;
+then, if it doesn't find such a match, it will use the first applicable definition which is read (or created after or in lieu of reading).
+This allows you, for example, to set Data Validation on all but a few cells in a column:
+```php
+$dv = new DataValidation();
+$dv->setType(DataValidation::TYPE_NONE);
+$sheet->setDataValidation('A5:A7', $dv);
+$dv = new DataValidation();
+$dv->set...(...);
+$sheet->setDataValidation('A:A', $dv);
+$dv = new DataValidation();
+$dv->setType(DataValidation::TYPE_NONE);
+$sheet->setDataValidation('A9', $dv);
 ```
 
 ## Setting a column's width

@@ -14,6 +14,8 @@ class Issue4269Test extends TestCase
 {
     private string $outputFile = '';
 
+    private static bool $alwaysFalse = false;
+
     protected function tearDown(): void
     {
         if ($this->outputFile !== '') {
@@ -35,9 +37,7 @@ class Issue4269Test extends TestCase
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->setPreCalculateFormulas($preCalculateFormulas);
-        if ($forceFullCalc !== null) {
-            $writer->setForceFullCalc($forceFullCalc);
-        }
+        $writer->setForceFullCalc($forceFullCalc);
         $this->outputFile = File::temporaryFilename();
         $writer->save($this->outputFile);
         $spreadsheet->disconnectWorksheets();
@@ -61,5 +61,10 @@ class Issue4269Test extends TestCase
             'better choice for no precalc' => [false, false, 'calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="0"'],
             'unlikely use case' => [true, true, 'calcMode="auto" calcCompleted="1" fullCalcOnLoad="0" forceFullCalc="1"'],
         ];
+    }
+
+    public function testDefault(): void
+    {
+        self::assertSame(self::$alwaysFalse, XlsxWriter::DEFAULT_FORCE_FULL_CALC);
     }
 }
