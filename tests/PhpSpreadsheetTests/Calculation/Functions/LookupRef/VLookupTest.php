@@ -6,16 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class VLookupTest extends TestCase
+class VLookupTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerVLOOKUP')]
+    #[DataProvider('providerVLOOKUP')]
     public function testVLOOKUP(mixed $expectedResult, mixed $value, mixed $table, mixed $index, ?bool $lookup = null): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
         if (is_array($table)) {
             $sheet->fromArray($table);
             $dimension = $sheet->calculateWorksheetDimension();
@@ -40,7 +39,6 @@ class VLookupTest extends TestCase
         $sheet->getCell('Z99')->setValue("=VLOOKUP(Z98,$dimension,$indexarg$lastarg)");
         $result = $sheet->getCell('Z99')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerVLOOKUP(): array
@@ -48,7 +46,7 @@ class VLookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerVLookupArray')]
+    #[DataProvider('providerVLookupArray')]
     public function testVLookupArray(array $expectedResult, string $values, string $database, string $index): void
     {
         $calculation = Calculation::getInstance();
@@ -78,8 +76,7 @@ class VLookupTest extends TestCase
 
     public function testIssue1402(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
 
         $worksheet->setCellValueExplicit('A1', 1, DataType::TYPE_STRING);
         $worksheet->setCellValue('B1', 'Text Nr 1');
@@ -93,6 +90,5 @@ class VLookupTest extends TestCase
         $worksheet->setCellValue('A5', 2);
         $worksheet->setCellValue('B5', '=VLOOKUP(A5,$A$1:$B$3,2,0)');
         self::assertSame('Numeric result', $worksheet->getCell('B5')->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
     }
 }
