@@ -7,25 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## TBD - 3.9.1
 
-### Added
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
-
 ### Fixed
 
-- Nothing yet.
+- Xls writer Parser Mishandling True/False Argument. Backport of [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls writer Parser Parse By Character Not Byte. Backport of [PR #4344](https://github.com/PHPOffice/PhpSpreadsheet/pull/4344)
 
 ## 2025-01-26 - 3.9.0
 
