@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 # TBD - 1.29.10
 
+### Changed
+
+- Allow version 1 and 2 of `composer/pcre`.
+
 ### Fixed
 
 - Xls writer Parser Mishandling True/False Argument. Backport of [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
