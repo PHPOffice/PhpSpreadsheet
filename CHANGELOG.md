@@ -5,11 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 3.8.0
+## TBD - 4.0.0
+
+### BREAKING CHANGES
+
+- Data Validations will be stored by worksheet, not cell. Index can be one or more cells or cell ranges. [Issue #797](https://github.com/PHPOffice/PhpSpreadsheet/issues/797) [Issue #4091](https://github.com/PHPOffice/PhpSpreadsheet/issues/4091) [Issue #4206](https://github.com/PHPOffice/PhpSpreadsheet/issues/4206) [PR #4240](https://github.com/PHPOffice/PhpSpreadsheet/pull/4240)
+- Conditional Formatting adds Priority property and handles overlapping ranges better. [Issue #4312](https://github.com/PHPOffice/PhpSpreadsheet/issues/4312) [Issue #4318](https://github.com/PHPOffice/PhpSpreadsheet/issues/4318) [PR #4314](https://github.com/PHPOffice/PhpSpreadsheet/pull/4314)
+- Csv Reader will no longer auto-detect Mac line endings by default. Prior behavior can be explicitly enabled via `setTestAutoDetect(true)`, and it will not be possible at all with Php9+. [Issue #4092](https://github.com/PHPOffice/PhpSpreadsheet/issues/4092) [PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
+- Html Writer will now use "better boolean" logic. Booleans will now be output by default as TRUE/FALSE rather than 1/null-string. Prior behavior can be explicitly enabled via `setBetterBoolean(false)`. [PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
+- Xlsx Writer will now use false as the default for `forceFullCalc`. This affects writes with `preCalculateFormulas` set to false. Prior behavior can be explicitly enabled via `setForceFullCalc(null)`.[PR #4340](https://github.com/PHPOffice/PhpSpreadsheet/pull/4340)
+- Deletion of items deprecated in Release 3. See "removed" below.
 
 ### Added
 
-- CHOOSECOLS, CHOOSEROWS, DROP, TAKE, and EXPAND. [PR #4286](https://github.com/PHPOffice/PhpSpreadsheet/pull/4286)
+- Pdf Charts and Drawings. [Discussion #4129](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4129) [Discussion #4168](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4168) [PR #4327](https://github.com/PHPOffice/PhpSpreadsheet/pull/4327)
+
+### Removed
+
+- Worksheet::getStyles - no replacement. [PR #4330](https://github.com/PHPOffice/PhpSpreadsheet/pull/4330)
+- The following items were deprecated in release 3 and are now removed.
+- Drawing::setIsUrl - no replacement.
+- Settings::setLibXmlLoaderOptions() and Settings::getLibXmlLoaderOptions() - no replacement.
+- Worksheet::getHashCode - no replacement.
+- IReader::SKIP_EMPTY_CELLS - use its alias IGNORE_EMPTY_CELLS instead.
+- Worksheet::getProtectedCells - use getProtectedCellRanges instead.
+- Writer/Html::isMpdf property - use instanceof Mpdf instead.
 
 ### Changed
 
@@ -25,7 +45,36 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Xls Writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Minor changes to dynamic array calculations exposed by using explicit array return types in some tests. [PR #4328](https://github.com/PHPOffice/PhpSpreadsheet/pull/4328)
+
+## 2025-01-26 - 3.9.0
+
+### Added
+
+- Methods to get style for row or column. [PR #4317](https://github.com/PHPOffice/PhpSpreadsheet/pull/4317)
+- Method for duplicating worksheet in spreadsheet. [PR #4315](https://github.com/PHPOffice/PhpSpreadsheet/pull/4315)
+
+### Fixed
+
+- Security patch for control characters in protocol.
+- Ods Reader Sheet Names with Period. [Issue #4311](https://github.com/PHPOffice/PhpSpreadsheet/issues/4311) [PR #4313](https://github.com/PHPOffice/PhpSpreadsheet/pull/4313)
+- Mpdf and Tcpdf Hidden Columns and Merged Cells. [Issue #4319](https://github.com/PHPOffice/PhpSpreadsheet/issues/4319) [PR #4320](https://github.com/PHPOffice/PhpSpreadsheet/pull/4320)
+- Html Writer Allow mailto. [Issue #4316](https://github.com/PHPOffice/PhpSpreadsheet/issues/4316) [PR #4322](https://github.com/PHPOffice/PhpSpreadsheet/pull/4322)
+- Use composer/pcre rather than preg_* in Writer. [PR #4323](https://github.com/PHPOffice/PhpSpreadsheet/pull/4323)
+
+## 2025-01-11 - 3.8.0
+
+### Added
+
+- CHOOSECOLS, CHOOSEROWS, DROP, TAKE, and EXPAND. [PR #4286](https://github.com/PHPOffice/PhpSpreadsheet/pull/4286)
+
+### Fixed
+
+- Security patch for Html navigation.
 - Xlsx Reader Shared Formula with Boolean Result. Partial solution for [Issue #4280](https://github.com/PHPOffice/PhpSpreadsheet/issues/4280) [PR #4281](https://github.com/PHPOffice/PhpSpreadsheet/pull/4281)
+- Retitling cloned Worksheets. [Issue #641](https://github.com/PHPOffice/PhpSpreadsheet/issues/641) [PR #4302](https://github.com/PHPOffice/PhpSpreadsheet/pull/4302)
+- Extremely limited support for GROUPBY function. Partial response to [Issue #4282](https://github.com/PHPOffice/PhpSpreadsheet/issues/4282) [PR #4283](https://github.com/PHPOffice/PhpSpreadsheet/pull/4283)
 
 ## 2024-12-26 - 3.7.0
 

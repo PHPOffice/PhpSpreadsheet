@@ -39,7 +39,7 @@ class AverageIfTest extends AllSetupTeardown
         } catch (CalcException $e) {
             self::assertStringContainsString('Must specify range of cells', $e->getMessage());
         }
-        $sheet->getCell('A3')->setValue('=AVERAGEIF(C1,"<32")');
+        $sheet->getCell('A3')->setValue('=AVERAGEIF(C1:C1,"<32")');
         self::assertSame(5, $sheet->getCell('A3')->getCalculatedValue(), 'first arg is single cell');
     }
 }

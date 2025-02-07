@@ -36,7 +36,7 @@ class Validations
     /**
      * Validate a cell address or cell range.
      *
-     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as a CellAddress or AddressRange object.
      */
@@ -57,9 +57,22 @@ class Validations
     private const SETMAXCOL = 'A${1}:' . AddressRange::MAX_COLUMN . '${2}';
 
     /**
+     * Convert Column ranges like 'A:C' to 'A1:C1048576'
+     *     or Row ranges like '1:3' to 'A1:XFD3'.
+     */
+    public static function convertWholeRowColumn(?string $addressRange): string
+    {
+        return (string) preg_replace(
+            ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
+            [self::SETMAXROW, self::SETMAXCOL],
+            $addressRange ?? ''
+        );
+    }
+
+    /**
      * Validate a cell range.
      *
-     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as an AddressRange object.
      */
@@ -70,11 +83,7 @@ class Validations
 
             // Convert Column ranges like 'A:C' to 'A1:C1048576'
             //      or Row ranges like '1:3' to 'A1:XFD3'
-            $addressRange = (string) preg_replace(
-                ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
-                [self::SETMAXROW, self::SETMAXCOL],
-                $addressRange ?? ''
-            );
+            $addressRange = self::convertWholeRowColumn($addressRange);
 
             return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);
         }

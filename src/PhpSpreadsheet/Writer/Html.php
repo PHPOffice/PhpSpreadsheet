@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -118,13 +119,6 @@ class Html extends BaseWriter
     protected bool $isPdf = false;
 
     /**
-     * Is the current writer creating mPDF?
-     *
-     * @deprecated 2.0.1 use instanceof Mpdf instead
-     */
-    protected bool $isMPdf = false;
-
-    /**
      * Generate the Navigation block.
      */
     private bool $generateSheetNavigationBlock = true;
@@ -142,7 +136,7 @@ class Html extends BaseWriter
     /** @var Chart[] */
     private $sheetCharts;
 
-    private bool $betterBoolean = false;
+    private bool $betterBoolean = true;
 
     private string $getTrue = 'TRUE';
 
@@ -561,7 +555,7 @@ class Html extends BaseWriter
             $html .= '<ul class="navigation">' . PHP_EOL;
 
             foreach ($sheets as $sheet) {
-                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . $sheet->getTitle() . '</a></li>' . PHP_EOL;
+                $html .= '  <li class="sheet' . $sheetId . '"><a href="#sheet' . $sheetId . '">' . htmlspecialchars($sheet->getTitle()) . '</a></li>' . PHP_EOL;
                 ++$sheetId;
             }
 
@@ -646,13 +640,13 @@ class Html extends BaseWriter
                 $filename = $drawing->getPath();
 
                 // Strip off eventual '.'
-                $filename = (string) preg_replace('/^[.]/', '', $filename);
+                $filename = Preg::replace('/^[.]/', '', $filename);
 
                 // Prepend images root
                 $filename = $this->getImagesRoot() . $filename;
 
                 // Strip off eventual '.' if followed by non-/
-                $filename = (string) preg_replace('@^[.]([^/])@', '$1', $filename);
+                $filename = Preg::replace('@^[.]([^/])@', '$1', $filename);
 
                 // Convert UTF8 data to PCDATA
                 $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
@@ -1411,7 +1405,7 @@ class Html extends BaseWriter
 
             // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
             // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-            $cellData = (string) preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
+            $cellData = Preg::replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
 
             // convert newline "\n" to '<br>'
             $cellData = nl2br($cellData);
@@ -1493,7 +1487,7 @@ class Html extends BaseWriter
             $dataType = $worksheet->getCell($coordinate)->getDataType();
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            } elseif ($dataType === DataType::TYPE_FORMULA && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
+            } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
             } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
@@ -1565,7 +1559,7 @@ class Html extends BaseWriter
     /**
      * Generate row.
      *
-     * @param array $values Array containing cells in a row
+     * @param array<int, mixed> $values Array containing cells in a row
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */
@@ -1577,7 +1571,19 @@ class Html extends BaseWriter
 
         // Write cells
         $colNum = 0;
-        foreach ($values as $cellAddress) {
+        $tcpdfInited = false;
+        foreach ($values as $key => $cellAddress) {
+            if ($this instanceof Pdf\Mpdf) {
+                $colNum = $key - 1;
+            } elseif ($this instanceof Pdf\Tcpdf) {
+                // It appears that Tcpdf requires first cell in tr.
+                $colNum = $key - 1;
+                if (!$tcpdfInited && $key !== 1) {
+                    $tempspan = ($colNum > 1) ? " colspan='$colNum'" : '';
+                    $html .= "<td$tempspan></td>\n";
+                }
+                $tcpdfInited = true;
+            }
             [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($worksheet, $cellAddress, $row, $colNum);
 
             // Cell Data
@@ -1587,12 +1593,18 @@ class Html extends BaseWriter
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-                $urlTrim = preg_replace('/^\\s+/u', '', $urlDecode1) ?? $urlDecode1;
-                $parseScheme = preg_match('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
-                if ($parseScheme === 1 && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 's3'], true)) {
+                $urlTrim = Preg::replace('/^\\s+/u', '', $urlDecode1);
+                $parseScheme = Preg::isMatch('/^([\\w\\s\\x00-\\x1f]+):/u', strtolower($urlTrim), $matches);
+                if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
+                    $cellData = self::replaceControlChars($cellData);
                 } else {
-                    $cellData = '<a href="' . htmlspecialchars($url, Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($worksheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
+                    $tooltip = $worksheet->getHyperlink($coordinate)->getTooltip();
+                    $tooltipOut = empty($tooltip) ? '' : (' title="' . htmlspecialchars($tooltip) . '"');
+                    $cellData = '<a href="'
+                        . htmlspecialchars($url) . '"'
+                        . $tooltipOut
+                        . '>' . $cellData . '</a>';
                 }
             }
 
@@ -1638,6 +1650,20 @@ class Html extends BaseWriter
 
         // Return
         return $html;
+    }
+
+    private static function replaceNonAscii(array $matches): string
+    {
+        return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
+    }
+
+    private static function replaceControlChars(string $convert): string
+    {
+        return (string) preg_replace_callback(
+            '/[\\x00-\\x1f]/',
+            [self::class, 'replaceNonAscii'],
+            $convert
+        );
     }
 
     /**
@@ -1738,7 +1764,7 @@ class Html extends BaseWriter
         $matches = [];
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
-        if (preg_match($color_regex, $format, $matches)) {
+        if (Preg::isMatch($color_regex, $format, $matches)) {
             $color = str_replace(['[', ']'], '', $matches[0]);
             $color = strtolower($color);
         }

@@ -15,21 +15,6 @@ class SettingsTest extends TestCase
         Settings::setCache(null);
     }
 
-    public function testGetXMLSettings(): void
-    {
-        $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
-    }
-
-    public function testSetXMLSettings(): void
-    {
-        $original = Settings::getLibXmlLoaderOptions();
-        Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
-        $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
-        Settings::setLibXmlLoaderOptions($original);
-    }
-
     public function testInvalidChartRenderer(): void
     {
         $this->expectException(SpException::class);

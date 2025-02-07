@@ -18,7 +18,7 @@ class AllSetupTeardown extends TestCase
 
     protected string $arrayReturnType;
 
-    private ?Spreadsheet $spreadsheet = null;
+    protected ?Spreadsheet $spreadsheet = null;
 
     private ?Worksheet $sheet = null;
 
@@ -85,5 +85,14 @@ class AllSetupTeardown extends TestCase
         $this->sheet = $this->getSpreadsheet()->getActiveSheet();
 
         return $this->sheet;
+    }
+
+    protected function setArrayAsValue(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
     }
 }

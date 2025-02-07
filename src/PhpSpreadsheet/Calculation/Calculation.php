@@ -1251,6 +1251,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2+',
         ],
+        'GROUPBY' => [
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '3-7',
+        ],
         'GROWTH' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical\Trends::class, 'GROWTH'],
@@ -4595,7 +4600,7 @@ class Calculation
     private static int $matchIndex10 = 10;
 
     /**
-     * @return array<int, mixed>|false
+     * @return array<int, mixed>|false|string
      */
     private function processTokenStack(mixed $tokens, ?string $cellID = null, ?Cell $cell = null)
     {
@@ -4876,17 +4881,18 @@ class Calculation
                             }
                             $result = $operand1;
                         } else {
-                            // In theory, we should truncate here.
-                            // But I can't figure out a formula
-                            // using the concatenation operator
-                            // with literals that fits in 32K,
-                            // so I don't think we can overflow here.
                             if (Information\ErrorValue::isError($operand1)) {
                                 $result = $operand1;
                             } elseif (Information\ErrorValue::isError($operand2)) {
                                 $result = $operand2;
                             } else {
-                                $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
+                                $result = str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2));
+                                $result = Shared\StringHelper::substring(
+                                    $result,
+                                    0,
+                                    DataType::MAX_STRING_LENGTH
+                                );
+                                $result = self::FORMULA_STRING_QUOTE . $result . self::FORMULA_STRING_QUOTE;
                             }
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
@@ -5035,6 +5041,9 @@ class Calculation
                     while (is_array($cellValue)) {
                         $cellValue = array_shift($cellValue);
                     }
+                    if (is_string($cellValue)) {
+                        $cellValue = preg_replace('/"/', '""', $cellValue);
+                    }
                     $this->debugLog->writeDebugLog('Scalar Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                 }
                 $this->processingAnchorArray = false;
@@ -5176,6 +5185,9 @@ class Calculation
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
                     $definedName = $matches[6];
+                    if (str_starts_with($definedName, '_xleta')) {
+                        return Functions::NOT_YET_IMPLEMENTED;
+                    }
                     if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");
                     }
@@ -5208,6 +5220,7 @@ class Calculation
                     }
 
                     $result = $this->evaluateDefinedName($cell, $namedRange, $pCellWorksheet, $stack, $specifiedWorksheet !== '');
+
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }

@@ -248,7 +248,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows, string $beforeCellAddress): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -256,9 +256,40 @@ class ReferenceHelper
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
-            $newReference = $this->updateCellReference($cellAddress);
+            $formula = $dataValidation->getFormula1();
+            if ($formula !== '') {
+                $dataValidation->setFormula1(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $formula = $dataValidation->getFormula2();
+            if ($formula !== '') {
+                $dataValidation->setFormula2(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $addressParts = explode(' ', $cellAddress);
+            $newReference = '';
+            $separator = '';
+            foreach ($addressParts as $addressPart) {
+                $newReference .= $separator . $this->updateCellReference($addressPart);
+                $separator = ' ';
+            }
             if ($cellAddress !== $newReference) {
-                $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
             }
@@ -290,14 +321,14 @@ class ReferenceHelper
      */
     protected function adjustProtectedCells(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
-        $aProtectedCells = $worksheet->getProtectedCells();
+        $aProtectedCells = $worksheet->getProtectedCellRanges();
         ($numberOfColumns > 0 || $numberOfRows > 0)
             ? uksort($aProtectedCells, [self::class, 'cellReverseSort'])
             : uksort($aProtectedCells, [self::class, 'cellSort']);
-        foreach ($aProtectedCells as $cellAddress => $value) {
+        foreach ($aProtectedCells as $cellAddress => $protectedRange) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->protectCells($newReference, $value, true);
+                $worksheet->protectCells($newReference, $protectedRange->getPassword(), true);
                 $worksheet->unprotectCells($cellAddress);
             }
         }
@@ -491,7 +522,7 @@ class ReferenceHelper
         $this->adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows);
+        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows, $beforeCellAddress);
 
         // Update worksheet: merge cells
         $this->adjustMergeCells($worksheet);

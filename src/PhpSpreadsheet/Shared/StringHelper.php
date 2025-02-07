@@ -638,4 +638,9 @@ class StringHelper
 
         return (is_numeric(substr($textValue, 0, strlen((string) $v)))) ? $v : $textValue;
     }
+
+    public static function strlenAllowNull(?string $string): int
+    {
+        return strlen("$string");
+    }
 }
