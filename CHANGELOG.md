@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Xls writer Parser Mishandling True/False Argument. Backport of [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
+- Xls writer Parser Parse By Character Not Byte. Backport of [PR #4344](https://github.com/PHPOffice/PhpSpreadsheet/pull/4344)
+
+# 2025-01-26 - 2.1.8
+
+### Fixed
+
 - Backported security patch for control characters in protocol.
 - Use Composer\Pcre in Xls/Parser. Partial backport of [PR #4203](https://github.com/PHPOffice/PhpSpreadsheet/pull/4203)
 
