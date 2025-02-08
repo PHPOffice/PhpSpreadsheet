@@ -337,7 +337,7 @@ class ReferenceHelper
             if ($cellAddress !== $newReference) {
                 $worksheet->unprotectCells($cellAddress);
                 if ($newReference) {
-                    $worksheet->protectCells($newReference, $value, true);
+                    $worksheet->protectCells($newReference, $protectedRange->getPassword(), true);
                 }
             }
         }
