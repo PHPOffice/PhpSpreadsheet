@@ -29,7 +29,7 @@ final class StructuredReference implements Operand, Stringable
         self::ITEM_SPECIFIER_TOTALS,
     ];
 
-    private const TABLE_REFERENCE = '/([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\]\[]+|(?R))*+\])/miu';
+    private const TABLE_REFERENCE = '/([\p{L}_\\\][\p{L}\p{N}\._]+)?(\[(?:[^\]\[]+|(?R))*+\])/miu';
 
     private string $value;
 

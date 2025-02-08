@@ -34,7 +34,7 @@ class FormulaTranslator
                 '/\$?([^\.]+)\.([^\.]+)/miu', // Cell reference in another sheet
                 '/\.([^\.]+):\.([^\.]+)/miu', // Cell range reference
                 '/\.([^\.]+)/miu', // Simple cell reference
-                '/\\x{FFFE}/miu', // restore quoted periods
+                '/\x{FFFE}/miu', // restore quoted periods
             ],
             [
                 '$1!$2:$4',
@@ -68,7 +68,7 @@ class FormulaTranslator
                         '/\[\$?([^\.]+)\.([^\.]+)\]/miu', // Cell reference in another sheet
                         '/\[\.([^\.]+):\.([^\.]+)\]/miu', // Cell range reference
                         '/\[\.([^\.]+)\]/miu', // Simple cell reference
-                        '/\\x{FFFE}/miu', // restore quoted periods
+                        '/\x{FFFE}/miu', // restore quoted periods
                     ],
                     [
                         '$1!$2:$3',

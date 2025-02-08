@@ -82,8 +82,8 @@ class HideMergeTest extends TestCase
         $worksheet->getColumnDimension('A')->setVisible(false);
         $Dompdf = new Dompdf($spreadsheet);
         $html = $Dompdf->generateHtmlAll();
-        $html = preg_replace('/^\\s+/m', '', $html) ?? $html;
-        $html = preg_replace('/[\\n\\r]/', '', $html) ?? $html;
+        $html = preg_replace('/^\s+/m', '', $html) ?? $html;
+        $html = preg_replace('/[\n\r]/', '', $html) ?? $html;
         self::assertStringContainsString(
             'table.sheet0 .column0 { display:none }',
             $html
