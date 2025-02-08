@@ -2395,11 +2395,8 @@ class Worksheet extends BIFFwriter
                 $data .= str_repeat("\x00", 4 - 3 * $width % 4);
             }
         }
-        // Phpstan says this always throws an exception before getting here.
-        // I don't see why, but I think this is code is never exercised
-        // in unit tests, so I can't say for sure it's wrong.
 
-        return [$width, $height, strlen($data), $data]; //* @phpstan-ignore-line
+        return [$width, $height, strlen($data), $data];
     }
 
     /**
