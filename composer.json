@@ -79,7 +79,7 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "composer/pcre": "^3.3",
+        "composer/pcre": "^1||^2||^3",
         "maennchen/zipstream-php": "^2.1 || ^3.0",
         "markbaker/complex": "^3.0",
         "markbaker/matrix": "^3.0",
