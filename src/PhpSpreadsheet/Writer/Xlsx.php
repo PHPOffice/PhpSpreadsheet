@@ -140,7 +140,10 @@ class Xlsx extends BaseWriter
 
     private bool $useDynamicArray = false;
 
-    private ?bool $forceFullCalc = null;
+    public const DEFAULT_FORCE_FULL_CALC = false;
+
+    // Default changed from null in PhpSpreadsheet 4.0.0.
+    private ?bool $forceFullCalc = self::DEFAULT_FORCE_FULL_CALC;
 
     /**
      * Create a new Xlsx Writer.
@@ -758,6 +761,7 @@ class Xlsx extends BaseWriter
      * If null, this will be set to the opposite of $preCalculateFormulas.
      * It is likely that false is the desired setting, although
      * cases have been reported where true is required (issue #456).
+     * Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.
      */
     public function setForceFullCalc(?bool $forceFullCalc): self
     {

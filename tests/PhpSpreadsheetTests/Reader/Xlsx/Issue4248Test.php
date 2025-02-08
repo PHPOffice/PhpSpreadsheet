@@ -66,13 +66,13 @@ class Issue4248Test extends TestCase
         $file .= '#xl/worksheets/sheet1.xml';
         $data = file_get_contents($file) ?: '';
         $expected = '<conditionalFormatting sqref="C16:C38 E17:H18 I17:J37 D18 J23:J38 E38 I38">'
-            . '<cfRule type="containsText" dxfId="0" priority="1" operator="containsText" text="Oui">'
+            . '<cfRule type="containsText" dxfId="0" priority="15" operator="containsText" text="Oui">'
             . '<formula>NOT(ISERROR(SEARCH(&quot;Oui&quot;,C16)))</formula>'
             . '</cfRule>'
             . '</conditionalFormatting>';
         self::assertStringContainsString($expected, $data, 'first condition for D18');
         $expected = '<conditionalFormatting sqref="C16:C38 I17:J37 E17:H18 D18 J23:J38 E38 I38">'
-            . '<cfRule type="containsText" dxfId="1" priority="2" operator="containsText" text="Non">'
+            . '<cfRule type="containsText" dxfId="1" priority="14" operator="containsText" text="Non">'
             . '<formula>NOT(ISERROR(SEARCH(&quot;Non&quot;,C16)))</formula>'
             . '</cfRule>'
             . '</conditionalFormatting>';
@@ -94,7 +94,7 @@ class Issue4248Test extends TestCase
             . '            <td class="column0 style0">&nbsp;</td>'
             . '            <td class="column1 style28 null"></td>'
             . '            <td class="column2 style35 s">Eligible </td>'
-            . '            <td class="column3 style70 f">Non</td>';
+            . '            <td class="column3 style70 s">Non</td>';
         self::assertStringContainsString($expected, $data, 'Cell D18 style');
         $expected = '      td.style70, th.style70 { vertical-align:middle; text-align:center; border-bottom:1px solid #000000 !important; border-top:2px solid #000000 !important; border-left:2px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:16pt; background-color:#BDD7EE }';
         self::assertStringContainsString($expected, $data, 'background color');

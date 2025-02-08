@@ -46,14 +46,7 @@ class Issue2368Test extends AbstractFunctional
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         $validations = $sheet->getDataValidationCollection();
-        /** @var string[] */
-        $ranges = [];
-        foreach ($validations as $validation) {
-            $ranges[] = $validation->getSqref();
-        }
-        self::assertContains('A1:A5', $ranges);
-        self::assertContains('A10:A14', $ranges);
-        self::assertContains('A20:A24', $ranges);
+        self::assertSame(['A1:A5 A10:A14 A20:A24'], array_keys($validations));
         self::assertSame('"yes,no"', $sheet->getCell('A3')->getDataValidation()->getFormula1());
         self::assertSame('"yes,no"', $sheet->getCell('A10')->getDataValidation()->getFormula1());
         self::assertSame('"yes,no"', $sheet->getCell('A24')->getDataValidation()->getFormula1());
@@ -63,14 +56,7 @@ class Issue2368Test extends AbstractFunctional
 
         $sheet2 = $reloadedSpreadsheet->getActiveSheet();
         $validation2 = $sheet2->getDataValidationCollection();
-        /** @var string[] */
-        $range2 = [];
-        foreach ($validation2 as $validation) {
-            $range2[] = $validation->getSqref();
-        }
-        self::assertContains('A1:A5', $range2);
-        self::assertContains('A10:A14', $range2);
-        self::assertContains('A20:A24', $range2);
+        self::assertSame(['A1:A5 A10:A14 A20:A24'], array_keys($validation2));
         self::assertSame('"yes,no"', $sheet2->getCell('A3')->getDataValidation()->getFormula1());
         self::assertSame('"yes,no"', $sheet2->getCell('A10')->getDataValidation()->getFormula1());
         self::assertSame('"yes,no"', $sheet2->getCell('A24')->getDataValidation()->getFormula1());

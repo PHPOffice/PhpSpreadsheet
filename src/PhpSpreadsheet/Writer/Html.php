@@ -119,13 +119,6 @@ class Html extends BaseWriter
     protected bool $isPdf = false;
 
     /**
-     * Is the current writer creating mPDF?
-     *
-     * @deprecated 2.0.1 use instanceof Mpdf instead
-     */
-    protected bool $isMPdf = false;
-
-    /**
      * Generate the Navigation block.
      */
     private bool $generateSheetNavigationBlock = true;
@@ -143,7 +136,7 @@ class Html extends BaseWriter
     /** @var Chart[] */
     private $sheetCharts;
 
-    private bool $betterBoolean = false;
+    private bool $betterBoolean = true;
 
     private string $getTrue = 'TRUE';
 
@@ -1494,7 +1487,7 @@ class Html extends BaseWriter
             $dataType = $worksheet->getCell($coordinate)->getDataType();
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            } elseif ($dataType === DataType::TYPE_FORMULA && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
+            } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
             } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
@@ -1601,9 +1594,10 @@ class Html extends BaseWriter
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
                 $urlDecode1 = html_entity_decode($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
                 $urlTrim = Preg::replace('/^\\s+/u', '', $urlDecode1);
-                $parseScheme = Preg::isMatch('/^([\\w\\s]+):/u', strtolower($urlTrim), $matches);
+                $parseScheme = Preg::isMatch('/^([\\w\\s\\x00-\\x1f]+):/u', strtolower($urlTrim), $matches);
                 if ($parseScheme && !in_array($matches[1], ['http', 'https', 'file', 'ftp', 'mailto', 's3'], true)) {
                     $cellData = htmlspecialchars($url, Settings::htmlEntityFlags());
+                    $cellData = self::replaceControlChars($cellData);
                 } else {
                     $tooltip = $worksheet->getHyperlink($coordinate)->getTooltip();
                     $tooltipOut = empty($tooltip) ? '' : (' title="' . htmlspecialchars($tooltip) . '"');
@@ -1656,6 +1650,20 @@ class Html extends BaseWriter
 
         // Return
         return $html;
+    }
+
+    private static function replaceNonAscii(array $matches): string
+    {
+        return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
+    }
+
+    private static function replaceControlChars(string $convert): string
+    {
+        return (string) preg_replace_callback(
+            '/[\\x00-\\x1f]/',
+            [self::class, 'replaceNonAscii'],
+            $convert
+        );
     }
 
     /**

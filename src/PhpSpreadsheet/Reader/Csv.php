@@ -84,8 +84,8 @@ class Csv extends BaseReader
      */
     private static $constructorCallback;
 
-    /** Will be changed to false in next major release */
-    public const DEFAULT_TEST_AUTODETECT = true;
+    /** Changed from true to false in release 4.0.0 */
+    public const DEFAULT_TEST_AUTODETECT = false;
 
     /**
      * Attempt autodetect line endings (deprecated after PHP8.1)?

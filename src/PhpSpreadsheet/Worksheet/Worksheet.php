@@ -63,7 +63,7 @@ class Worksheet
     /**
      * Invalid characters in sheet title.
      */
-    private static array $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
+    private const INVALID_CHARACTERS = ['*', ':', '/', '\\', '?', '[', ']'];
 
     /**
      * Parent spreadsheet.
@@ -156,13 +156,6 @@ class Worksheet
      * Protection.
      */
     private Protection $protection;
-
-    /**
-     * Collection of styles.
-     *
-     * @var Style[]
-     */
-    private array $styles = [];
 
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
@@ -298,6 +291,7 @@ class Worksheet
 
     /**
      * Data validation objects. Indexed by cell coordinate, e.g. 'A1'.
+     * Index can include ranges, and multiple cells/ranges.
      */
     private array $dataValidationCollection = [];
 
@@ -383,7 +377,6 @@ class Worksheet
     public function __wakeup(): void
     {
         $this->hash = spl_object_id($this);
-        $this->parent = null;
     }
 
     /**
@@ -399,7 +392,7 @@ class Worksheet
      */
     public static function getInvalidCharacters(): array
     {
-        return self::$invalidCharacters;
+        return self::INVALID_CHARACTERS;
     }
 
     /**
@@ -417,7 +410,7 @@ class Worksheet
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
-            (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName)
+            (str_replace(self::INVALID_CHARACTERS, '', $sheetCodeName) !== $sheetCodeName)
             || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
             || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
@@ -442,7 +435,7 @@ class Worksheet
     private static function checkSheetTitle(string $sheetTitle): string
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
-        if (str_replace(self::$invalidCharacters, '', $sheetTitle) !== $sheetTitle) {
+        if (str_replace(self::INVALID_CHARACTERS, '', $sheetTitle) !== $sheetTitle) {
             throw new Exception('Invalid character found in sheet title');
         }
 
@@ -1393,16 +1386,6 @@ class Worksheet
     }
 
     /**
-     * Get styles.
-     *
-     * @return Style[]
-     */
-    public function getStyles(): array
-    {
-        return $this->styles;
-    }
-
-    /**
      * Get style for cell.
      *
      * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellCoordinate
@@ -1431,27 +1414,68 @@ class Worksheet
      *               included in a conditional style range.
      *          If a range of cells is specified, then the styles will only be returned if the range matches the entire
      *               range of the conditional.
+     * @param bool $firstOnly default true, return all matching
+     *          conditionals ordered by priority if false, first only if true
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles(string $coordinate): array
+    public function getConditionalStyles(string $coordinate, bool $firstOnly = true): array
     {
         $coordinate = strtoupper($coordinate);
-        if (str_contains($coordinate, ':')) {
+        if (preg_match('/[: ,]/', $coordinate) === 1) {
             return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
-        $cell = $this->getCell($coordinate);
-        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
-            $cellBlocks = explode(',', Coordinate::resolveUnionAndIntersection($conditionalRange));
-            foreach ($cellBlocks as $cellBlock) {
-                if ($cell->isInRange($cellBlock)) {
-                    return $this->conditionalStylesCollection[$conditionalRange];
+        $conditionalStyles = [];
+        foreach ($this->conditionalStylesCollection as $keyStylesOrig => $conditionalRange) {
+            $keyStyles = Coordinate::resolveUnionAndIntersection($keyStylesOrig);
+            $keyParts = explode(',', $keyStyles);
+            foreach ($keyParts as $keyPart) {
+                if ($keyPart === $coordinate) {
+                    if ($firstOnly) {
+                        return $conditionalRange;
+                    }
+                    $conditionalStyles[$keyStylesOrig] = $conditionalRange;
+
+                    break;
+                } elseif (str_contains($keyPart, ':')) {
+                    if (Coordinate::coordinateIsInsideRange($keyPart, $coordinate)) {
+                        if ($firstOnly) {
+                            return $conditionalRange;
+                        }
+                        $conditionalStyles[$keyStylesOrig] = $conditionalRange;
+
+                        break;
+                    }
                 }
             }
         }
+        $outArray = [];
+        foreach ($conditionalStyles as $conditionalArray) {
+            foreach ($conditionalArray as $conditional) {
+                $outArray[] = $conditional;
+            }
+        }
+        usort($outArray, [self::class, 'comparePriority']);
 
-        return [];
+        return $outArray;
+    }
+
+    private static function comparePriority(Conditional $condA, Conditional $condB): int
+    {
+        $a = $condA->getPriority();
+        $b = $condB->getPriority();
+        if ($a === $b) {
+            return 0;
+        }
+        if ($a === 0) {
+            return 1;
+        }
+        if ($b === 0) {
+            return -1;
+        }
+
+        return ($a < $b) ? -1 : 1;
     }
 
     public function getConditionalRange(string $coordinate): ?string
@@ -1481,19 +1505,7 @@ class Worksheet
      */
     public function conditionalStylesExists(string $coordinate): bool
     {
-        $coordinate = strtoupper($coordinate);
-        if (str_contains($coordinate, ':')) {
-            return isset($this->conditionalStylesCollection[$coordinate]);
-        }
-
-        $cell = $this->getCell($coordinate);
-        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
-            if ($cell->isInRange($conditionalRange)) {
-                return true;
-            }
-        }
-
-        return false;
+        return !empty($this->getConditionalStyles($coordinate));
     }
 
     /**
@@ -1925,24 +1937,6 @@ class Worksheet
         }
 
         return $this;
-    }
-
-    /**
-     * Get password for protected cells.
-     *
-     * @return string[]
-     *
-     * @deprecated 2.0.1 use getProtectedCellRanges instead
-     * @see Worksheet::getProtectedCellRanges()
-     */
-    public function getProtectedCells(): array
-    {
-        $array = [];
-        foreach ($this->protectedCells as $key => $protectedRange) {
-            $array[$key] = $protectedRange->getPassword();
-        }
-
-        return $array;
     }
 
     /**
@@ -3168,14 +3162,6 @@ class Worksheet
         return $this;
     }
 
-    /**
-     * @deprecated 3.5.0 use getHashInt instead.
-     */
-    public function getHashCode(): string
-    {
-        return (string) $this->hash;
-    }
-
     public function getHashInt(): int
     {
         return $this->hash;
@@ -3282,10 +3268,27 @@ class Worksheet
             return $this->dataValidationCollection[$cellCoordinate];
         }
 
-        // else create data validation
-        $this->dataValidationCollection[$cellCoordinate] = new DataValidation();
+        // or if cell is part of a data validation range
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                if ($keyPart === $cellCoordinate) {
+                    return $dataValidation;
+                }
+                if (str_contains($keyPart, ':')) {
+                    if (Coordinate::coordinateIsInsideRange($keyPart, $cellCoordinate)) {
+                        return $dataValidation;
+                    }
+                }
+            }
+        }
 
-        return $this->dataValidationCollection[$cellCoordinate];
+        // else create data validation
+        $dataValidation = new DataValidation();
+        $dataValidation->setSqref($cellCoordinate);
+        $this->dataValidationCollection[$cellCoordinate] = $dataValidation;
+
+        return $dataValidation;
     }
 
     /**
@@ -3300,6 +3303,7 @@ class Worksheet
         if ($dataValidation === null) {
             unset($this->dataValidationCollection[$cellCoordinate]);
         } else {
+            $dataValidation->setSqref($cellCoordinate);
             $this->dataValidationCollection[$cellCoordinate] = $dataValidation;
         }
 
@@ -3313,7 +3317,24 @@ class Worksheet
      */
     public function dataValidationExists(string $coordinate): bool
     {
-        return isset($this->dataValidationCollection[$coordinate]);
+        if (isset($this->dataValidationCollection[$coordinate])) {
+            return true;
+        }
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            $keyParts = explode(' ', $key);
+            foreach ($keyParts as $keyPart) {
+                if ($keyPart === $coordinate) {
+                    return true;
+                }
+                if (str_contains($keyPart, ':')) {
+                    if (Coordinate::coordinateIsInsideRange($keyPart, $coordinate)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -3323,7 +3344,17 @@ class Worksheet
      */
     public function getDataValidationCollection(): array
     {
-        return $this->dataValidationCollection;
+        $collectionCells = [];
+        $collectionRanges = [];
+        foreach ($this->dataValidationCollection as $key => $dataValidation) {
+            if (preg_match('/[: ]/', $key) === 1) {
+                $collectionRanges[$key] = $dataValidation;
+            } else {
+                $collectionCells[$key] = $dataValidation;
+            }
+        }
+
+        return array_merge($collectionCells, $collectionRanges);
     }
 
     /**

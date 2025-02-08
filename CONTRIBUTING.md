@@ -42,8 +42,8 @@ This makes it easier to see exactly what is being tested when reviewing the PR. 
 3. Push the tag with `git push --tags`, GitHub Actions will create a GitHub release automatically, and the release details will automatically be sent to packagist.
 4. By default, Github removes markdown headings in the Release Notes. You can either edit to restore these, or, probably preferably, change the default comment character on your system - `git config core.commentChar ";"`.
 
-> **Note:** Tagged releases are made from the `master` branch. Only in an emergency should a tagged release be made from the `release` branch. (i.e. cherry-picked hot-fixes.) However, there are 3 branches which have been updated to apply security patches, and those may be tagged if future security updates are needed.
+> **Note:** Tagged releases are made from the `master` branch. Only in an emergency should a tagged release be made from the `release` branch. (i.e. cherry-picked hot-fixes.) However, there are 4 branches which have been updated to apply security patches, and those may be tagged if future security updates are needed.
 - release1291
 - release210
 - release222
-
+- release390
