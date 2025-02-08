@@ -361,7 +361,7 @@ class Slk extends BaseReader
             } elseif ($char == 'S') {
                 $styleData['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
             } elseif ($char == 'M') {
-                if (preg_match('/M([1-9]\\d*)/', $styleSettings, $matches)) {
+                if (preg_match('/M([1-9]\d*)/', $styleSettings, $matches)) {
                     $fontStyle = $matches[1];
                 }
             }
@@ -449,7 +449,7 @@ class Slk extends BaseReader
 
     private function processPColors(string $rowDatum, array &$formatArray): void
     {
-        if (preg_match('/L([1-9]\\d*)/', $rowDatum, $matches)) {
+        if (preg_match('/L([1-9]\d*)/', $rowDatum, $matches)) {
             $fontColor = ((int) $matches[1]) % 8;
             $formatArray['font']['color']['argb'] = self::COLOR_ARRAY[$fontColor];
         }
