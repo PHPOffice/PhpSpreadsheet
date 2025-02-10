@@ -61,11 +61,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
 
 		-
-			message: "#^Binary operation \"%%\" between string and 24 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
-
-		-
 			message: "#^Binary operation \"\\-\" between 1 and array\\|float\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
