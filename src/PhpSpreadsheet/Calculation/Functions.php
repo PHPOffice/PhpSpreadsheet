@@ -338,7 +338,7 @@ class Functions
 
     public static function trimTrailingRange(string $coordinate): string
     {
-        return (string) preg_replace('/:[\\w\$]+$/', '', $coordinate);
+        return (string) preg_replace('/:[\w\$]+$/', '', $coordinate);
     }
 
     public static function trimSheetFromCellReference(string $coordinate): string
