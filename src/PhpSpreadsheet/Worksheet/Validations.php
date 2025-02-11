@@ -63,7 +63,7 @@ class Validations
     public static function convertWholeRowColumn(?string $addressRange): string
     {
         return (string) preg_replace(
-            ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
+            ['/^([A-Z]+):([A-Z]+)$/i', '/^(\d+):(\d+)$/'],
             [self::SETMAXROW, self::SETMAXCOL],
             $addressRange ?? ''
         );

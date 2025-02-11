@@ -1725,6 +1725,6 @@ return [
     'issue 4242 escaped quote in format' => [
         '"Hello"',
         'Hello',
-        '\\"@\\"',
+        '\"@\"',
     ],
 ];

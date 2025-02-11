@@ -348,7 +348,7 @@ class LocaleGenerator
 
                     continue;
                 }
-                if ($cell->getValue() != '') {
+                if ($cell->getValue() !== '') {
                     if (is_bool($cell->getValue())) {
                         $this->log($cell->getRow() . ' -> ' . ($cell->getValue() ? 'TRUE' : 'FALSE'));
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();

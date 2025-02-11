@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class SumTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUM')]
+    #[DataProvider('providerSUM')]
     public function testSUM(mixed $expectedResult, mixed ...$args): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $row = 0;
         foreach ($args as $arg) {
@@ -27,7 +29,7 @@ class SumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUM.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMLiterals')]
+    #[DataProvider('providerSUMLiterals')]
     public function testSUMLiterals(mixed $expectedResult, string $args): void
     {
         $sheet = $this->getSheet();
@@ -41,10 +43,11 @@ class SumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMWITHINDEXMATCH')]
+    #[DataProvider('providerSUMWITHINDEXMATCH')]
     public function testSumWithIndexMatch(mixed $expectedResult, string $formula): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
+        $this->setArrayAsValue();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('Formula');
         $sheet1->fromArray(
@@ -62,7 +65,6 @@ class SumTest extends AllSetupTeardown
             ]
         );
         self::assertSame($expectedResult, $sheet1->getCell('B2')->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerSUMWITHINDEXMATCH(): array
