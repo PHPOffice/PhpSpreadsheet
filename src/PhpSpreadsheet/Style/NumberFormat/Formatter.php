@@ -54,8 +54,8 @@ class Formatter extends BaseFormatter
         //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
         $sectionCount = count($sections);
         // Colour could be a named colour, or a numeric index entry in the colour-palette
-        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . '|color\\s*(\\d+))\\]/mui';
-        $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
+        $color_regex = '/\[(' . implode('|', Color::NAMED_COLORS) . '|color\s*(\d+))\]/mui';
+        $cond_regex = '/\[(>|>=|<|<=|=|<>)([+-]?\d+([.]\d+)?)\]/';
         $colors = ['', '', '', '', ''];
         $conditionOperations = ['', '', '', '', ''];
         $conditionComparisonValues = [0, 0, 0, 0, 0];
@@ -141,7 +141,7 @@ class Formatter extends BaseFormatter
         $format = (string) preg_replace('/^\[\$-[^\]]*\]/', '', $format);
 
         $format = (string) preg_replace_callback(
-            '/(["])(?:(?=(\\\\?))\\2.)*?\\1/u',
+            '/(["])(?:(?=(\\\?))\2.)*?\1/u',
             fn (array $matches): string => str_replace('.', chr(0x00), $matches[0]),
             $format
         );

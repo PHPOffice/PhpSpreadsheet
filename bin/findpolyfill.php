@@ -6,11 +6,11 @@ function findPolyfill(string $directory): int
     // See issue #4215 - code which should have erred in unit test
     // succeeded because a dev package required polyfills.
     $retCode = 0;
-    $polyfill81 = 'MYSQLI_REFRESH_REPLICA\\b'
+    $polyfill81 = 'MYSQLI_REFRESH_REPLICA\b'
         . '|fdiv[(]'
         . '|array_is_list[(]'
         . '|enum_exists[(]';
-    $polyfill = '/\\b(?:'
+    $polyfill = '/\b(?:'
         . $polyfill81
         . ')/';
 

@@ -32,7 +32,7 @@ class Html extends BaseReader
 
     private const STARTS_WITH_BOM = '/^(?:\xfe\xff|\xff\xfe|\xEF\xBB\xBF)/';
 
-    private const DECLARES_CHARSET = '/\\bcharset=/i';
+    private const DECLARES_CHARSET = '/\bcharset=/i';
 
     /**
      * Input encoding.
