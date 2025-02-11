@@ -219,7 +219,7 @@ class FormulaParser
             // scientific notation check
             if (strpos(self::OPERATORS_SN, $this->formula[$index]) !== false) {
                 if (strlen($value) > 1) {
-                    if (preg_match('/^[1-9]{1}(\\.\\d+)?E{1}$/', $this->formula[$index]) != 0) {
+                    if (preg_match('/^[1-9]{1}(\.\d+)?E{1}$/', $this->formula[$index]) != 0) {
                         $value .= $this->formula[$index];
                         ++$index;
 

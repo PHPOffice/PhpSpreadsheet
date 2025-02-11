@@ -135,12 +135,12 @@ class ImCscTest extends TestCase
         // Avoid testing for excess precision
         foreach ($expectedResult as &$array) {
             foreach ($array as &$string) {
-                $string = preg_replace('/(\\d{8})\\d+/', '$1', $string);
+                $string = preg_replace('/(\d{8})\d+/', '$1', $string);
             }
         }
         foreach ($result as &$array) {
             foreach ($array as &$string) {
-                $string = preg_replace('/(\\d{8})\\d+/', '$1', $string);
+                $string = preg_replace('/(\d{8})\d+/', '$1', $string);
             }
         }
 

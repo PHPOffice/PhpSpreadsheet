@@ -46,7 +46,7 @@ class DateValue
         }
 
         // try to parse as date iff there is at least one digit
-        if (is_string($dateValue) && preg_match('/\\d/', $dateValue) !== 1) {
+        if (is_string($dateValue) && preg_match('/\d/', $dateValue) !== 1) {
             return ExcelError::VALUE();
         }
 

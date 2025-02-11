@@ -63,7 +63,7 @@ class FractionFormatter extends BaseFormatter
     private static function getDecimal(string $value): string
     {
         $decimalPart = '0';
-        if (preg_match('/^\\d*[.](\\d*[1-9])0*$/', $value, $matches) === 1) {
+        if (preg_match('/^\d*[.](\d*[1-9])0*$/', $value, $matches) === 1) {
             $decimalPart = $matches[1];
         }
 

@@ -41,7 +41,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = self::getFileData($filename);
-        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
+        $filedata = preg_replace('/\r?\n/', $delimiter, $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -74,7 +74,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = self::getFileData($filename);
-        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
+        $filedata = preg_replace('/\r?\n/', $delimiter, $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -107,7 +107,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = self::getFileData($filename);
-        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
+        $filedata = preg_replace('/\r?\n/', $delimiter, $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -168,7 +168,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = self::getFileData($filename);
-        $filedata = preg_replace('/\\r/', '', $filedata);
+        $filedata = preg_replace('/\r/', '', $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -227,7 +227,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = self::getFileData($filename);
-        $filedata = preg_replace('/\\r/', '', $filedata);
+        $filedata = preg_replace('/\r/', '', $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);

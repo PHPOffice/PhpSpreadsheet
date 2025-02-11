@@ -52,7 +52,7 @@ return [
         ['-', false, 'Boolean', '', true],
     ],
     [
-        'C:\\Users\\Mark\\Documents\\notes.doc',
+        'C:\Users\Mark\Documents\notes.doc',
         ['\\', true, 'C:', 'Users', 'Mark', 'Documents', 'notes.doc'],
     ],
     'no argument' => ['exception', []],

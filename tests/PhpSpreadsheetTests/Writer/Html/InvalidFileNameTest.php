@@ -55,7 +55,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
 
     public function testWinFileNames(): void
     {
-        self::assertEquals('file:///C:/temp/filename.xlsx', Html::winFileToUrl('C:\\temp\filename.xlsx'));
+        self::assertEquals('file:///C:/temp/filename.xlsx', Html::winFileToUrl('C:\temp\filename.xlsx'));
         self::assertEquals('/tmp/filename.xlsx', Html::winFileToUrl('/tmp/filename.xlsx'));
         self::assertEquals('a:bfile', Html::winFileToUrl('a:bfile'));
     }

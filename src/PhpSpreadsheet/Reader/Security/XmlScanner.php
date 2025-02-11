@@ -6,8 +6,8 @@ use PhpOffice\PhpSpreadsheet\Reader;
 
 class XmlScanner
 {
-    private const ENCODING_PATTERN = '/encoding\\s*=\\s*(["\'])(.+?)\\1/s';
-    private const ENCODING_UTF7 = '/encoding\\s*=\\s*(["\'])UTF-7\\1/si';
+    private const ENCODING_PATTERN = '/encoding\s*=\s*(["\'])(.+?)\1/s';
+    private const ENCODING_UTF7 = '/encoding\s*=\s*(["\'])UTF-7\1/si';
 
     /**
      * String used to identify risky xml elements.
@@ -119,7 +119,7 @@ class XmlScanner
         $charset = $this->findCharSet($xml);
         $foundUtf7 = $charset === 'UTF-7';
         if ($charset !== 'UTF-8') {
-            $testStart = '/^.{0,4}\\s*<?xml/s';
+            $testStart = '/^.{0,4}\s*<?xml/s';
             $startWithXml1 = preg_match($testStart, $xml);
             $xml = self::forceString(mb_convert_encoding($xml, 'UTF-8', $charset));
             if ($startWithXml1 === 1 && preg_match($testStart, $xml) !== 1) {
@@ -168,7 +168,7 @@ class XmlScanner
     {
         $this->disableEntityLoaderCheck();
         // Don't rely purely on libxml_disable_entity_loader()
-        $pattern = '/\\0*' . implode('\\0*', /** @scrutinizer ignore-type */ str_split($this->pattern)) . '\\0*/';
+        $pattern = '/\0*' . implode('\0*', /** @scrutinizer ignore-type */ str_split($this->pattern)) . '\0*/';
 
         $xml = "$xml";
         if (preg_match($pattern, $xml)) {

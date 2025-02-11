@@ -71,7 +71,7 @@ class Validations
             // Convert Column ranges like 'A:C' to 'A1:C1048576'
             //      or Row ranges like '1:3' to 'A1:XFD3'
             $addressRange = (string) preg_replace(
-                ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
+                ['/^([A-Z]+):([A-Z]+)$/i', '/^(\d+):(\d+)$/'],
                 [self::SETMAXROW, self::SETMAXCOL],
                 $addressRange
             );

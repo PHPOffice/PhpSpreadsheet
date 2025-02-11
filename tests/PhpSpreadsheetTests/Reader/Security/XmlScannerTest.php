@@ -52,7 +52,7 @@ class XmlScannerTest extends TestCase
             $expectedResult = (string) file_get_contents($file);
             if (preg_match('/UTF-16(LE|BE)?/', $file, $matches) == 1) {
                 $expectedResult = (string) mb_convert_encoding($expectedResult, 'UTF-8', $matches[0]);
-                $expectedResult = preg_replace('/encoding\\s*=\\s*[\'"]UTF-\\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
+                $expectedResult = preg_replace('/encoding\s*=\s*[\'"]UTF-\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
             }
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
             $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, $expectedResult, false];

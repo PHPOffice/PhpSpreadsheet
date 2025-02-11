@@ -165,7 +165,7 @@ class DateFormatter
         // If the colon preceding minute had been quoted, as happens in
         // Excel 2003 XML formats, m will not have been changed to i above.
         // Change it now.
-        $format = (string) \preg_replace('/\\\\:m/', ':i', $format);
+        $format = (string) \preg_replace('/\\\:m/', ':i', $format);
 
         return $dateObj->format($format);
     }

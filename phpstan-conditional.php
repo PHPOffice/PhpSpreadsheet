@@ -49,28 +49,28 @@ if (PHP_VERSION_ID < 80000) {
     //];
     // Erroneous analysis by Phpstan before PHP8 - mb_strlen does not return false
     $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:countCharacters\\(\\) should return int but returns int(<0, max>)?\\|false\\.$#',
+        'message' => '#^Method PhpOffice\\\PhpSpreadsheet\\\Shared\\\StringHelper\:\:countCharacters\(\) should return int but returns int(<0, max>)?\|false\.$#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Shared/StringHelper.php',
         'count' => 1,
     ];
     // New with Phpstan 1.9.2 for Php7 only
     $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, array<int, mixed>\\|false given.$#',
+        'message' => '#^Parameter \#2 \.\.\.\$args of function array_merge expects array, array<int, mixed>\|false given.$#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/LookupRef/Sort.php',
         'count' => 1,
     ];
     $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Parameter \\#1 \\$input of function array_chunk expects array, array<int, float\\|int>\\|false given.$#',
+        'message' => '#^Parameter \#1 \$input of function array_chunk expects array, array<int, float\|int>\|false given.$#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/MathTrig/MatrixFunctions.php',
         'count' => 1,
     ];
     $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Parameter \\#2 \\$array of function array_map expects array, array<int, float|int>\\|false given.$#',
+        'message' => '#^Parameter \#2 \$array of function array_map expects array, array<int, float|int>\|false given.$#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/MathTrig/Random.php',
         'count' => 1,
     ];
     $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, array<int, mixed>\\|false given.$#',
+        'message' => '#^Parameter \#2 \.\.\.\$args of function array_merge expects array, array<int, mixed>\|false given.$#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/TextData/Text.php',
         'count' => 1,
     ];

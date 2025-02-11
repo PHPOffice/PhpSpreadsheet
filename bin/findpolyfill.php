@@ -6,7 +6,7 @@ function findPolyfill(string $directory): int
     // See issue #4215 - code which should have erred in unit test
     // succeeded because a dev package required polyfills.
     $retCode = 0;
-    $polyfill80 = 'FILTER_VALIDATE_BOOL\\b'
+    $polyfill80 = 'FILTER_VALIDATE_BOOL\b'
         . '|fdiv[(]'
         . '|preg_last_error_msg[(]'
         . '|str_contains[(]'
@@ -14,11 +14,11 @@ function findPolyfill(string $directory): int
         . '|str_ends_with[(]'
         . '|get_debug_type[(]'
         . '|get_resource_id[(]';
-    $polyfill81 = 'MYSQLI_REFRESH_REPLICA\\b'
+    $polyfill81 = 'MYSQLI_REFRESH_REPLICA\b'
         . '|fdiv[(]'
         . '|array_is_list[(]'
         . '|enum_exists[(]';
-    $polyfill = '/\\b(?:'
+    $polyfill = '/\b(?:'
         . $polyfill80
         . '|'
         . $polyfill81

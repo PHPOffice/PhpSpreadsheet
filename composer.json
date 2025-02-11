@@ -12,6 +12,7 @@
         "spreadsheet"
     ],
     "config": {
+        "process-timeout": 600,
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
