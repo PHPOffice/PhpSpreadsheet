@@ -197,21 +197,21 @@ class IOFactoryTest extends TestCase
     {
         $filename = 'samples/Reader2/sampleData/example1.tsv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderCsvExtension(): void
     {
         $filename = 'samples/Reader2/sampleData/example1.csv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderNoExtension(): void
     {
         $filename = 'samples/Reader/sampleData/example1xls';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Xls', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Xls', $reader::class);
     }
 
     public function testCreateReaderNotSpreadsheet(): void
