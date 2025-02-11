@@ -464,7 +464,7 @@ class Worksheet extends BIFFwriter
                 $url = str_replace('sheet://', 'internal:', $url);
             } elseif (Preg::isMatch('/^(http:|https:|ftp:|mailto:)/', $url)) {
                 // URL
-            } elseif (!empty($hyperlinkbase) && !Preg::isMatch('~^([A-Za-z]:)?[/\\\\]~', $url)) {
+            } elseif (!empty($hyperlinkbase) && !Preg::isMatch('~^([A-Za-z]:)?[/\\\]~', $url)) {
                 $url = "$hyperlinkbase$url";
                 if (!Preg::isMatch('/^(http:|https:|ftp:|mailto:)/', $url)) {
                     $url = 'external:' . $url;
@@ -1050,7 +1050,7 @@ class Worksheet extends BIFFwriter
     {
         // Network drives are different. We will handle them separately
         // MS/Novell network drives and shares start with \\
-        if (Preg::isMatch('[^external:\\\\]', $url)) {
+        if (Preg::isMatch('[^external:\\\]', $url)) {
             return;
         }
 
@@ -1075,7 +1075,7 @@ class Worksheet extends BIFFwriter
         // parameters accordingly.
         // Split the dir name and sheet name (if it exists)
         $dir_long = $url;
-        if (Preg::isMatch('/\\#/', $url)) {
+        if (Preg::isMatch('/\#/', $url)) {
             $link_type |= 0x08;
         }
 
@@ -1083,11 +1083,11 @@ class Worksheet extends BIFFwriter
         $link_type = pack('V', $link_type);
 
         // Calculate the up-level dir count e.g.. (..\..\..\ == 3)
-        $up_count = Preg::isMatchAll('/\\.\\.\\\\/', $dir_long, $useless);
+        $up_count = Preg::isMatchAll('/\.\.\\\/', $dir_long, $useless);
         $up_count = pack('v', $up_count);
 
         // Store the short dos dir name (null terminated)
-        $dir_short = Preg::replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
+        $dir_short = Preg::replace('/\.\.\\\/', '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
         //$dir_long = $dir_long . "\0";

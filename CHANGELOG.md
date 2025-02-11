@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 # TBD - 3.9.2
 
+### Changed
+
+- Allow php-cs-fixer to Handle Implicit Backslashes.
+
 ### Fixed
 
 - TEXT and TIMEVALUE functions. [Issue #4249](https://github.com/PHPOffice/PhpSpreadsheet/issues/4249) [PR #4355](https://github.com/PHPOffice/PhpSpreadsheet/pull/4355)

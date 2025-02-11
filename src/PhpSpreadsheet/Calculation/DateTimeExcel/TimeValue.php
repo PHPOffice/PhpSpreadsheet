@@ -57,7 +57,7 @@ class TimeValue
         }
 
         // try to parse as time iff there is at least one digit
-        if (is_string($timeValue) && !Preg::isMatch('/\\d/', $timeValue)) {
+        if (is_string($timeValue) && !Preg::isMatch('/\d/', $timeValue)) {
             return ExcelError::VALUE();
         }
 

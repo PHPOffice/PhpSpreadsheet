@@ -221,7 +221,7 @@ $config
         'standardize_not_equals' => true,
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
-        'string_implicit_backslashes' => false, // was escape_implicit_backslashes, too confusing
+        'string_implicit_backslashes' => ['single_quoted' => 'unescape', 'double_quoted' => 'escape', 'heredoc' => 'escape'], // was escape_implicit_backslashes
         'strict_param' => false, // No, too dangerous to change that
         'string_length_to_empty' => true,
         'string_line_ending' => true,

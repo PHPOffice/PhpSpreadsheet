@@ -49,7 +49,7 @@ class Worksheet
     public const MERGE_CELL_CONTENT_HIDE = 'hide';
     public const MERGE_CELL_CONTENT_MERGE = 'merge';
 
-    public const FUNCTION_LIKE_GROUPBY = '/\\b(groupby|_xleta)\\b/i'; // weird new syntax
+    public const FUNCTION_LIKE_GROUPBY = '/\b(groupby|_xleta)\b/i'; // weird new syntax
 
     protected const SHEET_NAME_REQUIRES_NO_QUOTES = '/^[_\p{L}][_\p{L}\p{N}]*$/mui';
 
@@ -1728,7 +1728,7 @@ class Worksheet
             $range .= ":{$range}";
         }
 
-        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) !== 1) {
+        if (preg_match('/^([A-Z]+)(\d+):([A-Z]+)(\d+)$/', $range, $matches) !== 1) {
             throw new Exception('Merge must be on a valid range of cells.');
         }
 
