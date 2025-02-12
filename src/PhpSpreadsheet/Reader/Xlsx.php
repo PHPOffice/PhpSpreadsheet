@@ -1820,7 +1820,10 @@ class Xlsx extends BaseReader
                                         if (is_array($definedNameValueParts)) {
                                             // Extract sheet name
                                             [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
-                                            $extractedSheetName = trim((string) $extractedSheetName, "'");
+                                            $extractedSheetName ??= '';
+                                            if ($extractedSheetName[0] === "'" && substr($extractedSheetName, -1) === "'") {
+                                                $extractedSheetName = str_replace("''", "'", substr($extractedSheetName, 1, -1));
+                                            }
 
                                             // Locate sheet
                                             $locatedSheet = $excel->getSheetByName($extractedSheetName);
