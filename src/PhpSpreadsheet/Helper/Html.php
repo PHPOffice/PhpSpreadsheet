@@ -552,42 +552,48 @@ class Html
     private bool $strikethrough = false;
 
     /** @var callable[] */
-    private array $startTagCallbacks = [
-        'font' => [self::class, 'startFontTag'],
-        'b' => [self::class, 'startBoldTag'],
-        'strong' => [self::class, 'startBoldTag'],
-        'i' => [self::class, 'startItalicTag'],
-        'em' => [self::class, 'startItalicTag'],
-        'u' => [self::class, 'startUnderlineTag'],
-        'ins' => [self::class, 'startUnderlineTag'],
-        'del' => [self::class, 'startStrikethruTag'],
-        's' => [self::class, 'startStrikethruTag'],
-        'sup' => [self::class, 'startSuperscriptTag'],
-        'sub' => [self::class, 'startSubscriptTag'],
-    ];
+    private array $startTagCallbacks;
 
     /** @var callable[] */
-    private array $endTagCallbacks = [
-        'font' => [self::class, 'endFontTag'],
-        'b' => [self::class, 'endBoldTag'],
-        'strong' => [self::class, 'endBoldTag'],
-        'i' => [self::class, 'endItalicTag'],
-        'em' => [self::class, 'endItalicTag'],
-        'u' => [self::class, 'endUnderlineTag'],
-        'ins' => [self::class, 'endUnderlineTag'],
-        'del' => [self::class, 'endStrikethruTag'],
-        's' => [self::class, 'endStrikethruTag'],
-        'sup' => [self::class, 'endSuperscriptTag'],
-        'sub' => [self::class, 'endSubscriptTag'],
-        'br' => [self::class, 'breakTag'],
-        'p' => [self::class, 'breakTag'],
-        'h1' => [self::class, 'breakTag'],
-        'h2' => [self::class, 'breakTag'],
-        'h3' => [self::class, 'breakTag'],
-        'h4' => [self::class, 'breakTag'],
-        'h5' => [self::class, 'breakTag'],
-        'h6' => [self::class, 'breakTag'],
-    ];
+    private array $endTagCallbacks;
+
+    public function __construct()
+    {
+        $this->startTagCallbacks = [
+            'font' => $this->startFontTag(...),
+            'b' => $this->startBoldTag(...),
+            'strong' => $this->startBoldTag(...),
+            'i' => $this->startItalicTag(...),
+            'em' => $this->startItalicTag(...),
+            'u' => $this->startUnderlineTag(...),
+            'ins' => $this->startUnderlineTag(...),
+            'del' => $this->startStrikethruTag(...),
+            's' => $this->startStrikethruTag(...),
+            'sup' => $this->startSuperscriptTag(...),
+            'sub' => $this->startSubscriptTag(...),
+        ];
+        $this->endTagCallbacks = [
+            'font' => $this->endFontTag(...),
+            'b' => $this->endBoldTag(...),
+            'strong' => $this->endBoldTag(...),
+            'i' => $this->endItalicTag(...),
+            'em' => $this->endItalicTag(...),
+            'u' => $this->endUnderlineTag(...),
+            'ins' => $this->endUnderlineTag(...),
+            'del' => $this->endStrikethruTag(...),
+            's' => $this->endStrikethruTag(...),
+            'sup' => $this->endSuperscriptTag(...),
+            'sub' => $this->endSubscriptTag(...),
+            'br' => $this->breakTag(...),
+            'p' => $this->breakTag(...),
+            'h1' => $this->breakTag(...),
+            'h2' => $this->breakTag(...),
+            'h3' => $this->breakTag(...),
+            'h4' => $this->breakTag(...),
+            'h5' => $this->breakTag(...),
+            'h6' => $this->breakTag(...),
+        ];
+    }
 
     private array $stack = [];
 
@@ -707,24 +713,22 @@ class Html
     protected function startFontTag(DOMElement $tag): void
     {
         $attrs = $tag->attributes;
-        if ($attrs !== null) {
-            /** @var DOMAttr $attribute */
-            foreach ($attrs as $attribute) {
-                $attributeName = strtolower($attribute->name);
-                $attributeName = preg_replace('/^html:/', '', $attributeName) ?? $attributeName; // in case from Xml spreadsheet
-                $attributeValue = $attribute->value;
+        /** @var DOMAttr $attribute */
+        foreach ($attrs as $attribute) {
+            $attributeName = strtolower($attribute->name);
+            $attributeName = preg_replace('/^html:/', '', $attributeName) ?? $attributeName; // in case from Xml spreadsheet
+            $attributeValue = $attribute->value;
 
-                if ($attributeName == 'color') {
-                    if (preg_match('/rgb\s*\(/', $attributeValue)) {
-                        $this->$attributeName = $this->rgbToColour($attributeValue);
-                    } elseif (str_starts_with(trim($attributeValue), '#')) {
-                        $this->$attributeName = ltrim($attributeValue, '#');
-                    } else {
-                        $this->$attributeName = static::colourNameLookup($attributeValue);
-                    }
+            if ($attributeName === 'color') {
+                if (preg_match('/rgb\s*\(/', $attributeValue)) {
+                    $this->$attributeName = $this->rgbToColour($attributeValue);
+                } elseif (str_starts_with(trim($attributeValue), '#')) {
+                    $this->$attributeName = ltrim($attributeValue, '#');
                 } else {
-                    $this->$attributeName = $attributeValue;
+                    $this->$attributeName = static::colourNameLookup($attributeValue);
                 }
+            } elseif ($attributeName === 'face' || $attributeName === 'size') {
+                $this->$attributeName = $attributeValue;
             }
         }
     }
@@ -829,9 +833,7 @@ class Html
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
-            if (is_callable($elementHandler)) {
-                call_user_func($elementHandler, $element, $this);
-            }
+            call_user_func($elementHandler, $element, $this);
         }
     }
 

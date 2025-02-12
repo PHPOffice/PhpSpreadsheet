@@ -89,8 +89,7 @@ class TableTest extends AbstractFunctional
         $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
 
         $reloadedTable = $reloadedWorksheet->getTableCollection()[0];
-        /** @var Table $reloadedTable */
-        self::assertNotNull($reloadedTable);
+        self::assertInstanceOf(Table::class, $reloadedTable);
         self::assertFalse($reloadedTable->getAllowFilter());
     }
 }
