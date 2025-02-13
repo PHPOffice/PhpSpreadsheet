@@ -48,7 +48,7 @@ class IOFactoryRegisterTest extends TestCase
     public static function testRegisterCustomReader(): void
     {
         IOFactory::registerReader(IOFactory::READER_XLSX, CustomReader::class);
-        $inputFileName = 'tests/data/Reader/Xlsx/1900_Calendar.xlsx';
+        $inputFileName = 'tests/data/Reader/XLSX/1900_Calendar.xlsx';
         $loadSpreadsheet = IOFactory::load($inputFileName);
         $sheet = $loadSpreadsheet->getActiveSheet();
         self::assertSame('2022-01-01', $sheet->getCell('A1')->getFormattedValue());
