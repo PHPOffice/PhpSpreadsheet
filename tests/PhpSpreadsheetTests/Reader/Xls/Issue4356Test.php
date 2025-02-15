@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -12,7 +12,8 @@ class Issue4356Test extends AbstractFunctional
 {
     public function testIssue4356(): void
     {
-        // Reader couldn't handle sheet title with apostrophe for defined name
+        // Reader couldn't handle sheet title with apostrophe for defined name.
+        // Issue was reported against Xlsx - see how Xls does.
         $originalSpreadsheet = new Spreadsheet();
         $originalSheet = $originalSpreadsheet->getActiveSheet();
         $originalSheet->setTitle("Goodn't sheet name");
@@ -21,7 +22,7 @@ class Issue4356Test extends AbstractFunctional
         );
         $originalSheet->setCellValue('A1', 'This is a named cell.');
         $originalSheet->getStyle('A1')->getFont()->setItalic(true);
-        $spreadsheet = $this->writeAndReload($originalSpreadsheet, 'Xlsx');
+        $spreadsheet = $this->writeAndReload($originalSpreadsheet, 'Xls');
         $originalSpreadsheet->disconnectWorksheets();
 
         $sheet = $spreadsheet->getActiveSheet();
@@ -32,6 +33,7 @@ class Issue4356Test extends AbstractFunctional
         $sheetx = $namedRange2->getWorksheet();
         self::assertNotNull($sheetx);
         $style = $sheetx->getStyle($namedRange2->getRange());
+        //$style = $sheetx->getStyle('CELLNAME'); // no exception but doesn't work
         self::assertTrue($style->getFont()->getItalic());
         $style->getFont()->setItalic(false);
 
