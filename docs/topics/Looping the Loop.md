@@ -16,7 +16,7 @@ $inputFileName = __DIR__ . '/../Financial Sample.xlsx';
 
 $reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
-
+$worksheet = $spreadsheet->getActiveSheet();
 
 $dataArray = $worksheet->toArray();
 
