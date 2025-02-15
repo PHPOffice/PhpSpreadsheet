@@ -49,4 +49,29 @@ class HiddenWorksheetTest extends TestCase
             ],
         ];
     }
+
+    public function testListWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/Gnumeric/HiddenSheet.gnumeric';
+        $reader = new Gnumeric();
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'hidden',
+            ],
+        ];
+        self::assertSame($expected, $reader->listWorksheetInfo($filename));
+    }
 }

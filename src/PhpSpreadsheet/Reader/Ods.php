@@ -157,64 +157,67 @@ class Ods extends BaseReader
 
         // Step into the first level of content of the XML
         $xml->read();
+        $tableVisibility = [];
+        $lastTableStyle = '';
+
         while ($xml->read()) {
-            // Quickly jump through to the office:body node
-            while (self::getXmlName($xml) !== 'office:body') {
-                if ($xml->isEmptyElement) {
+            if (self::getXmlName($xml) === 'style:style') {
+                $styleType = $xml->getAttribute('style:family');
+                if ($styleType === 'table') {
+                    $lastTableStyle = $xml->getAttribute('style:name');
+                }
+            } elseif (self::getXmlName($xml) === 'style:table-properties') {
+                $visibility = $xml->getAttribute('table:display');
+                $tableVisibility[$lastTableStyle] = ($visibility === 'false') ? Worksheet::SHEETSTATE_HIDDEN : Worksheet::SHEETSTATE_VISIBLE;
+            } elseif (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                $worksheetNames[] = $xml->getAttribute('table:name');
+
+                $styleName = $xml->getAttribute('table:style-name') ?? '';
+                $visibility = $tableVisibility[$styleName] ?? '';
+                $tmpInfo = [
+                    'worksheetName' => $xml->getAttribute('table:name'),
+                    'lastColumnLetter' => 'A',
+                    'lastColumnIndex' => 0,
+                    'totalRows' => 0,
+                    'totalColumns' => 0,
+                    'sheetState' => $visibility,
+                ];
+
+                // Loop through each child node of the table:table element reading
+                $currCells = 0;
+                do {
                     $xml->read();
-                } else {
-                    $xml->next();
-                }
-            }
-            // Now read each node until we find our first table:table node
-            while ($xml->read()) {
-                if (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
-                    $worksheetNames[] = $xml->getAttribute('table:name');
-
-                    $tmpInfo = [
-                        'worksheetName' => $xml->getAttribute('table:name'),
-                        'lastColumnLetter' => 'A',
-                        'lastColumnIndex' => 0,
-                        'totalRows' => 0,
-                        'totalColumns' => 0,
-                    ];
-
-                    // Loop through each child node of the table:table element reading
-                    $currCells = 0;
-                    do {
+                    if (self::getXmlName($xml) == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        $rowspan = $xml->getAttribute('table:number-rows-repeated');
+                        $rowspan = empty($rowspan) ? 1 : $rowspan;
+                        $tmpInfo['totalRows'] += $rowspan;
+                        $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                        $currCells = 0;
+                        // Step into the row
                         $xml->read();
-                        if (self::getXmlName($xml) == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
-                            $rowspan = $xml->getAttribute('table:number-rows-repeated');
-                            $rowspan = empty($rowspan) ? 1 : $rowspan;
-                            $tmpInfo['totalRows'] += $rowspan;
-                            $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
-                            $currCells = 0;
-                            // Step into the row
-                            $xml->read();
-                            do {
-                                $doread = true;
-                                if (self::getXmlName($xml) == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
-                                    if (!$xml->isEmptyElement) {
-                                        ++$currCells;
-                                        $xml->next();
-                                        $doread = false;
-                                    }
-                                } elseif (self::getXmlName($xml) == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
-                                    $mergeSize = $xml->getAttribute('table:number-columns-repeated');
-                                    $currCells += (int) $mergeSize;
+                        do {
+                            $doread = true;
+                            if (self::getXmlName($xml) == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                if (!$xml->isEmptyElement) {
+                                    ++$currCells;
+                                    $xml->next();
+                                    $doread = false;
                                 }
-                                if ($doread) {
-                                    $xml->read();
-                                }
-                            } while (self::getXmlName($xml) != 'table:table-row');
-                        }
-                    } while (self::getXmlName($xml) != 'table:table');
+                            } elseif (self::getXmlName($xml) == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $currCells += (int) $mergeSize;
+                            }
+                            if ($doread) {
+                                $xml->read();
+                            }
+                        } while (self::getXmlName($xml) != 'table:table-row');
+                    }
+                } while (self::getXmlName($xml) != 'table:table');
 
-                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
-                    $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
-                    $worksheetInfo[] = $tmpInfo;
-                }
+                $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+                $worksheetInfo[] = $tmpInfo;
             }
         }
 

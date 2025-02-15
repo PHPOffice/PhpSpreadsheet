@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ListFunctions extends Xls
 {
@@ -104,6 +105,7 @@ class ListFunctions extends Xls
             $tmpInfo['lastColumnIndex'] = 0;
             $tmpInfo['totalRows'] = 0;
             $tmpInfo['totalColumns'] = 0;
+            $tmpInfo['sheetState'] = $sheet['sheetState'];
 
             $xls->pos = $sheet['offset'];
 

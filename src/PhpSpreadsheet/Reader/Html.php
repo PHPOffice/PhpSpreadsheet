@@ -1232,6 +1232,7 @@ class Html extends BaseReader
             $newEntry['lastColumnIndex'] = Coordinate::columnIndexFromString($sheet->getHighestDataColumn()) - 1;
             $newEntry['totalRows'] = $sheet->getHighestDataRow();
             $newEntry['totalColumns'] = $newEntry['lastColumnIndex'] + 1;
+            $newEntry['sheetState'] = Worksheet::SHEETSTATE_VISIBLE;
             $info[] = $newEntry;
         }
         $spreadsheet->disconnectWorksheets();
