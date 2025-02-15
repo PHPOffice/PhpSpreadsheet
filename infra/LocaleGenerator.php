@@ -6,8 +6,6 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Column;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LocaleGenerator
@@ -280,11 +278,9 @@ class LocaleGenerator
 
         $languageNameMap = [];
         foreach ($languagesList as $languageColumn) {
-            /** @var Column $languageColumn */
             $cells = $languageColumn->getCellIterator(self::LOCALE_NAME_ROW, self::LOCALE_NAME_ROW);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
                     $languageNameMap[$cell->getColumn()] = $cell->getValue();
                     $this->log($cell->getColumn() . ' -> ' . $cell->getValue());
@@ -316,11 +312,9 @@ class LocaleGenerator
         $errorList = $this->localeTranslations->getRowIterator(self::ERROR_CODES_FIRST_ROW);
 
         foreach ($errorList as $errorRow) {
-            /** @var Row $errorList */
             $cells = $errorRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($cell->getValue() != '') {
                     $this->log($cell->getRow() . ' -> ' . $cell->getValue());
                     $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
@@ -335,11 +329,9 @@ class LocaleGenerator
         $functionList = $this->functionNameTranslations->getRowIterator(self::FUNCTION_NAME_LIST_FIRST_ROW);
 
         foreach ($functionList as $functionRow) {
-            /** @var Row $functionRow */
             $cells = $functionRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
                         $this->log('CATEGORY: ' . $cell->getValue());
@@ -348,7 +340,7 @@ class LocaleGenerator
 
                     continue;
                 }
-                if ($cell->getValue() !== '') {
+                if ($cell->getValue() !== '' && $cell->getValue() !== null) {
                     if (is_bool($cell->getValue())) {
                         $this->log($cell->getRow() . ' -> ' . ($cell->getValue() ? 'TRUE' : 'FALSE'));
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
