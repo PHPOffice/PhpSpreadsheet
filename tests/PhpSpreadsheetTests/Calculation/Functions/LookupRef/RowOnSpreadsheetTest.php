@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RowOnSpreadsheetTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerROWonSpreadsheet')]
+    #[DataProvider('providerROWonSpreadsheet')]
     public function testRowOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->setTitle('ThisSheet');
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
@@ -41,6 +43,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
     public function testINDIRECTLocalDefinedName(): void
     {
         $sheet = $this->getSheet();
+        $this->setArrayAsValue();
 
         $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');

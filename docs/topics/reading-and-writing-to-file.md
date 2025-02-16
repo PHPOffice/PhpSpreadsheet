@@ -173,7 +173,7 @@ even if pre-calculated is set to false
 ```php
 $writer->setForceFullCalc(false);
 ```
-In a future release, the property's default may change to `false` and that statement may no longer be required.
+Starting with Release 4.0.0, the property's default is changed to `false` and that statement is no longer be required. The property can be set to `null` if the old behavior is needed.
 
 #### Office 2003 compatibility pack
 
@@ -594,6 +594,9 @@ You can suppress testing for Mac line endings as follows:
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setTestAutoDetect(false);
 ```
+Starting with Release 4.0.0, the property defaults to `false`,
+so the statement above is no longer needed. The old behavior
+can be enabled by setting the property to `true`.
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Csv
 

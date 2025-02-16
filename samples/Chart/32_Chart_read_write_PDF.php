@@ -37,6 +37,9 @@ foreach ($inputFileNames as $inputFileName) {
     $reader->setIncludeCharts(true);
     $spreadsheet = $reader->load($inputFileName);
 
+    $helper->log('Merge chart cells (needed only for Pdf)');
+    $spreadsheet->mergeChartCellsForPdf();
+
     $helper->log('Iterate worksheets looking at the charts');
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();

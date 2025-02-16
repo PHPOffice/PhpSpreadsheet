@@ -145,7 +145,7 @@ class AutoFilter implements Stringable
         $this->evaluated = false;
         if ($this->workSheet !== null) {
             $thisrange = $this->range;
-            $range = (string) preg_replace('/\\d+$/', (string) $this->workSheet->getHighestRow(), $thisrange);
+            $range = (string) preg_replace('/\d+$/', (string) $this->workSheet->getHighestRow(), $thisrange);
             if ($range !== $thisrange) {
                 $this->setRange($range);
             }
@@ -317,7 +317,7 @@ class AutoFilter implements Stringable
     {
         $dataSetValues = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
-        if (($cellValue == '') || ($cellValue === null)) {
+        if (($cellValue === '') || ($cellValue === null)) {
             return $blanks;
         }
 
@@ -333,7 +333,7 @@ class AutoFilter implements Stringable
     {
         $dateSet = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
-        if (($cellValue == '') || ($cellValue === null)) {
+        if (($cellValue === '') || ($cellValue === null)) {
             return $blanks;
         }
         $timeZone = new DateTimeZone('UTC');
@@ -379,7 +379,7 @@ class AutoFilter implements Stringable
 
         if (!$customRuleForBlanks) {
             //    Blank cells are always ignored, so return a FALSE
-            if (($cellValue == '') || ($cellValue === null)) {
+            if (($cellValue === '') || ($cellValue === null)) {
                 return false;
             }
         }
@@ -424,7 +424,7 @@ class AutoFilter implements Stringable
                 }
             } elseif ($ruleValue == '') {
                 $retVal = match ($ruleOperator) {
-                    Rule::AUTOFILTER_COLUMN_RULE_EQUAL => ($cellValue == '') || ($cellValue === null),
+                    Rule::AUTOFILTER_COLUMN_RULE_EQUAL => ($cellValue === '') || ($cellValue === null),
                     Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL => ($cellValue != '') && ($cellValue !== null),
                     default => true,
                 };
@@ -486,7 +486,7 @@ class AutoFilter implements Stringable
     protected static function filterTestInPeriodDateSet(mixed $cellValue, array $monthSet): bool
     {
         //    Blank cells are always ignored, so return a FALSE
-        if (($cellValue == '') || ($cellValue === null)) {
+        if (($cellValue === '') || ($cellValue === null)) {
             return false;
         }
 

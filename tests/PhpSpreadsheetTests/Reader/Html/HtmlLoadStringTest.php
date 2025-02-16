@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlLoadStringTest extends TestCase
 {
+    private static bool $alwaysTrue = true;
+
     public function testCanLoadFromString(): void
     {
         $html = '<table>
@@ -48,7 +50,7 @@ class HtmlLoadStringTest extends TestCase
             (new Html())->loadFromString($html);
         } else {
             // The meat of this test runs in HtmlPhpunit10Test
-            self::assertTrue(true);
+            self::assertTrue(self::$alwaysTrue);
         }
     }
 

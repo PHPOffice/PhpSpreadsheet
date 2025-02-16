@@ -44,12 +44,18 @@ class CloneTest extends TestCase
 
     public function testSerialize1(): void
     {
-        // If worksheet attached to spreadsheet, can't serialize it.
-        $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('cannot be serialized');
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
-        serialize($sheet1);
+        $sheet1->getCell('A1')->setValue(10);
+        $serialized = serialize($sheet1);
+        $newSheet = unserialize($serialized);
+        self::assertInstanceOf(Worksheet::class, $newSheet);
+        self::assertSame(10, $newSheet->getCell('A1')->getValue());
+        self::assertNotEquals($newSheet->getHashInt(), $sheet1->getHashInt());
+        self::assertNotNull($newSheet->getParent());
+        self::assertNotSame($newSheet->getParent(), $sheet1->getParent());
+        $newSheet->getParent()->disconnectWorksheets();
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSerialize2(): void
@@ -57,8 +63,8 @@ class CloneTest extends TestCase
         $sheet1 = new Worksheet();
         $sheet1->getCell('A1')->setValue(10);
         $serialized = serialize($sheet1);
-        /** @var Worksheet */
         $newSheet = unserialize($serialized);
+        self::assertInstanceOf(Worksheet::class, $newSheet);
         self::assertSame(10, $newSheet->getCell('A1')->getValue());
         self::assertNotEquals($newSheet->getHashInt(), $sheet1->getHashInt());
     }

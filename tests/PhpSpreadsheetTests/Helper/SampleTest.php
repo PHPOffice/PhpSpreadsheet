@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
 class SampleTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
-    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSample')]
+    private static bool $alwaysTrue = true;
+
+    #[Attributes\RunInSeparateProcess]
+    #[Attributes\PreserveGlobalState(false)]
+    #[Attributes\DataProvider('providerSample')]
     public function testSample(string $sample): void
     {
         ob_start();
         require $sample;
         ob_end_clean();
 
-        self::assertTrue(true);
+        self::assertTrue(self::$alwaysTrue);
     }
 
     public static function providerSample(): array

@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CsvLineEndingTest extends TestCase
@@ -22,7 +23,7 @@ class CsvLineEndingTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
+    #[DataProvider('providerEndings')]
     public function testEndings(string $ending): void
     {
         if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
@@ -43,14 +44,14 @@ class CsvLineEndingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
+    #[DataProvider('providerEndings')]
     public function testEndingsNoDetect(string $ending): void
     {
         $this->tempFile = $filename = File::temporaryFilename();
         $data = ['123', '456', '789'];
         file_put_contents($filename, implode($ending, $data));
         $reader = new Csv();
-        $reader->setTestAutoDetect(false);
+        self::assertSame(self::$alwaysFalse, Csv::DEFAULT_TEST_AUTODETECT);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         if ($ending === "\r") {

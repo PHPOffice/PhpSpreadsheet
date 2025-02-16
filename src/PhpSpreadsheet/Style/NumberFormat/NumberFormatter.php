@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class NumberFormatter extends BaseFormatter
 {
-    private const NUMBER_REGEX = '/(0+)(\\.?)(0*)/';
+    private const NUMBER_REGEX = '/(0+)(\.?)(0*)/';
 
     private static function mergeComplexNumberFormatMasks(array $numbers, array $masks): array
     {
@@ -212,11 +212,11 @@ class NumberFormatter extends BaseFormatter
             $paddingPlaceholder = (str_contains($format, '?'));
 
             // Replace # or ? with 0
-            $format = self::pregReplace('/[\\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
+            $format = self::pregReplace('/[\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
             // Remove locale code [$-###] for an LCID
             $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
-            $n = '/\\[[^\\]]+\\]/';
+            $n = '/\[[^\]]+\]/';
             $m = self::pregReplace($n, '', $format);
 
             // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
@@ -236,7 +236,7 @@ class NumberFormatter extends BaseFormatter
 
         if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
             //  Currency or Accounting
-            $value = preg_replace('/-0+(( |\\xc2\\xa0))?\\[/', '- [', (string) $value) ?? $value;
+            $value = preg_replace('/-0+(( |\xc2\xa0))?\[/', '- [', (string) $value) ?? $value;
             $currencyCode = $m[1];
             [$currencyCode] = explode('-', $currencyCode);
             if ($currencyCode == '') {
