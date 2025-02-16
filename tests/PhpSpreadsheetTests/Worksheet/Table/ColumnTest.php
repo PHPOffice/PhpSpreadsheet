@@ -74,7 +74,7 @@ class ColumnTest extends SetupTeardown
         self::assertEquals($function, $result->getTotalsRowFunction());
 
         $formula = '=SUM(Sales_Data[[#This Row],[Q1]:[Q4]])';
-        $result = $column->setColumnFormula($formula);
+        $column->setColumnFormula($formula);
         self::assertEquals($formula, $column->getColumnFormula());
     }
 
