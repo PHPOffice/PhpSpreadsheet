@@ -63,7 +63,7 @@ class ColumnTest extends SetupTeardown
         $column = $table->getColumn('H');
 
         $result = $column->setShowFilterButton(false);
-        self::assertFalse($column->getShowFilterButton());
+        self::assertFalse($result->getShowFilterButton());
 
         $label = 'Total';
         $result = $column->setTotalsRowLabel($label);

@@ -72,10 +72,10 @@ class AutoFilterTest extends SetupTeardown
 
         foreach ($ranges as $actualRange => $fullRange) {
             //  Setters return the instance to implement the fluent interface
-            $result = $autoFilter->setRange($fullRange);
+            $temp = $autoFilter->setRange($fullRange);
 
             //  Result should be the new autofilter range
-            $result = $autoFilter->getRange();
+            $result = $temp->getRange();
             self::assertEquals($actualRange, $result);
         }
     }
@@ -88,10 +88,10 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange('');
+        $temp = $autoFilter->setRange('');
 
         //  Result should be a clear range
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -223,9 +223,9 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setColumn($expectedResult);
+        $temp = $autoFilter->setColumn($expectedResult);
 
-        $result = $autoFilter->getColumns();
+        $result = $temp->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertCount(1, $result);
@@ -253,9 +253,9 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setColumn($columnObject);
+        $temp = $autoFilter->setColumn($columnObject);
 
-        $result = $autoFilter->getColumns();
+        $result = $temp->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertCount(1, $result);
@@ -374,10 +374,10 @@ class AutoFilterTest extends SetupTeardown
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange('');
+        $temp = $autoFilter->setRange('');
 
         //  Range should be cleared
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Column array should be cleared
@@ -404,10 +404,10 @@ class AutoFilterTest extends SetupTeardown
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange($expectedResult);
+        $temp = $autoFilter->setRange($expectedResult);
 
         //  Range should be correctly set
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Only columns that existed in the original range and that

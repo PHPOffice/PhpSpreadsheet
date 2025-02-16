@@ -75,7 +75,7 @@ class ColumnTest extends SetupTeardown
         $columnFilter = $sheet->getAutoFilter()->getColumn('H');
         //    Setters return the instance to implement the fluent interface
         $result = $columnFilter->setParent(null);
-        self::assertSame('filters', $columnFilter->getFilterType());
+        self::assertSame('filters', $result->getFilterType());
     }
 
     public function testVariousSets(): void
@@ -91,7 +91,7 @@ class ColumnTest extends SetupTeardown
 
         $result = $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
 
-        $result = $columnFilter->getFilterType();
+        $result = $result->getFilterType();
         self::assertEquals(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER, $result);
 
         $result = $columnFilter->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
@@ -153,7 +153,7 @@ class ColumnTest extends SetupTeardown
 
         $result = $columnFilter->setAttributes($attributeSet);
 
-        $result = $columnFilter->getAttributes();
+        $result = $result->getAttributes();
         self::assertSame($attributeSet, $result);
     }
 
@@ -177,7 +177,7 @@ class ColumnTest extends SetupTeardown
             //    Setters return the instance to implement the fluent interface
             $result = $columnFilter->setAttribute($attributeName, $attributeValue);
         }
-        self::assertSame($attributeSet, $columnFilter->getAttributes());
+        self::assertSame($attributeSet, $result->getAttributes());
     }
 
     public function testGetAttribute(): void

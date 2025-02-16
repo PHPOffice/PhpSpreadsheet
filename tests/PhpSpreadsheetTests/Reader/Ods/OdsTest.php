@@ -54,8 +54,6 @@ class OdsTest extends TestCase
     {
         $spreadsheet = $this->loadDataFile();
         self::assertEquals(2, $spreadsheet->getSheetCount());
-        $firstSheet = $spreadsheet->getSheet(0);
-        $secondSheet = $spreadsheet->getSheet(1);
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
         $spreadsheet->disconnectWorksheets();

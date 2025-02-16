@@ -33,7 +33,7 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setName($name);
-        self::assertEquals($expected, $table->getName());
+        self::assertEquals($expected, $result->getName());
     }
 
     public static function validTableNamesProvider(): array
@@ -113,7 +113,7 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setShowHeaderRow(false);
-        self::assertFalse($table->getShowHeaderRow());
+        self::assertFalse($result->getShowHeaderRow());
 
         $result = $table->setShowTotalsRow(true);
         self::assertTrue($table->getShowTotalsRow());
@@ -156,7 +156,7 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setRange($fullRange);
-        self::assertEquals($actualRange, $table->getRange());
+        self::assertEquals($actualRange, $result->getRange());
     }
 
     public function testSetRangeValidRange(): void
@@ -188,7 +188,7 @@ class TableTest extends SetupTeardown
         $result = $table->setRange('');
 
         //  Result should be a clear range
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -313,7 +313,7 @@ class TableTest extends SetupTeardown
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($expectedResult);
 
-        $result = $table->getColumns();
+        $result = $result->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column
         //    objects for each column we set indexed by the column ID
         self::assertCount(1, $result);
@@ -338,7 +338,7 @@ class TableTest extends SetupTeardown
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($columnObject);
 
-        $result = $table->getColumns();
+        $result = $result->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column
         //    objects for each column we set indexed by the column ID
         self::assertCount(1, $result);
@@ -446,7 +446,7 @@ class TableTest extends SetupTeardown
         $result = $table->setRange('');
 
         //  Range should be cleared
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Column array should be cleared
@@ -474,7 +474,7 @@ class TableTest extends SetupTeardown
         $result = $table->setRange($expectedResult);
 
         //  Range should be correctly set
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Only columns that existed in the original range and that

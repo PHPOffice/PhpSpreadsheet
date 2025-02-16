@@ -17,7 +17,7 @@ class TableStyleTest extends SetupTeardown
         $style = $table->getStyle();
 
         $result = $style->setTheme(TableStyle::TABLE_STYLE_DARK1);
-        self::assertEquals(TableStyle::TABLE_STYLE_DARK1, $style->getTheme());
+        self::assertEquals(TableStyle::TABLE_STYLE_DARK1, $result->getTheme());
 
         $result = $style->setShowFirstColumn(true);
         self::assertTrue($style->getShowFirstColumn());
