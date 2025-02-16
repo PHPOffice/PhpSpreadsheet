@@ -26,7 +26,6 @@ class HyperlinkTest extends TestCase
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
-        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getUrl();
         self::assertEquals($newUrlValue, $result);
@@ -49,7 +48,6 @@ class HyperlinkTest extends TestCase
 
         $testInstance = new Hyperlink('', $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
-        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getTooltip();
         self::assertEquals($newTooltipValue, $result);

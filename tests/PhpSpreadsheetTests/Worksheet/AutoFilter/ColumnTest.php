@@ -64,7 +64,6 @@ class ColumnTest extends SetupTeardown
         $expectedResult = 'G';
 
         $result = $columnFilter->setColumnIndex($expectedResult);
-        self::assertInstanceOf(Column::class, $result);
 
         $result = $result->getColumnIndex();
         self::assertEquals($expectedResult, $result);
@@ -76,7 +75,7 @@ class ColumnTest extends SetupTeardown
         $columnFilter = $sheet->getAutoFilter()->getColumn('H');
         //    Setters return the instance to implement the fluent interface
         $result = $columnFilter->setParent(null);
-        self::assertInstanceOf(Column::class, $result);
+        self::assertSame('filters', $columnFilter->getFilterType());
     }
 
     public function testVariousSets(): void
@@ -91,13 +90,11 @@ class ColumnTest extends SetupTeardown
             );
 
         $result = $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
-        self::assertInstanceOf(Column::class, $result);
 
         $result = $columnFilter->getFilterType();
         self::assertEquals(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER, $result);
 
         $result = $columnFilter->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
-        self::assertInstanceOf(Column::class, $result);
 
         $result = $columnFilter->getJoin();
         self::assertEquals(Column::AUTOFILTER_COLUMN_JOIN_AND, $result);
@@ -155,7 +152,6 @@ class ColumnTest extends SetupTeardown
         ];
 
         $result = $columnFilter->setAttributes($attributeSet);
-        self::assertInstanceOf(Column::class, $result);
 
         $result = $columnFilter->getAttributes();
         self::assertSame($attributeSet, $result);
@@ -180,7 +176,6 @@ class ColumnTest extends SetupTeardown
         foreach ($attributeSet as $attributeName => $attributeValue) {
             //    Setters return the instance to implement the fluent interface
             $result = $columnFilter->setAttribute($attributeName, $attributeValue);
-            self::assertInstanceOf(Column::class, $result);
         }
         self::assertSame($attributeSet, $columnFilter->getAttributes());
     }
@@ -255,7 +250,6 @@ class ColumnTest extends SetupTeardown
         $rule0 = $columnFilter->getRule(0);
         self::assertSame($originalRules[0], $rule0);
         $rule1 = $columnFilter->getRule(1);
-        self::assertInstanceOf(Rule::class, $rule1);
         self::assertNotEquals($originalRules[0], $rule1);
         self::assertCount(2, $columnFilter->getRules());
         self::assertSame(Column::AUTOFILTER_COLUMN_JOIN_OR, $columnFilter->getJoin());

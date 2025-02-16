@@ -33,7 +33,6 @@ class SettingsTest extends TestCase
     public function testCache(): void
     {
         $cache1 = Settings::getCache();
-        self::assertNotNull($cache1);
         Settings::setCache(null);
         $cache2 = Settings::getCache();
         self::assertEquals($cache1, $cache2);
