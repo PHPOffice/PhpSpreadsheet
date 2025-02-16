@@ -31,7 +31,7 @@ class CellBorder
     {
         $borderStyle = $border->getBorderStyle();
 
-        if (is_string($borderStyle) && array_key_exists($borderStyle, self::$styleMap)) {
+        if (array_key_exists($borderStyle, self::$styleMap)) {
             return self::$styleMap[$borderStyle];
         }
 

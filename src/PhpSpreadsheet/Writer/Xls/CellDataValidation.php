@@ -47,7 +47,7 @@ class CellDataValidation
     {
         $validationType = $dataValidation->getType();
 
-        if (is_string($validationType) && array_key_exists($validationType, self::$validationTypeMap)) {
+        if (array_key_exists($validationType, self::$validationTypeMap)) {
             return self::$validationTypeMap[$validationType];
         }
 
@@ -58,7 +58,7 @@ class CellDataValidation
     {
         $errorStyle = $dataValidation->getErrorStyle();
 
-        if (is_string($errorStyle) && array_key_exists($errorStyle, self::$errorStyleMap)) {
+        if (array_key_exists($errorStyle, self::$errorStyleMap)) {
             return self::$errorStyleMap[$errorStyle];
         }
 
@@ -69,7 +69,7 @@ class CellDataValidation
     {
         $operator = $dataValidation->getOperator();
 
-        if (is_string($operator) && array_key_exists($operator, self::$operatorMap)) {
+        if (array_key_exists($operator, self::$operatorMap)) {
             return self::$operatorMap[$operator];
         }
 

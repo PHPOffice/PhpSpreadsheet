@@ -497,7 +497,6 @@ class Xlsx extends BaseWriter
                 $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
             } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
                 ob_start();
-                /** @var callable $callable */
                 $callable = $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction();
                 call_user_func(
                     $callable,

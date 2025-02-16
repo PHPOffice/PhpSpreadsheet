@@ -156,31 +156,29 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:title');
         $caption = $title->getCaption();
-        if ($caption !== null) {
-            $objWriter->startElement('c:tx');
-            $objWriter->startElement('c:rich');
+        $objWriter->startElement('c:tx');
+        $objWriter->startElement('c:rich');
 
-            $objWriter->startElement('a:bodyPr');
-            $objWriter->endElement(); // a:bodyPr
+        $objWriter->startElement('a:bodyPr');
+        $objWriter->endElement(); // a:bodyPr
 
-            $objWriter->startElement('a:lstStyle');
-            $objWriter->endElement(); // a:lstStyle
+        $objWriter->startElement('a:lstStyle');
+        $objWriter->endElement(); // a:lstStyle
 
-            $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            $objWriter->endElement(); // a:defRPr
-            $objWriter->endElement(); // a:pPr
+        $objWriter->startElement('a:p');
+        $objWriter->startElement('a:pPr');
+        $objWriter->startElement('a:defRPr');
+        $objWriter->endElement(); // a:defRPr
+        $objWriter->endElement(); // a:pPr
 
-            if (is_array($caption)) {
-                $caption = $caption[0] ?? '';
-            }
-            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
-
-            $objWriter->endElement(); // a:p
-            $objWriter->endElement(); // c:rich
-            $objWriter->endElement(); // c:tx
+        if (is_array($caption)) {
+            $caption = $caption[0] ?? '';
         }
+        $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+
+        $objWriter->endElement(); // a:p
+        $objWriter->endElement(); // c:rich
+        $objWriter->endElement(); // c:tx
 
         $this->writeLayout($objWriter, $title->getLayout());
 
@@ -638,27 +636,25 @@ class Chart extends WriterPart
         if ($xAxisLabel !== null) {
             $objWriter->startElement('c:title');
             $caption = $xAxisLabel->getCaption();
-            if ($caption !== null) {
-                $objWriter->startElement('c:tx');
-                $objWriter->startElement('c:rich');
+            $objWriter->startElement('c:tx');
+            $objWriter->startElement('c:rich');
 
-                $objWriter->startElement('a:bodyPr');
-                $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->endElement(); // a:bodyPr
 
-                $objWriter->startElement('a:lstStyle');
-                $objWriter->endElement(); // a::lstStyle
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a::lstStyle
 
-                $objWriter->startElement('a:p');
+            $objWriter->startElement('a:p');
 
-                if (is_array($caption)) {
-                    $caption = $caption[0];
-                }
-                $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
-
-                $objWriter->endElement(); // a:p
-                $objWriter->endElement(); // c:rich
-                $objWriter->endElement(); // c:tx
+            if (is_array($caption)) {
+                $caption = $caption[0];
             }
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:rich
+            $objWriter->endElement(); // c:tx
 
             $layout = $xAxisLabel->getLayout();
             $this->writeLayout($objWriter, $layout);
@@ -860,27 +856,27 @@ class Chart extends WriterPart
         if ($yAxisLabel !== null) {
             $objWriter->startElement('c:title');
             $caption = $yAxisLabel->getCaption();
-            if ($caption !== null) {
-                $objWriter->startElement('c:tx');
-                $objWriter->startElement('c:rich');
+            $objWriter->startElement('c:tx');
+            $objWriter->startElement('c:rich');
 
-                $objWriter->startElement('a:bodyPr');
-                $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->endElement(); // a:bodyPr
 
-                $objWriter->startElement('a:lstStyle');
-                $objWriter->endElement(); // a:lstStyle
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
 
-                $objWriter->startElement('a:p');
+            $objWriter->startElement('a:p');
 
-                if (is_array($caption)) {
-                    $caption = $caption[0];
-                }
-                $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
-
-                $objWriter->endElement(); // a:p
-                $objWriter->endElement(); // c:rich
-                $objWriter->endElement(); // c:tx
+            if (is_array($caption)) {
+                $caption = $caption[0];
             }
+            $this->getParentWriter()
+                ->getWriterPartstringtable()
+                ->writeRichTextForCharts($objWriter, $caption, 'a');
+
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:rich
+            $objWriter->endElement(); // c:tx
 
             if ($groupType !== DataSeries::TYPE_BUBBLECHART) {
                 $layout = $yAxisLabel->getLayout();
@@ -1124,8 +1120,8 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
-        $plotGroupingType = $plotGroup->getPlotGrouping();
-        if ($plotGroupingType !== null && $groupType !== DataSeries::TYPE_SURFACECHART && $groupType !== DataSeries::TYPE_SURFACECHART_3D) {
+        $plotGroupingType = (string) $plotGroup->getPlotGrouping();
+        if ($plotGroupingType !== '' && $groupType !== DataSeries::TYPE_SURFACECHART && $groupType !== DataSeries::TYPE_SURFACECHART_3D) {
             $objWriter->startElement('c:grouping');
             $objWriter->writeAttribute('val', $plotGroupingType);
             $objWriter->endElement();
@@ -1729,7 +1725,7 @@ class Chart extends WriterPart
         if (empty($xAxis->getShadowProperty('effect'))) {
             return;
         }
-        /** @var string $effect */
+        /** @var non-falsy-string $effect */
         $effect = $xAxis->getShadowProperty('effect');
         $objWriter->startElement("a:$effect");
 
