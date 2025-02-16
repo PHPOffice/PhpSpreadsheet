@@ -75,8 +75,6 @@ class Worksheet
      */
     private Cells $cellCollection;
 
-    private bool $cellCollectionInitialized = true;
-
     /**
      * Collection of row dimensions.
      *
@@ -360,10 +358,9 @@ class Worksheet
      */
     public function disconnectCells(): void
     {
-        if ($this->cellCollectionInitialized) {
+        if (isset($this->cellCollection)) {
             $this->cellCollection->unsetWorksheetCells();
             unset($this->cellCollection);
-            $this->cellCollectionInitialized = false;
         }
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
         $this->parent = null;
@@ -463,7 +460,7 @@ class Worksheet
      */
     public function getCoordinates(bool $sorted = true): array
     {
-        if ($this->cellCollectionInitialized === false) {
+        if (!isset($this->cellCollection)) {
             return [];
         }
 
@@ -830,6 +827,13 @@ class Worksheet
                 $this->parent->getIndex($this)
             );
         }
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function setParent(Spreadsheet $parent): self
+    {
         $this->parent = $parent;
 
         return $this;
@@ -3465,8 +3469,7 @@ class Worksheet
      */
     public function __clone()
     {
-        // @phpstan-ignore-next-line
-        foreach ($this as $key => $val) {
+        foreach (get_object_vars($this) as $key => $val) {
             if ($key == 'parent') {
                 continue;
             }

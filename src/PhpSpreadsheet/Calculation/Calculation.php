@@ -134,11 +134,6 @@ class Calculation
     public ?string $formulaError = null;
 
     /**
-     * Reference Helper.
-     */
-    private static ReferenceHelper $referenceHelper;
-
-    /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
      */
     private CyclicReferenceStack $cyclicReferenceStack;
@@ -2895,7 +2890,6 @@ class Calculation
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
         $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
-        self::$referenceHelper = ReferenceHelper::getInstance();
     }
 
     private static function loadLocales(): void
@@ -5741,7 +5735,7 @@ class Calculation
         $recursiveCalculationCellAddress = $recursiveCalculationCell->getCoordinate();
 
         // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
-        $definedNameValue = self::$referenceHelper->updateFormulaReferencesAnyWorksheet(
+        $definedNameValue = ReferenceHelper::getInstance()->updateFormulaReferencesAnyWorksheet(
             $definedNameValue,
             Coordinate::columnIndexFromString($cell->getColumn()) - 1,
             $cell->getRow() - 1
