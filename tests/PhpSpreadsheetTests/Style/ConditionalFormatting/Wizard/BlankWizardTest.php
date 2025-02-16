@@ -27,7 +27,6 @@ class BlankWizardTest extends TestCase
     public function testBlankWizard(): void
     {
         $ruleType = Wizard::BLANKS;
-        /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Blanks::class, $wizard);
         $wizard->setStyle($this->style);
@@ -45,7 +44,6 @@ class BlankWizardTest extends TestCase
     public function testNonBlankWizard(): void
     {
         $ruleType = Wizard::NOT_BLANKS;
-        /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Blanks::class, $wizard);
         $wizard->setStyle($this->style);

@@ -53,16 +53,7 @@ class OdsTest extends TestCase
     public function testLoadWorksheets(): void
     {
         $spreadsheet = $this->loadDataFile();
-
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
         self::assertEquals(2, $spreadsheet->getSheetCount());
-
-        $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
-
-        $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
         $spreadsheet->disconnectWorksheets();
@@ -106,18 +97,9 @@ class OdsTest extends TestCase
     public function testLoadBadFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Could not find zip member');
         $reader = new Ods();
-        $spreadsheet = $reader->load(__FILE__);
-
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
-        self::assertEquals(2, $spreadsheet->getSheetCount());
-
-        $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
-
-        $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        $reader->load(__FILE__);
     }
 
     public function testLoadCorruptFile(): void
@@ -127,15 +109,12 @@ class OdsTest extends TestCase
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
 
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertNotSame($firstSheet, $secondSheet);
     }
 
     public function testReadValueAndComments(): void

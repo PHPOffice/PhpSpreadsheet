@@ -9,11 +9,12 @@ use PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IOFactoryTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateWriter')]
+    #[DataProvider('providerCreateWriter')]
     public function testCreateWriter(string $name, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -43,7 +44,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Writer\Pdf\Mpdf::class, $actual);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateReader')]
+    #[DataProvider('providerCreateReader')]
     public function testCreateReader(string $name, string $expected): void
     {
         $actual = IOFactory::createReader($name);
@@ -71,15 +72,14 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Reader\Html::class, $actual);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIdentify')]
+    #[DataProvider('providerIdentify')]
     public function testIdentifyCreateLoad(string $file, string $expectedName, string $expectedClass): void
     {
         $actual = IOFactory::identify($file);
         self::assertSame($expectedName, $actual);
         $actual = IOFactory::createReaderForFile($file);
         self::assertSame($expectedClass, $actual::class);
-        $actual = IOFactory::load($file);
-        self::assertInstanceOf(Spreadsheet::class, $actual);
+        IOFactory::load($file);
     }
 
     public static function providerIdentify(): array
