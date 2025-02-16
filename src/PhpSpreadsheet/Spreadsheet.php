@@ -1125,7 +1125,7 @@ class Spreadsheet implements JsonSerializable
                     $this->$key = [];
                     foreach ($currentCollection as $item) {
                         $clone = clone $item;
-                        $this->$key[] = $clone;
+                        $this->{$key}[] = $clone;
                     }
 
                     break;
