@@ -116,7 +116,7 @@ class TableTest extends SetupTeardown
         self::assertFalse($result->getShowHeaderRow());
 
         $result = $table->setShowTotalsRow(true);
-        self::assertTrue($table->getShowTotalsRow());
+        self::assertTrue($result->getShowTotalsRow());
     }
 
     public function testGetWorksheet(): void

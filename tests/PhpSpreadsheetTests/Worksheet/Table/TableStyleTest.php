@@ -19,16 +19,16 @@ class TableStyleTest extends SetupTeardown
         $result = $style->setTheme(TableStyle::TABLE_STYLE_DARK1);
         self::assertEquals(TableStyle::TABLE_STYLE_DARK1, $result->getTheme());
 
-        $result = $style->setShowFirstColumn(true);
+        $style->setShowFirstColumn(true);
         self::assertTrue($style->getShowFirstColumn());
 
-        $result = $style->setShowLastColumn(true);
+        $style->setShowLastColumn(true);
         self::assertTrue($style->getShowLastColumn());
 
-        $result = $style->setShowRowStripes(true);
+        $style->setShowRowStripes(true);
         self::assertTrue($style->getShowRowStripes());
 
-        $result = $style->setShowColumnStripes(true);
+        $style->setShowColumnStripes(true);
         self::assertTrue($style->getShowColumnStripes());
     }
 

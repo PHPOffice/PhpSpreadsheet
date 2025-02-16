@@ -96,7 +96,7 @@ class ColumnTest extends SetupTeardown
 
         $result = $columnFilter->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
 
-        $result = $columnFilter->getJoin();
+        $result = $result->getJoin();
         self::assertEquals(Column::AUTOFILTER_COLUMN_JOIN_AND, $result);
     }
 
@@ -174,10 +174,9 @@ class ColumnTest extends SetupTeardown
         ];
 
         foreach ($attributeSet as $attributeName => $attributeValue) {
-            //    Setters return the instance to implement the fluent interface
-            $result = $columnFilter->setAttribute($attributeName, $attributeValue);
+            $columnFilter->setAttribute($attributeName, $attributeValue);
         }
-        self::assertSame($attributeSet, $result->getAttributes());
+        self::assertSame($attributeSet, $columnFilter->getAttributes());
     }
 
     public function testGetAttribute(): void

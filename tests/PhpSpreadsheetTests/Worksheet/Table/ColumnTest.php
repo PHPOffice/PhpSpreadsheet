@@ -67,11 +67,11 @@ class ColumnTest extends SetupTeardown
 
         $label = 'Total';
         $result = $column->setTotalsRowLabel($label);
-        self::assertEquals($label, $column->getTotalsRowLabel());
+        self::assertEquals($label, $result->getTotalsRowLabel());
 
         $function = 'sum';
         $result = $column->setTotalsRowFunction($function);
-        self::assertEquals($function, $column->getTotalsRowFunction());
+        self::assertEquals($function, $result->getTotalsRowFunction());
 
         $formula = '=SUM(Sales_Data[[#This Row],[Q1]:[Q4]])';
         $result = $column->setColumnFormula($formula);
