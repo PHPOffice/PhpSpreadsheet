@@ -80,7 +80,6 @@ class IOFactoryRegisterTest extends TestCase
         IOFactory::registerWriter(IOFactory::WRITER_HTML, CustomWriter::class);
         $objWriter = IOFactory::createWriter($spreadsheet, CustomWriter::class);
         self::assertInstanceOf(CustomWriter::class, $objWriter);
-        self::assertTrue(method_exists($objWriter, 'generateHtmlAll'));
         $html2 = $objWriter->generateHtmlAll();
         self::assertStringContainsString('<td class="column0 style0 n">1</td>', $html2);
         $spreadsheet->disconnectWorksheets();
