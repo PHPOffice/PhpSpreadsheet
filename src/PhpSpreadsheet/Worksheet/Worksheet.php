@@ -1395,6 +1395,9 @@ class Worksheet
      */
     public function getStyle(AddressRange|CellAddress|int|string|array $cellCoordinate): Style
     {
+        if (is_string($cellCoordinate)) {
+            $cellCoordinate = Validations::definedNameToCoordinate($cellCoordinate, $this, true);
+        }
         $cellCoordinate = Validations::validateCellOrCellRange($cellCoordinate);
 
         // set this sheet as active
