@@ -169,7 +169,6 @@ class DocumentGeneratorTest extends TestCase
             self::markTestSkipped('Not run because prior test failed');
         }
         $directory = 'docs/references/';
-        self::assertNotEmpty($directory);
         $phpSpreadsheetFunctions = Calculation::getFunctions();
         ksort($phpSpreadsheetFunctions);
 

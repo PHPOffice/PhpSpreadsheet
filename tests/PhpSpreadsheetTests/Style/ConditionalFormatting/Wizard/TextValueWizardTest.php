@@ -27,7 +27,6 @@ class TextValueWizardTest extends TestCase
     public function testTextContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -49,7 +48,6 @@ class TextValueWizardTest extends TestCase
     public function testTextContainsWizardWithCellReference(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -71,7 +69,6 @@ class TextValueWizardTest extends TestCase
     public function testTextNotContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -93,7 +90,6 @@ class TextValueWizardTest extends TestCase
     public function testTextBeginsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -115,7 +111,6 @@ class TextValueWizardTest extends TestCase
     public function testTextEndsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 

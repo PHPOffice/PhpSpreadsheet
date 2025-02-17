@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- Start migration to Phpstan 2. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
 
 ### Moved
 
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Refactor Helper/Html. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
 
 ## 2025-02-08 - 4.0.0
 

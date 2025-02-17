@@ -36,6 +36,14 @@ class IOFactoryTest extends TestCase
         ];
     }
 
+    public function testRegisterWriter(): void
+    {
+        IOFactory::registerWriter('Pdf', Writer\Pdf\Mpdf::class);
+        $spreadsheet = new Spreadsheet();
+        $actual = IOFactory::createWriter($spreadsheet, 'Pdf');
+        self::assertInstanceOf(Writer\Pdf\Mpdf::class, $actual);
+    }
+
     #[DataProvider('providerCreateReader')]
     public function testCreateReader(string $name, string $expected): void
     {
@@ -55,6 +63,13 @@ class IOFactoryTest extends TestCase
             ['Slk', Reader\Slk::class],
             ['Html', Reader\Html::class],
         ];
+    }
+
+    public function testRegisterReader(): void
+    {
+        IOFactory::registerReader('Custom', Reader\Html::class);
+        $actual = IOFactory::createReader('Custom');
+        self::assertInstanceOf(Reader\Html::class, $actual);
     }
 
     #[DataProvider('providerIdentify')]
@@ -161,21 +176,21 @@ class IOFactoryTest extends TestCase
     {
         $filename = 'samples/Reader2/sampleData/example1.tsv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderCsvExtension(): void
     {
         $filename = 'samples/Reader2/sampleData/example1.csv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderNoExtension(): void
     {
         $filename = 'samples/Reader/sampleData/example1xls';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Xls', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Xls', $reader::class);
     }
 
     public function testCreateReaderNotSpreadsheet(): void

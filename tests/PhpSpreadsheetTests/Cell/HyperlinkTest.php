@@ -25,8 +25,7 @@ class HyperlinkTest extends TestCase
         $newUrlValue = 'http://github.com/PHPOffice/PhpSpreadsheet';
 
         $testInstance = new Hyperlink($initialUrlValue);
-        $result = $testInstance->setUrl($newUrlValue);
-        self::assertInstanceOf(Hyperlink::class, $result);
+        $testInstance->setUrl($newUrlValue);
 
         $result = $testInstance->getUrl();
         self::assertEquals($newUrlValue, $result);
@@ -48,8 +47,7 @@ class HyperlinkTest extends TestCase
         $newTooltipValue = 'PhpSpreadsheet Repository on Github';
 
         $testInstance = new Hyperlink('', $initialTooltipValue);
-        $result = $testInstance->setTooltip($newTooltipValue);
-        self::assertInstanceOf(Hyperlink::class, $result);
+        $testInstance->setTooltip($newTooltipValue);
 
         $result = $testInstance->getTooltip();
         self::assertEquals($newTooltipValue, $result);
