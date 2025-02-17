@@ -119,7 +119,7 @@ class Helpers
         if (!is_numeric($testVal1) || $testVal1 < 31) {
             if (!is_numeric($testVal2) || $testVal2 < 12) {
                 if (is_numeric($testVal3) && $testVal3 < 12) {
-                    $testVal3 += 2000;
+                    $testVal3 = (string) ($testVal3 + 2000);
                 }
             }
         }
