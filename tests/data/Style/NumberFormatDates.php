@@ -18,13 +18,13 @@ return [
     [
         '1960-12-19T01:30:00',
         22269.0625,
-        'yyyy-mm-dd\\Thh:mm:ss',
+        'yyyy-mm-dd\Thh:mm:ss',
     ],
     // Date with plaintext in quotes
     [
         '1960-12-19T01:30:00 Z',
         22269.0625,
-        'yyyy-mm-dd"T"hh:mm:ss \\Z',
+        'yyyy-mm-dd"T"hh:mm:ss \Z',
     ],
     // Date with quoted formatting characters
     [

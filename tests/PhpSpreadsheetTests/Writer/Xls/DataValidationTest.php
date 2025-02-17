@@ -34,7 +34,6 @@ class DataValidationTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $sheet0 = $robj->getActiveSheet();
         self::assertSame(['H1', 'C1:F1', '1:1'], array_keys($sheet0->getDataValidationCollection()));
-        self::assertTrue(true);
         $robj->disconnectWorksheets();
     }
 
@@ -64,7 +63,6 @@ class DataValidationTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $sheet0 = $robj->getActiveSheet();
         self::assertSame(['A9', 'A5:A7', 'A:A'], array_keys($sheet0->getDataValidationCollection()));
-        self::assertTrue(true);
         $robj->disconnectWorksheets();
     }
 }

@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FormattedNumberSlashTest extends TestCase
@@ -17,14 +18,16 @@ class FormattedNumberSlashTest extends TestCase
         StringHelper::setThousandsSeparator(null);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumbers')]
+    #[DataProvider('providerNumbers')]
     public function testNumber(float $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         StringHelper::setThousandsSeparator($thousandsSeparator);
         StringHelper::setDecimalSeparator($decimalSeparator);
         $result = FormattedNumber::convertToNumberIfFormatted($value);
         self::assertTrue($result);
-        self::assertSame($expected, $value);
+        // Call by ref convert... changed type from string to float.
+        // Phpstan can't figure that out.
+        self::assertSame($expected, $value); // @phpstan-ignore-line
     }
 
     public static function providerNumbers(): array
@@ -36,7 +39,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentages')]
+    #[DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         $originalValue = $value;
@@ -57,7 +60,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencies')]
+    #[DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.', ?string $currencyCode = null): void
     {
         $originalValue = $value;

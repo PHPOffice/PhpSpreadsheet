@@ -92,7 +92,7 @@ class FormulaArguments implements Stringable
     public function __toString(): string
     {
         $args = array_map(
-            [self::class, 'stringify'],
+            self::stringify(...),
             $this->args
         );
 
