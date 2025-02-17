@@ -150,7 +150,7 @@ class Periodic
         float $presentValue,
         int $type
     ): float {
-        if ($rate !== null && $rate != 0) {
+        if ($rate != 0) {
             return -$presentValue
                 * (1 + $rate) ** $numberOfPeriods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $numberOfPeriods - 1)
                     / $rate;

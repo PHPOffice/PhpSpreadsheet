@@ -47,9 +47,10 @@ class Percentiles
             sort($mArgs);
             $count = Counts::COUNT($mArgs);
             $index = $entry * ($count - 1);
-            $iBase = floor($index);
-            if ($index == $iBase) {
-                return $mArgs[$index];
+            $indexFloor = floor($index);
+            $iBase = (int) $indexFloor;
+            if ($index == $indexFloor) {
+                return $mArgs[$iBase];
             }
             $iNext = $iBase + 1;
             $iProportion = $index - $iBase;

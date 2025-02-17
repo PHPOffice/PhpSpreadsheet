@@ -122,7 +122,7 @@ class Deviations
                 return ExcelError::VALUE();
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if (!is_string($arg)) {
                     $summer += (($arg - $mean) / $stdDev) ** 3;
                     ++$count;
                 }
