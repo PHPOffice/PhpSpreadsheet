@@ -110,7 +110,7 @@ class Validations
         return (string) $cellRange;
     }
 
-    public static function definedNameToCoordinate(string $coordinate, Worksheet $worksheet, bool $replaceDollar = false): string
+    public static function definedNameToCoordinate(string $coordinate, Worksheet $worksheet): string
     {
         // Uppercase coordinate
         $coordinate = strtoupper($coordinate);
@@ -120,9 +120,6 @@ class Validations
         if ($defined !== null) {
             if ($defined->getWorksheet() === $worksheet && !$defined->isFormula()) {
                 $coordinate = Preg::replace('/^=/', '', $defined->getValue());
-                if ($replaceDollar) {
-                    $coordinate = str_replace('$', '', $coordinate);
-                }
             }
         }
 
