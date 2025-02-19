@@ -671,7 +671,7 @@ class Parser
     private function convertRange3d(string $token): string
     {
         // Split the ref at the ! symbol
-        [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
+        [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true, true);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref ?? '');
@@ -723,7 +723,7 @@ class Parser
     private function convertRef3d(string $cell): string
     {
         // Split the ref at the ! symbol
-        [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
+        [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true, true);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref ?? '');

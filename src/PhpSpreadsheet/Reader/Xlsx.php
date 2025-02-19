@@ -1821,11 +1821,10 @@ class Xlsx extends BaseReader
                                         $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
                                         if (is_array($definedNameValueParts)) {
                                             // Extract sheet name
-                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
-                                            $extractedSheetName = trim((string) $extractedSheetName, "'");
+                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true, true);
 
                                             // Locate sheet
-                                            $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                            $locatedSheet = $excel->getSheetByName("$extractedSheetName");
                                         }
                                     }
 

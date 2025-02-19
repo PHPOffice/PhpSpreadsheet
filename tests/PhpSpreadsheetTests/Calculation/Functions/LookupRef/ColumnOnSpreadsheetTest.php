@@ -54,4 +54,22 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
         $result = $sheet->getCell('B3')->getCalculatedValue();
         self::assertSame('#NAME?', $result);
     }
+
+    public function testCOLUMNSheetWithApostrophe(): void
+    {
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
+
+        $sheet1 = $this->getSpreadsheet()->createSheet();
+        $sheet1->setTitle("apo''strophe");
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$5', true)); // defined locally, only usable on sheet1
+
+        $sheet1->getCell('B3')->setValue('=COLUMN(newnr)');
+        $result = $sheet1->getCell('B3')->getCalculatedValue();
+        self::assertSame(6, $result);
+
+        $sheet->getCell('B3')->setValue('=COLUMN(newnr)');
+        $result = $sheet->getCell('B3')->getCalculatedValue();
+        self::assertSame('#NAME?', $result);
+    }
 }

@@ -4408,7 +4408,9 @@ class Calculation
                             if ($rangeWS1 !== '') {
                                 $rangeWS1 .= '!';
                             }
-                            $rangeSheetRef = trim($rangeSheetRef, "'");
+                            if (str_starts_with($rangeSheetRef, "'")) {
+                                $rangeSheetRef = Worksheet::unApostrophizeTitle($rangeSheetRef);
+                            }
                             [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
                             if ($rangeWS2 !== '') {
                                 $rangeWS2 .= '!';
@@ -4766,18 +4768,18 @@ class Calculation
                             }
                         }
                         if (str_contains($operand1Data['reference'] ?? '', '!')) {
-                            [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
+                            [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true, true);
                         } else {
                             $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
                         }
                         $sheet1 ??= '';
 
-                        [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
+                        [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true, true);
                         if (empty($sheet2)) {
                             $sheet2 = $sheet1;
                         }
 
-                        if (trim($sheet1, "'") === trim($sheet2, "'")) {
+                        if ($sheet1 === $sheet2) {
                             if ($operand1Data['reference'] === null && $cell !== null) {
                                 if (is_array($operand1Data['value'])) {
                                     $operand1Data['reference'] = $cell->getCoordinate();
@@ -5495,7 +5497,7 @@ class Calculation
             $worksheetName = $worksheet->getTitle();
 
             if (str_contains($range, '!')) {
-                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true, true);
                 $worksheet = ($this->spreadsheet === null) ? null : $this->spreadsheet->getSheetByName($worksheetName);
             }
 
@@ -5557,7 +5559,7 @@ class Calculation
 
         if ($worksheet !== null) {
             if (str_contains($range, '!')) {
-                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true, true);
                 $worksheet = ($this->spreadsheet === null) ? null : $this->spreadsheet->getSheetByName($worksheetName);
             }
 

@@ -6,46 +6,41 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef\AllSetupTeardown;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IsRefTest extends AllSetupTeardown
 {
-    private bool $skipA13 = true;
-
-    public function testIsRef(): void
+    #[DataProvider('providerIsRef')]
+    public function testIsRef(mixed $expected, string $ref): void
     {
+        if ($expected === 'incomplete') {
+            self::markTestIncomplete('Calculation is too complicated');
+        }
         $sheet = $this->getSheet();
 
         $sheet->getParentOrThrow()->addDefinedName(new NamedRange('NAMED_RANGE', $sheet, 'C1'));
+        $sheet->getCell('A1')->setValue("=ISREF($ref)");
+        self::assertSame($expected, $sheet->getCell('A1')->getCalculatedValue());
+    }
 
-        $sheet->getCell('A1')->setValue('=ISREF(B1)');
-        $sheet->getCell('A2')->setValue('=ISREF(B1:B2)');
-        $sheet->getCell('A3')->setValue('=ISREF(B1:D4 C1:C5)');
-        $sheet->getCell('A4')->setValue('=ISREF("PHP")');
-        $sheet->getCell('A5')->setValue('=ISREF(B1*B2)');
-        $sheet->getCell('A6')->setValue('=ISREF(Worksheet2!B1)');
-        $sheet->getCell('A7')->setValue('=ISREF(NAMED_RANGE)');
-        $sheet->getCell('A8')->setValue('=ISREF(INDIRECT("' . $sheet->getTitle() . '" & "!" & "A1"))');
-        $sheet->getCell('A9')->setValue('=ISREF(INDIRECT("A1"))');
-        $sheet->getCell('A10')->setValue('=ISREF(INDIRECT("Invalid Worksheet" & "!" & "A1"))');
-        $sheet->getCell('A11')->setValue('=ISREF(INDIRECT("Invalid Worksheet" & "!A1"))');
-        $sheet->getCell('A12')->setValue('=ISREF(ZZZ1)');
-        $sheet->getCell('A13')->setValue('=ISREF(CHOOSE(2, A1, B1, C1))');
-
-        self::assertTrue($sheet->getCell('A1')->getCalculatedValue()); // Cell Reference
-        self::assertTrue($sheet->getCell('A2')->getCalculatedValue()); // Cell Range
-        self::assertTrue($sheet->getCell('A3')->getCalculatedValue()); // Complex Cell Range
-        self::assertFalse($sheet->getCell('A4')->getCalculatedValue()); // Text String
-        self::assertFalse($sheet->getCell('A5')->getCalculatedValue()); // Result of a math expression
-        self::assertTrue($sheet->getCell('A6')->getCalculatedValue()); // Cell Reference with worksheet
-        self::assertTrue($sheet->getCell('A7')->getCalculatedValue()); // Named Range
-        self::assertTrue($sheet->getCell('A8')->getCalculatedValue()); // Indirect to a Cell Reference
-        self::assertTrue($sheet->getCell('A9')->getCalculatedValue()); // Indirect to a Worksheet/Cell Reference
-        self::assertFalse($sheet->getCell('A10')->getCalculatedValue()); // Indirect to an Invalid Worksheet/Cell Reference
-        self::assertFalse($sheet->getCell('A11')->getCalculatedValue()); // Indirect to an Invalid Worksheet/Cell Reference
-        self::assertFalse($sheet->getCell('A12')->getCalculatedValue()); // Invalid Cell Reference
-        if ($this->skipA13) {
-            self::markTestIncomplete('Calculation for A13 is too complicated');
-        }
-        self::assertTrue($sheet->getCell('A13')->getCalculatedValue()); // returned Cell Reference
+    public static function providerIsRef(): array
+    {
+        return [
+            'cell reference' => [true, 'B1'],
+            'invalid cell reference' => [false, 'ZZZ1'],
+            'cell range' => [true, 'B1:B2'],
+            'complex cell range' => [true, 'B1:D4 C1:C5'],
+            'text string' => [false, '"PHP"'],
+            'math expression' => [false, 'B1*B2'],
+            'unquoted sheet name' => [true, 'Worksheet2!B1'],
+            'quoted sheet name' => [true, "'Worksheet2'!B1:B2"],
+            'quoted sheet name with apostrophe' => [true, "'Work''sheet2'!B1:B2"],
+            'named range' => [true, 'NAMED_RANGE'],
+            'unknown named range' => ['#NAME?', 'xNAMED_RANGE'],
+            'indirect to a cell reference' => [true, 'INDIRECT("A1")'],
+            'indirect to a worksheet/cell reference' => [true, 'INDIRECT("\'Worksheet\'!A1")'],
+            'indirect to invalid worksheet/cell reference' => [false, 'INDIRECT("\'Invalid Worksheet\'!A1")'],
+            'returned cell reference' => ['incomplete', 'CHOOSE(2, A1, B1, C1)'],
+        ];
     }
 }
