@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class GnumericStylesTest extends TestCase
 {
-    /**
-     * @dataProvider providerBorderStyle
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBorderStyle')]
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
@@ -41,9 +39,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerfillType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerfillType')]
     public function testFillType(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
@@ -68,9 +64,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerHorizontal
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHorizontal')]
     public function testHorizontal(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
@@ -95,9 +89,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerunderline
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerunderline')]
     public function testUnderline(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
@@ -122,9 +114,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerVertical
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVertical')]
     public function testVertical(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
@@ -149,9 +139,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerDataType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataType')]
     public function testDataType(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();

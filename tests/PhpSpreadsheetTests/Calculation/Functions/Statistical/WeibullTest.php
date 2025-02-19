@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class WeibullTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerWEIBULL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEIBULL')]
     public function testWEIBULL(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('WEIBULL', $expectedResult, ...$args);
@@ -21,9 +19,7 @@ class WeibullTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/WEIBULL.php';
     }
 
-    /**
-     * @dataProvider providerWeibullArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWeibullArray')]
     public function testWeibullArray(array $expectedResult, string $values, string $alpha, string $beta): void
     {
         $calculation = Calculation::getInstance();

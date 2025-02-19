@@ -24,12 +24,6 @@ class Color
             return $palette[$color - 8];
         }
 
-        // default color table
-        if ($version == Xls::XLS_BIFF8) {
-            return Color\BIFF8::lookup($color);
-        }
-
-        // BIFF5
-        return Color\BIFF5::lookup($color);
+        return ($version === Xls::XLS_BIFF8) ? Color\BIFF8::lookup($color) : Color\BIFF5::lookup($color);
     }
 }

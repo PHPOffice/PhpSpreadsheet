@@ -149,14 +149,22 @@ class Styles extends BaseParserClass
             $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color)); //* @phpstan-ignore-line
             $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)); //* @phpstan-ignore-line
         } elseif ($fillStyleXml->patternFill) {
-            $defaultFillStyle = Fill::FILL_NONE;
+            $defaultFillStyle = ($fillStyle->getFillType() !== null) ? Fill::FILL_NONE : '';
+            $fgFound = false;
+            $bgFound = false;
             if ($fillStyleXml->patternFill->fgColor) {
                 $fillStyle->getStartColor()->setARGB($this->readColor($fillStyleXml->patternFill->fgColor, true));
-                $defaultFillStyle = Fill::FILL_SOLID;
+                if ($fillStyle->getFillType() !== null) {
+                    $defaultFillStyle = Fill::FILL_SOLID;
+                }
+                $fgFound = true;
             }
             if ($fillStyleXml->patternFill->bgColor) {
                 $fillStyle->getEndColor()->setARGB($this->readColor($fillStyleXml->patternFill->bgColor, true));
-                $defaultFillStyle = Fill::FILL_SOLID;
+                if ($fillStyle->getFillType() !== null) {
+                    $defaultFillStyle = Fill::FILL_SOLID;
+                }
+                $bgFound = true;
             }
 
             $type = '';
@@ -169,6 +177,22 @@ class Styles extends BaseParserClass
             $patternType = ($type === '') ? $defaultFillStyle : $type;
 
             $fillStyle->setFillType($patternType);
+            if (
+                !$fgFound // no foreground color specified
+                && !in_array($patternType, [Fill::FILL_NONE, Fill::FILL_SOLID], true) // these patterns aren't relevant
+                && $fillStyle->getStartColor()->getARGB() // not conditional
+            ) {
+                $fillStyle->getStartColor()
+                    ->setARGB('', true);
+            }
+            if (
+                !$bgFound // no background color specified
+                && !in_array($patternType, [Fill::FILL_NONE, Fill::FILL_SOLID], true) // these patterns aren't relevant
+                && $fillStyle->getEndColor()->getARGB() // not conditional
+            ) {
+                $fillStyle->getEndColor()
+                    ->setARGB('', true);
+            }
         }
     }
 

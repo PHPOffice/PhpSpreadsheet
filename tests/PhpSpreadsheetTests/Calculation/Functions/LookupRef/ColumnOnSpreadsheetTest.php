@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ColumnOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOLUMNonSpreadsheet
-     */
+    #[DataProvider('providerCOLUMNonSpreadsheet')]
     public function testColumnOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangey', $sheet, '$F$2:$H$2'));
@@ -39,6 +39,7 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
 
     public function testCOLUMNLocalDefinedName(): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
 
         $sheet1 = $this->getSpreadsheet()->createSheet();

@@ -25,9 +25,7 @@ class ImSubTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMSUB
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
     public function testDirectCallToIMSUB(string $expectedResult, string $arg1, string $arg2): void
     {
         $result = ComplexOperations::IMSUB($arg1, $arg2);
@@ -42,9 +40,7 @@ class ImSubTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMSUB
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
     public function testIMSUBAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImSubTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMSUB
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
     public function testIMSUBInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImSubTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSUB.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMSUB
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSUB')]
     public function testIMSUBUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -117,9 +109,7 @@ class ImSubTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImSubArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSubArray')]
     public function testImSubArray(array $expectedResult, string $subidend, string $subisor): void
     {
         $calculation = Calculation::getInstance();

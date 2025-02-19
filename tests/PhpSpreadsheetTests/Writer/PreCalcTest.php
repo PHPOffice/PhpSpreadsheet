@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class PreCalcTest extends AbstractFunctional
 {
@@ -117,7 +118,7 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm whether workbook is set to recalculate
             if ($preCalc === false) {
-                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="1"/>', $data);
+                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="0"/>', $data);
             } else {
                 self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="1" fullCalcOnLoad="0" forceFullCalc="0"/>', $data);
             }
@@ -174,9 +175,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    /**
-     * @dataProvider providerPreCalc
-     */
+    #[DataProvider('providerPreCalc')]
     public function testPreCalc(?bool $preCalc, string $type): void
     {
         $spreadsheet = new Spreadsheet();
@@ -205,5 +204,6 @@ class PreCalcTest extends AbstractFunctional
         $this->verifyOds($preCalc, $type);
         $this->verifyHtml($preCalc, $type);
         $this->verifyCsv($preCalc, $type);
+        $spreadsheet->disconnectWorksheets();
     }
 }

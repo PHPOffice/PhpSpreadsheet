@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -20,9 +21,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Style;
  */
 class Content extends WriterPart
 {
-    const NUMBER_COLS_REPEATED_MAX = 1024;
-    const NUMBER_ROWS_REPEATED_MAX = 1048576;
-
     private Formula $formulaConvertor;
 
     /**
@@ -142,7 +140,6 @@ class Content extends WriterPart
                     sprintf('%s_%d_%d', Style::COLUMN_STYLE_PREFIX, $sheetIndex, $columnDimension->getColumnNumeric())
                 );
                 $objWriter->writeAttribute('table:default-cell-style-name', 'ce0');
-//                $objWriter->writeAttribute('table:number-columns-repeated', self::NUMBER_COLS_REPEATED_MAX);
                 $objWriter->endElement();
             }
             $this->writeRows($objWriter, $spreadsheet->getSheet($sheetIndex), $sheetIndex);
@@ -155,34 +152,33 @@ class Content extends WriterPart
      */
     private function writeRows(XMLWriter $objWriter, Worksheet $sheet, int $sheetIndex): void
     {
-        $numberRowsRepeated = self::NUMBER_ROWS_REPEATED_MAX;
-        $span_row = 0;
+        $spanRow = 0;
         $rows = $sheet->getRowIterator();
         foreach ($rows as $row) {
-            $cellIterator = $row->getCellIterator();
-            --$numberRowsRepeated;
-            if ($cellIterator->valid()) {
-                $objWriter->startElement('table:table-row');
-                if ($span_row) {
-                    if ($span_row > 1) {
-                        $objWriter->writeAttribute('table:number-rows-repeated', (string) $span_row);
-                    }
-                    $objWriter->startElement('table:table-cell');
-                    $objWriter->writeAttribute('table:number-columns-repeated', (string) self::NUMBER_COLS_REPEATED_MAX);
+            $cellIterator = $row->getCellIterator(iterateOnlyExistingCells: true);
+            $cellIterator->rewind();
+            $rowStyleExists = $sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0;
+            if ($cellIterator->valid() || $rowStyleExists) {
+                if ($spanRow) {
+                    $objWriter->startElement('table:table-row');
+                    $objWriter->writeAttribute(
+                        'table:number-rows-repeated',
+                        (string) $spanRow
+                    );
                     $objWriter->endElement();
-                    $span_row = 0;
-                } else {
-                    if ($sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
-                        $objWriter->writeAttribute(
-                            'table:style-name',
-                            sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
-                        );
-                    }
-                    $this->writeCells($objWriter, $cellIterator);
+                    $spanRow = 0;
                 }
+                $objWriter->startElement('table:table-row');
+                if ($rowStyleExists) {
+                    $objWriter->writeAttribute(
+                        'table:style-name',
+                        sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
+                    );
+                }
+                $this->writeCells($objWriter, $cellIterator);
                 $objWriter->endElement();
             } else {
-                ++$span_row;
+                ++$spanRow;
             }
         }
     }
@@ -192,7 +188,6 @@ class Content extends WriterPart
      */
     private function writeCells(XMLWriter $objWriter, RowCellIterator $cells): void
     {
-        $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
         foreach ($cells as $cell) {
             /** @var Cell $cell */
@@ -233,7 +228,7 @@ class Content extends WriterPart
                         }
                     }
                     if (isset($attributes['ref'])) {
-                        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches) == 1) {
+                        if (Preg::isMatch('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches)) {
                             $matrixRowSpan = 1;
                             $matrixColSpan = 1;
                             if (isset($matches[3])) {
@@ -291,17 +286,6 @@ class Content extends WriterPart
             Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prevColumn = $column;
-        }
-
-        $numberColsRepeated = $numberColsRepeated - $prevColumn - 1;
-        if ($numberColsRepeated > 0) {
-            if ($numberColsRepeated > 1) {
-                $objWriter->startElement('table:table-cell');
-                $objWriter->writeAttribute('table:number-columns-repeated', (string) $numberColsRepeated);
-                $objWriter->endElement();
-            } else {
-                $objWriter->writeElement('table:table-cell');
-            }
         }
     }
 

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SechTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSECH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSECH')]
     public function testSECH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class SechTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SECH.php';
     }
 
-    /**
-     * @dataProvider providerSechArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSechArray')]
     public function testSechArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

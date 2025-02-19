@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PriceDiscTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPRICEDISC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPRICEDISC')]
     public function testPRICEDISC(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PRICEDISC', $expectedResult, $args);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ReptTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerREPT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerREPT')]
     public function testReptThroughEngine(mixed $expectedResult, mixed $val = 'omitted', mixed $rpt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -34,9 +32,7 @@ class ReptTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/REPT.php';
     }
 
-    /**
-     * @dataProvider providerReptArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerReptArray')]
     public function testReptArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

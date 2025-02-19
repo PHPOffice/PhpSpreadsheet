@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -15,18 +16,22 @@ class AllSetupTeardown extends TestCase
 {
     protected string $compatibilityMode;
 
-    private ?Spreadsheet $spreadsheet = null;
+    protected string $arrayReturnType;
+
+    protected ?Spreadsheet $spreadsheet = null;
 
     private ?Worksheet $sheet = null;
 
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
+        $this->arrayReturnType = Calculation::getArrayReturnType();
     }
 
     protected function tearDown(): void
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
+        Calculation::setArrayReturnType($this->arrayReturnType);
         $this->sheet = null;
         if ($this->spreadsheet !== null) {
             $this->spreadsheet->disconnectWorksheets();
@@ -80,5 +85,14 @@ class AllSetupTeardown extends TestCase
         $this->sheet = $this->getSpreadsheet()->getActiveSheet();
 
         return $this->sheet;
+    }
+
+    protected function setArrayAsValue(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
     }
 }

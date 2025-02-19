@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class CellAddressTest extends TestCase
 {
-    /**
-     * @dataProvider providerCreateFromCellAddress
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromCellAddress')]
     public function testCreateFromCellAddress(
         string $cellAddress,
         string $expectedColumnName,
@@ -38,9 +36,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromCellAddressException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromCellAddressException')]
     public function testCreateFromCellAddressException(string $cellAddress): void
     {
         $this->expectException(Exception::class);
@@ -63,9 +59,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnAndRow
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromColumnAndRow')]
     public function testCreateFromColumnAndRow(
         int $columnId,
         int $rowId,
@@ -81,9 +75,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromColumnRowException')]
     public function testCreateFromColumnRowException(int|string $columnId, int|string $rowId): void
     {
         $this->expectException(Exception::class);
@@ -101,9 +93,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromColumnRowArray')]
     public function testCreateFromColumnRowArray(
         int $columnId,
         int $rowId,
@@ -129,9 +119,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromColumnRowException')]
     public function testCreateFromColumnRowArrayException(mixed $columnId, mixed $rowId): void
     {
         $this->expectException(Exception::class);
@@ -149,9 +137,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromCellAddressWithWorksheet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateFromCellAddressWithWorksheet')]
     public function testCreateFromCellAddressWithWorksheet(
         string $cellAddress,
         string $expectedCellAddress,

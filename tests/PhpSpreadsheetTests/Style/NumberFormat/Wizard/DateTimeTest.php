@@ -12,11 +12,10 @@ use PHPUnit\Framework\TestCase;
 class DateTimeTest extends TestCase
 {
     /**
-     * @dataProvider providerDateTime
-     *
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTime')]
     public function testDateTime(string $expectedResult, string|null|array $separators, array $formatBlocks): void
     {
         $wizard = new DateTime($separators, ...$formatBlocks);

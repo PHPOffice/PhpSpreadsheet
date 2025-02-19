@@ -11,7 +11,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -33,6 +32,9 @@ class Gnumeric extends BaseReader
     const NAMESPACE_META = 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0';
 
     const NAMESPACE_OOO = 'http://openoffice.org/2004/office';
+
+    const GNM_SHEET_VISIBILITY_VISIBLE = 'GNM_SHEET_VISIBILITY_VISIBLE';
+    const GNM_SHEET_VISIBILITY_HIDDEN = 'GNM_SHEET_VISIBILITY_HIDDEN';
 
     /**
      * Shared Expressions.
@@ -104,7 +106,7 @@ class Gnumeric extends BaseReader
 
         $xml = new XMLReader();
         $contents = $this->gzfileGetContents($filename);
-        $xml->xml($contents, null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($contents);
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
@@ -133,7 +135,7 @@ class Gnumeric extends BaseReader
 
         $xml = new XMLReader();
         $contents = $this->gzfileGetContents($filename);
-        $xml->xml($contents, null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($contents);
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -145,7 +147,12 @@ class Gnumeric extends BaseReader
                     'lastColumnIndex' => 0,
                     'totalRows' => 0,
                     'totalColumns' => 0,
+                    'sheetState' => Worksheet::SHEETSTATE_VISIBLE,
                 ];
+                $visibility = $xml->getAttribute('Visibility');
+                if ((string) $visibility === self::GNM_SHEET_VISIBILITY_HIDDEN) {
+                    $tmpInfo['sheetState'] = Worksheet::SHEETSTATE_HIDDEN;
+                }
 
                 while ($xml->read()) {
                     if (self::matchXml($xml, 'Name')) {
@@ -226,6 +233,7 @@ class Gnumeric extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
@@ -247,7 +255,7 @@ class Gnumeric extends BaseReader
 
         /** @var XmlScanner */
         $securityScanner = $this->securityScanner;
-        $xml2 = simplexml_load_string($securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xml2 = simplexml_load_string($securityScanner->scan($gFileData));
         $xml = self::testSimpleXml($xml2);
 
         $gnmXML = $xml->children(self::NAMESPACE_GNM);
@@ -271,8 +279,8 @@ class Gnumeric extends BaseReader
             //        name in line with the formula, not the reverse
             $this->spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
 
-            $visibility = $sheet->attributes()['Visibility'] ?? 'GNM_SHEET_VISIBILITY_VISIBLE';
-            if ((string) $visibility !== 'GNM_SHEET_VISIBILITY_VISIBLE') {
+            $visibility = $sheet->attributes()['Visibility'] ?? self::GNM_SHEET_VISIBILITY_VISIBLE;
+            if ((string) $visibility !== self::GNM_SHEET_VISIBILITY_VISIBLE) {
                 $this->spreadsheet->getActiveSheet()->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
             }
 

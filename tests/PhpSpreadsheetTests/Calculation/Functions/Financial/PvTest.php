@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPV')]
     public function testPV(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PV', $expectedResult, $args);

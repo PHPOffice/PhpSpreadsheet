@@ -159,7 +159,7 @@ class PolynomialBestFit extends BestFit
         $coefficients = [];
         for ($i = 0; $i < $C->rows; ++$i) {
             $r = $C->getValue($i + 1, 1); // row and column are origin-1
-            if (!is_numeric($r) || abs($r) <= 10 ** (-9)) {
+            if (!is_numeric($r) || abs($r + 0) <= 10 ** (-9)) {
                 $r = 0;
             } else {
                 $r += 0;

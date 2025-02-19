@@ -27,9 +27,7 @@ class Bin2DecTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBIN2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
     public function testDirectCallToBIN2DEC(string $expectedResult, bool|int|string $arg1): void
     {
         $result = ConvertBinary::toDecimal($arg1);
@@ -41,9 +39,7 @@ class Bin2DecTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerBIN2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
     public function testBIN2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,9 +52,7 @@ class Bin2DecTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerBIN2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
     public function testBIN2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +75,7 @@ class Bin2DecTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BIN2DEC.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBIN2DEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBIN2DEC')]
     public function testBIN2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +101,7 @@ class Bin2DecTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBIN2DECOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DECOds')]
     public function testBIN2DECOds(string $expectedResult, bool $arg1): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -146,9 +136,7 @@ class Bin2DecTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerBin2DecArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBin2DecArray')]
     public function testBin2DecArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

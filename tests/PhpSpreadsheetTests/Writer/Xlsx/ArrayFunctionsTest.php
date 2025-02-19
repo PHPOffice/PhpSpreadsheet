@@ -15,6 +15,14 @@ class ArrayFunctionsTest extends TestCase
 {
     private string $outputFile = '';
 
+    protected function tearDown(): void
+    {
+        if ($this->outputFile !== '') {
+            unlink($this->outputFile);
+            $this->outputFile = '';
+        }
+    }
+
     public function testArrayOutput(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -70,7 +78,6 @@ class ArrayFunctionsTest extends TestCase
             [28],
             [29],
         ];
-        self::assertCount(15, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('C1')->getCalculatedValue());
         for ($row = 2; $row <= 15; ++$row) {
             self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("C$row")->getCalculatedValue(), "cell C$row");
@@ -96,8 +103,6 @@ class ArrayFunctionsTest extends TestCase
             [57],
             [61],
         ];
-        self::assertCount(19, $expectedSort);
-        self::assertCount(19, $columnArray);
         self::assertSame($expectedSort, $sheet2->getCell('D1')->getCalculatedValue());
         $spreadsheet2->disconnectWorksheets();
 
@@ -187,7 +192,6 @@ class ArrayFunctionsTest extends TestCase
             [28],
             [29],
         ];
-        self::assertCount(15, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('C1')->getCalculatedValue());
         for ($row = 2; $row <= 15; ++$row) {
             self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("C$row")->getCalculatedValue(), "cell C$row");
@@ -213,8 +217,6 @@ class ArrayFunctionsTest extends TestCase
             [57],
             [61],
         ];
-        self::assertCount(19, $expectedSort);
-        self::assertCount(19, $columnArray);
         self::assertSame($expectedSort, $sheet2->getCell('D1')->getCalculatedValue());
         $spreadsheet2->disconnectWorksheets();
 
@@ -320,7 +322,6 @@ class ArrayFunctionsTest extends TestCase
             //[100, 91], // not unique
             [5, 2],
         ];
-        self::assertCount(5, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('H1')->getCalculatedValue());
         for ($row = 1; $row <= 5; ++$row) {
             if ($row > 1) {
@@ -411,7 +412,6 @@ class ArrayFunctionsTest extends TestCase
             ['item7'],
             ['item9'],
         ];
-        self::assertCount(6, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('C1')->getCalculatedValue());
         self::assertSame($expectedUnique[0][0], $sheet2->getCell('C1')->getCalculatedValueString());
         for ($row = 2; $row <= 6; ++$row) {

@@ -70,9 +70,7 @@ class StructuredReferenceTest extends TestCase
         $structuredReferenceObject->parse($cell);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderColumnData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderColumnData')]
     public function testStructuredReferenceColumns(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');
@@ -82,9 +80,7 @@ class StructuredReferenceTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderRowData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderRowData')]
     public function testStructuredReferenceRows(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');

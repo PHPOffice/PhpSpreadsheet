@@ -10,18 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class DimensionTest extends TestCase
 {
-    /**
-     * @dataProvider providerCellWidth
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCellWidth')]
     public function testCreateDimension(float $expectedResult, string $dimension): void
     {
         $result = (new Dimension($dimension))->width();
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerConvertUoM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerConvertUoM')]
     public function testConvertDimension(float $expectedResult, string $dimension, string $unitOfMeasure): void
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);

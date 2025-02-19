@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 // TODO run test in spreadsheet context
 class LinEstTest extends TestCase
 {
-    /**
-     * @dataProvider providerLINEST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLINEST')]
     public function testLINEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LINEST($yValues, $xValues, $const, $stats);

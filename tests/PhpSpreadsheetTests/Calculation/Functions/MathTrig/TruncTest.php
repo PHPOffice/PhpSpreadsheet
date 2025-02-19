@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TruncTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTRUNC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTRUNC')]
     public function testTRUNC(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class TruncTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/TRUNC.php';
     }
 
-    /**
-     * @dataProvider providerTruncArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTruncArray')]
     public function testTruncArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -48,9 +44,7 @@ class TruncTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTooMuchPrecision
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTooMuchPrecision')]
     public function testTooMuchPrecision(mixed $expectedResult, float|int|string $value, int $digits = 1): void
     {
         // This test is pretty screwy. Possibly shouldn't even attempt it.
@@ -60,8 +54,8 @@ class TruncTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('E1')->setValue($value);
         $sheet->getCell('E2')->setValue("=TRUNC(E1,$digits)");
-        $result = $sheet->getCell('E2')->getCalculatedValue();
-        self::assertSame($expectedResult, (string) $result);
+        $result = $sheet->getCell('E2')->getCalculatedValueString();
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerTooMuchPrecision(): array

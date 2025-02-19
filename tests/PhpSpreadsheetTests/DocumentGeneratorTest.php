@@ -18,18 +18,14 @@ class DocumentGeneratorTest extends TestCase
 
     private static bool $succeededByCategory = false;
 
-    /**
-     * @dataProvider providerGenerateFunctionListByName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGenerateFunctionListByName')]
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions));
         self::$succeededByName = true;
     }
 
-    /**
-     * @dataProvider providerGenerateFunctionListByCategory
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGenerateFunctionListByCategory')]
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions));
@@ -173,7 +169,6 @@ class DocumentGeneratorTest extends TestCase
             self::markTestSkipped('Not run because prior test failed');
         }
         $directory = 'docs/references/';
-        self::assertNotEmpty($directory);
         $phpSpreadsheetFunctions = Calculation::getFunctions();
         ksort($phpSpreadsheetFunctions);
 

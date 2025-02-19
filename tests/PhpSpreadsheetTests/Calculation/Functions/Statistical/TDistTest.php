@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTDIST')]
     public function testTDIST(mixed $expectedResult, mixed $value, mixed $degrees, mixed $tails): void
     {
         $this->runTestCaseReference('TDIST', $expectedResult, $value, $degrees, $tails);
@@ -21,9 +19,7 @@ class TDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/TDIST.php';
     }
 
-    /**
-     * @dataProvider providerTDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTDistArray')]
     public function testTDistArray(array $expectedResult, string $values, string $degrees, string $tails): void
     {
         $calculation = Calculation::getInstance();

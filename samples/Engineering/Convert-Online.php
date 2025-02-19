@@ -78,14 +78,16 @@ if (isset($_POST['quantity'], $_POST['fromUnit'], $_POST['toUnit'])) {
     $quantity = $_POST['quantity'];
     $fromUnit = $_POST['fromUnit'];
     $toUnit = $_POST['toUnit'];
-    if (isset($units[$_POST['category']][$fromUnit], $units[$_POST['category']][$toUnit])) {
+    if (!is_numeric($quantity)) {
+        $helper->log('Quantity is not numeric');
+    } elseif (isset($units[$_POST['category']][$fromUnit], $units[$_POST['category']][$toUnit])) {
         /** @var float|string */
         $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
 
-        echo "{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}", PHP_EOL;
+        $helper->log("{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}");
     } else {
-        echo 'Please enter quantity and select From Unit and To Unit', PHP_EOL;
+        $helper->log('Please enter quantity and select From Unit and To Unit');
     }
 } else {
-    echo 'Please enter quantity and select From Unit and To Unit', PHP_EOL;
+    $helper->log('Please enter quantity and select From Unit and To Unit');
 }

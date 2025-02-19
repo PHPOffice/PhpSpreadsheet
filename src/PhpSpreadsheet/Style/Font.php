@@ -20,10 +20,12 @@ class Font extends Supervisor
 
     protected ?string $cap = null;
 
+    public const DEFAULT_FONT_NAME = 'Calibri';
+
     /**
      * Font Name.
      */
-    protected ?string $name = 'Calibri';
+    protected ?string $name = self::DEFAULT_FONT_NAME;
 
     /**
      * The following 7 are used only for chart titles, I think.

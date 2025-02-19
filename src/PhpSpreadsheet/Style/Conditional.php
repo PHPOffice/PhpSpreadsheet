@@ -106,6 +106,8 @@ class Conditional implements IComparable
 
     private bool $noFormatSet = false;
 
+    private int $priority = 0;
+
     /**
      * Create a new Conditional.
      */
@@ -113,6 +115,18 @@ class Conditional implements IComparable
     {
         // Initialise values
         $this->style = new Style(false, true);
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
+
+        return $this;
     }
 
     public function getNoFormatSet(): bool

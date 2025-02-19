@@ -32,9 +32,7 @@ class RowIteratorEmptyTest extends TestCase
         return $sheet;
     }
 
-    /**
-     * @dataProvider emptyRowBasic
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowBasic')]
     public function testIteratorEmptyRow(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -64,9 +62,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowNullAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowNullAsEmpty')]
     public function testIteratorEmptyRowWithNull(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -94,9 +90,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowEmptyStringAsEmpty')]
     public function testIteratorEmptyRowWithEmptyString(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -124,9 +118,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowNullAndEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowNullAndEmptyStringAsEmpty')]
     public function testIteratorEmptyRowWithNullAndEmptyString(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();

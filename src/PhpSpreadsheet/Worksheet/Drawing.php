@@ -103,7 +103,7 @@ class Drawing extends BaseDrawing
 
         $this->path = '';
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-        if (filter_var($path, FILTER_VALIDATE_URL)) {
+        if (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))) {
             if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }
@@ -111,8 +111,21 @@ class Drawing extends BaseDrawing
             $this->isUrl = true;
             $ctx = null;
             // https://github.com/php/php-src/issues/16023
-            if (str_starts_with($path, 'https:')) {
-                $ctx = stream_context_create(['ssl' => ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT]]);
+            // https://github.com/php/php-src/issues/17121
+            if (str_starts_with($path, 'https:') || str_starts_with($path, 'http:')) {
+                $ctxArray = [
+                    'http' => [
+                        'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                        'header' => [
+                            //'Connection: keep-alive', // unacceptable performance
+                            'Accept: image/*;q=0.9,*/*;q=0.8',
+                        ],
+                    ],
+                ];
+                if (str_starts_with($path, 'https:')) {
+                    $ctxArray['ssl'] = ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT];
+                }
+                $ctx = stream_context_create($ctxArray);
             }
             $imageContents = @file_get_contents($path, false, $ctx);
             if ($imageContents !== false) {
@@ -148,6 +161,12 @@ class Drawing extends BaseDrawing
             throw new PhpSpreadsheetException("File $path not found!");
         }
 
+        if ($this->worksheet !== null) {
+            if ($this->path !== '') {
+                $this->worksheet->getCell($this->coordinates);
+            }
+        }
+
         return $this;
     }
 
@@ -171,18 +190,6 @@ class Drawing extends BaseDrawing
     public function getIsURL(): bool
     {
         return $this->isUrl;
-    }
-
-    /**
-     * Set isURL.
-     *
-     * @return $this
-     */
-    public function setIsURL(bool $isUrl): self
-    {
-        $this->isUrl = $isUrl;
-
-        return $this;
     }
 
     /**

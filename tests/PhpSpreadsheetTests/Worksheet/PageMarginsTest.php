@@ -9,54 +9,42 @@ use PHPUnit\Framework\TestCase;
 
 class PageMarginsTest extends TestCase
 {
-    /**
-     * @dataProvider providerPointsAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPointsAndInches')]
     public function testPointsToInches(float $value, float $expectedResult): void
     {
         $actualResult = PageMargins::fromPoints($value);
         self::assertSame($expectedResult, $actualResult);
     }
 
-    /**
-     * @dataProvider providerPointsAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPointsAndInches')]
     public function testInchesToPoints(float $expectedResult, float $value): void
     {
         $actualResult = PageMargins::toPoints($value);
         self::assertSame($expectedResult, $actualResult);
     }
 
-    /**
-     * @dataProvider providerCentimetersAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCentimetersAndInches')]
     public function testCentimetersToInches(float $value, float $expectedResult): void
     {
         $actualResult = PageMargins::fromCentimeters($value);
         self::assertSame($expectedResult, $actualResult);
     }
 
-    /**
-     * @dataProvider providerCentimetersAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCentimetersAndInches')]
     public function testPointsToCentimeters(float $expectedResult, float $value): void
     {
         $actualResult = PageMargins::toCentimeters($value);
         self::assertSame($expectedResult, $actualResult);
     }
 
-    /**
-     * @dataProvider providerMillimetersAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMillimetersAndInches')]
     public function testMillimetersToInches(float $value, float $expectedResult): void
     {
         $actualResult = PageMargins::fromMillimeters($value);
         self::assertSame($expectedResult, $actualResult);
     }
 
-    /**
-     * @dataProvider providerMillimetersAndInches
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMillimetersAndInches')]
     public function testPointsToMillimeters(float $expectedResult, float $value): void
     {
         $actualResult = PageMargins::toMillimeters($value);

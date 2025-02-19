@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -210,8 +211,20 @@ class Workbook extends BIFFwriter
         $xfWriter->setFontIndex($fontIndex);
 
         // Background colors, best to treat these after the font so black will come after white in custom palette
-        $xfWriter->setFgColor($this->addColor($style->getFill()->getStartColor()->getRGB()));
-        $xfWriter->setBgColor($this->addColor($style->getFill()->getEndColor()->getRGB()));
+        if ($style->getFill()->getStartColor()->getRGB()) {
+            $xfWriter->setFgColor(
+                $this->addColor(
+                    $style->getFill()->getStartColor()->getRGB()
+                )
+            );
+        }
+        if ($style->getFill()->getEndColor()->getRGB()) {
+            $xfWriter->setBgColor(
+                $this->addColor(
+                    $style->getFill()->getEndColor()->getRGB()
+                )
+            );
+        }
         $xfWriter->setBottomColor($this->addColor($style->getBorders()->getBottom()->getColor()->getRGB()));
         $xfWriter->setTopColor($this->addColor($style->getBorders()->getTop()->getColor()->getRGB()));
         $xfWriter->setRightColor($this->addColor($style->getBorders()->getRight()->getColor()->getRGB()));
@@ -496,14 +509,13 @@ class Workbook extends BIFFwriter
     private function parseDefinedNameValue(DefinedName $definedName): string
     {
         $definedRange = $definedName->getValue();
-        $splitCount = preg_match_all(
+        $splitCount = Preg::matchAllWithOffsets(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
             $definedRange,
-            $splitRanges,
-            PREG_OFFSET_CAPTURE
+            $splitRanges
         );
 
-        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $lengths = array_map([StringHelper::class, 'strlenAllowNull'], array_column($splitRanges[0], 0));
         $offsets = array_column($splitRanges[0], 1);
 
         $worksheets = $splitRanges[2];

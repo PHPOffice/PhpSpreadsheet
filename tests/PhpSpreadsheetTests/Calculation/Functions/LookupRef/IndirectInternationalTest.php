@@ -24,9 +24,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInternational')]
     public function testR1C1International(string $locale): void
     {
         Settings::setLocale($locale);
@@ -79,9 +77,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerRelativeInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRelativeInternational')]
     public function testRelativeInternational(string $locale, string $cell, string $relative): void
     {
         Settings::setLocale($locale);
@@ -101,9 +97,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCompatibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompatibility')]
     public function testCompatibilityInternational(string $compatibilityMode): void
     {
         Functions::setCompatibilityMode($compatibilityMode);

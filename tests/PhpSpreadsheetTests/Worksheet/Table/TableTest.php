@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\Column;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class TableTest extends SetupTeardown
 {
@@ -27,16 +27,13 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider validTableNamesProvider
-     */
+    #[DataProvider('validTableNamesProvider')]
     public function testValidTableNames(string $name, string $expected): void
     {
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setName($name);
-        self::assertInstanceOf(Table::class, $result);
-        self::assertEquals($expected, $table->getName());
+        self::assertEquals($expected, $result->getName());
     }
 
     public static function validTableNamesProvider(): array
@@ -52,9 +49,7 @@ class TableTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider invalidTableNamesProvider
-     */
+    #[DataProvider('invalidTableNamesProvider')]
     public function testInvalidTableNames(string $name): void
     {
         $table = new Table(self::INITIAL_RANGE);
@@ -118,12 +113,10 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setShowHeaderRow(false);
-        self::assertInstanceOf(Table::class, $result);
-        self::assertFalse($table->getShowHeaderRow());
+        self::assertFalse($result->getShowHeaderRow());
 
         $result = $table->setShowTotalsRow(true);
-        self::assertInstanceOf(Table::class, $result);
-        self::assertTrue($table->getShowTotalsRow());
+        self::assertTrue($result->getShowTotalsRow());
     }
 
     public function testGetWorksheet(): void
@@ -142,7 +135,7 @@ class TableTest extends SetupTeardown
         $sheet2 = $spreadsheet->createSheet();
         //  Setters return the instance to implement the fluent interface
         $result = $table->setWorksheet($sheet2);
-        self::assertInstanceOf(Table::class, $result);
+        self::assertSame(self::INITIAL_RANGE, $result->getRange());
     }
 
     public function testGetRange(): void
@@ -163,8 +156,7 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setRange($fullRange);
-        self::assertInstanceOf(Table::class, $result);
-        self::assertEquals($actualRange, $table->getRange());
+        self::assertEquals($actualRange, $result->getRange());
     }
 
     public function testSetRangeValidRange(): void
@@ -194,16 +186,13 @@ class TableTest extends SetupTeardown
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setRange('');
-        self::assertInstanceOf(Table::class, $result);
 
         //  Result should be a clear range
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider invalidTableRangeProvider
-     */
+    #[DataProvider('invalidTableRangeProvider')]
     public function testSetRangeInvalidRange(string $range): void
     {
         $this->expectException(PhpSpreadsheetException::class);
@@ -226,7 +215,6 @@ class TableTest extends SetupTeardown
         //  There should be no columns yet defined
         $table = new Table(self::INITIAL_RANGE);
         $result = $table->getColumns();
-        self::assertIsArray($result);
         self::assertCount(0, $result);
     }
 
@@ -324,15 +312,12 @@ class TableTest extends SetupTeardown
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($expectedResult);
-        self::assertInstanceOf(Table::class, $result);
 
-        $result = $table->getColumns();
+        $result = $result->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithString(): void
@@ -352,15 +337,12 @@ class TableTest extends SetupTeardown
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($columnObject);
-        self::assertInstanceOf(Table::class, $result);
 
-        $result = $table->getColumns();
+        $result = $result->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithObject(): void
@@ -385,11 +367,9 @@ class TableTest extends SetupTeardown
         $result = $table->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             self::assertArrayHasKey($columnIndex, $result);
-            self::assertInstanceOf(Column::class, $result[$columnIndex]);
         }
 
         $table->setRange('');
@@ -411,7 +391,7 @@ class TableTest extends SetupTeardown
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $table->getColumn($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
+            self::assertSame($columnIndex, $result->getColumnIndex());
         }
     }
 
@@ -429,7 +409,6 @@ class TableTest extends SetupTeardown
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $table->getColumnByOffset($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
             self::assertEquals($result->getColumnIndex(), $columnID);
         }
     }
@@ -440,7 +419,7 @@ class TableTest extends SetupTeardown
         //  If we request a specific column by its column ID, we should
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column object returned
         $result = $table->getColumn('K');
-        self::assertInstanceOf(Column::class, $result);
+        self::assertSame('K', $result->getColumnIndex());
     }
 
     public function testGetColumnWithoutRangeSet(): void
@@ -465,15 +444,13 @@ class TableTest extends SetupTeardown
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setRange('');
-        self::assertInstanceOf(Table::class, $result);
 
         //  Range should be cleared
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Column array should be cleared
         $result = $table->getColumns();
-        self::assertIsArray($result);
         self::assertCount(0, $result);
     }
 
@@ -495,16 +472,14 @@ class TableTest extends SetupTeardown
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setRange($expectedResult);
-        self::assertInstanceOf(Table::class, $result);
 
         //  Range should be correctly set
-        $result = $table->getRange();
+        $result = $result->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Only columns that existed in the original range and that
         //    still fall within the new range should be retained
         $result = $table->getColumns();
-        self::assertIsArray($result);
         self::assertCount(count($columnIndexes1), $result);
     }
 
@@ -520,25 +495,17 @@ class TableTest extends SetupTeardown
         }
 
         $result = clone $table;
-        self::assertInstanceOf(Table::class, $result);
         self::assertSame($table->getRange(), $result->getRange());
         self::assertNull($result->getWorksheet());
         self::assertNotNull($table->getWorksheet());
-        self::assertInstanceOf(Worksheet::class, $table->getWorksheet());
         $tableColumns = $table->getColumns();
         $resultColumns = $result->getColumns();
-        self::assertIsArray($tableColumns);
-        self::assertIsArray($resultColumns);
         self::assertCount(2, $tableColumns);
         self::assertCount(2, $resultColumns);
         self::assertArrayHasKey('L', $tableColumns);
         self::assertArrayHasKey('L', $resultColumns);
         self::assertArrayHasKey('M', $tableColumns);
         self::assertArrayHasKey('M', $resultColumns);
-        self::assertInstanceOf(Column::class, $tableColumns['L']);
-        self::assertInstanceOf(Column::class, $resultColumns['L']);
-        self::assertInstanceOf(Column::class, $tableColumns['M']);
-        self::assertInstanceOf(Column::class, $resultColumns['M']);
     }
 
     public function testNoWorksheet(): void

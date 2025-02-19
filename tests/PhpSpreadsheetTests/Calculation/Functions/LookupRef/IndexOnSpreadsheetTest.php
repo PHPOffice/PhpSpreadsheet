@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class IndexOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINDEXonSpreadsheet
-     */
+    #[DataProvider('providerINDEXonSpreadsheet')]
     public function testIndexOnSpreadsheet(mixed $expectedResult, array $matrix, null|int|string $rowNum = null, null|int|string $colNum = null): void
     {
         $this->mightHaveException($expectedResult);
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->fromArray($matrix);
         $maxRow = $sheet->getHighestRow();
@@ -35,11 +36,10 @@ class IndexOnSpreadsheetTest extends AllSetupTeardown
         return require 'tests/data/Calculation/LookupRef/INDEXonSpreadsheet.php';
     }
 
-    /**
-     * @dataProvider providerIndexLiteralArrays
-     */
+    #[DataProvider('providerIndexLiteralArrays')]
     public function testLiteralArrays(mixed $expectedResult, string $indexArgs): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->getCell('A10')->setValue(10);
         $sheet->getCell('B10')->setValue(11);

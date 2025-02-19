@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Worksheet\Validations;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /**
@@ -271,8 +272,7 @@ abstract class Coordinate
     private static function validateReferenceAndGetData($reference): array
     {
         $data = [];
-        preg_match(self::FULL_REFERENCE_REGEX, $reference, $matches);
-        if (count($matches) === 0) {
+        if (1 !== preg_match(self::FULL_REFERENCE_REGEX, $reference, $matches)) {
             return ['type' => 'invalid'];
         }
 
@@ -307,6 +307,7 @@ abstract class Coordinate
      */
     public static function coordinateIsInsideRange(string $range, string $coordinate): bool
     {
+        $range = Validations::convertWholeRowColumn($range);
         $rangeData = self::validateReferenceAndGetData($range);
         if ($rangeData['type'] === 'invalid') {
             throw new Exception('First argument needs to be a range');

@@ -29,9 +29,7 @@ class CsvIssue2232Test extends TestCase
         Settings::setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerIssue2232
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIssue2232')]
     public function testBooleanConversions(bool $useStringBinder, ?bool $preserveBoolString, bool|string $b2Value, bool|string $b3Value): void
     {
         if ($useStringBinder) {
@@ -62,9 +60,7 @@ class CsvIssue2232Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerIssue2232locale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIssue2232locale')]
     public function testBooleanConversionsLocaleAware(bool $useStringBinder, ?bool $preserveBoolString, mixed $b2Value, mixed $b3Value, mixed $b4Value, mixed $b5Value): void
     {
         if ($useStringBinder) {

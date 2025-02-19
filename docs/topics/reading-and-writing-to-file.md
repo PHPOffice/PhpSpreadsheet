@@ -169,6 +169,12 @@ $writer->save("05featuredemo.xlsx");
 **Note** Formulas will still be calculated in any column set to be autosized
 even if pre-calculated is set to false
 
+**Note** Prior to release 3.7.0, the use of this feature will cause Excel to be used in a mode where opening a sheet saved in this manner *might* not automatically recalculate a cell's formula when a cell used it the formula changes. Furthermore, that behavior might be applied to all spreadsheets open at the time. To avoid this behavior, add the following statement after `setPreCalculateFormulas` above:
+```php
+$writer->setForceFullCalc(false);
+```
+Starting with Release 4.0.0, the property's default is changed to `false` and that statement is no longer be required. The property can be set to `null` if the old behavior is needed.
+
 #### Office 2003 compatibility pack
 
 Because of a bug in the Office2003 compatibility pack, there can be some
@@ -298,7 +304,6 @@ versions of Microsoft Excel.
 **Excel 2003 XML limitations** Please note that Excel 2003 XML format
 has some limits regarding to styling cells and handling large
 spreadsheets via PHP.
-Also, only files using charset UTF-8 or ISO-8859-* are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Xml
 
@@ -589,6 +594,9 @@ You can suppress testing for Mac line endings as follows:
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setTestAutoDetect(false);
 ```
+Starting with Release 4.0.0, the property defaults to `false`,
+so the statement above is no longer needed. The old behavior
+can be enabled by setting the property to `true`.
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Csv
 
@@ -1113,19 +1121,19 @@ Flags that are available that can be passed to the Reader in this way include:
 
  - $reader::LOAD_WITH_CHARTS
  - $reader::READ_DATA_ONLY
- - $reader::IGNORE_EMPTY_CELLS 
- - $reader::SKIP_EMPTY_CELLS (synonym for IGNORE_EMPTY_CELLS)
+ - $reader::IGNORE_EMPTY_CELLS
+ - $reader::IGNORE_ROWS_WITH_NO_CELLS
 
-| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS |
-|----------|------------------|----------------|--------------------|
-| Xlsx     | YES              | YES            | YES                |
-| Xls      | NO               | YES            | YES                |
-| Xml      | NO               | NO             | NO                 |
-| Ods      | NO               | YES            | NO                 |
-| Gnumeric | NO               | YES            | NO                 |
-| Html     | N/A              | N/A            | N/A                |
-| Slk      | N/A              | NO             | NO                 |
-| Csv      | N/A              | NO             | NO                 |
+| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS | IGNORE_ROWS_WITH_NO_CELLS |
+|----------|------------------|----------------|--------------------|---------------------------|
+| Xlsx     | YES              | YES            | YES                | YES                       |
+| Xls      | NO               | YES            | YES                | NO                        |
+| Xml      | NO               | NO             | NO                 | NO                        |
+| Ods      | NO               | YES            | NO                 | NO                        |
+| Gnumeric | NO               | YES            | NO                 | NO                        |
+| Html     | N/A              | N/A            | N/A                | N/A                       |
+| Slk      | N/A              | NO             | NO                 | NO                        |
+| Csv      | N/A              | NO             | NO                 | NO                        |
 
 Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
@@ -1162,5 +1170,5 @@ Two or more flags can be passed together using PHP's `|` operator.
 
 ```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("myExampleFile.xlsx");
-$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::SKIP_EMPTY_CELLS);
+$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::IGNORE_EMPTY_CELLS);
 ```

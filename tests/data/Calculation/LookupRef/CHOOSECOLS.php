@@ -1,0 +1,180 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'select last column' => [
+        [
+            ['c'],
+            ['f'],
+            ['i'],
+            ['l'],
+            ['o'],
+            ['r'],
+            ['u'],
+            ['x'],
+            ['#'],
+        ],
+        '=CHOOSECOLS(B3:D11, -1)',
+    ],
+    'select 1 column' => [
+        [
+            ['b'],
+            ['e'],
+            ['h'],
+            ['k'],
+            ['n'],
+            ['q'],
+            ['t'],
+            ['w'],
+            ['z'],
+        ],
+        '=CHOOSECOLS(B3:D11, 2)',
+    ],
+    'fractional column' => [
+        [
+            ['b'],
+            ['e'],
+            ['h'],
+            ['k'],
+            ['n'],
+            ['q'],
+            ['t'],
+            ['w'],
+            ['z'],
+        ],
+        '=CHOOSECOLS(B3:D11, 2.8)',
+    ],
+    'numeric string column' => [
+        [
+            ['b'],
+            ['e'],
+            ['h'],
+            ['k'],
+            ['n'],
+            ['q'],
+            ['t'],
+            ['w'],
+            ['z'],
+        ],
+        '=CHOOSECOLS(B3:D11, " 2.8 ")',
+    ],
+    'multiple columns including duplicates' => [
+        [
+            ['b', 'a', 'b'],
+            ['e', 'd', 'e'],
+            ['h', 'g', 'h'],
+            ['k', 'j', 'k'],
+            ['n', 'm', 'n'],
+            ['q', 'p', 'q'],
+            ['t', 's', 't'],
+            ['w', 'v', 'w'],
+            ['z', 'y', 'z'],
+        ],
+        '=CHOOSECOLS(B3:D11, 2, 1, 2)',
+    ],
+    'multiple columns mixed +/- mixed scalar/matrix' => [
+        [
+            ['b', 'a', 'b'],
+            ['e', 'd', 'e'],
+            ['h', 'g', 'h'],
+            ['k', 'j', 'k'],
+            ['n', 'm', 'n'],
+            ['q', 'p', 'q'],
+            ['t', 's', 't'],
+            ['w', 'v', 'w'],
+            ['z', 'y', 'z'],
+        ],
+        '=CHOOSECOLS(B3:D11, 2, {-3, 2})',
+    ],
+    'reverse Columns' => [
+        [
+            ['c', 'b', 'a'],
+            ['f', 'e', 'd'],
+            ['i', 'h', 'g'],
+            ['l', 'k', 'j'],
+            ['o', 'n', 'm'],
+            ['r', 'q', 'p'],
+            ['u', 't', 's'],
+            ['x', 'w', 'v'],
+            ['#', 'z', 'y'],
+        ],
+        '=CHOOSECOLS(B3:D11, SEQUENCE(COLUMNS(B3:D11),,COLUMNS(B3:D11),-1))',
+    ],
+    'inline array' => [
+        [
+            ['c', 'b'],
+            ['f', 'e'],
+            ['i', 'h'],
+            ['l', 'k'],
+            ['o', 'n'],
+            ['r', 'q'],
+            ['u', 't'],
+            ['x', 'w'],
+            ['#', 'z'],
+        ],
+        '=CHOOSECOLS(B3:D11, {3;2})',
+    ],
+    'inline array with negative numbers' => [
+        [
+            ['b', 'c'],
+            ['e', 'f'],
+            ['h', 'i'],
+            ['k', 'l'],
+            ['n', 'o'],
+            ['q', 'r'],
+            ['t', 'u'],
+            ['w', 'x'],
+            ['z', '#'],
+        ],
+        '=CHOOSECOLS(B3:D11, {-2;-1})',
+    ],
+    'defined name' => [
+        [
+            ['b', 'c'],
+            ['e', 'f'],
+            ['h', 'i'],
+            ['k', 'l'],
+            ['n', 'o'],
+            ['q', 'r'],
+            ['t', 'u'],
+            ['w', 'x'],
+            ['z', '#'],
+        ],
+        '=CHOOSECOLS(definedname, {-2;-1})',
+    ],
+    'only 1 argument' => [
+        'exception',
+        '=CHOOSECOLS(B3:D11)',
+    ],
+    'non-numeric column' => [
+        '#VALUE!',
+        '=CHOOSECOLS(B3:D11, "x")',
+    ],
+    'positive column too large' => [
+        '#VALUE!',
+        '=CHOOSECOLS(B3:D11, 4)',
+    ],
+    'negative column too large' => [
+        '#VALUE!',
+        '=CHOOSECOLS(B3:D11, 1, -4)',
+    ],
+    'zero column' => [
+        '#VALUE!',
+        '=CHOOSECOLS(B3:D11, 0)',
+    ],
+    'single cell' => [
+        [
+            ['a'],
+        ],
+        '=CHOOSECOLS(B3, 1)',
+    ],
+    'inline array rather than range' => [
+        [
+            [2, 1, 1],
+            [4, 3, 3],
+            [6, 5, 5],
+        ],
+        '=CHOOSECOLS({1,2;3,4;5,6}, " 2.4 ", 1, 1)',
+    ],
+];

@@ -4,17 +4,15 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use JsonSerializable;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Document\Security;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 class Spreadsheet implements JsonSerializable
 {
@@ -172,6 +170,8 @@ class Spreadsheet implements JsonSerializable
     private int $tabRatio = 600;
 
     private Theme $theme;
+
+    private ?IValueBinder $valueBinder = null;
 
     public function getTheme(): Theme
     {
@@ -511,7 +511,7 @@ class Spreadsheet implements JsonSerializable
     public function createSheet(?int $sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
-        $this->addSheet($newSheet, $sheetIndex);
+        $this->addSheet($newSheet, $sheetIndex, true);
 
         return $newSheet;
     }
@@ -526,14 +526,35 @@ class Spreadsheet implements JsonSerializable
         return $this->getSheetByName($worksheetName) !== null;
     }
 
+    public function duplicateWorksheetByTitle(string $title): Worksheet
+    {
+        $original = $this->getSheetByNameOrThrow($title);
+        $index = $this->getIndex($original) + 1;
+        $clone = clone $original;
+
+        return $this->addSheet($clone, $index, true);
+    }
+
     /**
      * Add sheet.
      *
      * @param Worksheet $worksheet The worksheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
      */
-    public function addSheet(Worksheet $worksheet, ?int $sheetIndex = null): Worksheet
+    public function addSheet(Worksheet $worksheet, ?int $sheetIndex = null, bool $retitleIfNeeded = false): Worksheet
     {
+        if ($retitleIfNeeded) {
+            $title = $worksheet->getTitle();
+            if ($this->sheetNameExists($title)) {
+                $i = 1;
+                $newTitle = "$title $i";
+                while ($this->sheetNameExists($newTitle)) {
+                    ++$i;
+                    $newTitle = "$title $i";
+                }
+                $worksheet->setTitle($newTitle);
+            }
+        }
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception(
                 "Workbook already contains a worksheet named '{$worksheet->getTitle()}'. Rename this worksheet first."
@@ -657,12 +678,16 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int index
      */
-    public function getIndex(Worksheet $worksheet): int
+    public function getIndex(Worksheet $worksheet, bool $noThrow = false): int
     {
+        $wsHash = $worksheet->getHashInt();
         foreach ($this->workSheetCollection as $key => $value) {
-            if ($value->getHashCode() === $worksheet->getHashCode()) {
+            if ($value->getHashInt() === $wsHash) {
                 return $key;
             }
+        }
+        if ($noThrow) {
+            return -1;
         }
 
         throw new Exception('Sheet does not exist.');
@@ -1035,17 +1060,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        $filename = File::temporaryFilename();
-        $writer = new XlsxWriter($this);
-        $writer->setIncludeCharts(true);
-        $writer->save($filename);
-
-        $reader = new XlsxReader();
-        $reader->setIncludeCharts(true);
-        $reloadedSpreadsheet = $reader->load($filename);
-        unlink($filename);
-
-        return $reloadedSpreadsheet;
+        return unserialize(serialize($this));
     }
 
     public function __clone()
@@ -1071,6 +1086,11 @@ class Spreadsheet implements JsonSerializable
     public function getCellXfByIndex(int $cellStyleIndex): Style
     {
         return $this->cellXfCollection[$cellStyleIndex];
+    }
+
+    public function getCellXfByIndexOrNull(?int $cellStyleIndex): ?Style
+    {
+        return ($cellStyleIndex === null) ? null : ($this->cellXfCollection[$cellStyleIndex] ?? null);
     }
 
     /**
@@ -1512,14 +1532,6 @@ class Spreadsheet implements JsonSerializable
     /**
      * @throws Exception
      */
-    public function __serialize(): array
-    {
-        throw new Exception('Spreadsheet objects cannot be serialized');
-    }
-
-    /**
-     * @throws Exception
-     */
     public function jsonSerialize(): mixed
     {
         throw new Exception('Spreadsheet objects cannot be json encoded');
@@ -1590,5 +1602,65 @@ class Spreadsheet implements JsonSerializable
     public function getLegacyDrawing(Worksheet $worksheet): ?string
     {
         return $this->unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'] ?? null;
+    }
+
+    public function getValueBinder(): ?IValueBinder
+    {
+        return $this->valueBinder;
+    }
+
+    public function setValueBinder(?IValueBinder $valueBinder): self
+    {
+        $this->valueBinder = $valueBinder;
+
+        return $this;
+    }
+
+    /**
+     * All the PDF writers treat charts as if they occupy a single cell.
+     * This will be better most of the time.
+     * It is not needed for any other output type.
+     * It changes the contents of the spreadsheet, so you might
+     * be better off cloning the spreadsheet and then using
+     * this method on, and then writing, the clone.
+     */
+    public function mergeChartCellsForPdf(): void
+    {
+        foreach ($this->workSheetCollection as $worksheet) {
+            foreach ($worksheet->getChartCollection() as $chart) {
+                $br = $chart->getBottomRightCell();
+                $tl = $chart->getTopLeftCell();
+                if ($br !== '' && $br !== $tl) {
+                    if (!$worksheet->cellExists($br)) {
+                        $worksheet->getCell($br)->setValue(' ');
+                    }
+                    $worksheet->mergeCells("$tl:$br");
+                }
+            }
+        }
+    }
+
+    /**
+     * All the PDF writers do better with drawings than charts.
+     * This will be better some of the time.
+     * It is not needed for any other output type.
+     * It changes the contents of the spreadsheet, so you might
+     * be better off cloning the spreadsheet and then using
+     * this method on, and then writing, the clone.
+     */
+    public function mergeDrawingCellsForPdf(): void
+    {
+        foreach ($this->workSheetCollection as $worksheet) {
+            foreach ($worksheet->getDrawingCollection() as $drawing) {
+                $br = $drawing->getCoordinates2();
+                $tl = $drawing->getCoordinates();
+                if ($br !== '' && $br !== $tl) {
+                    if (!$worksheet->cellExists($br)) {
+                        $worksheet->getCell($br)->setValue(' ');
+                    }
+                    $worksheet->mergeCells("$tl:$br");
+                }
+            }
+        }
     }
 }

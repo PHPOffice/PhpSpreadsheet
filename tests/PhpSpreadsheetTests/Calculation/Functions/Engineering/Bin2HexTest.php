@@ -27,9 +27,7 @@ class Bin2HexTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBIN2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
     public function testDirectCallToBIN2HEX(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         $result = ($digits === null) ? ConvertBinary::toHex($value) : ConvertBinary::toHex($value, $digits);
@@ -41,9 +39,7 @@ class Bin2HexTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerBIN2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
     public function testBIN2HEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,9 +52,7 @@ class Bin2HexTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    /**
-     * @dataProvider providerBIN2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
     public function testBIN2HEXInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +75,7 @@ class Bin2HexTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BIN2HEX.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBIN2HEX
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBIN2HEX')]
     public function testBIN2HEXUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,9 +101,7 @@ class Bin2HexTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBIN2HEXOds
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEXOds')]
     public function testBIN2HEXOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -146,9 +136,7 @@ class Bin2HexTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerBin2HexArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBin2HexArray')]
     public function testBin2HexArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -129,6 +130,9 @@ class Worksheet extends WriterPart
         // Breaks
         $this->writeBreaks($objWriter, $worksheet);
 
+        // IgnoredErrors
+        $this->writeIgnoredErrors($objWriter);
+
         // Drawings and/or Charts
         $this->writeDrawings($objWriter, $worksheet, $includeCharts);
 
@@ -140,9 +144,6 @@ class Worksheet extends WriterPart
 
         // AlternateContent
         $this->writeAlternateContent($objWriter, $worksheet);
-
-        // IgnoredErrors
-        $this->writeIgnoredErrors($objWriter);
 
         // BackgroundImage must come after ignored, before table
         $this->writeBackgroundImage($objWriter, $worksheet);
@@ -861,7 +862,12 @@ class Worksheet extends WriterPart
     private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // Conditional id
-        $id = 1;
+        $id = 0;
+        foreach ($worksheet->getConditionalStylesCollection() as $conditionalStyles) {
+            foreach ($conditionalStyles as $conditional) {
+                $id = max($id, $conditional->getPriority());
+            }
+        }
 
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
@@ -888,7 +894,8 @@ class Worksheet extends WriterPart
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
-                $objWriter->writeAttribute('priority', (string) $id++);
+                $priority = $conditional->getPriority() ?: ++$id;
+                $objWriter->writeAttribute('priority', (string) $priority);
 
                 self::writeAttributeif(
                     $objWriter,
@@ -943,7 +950,6 @@ class Worksheet extends WriterPart
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {
-            $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
             $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', (string) count($dataValidationCollection));
 
@@ -983,10 +989,10 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('sqref', $dv->getSqref() ?? $coordinate);
 
                 if ($dv->getFormula1() !== '') {
-                    $objWriter->writeElement('formula1', $dv->getFormula1());
+                    $objWriter->writeElement('formula1', FunctionPrefix::addFunctionPrefix($dv->getFormula1()));
                 }
                 if ($dv->getFormula2() !== '') {
-                    $objWriter->writeElement('formula2', $dv->getFormula2());
+                    $objWriter->writeElement('formula2', FunctionPrefix::addFunctionPrefix($dv->getFormula2()));
                 }
 
                 $objWriter->endElement();
@@ -1313,8 +1319,17 @@ class Worksheet extends WriterPart
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
             [$column, $row] = Coordinate::coordinateFromString($coordinate);
-            $cellsByRow[$row] = $cellsByRow[$row] ?? '';
-            $cellsByRow[$row] .= "{$column},";
+            if (!isset($cellsByRow[$row])) {
+                $pCell = $worksheet->getCell("$column$row");
+                $xfi = $pCell->getXfIndex();
+                $cellValue = $pCell->getValue();
+                $writeValue = $cellValue !== '' && $cellValue !== null;
+                if (!empty($xfi) || $writeValue) {
+                    $cellsByRow[$row] = "{$column},";
+                }
+            } else {
+                $cellsByRow[$row] .= "{$column},";
+            }
         }
 
         $currentRow = 0;
@@ -1498,6 +1513,9 @@ class Worksheet extends WriterPart
 
         if (isset($attributes['ref'])) {
             $ref = $this->parseRef($coordinate, $attributes['ref']);
+            if ($ref === "$coordinate:$coordinate") {
+                $ref = $coordinate;
+            }
         } else {
             $ref = $coordinate;
         }
@@ -1535,7 +1553,7 @@ class Worksheet extends WriterPart
 
     private function parseRef(string $coordinate, string $ref): string
     {
-        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) !== 1) {
+        if (!Preg::isMatch('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches)) {
             return $ref;
         }
         if (!isset($matches[3])) { // single cell, not range
@@ -1577,7 +1595,11 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                $tempCalc = $pCell->getCalculatedValue();
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValue) === 1) {
+                    $tempCalc = [];
+                } else {
+                    $tempCalc = $pCell->getCalculatedValue();
+                }
                 if (is_array($tempCalc)) {
                     $objWriter->writeAttribute('cm', '1');
                 }

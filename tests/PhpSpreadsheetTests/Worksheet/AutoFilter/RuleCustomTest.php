@@ -28,9 +28,7 @@ class RuleCustomTest extends SetupTeardown
         return $sheet;
     }
 
-    /**
-     * @dataProvider providerCondition
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCondition')]
     public function testRuleCondition(array $expectedResult, string $condition): void
     {
         $sheet = $this->initSheet();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CleanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCLEAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCLEAN')]
     public function testCLEAN(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -30,9 +28,7 @@ class CleanTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 
-    /**
-     * @dataProvider providerCleanArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCleanArray')]
     public function testCleanArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

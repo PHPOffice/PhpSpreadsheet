@@ -146,6 +146,7 @@ $config
         'ordered_imports' => true,
         'ordered_interfaces' => true,
         'ordered_traits' => true,
+        'php_unit_attributes' => ['keep_annotations' => false],
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,
         'php_unit_dedicate_assert_internal_type' => true,
@@ -220,7 +221,7 @@ $config
         'standardize_not_equals' => true,
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
-        'string_implicit_backslashes' => false, // was escape_implicit_backslashes, too confusing
+        'string_implicit_backslashes' => ['single_quoted' => 'unescape', 'double_quoted' => 'escape', 'heredoc' => 'escape'], // was escape_implicit_backslashes
         'strict_param' => false, // No, too dangerous to change that
         'string_length_to_empty' => true,
         'string_line_ending' => true,

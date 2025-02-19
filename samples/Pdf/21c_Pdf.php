@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
@@ -16,7 +17,7 @@ function addHeadersFootersMpdf2000(string $html): string
         odd-footer-name: html_myFooter2;
 
         EOF;
-    $html = preg_replace('/@page page0 {/', $pagerepl, $html) ?? '';
+    $html = preg_replace('/@page page0 {/', $pagerepl, $html) ?? throw new SpreadsheetException('preg 1 failed');
     $bodystring = '/<body>/';
     $simulatedBodyStart = Mpdf::SIMULATED_BODY_START;
     $bodyrepl = <<<EOF
@@ -40,7 +41,7 @@ function addHeadersFootersMpdf2000(string $html): string
 
         EOF;
 
-    return preg_replace($bodystring, $bodyrepl, $html) ?? '';
+    return preg_replace($bodystring, $bodyrepl, $html) ?? throw new SpreadsheetException('preg 2 failed');
 }
 
 $spreadsheet = new Spreadsheet();

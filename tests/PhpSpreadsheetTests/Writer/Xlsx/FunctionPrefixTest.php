@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionPrefixTest extends TestCase
 {
-    /**
-     * @dataProvider functionPrefixProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('functionPrefixProvider')]
     public function testFunctionPrefix(string $expectedResult, string $functionString): void
     {
         $result = FunctionPrefix::addFunctionPrefix($functionString);
@@ -37,6 +35,7 @@ class FunctionPrefixTest extends TestCase
             'DAYS/NETWORKDAYS 4' => ['ABS(_xlfn.DAYS(DATE(2023,1,1),TODAY()))', 'ABS(_xlfn.DAYS(DATE(2023,1,1),TODAY()))'],
             'DAYS/NETWORKDAYS 5' => ['NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)', 'NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)'],
             'COUNTIFS reclassified as Legacy' => ['COUNTIFS()', 'COUNTIFS()'],
+            'SUMIFS reclassified as Legacy' => ['SUMIFS()', 'SUMIFS()'],
         ];
     }
 }

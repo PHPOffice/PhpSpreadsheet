@@ -6,12 +6,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ConcatenateTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCONCATENATE
-     */
+    #[DataProvider('providerCONCATENATE')]
     public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
@@ -30,6 +29,7 @@ class ConcatenateTest extends AllSetupTeardown
                 $finalArg .= 'A3';
                 $sheet->getCell('A3')->setValue(str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5));
             } else {
+                self::assertTrue($arg === null || is_scalar($arg));
                 $finalArg .= '"' . (string) $arg . '"';
             }
         }

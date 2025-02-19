@@ -142,6 +142,7 @@ class Style extends WriterPart
 
         // dxf
         for ($i = 0; $i < $this->getParentWriter()->getStylesConditionalHashTable()->count(); ++$i) {
+            /** @var ?Conditional */
             $thisstyle = $this->getParentWriter()->getStylesConditionalHashTable()->getByIndex($i);
             if ($thisstyle !== null) {
                 $this->writeCellStyleDxf($objWriter, $thisstyle->getStyle());
@@ -198,7 +199,7 @@ class Style extends WriterPart
         $objWriter->writeAttribute('position', '0');
 
         // color
-        if ($fill->getStartColor()->getARGB() !== null) {
+        if (!empty($fill->getStartColor()->getARGB())) {
             $objWriter->startElement('color');
             $objWriter->writeAttribute('rgb', $fill->getStartColor()->getARGB());
             $objWriter->endElement();
@@ -211,7 +212,7 @@ class Style extends WriterPart
         $objWriter->writeAttribute('position', '1');
 
         // color
-        if ($fill->getEndColor()->getARGB() !== null) {
+        if (!empty($fill->getEndColor()->getARGB())) {
             $objWriter->startElement('color');
             $objWriter->writeAttribute('rgb', $fill->getEndColor()->getARGB());
             $objWriter->endElement();
@@ -243,7 +244,9 @@ class Style extends WriterPart
 
         // patternFill
         $objWriter->startElement('patternFill');
-        $objWriter->writeAttribute('patternType', (string) $fill->getFillType());
+        if ($fill->getFillType()) {
+            $objWriter->writeAttribute('patternType', (string) $fill->getFillType());
+        }
 
         if (self::writePatternColors($fill)) {
             // fgColor

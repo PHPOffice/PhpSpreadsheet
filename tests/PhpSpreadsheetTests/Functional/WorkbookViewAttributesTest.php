@@ -21,9 +21,8 @@ class WorkbookViewAttributesTest extends AbstractFunctional
      * are preserved when xlsx documents are read and written.
      *
      * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/523
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testPreserveWorkbookViewAttributes(string $format): void
     {
         // Create a dummy workbook with two worksheets

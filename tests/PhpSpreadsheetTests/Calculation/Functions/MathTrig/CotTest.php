@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CotTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOT')]
     public function testCOT(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class CotTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/COT.php';
     }
 
-    /**
-     * @dataProvider providerCotArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCotArray')]
     public function testCotArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

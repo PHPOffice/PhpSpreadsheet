@@ -32,6 +32,7 @@ class GnumericInfoTest extends TestCase
                 'lastColumnIndex' => 13,
                 'totalRows' => 31,
                 'totalColumns' => 14,
+                'sheetState' => 'visible',
             ],
             [
                 'worksheetName' => 'Report Data',
@@ -39,6 +40,7 @@ class GnumericInfoTest extends TestCase
                 'lastColumnIndex' => 10,
                 'totalRows' => 65535,
                 'totalColumns' => 11,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertEquals($expected, $info);

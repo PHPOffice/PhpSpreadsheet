@@ -64,9 +64,7 @@ class HtmlTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCanReadVerySmallFile
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCanReadVerySmallFile')]
     public function testCanReadVerySmallFile(bool $expected, string $content): void
     {
         $filename = HtmlHelper::createHtml($content);
@@ -155,15 +153,12 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getColumnDimension('A');
-        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getWidth());
 
         $dimension = $firstSheet->getColumnDimension('B');
-        self::assertNotNull($dimension);
         self::assertEquals(100, $dimension->getWidth('px'));
 
         $dimension = $firstSheet->getColumnDimension('C');
-        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getWidth('px'));
         $spreadsheet->disconnectWorksheets();
     }
@@ -186,15 +181,12 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getRowDimension(1);
-        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getRowHeight());
 
         $dimension = $firstSheet->getRowDimension(2);
-        self::assertNotNull($dimension);
         self::assertEquals(100, $dimension->getRowHeight('px'));
 
         $dimension = $firstSheet->getRowDimension(3);
-        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getRowHeight('px'));
         $spreadsheet->disconnectWorksheets();
     }

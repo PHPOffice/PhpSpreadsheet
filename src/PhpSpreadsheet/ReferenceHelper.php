@@ -248,7 +248,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows, string $beforeCellAddress): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -256,9 +256,40 @@ class ReferenceHelper
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
-            $newReference = $this->updateCellReference($cellAddress);
+            $formula = $dataValidation->getFormula1();
+            if ($formula !== '') {
+                $dataValidation->setFormula1(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $formula = $dataValidation->getFormula2();
+            if ($formula !== '') {
+                $dataValidation->setFormula2(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $addressParts = explode(' ', $cellAddress);
+            $newReference = '';
+            $separator = '';
+            foreach ($addressParts as $addressPart) {
+                $newReference .= $separator . $this->updateCellReference($addressPart);
+                $separator = ' ';
+            }
             if ($cellAddress !== $newReference) {
-                $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
             }
@@ -290,14 +321,14 @@ class ReferenceHelper
      */
     protected function adjustProtectedCells(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
-        $aProtectedCells = $worksheet->getProtectedCells();
+        $aProtectedCells = $worksheet->getProtectedCellRanges();
         ($numberOfColumns > 0 || $numberOfRows > 0)
             ? uksort($aProtectedCells, [self::class, 'cellReverseSort'])
             : uksort($aProtectedCells, [self::class, 'cellSort']);
-        foreach ($aProtectedCells as $cellAddress => $value) {
+        foreach ($aProtectedCells as $cellAddress => $protectedRange) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->protectCells($newReference, $value, true);
+                $worksheet->protectCells($newReference, $protectedRange->getPassword(), true);
                 $worksheet->unprotectCells($cellAddress);
             }
         }
@@ -491,7 +522,7 @@ class ReferenceHelper
         $this->adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows);
+        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows, $beforeCellAddress);
 
         // Update worksheet: merge cells
         $this->adjustMergeCells($worksheet);
@@ -759,7 +790,7 @@ class ReferenceHelper
             $column = $columns[$splitCount][0];
             $row = $rows[$splitCount][0];
 
-            if (!empty($column) && $column[0] !== '$') {
+            if ($column[0] !== '$') {
                 $column = ((Coordinate::columnIndexFromString($column) + $numberOfColumns) % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
                 $column = Coordinate::stringFromColumnIndex($column);
                 $rowOffset -= ($columnLength - strlen($column));
@@ -921,7 +952,7 @@ class ReferenceHelper
     {
         $cellAddress = $definedName->getValue();
         $asFormula = ($cellAddress[0] === '=');
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
             /**
              * If we delete the entire range that is referenced by a Named Range, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Range will still reference Cells.
@@ -940,7 +971,7 @@ class ReferenceHelper
 
     private function updateNamedFormula(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
     {
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
             /**
              * If we delete the entire range that is referenced by a Named Formula, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Formula will still reference Cells.
@@ -1215,7 +1246,7 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeRow; $j <= $beforeRow - 1 + $numberOfRows; ++$j) {
-                    if (!empty($xfIndex) || $worksheet->cellExists([$j, $i])) {
+                    if (!empty($xfIndex) || $worksheet->cellExists([$i, $j])) {
                         $worksheet->getCell(Coordinate::stringFromColumnIndex($i) . $j)->setXfIndex($xfIndex);
                     }
                 }

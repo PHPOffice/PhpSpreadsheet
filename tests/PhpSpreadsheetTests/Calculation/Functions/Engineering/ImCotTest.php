@@ -25,9 +25,7 @@ class ImCotTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMCOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOT')]
     public function testDirectCallToIMCOT(float|string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMCOT($arg);
@@ -42,9 +40,7 @@ class ImCotTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMCOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOT')]
     public function testIMCOTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImCotTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMCOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMCOT')]
     public function testIMCOTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImCotTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMCOT.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMCOT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMCOT')]
     public function testIMCOTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImCotTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImCotArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImCotArray')]
     public function testImCotArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

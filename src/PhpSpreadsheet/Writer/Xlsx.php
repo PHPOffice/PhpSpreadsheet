@@ -140,6 +140,11 @@ class Xlsx extends BaseWriter
 
     private bool $useDynamicArray = false;
 
+    public const DEFAULT_FORCE_FULL_CALC = false;
+
+    // Default changed from null in PhpSpreadsheet 4.0.0.
+    private ?bool $forceFullCalc = self::DEFAULT_FORCE_FULL_CALC;
+
     /**
      * Create a new Xlsx Writer.
      */
@@ -342,7 +347,7 @@ class Xlsx extends BaseWriter
         $zipContent['xl/styles.xml'] = $this->getWriterPartStyle()->writeStyles($this->spreadSheet);
 
         // Add workbook to ZIP file
-        $zipContent['xl/workbook.xml'] = $this->getWriterPartWorkbook()->writeWorkbook($this->spreadSheet, $this->preCalculateFormulas);
+        $zipContent['xl/workbook.xml'] = $this->getWriterPartWorkbook()->writeWorkbook($this->spreadSheet, $this->preCalculateFormulas, $this->forceFullCalc);
 
         $chartCount = 0;
         // Add worksheets
@@ -746,5 +751,22 @@ class Xlsx extends BaseWriter
     private function determineUseDynamicArrays(): void
     {
         $this->useDynamicArray = $this->preCalculateFormulas && Calculation::getInstance($this->spreadSheet)->getInstanceArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY && !$this->useCSEArrays;
+    }
+
+    /**
+     * If this is set when a spreadsheet is opened,
+     * values may not be automatically re-calculated,
+     * and a button will be available to force re-calculation.
+     * This may apply to all spreadsheets open at that time.
+     * If null, this will be set to the opposite of $preCalculateFormulas.
+     * It is likely that false is the desired setting, although
+     * cases have been reported where true is required (issue #456).
+     * Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.
+     */
+    public function setForceFullCalc(?bool $forceFullCalc): self
+    {
+        $this->forceFullCalc = $forceFullCalc;
+
+        return $this;
     }
 }

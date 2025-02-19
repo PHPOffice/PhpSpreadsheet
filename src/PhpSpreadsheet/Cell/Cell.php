@@ -63,7 +63,7 @@ class Cell implements Stringable
      *
      * @var null|array<string, string>
      */
-    private mixed $formulaAttributes = null;
+    private ?array $formulaAttributes = null;
 
     private IgnoredErrors $ignoredErrors;
 
@@ -112,8 +112,11 @@ class Cell implements Stringable
                 $dataType = DataType::TYPE_STRING;
             }
             $this->dataType = $dataType;
-        } elseif (self::getValueBinder()->bindValue($this, $value) === false) {
-            throw new SpreadsheetException('Value could not be bound to cell.');
+        } else {
+            $valueBinder = $worksheet->getParent()?->getValueBinder() ?? self::getValueBinder();
+            if ($valueBinder->bindValue($this, $value) === false) {
+                throw new SpreadsheetException('Value could not be bound to cell.');
+            }
         }
         $this->ignoredErrors = new IgnoredErrors();
     }
@@ -191,7 +194,7 @@ class Cell implements Stringable
         $currentCalendar = SharedDate::getExcelCalendar();
         SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
         $formattedValue = (string) NumberFormat::toFormattedString(
-            $this->getCalculatedValue(),
+            $this->getCalculatedValueString(),
             (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
         );
         SharedDate::setExcelCalendar($currentCalendar);
@@ -232,7 +235,8 @@ class Cell implements Stringable
      */
     public function setValue(mixed $value, ?IValueBinder $binder = null): self
     {
-        $binder ??= self::getValueBinder();
+        // Cells?->Worksheet?->Spreadsheet
+        $binder ??= $this->parent?->getParent()?->getParent()?->getValueBinder() ?? self::getValueBinder();
         if (!$binder->bindValue($this, $value)) {
             throw new SpreadsheetException('Value could not be bound to cell.');
         }
@@ -320,7 +324,7 @@ class Cell implements Stringable
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
         $worksheet = $this->getWorksheet();
         $spreadsheet = $worksheet->getParent();
-        if (isset($spreadsheet)) {
+        if (isset($spreadsheet) && $spreadsheet->getIndex($worksheet, true) >= 0) {
             $originalSelected = $worksheet->getSelectedCells();
             $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
             $style = $this->getStyle();
@@ -404,9 +408,6 @@ class Cell implements Stringable
         $oldAttributesT = $oldAttributes['t'] ?? '';
         $coordinate = $this->getCoordinate();
         $oldAttributesRef = $oldAttributes['ref'] ?? $coordinate;
-        if (!str_contains($oldAttributesRef, ':')) {
-            $oldAttributesRef .= ":$oldAttributesRef";
-        }
         $originalValue = $this->value;
         $originalDataType = $this->dataType;
         $this->formulaAttributes = [];
@@ -429,6 +430,14 @@ class Cell implements Stringable
                     while (is_array($result)) {
                         $result = array_shift($result);
                     }
+                }
+                if (
+                    !is_array($result)
+                    && $calculation->getInstanceArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY
+                    && $oldAttributesT === 'array'
+                    && ($oldAttributesRef === $coordinate || $oldAttributesRef === "$coordinate:$coordinate")
+                ) {
+                    $result = [$result];
                 }
                 // if return_as_array for formula like '=sheet!cell'
                 if (is_array($result) && count($result) === 1) {
@@ -495,9 +504,10 @@ class Cell implements Stringable
                                 if (isset($matches[3])) {
                                     $minCol = $matches[1];
                                     $minRow = (int) $matches[2];
-                                    $maxCol = $matches[4];
+                                    // https://github.com/phpstan/phpstan/issues/11602
+                                    $maxCol = $matches[4]; // @phpstan-ignore-line
                                     ++$maxCol;
-                                    $maxRow = (int) $matches[5];
+                                    $maxRow = (int) $matches[5]; // @phpstan-ignore-line
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
                                         for ($col = $minCol; $col !== $maxCol; ++$col) {
                                             if ("$col$row" !== $coordinate) {
@@ -555,6 +565,8 @@ class Cell implements Stringable
             SharedDate::setExcelCalendar($currentCalendar);
 
             if ($result === Functions::NOT_YET_IMPLEMENTED) {
+                $this->formulaAttributes = $oldAttributes;
+
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
 
@@ -934,7 +946,7 @@ class Cell implements Stringable
      *
      * @return $this
      */
-    public function setFormulaAttributes(mixed $attributes): self
+    public function setFormulaAttributes(?array $attributes): self
     {
         $this->formulaAttributes = $attributes;
 

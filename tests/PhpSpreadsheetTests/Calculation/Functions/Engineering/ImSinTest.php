@@ -25,9 +25,7 @@ class ImSinTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    /**
-     * @dataProvider providerIMSIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSIN')]
     public function testDirectCallToIMSIN(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMSIN($arg);
@@ -42,9 +40,7 @@ class ImSinTest extends TestCase
         return trim($value, '"');
     }
 
-    /**
-     * @dataProvider providerIMSIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSIN')]
     public function testIMSINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +56,7 @@ class ImSinTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider providerIMSIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSIN')]
     public function testIMSINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,9 +82,7 @@ class ImSinTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSIN.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMSIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSIN')]
     public function testIMSINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -116,9 +108,7 @@ class ImSinTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImSinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSinArray')]
     public function testImSinArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

@@ -16,9 +16,7 @@ class IsBlankTest extends TestCase
         self::assertTrue($result);
     }
 
-    /**
-     * @dataProvider providerIsBlank
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsBlank')]
     public function testIsBlank(bool $expectedResult, mixed $value): void
     {
         $result = Value::isBlank($value);
@@ -30,9 +28,7 @@ class IsBlankTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_BLANK.php';
     }
 
-    /**
-     * @dataProvider providerIsBlankArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsBlankArray')]
     public function testIsBlankArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();

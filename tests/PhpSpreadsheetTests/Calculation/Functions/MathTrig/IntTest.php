@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class IntTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINT')]
     public function testINT(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,9 +27,7 @@ class IntTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/INT.php';
     }
 
-    /**
-     * @dataProvider providerIntArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIntArray')]
     public function testIntArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

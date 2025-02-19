@@ -7,12 +7,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IndirectTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINDIRECT
-     */
+    #[DataProvider('providerINDIRECT')]
     public function testINDIRECT(mixed $expectedResult, mixed $cellReference = 'omitted', mixed $a1 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -108,13 +107,13 @@ class IndirectTest extends AllSetupTeardown
     {
         $reader = new ReaderXlsx();
         $file = 'tests/data/Calculation/LookupRef/IndirectFormulaSelection.xlsx';
-        $spreadsheet = $reader->load($file);
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = $reader->load($file);
+        $sheet = $this->spreadsheet->getActiveSheet();
         $result = $sheet->getCell('A5')->getCalculatedValue();
         self::assertSame(100, $result);
         $value = $sheet->getCell('A5')->getValue();
         self::assertSame('=CURRENCY_SELECTOR', $value);
-        $formula = $spreadsheet->getNamedFormula('CURRENCY_SELECTOR');
+        $formula = $this->spreadsheet->getNamedFormula('CURRENCY_SELECTOR');
         if ($formula === null) {
             self::fail('Expected named formula was not defined');
         } else {
@@ -132,11 +131,10 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame('This is it', $result);
     }
 
-    /**
-     * @dataProvider providerRelative
-     */
+    #[DataProvider('providerRelative')]
     public function testR1C1Relative(string|int|null $expectedResult, string $address): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->fromArray([
             ['a1', 'b1', 'c1'],

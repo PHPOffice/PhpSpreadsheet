@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CharNonPrintableTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerType')]
     public function testNotPrintable(string $type): void
     {
         $spreadsheet = new Spreadsheet();

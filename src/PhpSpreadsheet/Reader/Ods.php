@@ -17,7 +17,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -58,9 +57,12 @@ class Ods extends BaseReader
                     $mimeType = $zip->getFromName($stat['name']);
                 } elseif ($zip->statName('META-INF/manifest.xml')) {
                     $xml = simplexml_load_string(
-                        $this->getSecurityScannerOrThrow()->scan($zip->getFromName('META-INF/manifest.xml')),
-                        'SimpleXMLElement',
-                        Settings::getLibXmlLoaderOptions()
+                        $this->getSecurityScannerOrThrow()
+                            ->scan(
+                                $zip->getFromName(
+                                    'META-INF/manifest.xml'
+                                )
+                            )
                     );
                     if ($xml !== false) {
                         $namespacesContent = $xml->getNamespaces(true);
@@ -98,9 +100,10 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
-            null,
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scanFile(
+                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
+                )
         );
         $xml->setParserProperty(2, true);
 
@@ -145,72 +148,76 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
-            null,
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scanFile(
+                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
+                )
         );
         $xml->setParserProperty(2, true);
 
         // Step into the first level of content of the XML
         $xml->read();
+        $tableVisibility = [];
+        $lastTableStyle = '';
+
         while ($xml->read()) {
-            // Quickly jump through to the office:body node
-            while (self::getXmlName($xml) !== 'office:body') {
-                if ($xml->isEmptyElement) {
+            if (self::getXmlName($xml) === 'style:style') {
+                $styleType = $xml->getAttribute('style:family');
+                if ($styleType === 'table') {
+                    $lastTableStyle = $xml->getAttribute('style:name');
+                }
+            } elseif (self::getXmlName($xml) === 'style:table-properties') {
+                $visibility = $xml->getAttribute('table:display');
+                $tableVisibility[$lastTableStyle] = ($visibility === 'false') ? Worksheet::SHEETSTATE_HIDDEN : Worksheet::SHEETSTATE_VISIBLE;
+            } elseif (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                $worksheetNames[] = $xml->getAttribute('table:name');
+
+                $styleName = $xml->getAttribute('table:style-name') ?? '';
+                $visibility = $tableVisibility[$styleName] ?? '';
+                $tmpInfo = [
+                    'worksheetName' => $xml->getAttribute('table:name'),
+                    'lastColumnLetter' => 'A',
+                    'lastColumnIndex' => 0,
+                    'totalRows' => 0,
+                    'totalColumns' => 0,
+                    'sheetState' => $visibility,
+                ];
+
+                // Loop through each child node of the table:table element reading
+                $currCells = 0;
+                do {
                     $xml->read();
-                } else {
-                    $xml->next();
-                }
-            }
-            // Now read each node until we find our first table:table node
-            while ($xml->read()) {
-                if (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
-                    $worksheetNames[] = $xml->getAttribute('table:name');
-
-                    $tmpInfo = [
-                        'worksheetName' => $xml->getAttribute('table:name'),
-                        'lastColumnLetter' => 'A',
-                        'lastColumnIndex' => 0,
-                        'totalRows' => 0,
-                        'totalColumns' => 0,
-                    ];
-
-                    // Loop through each child node of the table:table element reading
-                    $currCells = 0;
-                    do {
+                    if (self::getXmlName($xml) == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        $rowspan = $xml->getAttribute('table:number-rows-repeated');
+                        $rowspan = empty($rowspan) ? 1 : $rowspan;
+                        $tmpInfo['totalRows'] += $rowspan;
+                        $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                        $currCells = 0;
+                        // Step into the row
                         $xml->read();
-                        if (self::getXmlName($xml) == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
-                            $rowspan = $xml->getAttribute('table:number-rows-repeated');
-                            $rowspan = empty($rowspan) ? 1 : $rowspan;
-                            $tmpInfo['totalRows'] += $rowspan;
-                            $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
-                            $currCells = 0;
-                            // Step into the row
-                            $xml->read();
-                            do {
-                                $doread = true;
-                                if (self::getXmlName($xml) == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
-                                    if (!$xml->isEmptyElement) {
-                                        ++$currCells;
-                                        $xml->next();
-                                        $doread = false;
-                                    }
-                                } elseif (self::getXmlName($xml) == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
-                                    $mergeSize = $xml->getAttribute('table:number-columns-repeated');
-                                    $currCells += (int) $mergeSize;
+                        do {
+                            $doread = true;
+                            if (self::getXmlName($xml) == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                if (!$xml->isEmptyElement) {
+                                    ++$currCells;
+                                    $xml->next();
+                                    $doread = false;
                                 }
-                                if ($doread) {
-                                    $xml->read();
-                                }
-                            } while (self::getXmlName($xml) != 'table:table-row');
-                        }
-                    } while (self::getXmlName($xml) != 'table:table');
+                            } elseif (self::getXmlName($xml) == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $currCells += (int) $mergeSize;
+                            }
+                            if ($doread) {
+                                $xml->read();
+                            }
+                        } while (self::getXmlName($xml) != 'table:table-row');
+                    }
+                } while (self::getXmlName($xml) != 'table:table');
 
-                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
-                    $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
-                    $worksheetInfo[] = $tmpInfo;
-                }
+                $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+                $worksheetInfo[] = $tmpInfo;
             }
         }
 
@@ -234,6 +241,7 @@ class Ods extends BaseReader
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
@@ -253,9 +261,8 @@ class Ods extends BaseReader
         // Meta
 
         $xml = @simplexml_load_string(
-            $this->getSecurityScannerOrThrow()->scan($zip->getFromName('meta.xml')),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('meta.xml'))
         );
         if ($xml === false) {
             throw new Exception('Unable to read data from {$pFilename}');
@@ -269,8 +276,8 @@ class Ods extends BaseReader
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->getSecurityScannerOrThrow()->scan($zip->getFromName('styles.xml')),
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('styles.xml'))
         );
 
         $pageSettings = new PageSettings($dom);
@@ -279,8 +286,8 @@ class Ods extends BaseReader
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->getSecurityScannerOrThrow()->scan($zip->getFromName(self::INITIAL_FILE)),
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName(self::INITIAL_FILE))
         );
 
         $officeNs = (string) $dom->lookupNamespaceUri('office');
@@ -689,8 +696,8 @@ class Ods extends BaseReader
     {
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->getSecurityScannerOrThrow()->scan($zip->getFromName('settings.xml')),
-            Settings::getLibXmlLoaderOptions()
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('settings.xml'))
         );
         //$xlinkNs = $dom->lookupNamespaceUri('xlink');
         $configNs = (string) $dom->lookupNamespaceUri('config');

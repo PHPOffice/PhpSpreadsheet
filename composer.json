@@ -15,6 +15,7 @@
         "platform": {
             "php" : "8.1.99"
         },
+        "process-timeout": 600,
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -45,12 +46,12 @@
     ],
     "scripts": {
         "check": [
-            "./bin/check-phpdoc-types",
+            "php ./bin/check-phpdoc-types",
             "phpcs samples/ src/ tests/ --report=checkstyle",
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpunit --color=always",
-            "phpstan analyse --ansi --memory-limit=2048M"
+            "phpstan analyse --ansi --memory-limit=2048M",
+            "phpunit --color=always"
         ],
         "style": [
             "phpcs samples/ src/ tests/ --report=checkstyle",
@@ -61,7 +62,7 @@
             "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
         ]
     },
     "require": {
@@ -79,6 +80,7 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
+        "composer/pcre": "^1||^2||^3",
         "maennchen/zipstream-php": "^2.1 || ^3.0",
         "markbaker/complex": "^3.0",
         "markbaker/matrix": "^3.0",
@@ -95,7 +97,7 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.6 || ^10.5",
+        "phpunit/phpunit": "^10.5",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },

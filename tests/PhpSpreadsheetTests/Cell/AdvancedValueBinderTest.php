@@ -84,9 +84,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider currencyProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('currencyProvider')]
     public function testCurrency(string $value, float $valueBinded, string $thousandsSeparator, string $decimalSeparator, string $currencyCode): void
     {
         StringHelper::setCurrencyCode($currencyCode);
@@ -121,9 +119,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider fractionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fractionProvider')]
     public function testFractions(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -160,9 +156,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider percentageProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('percentageProvider')]
     public function testPercentages(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -187,9 +181,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider timeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('timeProvider')]
     public function testTimes(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -212,9 +204,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider stringProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('stringProvider')]
     public function testStringWrapping(string $value): void
     {
         $spreadsheet = new Spreadsheet();
@@ -234,9 +224,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider formulaProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('formulaProvider')]
     public function testFormula(string $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();

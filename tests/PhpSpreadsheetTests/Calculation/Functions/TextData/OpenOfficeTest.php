@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class OpenOfficeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerOpenOffice
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOpenOffice')]
     public function testOpenOffice(mixed $expectedResult, string $formula): void
     {
         $this->setOpenOffice();
