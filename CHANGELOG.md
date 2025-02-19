@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- ListWorksheetInfo will now return sheetState (visible, hidden, veryHidden). [Issue #4345](https://github.com/PHPOffice/PhpSpreadsheet/issues/4345) [PR #4366](https://github.com/PHPOffice/PhpSpreadsheet/pull/4366)
 
 ### Moved
 
