@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Support Justify Last Line. [Issue #4374](https://github.com/PHPOffice/PhpSpreadsheet/issues/4374) [PR #4373](https://github.com/PHPOffice/PhpSpreadsheet/pull/4373)
 
 ### Removed
 

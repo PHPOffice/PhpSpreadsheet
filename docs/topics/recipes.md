@@ -1188,15 +1188,16 @@ quotePrefix  | setQuotePrefix()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
-Array key   | Maps to property
-------------|-------------------
-horizontal  | setHorizontal()
-indent      | setIndent()
-readOrder   | setReadOrder()
-shrinkToFit | setShrinkToFit()
-textRotation| setTextRotation()
-vertical    | setVertical()
-wrapText    | setWrapText()
+Array key       | Maps to property
+----------------|-------------------
+horizontal      | setHorizontal()
+justifyLastLine | setJustifyLastLine()
+indent          | setIndent()
+readOrder       | setReadOrder()
+shrinkToFit     | setShrinkToFit()
+textRotation    | setTextRotation()
+vertical        | setVertical()
+wrapText        | setWrapText()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
