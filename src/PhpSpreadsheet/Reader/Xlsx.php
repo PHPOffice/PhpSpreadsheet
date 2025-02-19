@@ -238,6 +238,8 @@ class Xlsx extends BaseReader
                             'totalRows' => 0,
                             'totalColumns' => 0,
                         ];
+                        $sheetState = (string) (self::getAttributes($eleSheet)['state'] ?? Worksheet::SHEETSTATE_VISIBLE);
+                        $tmpInfo['sheetState'] = $sheetState;
 
                         $fileWorksheet = (string) $worksheets[self::getArrayItemString(self::getAttributes($eleSheet, $namespace), 'id')];
                         $fileWorksheetPath = str_starts_with($fileWorksheet, '/') ? substr($fileWorksheet, 1) : "$dir/$fileWorksheet";
@@ -257,7 +259,7 @@ class Xlsx extends BaseReader
                         $currCells = 0;
                         while ($xml->read()) {
                             if ($xml->localName == 'row' && $xml->nodeType == XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
-                                $row = $xml->getAttribute('r');
+                                $row = (int) $xml->getAttribute('r');
                                 $tmpInfo['totalRows'] = $row;
                                 $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                                 $currCells = 0;
