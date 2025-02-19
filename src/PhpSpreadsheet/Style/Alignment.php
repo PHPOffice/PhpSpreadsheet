@@ -278,8 +278,6 @@ class Alignment extends Supervisor
     /**
      * Set Justify Last Line.
      *
-     * @param bool $justifyLastLine 
-     *
      * @return $this
      */
     public function setJustifyLastLine(bool $justifyLastLine): static
