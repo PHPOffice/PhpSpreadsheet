@@ -123,7 +123,6 @@ class XlsxTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
 
         $autofilter = $worksheet->getAutoFilter();
-        self::assertInstanceOf(AutoFilter::class, $autofilter);
         self::assertEquals('A1:D57', $autofilter->getRange());
         self::assertEquals(
             AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER,
@@ -167,7 +166,7 @@ class XlsxTest extends TestCase
         self::assertEquals(Conditional::CONDITION_CELLIS, $conditionalRule->getConditionType());
         self::assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
         self::assertEquals(['200', '400'], $conditionalRule->getConditions());
-        self::assertInstanceOf(Style::class, $conditionalRule->getStyle());
+        self::assertSame('#,##0.00_-"€"', $conditionalRule->getStyle()->exportArray()['numberFormat']['formatCode']);
         $spreadsheet->disconnectWorksheets();
     }
 

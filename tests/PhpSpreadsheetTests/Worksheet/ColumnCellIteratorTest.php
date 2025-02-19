@@ -23,6 +23,12 @@ class ColumnCellIteratorTest extends TestCase
             [160, null, 360, null, 560],
         ];
 
+    // Phpstan does not think RowCellIterator can return null
+    private static function isCellNull(?Cell $item): bool
+    {
+        return $item === null;
+    }
+
     private static function getPopulatedSheet(Spreadsheet $spreadsheet): Worksheet
     {
         $sheet = $spreadsheet->getActiveSheet();
@@ -41,10 +47,9 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertNotNull($ColumnCell);
+            self::assertFalse(self::isCellNull($ColumnCell));
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
         $transposed = array_map(null, ...self::CELL_VALUES);
         self::assertSame($transposed[0], $values);
@@ -61,10 +66,9 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertNotNull($ColumnCell);
+            self::assertFalse(self::isCellNull($ColumnCell));
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
         self::assertSame([120, 130, 140], $values);
         $spreadsheet->disconnectWorksheets();

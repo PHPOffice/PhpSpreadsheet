@@ -82,8 +82,8 @@ class HideMergeTest extends TestCase
         $worksheet->getColumnDimension('A')->setVisible(false);
         $Tcpdf = new Tcpdf($spreadsheet);
         $html = $Tcpdf->generateHtmlAll();
-        $html = preg_replace('/^\\s+/m', '', $html) ?? $html;
-        $html = preg_replace('/[\\n\\r]/', '', $html) ?? $html;
+        $html = preg_replace('/^\s+/m', '', $html) ?? $html;
+        $html = preg_replace('/[\n\r]/', '', $html) ?? $html;
         self::assertStringContainsString(
             '<tbody><tr style="height:17pt">'
                 . '<td></td>'

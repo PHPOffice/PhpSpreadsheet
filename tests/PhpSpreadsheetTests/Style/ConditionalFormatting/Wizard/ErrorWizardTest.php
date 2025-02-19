@@ -27,7 +27,6 @@ class ErrorWizardTest extends TestCase
     public function testErrorWizard(): void
     {
         $ruleType = Wizard::ERRORS;
-        /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
         $wizard->setStyle($this->style);
@@ -45,7 +44,6 @@ class ErrorWizardTest extends TestCase
     public function testNonErrorWizard(): void
     {
         $ruleType = Wizard::NOT_ERRORS;
-        /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
         $wizard->setStyle($this->style);

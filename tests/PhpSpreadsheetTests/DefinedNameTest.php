@@ -144,7 +144,6 @@ class DefinedNameTest extends TestCase
             DefinedName::createInstance('xyz', $this->spreadsheet->getActiveSheet(), 'A1')
         );
 
-        /** @var NamedRange $namedRange */
         $namedRange = $this->spreadsheet->getDefinedName('XYZ');
         self::assertInstanceOf(NamedRange::class, $namedRange);
         self::assertEquals('A1', $namedRange->getRange());
