@@ -100,7 +100,7 @@ class Alignment extends Supervisor
     /**
      * Justify Last Line alignment.
      */
-    protected ?string $justifyLastLine = null;
+    protected ?bool $justifyLastLine = null;
 
     /**
      * Vertical alignment.
@@ -266,7 +266,7 @@ class Alignment extends Supervisor
     /**
      * Get Justify Last Line.
      */
-    public function getJustifyLastLine(): null|string
+    public function getJustifyLastLine(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getJustifyLastLine();
@@ -278,11 +278,11 @@ class Alignment extends Supervisor
     /**
      * Set Justify Last Line.
      *
-     * @param string $justifyLastLine see self::HORIZONTAL_*
+     * @param bool $justifyLastLine see self::HORIZONTAL_*
      *
      * @return $this
      */
-    public function setJustifyLastLine(string $justifyLastLine): static
+    public function setJustifyLastLine(bool $justifyLastLine): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['justifyLastLine' => $justifyLastLine]);
