@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - Start migration to Phpstan 2. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- IOFactory identify can return, and createReader and CreateWriter can accept, a class name rather than a file type. [Issue #4357](https://github.com/PHPOffice/PhpSpreadsheet/issues/4357) [PR #4361](https://github.com/PHPOffice/PhpSpreadsheet/pull/4361)
 
 ### Moved
 

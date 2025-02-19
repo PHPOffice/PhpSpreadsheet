@@ -159,21 +159,6 @@ class IOFactoryTest extends TestCase
         IOFactory::identify('.');
     }
 
-    public function testRegisterInvalidWriter(): void
-    {
-        $this->expectException(Writer\Exception::class);
-
-        // @phpstan-ignore-next-line
-        IOFactory::registerWriter('foo', 'bar');
-    }
-
-    public function testRegisterInvalidReader(): void
-    {
-        $this->expectException(ReaderException::class);
-
-        IOFactory::registerReader('foo', 'bar');
-    }
-
     public function testCreateInvalidWriter(): void
     {
         $this->expectException(Writer\Exception::class);
