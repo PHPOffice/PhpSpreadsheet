@@ -514,6 +514,7 @@ class Alignment extends Supervisor
 
         return md5(
             $this->horizontal
+            . $this->justifyLastLine
             . $this->vertical
             . $this->textRotation
             . ($this->wrapText ? 't' : 'f')
