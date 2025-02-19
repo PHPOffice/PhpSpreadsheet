@@ -278,7 +278,7 @@ class Alignment extends Supervisor
     /**
      * Set Justify Last Line.
      *
-     * @param bool $justifyLastLine see self::HORIZONTAL_*
+     * @param bool $justifyLastLine 
      *
      * @return $this
      */
