@@ -91,7 +91,11 @@ class SpreadsheetCopyCloneTest extends TestCase
         $sheet2 = $this->spreadsheet->createSheet();
         $sheet3 = $this->spreadsheet->createSheet();
         $sheet4 = $this->spreadsheet->createSheet();
+        $sheet0->getStyle('B1')->getFont()->setName('whatever');
+        $sheet1->getStyle('B1')->getFont()->setName('whatever');
+        $sheet2->getStyle('B1')->getFont()->setName('whatever');
         $sheet3->getStyle('B1')->getFont()->setName('whatever');
+        $sheet4->getStyle('B1')->getFont()->setName('whatever');
         $this->spreadsheet->setActiveSheetIndex(2);
         if ($type === 'copy') {
             $this->spreadsheet2 = $this->spreadsheet->copy();
