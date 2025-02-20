@@ -18,7 +18,7 @@ class Issue4375Test extends TestCase
         $file .= '#xl/worksheets/sheet1.xml';
         $data = file_get_contents($file) ?: '';
         $expected = '<ignoredErrors><ignoredError sqref="A2:B5 B1:F1" numberStoredAsText="1"/></ignoredErrors>';
-        self::assertStringContainsString($expected, $data, 'neither fgColor nor bgColor');
+        self::assertStringContainsString($expected, $data);
     }
 
     public function testDataOnly(): void
