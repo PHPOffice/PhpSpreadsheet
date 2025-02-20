@@ -74,4 +74,14 @@ class OffsetTest extends AllSetupTeardown
 
         self::assertSame(2, $workSheet->getCell('B2')->getCalculatedValue());
     }
+
+    public function testOffsetMultiCellNamedRange(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->setCellValue('D13', 'Hello');
+        $this->getSpreadsheet()
+            ->addNamedRange(new NamedRange('CELLAREA', $sheet, '$B$6:$F$22'));
+        $sheet->setCellValue('D1', '=OFFSET(CELLAREA,7,2,1,1)');
+        self::assertSame('Hello', $sheet->getCell('D1')->getCalculatedValue());
+    }
 }
