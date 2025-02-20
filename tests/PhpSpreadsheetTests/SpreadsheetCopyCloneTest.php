@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SpreadsheetCopyCloneTest extends TestCase
@@ -25,7 +26,8 @@ class SpreadsheetCopyCloneTest extends TestCase
         }
     }
 
-    public function runTests(string $type): void
+    #[DataProvider('providerCopyClone')]
+    public function testCopyClone(string $type): void
     {
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
@@ -41,12 +43,15 @@ class SpreadsheetCopyCloneTest extends TestCase
         $sheet->getCell('B1')->setValue('this is b1');
         $sheet->getCell('B2')->setValue('this is b2');
         self::assertSame('font1', $sheet->getStyle('A1')->getFont()->getName());
+        $sheet->setSelectedCells('A3');
         if ($type === 'copy') {
             $this->spreadsheet2 = $this->spreadsheet->copy();
         } else {
             $this->spreadsheet2 = clone $this->spreadsheet;
         }
+        self::assertSame('A3', $sheet->getSelectedCells());
         $copysheet = $this->spreadsheet2->getActiveSheet();
+        self::assertSame('A3', $copysheet->getSelectedCells());
         self::assertSame('original', $copysheet->getTitle());
         $copysheet->setTitle('unoriginal');
         self::assertSame('original', $sheet->getTitle());
@@ -77,13 +82,30 @@ class SpreadsheetCopyCloneTest extends TestCase
         self::assertSame('this is b2', $copysheet->getCell('B2')->getValue());
     }
 
-    public function testClone(): void
+    #[DataProvider('providerCopyClone')]
+    public function testCopyCloneActiveSheet(string $type): void
     {
-        $this->runTests('clone');
+        $this->spreadsheet = new Spreadsheet();
+        $sheet0 = $this->spreadsheet->getActiveSheet();
+        $sheet1 = $this->spreadsheet->createSheet();
+        $sheet2 = $this->spreadsheet->createSheet();
+        $sheet3 = $this->spreadsheet->createSheet();
+        $sheet4 = $this->spreadsheet->createSheet();
+        $sheet3->getStyle('B1')->getFont()->setName('whatever');
+        $this->spreadsheet->setActiveSheetIndex(2);
+        if ($type === 'copy') {
+            $this->spreadsheet2 = $this->spreadsheet->copy();
+        } else {
+            $this->spreadsheet2 = clone $this->spreadsheet;
+        }
+        self::assertSame(2, $this->spreadsheet2->getActiveSheetIndex());
     }
 
-    public function testCopy(): void
+    public static function providerCopyClone(): array
     {
-        $this->runTests('copy');
+        return [
+            ['copy'],
+            ['clone'],
+        ];
     }
 }
