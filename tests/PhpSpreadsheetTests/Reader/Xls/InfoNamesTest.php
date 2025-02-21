@@ -31,6 +31,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 4,
                 'totalRows' => 19,
                 'totalColumns' => 5,
+                'sheetState' => 'visible',
             ],
             [
                 'worksheetName' => 'Terms and conditions',
@@ -38,6 +39,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 1,
                 'totalRows' => 3,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);
@@ -66,6 +68,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 1,
                 'totalRows' => 1,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);
@@ -106,6 +109,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 15,
                 'totalRows' => 3,
                 'totalColumns' => 16,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);

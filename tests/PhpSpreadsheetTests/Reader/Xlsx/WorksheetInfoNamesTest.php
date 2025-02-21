@@ -22,6 +22,7 @@ class WorksheetInfoNamesTest extends TestCase
                 'lastColumnIndex' => 5,
                 'totalRows' => '6',
                 'totalColumns' => 6,
+                'sheetState' => 'visible',
             ],
         ];
 
@@ -51,6 +52,7 @@ class WorksheetInfoNamesTest extends TestCase
                 'lastColumnIndex' => 10,
                 'totalRows' => 2,
                 'totalColumns' => 11,
+                'sheetState' => 'visible',
             ],
         ];
 

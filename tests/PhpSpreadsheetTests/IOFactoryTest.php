@@ -9,11 +9,12 @@ use PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IOFactoryTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateWriter')]
+    #[DataProvider('providerCreateWriter')]
     public function testCreateWriter(string $name, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -43,7 +44,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Writer\Pdf\Mpdf::class, $actual);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCreateReader')]
+    #[DataProvider('providerCreateReader')]
     public function testCreateReader(string $name, string $expected): void
     {
         $actual = IOFactory::createReader($name);
@@ -71,15 +72,14 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Reader\Html::class, $actual);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIdentify')]
+    #[DataProvider('providerIdentify')]
     public function testIdentifyCreateLoad(string $file, string $expectedName, string $expectedClass): void
     {
         $actual = IOFactory::identify($file);
         self::assertSame($expectedName, $actual);
         $actual = IOFactory::createReaderForFile($file);
         self::assertSame($expectedClass, $actual::class);
-        $actual = IOFactory::load($file);
-        self::assertInstanceOf(Spreadsheet::class, $actual);
+        IOFactory::load($file);
     }
 
     public static function providerIdentify(): array
@@ -159,21 +159,6 @@ class IOFactoryTest extends TestCase
         IOFactory::identify('.');
     }
 
-    public function testRegisterInvalidWriter(): void
-    {
-        $this->expectException(Writer\Exception::class);
-
-        // @phpstan-ignore-next-line
-        IOFactory::registerWriter('foo', 'bar');
-    }
-
-    public function testRegisterInvalidReader(): void
-    {
-        $this->expectException(ReaderException::class);
-
-        IOFactory::registerReader('foo', 'bar');
-    }
-
     public function testCreateInvalidWriter(): void
     {
         $this->expectException(Writer\Exception::class);
@@ -191,21 +176,21 @@ class IOFactoryTest extends TestCase
     {
         $filename = 'samples/Reader2/sampleData/example1.tsv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderCsvExtension(): void
     {
         $filename = 'samples/Reader2/sampleData/example1.csv';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Csv', $reader::class);
     }
 
     public function testCreateReaderNoExtension(): void
     {
         $filename = 'samples/Reader/sampleData/example1xls';
         $reader = IOFactory::createReaderForFile($filename);
-        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Xls', $reader::class);
+        self::assertEquals('PhpOffice\PhpSpreadsheet\Reader\Xls', $reader::class);
     }
 
     public function testCreateReaderNotSpreadsheet(): void

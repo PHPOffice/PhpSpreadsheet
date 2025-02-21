@@ -52,6 +52,7 @@ class XmlInfoTest extends TestCase
                 'lastColumnIndex' => 9,
                 'totalRows' => 31,
                 'totalColumns' => 10,
+                'sheetState' => 'visible',
             ],
             [
                 'worksheetName' => 'Report Data',
@@ -59,6 +60,7 @@ class XmlInfoTest extends TestCase
                 'lastColumnIndex' => 8,
                 'totalRows' => 15,
                 'totalColumns' => 9,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertEquals($expected, $info);
