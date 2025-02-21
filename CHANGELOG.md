@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Refactor Helper/Html. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- Better handling of defined names on sheets whose titles include apostrophes. [Issue #4356](https://github.com/PHPOffice/PhpSpreadsheet/issues/4356) [Issue #4362](https://github.com/PHPOffice/PhpSpreadsheet/issues/4362) [Issue #4376](https://github.com/PHPOffice/PhpSpreadsheet/issues/4376) [PR #4360](https://github.com/PHPOffice/PhpSpreadsheet/pull/4360)
 
 ## 2025-02-08 - 4.0.0
 
