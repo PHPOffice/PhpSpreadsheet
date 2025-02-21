@@ -23,6 +23,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -404,15 +405,15 @@ class Worksheet
      */
     private static function checkSheetCodeName(string $sheetCodeName): string
     {
-        $charCount = Shared\StringHelper::countCharacters($sheetCodeName);
+        $charCount = StringHelper::countCharacters($sheetCodeName);
         if ($charCount == 0) {
             throw new Exception('Sheet code name cannot be empty.');
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
             (str_replace(self::INVALID_CHARACTERS, '', $sheetCodeName) !== $sheetCodeName)
-            || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
-            || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
+            || (StringHelper::substring($sheetCodeName, -1, 1) == '\'')
+            || (StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
             throw new Exception('Invalid character found in sheet code name');
         }
@@ -440,7 +441,7 @@ class Worksheet
         }
 
         // Enforce maximum characters allowed for sheet title
-        if (Shared\StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
+        if (StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
             throw new Exception('Maximum ' . self::SHEET_TITLE_MAXIMUM_LENGTH . ' characters allowed in sheet title.');
         }
 
@@ -869,19 +870,19 @@ class Worksheet
                 if ($this->parent->sheetNameExists($title)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($title) > 29) {
-                        $title = Shared\StringHelper::substring($title, 0, 29);
+                    if (StringHelper::countCharacters($title) > 29) {
+                        $title = StringHelper::substring($title, 0, 29);
                     }
                     $i = 1;
                     while ($this->parent->sheetNameExists($title . ' ' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($title) > 28) {
-                                $title = Shared\StringHelper::substring($title, 0, 28);
+                            if (StringHelper::countCharacters($title) > 28) {
+                                $title = StringHelper::substring($title, 0, 28);
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($title) > 27) {
-                                $title = Shared\StringHelper::substring($title, 0, 27);
+                            if (StringHelper::countCharacters($title) > 27) {
+                                $title = StringHelper::substring($title, 0, 27);
                             }
                         }
                     }
@@ -1189,7 +1190,7 @@ class Worksheet
 
         // Worksheet reference?
         if (str_contains($coordinate, '!')) {
-            $worksheetReference = self::extractSheetTitle($coordinate, true);
+            $worksheetReference = self::extractSheetTitle($coordinate, true, true);
 
             $sheet = $this->getParentOrThrow()->getSheetByName($worksheetReference[0]);
             $finalCoordinate = strtoupper($worksheetReference[1]);
@@ -1222,9 +1223,8 @@ class Worksheet
 
         if (Coordinate::coordinateIsRange($finalCoordinate)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (str_contains($finalCoordinate, '$')) {
-            throw new Exception('Cell coordinate must not be absolute.');
         }
+        $finalCoordinate = str_replace('$', '', $finalCoordinate);
 
         return [$sheet, $finalCoordinate];
     }
@@ -1395,7 +1395,11 @@ class Worksheet
      */
     public function getStyle(AddressRange|CellAddress|int|string|array $cellCoordinate): Style
     {
+        if (is_string($cellCoordinate)) {
+            $cellCoordinate = Validations::definedNameToCoordinate($cellCoordinate, $this);
+        }
         $cellCoordinate = Validations::validateCellOrCellRange($cellCoordinate);
+        $cellCoordinate = str_replace('$', '', $cellCoordinate);
 
         // set this sheet as active
         $this->getParentOrThrow()->setActiveSheetIndex($this->getParentOrThrow()->getIndex($this));
@@ -2047,10 +2051,10 @@ class Worksheet
      */
     protected function getTableIndexByName(string $name): ?int
     {
-        $name = Shared\StringHelper::strToUpper($name);
+        $name = StringHelper::strToUpper($name);
         foreach ($this->tableCollection as $index => $table) {
             /** @var Table $table */
-            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+            if (StringHelper::strToUpper($table->getName()) === $name) {
                 return $index;
             }
         }
@@ -3182,7 +3186,7 @@ class Worksheet
      *
      * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null))
      */
-    public static function extractSheetTitle(?string $range, bool $returnRange = false): array|null|string
+    public static function extractSheetTitle(?string $range, bool $returnRange = false, bool $unapostrophize = false): array|null|string
     {
         if (empty($range)) {
             return $returnRange ? [null, null] : null;
@@ -3194,10 +3198,25 @@ class Worksheet
         }
 
         if ($returnRange) {
-            return [substr($range, 0, $sep), substr($range, $sep + 1)];
+            $title = substr($range, 0, $sep);
+            if ($unapostrophize) {
+                $title = self::unApostrophizeTitle($title);
+            }
+
+            return [$title, substr($range, $sep + 1)];
         }
 
         return substr($range, $sep + 1);
+    }
+
+    public static function unApostrophizeTitle(?string $title): string
+    {
+        $title ??= '';
+        if ($title[0] === "'" && substr($title, -1) === "'") {
+            $title = str_replace("''", "'", substr($title, 1, -1));
+        }
+
+        return $title;
     }
 
     /**
@@ -3571,19 +3590,19 @@ class Worksheet
                 if ($this->parent->sheetCodeNameExists($codeName)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($codeName) > 29) {
-                        $codeName = Shared\StringHelper::substring($codeName, 0, 29);
+                    if (StringHelper::countCharacters($codeName) > 29) {
+                        $codeName = StringHelper::substring($codeName, 0, 29);
                     }
                     $i = 1;
                     while ($this->getParentOrThrow()->sheetCodeNameExists($codeName . '_' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($codeName) > 28) {
-                                $codeName = Shared\StringHelper::substring($codeName, 0, 28);
+                            if (StringHelper::countCharacters($codeName) > 28) {
+                                $codeName = StringHelper::substring($codeName, 0, 28);
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($codeName) > 27) {
-                                $codeName = Shared\StringHelper::substring($codeName, 0, 27);
+                            if (StringHelper::countCharacters($codeName) > 27) {
+                                $codeName = StringHelper::substring($codeName, 0, 27);
                             }
                         }
                     }
