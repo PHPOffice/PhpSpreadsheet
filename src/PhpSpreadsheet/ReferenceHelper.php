@@ -1136,9 +1136,9 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
-            ++$startColID;
             ++$toColID;
-        } while ($startColID !== $endColID);
+            ++$startColID; // this confuses phpstan into thinking startColID is int/float
+        } while ($startColID !== $endColID); // @phpstan-ignore-line
     }
 
     private function adjustTable(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns): void
@@ -1215,9 +1215,9 @@ class ReferenceHelper
 
         do {
             $table->shiftColumn($startColID, $toColID);
-            ++$startColID;
             ++$toColID;
-        } while ($startColID !== $endColID);
+            ++$startColID; // this confuses phpstan into thinking startColID is int/float
+        } while ($startColID !== $endColID); // @phpstan-ignore-line
     }
 
     private function duplicateStylesByColumn(Worksheet $worksheet, int $beforeColumn, int $beforeRow, int $highestRow, int $numberOfColumns): void

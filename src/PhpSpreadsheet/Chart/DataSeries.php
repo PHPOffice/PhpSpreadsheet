@@ -367,19 +367,13 @@ class DataSeries
     public function refresh(Worksheet $worksheet): void
     {
         foreach ($this->plotValues as $plotValues) {
-            if ($plotValues !== null) {
-                $plotValues->refresh($worksheet, true);
-            }
+            $plotValues->refresh($worksheet, true);
         }
         foreach ($this->plotLabel as $plotValues) {
-            if ($plotValues !== null) {
-                $plotValues->refresh($worksheet, true);
-            }
+            $plotValues->refresh($worksheet, true);
         }
         foreach ($this->plotCategory as $plotValues) {
-            if ($plotValues !== null) {
-                $plotValues->refresh($worksheet, false);
-            }
+            $plotValues->refresh($worksheet, false);
         }
     }
 

@@ -746,7 +746,7 @@ class Worksheet
                                 ->getNumberFormat()->getFormatCode(true)
                         );
 
-                        if ($cellValue !== null && $cellValue !== '') {
+                        if ($cellValue !== '') {
                             $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
                                 $autoSizes[$this->cellCollection->getCurrentColumn()],
                                 round(
@@ -1609,7 +1609,7 @@ class Worksheet
     public function duplicateConditionalStyle(array $styles, string $range = ''): static
     {
         foreach ($styles as $cellStyle) {
-            if (!($cellStyle instanceof Conditional)) {
+            if (!($cellStyle instanceof Conditional)) { // @phpstan-ignore-line
                 throw new Exception('Style is not a conditional style');
             }
         }
@@ -1794,13 +1794,11 @@ class Worksheet
             $iterator = $column->getCellIterator($firstRow);
             $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
-                if ($cell !== null) {
-                    $row = $cell->getRow();
-                    if ($row > $lastRow) {
-                        break;
-                    }
-                    $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
+                $row = $cell->getRow();
+                if ($row > $lastRow) {
+                    break;
                 }
+                $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
             }
         }
 
@@ -1819,14 +1817,12 @@ class Worksheet
             $iterator = $row->getCellIterator($firstColumn);
             $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
-                if ($cell !== null) {
-                    $column = $cell->getColumn();
-                    $columnIndex = Coordinate::columnIndexFromString($column);
-                    if ($columnIndex > $lastColumnIndex) {
-                        break;
-                    }
-                    $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
+                $column = $cell->getColumn();
+                $columnIndex = Coordinate::columnIndexFromString($column);
+                if ($columnIndex > $lastColumnIndex) {
+                    break;
                 }
+                $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
             }
         }
 
@@ -3000,7 +2996,7 @@ class Worksheet
         $c = -1;
         for ($col = $minCol; $col !== $maxCol; ++$col) {
             if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
-                $hiddenColumns[$col] = true;
+                $hiddenColumns[$col] = true; // @phpstan-ignore-line
             } else {
                 $columnRef = $returnCellRef ? $col : ++$c;
                 $nullRow[$columnRef] = $nullValue;
@@ -3525,17 +3521,17 @@ class Worksheet
             }
 
             if (is_object($val) || (is_array($val))) {
-                if ($key == 'cellCollection') {
+                if ($key === 'cellCollection') {
                     $newCollection = $this->cellCollection->cloneCellCollection($this);
                     $this->cellCollection = $newCollection;
-                } elseif ($key == 'drawingCollection') {
+                } elseif ($key === 'drawingCollection') {
                     $currentCollection = $this->drawingCollection;
                     $this->drawingCollection = new ArrayObject();
                     foreach ($currentCollection as $item) {
                         $newDrawing = clone $item;
                         $newDrawing->setWorksheet($this);
                     }
-                } elseif ($key == 'tableCollection') {
+                } elseif ($key === 'tableCollection') {
                     $currentCollection = $this->tableCollection;
                     $this->tableCollection = new ArrayObject();
                     foreach ($currentCollection as $item) {
@@ -3543,14 +3539,14 @@ class Worksheet
                         $newTable->setName($item->getName() . 'clone');
                         $this->addTable($newTable);
                     }
-                } elseif ($key == 'chartCollection') {
+                } elseif ($key === 'chartCollection') {
                     $currentCollection = $this->chartCollection;
                     $this->chartCollection = new ArrayObject();
                     foreach ($currentCollection as $item) {
                         $newChart = clone $item;
                         $this->addChart($newChart);
                     }
-                } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof AutoFilter)) {
+                } elseif ($key === 'autoFilter') {
                     $newAutoFilter = clone $this->autoFilter;
                     $this->autoFilter = $newAutoFilter;
                     $this->autoFilter->setParent($this);
