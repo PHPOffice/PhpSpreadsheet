@@ -71,44 +71,12 @@ class CellReferenceHelper
             $updateColumn = (($absoluteColumn !== '$') && $newColumnIndex >= $this->beforeColumn);
             $updateRow = (($absoluteRow !== '$') && $newRowIndex >= $this->beforeRow);
         } else {
-            // A special case is removing the left/top or bottom/right edge of a range
-            // $topLeft is null if we aren't adjusting a range at all.
-            if (
-                $topLeft !== null
-                && $this->numberOfColumns < 0
-                && $newColumnIndex >= $this->beforeColumn + $this->numberOfColumns
-                && $newColumnIndex <= $this->beforeColumn - 1
-            ) {
-                if ($topLeft) {
-                    $newColumnIndex = $this->beforeColumn + $this->numberOfColumns;
-                } else {
-                    $newColumnIndex = $this->beforeColumn + $this->numberOfColumns - 1;
-                }
-            } elseif ($newColumnIndex >= $this->beforeColumn) {
-                // Create new column reference
-                $newColumnIndex += $this->numberOfColumns;
-            }
+            $newColumnIndex = $this->computeNewColumnIndex($newColumnIndex, $topLeft);
             $newColumn = $absoluteColumn . Coordinate::stringFromColumnIndex($newColumnIndex);
-            //$updateColumn = ($newColumnIndex >= $this->beforeColumn);
             $updateColumn = false;
-            // A special case is removing the left/top or bottom/right edge of a range
-            // $topLeft is null if we aren't adjusting a range at all.
-            if (
-                $topLeft !== null
-                && $this->numberOfRows < 0
-                && $newRowIndex >= $this->beforeRow + $this->numberOfRows
-                && $newRowIndex <= $this->beforeRow - 1
-            ) {
-                if ($topLeft) {
-                    $newRowIndex = $this->beforeRow + $this->numberOfRows;
-                } else {
-                    $newRowIndex = $this->beforeRow + $this->numberOfRows - 1;
-                }
-            } elseif ($newRowIndex >= $this->beforeRow) {
-                $newRowIndex = $newRowIndex + $this->numberOfRows;
-            }
+
+            $newRowIndex = $this->computeNewRowIndex($newRowIndex, $topLeft);
             $newRow = $absoluteRow . $newRowIndex;
-            //$updateRow = ($newRowIndex >= $this->beforeRow);
             $updateRow = false;
         }
 
@@ -124,6 +92,51 @@ class CellReferenceHelper
 
         // Return new reference
         return "{$newColumn}{$newRow}";
+    }
+
+    public function computeNewColumnIndex(int $newColumnIndex, ?bool $topLeft): int
+    {
+        // A special case is removing the left/top or bottom/right edge of a range
+        // $topLeft is null if we aren't adjusting a range at all.
+        if (
+            $topLeft !== null
+            && $this->numberOfColumns < 0
+            && $newColumnIndex >= $this->beforeColumn + $this->numberOfColumns
+            && $newColumnIndex <= $this->beforeColumn - 1
+        ) {
+            if ($topLeft) {
+                $newColumnIndex = $this->beforeColumn + $this->numberOfColumns;
+            } else {
+                $newColumnIndex = $this->beforeColumn + $this->numberOfColumns - 1;
+            }
+        } elseif ($newColumnIndex >= $this->beforeColumn) {
+            // Create new column reference
+            $newColumnIndex += $this->numberOfColumns;
+        }
+
+        return $newColumnIndex;
+    }
+
+    public function computeNewRowIndex(int $newRowIndex, ?bool $topLeft): int
+    {
+        // A special case is removing the left/top or bottom/right edge of a range
+        // $topLeft is null if we aren't adjusting a range at all.
+        if (
+            $topLeft !== null
+            && $this->numberOfRows < 0
+            && $newRowIndex >= $this->beforeRow + $this->numberOfRows
+            && $newRowIndex <= $this->beforeRow - 1
+        ) {
+            if ($topLeft) {
+                $newRowIndex = $this->beforeRow + $this->numberOfRows;
+            } else {
+                $newRowIndex = $this->beforeRow + $this->numberOfRows - 1;
+            }
+        } elseif ($newRowIndex >= $this->beforeRow) {
+            $newRowIndex = $newRowIndex + $this->numberOfRows;
+        }
+
+        return $newRowIndex;
     }
 
     public function cellAddressInDeleteRange(string $cellAddress): bool
