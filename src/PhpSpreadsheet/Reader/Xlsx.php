@@ -982,9 +982,8 @@ class Xlsx extends BaseReader
                                 }
                             }
                             $docSheet->setSelectedCells($holdSelectedCells);
-                            if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
-                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredErrorx) {
-                                    $ignoredError = self::testSimpleXml($ignoredErrorx);
+                            if (!$this->readDataOnly && $xmlSheetNS && $xmlSheetNS->ignoredErrors) {
+                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredError) {
                                     $this->processIgnoredErrors($ignoredError, $docSheet);
                                 }
                             }
@@ -1821,11 +1820,10 @@ class Xlsx extends BaseReader
                                         $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
                                         if (is_array($definedNameValueParts)) {
                                             // Extract sheet name
-                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
-                                            $extractedSheetName = trim((string) $extractedSheetName, "'");
+                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true, true);
 
                                             // Locate sheet
-                                            $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                            $locatedSheet = $excel->getSheetByName("$extractedSheetName");
                                         }
                                     }
 
@@ -2377,6 +2375,7 @@ class Xlsx extends BaseReader
 
     private function processIgnoredErrors(SimpleXMLElement $xml, Worksheet $sheet): void
     {
+        $cellCollection = $sheet->getCellCollection();
         $attributes = self::getAttributes($xml);
         $sqref = (string) ($attributes['sqref'] ?? '');
         $numberStoredAsText = (string) ($attributes['numberStoredAsText'] ?? '');
@@ -2401,6 +2400,9 @@ class Xlsx extends BaseReader
                     ++$lastCol;
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
                         for ($col = $firstCol; $col !== $lastCol; ++$col) {
+                            if (!$cellCollection->has2("$col$row")) {
+                                continue;
+                            }
                             if ($numberStoredAsText === '1') {
                                 $sheet->getCell("$col$row")->getIgnoredErrors()->setNumberStoredAsText(true);
                             }

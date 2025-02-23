@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Support Justify Last Line. [Issue #4374](https://github.com/PHPOffice/PhpSpreadsheet/issues/4374) [PR #4373](https://github.com/PHPOffice/PhpSpreadsheet/pull/4373)
+- Allow Spreadsheet clone. [PR #437-](https://github.com/PHPOffice/PhpSpreadsheet/pull/4370)
 
 ### Removed
 
@@ -32,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Refactor Helper/Html. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- Ignore ignoredErrors when not applicable. [Issue #4375](https://github.com/PHPOffice/PhpSpreadsheet/issues/4375) [PR #4377](https://github.com/PHPOffice/PhpSpreadsheet/pull/4377)
+- Better handling of defined names on sheets whose titles include apostrophes. [Issue #4356](https://github.com/PHPOffice/PhpSpreadsheet/issues/4356) [Issue #4362](https://github.com/PHPOffice/PhpSpreadsheet/issues/4362) [Issue #4376](https://github.com/PHPOffice/PhpSpreadsheet/issues/4376) [PR #4360](https://github.com/PHPOffice/PhpSpreadsheet/pull/4360)
 
 ## 2025-02-08 - 4.0.0
 

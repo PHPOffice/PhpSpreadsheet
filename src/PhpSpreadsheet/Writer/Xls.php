@@ -392,7 +392,7 @@ class Xls extends BaseWriter
         }
 
         ob_start();
-        call_user_func($renderingFunction, $drawing->getImageResource());
+        call_user_func($renderingFunction, $drawing->getImageResource()); // @phpstan-ignore-line
         $blipData = ob_get_contents();
         ob_end_clean();
 

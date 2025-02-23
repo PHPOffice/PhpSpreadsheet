@@ -45,7 +45,7 @@ class Value
 
         $cellValue = Functions::trimTrailingRange($value);
         if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/ui', $cellValue) === 1) {
-            [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true);
+            [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true, true);
             if (!empty($worksheet) && $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheet) === null) {
                 return false;
             }
@@ -282,7 +282,7 @@ class Value
     public static function type($value = null): int
     {
         $value = Functions::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
+        if (count($value) > 1) {
             end($value);
             $a = key($value);
             //    Range of cells is an error

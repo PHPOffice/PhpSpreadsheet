@@ -200,9 +200,7 @@ class Content extends WriterPart
 
             // Style XF
             $style = $cell->getXfIndex();
-            if ($style !== null) {
-                $objWriter->writeAttribute('table:style-name', Style::CELL_STYLE_PREFIX . $style);
-            }
+            $objWriter->writeAttribute('table:style-name', Style::CELL_STYLE_PREFIX . $style);
 
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
