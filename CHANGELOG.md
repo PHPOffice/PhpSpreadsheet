@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Refactor Helper/Html. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- Ignore ignoredErrors when not applicable. [Issue #4375](https://github.com/PHPOffice/PhpSpreadsheet/issues/4375) [PR #4377](https://github.com/PHPOffice/PhpSpreadsheet/pull/4377)
 
 ## 2025-02-08 - 4.0.0
 
