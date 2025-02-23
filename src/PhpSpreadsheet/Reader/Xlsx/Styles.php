@@ -266,7 +266,11 @@ class Styles extends BaseParserClass
             $alignment->setHorizontal($horizontal);
         }
         $justifyLastLine = (string) $this->getAttribute($alignmentXml, 'justifyLastLine');
-        $alignment->setJustifyLastLine(self::boolean($justifyLastLine));
+        if ($justifyLastLine !== '') {
+            $alignment->setJustifyLastLine(
+                self::boolean($justifyLastLine)
+            );
+        }
         $vertical = (string) $this->getAttribute($alignmentXml, 'vertical');
         if ($vertical !== '') {
             $alignment->setVertical($vertical);

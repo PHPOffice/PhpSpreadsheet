@@ -37,7 +37,7 @@ class Issue3443Test extends AbstractFunctional
         $rsheet = $reloadedSpreadsheet->getActiveSheet();
         $expected1 = [
             'horizontal' => 'center',
-            'justifyLastLine' => false,
+            'justifyLastLine' => null,
             'indent' => 0,
             'readOrder' => 0,
             'shrinkToFit' => false,
@@ -79,7 +79,7 @@ class Issue3443Test extends AbstractFunctional
         $rsheet = $reloadedSpreadsheet->getActiveSheet();
         $expected1 = [
             'horizontal' => 'general',
-            'justifyLastLine' => false,
+            'justifyLastLine' => null,
             'indent' => 0,
             'readOrder' => 0,
             'shrinkToFit' => false,
