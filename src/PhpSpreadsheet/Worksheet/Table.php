@@ -442,7 +442,7 @@ class Table implements Stringable
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
-        } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof Table\Column)) {
+        } elseif ($columnObjectOrString instanceof Table\Column) {
             $column = $columnObjectOrString->getColumnIndex();
         } else {
             throw new PhpSpreadsheetException('Column is not within the table range.');
@@ -491,7 +491,7 @@ class Table implements Stringable
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);
 
-        if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
+        if (isset($this->columns[$fromColumn])) {
             $this->columns[$fromColumn]->setTable();
             $this->columns[$fromColumn]->setColumnIndex($toColumn);
             $this->columns[$toColumn] = $this->columns[$fromColumn];

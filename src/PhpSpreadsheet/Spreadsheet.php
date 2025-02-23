@@ -198,10 +198,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Set the macros code.
-     *
-     * @param string $macroCode string|null
      */
-    public function setMacrosCode(string $macroCode): void
+    public function setMacrosCode(?string $macroCode): void
     {
         $this->macrosCode = $macroCode;
         $this->setHasMacros($macroCode !== null);
