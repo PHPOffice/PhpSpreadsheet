@@ -982,9 +982,8 @@ class Xlsx extends BaseReader
                                 }
                             }
                             $docSheet->setSelectedCells($holdSelectedCells);
-                            if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
-                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredErrorx) {
-                                    $ignoredError = self::testSimpleXml($ignoredErrorx);
+                            if (!$this->readDataOnly && $xmlSheetNS && $xmlSheetNS->ignoredErrors) {
+                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredError) {
                                     $this->processIgnoredErrors($ignoredError, $docSheet);
                                 }
                             }
@@ -2376,6 +2375,7 @@ class Xlsx extends BaseReader
 
     private function processIgnoredErrors(SimpleXMLElement $xml, Worksheet $sheet): void
     {
+        $cellCollection = $sheet->getCellCollection();
         $attributes = self::getAttributes($xml);
         $sqref = (string) ($attributes['sqref'] ?? '');
         $numberStoredAsText = (string) ($attributes['numberStoredAsText'] ?? '');
@@ -2400,6 +2400,9 @@ class Xlsx extends BaseReader
                     ++$lastCol;
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
                         for ($col = $firstCol; $col !== $lastCol; ++$col) {
+                            if (!$cellCollection->has2("$col$row")) {
+                                continue;
+                            }
                             if ($numberStoredAsText === '1') {
                                 $sheet->getCell("$col$row")->getIgnoredErrors()->setNumberStoredAsText(true);
                             }
