@@ -159,7 +159,7 @@ class DateTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeExcelToTimestamp1900Timezone')]
     public function testDateTimeExcelToTimestamp1900Timezone(float|int $expectedResult, float|int $excelDateTimeValue, string $timezone): void
     {
-        if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
+        if ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN) {
             self::markTestSkipped('Test invalid on 32-bit system.');
         }
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
@@ -201,34 +201,30 @@ class DateTest extends TestCase
         self::assertFalse(Date::timestampToExcel($val));
 
         $cell = $sheet->getCell('A1');
-        self::assertNotNull($cell);
 
         $cell->setValue($date);
         $sheet->getStyle('A1')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
-        self::assertTrue(null !== $cell && Date::isDateTime($cell));
+        self::assertTrue(Date::isDateTime($cell));
 
         $cella2 = $sheet->getCell('A2');
-        self::assertNotNull($cella2);
 
         $cella2->setValue('=A1+2');
         $sheet->getStyle('A2')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
-        self::assertTrue(null !== $cella2 && Date::isDateTime($cella2));
+        self::assertTrue(Date::isDateTime($cella2));
 
         $cella3 = $sheet->getCell('A3');
-        self::assertNotNull($cella3);
 
         $cella3->setValue('=A1+4');
         $sheet->getStyle('A3')
             ->getNumberFormat()
             ->setFormatCode('0.00E+00');
-        self::assertFalse(null !== $cella3 && Date::isDateTime($cella3));
+        self::assertFalse(Date::isDateTime($cella3));
 
         $cella4 = $sheet->getCell('A4');
-        self::assertNotNull($cella4);
 
         $cella4->setValue('= 44 7510557347');
         $sheet->getStyle('A4')

@@ -252,6 +252,7 @@ class Csv extends BaseReader
 
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
+        $worksheetInfo[0]['sheetState'] = Worksheet::SHEETSTATE_VISIBLE;
 
         // Close file
         fclose($fileHandle);

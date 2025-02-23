@@ -123,7 +123,10 @@ method to identify the reader that you need, before using the
 ```php
 $inputFileName = './sampleData/example1.xls';
 
-/**  Identify the type of $inputFileName  **/
+/**
+ * Identify the type of $inputFileName.
+ * See below for a possible improvement for release 4.1.0+.
+ */
 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
 /**  Create a new Reader of the type that has been identified  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -133,6 +136,13 @@ $spreadsheet = $reader->load($inputFileName);
 
 See `samples/Reader/04_Simple_file_reader_using_the_IOFactory_to_identify_a_reader_to_use.php`
 for a working example of this code.
+
+Prior to release 4.1.0, `identify` returns a file type.
+It may be more useful to return a fully-qualified class name,
+which can be accomplished using a parameter introduced in 4.1.0:
+```php
+$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName, null, true);
+```
 
 As with the IOFactory `load()` method, you can also pass an array of formats
 for  the `identify()` method to check against if you know that it will only

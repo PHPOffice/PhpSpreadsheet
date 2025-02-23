@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -166,7 +164,6 @@ class ByColumnAndRowTest extends TestCase
 
         $sheet->setAutoFilter([2, 2, 3, 3]);
         $autoFilter = $sheet->getAutoFilter();
-        self::assertInstanceOf(AutoFilter::class, $autoFilter);
         self::assertSame('B2:C3', $autoFilter->getRange());
         $spreadsheet->disconnectWorksheets();
     }
@@ -196,7 +193,6 @@ class ByColumnAndRowTest extends TestCase
             ->getText()->createTextRun('My Test Comment');
 
         $comment = $sheet->getComment([2, 2]);
-        self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
         $spreadsheet->disconnectWorksheets();
     }

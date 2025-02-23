@@ -151,11 +151,11 @@ class Date
         if ($month < 1) {
             //    Handle year/month adjustment if month < 1
             --$month;
-            $year += ceil($month / 12) - 1;
+            $year += (int) (ceil($month / 12) - 1);
             $month = 13 - abs($month % 12);
         } elseif ($month > 12) {
             //    Handle year/month adjustment if month > 12
-            $year += floor($month / 12);
+            $year += intdiv($month, 12);
             $month = ($month % 12);
         }
 

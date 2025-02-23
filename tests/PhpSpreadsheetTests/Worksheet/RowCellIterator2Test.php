@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\CellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RowCellIterator2Test extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerExistingCell')]
+    // Phpstan does not think RowCellIterator can return null
+    private static function isCellNull(?Cell $item): bool
+    {
+        return $item === null;
+    }
+
+    #[DataProvider('providerExistingCell')]
     public function testEndRangeTrue(?bool $existing, string $expectedResultFirst, string $expectedResultLast): void
     {
         $spreadsheet = new Spreadsheet();
@@ -26,7 +34,7 @@ class RowCellIterator2Test extends TestCase
         $lastCoordinate = '';
         $firstCoordinate = '';
         foreach ($iterator as $cell) {
-            if ($cell !== null) {
+            if (!self::isCellNull($cell)) {
                 $lastCoordinate = $cell->getCoordinate();
                 if (!$firstCoordinate) {
                     $firstCoordinate = $lastCoordinate;
@@ -46,7 +54,7 @@ class RowCellIterator2Test extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEmptyRow')]
+    #[DataProvider('providerEmptyRow')]
     public function testEmptyRow(?bool $existing, int $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -74,7 +82,7 @@ class RowCellIterator2Test extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNullOrCreate')]
+    #[DataProvider('providerNullOrCreate')]
     public function testNullOrCreateOption(?bool $existingBehaviour, int $expectedCreatedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -87,7 +95,7 @@ class RowCellIterator2Test extends TestCase
         self::assertSame($expectedCreatedResult > 0, $notExistsBehaviour);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNullOrCreate')]
+    #[DataProvider('providerNullOrCreate')]
     public function testNullOrCreate(?bool $existing, int $expectedCreatedResult, int $expectedNullResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -101,9 +109,8 @@ class RowCellIterator2Test extends TestCase
         }
         $numCreatedCells = $numEmptyCells = 0;
         foreach ($iterator as $cell) {
-            $numCreatedCells += (int) ($cell !== null && $cell->getValue() === null);
-            // @phpstan-ignore-next-line
-            $numEmptyCells += (int) ($cell === null);
+            $numCreatedCells += (int) (!self::isCellNull($cell) && $cell->getValue() === null);
+            $numEmptyCells += (int) self::isCellNull($cell);
         }
         self::assertSame($expectedCreatedResult, $numCreatedCells);
         self::assertSame($expectedNullResult, $numEmptyCells);

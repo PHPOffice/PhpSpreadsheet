@@ -33,6 +33,9 @@ class Gnumeric extends BaseReader
 
     const NAMESPACE_OOO = 'http://openoffice.org/2004/office';
 
+    const GNM_SHEET_VISIBILITY_VISIBLE = 'GNM_SHEET_VISIBILITY_VISIBLE';
+    const GNM_SHEET_VISIBILITY_HIDDEN = 'GNM_SHEET_VISIBILITY_HIDDEN';
+
     /**
      * Shared Expressions.
      */
@@ -144,7 +147,12 @@ class Gnumeric extends BaseReader
                     'lastColumnIndex' => 0,
                     'totalRows' => 0,
                     'totalColumns' => 0,
+                    'sheetState' => Worksheet::SHEETSTATE_VISIBLE,
                 ];
+                $visibility = $xml->getAttribute('Visibility');
+                if ((string) $visibility === self::GNM_SHEET_VISIBILITY_HIDDEN) {
+                    $tmpInfo['sheetState'] = Worksheet::SHEETSTATE_HIDDEN;
+                }
 
                 while ($xml->read()) {
                     if (self::matchXml($xml, 'Name')) {
@@ -271,8 +279,8 @@ class Gnumeric extends BaseReader
             //        name in line with the formula, not the reverse
             $this->spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
 
-            $visibility = $sheet->attributes()['Visibility'] ?? 'GNM_SHEET_VISIBILITY_VISIBLE';
-            if ((string) $visibility !== 'GNM_SHEET_VISIBILITY_VISIBLE') {
+            $visibility = $sheet->attributes()['Visibility'] ?? self::GNM_SHEET_VISIBILITY_VISIBLE;
+            if ((string) $visibility !== self::GNM_SHEET_VISIBILITY_VISIBLE) {
                 $this->spreadsheet->getActiveSheet()->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
             }
 
@@ -517,8 +525,8 @@ class Gnumeric extends BaseReader
                     continue;
                 }
 
-                [$worksheetName] = Worksheet::extractSheetTitle($value, true);
-                $worksheetName = trim($worksheetName, "'");
+                $value = str_replace("\\'", "''", $value);
+                [$worksheetName] = Worksheet::extractSheetTitle($value, true, true);
                 $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
                 // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
                 if ($worksheet !== null) {
