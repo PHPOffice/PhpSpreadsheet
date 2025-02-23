@@ -457,6 +457,10 @@ class Style extends WriterPart
             if ($vertical !== '') {
                 $objWriter->writeAttribute('vertical', $vertical);
             }
+            $justifyLastLine = $style->getAlignment()->getJustifyLastLine();
+            if (is_bool($justifyLastLine)) {
+                $objWriter->writeAttribute('justifyLastLine', (string) (int) $justifyLastLine);
+            }
 
             if ($style->getAlignment()->getTextRotation() >= 0) {
                 $textRotation = $style->getAlignment()->getTextRotation();
