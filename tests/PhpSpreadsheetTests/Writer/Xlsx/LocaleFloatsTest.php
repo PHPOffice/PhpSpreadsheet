@@ -85,7 +85,6 @@ class LocaleFloatsTest extends AbstractFunctional
         $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
-        self::assertIsString($sheet->getCell('L2')->getValue());
         self::assertSame('=(10%+L2)/2', $sheet->getCell('L1')->getValue());
         self::assertEqualsWithDelta(0.2917, $sheet->getCell('L1')->getCalculatedValue(), 1E-8);
         self::assertIsFloat($sheet->getCell('L1')->getCalculatedValue());
@@ -121,7 +120,6 @@ class LocaleFloatsTest extends AbstractFunctional
         $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
-        self::assertIsString($sheet->getCell('L2')->getValue());
         self::assertSame('=(10%+L2)/2', $sheet->getCell('L1')->getValue());
         self::assertEqualsWithDelta(0.2917, $sheet->getCell('L1')->getCalculatedValue(), 1E-8);
         self::assertIsFloat($sheet->getCell('L1')->getCalculatedValue());
