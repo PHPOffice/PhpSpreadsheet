@@ -3482,7 +3482,6 @@ class Xls extends XlsBase
 
     private function includeCellRangeFiltered(string $cellRangeAddress): bool
     {
-        $includeCellRange = true;
         $includeCellRange = false;
         $rangeBoundaries = Coordinate::getRangeBoundaries($cellRangeAddress);
         ++$rangeBoundaries[1][0];
