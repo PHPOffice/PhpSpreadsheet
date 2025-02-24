@@ -408,8 +408,9 @@ class Slk extends BaseReader
                 $endCol = Coordinate::stringFromColumnIndex((int) $endCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
+                    // ++$startCol below tricks Phpstan into thinking it's float/int
                     $spreadsheet->getActiveSheet()->getColumnDimension((string) ++$startCol)->setWidth((float) $columnWidth);
-                } while ($startCol !== $endCol);
+                } while ($startCol !== $endCol); // @phpstan-ignore-line
             }
         }
     }

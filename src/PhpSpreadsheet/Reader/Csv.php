@@ -628,7 +628,7 @@ class Csv extends BaseReader
     private static function guessEncodingNoBom(string $filename): string
     {
         $encoding = '';
-        $contents = file_get_contents($filename);
+        $contents = (string) file_get_contents($filename);
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32BE_LF, 'UTF-32BE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF16BE_LF, 'UTF-16BE');
