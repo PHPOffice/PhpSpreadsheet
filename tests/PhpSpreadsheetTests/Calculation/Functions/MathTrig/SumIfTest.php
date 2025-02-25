@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class SumIfTest extends AllSetupTeardown
@@ -37,5 +38,21 @@ class SumIfTest extends AllSetupTeardown
     public static function providerSUMIF(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMIF.php';
+    }
+
+    public function testOutliers(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUMIF(5,"<32")');
+
+        try {
+            $sheet->getCell('A1')->getCalculatedValue();
+            self::fail('Should receive exception for non-array arg');
+        } catch (CalcException $e) {
+            self::assertStringContainsString('Must specify range of cells', $e->getMessage());
+        }
+
+        $sheet->getCell('A4')->setValue('=SUMIF(#REF!,"<32")');
+        self::assertSame('#REF!', $sheet->getCell('A4')->getCalculatedValue());
     }
 }

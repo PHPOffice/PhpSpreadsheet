@@ -41,5 +41,8 @@ class AverageIfTest extends AllSetupTeardown
         }
         $sheet->getCell('A3')->setValue('=AVERAGEIF(C1:C1,"<32")');
         self::assertSame(5, $sheet->getCell('A3')->getCalculatedValue(), 'first arg is single cell');
+
+        $sheet->getCell('A4')->setValue('=AVERAGEIF(#REF!,1)');
+        self::assertSame('#REF!', $sheet->getCell('A4')->getCalculatedValue());
     }
 }
