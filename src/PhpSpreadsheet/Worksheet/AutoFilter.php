@@ -295,7 +295,7 @@ class AutoFilter implements Stringable
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);
 
-        if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
+        if (isset($this->columns[$fromColumn])) {
             $this->columns[$fromColumn]->setParent();
             $this->columns[$fromColumn]->setColumnIndex($toColumn);
             $this->columns[$toColumn] = $this->columns[$fromColumn];
@@ -425,7 +425,7 @@ class AutoFilter implements Stringable
             } elseif ($ruleValue == '') {
                 $retVal = match ($ruleOperator) {
                     Rule::AUTOFILTER_COLUMN_RULE_EQUAL => ($cellValue === '') || ($cellValue === null),
-                    Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL => ($cellValue != '') && ($cellValue !== null),
+                    Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL => ($cellValue != ''),
                     default => true,
                 };
             } else {
@@ -732,7 +732,7 @@ class AutoFilter implements Stringable
         //    Val is lowest permitted value.
         //    Maxval is greater than highest permitted value
         $val = $maxval = 0;
-        if (is_callable($callBack)) {
+        if (is_callable($callBack)) { //* @phpstan-ignore-line
             [$val, $maxval] = $callBack();
         }
         $val = Date::dateTimeToExcel($val);

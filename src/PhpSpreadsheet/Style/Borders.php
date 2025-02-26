@@ -324,9 +324,6 @@ class Borders extends Supervisor
      */
     public function setDiagonalDirection(int $direction): static
     {
-        if ($direction == '') {
-            $direction = self::DIAGONAL_NONE;
-        }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['diagonalDirection' => $direction]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);

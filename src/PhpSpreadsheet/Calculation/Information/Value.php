@@ -282,7 +282,7 @@ class Value
     public static function type($value = null): int
     {
         $value = Functions::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
+        if (count($value) > 1) {
             end($value);
             $a = key($value);
             //    Range of cells is an error

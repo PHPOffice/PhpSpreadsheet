@@ -81,6 +81,11 @@ class Cells
         return ($cellCoordinate === $this->currentCoordinate) || isset($this->index[$cellCoordinate]);
     }
 
+    public function has2(string $cellCoordinate): bool
+    {
+        return isset($this->index[$cellCoordinate]);
+    }
+
     /**
      * Add or update a cell in the collection.
      *

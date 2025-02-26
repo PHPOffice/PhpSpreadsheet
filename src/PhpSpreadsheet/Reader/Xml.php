@@ -405,12 +405,10 @@ class Xml extends BaseReader
                             $arrayRef = AddressHelper::convertFormulaToA1($arrayRange, $rowID, Coordinate::columnIndexFromString($columnID));
                         }
 
-                        if ($this->getReadFilter() !== null) {
-                            if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-                                ++$columnID;
+                        if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                            ++$columnID;
 
-                                continue;
-                            }
+                            continue;
                         }
 
                         if (isset($cell_ss['HRef'])) {
