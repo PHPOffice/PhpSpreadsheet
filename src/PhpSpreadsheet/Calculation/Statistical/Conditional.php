@@ -32,8 +32,9 @@ class Conditional
     public static function AVERAGEIF(mixed $range, null|array|string $condition, mixed $averageRange = []): null|int|float|string
     {
         if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
-            if ($range === ExcelError::REF()) {
-                return $range;
+            $refError = ExcelError::REF();
+            if (in_array($refError, [$range, $averageRange], true)) {
+                return $refError;
             }
 
             throw new CalcException('Must specify range of cells, not any kind of literal');
@@ -185,15 +186,19 @@ class Conditional
      *        SUMIF(range, criteria, [sum_range])
      *
      * @param mixed $range Data values, expecting array
+     * @param mixed $sumRange Data values, expecting array
      */
-    public static function SUMIF(mixed $range, mixed $condition, array $sumRange = []): null|float|string
+    public static function SUMIF(mixed $range, mixed $condition, mixed $sumRange = []): null|float|string
     {
         if (
             !is_array($range)
             || array_key_exists(0, $range)
+            || !is_array($sumRange)
+            || array_key_exists(0, $sumRange)
         ) {
-            if ($range === ExcelError::REF()) {
-                return $range;
+            $refError = ExcelError::REF();
+            if (in_array($refError, [$range, $sumRange], true)) {
+                return $refError;
             }
 
             throw new CalcException('Must specify range of cells, not any kind of literal');

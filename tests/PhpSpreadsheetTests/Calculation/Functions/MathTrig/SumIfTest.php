@@ -54,5 +54,7 @@ class SumIfTest extends AllSetupTeardown
 
         $sheet->getCell('A4')->setValue('=SUMIF(#REF!,"<32")');
         self::assertSame('#REF!', $sheet->getCell('A4')->getCalculatedValue());
+        $sheet->getCell('A5')->setValue('=SUMIF(D1:D4, 1, #REF!)');
+        self::assertSame('#REF!', $sheet->getCell('A5')->getCalculatedValue());
     }
 }
