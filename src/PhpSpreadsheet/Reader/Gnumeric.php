@@ -302,10 +302,8 @@ class Gnumeric extends BaseReader
                 $column = Coordinate::stringFromColumnIndex($column + 1);
 
                 // Read cell?
-                if ($this->getReadFilter() !== null) {
-                    if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
-                        continue;
-                    }
+                if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
+                    continue;
                 }
 
                 $this->loadCell($cell, $worksheetName, $cellAttributes, $column, $row);
@@ -380,11 +378,9 @@ class Gnumeric extends BaseReader
     {
         if ($sheet !== null && isset($sheet->Filters)) {
             foreach ($sheet->Filters->Filter as $autofilter) {
-                if ($autofilter !== null) {
-                    $attributes = $autofilter->attributes();
-                    if (isset($attributes['Area'])) {
-                        $this->spreadsheet->getActiveSheet()->setAutoFilter((string) $attributes['Area']);
-                    }
+                $attributes = $autofilter->attributes();
+                if (isset($attributes['Area'])) {
+                    $this->spreadsheet->getActiveSheet()->setAutoFilter((string) $attributes['Area']);
                 }
             }
         }
@@ -392,20 +388,20 @@ class Gnumeric extends BaseReader
 
     private function setColumnWidth(int $whichColumn, float $defaultWidth): void
     {
-        $columnDimension = $this->spreadsheet->getActiveSheet()
-            ->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
-        if ($columnDimension !== null) {
-            $columnDimension->setWidth($defaultWidth);
-        }
+        $this->spreadsheet->getActiveSheet()
+            ->getColumnDimension(
+                Coordinate::stringFromColumnIndex($whichColumn + 1)
+            )
+            ->setWidth($defaultWidth);
     }
 
     private function setColumnInvisible(int $whichColumn): void
     {
-        $columnDimension = $this->spreadsheet->getActiveSheet()
-            ->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
-        if ($columnDimension !== null) {
-            $columnDimension->setVisible(false);
-        }
+        $this->spreadsheet->getActiveSheet()
+            ->getColumnDimension(
+                Coordinate::stringFromColumnIndex($whichColumn + 1)
+            )
+            ->setVisible(false);
     }
 
     private function processColumnLoop(int $whichColumn, int $maxCol, ?SimpleXMLElement $columnOverride, float $defaultWidth): int
@@ -453,18 +449,18 @@ class Gnumeric extends BaseReader
 
     private function setRowHeight(int $whichRow, float $defaultHeight): void
     {
-        $rowDimension = $this->spreadsheet->getActiveSheet()->getRowDimension($whichRow);
-        if ($rowDimension !== null) {
-            $rowDimension->setRowHeight($defaultHeight);
-        }
+        $this->spreadsheet
+            ->getActiveSheet()
+            ->getRowDimension($whichRow)
+            ->setRowHeight($defaultHeight);
     }
 
     private function setRowInvisible(int $whichRow): void
     {
-        $rowDimension = $this->spreadsheet->getActiveSheet()->getRowDimension($whichRow);
-        if ($rowDimension !== null) {
-            $rowDimension->setVisible(false);
-        }
+        $this->spreadsheet
+            ->getActiveSheet()
+            ->getRowDimension($whichRow)
+            ->setVisible(false);
     }
 
     private function processRowLoop(int $whichRow, int $maxRow, ?SimpleXMLElement $rowOverride, float $defaultHeight): int

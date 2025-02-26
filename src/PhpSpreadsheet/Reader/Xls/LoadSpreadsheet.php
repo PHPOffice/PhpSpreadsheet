@@ -543,7 +543,7 @@ class LoadSpreadsheet extends Xls
                 foreach ($xls->sharedFormulaParts as $cell => $baseCell) {
                     /** @var int $row */
                     [$column, $row] = Coordinate::coordinateFromString($cell);
-                    if (($xls->getReadFilter() !== null) && $xls->getReadFilter()->readCell($column, $row, $xls->phpSheet->getTitle())) {
+                    if ($xls->getReadFilter()->readCell($column, $row, $xls->phpSheet->getTitle())) {
                         $formula = $xls->getFormulaFromStructure($xls->sharedFormulas[$baseCell], $cell);
                         $xls->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
                     }
