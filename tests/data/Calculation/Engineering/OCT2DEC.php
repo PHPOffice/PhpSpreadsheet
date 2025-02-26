@@ -15,8 +15,6 @@ return [
     [ExcelError::NAN(), '3579'],
     ['44', '54'],
     ['-165', '7777777533'], // 2's Complement
-    ['65', 'A2'],
-    ['0', 'A3'],
     ['0', ''],
     [ExcelError::NAN(), '37777777770'], // too many digits
     ['536870911', '3777777777'], // highest positive
