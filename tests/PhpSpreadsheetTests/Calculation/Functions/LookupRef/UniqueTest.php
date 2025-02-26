@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -8,13 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueTest extends TestCase
 {
-    /**
-     * @dataProvider uniqueTestProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('uniqueTestProvider')]
     public function testUnique(array $expectedResult, array $lookupRef, bool $byColumn = false, bool $exactlyOnce = false): void
     {
         $result = LookupRef\Unique::unique($lookupRef, $byColumn, $exactlyOnce);
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public function testUniqueException(): void
@@ -34,10 +34,10 @@ class UniqueTest extends TestCase
         ];
 
         $result = LookupRef\Unique::unique($rowLookupData, false, true);
-        self::assertEquals(ExcelError::CALC(), $result);
+        self::assertSame(ExcelError::CALC(), $result);
 
         $result = LookupRef\Unique::unique($columnLookupData, true, true);
-        self::assertEquals(ExcelError::CALC(), $result);
+        self::assertSame(ExcelError::CALC(), $result);
     }
 
     public function testUniqueWithScalar(): void
@@ -48,7 +48,7 @@ class UniqueTest extends TestCase
         self::assertSame($lookupData, $result);
     }
 
-    public function uniqueTestProvider(): array
+    public static function uniqueTestProvider(): array
     {
         return [
             [
@@ -143,13 +143,16 @@ class UniqueTest extends TestCase
                 ],
             ],
             [
-                [[1.2], [2.1], [2.2], [3.0]],
+                [[1.2], [2.1], [2.2], [3], ['3'], [8.7]],
                 [
                     [1.2],
                     [1.2],
                     [2.1],
                     [2.2],
                     [3.0],
+                    [3],
+                    ['3'],
+                    [8.7],
                 ],
             ],
         ];

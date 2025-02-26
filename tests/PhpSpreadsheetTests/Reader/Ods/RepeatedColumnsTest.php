@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -13,7 +15,7 @@ class RepeatedColumnsTest extends TestCase
         $reader = new Ods();
         $reader->setReadFilter(
             new class () implements IReadFilter {
-                public function readCell($columnAddress, $row, $worksheetName = ''): bool
+                public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
                 {
                     return in_array($columnAddress, ['A', 'C', 'E', 'G', 'J', 'K'], true);
                 }

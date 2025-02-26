@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PHPUnit\Framework\TestCase;
 
 class XmlTest extends TestCase
 {
-    /**
-     * @dataProvider providerInvalidSimpleXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidSimpleXML')]
     public function testInvalidSimpleXML(string $filename): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
-
         $xmlReader = new Xml();
-        $xmlReader->trySimpleXMLLoadString($filename);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
+        $xmlReader->load($filename);
     }
 
-    public function providerInvalidSimpleXML(): array
+    public static function providerInvalidSimpleXML(): array
     {
         $tests = [];
         $glob = glob('tests/data/Reader/Xml/XEETestInvalidSimpleXML*.xml');
@@ -51,25 +52,55 @@ class XmlTest extends TestCase
 
     public function testLoadCorruptedFile(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Cannot load invalid XML file');
 
         $xmlReader = new Xml();
-        $xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $spreadsheet = @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotSame('', $spreadsheet->getID());
     }
 
     public function testListWorksheetNamesCorruptedFile(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Problem reading');
 
         $xmlReader = new Xml();
-        $xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $names = @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($names);
     }
 
     public function testListWorksheetInfoCorruptedFile(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Problem reading');
 
         $xmlReader = new Xml();
-        $xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $info = @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($info);
+    }
+
+    public function testInvalidXMLFromString(): void
+    {
+        $xmlReader = new Xml();
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Cannot load invalid XML string: 0');
+        $xmlReader->loadSpreadsheetFromString('0');
+    }
+
+    public function testInvalidXMLFromEmptyString(): void
+    {
+        $xmlReader = new Xml();
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Cannot load invalid XML string: ');
+        $xmlReader->loadSpreadsheetFromString('');
+    }
+
+    public function testEmptyFilename(): void
+    {
+        $xmlReader = new Xml();
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('File "" does not exist');
+        $xmlReader->load('');
     }
 }

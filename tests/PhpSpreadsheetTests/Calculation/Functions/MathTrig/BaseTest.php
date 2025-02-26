@@ -1,20 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BaseTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBASE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     * @param mixed $arg3
-     */
-    public function testBASE($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', $arg3 = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBASE')]
+    public function testBASE(mixed $expectedResult, mixed $arg1 = 'omitted', mixed $arg2 = 'omitted', mixed $arg3 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -40,14 +35,12 @@ class BaseTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBASE(): array
+    public static function providerBASE(): array
     {
         return require 'tests/data/Calculation/MathTrig/BASE.php';
     }
 
-    /**
-     * @dataProvider providerBaseArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBaseArray')]
     public function testBaseArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -57,7 +50,7 @@ class BaseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBaseArray(): array
+    public static function providerBaseArray(): array
     {
         return [
             'matrix' => [[['1111111', '177'], ['127', '7F']], '127', '{2, 8; 10, 16}'],

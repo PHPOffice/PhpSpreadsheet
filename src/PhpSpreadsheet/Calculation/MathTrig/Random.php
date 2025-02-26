@@ -13,9 +13,9 @@ class Random
     /**
      * RAND.
      *
-     * @return float Random number
+     * @return float|int Random number
      */
-    public static function rand()
+    public static function rand(): int|float
     {
         return mt_rand(0, 10000000) / 10000000;
     }
@@ -28,11 +28,11 @@ class Random
      * @param mixed $max Maximal value
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Random number
+     * @return array|int|string Random number
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function randBetween($min, $max)
+    public static function randBetween(mixed $min, mixed $max): array|string|int
     {
         if (is_array($min) || is_array($max)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $min, $max);
@@ -67,7 +67,7 @@ class Random
      *
      * @return array|string The resulting array, or a string containing an error
      */
-    public static function randArray($rows = 1, $columns = 1, $min = 0, $max = 1, $wholeNumber = false)
+    public static function randArray(mixed $rows = 1, mixed $columns = 1, mixed $min = 0, mixed $max = 1, bool $wholeNumber = false): string|array
     {
         try {
             $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);
@@ -86,11 +86,9 @@ class Random
 
         return array_chunk(
             array_map(
-                function () use ($min, $max, $wholeNumber) {
-                    return $wholeNumber
+                fn (): int|float => $wholeNumber
                         ? mt_rand((int) $min, (int) $max)
-                        : (mt_rand() / mt_getrandmax()) * ($max - $min) + $min;
-                },
+                        : (mt_rand() / mt_getrandmax()) * ($max - $min) + $min,
                 array_fill(0, $rows * $columns, $min)
             ),
             max($columns, 1)

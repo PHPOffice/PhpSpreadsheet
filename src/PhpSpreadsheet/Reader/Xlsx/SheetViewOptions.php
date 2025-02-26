@@ -7,11 +7,9 @@ use SimpleXMLElement;
 
 class SheetViewOptions extends BaseParserClass
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var ?SimpleXMLElement */
-    private $worksheetXml;
+    private ?SimpleXMLElement $worksheetXml;
 
     public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {
@@ -62,8 +60,8 @@ class SheetViewOptions extends BaseParserClass
         if (isset($sheetPr->outlinePr)) {
             $attr = $sheetPr->outlinePr->attributes() ?? [];
             if (
-                isset($attr['summaryRight']) &&
-                !self::boolean((string) $attr['summaryRight'])
+                isset($attr['summaryRight'])
+                && !self::boolean((string) $attr['summaryRight'])
             ) {
                 $this->worksheet->setShowSummaryRight(false);
             } else {
@@ -71,8 +69,8 @@ class SheetViewOptions extends BaseParserClass
             }
 
             if (
-                isset($attr['summaryBelow']) &&
-                !self::boolean((string) $attr['summaryBelow'])
+                isset($attr['summaryBelow'])
+                && !self::boolean((string) $attr['summaryBelow'])
             ) {
                 $this->worksheet->setShowSummaryBelow(false);
             } else {
@@ -86,8 +84,8 @@ class SheetViewOptions extends BaseParserClass
         if (isset($sheetPr->pageSetUpPr)) {
             $attr = $sheetPr->pageSetUpPr->attributes() ?? [];
             if (
-                isset($attr['fitToPage']) &&
-                !self::boolean((string) $attr['fitToPage'])
+                isset($attr['fitToPage'])
+                && !self::boolean((string) $attr['fitToPage'])
             ) {
                 $this->worksheet->getPageSetup()->setFitToPage(false);
             } else {
@@ -100,9 +98,9 @@ class SheetViewOptions extends BaseParserClass
     {
         $sheetFormatPr = $sheetFormatPrx->attributes() ?? [];
         if (
-            isset($sheetFormatPr['customHeight']) &&
-            self::boolean((string) $sheetFormatPr['customHeight']) &&
-            isset($sheetFormatPr['defaultRowHeight'])
+            isset($sheetFormatPr['customHeight'])
+            && self::boolean((string) $sheetFormatPr['customHeight'])
+            && isset($sheetFormatPr['defaultRowHeight'])
         ) {
             $this->worksheet->getDefaultRowDimension()
                 ->setRowHeight((float) $sheetFormatPr['defaultRowHeight']);
@@ -114,8 +112,8 @@ class SheetViewOptions extends BaseParserClass
         }
 
         if (
-            isset($sheetFormatPr['zeroHeight']) &&
-            ((string) $sheetFormatPr['zeroHeight'] === '1')
+            isset($sheetFormatPr['zeroHeight'])
+            && ((string) $sheetFormatPr['zeroHeight'] === '1')
         ) {
             $this->worksheet->getDefaultRowDimension()->setZeroHeight(true);
         }
@@ -124,11 +122,12 @@ class SheetViewOptions extends BaseParserClass
     private function printOptions(SimpleXMLElement $printOptionsx): void
     {
         $printOptions = $printOptionsx->attributes() ?? [];
-        if (isset($printOptions['gridLinesSet']) && self::boolean((string) $printOptions['gridLinesSet'])) {
-            $this->worksheet->setShowGridlines(true);
-        }
+        // Spec is weird. gridLines (default false)
+        // and gridLinesSet (default true) must both be true.
         if (isset($printOptions['gridLines']) && self::boolean((string) $printOptions['gridLines'])) {
-            $this->worksheet->setPrintGridlines(true);
+            if (!isset($printOptions['gridLinesSet']) || self::boolean((string) $printOptions['gridLinesSet'])) {
+                $this->worksheet->setPrintGridlines(true);
+            }
         }
         if (isset($printOptions['horizontalCentered']) && self::boolean((string) $printOptions['horizontalCentered'])) {
             $this->worksheet->getPageSetup()->setHorizontalCentered(true);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -7,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class Issue2516Test extends TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.2516b.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.2516b.xlsx';
 
     public function testPreliminaries(): void
     {
@@ -53,8 +52,9 @@ class Issue2516Test extends TestCase
                 'worksheetName' => 'Sheet1',
                 'lastColumnLetter' => 'B',
                 'lastColumnIndex' => 1,
-                'totalRows' => '6',
+                'totalRows' => 6,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $infos);

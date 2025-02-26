@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
@@ -7,20 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
 {
-    /**
-     * @dataProvider providerDaysPerYear
-     *
-     * @param mixed $expectedResult
-     * @param mixed $year
-     * @param mixed $basis
-     */
-    public function testDaysPerYear($expectedResult, $year, $basis): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDaysPerYear')]
+    public function testDaysPerYear(mixed $expectedResult, int $year, int|string $basis): void
     {
         $result = Helpers::daysPerYear($year, $basis);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerDaysPerYear(): array
+    public static function providerDaysPerYear(): array
     {
         return require 'tests/data/Calculation/Financial/DaysPerYear.php';
     }

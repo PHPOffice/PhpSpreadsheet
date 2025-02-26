@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TanhTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTanh
-     *
-     * @param mixed $expectedResult
-     */
-    public function testTanh($expectedResult, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTanh')]
+    public function testTanh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,14 +19,12 @@ class TanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerTanh(): array
+    public static function providerTanh(): array
     {
         return require 'tests/data/Calculation/MathTrig/TANH.php';
     }
 
-    /**
-     * @dataProvider providerTanhArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTanhArray')]
     public function testTanhArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -38,7 +34,7 @@ class TanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTanhArray(): array
+    public static function providerTanhArray(): array
     {
         return [
             'row vector' => [[[0.76159415595577, 0.46211715726001, -0.76159415595577]], '{1, 0.5, -1}'],

@@ -3,65 +3,54 @@
     <office:scripts/>
     <office:font-face-decls/>
     <office:automatic-styles>
-        <style:style style:family="table" style:name="ta1">
+        <style:style style:family="table" style:master-page-name="Default" style:name="ta1">
             <style:table-properties table:display="true" />
         </style:style>
-        <style:style style:family="table" style:name="ta2">
+        <style:style style:family="table" style:master-page-name="Default" style:name="ta2">
             <style:table-properties table:display="true" />
         </style:style>
         <style:style style:family="table-cell" style:name="ce0" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce2" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:font-weight-asian="bold" style:font-weight-complex="bold" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" fo:font-weight="bold"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce3" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" fo:font-style="italic"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce4" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="11.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce5" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="14.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce6" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce7" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ffffff"/>
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce8" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce9" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="single" style:text-underline-width="auto" fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce10" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="double" style:text-underline-width="auto" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
     </office:automatic-styles>
@@ -92,25 +81,20 @@
                     <table:table-cell office:value-type="string" table:style-name="ce0">
                         <text:p>Lorem ipsum</text:p>
                     </table:table-cell>
-                    <table:table-cell table:number-columns-repeated="1017"/>
                 </table:table-row>
                 <table:table-row>
-                    <table:table-cell office:value="1" office:value-type="boolean" table:style-name="ce0">
-                        <text:p>1</text:p>
+                    <table:table-cell office:boolean-value="true" office:value-type="boolean" table:style-name="ce0">
+                        <text:p>TRUE</text:p>
                     </table:table-cell>
-                    <table:table-cell office:value="" office:value-type="boolean" table:style-name="ce0">
-                        <text:p/>
+                    <table:table-cell office:boolean-value="false" office:value-type="boolean" table:style-name="ce0">
+                        <text:p>FALSE</text:p>
                     </table:table-cell>
-                    <table:table-cell office:value="1 1" office:value-type="string" table:formula="of:=IF([.A3]; CONCATENATE([.A1]; &quot; &quot;; [.A2]); CONCATENATE([.A2]; &quot; &quot;; [.A1]))" table:style-name="ce10">
+                    <table:table-cell office:value="1 1" office:value-type="string" table:formula="of:=IF([.A3]; CONCAT([.A1]; &quot; &quot;; [.A2]); CONCAT([.A2]; &quot; &quot;; [.A1]))" table:style-name="ce10">
                         <text:p>1 1</text:p>
                     </table:table-cell>
                     <table:table-cell office:value="42798.572060185" office:value-type="float" table:style-name="ce1">
                         <text:p>42798.572060185</text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce0"/>
-                    <table:table-cell table:style-name="ce0"/>
-                    <table:table-cell table:style-name="ce0"/>
-                    <table:table-cell table:number-columns-repeated="1017"/>
                 </table:table-row>
             </table:table>
             <table:table table:name="New Worksheet" table:style-name="ta2">
@@ -119,7 +103,6 @@
                     <table:table-cell office:value="2" office:value-type="float" table:style-name="ce0">
                         <text:p>2</text:p>
                     </table:table-cell>
-                    <table:table-cell table:number-columns-repeated="1023"/>
                 </table:table-row>
             </table:table>
             <table:named-expressions/>

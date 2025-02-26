@@ -48,20 +48,15 @@ class Dimension
      *                If this is a height, then size is measured in pixels ()
      *                   or in points () if $unit is null.
      */
-    protected $size;
+    protected float|int $size;
 
-    /**
-     * @var null|string
-     */
-    protected $unit;
+    protected ?string $unit = null;
 
     /**
      * Phpstan bug has been fixed; this function allows us to
      * pass Phpstan whether fixed or not.
-     *
-     * @param mixed $value
      */
-    private static function stanBugFixed($value): array
+    private static function stanBugFixed(array|int|null $value): array
     {
         return is_array($value) ? $value : [null, null];
     }

@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TextJoinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXTJOIN
-     *
-     * @param mixed $expectedResult
-     */
-    public function testTEXTJOIN($expectedResult, array $args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXTJOIN')]
+    public function testTEXTJOIN(mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -30,14 +28,12 @@ class TextJoinTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTJOIN(): array
+    public static function providerTEXTJOIN(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
 
-    /**
-     * @dataProvider providerTextjoinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTextjoinArray')]
     public function testTextjoinArray(array $expectedResult, string $delimiter, string $blanks, string $texts): void
     {
         $calculation = Calculation::getInstance();
@@ -47,7 +43,7 @@ class TextJoinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTextjoinArray(): array
+    public static function providerTextjoinArray(): array
     {
         return [
             'row vector #1' => [[['AB,CD,EF', 'AB;CD;EF']], '{",", ";"}', 'FALSE', '"AB", "CD", "EF"'],

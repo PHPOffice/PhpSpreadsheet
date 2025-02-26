@@ -9,7 +9,7 @@ class CellFill
     /**
      * @var array<string, int>
      */
-    protected static $fillStyleMap = [
+    protected static array $fillStyleMap = [
         Fill::FILL_NONE => 0x00,
         Fill::FILL_SOLID => 0x01,
         Fill::FILL_PATTERN_MEDIUMGRAY => 0x02,

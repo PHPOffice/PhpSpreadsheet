@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NormDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNORMDIST
-     *
-     * @param mixed $expectedResult
-     */
-    public function testNORMDIST($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNORMDIST')]
+    public function testNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMDIST', $expectedResult, ...$args);
     }
 
-    public function providerNORMDIST(): array
+    public static function providerNORMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/NORMDIST.php';
     }
 
-    /**
-     * @dataProvider providerNormDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNormDistArray')]
     public function testNormDistArray(array $expectedResult, string $values, string $mean, string $stdDev): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class NormDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNormDistArray(): array
+    public static function providerNormDistArray(): array
     {
         return [
             'row/column vectors' => [

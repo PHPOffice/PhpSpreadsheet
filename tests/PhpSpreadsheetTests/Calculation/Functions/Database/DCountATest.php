@@ -1,35 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCountA;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DCountATest extends AllSetupTeardown
+class DCountATest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDCountA
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDirectCallToDCountA($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCountA')]
+    public function testDirectCallToDCountA(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $result = DCountA::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDCountA
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDCountAAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCountA')]
+    public function testDCountAAsWorksheetFormula(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNTA', $database, $field, $criteria);
 
@@ -37,12 +25,12 @@ class DCountATest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDCountA(): array
+    public static function providerDCountA(): array
     {
         return [
             [
                 1,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -51,7 +39,7 @@ class DCountATest extends AllSetupTeardown
             ],
             [
                 2,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -60,7 +48,7 @@ class DCountATest extends AllSetupTeardown
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -69,7 +57,7 @@ class DCountATest extends AllSetupTeardown
             ],
             [
                 3,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Score'],
@@ -78,7 +66,7 @@ class DCountATest extends AllSetupTeardown
             ],
             'invalid field name' => [
                 ExcelError::VALUE(),
-                $this->database3(),
+                self::database3(),
                 'Scorex',
                 [
                     ['Subject', 'Score'],

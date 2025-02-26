@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Excel DateTimeStamp  Timezone               Result            Comments
 return [
     // 19-Dec-1960 00:00:00 EST => 19-Dec-1960 05:00:00 UTC

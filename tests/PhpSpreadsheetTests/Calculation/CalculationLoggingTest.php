@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -29,7 +31,6 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(6.7, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
@@ -40,6 +41,10 @@ class CalculationLoggingTest extends TestCase
     public function testFormulaWithMultipleCellLogging(): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->fromArray(
@@ -65,25 +70,20 @@ class CalculationLoggingTest extends TestCase
 
         $log = $debugLog->getLog();
 
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
         $finalEntry = array_pop($log);
         self::assertStringContainsString('Evaluation Result', $finalEntry);
 
-        $e1Log = array_filter($log, function ($entry) {
-            return strpos($entry, 'E1') !== false;
-        });
+        $e1Log = array_filter($log, fn ($entry): bool => str_contains($entry, 'E1'));
         $e1Entries = count($e1Log);
         self::assertGreaterThan(0, $e1Entries);
 
         $e1FinalEntry = array_pop($e1Log);
         self::assertStringContainsString('Evaluation Result', $e1FinalEntry);
 
-        $e3Log = array_filter($log, function ($entry) {
-            return strpos($entry, 'E1') !== false;
-        });
+        $e3Log = array_filter($log, fn ($entry): bool => str_contains($entry, 'E1'));
         $e3Entries = count($e3Log);
         self::assertGreaterThan(0, $e3Entries);
 
@@ -112,14 +112,12 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(-0.75, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
         $debugLog->clearLog();
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
-        self::assertEmpty($log);
+        self::assertSame([], $log);
     }
 }

@@ -1,20 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FindTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFIND
-     *
-     * @param mixed $expectedResult
-     * @param mixed $string1
-     * @param mixed $string2
-     * @param mixed $start
-     */
-    public function testFIND($expectedResult, $string1 = 'omitted', $string2 = 'omitted', $start = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFIND')]
+    public function testFIND(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted', mixed $start = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -37,14 +32,12 @@ class FindTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIND(): array
+    public static function providerFIND(): array
     {
         return require 'tests/data/Calculation/TextData/FIND.php';
     }
 
-    /**
-     * @dataProvider providerFindArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFindArray')]
     public function testFindArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -54,7 +47,7 @@ class FindTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFindArray(): array
+    public static function providerFindArray(): array
     {
         return [
             'row vector #1' => [[[3, 4, '#VALUE!']], '"l"', '{"Hello", "World", "PhpSpreadsheet"}'],

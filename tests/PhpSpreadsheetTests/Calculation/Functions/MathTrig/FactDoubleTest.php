@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FactDoubleTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFACTDOUBLE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     */
-    public function testFACTDOUBLE($expectedResult, $value): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFACTDOUBLE')]
+    public function testFACTDOUBLE(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -22,14 +19,12 @@ class FactDoubleTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACTDOUBLE(): array
+    public static function providerFACTDOUBLE(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTDOUBLE.php';
     }
 
-    /**
-     * @dataProvider providerFactDoubleArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFactDoubleArray')]
     public function testFactDoubleArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -39,7 +34,7 @@ class FactDoubleTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFactDoubleArray(): array
+    public static function providerFactDoubleArray(): array
     {
         return [
             'row vector' => [[['#NUM!', 48, 945]], '{-2, 6, 9}'],

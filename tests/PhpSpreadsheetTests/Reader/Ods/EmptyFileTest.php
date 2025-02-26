@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class EmptyFileTest extends TestCase
 {
-    /** @var string */
-    private $tempfile = '';
+    private string $tempfile = '';
 
     protected function tearDown(): void
     {

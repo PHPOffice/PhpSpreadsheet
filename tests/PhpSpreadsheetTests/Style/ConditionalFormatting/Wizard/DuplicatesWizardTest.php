@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class DuplicatesWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -34,7 +27,6 @@ class DuplicatesWizardTest extends TestCase
     public function testDuplicateWizard(): void
     {
         $ruleType = Wizard::DUPLICATES;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);
@@ -50,7 +42,6 @@ class DuplicatesWizardTest extends TestCase
     public function testUniqueWizard(): void
     {
         $ruleType = Wizard::UNIQUE;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);

@@ -1,23 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class MInverseTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMINVERSE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testMINVERSE($expectedResult, array $args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINVERSE')]
+    public function testMINVERSE(mixed $expectedResult, array $args): void
     {
         $result = MathTrig\MatrixFunctions::inverse($args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMINVERSE(): array
+    public static function providerMINVERSE(): array
     {
         return require 'tests/data/Calculation/MathTrig/MINVERSE.php';
     }

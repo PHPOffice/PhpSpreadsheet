@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class YieldMatTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerYIELDMAT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testYIELDMAT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerYIELDMAT')]
+    public function testYIELDMAT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('YIELDMAT', $expectedResult, $args);
     }
 
-    public function providerYIELDMAT(): array
+    public static function providerYIELDMAT(): array
     {
         return require 'tests/data/Calculation/Financial/YIELDMAT.php';
     }

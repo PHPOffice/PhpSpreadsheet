@@ -1,20 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ColumnOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOLUMNonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
-     */
-    public function testColumnOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    #[DataProvider('providerCOLUMNonSpreadsheet')]
+    public function testColumnOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangey', $sheet, '$F$2:$H$2'));
@@ -33,17 +32,36 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMNonSpreadsheet(): array
+    public static function providerCOLUMNonSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNonSpreadsheet.php';
     }
 
     public function testCOLUMNLocalDefinedName(): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
 
         $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$5', true)); // defined locally, only usable on sheet1
+
+        $sheet1->getCell('B3')->setValue('=COLUMN(newnr)');
+        $result = $sheet1->getCell('B3')->getCalculatedValue();
+        self::assertSame(6, $result);
+
+        $sheet->getCell('B3')->setValue('=COLUMN(newnr)');
+        $result = $sheet->getCell('B3')->getCalculatedValue();
+        self::assertSame('#NAME?', $result);
+    }
+
+    public function testCOLUMNSheetWithApostrophe(): void
+    {
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
+
+        $sheet1 = $this->getSpreadsheet()->createSheet();
+        $sheet1->setTitle("apo''strophe");
         $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$5', true)); // defined locally, only usable on sheet1
 
         $sheet1->getCell('B3')->setValue('=COLUMN(newnr)');

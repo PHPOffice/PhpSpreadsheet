@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Result, Settlement, Maturity, Rate, Yield, Redemption, Frequency, Basis
 // On the result line, the value is ODS's calculation.
 //     This agrees with Gnumeric, PhpSpreadsheet, and the published algorithm at:

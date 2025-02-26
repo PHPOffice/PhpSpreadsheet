@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'Single Cell' => [
         1, // Expected
@@ -80,7 +82,7 @@ return [
         2,
     ],
     'Column number omitted from 2-column matrix' => [
-        '#REF!', // Expected
+        'abc', // Expected
         [
             ['abc', 'def'],
             ['xyz', 'tuv'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,11 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class PreCalcTest extends AbstractFunctional
 {
-    /** @var string */
-    private $outfile = '';
+    private string $outfile = '';
 
     protected function tearDown(): void
     {
@@ -22,7 +24,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    public function providerPreCalc(): array
+    public static function providerPreCalc(): array
     {
         return [
             [true, 'Xlsx'],
@@ -106,7 +108,7 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm that file contains B2 pre-calculated or not as appropriate
             if ($preCalc === false) {
-                self::assertStringContainsString('<c r="B2" t="str"><f>3+A3</f><v>0</v></c>', $data);
+                self::assertStringContainsString('<c r="B2" t="str"><f>3+A3</f></c>', $data);
             } else {
                 self::assertStringContainsString('<c r="B2"><f>3+A3</f><v>14</v></c>', $data);
             }
@@ -116,7 +118,7 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm whether workbook is set to recalculate
             if ($preCalc === false) {
-                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="1"/>', $data);
+                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="0"/>', $data);
             } else {
                 self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="1" fullCalcOnLoad="0" forceFullCalc="0"/>', $data);
             }
@@ -173,9 +175,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    /**
-     * @dataProvider providerPreCalc
-     */
+    #[DataProvider('providerPreCalc')]
     public function testPreCalc(?bool $preCalc, string $type): void
     {
         $spreadsheet = new Spreadsheet();
@@ -204,5 +204,6 @@ class PreCalcTest extends AbstractFunctional
         $this->verifyOds($preCalc, $type);
         $this->verifyHtml($preCalc, $type);
         $this->verifyCsv($preCalc, $type);
+        $spreadsheet->disconnectWorksheets();
     }
 }

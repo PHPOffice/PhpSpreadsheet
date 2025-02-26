@@ -27,7 +27,7 @@ class LogNormal
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function cumulative($value, $mean, $stdDev)
+    public static function cumulative(mixed $value, mixed $mean, mixed $stdDev)
     {
         if (is_array($value) || is_array($mean) || is_array($stdDev)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev);
@@ -67,7 +67,7 @@ class LogNormal
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $mean, $stdDev, $cumulative = false)
+    public static function distribution(mixed $value, mixed $mean, mixed $stdDev, mixed $cumulative = false)
     {
         if (is_array($value) || is_array($mean) || is_array($stdDev) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev, $cumulative);
@@ -90,8 +90,8 @@ class LogNormal
             return StandardNormal::distribution((log($value) - $mean) / $stdDev, true);
         }
 
-        return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-            exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
+        return (1 / (sqrt(2 * M_PI) * $stdDev * $value))
+            * exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
     }
 
     /**
@@ -114,7 +114,7 @@ class LogNormal
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
-    public static function inverse($probability, $mean, $stdDev)
+    public static function inverse(mixed $probability, mixed $mean, mixed $stdDev): array|string|float
     {
         if (is_array($probability) || is_array($mean) || is_array($stdDev)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $mean, $stdDev);
@@ -131,7 +131,7 @@ class LogNormal
         if ($stdDev <= 0) {
             return ExcelError::NAN();
         }
-        /** @var float */
+        /** @var float $inverse */
         $inverse = StandardNormal::inverse($probability);
 
         return exp($mean + $stdDev * $inverse);

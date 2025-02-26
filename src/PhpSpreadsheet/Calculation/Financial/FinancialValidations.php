@@ -9,34 +9,22 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class FinancialValidations
 {
-    /**
-     * @param mixed $date
-     */
-    public static function validateDate($date): float
+    public static function validateDate(mixed $date): float
     {
         return DateTimeExcel\Helpers::getDateValue($date);
     }
 
-    /**
-     * @param mixed $settlement
-     */
-    public static function validateSettlementDate($settlement): float
+    public static function validateSettlementDate(mixed $settlement): float
     {
         return self::validateDate($settlement);
     }
 
-    /**
-     * @param mixed $maturity
-     */
-    public static function validateMaturityDate($maturity): float
+    public static function validateMaturityDate(mixed $maturity): float
     {
         return self::validateDate($maturity);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function validateFloat($value): float
+    public static function validateFloat(mixed $value): float
     {
         if (!is_numeric($value)) {
             throw new Exception(ExcelError::VALUE());
@@ -45,10 +33,7 @@ class FinancialValidations
         return (float) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function validateInt($value): int
+    public static function validateInt(mixed $value): int
     {
         if (!is_numeric($value)) {
             throw new Exception(ExcelError::VALUE());
@@ -57,10 +42,7 @@ class FinancialValidations
         return (int) floor((float) $value);
     }
 
-    /**
-     * @param mixed $rate
-     */
-    public static function validateRate($rate): float
+    public static function validateRate(mixed $rate): float
     {
         $rate = self::validateFloat($rate);
         if ($rate < 0.0) {
@@ -70,16 +52,13 @@ class FinancialValidations
         return $rate;
     }
 
-    /**
-     * @param mixed $frequency
-     */
-    public static function validateFrequency($frequency): int
+    public static function validateFrequency(mixed $frequency): int
     {
         $frequency = self::validateInt($frequency);
         if (
-            ($frequency !== FinancialConstants::FREQUENCY_ANNUAL) &&
-            ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
+            ($frequency !== FinancialConstants::FREQUENCY_ANNUAL)
+            && ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL)
+            && ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
         ) {
             throw new Exception(ExcelError::NAN());
         }
@@ -87,10 +66,7 @@ class FinancialValidations
         return $frequency;
     }
 
-    /**
-     * @param mixed $basis
-     */
-    public static function validateBasis($basis): int
+    public static function validateBasis(mixed $basis): int
     {
         if (!is_numeric($basis)) {
             throw new Exception(ExcelError::VALUE());
@@ -104,10 +80,7 @@ class FinancialValidations
         return $basis;
     }
 
-    /**
-     * @param mixed $price
-     */
-    public static function validatePrice($price): float
+    public static function validatePrice(mixed $price): float
     {
         $price = self::validateFloat($price);
         if ($price < 0.0) {
@@ -117,10 +90,7 @@ class FinancialValidations
         return $price;
     }
 
-    /**
-     * @param mixed $parValue
-     */
-    public static function validateParValue($parValue): float
+    public static function validateParValue(mixed $parValue): float
     {
         $parValue = self::validateFloat($parValue);
         if ($parValue < 0.0) {
@@ -130,10 +100,7 @@ class FinancialValidations
         return $parValue;
     }
 
-    /**
-     * @param mixed $yield
-     */
-    public static function validateYield($yield): float
+    public static function validateYield(mixed $yield): float
     {
         $yield = self::validateFloat($yield);
         if ($yield < 0.0) {
@@ -143,10 +110,7 @@ class FinancialValidations
         return $yield;
     }
 
-    /**
-     * @param mixed $discount
-     */
-    public static function validateDiscount($discount): float
+    public static function validateDiscount(mixed $discount): float
     {
         $discount = self::validateFloat($discount);
         if ($discount <= 0.0) {

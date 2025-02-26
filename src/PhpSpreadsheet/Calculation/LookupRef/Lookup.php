@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class Lookup
 {
@@ -20,7 +19,7 @@ class Lookup
      *
      * @return mixed The value of the found cell
      */
-    public static function lookup($lookupValue, $lookupVector, $resultVector = null)
+    public static function lookup(mixed $lookupValue, mixed $lookupVector, $resultVector = null): mixed
     {
         if (is_array($lookupValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $lookupValue, $lookupVector, $resultVector);
@@ -34,7 +33,7 @@ class Lookup
         $lookupColumns = self::columnCount($lookupVector);
         // we correctly orient our results
         if (($lookupRows === 1 && $lookupColumns > 1) || (!$hasResultVector && $lookupRows === 2 && $lookupColumns !== 2)) {
-            $lookupVector = LookupRef\Matrix::transpose($lookupVector);
+            $lookupVector = Matrix::transpose($lookupVector);
             $lookupRows = self::rowCount($lookupVector);
             $lookupColumns = self::columnCount($lookupVector);
         }
@@ -85,7 +84,7 @@ class Lookup
 
         // we correctly orient our results
         if ($resultRows === 1 && $resultColumns > 1) {
-            $resultVector = LookupRef\Matrix::transpose($resultVector);
+            $resultVector = Matrix::transpose($resultVector);
         }
 
         return $resultVector;

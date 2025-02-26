@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\TestCase;
 
 class StyleTest extends TestCase
@@ -19,6 +24,7 @@ class StyleTest extends TestCase
         $styleArray = ['alignment' => ['textRotation' => 45]];
         $outArray = $cell1style->getStyleArray($styleArray);
         self::assertEquals($styleArray, $outArray['quotePrefix']);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleColumn(): void
@@ -53,6 +59,7 @@ class StyleTest extends TestCase
         self::assertTrue($sheet->getStyle('A1')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getItalic());
         self::assertFalse($sheet->getStyle('C3')->getFont()->getItalic());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleIsReused(): void
@@ -76,6 +83,7 @@ class StyleTest extends TestCase
         $spreadsheet->garbageCollect();
 
         self::assertCount(3, $spreadsheet->getCellXfCollection());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleRow(): void
@@ -110,6 +118,7 @@ class StyleTest extends TestCase
         self::assertFalse($sheet->getStyle('A1')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getItalic());
         self::assertTrue($sheet->getStyle('C3')->getFont()->getItalic());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIssue1712A(): void
@@ -132,6 +141,7 @@ class StyleTest extends TestCase
             ->setRGB($rgb);
         self::assertEquals($rgb, $sheet->getCell('A1')->getStyle()->getFill()->getStartColor()->getRGB());
         self::assertEquals($rgb, $sheet->getCell('B1')->getStyle()->getFill()->getStartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIssue1712B(): void
@@ -154,6 +164,7 @@ class StyleTest extends TestCase
         $sheet->fromArray(['OK', 'KO']);
         self::assertEquals($rgb, $sheet->getCell('A1')->getStyle()->getFill()->getStartColor()->getRGB());
         self::assertEquals($rgb, $sheet->getCell('B1')->getStyle()->getFill()->getStartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleLoopUpwards(): void
@@ -179,5 +190,32 @@ class StyleTest extends TestCase
         self::assertFalse($sheet->getStyle('A1')->getFont()->getBold());
         self::assertFalse($sheet->getStyle('B2')->getFont()->getBold());
         self::assertTrue($sheet->getStyle('C3')->getFont()->getBold());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testStyleCellAddressObject(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $cellAddress = new CellAddress('A1', $worksheet);
+        $style = $worksheet->getStyle($cellAddress);
+        $style->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+
+        self::assertSame(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH, $style->getNumberFormat()->getFormatCode());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testStyleCellRangeObject(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $cellAddress1 = new CellAddress('A1', $worksheet);
+        $cellAddress2 = new CellAddress('B2', $worksheet);
+        $cellRange = new CellRange($cellAddress1, $cellAddress2);
+        $style = $worksheet->getStyle($cellRange);
+        $style->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+
+        self::assertSame(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH, $style->getNumberFormat()->getFormatCode());
+        $spreadsheet->disconnectWorksheets();
     }
 }

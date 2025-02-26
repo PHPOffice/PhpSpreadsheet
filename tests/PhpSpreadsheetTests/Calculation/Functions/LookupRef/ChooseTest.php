@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,25 +10,19 @@ use PHPUnit\Framework\TestCase;
 
 class ChooseTest extends TestCase
 {
-    /**
-     * @dataProvider providerCHOOSE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testCHOOSE($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHOOSE')]
+    public function testCHOOSE(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Selection::choose(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCHOOSE(): array
+    public static function providerCHOOSE(): array
     {
         return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }
 
-    /**
-     * @dataProvider providerChooseArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChooseArray')]
     public function testChooseArray(array $expectedResult, string $values, array $selections): void
     {
         $calculation = Calculation::getInstance();
@@ -37,7 +33,7 @@ class ChooseTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerChooseArray(): array
+    public static function providerChooseArray(): array
     {
         return [
             'row vector' => [

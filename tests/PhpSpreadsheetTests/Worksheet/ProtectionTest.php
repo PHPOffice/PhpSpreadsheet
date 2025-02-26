@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Protection;
@@ -17,11 +19,13 @@ class ProtectionTest extends TestCase
         self::assertTrue($protection->verify('xyz'), 'no password will always pass 2');
 
         $protection->setPassword('foo', true);
-        self::assertSame('foo', $protection->getPassword(), 'was not stored as-is, without hashing');
+        $hashx1 = $protection->getPassword();
+        self::assertSame('foo', $hashx1, 'was not stored as-is, without hashing');
         self::assertFalse($protection->verify('foo'), 'setting already hashed password will not match');
 
         $protection->setPassword('foo');
-        self::assertSame('CC40', $protection->getPassword(), 'was hashed');
+        $hashx2 = $protection->getPassword();
+        self::assertSame('CC40', $hashx2, 'was hashed');
         self::assertTrue($protection->verify('foo'), 'setting non-hashed password will hash it and not match');
 
         $protection->setAlgorithm(Protection::ALGORITHM_MD5);
@@ -32,8 +36,8 @@ class ProtectionTest extends TestCase
         $protection->setPassword('foo');
         $hash2 = $protection->getPassword();
 
-        self::assertSame(24, mb_strlen($hash1)); // @phpstan-ignore-line
-        self::assertSame(24, mb_strlen($hash2)); // @phpstan-ignore-line
+        self::assertSame(24, mb_strlen($hash1));
+        self::assertSame(24, mb_strlen($hash2));
         self::assertNotSame($hash1, $hash2, 'was hashed with automatic salt');
         self::assertTrue($protection->verify('foo'), 'setting password again, will hash with proper algorithm and will match');
     }

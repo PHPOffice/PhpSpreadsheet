@@ -1,20 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RowOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerROWonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
-     */
-    public function testRowOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    #[DataProvider('providerROWonSpreadsheet')]
+    public function testRowOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->setTitle('ThisSheet');
         $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
@@ -36,7 +35,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROWOnSpreadsheet(): array
+    public static function providerROWOnSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROWonSpreadsheet.php';
     }
@@ -44,6 +43,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
     public function testINDIRECTLocalDefinedName(): void
     {
         $sheet = $this->getSheet();
+        $this->setArrayAsValue();
 
         $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');

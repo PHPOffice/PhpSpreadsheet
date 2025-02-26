@@ -16,17 +16,13 @@ class Drawing extends BaseDrawing
 
     /**
      * Path.
-     *
-     * @var string
      */
-    private $path;
+    private string $path;
 
     /**
      * Whether or not we are dealing with a URL.
-     *
-     * @var bool
      */
-    private $isUrl;
+    private bool $isUrl;
 
     /**
      * Create a new Drawing.
@@ -43,10 +39,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Filename.
-     *
-     * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return basename($this->path);
     }
@@ -61,10 +55,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Extension.
-     *
-     * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         $exploded = explode('.', basename($this->path));
 
@@ -73,10 +65,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get full filepath to store drawing in zip archive.
-     *
-     * @return string
      */
-    public function getMediaFilename()
+    public function getMediaFilename(): string
     {
         if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
@@ -87,10 +77,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Path.
-     *
-     * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -100,44 +88,100 @@ class Drawing extends BaseDrawing
      *
      * @param string $path File path
      * @param bool $verifyFile Verify file
-     * @param ZipArchive $zip Zip archive instance
+     * @param ?ZipArchive $zip Zip archive instance
      *
      * @return $this
      */
-    public function setPath($path, $verifyFile = true, $zip = null)
+    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
     {
-        if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
-            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-            if (filter_var($path, FILTER_VALIDATE_URL)) {
-                $this->path = $path;
-                // Implicit that it is a URL, rather store info than running check above on value in other places.
-                $this->isUrl = true;
-                $imageContents = file_get_contents($path);
+        $this->isUrl = false;
+        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+            $this->path = $path;
+
+            return $this;
+        }
+
+        $this->path = '';
+        // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+        if (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))) {
+            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+                throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+            }
+            // Implicit that it is a URL, rather store info than running check above on value in other places.
+            $this->isUrl = true;
+            $ctx = null;
+            // https://github.com/php/php-src/issues/16023
+            // https://github.com/php/php-src/issues/17121
+            if (str_starts_with($path, 'https:') || str_starts_with($path, 'http:')) {
+                $ctxArray = [
+                    'http' => [
+                        'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                        'header' => [
+                            //'Connection: keep-alive', // unacceptable performance
+                            'Accept: image/*;q=0.9,*/*;q=0.8',
+                        ],
+                    ],
+                ];
+                if (str_starts_with($path, 'https:')) {
+                    $ctxArray['ssl'] = ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT];
+                }
+                $ctx = stream_context_create($ctxArray);
+            }
+            $imageContents = @file_get_contents($path, false, $ctx);
+            if ($imageContents !== false) {
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                 if ($filePath) {
-                    file_put_contents($filePath, $imageContents);
-                    if (file_exists($filePath)) {
-                        $this->setSizesAndType($filePath);
+                    $put = @file_put_contents($filePath, $imageContents);
+                    if ($put !== false) {
+                        if ($this->isImage($filePath)) {
+                            $this->path = $path;
+                            $this->setSizesAndType($filePath);
+                        }
                         unlink($filePath);
                     }
                 }
-            } elseif (file_exists($path)) {
-                $this->path = $path;
-                $this->setSizesAndType($path);
-            } elseif ($zip instanceof ZipArchive) {
-                $zipPath = explode('#', $path)[1];
-                if ($zip->locateName($zipPath) !== false) {
+            }
+        } elseif ($zip instanceof ZipArchive) {
+            $zipPath = explode('#', $path)[1];
+            $locate = @$zip->locateName($zipPath);
+            if ($locate !== false) {
+                if ($this->isImage($path)) {
                     $this->path = $path;
                     $this->setSizesAndType($path);
                 }
-            } else {
-                throw new PhpSpreadsheetException("File $path not found!");
             }
         } else {
-            $this->path = $path;
+            $exists = @file_exists($path);
+            if ($exists !== false && $this->isImage($path)) {
+                $this->path = $path;
+                $this->setSizesAndType($path);
+            }
+        }
+        if ($this->path === '' && $verifyFile) {
+            throw new PhpSpreadsheetException("File $path not found!");
+        }
+
+        if ($this->worksheet !== null) {
+            if ($this->path !== '') {
+                $this->worksheet->getCell($this->coordinates);
+            }
         }
 
         return $this;
+    }
+
+    private function isImage(string $path): bool
+    {
+        $mime = (string) @mime_content_type($path);
+        $retVal = false;
+        if (str_starts_with($mime, 'image/')) {
+            $retVal = true;
+        } elseif ($mime === 'application/octet-stream') {
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $retVal = in_array($extension, ['bin', 'emf'], true);
+        }
+
+        return $retVal;
     }
 
     /**
@@ -149,28 +193,16 @@ class Drawing extends BaseDrawing
     }
 
     /**
-     * Set isURL.
-     *
-     * @return $this
-     */
-    public function setIsURL(bool $isUrl): self
-    {
-        $this->isUrl = $isUrl;
-
-        return $this;
-    }
-
-    /**
      * Get hash code.
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
-            $this->path .
-            parent::getHashCode() .
-            __CLASS__
+            $this->path
+            . parent::getHashCode()
+            . __CLASS__
         );
     }
 

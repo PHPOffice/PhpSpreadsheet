@@ -1,7 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 
 require __DIR__ . '/../Header.php';
 
@@ -14,8 +14,6 @@ $spreadsheet = $reader->load($fileWithPath);
 $sheet = $spreadsheet->getActiveSheet();
 
 $helper->log('Write to Mpdf');
-$writer = new Mpdf($spreadsheet);
-$filename = $helper->getfilename($filename, 'pdf');
-$writer->save($filename);
-$helper->log("Saved $filename");
+IOFactory::registerWriter('Pdf', PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+$helper->write($spreadsheet, __FILE__, ['Pdf']);
 $spreadsheet->disconnectWorksheets();

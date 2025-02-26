@@ -9,7 +9,7 @@ class Border
     /**
      * @var array<int, string>
      */
-    protected static $borderStyleMap = [
+    protected static array $borderStyleMap = [
         0x00 => StyleBorder::BORDER_NONE,
         0x01 => StyleBorder::BORDER_THIN,
         0x02 => StyleBorder::BORDER_MEDIUM,
@@ -28,10 +28,6 @@ class Border
 
     public static function lookup(int $index): string
     {
-        if (isset(self::$borderStyleMap[$index])) {
-            return self::$borderStyleMap[$index];
-        }
-
-        return StyleBorder::BORDER_NONE;
+        return self::$borderStyleMap[$index] ?? StyleBorder::BORDER_NONE;
     }
 }

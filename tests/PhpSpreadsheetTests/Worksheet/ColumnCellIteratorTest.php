@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -11,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnCellIteratorTest extends TestCase
 {
-    private const CELL_VALUES =
-        [
+    private const CELL_VALUES
+        = [
             [110, 210, 310, 410, 510, 610, 710],
             [120, 220, 320, 420, 520, 620],
             [130, 230, 330, 430, 530, 630],
@@ -20,6 +22,12 @@ class ColumnCellIteratorTest extends TestCase
             [150, 250, 350, 450, 550, 650],
             [160, null, 360, null, 560],
         ];
+
+    // Phpstan does not think RowCellIterator can return null
+    private static function isCellNull(?Cell $item): bool
+    {
+        return $item === null;
+    }
 
     private static function getPopulatedSheet(Spreadsheet $spreadsheet): Worksheet
     {
@@ -39,13 +47,11 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertNotNull($ColumnCell);
-            /** @scrutinizer ignore-call */
+            self::assertFalse(self::isCellNull($ColumnCell));
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
-        $transposed = array_map(/** @scrutinizer ignore-type */ null, ...self::CELL_VALUES);
+        $transposed = array_map(null, ...self::CELL_VALUES);
         self::assertSame($transposed[0], $values);
         $spreadsheet->disconnectWorksheets();
     }
@@ -60,11 +66,9 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertNotNull($ColumnCell);
-            /** @scrutinizer ignore-call */
+            self::assertFalse(self::isCellNull($ColumnCell));
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
         self::assertSame([120, 130, 140], $values);
         $spreadsheet->disconnectWorksheets();
@@ -83,7 +87,6 @@ class ColumnCellIteratorTest extends TestCase
         while ($iterator->valid()) {
             $current = $iterator->current();
             self::assertNotNull($current);
-            /** @scrutinizer ignore-call */
             $cell = $current->getCoordinate();
             $values[] = $sheet->getCell($cell)->getValue();
             $iterator->prev();

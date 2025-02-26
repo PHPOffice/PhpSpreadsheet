@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -79,6 +81,7 @@ class CellsTest extends TestCase
         $cell3 = $sheet->getCell('C3');
         self::assertSame($cell3, $collection->update($cell3), 'should silently add non-existing C3 cell');
         self::assertEquals(['A1', 'Z1', 'AA1', 'C3'], $collection->getCoordinates(), 'cell list should contains the C3 cell');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCacheLastCell(): void
@@ -89,6 +92,7 @@ class CellsTest extends TestCase
         $sheet->setCellValue('A1', 1);
         $sheet->setCellValue('A2', 2);
         self::assertEquals($cells, $sheet->getCoordinates(), 'list should include last added cell');
+        $workbook->disconnectWorksheets();
     }
 
     public function testCanGetCellAfterAnotherIsDeleted(): void
@@ -101,6 +105,7 @@ class CellsTest extends TestCase
         $collection->delete('A1');
         $sheet->setCellValue('A3', 1);
         self::assertNotNull($collection->get('A2'), 'should be able to get back the cell even when another cell was deleted while this one was the current one');
+        $workbook->disconnectWorksheets();
     }
 
     public function testThrowsWhenCellCannotBeRetrievedFromCache(): void
@@ -153,5 +158,31 @@ class CellsTest extends TestCase
         self::assertEquals('C', $collection->getHighestColumn());
         self::assertEquals('A', $collection->getHighestColumn(1));
         self::assertEquals('C', $collection->getHighestColumn(4));
+        $workbook->disconnectWorksheets();
+    }
+
+    public function testGetHighestColumnBad(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectExceptionMessage('Row number must be a positive integer');
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $collection = $sheet->getCellCollection();
+
+        // check for empty sheet
+        self::assertEquals('A', $collection->getHighestColumn());
+        $collection->getHighestColumn(0);
+        $workbook->disconnectWorksheets();
+    }
+
+    public function testRemoveRowBad(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectExceptionMessage('Row number must be a positive integer');
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $collection = $sheet->getCellCollection();
+        $collection->removeRow(0);
+        $workbook->disconnectWorksheets();
     }
 }

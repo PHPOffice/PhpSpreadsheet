@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LogInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOGINV
-     *
-     * @param mixed $expectedResult
-     */
-    public function testLOGINV($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGINV')]
+    public function testLOGINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGINV', $expectedResult, ...$args);
     }
 
-    public function providerLOGINV(): array
+    public static function providerLOGINV(): array
     {
         return require 'tests/data/Calculation/Statistical/LOGINV.php';
     }
 
-    /**
-     * @dataProvider providerLogInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLogInvArray')]
     public function testLogInvArray(array $expectedResult, string $probabilities, string $mean, string $stdDev): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class LogInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLogInvArray(): array
+    public static function providerLogInvArray(): array
     {
         return [
             'row/column vectors' => [

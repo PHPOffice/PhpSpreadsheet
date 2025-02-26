@@ -24,7 +24,7 @@ class AutoFilter extends WriterPart
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            [$ws, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
+            [, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
             $range = implode(':', $range);
 
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));
@@ -71,9 +71,9 @@ class AutoFilter extends WriterPart
     private static function writeAutoFilterColumnRule(Column $column, Rule $rule, XMLWriter $objWriter): void
     {
         if (
-            ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
-            ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
-            ($rule->getValue() === '')
+            ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER)
+            && ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL)
+            && ($rule->getValue() === '')
         ) {
             //    Filter rule for Blanks
             $objWriter->writeAttribute('blank', '1');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class StreamTest extends TestCase
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         $providerFormats = [
             ['Xls'],
@@ -24,9 +26,7 @@ class StreamTest extends TestCase
         return $providerFormats;
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testAllWritersCanWriteToStream(string $format): void
     {
         $spreadsheet = new Spreadsheet();

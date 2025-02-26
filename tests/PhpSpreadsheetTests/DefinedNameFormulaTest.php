@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -9,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerRangeOrFormula
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeOrFormula')]
     public function testRangeOrFormula(string $value, bool $expectedResult): void
     {
         $actualResult = DefinedName::testIfFormula($value);
@@ -142,7 +142,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame($globalFormulaValue, $localScopedFormula->getValue());
     }
 
-    public function providerRangeOrFormula(): array
+    public static function providerRangeOrFormula(): array
     {
         return [
             'simple range' => ['A1', false],

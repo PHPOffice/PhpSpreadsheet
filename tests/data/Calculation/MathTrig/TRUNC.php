@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [3.14, '3.14159, 2'],
     [3.141, '3.14159,  3'],
@@ -9,6 +11,7 @@ return [
     [-31415.92654, '-31415.92654, 10'],
     [31415.92, '31415.92654, 2'],
     [31400, '31415.92654, -2'],
+    'negative number and precision' => [-31400, '-31415.92654, -2'],
     [0, '31415.92654, -10'],
     [0, '-31415.92654, -10'],
     [12000, '12345.6789, -3'],
@@ -30,4 +33,23 @@ return [
     [-3, 'A4'],
     [-5, 'A5'],
     [0, 'B1'],
+    'issue4113' => [1.0, '1.01, 1'],
+    'issue4113 negative' => [-1.0, '-1.01, 1'],
+    'issue4113 additional' => [10.04, '10.04, 2'],
+    'issue4113 additional negative' => [-10.04, '-10.04, 2'],
+    'issue4113 small fraction keep all' => [0.04, '0.04, 2'],
+    'issue4113 small negative fraction keep all' => [-0.04, '-0.04, 2'],
+    'issue4113 small fraction lose some' => [0.0, '0.01, 1'],
+    'issue4113 small negative fraction lose some' => [0.0, '-0.001, 1'],
+    'issue4113 example 3' => [-43747, '-43747.99122596, 0'],
+    'issue4113 example 3 positive' => [43747, '43747.99122596, 0'],
+    'issue4113 example 4' => [-9.11, '-9.1196419, 2'],
+    'issue4113 example 5' => [-42300.65, '-42300.65099338, 3'],
+    'issue4113 example 6 variant 1' => [0.000012, '0.0000123, 6'],
+    'issue4113 example 6 variant 2' => [0.0000123, '0.0000123, 8'],
+    'issue4113 example 6 variant 3' => [-0.000012, '-0.0000123, 6'],
+    'issue4113 example 6 variant 4' => [-0.0000123, '-0.0000123, 8'],
+    'issue4113 example 6 variant 5' => [0.000012, '1.23E-5, 6'],
+    'issue4113 example 6 variant 6' => [-0.0000123, '-1.23E-5, 8'],
+    'exceed 32-bit int max' => [3123456780, '3123456789, -1'],
 ];

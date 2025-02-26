@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FisherInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFISHERINV
-     *
-     * @param mixed $expectedResult
-     */
-    public function testFISHERINV($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFISHERINV')]
+    public function testFISHERINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHERINV', $expectedResult, ...$args);
     }
 
-    public function providerFISHERINV(): array
+    public static function providerFISHERINV(): array
     {
         return require 'tests/data/Calculation/Statistical/FISHERINV.php';
     }
 
-    /**
-     * @dataProvider providerFisherArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFisherArray')]
     public function testFisherArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class FisherInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFisherArray(): array
+    public static function providerFisherArray(): array
     {
         return [
             'row vector' => [

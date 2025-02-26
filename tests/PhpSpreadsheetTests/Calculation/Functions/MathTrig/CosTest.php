@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CosTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCos
-     *
-     * @param mixed $expectedResult
-     */
-    public function testCos($expectedResult, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCos')]
+    public function testCos(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,14 +19,12 @@ class CosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCos(): array
+    public static function providerCos(): array
     {
         return require 'tests/data/Calculation/MathTrig/COS.php';
     }
 
-    /**
-     * @dataProvider providerCosArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCosArray')]
     public function testCosArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -38,7 +34,7 @@ class CosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCosArray(): array
+    public static function providerCosArray(): array
     {
         return [
             'row vector' => [[[0.54030230586814, 0.87758256189037, 0.54030230586814]], '{1, 0.5, -1}'],

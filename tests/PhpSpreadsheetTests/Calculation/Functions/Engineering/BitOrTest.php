@@ -1,41 +1,88 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class BitOrTest extends TestCase
 {
-    /**
-     * @dataProvider providerBITOR
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBITOR($expectedResult, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    public function testDirectCallToBITOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        $result = BitWise::BITOR($arg1, $arg2);
+        self::assertSame($expectedResult, $result);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    public function testBITORAsFormula(float|int|string $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BITOR({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    public function testBITORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 8);
-        $sheet->getCell('A1')->setValue("=BITOR($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BITOR({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITOR(): array
+    public static function providerBITOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITOR.php';
     }
 
-    /**
-     * @dataProvider providerBitOrArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITOR')]
+    public function testBITORUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BITOR({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyBITOR(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for BITOR() function'],
+            ['Formula Error: Wrong number of arguments for BITOR() function', 1234],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitOrArray')]
     public function testBitOrArray(array $expectedResult, string $number1, string $number2): void
     {
         $calculation = Calculation::getInstance();
@@ -45,7 +92,7 @@ class BitOrTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitOrArray(): array
+    public static function providerBitOrArray(): array
     {
         return [
             'row/column vector' => [

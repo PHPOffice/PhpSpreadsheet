@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -13,7 +15,6 @@ class AbsolutePathTest extends TestCase
         $reader = new Xlsx();
         $result = $reader->listWorksheetInfo($xlsxFile);
 
-        self::assertIsArray($result);
         self::assertEquals(3, $result[0]['totalRows']);
     }
 }

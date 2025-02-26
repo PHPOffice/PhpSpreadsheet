@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Mpdf;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 //  value, format, result
@@ -198,6 +200,26 @@ return [
         '0%',
     ],
     [
+        '-9.1%',
+        -0.091,
+        '0.0%',
+    ],
+    [
+        '-99.1%',
+        -0.991,
+        '0.0%',
+    ],
+    [
+        '-9.10%',
+        -0.091,
+        '0.00%',
+    ],
+    [
+        '-99.10%',
+        -0.991,
+        '0.00%',
+    ],
+    [
         '10%',
         0.1,
         '0%',
@@ -364,7 +386,7 @@ return [
         '_-€* #,##0.00_-;"-€"* #,##0.00_-;_-€* -??_-;_-@_-',
     ],
     [
-        ' € - ',
+        ' € -   ',
         0,
         '_-€* #,##0.00_-;"-€"* #,##0.00_-;_-€* -??_-;_-@_-',
     ],
@@ -447,6 +469,43 @@ return [
         'Negative',
         -2,
         '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
+    // Colour palette index
+    [
+        '+710',
+        710,
+        '[color 10]+#,##0;[color 12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color 10]+#,##0;[color 12]-#,##0',
+    ],
+    // Colour palette index
+    [
+        '+710',
+        710,
+        '[color10]+#,##0;[color12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color10]+#,##0;[color12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color01]+#,##0;[color02]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color08]+#,##0;[color09]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color55]+#,##0;[color56]-#,##0',
     ],
     // Value break points
     [
@@ -968,365 +1027,365 @@ return [
     [
         '$0.00 ',
         '0',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,000.00 ',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.11 ',
         '1111.111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.11 ',
         '1111.114',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.12 ',
         '1111.115',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.12 ',
         '1111.119',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$0.00 ',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.00 ',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.11 ',
         '-1111.111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.11 ',
         '-1111.114',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.12 ',
         '-1111.115',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.12 ',
         '-1111.119',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$0 ',
         '0',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,000 ',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,111 ',
         '1111.1',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,111 ',
         '1111.4',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,112 ',
         '1111.5',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,112 ',
         '1111.9',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$0 ',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111.1',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111.4',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,112 ',
         '-1111.5',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,112 ',
         '-1111.9',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$0.00 ',
         '0',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,000.00 ',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.11 ',
         '1111.111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.11 ',
         '1111.114',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.12 ',
         '1111.115',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$1,111.12 ',
         '1111.119',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$0.00 ',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.00 ',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.11 ',
         '-1111.111',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.11 ',
         '-1111.114',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.12 ',
         '-1111.115',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$-1,111.12 ',
         '-1111.119',
-        NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_USD,
     ],
     [
         '$0 ',
         '0',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,000 ',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,111 ',
         '1111.1',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,111 ',
         '1111.4',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,112 ',
         '1111.5',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$1,112 ',
         '1111.9',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$0 ',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111.1',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,111 ',
         '-1111.4',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,112 ',
         '-1111.5',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '$-1,112 ',
         '-1111.9',
-        NumberFormat::FORMAT_CURRENCY_USD,
+        NumberFormat::FORMAT_CURRENCY_USD_INTEGER,
     ],
     [
         '0.00 €',
         '0',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '1,000.00 €',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '1,111.11 €',
         '1111.111',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '1,111.11 €',
         '1111.114',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '1,111.12 €',
         '1111.115',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '1,111.12 €',
         '1111.119',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '0.00 €',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '-1,111.00 €',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '-1,111.11 €',
         '-1111.111',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '-1,111.11 €',
         '-1111.114',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '-1,111.12 €',
         '-1111.115',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '-1,111.12 €',
         '-1111.119',
-        NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+        NumberFormat::FORMAT_CURRENCY_EUR,
     ],
     [
         '0 €',
         '0',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '1,000 €',
         '1000',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '1,111 €',
         '1111.1',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '1,111 €',
         '1111.4',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '1,112 €',
         '1111.5',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '1,112 €',
         '1111.9',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '0 €',
         '-0',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '-1,111 €',
         '-1111',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '-1,111 €',
         '-1111.1',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '-1,111 €',
         '-1111.4',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '-1,112 €',
         '-1111.5',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
         '-1,112 €',
         '-1111.9',
-        NumberFormat::FORMAT_CURRENCY_EUR,
+        NumberFormat::FORMAT_CURRENCY_EUR_INTEGER,
     ],
     [
-        ' $ - ',
+        ' $ -   ',
         '0',
         NumberFormat::FORMAT_ACCOUNTING_USD,
     ],
@@ -1356,7 +1415,7 @@ return [
         NumberFormat::FORMAT_ACCOUNTING_USD,
     ],
     [
-        ' $ - ',
+        ' $ -   ',
         '-0',
         NumberFormat::FORMAT_ACCOUNTING_USD,
     ],
@@ -1386,7 +1445,7 @@ return [
         NumberFormat::FORMAT_ACCOUNTING_USD,
     ],
     [
-        ' € - ',
+        ' € -   ',
         '0',
         NumberFormat::FORMAT_ACCOUNTING_EUR,
     ],
@@ -1416,7 +1475,7 @@ return [
         NumberFormat::FORMAT_ACCOUNTING_EUR,
     ],
     [
-        ' € - ',
+        ' € -   ',
         '-0',
         NumberFormat::FORMAT_ACCOUNTING_EUR,
     ],
@@ -1464,4 +1523,208 @@ return [
     'truncate to 1 decimal' => ['009 7.1', 97.13, '000 0.0'],
     'scientific many decimal positions truncated' => ['000 0.000 00', 1e-7, '000 0.000 00'],
     'scientific very many decimal positions truncated' => ['000 0.000 00', 1e-17, '000 0.000 00'],
+    [
+        '€ 1,111.12 ',
+        '1111.119',
+        '[$€-nl_NL]_(#,##0.00_);[$€-nl_NL] (#,##0.00)',
+    ],
+    [
+        '€ (1,111.12)',
+        '-1111.119',
+        '[$€-nl_NL]_(#,##0.00_);[$€-nl_NL] (#,##0.00)',
+    ],
+    [
+        '€ 1,111.12 ',
+        '1111.119',
+        '[$€-en_US]_(#,##0.00_);[$€-en_US] (#,##0.00)',
+    ],
+    [
+        '-1.2E+4',
+        -12345.6789,
+        '0.0E+00',
+    ],
+    [
+        '-1.23E+4',
+        -12345.6789,
+        '0.00E+00',
+    ],
+    [
+        '-1.235E+4',
+        -12345.6789,
+        '0.000E+00',
+    ],
+    [
+        'Product SKU #12345',
+        12345,
+        '"Product SKU #"0',
+    ],
+    [
+        'Product SKU #12-345',
+        12345,
+        '"Product SKU #"00-000',
+    ],
+    [
+        '€12,345.74 Surplus for Product #12-345',
+        12345.74,
+        '[$€]#,##0.00" Surplus for Product #12-345";$-#,##0.00" Shortage for Product #12-345"',
+    ],
+    // Scaling
+    [
+        '12,000',
+        12000,
+        '#,###',
+    ],
+    [
+        '12',
+        12000,
+        '#,',
+    ],
+    [
+        '0',
+        120,
+        '#,',
+    ],
+    [
+        '0.12',
+        120,
+        '#,.00',
+    ],
+    [
+        '12k',
+        12000,
+        '#,k',
+    ],
+    [
+        '12.2',
+        12200000,
+        '0.0,,',
+    ],
+    [
+        '12.2 M',
+        12200000,
+        '0.0,, M',
+    ],
+    [
+        '1,025.13',
+        1025132.36,
+        '#,###,.##',
+    ],
+    [
+        '.05',
+        50,
+        '#.00,',
+    ],
+    [
+        '50.05',
+        50050,
+        '#.00,',
+    ],
+    [
+        '555.50',
+        555500,
+        '#.00,',
+    ],
+    [
+        '.56',
+        555500,
+        '#.00,,',
+    ],
+    // decimal placement
+    [
+        ' 44.398',
+        44.398,
+        '???.???',
+    ],
+    [
+        '102.65 ',
+        102.65,
+        '???.???',
+    ],
+    [
+        '  2.8  ',
+        2.8,
+        '???.???',
+    ],
+    [
+        '  3',
+        2.8,
+        '???',
+    ],
+    [
+        '12,345',
+        12345,
+        '?,???',
+    ],
+    [
+        '123',
+        123,
+        '?,???',
+    ],
+    [
+        '$.50',
+        0.5,
+        '$?.00',
+    ],
+    [
+        'Part Cost $.50',
+        0.5,
+        'Part Cost $?.00',
+    ],
+    // Empty Section
+    [
+        '',
+        -12345.6789,
+        '#,##0.00;',
+    ],
+    [
+        '',
+        -12345.6789,
+        '#,##0.00;;"---"',
+    ],
+    'issue 4124' => ['1 HUF', 1, '#,##0_-[$HUF]'],
+    'issue 4242 General with dollar sign' => [
+        'General $200 - 200', // expected result
+        'General $200 - 200', // cell contents
+        NumberFormat::FORMAT_GENERAL, // cell style
+    ],
+    'issue 4242 Text with dollar sign' => [
+        'Text $200 - 200',
+        'Text $200 - 200',
+        NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242 Text with quotes, format without' => [
+        '"Hello" she said and "Hello" I replied',
+        '"Hello" she said and "Hello" I replied',
+        NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242 Format with quotes, text without' => [
+        'Text: $200 - 200',
+        '$200 - 200',
+        '"Text: "' . NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242 single quote mark' => [
+        '"',
+        '"',
+        '@',
+    ],
+    'issue 4242 dollar sign' => [
+        '$100',
+        '$100',
+        '@',
+    ],
+    'issue 4242 repeat unquoted at signs' => [
+        'xy xy xy',
+        'xy',
+        '@ @ @',
+    ],
+    'issue 4242 quotes in format and text' => [
+        'Text: "Hooray" for me',
+        '"Hooray" for me',
+        '"Text: "' . NumberFormat::FORMAT_TEXT,
+    ],
+    'issue 4242 escaped quote in format' => [
+        '"Hello"',
+        'Hello',
+        '\"@\"',
+    ],
 ];

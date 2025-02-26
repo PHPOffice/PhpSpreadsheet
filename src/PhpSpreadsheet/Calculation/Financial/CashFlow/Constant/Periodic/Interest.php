@@ -29,17 +29,15 @@ class Interest
      * @param mixed $presentValue Present Value
      * @param mixed $futureValue Future Value
      * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-     *
-     * @return float|string
      */
     public static function payment(
-        $interestRate,
-        $period,
-        $numberOfPeriods,
-        $presentValue,
-        $futureValue = 0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+        mixed $interestRate,
+        mixed $period,
+        mixed $numberOfPeriods,
+        mixed $presentValue,
+        mixed $futureValue = 0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
@@ -88,10 +86,8 @@ class Interest
      * @param mixed $period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
      * @param mixed $numberOfPeriods is the number of payments for the annuity
      * @param mixed $principleRemaining is the loan amount or present value of the payments
-     *
-     * @return float|string
      */
-    public static function schedulePayment($interestRate, $period, $numberOfPeriods, $principleRemaining)
+    public static function schedulePayment(mixed $interestRate, mixed $period, mixed $numberOfPeriods, mixed $principleRemaining): string|float
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
@@ -152,17 +148,15 @@ class Interest
      *                      1               At the beginning of the period.
      * @param mixed $guess Your guess for what the rate will be.
      *                          If you omit guess, it is assumed to be 10 percent.
-     *
-     * @return float|string
      */
     public static function rate(
-        $numberOfPeriods,
-        $payment,
-        $presentValue,
-        $futureValue = 0.0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD,
-        $guess = 0.1
-    ) {
+        mixed $numberOfPeriods,
+        mixed $payment,
+        mixed $presentValue,
+        mixed $futureValue = 0.0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD,
+        mixed $guess = 0.1
+    ): string|float {
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
@@ -171,7 +165,7 @@ class Interest
         $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
 
         try {
-            $numberOfPeriods = CashFlowValidations::validateInt($numberOfPeriods);
+            $numberOfPeriods = CashFlowValidations::validateFloat($numberOfPeriods);
             $payment = CashFlowValidations::validateFloat($payment);
             $presentValue = CashFlowValidations::validatePresentValue($presentValue);
             $futureValue = CashFlowValidations::validateFutureValue($futureValue);
@@ -199,8 +193,7 @@ class Interest
         return $close ? $rate : ExcelError::NAN();
     }
 
-    /** @return float|string */
-    private static function rateNextGuess(float $rate, int $numberOfPeriods, float $payment, float $presentValue, float $futureValue, int $type)
+    private static function rateNextGuess(float $rate, float $numberOfPeriods, float $payment, float $presentValue, float $futureValue, int $type): string|float
     {
         if ($rate == 0.0) {
             return ExcelError::NAN();

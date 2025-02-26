@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SignTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSIGN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     */
-    public function testSIGN($expectedResult, $value): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSIGN')]
+    public function testSIGN(float|int|string $expectedResult, float|int|string $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -24,14 +21,12 @@ class SignTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSIGN(): array
+    public static function providerSIGN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }
 
-    /**
-     * @dataProvider providerSignArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSignArray')]
     public function testSignArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -41,7 +36,7 @@ class SignTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSignArray(): array
+    public static function providerSignArray(): array
     {
         return [
             'row vector' => [[[-1, 0, 1]], '{-1.5, 0, 0.3}'],

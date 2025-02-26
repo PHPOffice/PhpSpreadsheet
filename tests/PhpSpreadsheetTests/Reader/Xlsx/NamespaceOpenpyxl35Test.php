@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -7,10 +9,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class NamespaceOpenpyxl35Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/namespaces.openpyxl35.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/namespaces.openpyxl35.xlsx';
 
     public function testPreliminaries(): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
@@ -8,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlOddTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $filename = '';
+    private string $filename = '';
 
     protected function teardown(): void
     {
@@ -69,5 +68,6 @@ class XmlOddTest extends TestCase
         $props = $spreadsheet->getProperties();
         self::assertEquals('Xml2003 Short Workbook', $props->getTitle());
         self::assertEquals('2', $props->getCustomPropertyValue('myאInt'));
+        $spreadsheet->disconnectWorksheets();
     }
 }

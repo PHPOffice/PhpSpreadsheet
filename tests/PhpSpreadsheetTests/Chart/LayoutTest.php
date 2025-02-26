@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
@@ -15,7 +17,7 @@ class LayoutTest extends TestCase
         $testInstance = new Layout();
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
-        self::assertInstanceOf(Layout::class, $result);
+        self::assertSame('String', $result->getLayoutTarget());
     }
 
     public function testGetLayoutTarget(): void

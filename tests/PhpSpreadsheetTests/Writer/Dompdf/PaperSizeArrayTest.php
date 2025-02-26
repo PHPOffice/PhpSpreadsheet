@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Dompdf;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -10,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class PaperSizeArrayTest extends TestCase
 {
-    /** @var string */
-    private $outfile = '';
+    private string $outfile = '';
 
     protected function tearDown(): void
     {

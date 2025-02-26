@@ -7,10 +7,8 @@ class LinearBestFit extends BestFit
     /**
      * Algorithm type to use for best-fit
      * (Name of this Trend class).
-     *
-     * @var string
      */
-    protected $bestFitType = 'linear';
+    protected string $bestFitType = 'linear';
 
     /**
      * Return the Y-Value for a specified value of X.
@@ -19,7 +17,7 @@ class LinearBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
+    public function getValueOfYForX(float $xValue): float
     {
         return $this->getIntersect() + $this->getSlope() * $xValue;
     }
@@ -31,7 +29,7 @@ class LinearBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY(float $yValue): float
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }
@@ -40,10 +38,8 @@ class LinearBestFit extends BestFit
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return string
      */
-    public function getEquation($dp = 0)
+    public function getEquation(int $dp = 0): string
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
@@ -67,9 +63,8 @@ class LinearBestFit extends BestFit
      *
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
-     * @param bool $const
      */
-    public function __construct($yValues, $xValues = [], $const = true)
+    public function __construct(array $yValues, array $xValues = [], bool $const = true)
     {
         parent::__construct($yValues, $xValues);
 

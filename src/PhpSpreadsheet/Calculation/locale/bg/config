@@ -1,27 +1,24 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
+## български (Bulgarian)
 ##
-##
+############################################################
 
-
-ArgumentSeparator	= ;
-
-
+ArgumentSeparator = ;
 ##
-##	(For future use)
+##  (For future use)
 ##
-currencySymbol	= лв
-
+currencySymbol = лв
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #ПРАЗНО!
-DIV0	= #ДЕЛ/0!
-VALUE	= #СТОЙНОСТ!
-REF	= #РЕФ!
-NAME	= #ИМЕ?
-NUM	= #ЧИСЛО!
-NA	= #Н/Д
+NULL = #ПРАЗНО!
+DIV0 = #ДЕЛ/0!
+VALUE = #СТОЙНОСТ!
+REF = #РЕФ!
+NAME = #ИМЕ?
+NUM = #ЧИСЛО!
+NA = #Н/Д

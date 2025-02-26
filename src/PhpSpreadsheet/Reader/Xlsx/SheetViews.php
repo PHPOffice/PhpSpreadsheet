@@ -4,19 +4,19 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Pane;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
 class SheetViews extends BaseParserClass
 {
-    /** @var SimpleXMLElement */
-    private $sheetViewXml;
+    private SimpleXMLElement $sheetViewXml;
 
-    /** @var SimpleXMLElement */
-    private $sheetViewAttributes;
+    private SimpleXMLElement $sheetViewAttributes;
 
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
+
+    private string $activePane = '';
 
     public function __construct(SimpleXMLElement $sheetViewXml, Worksheet $workSheet)
     {
@@ -35,11 +35,15 @@ class SheetViews extends BaseParserClass
         $this->direction();
         $this->showZeros();
 
+        $usesPanes = false;
         if (isset($this->sheetViewXml->pane)) {
             $this->pane();
+            $usesPanes = true;
         }
-        if (isset($this->sheetViewXml->selection, $this->sheetViewXml->selection->attributes()->sqref)) {
-            $this->selection();
+        if (isset($this->sheetViewXml->selection)) {
+            foreach ($this->sheetViewXml->selection as $selection) {
+                $this->selection($selection, $usesPanes);
+            }
         }
     }
 
@@ -65,6 +69,20 @@ class SheetViews extends BaseParserClass
             }
 
             $this->worksheet->getSheetView()->setZoomScaleNormal($zoomScaleNormal);
+        }
+
+        if (isset($this->sheetViewAttributes->zoomScalePageLayoutView)) {
+            $zoomScaleNormal = (int) ($this->sheetViewAttributes->zoomScalePageLayoutView);
+            if ($zoomScaleNormal > 0) {
+                $this->worksheet->getSheetView()->setZoomScalePageLayoutView($zoomScaleNormal);
+            }
+        }
+
+        if (isset($this->sheetViewAttributes->zoomScaleSheetLayoutView)) {
+            $zoomScaleNormal = (int) ($this->sheetViewAttributes->zoomScaleSheetLayoutView);
+            if ($zoomScaleNormal > 0) {
+                $this->worksheet->getSheetView()->setZoomScaleSheetLayoutView($zoomScaleNormal);
+            }
         }
     }
 
@@ -127,30 +145,55 @@ class SheetViews extends BaseParserClass
 
         if (isset($paneAttributes->xSplit)) {
             $xSplit = (int) ($paneAttributes->xSplit);
+            $this->worksheet->setXSplit($xSplit);
         }
 
         if (isset($paneAttributes->ySplit)) {
             $ySplit = (int) ($paneAttributes->ySplit);
+            $this->worksheet->setYSplit($ySplit);
         }
-
+        $paneState = isset($paneAttributes->state) ? ((string) $paneAttributes->state) : '';
+        $this->worksheet->setPaneState($paneState);
         if (isset($paneAttributes->topLeftCell)) {
             $topLeftCell = (string) $paneAttributes->topLeftCell;
+            $this->worksheet->setPaneTopLeftCell($topLeftCell);
+            if ($paneState === Worksheet::PANE_FROZEN) {
+                $this->worksheet->setTopLeftCell($topLeftCell);
+            }
         }
-
-        $this->worksheet->freezePane(
-            Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1),
-            $topLeftCell
-        );
+        $activePane = isset($paneAttributes->activePane) ? ((string) $paneAttributes->activePane) : 'topLeft';
+        $this->worksheet->setActivePane($activePane);
+        $this->activePane = $activePane;
+        if ($paneState === Worksheet::PANE_FROZEN || $paneState === Worksheet::PANE_FROZENSPLIT) {
+            $this->worksheet->freezePane(
+                Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1),
+                $topLeftCell,
+                $paneState === Worksheet::PANE_FROZENSPLIT
+            );
+        }
     }
 
-    private function selection(): void
+    private function selection(?SimpleXMLElement $selection, bool $usesPanes): void
     {
-        $attributes = $this->sheetViewXml->selection->attributes();
+        $attributes = ($selection === null) ? null : $selection->attributes();
         if ($attributes !== null) {
+            $position = (string) $attributes->pane;
+            if ($usesPanes && $position === '') {
+                $position = 'topLeft';
+            }
+            $activeCell = (string) $attributes->activeCell;
             $sqref = (string) $attributes->sqref;
             $sqref = explode(' ', $sqref);
             $sqref = $sqref[0];
-            $this->worksheet->setSelectedCells($sqref);
+            if ($position === '') {
+                $this->worksheet->setSelectedCells($sqref);
+            } else {
+                $pane = new Pane($position, $sqref, $activeCell);
+                $this->worksheet->setPane($position, $pane);
+                if ($position === $this->activePane && $sqref !== '') {
+                    $this->worksheet->setSelectedCells($sqref);
+                }
+            }
         }
     }
 }

@@ -4,33 +4,19 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class CellAddress
+class CellAddress implements Stringable
 {
-    /**
-     * @var ?Worksheet
-     */
-    protected $worksheet;
+    protected ?Worksheet $worksheet;
 
-    /**
-     * @var string
-     */
-    protected $cellAddress;
+    protected string $cellAddress;
 
-    /**
-     * @var string
-     */
-    protected $columnName;
+    protected string $columnName = '';
 
-    /**
-     * @var int
-     */
-    protected $columnId;
+    protected int $columnId;
 
-    /**
-     * @var int
-     */
-    protected $rowId;
+    protected int $rowId;
 
     public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
     {
@@ -39,43 +25,39 @@ class CellAddress
         $this->worksheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        unset($this->worksheet);
+    }
+
     /**
-     * @param mixed $columnId
-     * @param mixed $rowId
+     * @phpstan-assert int|numeric-string $columnId
+     * @phpstan-assert int|numeric-string $rowId
      */
-    private static function validateColumnAndRow($columnId, $rowId): void
+    private static function validateColumnAndRow(int|string $columnId, int|string $rowId): void
     {
         if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {
             throw new Exception('Row and Column Ids must be positive integer values');
         }
     }
 
-    /**
-     * @param mixed $columnId
-     * @param mixed $rowId
-     */
-    public static function fromColumnAndRow($columnId, $rowId, ?Worksheet $worksheet = null): self
+    public static function fromColumnAndRow(int|string $columnId, int|string $rowId, ?Worksheet $worksheet = null): self
     {
         self::validateColumnAndRow($columnId, $rowId);
 
-        /** @phpstan-ignore-next-line */
-        return new static(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
+        return new self(Coordinate::stringFromColumnIndex($columnId) . $rowId, $worksheet);
     }
 
     public static function fromColumnRowArray(array $array, ?Worksheet $worksheet = null): self
     {
         [$columnId, $rowId] = $array;
 
-        return static::fromColumnAndRow($columnId, $rowId, $worksheet);
+        return self::fromColumnAndRow($columnId, $rowId, $worksheet);
     }
 
-    /**
-     * @param mixed $cellAddress
-     */
-    public static function fromCellAddress($cellAddress, ?Worksheet $worksheet = null): self
+    public static function fromCellAddress(string $cellAddress, ?Worksheet $worksheet = null): self
     {
-        /** @phpstan-ignore-next-line */
-        return new static($cellAddress, $worksheet);
+        return new self($cellAddress, $worksheet);
     }
 
     /**
@@ -131,7 +113,7 @@ class CellAddress
             $newRowId = 1;
         }
 
-        return static::fromColumnAndRow($this->columnId, $newRowId);
+        return self::fromColumnAndRow($this->columnId, $newRowId);
     }
 
     public function previousRow(int $offset = 1): self
@@ -146,7 +128,7 @@ class CellAddress
             $newColumnId = 1;
         }
 
-        return static::fromColumnAndRow($newColumnId, $this->rowId);
+        return self::fromColumnAndRow($newColumnId, $this->rowId);
     }
 
     public function previousColumn(int $offset = 1): self
@@ -159,7 +141,7 @@ class CellAddress
      *     (ie. if a Worksheet was provided to the constructor).
      *     e.g. "'Mark''s Worksheet'!C5".
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->fullCellAddress();
     }

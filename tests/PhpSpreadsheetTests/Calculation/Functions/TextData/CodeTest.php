@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CodeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCODE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $character
-     */
-    public function testCODE($expectedResult, $character = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCODE')]
+    public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -26,14 +23,12 @@ class CodeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCODE(): array
+    public static function providerCODE(): array
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }
 
-    /**
-     * @dataProvider providerCodeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCodeArray')]
     public function testCodeArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -43,7 +38,7 @@ class CodeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCodeArray(): array
+    public static function providerCodeArray(): array
     {
         return [
             'row vector' => [[[80, 72, 80]], '{"P", "H", "P"}'],

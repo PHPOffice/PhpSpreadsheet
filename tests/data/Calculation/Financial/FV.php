@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // rate, nper, pmt, pv, type, Result
 
 return [

@@ -26,7 +26,7 @@ class Standardize extends StatisticalValidations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function execute($value, $mean, $stdDev)
+    public static function execute($value, $mean, $stdDev): array|string|float
     {
         if (is_array($value) || is_array($mean) || is_array($stdDev)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev);

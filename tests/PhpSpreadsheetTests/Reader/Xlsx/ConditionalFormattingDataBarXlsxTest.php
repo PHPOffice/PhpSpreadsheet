@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -85,7 +87,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertNotEmpty($conditionalRule->getDataBar());
 
         $dataBar = $conditionalRule->getDataBar();
-        self::assertNotNull($dataBar);
         self::assertNotNull($dataBar->getMinimumConditionalFormatValueObject());
         self::assertNotNull($dataBar->getMaximumConditionalFormatValueObject());
         self::assertEquals('min', $dataBar->getMinimumConditionalFormatValueObject()->getType());
@@ -108,7 +109,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
 
         self::assertNotEmpty($dataBar);
         self::assertEquals(Conditional::CONDITION_DATABAR, $conditionalRule->getConditionType());
-        self::assertNotNull($dataBar);
         self::assertNotNull($dataBar->getMinimumConditionalFormatValueObject());
         self::assertNotNull($dataBar->getMaximumConditionalFormatValueObject());
         self::assertEquals('min', $dataBar->getMinimumConditionalFormatValueObject()->getType());
@@ -118,7 +118,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertNotEmpty($dataBar->getConditionalFormattingRuleExt());
         //ext
         $rule1ext = $dataBar->getConditionalFormattingRuleExt();
-        self::assertNotNull($rule1ext);
         self::assertEquals('{72C64AE0-5CD9-164F-83D1-AB720F263E79}', $rule1ext->getId());
         self::assertEquals('dataBar', $rule1ext->getCfRule());
         self::assertEquals('A3:A23', $rule1ext->getSqref());
@@ -165,7 +164,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
 
         self::assertNotEmpty($dataBar);
         self::assertEquals(Conditional::CONDITION_DATABAR, $conditionalRule->getConditionType());
-        self::assertNotNull($dataBar);
         self::assertNotNull($dataBar->getMinimumConditionalFormatValueObject());
         self::assertNotNull($dataBar->getMaximumConditionalFormatValueObject());
         self::assertEquals('num', $dataBar->getMinimumConditionalFormatValueObject()->getType());
@@ -176,7 +174,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertNotEmpty($dataBar->getConditionalFormattingRuleExt());
         //ext
         $rule1ext = $dataBar->getConditionalFormattingRuleExt();
-        self::assertNotNull($rule1ext);
         self::assertEquals('{98904F60-57F0-DF47-B480-691B20D325E3}', $rule1ext->getId());
         self::assertEquals('dataBar', $rule1ext->getCfRule());
         self::assertEquals('B3:B23', $rule1ext->getSqref());
@@ -225,7 +222,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
 
         self::assertNotEmpty($dataBar);
         self::assertEquals(Conditional::CONDITION_DATABAR, $conditionalRule->getConditionType());
-        self::assertNotNull($dataBar);
         self::assertNotNull($dataBar->getMinimumConditionalFormatValueObject());
         self::assertNotNull($dataBar->getMaximumConditionalFormatValueObject());
         self::assertEquals('min', $dataBar->getMinimumConditionalFormatValueObject()->getType());
@@ -237,7 +233,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
 
         //ext
         $rule1ext = $dataBar->getConditionalFormattingRuleExt();
-        self::assertNotNull($rule1ext);
         self::assertEquals('{453C04BA-7ABD-8548-8A17-D9CFD2BDABE9}', $rule1ext->getId());
         self::assertEquals('dataBar', $rule1ext->getCfRule());
         self::assertEquals('C3:C23', $rule1ext->getSqref());
@@ -287,7 +282,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertNotEmpty($dataBar);
         self::assertEquals(Conditional::CONDITION_DATABAR, $conditionalRule->getConditionType());
 
-        self::assertNotNull($dataBar);
         self::assertTrue($dataBar->getShowValue());
         self::assertNotNull($dataBar->getMinimumConditionalFormatValueObject());
         self::assertNotNull($dataBar->getMaximumConditionalFormatValueObject());
@@ -300,7 +294,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
 
         //ext
         $rule1ext = $dataBar->getConditionalFormattingRuleExt();
-        self::assertNotNull($rule1ext);
         self::assertEquals('{6C1E066A-E240-3D4A-98F8-8CC218B0DFD2}', $rule1ext->getId());
         self::assertEquals('dataBar', $rule1ext->getCfRule());
         self::assertEquals('D3:D23', $rule1ext->getSqref());

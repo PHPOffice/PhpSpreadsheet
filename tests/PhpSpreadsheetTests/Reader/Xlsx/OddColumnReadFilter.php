@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -9,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
  */
 class OddColumnReadFilter implements IReadFilter
 {
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         return (\ord(\substr($columnAddress, -1, 1)) % 2) === 1;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class WizardFactoryTest extends TestCase
 {
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -22,17 +21,16 @@ class WizardFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider basicWizardFactoryProvider
-     *
      * @psalm-param class-string<object> $expectedWizard
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicWizardFactoryProvider')]
     public function testBasicWizardFactory(string $ruleType, string $expectedWizard): void
     {
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf($expectedWizard, $wizard);
     }
 
-    public function basicWizardFactoryProvider(): array
+    public static function basicWizardFactoryProvider(): array
     {
         return [
             'CellValue Wizard' => [Wizard::CELL_VALUE, Wizard\CellValue::class],
@@ -46,9 +44,7 @@ class WizardFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider conditionalProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('conditionalProvider')]
     public function testWizardFromConditional(string $sheetName, string $cellAddress, array $expectedWizads): void
     {
         $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
@@ -65,11 +61,12 @@ class WizardFactoryTest extends TestCase
 
         foreach ($conditionals as $index => $conditional) {
             $wizard = Wizard::fromConditional($conditional);
-            self::assertEquals($expectedWizads[$index], get_class($wizard));
+            self::assertEquals($expectedWizads[$index], $wizard::class);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function conditionalProvider(): array
+    public static function conditionalProvider(): array
     {
         return [
             'cellIs Comparison A2' => ['cellIs Comparison', 'A2', [Wizard\CellValue::class, Wizard\CellValue::class, Wizard\CellValue::class]],

@@ -1,29 +1,114 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\TestCase;
 
-class ImPowerTest extends AllSetupTeardown
+class ImPowerTest extends TestCase
 {
-    /**
-     * @dataProvider providerIMPOWER
-     *
-     * @param mixed $expectedResult
-     */
-    public function testIMPOWER($expectedResult, ...$args): void
+    const COMPLEX_PRECISION = 1E-12;
+
+    private ComplexAssert $complexAssert;
+
+    protected function setUp(): void
     {
-        $this->runComplexTestCase('IMPOWER', $expectedResult, ...$args);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->complexAssert = new ComplexAssert();
     }
 
-    public function providerIMPOWER(): array
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    public function testDirectCallToIMPOWER(float|int|string $expectedResult, string $arg1, float|int|string $arg2): void
+    {
+        $result = ComplexFunctions::IMPOWER($arg1, $arg2);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    public function testIMPOWERAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMPOWER({$arguments})";
+
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    public function testIMPOWERInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMPOWER({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerIMPOWER(): array
     {
         return require 'tests/data/Calculation/Engineering/IMPOWER.php';
     }
 
-    /**
-     * @dataProvider providerImPowerArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMPOWER')]
+    public function testIMPOWERUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMPOWER({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyIMPOWER(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMPOWER() function'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerImPowerArray')]
     public function testImPowerArray(array $expectedResult, string $complex, string $real): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +118,7 @@ class ImPowerTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImPowerArray(): array
+    public static function providerImPowerArray(): array
     {
         return [
             'matrix' => [

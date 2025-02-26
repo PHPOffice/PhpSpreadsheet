@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -14,25 +16,19 @@ class IsNaTest extends TestCase
         self::assertFalse($result);
     }
 
-    /**
-     * @dataProvider providerIsNa
-     *
-     * @param mixed $value
-     */
-    public function testIsNa(bool $expectedResult, $value): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNa')]
+    public function testIsNa(bool $expectedResult, mixed $value): void
     {
         $result = ErrorValue::isNa($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNa(): array
+    public static function providerIsNa(): array
     {
         return require 'tests/data/Calculation/Information/IS_NA.php';
     }
 
-    /**
-     * @dataProvider providerIsNaArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsNaArray')]
     public function testIsNaArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +38,7 @@ class IsNaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNaArray(): array
+    public static function providerIsNaArray(): array
     {
         return [
             'vector' => [

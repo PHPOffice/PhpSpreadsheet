@@ -1,35 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDevP;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DStDevPTest extends AllSetupTeardown
+class DStDevPTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDStDevP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDirectCallToDStDevP($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDStDevP')]
+    public function testDirectCallToDStDevP(float|int|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DStDevP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDStDevP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDStDevPAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDStDevP')]
+    public function testDStDevPAsWorksheetFormula(float|int|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSTDEVP', $database, $field, $criteria);
 
@@ -37,12 +25,12 @@ class DStDevPTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDStDevP(): array
+    public static function providerDStDevP(): array
     {
         return [
             [
                 2.653299832284,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree'],
@@ -52,7 +40,7 @@ class DStDevPTest extends AllSetupTeardown
             ],
             [
                 0.085244745684,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -61,7 +49,7 @@ class DStDevPTest extends AllSetupTeardown
             ],
             [
                 0.160623784042,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Age'],
@@ -70,7 +58,7 @@ class DStDevPTest extends AllSetupTeardown
             ],
             [
                 0.01,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -79,7 +67,7 @@ class DStDevPTest extends AllSetupTeardown
             ],
             [
                 0,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Age'],
@@ -88,9 +76,9 @@ class DStDevPTest extends AllSetupTeardown
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

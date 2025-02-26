@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class EffectTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEFFECT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testEFFECT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEFFECT')]
+    public function testEFFECT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('EFFECT', $expectedResult, $args);
     }
 
-    public function providerEFFECT(): array
+    public static function providerEFFECT(): array
     {
         return require 'tests/data/Calculation/Financial/EFFECT.php';
     }

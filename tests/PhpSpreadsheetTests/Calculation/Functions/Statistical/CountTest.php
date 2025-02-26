@@ -1,30 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CountTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBasicCOUNT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBasicCOUNT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBasicCOUNT')]
+    public function testBasicCOUNT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
-    public function providerBasicCOUNT(): array
+    public static function providerBasicCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/BasicCOUNT.php';
     }
 
-    /**
-     * @dataProvider providerExcelCOUNT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testExcelCOUNT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExcelCOUNT')]
+    public function testExcelCOUNT(mixed $expectedResult, mixed ...$args): void
     {
         if (is_array($args[0])) {
             $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
@@ -33,17 +27,13 @@ class CountTest extends AllSetupTeardown
         }
     }
 
-    public function providerExcelCOUNT(): array
+    public static function providerExcelCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/ExcelCOUNT.php';
     }
 
-    /**
-     * @dataProvider providerOpenOfficeCOUNT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testOpenOfficeCOUNT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOpenOfficeCOUNT')]
+    public function testOpenOfficeCOUNT(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();
         if (is_array($args[0])) {
@@ -53,23 +43,19 @@ class CountTest extends AllSetupTeardown
         }
     }
 
-    public function providerOpenOfficeCOUNT(): array
+    public static function providerOpenOfficeCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/OpenOfficeCOUNT.php';
     }
 
-    /**
-     * @dataProvider providerGnumericCOUNT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testGnumericCOUNT($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGnumericCOUNT')]
+    public function testGnumericCOUNT(mixed $expectedResult, mixed ...$args): void
     {
         $this->setGnumeric();
         $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
-    public function providerGnumericCOUNT(): array
+    public static function providerGnumericCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/GnumericCOUNT.php';
     }

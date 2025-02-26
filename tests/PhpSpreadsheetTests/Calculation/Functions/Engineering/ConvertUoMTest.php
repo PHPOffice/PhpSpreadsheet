@@ -1,62 +1,127 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class ConvertUoMTest extends AllSetupTeardown
+class ConvertUoMTest extends TestCase
 {
     const UOM_PRECISION = 1E-12;
 
     public function testGetConversionGroups(): void
     {
-        $result = Engineering\ConvertUOM::getConversionCategories();
-        self::assertIsArray($result);
+        $result = ConvertUOM::getConversionCategories();
+        self::assertContains('Weight and Mass', $result);
     }
 
     public function testGetConversionGroupUnits(): void
     {
-        $result = Engineering\ConvertUOM::getConversionCategoryUnits();
-        self::assertIsArray($result);
+        $result = ConvertUOM::getConversionCategoryUnits();
+        self::assertArrayHasKey('Speed', $result);
+        self::assertIsArray($result['Speed']);
+        self::assertContains('mph', $result['Speed']);
     }
 
     public function testGetConversionGroupUnitDetails(): void
     {
-        $result = Engineering\ConvertUOM::getConversionCategoryUnitDetails();
-        self::assertIsArray($result);
+        $result = ConvertUOM::getConversionCategoryUnitDetails();
+        self::assertArrayHasKey('Information', $result);
+        self::assertIsArray($result['Information']);
+        self::assertContains(['unit' => 'byte', 'description' => 'Byte'], $result['Information']);
     }
 
     public function testGetConversionMultipliers(): void
     {
-        $result = Engineering\ConvertUOM::getConversionMultipliers();
-        self::assertIsArray($result);
+        $result = ConvertUOM::getConversionMultipliers();
+        self::assertArrayHasKey('k', $result);
+        self::assertSame(['multiplier' => 1000.0, 'name' => 'kilo'], $result['k']);
     }
 
     public function testGetBinaryConversionMultipliers(): void
     {
-        $result = Engineering\ConvertUOM::getBinaryConversionMultipliers();
-        self::assertIsArray($result);
+        $result = ConvertUOM::getBinaryConversionMultipliers();
+        self::assertArrayHasKey('ki', $result);
+        self::assertSame(['multiplier' => 1024, 'name' => 'kibi'], $result['ki']);
     }
 
-    /**
-     * @dataProvider providerCONVERTUOM
-     *
-     * @param mixed $expectedResult
-     */
-    public function testCONVERTUOM($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    public function testDirectCallToCONVERTUOM(float|int|string $expectedResult, float|int|string $value, string $from, string $to): void
     {
-        $this->runTestCase('CONVERT', $expectedResult, ...$args);
+        $result = ConvertUOM::convert($value, $from, $to);
+        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    public function providerCONVERTUOM(): array
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    public function testCONVERTUOMAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=CONVERT({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    public function testCONVERTUOMInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=CONVERT({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerCONVERTUOM(): array
     {
         return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
     }
 
-    /**
-     * @dataProvider providerConvertUoMArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyCONVERTUOM')]
+    public function testCONVERTUOMUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=CONVERT({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyCONVERTUOM(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for CONVERT() function'],
+            ['Formula Error: Wrong number of arguments for CONVERT() function', 12.34],
+            ['Formula Error: Wrong number of arguments for CONVERT() function', 12.34, 'kg'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerConvertUoMArray')]
     public function testConvertUoMArray(array $expectedResult, string $value, string $fromUoM, string $toUoM): void
     {
         $calculation = Calculation::getInstance();
@@ -66,7 +131,7 @@ class ConvertUoMTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    public function providerConvertUoMArray(): array
+    public static function providerConvertUoMArray(): array
     {
         return [
             'Weight/Mass' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
@@ -9,16 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 class ScientificTest extends TestCase
 {
-    /**
-     * @dataProvider providerScientific
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerScientific')]
     public function testScientific(string $expectedResult, int $decimals): void
     {
         $wizard = new Scientific($decimals);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerScientific(): array
+    public static function providerScientific(): array
     {
         return [
             ['0E+00', 0],
@@ -30,9 +30,7 @@ class ScientificTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerScientificLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerScientificLocale')]
     public function testScientificLocale(
         string $expectedResult,
         string $locale
@@ -46,7 +44,7 @@ class ScientificTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerScientificLocale(): array
+    public static function providerScientificLocale(): array
     {
         return [
             ['0.00E+00', 'en'],
@@ -66,8 +64,8 @@ class ScientificTest extends TestCase
 
         $locale = 'en-usa';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid locale code '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid locale code '{$locale}'");
 
         $wizard = new Scientific(2);
         $wizard->setLocale($locale);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,25 +10,19 @@ use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
 {
-    /**
-     * @dataProvider providerADDRESS
-     *
-     * @param mixed $expectedResult
-     */
-    public function testADDRESS($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerADDRESS')]
+    public function testADDRESS(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Address::cell(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerADDRESS(): array
+    public static function providerADDRESS(): array
     {
         return require 'tests/data/Calculation/LookupRef/ADDRESS.php';
     }
 
-    /**
-     * @dataProvider providerAddressArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAddressArray')]
     public function testAddressArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -36,7 +32,7 @@ class AddressTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerAddressArray(): array
+    public static function providerAddressArray(): array
     {
         return [
             'row/column vectors' => [

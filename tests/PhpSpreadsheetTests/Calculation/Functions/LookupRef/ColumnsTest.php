@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,26 +10,19 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
 {
-    /**
-     * @dataProvider providerCOLUMNS
-     *
-     * @param mixed $expectedResult
-     * @param null|array|string $arg
-     */
-    public function testCOLUMNS($expectedResult, $arg): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOLUMNS')]
+    public function testCOLUMNS(mixed $expectedResult, null|array|string $arg): void
     {
         $result = LookupRef\RowColumnInformation::COLUMNS($arg);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOLUMNS(): array
+    public static function providerCOLUMNS(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
 
-    /**
-     * @dataProvider providerColumnsArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColumnsArray')]
     public function testColumnsArray(int $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();
@@ -37,7 +32,7 @@ class ColumnsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColumnsArray(): array
+    public static function providerColumnsArray(): array
     {
         return [
             [

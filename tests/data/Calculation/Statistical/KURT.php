@@ -1,6 +1,8 @@
 <?php
 
-return[
+declare(strict_types=1);
+
+return [
     [
         -0.1517996372084,
         [3, 4, 5, 2, 3, 4, 5, 6, 4, 7],

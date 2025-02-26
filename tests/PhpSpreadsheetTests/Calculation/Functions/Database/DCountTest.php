@@ -1,35 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DCountTest extends AllSetupTeardown
+class DCountTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDCount
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDirectCallToDCount($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCount')]
+    public function testDirectCallToDCount(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DCount::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDCount
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDCountAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCount')]
+    public function testDCountAsWorksheetFormula(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNT', $database, $field, $criteria);
 
@@ -37,7 +25,7 @@ class DCountTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    private function database4(): array
+    private static function database4(): array
     {
         return [
             ['Status', 'Value'],
@@ -52,12 +40,12 @@ class DCountTest extends AllSetupTeardown
         ];
     }
 
-    public function providerDCount(): array
+    public static function providerDCount(): array
     {
         return [
             [
                 1,
-                $this->database1(),
+                self::database1(),
                 'Age',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -66,7 +54,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -75,7 +63,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -84,7 +72,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 3,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -93,7 +81,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 5,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -102,13 +90,13 @@ class DCountTest extends AllSetupTeardown
             ],
             'field column number okay' => [
                 0,
-                $this->database1(),
+                self::database1(),
                 1,
-                $this->database1(),
+                self::database1(),
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database3(),
+                self::database3(),
                 null,
                 [
                     ['Subject', 'Score'],
@@ -121,15 +109,15 @@ class DCountTest extends AllSetupTeardown
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

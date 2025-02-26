@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // result, message, rate, values, dates
 
 return [

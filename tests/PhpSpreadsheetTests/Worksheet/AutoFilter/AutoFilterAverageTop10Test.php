@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
@@ -26,7 +28,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         return $sheet;
     }
 
-    public function providerAverage(): array
+    public static function providerAverage(): array
     {
         return [
             [[5, 6, 9, 10], Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE],
@@ -34,9 +36,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerAverage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAverage')]
     public function testAboveAverage(array $expectedVisible, string $rule): void
     {
         $sheet = $this->initSheet();
@@ -56,7 +56,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         self::assertEquals($expectedVisible, $this->getVisible());
     }
 
-    public function providerTop10(): array
+    public static function providerTop10(): array
     {
         return [
             [[6, 10], Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE, Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP, 2],
@@ -66,9 +66,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTop10
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10')]
     public function testTop10(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheet();
@@ -106,7 +104,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         return $sheet;
     }
 
-    public function providerTop10Ties(): array
+    public static function providerTop10Ties(): array
     {
         return [
             [[2, 3, 4], Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE, Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM, 2],
@@ -118,9 +116,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTop10Ties
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10Ties')]
     public function testTop10Ties(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheetTies();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class SpreadsheetTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {
@@ -36,7 +37,7 @@ class SpreadsheetTest extends TestCase
         return $spreadsheet;
     }
 
-    public function dataProviderForSheetNames(): array
+    public static function dataProviderForSheetNames(): array
     {
         $array = [
             [0, 'someSheet1'],
@@ -51,9 +52,7 @@ class SpreadsheetTest extends TestCase
         return $array;
     }
 
-    /**
-     * @dataProvider dataProviderForSheetNames
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSheetNames')]
     public function testGetSheetByName(?int $index, string $sheetName): void
     {
         $spreadsheet = $this->getSpreadsheet();
@@ -68,8 +67,19 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Workbook already contains a worksheet named 'someSheet2'. Rename this worksheet first.");
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet2');
+        $spreadsheet->addSheet($sheet);
+    }
+
+    public function testAddSheetDuplicateTitleWithDifferentCase(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Workbook already contains a worksheet named 'SomeSheet2'. Rename this worksheet first.");
+        $sheet = new Worksheet();
+        $sheet->setTitle('SomeSheet2');
         $spreadsheet->addSheet($sheet);
     }
 
@@ -99,6 +109,7 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('You tried to remove a sheet by the out of bounds index: 4. The actual number of sheets is 3.');
         $spreadsheet->removeSheetByIndex(4);
     }
 
@@ -124,6 +135,7 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Your requested sheet index: 4 is out of bounds. The actual number of sheets is 3.');
         $spreadsheet->getSheet(4);
     }
 
@@ -131,6 +143,7 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Sheet does not exist.');
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet4');
         $spreadsheet->getIndex($sheet);
@@ -176,6 +189,7 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index: 4. The actual number of sheets is 3.');
         $spreadsheet->setActiveSheetIndex(4);
     }
 
@@ -183,6 +197,7 @@ class SpreadsheetTest extends TestCase
     {
         $spreadsheet = $this->getSpreadsheet();
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Workbook does not contain sheet:unknown');
         $spreadsheet->setActiveSheetIndexByName('unknown');
     }
 
@@ -211,6 +226,7 @@ class SpreadsheetTest extends TestCase
     public function testAddExternalDuplicateName(): void
     {
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Workbook already contains a worksheet named 'someSheet1'. Rename the external sheet first.");
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->createSheet()->setTitle('someSheet1');
         $sheet->getCell('A1')->setValue(1);
@@ -274,23 +290,5 @@ class SpreadsheetTest extends TestCase
         // Prove Xf index changed although style is same.
         self::assertEquals($countXfs + $index, $sheet3->getCell('A2')->getXfIndex());
         self::assertEquals($countXfs + $index, $sheet3->getRowDimension(2)->getXfIndex());
-    }
-
-    public function testNotSerializable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be serialized');
-        serialize($this->spreadsheet);
-    }
-
-    public function testNotJsonEncodable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be json encoded');
-        json_encode($this->spreadsheet);
     }
 }

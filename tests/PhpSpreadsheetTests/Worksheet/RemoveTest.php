@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -19,7 +21,7 @@ class RemoveTest extends TestCase
             'FF00FF00',
             'FF0000FF',
         ];
-        $rowHeights = [-1, -1, 1.2, 1.3, 1.4, 1.5, -1, -1, -1];
+        $rowHeights = [-1.0, -1.0, 1.2, 1.3, 1.4, 1.5, -1.0, -1.0, -1.0];
         for ($row = 1; $row < 10; ++$row) {
             $sheet->getCell("B$row")
                 ->getStyle()

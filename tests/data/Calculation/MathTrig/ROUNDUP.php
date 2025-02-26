@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [0, '0,2'],
     [663, '662.79, 0'],
@@ -31,4 +33,7 @@ return [
     [0, 'B1, 0'],
     ['exception', ''],
     ['exception', '35.51'],
+    'negative number and precision' => [-31500, '-31415.92654, -2'],
+    'issue 4213 #1' => [250.0, '249.9975, 0'],
+    'issue 4213 #2' => [-250.0, '-249.9975, 0'],
 ];

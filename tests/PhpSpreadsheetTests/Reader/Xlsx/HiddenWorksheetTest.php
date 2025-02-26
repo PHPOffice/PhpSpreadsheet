@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -43,5 +45,46 @@ class HiddenWorksheetTest extends TestCase
                 'sheetState' => Worksheet::SHEETSTATE_HIDDEN,
             ],
         ];
+    }
+
+    public function testListWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/visibility.xlsx';
+        $reader = new Xlsx();
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'hidden',
+            ],
+            [
+                'worksheetName' => 'Sheet3',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet4',
+                'lastColumnLetter' => 'B',
+                'lastColumnIndex' => 1,
+                'totalRows' => 1,
+                'totalColumns' => 2,
+                'sheetState' => 'veryHidden',
+            ],
+        ];
+        self::assertSame($expected, $reader->listWorksheetInfo($filename));
     }
 }

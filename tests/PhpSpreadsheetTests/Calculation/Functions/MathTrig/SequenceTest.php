@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions;
@@ -7,12 +9,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions;
 class SequenceTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerSEQUENCE
-     *
      * @param mixed[] $arguments
      * @param mixed[]|string $expectedResult
      */
-    public function testSEQUENCE(array $arguments, $expectedResult): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSEQUENCE')]
+    public function testSEQUENCE(array $arguments, array|string $expectedResult): void
     {
         if (count($arguments) === 0) {
             $result = MatrixFunctions::sequence();
@@ -28,7 +29,7 @@ class SequenceTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSEQUENCE(): array
+    public static function providerSEQUENCE(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEQUENCE.php';
     }

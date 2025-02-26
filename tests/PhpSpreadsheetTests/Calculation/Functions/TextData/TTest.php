@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class TTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     */
-    public function testT($expectedResult, $value = 'no arguments'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerT')]
+    public function testT(mixed $expectedResult, mixed $value = 'no arguments'): void
     {
         $this->mightHaveException($expectedResult);
         if ($value === 'no arguments') {
@@ -25,14 +22,12 @@ class TTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerT(): array
+    public static function providerT(): array
     {
         return require 'tests/data/Calculation/TextData/T.php';
     }
 
-    /**
-     * @dataProvider providerTArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTArray')]
     public function testTArray(array $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class TTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerTArray(): array
+    public static function providerTArray(): array
     {
         return [
             'row vector #1' => [[['PHP', '', 'PHP8']], '{"PHP", 99, "PHP8"}'],

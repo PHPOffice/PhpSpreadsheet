@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -9,83 +11,60 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
-
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
-
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
-
     protected function setUp(): void
     {
-        $this->currencyCode = StringHelper::getCurrencyCode();
-        $this->decimalSeparator = StringHelper::getDecimalSeparator();
-        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(',');
     }
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->currencyCode);
-        StringHelper::setDecimalSeparator($this->decimalSeparator);
-        StringHelper::setThousandsSeparator($this->thousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
     }
 
     /**
-     * @dataProvider providerNumberFormat
-     *
-     * @param mixed $expectedResult
+     * @param null|bool|float|int|string $args string to be formatted
      */
-    public function testFormatValueWithMask($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormat')]
+    public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNumberFormat(): array
+    public static function providerNumberFormat(): array
     {
         return require 'tests/data/Style/NumberFormat.php';
     }
 
     /**
-     * @dataProvider providerNumberFormatFractions
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
+     * @param null|bool|float|int|string $args string to be formatted
      */
-    public function testFormatValueWithMaskFraction($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatFractions')]
+    public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatFractions(): array
+    public static function providerNumberFormatFractions(): array
     {
         return require 'tests/data/Style/NumberFormatFractions.php';
     }
 
     /**
-     * @dataProvider providerNumberFormatDates
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
+     * @param null|bool|float|int|string $args string to be formatted
      */
-    public function testFormatValueWithMaskDate($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatDates')]
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatDates(): array
+    public static function providerNumberFormatDates(): array
     {
         return require 'tests/data/Style/NumberFormatDates.php';
     }
@@ -104,16 +83,14 @@ class NumberFormatTest extends TestCase
         StringHelper::setCurrencyCode($cur);
     }
 
-    /**
-     * @dataProvider providerNoScientific
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNoScientific')]
     public function testNoScientific(string $expectedResult, string $numericString): void
     {
         $result = NumberFormatter::floatStringConvertScientific($numericString);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNoScientific(): array
+    public static function providerNoScientific(): array
     {
         return [
             'large number' => ['92' . str_repeat('0', 16), '9.2E+17'],

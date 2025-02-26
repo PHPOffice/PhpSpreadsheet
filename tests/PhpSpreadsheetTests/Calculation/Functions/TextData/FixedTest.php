@@ -1,20 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FixedTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFIXED
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     * @param mixed $decimals
-     * @param mixed $noCommas
-     */
-    public function testFIXED($expectedResult, $number = 'omitted', $decimals = 'omitted', $noCommas = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFIXED')]
+    public function testFIXED(mixed $expectedResult, mixed $number = 'omitted', mixed $decimals = 'omitted', mixed $noCommas = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -37,14 +32,12 @@ class FixedTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIXED(): array
+    public static function providerFIXED(): array
     {
         return require 'tests/data/Calculation/TextData/FIXED.php';
     }
 
-    /**
-     * @dataProvider providerFixedArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFixedArray')]
     public function testFixedArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -54,7 +47,7 @@ class FixedTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFixedArray(): array
+    public static function providerFixedArray(): array
     {
         return [
             'row vector #1' => [[['-123.32', '123.46', '12,345.68']], '{-123.321, 123.456, 12345.6789}', '2'],

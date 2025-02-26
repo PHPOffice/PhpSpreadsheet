@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -52,7 +54,7 @@ class BorderRangeTest extends TestCase
                 $func = "get$side";
                 $b = $bs->$func(); // boo
 
-                if (strpos($borders, $sidekey) === false) {
+                if (!str_contains($borders, $sidekey)) {
                     self::assertSame(Border::BORDER_NONE, $b->getBorderStyle(), $assertion);
                 } else {
                     self::assertSame(Border::BORDER_THIN, $b->getBorderStyle(), $assertion);
@@ -60,6 +62,7 @@ class BorderRangeTest extends TestCase
                 }
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderRangeDirectly(): void
@@ -69,5 +72,6 @@ class BorderRangeTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $style = $sheet->getStyle('A1:C1')->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
         self::assertSame('A1:C1', $style->getSelectedCells(), 'getSelectedCells should not change after a style operation on a border range');
+        $spreadsheet->disconnectWorksheets();
     }
 }

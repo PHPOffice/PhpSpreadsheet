@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['#VALUE!', '"ABC"'],
     [0.00009079985934, -10],

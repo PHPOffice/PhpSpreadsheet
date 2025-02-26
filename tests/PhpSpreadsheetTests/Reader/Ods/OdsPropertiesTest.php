@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Document\Properties;
@@ -9,10 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class OdsPropertiesTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {
@@ -52,13 +51,13 @@ class OdsPropertiesTest extends AbstractFunctional
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         self::assertArrayHasKey('TestDate', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
             self::assertTrue($properties->isCustomPropertySet($propertyName));
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            /** @var float|int|string */
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
                 $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d');
@@ -97,13 +96,13 @@ class OdsPropertiesTest extends AbstractFunctional
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         self::assertArrayHasKey('TestDate', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
             self::assertTrue($properties->isCustomPropertySet($propertyName));
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            /** @var float|int|string */
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
                 $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -8,9 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class VisibilityTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider dataProviderRowVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderRowVisibility')]
     public function testRowVisibility(array $visibleRows): void
     {
         $spreadsheet = new Spreadsheet();
@@ -27,7 +27,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderRowVisibility(): array
+    public static function dataProviderRowVisibility(): array
     {
         return [
             [
@@ -36,9 +36,7 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderColumnVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderColumnVisibility')]
     public function testColumnVisibility(array $visibleColumns): void
     {
         $spreadsheet = new Spreadsheet();
@@ -55,7 +53,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderColumnVisibility(): array
+    public static function dataProviderColumnVisibility(): array
     {
         return [
             [
@@ -64,9 +62,7 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderSheetVisibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderSheetVisibility')]
     public function testSheetVisibility(array $visibleSheets): void
     {
         $spreadsheet = new Spreadsheet();
@@ -84,7 +80,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderSheetVisibility(): array
+    public static function dataProviderSheetVisibility(): array
     {
         return [
             [

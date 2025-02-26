@@ -95,4 +95,6 @@ $chart->setBottomRightPosition('H20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 
+$helper->renderChart($chart, __FILE__);
+
 return $spreadsheet;

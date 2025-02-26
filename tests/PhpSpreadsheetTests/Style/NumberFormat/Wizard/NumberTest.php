@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
@@ -9,16 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase
 {
-    /**
-     * @dataProvider providerNumber
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumber')]
     public function testNumber(string $expectedResult, int $decimals, bool $thousandsSeparator): void
     {
         $wizard = new Number($decimals, $thousandsSeparator);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerNumber(): array
+    public static function providerNumber(): array
     {
         return [
             ['0', 0, Number::WITHOUT_THOUSANDS_SEPARATOR],
@@ -30,9 +30,7 @@ class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberLocale')]
     public function testNumberLocale(
         string $expectedResult,
         string $locale
@@ -46,7 +44,7 @@ class NumberTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerNumberLocale(): array
+    public static function providerNumberLocale(): array
     {
         return [
             ['#,##0.00', 'en-us'],
@@ -61,8 +59,8 @@ class NumberTest extends TestCase
 
         $locale = 'en-usa';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid locale code '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid locale code '{$locale}'");
 
         $wizard = new Number(2);
         $wizard->setLocale($locale);

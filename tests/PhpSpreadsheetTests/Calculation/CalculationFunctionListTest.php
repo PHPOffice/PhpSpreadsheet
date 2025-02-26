@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,46 +11,34 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationFunctionListTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
-
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
-        $calculation = Calculation::getInstance();
-        $this->locale = $calculation->getLocale();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function tearDown(): void
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
-        $calculation = Calculation::getInstance();
-        $calculation->setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerGetFunctions
-     *
-     * @param string $category
-     * @param array|string $functionCall
-     * @param string $argumentCount
-     */
-    public function testGetFunctions(/** @scrutinizer ignore-unused */ $category, $functionCall, /** @scrutinizer ignore-unused */ $argumentCount): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGetFunctions')]
+    public function testGetFunctions(array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);
     }
 
-    public function providerGetFunctions(): array
+    public static function providerGetFunctions(): array
     {
-        return Calculation::getInstance()->getFunctions();
+        $returnFunctions = [];
+        $functionList = Calculation::getInstance()->getFunctions();
+        foreach ($functionList as $functionName => $functionArray) {
+            $returnFunctions[$functionName]['functionCall'] = $functionArray['functionCall'];
+        }
+
+        return $returnFunctions;
     }
 
     public function testIsImplemented(): void

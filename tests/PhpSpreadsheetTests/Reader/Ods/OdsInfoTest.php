@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -68,6 +70,7 @@ class OdsInfoTest extends TestCase
                 'lastColumnIndex' => 2,
                 'totalRows' => 12,
                 'totalColumns' => 3,
+                'sheetState' => 'visible',
             ],
             [
                 'worksheetName' => 'Second Sheet',
@@ -75,6 +78,7 @@ class OdsInfoTest extends TestCase
                 'lastColumnIndex' => 0,
                 'totalRows' => 2,
                 'totalColumns' => 1,
+                'sheetState' => 'visible',
             ],
         ], $wsinfo);
     }

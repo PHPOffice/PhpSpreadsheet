@@ -1,39 +1,100 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselI;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class BesselITest extends AllSetupTeardown
+class BesselITest extends TestCase
 {
-    /**
-     * @dataProvider providerBESSELI
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBESSELI($expectedResult, ...$args): void
+    const BESSEL_PRECISION = 1E-9;
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELI')]
+    public function testDirectCallToBESSELI(mixed $expectedResult, mixed ...$args): void
     {
-        $this->runTestCase('BESSELI', $expectedResult, ...$args);
+        $result = BesselI::besselI(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    public function providerBESSELI(): array
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELI')]
+    public function testBESSELIAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BESSELI({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELI')]
+    public function testBESSELIInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BESSELI({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerBESSELI(): array
     {
         return require 'tests/data/Calculation/Engineering/BESSELI.php';
     }
 
-    /**
-     * @dataProvider providerBesselIArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBESSELI')]
+    public function testBESSELIUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BESSELI({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyBESSELI(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for BESSELI() function'],
+            ['Formula Error: Wrong number of arguments for BESSELI() function', 2023],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBesselIArray')]
     public function testBesselIArray(array $expectedResult, string $value, string $ord): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BESSELI({$value}, {$ord})";
         $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    public function providerBesselIArray(): array
+    public static function providerBesselIArray(): array
     {
         return [
             'row/column vector' => [

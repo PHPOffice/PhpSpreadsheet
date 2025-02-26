@@ -1,25 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class VLookupTest extends TestCase
+class VLookupTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerVLOOKUP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $table
-     * @param mixed $index
-     */
-    public function testVLOOKUP($expectedResult, $value, $table, $index, ?bool $lookup = null): void
+    #[DataProvider('providerVLOOKUP')]
+    public function testVLOOKUP(mixed $expectedResult, mixed $value, mixed $table, mixed $index, ?bool $lookup = null): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
         if (is_array($table)) {
             $sheet->fromArray($table);
             $dimension = $sheet->calculateWorksheetDimension();
@@ -33,22 +28,25 @@ class VLookupTest extends TestCase
             $lastarg = $lookup ? ',TRUE' : ',FALSE';
         }
         $sheet->getCell('Z98')->setValue($value);
-        $sheet->getCell('Z97')->setValue($index);
+        if (is_array($index)) {
+            $sheet->fromArray($index, null, 'Z100', true);
+            $indexarg = 'Z100:Z' . (string) (99 + count($index));
+        } else {
+            $sheet->getCell('Z100')->setValue($index);
+            $indexarg = 'Z100';
+        }
 
-        $sheet->getCell('Z99')->setValue("=VLOOKUP(Z98,$dimension,Z97$lastarg)");
+        $sheet->getCell('Z99')->setValue("=VLOOKUP(Z98,$dimension,$indexarg$lastarg)");
         $result = $sheet->getCell('Z99')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerVLOOKUP(): array
+    public static function providerVLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
 
-    /**
-     * @dataProvider providerVLookupArray
-     */
+    #[DataProvider('providerVLookupArray')]
     public function testVLookupArray(array $expectedResult, string $values, string $database, string $index): void
     {
         $calculation = Calculation::getInstance();
@@ -58,7 +56,7 @@ class VLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerVLookupArray(): array
+    public static function providerVLookupArray(): array
     {
         return [
             'row vector' => [
@@ -67,6 +65,30 @@ class VLookupTest extends TestCase
                 '{"Red", 4.14; "Orange", 4.19; "Yellow", 5.17; "Green", 5.77; "Blue", 6.39}',
                 '2',
             ],
+            'issue 3561' => [
+                [[7, 8, 7]],
+                '6',
+                '{1,2,3,4,5;6,7,8,9,10;11,12,13,14,15}',
+                '{2,3,2}',
+            ],
         ];
+    }
+
+    public function testIssue1402(): void
+    {
+        $worksheet = $this->getSheet();
+
+        $worksheet->setCellValueExplicit('A1', 1, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B1', 'Text Nr 1');
+        $worksheet->setCellValue('A2', 2);
+        $worksheet->setCellValue('B2', 'Numeric result');
+        $worksheet->setCellValueExplicit('A3', 2, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B3', 'Text Nr 2');
+        $worksheet->setCellValueExplicit('A4', 2, DataType::TYPE_STRING);
+        $worksheet->setCellValue('B4', '=VLOOKUP(A4,$A$1:$B$3,2,0)');
+        self::assertSame('Text Nr 2', $worksheet->getCell('B4')->getCalculatedValue());
+        $worksheet->setCellValue('A5', 2);
+        $worksheet->setCellValue('B5', '=VLOOKUP(A5,$A$1:$B$3,2,0)');
+        self::assertSame('Numeric result', $worksheet->getCell('B5')->getCalculatedValue());
     }
 }

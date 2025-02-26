@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
@@ -9,16 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 class PercentageTest extends TestCase
 {
-    /**
-     * @dataProvider providerPercentage
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentage')]
     public function testPercentage(string $expectedResult, int $decimals): void
     {
         $wizard = new Percentage($decimals);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerPercentage(): array
+    public static function providerPercentage(): array
     {
         return [
             ['0%', 0],
@@ -30,9 +30,7 @@ class PercentageTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentageLocale
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentageLocale')]
     public function testPercentageLocale(
         string $expectedResult,
         string $locale
@@ -46,7 +44,7 @@ class PercentageTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerPercentageLocale(): array
+    public static function providerPercentageLocale(): array
     {
         return [
             ['#,##0.00%', 'fy-NL'],
@@ -67,8 +65,8 @@ class PercentageTest extends TestCase
 
         $locale = 'en-usa';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid locale code '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid locale code '{$locale}'");
 
         $wizard = new Percentage(2);
         $wizard->setLocale($locale);
@@ -82,8 +80,8 @@ class PercentageTest extends TestCase
 
         $locale = 'nl-GB';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Unable to read locale data for '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Unable to read locale data for '{$locale}'");
 
         $wizard = new Percentage(2);
         $wizard->setLocale($locale);

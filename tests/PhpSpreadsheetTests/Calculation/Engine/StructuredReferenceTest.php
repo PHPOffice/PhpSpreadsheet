@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands\StructuredReference;
@@ -68,9 +70,7 @@ class StructuredReferenceTest extends TestCase
         $structuredReferenceObject->parse($cell);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderColumnData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderColumnData')]
     public function testStructuredReferenceColumns(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');
@@ -80,9 +80,7 @@ class StructuredReferenceTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderRowData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderRowData')]
     public function testStructuredReferenceRows(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');
@@ -122,7 +120,7 @@ class StructuredReferenceTest extends TestCase
         $structuredReferenceObject->parse($cell);
     }
 
-    public function structuredReferenceProviderColumnData(): array
+    public static function structuredReferenceProviderColumnData(): array
     {
         return [
             // Full table, with no column specified,  means data only, not headers or totals
@@ -151,7 +149,7 @@ class StructuredReferenceTest extends TestCase
         ];
     }
 
-    public function structuredReferenceProviderRowData(): array
+    public static function structuredReferenceProviderRowData(): array
     {
         return [
             ['E5', 'DeptSales[[#This Row], [Commission Amount]]'],

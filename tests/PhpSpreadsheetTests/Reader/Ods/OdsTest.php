@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -19,13 +21,9 @@ class OdsTest extends TestCase
 
     private const ODS_DATA_FILE = 'tests/data/Reader/Ods/data.ods';
 
-    /** @var string */
-    private $incompleteMessage = 'Features not implemented yet';
+    private string $incompleteMessage = 'Features not implemented yet';
 
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {
@@ -38,20 +36,14 @@ class OdsTest extends TestCase
         date_default_timezone_set($this->timeZone);
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    private function loadOdsTestFile()
+    private function loadOdsTestFile(): Spreadsheet
     {
         $reader = new Ods();
 
         return $reader->loadIntoExisting(self::ODS_TEST_FILE, new Spreadsheet());
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    protected function loadDataFile()
+    protected function loadDataFile(): Spreadsheet
     {
         $reader = new Ods();
 
@@ -61,16 +53,7 @@ class OdsTest extends TestCase
     public function testLoadWorksheets(): void
     {
         $spreadsheet = $this->loadDataFile();
-
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
         self::assertEquals(2, $spreadsheet->getSheetCount());
-
-        $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
-
-        $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
         $spreadsheet->disconnectWorksheets();
@@ -79,7 +62,9 @@ class OdsTest extends TestCase
     public function testLoadOneWorksheet(): void
     {
         $reader = new Ods();
-        $reader->setLoadSheetsOnly(['Sheet1']);
+        //$reader->setLoadSheetsOnly(['Sheet1']);
+        $names = $reader->listWorksheetNames(self::ODS_DATA_FILE);
+        $reader->setLoadSheetsOnly([$names[0]]);
         $spreadsheet = $reader->load(self::ODS_DATA_FILE);
 
         self::assertEquals(1, $spreadsheet->getSheetCount());
@@ -100,21 +85,21 @@ class OdsTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testLoadNoSelectedWorksheet(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $reader = new Ods();
+        $reader->setLoadSheetsOnly(['xSecond Sheet']);
+        $reader->load(self::ODS_DATA_FILE);
+    }
+
     public function testLoadBadFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Could not find zip member');
         $reader = new Ods();
-        $spreadsheet = $reader->load(__FILE__);
-
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
-        self::assertEquals(2, $spreadsheet->getSheetCount());
-
-        $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
-
-        $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        $reader->load(__FILE__);
     }
 
     public function testLoadCorruptFile(): void
@@ -124,15 +109,12 @@ class OdsTest extends TestCase
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
 
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
-
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertNotSame($firstSheet, $secondSheet);
     }
 
     public function testReadValueAndComments(): void
@@ -141,8 +123,8 @@ class OdsTest extends TestCase
 
         $firstSheet = $spreadsheet->getSheet(0);
 
-        self::assertEquals(29, $firstSheet->getHighestRow());
-        self::assertEquals('N', $firstSheet->getHighestColumn());
+        self::assertEquals(29, $firstSheet->getHighestDataRow());
+        self::assertEquals('N', $firstSheet->getHighestDataColumn());
 
         // Simple cell value
         self::assertEquals('Test String 1', $firstSheet->getCell('A1')->getValue());
@@ -226,8 +208,8 @@ class OdsTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         self::assertEquals(
-            "I don't know if OOCalc supports Rich Text in the same way as Excel, " .
-            'And this row should be autofit height with text wrap',
+            "I don't know if OOCalc supports Rich Text in the same way as Excel, "
+            . 'And this row should be autofit height with text wrap',
             $firstSheet->getCell('A28')->getValue()
         );
         $spreadsheet->disconnectWorksheets();

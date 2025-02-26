@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
@@ -101,9 +103,9 @@ class GridlinesLineStyleTest extends AbstractFunctional
         $cap = Properties::LINE_STYLE_CAP_ROUND;
         $join = Properties::LINE_STYLE_JOIN_MITER;
         $headArrowType = Properties::LINE_STYLE_ARROW_TYPE_DIAMOND;
-        $headArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_2;
+        $headArrowSize = Properties::LINE_STYLE_ARROW_SIZE_2;
         $endArrowType = Properties::LINE_STYLE_ARROW_TYPE_OVAL;
-        $endArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_3;
+        $endArrowSize = Properties::LINE_STYLE_ARROW_SIZE_3;
         $majorGridlines->setLineStyleProperties(
             $width,
             $compound,
@@ -297,9 +299,9 @@ class GridlinesLineStyleTest extends AbstractFunctional
         $cap = Properties::LINE_STYLE_CAP_ROUND;
         $join = Properties::LINE_STYLE_JOIN_MITER;
         $headArrowType = Properties::LINE_STYLE_ARROW_TYPE_DIAMOND;
-        $headArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_2;
+        $headArrowSize = Properties::LINE_STYLE_ARROW_SIZE_2;
         $endArrowType = Properties::LINE_STYLE_ARROW_TYPE_OVAL;
-        $endArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_3;
+        $endArrowSize = Properties::LINE_STYLE_ARROW_SIZE_3;
         $majorGridlines->setLineStyleProperties(
             $width,
             $compound,
@@ -350,7 +352,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
             $majorGridlines,
             $minorGridlines // minorGridlines
         );
-        $majorGridlines2 = /** @scrutinizer ignore-deprecated */ $chart->getMajorGridlines();
+        $majorGridlines2 = $chart->getChartAxisY()->getMajorGridlines();
         self::assertNotNull($majorGridlines2);
         self::assertEquals($width, $majorGridlines2->getLineStyleProperty('width'));
         self::assertEquals($compound, $majorGridlines2->getLineStyleProperty('compound'));
@@ -366,7 +368,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
         self::assertEquals('sm', $majorGridlines2->getLineStyleProperty(['arrow', 'end', 'w']));
         self::assertEquals('lg', $majorGridlines2->getLineStyleProperty(['arrow', 'end', 'len']));
 
-        $minorGridlines2 = /** @scrutinizer ignore-deprecated */ $chart->getMinorGridlines();
+        $minorGridlines2 = $chart->getChartAxisY()->getMinorGridlines();
         self::assertNotNull($minorGridlines2);
         self::assertSame('00FF00', $minorGridlines2->getLineColorProperty('value'));
         self::assertSame(30, $minorGridlines2->getLineColorProperty('alpha'));
@@ -391,7 +393,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
         self::assertCount(1, $charts2);
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
-        $majorGridlines3 = $chart2->getMajorGridlines();
+        $majorGridlines3 = $chart2->getChartAxisY()->getMajorGridlines();
         self::assertNotNull($majorGridlines3);
         self::assertEquals($width, $majorGridlines3->getLineStyleProperty('width'));
         self::assertEquals($compound, $majorGridlines3->getLineStyleProperty('compound'));
@@ -405,7 +407,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
         self::assertEquals('sm', $majorGridlines3->getLineStyleProperty(['arrow', 'end', 'w']));
         self::assertEquals('lg', $majorGridlines3->getLineStyleProperty(['arrow', 'end', 'len']));
 
-        $minorGridlines3 = $chart2->getMinorGridlines();
+        $minorGridlines3 = $chart2->getChartAxisY()->getMinorGridlines();
         self::assertNotNull($minorGridlines3);
         self::assertSame('00FF00', $minorGridlines3->getLineColorProperty('value'));
         self::assertSame(30, $minorGridlines3->getLineColorProperty('alpha'));

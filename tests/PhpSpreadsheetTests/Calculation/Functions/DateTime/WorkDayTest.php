@@ -1,60 +1,86 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\WorkDay;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class WorkDayTest extends AllSetupTeardown
+class WorkDayTest extends TestCase
 {
-    /**
-     * @dataProvider providerWORKDAY
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     */
-    public function testWORKDAY($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', ?array $arg3 = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    public function testDirectCallToWORKDAY(mixed $expectedResult, mixed ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        if ($arg1 !== null) {
-            $sheet->getCell('A1')->setValue($arg1);
-        }
-        if ($arg2 !== null) {
-            $sheet->getCell('A2')->setValue($arg2);
-        }
-        $dateArray = [];
-        if (is_array($arg3)) {
-            if (array_key_exists(0, $arg3) && is_array($arg3[0])) {
-                $dateArray = $arg3[0];
-            } else {
-                $dateArray = $arg3;
-            }
-        }
-        $dateIndex = 0;
-        foreach ($dateArray as $date) {
-            ++$dateIndex;
-            $sheet->getCell("C$dateIndex")->setValue($date);
-        }
-        $arrayArg = $dateIndex ? ", C1:C$dateIndex" : '';
-        if ($arg1 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=WORKDAY()');
-        } elseif ($arg2 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=WORKDAY(A1)');
-        } else {
-            $sheet->getCell('B1')->setValue("=WORKDAY(A1, A2$arrayArg)");
-        }
-        self::assertEquals($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
+        $result = WorkDay::date(...$args);
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerWORKDAY(): array
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    public function testWORKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=WORKDAY({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    public function testWORKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=WORKDAY({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerWORKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
 
-    /**
-     * @dataProvider providerWorkDayArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWORKDAY')]
+    public function testWORKDAYUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=WORKDAY({$argumentCells})";
+
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Calculation\Exception::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyWORKDAY(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for WORKDAY() function'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWorkDayArray')]
     public function testWorkDayArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
     {
         $calculation = Calculation::getInstance();
@@ -68,7 +94,7 @@ class WorkDayTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWorkDayArray(): array
+    public static function providerWorkDayArray(): array
     {
         return [
             'row vector #1' => [[[44595, 44596, 44599]], '{"2022-02-01", "2022-02-02", "2022-02-03"}', '2', null],

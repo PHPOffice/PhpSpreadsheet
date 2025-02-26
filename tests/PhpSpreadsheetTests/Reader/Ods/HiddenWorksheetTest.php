@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
@@ -10,7 +12,7 @@ class HiddenWorksheetTest extends TestCase
 {
     public function testPageSetup(): void
     {
-        $filename = 'tests/data/Reader/Ods/HiddenSheet.ods';
+        $filename = 'tests/data/Reader/Ods/HiddenSheet2.ods';
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
         $assertions = $this->worksheetAssertions();
@@ -46,5 +48,30 @@ class HiddenWorksheetTest extends TestCase
                 'sheetState' => Worksheet::SHEETSTATE_HIDDEN,
             ],
         ];
+    }
+
+    public function testListWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/Ods/HiddenSheet2.ods';
+        $reader = new Ods();
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'hidden',
+            ],
+        ];
+        self::assertSame($expected, $reader->listWorksheetInfo($filename));
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // principal, schedule, Result
 
 return [

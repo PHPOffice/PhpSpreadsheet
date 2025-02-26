@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GaussTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAUSS
-     *
-     * @param mixed $expectedResult
-     */
-    public function testGAUSS($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAUSS')]
+    public function testGAUSS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAUSS', $expectedResult, ...$args);
     }
 
-    public function providerGAUSS(): array
+    public static function providerGAUSS(): array
     {
         return require 'tests/data/Calculation/Statistical/GAUSS.php';
     }
 
-    /**
-     * @dataProvider providerGaussArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGaussArray')]
     public function testGaussArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class GaussTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGaussArray(): array
+    public static function providerGaussArray(): array
     {
         return [
             'matrix' => [

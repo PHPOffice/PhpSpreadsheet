@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ByColumnAndRowUndeprecatedTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {
@@ -142,7 +141,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $sheet->fromArray($data, null, 'B2', true);
 
         $sheet->protectCells([2, 2, 3, 3], 'secret', false);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertArrayHasKey('B2:C3', $protectedRanges);
     }
 
@@ -155,11 +154,11 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $sheet->fromArray($data, null, 'B2', true);
 
         $sheet->protectCells('B2:C3', 'secret', false);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertArrayHasKey('B2:C3', $protectedRanges);
 
         $sheet->unprotectCells([2, 2, 3, 3]);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertEmpty($protectedRanges);
     }
 
@@ -173,7 +172,6 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
         $sheet->setAutoFilter([2, 2, 3, 3]);
         $autoFilter = $sheet->getAutoFilter();
-        self::assertInstanceOf(AutoFilter::class, $autoFilter);
         self::assertSame('B2:C3', $autoFilter->getRange());
     }
 
@@ -201,7 +199,6 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
             ->getText()->createTextRun('My Test Comment');
 
         $comment = $sheet->getComment([2, 2]);
-        self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
     }
 

@@ -17,13 +17,8 @@ class Gcd
      *
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
-     *
-     * @param float|int $a
-     * @param float|int $b
-     *
-     * @return float|int
      */
-    private static function evaluateGCD($a, $b)
+    private static function evaluateGCD(float|int $a, float|int $b): float|int
     {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;
     }
@@ -42,7 +37,7 @@ class Gcd
      *
      * @return float|int|string Greatest Common Divisor, or a string containing an error
      */
-    public static function evaluate(...$args)
+    public static function evaluate(mixed ...$args)
     {
         try {
             $arrayArgs = [];

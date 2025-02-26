@@ -1,35 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DSumTest extends AllSetupTeardown
+class DSumTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDSum
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDirectCallToDSum($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
+    public function testDirectCallToDSum(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DSum::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDSum
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDSumAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
+    public function testDSumAsWorksheetFormula(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSUM', $database, $field, $criteria);
 
@@ -37,12 +25,12 @@ class DSumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDSum(): array
+    public static function providerDSum(): array
     {
         return [
             [
                 225,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree'],
@@ -51,7 +39,7 @@ class DSumTest extends AllSetupTeardown
             ],
             [
                 247.8,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -61,7 +49,7 @@ class DSumTest extends AllSetupTeardown
             ],
             [
                 1210000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Area'],
@@ -70,7 +58,7 @@ class DSumTest extends AllSetupTeardown
             ],
             [
                 710000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -79,7 +67,7 @@ class DSumTest extends AllSetupTeardown
             ],
             [
                 705000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -88,9 +76,9 @@ class DSumTest extends AllSetupTeardown
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

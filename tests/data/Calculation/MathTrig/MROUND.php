@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [9, '10,3'],
     [-9, '-10,-3'],

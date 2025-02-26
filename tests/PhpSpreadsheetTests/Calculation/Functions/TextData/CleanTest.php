@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CleanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCLEAN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     */
-    public function testCLEAN($expectedResult, $value = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCLEAN')]
+    public function testCLEAN(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -26,14 +23,12 @@ class CleanTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCLEAN(): array
+    public static function providerCLEAN(): array
     {
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 
-    /**
-     * @dataProvider providerCleanArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCleanArray')]
     public function testCleanArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -43,7 +38,7 @@ class CleanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCleanArray(): array
+    public static function providerCleanArray(): array
     {
         return [
             'row vector' => [[['PHP', 'MS Excel', 'Open/Libre Office']], '{"PHP", "MS Excel", "Open/Libre Office"}'],

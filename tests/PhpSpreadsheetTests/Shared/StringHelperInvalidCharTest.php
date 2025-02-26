@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -34,11 +36,13 @@ class StringHelperInvalidCharTest extends TestCase
             self::assertSame($value[1] === $value[2], StringHelper::isUTF8((string) $value[1]));
             ++$row;
             $expected = $value[2];
+            self::assertIsString($sheet->getCell("A$row")->getValue());
             self::assertSame(
                 $expected,
                 $sheet->getCell("B$row")->getValue(),
                 $sheet->getCell("A$row")->getValue()
             );
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }

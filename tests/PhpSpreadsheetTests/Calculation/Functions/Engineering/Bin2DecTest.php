@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertBinary;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class Bin2DecTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -25,79 +27,116 @@ class Bin2DecTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBIN2DEC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
-     */
-    public function testBin2Dec($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
+    public function testDirectCallToBIN2DEC(string $expectedResult, bool|int|string $arg1): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        $result = ConvertBinary::toDecimal($arg1);
+        self::assertSame($expectedResult, $result);
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
+    public function testBIN2DECAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BIN2DEC({$arguments})";
+
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DEC')]
+    public function testBIN2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=BIN2DEC($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BIN2DEC({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBIN2DEC(): array
+    public static function providerBIN2DEC(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2DEC.php';
     }
 
-    /**
-     * @dataProvider providerBIN2DEC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
-     */
-    public function testBIN2DECOds($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBIN2DEC')]
+    public function testBIN2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        if ($formula === 'true') {
-            $expectedResult = 1;
-        } elseif ($formula === 'false') {
-            $expectedResult = 0;
-        }
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=BIN2DEC($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BIN2DEC({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testBIN2DECFrac(): void
+    public static function providerUnhappyBIN2DEC(): array
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        return [
+            ['Formula Error: Wrong number of arguments for BIN2DEC() function'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2DECOds')]
+    public function testBIN2DECOds(string $expectedResult, bool $arg1): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
+        $result = ConvertBinary::toDecimal($arg1);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public static function providerBIN2DECOds(): array
+    {
+        return require 'tests/data/Calculation/Engineering/BIN2DECOpenOffice.php';
+    }
+
+    public function testBIN2DECFractional(): void
+    {
+        $calculation = Calculation::getInstance();
+        $formula = '=BIN2DEC(101.1)';
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-        $cell = 'G1';
-        $sheet->setCellValue($cell, '=BIN2DEC(101.1)');
-        self::assertEquals(5, $sheet->getCell($cell)->getCalculatedValue(), 'Gnumeric');
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('5', $this->trimIfQuoted((string) $result), 'Gnumeric');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $cell = 'O1';
-        $sheet->setCellValue($cell, '=BIN2DEC(101.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue(), 'Ods');
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $cell = 'E1';
-        $sheet->setCellValue($cell, '=BIN2DEC(101.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
-        $spreadsheet->disconnectWorksheets();
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerBin2DecArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBin2DecArray')]
     public function testBin2DecArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();
@@ -107,7 +146,7 @@ class Bin2DecTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBin2DecArray(): array
+    public static function providerBin2DecArray(): array
     {
         return [
             'row/column vector' => [

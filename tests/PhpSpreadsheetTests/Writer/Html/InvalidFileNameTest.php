@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -55,7 +57,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
 
     public function testWinFileNames(): void
     {
-        self::assertEquals('file:///C:/temp/filename.xlsx', Html::winFileToUrl('C:\\temp\filename.xlsx'));
+        self::assertEquals('file:///C:/temp/filename.xlsx', Html::winFileToUrl('C:\temp\filename.xlsx'));
         self::assertEquals('/tmp/filename.xlsx', Html::winFileToUrl('/tmp/filename.xlsx'));
         self::assertEquals('a:bfile', Html::winFileToUrl('a:bfile'));
     }

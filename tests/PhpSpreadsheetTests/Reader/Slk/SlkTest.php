@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Slk;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -11,15 +13,9 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class SlkTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = __DIR__ . '/../../../../samples/templates/SylkTest.slk';
+    private static string $testbook = __DIR__ . '/../../../../samples/templates/SylkTest.slk';
 
-    /**
-     * @var string
-     */
-    private $filename = '';
+    private string $filename = '';
 
     protected function teardown(): void
     {
@@ -33,12 +29,14 @@ class SlkTest extends \PHPUnit\Framework\TestCase
     {
         $reader = new Slk();
         $workSheetInfo = $reader->listWorkSheetInfo(self::$testbook);
+        self::assertCount(1, $workSheetInfo);
         $info0 = $workSheetInfo[0];
-        self::assertEquals('SylkTest', $info0['worksheetName']);
-        self::assertEquals('J', $info0['lastColumnLetter']);
-        self::assertEquals(9, $info0['lastColumnIndex']);
-        self::assertEquals(18, $info0['totalRows']);
-        self::assertEquals(10, $info0['totalColumns']);
+        self::assertSame('SylkTest', $info0['worksheetName']);
+        self::assertSame('J', $info0['lastColumnLetter']);
+        self::assertSame(9, $info0['lastColumnIndex']);
+        self::assertSame(18, $info0['totalRows']);
+        self::assertSame(10, $info0['totalColumns']);
+        self::assertSame(['SylkTest'], $reader->listWorksheetNames(self::$testbook));
     }
 
     public function testBadFileName(): void
@@ -158,6 +156,9 @@ class SlkTest extends \PHPUnit\Framework\TestCase
             . '/123456789a123456789b123456789c12345.slk';
         file_put_contents($this->filename, $contents);
         $reader = new Slk();
+        $names = $reader->listWorksheetNames($this->filename);
+        // Following ignored, just make sure it's executable.
+        $reader->setLoadSheetsOnly([$names[0]]);
         $spreadsheet = $reader->load($this->filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('123456789a123456789b123456789c1', $sheet->getTitle());

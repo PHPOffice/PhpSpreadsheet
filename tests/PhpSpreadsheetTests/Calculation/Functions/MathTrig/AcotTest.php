@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AcotTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerACOT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     */
-    public function testACOT($expectedResult, $number): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerACOT')]
+    public function testACOT(float|int|string $expectedResult, float|int|string $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class AcotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerACOT(): array
+    public static function providerACOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOT.php';
     }
 
-    /**
-     * @dataProvider providerAcotArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAcotArray')]
     public function testAcotArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class AcotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAcotArray(): array
+    public static function providerAcotArray(): array
     {
         return [
             'row vector' => [[[0.78539816339745, 1.10714871779409, 2.35619449019234]], '{1, 0.5, -1}'],

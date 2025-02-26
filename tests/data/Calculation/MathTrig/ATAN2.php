@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // x_num, y_num, Result
 
 return [

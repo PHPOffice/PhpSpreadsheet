@@ -1,21 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FormulaAsStringTest extends TestCase
 {
-    /**
-     * @dataProvider providerFunctionsAsString
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
-     */
-    public function testFunctionsAsString($expectedResult, $formula): void
+    #[DataProvider('providerFunctionsAsString')]
+    public function testFunctionsAsString(mixed $expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $workSheet = $spreadsheet->getActiveSheet();
         $workSheet->setCellValue('A1', 10);
         $workSheet->setCellValue('A2', 20);
@@ -39,7 +42,7 @@ class FormulaAsStringTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFunctionsAsString(): array
+    public static function providerFunctionsAsString(): array
     {
         return require 'tests/data/Calculation/FunctionsAsString.php';
     }

@@ -27,7 +27,7 @@ class Factorial
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fact($factVal)
+    public static function fact($factVal): array|string|float|int
     {
         if (is_array($factVal)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $factVal);
@@ -69,7 +69,7 @@ class Factorial
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function factDouble($factVal)
+    public static function factDouble($factVal): array|string|float|int
     {
         if (is_array($factVal)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $factVal);
@@ -99,9 +99,9 @@ class Factorial
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
-    public static function multinomial(...$args)
+    public static function multinomial(...$args): string|int|float
     {
         $summer = 0;
         $divisor = 1;

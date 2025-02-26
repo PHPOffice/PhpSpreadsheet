@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Excel Format Code                     Result
 return [
     [
@@ -158,4 +160,10 @@ return [
         false,
         '\D-00000',
     ],
+    [true, '[$-F800]'],
+    [true, 'hello[$-F400]goodbye'],
+    [false, '[$-F401]'],
+    [true, '[$-x-sysdate]'],
+    [true, '[$-x-systime]'],
+    [false, '[$-x-systim]'],
 ];

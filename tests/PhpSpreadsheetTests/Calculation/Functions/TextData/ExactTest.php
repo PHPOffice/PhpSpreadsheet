@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ExactTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerEXACT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $string1
-     * @param mixed $string2
-     */
-    public function testEXACT($expectedResult, $string1 = 'omitted', $string2 = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEXACT')]
+    public function testEXACT(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -31,14 +27,12 @@ class ExactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerEXACT(): array
+    public static function providerEXACT(): array
     {
         return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 
-    /**
-     * @dataProvider providerExactArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExactArray')]
     public function testExactArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -48,7 +42,7 @@ class ExactTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerExactArray(): array
+    public static function providerExactArray(): array
     {
         return [
             'row vector #1' => [[[true, false, false]], '{"PHP", "php", "PHP8"}', '"PHP"'],

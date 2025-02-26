@@ -1,16 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class SubTotalTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUBTOTAL
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
-     */
-    public function testSubtotal($expectedResult, $type): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTAL')]
+    public function testSubtotal(float|int|string $expectedResult, float|int|string $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -22,18 +19,13 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTAL(): array
+    public static function providerSUBTOTAL(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
-    /**
-     * @dataProvider providerSUBTOTAL
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
-     */
-    public function testSubtotalColumnHidden($expectedResult, $type): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTAL')]
+    public function testSubtotalColumnHidden(float|int|string $expectedResult, float|int|string $type): void
     {
         // Hidden columns don't affect calculation, only hidden rows
         $this->mightHaveException($expectedResult);
@@ -64,13 +56,8 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    /**
-     * @dataProvider providerSUBTOTALHIDDEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
-     */
-    public function testSubtotalRowHidden($expectedResult, $type): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTALHIDDEN')]
+    public function testSubtotalRowHidden(mixed $expectedResult, int $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -100,7 +87,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTALHIDDEN(): array
+    public static function providerSUBTOTALHIDDEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }

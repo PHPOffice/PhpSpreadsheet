@@ -12,6 +12,10 @@
         "spreadsheet"
     ],
     "config": {
+        "platform": {
+            "php" : "8.1.99"
+        },
+        "process-timeout": 600,
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -42,20 +46,27 @@
     ],
     "scripts": {
         "check": [
+            "php ./bin/check-phpdoc-types",
+            "phpcs samples/ src/ tests/ --report=checkstyle",
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs",
-            "phpunit --color=always",
-            "phpstan analyse --ansi"
+            "phpstan analyse --ansi --memory-limit=2048M",
+            "phpunit --color=always"
+        ],
+        "style": [
+            "phpcs samples/ src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix --ansi --dry-run --diff"
         ],
         "fix": [
-            "php-cs-fixer fix --ansi"
+            "phpcbf samples/ src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n"
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
         ]
     },
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
@@ -69,8 +80,8 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "ezyang/htmlpurifier": "^4.15",
-        "maennchen/zipstream-php": "^2.1",
+        "composer/pcre": "^1||^2||^3",
+        "maennchen/zipstream-php": "^2.1 || ^3.0",
         "markbaker/complex": "^3.0",
         "markbaker/matrix": "^3.0",
         "psr/http-client": "^1.0",
@@ -79,14 +90,14 @@
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
-        "dompdf/dompdf": "^1.0 || ^2.0",
+        "dompdf/dompdf": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.2",
-        "mitoteam/jpgraph": "^10.2.4",
+        "mitoteam/jpgraph": "^10.3",
         "mpdf/mpdf": "^8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^8.5 || ^9.0",
+        "phpunit/phpunit": "^10.5",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },

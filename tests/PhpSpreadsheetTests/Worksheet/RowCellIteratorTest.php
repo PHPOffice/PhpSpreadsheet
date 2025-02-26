@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as Except;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
@@ -11,8 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 class RowCellIteratorTest extends TestCase
 {
-    private const CELL_VALUES =
-        [
+    private const CELL_VALUES
+        = [
             [110, 120, 130, 140, 150, 160, 170],
             [210, 220, 230, 240, 250],
             [310, 320, 330, 340, 350, 360],
@@ -39,11 +40,8 @@ class RowCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $RowCell) {
-            self::assertNotNull($RowCell);
-            /** @scrutinizer ignore-call */
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $RowCell);
         }
         self::assertSame(self::CELL_VALUES[0], $values);
         $spreadsheet->disconnectWorksheets();
@@ -59,11 +57,8 @@ class RowCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $RowCell) {
-            self::assertNotNull($RowCell);
-            /** @scrutinizer ignore-call */
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult++, $key);
-            self::assertInstanceOf(Cell::class, $RowCell);
         }
         self::assertSame([220, 230, 240], $values);
         $spreadsheet->disconnectWorksheets();
@@ -82,7 +77,6 @@ class RowCellIteratorTest extends TestCase
         while ($iterator->valid()) {
             $current = $iterator->current();
             self::assertNotNull($current);
-            /** @scrutinizer ignore-call */
             $cell = $current->getCoordinate();
             $values[] = $sheet->getCell($cell)->getValue();
             $iterator->prev();

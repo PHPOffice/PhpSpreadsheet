@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         '#NUM!',
@@ -408,4 +410,9 @@ return [
     ],
     ['#VALUE!', 'x', 2],
     ['#VALUE!', 2, 'x'],
+    'exponent is null' => [1, 2, null],
+    'base is null' => [0, null, 2],
+    'both null' => ['#NUM!', null, null],
+    'exponent is bool' => [2, 2, true],
+    'base is bool' => [0, false, 2],
 ];

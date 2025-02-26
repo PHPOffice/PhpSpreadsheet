@@ -1,34 +1,107 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class EoMonthTest extends AllSetupTeardown
+class EoMonthTest extends TestCase
 {
-    /**
-     * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
-     */
-    public function testEOMONTH($expectedResult, string $formula): void
+    private string $returnDateType;
+
+    protected function setUp(): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue("=EOMONTH($formula)");
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        parent::setUp();
+
+        $this->returnDateType = Functions::getReturnDateType();
     }
 
-    public function providerEOMONTH(): array
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        Functions::setReturnDateType($this->returnDateType);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
+    public function testDirectCallToEOMONTH(mixed $expectedResult, mixed ...$args): void
+    {
+        $result = Month::lastDay(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
+    public function testEOMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=EOMONTH({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEOMONTH')]
+    public function testEOMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=EOMONTH({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerEOMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyEOMONTH')]
+    public function testEOMONTHUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=EOMONTH({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyEOMONTH(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for EOMONTH() function'],
+            ['Formula Error: Wrong number of arguments for EOMONTH() function', 22669],
+        ];
+    }
+
     public function testEOMONTHtoUnixTimestamp(): void
     {
-        self::setUnixReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Month::lastDay('2012-1-26', -1);
         self::assertEquals(1325289600, $result);
@@ -36,7 +109,7 @@ class EoMonthTest extends AllSetupTeardown
 
     public function testEOMONTHtoDateTimeObject(): void
     {
-        self::setObjectReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = Month::lastDay('2012-1-26', -1);
         //    Must return an object...
@@ -47,9 +120,7 @@ class EoMonthTest extends AllSetupTeardown
         self::assertSame($result->format('d-M-Y'), '31-Dec-2011');
     }
 
-    /**
-     * @dataProvider providerEoMonthArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEoMonthArray')]
     public function testEoMonthArray(array $expectedResult, string $dateValues, string $methods): void
     {
         $calculation = Calculation::getInstance();
@@ -59,7 +130,7 @@ class EoMonthTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerEoMonthArray(): array
+    public static function providerEoMonthArray(): array
     {
         return [
             'row vector #1' => [[[44620, 44651, 45351]], '{"2022-01-01", "2022-02-12", "2024-01-15"}', '1'],

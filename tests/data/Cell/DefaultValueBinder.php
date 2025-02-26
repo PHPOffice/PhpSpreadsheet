@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         'null',
@@ -81,4 +83,7 @@ return [
         's',
         '1234567890123459012345689012345690',
     ],
+    'Issue 1310 Multiple = at start' => ['s', '======'],
+    'Issue 1310 Variant 1' => ['s', '= ====='],
+    'Issue 1310 Variant 2' => ['s', '=2*3='],
 ];

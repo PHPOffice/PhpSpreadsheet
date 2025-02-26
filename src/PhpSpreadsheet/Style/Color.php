@@ -106,13 +106,10 @@ class Color extends Supervisor
 
     /**
      * ARGB - Alpha RGB.
-     *
-     * @var null|string
      */
-    protected $argb;
+    protected ?string $argb = null;
 
-    /** @var bool */
-    private $hasChanged = false;
+    private bool $hasChanged = false;
 
     /**
      * Create a new Color.
@@ -125,7 +122,7 @@ class Color extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($colorValue = self::COLOR_BLACK, $isSupervisor = false, $isConditional = false)
+    public function __construct(string $colorValue = self::COLOR_BLACK, bool $isSupervisor = false, bool $isConditional = false)
     {
         //    Supervisor?
         parent::__construct($isSupervisor);
@@ -139,12 +136,10 @@ class Color extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Color
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
         /** @var Border|Fill $sharedComponent */
         $sharedComponent = $parent->getSharedComponent();
@@ -161,17 +156,13 @@ class Color extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray(array $array): array
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
 
-        return $parent->/** @scrutinizer ignore-call */ getStyleArray([$this->parentPropertyName => $array]);
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -185,7 +176,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -235,16 +226,18 @@ class Color extends Supervisor
     /**
      * Set ARGB.
      *
-     * @param string $colorValue  ARGB value, or a named color
+     * @param ?string $colorValue  ARGB value, or a named color
      *
      * @return $this
      */
-    public function setARGB(?string $colorValue = self::COLOR_BLACK)
+    public function setARGB(?string $colorValue = self::COLOR_BLACK, bool $nullStringOkay = false): static
     {
         $this->hasChanged = true;
-        $colorValue = $this->validateColor($colorValue);
-        if ($colorValue === '') {
-            return $this;
+        if (!$nullStringOkay || $colorValue !== '') {
+            $colorValue = $this->validateColor($colorValue);
+            if ($colorValue === '') {
+                return $this;
+            }
         }
 
         if ($this->isSupervisor) {
@@ -272,11 +265,11 @@ class Color extends Supervisor
     /**
      * Set RGB.
      *
-     * @param string $colorValue RGB value, or a named color
+     * @param ?string $colorValue RGB value, or a named color
      *
      * @return $this
      */
-    public function setRGB(?string $colorValue = self::COLOR_BLACK)
+    public function setRGB(?string $colorValue = self::COLOR_BLACK): static
     {
         return $this->setARGB($colorValue);
     }
@@ -291,7 +284,7 @@ class Color extends Supervisor
      *
      * @return int|string The extracted colour component
      */
-    private static function getColourComponent($rgbValue, $offset, $hex = true)
+    private static function getColourComponent(string $rgbValue, int $offset, bool $hex = true): string|int
     {
         $colour = substr($rgbValue, $offset, 2) ?: '';
         if (preg_match('/^[0-9a-f]{2}$/i', $colour) !== 1) {
@@ -310,7 +303,7 @@ class Color extends Supervisor
      *
      * @return int|string The red colour component
      */
-    public static function getRed($rgbValue, $hex = true)
+    public static function getRed(string $rgbValue, bool $hex = true)
     {
         return self::getColourComponent($rgbValue, strlen($rgbValue) - 6, $hex);
     }
@@ -324,7 +317,7 @@ class Color extends Supervisor
      *
      * @return int|string The green colour component
      */
-    public static function getGreen($rgbValue, $hex = true)
+    public static function getGreen(string $rgbValue, bool $hex = true)
     {
         return self::getColourComponent($rgbValue, strlen($rgbValue) - 4, $hex);
     }
@@ -338,7 +331,7 @@ class Color extends Supervisor
      *
      * @return int|string The blue colour component
      */
-    public static function getBlue($rgbValue, $hex = true)
+    public static function getBlue(string $rgbValue, bool $hex = true)
     {
         return self::getColourComponent($rgbValue, strlen($rgbValue) - 2, $hex);
     }
@@ -351,7 +344,7 @@ class Color extends Supervisor
      *
      * @return string The adjusted colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
      */
-    public static function changeBrightness($hexColourValue, $adjustPercentage)
+    public static function changeBrightness(string $hexColourValue, float $adjustPercentage): string
     {
         $rgba = (strlen($hexColourValue) === 8);
         $adjustPercentage = max(-1.0, min(1.0, $adjustPercentage));
@@ -362,23 +355,8 @@ class Color extends Supervisor
         $green = self::getGreen($hexColourValue, false);
         /** @var int $blue */
         $blue = self::getBlue($hexColourValue, false);
-        if ($adjustPercentage > 0) {
-            $red += (255 - $red) * $adjustPercentage;
-            $green += (255 - $green) * $adjustPercentage;
-            $blue += (255 - $blue) * $adjustPercentage;
-        } else {
-            $red += $red * $adjustPercentage;
-            $green += $green * $adjustPercentage;
-            $blue += $blue * $adjustPercentage;
-        }
 
-        $rgb = strtoupper(
-            str_pad(dechex((int) $red), 2, '0', 0) .
-            str_pad(dechex((int) $green), 2, '0', 0) .
-            str_pad(dechex((int) $blue), 2, '0', 0)
-        );
-
-        return (($rgba) ? 'FF' : '') . $rgb;
+        return (($rgba) ? 'FF' : '') . RgbTint::rgbAndTintToRgb($red, $green, $blue, $adjustPercentage);
     }
 
     /**
@@ -388,7 +366,7 @@ class Color extends Supervisor
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                                            should be returned if the indexed colour doesn't exist
      */
-    public static function indexedColor($colorIndex, $background = false, ?array $palette = null): self
+    public static function indexedColor(int $colorIndex, bool $background = false, ?array $palette = null): self
     {
         // Clean parameter
         $colorIndex = (int) $colorIndex;
@@ -418,8 +396,8 @@ class Color extends Supervisor
         }
 
         return md5(
-            $this->argb .
-            __CLASS__
+            $this->argb
+            . __CLASS__
         );
     }
 

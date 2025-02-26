@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         '=IF(A$1=0,0,A1/A$1)',

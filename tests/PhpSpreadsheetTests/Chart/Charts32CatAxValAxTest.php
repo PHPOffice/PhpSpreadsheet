@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
@@ -20,8 +22,7 @@ class Charts32CatAxValAxTest extends TestCase
     // These tests can only be performed by examining xml.
     // They are based on sample 33_Chart_Create_Scatter2.
 
-    /** @var string */
-    private $outputFileName = '';
+    private string $outputFileName = '';
 
     private const FORMAT_CODE_DATE_ISO8601_SLASH = 'yyyy/mm/dd'; // not automatically treated as numeric
 
@@ -33,9 +34,7 @@ class Charts32CatAxValAxTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerCatAxValAx
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCatAxValAx')]
     public function test1CatAx1ValAx(?bool $numeric): void
     {
         $spreadsheet = new Spreadsheet();
@@ -162,7 +161,7 @@ class Charts32CatAxValAxTest extends TestCase
         }
     }
 
-    public function providerCatAxValAx(): array
+    public static function providerCatAxValAx(): array
     {
         return [
             [true],

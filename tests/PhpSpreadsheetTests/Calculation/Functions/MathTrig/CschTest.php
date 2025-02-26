@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CschTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCSCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
-     */
-    public function testCSCH($expectedResult, $angle): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCSCH')]
+    public function testCSCH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class CschTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCSCH(): array
+    public static function providerCSCH(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSCH.php';
     }
 
-    /**
-     * @dataProvider providerCschArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCschArray')]
     public function testCschArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class CschTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCschArray(): array
+    public static function providerCschArray(): array
     {
         return [
             'row vector' => [[[0.85091812823932, 1.91903475133494, -0.85091812823932]], '{1, 0.5, -1}'],

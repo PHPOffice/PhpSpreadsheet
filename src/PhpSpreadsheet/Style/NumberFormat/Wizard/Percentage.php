@@ -22,7 +22,7 @@ class Percentage extends NumberBase implements Wizard
 
     protected function getLocaleFormat(): string
     {
-        $formatter = new Locale($this->fullLocale, NumberFormatter::PERCENT); // @phpstan-ignore-line
+        $formatter = new Locale($this->fullLocale, NumberFormatter::PERCENT);
 
         return $this->decimals > 0
             ? str_replace('0', '0.' . str_repeat('0', $this->decimals), $formatter->format())

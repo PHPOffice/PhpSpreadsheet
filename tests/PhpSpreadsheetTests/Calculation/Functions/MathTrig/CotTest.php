@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CotTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
-     */
-    public function testCOT($expectedResult, $angle): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOT')]
+    public function testCOT(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class CotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCOT(): array
+    public static function providerCOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/COT.php';
     }
 
-    /**
-     * @dataProvider providerCotArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCotArray')]
     public function testCotArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class CotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCotArray(): array
+    public static function providerCotArray(): array
     {
         return [
             'row vector' => [[[0.64209261593433, 1.83048772171245, -0.64209261593433]], '{1, 0.5, -1}'],

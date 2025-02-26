@@ -1,45 +1,102 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class TimeTest extends AllSetupTeardown
+class TimeTest extends TestCase
 {
-    /**
-     * @dataProvider providerTIME
-     *
-     * @param mixed $expectedResult
-     */
-    public function testTIME($expectedResult, string $formula): void
+    private int $excelCalendar;
+
+    private string $returnDateType;
+
+    protected function setUp(): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('15');
-        $sheet->getCell('B2')->setValue('32');
-        $sheet->getCell('B3')->setValue('50');
-        $sheet->getCell('A1')->setValue("=TIME($formula)");
-        self::assertEqualsWithDelta($expectedResult, $sheet->getCell('A1')->getCalculatedValue(), 1E-8);
+        parent::setUp();
+
+        $this->excelCalendar = SharedDate::getExcelCalendar();
+        $this->returnDateType = Functions::getReturnDateType();
     }
 
-    public function providerTIME(): array
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        SharedDate::setExcelCalendar($this->excelCalendar);
+        Functions::setReturnDateType($this->returnDateType);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
+    public function testDirectCallToTIME(float|string $expectedResult, int|string $hour, bool|int $minute, int $second): void
+    {
+        $result = Time::fromHMS($hour, $minute, $second);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
+    public function testTIMEAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=TIME({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    public static function providerTIME(): array
     {
         return require 'tests/data/Calculation/DateTime/TIME.php';
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyTIME')]
+    public function testTIMEUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=TIME({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyTIME(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for TIME() function', 2023, 3],
+        ];
+    }
+
     public function testTIMEtoUnixTimestamp(): void
     {
-        self::setUnixReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Time::fromHMS(7, 30, 20);
-        self::assertEqualsWithDelta(27020, $result, 1E-8);
+        self::assertEqualsWithDelta(27020, $result, 1E-12);
     }
 
     public function testTIMEtoDateTimeObject(): void
     {
-        self::setObjectReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = Time::fromHMS(7, 30, 20);
         //    Must return an object...
@@ -50,9 +107,10 @@ class TimeTest extends AllSetupTeardown
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
 
-    public function testTIME1904(): void
+    public function testTIMEWith1904Calendar(): void
     {
-        self::setMac1904();
+        SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
+
         $result = Time::fromHMS(0, 0, 0);
         self::assertEquals(0, $result);
     }
@@ -63,9 +121,7 @@ class TimeTest extends AllSetupTeardown
         self::assertEquals(0, $result);
     }
 
-    /**
-     * @dataProvider providerTimeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArray')]
     public function testTimeArray(array $expectedResult, string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();
@@ -75,7 +131,7 @@ class TimeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTimeArray(): array
+    public static function providerTimeArray(): array
     {
         return [
             'row vector hour' => [[[0.250706018518519, 0.50070601851852, 0.75070601851852]], '{6,12,18}', '1', '1'],
@@ -129,9 +185,7 @@ class TimeTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerTimeArrayException
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArrayException')]
     public function testTimeArrayException(string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();
@@ -143,7 +197,7 @@ class TimeTest extends AllSetupTeardown
         $calculation->_calculateFormulaValue($formula);
     }
 
-    public function providerTimeArrayException(): array
+    public static function providerTimeArrayException(): array
     {
         return [
             'matrix arguments with 3 array values' => [

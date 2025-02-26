@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -12,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class CellMatcherTest extends TestCase
 {
-    /**
-     * @var ?Spreadsheet
-     */
-    protected $spreadsheet;
+    protected ?Spreadsheet $spreadsheet = null;
 
     protected function loadSpreadsheet(): Spreadsheet
     {
@@ -43,9 +42,7 @@ class CellMatcherTest extends TestCase
         return $cfRange;
     }
 
-    /**
-     * @dataProvider basicCellIsComparisonDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicCellIsComparisonDataProvider')]
     public function testBasicCellIsComparison(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -63,7 +60,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function basicCellIsComparisonDataProvider(): array
+    public static function basicCellIsComparisonDataProvider(): array
     {
         return [
             // Less than/Equal/Greater than with Literal
@@ -113,9 +110,7 @@ class CellMatcherTest extends TestCase
         $this->spreadsheet->getSheetByNameOrThrow($sheetname);
     }
 
-    /**
-     * @dataProvider rangeCellIsComparisonDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeCellIsComparisonDataProvider')]
     public function testRangeCellIsComparison(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -131,7 +126,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function rangeCellIsComparisonDataProvider(): array
+    public static function rangeCellIsComparisonDataProvider(): array
     {
         return [
             // Range between Literals
@@ -154,9 +149,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider cellIsExpressionMultipleDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellIsExpressionMultipleDataProvider')]
     public function testCellIsMultipleExpression(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -174,7 +167,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function cellIsExpressionMultipleDataProvider(): array
+    public static function cellIsExpressionMultipleDataProvider(): array
     {
         return [
             // Odd/Even
@@ -188,9 +181,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider cellIsExpressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellIsExpressionDataProvider')]
     public function testCellIsExpression(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -206,7 +197,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function cellIsExpressionDataProvider(): array
+    public static function cellIsExpressionDataProvider(): array
     {
         return [
             // Sales Grid for Country
@@ -232,9 +223,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider textExpressionsDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('textExpressionsDataProvider')]
     public function testTextExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -250,7 +239,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function textExpressionsDataProvider(): array
+    public static function textExpressionsDataProvider(): array
     {
         return [
             // Text Begins With Literal
@@ -340,9 +329,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider blanksDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('blanksDataProvider')]
     public function testBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -360,7 +347,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function blanksDataProvider(): array
+    public static function blanksDataProvider(): array
     {
         return [
             // Blank/Not Blank
@@ -371,9 +358,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider errorDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('errorDataProvider')]
     public function testErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -391,7 +376,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function errorDataProvider(): array
+    public static function errorDataProvider(): array
     {
         return [
             // Error/Not Error
@@ -401,9 +386,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dateOccurringDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dateOccurringDataProvider')]
     public function testDateOccurringExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -419,7 +402,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function dateOccurringDataProvider(): array
+    public static function dateOccurringDataProvider(): array
     {
         return [
             // Today
@@ -443,9 +426,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider duplicatesDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('duplicatesDataProvider')]
     public function testDuplicatesExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -463,7 +444,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function duplicatesDataProvider(): array
+    public static function duplicatesDataProvider(): array
     {
         return [
             // Duplicate/Unique
@@ -477,9 +458,7 @@ class CellMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider textCrossWorksheetDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('textCrossWorksheetDataProvider')]
     public function testCrossWorksheetExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
@@ -495,7 +474,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function textCrossWorksheetDataProvider(): array
+    public static function textCrossWorksheetDataProvider(): array
     {
         return [
             // Relative Cell References in another Worksheet

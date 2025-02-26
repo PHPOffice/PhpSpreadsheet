@@ -26,11 +26,10 @@ class ErfC
      * @param mixed $value The float lower bound for integrating ERFC
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERFC($value)
+    public static function ERFC(mixed $value)
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -47,12 +46,8 @@ class ErfC
 
     /**
      * Method to calculate the erfc value.
-     *
-     * @param float|int|string $value
-     *
-     * @return float
      */
-    private static function erfcValue($value)
+    private static function erfcValue(float|int|string $value): float|int
     {
         $value = (float) $value;
         if (abs($value) < 2.2) {

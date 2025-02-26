@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
@@ -8,15 +10,8 @@ use PHPUnit\Framework\TestCase;
 // TODO run test in spreadsheet context
 class LogEstTest extends TestCase
 {
-    /**
-     * @dataProvider providerLOGEST
-     *
-     * @param mixed $xValues
-     * @param mixed $yValues
-     * @param mixed $const
-     * @param mixed $stats
-     */
-    public function testLOGEST(array $expectedResult, $yValues, $xValues, $const, $stats): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGEST')]
+    public function testLOGEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LOGEST($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);
@@ -27,7 +22,7 @@ class LogEstTest extends TestCase
         }
     }
 
-    public function providerLOGEST(): array
+    public static function providerLOGEST(): array
     {
         return require 'tests/data/Calculation/Statistical/LOGEST.php';
     }

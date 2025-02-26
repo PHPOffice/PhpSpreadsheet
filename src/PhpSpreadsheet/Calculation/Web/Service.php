@@ -18,7 +18,7 @@ class Service
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function webService(string $url)
+    public static function webService(string $url): string
     {
         $url = trim($url);
         if (strlen($url) > 2048) {
@@ -29,14 +29,14 @@ class Service
             return ExcelError::VALUE(); // Invalid protocol
         }
 
-        // Get results from the the webservice
+        // Get results from the webservice
         $client = Settings::getHttpClient();
         $requestFactory = Settings::getRequestFactory();
         $request = $requestFactory->createRequest('GET', $url);
 
         try {
             $response = $client->sendRequest($request);
-        } catch (ClientExceptionInterface $e) {
+        } catch (ClientExceptionInterface) {
             return ExcelError::VALUE(); // cURL error
         }
 
@@ -60,11 +60,9 @@ class Service
      * Excel Function:
      *        urlEncode(text)
      *
-     * @param mixed $text
-     *
      * @return string the url encoded output
      */
-    public static function urlEncode($text)
+    public static function urlEncode(mixed $text): string
     {
         if (!is_string($text)) {
             return ExcelError::VALUE();

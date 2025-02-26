@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -7,8 +9,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class AddressInternationalTest extends AllSetupTeardown
 {
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -23,9 +24,7 @@ class AddressInternationalTest extends AllSetupTeardown
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInternational')]
     public function testR1C1International(string $locale, string $r, string $c): void
     {
         if ($locale !== '') {
@@ -38,7 +37,7 @@ class AddressInternationalTest extends AllSetupTeardown
         self::assertSame($c, $sheet->getCell('A2')->getCalculatedValue());
     }
 
-    public function providerInternational(): array
+    public static function providerInternational(): array
     {
         return [
             'Default' => ['', 'R', 'C'],
@@ -54,9 +53,7 @@ class AddressInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCompatibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompatibility')]
     public function testCompatibilityInternational(string $compatibilityMode, string $r, string $c): void
     {
         Functions::setCompatibilityMode($compatibilityMode);
@@ -68,7 +65,7 @@ class AddressInternationalTest extends AllSetupTeardown
         self::assertSame($c, $sheet->getCell('A2')->getCalculatedValue());
     }
 
-    public function providerCompatibility(): array
+    public static function providerCompatibility(): array
     {
         return [
             [Functions::COMPATIBILITY_EXCEL, 'Z', 'S'],

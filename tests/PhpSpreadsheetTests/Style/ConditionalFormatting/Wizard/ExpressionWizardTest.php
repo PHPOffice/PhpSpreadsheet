@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class ExpressionWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -31,9 +24,7 @@ class ExpressionWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    /**
-     * @dataProvider expressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('expressionDataProvider')]
     public function testExpressionWizard(string $expression, string $expectedExpression): void
     {
         $ruleType = Wizard::EXPRESSION;
@@ -53,9 +44,7 @@ class ExpressionWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    /**
-     * @dataProvider expressionDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('expressionDataProvider')]
     public function testExpressionWizardUsingAlias(string $expression, string $expectedExpression): void
     {
         $ruleType = Wizard::EXPRESSION;
@@ -71,7 +60,7 @@ class ExpressionWizardTest extends TestCase
         self::assertSame([$expectedExpression], $conditions);
     }
 
-    public function expressionDataProvider(): array
+    public static function expressionDataProvider(): array
     {
         return [
             ['ISODD(A1)', 'ISODD(C3)'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
@@ -10,11 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class Date2Test extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var int */
-    private $calculateDateTimeType;
+    private int $calculateDateTimeType;
 
     protected function setUp(): void
     {
@@ -37,14 +37,8 @@ class Date2Test extends TestCase
         Cell::setCalculateDateTimeType(-1);
     }
 
-    /**
-     * @dataProvider providerTimeOnly
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
-     * @param string $format
-     */
-    public function testTimeOnly($expectedResult, $value, ?string $format = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeOnly')]
+    public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_TIME_FLOAT);
         $this->spreadsheet = new Spreadsheet();
@@ -63,7 +57,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerTimeOnly(): array
+    public static function providerTimeOnly(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;
@@ -86,14 +80,8 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDateAndTime
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
-     * @param string $format
-     */
-    public function testDateAndTime($expectedResult, $value, ?string $format = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateAndTime')]
+    public function testDateAndTime(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_FLOAT);
         $this->spreadsheet = new Spreadsheet();
@@ -112,7 +100,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerDateAndTime(): array
+    public static function providerDateAndTime(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;
@@ -135,14 +123,8 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerAsis
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
-     * @param string $format
-     */
-    public function testDefault($expectedResult, $value, ?string $format = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsis')]
+    public function testDefault(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         //Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
         $this->spreadsheet = new Spreadsheet();
@@ -161,14 +143,8 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    /**
-     * @dataProvider providerAsis
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
-     * @param string $format
-     */
-    public function testAsis($expectedResult, $value, ?string $format = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsis')]
+    public function testAsis(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
         $this->spreadsheet = new Spreadsheet();
@@ -187,7 +163,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerAsis(): array
+    public static function providerAsis(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;

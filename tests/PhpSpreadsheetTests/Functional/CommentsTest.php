@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class CommentsTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Html'],
@@ -19,9 +21,8 @@ class CommentsTest extends AbstractFunctional
     /**
      * Test load file with comment in sheet to load proper
      * count of comments in correct coords.
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testComments(string $format): void
     {
         $spreadsheet = new Spreadsheet();

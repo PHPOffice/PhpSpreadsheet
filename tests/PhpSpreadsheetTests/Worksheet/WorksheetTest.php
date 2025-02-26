@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -22,7 +26,7 @@ class WorksheetTest extends TestCase
         self::assertSame($testTitle, $worksheet->getTitle());
     }
 
-    public function setTitleInvalidProvider(): array
+    public static function setTitleInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
@@ -30,13 +34,8 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @param string $title
-     * @param string $expectMessage
-     *
-     * @dataProvider setTitleInvalidProvider
-     */
-    public function testSetTitleInvalid($title, $expectMessage): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('setTitleInvalidProvider')]
+    public function testSetTitleInvalid(string $title, string $expectMessage): void
     {
         // First, test setting title with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -81,21 +80,17 @@ class WorksheetTest extends TestCase
         self::assertSame($testCodeName, $worksheet->getCodeName());
     }
 
-    public function setCodeNameInvalidProvider(): array
+    public static function setCodeNameInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
             ['invalid*code*name', 'Invalid character found in sheet code name'],
+            ['', 'Sheet code name cannot be empty'],
         ];
     }
 
-    /**
-     * @param string $codeName
-     * @param string $expectMessage
-     *
-     * @dataProvider setCodeNameInvalidProvider
-     */
-    public function testSetCodeNameInvalid($codeName, $expectMessage): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('setCodeNameInvalidProvider')]
+    public function testSetCodeNameInvalid(string $codeName, string $expectMessage): void
     {
         // First, test setting code name with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -138,7 +133,7 @@ class WorksheetTest extends TestCase
         self::assertSame('B2', $worksheet->getTopLeftCell());
     }
 
-    public function extractSheetTitleProvider(): array
+    public static function extractSheetTitleProvider(): array
     {
         return [
             ['B2', '', '', 'B2'],
@@ -152,15 +147,8 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @param string $range
-     * @param string $expectTitle
-     * @param string $expectCell
-     * @param string $expectCell2
-     *
-     * @dataProvider extractSheetTitleProvider
-     */
-    public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('extractSheetTitleProvider')]
+    public function testExtractSheetTitle(string $range, string $expectTitle, string $expectCell, string $expectCell2): void
     {
         // only cell reference
         self::assertSame($expectCell, Worksheet::extractSheetTitle($range));
@@ -190,7 +178,7 @@ class WorksheetTest extends TestCase
         );
     }
 
-    public function removeColumnProvider(): array
+    public static function removeColumnProvider(): array
     {
         return [
             'Remove first column' => [
@@ -258,12 +246,31 @@ class WorksheetTest extends TestCase
                 ],
                 'A',
             ],
+            'Data includes nulls' => [
+                [
+                    ['A1', 'B1', 'C1', 'D1', 'E1'],
+                    [null, 'B2', 'C2', 'D2', 'E2'],
+                    ['A3', null, 'C3', 'D3', 'E3'],
+                    ['A4', 'B4', null, 'D4', 'E4'],
+                    ['A5', 'B5', 'C5', null, 'E5'],
+                    ['A6', 'B6', 'C6', 'D6', null],
+                ],
+                'B',
+                2,
+                [
+                    ['A1', 'D1', 'E1'],
+                    [null, 'D2', 'E2'],
+                    ['A3', 'D3', 'E3'],
+                    ['A4', 'D4', 'E4'],
+                    ['A5', null, 'E5'],
+                    ['A6', 'D6', null],
+                ],
+                'C',
+            ],
         ];
     }
 
-    /**
-     * @dataProvider removeColumnProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('removeColumnProvider')]
     public function testRemoveColumn(
         array $initialData,
         string $columnToBeRemoved,
@@ -281,7 +288,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedData, $worksheet->toArray());
     }
 
-    public function removeRowsProvider(): array
+    public static function removeRowsProvider(): array
     {
         return [
             'Remove all rows except first one' => [
@@ -390,12 +397,29 @@ class WorksheetTest extends TestCase
                 ],
                 4,
             ],
+            'Data includes nulls' => [
+                [
+                    ['A1', 'B1', 'C1', 'D1', 'E1'],
+                    [null, 'B2', 'C2', 'D2', 'E2'],
+                    ['A3', null, 'C3', 'D3', 'E3'],
+                    ['A4', 'B4', null, 'D4', 'E4'],
+                    ['A5', 'B5', 'C5', null, 'E5'],
+                    ['A6', 'B6', 'C6', 'D6', null],
+                ],
+                1,
+                2,
+                [
+                    ['A3', null, 'C3', 'D3', 'E3'],
+                    ['A4', 'B4', null, 'D4', 'E4'],
+                    ['A5', 'B5', 'C5', null, 'E5'],
+                    ['A6', 'B6', 'C6', 'D6', null],
+                ],
+                4,
+            ],
         ];
     }
 
-    /**
-     * @dataProvider removeRowsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('removeRowsProvider')]
     public function testRemoveRows(
         array $initialData,
         int $rowToRemove,
@@ -451,9 +475,7 @@ class WorksheetTest extends TestCase
         return $sheet;
     }
 
-    /**
-     * @dataProvider emptyRowProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowProvider')]
     public function testIsEmptyRow(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -465,7 +487,7 @@ class WorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowProvider(): array
+    public static function emptyRowProvider(): array
     {
         return [
             [1, false],
@@ -480,9 +502,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyColumnProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyColumnProvider')]
     public function testIsEmptyColumn(string $columnId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -494,7 +514,7 @@ class WorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyColumnProvider(): array
+    public static function emptyColumnProvider(): array
     {
         return [
             ['A', false],
@@ -530,5 +550,99 @@ class WorksheetTest extends TestCase
 
         $table = $worksheet->getTableByName('DeptSales');
         self::assertInstanceOf(Table::class, $table);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('toArrayHiddenRowsProvider')]
+    public function testHiddenRows(
+        array $initialData,
+        array $hiddenRows,
+        array $expectedData
+    ): void {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        foreach ($hiddenRows as $hiddenRow) {
+            $worksheet->getRowDimension($hiddenRow)->setVisible(false);
+        }
+
+        self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
+    }
+
+    public static function toArrayHiddenRowsProvider(): array
+    {
+        return [
+            [
+                [[1], [2], [3], [4], [5], [6]],
+                [2, 3, 5],
+                [1 => ['A' => 1], 4 => ['A' => 4], 6 => ['A' => 6]],
+            ],
+            [
+                [[1], [2], [3], [4], [5], [6]],
+                [1, 3, 6],
+                [2 => ['A' => 2], 4 => ['A' => 4], 5 => ['A' => 5]],
+            ],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('toArrayHiddenColumnsProvider')]
+    public function testHiddenColumns(
+        array $initialData,
+        array $hiddenColumns,
+        array $expectedData
+    ): void {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        foreach ($hiddenColumns as $hiddenColumn) {
+            $worksheet->getColumnDimension($hiddenColumn)->setVisible(false);
+        }
+
+        self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
+    }
+
+    public static function toArrayHiddenColumnsProvider(): array
+    {
+        return [
+            [
+                ['A', 'B', 'C', 'D', 'E', 'F'],
+                ['B', 'C', 'E'],
+                [1 => ['A' => 'A', 'D' => 'D', 'F' => 'F']],
+            ],
+            [
+                ['A', 'B', 'C', 'D', 'E', 'F'],
+                ['A', 'C', 'F'],
+                [1 => ['B' => 'B', 'D' => 'D', 'E' => 'E']],
+            ],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeToArrayProvider')]
+    public function testRangeToArrayWithCellRangeObject(array $expected, string $fromCell, string $toCell): void
+    {
+        $initialData = array_chunk(range('A', 'Y'), 5);
+
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $cellRange = new CellRange(new CellAddress($fromCell), new CellAddress($toCell));
+
+        self::assertSame($expected, $worksheet->rangeToArray((string) $cellRange));
+    }
+
+    public static function rangeToArrayProvider(): array
+    {
+        return [
+            [
+                [['A', 'B'], ['F', 'G']],
+                'A1', 'B2',
+            ],
+            [
+                [['G', 'H', 'I'], ['L', 'M', 'N'], ['Q', 'R', 'S']],
+                'B2', 'D4',
+            ],
+        ];
     }
 }

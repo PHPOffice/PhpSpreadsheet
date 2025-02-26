@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SumXMY2Test extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSUMXMY2
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMXMY2($expectedResult, array $matrixData1, array $matrixData2): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUMXMY2')]
+    public function testSUMXMY2(mixed $expectedResult, array $matrixData1, array $matrixData2): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -34,7 +32,7 @@ class SumXMY2Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMXMY2(): array
+    public static function providerSUMXMY2(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMXMY2.php';
     }

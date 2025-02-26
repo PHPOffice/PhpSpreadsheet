@@ -12,21 +12,21 @@ class HashTable
      *
      * @var array<string, T>
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * HashTable key map.
      *
      * @var array<int, string>
      */
-    protected $keyMap = [];
+    protected array $keyMap = [];
 
     /**
      * Create a new HashTable.
      *
      * @param T[] $source Optional source array to create HashTable from
      */
-    public function __construct($source = null)
+    public function __construct(?array $source = [])
     {
         if ($source !== null) {
             // Create HashTable
@@ -101,22 +101,17 @@ class HashTable
 
     /**
      * Count.
-     *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
 
     /**
      * Get index for hash code.
-     *
-     * @return false|int Index
      */
-    public function getIndexForHashCode(string $hashCode)
+    public function getIndexForHashCode(string $hashCode): false|int
     {
-        // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($hashCode, $this->keyMap, true);
     }
 
@@ -125,7 +120,7 @@ class HashTable
      *
      * @return null|T
      */
-    public function getByIndex(int $index)
+    public function getByIndex(int $index): ?IComparable
     {
         if (isset($this->keyMap[$index])) {
             return $this->getByHashCode($this->keyMap[$index]);
@@ -139,7 +134,7 @@ class HashTable
      *
      * @return null|T
      */
-    public function getByHashCode(string $hashCode)
+    public function getByHashCode(string $hashCode): ?IComparable
     {
         if (isset($this->items[$hashCode])) {
             return $this->items[$hashCode];
@@ -153,7 +148,7 @@ class HashTable
      *
      * @return T[]
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->items;
     }

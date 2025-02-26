@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class AlignmentTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {
@@ -81,6 +82,17 @@ class AlignmentTest extends TestCase
         $cell3->getStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER_CONTINUOUS)->setIndent(3);
         self::assertEquals(Alignment::HORIZONTAL_CENTER_CONTINUOUS, $cell3->getStyle()->getAlignment()->getHorizontal());
         self::assertEquals(0, $cell3->getStyle()->getAlignment()->getIndent());
+    }
+
+    public function testJustifyLastLine(): void
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $cell1 = $sheet->getCell('A1');
+        $cell1->setValue('ABC');
+        $cell1->getStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_DISTRIBUTED);
+        $cell1->getStyle()->getAlignment()->setJustifyLastLine(true);
+        self::assertTrue($cell1->getStyle()->getAlignment()->getJustifyLastLine());
     }
 
     public function testReadOrder(): void

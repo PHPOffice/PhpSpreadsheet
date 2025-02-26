@@ -23,16 +23,14 @@ class NonPeriodic
      * Excel Function:
      *        =XIRR(values,dates,guess)
      *
-     * @param float[] $values     A series of cash flow payments
+     * @param mixed $values     A series of cash flow payments, expecting float[]
      *                                The series of values must contain at least one positive value & one negative value
      * @param mixed[] $dates      A series of payment dates
      *                                The first payment date indicates the beginning of the schedule of payments
      *                                All other dates must be later than this date, but they may occur in any order
      * @param mixed $guess        An optional guess at the expected answer
-     *
-     * @return float|string
      */
-    public static function rate($values, $dates, $guess = self::DEFAULT_GUESS)
+    public static function rate(mixed $values, mixed $dates, mixed $guess = self::DEFAULT_GUESS): float|string
     {
         $rslt = self::xirrPart1($values, $dates);
         if ($rslt !== '') {
@@ -108,20 +106,18 @@ class NonPeriodic
      * Excel Function:
      *        =XNPV(rate,values,dates)
      *
-     * @param float $rate the discount rate to apply to the cash flows
-     * @param float[] $values A series of cash flows that corresponds to a schedule of payments in dates.
+     * @param mixed $rate the discount rate to apply to the cash flows, expect array|float
+     * @param mixed $values A series of cash flows that corresponds to a schedule of payments in dates, expecting floag[].
      *                          The first payment is optional and corresponds to a cost or payment that occurs
      *                              at the beginning of the investment.
      *                          If the first value is a cost or payment, it must be a negative value.
      *                             All succeeding payments are discounted based on a 365-day year.
      *                          The series of values must contain at least one positive value and one negative value.
-     * @param mixed[] $dates A schedule of payment dates that corresponds to the cash flow payments.
+     * @param mixed $dates A schedule of payment dates that corresponds to the cash flow payments, expecting mixed[].
      *                         The first payment date indicates the beginning of the schedule of payments.
      *                         All other dates must be later than this date, but they may occur in any order.
-     *
-     * @return float|string
      */
-    public static function presentValue($rate, $values, $dates)
+    public static function presentValue(mixed $rate, mixed $values, mixed $dates): float|string
     {
         return self::xnpvOrdered($rate, $values, $dates, true);
     }
@@ -131,11 +127,7 @@ class NonPeriodic
         return $neg && $pos;
     }
 
-    /**
-     * @param mixed $values
-     * @param mixed $dates
-     */
-    private static function xirrPart1(&$values, &$dates): string
+    private static function xirrPart1(mixed &$values, mixed &$dates): string
     {
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
@@ -182,10 +174,7 @@ class NonPeriodic
         return '';
     }
 
-    /**
-     * @return float|string
-     */
-    private static function xirrPart3(array $values, array $dates, float $x1, float $x2)
+    private static function xirrPart3(array $values, array $dates, float $x1, float $x2): float|string
     {
         $f = self::xnpvOrdered($x1, $values, $dates, false);
         if ($f < 0.0) {
@@ -214,10 +203,7 @@ class NonPeriodic
         return $rslt;
     }
 
-    /**
-     * @return float|string
-     */
-    private static function xirrBisection(array $values, array $dates, float $x1, float $x2)
+    private static function xirrBisection(array $values, array $dates, float $x1, float $x2): string|float
     {
         $rslt = ExcelError::NAN();
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
@@ -253,14 +239,8 @@ class NonPeriodic
         return $rslt;
     }
 
-    /**
-     * @param mixed $rate
-     * @param mixed $values
-     * @param mixed $dates
-     *
-     * @return float|string
-     */
-    private static function xnpvOrdered($rate, $values, $dates, bool $ordered = true, bool $capAtNegative1 = false)
+    /** @param array<int,float|int|numeric-string> $values> */
+    private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false): float|string
     {
         $rate = Functions::flattenSingleValue($rate);
         $values = Functions::flattenArray($values);
@@ -297,7 +277,7 @@ class NonPeriodic
                 return $dif;
             }
             if ($rate <= -1.0) {
-                $xnpv += -abs($values[$i]) / (-1 - $rate) ** ($dif / 365);
+                $xnpv += -abs($values[$i] + 0) / (-1 - $rate) ** ($dif / 365);
             } else {
                 $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
             }
@@ -306,10 +286,7 @@ class NonPeriodic
         return is_finite($xnpv) ? $xnpv : ExcelError::VALUE();
     }
 
-    /**
-     * @param mixed $rate
-     */
-    private static function validateXnpv($rate, array $values, array $dates): void
+    private static function validateXnpv(mixed $rate, array $values, array $dates): void
     {
         if (!is_numeric($rate)) {
             throw new Exception(ExcelError::VALUE());
@@ -318,7 +295,7 @@ class NonPeriodic
         if ($valCount != count($dates)) {
             throw new Exception(ExcelError::NAN());
         }
-        if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
+        if (count($values) > 1 && ((min($values) > 0) || (max($values) < 0))) {
             throw new Exception(ExcelError::NAN());
         }
     }

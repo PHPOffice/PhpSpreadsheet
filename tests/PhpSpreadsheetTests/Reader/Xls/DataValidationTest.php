@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -8,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    /**
-     * @dataProvider dataValidationProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataValidationProvider')]
     public function testDataValidation(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/DataValidation.xls';
@@ -27,7 +27,7 @@ class DataValidationTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function dataValidationProvider(): array
+    public static function dataValidationProvider(): array
     {
         return [
             [

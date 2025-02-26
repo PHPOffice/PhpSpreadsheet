@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BinomInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBINOMINV
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBINOMINV($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBINOMINV')]
+    public function testBINOMINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.INV', $expectedResult, ...$args);
     }
 
-    public function providerBINOMINV(): array
+    public static function providerBINOMINV(): array
     {
         return require 'tests/data/Calculation/Statistical/BINOMINV.php';
     }
 
-    /**
-     * @dataProvider providerBinomInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinomInvArray')]
     public function testBinomInvArray(
         array $expectedResult,
         string $trials,
@@ -37,7 +33,7 @@ class BinomInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBinomInvArray(): array
+    public static function providerBinomInvArray(): array
     {
         return [
             'row/column vectors' => [

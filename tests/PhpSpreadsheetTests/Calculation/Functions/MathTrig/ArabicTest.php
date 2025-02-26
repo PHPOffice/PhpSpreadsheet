@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ArabicTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerARABIC
-     *
-     * @param mixed $expectedResult
-     * @param string $romanNumeral
-     */
-    public function testARABIC($expectedResult, $romanNumeral): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerARABIC')]
+    public function testARABIC(mixed $expectedResult, string $romanNumeral): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -22,14 +19,12 @@ class ArabicTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerARABIC(): array
+    public static function providerARABIC(): array
     {
         return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }
 
-    /**
-     * @dataProvider providerArabicArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerArabicArray')]
     public function testArabicArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -39,7 +34,7 @@ class ArabicTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerArabicArray(): array
+    public static function providerArabicArray(): array
     {
         return [
             'row vector' => [[[49, 2022, 499]], '{"XLIX", "MMXXII", "VDIV"}'],

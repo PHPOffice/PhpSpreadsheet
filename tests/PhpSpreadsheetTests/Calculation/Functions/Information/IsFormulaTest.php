@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,6 +15,10 @@ class IsFormulaTest extends TestCase
     public function testIsFormula(): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();

@@ -33,11 +33,10 @@ class Beta
      * @param mixed $rMax as an float
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
+    public static function distribution(mixed $value, mixed $alpha, mixed $beta, mixed $rMin = 0.0, mixed $rMax = 1.0): array|string|float
     {
         if (is_array($value) || is_array($alpha) || is_array($beta) || is_array($rMin) || is_array($rMax)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $alpha, $beta, $rMin, $rMax);
@@ -87,11 +86,10 @@ class Beta
      * @param mixed $rMax Maximum value as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($probability, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
+    public static function inverse(mixed $probability, mixed $alpha, mixed $beta, mixed $rMin = 0.0, mixed $rMax = 1.0): array|string|float
     {
         if (is_array($probability) || is_array($alpha) || is_array($beta) || is_array($rMin) || is_array($rMax)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $alpha, $beta, $rMin, $rMax);
@@ -122,10 +120,7 @@ class Beta
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
     }
 
-    /**
-     * @return float|string
-     */
-    private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax)
+    private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax): string|float
     {
         $a = 0;
         $b = 2;
@@ -184,14 +179,12 @@ class Beta
     }
 
     // Function cache for logBeta function
-    /** @var float */
-    private static $logBetaCacheP = 0.0;
 
-    /** @var float */
-    private static $logBetaCacheQ = 0.0;
+    private static float $logBetaCacheP = 0.0;
 
-    /** @var float */
-    private static $logBetaCacheResult = 0.0;
+    private static float $logBetaCacheQ = 0.0;
+
+    private static float $logBetaCacheResult = 0.0;
 
     /**
      * The natural logarithm of the beta function.

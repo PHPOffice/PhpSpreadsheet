@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Comment;
@@ -20,9 +22,7 @@ class CommentTest extends TestCase
         self::assertEquals('59.25pt', $comment->getMarginLeft());
         self::assertEquals('1.5pt', $comment->getMarginTop());
         self::assertEquals('55.5pt', $comment->getHeight());
-        self::assertInstanceOf(Color::class, $comment->getFillColor());
         self::assertEquals('FFFFFFE1', $comment->getFillColor()->getARGB());
-        self::assertInstanceOf(RichText::class, $comment->getText());
         self::assertEquals(Alignment::HORIZONTAL_GENERAL, $comment->getAlignment());
         self::assertFalse($comment->getVisible());
     }
@@ -90,8 +90,10 @@ class CommentTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getComment('A2')->getText()->createText('Comment to delete');
-        self::assertArrayHasKey('A2', $sheet->getComments());
+        $comments1 = $sheet->getComments();
+        self::assertArrayHasKey('A2', $comments1);
         $sheet->removeComment('A2');
-        self::assertEmpty($sheet->getComments()); // @phpstan-ignore-line
+        self::assertEmpty($sheet->getComments());
+        $spreadsheet->disconnectWorksheets();
     }
 }

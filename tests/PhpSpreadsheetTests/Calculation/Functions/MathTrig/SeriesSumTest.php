@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -7,15 +9,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SeriesSumTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSERIESSUM
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     * @param mixed $arg3
-     */
-    public function testSERIESSUM($expectedResult, $arg1, $arg2, $arg3, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSERIESSUM')]
+    public function testSERIESSUM(mixed $expectedResult, mixed $arg1, mixed $arg2, mixed $arg3, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         if ($arg1 !== null) {
@@ -40,14 +35,12 @@ class SeriesSumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSERIESSUM(): array
+    public static function providerSERIESSUM(): array
     {
         return require 'tests/data/Calculation/MathTrig/SERIESSUM.php';
     }
 
-    /**
-     * @dataProvider providerSeriesSumArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSeriesSumArray')]
     public function testSeriesSumArray(array $expectedResult, string $x, string $n, string $m, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -57,7 +50,7 @@ class SeriesSumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSeriesSumArray(): array
+    public static function providerSeriesSumArray(): array
     {
         return [
             'row vector #1' => [[[3780, 756]], '5', '{1, 0}', '1', '{1, 1, 0, 1, 1}'],

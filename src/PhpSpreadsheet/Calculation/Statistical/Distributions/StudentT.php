@@ -27,7 +27,7 @@ class StudentT
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $degrees, $tails)
+    public static function distribution(mixed $value, mixed $degrees, mixed $tails)
     {
         if (is_array($value) || is_array($degrees) || is_array($tails)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $tails);
@@ -62,7 +62,7 @@ class StudentT
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($probability, $degrees)
+    public static function inverse(mixed $probability, mixed $degrees)
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
@@ -79,19 +79,14 @@ class StudentT
             return ExcelError::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
-            return self::distribution($value, $degrees, 2);
-        };
+        $callback = fn ($value) => self::distribution($value, $degrees, 2);
 
         $newtonRaphson = new NewtonRaphson($callback);
 
         return $newtonRaphson->execute($probability);
     }
 
-    /**
-     * @return float
-     */
-    private static function calculateDistribution(float $value, int $degrees, int $tails)
+    private static function calculateDistribution(float $value, int $degrees, int $tails): float
     {
         //    tdist, which finds the probability that corresponds to a given value
         //    of t with k degrees of freedom. This algorithm is translated from a

@@ -13,10 +13,10 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
-        // Read rows 1 to 7 and columns A to E only
-        if ($row >= 1 && $row <= 7) {
+        // Read rows 9 to 15 and columns A to E only
+        if ($row >= 9 && $row <= 15) {
             if (in_array($columnAddress, range('A', 'E'))) {
                 return true;
             }
@@ -28,7 +28,8 @@ class MyReadFilter implements IReadFilter
 
 $filterSubset = new MyReadFilter();
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Filter range is A9:E15');
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');
 $reader->setLoadSheetsOnly($sheetname);
@@ -36,5 +37,6 @@ $helper->log('Loading Sheet using filter');
 $reader->setReadFilter($filterSubset);
 $spreadsheet = $reader->load($inputFileName);
 
-$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
+$activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+$sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+$helper->displayGrid($sheetData);

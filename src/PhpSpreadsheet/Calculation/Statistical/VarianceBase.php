@@ -6,12 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 abstract class VarianceBase
 {
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    protected static function datatypeAdjustmentAllowStrings($value)
+    protected static function datatypeAdjustmentAllowStrings(int|float|string|bool $value): int|float
     {
         if (is_bool($value)) {
             return (int) $value;
@@ -22,12 +17,7 @@ abstract class VarianceBase
         return $value;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    protected static function datatypeAdjustmentBooleans($value)
+    protected static function datatypeAdjustmentBooleans(mixed $value): mixed
     {
         if (is_bool($value) && (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE)) {
             return (int) $value;

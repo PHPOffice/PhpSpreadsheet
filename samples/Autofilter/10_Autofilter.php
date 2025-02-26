@@ -85,17 +85,19 @@ $dataArray = [
     ['2011', 'Q4', 'Italy', 335],
 ];
 $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, false, true));
 
 // Set title row bold
 $helper->log('Set title row bold');
 $spreadsheet->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
 
 // Set autofilter
-$helper->log('Set autofilter');
-// Always include the complete filter range!
+$filterRange = $spreadsheet->getActiveSheet()->calculateWorksheetDimension();
+$helper->log("Set autofilter for cells {$filterRange}");
+// Always include the complete filter range if you can!
 // Excel does support setting only the caption
 // row, but that's not a best practise...
-$spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
+$spreadsheet->getActiveSheet()->setAutoFilter($filterRange);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);

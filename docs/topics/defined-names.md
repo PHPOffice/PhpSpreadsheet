@@ -263,7 +263,7 @@ Even though `CHARGE_RATE` references a cell on a different worksheet, because is
 
 However, a Named Range can be locally scoped so that it is only available when referenced from a specific worksheet, or it can be globally scoped. This means that you can use the same Named Range name with different values on different worksheets.
 
-Building further on our timesheet, perhaps we use a different worksheet for each client, and we use the same hourly rate when billing most of our clients; but for one particular client (perhaps doing work for a a friend) we use a lower rate.
+Building further on our timesheet, perhaps we use a different worksheet for each client, and we use the same hourly rate when billing most of our clients; but for one particular client (perhaps doing work for a friend) we use a lower rate.
 
 ```php
 $clients = [

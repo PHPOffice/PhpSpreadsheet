@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class NamespacePurlTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/namespacepurl.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/namespacepurl.xlsx';
 
     public function testPreliminaries(): void
     {
@@ -41,8 +40,9 @@ class NamespacePurlTest extends \PHPUnit\Framework\TestCase
                 'worksheetName' => 'ml_out',
                 'lastColumnLetter' => 'R',
                 'lastColumnIndex' => 17,
-                'totalRows' => '76',
+                'totalRows' => 76,
                 'totalColumns' => 18,
+                'sheetState' => 'visible',
             ],
         ];
 

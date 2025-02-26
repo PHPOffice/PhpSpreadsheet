@@ -25,6 +25,7 @@ class DefinedNames extends BaseLoader
             $baseAddress = $definedNameElement->getAttributeNS($this->tableNs, 'base-cell-address');
             $range = $definedNameElement->getAttributeNS($this->tableNs, 'cell-range-address');
 
+            /** @var non-empty-string $baseAddress */
             $baseAddress = FormulaTranslator::convertToExcelAddressValue($baseAddress);
             $range = FormulaTranslator::convertToExcelAddressValue($range);
 
@@ -43,6 +44,7 @@ class DefinedNames extends BaseLoader
             $baseAddress = $definedNameElement->getAttributeNS($this->tableNs, 'base-cell-address');
             $expression = $definedNameElement->getAttributeNS($this->tableNs, 'expression');
 
+            /** @var non-empty-string $baseAddress */
             $baseAddress = FormulaTranslator::convertToExcelAddressValue($baseAddress);
             $expression = substr($expression, strpos($expression, ':=') + 1);
             $expression = FormulaTranslator::convertToExcelFormulaValue($expression);
@@ -53,10 +55,12 @@ class DefinedNames extends BaseLoader
 
     /**
      * Assess scope and store the Defined Name.
+     *
+     * @param non-empty-string $baseAddress
      */
     private function addDefinedName(string $baseAddress, string $definedName, string $value): void
     {
-        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
+        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true, true);
         $worksheet = $this->spreadsheet->getSheetByName($sheetReference);
         // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
         if ($worksheet !== null) {

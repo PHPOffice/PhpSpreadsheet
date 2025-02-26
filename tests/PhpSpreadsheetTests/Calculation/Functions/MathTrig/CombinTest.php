@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CombinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOMBIN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $numObjs
-     * @param mixed $numInSet
-     */
-    public function testCOMBIN($expectedResult, $numObjs, $numInSet): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMBIN')]
+    public function testCOMBIN(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,14 +24,12 @@ class CombinTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBIN(): array
+    public static function providerCOMBIN(): array
     {
         return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }
 
-    /**
-     * @dataProvider providerCombinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCombinArray')]
     public function testCombinArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -45,7 +39,7 @@ class CombinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCombinArray(): array
+    public static function providerCombinArray(): array
     {
         return [
             'first argument row vector' => [

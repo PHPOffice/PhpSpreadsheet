@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -7,15 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class Issue2490Test extends TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.2490.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.2490.xlsx';
 
-    /**
-     * @var string
-     */
-    private static $testbook3093 = 'tests/data/Reader/XLSX/issue.3093.xlsx';
+    private static string $testbook3093 = 'tests/data/Reader/XLSX/issue.3093.xlsx';
 
     public function testPreliminaries(): void
     {

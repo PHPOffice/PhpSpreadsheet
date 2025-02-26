@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
@@ -28,7 +30,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         return $sheet;
     }
 
-    public function providerCustomText(): array
+    public static function providerCustomText(): array
     {
         return [
             'begins with a' => [[2, 8], 'a*'],
@@ -46,9 +48,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCustomText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomText')]
     public function testCustomTest(array $expectedVisible, string $pattern): void
     {
         $sheet = $this->initSheet();
@@ -177,7 +177,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         self::assertEquals([5, 11, 12], $this->getVisible());
     }
 
-    public function providerCustomRule(): array
+    public static function providerCustomRule(): array
     {
         return [
             'equal to cba' => [[3], Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 'cba'],
@@ -189,9 +189,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCustomRule
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomRule')]
     public function testCustomRuleTest(array $expectedVisible, string $rule, string $comparand): void
     {
         $sheet = $this->initSheet();

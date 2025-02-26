@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'match value1 A result is C' => [
         'C',

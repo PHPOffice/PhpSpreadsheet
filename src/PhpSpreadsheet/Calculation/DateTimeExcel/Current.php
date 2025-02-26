@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
+use DateTime;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
@@ -21,10 +22,10 @@ class Current
      * Excel Function:
      *        TODAY()
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function today()
+    public static function today(): DateTime|float|int|string
     {
         $dti = new DateTimeImmutable();
         $dateArray = Helpers::dateParse($dti->format('c'));
@@ -46,10 +47,10 @@ class Current
      * Excel Function:
      *        NOW()
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function now()
+    public static function now(): DateTime|float|int|string
     {
         $dti = new DateTimeImmutable();
         $dateArray = Helpers::dateParse($dti->format('c'));

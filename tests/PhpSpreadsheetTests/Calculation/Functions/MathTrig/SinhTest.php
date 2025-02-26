@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SinhTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCosh
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSinh($expectedResult, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCosh')]
+    public function testSinh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,14 +19,12 @@ class SinhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCosh(): array
+    public static function providerCosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/SINH.php';
     }
 
-    /**
-     * @dataProvider providerSinhArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSinhArray')]
     public function testSinhArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -38,7 +34,7 @@ class SinhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSinhArray(): array
+    public static function providerSinhArray(): array
     {
         return [
             'row vector' => [[[1.17520119364380, 0.52109530549375, -1.17520119364380]], '{1, 0.5, -1}'],

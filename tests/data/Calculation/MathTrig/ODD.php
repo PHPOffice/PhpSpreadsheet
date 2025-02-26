@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [1, 'null'],
     [7, 5.4],

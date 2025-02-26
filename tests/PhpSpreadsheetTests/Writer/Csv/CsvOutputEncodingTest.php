@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Csv;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;

@@ -1,20 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class MirrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $financeRate
-     * @param mixed $reinvestRate
-     */
-    public function testMIRR($expectedResult, $values, $financeRate = null, $reinvestRate = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMIRR')]
+    public function testMIRR(mixed $expectedResult, mixed $values, mixed $financeRate = null, mixed $reinvestRate = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -47,7 +42,7 @@ class MirrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0E-8);
     }
 
-    public function providerMIRR(): array
+    public static function providerMIRR(): array
     {
         return require 'tests/data/Calculation/Financial/MIRR.php';
     }

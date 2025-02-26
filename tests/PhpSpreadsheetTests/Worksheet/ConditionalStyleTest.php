@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -9,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalStyleTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadsheet;
+    protected Spreadsheet $spreadsheet;
 
     protected function setUp(): void
     {
@@ -55,9 +54,7 @@ class ConditionalStyleTest extends TestCase
             );
     }
 
-    /**
-     * @dataProvider cellConditionalStylesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellConditionalStylesProvider')]
     public function testCellHasConditionalStyles(string $cellReference, bool $expectedHasConditionalStyles): void
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->conditionalStylesExists($cellReference);
@@ -65,9 +62,7 @@ class ConditionalStyleTest extends TestCase
         self::assertSame($expectedHasConditionalStyles, $cellHasConditionalStyles);
     }
 
-    /**
-     * @dataProvider cellConditionalStylesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellConditionalStylesProvider')]
     public function testCellGetConditionalStyles(string $cellReference, bool $expectedGetConditionalStyles): void
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->getConditionalStyles($cellReference);
@@ -75,7 +70,7 @@ class ConditionalStyleTest extends TestCase
         self::assertSame($expectedGetConditionalStyles, !empty($cellHasConditionalStyles));
     }
 
-    public function cellConditionalStylesProvider(): array
+    public static function cellConditionalStylesProvider(): array
     {
         return [
             ['A1', true],

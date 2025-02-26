@@ -22,13 +22,8 @@ class Arabic
 
     /**
      * Recursively calculate the arabic value of a roman numeral.
-     *
-     * @param int $sum
-     * @param int $subtract
-     *
-     * @return int
      */
-    private static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
+    private static function calculateArabic(array $roman, int &$sum = 0, int $subtract = 0): int
     {
         $numeral = array_shift($roman);
         if (!isset(self::ROMAN_LOOKUP[$numeral])) {
@@ -51,21 +46,6 @@ class Arabic
     }
 
     /**
-     * @param mixed $value
-     */
-    private static function mollifyScrutinizer($value): array
-    {
-        return is_array($value) ? $value : [];
-    }
-
-    private static function strSplit(string $roman): array
-    {
-        $rslt = mb_str_split($roman);
-
-        return self::mollifyScrutinizer($rslt);
-    }
-
-    /**
      * ARABIC.
      *
      * Converts a Roman numeral to an Arabic numeral.
@@ -73,13 +53,13 @@ class Arabic
      * Excel Function:
      *        ARABIC(text)
      *
-     * @param mixed $roman Should be a string, or can be an array of strings
+     * @param string|string[] $roman Should be a string, or can be an array of strings
      *
      * @return array|int|string the arabic numberal contrived from the roman numeral
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate($roman)
+    public static function evaluate(mixed $roman): array|int|string
     {
         if (is_array($roman)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $roman);
@@ -98,8 +78,8 @@ class Arabic
         }
 
         try {
-            $arabic = self::calculateArabic(self::strSplit($roman));
-        } catch (Exception $e) {
+            $arabic = self::calculateArabic(str_split($roman));
+        } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }
 

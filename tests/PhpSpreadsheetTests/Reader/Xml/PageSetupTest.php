@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
@@ -13,13 +15,9 @@ class PageSetupTest extends TestCase
 
     private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
-    /**
-     * @var ?Spreadsheet
-     */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var string */
-    private $filename = 'tests/data/Reader/Xml/PageSetup.xml';
+    private string $filename = 'tests/data/Reader/Xml/PageSetup.xml';
 
     protected function tearDown(): void
     {

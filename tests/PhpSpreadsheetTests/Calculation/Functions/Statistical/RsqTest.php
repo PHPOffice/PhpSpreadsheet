@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class RsqTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRSQ
-     *
-     * @param mixed $expectedResult
-     */
-    public function testRSQ($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRSQ')]
+    public function testRSQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('RSQ', $expectedResult, ...$args);
     }
 
-    public function providerRSQ(): array
+    public static function providerRSQ(): array
     {
         return require 'tests/data/Calculation/Statistical/RSQ.php';
     }

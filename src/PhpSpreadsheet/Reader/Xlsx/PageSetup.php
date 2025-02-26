@@ -8,11 +8,9 @@ use SimpleXMLElement;
 
 class PageSetup extends BaseParserClass
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var ?SimpleXMLElement */
-    private $worksheetXml;
+    private ?SimpleXMLElement $worksheetXml;
 
     public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {
@@ -69,8 +67,8 @@ class PageSetup extends BaseParserClass
                 $docPageSetup->setFitToWidth((int) ($xmlSheet->pageSetup['fitToWidth']), false);
             }
             if (
-                isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber']) &&
-                self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])
+                isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber'])
+                && self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])
             ) {
                 $docPageSetup->setFirstPageNumber((int) ($xmlSheet->pageSetup['firstPageNumber']));
             }
@@ -81,7 +79,7 @@ class PageSetup extends BaseParserClass
             $relAttributes = $xmlSheet->pageSetup->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT);
             if (isset($relAttributes['id'])) {
                 $relid = (string) $relAttributes['id'];
-                if (substr($relid, -2) !== 'ps') {
+                if (!str_ends_with($relid, 'ps')) {
                     $relid .= 'ps';
                 }
                 $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'] = $relid;
@@ -97,32 +95,32 @@ class PageSetup extends BaseParserClass
             $docHeaderFooter = $worksheet->getHeaderFooter();
 
             if (
-                isset($xmlSheet->headerFooter['differentOddEven']) &&
-                self::boolean((string) $xmlSheet->headerFooter['differentOddEven'])
+                isset($xmlSheet->headerFooter['differentOddEven'])
+                && self::boolean((string) $xmlSheet->headerFooter['differentOddEven'])
             ) {
                 $docHeaderFooter->setDifferentOddEven(true);
             } else {
                 $docHeaderFooter->setDifferentOddEven(false);
             }
             if (
-                isset($xmlSheet->headerFooter['differentFirst']) &&
-                self::boolean((string) $xmlSheet->headerFooter['differentFirst'])
+                isset($xmlSheet->headerFooter['differentFirst'])
+                && self::boolean((string) $xmlSheet->headerFooter['differentFirst'])
             ) {
                 $docHeaderFooter->setDifferentFirst(true);
             } else {
                 $docHeaderFooter->setDifferentFirst(false);
             }
             if (
-                isset($xmlSheet->headerFooter['scaleWithDoc']) &&
-                !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])
+                isset($xmlSheet->headerFooter['scaleWithDoc'])
+                && !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])
             ) {
                 $docHeaderFooter->setScaleWithDocument(false);
             } else {
                 $docHeaderFooter->setScaleWithDocument(true);
             }
             if (
-                isset($xmlSheet->headerFooter['alignWithMargins']) &&
-                !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])
+                isset($xmlSheet->headerFooter['alignWithMargins'])
+                && !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])
             ) {
                 $docHeaderFooter->setAlignWithMargins(false);
             } else {
@@ -151,8 +149,9 @@ class PageSetup extends BaseParserClass
     private function rowBreaks(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         foreach ($xmlSheet->rowBreaks->brk as $brk) {
+            $rowBreakMax = isset($brk['max']) ? ((int) $brk['max']) : -1;
             if ($brk['man']) {
-                $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW);
+                $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW, $rowBreakMax);
             }
         }
     }

@@ -8,15 +8,9 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class CellStyleAssessor
 {
-    /**
-     * @var CellMatcher
-     */
-    protected $cellMatcher;
+    protected CellMatcher $cellMatcher;
 
-    /**
-     * @var StyleMerger
-     */
-    protected $styleMerger;
+    protected StyleMerger $styleMerger;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {
@@ -30,7 +24,6 @@ class CellStyleAssessor
     public function matchConditions(array $conditionalStyles = []): Style
     {
         foreach ($conditionalStyles as $conditional) {
-            /** @var Conditional $conditional */
             if ($this->cellMatcher->evaluateConditional($conditional) === true) {
                 // Merging the conditional style into the base style goes in here
                 $this->styleMerger->mergeStyle($conditional->getStyle());

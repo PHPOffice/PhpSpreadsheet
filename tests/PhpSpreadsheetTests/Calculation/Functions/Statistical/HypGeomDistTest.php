@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class HypGeomDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerHYPGEOMDIST
-     *
-     * @param mixed $expectedResult
-     */
-    public function testHYPGEOMDIST($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPGEOMDIST')]
+    public function testHYPGEOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
     }
 
-    public function providerHYPGEOMDIST(): array
+    public static function providerHYPGEOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/HYPGEOMDIST.php';
     }
 
-    /**
-     * @dataProvider providerHypGeomDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHypGeomDistArray')]
     public function testHypGeomDistArray(
         array $expectedResult,
         string $sampleSuccesses,
@@ -38,7 +34,7 @@ class HypGeomDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerHypGeomDistArray(): array
+    public static function providerHypGeomDistArray(): array
     {
         return [
             'row/column vectors' => [

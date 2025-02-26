@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,18 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerArrayFormulae
-     *
-     * @param mixed $expectedResult
-     */
-    public function testArrayFormula(string $formula, $expectedResult): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerArrayFormulae')]
+    public function testArrayFormula(string $formula, mixed $expectedResult): void
     {
         $result = Calculation::getInstance()->_calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerArrayFormulae(): array
+    public static function providerArrayFormulae(): array
     {
         return [
             [
@@ -64,6 +62,10 @@ class ArrayFormulaTest extends TestCase
     public function testArrayFormulaUsingCells(): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A4')->setValue(-3);
         $sheet->getCell('B4')->setValue(4);

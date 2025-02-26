@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CharNonPrintableTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerType')]
     public function testNotPrintable(string $type): void
     {
         $spreadsheet = new Spreadsheet();
@@ -30,7 +30,7 @@ class CharNonPrintableTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerType(): array
+    public static function providerType(): array
     {
         return [
             ['Xlsx'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -8,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class SharedFormulaTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'samples/templates/32readwriteAreaChart1.xlsx';
+    private static string $testbook = 'samples/templates/32readwriteAreaChart1.xlsx';
 
     public function testPreliminaries(): void
     {

@@ -9,7 +9,7 @@ class CellDataValidation
     /**
      * @var array<string, int>
      */
-    protected static $validationTypeMap = [
+    protected static array $validationTypeMap = [
         DataValidation::TYPE_NONE => 0x00,
         DataValidation::TYPE_WHOLE => 0x01,
         DataValidation::TYPE_DECIMAL => 0x02,
@@ -23,7 +23,7 @@ class CellDataValidation
     /**
      * @var array<string, int>
      */
-    protected static $errorStyleMap = [
+    protected static array $errorStyleMap = [
         DataValidation::STYLE_STOP => 0x00,
         DataValidation::STYLE_WARNING => 0x01,
         DataValidation::STYLE_INFORMATION => 0x02,
@@ -32,7 +32,7 @@ class CellDataValidation
     /**
      * @var array<string, int>
      */
-    protected static $operatorMap = [
+    protected static array $operatorMap = [
         DataValidation::OPERATOR_BETWEEN => 0x00,
         DataValidation::OPERATOR_NOTBETWEEN => 0x01,
         DataValidation::OPERATOR_EQUAL => 0x02,
@@ -47,7 +47,7 @@ class CellDataValidation
     {
         $validationType = $dataValidation->getType();
 
-        if (is_string($validationType) && array_key_exists($validationType, self::$validationTypeMap)) {
+        if (array_key_exists($validationType, self::$validationTypeMap)) {
             return self::$validationTypeMap[$validationType];
         }
 
@@ -58,7 +58,7 @@ class CellDataValidation
     {
         $errorStyle = $dataValidation->getErrorStyle();
 
-        if (is_string($errorStyle) && array_key_exists($errorStyle, self::$errorStyleMap)) {
+        if (array_key_exists($errorStyle, self::$errorStyleMap)) {
             return self::$errorStyleMap[$errorStyle];
         }
 
@@ -69,7 +69,7 @@ class CellDataValidation
     {
         $operator = $dataValidation->getOperator();
 
-        if (is_string($operator) && array_key_exists($operator, self::$operatorMap)) {
+        if (array_key_exists($operator, self::$operatorMap)) {
             return self::$operatorMap[$operator];
         }
 

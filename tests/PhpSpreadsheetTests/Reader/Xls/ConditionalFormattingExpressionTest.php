@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -8,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingExpressionTest extends TestCase
 {
-    /**
-     * @dataProvider conditionalFormattingProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('conditionalFormattingProvider')]
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/CF_Expression_Comparisons.xls';
@@ -30,7 +30,7 @@ class ConditionalFormattingExpressionTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function conditionalFormattingProvider(): array
+    public static function conditionalFormattingProvider(): array
     {
         return [
             [

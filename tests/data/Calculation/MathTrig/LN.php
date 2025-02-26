@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['exception'], // exception not enough args
     ['#VALUE!', 'ABC'],

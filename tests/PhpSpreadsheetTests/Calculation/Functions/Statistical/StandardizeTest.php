@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class StandardizeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSTANDARDIZE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSTANDARDIZE($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSTANDARDIZE')]
+    public function testSTANDARDIZE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('STANDARDIZE', $expectedResult, ...$args);
     }
 
-    public function providerSTANDARDIZE(): array
+    public static function providerSTANDARDIZE(): array
     {
         return require 'tests/data/Calculation/Statistical/STANDARDIZE.php';
     }
 
-    /**
-     * @dataProvider providerStandardizeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerStandardizeArray')]
     public function testStandardizeArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class StandardizeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerStandardizeArray(): array
+    public static function providerStandardizeArray(): array
     {
         return [
             'row vector' => [[[-1.6666666666666667, -4.6666666666666667, -7.333333333333333, -10, -11.333333333333334]], '{12.5, 8, 4, 0, -2}', '15', '1.5'],

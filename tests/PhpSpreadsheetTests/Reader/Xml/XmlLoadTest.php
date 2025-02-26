@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -11,11 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class XmlLoadTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -57,15 +58,16 @@ class XmlLoadTest extends TestCase
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
         $creationDate = $props->getCreated();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2010-09-02T20:48:39Z', $result);
         $creationDate = $props->getModified();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2010-09-03T21:48:39Z', $result);
         self::assertEquals('AbCd1234', $props->getCustomPropertyValue('my_API_Token'));
         self::assertEquals('2', $props->getCustomPropertyValue('myאInt'));
+        /** @var string */
         $creationDate = $props->getCustomPropertyValue('my_API_Token_Expiry');
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2019-01-31T07:00:00Z', $result);
 
         $sheet = $spreadsheet->getSheet(0);
@@ -125,6 +127,18 @@ class XmlLoadTest extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
+    }
+
+    public function testLoadNoSelectedSheets(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $reader->setLoadSheetsOnly(['Unknown Sheet', 'xReport Data']);
+        $this->spreadsheet = $reader->load($filename);
     }
 
     public function testLoadUnusableSample(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 return [
@@ -52,7 +54,7 @@ return [
         ['-', false, 'Boolean', '', true],
     ],
     [
-        'C:\\Users\\Mark\\Documents\\notes.doc',
+        'C:\Users\Mark\Documents\notes.doc',
         ['\\', true, 'C:', 'Users', 'Mark', 'Documents', 'notes.doc'],
     ],
     'no argument' => ['exception', []],

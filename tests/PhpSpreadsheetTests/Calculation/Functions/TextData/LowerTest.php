@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -7,13 +9,8 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class LowerTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOWER
-     *
-     * @param mixed $expectedResult
-     * @param mixed $str
-     */
-    public function testLOWER($expectedResult, $str = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOWER')]
+    public function testLOWER(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -27,19 +24,13 @@ class LowerTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOWER(): array
+    public static function providerLOWER(): array
     {
         return require 'tests/data/Calculation/TextData/LOWER.php';
     }
 
-    /**
-     * @dataProvider providerLocaleLOWER
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
-     */
-    public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleLOWER')]
+    public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
@@ -52,7 +43,7 @@ class LowerTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleLOWER(): array
+    public static function providerLocaleLOWER(): array
     {
         return [
             ['vrai', 'fr_FR', true],
@@ -66,9 +57,7 @@ class LowerTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerLowerArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLowerArray')]
     public function testLowerArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -78,7 +67,7 @@ class LowerTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLowerArray(): array
+    public static function providerLowerArray(): array
     {
         return [
             'row vector' => [[["let's", 'all change', 'case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],

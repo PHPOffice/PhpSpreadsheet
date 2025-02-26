@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BetaDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBETADIST
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBETADIST($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBETADIST')]
+    public function testBETADIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETADIST', $expectedResult, ...$args);
     }
 
-    public function providerBETADIST(): array
+    public static function providerBETADIST(): array
     {
         return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }
 
-    /**
-     * @dataProvider providerBetaDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBetaDistArray')]
     public function testBetaDistArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class BetaDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBetaDistArray(): array
+    public static function providerBetaDistArray(): array
     {
         return [
             'row/column vectors' => [

@@ -8,10 +8,7 @@ use SimpleXMLElement;
 
 class Properties
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadsheet;
+    protected Spreadsheet $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -93,6 +90,10 @@ class Properties
                 $docProps->setManager($stringValue);
 
                 break;
+            case 'HyperlinkBase':
+                $docProps->setHyperlinkBase($stringValue);
+
+                break;
             case 'Keywords':
                 $docProps->setKeywords($stringValue);
 
@@ -110,17 +111,10 @@ class Properties
         ?SimpleXMLElement $propertyValue,
         SimpleXMLElement $propertyAttributes
     ): void {
-        $propertyType = DocumentProperties::PROPERTY_TYPE_UNKNOWN;
-
         switch ((string) $propertyAttributes) {
-            case 'string':
-                $propertyType = DocumentProperties::PROPERTY_TYPE_STRING;
-                $propertyValue = trim((string) $propertyValue);
-
-                break;
             case 'boolean':
                 $propertyType = DocumentProperties::PROPERTY_TYPE_BOOLEAN;
-                $propertyValue = (bool) $propertyValue;
+                $propertyValue = (bool) (string) $propertyValue;
 
                 break;
             case 'integer':
@@ -134,7 +128,13 @@ class Properties
 
                 break;
             case 'dateTime.tz':
+            case 'dateTime.iso8601tz':
                 $propertyType = DocumentProperties::PROPERTY_TYPE_DATE;
+                $propertyValue = trim((string) $propertyValue);
+
+                break;
+            default:
+                $propertyType = DocumentProperties::PROPERTY_TYPE_STRING;
                 $propertyValue = trim((string) $propertyValue);
 
                 break;

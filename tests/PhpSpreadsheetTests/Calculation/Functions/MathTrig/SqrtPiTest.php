@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SqrtPiTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSQRTPI
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     */
-    public function testSQRTPI($expectedResult, $number): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSQRTPI')]
+    public function testSQRTPI(mixed $expectedResult, mixed $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,14 +25,12 @@ class SqrtPiTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSQRTPI(): array
+    public static function providerSQRTPI(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }
 
-    /**
-     * @dataProvider providerSqrtPiArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSqrtPiArray')]
     public function testSqrtPiArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -45,7 +40,7 @@ class SqrtPiTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerSqrtPiArray(): array
+    public static function providerSqrtPiArray(): array
     {
         return [
             'row vector' => [[[5.317361552716, 6.2665706865775, 8.6832150546992]], '{9, 12.5, 24}'],

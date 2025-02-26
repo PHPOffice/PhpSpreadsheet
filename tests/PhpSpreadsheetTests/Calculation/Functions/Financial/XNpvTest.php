@@ -1,18 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class XNpvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerXNPV
-     *
-     * @param mixed $expectedResult
-     * @param mixed $rate
-     * @param mixed $values
-     * @param mixed $dates
-     */
-    public function testXNPV($expectedResult, $rate = null, $values = null, $dates = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerXNPV')]
+    public function testXNPV(mixed $expectedResult, mixed $rate = null, mixed $values = null, mixed $dates = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -63,7 +58,7 @@ class XNpvTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerXNPV(): array
+    public static function providerXNPV(): array
     {
         return require 'tests/data/Calculation/Financial/XNPV.php';
     }

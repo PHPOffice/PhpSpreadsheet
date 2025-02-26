@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,11 +11,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CalculationErrorTest extends AbstractFunctional
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var ?Spreadsheet */
-    private $reloadedSpreadsheet;
+    private ?Spreadsheet $reloadedSpreadsheet = null;
 
     protected function tearDown(): void
     {

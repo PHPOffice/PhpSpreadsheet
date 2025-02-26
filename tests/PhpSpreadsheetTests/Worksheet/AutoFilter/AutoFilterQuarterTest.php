@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
@@ -9,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterQuarterTest extends SetupTeardown
 {
-    public function providerQuarter(): array
+    public static function providerQuarter(): array
     {
         return [
             [[2, 3], Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER],
@@ -34,9 +36,7 @@ class AutoFilterQuarterTest extends SetupTeardown
         $this->maxRow = 9;
     }
 
-    /**
-     * @dataProvider providerQuarter
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerQuarter')]
     public function testQuarters(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

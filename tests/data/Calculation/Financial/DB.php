@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // cost, salvage, life, period, month, result
 
 return [

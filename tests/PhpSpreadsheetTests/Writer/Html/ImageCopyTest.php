@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls as XlsReader;
@@ -11,8 +13,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImageCopyTest extends Functional\AbstractFunctional
 {
-    /** @var string */
-    private $xlsxFile = '';
+    private string $xlsxFile = '';
 
     protected function tearDown(): void
     {

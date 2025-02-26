@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Owen Leibman</LastAuthor>
+  <Created>2023-05-31T15:52:55Z</Created>
+  <LastSaved>2023-06-02T02:15:24Z</LastSaved>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Enabled dt:dt="string">true</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Enabled>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SetDate dt:dt="string">2023-06-02T02:15:24Z</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SetDate>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Method dt:dt="string">Standard</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Method>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Name dt:dt="string">defa4170-0d19-0005-0004-bc88714345d2</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Name>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SiteId dt:dt="string">f9465cb1-7889-4d9a-b552-fdd0addf0eb1</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SiteId>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ActionId dt:dt="string">a9441577-fd50-4686-b29c-06250a20f19e</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ActionId>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ContentBits dt:dt="string">0</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ContentBits>
+ </CustomDocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>6780</WindowHeight>
+  <WindowWidth>19160</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Tabelle1">
+  <Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="6" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="14.5">
+   <Column ss:Index="2" ss:Width="120.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2"><Data ss:Type="String">decimal numbers below:</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">a</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="5"><Data ss:Type="String">bb</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="5"><Data ss:Type="String">ccc</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="5"><Data ss:Type="String">dddd</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="5"><Data ss:Type="String">eeeee</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="5"><Data ss:Type="String">ffffff</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Unsynced/>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>1</ActiveRow>
+     <ActiveCol>2</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>C1</Range>
+   <Type>Whole</Type>
+   <Min>1</Min>
+   <Max>9</Max>
+   <InputTitle>Enter a digit</InputTitle>
+   <InputMessage>Please enter a single digit from 1 to 9</InputMessage>
+   <ErrorMessage>Sorry, only digits from 1 to 9 are allowed</ErrorMessage>
+   <ErrorTitle>Wrong number</ErrorTitle>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R2C2:R1048576C2</Range>
+   <Type>Decimal</Type>
+   <Qualifier>Greater</Qualifier>
+   <Value>10</Value>
+   <InputMessage>Decimal number bigger than 10</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R1C2</Range>
+   <Qualifier>Greater</Qualifier>
+   <InputHide/>
+   <InputMessage>Decimal number bigger than 10</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R1C3</Range>
+   <Type>Date</Type>
+   <Qualifier>GreaterOrEqual</Qualifier>
+   <Value>44927</Value>
+   <InputMessage>date from 2023-01-01</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R2C3</Range>
+   <Type>Time</Type>
+   <Min>0.333333333333333</Min>
+   <Max>0.583333333333333</Max>
+   <InputMessage>time from 8:00 to 14:00</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C3</Range>
+   <Type>TextLength</Type>
+   <Qualifier>Less</Qualifier>
+   <Value>8</Value>
+   <InputMessage>text &lt; 8 characters</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R4C3</Range>
+   <Type>List</Type>
+   <UseBlank/>
+   <CellRangeList/>
+   <Value>&quot;a,b,c,d,e&quot;</Value>
+   <InputMessage>letters a to e</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R1C4</Range>
+   <Type>Whole</Type>
+   <Min>1+1</Min>
+   <Max>2+2</Max>
+   <InputMessage>integer from 2 to 4</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R2C4</Range>
+   <Type>List</Type>
+   <Value>R[-1]C[1]:R[3]C[1]</Value>
+   <InputMessage>any of the texts in E1:E5</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R7C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>GreaterOrEqual</Qualifier>
+   <Value>-6</Value>
+   <InputMessage>Integer greater than or equal to -6</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R6C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>LessOrEqual</Qualifier>
+   <Value>12</Value>
+   <InputMessage>Integer less than or equal to 12</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R5C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>Less</Qualifier>
+   <Value>8</Value>
+   <InputMessage>Integer less than 8</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R4C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>Equal</Qualifier>
+   <Value>-3</Value>
+   <InputMessage>Negative 3 is only valid input</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R3C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>NotEqual</Qualifier>
+   <Value>7</Value>
+   <InputMessage>Any integer except 7</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R2C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>NotBetween</Qualifier>
+   <Min>-5</Min>
+   <Max>5</Max>
+   <InputMessage>Integer not between -5 and 5</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R1C6</Range>
+   <Type>Whole</Type>
+   <Min>2</Min>
+   <Max>5</Max>
+   <InputMessage>Integer between 2 and 5</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R8C6</Range>
+   <Type>Whole</Type>
+   <Qualifier>Greater</Qualifier>
+   <Value>5</Value>
+   <InputMessage>Integer greater than 5</InputMessage>
+  </DataValidation>
+  <DataValidation xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R1C7</Range>
+   <Type>Decimal</Type>
+   <Min>2</Min>
+   <Max>5</Max>
+   <InputMessage>Float between 2 and 5</InputMessage>
+  </DataValidation>
+ </Worksheet>
+</Workbook>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class NamedRangeTest extends TestCase
 {
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     protected function setUp(): void
     {

@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ChiInvLeftTailTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCHIINV
-     *
-     * @param mixed $expectedResult
-     */
-    public function testCHIINV($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHIINV')]
+    public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.INV', $expectedResult, ...$args);
     }
 
-    public function providerCHIINV(): array
+    public static function providerCHIINV(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIINVLeftTail.php';
     }
@@ -28,6 +26,7 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         $degrees = 7;
         $calculation = Calculation::getInstance();
         $formula = "=CHISQ.INV($probability, $degrees)";
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
         $formula = "=CHISQ.DIST($result, $degrees)";
@@ -35,9 +34,7 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerChiInvLeftTailArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiInvLeftTailArray')]
     public function testChiInvLeftTailArray(array $expectedResult, string $probabilities, string $degrees): void
     {
         $calculation = Calculation::getInstance();
@@ -47,7 +44,7 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerChiInvLeftTailArray(): array
+    public static function providerChiInvLeftTailArray(): array
     {
         return [
             'row/column vectors' => [

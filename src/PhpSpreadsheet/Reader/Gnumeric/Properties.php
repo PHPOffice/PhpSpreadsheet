@@ -8,10 +8,7 @@ use SimpleXMLElement;
 
 class Properties
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadsheet;
+    protected Spreadsheet $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -94,32 +91,30 @@ class Properties
     {
         $docProps = $this->spreadsheet->getProperties();
         foreach ($officePropertyMeta as $propertyName => $propertyValue) {
-            if ($propertyValue !== null) {
-                $attributes = $propertyValue->attributes(Gnumeric::NAMESPACE_META);
-                $propertyValue = trim((string) $propertyValue);
-                switch ($propertyName) {
-                    case 'keyword':
-                        $docProps->setKeywords($propertyValue);
+            $attributes = $propertyValue->attributes(Gnumeric::NAMESPACE_META);
+            $propertyValue = trim((string) $propertyValue);
+            switch ($propertyName) {
+                case 'keyword':
+                    $docProps->setKeywords($propertyValue);
 
-                        break;
-                    case 'initial-creator':
-                        $docProps->setCreator($propertyValue);
-                        $docProps->setLastModifiedBy($propertyValue);
+                    break;
+                case 'initial-creator':
+                    $docProps->setCreator($propertyValue);
+                    $docProps->setLastModifiedBy($propertyValue);
 
-                        break;
-                    case 'creation-date':
-                        $creationDate = $propertyValue;
-                        $docProps->setCreated($creationDate);
+                    break;
+                case 'creation-date':
+                    $creationDate = $propertyValue;
+                    $docProps->setCreated($creationDate);
 
-                        break;
-                    case 'user-defined':
-                        if ($attributes) {
-                            [, $attrName] = explode(':', (string) $attributes['name']);
-                            $this->userDefinedProperties($attrName, $propertyValue);
-                        }
+                    break;
+                case 'user-defined':
+                    if ($attributes) {
+                        [, $attrName] = explode(':', (string) $attributes['name']);
+                        $this->userDefinedProperties($attrName, $propertyValue);
+                    }
 
-                        break;
-                }
+                    break;
             }
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -81,6 +83,32 @@ class FormulaTest extends TestCase
         self::assertSame("=DeptSales[[#This Row],[Sales\u{a0}Amount]]*DeptSales[[#This Row],[Commission %age]]", $worksheet->getCell('E2')->getValue());
         // Totals Formula
         self::assertSame('=SUBTOTAL(109,DeptSales[Commission])', $worksheet->getCell('E8')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testCellFormulaUpdateOnHeadingColumnChangeSlash(): void
+    {
+        $reader = new Xlsx();
+        $filename = 'tests/data/Worksheet/Table/TableFormulae.xlsx';
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // Verify original formulae
+        // Row Formula
+        self::assertSame("=DeptSales[[#This Row],[Sales\u{a0}Amount]]*DeptSales[[#This Row],[% Commission]]", $worksheet->getCell('E2')->getValue());
+        // Totals Formula
+        self::assertSame('=SUBTOTAL(109,DeptSales[Commission Amount])', $worksheet->getCell('E8')->getValue());
+
+        $worksheet->getCell('D1')->setValue('Commission %age');
+        $worksheet->getCell('E1')->setValue('Commission/Amount');
+        $worksheet->getCell('E1')->setValue('Commission/Amount2');
+
+        // Verify modified formulae
+        // Row Formula
+        self::assertSame("=DeptSales[[#This Row],[Sales\u{a0}Amount]]*DeptSales[[#This Row],[Commission %age]]", $worksheet->getCell('E2')->getValue());
+        // Totals Formula
+        self::assertSame('=SUBTOTAL(109,DeptSales[Commission/Amount2])', $worksheet->getCell('E8')->getValue());
 
         $spreadsheet->disconnectWorksheets();
     }

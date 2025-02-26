@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CountIfTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUNTIF
-     *
-     * @param mixed $expectedResult
-     */
-    public function testCOUNTIF($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUNTIF')]
+    public function testCOUNTIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTIF', $expectedResult, ...$args);
     }
@@ -25,7 +23,7 @@ class CountIfTest extends AllSetupTeardown
         self::assertSame(4, $sheet->getCell('Z99')->getCalculatedValue());
     }
 
-    public function providerCOUNTIF(): array
+    public static function providerCOUNTIF(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIF.php';
     }

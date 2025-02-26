@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Periods, Payment, Present Value, Future Value, Type, Guess, Result
 
 return [
@@ -24,6 +26,18 @@ return [
     [
         0.015130843902343399,
         24,
+        -250,
+        5000,
+    ],
+    [
+        0.017929869399484,
+        24.99,
+        -250,
+        5000,
+    ],
+    [
+        0.016581855,
+        24.5,
         -250,
         5000,
     ],

@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class DbTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDB
-     *
-     * @param mixed $expectedResult
-     */
-    public function testDB($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDB')]
+    public function testDB(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DB', $expectedResult, $args);
     }
 
-    public function providerDB(): array
+    public static function providerDB(): array
     {
         return require 'tests/data/Calculation/Financial/DB.php';
     }

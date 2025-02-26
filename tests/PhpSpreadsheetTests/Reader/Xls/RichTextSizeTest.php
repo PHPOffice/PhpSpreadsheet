@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class RichTextSizeTest extends AbstractFunctional
@@ -14,8 +17,9 @@ class RichTextSizeTest extends AbstractFunctional
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getSheetByNameOrThrow('橱柜门板');
         $text = $sheet->getCell('L15')->getValue();
+        self::assertInstanceOf(RichText::class, $text);
         $elements = $text->getRichTextElements();
-        self::assertEquals(10, $elements[2]->getFont()->getSize());
+        self::assertEquals(10, $elements[2]->getFont()?->getSize());
         $spreadsheet->disconnectWorksheets();
     }
 }

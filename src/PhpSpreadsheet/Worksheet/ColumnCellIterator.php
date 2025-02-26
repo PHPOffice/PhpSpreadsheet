@@ -13,31 +13,23 @@ class ColumnCellIterator extends CellIterator
 {
     /**
      * Current iterator position.
-     *
-     * @var int
      */
-    private $currentRow;
+    private int $currentRow;
 
     /**
      * Column index.
-     *
-     * @var int
      */
-    private $columnIndex;
+    private int $columnIndex;
 
     /**
      * Start position.
-     *
-     * @var int
      */
-    private $startRow = 1;
+    private int $startRow = 1;
 
     /**
      * End position.
-     *
-     * @var int
      */
-    private $endRow = 1;
+    private int $endRow = 1;
 
     /**
      * Create a new row iterator.
@@ -45,9 +37,9 @@ class ColumnCellIterator extends CellIterator
      * @param Worksheet $worksheet The worksheet to iterate over
      * @param string $columnIndex The column that we want to iterate
      * @param int $startRow The row number at which to start iterating
-     * @param int $endRow Optionally, the row number at which to stop iterating
+     * @param ?int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, $columnIndex = 'A', $startRow = 1, $endRow = null)
+    public function __construct(Worksheet $worksheet, string $columnIndex = 'A', int $startRow = 1, ?int $endRow = null, bool $iterateOnlyExistingCells = false)
     {
         // Set subject
         $this->worksheet = $worksheet;
@@ -55,6 +47,7 @@ class ColumnCellIterator extends CellIterator
         $this->columnIndex = Coordinate::columnIndexFromString($columnIndex);
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
+        $this->setIterateOnlyExistingCells($iterateOnlyExistingCells);
     }
 
     /**
@@ -64,7 +57,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart(int $startRow = 1)
+    public function resetStart(int $startRow = 1): static
     {
         $this->startRow = $startRow;
         $this->adjustForExistingOnlyRange();
@@ -76,11 +69,11 @@ class ColumnCellIterator extends CellIterator
     /**
      * (Re)Set the end row.
      *
-     * @param int $endRow The row number at which to stop iterating
+     * @param ?int $endRow The row number at which to stop iterating
      *
      * @return $this
      */
-    public function resetEnd($endRow = null)
+    public function resetEnd(?int $endRow = null): static
     {
         $this->endRow = $endRow ?: $this->worksheet->getHighestRow();
         $this->adjustForExistingOnlyRange();
@@ -95,11 +88,11 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek(int $row = 1)
+    public function seek(int $row = 1): static
     {
         if (
-            $this->onlyExistingCells &&
-            (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->columnIndex) . $row))
+            $this->onlyExistingCells
+            && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->columnIndex) . $row))
         ) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
@@ -152,9 +145,9 @@ class ColumnCellIterator extends CellIterator
         do {
             ++$this->currentRow;
         } while (
-            ($this->onlyExistingCells) &&
-            ($this->currentRow <= $this->endRow) &&
-            (!$this->cellCollection->has($columnAddress . $this->currentRow))
+            ($this->onlyExistingCells)
+            && ($this->currentRow <= $this->endRow)
+            && (!$this->cellCollection->has($columnAddress . $this->currentRow))
         );
     }
 
@@ -167,9 +160,9 @@ class ColumnCellIterator extends CellIterator
         do {
             --$this->currentRow;
         } while (
-            ($this->onlyExistingCells) &&
-            ($this->currentRow >= $this->startRow) &&
-            (!$this->cellCollection->has($columnAddress . $this->currentRow))
+            ($this->onlyExistingCells)
+            && ($this->currentRow >= $this->startRow)
+            && (!$this->cellCollection->has($columnAddress . $this->currentRow))
         );
     }
 
@@ -189,14 +182,14 @@ class ColumnCellIterator extends CellIterator
         if ($this->onlyExistingCells) {
             $columnAddress = Coordinate::stringFromColumnIndex($this->columnIndex);
             while (
-                (!$this->cellCollection->has($columnAddress . $this->startRow)) &&
-                ($this->startRow <= $this->endRow)
+                (!$this->cellCollection->has($columnAddress . $this->startRow))
+                && ($this->startRow <= $this->endRow)
             ) {
                 ++$this->startRow;
             }
             while (
-                (!$this->cellCollection->has($columnAddress . $this->endRow)) &&
-                ($this->endRow >= $this->startRow)
+                (!$this->cellCollection->has($columnAddress . $this->endRow))
+                && ($this->endRow >= $this->startRow)
             ) {
                 --$this->endRow;
             }

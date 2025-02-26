@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
@@ -7,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class Issue2266Test extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerType')]
     public function testIssue2266(string $type): void
     {
         // Problem deleting sheet containing local defined name.
@@ -35,7 +35,7 @@ class Issue2266Test extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerType(): array
+    public static function providerType(): array
     {
         return [
             ['Xlsx'],

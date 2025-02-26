@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
@@ -76,9 +78,7 @@ class HtmlBorderTest extends TestCase
         self::assertEquals('333333', $border->getColor()->getRGB());
     }
 
-    /**
-     * @dataProvider providerBorderStyle
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBorderStyle')]
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $borders = Html::getBorderMappings();
@@ -101,7 +101,7 @@ class HtmlBorderTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['dash-dot', Border::BORDER_DASHDOT],

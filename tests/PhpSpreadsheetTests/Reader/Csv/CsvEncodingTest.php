@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -7,13 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class CsvEncodingTest extends TestCase
 {
-    /**
-     * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
-     */
-    public function testEncodings($filename, $encoding): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
+    public function testEncodings(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
@@ -22,25 +19,22 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('Å', $sheet->getCell('A1')->getValue());
     }
 
-    /**
-     * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
-     */
-    public function testWorkSheetInfo($filename, $encoding): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
+    public function testWorkSheetInfo(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
         $info = $reader->listWorksheetInfo($filename);
-        self::assertEquals('Worksheet', $info[0]['worksheetName']);
-        self::assertEquals('B', $info[0]['lastColumnLetter']);
-        self::assertEquals(1, $info[0]['lastColumnIndex']);
-        self::assertEquals(2, $info[0]['totalRows']);
-        self::assertEquals(2, $info[0]['totalColumns']);
+        self::assertCount(1, $info);
+        self::assertSame('Worksheet', $info[0]['worksheetName']);
+        self::assertSame('B', $info[0]['lastColumnLetter']);
+        self::assertSame(1, $info[0]['lastColumnIndex']);
+        self::assertSame(2, $info[0]['totalRows']);
+        self::assertSame(2, $info[0]['totalColumns']);
+        self::assertSame(['Worksheet'], $reader->listWorksheetNames($filename));
     }
 
-    public function providerEncodings(): array
+    public static function providerEncodings(): array
     {
         return [
             ['tests/data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
@@ -53,9 +47,7 @@ class CsvEncodingTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerGuessEncoding
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
     public function testGuessEncoding(string $filename): void
     {
         $reader = new Csv();
@@ -78,6 +70,9 @@ class CsvEncodingTest extends TestCase
         $filename = 'tests/data/Reader/CSV/premiere.utf16le.csv';
         $reader = new Csv();
         $reader->setInputEncoding(Csv::guessEncoding($filename));
+        $names = $reader->listWorksheetNames($filename);
+        // Following ignored, just make sure it's executable.
+        $reader->setLoadSheetsOnly([$names[0]]);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('𐐀', $sheet->getCell('A3')->getValue());
@@ -85,9 +80,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('�', $sheet->getCell('C3')->getValue());
     }
 
-    /**
-     * @dataProvider providerGuessEncoding
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
     public function testFallbackEncoding(string $filename): void
     {
         $reader = new Csv();
@@ -98,7 +91,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('sixième', $sheet->getCell('C2')->getValue());
     }
 
-    public function providerGuessEncoding(): array
+    public static function providerGuessEncoding(): array
     {
         return [
             ['tests/data/Reader/CSV/premiere.utf8.csv'],

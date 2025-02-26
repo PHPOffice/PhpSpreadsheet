@@ -3,12 +3,11 @@
     <office:scripts />
     <office:font-face-decls />
     <office:automatic-styles>
-        <style:style style:family="table" style:name="ta1">
+        <style:style style:family="table" style:master-page-name="Default" style:name="ta1">
             <style:table-properties table:display="true" />
         </style:style>
         <style:style style:name="ce0" style:family="table-cell" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
-            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" />
         </style:style>
     </office:automatic-styles>
@@ -17,10 +16,6 @@
             <table:calculation-settings />
             <table:table table:name="Worksheet" table:style-name="ta1">
                 <office:forms />
-                <table:table-row>
-                    <table:table-cell table:style-name="ce0" />
-                    <table:table-cell table:number-columns-repeated="1023" />
-                </table:table-row>
             </table:table>
             <table:named-expressions />
         </office:spreadsheet>

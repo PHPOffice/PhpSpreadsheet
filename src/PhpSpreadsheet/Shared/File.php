@@ -10,10 +10,8 @@ class File
 {
     /**
      * Use Temp or File Upload Temp for temporary files.
-     *
-     * @var bool
      */
-    protected static $useUploadTempDirectory = false;
+    protected static bool $useUploadTempDirectory = false;
 
     /**
      * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
@@ -94,9 +92,9 @@ class File
             $pathArray = explode('/', $filename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
                 $iMax = count($pathArray);
-                for ($i = 0; $i < $iMax; ++$i) {
-                    if ($pathArray[$i] == '..' && $i > 0) {
-                        unset($pathArray[$i], $pathArray[$i - 1]);
+                for ($i = 1; $i < $iMax; ++$i) {
+                    if ($pathArray[$i] == '..') {
+                        array_splice($pathArray, $i - 1, 2);
 
                         break;
                     }
@@ -156,7 +154,11 @@ class File
         if ($zipMember !== '') {
             $zipfile = "zip://$filename#$zipMember";
             if (!self::fileExists($zipfile)) {
-                throw new ReaderException("Could not find zip member $zipfile");
+                // Has the file been saved with Windoze directory separators rather than unix?
+                $zipfile = "zip://$filename#" . str_replace('/', '\\', $zipMember);
+                if (!self::fileExists($zipfile)) {
+                    throw new ReaderException("Could not find zip member $zipfile");
+                }
             }
         }
     }
@@ -180,6 +182,14 @@ class File
             return self::validateZipFirst4($filename);
         }
 
-        return self::fileExists("zip://$filename#$zipMember");
+        $zipfile = "zip://$filename#$zipMember";
+        if (self::fileExists($zipfile)) {
+            return true;
+        }
+
+        // Has the file been saved with Windoze directory separators rather than unix?
+        $zipfile = "zip://$filename#" . str_replace('/', '\\', $zipMember);
+
+        return self::fileExists($zipfile);
     }
 }

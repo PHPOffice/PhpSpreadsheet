@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use DateTime;
@@ -7,14 +9,12 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XlsGifBmpTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $filename = '';
+    private string $filename = '';
 
     protected function tearDown(): void
     {
@@ -70,6 +70,34 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing->setPath(__DIR__ . '/../../../../samples/images/gif.gif');
         $drawing->setHeight(36);
         $drawing->setWorksheet($spreadsheet->getActiveSheet());
+        $drawing->setCoordinates('A1');
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $spreadsheet->disconnectWorksheets();
+        $worksheet = $reloadedSpreadsheet->getActiveSheet();
+        $drawings = $worksheet->getDrawingCollection();
+        self::assertCount(1, $drawings);
+        foreach ($worksheet->getDrawingCollection() as $drawing) {
+            $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
+            self::assertEquals('image/png', $mimeType);
+        }
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testGifIssue4112(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+        $sheet = new Worksheet($spreadsheet, 'Insured List');
+        $spreadsheet->addSheet($sheet, 0);
+
+        // Add a drawing to the worksheet
+        $drawing = new Drawing();
+        $drawing->setName('Letters G, I, and G');
+        $drawing->setDescription('Handwritten G, I, and F');
+        $drawing->setPath(__DIR__ . '/../../../../samples/images/gif.gif');
+        $drawing->setHeight(36);
+        $drawing->setWorksheet($sheet);
         $drawing->setCoordinates('A1');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');

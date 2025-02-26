@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
@@ -20,7 +22,7 @@ class DataSeriesValuesTest extends TestCase
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            self::assertInstanceOf(DataSeriesValues::class, $result);
+            self::assertSame($dataTypeValue, $result->getDataType());
         }
     }
 

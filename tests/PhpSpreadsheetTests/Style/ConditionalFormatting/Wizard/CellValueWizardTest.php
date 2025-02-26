@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class CellValueWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -31,13 +24,8 @@ class CellValueWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    /**
-     * @dataProvider basicCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
-     */
-    public function testBasicCellValueWizard(string $operator, $operand, string $expectedOperator, $expectedCondition): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('basicCellValueDataProvider')]
+    public function testBasicCellValueWizard(string $operator, mixed $operand, string $expectedOperator, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
@@ -57,7 +45,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function basicCellValueDataProvider(): array
+    public static function basicCellValueDataProvider(): array
     {
         return [
             '=5' => ['equals', 5, Conditional::OPERATOR_EQUAL, 5],
@@ -73,13 +61,8 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider relativeCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
-     */
-    public function testRelativeCellValueWizard($operand, $expectedCondition): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('relativeCellValueDataProvider')]
+    public function testRelativeCellValueWizard(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
@@ -97,7 +80,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function relativeCellValueDataProvider(): array
+    public static function relativeCellValueDataProvider(): array
     {
         return [
             '= Cell value unpinned' => ['A1', 'C3'],
@@ -107,13 +90,8 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider formulaCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
-     */
-    public function testCellValueWizardWithFormula($operand, $expectedCondition): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('formulaCellValueDataProvider')]
+    public function testCellValueWizardWithFormula(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
@@ -131,7 +109,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function formulaCellValueDataProvider(): array
+    public static function formulaCellValueDataProvider(): array
     {
         return [
             '= Cell value unpinned in function' => ['SQRT(A1)', 'SQRT(C3)'],
@@ -145,9 +123,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeCellValueDataProvider')]
     public function testRangeCellValueWizard(string $operator, array $operands, string $expectedOperator): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -168,7 +144,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeCellValueDataProvider(): array
+    public static function rangeCellValueDataProvider(): array
     {
         return [
             'between 5 and 10' => ['between', [5, 10], Conditional::OPERATOR_BETWEEN],
@@ -177,9 +153,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeRelativeCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeRelativeCellValueDataProvider')]
     public function testRelativeRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -201,7 +175,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeRelativeCellValueDataProvider(): array
+    public static function rangeRelativeCellValueDataProvider(): array
     {
         return [
             'between A6 and 5' => [['A$6', 5], ['C$6', 5]],
@@ -209,9 +183,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider rangeFormulaCellValueDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('rangeFormulaCellValueDataProvider')]
     public function testFormulaRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -233,7 +205,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeFormulaCellValueDataProvider(): array
+    public static function rangeFormulaCellValueDataProvider(): array
     {
         return [
             'between yesterday and tomorrow' => [['TODAY()-1', 'TODAY()+1'], ['TODAY()-1', 'TODAY()+1']],

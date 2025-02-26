@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
@@ -12,8 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalBoolTest extends TestCase
 {
-    /** @var string */
-    private $outfile = '';
+    private string $outfile = '';
 
     protected function tearDown(): void
     {
@@ -34,7 +35,7 @@ class ConditionalBoolTest extends TestCase
         $condition1->addCondition(false);
         $condition1->getStyle()->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB('FFFFFF00');
+            ->getStartColor()->setARGB('FFFFFF00');
         $conditionalStyles = $sheet->getStyle('A1:A10')->getConditionalStyles();
         $conditionalStyles[] = $condition1;
         $sheet->getStyle('A1:A20')->setConditionalStyles($conditionalStyles);
@@ -52,7 +53,7 @@ class ConditionalBoolTest extends TestCase
         $condition1->addCondition(true);
         $condition1->getStyle()->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB('FF00FF00');
+            ->getStartColor()->setARGB('FF00FF00');
         $conditionalStyles = $sheet->getStyle('A1:A10')->getConditionalStyles();
         $conditionalStyles[] = $condition1;
         $sheet->getStyle('A1:A20')->setConditionalStyles($conditionalStyles);

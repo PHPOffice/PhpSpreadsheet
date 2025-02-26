@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -10,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameTest extends TestCase
 {
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     protected function setUp(): void
     {
@@ -143,7 +144,6 @@ class DefinedNameTest extends TestCase
             DefinedName::createInstance('xyz', $this->spreadsheet->getActiveSheet(), 'A1')
         );
 
-        /** @var NamedRange $namedRange */
         $namedRange = $this->spreadsheet->getDefinedName('XYZ');
         self::assertInstanceOf(NamedRange::class, $namedRange);
         self::assertEquals('A1', $namedRange->getRange());

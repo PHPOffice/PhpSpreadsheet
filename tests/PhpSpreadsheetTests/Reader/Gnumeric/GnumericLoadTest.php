@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -16,9 +20,7 @@ class GnumericLoadTest extends TestCase
 {
     public function testLoad(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $spreadsheet = $reader->load($filename);
         self::assertEquals(2, $spreadsheet->getSheetCount());
@@ -29,10 +31,10 @@ class GnumericLoadTest extends TestCase
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
         $creationDate = $props->getCreated();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2010-09-02T20:48:39Z', $result);
         $creationDate = $props->getModified();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2020-06-05T05:15:21Z', $result);
 
         $sheet = $spreadsheet->getSheet(0);
@@ -132,9 +134,7 @@ class GnumericLoadTest extends TestCase
 
     public function testLoadFilter(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $filter = new GnumericFilter();
         $reader->setReadFilter($filter);
@@ -150,9 +150,7 @@ class GnumericLoadTest extends TestCase
 
     public function testLoadOld(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/old.gnumeric';
+        $filename = 'samples/templates/old.gnumeric';
         $reader = new Gnumeric();
         $spreadsheet = $reader->load($filename);
         $props = $spreadsheet->getProperties();
@@ -162,9 +160,7 @@ class GnumericLoadTest extends TestCase
 
     public function testLoadSelectedSheets(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $reader->setLoadSheetsOnly(['Unknown Sheet', 'Report Data']);
         $spreadsheet = $reader->load($filename);
@@ -175,5 +171,42 @@ class GnumericLoadTest extends TestCase
 
         self::assertSame('A1', $sheet->getSelectedCells());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testLoadNoSelectedSheets(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $filename = 'samples/templates/GnumericTest.gnumeric';
+        $reader = new Gnumeric();
+        $reader->setLoadSheetsOnly(['Unknown Sheet', 'xReport Data']);
+        $reader->load($filename);
+    }
+
+    public function testLoadNotGnumeric(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = 'samples/templates/excel2003.xml';
+        $reader = new Gnumeric();
+        $reader->load($filename);
+    }
+
+    public function testLoadNotXml(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = __FILE__;
+        $reader = new Gnumeric();
+        $reader->load($filename);
+    }
+
+    public function testDoctype(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('prevent XXE');
+        $filename = 'tests/data/Reader/Gnumeric/xmlwithdoctype.gnumeric';
+        $reader = new Gnumeric();
+        $reader->load($filename);
     }
 }

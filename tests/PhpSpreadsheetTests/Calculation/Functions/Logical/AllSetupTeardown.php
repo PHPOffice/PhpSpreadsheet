@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -11,20 +14,11 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var ?Spreadsheet
-     */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
-    private $sheet;
+    private ?Worksheet $sheet = null;
 
     protected function setUp(): void
     {
@@ -51,20 +45,14 @@ class AllSetupTeardown extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
     }
 
-    /**
-     * @param mixed $expectedResult
-     */
-    protected function mightHaveException($expectedResult): void
+    protected function mightHaveException(mixed $expectedResult): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function setCell(string $cell, $value): void
+    protected function setCell(string $cell, mixed $value): void
     {
         if ($value !== null) {
             if (is_string($value) && is_numeric($value)) {
@@ -95,11 +83,7 @@ class AllSetupTeardown extends TestCase
         return $this->sheet;
     }
 
-    /**
-     * @param mixed $expectedResult
-     * @param array $args
-     */
-    protected function runTestCase(string $functionName, $expectedResult, ...$args): void
+    protected function runTestCase(string $functionName, mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -116,5 +100,14 @@ class AllSetupTeardown extends TestCase
         $formula .= ')';
         $this->setCell('B1', $formula);
         self::assertSame($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
+    }
+
+    protected function setArrayAsValue(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
     }
 }

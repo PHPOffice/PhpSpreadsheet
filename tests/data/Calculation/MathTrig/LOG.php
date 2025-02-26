@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // number, base, result
 
 return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Result, Settlement, Maturity, Rate, Yield, Redemption, Frequency, Basis
 
 return [

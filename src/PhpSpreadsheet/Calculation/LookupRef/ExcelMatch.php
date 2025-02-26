@@ -30,9 +30,9 @@ class ExcelMatch
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return array|int|string The relative position of the found item
+     * @return array|float|int|string The relative position of the found item
      */
-    public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
+    public static function MATCH(mixed $lookupValue, mixed $lookupArray, mixed $matchType = self::MATCHTYPE_LARGEST_VALUE): array|string|int|float
     {
         if (is_array($lookupValue)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);
@@ -63,20 +63,11 @@ class ExcelMatch
             $lookupValue = StringHelper::strToLower($lookupValue);
         }
 
-        $valueKey = null;
-        switch ($matchType) {
-            case self::MATCHTYPE_LARGEST_VALUE:
-                $valueKey = self::matchLargestValue($lookupArray, $lookupValue, $keySet);
-
-                break;
-            case self::MATCHTYPE_FIRST_VALUE:
-                $valueKey = self::matchFirstValue($lookupArray, $lookupValue);
-
-                break;
-            case self::MATCHTYPE_SMALLEST_VALUE:
-            default:
-                $valueKey = self::matchSmallestValue($lookupArray, $lookupValue);
-        }
+        $valueKey = match ($matchType) {
+            self::MATCHTYPE_LARGEST_VALUE => self::matchLargestValue($lookupArray, $lookupValue, $keySet),
+            self::MATCHTYPE_FIRST_VALUE => self::matchFirstValue($lookupArray, $lookupValue),
+            default => self::matchSmallestValue($lookupArray, $lookupValue),
+        };
 
         if ($valueKey !== null) {
             return ++$valueKey;
@@ -86,12 +77,7 @@ class ExcelMatch
         return ExcelError::NA();
     }
 
-    /**
-     * @param mixed $lookupValue
-     *
-     * @return mixed
-     */
-    private static function matchFirstValue(array $lookupArray, $lookupValue)
+    private static function matchFirstValue(array $lookupArray, mixed $lookupValue): int|string|null
     {
         if (is_string($lookupValue)) {
             $valueIsString = true;
@@ -127,12 +113,7 @@ class ExcelMatch
         return null;
     }
 
-    /**
-     * @param mixed $lookupValue
-     *
-     * @return mixed
-     */
-    private static function matchLargestValue(array $lookupArray, $lookupValue, array $keySet)
+    private static function matchLargestValue(array $lookupArray, mixed $lookupValue, array $keySet): mixed
     {
         if (is_string($lookupValue)) {
             if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
@@ -166,12 +147,7 @@ class ExcelMatch
         return null;
     }
 
-    /**
-     * @param mixed $lookupValue
-     *
-     * @return mixed
-     */
-    private static function matchSmallestValue(array $lookupArray, $lookupValue)
+    private static function matchSmallestValue(array $lookupArray, mixed $lookupValue): int|string|null
     {
         $valueKey = null;
         if (is_string($lookupValue)) {
@@ -212,10 +188,7 @@ class ExcelMatch
         return $valueKey;
     }
 
-    /**
-     * @param mixed $lookupValue
-     */
-    private static function validateLookupValue($lookupValue): void
+    private static function validateLookupValue(mixed $lookupValue): void
     {
         // Lookup_value type has to be number, text, or logical values
         if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
@@ -223,10 +196,7 @@ class ExcelMatch
         }
     }
 
-    /**
-     * @param mixed $matchType
-     */
-    private static function validateMatchType($matchType): int
+    private static function validateMatchType(mixed $matchType): int
     {
         // Match_type is 0, 1 or -1
         // However Excel accepts other numeric values,
@@ -254,10 +224,7 @@ class ExcelMatch
         }
     }
 
-    /**
-     * @param mixed $matchType
-     */
-    private static function prepareLookupArray(array $lookupArray, $matchType): array
+    private static function prepareLookupArray(array $lookupArray, mixed $matchType): array
     {
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $value) {
@@ -270,8 +237,8 @@ class ExcelMatch
                 $lookupArray[$i] = StringHelper::strToLower($value);
             }
             if (
-                ($value === null) &&
-                (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
+                ($value === null)
+                && (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
             ) {
                 unset($lookupArray[$i]);
             }

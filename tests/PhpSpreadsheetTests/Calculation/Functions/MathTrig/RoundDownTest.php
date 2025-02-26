@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RoundDownTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRoundDown
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
-     */
-    public function testRoundDown($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundDown')]
+    public function testRoundDown(float|int|string $expectedResult, float|int|string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class RoundDownTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerRoundDown(): array
+    public static function providerRoundDown(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROUNDDOWN.php';
     }
 
-    /**
-     * @dataProvider providerRoundDownArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRoundDownArray')]
     public function testRoundDownArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class RoundDownTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerRoundDownArray(): array
+    public static function providerRoundDownArray(): array
     {
         return [
             'first argument row vector' => [

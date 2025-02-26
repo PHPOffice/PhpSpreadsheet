@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods;
 
+use DOMDocument;
+use DOMXPath;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -17,19 +22,9 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $samplesPath = 'tests/data/Writer/Ods';
+    private string $samplesPath = 'tests/data/Writer/Ods';
 
-    /**
-     * @var string
-     */
-
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -70,7 +65,7 @@ class ContentTest extends TestCase
 
         $worksheet1->setCellValueExplicit(
             'C2',
-            '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))',
+            '=IF(A3, CONCAT(A1, " ", A2), CONCAT(A2, " ", A1))',
             DataType::TYPE_FORMULA
         ); // Formula
 
@@ -128,5 +123,42 @@ class ContentTest extends TestCase
         $xml = $content->write();
 
         self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-hidden-worksheet.xml', $xml);
+    }
+
+    public function testWriteBorderStyle(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->getStyle('A1:B2')->applyFromArray([
+            'borders' => [
+                'outline' => [
+                    'borderStyle' => Border::BORDER_THICK,
+                    'color' => ['argb' => 'AA22DD00'],
+                ],
+            ],
+        ]);
+
+        $content = new Content(new Ods($spreadsheet));
+        $xml = $content->write();
+
+        $xmlDoc = new DOMDocument();
+        $xmlDoc->loadXML($xml);
+        $xmlPath = new DOMXPath($xmlDoc);
+
+        foreach (['top', 'bottom'] as $keyRow => $row) {
+            foreach (['left', 'right'] as $keyCell => $cell) {
+                $styles = ['top' => '', 'bottom' => '', 'left' => '', 'right' => ''];
+                $styles[$row] = '2.5pt solid #22DD00';
+                $styles[$cell] = '2.5pt solid #22DD00';
+
+                $query = 'string(//office:document-content/office:body/office:spreadsheet/table:table/table:table-row[position()=' . ($keyRow + 1) . ']/table:table-cell[position()=' . ($keyCell + 1) . ']/@table:style-name)';
+                $idStyle = $xmlPath->evaluate($query);
+
+                foreach ($styles as $direction => $value) {
+                    $query = 'string(//office:document-content/office:automatic-styles/style:style[@style:name="' . $idStyle . '"]/style:table-cell-properties/@fo:border-' . $direction . ')';
+                    $style = $xmlPath->evaluate($query);
+                    self::assertEquals($style, $value);
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class CellDetachTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {
@@ -20,9 +21,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerMethodName
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMethodName')]
     public function testDetach(string $method): void
     {
         $this->expectException(SpreadsheetException::class);
@@ -37,7 +36,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    public function providerMethodName(): array
+    public static function providerMethodName(): array
     {
         return [
             ['updateInCollection'],
@@ -50,9 +49,7 @@ class CellDetachTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerMethodNameSet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMethodNameSet')]
     public function testDetachSet(string $method): void
     {
         $this->expectException(SpreadsheetException::class);
@@ -67,7 +64,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    public function providerMethodNameSet(): array
+    public static function providerMethodNameSet(): array
     {
         return [
             ['setDataValidation'],

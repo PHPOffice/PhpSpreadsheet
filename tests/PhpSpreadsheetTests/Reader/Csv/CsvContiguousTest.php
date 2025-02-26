@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -8,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvContiguousTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $inputFileName = 'samples/Reader/sampleData/example2.csv';
+    private string $inputFileName = 'samples/Reader2/sampleData/example2.csv';
 
     public function testContiguous(): void
     {

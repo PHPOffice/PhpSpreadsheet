@@ -27,11 +27,10 @@ class F
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $u, $v, $cumulative)
+    public static function distribution(mixed $value, mixed $u, mixed $v, mixed $cumulative): array|string|float
     {
         if (is_array($value) || is_array($u) || is_array($v) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $u, $v, $cumulative);
@@ -56,9 +55,9 @@ class F
             return Beta::incompleteBeta($adjustedValue, $u / 2, $v / 2);
         }
 
-        return (Gamma::gammaValue(($v + $u) / 2) /
-                (Gamma::gammaValue($u / 2) * Gamma::gammaValue($v / 2))) *
-            (($u / $v) ** ($u / 2)) *
-            (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
+        return (Gamma::gammaValue(($v + $u) / 2)
+                / (Gamma::gammaValue($u / 2) * Gamma::gammaValue($v / 2)))
+            * (($u / $v) ** ($u / 2))
+            * (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
     }
 }

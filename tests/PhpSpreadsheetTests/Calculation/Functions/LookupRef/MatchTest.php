@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class MatchTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMATCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $input
-     * @param mixed $type
-     */
-    public function testMATCH($expectedResult, $input, array $array, $type = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMATCH')]
+    public function testMATCH(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[0];
@@ -41,14 +37,8 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerMATCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $input
-     * @param mixed $type
-     */
-    public function testMATCHLibre($expectedResult, $input, array $array, $type = null): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMATCH')]
+    public function testMATCHLibre(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         $this->setOpenOffice();
         if (is_array($expectedResult)) {
@@ -77,14 +67,12 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMATCH(): array
+    public static function providerMATCH(): array
     {
         return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }
 
-    /**
-     * @dataProvider providerMatchArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMatchArray')]
     public function testMatchArray(array $expectedResult, string $values, string $selections): void
     {
         $calculation = Calculation::getInstance();
@@ -94,7 +82,7 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMatchArray(): array
+    public static function providerMatchArray(): array
     {
         return [
             'row vector' => [

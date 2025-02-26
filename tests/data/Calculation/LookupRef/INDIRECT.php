@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'cell range absolute' => [600, '$A$1:$A$3'],
     'cell range on different sheet' => [30, 'OtherSheet!A1:A2'],

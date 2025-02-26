@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
@@ -102,6 +104,22 @@ return [
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             ['A', 'E', 'I', 'O', 'U'],
             '',
+        ],
+    ],
+    'slash as column delimiter' => [
+        [['Hello', 'World']],
+        [
+            'Hello/World',
+            '/',
+            '',
+        ],
+    ],
+    'slash as row delimiter' => [
+        [['ho', 'w'], ['about', '#N/A'], ['t', 'hat']],
+        [
+            'ho.w/about/t.hat',
+            '.',
+            '/',
         ],
     ],
 ];

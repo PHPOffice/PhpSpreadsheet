@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,12 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class RefErrorTest extends TestCase
 {
-    /**
-     * @param mixed $expected
-     *
-     * @dataProvider providerRefError
-     */
-    public function testRefError($expected, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRefError')]
+    public function testRefError(mixed $expected, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -35,7 +33,7 @@ class RefErrorTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerRefError(): array
+    public static function providerRefError(): array
     {
         return [
             'Subtotal9 Ok' => [12, '=SUBTOTAL(A1,A2:A4)'],

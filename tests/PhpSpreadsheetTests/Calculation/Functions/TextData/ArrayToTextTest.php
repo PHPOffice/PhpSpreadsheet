@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class ArrayToTextTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerARRAYTOTEXT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerARRAYTOTEXT')]
     public function testArrayToText(string $expectedResult, array $testData, int $mode): void
     {
         $worksheet = $this->getSheet();
@@ -17,7 +17,7 @@ class ArrayToTextTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerARRAYTOTEXT(): array
+    public static function providerARRAYTOTEXT(): array
     {
         return require 'tests/data/Calculation/TextData/ARRAYTOTEXT.php';
     }

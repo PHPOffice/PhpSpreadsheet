@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NegBinomDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNEGBINOMDIST
-     *
-     * @param mixed $expectedResult
-     */
-    public function testNEGBINOMDIST($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNEGBINOMDIST')]
+    public function testNEGBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
     }
 
-    public function providerNEGBINOMDIST(): array
+    public static function providerNEGBINOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/NEGBINOMDIST.php';
     }
 
-    /**
-     * @dataProvider providerNegBinomDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNegBinomDistArray')]
     public function testNegBinomDistArray(
         array $expectedResult,
         string $failures,
@@ -37,7 +33,7 @@ class NegBinomDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNegBinomDistArray(): array
+    public static function providerNegBinomDistArray(): array
     {
         return [
             'row/column vectors' => [

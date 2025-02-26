@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -30,9 +32,7 @@ class RowIteratorEmptyTest extends TestCase
         return $sheet;
     }
 
-    /**
-     * @dataProvider emptyRowBasic
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowBasic')]
     public function testIteratorEmptyRow(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -47,7 +47,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowBasic(): array
+    public static function emptyRowBasic(): array
     {
         return [
             [1, false],
@@ -62,9 +62,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowNullAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowNullAsEmpty')]
     public function testIteratorEmptyRowWithNull(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -77,7 +75,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAsEmpty(): array
+    public static function emptyRowNullAsEmpty(): array
     {
         return [
             [1, false],
@@ -92,9 +90,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowEmptyStringAsEmpty')]
     public function testIteratorEmptyRowWithEmptyString(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -107,7 +103,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowEmptyStringAsEmpty(): array
+    public static function emptyRowEmptyStringAsEmpty(): array
     {
         return [
             [1, false],
@@ -122,9 +118,7 @@ class RowIteratorEmptyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider emptyRowNullAndEmptyStringAsEmpty
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyRowNullAndEmptyStringAsEmpty')]
     public function testIteratorEmptyRowWithNullAndEmptyString(int $rowId, bool $expectedEmpty): void
     {
         $spreadsheet = new Spreadsheet();
@@ -139,7 +133,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAndEmptyStringAsEmpty(): array
+    public static function emptyRowNullAndEmptyStringAsEmpty(): array
     {
         return [
             [1, false],

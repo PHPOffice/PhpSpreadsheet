@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RadiansTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRADIANS
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     */
-    public function testRADIANS($expectedResult, $number = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRADIANS')]
+    public function testRADIANS(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
@@ -26,14 +23,12 @@ class RadiansTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerRADIANS(): array
+    public static function providerRADIANS(): array
     {
         return require 'tests/data/Calculation/MathTrig/RADIANS.php';
     }
 
-    /**
-     * @dataProvider providerRadiansArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRadiansArray')]
     public function testRadiansArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -43,7 +38,7 @@ class RadiansTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerRadiansArray(): array
+    public static function providerRadiansArray(): array
     {
         return [
             'row vector' => [[[1.48352986419518, 3.92699081698724, -0.26179938779915]], '{85, 225, -15}'],

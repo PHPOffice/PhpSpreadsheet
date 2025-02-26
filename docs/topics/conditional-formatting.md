@@ -71,7 +71,7 @@ The Wizards know which operator types match up with condition types, and provide
 
 ---
 
-Note that `$conditionalStyles` is an array: it is possible to apply several conditions to the same range of cells. If we also wanted to highlight values that were less than 10 in the the A1:A10 range, we can add a second style rule.
+Note that `$conditionalStyles` is an array: it is possible to apply several conditions to the same range of cells. If we also wanted to highlight values that were less than 10 in the A1:A10 range, we can add a second style rule.
 
 In Excel, we would do this by selecting the range again, and going through the same process, this time selecting the "Highlight Cells Rules", then "Less Than" from the "Conditional Styles" menu, entering the value "10" in the prompt box, and selecting the appropriate style.
 
@@ -106,9 +106,9 @@ $conditional = $wizard->getConditional();
 
 ### Order of Evaluating Multiple Rules/Conditions
 
-`$conditionalStyles` is an array, which not only represents multiple conditions that can be applied to a cell (or range of cells), but also the order in which they are checked. MS Excel will check each of those conditions in turn in the order they are defined; and will stop checking once it finds a first matching rule. This means that the order of checking conditions can be important.
+`$conditionalStyles` is an array, which not only represents multiple conditions that can be applied to a cell (or range of cells), but also the order in which they are checked. Some spreadsheet programs stop processing conditions once they find a match. On the other hand, MS Excel will check each of those conditions in turn in the order they are defined. It will stop checking only if it finds a matching rule that specifies 'stop if true'; however, if it finds conflicting matches with conflicting formatting (e.g. both set a background fill color but use different choices), the first match wins. In either case, this means that the order of checking conditions can be important.
 
-Consider the following. We have one condition that checks if a cell value is between -10 and 10, styling the cell in yellow if that condition matches; and a second condition that checks if the cell value is equal to 0, styling the cell in red if that matches.
+Consider the following. We have one condition that checks if a cell value is between -2 and 2, styling the fill color of the cell in yellow if that condition matches; and a second condition that checks if the cell value is equal to 0, styling the fill color of the cell in red if that matches.
  - Yellow if value is between -2 and 2
  - Red if value equals 0 
 
@@ -120,11 +120,21 @@ If the rule order is reversed
  - Red if value equals 0
  - Yellow if value is between -2 and 2
 
-then the cell containing the value 0 will be rendered in red, because that is the first matching condition; and the between rule will not be assessed for that cell.
+then the cell containing the value 0 will be rendered in red, because that is the first matching condition; and the formatting in the other condition conflicts with this, so is discarded.
 
 ![11-21-CF-Rule-Order-2.png](./images/11-21-CF-Rule-Order-2.png)
 
 So when you have multiple conditions where the rules might "overlap", the order of these is important.
+
+If the cell matches multiple conditions, Excel (but not most other spreadsheet programs) will apply non-conflicting styles from each match. So, for the example above, if we wanted a match of 0 to have a different *font* color rather than a different *fill* color, Excel can honor both.
+
+![11-21-CF-Rule-Order-2.pic2.png](./images/11-21-CF-Rule-Order-2.pic2.png)
+
+Here is the same spreadsheet opened in LibreOffice - cell A4 has only the first conditional style applied to it. (You would see the same if you checked 'Stop if True' in Excel.) If you want the spreadsheet to appear the same in both Excel and LibreOffice, you would need to use more complicated conditions.
+
+![11-21-CF-Rule-Order-2.pic2.png](./images/11-21-CF-Rule-Order-2.pic3.png)
+
+PhpSpreadsheet supports the setting of [Stop If True](#stop-if-true-and-no-format-set).
 
 
 ### Reader/Writer Support
@@ -704,8 +714,17 @@ This example can also be found in the [code samples](https://github.com/PHPOffic
 
 ## General Notes
 
-### Stop If True
+### Stop If True, and No Format Set
 
+Normally, Excel continues to check even after it finds a match. To tell it to stop once a match is found, 'stop if true' should be specified:
+```php
+$conditional->setStopIfTrue(true);
+```
+
+Sometimes you want a matched cell to just show its unconditional format. This is most useful in conjunction with 'stop if true'.
+```php
+$conditional->setNoFormatSet(true);
+```
 
 ### Changing the Cell Range
 

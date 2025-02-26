@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
+use DateTime;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -24,7 +25,7 @@ class DateValue
      * Excel Function:
      *        DATEVALUE(dateValue)
      *
-     * @param null|array|string $dateValue Text that represents a date in a Microsoft Excel date format.
+     * @param null|array|bool|float|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
      *                                    quotation marks that represent dates. Using the default date
      *                                    system in Excel for Windows, date_text must represent a date from
@@ -34,20 +35,25 @@ class DateValue
      *                                    #VALUE! error value if date_text is out of this range.
      *                         Or can be an array of date values
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString($dateValue)
+    public static function fromString(null|array|string|int|bool|float $dateValue): array|string|float|int|DateTime
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
         }
 
+        // try to parse as date iff there is at least one digit
+        if (is_string($dateValue) && preg_match('/\d/', $dateValue) !== 1) {
+            return ExcelError::VALUE();
+        }
+
         $dti = new DateTimeImmutable();
         $baseYear = SharedDateHelper::getExcelCalendar();
-        $dateValue = trim($dateValue ?? '', '"');
+        $dateValue = trim((string) $dateValue, '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = (string) preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
         //    Convert separators (/ . or space) to hyphens (should also handle dot used for ordinals in some countries, e.g. Denmark, Germany)
@@ -69,7 +75,7 @@ class DateValue
         }
         if (count($t1) === 1) {
             //    We've been fed a time value without any date
-            return ((strpos((string) $t, ':') === false)) ? ExcelError::Value() : 0.0;
+            return ((!str_contains((string) $t, ':'))) ? ExcelError::Value() : 0.0;
         }
         unset($t);
 
@@ -126,10 +132,10 @@ class DateValue
     /**
      * Final results.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear)
+    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear): string|float|int|DateTime
     {
         $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {

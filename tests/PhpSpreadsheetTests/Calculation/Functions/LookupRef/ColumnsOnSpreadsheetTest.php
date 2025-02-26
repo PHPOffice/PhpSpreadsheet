@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
 
 class ColumnsOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOLUMNSonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
-     */
-    public function testColumnsOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOLUMNSonSpreadsheet')]
+    public function testColumnsOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -36,7 +33,7 @@ class ColumnsOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMNSonSpreadsheet(): array
+    public static function providerCOLUMNSonSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNSonSpreadsheet.php';
     }

@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FloorMathTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFLOORMATH
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
-     */
-    public function testFLOORMATH($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFLOORMATH')]
+    public function testFLOORMATH(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class FloorMathTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFLOORMATH(): array
+    public static function providerFLOORMATH(): array
     {
         return require 'tests/data/Calculation/MathTrig/FLOORMATH.php';
     }
 
-    /**
-     * @dataProvider providerFloorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFloorArray')]
     public function testFloorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class FloorMathTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFloorArray(): array
+    public static function providerFloorArray(): array
     {
         return [
             'matrix' => [[[3.14, 3.14], [3.14155, 3.141592]], '3.1415926536', '{0.01, 0.002; 0.00005, 0.000002}'],

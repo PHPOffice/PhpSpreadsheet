@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
@@ -19,9 +21,9 @@ class LineStylesTest extends TestCase
             Properties::LINE_STYLE_CAP_SQUARE, // capType
             '', // jointType
             '', // headArrowType
-            '', // headArrowSize
+            0, // headArrowSize
             '', // endArrowType
-            '', // endArrowSize
+            0, // endArrowSize
             'lg', // headArrowWidth
             'med', // headArrowLength
             '', // endArrowWidth

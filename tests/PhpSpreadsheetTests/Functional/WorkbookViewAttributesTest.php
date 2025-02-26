@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class WorkbookViewAttributesTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Xlsx'],
@@ -19,12 +21,9 @@ class WorkbookViewAttributesTest extends AbstractFunctional
      * are preserved when xlsx documents are read and written.
      *
      * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/523
-     *
-     * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testPreserveWorkbookViewAttributes($format): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
+    public function testPreserveWorkbookViewAttributes(string $format): void
     {
         // Create a dummy workbook with two worksheets
         $workbook = new Spreadsheet();

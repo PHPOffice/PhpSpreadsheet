@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class DollarDeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDOLLARDE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testDOLLARDE($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDOLLARDE')]
+    public function testDOLLARDE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DOLLARDE', $expectedResult, $args);
     }
 
-    public function providerDOLLARDE(): array
+    public static function providerDOLLARDE(): array
     {
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
 
-    /**
-     * @dataProvider providerDollarDeArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDollarDeArray')]
     public function testDollarDeArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class DollarDeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDollarDeArray(): array
+    public static function providerDollarDeArray(): array
     {
         return [
             'first argument row vector' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,26 +17,19 @@ class IsEvenTest extends TestCase
         self::assertSame(ExcelError::NAME(), $result);
     }
 
-    /**
-     * @dataProvider providerIsEven
-     *
-     * @param bool|string $expectedResult
-     * @param mixed $value
-     */
-    public function testIsEven($expectedResult, $value): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEven')]
+    public function testIsEven(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isEven($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsEven(): array
+    public static function providerIsEven(): array
     {
         return require 'tests/data/Calculation/Information/IS_EVEN.php';
     }
 
-    /**
-     * @dataProvider providerIsEvenArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEvenArray')]
     public function testIsEvenArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -44,7 +39,7 @@ class IsEvenTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsEvenArray(): array
+    public static function providerIsEvenArray(): array
     {
         return [
             'vector' => [

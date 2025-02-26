@@ -11,17 +11,13 @@ class Iterator implements \Iterator
 {
     /**
      * Spreadsheet to iterate.
-     *
-     * @var Spreadsheet
      */
-    private $subject;
+    private Spreadsheet $subject;
 
     /**
      * Current iterator position.
-     *
-     * @var int
      */
-    private $position = 0;
+    private int $position = 0;
 
     /**
      * Create a new worksheet iterator.

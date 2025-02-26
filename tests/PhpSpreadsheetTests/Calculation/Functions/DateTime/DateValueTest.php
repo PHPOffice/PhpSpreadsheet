@@ -1,51 +1,151 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class DateValueTest extends AllSetupTeardown
+class DateValueTest extends TestCase
 {
-    /**
-     * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testDATEVALUE($expectedResult, string $dateValue): void
+    private int $excelCalendar;
+
+    private string $returnDateType;
+
+    protected function setUp(): void
     {
-        $this->getSheet()->getCell('B1')->setValue('1954-07-20');
-        // Loop to avoid extraordinarily rare edge case where first calculation
-        // and second do not take place on same day.
-        $row = 0;
-        do {
-            ++$row;
-            $dtStart = new DateTimeImmutable();
-            $startDay = $dtStart->format('d');
-            if (is_string($expectedResult)) {
-                $replYMD = str_replace('Y', date('Y'), $expectedResult);
-                if ($replYMD !== $expectedResult) {
-                    $expectedResult = DateValue::fromString($replYMD);
-                }
-            }
-            $this->getSheet()->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
-            $result = $this->getSheet()->getCell("A$row")->getCalculatedValue();
-            $dtEnd = new DateTimeImmutable();
-            $endDay = $dtEnd->format('d');
-        } while ($startDay !== $endDay);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        parent::setUp();
+
+        $this->excelCalendar = SharedDate::getExcelCalendar();
+        $this->returnDateType = Functions::getReturnDateType();
     }
 
-    public function providerDATEVALUE(): array
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        SharedDate::setExcelCalendar($this->excelCalendar);
+        Functions::setReturnDateType($this->returnDateType);
+    }
+
+    private function expectationIsTemplate(mixed $expectedResult): bool
+    {
+        return is_string($expectedResult) && str_starts_with($expectedResult, 'Y-');
+    }
+
+    private function parseTemplatedExpectation(float|int|string $expectedResult): string
+    {
+        /** @var float */
+        $x = DateValue::fromString(
+            (new DateTimeImmutable(
+                str_replace('Y', (new DateTimeImmutable('now'))->format('Y'), (string) $expectedResult)
+            ))->format('Y-m-d')
+        );
+
+        return (string) $x;
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    public function testDirectCallToDATEVALUE(int|string $expectedResult, bool|int|string $value): void
+    {
+        if ($this->expectationIsTemplate($expectedResult)) {
+            $expectedResult = $this->parseTemplatedExpectation((string) $expectedResult);
+        }
+
+        $result = DateValue::fromString($value);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    public function testDATEVALUEAsFormula(float|int|string $expectedResult, mixed ...$args): void
+    {
+        if ($this->expectationIsTemplate($expectedResult)) {
+            $expectedResult = $this->parseTemplatedExpectation($expectedResult);
+        }
+
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DATEVALUE({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    public function testDATEVALUEInWorksheet(float|int|string $expectedResult, mixed ...$args): void
+    {
+        if ($this->expectationIsTemplate($expectedResult)) {
+            $expectedResult = $this->parseTemplatedExpectation($expectedResult);
+        }
+
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DATEVALUE({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerDATEVALUE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }
 
+    public function testRefArgNull(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('=DATEVALUE(B1)');
+        self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDATEVALUE')]
+    public function testDATEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DATEVALUE({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyDATEVALUE(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DATEVALUE() function'],
+        ];
+    }
+
     public function testDATEVALUEtoUnixTimestamp(): void
     {
-        self::setUnixReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateValue::fromString('2012-1-31');
         self::assertEquals(1327968000, $result);
@@ -54,7 +154,7 @@ class DateValueTest extends AllSetupTeardown
 
     public function testDATEVALUEtoDateTimeObject(): void
     {
-        self::setObjectReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateValue::fromString('2012-1-31');
         //    Must return an object...
@@ -65,18 +165,17 @@ class DateValueTest extends AllSetupTeardown
         self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 
-    public function testDATEVALUEwith1904Calendar(): void
+    public function testDATEVALUEWith1904Calendar(): void
     {
-        self::setMac1904();
+        SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
+
         self::assertEquals(5428, DateValue::fromString('1918-11-11'));
         self::assertEquals(0, DateValue::fromString('1904-01-01'));
         self::assertEquals('#VALUE!', DateValue::fromString('1903-12-31'));
         self::assertEquals('#VALUE!', DateValue::fromString('1900-02-29'));
     }
 
-    /**
-     * @dataProvider providerDateValueArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateValueArray')]
     public function testDateValueArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -86,7 +185,7 @@ class DateValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDateValueArray(): array
+    public static function providerDateValueArray(): array
     {
         return [
             'row vector' => [[[44562, 44724, 45129]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],

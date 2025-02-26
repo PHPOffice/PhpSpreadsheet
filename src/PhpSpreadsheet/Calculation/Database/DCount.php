@@ -20,7 +20,7 @@ class DCount extends DatabaseAbstract
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param null|int|string $field Indicates which column is used in the function. Enter the
+     * @param null|array|int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -30,10 +30,8 @@ class DCount extends DatabaseAbstract
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return int|string
      */
-    public static function evaluate($database, $field, $criteria, bool $returnError = true)
+    public static function evaluate(array $database, array|null|int|string $field, array $criteria, bool $returnError = true): string|int
     {
         $field = self::fieldExtract($database, $field);
         if ($returnError && $field === null) {

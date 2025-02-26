@@ -5,9 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class NumberFormatter
+class NumberFormatter extends BaseFormatter
 {
-    private const NUMBER_REGEX = '/(0+)(\\.?)(0*)/';
+    private const NUMBER_REGEX = '/(0+)(\.?)(0*)/';
 
     private static function mergeComplexNumberFormatMasks(array $numbers, array $masks): array
     {
@@ -28,12 +28,9 @@ class NumberFormatter
         ];
     }
 
-    /**
-     * @param mixed $number
-     */
-    private static function processComplexNumberFormatMask($number, string $mask): string
+    private static function processComplexNumberFormatMask(mixed $number, string $mask): string
     {
-        /** @var string */
+        /** @var string $result */
         $result = $number;
         $maskingBlockCount = preg_match_all('/0+/', $mask, $maskingBlocks, PREG_OFFSET_CAPTURE);
 
@@ -46,13 +43,13 @@ class NumberFormatter
                 $divisor = 10 ** $size;
                 $offset = $block[1];
 
-                /** @var float */
+                /** @var float $numberFloat */
                 $numberFloat = $number;
                 $blockValue = sprintf("%0{$size}d", fmod($numberFloat, $divisor));
                 $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
-            /** @var string */
+            /** @var string $numberString */
             $numberString = $number;
             if ($number > 0) {
                 $mask = substr_replace($mask, $numberString, $offset, 0);
@@ -63,12 +60,9 @@ class NumberFormatter
         return self::makeString($result);
     }
 
-    /**
-     * @param mixed $number
-     */
-    private static function complexNumberFormatMask($number, string $mask, bool $splitOnPoint = true): string
+    private static function complexNumberFormatMask(mixed $number, string $mask, bool $splitOnPoint = true): string
     {
-        /** @var float */
+        /** @var float $numberFloat */
         $numberFloat = $number;
         if ($splitOnPoint) {
             $masks = explode('.', $mask);
@@ -81,7 +75,7 @@ class NumberFormatter
         $sign = ($numberFloat < 0.0) ? '-' : '';
         $number = self::f2s(abs($numberFloat));
 
-        if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
+        if ($splitOnPoint && str_contains($mask, '.') && str_contains($number, '.')) {
             $numbers = explode('.', $number);
             $masks = explode('.', $mask);
             if (count($masks) > 2) {
@@ -138,12 +132,9 @@ class NumberFormatter
         return $s;
     }
 
-    /**
-     * @param mixed $value
-     */
-    private static function formatStraightNumericValue($value, string $format, array $matches, bool $useThousands): string
+    private static function formatStraightNumericValue(mixed $value, string $format, array $matches, bool $useThousands): string
     {
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
         $left = $matches[1];
         $dec = $matches[2];
@@ -164,14 +155,17 @@ class NumberFormatter
 
         if (preg_match('/[0#]E[+-]0/i', $format)) {
             //    Scientific format
-            return sprintf('%5.2E', $valueFloat);
+            $decimals = strlen($right);
+            $size = $decimals + 3;
+
+            return sprintf("%{$size}.{$decimals}E", $valueFloat);
         } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
             if ($valueFloat == floor($valueFloat) && substr_count($format, '.') === 1) {
                 $value *= 10 ** strlen(explode('.', $format)[1]);
             }
 
             $result = self::complexNumberFormatMask($value, $format);
-            if (strpos($result, 'E') !== false) {
+            if (str_contains($result, 'E')) {
                 // This is a hack and doesn't match Excel.
                 // It will, at least, be an accurate representation,
                 //  even if formatted incorrectly.
@@ -182,67 +176,57 @@ class NumberFormatter
             return $result;
         }
 
-        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
-        /** @var float */
+        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'F';
+
+        /** @var float $valueFloat */
         $valueFloat = $value;
-        $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
+        $value = self::adjustSeparators(sprintf($sprintf_pattern, round($valueFloat, strlen($right))));
 
         return self::pregReplace(self::NUMBER_REGEX, $value, $format);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function format($value, string $format): string
+    /** @param float|int|numeric-string $value value to be formatted */
+    public static function format(mixed $value, string $format): string
     {
         // The "_" in this string has already been stripped out,
         // so this test is never true. Furthermore, testing
         // on Excel shows this format uses Euro symbol, not "EUR".
-        //if ($format === NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE) {
-        //    return 'EUR ' . sprintf('%1.2f', $value);
-        //}
+        // if ($format === NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE) {
+        //     return 'EUR ' . sprintf('%1.2f', $value);
+        // }
 
-        // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
-        $format = self::makeString(str_replace(['"', '*'], '', $format));
+        $baseFormat = $format;
 
-        // Find out if we need thousands separator
-        // This is indicated by a comma enclosed by a digit placeholder:
-        //        #,#   or   0,0
-        $useThousands = (bool) preg_match('/(#,#|0,0)/', $format);
-        if ($useThousands) {
-            $format = self::pregReplace('/0,0/', '00', $format);
-            $format = self::pregReplace('/#,#/', '##', $format);
-        }
+        $useThousands = self::areThousandsRequired($format);
+        $scale = self::scaleThousandsMillions($format);
 
-        // Scale thousands, millions,...
-        // This is indicated by a number of commas after a digit placeholder:
-        //        #,   or    0.0,,
-        $scale = 1; // same as no scale
-        $matches = [];
-        if (preg_match('/(#|0)(,+)/', $format, $matches)) {
-            $scale = 1000 ** strlen($matches[2]);
-
-            // strip the commas
-            $format = self::pregReplace('/0,+/', '0', $format);
-            $format = self::pregReplace('/#,+/', '#', $format);
-        }
-        if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
+        if (preg_match('/[#\?0]?.*[#\?0]\/(\?+|\d+|#)/', $format)) {
+            // It's a dirty hack; but replace # and 0 digit placeholders with ?
+            $format = (string) preg_replace('/[#0]+\//', '?/', $format);
+            $format = (string) preg_replace('/\/[#0]+/', '/?', $format);
             $value = FractionFormatter::format($value, $format);
         } else {
             // Handle the number itself
-
             // scale number
             $value = $value / $scale;
-            // Strip #
-            $format = self::pregReplace('/\\#/', '0', $format);
-            // Remove locale code [$-###]
+            $paddingPlaceholder = (str_contains($format, '?'));
+
+            // Replace # or ? with 0
+            $format = self::pregReplace('/[\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
+            // Remove locale code [$-###] for an LCID
             $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
-            $n = '/\\[[^\\]]+\\]/';
+            $n = '/\[[^\]]+\]/';
             $m = self::pregReplace($n, '', $format);
+
+            // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
+            $format = self::makeString(str_replace(['"', '*'], '', $format));
             if (preg_match(self::NUMBER_REGEX, $m, $matches)) {
                 // There are placeholders for digits, so inject digits from the value into the mask
                 $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands);
+                if ($paddingPlaceholder === true) {
+                    $value = self::padValue($value, $baseFormat);
+                }
             } elseif ($format !== NumberFormat::FORMAT_GENERAL) {
                 // Yes, I know that this is basically just a hack;
                 //      if there's no placeholders for digits, just return the format mask "as is"
@@ -252,6 +236,7 @@ class NumberFormatter
 
         if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
             //  Currency or Accounting
+            $value = preg_replace('/-0+(( |\xc2\xa0))?\[/', '- [', (string) $value) ?? $value;
             $currencyCode = $m[1];
             [$currencyCode] = explode('-', $currencyCode);
             if ($currencyCode == '') {
@@ -260,13 +245,17 @@ class NumberFormatter
             $value = self::pregReplace('/\[\$([^\]]*)\]/u', $currencyCode, (string) $value);
         }
 
+        if (
+            (str_contains((string) $value, '0.'))
+            && ((str_contains($baseFormat, '#.')) || (str_contains($baseFormat, '?.')))
+        ) {
+            $value = preg_replace('/(\b)0\.|([^\d])0\./', '${2}.', (string) $value);
+        }
+
         return (string) $value;
     }
 
-    /**
-     * @param array|string $value
-     */
-    private static function makeString($value): string
+    private static function makeString(array|string $value): string
     {
         return is_array($value) ? '' : "$value";
     }
@@ -274,5 +263,55 @@ class NumberFormatter
     private static function pregReplace(string $pattern, string $replacement, string $subject): string
     {
         return self::makeString(preg_replace($pattern, $replacement, $subject) ?? '');
+    }
+
+    public static function padValue(string $value, string $baseFormat): string
+    {
+        $preDecimal = $postDecimal = '';
+        $pregArray = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
+        if (is_array($pregArray)) {
+            $preDecimal = $pregArray[0] ?? '';
+            $postDecimal = $pregArray[1] ?? '';
+        }
+
+        $length = strlen($value);
+        if (str_contains($postDecimal, '?')) {
+            $value = str_pad(rtrim($value, '0. '), $length, ' ', STR_PAD_RIGHT);
+        }
+        if (str_contains($preDecimal, '?')) {
+            $value = str_pad(ltrim($value, '0, '), $length, ' ', STR_PAD_LEFT);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Find out if we need thousands separator
+     * This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?
+     */
+    public static function areThousandsRequired(string &$format): bool
+    {
+        $useThousands = (bool) preg_match('/([#\?0]),([#\?0])/', $format);
+        if ($useThousands) {
+            $format = self::pregReplace('/([#\?0]),([#\?0])/', '${1}${2}', $format);
+        }
+
+        return $useThousands;
+    }
+
+    /**
+     * Scale thousands, millions,...
+     * This is indicated by a number of commas after a digit placeholder: #, or 0.0,, or ?,.
+     */
+    public static function scaleThousandsMillions(string &$format): int
+    {
+        $scale = 1; // same as no scale
+        if (preg_match('/(#|0|\?)(,+)/', $format, $matches)) {
+            $scale = 1000 ** strlen($matches[2]);
+            // strip the commas
+            $format = self::pregReplace('/([#\?0]),+/', '${1}', $format);
+        }
+
+        return $scale;
     }
 }

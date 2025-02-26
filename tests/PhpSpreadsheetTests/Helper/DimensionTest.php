@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -8,18 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class DimensionTest extends TestCase
 {
-    /**
-     * @dataProvider providerCellWidth
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCellWidth')]
     public function testCreateDimension(float $expectedResult, string $dimension): void
     {
         $result = (new Dimension($dimension))->width();
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerConvertUoM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerConvertUoM')]
     public function testConvertDimension(float $expectedResult, string $dimension, string $unitOfMeasure): void
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);
@@ -33,7 +31,7 @@ class DimensionTest extends TestCase
         (new Dimension('999'))->toUnit('pikachu');
     }
 
-    public function providerCellWidth(): array
+    public static function providerCellWidth(): array
     {
         return [
             [12.0, '12'],
@@ -52,7 +50,7 @@ class DimensionTest extends TestCase
         ];
     }
 
-    public function providerConvertUoM(): array
+    public static function providerConvertUoM(): array
     {
         return [
             [60, '8.54', Dimension::UOM_PIXELS],

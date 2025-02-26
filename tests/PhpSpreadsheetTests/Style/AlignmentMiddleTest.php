@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -12,11 +14,9 @@ use ZipArchive;
 
 class AlignmentMiddleTest extends TestCase
 {
-    /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var string */
-    private $outputFileName = '';
+    private string $outputFileName = '';
 
     protected function tearDown(): void
     {
@@ -39,7 +39,7 @@ class AlignmentMiddleTest extends TestCase
         $sheet->getStyle('A1')
             ->getAlignment()
             ->setVertical(Alignment::VERTICAL_CENTER);
-        $writer = new HTML($this->spreadsheet);
+        $writer = new Html($this->spreadsheet);
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString('vertical-align:middle', $html);
         self::assertStringNotContainsString('vertical-align:center', $html);

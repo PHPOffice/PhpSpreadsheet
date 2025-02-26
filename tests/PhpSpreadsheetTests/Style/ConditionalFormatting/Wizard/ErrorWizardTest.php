@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class ErrorWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -34,7 +27,6 @@ class ErrorWizardTest extends TestCase
     public function testErrorWizard(): void
     {
         $ruleType = Wizard::ERRORS;
-        /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
         $wizard->setStyle($this->style);
@@ -52,7 +44,6 @@ class ErrorWizardTest extends TestCase
     public function testNonErrorWizard(): void
     {
         $ruleType = Wizard::NOT_ERRORS;
-        /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
         $wizard->setStyle($this->style);

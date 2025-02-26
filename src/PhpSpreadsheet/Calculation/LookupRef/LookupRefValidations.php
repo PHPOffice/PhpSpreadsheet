@@ -8,10 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class LookupRefValidations
 {
-    /**
-     * @param mixed $value
-     */
-    public static function validateInt($value): int
+    public static function validateInt(mixed $value): int
     {
         if (!is_numeric($value)) {
             if (ErrorValue::isError($value)) {
@@ -24,10 +21,7 @@ class LookupRefValidations
         return (int) floor((float) $value);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function validatePositiveInt($value, bool $allowZero = true): int
+    public static function validatePositiveInt(mixed $value, bool $allowZero = true): int
     {
         $value = self::validateInt($value);
 

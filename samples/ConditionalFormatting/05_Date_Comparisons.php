@@ -111,7 +111,7 @@ $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
 // Set conditional formatting rules and styles
@@ -122,7 +122,9 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
     $dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
     $conditionalStyles = [];
 
-    $methodName = trim($spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue(), '()');
+    /** @var string */
+    $cellContents = $spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue();
+    $methodName = trim($cellContents, '()');
     $dateWizard->$methodName()
         ->setStyle($yellowStyle);
 

@@ -1,35 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DVarPTest extends AllSetupTeardown
+class DVarPTest extends SetupTeardownDatabases
 {
-    /**
-     * @dataProvider providerDVarP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDirectCallToDVarP($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVarP')]
+    public function testDirectCallToDVarP(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVarP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    /**
-     * @dataProvider providerDVarP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
-     */
-    public function testDVarPAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVarP')]
+    public function testDVarPAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVARP', $database, $field, $criteria);
 
@@ -37,12 +25,12 @@ class DVarPTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDVarP(): array
+    public static function providerDVarP(): array
     {
         return [
             [
                 7.04,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree'],
@@ -52,7 +40,7 @@ class DVarPTest extends AllSetupTeardown
             ],
             [
                 0.025622222222,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -61,7 +49,7 @@ class DVarPTest extends AllSetupTeardown
             ],
             [
                 0.011622222222,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Age'],
@@ -70,9 +58,9 @@ class DVarPTest extends AllSetupTeardown
             ],
             'Omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

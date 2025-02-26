@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class TextValueWizardTest extends TestCase
 {
-    /**
-     * @var Style
-     */
-    protected $style;
+    protected Style $style;
 
-    /**
-     * @var string
-     */
-    protected $range = '$C$3:$E$5';
+    protected string $range = '$C$3:$E$5';
 
-    /**
-     * @var Wizard
-     */
-    protected $wizardFactory;
+    protected Wizard $wizardFactory;
 
     protected function setUp(): void
     {
@@ -34,7 +27,6 @@ class TextValueWizardTest extends TestCase
     public function testTextContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -56,7 +48,6 @@ class TextValueWizardTest extends TestCase
     public function testTextContainsWizardWithCellReference(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -78,7 +69,6 @@ class TextValueWizardTest extends TestCase
     public function testTextNotContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -100,7 +90,6 @@ class TextValueWizardTest extends TestCase
     public function testTextBeginsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
@@ -122,7 +111,6 @@ class TextValueWizardTest extends TestCase
     public function testTextEndsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
-        /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 

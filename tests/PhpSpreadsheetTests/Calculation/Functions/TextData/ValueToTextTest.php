@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
@@ -7,14 +9,8 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class ValueToTextTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerVALUE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $format
-     */
-    public function testVALUETOTEXT($expectedResult, $value, $format): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVALUE')]
+    public function testVALUETOTEXT(mixed $expectedResult, mixed $value, int|string $format): void
     {
         $sheet = $this->getSheet();
         $this->setCell('A1', $value);
@@ -24,7 +20,7 @@ class ValueToTextTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerVALUE(): array
+    public static function providerVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/VALUETOTEXT.php';
     }

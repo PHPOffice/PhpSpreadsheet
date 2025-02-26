@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
@@ -12,7 +14,6 @@ class ColumnDimensionTest extends TestCase
     {
         $expected = 'A';
         $columnDimension = new ColumnDimension();
-        self::assertInstanceOf(ColumnDimension::class, $columnDimension);
         $result = $columnDimension->getColumnIndex();
         self::assertEquals($expected, $result);
     }

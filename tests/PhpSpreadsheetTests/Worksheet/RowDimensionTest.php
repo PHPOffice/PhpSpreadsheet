@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
@@ -12,7 +14,6 @@ class RowDimensionTest extends TestCase
     {
         $expected = 0;
         $rowDimension = new RowDimension();
-        self::assertInstanceOf(RowDimension::class, $rowDimension);
         $result = $rowDimension->getRowIndex();
         self::assertEquals($expected, $result);
     }

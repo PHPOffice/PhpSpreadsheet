@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -7,8 +9,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class IndirectInternationalTest extends AllSetupTeardown
 {
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -23,9 +24,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInternational')]
     public function testR1C1International(string $locale): void
     {
         Settings::setLocale($locale);
@@ -52,6 +51,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         $sheet->getCell('B10')->setValue('=INDIRECT("R1C3", false)');
         $maxRow = $sheet->getHighestRow();
         for ($row = 2; $row <= $maxRow; ++$row) {
+            /** @var null|bool|float|int|string */
             $rowLocale = $sheet->getCell("A$row")->getValue();
             if (in_array($rowLocale, $sameAsEnglish, true) && in_array($locale, $sameAsEnglish, true)) {
                 $expectedResult = 'text';
@@ -62,7 +62,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         }
     }
 
-    public function providerInternational(): array
+    public static function providerInternational(): array
     {
         return [
             'English' => ['en'],
@@ -77,9 +77,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerRelativeInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRelativeInternational')]
     public function testRelativeInternational(string $locale, string $cell, string $relative): void
     {
         Settings::setLocale($locale);
@@ -89,7 +87,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         self::assertSame('text', $sheet->getCell($cell)->getCalculatedValue());
     }
 
-    public function providerRelativeInternational(): array
+    public static function providerRelativeInternational(): array
     {
         return [
             'English A3' => ['en', 'A3', 'R[]C[+2]'],
@@ -99,9 +97,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCompatibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompatibility')]
     public function testCompatibilityInternational(string $compatibilityMode): void
     {
         Functions::setCompatibilityMode($compatibilityMode);
@@ -121,7 +117,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         self::assertSame($expected2, $sheet->getCell('A2')->getCalculatedValue());
     }
 
-    public function providerCompatibility(): array
+    public static function providerCompatibility(): array
     {
         return [
             [Functions::COMPATIBILITY_EXCEL],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared\Trend;
 
 use PhpOffice\PhpSpreadsheet\Shared\Trend\ExponentialBestFit;
@@ -8,22 +10,17 @@ use PHPUnit\Framework\TestCase;
 class ExponentialBestFitTest extends TestCase
 {
     /**
-     * @dataProvider providerExponentialBestFit
-     *
-     * @param mixed $expectedSlope
-     * @param mixed $expectedIntersect
-     * @param mixed $expectedGoodnessOfFit
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $expectedEquation
+     * @param array<float> $yValues
+     * @param array<float> $xValues
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerExponentialBestFit')]
     public function testExponentialBestFit(
-        $expectedSlope,
-        $expectedIntersect,
-        $expectedGoodnessOfFit,
-        $expectedEquation,
-        $yValues,
-        $xValues
+        array $expectedSlope,
+        array $expectedIntersect,
+        array $expectedGoodnessOfFit,
+        mixed $expectedEquation,
+        array $yValues,
+        array $xValues
     ): void {
         $bestFit = new ExponentialBestFit($yValues, $xValues);
         $slope = $bestFit->getSlope(1);
@@ -42,7 +39,7 @@ class ExponentialBestFitTest extends TestCase
         self::assertSame($expectedGoodnessOfFit[1], $bestFit->getGoodnessOfFit());
     }
 
-    public function providerExponentialBestFit(): array
+    public static function providerExponentialBestFit(): array
     {
         return require 'tests/data/Shared/Trend/ExponentialBestFit.php';
     }

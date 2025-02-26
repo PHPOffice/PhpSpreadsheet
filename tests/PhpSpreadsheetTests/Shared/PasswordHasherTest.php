@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpException;
@@ -8,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PasswordHasherTest extends TestCase
 {
-    /**
-     * @dataProvider providerHashPassword
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHashPassword')]
     public function testHashPassword(
         string $expectedResult,
         string $password,
@@ -33,7 +33,7 @@ class PasswordHasherTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerHashPassword(): array
+    public static function providerHashPassword(): array
     {
         return require 'tests/data/Shared/PasswordHashes.php';
     }

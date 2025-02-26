@@ -19,7 +19,7 @@ $helper->log('<b>Document Creator: </b>' . $creator);
 
 // Read the Date when the workbook was created (as a PHP timestamp value)
 $creationDatestamp = $spreadsheet->getProperties()->getCreated();
-$creationDate = Date::formattedDateTimeFromTimestamp("$creationDatestamp", 'l, d<\s\up>S</\s\up> F Y');
+$creationDate = Date::formattedDateTimeFromTimestamp("$creationDatestamp", 'l, j<\s\u\p>S</\s\u\p> F Y');
 $creationTime = Date::formattedDateTimeFromTimestamp("$creationDatestamp", 'g:i A');
 $helper->log('<b>Created On: </b>' . $creationDate . ' at ' . $creationTime);
 
@@ -30,7 +30,7 @@ $helper->log('<b>Last Modified By: </b>' . $modifiedBy);
 // Read the Date when the workbook was last modified (as a PHP timestamp value)
 $modifiedDatestamp = $spreadsheet->getProperties()->getModified();
 // Format the date and time using the standard PHP date() function
-$modifiedDate = Date::formattedDateTimeFromTimestamp("$modifiedDatestamp", 'l, d<\s\up>S</\s\up> F Y');
+$modifiedDate = Date::formattedDateTimeFromTimestamp("$modifiedDatestamp", 'l, j<\s\u\p>S</\s\u\p> F Y');
 $modifiedTime = Date::formattedDateTimeFromTimestamp("$modifiedDatestamp", 'g:i A');
 $helper->log('<b>Last Modified On: </b>' . $modifiedDate . ' at ' . $modifiedTime);
 
@@ -61,4 +61,4 @@ $helper->log('<b>Company: </b>' . $company);
 // Read the workbook manager property
 $manager = $spreadsheet->getProperties()->getManager();
 $helper->log('<b>Manager: </b>' . $manager);
-$s = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+$s = new PhpOffice\PhpSpreadsheet\Helper\Sample();

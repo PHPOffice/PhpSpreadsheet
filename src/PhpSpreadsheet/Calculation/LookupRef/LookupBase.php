@@ -7,10 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 abstract class LookupBase
 {
-    /**
-     * @param mixed $lookup_array
-     */
-    protected static function validateLookupArray($lookup_array): void
+    protected static function validateLookupArray(mixed $lookup_array): void
     {
         if (!is_array($lookup_array)) {
             throw new Exception(ExcelError::REF());

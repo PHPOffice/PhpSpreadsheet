@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -7,20 +9,11 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 /**  Define a Read Filter class implementing IReadFilter  */
 class CsvContiguousFilter implements IReadFilter
 {
-    /**
-     * @var int
-     */
-    private $startRow = 0;
+    private int $startRow = 0;
 
-    /**
-     * @var int
-     */
-    private $endRow = 0;
+    private int $endRow = 0;
 
-    /**
-     * @var int
-     */
-    private $filterType = 0;
+    private int $filterType = 0;
 
     /**
      * Set the list of rows that we want to read.
@@ -52,7 +45,7 @@ class CsvContiguousFilter implements IReadFilter
         return false;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         if ($this->filterType == 1) {
             return $this->filter1($row);

@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertBinary;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class Bin2HexTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -25,79 +27,116 @@ class Bin2HexTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerBIN2HEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
-     */
-    public function testBin2Hex($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
+    public function testDirectCallToBIN2HEX(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        $result = ($digits === null) ? ConvertBinary::toHex($value) : ConvertBinary::toHex($value, $digits);
+        self::assertSame($expectedResult, $result);
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
+    public function testBIN2HEXAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BIN2HEX({$arguments})";
+
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEX')]
+    public function testBIN2HEXInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=BIN2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BIN2HEX({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBIN2HEX(): array
+    public static function providerBIN2HEX(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2HEX.php';
     }
 
-    /**
-     * @dataProvider providerBIN2HEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
-     */
-    public function testBIN2HEXOds($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBIN2HEX')]
+    public function testBIN2HEXUnhappyPath(string $expectedException, mixed ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        if ($formula === 'true') {
-            $expectedResult = 1;
-        } elseif ($formula === 'false') {
-            $expectedResult = 0;
-        }
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=BIN2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BIN2HEX({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testBIN2HEXFrac(): void
+    public static function providerUnhappyBIN2HEX(): array
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        return [
+            ['Formula Error: Wrong number of arguments for BIN2HEX() function'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2HEXOds')]
+    public function testBIN2HEXOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
+        $result = ($digits === null) ? ConvertBinary::toHex($value) : ConvertBinary::toHex($value, $digits);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public static function providerBIN2HEXOds(): array
+    {
+        return require 'tests/data/Calculation/Engineering/BIN2HEXOpenOffice.php';
+    }
+
+    public function testBIN2HEXFractional(): void
+    {
+        $calculation = Calculation::getInstance();
+        $formula = '=BIN2HEX(101.1)';
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-        $cell = 'G1';
-        $sheet->setCellValue($cell, '=BIN2HEX(101.1)');
-        self::assertEquals(5, $sheet->getCell($cell)->getCalculatedValue());
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('5', $this->trimIfQuoted((string) $result), 'Gnumeric');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $cell = 'O1';
-        $sheet->setCellValue($cell, '=BIN2HEX(101.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $cell = 'E1';
-        $sheet->setCellValue($cell, '=BIN2HEX(101.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
+        /** @var float|int|string */
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    /**
-     * @dataProvider providerBin2HexArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBin2HexArray')]
     public function testBin2HexArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();
@@ -107,7 +146,7 @@ class Bin2HexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBin2HexArray(): array
+    public static function providerBin2HexArray(): array
     {
         return [
             'row/column vector' => [

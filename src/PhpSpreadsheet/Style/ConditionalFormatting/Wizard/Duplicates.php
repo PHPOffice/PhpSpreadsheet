@@ -16,10 +16,7 @@ class Duplicates extends WizardAbstract implements WizardInterface
         'unique' => true,
     ];
 
-    /**
-     * @var bool
-     */
-    protected $inverse;
+    protected bool $inverse;
 
     public function __construct(string $cellRange, bool $inverse = false)
     {
@@ -47,8 +44,8 @@ class Duplicates extends WizardAbstract implements WizardInterface
     public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if (
-            $conditional->getConditionType() !== Conditional::CONDITION_DUPLICATES &&
-            $conditional->getConditionType() !== Conditional::CONDITION_UNIQUE
+            $conditional->getConditionType() !== Conditional::CONDITION_DUPLICATES
+            && $conditional->getConditionType() !== Conditional::CONDITION_UNIQUE
         ) {
             throw new Exception('Conditional is not a Duplicates CF Rule conditional');
         }
@@ -62,10 +59,9 @@ class Duplicates extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments): self
+    public function __call(string $methodName, array $arguments): self
     {
         if (!array_key_exists($methodName, self::OPERATORS)) {
             throw new Exception('Invalid Operation for Errors CF Rule Wizard');

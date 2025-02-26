@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
@@ -11,8 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class Unparsed2396Test extends TestCase
 {
-    /** @var string */
-    private $filename = '';
+    private string $filename = '';
 
     protected function tearDown(): void
     {

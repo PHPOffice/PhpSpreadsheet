@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'OO allows CHAR(0)' => ["\x00", '=CHAR(0)'],
     'OO treats CODE(bool) as 0/1' => ['48', '=CODE(FALSE)'],

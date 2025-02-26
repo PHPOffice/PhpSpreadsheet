@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 class ActiveSheetTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Xls'],
@@ -16,12 +18,9 @@ class ActiveSheetTest extends AbstractFunctional
 
     /**
      * Test load file with correct active sheet.
-     *
-     * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testActiveSheet($format): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
+    public function testActiveSheet(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

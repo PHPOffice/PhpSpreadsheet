@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
+use SimpleXMLElement;
 
 class BaseDrawing implements IComparable
 {
@@ -19,150 +21,121 @@ class BaseDrawing implements IComparable
 
     /**
      * The editAs attribute, used only with two cell anchor.
-     *
-     * @var string
      */
-    protected $editAs = '';
+    protected string $editAs = '';
 
     /**
      * Image counter.
-     *
-     * @var int
      */
-    private static $imageCounter = 0;
+    private static int $imageCounter = 0;
 
     /**
      * Image index.
-     *
-     * @var int
      */
-    private $imageIndex = 0;
+    private int $imageIndex;
 
     /**
      * Name.
-     *
-     * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Description.
-     *
-     * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Worksheet.
-     *
-     * @var null|Worksheet
      */
-    protected $worksheet;
+    protected ?Worksheet $worksheet = null;
 
     /**
      * Coordinates.
-     *
-     * @var string
      */
-    protected $coordinates = 'A1';
+    protected string $coordinates = 'A1';
 
     /**
      * Offset X.
-     *
-     * @var int
      */
-    protected $offsetX = 0;
+    protected int $offsetX = 0;
 
     /**
      * Offset Y.
-     *
-     * @var int
      */
-    protected $offsetY = 0;
+    protected int $offsetY = 0;
 
     /**
      * Coordinates2.
-     *
-     * @var string
      */
-    protected $coordinates2 = '';
+    protected string $coordinates2 = '';
 
     /**
      * Offset X2.
-     *
-     * @var int
      */
-    protected $offsetX2 = 0;
+    protected int $offsetX2 = 0;
 
     /**
      * Offset Y2.
-     *
-     * @var int
      */
-    protected $offsetY2 = 0;
+    protected int $offsetY2 = 0;
 
     /**
      * Width.
-     *
-     * @var int
      */
-    protected $width = 0;
+    protected int $width = 0;
 
     /**
      * Height.
-     *
-     * @var int
      */
-    protected $height = 0;
+    protected int $height = 0;
 
     /**
      * Pixel width of image. See $width for the size the Drawing will be in the sheet.
-     *
-     * @var int
      */
-    protected $imageWidth = 0;
+    protected int $imageWidth = 0;
 
     /**
      * Pixel width of image. See $height for the size the Drawing will be in the sheet.
-     *
-     * @var int
      */
-    protected $imageHeight = 0;
+    protected int $imageHeight = 0;
 
     /**
      * Proportional resize.
-     *
-     * @var bool
      */
-    protected $resizeProportional = true;
+    protected bool $resizeProportional = true;
 
     /**
      * Rotation.
-     *
-     * @var int
      */
-    protected $rotation = 0;
+    protected int $rotation = 0;
+
+    protected bool $flipVertical = false;
+
+    protected bool $flipHorizontal = false;
 
     /**
      * Shadow.
-     *
-     * @var Drawing\Shadow
      */
-    protected $shadow;
+    protected Shadow $shadow;
 
     /**
      * Image hyperlink.
-     *
-     * @var null|Hyperlink
      */
-    private $hyperlink;
+    private ?Hyperlink $hyperlink = null;
 
     /**
      * Image type.
-     *
-     * @var int
      */
-    protected $type = IMAGETYPE_UNKNOWN;
+    protected int $type = IMAGETYPE_UNKNOWN;
+
+    /** @var null|SimpleXMLElement|string[] */
+    protected $srcRect = [];
+
+    /**
+     * Percentage multiplied by 100,000, e.g. 40% = 40,000.
+     * Opacity=x is the same as transparency=100000-x.
+     */
+    protected ?int $opacity = null;
 
     /**
      * Create a new BaseDrawing.
@@ -175,6 +148,11 @@ class BaseDrawing implements IComparable
         // Set image index
         ++self::$imageCounter;
         $this->imageIndex = self::$imageCounter;
+    }
+
+    public function __destruct()
+    {
+        $this->worksheet = null;
     }
 
     public function getImageIndex(): int
@@ -219,30 +197,33 @@ class BaseDrawing implements IComparable
     public function setWorksheet(?Worksheet $worksheet = null, bool $overrideOld = false): self
     {
         if ($this->worksheet === null) {
-            // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+            // Add drawing to Worksheet
             if ($worksheet !== null) {
                 $this->worksheet = $worksheet;
-                $this->worksheet->getCell($this->coordinates);
-                $this->worksheet->getDrawingCollection()->append($this);
+                if (!($this instanceof Drawing && $this->getPath() === '')) {
+                    $this->worksheet->getCell($this->coordinates);
+                }
+                $this->worksheet->getDrawingCollection()
+                    ->append($this);
             }
         } else {
             if ($overrideOld) {
-                // Remove drawing from old \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+                // Remove drawing from old Worksheet
                 $iterator = $this->worksheet->getDrawingCollection()->getIterator();
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
 
                         break;
                     }
                 }
 
-                // Set new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+                // Set new Worksheet
                 $this->setWorksheet($worksheet);
             } else {
-                throw new PhpSpreadsheetException('A Worksheet has already been assigned. Drawings can only exist on one \\PhpOffice\\PhpSpreadsheet\\Worksheet.');
+                throw new PhpSpreadsheetException('A Worksheet has already been assigned. Drawings can only exist on one Worksheet.');
             }
         }
 
@@ -257,6 +238,11 @@ class BaseDrawing implements IComparable
     public function setCoordinates(string $coordinates): self
     {
         $this->coordinates = $coordinates;
+        if ($this->worksheet !== null) {
+            if (!($this instanceof Drawing && $this->getPath() === '')) {
+                $this->worksheet->getCell($this->coordinates);
+            }
+        }
 
         return $this;
     }
@@ -372,9 +358,12 @@ class BaseDrawing implements IComparable
      */
     public function setWidthAndHeight(int $width, int $height): self
     {
-        $xratio = $width / ($this->width != 0 ? $this->width : 1);
-        $yratio = $height / ($this->height != 0 ? $this->height : 1);
-        if ($this->resizeProportional && !($width == 0 || $height == 0)) {
+        if ($this->width === 0 || $this->height === 0 || $width === 0 || $height === 0 || !$this->resizeProportional) {
+            $this->width = $width;
+            $this->height = $height;
+        } else {
+            $xratio = $width / $this->width;
+            $yratio = $height / $this->height;
             if (($xratio * $this->height) < $height) {
                 $this->height = (int) ceil($xratio * $this->height);
                 $this->width = $width;
@@ -382,9 +371,6 @@ class BaseDrawing implements IComparable
                 $this->width = (int) ceil($yratio * $this->width);
                 $this->height = $height;
             }
-        } else {
-            $this->width = $width;
-            $this->height = $height;
         }
 
         return $this;
@@ -414,14 +400,14 @@ class BaseDrawing implements IComparable
         return $this;
     }
 
-    public function getShadow(): Drawing\Shadow
+    public function getShadow(): Shadow
     {
         return $this->shadow;
     }
 
-    public function setShadow(?Drawing\Shadow $shadow = null): self
+    public function setShadow(?Shadow $shadow = null): self
     {
-        $this->shadow = $shadow ?? new Drawing\Shadow();
+        $this->shadow = $shadow ?? new Shadow();
 
         return $this;
     }
@@ -431,23 +417,23 @@ class BaseDrawing implements IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
-            $this->name .
-            $this->description .
-            (($this->worksheet === null) ? '' : $this->worksheet->getHashCode()) .
-            $this->coordinates .
-            $this->offsetX .
-            $this->offsetY .
-            $this->coordinates2 .
-            $this->offsetX2 .
-            $this->offsetY2 .
-            $this->width .
-            $this->height .
-            $this->rotation .
-            $this->shadow->getHashCode() .
-            __CLASS__
+            $this->name
+            . $this->description
+            . (($this->worksheet === null) ? '' : (string) $this->worksheet->getHashInt())
+            . $this->coordinates
+            . $this->offsetX
+            . $this->offsetY
+            . $this->coordinates2
+            . $this->offsetX2
+            . $this->offsetY2
+            . $this->width
+            . $this->height
+            . $this->rotation
+            . $this->shadow->getHashCode()
+            . __CLASS__
         );
     }
 
@@ -531,5 +517,59 @@ class BaseDrawing implements IComparable
     public function validEditAs(): bool
     {
         return in_array($this->editAs, self::VALID_EDIT_AS, true);
+    }
+
+    /**
+     * @return null|SimpleXMLElement|string[]
+     */
+    public function getSrcRect()
+    {
+        return $this->srcRect;
+    }
+
+    /**
+     * @param null|SimpleXMLElement|string[] $srcRect
+     */
+    public function setSrcRect($srcRect): self
+    {
+        $this->srcRect = $srcRect;
+
+        return $this;
+    }
+
+    public function setFlipHorizontal(bool $flipHorizontal): self
+    {
+        $this->flipHorizontal = $flipHorizontal;
+
+        return $this;
+    }
+
+    public function getFlipHorizontal(): bool
+    {
+        return $this->flipHorizontal;
+    }
+
+    public function setFlipVertical(bool $flipVertical): self
+    {
+        $this->flipVertical = $flipVertical;
+
+        return $this;
+    }
+
+    public function getFlipVertical(): bool
+    {
+        return $this->flipVertical;
+    }
+
+    public function setOpacity(?int $opacity): self
+    {
+        $this->opacity = $opacity;
+
+        return $this;
+    }
+
+    public function getOpacity(): ?int
+    {
+        return $this->opacity;
     }
 }

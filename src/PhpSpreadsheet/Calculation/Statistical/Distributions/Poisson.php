@@ -29,7 +29,7 @@ class Poisson
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $mean, $cumulative)
+    public static function distribution(mixed $value, mixed $mean, mixed $cumulative): array|string|float
     {
         if (is_array($value) || is_array($mean) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $cumulative);
@@ -51,14 +51,14 @@ class Poisson
             $summer = 0;
             $floor = floor($value);
             for ($i = 0; $i <= $floor; ++$i) {
-                /** @var float */
+                /** @var float $fact */
                 $fact = MathTrig\Factorial::fact($i);
                 $summer += $mean ** $i / $fact;
             }
 
             return exp(0 - $mean) * $summer;
         }
-        /** @var float */
+        /** @var float $fact */
         $fact = MathTrig\Factorial::fact($value);
 
         return (exp(0 - $mean) * $mean ** $value) / $fact;

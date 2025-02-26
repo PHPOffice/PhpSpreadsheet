@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SechTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSECH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
-     */
-    public function testSECH($expectedResult, $angle): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSECH')]
+    public function testSECH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,14 +22,12 @@ class SechTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSECH(): array
+    public static function providerSECH(): array
     {
         return require 'tests/data/Calculation/MathTrig/SECH.php';
     }
 
-    /**
-     * @dataProvider providerSechArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSechArray')]
     public function testSechArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
@@ -42,7 +37,7 @@ class SechTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSechArray(): array
+    public static function providerSechArray(): array
     {
         return [
             'row vector' => [[[0.64805427366389, 0.88681888397007, 0.64805427366389]], '{1, 0.5, -1}'],

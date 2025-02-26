@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CeilingTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCEILING
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
-     */
-    public function testCEILING($expectedResult, $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCEILING')]
+    public function testCEILING(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,7 +22,7 @@ class CeilingTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCEILING(): array
+    public static function providerCEILING(): array
     {
         return require 'tests/data/Calculation/MathTrig/CEILING.php';
     }
@@ -57,9 +54,7 @@ class CeilingTest extends AllSetupTeardown
         self::assertEqualsWithDelta(6, $result, 1E-12);
     }
 
-    /**
-     * @dataProvider providerCeilingArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCeilingArray')]
     public function testCeilingArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
@@ -69,7 +64,7 @@ class CeilingTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCeilingArray(): array
+    public static function providerCeilingArray(): array
     {
         return [
             'matrix' => [[[3.15, 3.142], [3.1416, 3.141594]], '3.1415926536', '{0.01, 0.002; 0.00005, 0.000002}'],

@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GammaLnTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAMMALN
-     *
-     * @param mixed $expectedResult
-     */
-    public function testGAMMALN($expectedResult, ...$args): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMALN')]
+    public function testGAMMALN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMALN', $expectedResult, ...$args);
     }
 
-    public function providerGAMMALN(): array
+    public static function providerGAMMALN(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
 
-    /**
-     * @dataProvider providerGammaLnArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGammaLnArray')]
     public function testGammaLnArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
@@ -33,7 +29,7 @@ class GammaLnTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGammaLnArray(): array
+    public static function providerGammaLnArray(): array
     {
         return [
             'matrix' => [

@@ -200,6 +200,7 @@ ISNA                     | \PhpOffice\PhpSpreadsheet\Calculation\Information\Err
 ISNONTEXT                | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isNonText
 ISNUMBER                 | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isNumber
 ISODD                    | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isOdd
+ISOMITTED                | **Not yet Implemented**
 ISREF                    | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isRef
 ISTEXT                   | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isText
 N                        | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::asNumber
@@ -213,13 +214,21 @@ TYPE                     | \PhpOffice\PhpSpreadsheet\Calculation\Information\Val
 Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
+BYCOL                    | **Not yet Implemented**
+BYROW                    | **Not yet Implemented**
 FALSE                    | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean::FALSE
 IF                       | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::statementIf
 IFERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFERROR
 IFNA                     | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFNA
 IFS                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFS
+LAMBDA                   | **Not yet Implemented**
+LET                      | **Not yet Implemented**
+MAKEARRAY                | **Not yet Implemented**
+MAP                      | **Not yet Implemented**
 NOT                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::NOT
 OR                       | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalOr
+REDUCE                   | **Not yet Implemented**
+SCAN                     | **Not yet Implemented**
 SWITCH                   | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::statementSwitch
 TRUE                     | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean::TRUE
 XOR                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalXor
@@ -231,11 +240,16 @@ Excel Function           | PhpSpreadsheet Function
 ADDRESS                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address::cell
 AREAS                    | **Not yet Implemented**
 CHOOSE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection::CHOOSE
+CHOOSECOLS               | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseCols
+CHOOSEROWS               | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseRows
 COLUMN                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMN
 COLUMNS                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMNS
+DROP                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::drop
+EXPAND                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::expand
 FILTER                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Filter::filter
 FORMULATEXT              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula::text
 GETPIVOTDATA             | **Not yet Implemented**
+GROUPBY                  | **Not yet Implemented**
 HLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
 HYPERLINK                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 INDEX                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
@@ -248,6 +262,7 @@ ROWS                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowCo
 RTD                      | **Not yet Implemented**
 SORT                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sort
 SORTBY                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sortBy
+TAKE                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::take
 TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 UNIQUE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
@@ -274,8 +289,6 @@ BASE                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base::
 CEILING                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::ceiling
 CEILING.MATH             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::math
 CEILING.PRECISE          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::precise
-CHOOSECOLS               | **Not yet Implemented**
-CHOOSEROWS               | **Not yet Implemented**
 COMBIN                   | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withoutRepetition
 COMBINA                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withRepetition
 COS                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosine::cos
@@ -286,11 +299,9 @@ CSC                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\C
 CSCH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosecant::csch
 DECIMAL                  | **Not yet Implemented**
 DEGREES                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Angle::toDegrees
-DROP                     | **Not yet Implemented**
 ECMA.CEILING             | **Not yet Implemented**
 EVEN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::even
 EXP                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp::evaluate
-EXPAND                   | **Not yet Implemented**
 FACT                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Factorial::fact
 FACTDOUBLE               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Factorial::factDouble
 FLOOR                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::floor
@@ -344,7 +355,6 @@ SUMSQ                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSqu
 SUMX2MY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXSquaredMinusYSquared
 SUMX2PY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXSquaredPlusYSquared
 SUMXMY2                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXMinusYSquared
-TAKE                     | **Not yet Implemented**
 TAN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
 TANH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
 TOCOL                    | **Not yet Implemented**
@@ -513,14 +523,14 @@ ZTEST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Dis
 
 Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
-ARRAYTOTEXT              | **Not yet Implemented**
+ARRAYTOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::fromArray
 ASC                      | **Not yet Implemented**
 BAHTTEXT                 | **Not yet Implemented**
 CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
 CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 CONCAT                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
-CONCATENATE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::actualCONCATENATE
 DBCS                     | **Not yet Implemented**
 DOLLAR                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::DOLLAR
 EXACT                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::exact
@@ -550,10 +560,10 @@ SEARCHB                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search
 SUBSTITUTE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace::substitute
 T                        | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::test
 TEXT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::TEXTFORMAT
-TEXTAFTER                | **Not yet Implemented**
-TEXTBEFORE               | **Not yet Implemented**
+TEXTAFTER                | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::after
+TEXTBEFORE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::before
 TEXTJOIN                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::TEXTJOIN
-TEXTSPLIT                | **Not yet Implemented**
+TEXTSPLIT                | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::split
 THAIDIGIT                | **Not yet Implemented**
 THAINUMSOUND             | **Not yet Implemented**
 THAINUMSTRING            | **Not yet Implemented**
@@ -563,7 +573,7 @@ UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Charac
 UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 UPPER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 VALUE                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
-VALUETOTEXT              | **Not yet Implemented**
+VALUETOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::valueToText
 
 ## CATEGORY_WEB
 
@@ -572,3 +582,15 @@ Excel Function           | PhpSpreadsheet Function
 ENCODEURL                | \PhpOffice\PhpSpreadsheet\Calculation\Web\Service::urlEncode
 FILTERXML                | **Not yet Implemented**
 WEBSERVICE               | \PhpOffice\PhpSpreadsheet\Calculation\Web\Service::webService
+
+## CATEGORY_UNCATEGORISED
+
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+
+## CATEGORY_MICROSOFT_INTERNAL
+
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ANCHORARRAY              | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::anchorArray
+SINGLE                   | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::single

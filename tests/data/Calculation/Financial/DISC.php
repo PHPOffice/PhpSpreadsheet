@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // settlement, maturity, price, redemption, basis, result
 
 return [

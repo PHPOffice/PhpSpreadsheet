@@ -39,11 +39,11 @@ class YearFrac
      *                                        4                European 30/360
      *                         Or can be an array of methods
      *
-     * @return array|float|string fraction of the year, or a string containing an error
+     * @return array|float|int|string fraction of the year, or a string containing an error
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function fraction($startDate, $endDate, $method = 0)
+    public static function fraction(mixed $startDate, mixed $endDate, array|int|string|null $method = 0): array|string|int|float
     {
         if (is_array($startDate) || is_array($endDate) || is_array($method)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $method);
@@ -61,29 +61,20 @@ class YearFrac
             return $e->getMessage();
         }
 
-        switch ($method) {
-            case 0:
-                return Functions::scalar(Days360::between($startDate, $endDate)) / 360;
-            case 1:
-                return self::method1($startDate, $endDate);
-            case 2:
-                return Functions::scalar(Difference::interval($startDate, $endDate)) / 360;
-            case 3:
-                return Functions::scalar(Difference::interval($startDate, $endDate)) / 365;
-            case 4:
-                return Functions::scalar(Days360::between($startDate, $endDate, true)) / 360;
-        }
-
-        return ExcelError::NAN();
+        return match ($method) {
+            0 => Functions::scalar(Days360::between($startDate, $endDate)) / 360,
+            1 => self::method1($startDate, $endDate),
+            2 => Functions::scalar(Difference::interval($startDate, $endDate)) / 360,
+            3 => Functions::scalar(Difference::interval($startDate, $endDate)) / 365,
+            4 => Functions::scalar(Days360::between($startDate, $endDate, true)) / 360,
+            default => ExcelError::NAN(),
+        };
     }
 
     /**
      * Excel 1900 calendar treats date argument of null as 1900-01-00. Really.
-     *
-     * @param mixed $startDate
-     * @param mixed $endDate
      */
-    private static function excelBug(float $sDate, $startDate, $endDate, int $method): float
+    private static function excelBug(float $sDate, mixed $startDate, mixed $endDate, int $method): float
     {
         if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && SharedDateHelper::getExcelCalendar() !== SharedDateHelper::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {

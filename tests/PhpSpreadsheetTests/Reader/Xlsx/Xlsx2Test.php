@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -96,7 +98,7 @@ class Xlsx2Test extends TestCase
         $cond1 = new Conditional();
         $cond1->setConditionType(Conditional::CONDITION_CONTAINSBLANKS);
         $cond1->getStyle()->getFill()->setFillType(Fill::FILL_SOLID);
-        $cond1->getStyle()->getFill()->getEndColor()->setARGB(Color::COLOR_RED);
+        $cond1->getStyle()->getFill()->getStartColor()->setARGB(Color::COLOR_RED);
         $cond = [$cond1];
         $sheet->getStyle('A1:A6')->setConditionalStyles($cond);
         $writer = IOFactory::createWriter($spreadshee1, 'Xlsx');
