@@ -81,7 +81,7 @@ class Arabic
         }
 
         try {
-            $arabic = self::calculateArabic(mb_str_split($roman));
+            $arabic = self::calculateArabic(mb_str_split($roman, 1, 'UTF-8'));
         } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }
