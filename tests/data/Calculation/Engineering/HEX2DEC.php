@@ -12,6 +12,7 @@ return [
     ['4886718345', '123456789'],
     [ExcelError::NAN(), '123.45'],
     ['0', '0'],
+    ['0', ''],
     [ExcelError::NAN(), 'G3579A'],
     [ExcelError::VALUE(), true],
     [ExcelError::VALUE(), false],

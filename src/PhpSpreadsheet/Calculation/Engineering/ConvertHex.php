@@ -96,7 +96,7 @@ class ConvertHex extends ConvertBase
         }
 
         $binX = '';
-        foreach (str_split($value) as $char) {
+        foreach (mb_str_split($value, 1, 'UTF-8') as $char) {
             $binX .= str_pad(base_convert($char, 16, 2), 4, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 40 && $binX[0] == '1') {
