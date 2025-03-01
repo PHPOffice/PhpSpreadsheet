@@ -34,8 +34,7 @@ class HtmlTest extends TestCase
     public function testLiTag(): void
     {
         $html = new Html();
-        /** @var callable */
-        $htmlBreakTag = [Html::class, 'breakTag'];
+        $htmlBreakTag = $html->breakTag(...);
         $html->addStartTagCallback('li', function (DOMElement $tag, Html $object): void {
             $object->stringData .= "\u{00A0}\u{2022} \u{00A0}";
         });

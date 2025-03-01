@@ -569,16 +569,14 @@ class Html extends BaseWriter
     {
         if ($this->includeCharts) {
             foreach ($worksheet->getChartCollection() as $chart) {
-                if ($chart instanceof Chart) {
-                    $chartCoordinates = $chart->getTopLeftPosition();
-                    $this->sheetCharts[$chartCoordinates['cell']] = $chart;
-                    $chartTL = Coordinate::indexesFromString($chartCoordinates['cell']);
-                    if ($chartTL[1] > $rowMax) {
-                        $rowMax = $chartTL[1];
-                    }
-                    if ($chartTL[0] > $colMax) {
-                        $colMax = $chartTL[0];
-                    }
+                $chartCoordinates = $chart->getTopLeftPosition();
+                $this->sheetCharts[$chartCoordinates['cell']] = $chart;
+                $chartTL = Coordinate::indexesFromString($chartCoordinates['cell']);
+                if ($chartTL[1] > $rowMax) {
+                    $rowMax = $chartTL[1];
+                }
+                if ($chartTL[0] > $colMax) {
+                    $colMax = $chartTL[0];
                 }
             }
         }
@@ -1623,7 +1621,7 @@ class Html extends BaseWriter
                 //    Also apply style from last cell in merge to fix borders -
                 //        relies on !important for non-none border declarations in createCSSStyleBorder
                 $endCellCoord = Coordinate::stringFromColumnIndex($colNum + $colSpan) . ($row + $rowSpan);
-                if (!$this->useInlineCss) {
+                if (!$this->useInlineCss && is_string($cssClass)) {
                     $cssClass .= ' style' . $worksheet->getCell($endCellCoord)->getXfIndex();
                 } else {
                     $endBorders = $this->spreadsheet->getCellXfByIndex($worksheet->getCell($endCellCoord)->getXfIndex())->getBorders();

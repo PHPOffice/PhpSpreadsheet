@@ -87,13 +87,13 @@ class Time
     private static function adjustSecond(int &$second, int &$minute): void
     {
         if ($second < 0) {
-            $minute += floor($second / 60);
+            $minute += (int) floor($second / 60);
             $second = 60 - abs($second % 60);
             if ($second == 60) {
                 $second = 0;
             }
         } elseif ($second >= 60) {
-            $minute += floor($second / 60);
+            $minute += intdiv($second, 60);
             $second = $second % 60;
         }
     }
@@ -101,13 +101,13 @@ class Time
     private static function adjustMinute(int &$minute, int &$hour): void
     {
         if ($minute < 0) {
-            $hour += floor($minute / 60);
+            $hour += (int) floor($minute / 60);
             $minute = 60 - abs($minute % 60);
             if ($minute == 60) {
                 $minute = 0;
             }
         } elseif ($minute >= 60) {
-            $hour += floor($minute / 60);
+            $hour += intdiv($minute, 60);
             $minute = $minute % 60;
         }
     }

@@ -69,7 +69,6 @@ class XmlScannerTest extends TestCase
         $scanner = $fileReader->getSecurityScanner();
 
         //    Must return an object...
-        self::assertIsObject($scanner);
         //    ... of the correct type
         self::assertInstanceOf(XmlScanner::class, $scanner);
     }

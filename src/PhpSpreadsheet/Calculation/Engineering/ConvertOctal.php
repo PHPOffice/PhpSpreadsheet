@@ -96,7 +96,7 @@ class ConvertOctal extends ConvertBase
         }
 
         $binX = '';
-        foreach (str_split($value) as $char) {
+        foreach (mb_str_split($value, 1, 'UTF-8') as $char) {
             $binX .= str_pad(decbin((int) $char), 3, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 30 && $binX[0] == '1') {

@@ -55,14 +55,12 @@ class Delimiter
 
     protected function countDelimiterValues(string $line, array $delimiterKeys): void
     {
-        $splitString = str_split($line, 1);
-        if (is_array($splitString)) {
-            $distribution = array_count_values($splitString);
-            $countLine = array_intersect_key($distribution, $delimiterKeys);
+        $splitString = mb_str_split($line, 1, 'UTF-8');
+        $distribution = array_count_values($splitString);
+        $countLine = array_intersect_key($distribution, $delimiterKeys);
 
-            foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
-                $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
-            }
+        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+            $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
         }
     }
 

@@ -40,8 +40,9 @@ class NamespacePurlTest extends \PHPUnit\Framework\TestCase
                 'worksheetName' => 'ml_out',
                 'lastColumnLetter' => 'R',
                 'lastColumnIndex' => 17,
-                'totalRows' => '76',
+                'totalRows' => 76,
                 'totalColumns' => 18,
+                'sheetState' => 'visible',
             ],
         ];
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use GdImage;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +30,6 @@ class MemoryDrawingTest extends TestCase
         $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
         self::assertIsObject($drawing->getImageResource());
-        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_DEFAULT, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_DEFAULT, $drawing->getRenderingFunction());
@@ -48,7 +46,6 @@ class MemoryDrawingTest extends TestCase
         $drawing = MemoryDrawing::fromString($imageString);
 
         self::assertIsObject($drawing->getImageResource());
-        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());
@@ -75,7 +72,6 @@ class MemoryDrawingTest extends TestCase
         fclose($imageStream);
 
         self::assertIsObject($drawing->getImageResource());
-        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());

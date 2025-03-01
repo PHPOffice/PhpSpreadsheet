@@ -161,7 +161,7 @@ class Averages extends AggregateBase
             if ($valueCount == floor($valueCount)) {
                 $returnValue = ($aArgs[$valueCount--] + $aArgs[$valueCount]) / 2;
             } else {
-                $valueCount = floor($valueCount);
+                $valueCount = (int) floor($valueCount);
                 $returnValue = $aArgs[$valueCount];
             }
         }

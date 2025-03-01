@@ -27,7 +27,6 @@ class DuplicatesWizardTest extends TestCase
     public function testDuplicateWizard(): void
     {
         $ruleType = Wizard::DUPLICATES;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);
@@ -43,7 +42,6 @@ class DuplicatesWizardTest extends TestCase
     public function testUniqueWizard(): void
     {
         $ruleType = Wizard::UNIQUE;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);

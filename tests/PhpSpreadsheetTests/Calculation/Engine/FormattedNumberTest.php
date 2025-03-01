@@ -6,15 +6,18 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FormattedNumberTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumbers')]
+    #[DataProvider('providerNumbers')]
     public function testNumber(float $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
-        self::assertSame($expected, $value);
+        // Call by ref convert... changed type from string to float.
+        // Phpstan can't figure that out.
+        self::assertSame($expected, $value); // @phpstan-ignore-line
     }
 
     public static function providerNumbers(): array
@@ -29,7 +32,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFractions')]
+    #[DataProvider('providerFractions')]
     public function testFraction(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -56,7 +59,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerPercentages')]
+    #[DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -183,7 +186,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencies')]
+    #[DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value): void
     {
         $originalValue = $value;
