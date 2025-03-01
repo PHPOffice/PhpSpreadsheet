@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Refactor Helper/Html. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- Handle #REF! as Argument to AVERAGEIF/COUNTIF/SUMIF. [Issue #4381](https://github.com/PHPOffice/PhpSpreadsheet/issues/4381) [PR #4382](https://github.com/PHPOffice/PhpSpreadsheet/pull/4382)
 
 ## 2025-02-08 - 4.0.0
 
