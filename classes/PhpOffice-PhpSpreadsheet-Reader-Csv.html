@@ -364,14 +364,6 @@ Identifies whether the Reader should read data values for all cells, or should i
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_defaultEscapeCharacter">$defaultEscapeCharacter</a>
-    <span>
-                        &nbsp;: string            </span>
-</dt>
-<dd>The character that will be supplied to fgetcsv
-when escapeCharacter is null.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_delimiter">$delimiter</a>
     <span>
                         &nbsp;: string|null            </span>
@@ -842,6 +834,14 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 as escape Character.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getDefaultEscapeCharacter">getDefaultEscapeCharacter()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>The character that will be supplied to fgetcsv
+when escapeCharacter is null.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingNoBom">guessEncodingNoBom()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -942,7 +942,7 @@ as escape Character.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -1439,7 +1439,7 @@ as escape Character.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -1624,7 +1624,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
@@ -1841,7 +1841,7 @@ Identifies whether the Reader should read data values for all cells, or should i
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -1913,7 +1913,7 @@ Identifies whether the Reader should read data values for all cells, or should i
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -1925,46 +1925,6 @@ Identifies whether the Reader should read data values for all cells, or should i
      = <span class="phpdocumentor-signature__default-value">&#039;.&#039;</span></code>
 
     
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_defaultEscapeCharacter">
-        $defaultEscapeCharacter
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_defaultEscapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">78</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The character that will be supplied to fgetcsv
-when escapeCharacter is null.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$defaultEscapeCharacter</span>
-     = <span class="phpdocumentor-signature__default-value">(PHP_VERSION_ID &lt; 90000) ? &#039;\\&#039; : &#039;&#039;</span></code>
-
-        <section class="phpdocumentor-description"><p>It is anticipated that it will conditionally be set
-to null-string for Php9 and above.</p>
-</section>
-
     
     
 
@@ -2136,7 +2096,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -2171,7 +2131,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -2242,7 +2202,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
@@ -2313,7 +2273,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -2348,7 +2308,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -2384,7 +2344,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
@@ -2424,7 +2384,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -2458,14 +2418,14 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">717</span>
+    <span class="phpdocumentor-element-found-in__line">711</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">affectedByPhp9</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inputEncoding</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;UTF-8&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$delimiter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enclosure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&quot;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escapeCharacter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;\&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">affectedByPhp9</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inputEncoding</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;UTF-8&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$delimiter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enclosure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&quot;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escapeCharacter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;\&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2507,6 +2467,13 @@ a migration path.</p>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
             </dl>
 
     
@@ -2533,7 +2500,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">587</span>
+    <span class="phpdocumentor-element-found-in__line">580</span>
 
     </aside>
 
@@ -2581,7 +2548,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">338</span>
+    <span class="phpdocumentor-element-found-in__line">331</span>
 
     </aside>
 
@@ -2631,7 +2598,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
@@ -2668,7 +2635,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">558</span>
+    <span class="phpdocumentor-element-found-in__line">551</span>
 
     </aside>
 
@@ -2705,7 +2672,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">512</span>
+    <span class="phpdocumentor-element-found-in__line">505</span>
 
     </aside>
 
@@ -2742,7 +2709,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">524</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 
     </aside>
 
@@ -2779,19 +2746,29 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">579</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getEscapeCharacter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getEscapeCharacter</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
     
@@ -2816,7 +2793,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">158</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -2932,7 +2909,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
@@ -3009,7 +2986,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">681</span>
+    <span class="phpdocumentor-element-found-in__line">674</span>
 
     </aside>
 
@@ -3241,7 +3218,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">539</span>
+    <span class="phpdocumentor-element-found-in__line">532</span>
 
     </aside>
 
@@ -3315,7 +3292,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">664</span>
+    <span class="phpdocumentor-element-found-in__line">657</span>
 
     </aside>
 
@@ -3369,7 +3346,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">651</span>
+    <span class="phpdocumentor-element-found-in__line">644</span>
 
     </aside>
 
@@ -3423,7 +3400,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">226</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 
     </aside>
 
@@ -3584,7 +3561,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">364</span>
+    <span class="phpdocumentor-element-found-in__line">357</span>
 
     </aside>
 
@@ -3639,7 +3616,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">278</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -3687,7 +3664,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -3734,7 +3711,7 @@ and it should return void.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">551</span>
+    <span class="phpdocumentor-element-found-in__line">544</span>
 
     </aside>
 
@@ -3781,7 +3758,7 @@ and it should return void.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">517</span>
+    <span class="phpdocumentor-element-found-in__line">510</span>
 
     </aside>
 
@@ -3828,7 +3805,7 @@ and it should return void.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">529</span>
+    <span class="phpdocumentor-element-found-in__line">522</span>
 
     </aside>
 
@@ -3875,7 +3852,7 @@ and it should return void.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">568</span>
+    <span class="phpdocumentor-element-found-in__line">561</span>
 
     </aside>
 
@@ -3883,7 +3860,7 @@ and it should return void.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setEscapeCharacter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escapeCharacter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setEscapeCharacter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escapeCharacter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -3897,6 +3874,13 @@ a migration path.</p>
                 <span class="phpdocumentor-signature__argument__name">$escapeCharacter</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -3926,7 +3910,7 @@ a migration path.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">151</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -4072,7 +4056,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -4206,7 +4190,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">674</span>
+    <span class="phpdocumentor-element-found-in__line">667</span>
 
     </aside>
 
@@ -4404,7 +4388,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">544</span>
+    <span class="phpdocumentor-element-found-in__line">537</span>
 
     </aside>
 
@@ -4451,7 +4435,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">686</span>
+    <span class="phpdocumentor-element-found-in__line">679</span>
 
     </aside>
 
@@ -4498,7 +4482,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
@@ -4592,7 +4576,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">178</span>
+    <span class="phpdocumentor-element-found-in__line">170</span>
 
     </aside>
 
@@ -4626,7 +4610,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
@@ -4660,7 +4644,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">265</span>
+    <span class="phpdocumentor-element-found-in__line">258</span>
 
     </aside>
 
@@ -4795,7 +4779,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">158</span>
 
     </aside>
 
@@ -4829,7 +4813,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">468</span>
+    <span class="phpdocumentor-element-found-in__line">461</span>
 
     </aside>
 
@@ -4873,7 +4857,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">484</span>
+    <span class="phpdocumentor-element-found-in__line">477</span>
 
     </aside>
 
@@ -4921,7 +4905,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">702</span>
+    <span class="phpdocumentor-element-found-in__line">695</span>
 
     </aside>
 
@@ -4930,7 +4914,7 @@ as escape Character.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCsv</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">resource&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stream</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|int<0, max>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$length</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$separator</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enclosure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&quot;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escape</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, string|null&gt;|false</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCsv</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">resource&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stream</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|int<0, max>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$length</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$separator</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;,&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enclosure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&quot;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escape</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, string|null&gt;|false</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4972,6 +4956,13 @@ as escape Character.</p>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
             </dl>
 
     
@@ -4990,6 +4981,58 @@ as escape Character.</p>
             -private
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getDefaultEscapeCharacter">
+        getDefaultEscapeCharacter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getDefaultEscapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">753</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The character that will be supplied to fgetcsv
+when escapeCharacter is null.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getDefaultEscapeCharacter</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>It is anticipated that it will conditionally be set
+to null-string for Php9 and above.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_guessEncodingNoBom">
         guessEncodingNoBom()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingNoBom" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4998,7 +5041,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">627</span>
+    <span class="phpdocumentor-element-found-in__line">620</span>
 
     </aside>
 
@@ -5045,7 +5088,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">635</span>
 
     </aside>
 
@@ -5109,7 +5152,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">617</span>
+    <span class="phpdocumentor-element-found-in__line">610</span>
 
     </aside>
 
@@ -5173,7 +5216,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">372</span>
+    <span class="phpdocumentor-element-found-in__line">365</span>
 
     </aside>
 
@@ -5235,7 +5278,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">382</span>
 
     </aside>
 
@@ -5292,7 +5335,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">349</span>
+    <span class="phpdocumentor-element-found-in__line">342</span>
 
     </aside>
 
@@ -5336,7 +5379,7 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">288</span>
+    <span class="phpdocumentor-element-found-in__line">281</span>
 
     </aside>
 
@@ -5379,14 +5422,14 @@ as escape Character.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">setAutoDetect</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+                    <span class="phpdocumentor-signature__name">setAutoDetect</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$version</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5397,6 +5440,13 @@ as escape Character.</p>
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$version</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">PHP_VERSION_ID</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -5562,7 +5612,6 @@ as escape Character.</p>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_constructorCallback">$constructorCallback<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_contiguous">$contiguous<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_decimalSeparator">$decimalSeparator<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_defaultEscapeCharacter">$defaultEscapeCharacter<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_delimiter">$delimiter<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_enclosure">$enclosure<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter">$escapeCharacter<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"></li>
@@ -5638,6 +5687,7 @@ as escape Character.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_convertBoolean">convertBoolean()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_convertFormattedNumber">convertFormattedNumber()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getCsv">getCsv()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_getDefaultEscapeCharacter">getDefaultEscapeCharacter()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingNoBom">guessEncodingNoBom()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingTestBom">guessEncodingTestBom()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingTestNoBom">guessEncodingTestNoBom()</a></li>
