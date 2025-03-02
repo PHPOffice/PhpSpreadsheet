@@ -5,12 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 4.1.0
+## TBD - 4.2.0
 
 ### Added
 
-- Support Justify Last Line. [Issue #4374](https://github.com/PHPOffice/PhpSpreadsheet/issues/4374) [PR #4373](https://github.com/PHPOffice/PhpSpreadsheet/pull/4373)
-- Allow Spreadsheet clone. [PR #437-](https://github.com/PHPOffice/PhpSpreadsheet/pull/4370)
+- Nothing yet.
 
 ### Removed
 
@@ -18,9 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- ListWorksheetInfo will now return sheetState (visible, hidden, veryHidden). [Issue #4345](https://github.com/PHPOffice/PhpSpreadsheet/issues/4345) [PR #4366](https://github.com/PHPOffice/PhpSpreadsheet/pull/4366)
-- Start migration to Phpstan 2. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
-- IOFactory identify can return, and createReader and CreateWriter can accept, a class name rather than a file type. [Issue #4357](https://github.com/PHPOffice/PhpSpreadsheet/issues/4357) [PR #4361](https://github.com/PHPOffice/PhpSpreadsheet/pull/4361)
+- Nothing yet.
 
 ### Moved
 
@@ -29,6 +26,23 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Deprecated
 
 - Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-03-02 - 4.1.0
+
+### Added
+
+- Support Justify Last Line. [Issue #4374](https://github.com/PHPOffice/PhpSpreadsheet/issues/4374) [PR #4373](https://github.com/PHPOffice/PhpSpreadsheet/pull/4373)
+- Allow Spreadsheet clone. [PR #437-](https://github.com/PHPOffice/PhpSpreadsheet/pull/4370)
+
+### Changed
+
+- ListWorksheetInfo will now return sheetState (visible, hidden, veryHidden). [Issue #4345](https://github.com/PHPOffice/PhpSpreadsheet/issues/4345) [PR #4366](https://github.com/PHPOffice/PhpSpreadsheet/pull/4366)
+- Start migration to Phpstan 2. [PR #4359](https://github.com/PHPOffice/PhpSpreadsheet/pull/4359)
+- IOFactory identify can return, and createReader and CreateWriter can accept, a class name rather than a file type. [Issue #4357](https://github.com/PHPOffice/PhpSpreadsheet/issues/4357) [PR #4361](https://github.com/PHPOffice/PhpSpreadsheet/pull/4361)
 
 ### Fixed
 
