@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- Phpstan Version 2. [PR #4384](https://github.com/PHPOffice/PhpSpreadsheet/pull/4384)
 
 ### Moved
 
@@ -29,14 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 
 ## 2025-03-02 - 4.1.0
 
 ### Added
 
 - Support Justify Last Line. [Issue #4374](https://github.com/PHPOffice/PhpSpreadsheet/issues/4374) [PR #4373](https://github.com/PHPOffice/PhpSpreadsheet/pull/4373)
-- Allow Spreadsheet clone. [PR #437-](https://github.com/PHPOffice/PhpSpreadsheet/pull/4370)
+- Allow Spreadsheet clone. [PR #4370](https://github.com/PHPOffice/PhpSpreadsheet/pull/4370)
 
 ### Changed
 
