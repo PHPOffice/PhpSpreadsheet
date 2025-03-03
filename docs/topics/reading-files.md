@@ -851,7 +851,7 @@ for a working example of this code.
 ### listWorksheetInfo
 
 The `listWorksheetInfo()` method returns a nested array, with each entry
-listing the name and dimensions for a worksheet:
+listing the name, dimensions and state for a worksheet:
 
 ```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -865,7 +865,8 @@ foreach ($worksheetData as $worksheet) {
     echo 'Rows: ', $worksheet['totalRows'],
          ' Columns: ', $worksheet['totalColumns'], '<br />';
     echo 'Cell Range: A1:',
-    $worksheet['lastColumnLetter'], $worksheet['totalRows'];
+         $worksheet['lastColumnLetter'], $worksheet['totalRows'], '<br />';
+    echo 'Sheet state: ', $worksheet['sheetState'];
     echo '</li>';
 }
 echo '</ol>';
