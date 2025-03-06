@@ -52,6 +52,7 @@ class DocumentGenerator
         return rtrim($result, ' ');
     }
 
+    /** @param array<int,string>|scalar $functionCall */
     private static function getPhpSpreadsheetFunctionText(mixed $functionCall): string
     {
         if (is_string($functionCall)) {

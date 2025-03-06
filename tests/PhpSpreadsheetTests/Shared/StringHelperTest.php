@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use DateTime;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
@@ -119,5 +121,14 @@ class StringHelperTest extends TestCase
         $output = ob_get_clean();
         $spreadsheet->disconnectWorksheets();
         self::assertSame('"1.4";"1004.5";"1000000.5"' . PHP_EOL, $output);
+    }
+
+    public function testNonStringable(): void
+    {
+        $dt = new DateTime();
+        self::assertSame('', StringHelper::convertToString($dt, false));
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Unable to convert to string');
+        StringHelper::convertToString($dt);
     }
 }

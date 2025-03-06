@@ -7,7 +7,7 @@ includes:
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
 
 parameters:
-    level: 8
+    level: 9
     paths:
         - samples/
         - src/

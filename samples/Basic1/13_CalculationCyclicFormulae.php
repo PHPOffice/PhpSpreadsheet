@@ -27,7 +27,7 @@ for ($row = 1; $row <= 2; ++$row) {
             is_string($formula)
                 && ($formula[0] == '=')
         ) {
-            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());
+            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValueString());
         }
     }
 }

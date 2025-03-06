@@ -49,12 +49,12 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
     $helper->log(
         'Weekday is: '
-        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . $worksheet->getCell('F' . $row)->getCalculatedValueString()
         . ' (1-7 = Sun-Sat)'
     );
     $helper->log(
         'Weekday is: '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' (1-7 = Mon-Sun)'
     );
 }

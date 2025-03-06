@@ -109,7 +109,7 @@ class CalculationTest extends TestCase
             $cell4->setValueExplicit((object) null, DataType::TYPE_FORMULA);
             self::fail('setValueExplicit formula with unstringable object should have thrown exception');
         } catch (SpreadsheetException $e) {
-            self::assertStringContainsString('Invalid unstringable value for datatype Formula', $e->getMessage());
+            self::assertStringContainsString('Unable to convert to string', $e->getMessage());
         }
 
         $cell5 = $workSheet->getCell('A5');

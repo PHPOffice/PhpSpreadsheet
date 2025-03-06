@@ -49,5 +49,5 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         $worksheet->getCell('E' . $row)->getFormattedValue(),
         $worksheet->getCell('F' . $row)->getFormattedValue()
     ));
-    $helper->log('Days: ' . $worksheet->getCell('G' . $row)->getCalculatedValue());
+    $helper->log('Days: ' . $worksheet->getCell('G' . $row)->getCalculatedValueString());
 }

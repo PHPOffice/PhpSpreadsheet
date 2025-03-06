@@ -117,6 +117,11 @@ class WorkbookTest extends TestCase
         // Add last existing color and add one new color
         $keyPalette = array_keys($palette);
         $last = end($keyPalette);
+        self::assertIsArray($palette[8]);
+        self::assertIsArray($palette[10]);
+        self::assertIsArray($palette[12]);
+        self::assertIsArray($palette[25]);
+        self::assertIsArray($palette[$last]);
         $lastColor = $this->paletteToColor($palette[$last]);
         $paletteTestNine = $palette;
 

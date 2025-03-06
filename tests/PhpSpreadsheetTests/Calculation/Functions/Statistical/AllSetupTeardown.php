@@ -128,6 +128,9 @@ class AllSetupTeardown extends TestCase
                 $arrayComma = '';
                 foreach ($arg as $arrayItem) {
                     $arrayArg .= $arrayComma;
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $arrayArg .= $this->convertToString($arrayItem);
                     $arrayComma = ';';
                 }
@@ -162,6 +165,9 @@ class AllSetupTeardown extends TestCase
                 foreach ($arg as $arrayItem) {
                     $formula .= $comma;
                     $comma = ',';
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $formula .= $this->convertToString($arrayItem);
                 }
             } else {

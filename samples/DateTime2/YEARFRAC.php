@@ -55,27 +55,27 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(
         'Days: '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' - US (NASD) 30/360'
     );
     $helper->log(
         'Days: '
-        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . $worksheet->getCell('H' . $row)->getCalculatedValueString()
         . ' - Actual'
     );
     $helper->log(
         'Days: '
-        . $worksheet->getCell('I' . $row)->getCalculatedValue()
+        . $worksheet->getCell('I' . $row)->getCalculatedValueString()
         . ' - Actual/360'
     );
     $helper->log(
         'Days: '
-        . $worksheet->getCell('J' . $row)->getCalculatedValue()
+        . $worksheet->getCell('J' . $row)->getCalculatedValueString()
         . ' - Actual/365'
     );
     $helper->log(
         'Days: '
-        . $worksheet->getCell('K' . $row)->getCalculatedValue()
+        . $worksheet->getCell('K' . $row)->getCalculatedValueString()
         . ' - European 30/360'
     );
 }

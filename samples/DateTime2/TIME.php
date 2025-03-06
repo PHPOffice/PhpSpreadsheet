@@ -36,8 +36,8 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log("(A{$row}) Hour: " . $worksheet->getCell('A' . $row)->getFormattedValue());
     $helper->log("(B{$row}) Minute: " . $worksheet->getCell('B' . $row)->getFormattedValue());
     $helper->log("(C{$row}) Second: " . $worksheet->getCell('C' . $row)->getFormattedValue());
-    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValue());
-    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValue());
+    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValueString());
+    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValueString());
     $helper->log('Formatted TimeStamp: ' . $worksheet->getCell('E' . $row)->getFormattedValue());
     $helper->log('');
 }
