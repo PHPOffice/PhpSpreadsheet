@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Add ability to add custom functions to Calculation. [PR #4390](https://github.com/PHPOffice/PhpSpreadsheet/pull/4390)
+- Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
 
 ### Removed
 
@@ -17,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- Phpstan Version 2. [PR #4384](https://github.com/PHPOffice/PhpSpreadsheet/pull/4384)
 
 ### Moved
 
@@ -29,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 
 ## 2025-03-02 - 4.1.0
 

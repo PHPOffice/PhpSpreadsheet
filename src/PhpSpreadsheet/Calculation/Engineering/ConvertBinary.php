@@ -23,7 +23,7 @@ class ConvertBinary extends ConvertBase
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array|float|int|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -44,10 +44,10 @@ class ConvertBinary extends ConvertBase
             //    Two's Complement
             $value = substr($value, -9);
 
-            return '-' . (512 - bindec($value));
+            return -(512 - bindec($value));
         }
 
-        return (string) bindec($value);
+        return bindec($value);
     }
 
     /**
