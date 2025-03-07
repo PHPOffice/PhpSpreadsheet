@@ -21,6 +21,7 @@ class CustomFunctionTest extends TestCase
             'argumentCount' => '1',
         ];
         self::assertTrue(Calculation::addFunction($key, $value));
+        self::assertFalse(Calculation::addFunction('sqrt', $value));
         self::assertSame(16, $calculation->calculateFormula('=FOURTHPOWER(2)'));
         self::assertSame('#VALUE!', $calculation->calculateFormula('=FOURTHPOWER("X")'));
         self::assertSame('#NAME?', $calculation->calculateFormula('=FOURTHPOWE("X")'));
