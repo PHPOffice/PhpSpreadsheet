@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
 
 ### Removed
 
