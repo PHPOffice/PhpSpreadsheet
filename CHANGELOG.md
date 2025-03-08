@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing yet.
+- Start migration to Phpstan 2. [PR #4396](https://github.com/PHPOffice/PhpSpreadsheet/pull/4396)
 
 ### Moved
 
