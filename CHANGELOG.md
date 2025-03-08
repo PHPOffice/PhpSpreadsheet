@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Add ability to add custom functions to Calculation. [PR #4390](https://github.com/PHPOffice/PhpSpreadsheet/pull/4390)
 - Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
 
 ### Removed
