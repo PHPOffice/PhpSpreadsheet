@@ -88,8 +88,9 @@ class SpreadsheetSerializeTest extends TestCase
         $inputFileName = self::getTempFileName();
         $ser = (string) file_get_contents($inputFileName);
         unlink($inputFileName);
-        $this->spreadsheet = unserialize($ser);
-        self::assertInstanceOf(Spreadsheet::class, $this->spreadsheet);
+        $spreadsheet = unserialize($ser);
+        self::assertInstanceOf(Spreadsheet::class, $spreadsheet);
+        $this->spreadsheet = $spreadsheet;
         $sheet = $this->spreadsheet->getActiveSheet();
         self::assertSame('=SUM(summedcells)', $sheet->getCell('C1')->getValue());
         self::assertSame(15, $sheet->getCell('C1')->getCalculatedValue());

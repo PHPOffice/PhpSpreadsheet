@@ -40,7 +40,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
-use Stringable;
 use Throwable;
 use XMLReader;
 use ZipArchive;
@@ -1179,6 +1178,7 @@ class Xlsx extends BaseReader
                                                 $textboxDirection = Comment::TEXTBOX_DIRECTION_LTR;
                                             }
                                             if (is_array($clientData) && !empty($clientData)) {
+                                                /** @var SimpleXMLElement */
                                                 $clientData = $clientData[0];
 
                                                 if (isset($clientData['ObjectType']) && (string) $clientData['ObjectType'] == 'Note') {
@@ -1208,6 +1208,7 @@ class Xlsx extends BaseReader
 
                                             $fillImageRelNode = $shape->xpath('.//v:fill/@o:relid');
                                             if (is_array($fillImageRelNode) && !empty($fillImageRelNode)) {
+                                                /** @var SimpleXMLElement */
                                                 $fillImageRelNode = $fillImageRelNode[0];
 
                                                 if (isset($fillImageRelNode['relid'])) {
@@ -1217,6 +1218,7 @@ class Xlsx extends BaseReader
 
                                             $fillImageTitleNode = $shape->xpath('.//v:fill/@o:title');
                                             if (is_array($fillImageTitleNode) && !empty($fillImageTitleNode)) {
+                                                /** @var SimpleXMLElement */
                                                 $fillImageTitleNode = $fillImageTitleNode[0];
 
                                                 if (isset($fillImageTitleNode['title'])) {
@@ -1226,7 +1228,7 @@ class Xlsx extends BaseReader
 
                                             if (($column !== null) && ($row !== null)) {
                                                 // Set comment properties
-                                                $comment = $docSheet->getComment([$column + 1, $row + 1]);
+                                                $comment = $docSheet->getComment([(int) $column + 1, (int) $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
                                                 if (isset($drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
@@ -1490,7 +1492,7 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000);
+                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
@@ -1595,7 +1597,7 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000);
+                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $twoCellAnchor, $hyperlinks);
@@ -2036,7 +2038,7 @@ class Xlsx extends BaseReader
     {
         $retVal = self::getArrayItem($array, $key);
 
-        return ($retVal === null || is_scalar($retVal) || $retVal instanceof Stringable) ? ((string) $retVal) : '';
+        return StringHelper::convertToString($retVal, false);
     }
 
     private static function getArrayItemIntOrSxml(null|array|bool|SimpleXMLElement $array, int|string $key = 0): int|SimpleXMLElement

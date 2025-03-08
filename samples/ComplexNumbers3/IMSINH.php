@@ -41,8 +41,8 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): The Hyperbolic Sine of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' is '
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
     );
 }

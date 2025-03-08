@@ -47,6 +47,6 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('System 1 Week number is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
-    $helper->log('System 2 (ISO-8601) Week number is: ' . $worksheet->getCell('G' . $row)->getCalculatedValue());
+    $helper->log('System 1 Week number is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
+    $helper->log('System 2 (ISO-8601) Week number is: ' . $worksheet->getCell('G' . $row)->getCalculatedValueString());
 }

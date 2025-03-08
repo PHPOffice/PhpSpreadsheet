@@ -44,5 +44,5 @@ $worksheet->getStyle('E1:E' . $testTimeCount)
 // Test the formulae
 for ($row = 1; $row <= $testTimeCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Hour is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Hour is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

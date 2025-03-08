@@ -283,7 +283,7 @@ class LocaleGenerator
             foreach ($cells as $cell) {
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
                     $languageNameMap[$cell->getColumn()] = $cell->getValue();
-                    $this->log($cell->getColumn() . ' -> ' . $cell->getValue());
+                    $this->log($cell->getColumn() . ' -> ' . $cell->getValueString());
                 }
             }
         }
@@ -316,7 +316,7 @@ class LocaleGenerator
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
                 if ($cell->getValue() != '') {
-                    $this->log($cell->getRow() . ' -> ' . $cell->getValue());
+                    $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
                     $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
                 }
             }
@@ -334,7 +334,7 @@ class LocaleGenerator
             foreach ($cells as $cell) {
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
-                        $this->log('CATEGORY: ' . $cell->getValue());
+                        $this->log('CATEGORY: ' . $cell->getValueString());
                         $this->functionNameMap[$cell->getValue()] = $cell->getRow();
                     }
 
@@ -345,7 +345,7 @@ class LocaleGenerator
                         $this->log($cell->getRow() . ' -> ' . ($cell->getValue() ? 'TRUE' : 'FALSE'));
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
                     } else {
-                        $this->log($cell->getRow() . ' -> ' . $cell->getValue());
+                        $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
                         $this->functionNameMap[$cell->getValue()] = $cell->getRow();
                     }
                 }

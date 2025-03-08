@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - Phpstan Version 2. [PR #4384](https://github.com/PHPOffice/PhpSpreadsheet/pull/4384)
+- Start migration to Phpstan level 9. [PR #4396](https://github.com/PHPOffice/PhpSpreadsheet/pull/4396)
 
 ### Moved
 

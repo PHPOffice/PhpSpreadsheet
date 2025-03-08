@@ -459,6 +459,6 @@ class Styles extends BaseParserClass
      */
     private static function getArrayItem(mixed $array): ?SimpleXMLElement
     {
-        return is_array($array) ? ($array[0] ?? null) : null;
+        return is_array($array) ? ($array[0] ?? null) : null; // @phpstan-ignore-line
     }
 }

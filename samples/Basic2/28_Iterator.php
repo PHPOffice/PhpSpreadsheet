@@ -27,7 +27,7 @@ foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $cellIterator = $row->getCellIterator();
         $cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
         foreach ($cellIterator as $cell) {
-            $helper->log('        Cell - ' . $cell->getCoordinate() . ' - ' . $cell->getCalculatedValue());
+            $helper->log('        Cell - ' . $cell->getCoordinate() . ' - ' . $cell->getCalculatedValueString());
         }
     }
 }

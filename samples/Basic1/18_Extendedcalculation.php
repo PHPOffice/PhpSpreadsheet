@@ -64,6 +64,6 @@ $spreadsheet->getActiveSheet()->setCellValue('F14', '=COUNT(B2:C12)');
 
 // Calculated data
 $helper->log('Calculated data');
-$helper->log('Value of B14 [=COUNT(B2:B12)]: ' . $spreadsheet->getActiveSheet()->getCell('B14')->getCalculatedValue());
+$helper->log('Value of B14 [=COUNT(B2:B12)]: ' . $spreadsheet->getActiveSheet()->getCell('B14')->getCalculatedValueString());
 
 $helper->logEndingNotes();

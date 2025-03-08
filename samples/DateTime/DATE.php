@@ -38,8 +38,8 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log("(A{$row}) Year: " . $worksheet->getCell('A' . $row)->getFormattedValue());
     $helper->log("(B{$row}) Month: " . $worksheet->getCell('B' . $row)->getFormattedValue());
     $helper->log("(C{$row}) Day: " . $worksheet->getCell('C' . $row)->getFormattedValue());
-    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValue());
-    $helper->log('Excel DateStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValue());
+    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValueString());
+    $helper->log('Excel DateStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValueString());
     $helper->log('Formatted DateStamp: ' . $worksheet->getCell('E' . $row)->getFormattedValue());
     $helper->log('');
 }

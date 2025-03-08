@@ -9,6 +9,7 @@ use DOMXPath;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -151,7 +152,7 @@ class ContentTest extends TestCase
                 $styles[$cell] = '2.5pt solid #22DD00';
 
                 $query = 'string(//office:document-content/office:body/office:spreadsheet/table:table/table:table-row[position()=' . ($keyRow + 1) . ']/table:table-cell[position()=' . ($keyCell + 1) . ']/@table:style-name)';
-                $idStyle = $xmlPath->evaluate($query);
+                $idStyle = StringHelper::convertToString($xmlPath->evaluate($query));
 
                 foreach ($styles as $direction => $value) {
                     $query = 'string(//office:document-content/office:automatic-styles/style:style[@style:name="' . $idStyle . '"]/style:table-cell-properties/@fo:border-' . $direction . ')';

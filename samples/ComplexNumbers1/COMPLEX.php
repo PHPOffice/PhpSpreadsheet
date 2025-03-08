@@ -34,8 +34,8 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(A$row): Formula "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' result is '
-        . $worksheet->getCell('A' . $row)->getCalculatedValue()
+        . $worksheet->getCell('A' . $row)->getCalculatedValueString()
     );
 }

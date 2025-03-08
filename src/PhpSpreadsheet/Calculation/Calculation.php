@@ -2438,7 +2438,7 @@ class Calculation extends CalculationBase
                         $a = $argCount - $i - 1;
                         if (
                             ($passByReference)
-                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a]))
+                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) // @phpstan-ignore-line
                             && ($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
                         ) {
                             /** @var array $arg */
@@ -2537,7 +2537,7 @@ class Calculation extends CalculationBase
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
-                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) { // @phpstan-ignore-line
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
                     $definedName = $matches[6];
                     if (str_starts_with($definedName, '_xleta')) {

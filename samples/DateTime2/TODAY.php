@@ -22,7 +22,7 @@ $worksheet->getStyle('A1')
 // Test the formulae
 $helper->log(
     'Today is '
-    . $worksheet->getCell('A1')->getCalculatedValue()
+    . $worksheet->getCell('A1')->getCalculatedValueString()
     . ' ('
     . $worksheet->getCell('A1')->getFormattedValue()
     . ')'

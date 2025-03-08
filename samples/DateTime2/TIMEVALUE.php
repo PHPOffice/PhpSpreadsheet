@@ -32,7 +32,7 @@ $worksheet->getStyle('C1:C' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log("(A{$row}) Time String: " . $worksheet->getCell('A' . $row)->getFormattedValue());
-    $helper->log('Formula: ' . $worksheet->getCell('B' . $row)->getValue());
+    $helper->log('Formula: ' . $worksheet->getCell('B' . $row)->getValueString());
     $helper->log('Excel TimeStamp: ' . $worksheet->getCell('B' . $row)->getFormattedValue());
     $helper->log('Formatted TimeStamp: ' . $worksheet->getCell('C' . $row)->getFormattedValue());
     $helper->log('');
