@@ -2376,6 +2376,7 @@ class Xlsx extends BaseReader
         $sqref = (string) ($attributes['sqref'] ?? '');
         $numberStoredAsText = (string) ($attributes['numberStoredAsText'] ?? '');
         $formula = (string) ($attributes['formula'] ?? '');
+        $formulaRange = (string) ($attributes['formulaRange'] ?? '');
         $twoDigitTextYear = (string) ($attributes['twoDigitTextYear'] ?? '');
         $evalError = (string) ($attributes['evalError'] ?? '');
         if (!empty($sqref)) {
@@ -2404,6 +2405,9 @@ class Xlsx extends BaseReader
                             }
                             if ($formula === '1') {
                                 $sheet->getCell("$col$row")->getIgnoredErrors()->setFormula(true);
+                            }
+                            if ($formulaRange === '1') {
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setFormulaRange(true);
                             }
                             if ($twoDigitTextYear === '1') {
                                 $sheet->getCell("$col$row")->getIgnoredErrors()->setTwoDigitTextYear(true);
