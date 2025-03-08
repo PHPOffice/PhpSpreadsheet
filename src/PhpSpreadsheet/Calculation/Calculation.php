@@ -23,7 +23,7 @@ use ReflectionMethod;
 use ReflectionParameter;
 use Throwable;
 
-class Calculation extends CalculationBase
+class Calculation extends CalculationLocale
 {
     /** Constants                */
     /** Regular Expressions        */
@@ -35,8 +35,6 @@ class Calculation extends CalculationBase
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
-    //    Strip xlfn and xlws prefixes from function name
-    const CALCULATION_REGEXP_STRIP_XLFN_XLWS = '/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     // Used only to detect spill operator #
@@ -60,12 +58,6 @@ class Calculation extends CalculationBase
     const RETURN_ARRAY_AS_ERROR = 'error';
     const RETURN_ARRAY_AS_VALUE = 'value';
     const RETURN_ARRAY_AS_ARRAY = 'array';
-
-    const FORMULA_OPEN_FUNCTION_BRACE = '(';
-    const FORMULA_CLOSE_FUNCTION_BRACE = ')';
-    const FORMULA_OPEN_MATRIX_BRACE = '{';
-    const FORMULA_CLOSE_MATRIX_BRACE = '}';
-    const FORMULA_STRING_QUOTE = '"';
 
     /** Preferable to use instance variable instanceArrayReturnType rather than this static property. */
     private static string $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
@@ -155,50 +147,10 @@ class Calculation extends CalculationBase
     public int $cyclicFormulaCount = 1;
 
     /**
-     * The current locale setting.
-     */
-    private static string $localeLanguage = 'en_us'; //    US English    (default locale)
-
-    /**
-     * List of available locale settings
-     * Note that this is read for the locale subdirectory only when requested.
-     *
-     * @var string[]
-     */
-    private static array $validLocaleLanguages = [
-        'en', //    English        (default language)
-    ];
-
-    /**
-     * Locale-specific argument separator for function arguments.
-     */
-    private static string $localeArgumentSeparator = ',';
-
-    private static array $localeFunctions = [];
-
-    /**
-     * Locale-specific translations for Excel constants (True, False and Null).
-     *
-     * @var array<string, string>
-     */
-    private static array $localeBoolean = [
-        'TRUE' => 'TRUE',
-        'FALSE' => 'FALSE',
-        'NULL' => 'NULL',
-    ];
-
-    public static function getLocaleBoolean(string $index): string
-    {
-        return self::$localeBoolean[$index];
-    }
-
-    /**
      * Excel constant string translations to their PHP equivalents
      * Constant conversion from text name/value to actual (datatyped) value.
-     *
-     * @var array<string, null|bool>
      */
-    private static array $excelConstants = [
+    private const EXCEL_CONSTANTS = [
         'TRUE' => true,
         'FALSE' => false,
         'NULL' => null,
@@ -206,12 +158,12 @@ class Calculation extends CalculationBase
 
     public static function keyInExcelConstants(string $key): bool
     {
-        return array_key_exists($key, self::$excelConstants);
+        return array_key_exists($key, self::EXCEL_CONSTANTS);
     }
 
     public static function getExcelConstants(string $key): bool|null
     {
-        return self::$excelConstants[$key];
+        return self::EXCEL_CONSTANTS[$key];
     }
 
     /**
@@ -238,18 +190,6 @@ class Calculation extends CalculationBase
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
         $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
-    }
-
-    private static function loadLocales(): void
-    {
-        $localeFileDirectory = __DIR__ . '/locale/';
-        $localeFileNames = glob($localeFileDirectory . '*', GLOB_ONLYDIR) ?: [];
-        foreach ($localeFileNames as $filename) {
-            $filename = substr($filename, strlen($localeFileDirectory));
-            if ($filename != 'en') {
-                self::$validLocaleLanguages[] = $filename;
-            }
-        }
     }
 
     /**
@@ -298,26 +238,6 @@ class Calculation extends CalculationBase
     final public function __clone()
     {
         throw new Exception('Cloning the calculation engine is not allowed!');
-    }
-
-    /**
-     * Return the locale-specific translation of TRUE.
-     *
-     * @return string locale-specific translation of TRUE
-     */
-    public static function getTRUE(): string
-    {
-        return self::$localeBoolean['TRUE'];
-    }
-
-    /**
-     * Return the locale-specific translation of FALSE.
-     *
-     * @return string locale-specific translation of FALSE
-     */
-    public static function getFALSE(): string
-    {
-        return self::$localeBoolean['FALSE'];
     }
 
     /**
@@ -463,332 +383,6 @@ class Calculation extends CalculationBase
     public function disableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(false);
-    }
-
-    /**
-     * Get the currently defined locale code.
-     */
-    public function getLocale(): string
-    {
-        return self::$localeLanguage;
-    }
-
-    private function getLocaleFile(string $localeDir, string $locale, string $language, string $file): string
-    {
-        $localeFileName = $localeDir . str_replace('_', DIRECTORY_SEPARATOR, $locale)
-            . DIRECTORY_SEPARATOR . $file;
-        if (!file_exists($localeFileName)) {
-            //    If there isn't a locale specific file, look for a language specific file
-            $localeFileName = $localeDir . $language . DIRECTORY_SEPARATOR . $file;
-            if (!file_exists($localeFileName)) {
-                throw new Exception('Locale file not found');
-            }
-        }
-
-        return $localeFileName;
-    }
-
-    /** @var array<int, array<int, string>> */
-    private static array $falseTrueArray = [];
-
-    /** @return array<int, array<int, string>> */
-    public function getFalseTrueArray(): array
-    {
-        if (!empty(self::$falseTrueArray)) {
-            return self::$falseTrueArray;
-        }
-        if (count(self::$validLocaleLanguages) == 1) {
-            self::loadLocales();
-        }
-        $falseTrueArray = [['FALSE'], ['TRUE']];
-        foreach (self::$validLocaleLanguages as $language) {
-            if (str_starts_with($language, 'en')) {
-                continue;
-            }
-            $locale = $language;
-            if (str_contains($locale, '_')) {
-                [$language] = explode('_', $locale);
-            }
-            $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
-
-            try {
-                $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
-            } catch (Exception $e) {
-                continue;
-            }
-            //    Retrieve the list of locale or language specific function names
-            $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-            foreach ($localeFunctions as $localeFunction) {
-                [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
-                if (str_contains($localeFunction, '=')) {
-                    [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
-                    if ($fName === 'FALSE') {
-                        $falseTrueArray[0][] = $lfName;
-                    } elseif ($fName === 'TRUE') {
-                        $falseTrueArray[1][] = $lfName;
-                    }
-                }
-            }
-        }
-        self::$falseTrueArray = $falseTrueArray;
-
-        return $falseTrueArray;
-    }
-
-    /**
-     * Set the locale code.
-     *
-     * @param string $locale The locale to use for formula translation, eg: 'en_us'
-     */
-    public function setLocale(string $locale): bool
-    {
-        //    Identify our locale and language
-        $language = $locale = strtolower($locale);
-        if (str_contains($locale, '_')) {
-            [$language] = explode('_', $locale);
-        }
-        if (count(self::$validLocaleLanguages) == 1) {
-            self::loadLocales();
-        }
-
-        //    Test whether we have any language data for this language (any locale)
-        if (in_array($language, self::$validLocaleLanguages, true)) {
-            //    initialise language/locale settings
-            self::$localeFunctions = [];
-            self::$localeArgumentSeparator = ',';
-            self::$localeBoolean = ['TRUE' => 'TRUE', 'FALSE' => 'FALSE', 'NULL' => 'NULL'];
-
-            //    Default is US English, if user isn't requesting US english, then read the necessary data from the locale files
-            if ($locale !== 'en_us') {
-                $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
-
-                //    Search for a file with a list of function names for locale
-                try {
-                    $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
-                } catch (Exception $e) {
-                    return false;
-                }
-
-                //    Retrieve the list of locale or language specific function names
-                $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-                $phpSpreadsheetFunctions = &self::getFunctionsAddress();
-                foreach ($localeFunctions as $localeFunction) {
-                    [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
-                    if (str_contains($localeFunction, '=')) {
-                        [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
-                        if ((str_starts_with($fName, '*') || isset($phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
-                            self::$localeFunctions[$fName] = $lfName;
-                        }
-                    }
-                }
-                //    Default the TRUE and FALSE constants to the locale names of the TRUE() and FALSE() functions
-                if (isset(self::$localeFunctions['TRUE'])) {
-                    self::$localeBoolean['TRUE'] = self::$localeFunctions['TRUE'];
-                }
-                if (isset(self::$localeFunctions['FALSE'])) {
-                    self::$localeBoolean['FALSE'] = self::$localeFunctions['FALSE'];
-                }
-
-                try {
-                    $configFile = $this->getLocaleFile($localeDir, $locale, $language, 'config');
-                } catch (Exception) {
-                    return false;
-                }
-
-                $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-                foreach ($localeSettings as $localeSetting) {
-                    [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
-                    if (str_contains($localeSetting, '=')) {
-                        [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
-                        $settingName = strtoupper($settingName);
-                        if ($settingValue !== '') {
-                            switch ($settingName) {
-                                case 'ARGUMENTSEPARATOR':
-                                    self::$localeArgumentSeparator = $settingValue;
-
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            self::$functionReplaceFromExcel = self::$functionReplaceToExcel
-            = self::$functionReplaceFromLocale = self::$functionReplaceToLocale = null;
-            self::$localeLanguage = $locale;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function translateSeparator(
-        string $fromSeparator,
-        string $toSeparator,
-        string $formula,
-        int &$inBracesLevel,
-        string $openBrace = self::FORMULA_OPEN_FUNCTION_BRACE,
-        string $closeBrace = self::FORMULA_CLOSE_FUNCTION_BRACE
-    ): string {
-        $strlen = mb_strlen($formula);
-        for ($i = 0; $i < $strlen; ++$i) {
-            $chr = mb_substr($formula, $i, 1);
-            switch ($chr) {
-                case $openBrace:
-                    ++$inBracesLevel;
-
-                    break;
-                case $closeBrace:
-                    --$inBracesLevel;
-
-                    break;
-                case $fromSeparator:
-                    if ($inBracesLevel > 0) {
-                        $formula = mb_substr($formula, 0, $i) . $toSeparator . mb_substr($formula, $i + 1);
-                    }
-            }
-        }
-
-        return $formula;
-    }
-
-    private static function translateFormulaBlock(
-        array $from,
-        array $to,
-        string $formula,
-        int &$inFunctionBracesLevel,
-        int &$inMatrixBracesLevel,
-        string $fromSeparator,
-        string $toSeparator
-    ): string {
-        // Function Names
-        $formula = (string) preg_replace($from, $to, $formula);
-
-        // Temporarily adjust matrix separators so that they won't be confused with function arguments
-        $formula = self::translateSeparator(';', '|', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
-        $formula = self::translateSeparator(',', '!', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
-        // Function Argument Separators
-        $formula = self::translateSeparator($fromSeparator, $toSeparator, $formula, $inFunctionBracesLevel);
-        // Restore matrix separators
-        $formula = self::translateSeparator('|', ';', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
-        $formula = self::translateSeparator('!', ',', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
-
-        return $formula;
-    }
-
-    private static function translateFormula(array $from, array $to, string $formula, string $fromSeparator, string $toSeparator): string
-    {
-        // Convert any Excel function names and constant names to the required language;
-        //     and adjust function argument separators
-        if (self::$localeLanguage !== 'en_us') {
-            $inFunctionBracesLevel = 0;
-            $inMatrixBracesLevel = 0;
-            //    If there is the possibility of separators within a quoted string, then we treat them as literals
-            if (str_contains($formula, self::FORMULA_STRING_QUOTE)) {
-                //    So instead we skip replacing in any quoted strings by only replacing in every other array element
-                //       after we've exploded the formula
-                $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
-                $notWithinQuotes = false;
-                foreach ($temp as &$value) {
-                    //    Only adjust in alternating array entries
-                    $notWithinQuotes = $notWithinQuotes === false;
-                    if ($notWithinQuotes === true) {
-                        $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
-                    }
-                }
-                unset($value);
-                //    Then rebuild the formula string
-                $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
-            } else {
-                //    If there's no quoted strings, then we do a simple count/replace
-                $formula = self::translateFormulaBlock($from, $to, $formula, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
-            }
-        }
-
-        return $formula;
-    }
-
-    private static ?array $functionReplaceFromExcel;
-
-    private static ?array $functionReplaceToLocale;
-
-    public function translateFormulaToLocale(string $formula): string
-    {
-        $formula = preg_replace(self::CALCULATION_REGEXP_STRIP_XLFN_XLWS, '', $formula) ?? '';
-        // Build list of function names and constants for translation
-        if (self::$functionReplaceFromExcel === null) {
-            self::$functionReplaceFromExcel = [];
-            foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
-                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelFunctionName, '/') . '([\s]*\()/ui';
-            }
-            foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
-                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelBoolean, '/') . '([^\w\.])/ui';
-            }
-        }
-
-        if (self::$functionReplaceToLocale === null) {
-            self::$functionReplaceToLocale = [];
-            foreach (self::$localeFunctions as $localeFunctionName) {
-                self::$functionReplaceToLocale[] = '$1' . trim($localeFunctionName) . '$2';
-            }
-            foreach (self::$localeBoolean as $localeBoolean) {
-                self::$functionReplaceToLocale[] = '$1' . trim($localeBoolean) . '$2';
-            }
-        }
-
-        return self::translateFormula(
-            self::$functionReplaceFromExcel,
-            self::$functionReplaceToLocale,
-            $formula,
-            ',',
-            self::$localeArgumentSeparator
-        );
-    }
-
-    private static ?array $functionReplaceFromLocale;
-
-    private static ?array $functionReplaceToExcel;
-
-    public function translateFormulaToEnglish(string $formula): string
-    {
-        if (self::$functionReplaceFromLocale === null) {
-            self::$functionReplaceFromLocale = [];
-            foreach (self::$localeFunctions as $localeFunctionName) {
-                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($localeFunctionName, '/') . '([\s]*\()/ui';
-            }
-            foreach (self::$localeBoolean as $excelBoolean) {
-                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($excelBoolean, '/') . '([^\w\.])/ui';
-            }
-        }
-
-        if (self::$functionReplaceToExcel === null) {
-            self::$functionReplaceToExcel = [];
-            foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
-                self::$functionReplaceToExcel[] = '$1' . trim($excelFunctionName) . '$2';
-            }
-            foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
-                self::$functionReplaceToExcel[] = '$1' . trim($excelBoolean) . '$2';
-            }
-        }
-
-        return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
-    }
-
-    public static function localeFunc(string $function): string
-    {
-        if (self::$localeLanguage !== 'en_us') {
-            $functionName = trim($function, '(');
-            if (isset(self::$localeFunctions[$functionName])) {
-                $brace = ($functionName != $function);
-                $function = self::$localeFunctions[$functionName];
-                if ($brace) {
-                    $function .= '(';
-                }
-            }
-        }
-
-        return $function;
     }
 
     /**
@@ -1389,31 +983,17 @@ class Calculation extends CalculationBase
     }
 
     /**
-     *    Binary Operators.
-     *    These operators always work on two values.
-     *    Array key is the operator, the value indicates whether this is a left or right associative operator.
-     */
-    private static array $operatorAssociativity = [
-        '^' => 0, //    Exponentiation
-        '*' => 0, '/' => 0, //    Multiplication and Division
-        '+' => 0, '-' => 0, //    Addition and Subtraction
-        '&' => 0, //    Concatenation
-        '∪' => 0, '∩' => 0, ':' => 0, //    Union, Intersect and Range
-        '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
-    ];
-
-    /**
      *    Comparison (Boolean) Operators.
      *    These operators work on two values, but always return a boolean result.
      */
-    private static array $comparisonOperators = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
+    private const COMPARISON_OPERATORS = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
 
     /**
      *    Operator Precedence.
      *    This list includes all valid operators, whether binary (including boolean) or unary (such as %).
      *    Array key is the operator, the value is its precedence.
      */
-    private static array $operatorPrecedence = [
+    private const OPERATOR_PRECEDENCE = [
         ':' => 9, //    Range
         '∩' => 8, //    Intersect
         '∪' => 7, //    Union
@@ -1425,8 +1005,6 @@ class Calculation extends CalculationBase
         '&' => 1, //    Concatenation
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
-
-    // Convert infix to postfix notation
 
     /**
      * @return array<int, mixed>|false
@@ -1473,7 +1051,7 @@ class Calculation extends CalculationBase
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
 
             // Check for two-character operators (e.g. >=, <=, <>)
-            if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && isset($formula[$index + 1], self::$comparisonOperators[$formula[$index + 1]])) {
+            if ((isset(self::COMPARISON_OPERATORS[$opCharacter])) && (strlen($formula) > $index) && isset($formula[$index + 1], self::COMPARISON_OPERATORS[$formula[$index + 1]])) {
                 $opCharacter .= $formula[++$index];
             }
             //    Find out if we're currently at the beginning of a number, variable, cell/row/column reference,
@@ -1495,12 +1073,7 @@ class Calculation extends CalculationBase
                 //    We have to explicitly deny a tilde, union or intersect because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::CALCULATION_OPERATORS[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
-                while (
-                    $stack->count() > 0
-                    && ($o2 = $stack->last())
-                    && isset(self::CALCULATION_OPERATORS[$o2['value']])
-                    && @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])
-                ) {
+                while (self::swapOperands($stack, $opCharacter)) {
                     $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                 }
 
@@ -1790,14 +1363,14 @@ class Calculation extends CalculationBase
                     } elseif ($opCharacter === self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
-                    } elseif (isset(self::$excelConstants[trim(strtoupper($val))])) {
+                    } elseif (isset(self::EXCEL_CONSTANTS[trim(strtoupper($val))])) {
                         $stackItemType = 'Constant';
                         $excelConstant = trim(strtoupper($val));
-                        $val = self::$excelConstants[$excelConstant];
+                        $val = self::EXCEL_CONSTANTS[$excelConstant];
                         $stackItemReference = $excelConstant;
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
-                        $val = self::$excelConstants[$localeConstant];
+                        $val = self::EXCEL_CONSTANTS[$localeConstant];
                         $stackItemReference = $localeConstant;
                     } elseif (
                         preg_match('/^' . self::CALCULATION_REGEXP_ROW_RANGE . '/miu', substr($formula, $index), $rowRangeReference)
@@ -1897,12 +1470,7 @@ class Calculation extends CalculationBase
                             && ($output[$countOutputMinus1]['type'] === Operands\StructuredReference::NAME || $output[$countOutputMinus1]['type'] === 'Value')
                     )
                 ) {
-                    while (
-                        $stack->count() > 0
-                        && ($o2 = $stack->last())
-                        && isset(self::CALCULATION_OPERATORS[$o2['value']])
-                        && @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])
-                    ) {
+                    while (self::swapOperands($stack, $opCharacter)) {
                         $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                     }
                     $stack->push('Binary Operator', '∩'); //    Put an Intersect Operator on the stack
@@ -2438,7 +2006,7 @@ class Calculation extends CalculationBase
                         $a = $argCount - $i - 1;
                         if (
                             ($passByReference)
-                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) // @phpstan-ignore-line
+                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) //* @phpstan-ignore-line
                             && ($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
                         ) {
                             /** @var array $arg */
@@ -2525,13 +2093,13 @@ class Calculation extends CalculationBase
                 }
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
-                if (isset(self::$excelConstants[strtoupper($token ?? '')])) {
+                if (isset(self::EXCEL_CONSTANTS[strtoupper($token ?? '')])) {
                     $excelConstant = strtoupper($token);
-                    $stack->push('Constant Value', self::$excelConstants[$excelConstant]);
+                    $stack->push('Constant Value', self::EXCEL_CONSTANTS[$excelConstant]);
                     if (isset($storeKey)) {
-                        $branchStore[$storeKey] = self::$excelConstants[$excelConstant];
+                        $branchStore[$storeKey] = self::EXCEL_CONSTANTS[$excelConstant];
                     }
-                    $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::$excelConstants[$excelConstant]));
+                    $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::EXCEL_CONSTANTS[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
                     $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
@@ -3148,5 +2716,20 @@ class Calculation extends CalculationBase
     private static function makeError(mixed $operand = ''): string
     {
         return Information\ErrorValue::isError($operand) ? $operand : ExcelError::VALUE();
+    }
+
+    private static function swapOperands(Stack $stack, string $opCharacter): bool
+    {
+        $retVal = false;
+        if ($stack->count() > 0) {
+            $o2 = $stack->last();
+            if ($o2) {
+                if (isset(self::CALCULATION_OPERATORS[$o2['value']])) {
+                    $retVal = (self::OPERATOR_PRECEDENCE[$opCharacter] ?? 0) <= self::OPERATOR_PRECEDENCE[$o2['value']];
+                }
+            }
+        }
+
+        return $retVal;
     }
 }
