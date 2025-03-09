@@ -41,7 +41,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Decimal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is octal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Decimal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is octal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

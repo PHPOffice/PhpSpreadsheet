@@ -39,7 +39,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Binary ' . $worksheet->getCell("A$row")->getValue()
-        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Binary ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

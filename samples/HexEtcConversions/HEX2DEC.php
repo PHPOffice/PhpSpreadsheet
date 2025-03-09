@@ -41,7 +41,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Hexadecimal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Hexadecimal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

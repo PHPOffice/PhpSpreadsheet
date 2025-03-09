@@ -21,6 +21,6 @@ for ($n = 0; $n <= 5; ++$n) {
         $formula = "BESSELK({$x}, {$n})";
         $worksheet->setCellValue('A1', "=$formula");
 
-        $helper->log("$formula = " . $worksheet->getCell('A1')->getCalculatedValue());
+        $helper->log("$formula = " . $worksheet->getCell('A1')->getCalculatedValueString());
     }
 }

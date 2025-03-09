@@ -37,12 +37,12 @@ $comparison = [
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): Compare values "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' and '
-        . $worksheet->getCell('B' . $row)->getValue()
+        . $worksheet->getCell('B' . $row)->getValueString()
         . ' - Result is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
         . ' - '
-        . $comparison[$worksheet->getCell('C' . $row)->getCalculatedValue()]
+        . $comparison[$worksheet->getCell('C' . $row)->getCalculatedValueString()]
     );
 }

@@ -33,10 +33,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): "
-        . $worksheet->getCell('C' . $row)->getValue()
+        . $worksheet->getCell('C' . $row)->getValueString()
         . ' The complementary error function integrated by '
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' and infinity is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
     );
 }
