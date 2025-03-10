@@ -61,12 +61,12 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             if (preg_match(FormattedNumber::currencyMatcherRegexp(), (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $matches, PREG_UNMATCHED_AS_NULL)) {
                 // Convert value to number
                 $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null;
-                $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'];
+                $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'] ?? '';
                 /** @var string */
                 $temp = str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value));
                 $value = (float) ($sign . trim($temp));
 
-                return $this->setCurrency($value, $cell, $currencyCode ?? '');
+                return $this->setCurrency($value, $cell, $currencyCode);
             }
 
             // Check for time without seconds e.g. '9:45', '09:45'

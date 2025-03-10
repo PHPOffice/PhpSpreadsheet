@@ -118,7 +118,6 @@ class VmlTest extends TestCase
         $reader = new XlsxReader();
         $reader->setLoadSheetsOnly('FormsComments');
         $spreadsheet = $reader->load($infile);
-        self::assertTrue(true);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('row1', $sheet->getCell('H1')->getValue());
         self::assertStringContainsString('Hello', $sheet->getComment('F1')->getText()->getPlainText());

@@ -74,7 +74,7 @@ class ConvertHex extends ConvertBase
      *                          #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array|float|int|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -96,7 +96,7 @@ class ConvertHex extends ConvertBase
         }
 
         $binX = '';
-        foreach (str_split($value) as $char) {
+        foreach (mb_str_split($value, 1, 'UTF-8') as $char) {
             $binX .= str_pad(base_convert($char, 16, 2), 4, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 40 && $binX[0] == '1') {
@@ -104,10 +104,10 @@ class ConvertHex extends ConvertBase
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (string) ((bindec($binX) + 1) * -1);
+            return (bindec($binX) + 1) * -1;
         }
 
-        return (string) bindec($binX);
+        return bindec($binX);
     }
 
     /**

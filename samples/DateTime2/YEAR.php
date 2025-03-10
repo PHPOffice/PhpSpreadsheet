@@ -46,5 +46,5 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Year is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Year is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

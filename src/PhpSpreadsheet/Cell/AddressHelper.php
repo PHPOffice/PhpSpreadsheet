@@ -58,7 +58,7 @@ class AddressHelper
             $columnReference = (string) $currentColumnNumber;
         }
         //    Bracketed C references are relative to the current column
-        if (is_string($columnReference) && $columnReference[0] === '[') {
+        if (is_string($columnReference) && $columnReference[0] === '[') { // @phpstan-ignore-line
             $columnReference = $currentColumnNumber + (int) trim($columnReference, '[]');
         }
         $columnReference = (int) $columnReference;

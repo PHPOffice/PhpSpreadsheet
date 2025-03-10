@@ -8,38 +8,32 @@ return [
         22269.0625,
         'dd-mm-yyyy hh:mm:ss',
     ],
-    // Oasis uses upper-case
-    [
+    'Oasis uses upper-case' => [
         '12/19/1960 01:30:00',
         22269.0625,
         'MM/DD/YYYY HH:MM:SS',
     ],
-    // Date with plaintext escaped with a \
-    [
+    'plaintext escaped with backslash' => [
         '1960-12-19T01:30:00',
         22269.0625,
-        'yyyy-mm-dd\\Thh:mm:ss',
+        'yyyy-mm-dd\Thh:mm:ss',
     ],
-    // Date with plaintext in quotes
-    [
+    'plaintext in quotes' => [
         '1960-12-19T01:30:00 Z',
         22269.0625,
-        'yyyy-mm-dd"T"hh:mm:ss \\Z',
+        'yyyy-mm-dd"T"hh:mm:ss \Z',
     ],
-    // Date with quoted formatting characters
-    [
+    'quoted formatting characters' => [
         'y-m-d 1960-12-19 h:m:s 01:30:00',
         22269.0625,
         '"y-m-d" yyyy-mm-dd "h:m:s" hh:mm:ss',
     ],
-    // Date with quoted formatting characters
-    [
-        'y-m-d 1960-12-19 h:m:s 01:30:00',
+    'quoted formatting non-ascii characters' => [
+        '§1960-12-19',
         22269.0625,
-        '"y-m-d "yyyy-mm-dd" h:m:s "hh:mm:ss',
+        '"§"yyyy-mm-dd',
     ],
-    // Date with fractional/decimal time
-    [
+    'fractional/decimal time' => [
         '2023/02/28 0:00:00.000',
         44985,
         'yyyy/mm/dd\ h:mm:ss.000',

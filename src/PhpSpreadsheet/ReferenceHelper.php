@@ -194,8 +194,10 @@ class ReferenceHelper
             if ($cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
                 $worksheet->setHyperlink($cellAddress, null);
             } elseif ($cellAddress !== $newReference) {
-                $worksheet->setHyperlink($newReference, $value);
                 $worksheet->setHyperlink($cellAddress, null);
+                if ($newReference) {
+                    $worksheet->setHyperlink($newReference, $value);
+                }
             }
         }
     }
@@ -248,7 +250,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows, string $beforeCellAddress): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -256,11 +258,45 @@ class ReferenceHelper
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
-            $newReference = $this->updateCellReference($cellAddress);
+            $formula = $dataValidation->getFormula1();
+            if ($formula !== '') {
+                $dataValidation->setFormula1(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $formula = $dataValidation->getFormula2();
+            if ($formula !== '') {
+                $dataValidation->setFormula2(
+                    $this->updateFormulaReferences(
+                        $formula,
+                        $beforeCellAddress,
+                        $numberOfColumns,
+                        $numberOfRows,
+                        $worksheet->getTitle(),
+                        true
+                    )
+                );
+            }
+            $addressParts = explode(' ', $cellAddress);
+            $newReference = '';
+            $separator = '';
+            foreach ($addressParts as $addressPart) {
+                $newReference .= $separator . $this->updateCellReference($addressPart);
+                $separator = ' ';
+            }
             if ($cellAddress !== $newReference) {
-                $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
+                if ($newReference) {
+                    $worksheet->setDataValidation($newReference, $dataValidation);
+                }
             }
         }
     }
@@ -276,7 +312,9 @@ class ReferenceHelper
         $aNewMergeCells = []; // the new array of all merge cells
         foreach ($aMergeCells as $cellAddress => &$value) {
             $newReference = $this->updateCellReference($cellAddress);
-            $aNewMergeCells[$newReference] = $newReference;
+            if ($newReference) {
+                $aNewMergeCells[$newReference] = $newReference;
+            }
         }
         $worksheet->setMergeCells($aNewMergeCells); // replace the merge cells array
     }
@@ -290,15 +328,17 @@ class ReferenceHelper
      */
     protected function adjustProtectedCells(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
-        $aProtectedCells = $worksheet->getProtectedCells();
+        $aProtectedCells = $worksheet->getProtectedCellRanges();
         ($numberOfColumns > 0 || $numberOfRows > 0)
             ? uksort($aProtectedCells, [self::class, 'cellReverseSort'])
             : uksort($aProtectedCells, [self::class, 'cellSort']);
-        foreach ($aProtectedCells as $cellAddress => $value) {
+        foreach ($aProtectedCells as $cellAddress => $protectedRange) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->protectCells($newReference, $value, true);
                 $worksheet->unprotectCells($cellAddress);
+                if ($newReference) {
+                    $worksheet->protectCells($newReference, $protectedRange->getPassword(), true);
+                }
             }
         }
     }
@@ -426,7 +466,8 @@ class ReferenceHelper
             $cell = $worksheet->getCell($coordinate);
             $cellIndex = Coordinate::columnIndexFromString($cell->getColumn());
 
-            if ($cellIndex - 1 + $numberOfColumns < 0) {
+            // Don't update cells that are being removed
+            if ($numberOfColumns < 0 && $cellIndex >= $beforeColumn + $numberOfColumns && $cellIndex < $beforeColumn) {
                 continue;
             }
 
@@ -491,7 +532,7 @@ class ReferenceHelper
         $this->adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows);
+        $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows, $beforeCellAddress);
 
         // Update worksheet: merge cells
         $this->adjustMergeCells($worksheet);
@@ -602,8 +643,8 @@ class ReferenceHelper
                 if ($matchCount > 0) {
                     foreach ($matches as $match) {
                         $fromString = self::sheetnameBeforeCells($match[2], $worksheetName, "{$match[3]}:{$match[4]}");
-                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences), 2);
-                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences), 2);
+                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, true), 2);
+                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences, false), 2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (self::matchSheetName($match[2], $worksheetName)) {
@@ -626,8 +667,8 @@ class ReferenceHelper
                 if ($matchCount > 0) {
                     foreach ($matches as $match) {
                         $fromString = self::sheetnameBeforeCells($match[2], $worksheetName, "{$match[3]}:{$match[4]}");
-                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences), 0, -2);
-                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences), 0, -2);
+                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences, true), 0, -2);
+                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences, false), 0, -2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (self::matchSheetName($match[2], $worksheetName)) {
@@ -650,8 +691,8 @@ class ReferenceHelper
                 if ($matchCount > 0) {
                     foreach ($matches as $match) {
                         $fromString = self::sheetnameBeforeCells($match[2], $worksheetName, "{$match[3]}:{$match[4]}");
-                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences);
-                        $modified4 = $this->updateCellReference($match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, true);
+                        $modified4 = $this->updateCellReference($match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences, false);
 
                         if ($match[3] . $match[4] !== $modified3 . $modified4) {
                             if (self::matchSheetName($match[2], $worksheetName)) {
@@ -678,7 +719,7 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = self::sheetnameBeforeCells($match[2], $worksheetName, "{$match[3]}");
 
-                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, null);
                         if ($match[3] !== $modified3) {
                             if (self::matchSheetName($match[2], $worksheetName)) {
                                 $toString = self::sheetnameBeforeCells($match[2], $worksheetName, "$modified3");
@@ -859,7 +900,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false): string
+    private function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null)
     {
         // Is it in another worksheet? Will not have to update anything.
         if (str_contains($cellReference, '!')) {
@@ -871,7 +912,7 @@ class ReferenceHelper
             /** @var CellReferenceHelper */
             $cellReferenceHelper = $this->cellReferenceHelper;
 
-            return $cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences);
+            return $cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences, $topLeft);
         }
 
         // Range
@@ -977,14 +1018,14 @@ class ReferenceHelper
                 $cellReferenceHelper = $this->cellReferenceHelper;
                 if (ctype_alpha($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, $onlyAbsoluteReferences)
+                        $cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, $onlyAbsoluteReferences, null)
                     )[0];
                 } elseif (ctype_digit($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences)
+                        $cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences, null)
                     )[1];
                 } else {
-                    $range[$i][$j] = $cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences);
+                    $range[$i][$j] = $cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences, null);
                 }
             }
         }
@@ -1105,9 +1146,9 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
-            ++$startColID;
             ++$toColID;
-        } while ($startColID !== $endColID);
+            ++$startColID; // this confuses phpstan into thinking startColID is int/float
+        } while ($startColID !== $endColID); // @phpstan-ignore-line
     }
 
     private function adjustTable(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns): void
@@ -1184,9 +1225,9 @@ class ReferenceHelper
 
         do {
             $table->shiftColumn($startColID, $toColID);
-            ++$startColID;
             ++$toColID;
-        } while ($startColID !== $endColID);
+            ++$startColID; // this confuses phpstan into thinking startColID is int/float
+        } while ($startColID !== $endColID); // @phpstan-ignore-line
     }
 
     private function duplicateStylesByColumn(Worksheet $worksheet, int $beforeColumn, int $beforeRow, int $highestRow, int $numberOfColumns): void

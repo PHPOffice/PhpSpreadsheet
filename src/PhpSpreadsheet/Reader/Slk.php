@@ -131,6 +131,7 @@ class Slk extends BaseReader
         $worksheetInfo[0]['totalRows'] = $rowIndex;
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
+        $worksheetInfo[0]['sheetState'] = Worksheet::SHEETSTATE_VISIBLE;
 
         // Close file
         fclose($fileHandle);
@@ -361,7 +362,7 @@ class Slk extends BaseReader
             } elseif ($char == 'S') {
                 $styleData['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
             } elseif ($char == 'M') {
-                if (preg_match('/M([1-9]\\d*)/', $styleSettings, $matches)) {
+                if (preg_match('/M([1-9]\d*)/', $styleSettings, $matches)) {
                     $fontStyle = $matches[1];
                 }
             }
@@ -407,8 +408,9 @@ class Slk extends BaseReader
                 $endCol = Coordinate::stringFromColumnIndex((int) $endCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
+                    // ++$startCol below tricks Phpstan into thinking it's float/int
                     $spreadsheet->getActiveSheet()->getColumnDimension((string) ++$startCol)->setWidth((float) $columnWidth);
-                } while ($startCol !== $endCol);
+                } while ($startCol !== $endCol); // @phpstan-ignore-line
             }
         }
     }
@@ -449,7 +451,7 @@ class Slk extends BaseReader
 
     private function processPColors(string $rowDatum, array &$formatArray): void
     {
-        if (preg_match('/L([1-9]\\d*)/', $rowDatum, $matches)) {
+        if (preg_match('/L([1-9]\d*)/', $rowDatum, $matches)) {
             $fontColor = ((int) $matches[1]) % 8;
             $formatArray['font']['color']['argb'] = self::COLOR_ARRAY[$fontColor];
         }

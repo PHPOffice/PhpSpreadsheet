@@ -175,6 +175,18 @@ class ParseFormulaTest extends TestCase
                 ],
                 "=MIN('sheet1'!A:A) + 'sheet1'!A1",
             ],
+            'Combined Cell Reference and Column Range Unquoted Sheet' => [
+                [
+                    ['type' => 'Column Reference', 'value' => 'sheet1!A1', 'reference' => 'sheet1!A1'],
+                    ['type' => 'Column Reference', 'value' => 'sheet1!A1048576', 'reference' => 'sheet1!A1048576'],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Cell Reference', 'value' => 'sheet1!A1', 'reference' => 'sheet1!A1'],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
+                ],
+                '=MIN(sheet1!A:A) + sheet1!A1',
+            ],
             'Combined Cell Reference and Column Range with quote' => [
                 [
                     ['type' => 'Column Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],

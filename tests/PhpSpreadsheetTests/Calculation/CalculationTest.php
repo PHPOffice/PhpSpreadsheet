@@ -109,7 +109,7 @@ class CalculationTest extends TestCase
             $cell4->setValueExplicit((object) null, DataType::TYPE_FORMULA);
             self::fail('setValueExplicit formula with unstringable object should have thrown exception');
         } catch (SpreadsheetException $e) {
-            self::assertStringContainsString('Invalid unstringable value for datatype Formula', $e->getMessage());
+            self::assertStringContainsString('Unable to convert to string', $e->getMessage());
         }
 
         $cell5 = $workSheet->getCell('A5');
@@ -343,7 +343,7 @@ class CalculationTest extends TestCase
         // this used to raise a parser error, we keep it even though we don't
         // test the output
         $calculation->parseFormula($formula);
-        self::assertTrue(true);
+        self::assertSame(1, $calculation->cyclicFormulaCount);
     }
 
     public function testBranchPruningFormulaParsingInequalitiesConditionsCase(): void

@@ -31,7 +31,7 @@ class XmlScannerTest extends TestCase
             $expectedResult = (string) file_get_contents($file);
             if (preg_match('/UTF-16(LE|BE)?/', $file, $matches) == 1) {
                 $expectedResult = (string) mb_convert_encoding($expectedResult, 'UTF-8', $matches[0]);
-                $expectedResult = preg_replace('/encoding\\s*=\\s*[\'"]UTF-\\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
+                $expectedResult = preg_replace('/encoding\s*=\s*[\'"]UTF-\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
             }
             $tests[basename($file)] = [$filename, $expectedResult];
         }
@@ -69,7 +69,6 @@ class XmlScannerTest extends TestCase
         $scanner = $fileReader->getSecurityScanner();
 
         //    Must return an object...
-        self::assertIsObject($scanner);
         //    ... of the correct type
         self::assertInstanceOf(XmlScanner::class, $scanner);
     }

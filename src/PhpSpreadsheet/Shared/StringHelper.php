@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+use Stringable;
+
 class StringHelper
 {
     /**
@@ -34,7 +37,7 @@ class StringHelper
     /**
      * Is iconv extension avalable?
      */
-    private static ?bool $isIconvEnabled;
+    private static ?bool $isIconvEnabled = null;
 
     /**
      * iconv options.
@@ -642,5 +645,18 @@ class StringHelper
     public static function strlenAllowNull(?string $string): int
     {
         return strlen("$string");
+    }
+
+    public static function convertToString(mixed $value, bool $throw = true, string $default = ''): string
+    {
+        if ($value === null || is_scalar($value) || $value instanceof Stringable) {
+            return (string) $value;
+        }
+
+        if ($throw) {
+            throw new SpreadsheetException('Unable to convert to string');
+        }
+
+        return $default;
     }
 }

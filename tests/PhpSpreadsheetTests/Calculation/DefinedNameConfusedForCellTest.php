@@ -17,12 +17,13 @@ class DefinedNameConfusedForCellTest extends TestCase
         $obj = new Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);
         $sheet0->setCellValue('A1', 2);
-        $obj->addNamedRange(new NamedRange('A1A', $sheet0, 'A1'));
+        $obj->addNamedRange(new NamedRange('A1A', $sheet0, '$A$1'));
         $sheet0->setCellValue('B1', '=2*A1A');
         $writer = IOFactory::createWriter($obj, 'Xlsx');
         $filename = File::temporaryFilename();
         $writer->save($filename);
-        self::assertTrue(true);
         unlink($filename);
+        self::assertSame(4, $obj->getActiveSheet()->getCell('B1')->getCalculatedValue());
+        $obj->disconnectWorksheets();
     }
 }

@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CsvLineEndingTest extends TestCase
@@ -22,10 +23,11 @@ class CsvLineEndingTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
-    public function testEndings(string $ending): void
+    #[DataProvider('providerEndings')]
+    #[DataProvider('providerEndings2')]
+    public function testEndings(string $ending, int $version = PHP_VERSION_ID): void
     {
-        if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
+        if ($ending === "\r" && $version >= 90000) {
             self::markTestSkipped('Mac line endings not supported for Php9+');
         }
         $this->tempFile = $filename = File::temporaryFilename();
@@ -43,14 +45,14 @@ class CsvLineEndingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEndings')]
+    #[DataProvider('providerEndings')]
     public function testEndingsNoDetect(string $ending): void
     {
         $this->tempFile = $filename = File::temporaryFilename();
         $data = ['123', '456', '789'];
         file_put_contents($filename, implode($ending, $data));
         $reader = new Csv();
-        $reader->setTestAutoDetect(false);
+        self::assertSame(self::$alwaysFalse, Csv::DEFAULT_TEST_AUTODETECT);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         if ($ending === "\r") {
@@ -72,6 +74,13 @@ class CsvLineEndingTest extends TestCase
             'Unix endings' => ["\n"],
             'Mac endings' => ["\r"],
             'Windows endings' => ["\r\n"],
+        ];
+    }
+
+    public static function providerEndings2(): array
+    {
+        return [
+            'Mac endings Php9+' => ["\r", 90000],
         ];
     }
 }

@@ -31,7 +31,6 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(6.7, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
@@ -42,6 +41,10 @@ class CalculationLoggingTest extends TestCase
     public function testFormulaWithMultipleCellLogging(): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->fromArray(
@@ -67,7 +70,6 @@ class CalculationLoggingTest extends TestCase
 
         $log = $debugLog->getLog();
 
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
@@ -110,14 +112,12 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(-0.75, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
         $debugLog->clearLog();
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
-        self::assertEmpty($log);
+        self::assertSame([], $log);
     }
 }

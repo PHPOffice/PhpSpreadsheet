@@ -51,9 +51,9 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(
         'Days: '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' (US) '
-        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . $worksheet->getCell('H' . $row)->getCalculatedValueString()
         . ' (European)'
     );
 }

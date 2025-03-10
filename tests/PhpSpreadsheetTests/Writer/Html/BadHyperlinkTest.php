@@ -18,7 +18,7 @@ class BadHyperlinkTest extends TestCase
         $spreadsheet = $reader->load($infile);
         $writer = new HtmlWriter($spreadsheet);
         $html = $writer->generateHtmlAll();
-        self::assertStringContainsString('<td class="column0 style1 f">jav&#9;ascript:alert()</td>', $html);
+        self::assertStringContainsString('<td class="column0 style1 s">jav&#9;ascript:alert()</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -29,7 +29,7 @@ class BadHyperlinkTest extends TestCase
         $spreadsheet = $reader->load($infile);
         $writer = new HtmlWriter($spreadsheet);
         $html = $writer->generateHtmlAll();
-        self::assertStringContainsString('<td class="column0 style0 f">&#20;j&#13;avascript:alert(1)</td>', $html);
+        self::assertStringContainsString('<td class="column0 style0 s">&#20;j&#13;avascript:alert(1)</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
 }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
-use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
@@ -43,7 +42,8 @@ class DataValidations
         /** @var callable $pregCallback */
         $pregCallback = [$this, 'replaceR1C1'];
         foreach ($xmlX->DataValidation as $dataValidation) {
-            $cells = [];
+            $combinedCells = '';
+            $separator = '';
             $validation = new DataValidation();
 
             // set defaults
@@ -72,6 +72,8 @@ class DataValidations
                                 $this->thisRow = (int) $selectionMatches[1];
                                 $this->thisColumn = (int) $selectionMatches[2];
                                 $sheet->getCell($firstCell);
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             } elseif (preg_match('/^R(\d+)C(\d+)$/', (string) $range, $selectionMatches) === 1) {
                                 // cell
                                 $cell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])
@@ -79,31 +81,31 @@ class DataValidations
                                 $sheet->getCell($cell);
                                 $this->thisRow = (int) $selectionMatches[1];
                                 $this->thisColumn = (int) $selectionMatches[2];
-                            } elseif (preg_match('/^C(\d+)$/', (string) $range, $selectionMatches) === 1) {
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
+                            } elseif (preg_match('/^C(\d+)(:C(]\d+))?$/', (string) $range, $selectionMatches) === 1) {
                                 // column
-                                $firstCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[1])
-                                    . '1';
-                                $cell = $firstCell
-                                    . ':'
-                                    . Coordinate::stringFromColumnIndex((int) $selectionMatches[1])
-                                    . ((string) AddressRange::MAX_ROW);
-                                $this->thisColumn = (int) $selectionMatches[1];
+                                $firstCol = $selectionMatches[1];
+                                $firstColString = Coordinate::stringFromColumnIndex((int) $firstCol);
+                                $lastCol = $selectionMatches[3] ?? $firstCol;
+                                $lastColString = Coordinate::stringFromColumnIndex((int) $lastCol);
+                                $firstCell = "{$firstColString}1";
+                                $cell = "$firstColString:$lastColString";
+                                $this->thisColumn = (int) $firstCol;
                                 $sheet->getCell($firstCell);
-                            } elseif (preg_match('/^R(\d+)$/', (string) $range, $selectionMatches)) {
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
+                            } elseif (preg_match('/^R(\d+)(:R(]\d+))?$/', (string) $range, $selectionMatches)) {
                                 // row
-                                $firstCell = 'A'
-                                    . $selectionMatches[1];
-                                $cell = $firstCell
-                                    . ':'
-                                    . AddressRange::MAX_COLUMN
-                                    . $selectionMatches[1];
-                                $this->thisRow = (int) $selectionMatches[1];
+                                $firstRow = $selectionMatches[1];
+                                $lastRow = $selectionMatches[3] ?? $firstRow;
+                                $firstCell = "A$firstRow";
+                                $cell = "$firstRow:$lastRow";
+                                $this->thisRow = (int) $firstRow;
                                 $sheet->getCell($firstCell);
+                                $combinedCells .= "$separator$cell";
+                                $separator = ' ';
                             }
-
-                            $validation->setSqref($cell);
-                            $stRange = $sheet->shrinkRangeToFit($cell);
-                            $cells = array_merge($cells, Coordinate::extractAllCellReferencesInRange($stRange));
                         }
 
                         break;
@@ -169,9 +171,7 @@ class DataValidations
                 }
             }
 
-            foreach ($cells as $cell) {
-                $sheet->getCell($cell)->setDataValidation(clone $validation);
-            }
+            $sheet->setDataValidation($combinedCells, $validation);
         }
     }
 }

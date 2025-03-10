@@ -265,6 +265,12 @@ class Styles extends BaseParserClass
         if ($horizontal !== '') {
             $alignment->setHorizontal($horizontal);
         }
+        $justifyLastLine = (string) $this->getAttribute($alignmentXml, 'justifyLastLine');
+        if ($justifyLastLine !== '') {
+            $alignment->setJustifyLastLine(
+                self::boolean($justifyLastLine)
+            );
+        }
         $vertical = (string) $this->getAttribute($alignmentXml, 'vertical');
         if ($vertical !== '') {
             $alignment->setVertical($vertical);
@@ -453,6 +459,6 @@ class Styles extends BaseParserClass
      */
     private static function getArrayItem(mixed $array): ?SimpleXMLElement
     {
-        return is_array($array) ? ($array[0] ?? null) : null;
+        return is_array($array) ? ($array[0] ?? null) : null; // @phpstan-ignore-line
     }
 }

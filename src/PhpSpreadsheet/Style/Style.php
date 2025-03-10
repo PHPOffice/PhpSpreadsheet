@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Style extends Supervisor
 {
@@ -189,7 +190,8 @@ class Style extends Supervisor
             // Uppercase coordinate and strip any Worksheet reference from the selected range
             $pRange = strtoupper($pRange);
             if (str_contains($pRange, '!')) {
-                $pRangeWorksheet = StringHelper::strToUpper(trim(substr($pRange, 0, (int) strrpos($pRange, '!')), "'"));
+                $pRangeWorksheet = StringHelper::strToUpper(substr($pRange, 0, (int) strrpos($pRange, '!')));
+                $pRangeWorksheet = Worksheet::unApostrophizeTitle($pRangeWorksheet);
                 if ($pRangeWorksheet !== '' && StringHelper::strToUpper($this->getActiveSheet()->getTitle()) !== $pRangeWorksheet) {
                     throw new Exception('Invalid Worksheet for specified Range');
                 }
@@ -499,9 +501,8 @@ class Style extends Supervisor
                     $cellIterator = $columnIterator->getCellIterator();
                     $cellIterator->setIterateOnlyExistingCells(true);
                     foreach ($cellIterator as $columnCell) {
-                        if ($columnCell !== null) {
-                            $columnCell->getStyle()->applyFromArray($styleArray);
-                        }
+                        $columnCell->getStyle()
+                            ->applyFromArray($styleArray);
                     }
                 }
 
@@ -518,9 +519,8 @@ class Style extends Supervisor
                     $cellIterator = $rowIterator->getCellIterator();
                     $cellIterator->setIterateOnlyExistingCells(true);
                     foreach ($cellIterator as $rowCell) {
-                        if ($rowCell !== null) {
-                            $rowCell->getStyle()->applyFromArray($styleArray);
-                        }
+                        $rowCell->getStyle()
+                            ->applyFromArray($styleArray);
                     }
                 }
 

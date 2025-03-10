@@ -162,7 +162,7 @@ for ($col = 'B'; $col != 'G'; ++$col) {
             is_string($formula)
             && ($formula[0] == '=')
         ) {
-            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());
+            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValueString());
         }
     }
 }

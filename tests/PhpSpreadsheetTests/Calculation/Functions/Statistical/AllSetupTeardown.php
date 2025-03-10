@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -20,9 +21,12 @@ class AllSetupTeardown extends TestCase
 
     private ?Worksheet $sheet = null;
 
+    protected string $returnArrayAs;
+
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
+        $this->returnArrayAs = '';
     }
 
     protected function tearDown(): void
@@ -108,6 +112,12 @@ class AllSetupTeardown extends TestCase
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
+        if ($this->returnArrayAs !== '') {
+            $calculation = Calculation::getInstance($this->spreadsheet);
+            $calculation->setInstanceArrayReturnType(
+                $this->returnArrayAs
+            );
+        }
         $formula = "=$functionName(";
         $comma = '';
         $row = 0;
@@ -118,6 +128,9 @@ class AllSetupTeardown extends TestCase
                 $arrayComma = '';
                 foreach ($arg as $arrayItem) {
                     $arrayArg .= $arrayComma;
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $arrayArg .= $this->convertToString($arrayItem);
                     $arrayComma = ';';
                 }
@@ -152,6 +165,9 @@ class AllSetupTeardown extends TestCase
                 foreach ($arg as $arrayItem) {
                     $formula .= $comma;
                     $comma = ',';
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $formula .= $this->convertToString($arrayItem);
                 }
             } else {

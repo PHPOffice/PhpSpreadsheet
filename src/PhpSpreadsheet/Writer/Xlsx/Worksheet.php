@@ -27,6 +27,8 @@ class Worksheet extends WriterPart
 
     private string $formula = '';
 
+    private string $formulaRange = '';
+
     private string $twoDigitTextYear = '';
 
     private string $evalError = '';
@@ -50,6 +52,7 @@ class Worksheet extends WriterPart
         $worksheet->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
         $this->numberStoredAsText = '';
         $this->formula = '';
+        $this->formulaRange = '';
         $this->twoDigitTextYear = '';
         $this->evalError = '';
         // Create XML writer
@@ -180,6 +183,7 @@ class Worksheet extends WriterPart
         $started = false;
         $this->writeIgnoredError($objWriter, $started, 'numberStoredAsText', $this->numberStoredAsText);
         $this->writeIgnoredError($objWriter, $started, 'formula', $this->formula);
+        $this->writeIgnoredError($objWriter, $started, 'formulaRange', $this->formulaRange);
         $this->writeIgnoredError($objWriter, $started, 'twoDigitTextYear', $this->twoDigitTextYear);
         $this->writeIgnoredError($objWriter, $started, 'evalError', $this->evalError);
         if ($started) {
@@ -687,7 +691,8 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute($attrKey, $val);
         }
         $minCfvo = $dataBar->getMinimumConditionalFormatValueObject();
-        if ($minCfvo !== null) {
+        // Phpstan is wrong about the next statement.
+        if ($minCfvo !== null) { // @phpstan-ignore-line
             $objWriter->startElementNs($prefix, 'cfvo', null);
             $objWriter->writeAttribute('type', $minCfvo->getType());
             if ($minCfvo->getCellFormula()) {
@@ -697,7 +702,8 @@ class Worksheet extends WriterPart
         }
 
         $maxCfvo = $dataBar->getMaximumConditionalFormatValueObject();
-        if ($maxCfvo !== null) {
+        // Phpstan is wrong about the next statement.
+        if ($maxCfvo !== null) { // @phpstan-ignore-line
             $objWriter->startElementNs($prefix, 'cfvo', null);
             $objWriter->writeAttribute('type', $maxCfvo->getType());
             if ($maxCfvo->getCellFormula()) {
@@ -862,7 +868,12 @@ class Worksheet extends WriterPart
     private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // Conditional id
-        $id = 1;
+        $id = 0;
+        foreach ($worksheet->getConditionalStylesCollection() as $conditionalStyles) {
+            foreach ($conditionalStyles as $conditional) {
+                $id = max($id, $conditional->getPriority());
+            }
+        }
 
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
@@ -889,7 +900,8 @@ class Worksheet extends WriterPart
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
-                $objWriter->writeAttribute('priority', (string) $id++);
+                $priority = $conditional->getPriority() ?: ++$id;
+                $objWriter->writeAttribute('priority', (string) $priority);
 
                 self::writeAttributeif(
                     $objWriter,
@@ -944,7 +956,6 @@ class Worksheet extends WriterPart
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {
-            $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
             $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', (string) count($dataValidationCollection));
 
@@ -1314,8 +1325,17 @@ class Worksheet extends WriterPart
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
             [$column, $row] = Coordinate::coordinateFromString($coordinate);
-            $cellsByRow[$row] = $cellsByRow[$row] ?? '';
-            $cellsByRow[$row] .= "{$column},";
+            if (!isset($cellsByRow[$row])) {
+                $pCell = $worksheet->getCell("$column$row");
+                $xfi = $pCell->getXfIndex();
+                $cellValue = $pCell->getValue();
+                $writeValue = $cellValue !== '' && $cellValue !== null;
+                if (!empty($xfi) || $writeValue) {
+                    $cellsByRow[$row] = "{$column},";
+                }
+            } else {
+                $cellsByRow[$row] .= "{$column},";
+            }
         }
 
         $currentRow = 0;
@@ -1375,6 +1395,9 @@ class Worksheet extends WriterPart
                             }
                             if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormula()) {
                                 $this->formula .= " $coord";
+                            }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormulaRange()) {
+                                $this->formulaRange .= " $coord";
                             }
                             if ($worksheet->getCell($coord)->getIgnoredErrors()->getTwoDigitTextYear()) {
                                 $this->twoDigitTextYear .= " $coord";
@@ -1499,6 +1522,9 @@ class Worksheet extends WriterPart
 
         if (isset($attributes['ref'])) {
             $ref = $this->parseRef($coordinate, $attributes['ref']);
+            if ($ref === "$coordinate:$coordinate") {
+                $ref = $coordinate;
+            }
         } else {
             $ref = $coordinate;
         }

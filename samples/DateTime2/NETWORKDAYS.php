@@ -62,9 +62,9 @@ for ($row = 1; $row <= 12; ++$row) {
         . ' and '
         . $worksheet->getCell('B' . $row)->getFormattedValue()
         . ' is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
         . ' working days; '
-        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . $worksheet->getCell('D' . $row)->getCalculatedValueString()
         . ' excluding public holidays'
     );
 }
