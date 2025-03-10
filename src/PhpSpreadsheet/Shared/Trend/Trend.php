@@ -18,10 +18,8 @@ class Trend
 
     /**
      * Names of the best-fit Trend analysis methods.
-     *
-     * @var string[]
      */
-    private static array $trendTypes = [
+    private const TREND_TYPES = [
         self::TREND_LINEAR,
         self::TREND_LOGARITHMIC,
         self::TREND_EXPONENTIAL,
@@ -93,13 +91,12 @@ class Trend
                 //    Start by generating an instance of each available Trend method
                 $bestFit = [];
                 $bestFitValue = [];
-                foreach (self::$trendTypes as $trendMethod) {
+                foreach (self::TREND_TYPES as $trendMethod) {
                     $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendMethod . 'BestFit';
-                    //* @phpstan-ignore-next-line
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
                     $bestFitValue[$trendMethod] = $bestFit[$trendMethod]->getGoodnessOfFit();
                 }
-                if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
+                if ($trendType !== self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
                         $order = (int) substr($trendMethod, -1);
                         $bestFit[$trendMethod] = new PolynomialBestFit($order, $yValues, $xValues);
