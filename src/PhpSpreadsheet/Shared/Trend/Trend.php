@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+
 class Trend
 {
     const TREND_LINEAR = 'Linear';
@@ -46,7 +48,7 @@ class Trend
      */
     private static array $trendCache = [];
 
-    public static function calculate(string $trendType = self::TREND_BEST_FIT, array $yValues = [], array $xValues = [], bool $const = true): mixed
+    public static function calculate(string $trendType = self::TREND_BEST_FIT, array $yValues = [], array $xValues = [], bool $const = true): BestFit
     {
         //    Calculate number of points in each dataset
         $nY = count($yValues);
@@ -57,7 +59,7 @@ class Trend
             $xValues = range(1, $nY);
         } elseif ($nY !== $nX) {
             //    Ensure both arrays of points are the same size
-            trigger_error('Trend(): Number of elements in coordinate arrays do not match.', E_USER_ERROR);
+            throw new SpreadsheetException('Trend(): Number of elements in coordinate arrays do not match.');
         }
 
         $key = md5($trendType . $const . serialize($yValues) . serialize($xValues));
@@ -113,7 +115,7 @@ class Trend
 
                 return $bestFit[$bestFitType];
             default:
-                return false;
+                throw new SpreadsheetException("Unknown trend type $trendType");
         }
     }
 }

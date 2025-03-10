@@ -63,10 +63,26 @@ class BestFitTest extends TestCase
 
         try {
             $type = Trend::TREND_BEST_FIT;
-            $result = Trend::calculate($type, $yValues, $xValues);
+            Trend::calculate($type, $yValues, [0, 1, 2]);
+            self::fail('should have failed - mismatched number of elements');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Number of elements', $e->getMessage());
+        }
+
+        try {
+            $type = Trend::TREND_BEST_FIT;
+            Trend::calculate($type, $yValues, $xValues);
             self::fail('should have failed - TREND_BEST_FIT includes polynomials which are not implemented yet');
         } catch (SpreadsheetException $e) {
             self::assertStringContainsString('not yet implemented', $e->getMessage());
+        }
+
+        try {
+            $type = 'unknown';
+            Trend::calculate($type, $yValues, $xValues);
+            self::fail('should have failed - invalid trend type');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unknown trend type', $e->getMessage());
         }
     }
 }
