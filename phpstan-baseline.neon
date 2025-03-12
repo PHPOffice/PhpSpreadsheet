@@ -1609,24 +1609,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
 
 		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Token\\Stack\:\:last\(\) should return array\|null but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Token\\Stack\:\:pop\(\) should return array\|null but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: '#^Parameter \#1 \$function of static method PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\:\:localeFunc\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
 			message: '#^Part \$formula \(mixed\) of encapsed string cannot be cast to string\.$#'
 			identifier: encapsedStringPart.nonString
 			count: 1
