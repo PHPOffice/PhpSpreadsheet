@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Phpstan Version 2. [PR #4384](https://github.com/PHPOffice/PhpSpreadsheet/pull/4384)
 - Start migration to Phpstan level 9. [PR #4396](https://github.com/PHPOffice/PhpSpreadsheet/pull/4396)
 - Calculation locale logic moved to separate class. [PR #4398](https://github.com/PHPOffice/PhpSpreadsheet/pull/4398)
+- TREND_POLYNOMIAL_* and TREND_BEST_FIT do not work, and are changed to throw Exceptions if attempted. (TREND_BEST_FIT_NO_POLY works.) An attempt to use an unknown trend type will now also throw an exception. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 
 ### Moved
 
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
+- Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 
 ## 2025-03-02 - 4.1.0
 
