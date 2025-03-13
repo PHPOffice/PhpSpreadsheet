@@ -11,7 +11,7 @@ class MyXlsxTest extends TestCase
     public function testCustomSpreadsheetCustomLoader(): void
     {
         $reader = new MyXlsxReader();
-        $infile = 'tests/data/reader/XLSX/colorscale.xlsx';
+        $infile = 'tests/data/Reader/XLSX/colorscale.xlsx';
         /** @var MySpreadsheet */
         $mySpreadsheet = $reader->load($infile);
         self::assertSame(64, $mySpreadsheet->calcSquare('A3'));
