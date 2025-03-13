@@ -659,4 +659,19 @@ class StringHelper
 
         return $default;
     }
+
+    /**
+     * Assist with POST items when samples are run in browser.
+     * Never run as part of unit tests, which are command line.
+     *
+     * @codeCoverageIgnore
+     */
+    public static function convertPostToString(string $index, string $default = ''): string
+    {
+        if (isset($_POST[$index])) {
+            return htmlentities(self::convertToString($_POST[$index], false, $default));
+        }
+
+        return $default;
+    }
 }

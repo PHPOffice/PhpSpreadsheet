@@ -40,7 +40,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Octal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is binary ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Octal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is binary ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }
