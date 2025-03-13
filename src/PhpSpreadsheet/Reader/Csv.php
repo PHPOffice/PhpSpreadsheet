@@ -257,8 +257,7 @@ class Csv extends BaseReader
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        // Create new Spreadsheet
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
@@ -270,8 +269,7 @@ class Csv extends BaseReader
      */
     public function loadSpreadsheetFromString(string $contents): Spreadsheet
     {
-        // Create new Spreadsheet
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance

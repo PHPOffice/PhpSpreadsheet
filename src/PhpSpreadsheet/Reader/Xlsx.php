@@ -400,7 +400,7 @@ class Xlsx extends BaseReader
         File::assertFile($filename, self::INITIAL_FILE);
 
         // Initialisations
-        $excel = new Spreadsheet();
+        $excel = $this->newSpreadsheet();
         $excel->setValueBinder($this->valueBinder);
         $excel->removeSheetByIndex(0);
         $addingFirstCellStyleXf = true;
