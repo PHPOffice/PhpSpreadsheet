@@ -63,7 +63,7 @@ class Cell implements Stringable
      *
      * @var null|array<string, string>
      */
-    private mixed $formulaAttributes = null;
+    private ?array $formulaAttributes = null;
 
     private IgnoredErrors $ignoredErrors;
 
@@ -951,7 +951,7 @@ class Cell implements Stringable
      *
      * @return null|array<string, string>
      */
-    public function getFormulaAttributes(): mixed
+    public function getFormulaAttributes(): ?array
     {
         return $this->formulaAttributes;
     }
