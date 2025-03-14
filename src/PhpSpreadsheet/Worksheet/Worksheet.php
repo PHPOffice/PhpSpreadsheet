@@ -420,7 +420,6 @@ class Worksheet
     public function __wakeup(): void
     {
         $this->hash = spl_object_id($this);
-        $this->parent = null;
     }
 
     /**

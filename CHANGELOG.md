@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Allow php-cs-fixer to Handle Implicit Backslashes.
 
+### Added
+
+- Allow spreadsheet to be serialized. [PR #4405](https://github.com/PHPOffice/PhpSpreadsheet/pull/4405)
+
 ### Fixed
 
 - TEXT and TIMEVALUE functions. [Issue #4249](https://github.com/PHPOffice/PhpSpreadsheet/issues/4249) [PR #4352](https://github.com/PHPOffice/PhpSpreadsheet/pull/4352)
