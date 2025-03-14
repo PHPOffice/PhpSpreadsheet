@@ -58,10 +58,7 @@ class Cell implements Stringable
      */
     private int $xfIndex = 0;
 
-    /**
-     * Attributes of the formula.
-     */
-    private mixed $formulaAttributes = null;
+    private ?array $formulaAttributes = null;
 
     private IgnoredErrors $ignoredErrors;
 
@@ -801,22 +798,14 @@ class Cell implements Stringable
         return $this->updateInCollection();
     }
 
-    /**
-     * Set the formula attributes.
-     *
-     * @return $this
-     */
-    public function setFormulaAttributes(mixed $attributes): self
+    public function setFormulaAttributes(?array $attributes): self
     {
         $this->formulaAttributes = $attributes;
 
         return $this;
     }
 
-    /**
-     * Get the formula attributes.
-     */
-    public function getFormulaAttributes(): mixed
+    public function getFormulaAttributes(): ?array
     {
         return $this->formulaAttributes;
     }
