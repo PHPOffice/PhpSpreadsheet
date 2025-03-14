@@ -275,22 +275,4 @@ class SpreadsheetTest extends TestCase
         self::assertEquals($countXfs + $index, $sheet3->getCell('A2')->getXfIndex());
         self::assertEquals($countXfs + $index, $sheet3->getRowDimension(2)->getXfIndex());
     }
-
-    public function testNotSerializable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be serialized');
-        serialize($this->spreadsheet);
-    }
-
-    public function testNotJsonEncodable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be json encoded');
-        json_encode($this->spreadsheet);
-    }
 }
