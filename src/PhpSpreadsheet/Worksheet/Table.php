@@ -558,6 +558,7 @@ class Table implements Stringable
                 //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table objects
                 $this->{$key} = [];
                 foreach ($value as $k => $v) {
+                    /** @var Table\Column $v */
                     $this->{$key}[$k] = clone $v;
                     // attach the new cloned Column to this new cloned Table object
                     $this->{$key}[$k]->setTable($this);
