@@ -210,8 +210,7 @@ class Html extends BaseReader
      */
     public function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        // Create new Spreadsheet
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
@@ -826,7 +825,7 @@ class Html extends BaseReader
         if ($loaded === false) {
             throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
-        $spreadsheet = $spreadsheet ?? new Spreadsheet();
+        $spreadsheet = $spreadsheet ?? $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
         self::loadProperties($dom, $spreadsheet);
 
@@ -1225,7 +1224,7 @@ class Html extends BaseReader
     public function listWorksheetInfo(string $filename): array
     {
         $info = [];
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $this->loadIntoExisting($filename, $spreadsheet);
         foreach ($spreadsheet->getAllSheets() as $sheet) {
             $newEntry = ['worksheetName' => $sheet->getTitle()];
