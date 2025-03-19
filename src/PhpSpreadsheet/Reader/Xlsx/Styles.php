@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableDxfsStyle;
 use SimpleXMLElement;
 use stdClass;
 
@@ -445,6 +446,46 @@ class Styles extends BaseParserClass
         }
 
         return $dxfs;
+    }
+
+    // get TableStyles
+    public function tableStyles(bool $readDataOnly = false): array
+    {
+        $tableStyles = [];
+        if (!$readDataOnly && $this->styleXml) {
+            //    Conditional Styles
+            if ($this->styleXml->tableStyles) {
+                foreach ($this->styleXml->tableStyles->tableStyle as $s) {
+                    $attrs = Xlsx::getAttributes($s);
+                    if (isset($attrs['name'][0])) {
+                        $style = new TableDxfsStyle((string) ($attrs['name'][0]));
+                        foreach ($s->tableStyleElement as $e) {
+                            $a = Xlsx::getAttributes($e);
+                            if (isset($a['dxfId'][0], $a['type'][0])) {
+                                switch ($a['type'][0]) {
+                                    case 'headerRow':
+                                        $style->setHeaderRow((int) ($a['dxfId'][0]));
+
+                                        break;
+                                    case 'firstRowStripe':
+                                        $style->setFirstRowStripe((int) ($a['dxfId'][0]));
+
+                                        break;
+                                    case 'secondRowStripe':
+                                        $style->setSecondRowStripe((int) ($a['dxfId'][0]));
+
+                                        break;
+                                    default:
+                                }
+                            }
+                        }
+                        $tableStyles[] = $style;
+                    }
+                }
+            }
+        }
+
+        return $tableStyles;
     }
 
     public function styles(): array
