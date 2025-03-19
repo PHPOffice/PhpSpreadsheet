@@ -1415,6 +1415,32 @@ class Worksheet
     }
 
     /**
+     * Get table styles set for the for given cell.
+     *
+     * @param Cell $cell
+     *              The Cell for which the tables are retrieved
+     */
+    public function getTablesWithStylesForCell(Cell $cell): array
+    {
+        $retVal = [];
+
+        foreach ($this->tableCollection as $table) {
+            /** @var Table $table */
+            $dxfsTableStyle = $table->getStyle()->getTableDxfsStyle();
+            if ($dxfsTableStyle !== null) {
+                if ($dxfsTableStyle->getHeaderRowStyle() !== null || $dxfsTableStyle->getFirstRowStripeStyle() !== null || $dxfsTableStyle->getSecondRowStripeStyle() !== null) {
+                    $range = $table->getRange();
+                    if ($cell->isInRange($range)) {
+                        $retVal[] = $table;
+                    }
+                }
+            }
+        }
+
+        return $retVal;
+    }
+
+    /**
      * Get conditional styles for a cell.
      *
      * @param string $coordinate eg: 'A1' or 'A1:A3'.
@@ -2882,6 +2908,40 @@ class Worksheet
         // Loop through rows
         foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays) as $rowRef => $rowArray) {
             $returnValue[$rowRef] = $rowArray;
+        }
+
+        // Return
+        return $returnValue;
+    }
+
+    /**
+     * Create array from a multiple ranges of cells. (such as A1:A3,A15,B17:C17).
+     *
+     * @param null|bool|float|int|RichText|string $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param bool $calculateFormulas Should formulas be calculated?
+     * @param bool $formatData Should formatting be applied to cell values?
+     * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
+     *                             True - Return rows and columns indexed by their actual row and column IDs
+     * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
+     *                            True - Don't return values for rows/columns that are defined as hidden.
+     */
+    public function rangesToArray(
+        string $ranges,
+        mixed $nullValue = null,
+        bool $calculateFormulas = true,
+        bool $formatData = true,
+        bool $returnCellRef = false,
+        bool $ignoreHidden = false,
+        bool $reduceArrays = false
+    ): array {
+        $returnValue = [];
+
+        $parts = explode(',', $ranges);
+        foreach ($parts as $part) {
+            // Loop through rows
+            foreach ($this->rangeToArrayYieldRows($part, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays) as $rowRef => $rowArray) {
+                $returnValue[$rowRef] = $rowArray;
+            }
         }
 
         // Return
