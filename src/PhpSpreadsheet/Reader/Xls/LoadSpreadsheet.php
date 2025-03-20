@@ -480,6 +480,7 @@ class LoadSpreadsheet extends Xls
                         case 0x08:
                             // picture
                             // get index to BSE entry (1-based)
+                            /** @var int */
                             $BSEindex = $spContainer->getOPT(0x0104);
 
                             // If there is no BSE Index, we will fail here and other fields are not read.

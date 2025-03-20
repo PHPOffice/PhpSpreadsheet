@@ -1604,7 +1604,7 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValue) === 1) {
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValueString) === 1) {
                     $tempCalc = [];
                 } else {
                     $tempCalc = $pCell->getCalculatedValue();
