@@ -269,8 +269,16 @@ class Conditional implements IComparable
     /**
      * Get Style.
      */
-    public function getStyle(): Style
+    public function getStyle(mixed $cellData = null): Style
     {
+        if ($this->conditionType === self::CONDITION_COLORSCALE && $cellData !== null && $this->colorScale !== null && is_numeric($cellData)) {
+            $style = new Style();
+            $style->getFill()->setFillType(Fill::FILL_SOLID);
+            $style->getFill()->getStartColor()->setARGB($this->colorScale->getColorForValue((float) $cellData));
+
+            return $style;
+        }
+
         return $this->style;
     }
 
