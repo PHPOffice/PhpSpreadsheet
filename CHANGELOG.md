@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Ignore fractional part of Drawing Shadow Alpha. [Issue #4415](https://github.com/PHPOffice/PhpSpreadsheet/issues/4415) [PR #4417](https://github.com/PHPOffice/PhpSpreadsheet/pull/4417)
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 - Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 - Better handling of Chart DisplayBlanksAs. [Issue #4411](https://github.com/PHPOffice/PhpSpreadsheet/issues/4411) [PR #4414](https://github.com/PHPOffice/PhpSpreadsheet/pull/4414)

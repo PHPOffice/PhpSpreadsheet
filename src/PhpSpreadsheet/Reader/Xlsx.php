@@ -1492,7 +1492,13 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
+                                                        if ($clr->alpha) {
+                                                            $alpha = StringHelper::convertToString(self::getArrayItem(self::getAttributes($clr->alpha), 'val'));
+                                                            if (is_numeric($alpha)) {
+                                                                $alpha = (int) ($alpha / 1000);
+                                                                $shadow->setAlpha($alpha);
+                                                            }
+                                                        }
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
@@ -1597,7 +1603,13 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
+                                                        if ($clr->alpha) {
+                                                            $alpha = StringHelper::convertToString(self::getArrayItem(self::getAttributes($clr->alpha), 'val'));
+                                                            if (is_numeric($alpha)) {
+                                                                $alpha = (int) ($alpha / 1000);
+                                                                $shadow->setAlpha($alpha);
+                                                            }
+                                                        }
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $twoCellAnchor, $hyperlinks);
