@@ -83,7 +83,7 @@ class OLE
     /**
      * Size of big blocks. This is usually 512.
      *
-     * @var int number of octets per block
+     * @var int<1, max> number of octets per block
      */
     public int $bigBlockSize;
 
@@ -124,7 +124,9 @@ class OLE
             throw new ReaderException('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
-        $this->bigBlockSize = 2 ** self::readInt2($fh);
+        /** @var int<1, max> */
+        $temp = 2 ** self::readInt2($fh);
+        $this->bigBlockSize = $temp;
         $this->smallBlockSize = 2 ** self::readInt2($fh);
 
         // Skip UID, revision number and version number
@@ -217,8 +219,8 @@ class OLE
         // Store current instance in global array, so that it can be accessed
         // in OLE_ChainedBlockStream::stream_open().
         // Object is removed from self::$instances in OLE_Stream::close().
-        $GLOBALS['_OLE_INSTANCES'][] = $this;
-        $keys = array_keys($GLOBALS['_OLE_INSTANCES']);
+        $GLOBALS['_OLE_INSTANCES'][] = $this; //* @phpstan-ignore-line
+        $keys = array_keys($GLOBALS['_OLE_INSTANCES']); //* @phpstan-ignore-line
         $instanceId = end($keys);
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
