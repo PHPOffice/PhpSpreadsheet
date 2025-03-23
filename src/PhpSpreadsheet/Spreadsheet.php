@@ -1079,6 +1079,15 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine = new Calculation($this);
         if ($oldCalc !== null) {
             $this->calculationEngine
+                ->setSuppressFormulaErrors(
+                    $oldCalc->getSuppressFormulaErrors()
+                )
+                ->setCalculationCacheEnabled(
+                    $oldCalc->getCalculationCacheEnabled()
+                )
+                ->setBranchPruningEnabled(
+                    $oldCalc->getBranchPruningEnabled()
+                )
                 ->setInstanceArrayReturnType(
                     $oldCalc->getInstanceArrayReturnType()
                 );

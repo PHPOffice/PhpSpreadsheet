@@ -49,6 +49,8 @@ class SpreadsheetCopyCloneTest extends TestCase
         } else {
             $this->spreadsheet2 = clone $this->spreadsheet;
         }
+        self::assertSame($this->spreadsheet, $this->spreadsheet->getCalculationEngine()->getSpreadsheet());
+        self::assertSame($this->spreadsheet2, $this->spreadsheet2->getCalculationEngine()->getSpreadsheet());
         self::assertSame('A3', $sheet->getSelectedCells());
         $copysheet = $this->spreadsheet2->getActiveSheet();
         self::assertSame('A3', $copysheet->getSelectedCells());
@@ -111,5 +113,38 @@ class SpreadsheetCopyCloneTest extends TestCase
             ['copy'],
             ['clone'],
         ];
+    }
+
+    public static function providerCopyClone2(): array
+    {
+        return [
+            ['copy', true, false, true, 'array'],
+            ['clone', true, false, true, 'array'],
+            ['copy', false, true, false, 'value'],
+            ['clone', false, true, false, 'value'],
+            ['copy', false, true, true, 'error'],
+            ['clone', false, true, true, 'error'],
+        ];
+    }
+
+    #[DataProvider('providerCopyClone2')]
+    public function testCopyClone2(string $type, bool $suppress, bool $cache, bool $pruning, string $return): void
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $calc = $this->spreadsheet->getCalculationEngine();
+        $calc->setSuppressFormulaErrors($suppress);
+        $calc->setCalculationCacheEnabled($cache);
+        $calc->setBranchPruningEnabled($pruning);
+        $calc->setInstanceArrayReturnType($return);
+        if ($type === 'copy') {
+            $this->spreadsheet2 = $this->spreadsheet->copy();
+        } else {
+            $this->spreadsheet2 = clone $this->spreadsheet;
+        }
+        $calc2 = $this->spreadsheet2->getCalculationEngine();
+        self::assertSame($suppress, $calc2->getSuppressFormulaErrors());
+        self::assertSame($cache, $calc2->getCalculationCacheEnabled());
+        self::assertSame($pruning, $calc2->getBranchPruningEnabled());
+        self::assertSame($return, $calc2->getInstanceArrayReturnType());
     }
 }
