@@ -149,9 +149,9 @@ class DateValue
             $PHPDateArray['hour'] = 0;
             $PHPDateArray['minute'] = 0;
             $PHPDateArray['second'] = 0;
-            $month = (int) $PHPDateArray['month'];
-            $day = (int) $PHPDateArray['day'];
-            $year = (int) $PHPDateArray['year'];
+            $month = self::getInt($PHPDateArray, 'month');
+            $day = self::getInt($PHPDateArray, 'day');
+            $year = self::getInt($PHPDateArray, 'year');
             if (!checkdate($month, $day, $year)) {
                 return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0) : ExcelError::VALUE();
             }
@@ -159,5 +159,10 @@ class DateValue
         }
 
         return $retValue;
+    }
+
+    private static function getInt(array $array, string $index): int
+    {
+        return (array_key_exists($index, $array) && is_numeric($array[$index])) ? (int) $array[$index] : 0;
     }
 }

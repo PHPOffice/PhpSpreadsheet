@@ -92,7 +92,11 @@ class Date
      */
     private static function getYear(mixed $year, int $baseYear): int
     {
-        $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
+        if ($year === null) {
+            $year = 0;
+        } elseif (is_scalar($year)) {
+            $year = StringHelper::testStringAsNumeric((string) $year);
+        }
         if (!is_numeric($year)) {
             throw new Exception(ExcelError::VALUE());
         }
@@ -117,11 +121,14 @@ class Date
      */
     private static function getMonth(mixed $month): int
     {
-        if (($month !== null) && (!is_numeric($month))) {
+        if (is_string($month) && !is_numeric($month)) {
             $month = SharedDateHelper::monthStringToNumber($month);
         }
-
-        $month = ($month !== null) ? StringHelper::testStringAsNumeric((string) $month) : 0;
+        if ($month === null) {
+            $month = 0;
+        } elseif (is_scalar($month)) {
+            $year = StringHelper::testStringAsNumeric((string) $month);
+        }
         if (!is_numeric($month)) {
             throw new Exception(ExcelError::VALUE());
         }
@@ -134,11 +141,15 @@ class Date
      */
     private static function getDay(mixed $day): int
     {
-        if (($day !== null) && (!is_numeric($day))) {
+        if (is_string($day) && !is_numeric($day)) {
             $day = SharedDateHelper::dayStringToNumber($day);
         }
 
-        $day = ($day !== null) ? StringHelper::testStringAsNumeric((string) $day) : 0;
+        if ($day === null) {
+            $day = 0;
+        } elseif (is_scalar($day)) {
+            $day = StringHelper::testStringAsNumeric((string) $day);
+        }
         if (!is_numeric($day)) {
             throw new Exception(ExcelError::VALUE());
         }

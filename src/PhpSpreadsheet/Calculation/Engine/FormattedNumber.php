@@ -74,7 +74,9 @@ class FormattedNumber
             $sign = ($match[1] === '-') ? '-' : '+';
             $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
             $fractionFormula = '=' . $wholePart . $sign . $match[4];
-            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            /** @var string */
+            $operandx = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = $operandx;
 
             return true;
         }

@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Yields
 {
@@ -64,7 +65,7 @@ class Yields
         $daysBetweenSettlementAndMaturity = Functions::scalar(DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis));
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
-            return $daysBetweenSettlementAndMaturity;
+            return StringHelper::convertToString($daysBetweenSettlementAndMaturity);
         }
         $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
@@ -129,19 +130,19 @@ class Yields
         $daysBetweenIssueAndSettlement = Functions::scalar(DateTimeExcel\YearFrac::fraction($issue, $settlement, $basis));
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
-            return $daysBetweenIssueAndSettlement;
+            return StringHelper::convertToString($daysBetweenIssueAndSettlement);
         }
         $daysBetweenIssueAndSettlement *= $daysPerYear;
         $daysBetweenIssueAndMaturity = Functions::scalar(DateTimeExcel\YearFrac::fraction($issue, $maturity, $basis));
         if (!is_numeric($daysBetweenIssueAndMaturity)) {
             //    return date error
-            return $daysBetweenIssueAndMaturity;
+            return StringHelper::convertToString($daysBetweenIssueAndMaturity);
         }
         $daysBetweenIssueAndMaturity *= $daysPerYear;
         $daysBetweenSettlementAndMaturity = Functions::scalar(DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis));
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
-            return $daysBetweenSettlementAndMaturity;
+            return StringHelper::convertToString($daysBetweenSettlementAndMaturity);
         }
         $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
