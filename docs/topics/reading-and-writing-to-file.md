@@ -1169,6 +1169,38 @@ One benefit of flags is that you can pass several flags in a single method call.
 Two or more flags can be passed together using PHP's `|` operator.
 
 ```php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("myExampleFile.xlsx");
-$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::IGNORE_EMPTY_CELLS);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile('myExampleFile.xlsx');
+$reader->load(
+    'spreadsheetWithCharts.xlsx',
+    $reader::READ_DATA_ONLY | $reader::IGNORE_EMPTY_CELLS
+);
+```
+
+## Writing Data as a Plaintext Grid
+
+Although not really a spreadsheet format, it can be useful to write data in grid format to a plaintext file.
+Code like the following can be used:
+```php
+        $array = $sheet->toArray(null, true, true, true);
+        $textGrid = new \PhpOffice\PhpSpreadsheet\Shared\TextGrid(
+            $array,
+            true, // true for cli, false for html
+            // Starting with release 4.2,
+            // the output format can be tweaked by uncommenting
+            // any of the following 3 optional parameters.
+            // rowDividers: true,
+            // rowHeaders: false,
+            // columnHeaders: false,
+        );
+        $result = $textGrid->render();
+```
+You can then echo `$result` to a terminal, or write it to a file with `file_put_contents`. The result will resemble:
+```
+    +-----+------------------+---+----------+
+    | A   | B                | C | D        |
++---+-----+------------------+---+----------+
+| 1 | 6   | 1900-01-06 00:00 |   | 0.572917 |
+| 2 | 6   | 1900-01-06 00:00 |   | 1<>2     |
+| 3 | xyz | xyz              |   |          |
++---+-----+------------------+---+----------+
 ```

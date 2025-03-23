@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 class TextGrid
 {
     private bool $isCli;
@@ -14,7 +16,13 @@ class TextGrid
 
     private string $gridDisplay;
 
-    public function __construct(array $matrix, bool $isCli = true)
+    private bool $rowDividers = false;
+
+    private bool $rowHeaders = true;
+
+    private bool $columnHeaders = true;
+
+    public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true)
     {
         $this->rows = array_keys($matrix);
         $this->columns = array_keys($matrix[$this->rows[0]]);
@@ -29,11 +37,14 @@ class TextGrid
 
         $this->matrix = $matrix;
         $this->isCli = $isCli;
+        $this->rowDividers = $rowDividers;
+        $this->rowHeaders = $rowHeaders;
+        $this->columnHeaders = $columnHeaders;
     }
 
     public function render(): string
     {
-        $this->gridDisplay = $this->isCli ? '' : '<pre>';
+        $this->gridDisplay = $this->isCli ? '' : ('<pre>' . PHP_EOL);
 
         if (!empty($this->rows)) {
             $maxRow = max($this->rows);
@@ -42,7 +53,9 @@ class TextGrid
 
             $this->renderColumnHeader($maxRowLength, $columnWidths);
             $this->renderRows($maxRowLength, $columnWidths);
-            $this->renderFooter($maxRowLength, $columnWidths);
+            if (!$this->rowDividers) {
+                $this->renderFooter($maxRowLength, $columnWidths);
+            }
         }
 
         $this->gridDisplay .= $this->isCli ? '' : '</pre>';
@@ -53,30 +66,48 @@ class TextGrid
     private function renderRows(int $maxRowLength, array $columnWidths): void
     {
         foreach ($this->matrix as $row => $rowData) {
-            $this->gridDisplay .= '|' . str_pad((string) $this->rows[$row], $maxRowLength, ' ', STR_PAD_LEFT) . ' ';
+            if ($this->rowHeaders) {
+                $this->gridDisplay .= '|' . str_pad((string) $this->rows[$row], $maxRowLength, ' ', STR_PAD_LEFT) . ' ';
+            }
             $this->renderCells($rowData, $columnWidths);
             $this->gridDisplay .= '|' . PHP_EOL;
+            if ($this->rowDividers) {
+                $this->renderFooter($maxRowLength, $columnWidths);
+            }
         }
     }
 
     private function renderCells(array $rowData, array $columnWidths): void
     {
         foreach ($rowData as $column => $cell) {
-            $displayCell = ($this->isCli) ? (string) $cell : htmlentities((string) $cell);
+            $valueForLength = StringHelper::convertToString($cell, convertBool: true);
+            $displayCell = $this->isCli ? $valueForLength : htmlentities($valueForLength);
             $this->gridDisplay .= '| ';
-            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - mb_strlen($cell ?? '') + 1);
+            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - mb_strlen($valueForLength) + 1);
         }
     }
 
-    private function renderColumnHeader(int $maxRowLength, array $columnWidths): void
+    private function renderColumnHeader(int $maxRowLength, array &$columnWidths): void
     {
-        $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
+        if (!$this->columnHeaders) {
+            $this->renderFooter($maxRowLength, $columnWidths);
+
+            return;
+        }
+        foreach ($this->columns as $column => $reference) {
+            $columnWidths[$column] = max($columnWidths[$column], mb_strlen($reference));
+        }
+        if ($this->rowHeaders) {
+            $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
+        }
         foreach ($this->columns as $column => $reference) {
             $this->gridDisplay .= '+-' . str_repeat('-', $columnWidths[$column] + 1);
         }
         $this->gridDisplay .= '+' . PHP_EOL;
 
-        $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
+        if ($this->rowHeaders) {
+            $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
+        }
         foreach ($this->columns as $column => $reference) {
             $this->gridDisplay .= '| ' . str_pad((string) $reference, $columnWidths[$column] + 1, ' ');
         }
@@ -87,7 +118,9 @@ class TextGrid
 
     private function renderFooter(int $maxRowLength, array $columnWidths): void
     {
-        $this->gridDisplay .= '+' . str_repeat('-', $maxRowLength + 1);
+        if ($this->rowHeaders) {
+            $this->gridDisplay .= '+' . str_repeat('-', $maxRowLength + 1);
+        }
         foreach ($this->columns as $column => $reference) {
             $this->gridDisplay .= '+-';
             $this->gridDisplay .= str_pad((string) '', $columnWidths[$column] + 1, '-');
@@ -112,13 +145,7 @@ class TextGrid
         $columnData = array_values($columnData);
 
         foreach ($columnData as $columnValue) {
-            if (is_string($columnValue)) {
-                $columnWidth = max($columnWidth, mb_strlen($columnValue));
-            } elseif (is_bool($columnValue)) {
-                $columnWidth = max($columnWidth, mb_strlen($columnValue ? 'TRUE' : 'FALSE'));
-            }
-
-            $columnWidth = max($columnWidth, mb_strlen((string) $columnWidth));
+            $columnWidth = max($columnWidth, mb_strlen(StringHelper::convertToString($columnValue, convertBool: true)));
         }
 
         return $columnWidth;
