@@ -97,11 +97,9 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', (string) (int) $chart->getPlotVisibleOnly());
         $objWriter->endElement();
 
-        if ($chart->getDisplayBlanksAs() !== '') {
-            $objWriter->startElement('c:dispBlanksAs');
-            $objWriter->writeAttribute('val', $chart->getDisplayBlanksAs());
-            $objWriter->endElement();
-        }
+        $objWriter->startElement('c:dispBlanksAs');
+        $objWriter->writeAttribute('val', $chart->getDisplayBlanksAs());
+        $objWriter->endElement();
 
         $objWriter->startElement('c:showDLblsOverMax');
         $objWriter->writeAttribute('val', '0');
