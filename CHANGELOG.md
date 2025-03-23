@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Start migration to Phpstan level 9. [PR #4396](https://github.com/PHPOffice/PhpSpreadsheet/pull/4396)
 - Calculation locale logic moved to separate class. [PR #4398](https://github.com/PHPOffice/PhpSpreadsheet/pull/4398)
 - TREND_POLYNOMIAL_* and TREND_BEST_FIT do not work, and are changed to throw Exceptions if attempted. (TREND_BEST_FIT_NO_POLY works.) An attempt to use an unknown trend type will now also throw an exception. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
+- Month parameter of DATE function will now return VALUE if an ordinal string (e.g. '3rd') is used, but will accept bool or null. [PR #4420](https://github.com/PHPOffice/PhpSpreadsheet/pull/4420)
 
 ### Moved
 

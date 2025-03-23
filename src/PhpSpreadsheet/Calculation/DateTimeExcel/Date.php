@@ -64,7 +64,7 @@ class Date
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromYMD(array|float|int|string $year, array|float|int|string $month, array|float|int|string $day): float|int|DateTime|string|array
+    public static function fromYMD(array|float|int|string $year, null|array|bool|float|int|string $month, array|float|int|string $day): float|int|DateTime|string|array
     {
         if (is_array($year) || is_array($month) || is_array($day)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $year, $month, $day);
@@ -121,13 +121,14 @@ class Date
      */
     private static function getMonth(mixed $month): int
     {
-        if (is_string($month) && !is_numeric($month)) {
-            $month = SharedDateHelper::monthStringToNumber($month);
-        }
-        if ($month === null) {
+        if (is_string($month)) {
+            if (!is_numeric($month)) {
+                $month = SharedDateHelper::monthStringToNumber($month);
+            }
+        } elseif ($month === null) {
             $month = 0;
-        } elseif (is_scalar($month)) {
-            $year = StringHelper::testStringAsNumeric((string) $month);
+        } elseif (is_bool($month)) {
+            $month = (int) $month;
         }
         if (!is_numeric($month)) {
             throw new Exception(ExcelError::VALUE());
