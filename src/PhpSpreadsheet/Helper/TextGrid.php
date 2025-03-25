@@ -48,7 +48,7 @@ class TextGrid
 
         if (!empty($this->rows)) {
             $maxRow = max($this->rows);
-            $maxRowLength = mb_strlen((string) $maxRow) + 1;
+            $maxRowLength = strlen((string) $maxRow) + 1;
             $columnWidths = $this->getColumnWidths();
 
             $this->renderColumnHeader($maxRowLength, $columnWidths);
@@ -80,10 +80,10 @@ class TextGrid
     private function renderCells(array $rowData, array $columnWidths): void
     {
         foreach ($rowData as $column => $cell) {
-            $valueForLength = StringHelper::convertToString($cell, convertBool: true);
+            $valueForLength = $this->getString($cell);
             $displayCell = $this->isCli ? $valueForLength : htmlentities($valueForLength);
             $this->gridDisplay .= '| ';
-            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - mb_strlen($valueForLength) + 1);
+            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength) + 1);
         }
     }
 
@@ -95,7 +95,7 @@ class TextGrid
             return;
         }
         foreach ($this->columns as $column => $reference) {
-            $columnWidths[$column] = max($columnWidths[$column], mb_strlen($reference));
+            $columnWidths[$column] = max($columnWidths[$column], $this->strlen($reference));
         }
         if ($this->rowHeaders) {
             $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
@@ -145,9 +145,19 @@ class TextGrid
         $columnData = array_values($columnData);
 
         foreach ($columnData as $columnValue) {
-            $columnWidth = max($columnWidth, mb_strlen(StringHelper::convertToString($columnValue, convertBool: true)));
+            $columnWidth = max($columnWidth, $this->strlen($this->getString($columnValue)));
         }
 
         return $columnWidth;
+    }
+
+    protected function getString(mixed $value): string
+    {
+        return StringHelper::convertToString($value, convertBool: true);
+    }
+
+    protected function strlen(string $value): int
+    {
+        return mb_strlen($value);
     }
 }

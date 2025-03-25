@@ -1200,7 +1200,12 @@ You can then echo `$result` to a terminal, or write it to a file with `file_put_
     | A   | B                | C | D        |
 +---+-----+------------------+---+----------+
 | 1 | 6   | 1900-01-06 00:00 |   | 0.572917 |
-| 2 | 6   | 1900-01-06 00:00 |   | 1<>2     |
+| 2 | 6   | TRUE             |   | 1<>2     |
 | 3 | xyz | xyz              |   |          |
 +---+-----+------------------+---+----------+
 ```
+Please note that this may produce sub-optimal results for situations such as:
+- use of accents as combining characters rather than using pre-composed characters (may be handled by extending the class to override the `getString` or `strlen` methods)
+- Fullwidth characters
+- right-to-left characters (better display in a browser than a terminal on a non-RTL system)
+- multi-line strings
