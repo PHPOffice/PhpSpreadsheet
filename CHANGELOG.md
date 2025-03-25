@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Add ability to add custom functions to Calculation. [PR #4390](https://github.com/PHPOffice/PhpSpreadsheet/pull/4390)
 - Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
+- Permit read to class which extends Spreadsheet. [Discussion #4402](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4402) [PR #4404](https://github.com/PHPOffice/PhpSpreadsheet/pull/4404)
 
 ### Removed
 
@@ -33,9 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Ignore fractional part of Drawing Shadow Alpha. [Issue #4415](https://github.com/PHPOffice/PhpSpreadsheet/issues/4415) [PR #4417](https://github.com/PHPOffice/PhpSpreadsheet/pull/4417)
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 - Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 - Tweak Spreadsheet clone. [PR #4419](https://github.com/PHPOffice/PhpSpreadsheet/pull/4419)
+- Better handling of Chart DisplayBlanksAs. [Issue #4411](https://github.com/PHPOffice/PhpSpreadsheet/issues/4411) [PR #4414](https://github.com/PHPOffice/PhpSpreadsheet/pull/4414)
 
 ## 2025-03-02 - 4.1.0
 

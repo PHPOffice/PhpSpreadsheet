@@ -3766,7 +3766,7 @@ class Worksheet
             $keys = $this->cellCollection->getCoordinates();
             foreach ($keys as $key) {
                 if ($this->getCell($key)->getDataType() === DataType::TYPE_FORMULA) {
-                    if (preg_match(self::FUNCTION_LIKE_GROUPBY, $this->getCell($key)->getValue()) !== 1) {
+                    if (preg_match(self::FUNCTION_LIKE_GROUPBY, $this->getCell($key)->getValueString()) !== 1) {
                         $this->getCell($key)->getCalculatedValue();
                     }
                 }

@@ -43,6 +43,8 @@ class DataSeries
     const EMPTY_AS_GAP = 'gap';
     const EMPTY_AS_ZERO = 'zero';
     const EMPTY_AS_SPAN = 'span';
+    const DEFAULT_EMPTY_AS = self::EMPTY_AS_GAP;
+    const VALID_EMPTY_AS = [self::EMPTY_AS_GAP, self::EMPTY_AS_ZERO, self::EMPTY_AS_SPAN];
 
     /**
      * Series Plot Type.

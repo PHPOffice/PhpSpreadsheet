@@ -1557,7 +1557,7 @@ class Html extends BaseWriter
     /**
      * Generate row.
      *
-     * @param array<int, mixed> $values Array containing cells in a row
+     * @param array<int, string> $values Array containing cells in a row
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */

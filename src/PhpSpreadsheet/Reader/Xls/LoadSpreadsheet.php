@@ -26,7 +26,7 @@ class LoadSpreadsheet extends Xls
         $xls->loadOLE($filename);
 
         // Initialisations
-        $xls->spreadsheet = new Spreadsheet();
+        $xls->spreadsheet = $this->newSpreadsheet();
         $xls->spreadsheet->setValueBinder($this->valueBinder);
         $xls->spreadsheet->removeSheetByIndex(0); // remove 1st sheet
         if (!$xls->readDataOnly) {
@@ -480,6 +480,7 @@ class LoadSpreadsheet extends Xls
                         case 0x08:
                             // picture
                             // get index to BSE entry (1-based)
+                            /** @var int */
                             $BSEindex = $spContainer->getOPT(0x0104);
 
                             // If there is no BSE Index, we will fail here and other fields are not read.
