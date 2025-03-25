@@ -315,10 +315,12 @@ class Calculation extends CalculationLocale
     /**
      * Enable/disable calculation cache.
      */
-    public function setCalculationCacheEnabled(bool $calculationCacheEnabled): void
+    public function setCalculationCacheEnabled(bool $calculationCacheEnabled): self
     {
         $this->calculationCacheEnabled = $calculationCacheEnabled;
         $this->clearCalculationCache();
+
+        return $this;
     }
 
     /**
@@ -366,13 +368,17 @@ class Calculation extends CalculationLocale
         }
     }
 
-    /**
-     * Enable/disable calculation cache.
-     */
-    public function setBranchPruningEnabled(mixed $enabled): void
+    public function getBranchPruningEnabled(): bool
+    {
+        return $this->branchPruningEnabled;
+    }
+
+    public function setBranchPruningEnabled(mixed $enabled): self
     {
         $this->branchPruningEnabled = (bool) $enabled;
         $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
+
+        return $this;
     }
 
     public function enableBranchPruning(): void
@@ -2712,9 +2718,11 @@ class Calculation extends CalculationLocale
         return $result;
     }
 
-    public function setSuppressFormulaErrors(bool $suppressFormulaErrors): void
+    public function setSuppressFormulaErrors(bool $suppressFormulaErrors): self
     {
         $this->suppressFormulaErrors = $suppressFormulaErrors;
+
+        return $this;
     }
 
     public function getSuppressFormulaErrors(): bool
@@ -2756,5 +2764,10 @@ class Calculation extends CalculationLocale
         }
 
         return $retVal;
+    }
+
+    public function getSpreadsheet(): ?Spreadsheet
+    {
+        return $this->spreadsheet;
     }
 }
