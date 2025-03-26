@@ -1071,7 +1071,7 @@ class AutoFilter implements Stringable
                 //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter objects
                 $this->{$key} = [];
                 foreach ($value as $k => $v) {
-                    $this->{$key}[$k] = clone $v;
+                    $this->{$key}[$k] = clone $v; //* @phpstan-ignore-line
                     // attach the new cloned Column to this new cloned Autofilter object
                     $this->{$key}[$k]->setParent($this);
                 }

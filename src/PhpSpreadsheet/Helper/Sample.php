@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -35,7 +36,7 @@ class Sample
      */
     public function getScriptFilename(): string
     {
-        return basename($_SERVER['SCRIPT_FILENAME'], '.php');
+        return basename(StringHelper::convertToString($_SERVER['SCRIPT_FILENAME']), '.php');
     }
 
     /**
