@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 - Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
+- Fix typo in Style exportArray quotePrefix. [Issue #4422](https://github.com/PHPOffice/PhpSpreadsheet/issues/4422) [PR #4424](https://github.com/PHPOffice/PhpSpreadsheet/pull/4424)
 
 ## 2025-03-02 - 4.1.0
 
