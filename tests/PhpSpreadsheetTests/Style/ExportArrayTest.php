@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -285,6 +286,26 @@ class ExportArrayTest extends TestCase
             $styleArray['fill'],
             'applyFromArray without start/endColor'
         );
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testQuotePrefix(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')
+            ->setValueExplicit('=1+2', DataType::TYPE_STRING);
+        self::assertSame('=1+2', $sheet->getCell('A1')->getCalculatedValue());
+        self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        $sheet->getCell('A2')->setValue('=1+2');
+        self::assertSame(3, $sheet->getCell('A2')->getCalculatedValue());
+        self::assertFalse($sheet->getStyle('A2')->getQuotePrefix());
+        $styleArray1 = $sheet->getStyle('A1')->exportArray();
+        $styleArray2 = $sheet->getStyle('A2')->exportArray();
+        $sheet->getStyle('B1')->applyFromArray($styleArray1);
+        $sheet->getStyle('B2')->applyFromArray($styleArray2);
+        self::assertTrue($sheet->getStyle('B1')->getQuotePrefix());
+        self::assertFalse($sheet->getStyle('B2')->getQuotePrefix());
         $spreadsheet->disconnectWorksheets();
     }
 }

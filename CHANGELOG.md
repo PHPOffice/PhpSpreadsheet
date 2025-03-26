@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Ignore fractional part of Drawing Shadow Alpha. [Issue #4415](https://github.com/PHPOffice/PhpSpreadsheet/issues/4415) [PR #4417](https://github.com/PHPOffice/PhpSpreadsheet/pull/4417)
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 - Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
+- Fix typo in Style exportArray quotePrefix. [Issue #4422](https://github.com/PHPOffice/PhpSpreadsheet/issues/4422) [PR #4424](https://github.com/PHPOffice/PhpSpreadsheet/pull/4424)
 - Tweak Spreadsheet clone. [PR #4419](https://github.com/PHPOffice/PhpSpreadsheet/pull/4419)
 - Better handling of Chart DisplayBlanksAs. [Issue #4411](https://github.com/PHPOffice/PhpSpreadsheet/issues/4411) [PR #4414](https://github.com/PHPOffice/PhpSpreadsheet/pull/4414)
 
