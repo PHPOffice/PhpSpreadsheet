@@ -1598,7 +1598,7 @@ class Parser
             $converted_tree = $this->toReversePolish($tree['left']);
             $polish .= $converted_tree;
         } elseif ($tree['left'] != '') { // It's a final node
-            $converted_tree = $this->convert($tree['left']);
+            $converted_tree = $this->convert($tree['left']); //* @phpstan-ignore-line
             $polish .= $converted_tree;
         }
         if (is_array($tree['right'])) {
@@ -1621,7 +1621,7 @@ class Parser
         ) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
-                $left_tree = $this->toReversePolish($tree['left']);
+                $left_tree = $this->toReversePolish($tree['left']); //* @phpstan-ignore-line
             } else {
                 $left_tree = '';
             }
