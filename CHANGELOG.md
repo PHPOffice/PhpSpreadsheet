@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Add ability to add custom functions to Calculation. [PR #4390](https://github.com/PHPOffice/PhpSpreadsheet/pull/4390)
 - Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
+- TextGrid improvements. [PR #4418](https://github.com/PHPOffice/PhpSpreadsheet/pull/4418)
 - Permit read to class which extends Spreadsheet. [Discussion #4402](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4402) [PR #4404](https://github.com/PHPOffice/PhpSpreadsheet/pull/4404)
 
 ### Removed
