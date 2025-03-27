@@ -331,7 +331,7 @@ class Spreadsheet implements JsonSerializable
                 return $this->ribbonBinObjects;
             case 'names':
             case 'data':
-                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
+                if (is_array($this->ribbonBinObjects) && is_array($this->ribbonBinObjects[$what] ?? null)) {
                     $ReturnData = $this->ribbonBinObjects[$what];
                 }
 
@@ -1058,7 +1058,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        return unserialize(serialize($this));
+        return unserialize(serialize($this)); //* @phpstan-ignore-line
     }
 
     /**
@@ -1079,6 +1079,15 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine = new Calculation($this);
         if ($oldCalc !== null) {
             $this->calculationEngine
+                ->setSuppressFormulaErrors(
+                    $oldCalc->getSuppressFormulaErrors()
+                )
+                ->setCalculationCacheEnabled(
+                    $oldCalc->getCalculationCacheEnabled()
+                )
+                ->setBranchPruningEnabled(
+                    $oldCalc->getBranchPruningEnabled()
+                )
                 ->setInstanceArrayReturnType(
                     $oldCalc->getInstanceArrayReturnType()
                 );
@@ -1119,6 +1128,7 @@ class Spreadsheet implements JsonSerializable
             switch ($key) {
                 // arrays of objects not covered above
                 case 'definedNames':
+                    /** @var DefinedName[] */
                     $currentCollection = $val;
                     $this->$key = [];
                     foreach ($currentCollection as $item) {

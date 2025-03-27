@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use Stringable;
 
@@ -647,8 +648,12 @@ class StringHelper
         return strlen("$string");
     }
 
-    public static function convertToString(mixed $value, bool $throw = true, string $default = ''): string
+    /** @param bool $convertBool If true, convert bool to locale-aware TRUE/FALSE rather than 1/null-string */
+    public static function convertToString(mixed $value, bool $throw = true, string $default = '', bool $convertBool = false): string
     {
+        if ($convertBool && is_bool($value)) {
+            return $value ? Calculation::getTRUE() : Calculation::getFALSE();
+        }
         if ($value === null || is_scalar($value) || $value instanceof Stringable) {
             return (string) $value;
         }

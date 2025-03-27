@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -210,8 +211,7 @@ class Html extends BaseReader
      */
     public function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        // Create new Spreadsheet
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
 
         // Load into this instance
@@ -251,6 +251,8 @@ class Html extends BaseReader
 
     /**
      * Flush cell.
+     *
+     * @param-out string $cellContent In one case, it can be bool
      */
     protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
     {
@@ -273,7 +275,8 @@ class Html extends BaseReader
                         }
                     }
                     if ($datatype === DataType::TYPE_BOOL) {
-                        $cellContent = self::convertBoolean($cellContent);
+                        // This is the case where we can set cellContent to bool rather than string
+                        $cellContent = self::convertBoolean($cellContent); //* @phpstan-ignore-line
                         if (!is_bool($cellContent)) {
                             $attributeArray['data-type'] = DataType::TYPE_STRING;
                         }
@@ -293,7 +296,7 @@ class Html extends BaseReader
         } else {
             //    We have a Rich Text run
             //    TODO
-            $this->dataArray[$row][$column] = 'RICH TEXT: ' . $cellContent;
+            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent);
         }
         $cellContent = (string) '';
     }
@@ -623,6 +626,7 @@ class Html extends BaseReader
         // apply inline style
         $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
 
+        /** @var string $cellContent */
         $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
 
         $this->processDomElementBgcolor($sheet, $row, $column, $attributeArray);
@@ -826,7 +830,7 @@ class Html extends BaseReader
         if ($loaded === false) {
             throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
-        $spreadsheet = $spreadsheet ?? new Spreadsheet();
+        $spreadsheet = $spreadsheet ?? $this->newSpreadsheet();
         $spreadsheet->setValueBinder($this->valueBinder);
         self::loadProperties($dom, $spreadsheet);
 
@@ -1225,7 +1229,7 @@ class Html extends BaseReader
     public function listWorksheetInfo(string $filename): array
     {
         $info = [];
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->newSpreadsheet();
         $this->loadIntoExisting($filename, $spreadsheet);
         foreach ($spreadsheet->getAllSheets() as $sheet) {
             $newEntry = ['worksheetName' => $sheet->getTitle()];

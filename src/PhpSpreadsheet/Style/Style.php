@@ -698,7 +698,7 @@ class Style extends Supervisor
         $this->exportArray2($exportedArray, 'font', $this->getFont());
         $this->exportArray2($exportedArray, 'numberFormat', $this->getNumberFormat());
         $this->exportArray2($exportedArray, 'protection', $this->getProtection());
-        $this->exportArray2($exportedArray, 'quotePrefx', $this->getQuotePrefix());
+        $this->exportArray2($exportedArray, 'quotePrefix', $this->getQuotePrefix());
 
         return $exportedArray;
     }
