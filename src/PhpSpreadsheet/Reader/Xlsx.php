@@ -692,6 +692,7 @@ class Xlsx extends BaseReader
                     $this->styleReader->setNamespace($mainNS);
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
+                    $tableStyles = $this->styleReader->tableStyles($this->readDataOnly);
                     $styles = $this->styleReader->styles();
 
                     // Read content after setting the styles
@@ -1000,7 +1001,7 @@ class Xlsx extends BaseReader
                                 $this->readBackgroundImage($xmlSheetNS, $docSheet, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels');
                             }
 
-                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
+                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS, $tableStyles, $dxfs);
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
@@ -2311,12 +2312,14 @@ class Xlsx extends BaseReader
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip,
-        string $namespaceTable
+        string $namespaceTable,
+        array $tableStyles,
+        array $dxfs
     ): void {
         if ($xmlSheet && $xmlSheet->tableParts) {
             $attributes = $xmlSheet->tableParts->attributes() ?? ['count' => 0];
             if (((int) $attributes['count']) > 0) {
-                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable);
+                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable, $tableStyles, $dxfs);
             }
         }
     }
@@ -2327,7 +2330,9 @@ class Xlsx extends BaseReader
         string $fileWorksheet,
         ZipArchive $zip,
         Worksheet $docSheet,
-        string $namespaceTable
+        string $namespaceTable,
+        array $tableStyles,
+        array $dxfs
     ): void {
         foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
@@ -2346,7 +2351,7 @@ class Xlsx extends BaseReader
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
                             $tableXml = $this->loadZip($relationshipFilePath, $namespaceTable);
-                            (new TableReader($docSheet, $tableXml))->load();
+                            (new TableReader($docSheet, $tableXml))->load($tableStyles, $dxfs);
                         }
                     }
                 }
