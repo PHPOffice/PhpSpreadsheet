@@ -217,6 +217,7 @@ class Font extends Supervisor
                 $this->setCap($styleArray['cap']);
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -274,6 +275,7 @@ class Font extends Supervisor
         } else {
             $this->name = $fontname;
         }
+        $this->updateHashBeforeUse();
 
         return $this->setScheme('');
     }
@@ -292,6 +294,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -310,6 +313,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -328,6 +332,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -371,6 +376,7 @@ class Font extends Supervisor
         } else {
             $this->size = $sizeInPoints;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -403,6 +409,7 @@ class Font extends Supervisor
         } else {
             $this->bold = $bold;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -435,6 +442,7 @@ class Font extends Supervisor
         } else {
             $this->italic = $italic;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -467,6 +475,7 @@ class Font extends Supervisor
                 $this->subscript = false;
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -499,6 +508,7 @@ class Font extends Supervisor
                 $this->superscript = false;
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -523,6 +533,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -547,6 +558,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -571,6 +583,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -595,6 +608,7 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -602,6 +616,7 @@ class Font extends Supervisor
     public function setChartColorFromObject(?ChartColor $chartColor): self
     {
         $this->chartColor = $chartColor;
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -640,6 +655,7 @@ class Font extends Supervisor
         } else {
             $this->underline = $underlineStyle;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -673,6 +689,7 @@ class Font extends Supervisor
         } else {
             $this->strikethrough = $strikethru;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -701,6 +718,7 @@ class Font extends Supervisor
         } else {
             $this->color = $color;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -718,17 +736,11 @@ class Font extends Supervisor
     }
 
     /**
-     * Get hash code.
-     *
-     * @return string Hash code
+     * Update Hash when something changes.
      */
-    public function getHashCode(): string
+    protected function updateHash(): void
     {
-        if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getHashCode();
-        }
-
-        return md5(
+        $this->md5Sum = md5(
             $this->name
             . $this->size
             . ($this->bold ? 't' : 'f')
@@ -754,6 +766,25 @@ class Font extends Supervisor
             )
             . __CLASS__
         );
+        $this->updateMd5Sum = false;
+    }
+
+    /**
+     * Get hash code.
+     *
+     * @return string Hash code
+     */
+    public function getHashCode(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getHashCode();
+        }
+
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array
@@ -800,6 +831,7 @@ class Font extends Supervisor
                 $this->scheme = $scheme;
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -814,6 +846,7 @@ class Font extends Supervisor
     public function setCap(string $cap): self
     {
         $this->cap = in_array($cap, self::VALID_CAPS, true) ? $cap : null;
+        $this->updateHashBeforeUse();
 
         return $this;
     }

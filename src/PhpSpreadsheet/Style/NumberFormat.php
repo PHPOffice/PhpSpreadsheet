@@ -256,6 +256,7 @@ class NumberFormat extends Supervisor
             $this->formatCode = $formatCode;
             $this->builtInFormatCode = self::builtInFormatCodeIndex($formatCode);
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -290,6 +291,7 @@ class NumberFormat extends Supervisor
             $this->builtInFormatCode = $formatCodeIndex;
             $this->formatCode = self::builtInFormatCode($formatCodeIndex);
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -435,6 +437,19 @@ class NumberFormat extends Supervisor
     }
 
     /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->formatCode
+            . $this->builtInFormatCode
+            . __CLASS__
+        );
+        $this->updateMd5Sum = false;
+    }
+
+    /**
      * Get hash code.
      *
      * @return string Hash code
@@ -445,11 +460,11 @@ class NumberFormat extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
-            $this->formatCode
-            . $this->builtInFormatCode
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     /**

@@ -177,6 +177,7 @@ class Fill extends Supervisor
         } else {
             $this->fillType = $fillType;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -206,6 +207,7 @@ class Fill extends Supervisor
         } else {
             $this->rotation = $angleInDegrees;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -235,6 +237,7 @@ class Fill extends Supervisor
         } else {
             $this->startColor = $color;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -264,6 +267,7 @@ class Fill extends Supervisor
         } else {
             $this->endColor = $color;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -279,6 +283,18 @@ class Fill extends Supervisor
         return $changed || $this->startColor->getHasChanged() || $this->endColor->getHasChanged();
     }
 
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->getFillType()
+            . $this->getRotation()
+            . ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '')
+            . ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '')
+            . ((string) $this->getColorsChanged())
+            . __CLASS__
+        );
+    }
+
     /**
      * Get hash code.
      *
@@ -290,16 +306,11 @@ class Fill extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        // Note that we don't care about colours for fill type NONE, but could have duplicate NONEs with
-        //  different hashes if we don't explicitly prevent this
-        return md5(
-            $this->getFillType()
-            . $this->getRotation()
-            . ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '')
-            . ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '')
-            . ((string) $this->getColorsChanged())
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

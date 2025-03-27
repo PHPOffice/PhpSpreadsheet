@@ -89,6 +89,7 @@ class Protection extends Supervisor
                 $this->setHidden($styleArray['hidden']);
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -120,6 +121,7 @@ class Protection extends Supervisor
         } else {
             $this->locked = $lockType;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -151,8 +153,22 @@ class Protection extends Supervisor
         } else {
             $this->hidden = $hiddenType;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
+    }
+
+    /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->locked
+            . $this->hidden
+            . __CLASS__
+        );
+        $this->updateMd5Sum = false;
     }
 
     /**
@@ -166,11 +182,11 @@ class Protection extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
-            $this->locked
-            . $this->hidden
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

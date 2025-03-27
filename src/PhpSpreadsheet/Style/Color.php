@@ -246,6 +246,7 @@ class Color extends Supervisor
         } else {
             $this->argb = $colorValue;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -385,6 +386,18 @@ class Color extends Supervisor
     }
 
     /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->argb
+            . __CLASS__
+        );
+        $this->updateMd5Sum = false;
+    }
+
+    /**
      * Get hash code.
      *
      * @return string Hash code
@@ -395,10 +408,11 @@ class Color extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
-            $this->argb
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

@@ -122,6 +122,7 @@ class Border extends Supervisor
                 $this->getColor()->applyFromArray($styleArray['color']);
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -160,6 +161,7 @@ class Border extends Supervisor
         } else {
             $this->borderStyle = $style;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -188,8 +190,22 @@ class Border extends Supervisor
         } else {
             $this->color = $color;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
+    }
+
+    /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->borderStyle
+            . $this->color->getHashCode()
+            . __CLASS__
+        );
+        $this->updateMd5Sum = false;
     }
 
     /**
@@ -203,11 +219,11 @@ class Border extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
-            $this->borderStyle
-            . $this->color->getHashCode()
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

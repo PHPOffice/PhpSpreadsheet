@@ -223,6 +223,7 @@ class Alignment extends Supervisor
                 $this->setReadOrder($styleArray['readOrder']);
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -259,6 +260,7 @@ class Alignment extends Supervisor
         } else {
             $this->horizontal = $horizontalAlignment;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -288,6 +290,7 @@ class Alignment extends Supervisor
         } else {
             $this->justifyLastLine = $justifyLastLine;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -321,6 +324,7 @@ class Alignment extends Supervisor
         } else {
             $this->vertical = $verticalAlignment;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -360,6 +364,7 @@ class Alignment extends Supervisor
         } else {
             throw new PhpSpreadsheetException('Text rotation should be a value between -90 and 90.');
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -392,6 +397,7 @@ class Alignment extends Supervisor
         } else {
             $this->wrapText = $wrapped;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -424,6 +430,7 @@ class Alignment extends Supervisor
         } else {
             $this->shrinkToFit = $shrink;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -463,6 +470,7 @@ class Alignment extends Supervisor
         } else {
             $this->indent = $indent;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -495,8 +503,28 @@ class Alignment extends Supervisor
         } else {
             $this->readOrder = $readOrder;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
+    }
+
+    /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->horizontal
+            . (($this->justifyLastLine === null) ? 'null' : ($this->justifyLastLine ? 't' : 'f'))
+            . $this->vertical
+            . $this->textRotation
+            . ($this->wrapText ? 't' : 'f')
+            . ($this->shrinkToFit ? 't' : 'f')
+            . $this->indent
+            . $this->readOrder
+            . __CLASS__
+        );
+        $this->updateMd5Sum = false;
     }
 
     /**
@@ -510,17 +538,11 @@ class Alignment extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
-            $this->horizontal
-            . (($this->justifyLastLine === null) ? 'null' : ($this->justifyLastLine ? 't' : 'f'))
-            . $this->vertical
-            . $this->textRotation
-            . ($this->wrapText ? 't' : 'f')
-            . ($this->shrinkToFit ? 't' : 'f')
-            . $this->indent
-            . $this->readOrder
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

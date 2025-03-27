@@ -21,6 +21,16 @@ abstract class Supervisor implements IComparable
     protected $parent;
 
     /**
+     * md5sum.
+     */
+    protected string $md5Sum = '';
+
+    /**
+     * do we need to recalculate the md5sum when next asked.
+     */
+    protected bool $updateMd5Sum = true;
+
+    /**
      * Parent property name.
      */
     protected ?string $parentPropertyName = null;
@@ -49,6 +59,14 @@ abstract class Supervisor implements IComparable
         $this->parentPropertyName = $parentPropertyName;
 
         return $this;
+    }
+
+    /**
+     * update the md5sum before next use.
+     */
+    public function updateHashBeforeUse(): void
+    {
+        $this->updateMd5Sum = true;
     }
 
     /**
@@ -88,6 +106,11 @@ abstract class Supervisor implements IComparable
     {
         return $this->getActiveSheet()->getActiveCell();
     }
+
+    /**
+     * Update Hash when something changes.
+     */
+    abstract protected function updateHash(): void;
 
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.

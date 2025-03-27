@@ -199,6 +199,7 @@ class Borders extends Supervisor
                 $this->getBottom()->applyFromArray($styleArray['allBorders']);
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -330,8 +331,25 @@ class Borders extends Supervisor
         } else {
             $this->diagonalDirection = $direction;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
+    }
+
+    /**
+     * Update Hash when something changes.
+     */
+    protected function updateHash(): void
+    {
+        $this->md5Sum = md5(
+            $this->getLeft()->getHashCode()
+            . $this->getRight()->getHashCode()
+            . $this->getTop()->getHashCode()
+            . $this->getBottom()->getHashCode()
+            . $this->getDiagonal()->getHashCode()
+            . $this->getDiagonalDirection()
+            . __CLASS__
+        );
     }
 
     /**
@@ -345,15 +363,11 @@ class Borders extends Supervisor
             return $this->getSharedComponent()->getHashcode();
         }
 
-        return md5(
-            $this->getLeft()->getHashCode()
-            . $this->getRight()->getHashCode()
-            . $this->getTop()->getHashCode()
-            . $this->getBottom()->getHashCode()
-            . $this->getDiagonal()->getHashCode()
-            . $this->getDiagonalDirection()
-            . __CLASS__
-        );
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     protected function exportArray1(): array

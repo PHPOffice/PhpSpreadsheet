@@ -340,6 +340,7 @@ class Style extends Supervisor
 
                 // restore initial cell selection range
                 $this->getActiveSheet()->getStyle($pRange);
+                $this->updateHashBeforeUse();
 
                 return $this;
             }
@@ -485,6 +486,7 @@ class Style extends Supervisor
                 $this->quotePrefix = $styleArray['quotePrefix'];
             }
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -562,6 +564,7 @@ class Style extends Supervisor
     public function setFont(Font $font): static
     {
         $this->font = $font;
+        $this->updateHashBeforeUse();
 
         return $this;
     }
@@ -650,18 +653,17 @@ class Style extends Supervisor
         } else {
             $this->quotePrefix = (bool) $quotePrefix;
         }
+        $this->updateHashBeforeUse();
 
         return $this;
     }
 
     /**
-     * Get hash code.
-     *
-     * @return string Hash code
+     * Update Hash when something changes.
      */
-    public function getHashCode(): string
+    protected function updateHash(): void
     {
-        return md5(
+        $this->md5Sum = md5(
             $this->fill->getHashCode()
             . $this->font->getHashCode()
             . $this->borders->getHashCode()
@@ -671,6 +673,21 @@ class Style extends Supervisor
             . ($this->quotePrefix ? 't' : 'f')
             . __CLASS__
         );
+        $this->updateMd5Sum = false;
+    }
+
+    /**
+     * Get hash code.
+     *
+     * @return string Hash code
+     */
+    public function getHashCode(): string
+    {
+        if ($this->updateMd5Sum) {
+            $this->updateHash();
+        }
+
+        return $this->md5Sum;
     }
 
     /**
