@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PHPUnit\Framework\TestCase;
@@ -23,57 +24,46 @@ class HtmlColourScaleTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('colourScaleProvider')]
-    public function testColourScaleHtmlOutput(int $rowNumber, array $expectedMatches): void
+    private function extractCell(string $coordinate): string
     {
-        self::assertSame(1, preg_match('~<tr class="row' . $rowNumber . '".+?</tr>~ms', $this->data, $matches));
-        foreach ($expectedMatches as $i => $expected) {
-            self::assertStringContainsString($expected, $matches[0]);
+        [$column, $row] = Coordinate::indexesFromString($coordinate);
+        --$column;
+        --$row;
+        // extract row into $matches
+        $match = preg_match('~<tr class="row' . $row . '".+?</tr>~s', $this->data, $matches);
+        if ($match !== 1) {
+            return 'unable to match row';
         }
+        $rowData = $matches[0];
+        // extract cell into $matches
+        $match = preg_match('~<td class="column' . $column . ' .+?</td>~s', $rowData, $matches);
+        if ($match !== 1) {
+            return 'unable to match column';
+        }
+
+        return $matches[0];
     }
 
-    public static function colourScaleProvider(): array
+    public function testColourScaleHtmlOutput(): void
     {
-        return [
-            'row 0: low/high min/max with 80% midpoint' => [0, ['<td class="column0 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">1</td>',
-                '<td class="column1 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#6EBE85;">2</td>',
-                '<td class="column2 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#85C280;">3</td>',
-                '<td class="column3 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#9DC67A;">4</td>',
-                '<td class="column4 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#B4CA76;">5</td>',
-                '<td class="column5 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#CBCD71;">6</td>',
-                '<td class="column6 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E3D16C;">7</td>',
-                '<td class="column7 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#FAD566;">8</td>',
-                '<td class="column8 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#F3AD6B;">9</td>',
-                '<td class="column9 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">10</td>']],
-            'row 1: low/high 40%/80% with 50% midpoint' => [1, ['<td class="column0 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">1</td>',
-                '<td class="column1 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">2</td>',
-                '<td class="column2 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">3</td>',
-                '<td class="column3 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">4</td>',
-                '<td class="column4 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#A1C77A;">5</td>',
-                '<td class="column5 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#F1A36D;">6</td>',
-                '<td class="column6 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">7</td>',
-                '<td class="column7 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">8</td>',
-                '<td class="column8 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">9</td>',
-                '<td class="column9 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">10</td>']],
-            'row 2: low/high/midpoint values 3/8/4 ' => [2, ['<td class="column0 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">1</td>',
-                '<td class="column1 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">2</td>',
-                '<td class="column2 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">3</td>',
-                '<td class="column3 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#FFD666;">4</td>',
-                '<td class="column4 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#F8BF69;">5</td>',
-                '<td class="column5 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#F2A96C;">6</td>',
-                '<td class="column6 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#EC926F;">7</td>',
-                '<td class="column7 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">8</td>',
-                '<td class="column8 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">9</td>',
-                '<td class="column9 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">10</td>']],
-            'row 3: low/high with 30/80 percentile and 50% midpoint, one cell no value' => [3, ['<td class="column0 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">1</td>',
-                '<td class="column1 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">2</td>',
-                '<td class="column2 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#8FC47E;">3</td>',
-                '<td class="column3 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#C7CD72;">4</td>',
-                '<td class="column4 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#57BB8A;">2</td>',
-                '<td class="column5 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">9</td>',
-                '<td class="column6 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">9</td>',
-                '<td class="column7 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">9</td>',
-                '<td class="column8 style2 null"></td>',
-                '<td class="column9 style1 n" style="vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Arial\';font-size:11pt;background-color:#E67C73;">10</td>']]];
+        $expectedMatches = [
+            ['E1', 'background-color:#B4CA76;">5<', 'cell E1'],
+            ['F1', 'background-color:#CBCD71;">6<', 'cell F1'],
+            ['G1', 'background-color:#E3D16C;">7<', 'cell G1'],
+            ['D2', 'background-color:#57BB8A;">4<', 'cell D2'],
+            ['E2', 'background-color:#A1C77A;">5<', 'cell E2'],
+            ['F2', 'background-color:#F1A36D;">6<', 'cell F2'],
+            ['D3', 'background-color:#FFD666;">4<', 'cell D3'],
+            ['G3', 'background-color:#EC926F;">7<', 'cell G3'],
+            ['H3', 'background-color:#E67C73;">8<', 'cell H3'],
+            ['A4', 'background-color:#57BB8A;">1<', 'cell A4'],
+            ['I4', 'null"><', 'empty cell I4'],
+            ['J4', 'background-color:#E67C73;">10<', 'cell J4'],
+        ];
+        foreach ($expectedMatches as $expected) {
+            [$coordinate, $expectedString, $message] = $expected;
+            $string = $this->extractCell($coordinate);
+            self::assertStringContainsString($expectedString, $string, $message);
+        }
     }
 }

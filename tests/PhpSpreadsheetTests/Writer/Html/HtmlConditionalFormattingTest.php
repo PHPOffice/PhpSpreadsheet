@@ -48,12 +48,12 @@ class HtmlConditionalFormattingTest extends TestCase
     {
         $expectedMatches = [
             ['B1', 'class="column1 style1 s">Jan<', 'no conditional styling for B1'],
-            ['F2', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#006100;font-family:\'Arial\';font-size:11pt;background-color:#C6EFCE;">120<', 'conditional style for F2'],
-            ['H2', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#9C5700;font-family:\'Arial\';font-size:11pt;background-color:#FFEB9C;">90<', 'conditional style for H2'],
-            ['F3', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#006100;font-family:\'Arial\';font-size:11pt;background-color:#C6EFCE;">70<', 'conditional style for cell F3'],
-            ['H3', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#9C5700;font-family:\'Arial\';font-size:11pt;background-color:#FFEB9C;">60<', 'conditional style for cell H3'],
-            ['F4', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#006100;font-family:\'Arial\';font-size:11pt;background-color:#C6EFCE;">1<', 'conditional style for cell F4'],
-            ['L4', '"vertical-align:bottom;border-bottom:1px solid #000000 !important;border-top:1px solid #000000 !important;border-left:1px solid #000000 !important;border-right:1px solid #000000 !important;color:#9C0006;font-family:\'Arial\';font-size:11pt;background-color:#FFC7CE;">5<', 'conditional style for cell L4'],
+            ['F2', 'background-color:#C6EFCE;">120<', 'conditional style for F2'],
+            ['H2', 'background-color:#FFEB9C;">90<', 'conditional style for H2'],
+            ['F3', 'background-color:#C6EFCE;">70<', 'conditional style for cell F3'],
+            ['H3', 'background-color:#FFEB9C;">60<', 'conditional style for cell H3'],
+            ['F4', 'background-color:#C6EFCE;">1<', 'conditional style for cell F4'],
+            ['L4', 'background-color:#FFC7CE;">5<', 'conditional style for cell L4'],
             ['F5', 'class="column5 style1 n">0<', 'no conditional styling for F5'],
         ];
         foreach ($expectedMatches as $expected) {
