@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
@@ -36,14 +37,14 @@ class DateTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
-    public function testDirectCallToDATE(float|string $expectedResult, int|string $year, float|int|string $month, float|int|string $day): void
+    #[DataProvider('providerDATE')]
+    public function testDirectCallToDATE(float|string $expectedResult, int|string $year, null|bool|float|int|string $month, float|int|string $day): void
     {
         $result = Date::fromYMD($year, $month, $day);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
+    #[DataProvider('providerDATE')]
     public function testDATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class DateTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATE')]
+    #[DataProvider('providerDATE')]
     public function testDATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,7 +79,7 @@ class DateTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDATE')]
+    #[DataProvider('providerUnhappyDATE')]
     public function testDATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -136,7 +137,7 @@ class DateTest extends TestCase
         self::assertEquals($result, ExcelError::NAN());
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateArray')]
+    #[DataProvider('providerDateArray')]
     public function testDateArray(array $expectedResult, string $year, string $month, string $day): void
     {
         $calculation = Calculation::getInstance();
@@ -200,7 +201,7 @@ class DateTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateArrayException')]
+    #[DataProvider('providerDateArrayException')]
     public function testDateArrayException(string $year, string $month, string $day): void
     {
         $calculation = Calculation::getInstance();

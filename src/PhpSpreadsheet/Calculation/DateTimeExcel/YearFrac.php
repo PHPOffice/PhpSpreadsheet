@@ -62,11 +62,11 @@ class YearFrac
         }
 
         return match ($method) {
-            0 => Functions::scalar(Days360::between($startDate, $endDate)) / 360,
+            0 => Helpers::floatOrInt(Days360::between($startDate, $endDate)) / 360,
             1 => self::method1($startDate, $endDate),
-            2 => Functions::scalar(Difference::interval($startDate, $endDate)) / 360,
-            3 => Functions::scalar(Difference::interval($startDate, $endDate)) / 365,
-            4 => Functions::scalar(Days360::between($startDate, $endDate, true)) / 360,
+            2 => Helpers::floatOrInt(Difference::interval($startDate, $endDate)) / 360,
+            3 => Helpers::floatOrInt(Difference::interval($startDate, $endDate)) / 365,
+            4 => Helpers::floatOrInt(Days360::between($startDate, $endDate, true)) / 360,
             default => ExcelError::NAN(),
         };
     }
@@ -91,7 +91,7 @@ class YearFrac
 
     private static function method1(float $startDate, float $endDate): float
     {
-        $days = Functions::scalar(Difference::interval($startDate, $endDate));
+        $days = Helpers::floatOrInt(Difference::interval($startDate, $endDate));
         $startYear = (int) DateParts::year($startDate);
         $endYear = (int) DateParts::year($endDate);
         $years = $endYear - $startYear + 1;

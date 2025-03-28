@@ -35,7 +35,7 @@ class TimeParts
 
         try {
             Helpers::nullFalseTrueToNumber($timeValue);
-            if (!is_numeric($timeValue)) {
+            if (is_string($timeValue) && !is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);
             }
             Helpers::validateNotNegative($timeValue);
@@ -76,7 +76,7 @@ class TimeParts
 
         try {
             Helpers::nullFalseTrueToNumber($timeValue);
-            if (!is_numeric($timeValue)) {
+            if (is_string($timeValue) && !is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);
             }
             Helpers::validateNotNegative($timeValue);
@@ -117,7 +117,7 @@ class TimeParts
 
         try {
             Helpers::nullFalseTrueToNumber($timeValue);
-            if (!is_numeric($timeValue)) {
+            if (is_string($timeValue) && !is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);
             }
             Helpers::validateNotNegative($timeValue);
