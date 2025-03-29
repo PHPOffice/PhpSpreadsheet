@@ -78,8 +78,8 @@ class Concatenate
                         return $operand2[$row][$column];
                     }
                     $operand1[$row][$column]
-                        = Calculation::boolToString($operand1[$row][$column])
-                        . Calculation::boolToString($operand2[$row][$column]);
+                        = StringHelper::convertToString($operand1[$row][$column], convertBool: true)
+                        . StringHelper::convertToString($operand2[$row][$column], convertBool: true);
                     if (mb_strlen($operand1[$row][$column]) > DataType::MAX_STRING_LENGTH) {
                         $operand1 = ExcelError::CALC();
                         $errorFound = true;
@@ -91,7 +91,7 @@ class Concatenate
         } elseif (ErrorValue::isError($operand2, true) === true) {
             $operand1 = (string) $operand2;
         } else {
-            $operand1 .= (string) Calculation::boolToString($operand2);
+            $operand1 .= StringHelper::convertToString($operand2, convertBool: true);
             if (mb_strlen($operand1) > DataType::MAX_STRING_LENGTH) {
                 $operand1 = ExcelError::CALC();
             }
@@ -103,9 +103,9 @@ class Concatenate
     /**
      * TEXTJOIN.
      *
-     * @param mixed $delimiter The delimter to use between the joined arguments
+     * @param null|string|string[] $delimiter The delimiter to use between the joined arguments
      *                         Or can be an array of values
-     * @param mixed $ignoreEmpty true/false Flag indicating whether empty arguments should be skipped
+     * @param null|bool|bool[] $ignoreEmpty true/false Flag indicating whether empty arguments should be skipped
      *                         Or can be an array of values
      * @param mixed $args The values to join
      *
@@ -113,7 +113,7 @@ class Concatenate
      *         If an array of values is passed for the $delimiter or $ignoreEmpty arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTJOIN(mixed $delimiter = '', mixed $ignoreEmpty = true, mixed ...$args): array|string
+    public static function TEXTJOIN($delimiter = '', $ignoreEmpty = true, mixed ...$args): array|string
     {
         if (is_array($delimiter) || is_array($ignoreEmpty)) {
             return self::evaluateArrayArgumentsSubset(
@@ -127,6 +127,7 @@ class Concatenate
 
         $delimiter ??= '';
         $ignoreEmpty ??= true;
+        /** @var array */
         $aArgs = Functions::flattenArray($args);
         $returnValue = self::evaluateTextJoinArray($ignoreEmpty, $aArgs);
 

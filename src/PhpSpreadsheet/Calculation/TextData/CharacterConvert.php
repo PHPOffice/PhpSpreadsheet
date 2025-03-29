@@ -81,6 +81,7 @@ class CharacterConvert
         $retVal = 0;
         $iconv = iconv('UTF-8', 'UCS-4LE', $character);
         if ($iconv !== false) {
+            /** @var false|int[] */
             $result = unpack('V', $iconv);
             if (is_array($result) && isset($result[1])) {
                 $retVal = $result[1];

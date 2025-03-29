@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Helpers
 {
@@ -31,7 +32,7 @@ class Helpers
             throw new CalcExp($value);
         }
 
-        return (string) $value;
+        return StringHelper::convertToString($value);
     }
 
     public static function extractInt(mixed $value, int $minValue, int $gnumericNull = 0, bool $ooBoolOk = false): int
@@ -87,6 +88,6 @@ class Helpers
             throw new CalcExp($value);
         }
 
-        return (int) $value;
+        return (int) StringHelper::convertToString($value);
     }
 }

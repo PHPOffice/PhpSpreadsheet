@@ -139,9 +139,9 @@ class Extract
             return $e->getMessage();
         }
 
-        $instance = (int) $instance;
-        $matchMode = (int) $matchMode;
-        $matchEnd = (int) $matchEnd;
+        $instance = (int) StringHelper::convertToString($instance);
+        $matchMode = (int) StringHelper::convertToString($matchMode);
+        $matchEnd = (int) StringHelper::convertToString($matchEnd);
 
         $split = self::validateTextBeforeAfter($text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
         if (is_string($split)) {
@@ -203,9 +203,9 @@ class Extract
             return $e->getMessage();
         }
 
-        $instance = (int) $instance;
-        $matchMode = (int) $matchMode;
-        $matchEnd = (int) $matchEnd;
+        $instance = (int) StringHelper::convertToString($instance);
+        $matchMode = (int) StringHelper::convertToString($matchMode);
+        $matchEnd = (int) StringHelper::convertToString($matchEnd);
 
         $split = self::validateTextBeforeAfter($text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
         if (is_string($split)) {
@@ -234,7 +234,7 @@ class Extract
         $delimiter = self::buildDelimiter($delimiter);
 
         if (preg_match('/' . $delimiter . "/{$flags}", $text) === 0 && $matchEnd === 0) {
-            return $ifNotFound;
+            return is_array($ifNotFound) ? $ifNotFound : StringHelper::convertToString($ifNotFound);
         }
 
         $split = preg_split('/' . $delimiter . "/{$flags}", $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
