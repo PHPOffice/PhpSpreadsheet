@@ -24,6 +24,9 @@ class Trends
     /**
      * @param mixed $array1 should be array, but scalar is made into one
      * @param mixed $array2 should be array, but scalar is made into one
+     *
+     * @param-out array $array1
+     * @param-out array $array2
      */
     private static function checkTrendArrays(mixed &$array1, mixed &$array2): void
     {

@@ -46,6 +46,9 @@ class Confidence
         /** @var float $temp */
         $temp = Distributions\StandardNormal::inverse(1 - $alpha / 2);
 
-        return Functions::scalar($temp * $stdDev / sqrt($size));
+        /** @var float */
+        $result = Functions::scalar($temp * $stdDev / sqrt($size));
+
+        return $result;
     }
 }

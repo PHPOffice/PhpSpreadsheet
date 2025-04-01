@@ -43,7 +43,7 @@ class Sort extends LookupRefValidations
 
         try {
             // If $sortIndex and $sortOrder are scalars, then convert them into arrays
-            if (is_scalar($sortIndex)) {
+            if (!is_array($sortIndex)) {
                 $sortIndex = [$sortIndex];
                 $sortOrder = is_scalar($sortOrder) ? [$sortOrder] : $sortOrder;
             }
@@ -53,6 +53,7 @@ class Sort extends LookupRefValidations
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        /** @var array<int> $sortOrder */
 
         // We want a simple, enumrated array of arrays where we can reference column by its index number.
         $sortArray = array_values(array_map('array_values', $sortArray));

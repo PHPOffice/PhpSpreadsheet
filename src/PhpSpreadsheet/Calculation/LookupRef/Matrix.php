@@ -40,6 +40,7 @@ class Matrix
         }
 
         $column = 0;
+        /** @var iterable $matrixData */
         foreach ($matrixData as $matrixRow) {
             $row = 0;
             foreach ($matrixRow as $matrixCell) {
@@ -115,7 +116,7 @@ class Matrix
         }
 
         $rowKeys = array_keys($matrix);
-        $columnKeys = @array_keys($matrix[$rowKeys[0]]);
+        $columnKeys = @array_keys($matrix[$rowKeys[0]]); //* @phpstan-ignore-line
 
         if ($columnNum > count($columnKeys)) {
             return ExcelError::REF();
@@ -133,6 +134,7 @@ class Matrix
             );
         }
         $rowNum = $rowKeys[--$rowNum];
+        /** @var array[] $matrix */
 
         return $matrix[$rowNum][$columnNum];
     }
