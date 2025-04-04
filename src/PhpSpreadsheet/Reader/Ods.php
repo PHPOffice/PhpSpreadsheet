@@ -617,7 +617,7 @@ class Ods extends BaseReader
                                                     if ($cellDataType === 'array') {
                                                         $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
                                                     }
-                                                } else {
+                                                } elseif ($type !== '' || $dataValue !== null) {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }
 
