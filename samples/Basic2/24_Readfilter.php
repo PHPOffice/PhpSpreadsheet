@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require __DIR__ . '/../Header.php';
+/** @var Helper\Sample $helper */
 
 // Write temporary file
 $largeSpreadsheet = require __DIR__ . '/../templates/largeSpreadsheet.php';

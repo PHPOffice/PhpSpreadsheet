@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BESSELK';
 $description = 'Returns the modified Bessel function, which is equivalent to the Bessel functions evaluated for purely imaginary arguments';

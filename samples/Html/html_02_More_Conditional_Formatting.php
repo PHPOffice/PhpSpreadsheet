@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileName = 'ConditionalFormattingConditions.xlsx';
 $inputFilePath = __DIR__ . '/../templates/' . $inputFileName;
 

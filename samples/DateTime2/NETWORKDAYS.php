@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'NETWORKDAYS';
 $description = 'Returns the number of whole working days between start_date and end_date. Working days exclude weekends and any dates identified in holidays';

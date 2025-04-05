@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'WORKDAY';
 $description = 'Returns a number that represents a date that is the indicated number of working days before or after a starting date. Working days exclude weekends and any dates identified as holidays';

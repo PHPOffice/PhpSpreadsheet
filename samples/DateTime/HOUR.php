@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'HOUR';
 $description = 'Returns the hour of a time value. The hour is given as an integer, ranging from 0 (12:00 AM) to 23 (11:00 PM)';

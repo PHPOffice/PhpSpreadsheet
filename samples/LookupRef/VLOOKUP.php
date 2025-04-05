@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Searches for a value in the top row of a table or an array of values,
                 and then returns a value in the same column from a row you specify
                 in the table or array.');
