@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 

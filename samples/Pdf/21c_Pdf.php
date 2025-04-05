@@ -47,6 +47,7 @@ function addHeadersFootersMpdf2000(string $html): string
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 $counter = 0;
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Populate spreadsheet');
 for ($row = 1; $row < 1001; ++$row) {
     $sheet->getCell("A$row")->setValue(++$counter);

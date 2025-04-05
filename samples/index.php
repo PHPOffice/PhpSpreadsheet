@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Header.php';
+require_once __DIR__ . '/Header.php';
 
 $requirements = [
     'PHP 8.1' => version_compare(PHP_VERSION, '8.1', '>='),
@@ -12,6 +12,7 @@ $requirements = [
     'PHP extension dom (optional)' => extension_loaded('dom'),
 ];
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 if (!$helper->isCli()) {
     ?>
     <div class="jumbotron">

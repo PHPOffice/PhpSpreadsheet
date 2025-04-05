@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Database';
 $functionName = 'DCOUNT';
 $description = 'Counts the cells that contain numbers in a set of database records that match criteria';

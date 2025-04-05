@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileName = __DIR__ . '/sampleData/example2.csv';
 
 /**  Define a Read Filter class implementing IReadFilter  */

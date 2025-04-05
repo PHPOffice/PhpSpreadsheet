@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileNames = [__DIR__ . '/sampleData/example1.csv', __DIR__ . '/sampleData/example2.csv'];
 
 $reader = new Csv();

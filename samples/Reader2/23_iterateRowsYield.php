@@ -5,7 +5,7 @@
  */
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileName = __DIR__ . '/../Reader/sampleData/example1.xls';
 
 $spreadsheet = PhpOffice\PhpSpreadsheet\IOFactory::load(

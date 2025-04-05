@@ -3,6 +3,7 @@
 // Create new Spreadsheet object
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 
