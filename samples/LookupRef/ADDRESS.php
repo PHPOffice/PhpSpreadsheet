@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns a text reference to a single cell in a worksheet.');
 
 // Create new PhpSpreadsheet object

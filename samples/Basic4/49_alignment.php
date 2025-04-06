@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 $spreadsheet->getProperties()->setTitle('Alignment');

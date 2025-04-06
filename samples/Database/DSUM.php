@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Database';
 $functionName = 'DSUM';
 $description = 'Returns the sum of selected database entries';

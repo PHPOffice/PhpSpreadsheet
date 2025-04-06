@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'IMSQRT';
 $description = 'Returns the square root of a complex number in x + yi or x + yj text format';

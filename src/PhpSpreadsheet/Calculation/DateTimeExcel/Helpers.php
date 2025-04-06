@@ -44,7 +44,9 @@ class Helpers
         if (!is_numeric($dateValue)) {
             $saveReturnDateType = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-            $dateValue = DateValue::fromString($dateValue);
+            if (is_string($dateValue)) {
+                $dateValue = DateValue::fromString($dateValue);
+            }
             Functions::setReturnDateType($saveReturnDateType);
             if (!is_numeric($dateValue)) {
                 throw new Exception(ExcelError::VALUE());
@@ -75,8 +77,10 @@ class Helpers
 
     /**
      * Adjust date by given months.
+     *
+     * @param float|int $dateValue date to be adjusted
      */
-    public static function adjustDateByMonths(mixed $dateValue = 0, float $adjustmentMonths = 0): DateTime
+    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0): DateTime
     {
         // Execute function
         $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
@@ -283,5 +287,12 @@ class Helpers
     private static function forceArray(array|bool $dateArray): array
     {
         return is_array($dateArray) ? $dateArray : ['error_count' => 1];
+    }
+
+    public static function floatOrInt(mixed $value): float|int
+    {
+        $result = Functions::scalar($value);
+
+        return is_numeric($result) ? ($result + 0) : 0;
     }
 }

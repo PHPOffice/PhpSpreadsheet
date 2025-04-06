@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Value
@@ -43,6 +44,7 @@ class Value
             return false;
         }
 
+        $value = StringHelper::convertToString($value);
         $cellValue = Functions::trimTrailingRange($value);
         if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/ui', $cellValue) === 1) {
             [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true, true);
@@ -79,11 +81,12 @@ class Value
 
         if ($value === null) {
             return ExcelError::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        }
+        if (!is_numeric($value)) {
             return ExcelError::VALUE();
         }
 
-        return ((int) fmod($value, 2)) === 0;
+        return ((int) fmod($value + 0, 2)) === 0;
     }
 
     /**
@@ -103,11 +106,12 @@ class Value
 
         if ($value === null) {
             return ExcelError::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        }
+        if (!is_numeric($value)) {
             return ExcelError::VALUE();
         }
 
-        return ((int) fmod($value, 2)) !== 0;
+        return ((int) fmod($value + 0, 2)) !== 0;
     }
 
     /**
@@ -197,8 +201,9 @@ class Value
         if ($cell === null) {
             return ExcelError::REF();
         }
+        $cellReference = StringHelper::convertToString($cellReference);
 
-        $fullCellReference = Functions::expandDefinedName((string) $cellReference, $cell);
+        $fullCellReference = Functions::expandDefinedName($cellReference, $cell);
 
         if (str_contains($cellReference, '!')) {
             $cellReference = Functions::trimSheetFromCellReference($cellReference);
@@ -244,21 +249,14 @@ class Value
         while (is_array($value)) {
             $value = array_shift($value);
         }
-
-        switch (gettype($value)) {
-            case 'double':
-            case 'float':
-            case 'integer':
-                return $value;
-            case 'boolean':
-                return (int) $value;
-            case 'string':
-                //    Errors
-                if (($value !== '') && ($value[0] == '#')) {
-                    return $value;
-                }
-
-                break;
+        if (is_float($value) || is_int($value)) {
+            return $value;
+        }
+        if (is_bool($value)) {
+            return (int) $value;
+        }
+        if (is_string($value) && substr($value, 0, 1) === '#') {
+            return $value;
         }
 
         return 0;

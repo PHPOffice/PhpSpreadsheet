@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'MONTH';
 $description = 'Returns the month of a date, an integer ranging from 1 to 12';

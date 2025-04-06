@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Rates
 {
@@ -65,7 +66,7 @@ class Rates
         $daysBetweenSettlementAndMaturity = Functions::scalar(DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis));
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
-            return $daysBetweenSettlementAndMaturity;
+            return StringHelper::convertToString($daysBetweenSettlementAndMaturity);
         }
 
         return (1 - $price / $redemption) / $daysBetweenSettlementAndMaturity;
@@ -126,7 +127,7 @@ class Rates
         $daysBetweenSettlementAndMaturity = Functions::scalar(DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis));
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
-            return $daysBetweenSettlementAndMaturity;
+            return StringHelper::convertToString($daysBetweenSettlementAndMaturity);
         }
 
         return (($redemption / $investment) - 1) / ($daysBetweenSettlementAndMaturity);

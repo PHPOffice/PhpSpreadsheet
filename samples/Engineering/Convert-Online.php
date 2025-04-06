@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 require __DIR__ . '/../Header.php';
-
+/** @var Sample $helper */
 $helper = new Sample();
 if ($helper->isCli()) {
     $helper->log('This example should only be run from a Web Browser' . PHP_EOL);

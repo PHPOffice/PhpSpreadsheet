@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\TextElement;

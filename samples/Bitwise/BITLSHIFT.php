@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BITLSHIFT';
 $description = 'Returns a number shifted left by the specified number of bits';

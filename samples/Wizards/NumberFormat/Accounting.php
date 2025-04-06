@@ -1,14 +1,12 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 
 require __DIR__ . '/../Header.php';
-
-$helper = new Sample();
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 if ($helper->isCli()) {
     $helper->log('This example should only be run from a Web Browser' . PHP_EOL);
 
@@ -60,7 +58,7 @@ $currencies = [
         <div class="mb-3 row">
             <label for="position" class="col-sm-2 col-form-label">Currency Position</label>
             <div class="col-sm-10">
-                <input name="position" type="radio" value="1" <?php echo ((isset($_POST['position']) === false) || (isset($_POST['position']) && $_POST['position'] === '1')) ? 'checked' : ''; ?>>Leading
+                <input name="position" type="radio" value="1" <?php echo ((isset($_POST['position']) === false) || ($_POST['position'] === '1')) ? 'checked' : ''; ?>>Leading
                 <input name="position" type="radio" value="0" <?php echo (isset($_POST['position']) && $_POST['position'] === '0') ? 'checked' : ''; ?>>Trailing
             </div>
         </div>

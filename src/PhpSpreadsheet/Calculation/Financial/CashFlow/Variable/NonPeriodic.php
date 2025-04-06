@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class NonPeriodic
 {
@@ -23,16 +24,17 @@ class NonPeriodic
      * Excel Function:
      *        =XIRR(values,dates,guess)
      *
-     * @param mixed $values     A series of cash flow payments, expecting float[]
+     * @param array<int, float|int|numeric-string> $values     A series of cash flow payments, expecting float[]
      *                                The series of values must contain at least one positive value & one negative value
      * @param mixed[] $dates      A series of payment dates
      *                                The first payment date indicates the beginning of the schedule of payments
      *                                All other dates must be later than this date, but they may occur in any order
      * @param mixed $guess        An optional guess at the expected answer
      */
-    public static function rate(mixed $values, mixed $dates, mixed $guess = self::DEFAULT_GUESS): float|string
+    public static function rate(mixed $values, $dates, mixed $guess = self::DEFAULT_GUESS): float|string
     {
         $rslt = self::xirrPart1($values, $dates);
+        /** @var array $dates */
         if ($rslt !== '') {
             return $rslt;
         }
@@ -107,7 +109,7 @@ class NonPeriodic
      *        =XNPV(rate,values,dates)
      *
      * @param mixed $rate the discount rate to apply to the cash flows, expect array|float
-     * @param mixed $values A series of cash flows that corresponds to a schedule of payments in dates, expecting floag[].
+     * @param array<int,float|int|numeric-string> $values A series of cash flows that corresponds to a schedule of payments in dates, expecting float[].
      *                          The first payment is optional and corresponds to a cost or payment that occurs
      *                              at the beginning of the investment.
      *                          If the first value is a cost or payment, it must be a negative value.
@@ -127,9 +129,10 @@ class NonPeriodic
         return $neg && $pos;
     }
 
+    /** @param array<int, float|int|numeric-string> $values */
     private static function xirrPart1(mixed &$values, mixed &$dates): string
     {
-        $values = Functions::flattenArray($values);
+        $values = Functions::flattenArray($values); //* @phpstan-ignore-line
         $dates = Functions::flattenArray($dates);
         $valuesIsArray = count($values) > 1;
         $datesIsArray = count($dates) > 1;
@@ -152,6 +155,7 @@ class NonPeriodic
         return self::xirrPart2($values);
     }
 
+    /** @param array<int, float|int|numeric-string> $values */
     private static function xirrPart2(array &$values): string
     {
         $valCount = count($values);
@@ -159,7 +163,7 @@ class NonPeriodic
         $foundneg = false;
         for ($i = 0; $i < $valCount; ++$i) {
             $fld = $values[$i];
-            if (!is_numeric($fld)) {
+            if (!is_numeric($fld)) { //* @phpstan-ignore-line
                 return ExcelError::VALUE();
             } elseif ($fld > 0) {
                 $foundpos = true;
@@ -243,6 +247,9 @@ class NonPeriodic
     private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false): float|string
     {
         $rate = Functions::flattenSingleValue($rate);
+        if (!is_numeric($rate)) {
+            return ExcelError::VALUE();
+        }
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
         $valCount = count($values);
@@ -274,7 +281,7 @@ class NonPeriodic
                 $dif = Functions::scalar(DateTimeExcel\Difference::interval($date0, $datei, 'd'));
             }
             if (!is_numeric($dif)) {
-                return $dif;
+                return StringHelper::convertToString($dif);
             }
             if ($rate <= -1.0) {
                 $xnpv += -abs($values[$i] + 0) / (-1 - $rate) ** ($dif / 365);

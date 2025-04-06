@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv as CsvReader;
 use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
 $helper->log('Write to CSV format');

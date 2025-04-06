@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'COMPLEX';
 $description = 'Converts real and imaginary coefficients into a complex number of the form x + yi or x + yj';

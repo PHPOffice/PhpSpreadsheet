@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/../templates/31docproperties.xlsx';
 

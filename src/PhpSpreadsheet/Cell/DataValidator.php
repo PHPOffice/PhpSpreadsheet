@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Validate a cell value according to its validation rules.
@@ -60,8 +61,9 @@ class DataValidator
             $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
 
             try {
+                $formula2 = StringHelper::convertToString($formula);
                 $result = $calculation
-                    ->calculateFormula("=$formula", $cell->getCoordinate(), $cell);
+                    ->calculateFormula("=$formula2", $cell->getCoordinate(), $cell);
                 while (is_array($result)) {
                     $result = array_pop($result);
                 }

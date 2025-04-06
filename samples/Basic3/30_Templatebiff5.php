@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Load from Xls template');
 $reader = IOFactory::createReader('Xls');
 $spreadsheet = $reader->load(__DIR__ . '/../templates/30templatebiff5.xls');

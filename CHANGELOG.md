@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Add ability to add custom functions to Calculation. [PR #4390](https://github.com/PHPOffice/PhpSpreadsheet/pull/4390)
 - Add FormulaRange to IgnoredErrors. [PR #4393](https://github.com/PHPOffice/PhpSpreadsheet/pull/4393)
+- TextGrid improvements. [PR #4418](https://github.com/PHPOffice/PhpSpreadsheet/pull/4418)
+- Permit read to class which extends Spreadsheet. [Discussion #4402](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4402) [PR #4404](https://github.com/PHPOffice/PhpSpreadsheet/pull/4404)
+- Conditional and table formatting support for html writer [PR #4412](https://github.com/PHPOffice/PhpSpreadsheet/pull/4412)
 
 ### Removed
 
@@ -22,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Start migration to Phpstan level 9. [PR #4396](https://github.com/PHPOffice/PhpSpreadsheet/pull/4396)
 - Calculation locale logic moved to separate class. [PR #4398](https://github.com/PHPOffice/PhpSpreadsheet/pull/4398)
 - TREND_POLYNOMIAL_* and TREND_BEST_FIT do not work, and are changed to throw Exceptions if attempted. (TREND_BEST_FIT_NO_POLY works.) An attempt to use an unknown trend type will now also throw an exception. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
+- Month parameter of DATE function will now return VALUE if an ordinal string (e.g. '3rd') is used, but will accept bool or null. [PR #4420](https://github.com/PHPOffice/PhpSpreadsheet/pull/4420)
 
 ### Moved
 
@@ -33,9 +37,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Ignore fractional part of Drawing Shadow Alpha. [Issue #4415](https://github.com/PHPOffice/PhpSpreadsheet/issues/4415) [PR #4417](https://github.com/PHPOffice/PhpSpreadsheet/pull/4417)
 - BIN2DEC, OCT2DEC, and HEX2DEC return numbers rather than strings. [Issue #4383](https://github.com/PHPOffice/PhpSpreadsheet/issues/4383) [PR #4389](https://github.com/PHPOffice/PhpSpreadsheet/pull/4389)
 - Fix TREND_BEST_FIT_NO_POLY. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 - Ods Reader No DataType for Null Value. [Issue #4435](https://github.com/PHPOffice/PhpSpreadsheet/issues/4435) [PR #4436](https://github.com/PHPOffice/PhpSpreadsheet/pull/4436)
+- Column widths not preserved when using read filter. [Issue #4416](https://github.com/PHPOffice/PhpSpreadsheet/issues/4416) [PR #4423](https://github.com/PHPOffice/PhpSpreadsheet/pull/4423)
+- Fix typo in Style exportArray quotePrefix. [Issue #4422](https://github.com/PHPOffice/PhpSpreadsheet/issues/4422) [PR #4424](https://github.com/PHPOffice/PhpSpreadsheet/pull/4424)
+- Tweak Spreadsheet clone. [PR #4419](https://github.com/PHPOffice/PhpSpreadsheet/pull/4419)
+- Better handling of Chart DisplayBlanksAs. [Issue #4411](https://github.com/PHPOffice/PhpSpreadsheet/issues/4411) [PR #4414](https://github.com/PHPOffice/PhpSpreadsheet/pull/4414)
 
 ## 2025-03-02 - 4.1.0
 

@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the next coupon date, after the settlement date.');
 
 // Create new PhpSpreadsheet object

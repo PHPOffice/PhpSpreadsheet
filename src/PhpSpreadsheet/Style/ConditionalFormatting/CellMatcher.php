@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -110,6 +111,7 @@ class CellMatcher
             // Last 7 Days AND(TODAY()-FLOOR(<Cell Reference>,1)<=6,FLOOR(<Cell Reference>,1)<=TODAY())
             Conditional::CONDITION_TIMEPERIOD,
             Conditional::CONDITION_EXPRESSION => $this->processExpression($conditional),
+            Conditional::CONDITION_COLORSCALE => $this->processColorScale($conditional),
             default => false,
         };
     }
@@ -123,7 +125,7 @@ class CellMatcher
                 return 'NULL';
             }
 
-            return '"' . $value . '"';
+            return '"' . StringHelper::convertToString($value) . '"';
         }
 
         return $value;
@@ -140,8 +142,8 @@ class CellMatcher
     {
         $column = $matches[6];
         $row = $matches[7];
-
         if (!str_contains($column, '$')) {
+            //            $column = Coordinate::stringFromColumnIndex($this->cellColumn);
             $column = Coordinate::columnIndexFromString($column);
             $column += $this->cellColumn - $this->referenceColumn;
             $column = Coordinate::stringFromColumnIndex($column);
@@ -211,6 +213,15 @@ class CellMatcher
         $expression = sprintf('%s%s%s', (string) $this->wrapCellValue(), $operator, (string) array_pop($conditions));
 
         return $this->evaluateExpression($expression);
+    }
+
+    protected function processColorScale(Conditional $conditional): bool
+    {
+        if (is_numeric($this->wrapCellValue()) && $conditional->getColorScale()?->colorScaleReadyForUse()) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function processRangeOperator(Conditional $conditional): bool

@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create temporary file that will be read
 $sampleSpreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';

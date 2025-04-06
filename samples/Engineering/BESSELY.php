@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BESSELY';
 $description = 'Returns the Bessel function, which is also called the Weber function or the Neumann function';

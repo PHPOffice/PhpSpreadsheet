@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'YEAR';
 $description = 'Returns the year of a date, an integer ranging from 1900 to 9999';

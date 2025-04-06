@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'ISOWEEKNUM';
 $description = 'Returns number of the ISO week number of the year for a given date. (ISO-8601)';

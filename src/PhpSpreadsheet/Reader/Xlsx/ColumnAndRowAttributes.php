@@ -77,6 +77,9 @@ class ColumnAndRowAttributes extends BaseParserClass
         if ($this->worksheetXml === null) {
             return;
         }
+        if ($readFilter !== null && $readFilter::class === DefaultReadFilter::class) {
+            $readFilter = null;
+        }
 
         $columnsAttributes = [];
         $rowsAttributes = [];
@@ -85,11 +88,7 @@ class ColumnAndRowAttributes extends BaseParserClass
         }
 
         if ($this->worksheetXml->sheetData && $this->worksheetXml->sheetData->row) {
-            $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly, $ignoreRowsWithNoCells);
-        }
-
-        if ($readFilter !== null && $readFilter::class === DefaultReadFilter::class) {
-            $readFilter = null;
+            $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly, $ignoreRowsWithNoCells, $readFilter !== null);
         }
 
         // set columns/rows attributes
@@ -123,12 +122,12 @@ class ColumnAndRowAttributes extends BaseParserClass
     private function isFilteredColumn(IReadFilter $readFilter, string $columnCoordinate, array $rowsAttributes): bool
     {
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
-            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
-                return true;
+            if ($readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     private function readColumnAttributes(SimpleXMLElement $worksheetCols, bool $readDataOnly): array
@@ -189,27 +188,31 @@ class ColumnAndRowAttributes extends BaseParserClass
         return false;
     }
 
-    private function readRowAttributes(SimpleXMLElement $worksheetRow, bool $readDataOnly, bool $ignoreRowsWithNoCells): array
+    private function readRowAttributes(SimpleXMLElement $worksheetRow, bool $readDataOnly, bool $ignoreRowsWithNoCells, bool $readFilterIsNotNull): array
     {
         $rowAttributes = [];
 
         foreach ($worksheetRow as $rowx) {
             $row = $rowx->attributes();
             if ($row !== null && (!$ignoreRowsWithNoCells || isset($rowx->c))) {
+                $rowIndex = (int) $row['r'];
                 if (isset($row['ht']) && !$readDataOnly) {
-                    $rowAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
+                    $rowAttributes[$rowIndex]['rowHeight'] = (float) $row['ht'];
                 }
                 if (isset($row['hidden']) && self::boolean($row['hidden'])) {
-                    $rowAttributes[(int) $row['r']]['visible'] = false;
+                    $rowAttributes[$rowIndex]['visible'] = false;
                 }
                 if (isset($row['collapsed']) && self::boolean($row['collapsed'])) {
-                    $rowAttributes[(int) $row['r']]['collapsed'] = true;
+                    $rowAttributes[$rowIndex]['collapsed'] = true;
                 }
                 if (isset($row['outlineLevel']) && (int) $row['outlineLevel'] > 0) {
-                    $rowAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
+                    $rowAttributes[$rowIndex]['outlineLevel'] = (int) $row['outlineLevel'];
                 }
                 if (isset($row['s']) && !$readDataOnly) {
-                    $rowAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+                    $rowAttributes[$rowIndex]['xfIndex'] = (int) $row['s'];
+                }
+                if ($readFilterIsNotNull && empty($rowAttributes[$rowIndex])) {
+                    $rowAttributes[$rowIndex]['exists'] = true;
                 }
             }
         }

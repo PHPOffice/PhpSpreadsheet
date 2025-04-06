@@ -400,7 +400,7 @@ class Xlsx extends BaseReader
         File::assertFile($filename, self::INITIAL_FILE);
 
         // Initialisations
-        $excel = new Spreadsheet();
+        $excel = $this->newSpreadsheet();
         $excel->setValueBinder($this->valueBinder);
         $excel->removeSheetByIndex(0);
         $addingFirstCellStyleXf = true;
@@ -692,6 +692,7 @@ class Xlsx extends BaseReader
                     $this->styleReader->setNamespace($mainNS);
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
+                    $tableStyles = $this->styleReader->tableStyles($this->readDataOnly);
                     $styles = $this->styleReader->styles();
 
                     // Read content after setting the styles
@@ -1000,7 +1001,7 @@ class Xlsx extends BaseReader
                                 $this->readBackgroundImage($xmlSheetNS, $docSheet, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels');
                             }
 
-                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
+                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS, $tableStyles, $dxfs);
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
@@ -1492,7 +1493,13 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
+                                                        if ($clr->alpha) {
+                                                            $alpha = StringHelper::convertToString(self::getArrayItem(self::getAttributes($clr->alpha), 'val'));
+                                                            if (is_numeric($alpha)) {
+                                                                $alpha = (int) ($alpha / 1000);
+                                                                $shadow->setAlpha($alpha);
+                                                            }
+                                                        }
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
@@ -1597,7 +1604,13 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment(self::getArrayItemString(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItemString(self::getAttributes($clr), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000); // @phpstan-ignore-line
+                                                        if ($clr->alpha) {
+                                                            $alpha = StringHelper::convertToString(self::getArrayItem(self::getAttributes($clr->alpha), 'val'));
+                                                            if (is_numeric($alpha)) {
+                                                                $alpha = (int) ($alpha / 1000);
+                                                                $shadow->setAlpha($alpha);
+                                                            }
+                                                        }
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $twoCellAnchor, $hyperlinks);
@@ -2299,12 +2312,14 @@ class Xlsx extends BaseReader
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip,
-        string $namespaceTable
+        string $namespaceTable,
+        array $tableStyles,
+        array $dxfs
     ): void {
         if ($xmlSheet && $xmlSheet->tableParts) {
             $attributes = $xmlSheet->tableParts->attributes() ?? ['count' => 0];
             if (((int) $attributes['count']) > 0) {
-                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable);
+                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable, $tableStyles, $dxfs);
             }
         }
     }
@@ -2315,7 +2330,9 @@ class Xlsx extends BaseReader
         string $fileWorksheet,
         ZipArchive $zip,
         Worksheet $docSheet,
-        string $namespaceTable
+        string $namespaceTable,
+        array $tableStyles,
+        array $dxfs
     ): void {
         foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
@@ -2334,7 +2351,7 @@ class Xlsx extends BaseReader
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
                             $tableXml = $this->loadZip($relationshipFilePath, $namespaceTable);
-                            (new TableReader($docSheet, $tableXml))->load();
+                            (new TableReader($docSheet, $tableXml))->load($tableStyles, $dxfs);
                         }
                     }
                 }

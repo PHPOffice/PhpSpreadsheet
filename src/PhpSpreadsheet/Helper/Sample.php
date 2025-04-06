@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -35,7 +36,7 @@ class Sample
      */
     public function getScriptFilename(): string
     {
-        return basename($_SERVER['SCRIPT_FILENAME'], '.php');
+        return basename(StringHelper::convertToString($_SERVER['SCRIPT_FILENAME']), '.php');
     }
 
     /**
@@ -184,10 +185,10 @@ class Sample
         return $temporaryFilename . '.' . $extension;
     }
 
-    public function log(string $message): void
+    public function log(mixed $message): void
     {
         $eol = $this->isCli() ? PHP_EOL : '<br />';
-        echo ($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
+        echo ($this->isCli() ? date('H:i:s ') : '') . StringHelper::convertToString($message) . $eol;
     }
 
     /**

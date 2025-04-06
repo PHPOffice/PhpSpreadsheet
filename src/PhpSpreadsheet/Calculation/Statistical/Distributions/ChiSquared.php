@@ -181,10 +181,10 @@ class ChiSquared
      *      (of observed and expected frequencies), are likely to be simply due to sampling error,
      *      or if they are likely to be real.
      *
-     * @param mixed $actual an array of observed frequencies
-     * @param mixed $expected an array of expected frequencies
+     * @param array $actual an array of observed frequencies
+     * @param array $expected an array of expected frequencies
      */
-    public static function test(mixed $actual, mixed $expected): float|string
+    public static function test($actual, $expected): float|string
     {
         $rows = count($actual);
         $actual = Functions::flattenArray($actual);
@@ -209,6 +209,7 @@ class ChiSquared
 
         $degrees = self::degrees($rows, $columns);
 
+        /** @var float|string */
         $result = Functions::scalar(self::distributionRightTail($result, $degrees));
 
         return $result;

@@ -5,6 +5,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
 $helper->log('Hide grid lines');

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns a cell range that is a specified number of rows and columns from a cell or range of cells.');
 
 // Create new PhpSpreadsheet object

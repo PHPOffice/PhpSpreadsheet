@@ -5,6 +5,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 require_once __DIR__ . '/Mpdf2.php';
 
 $spreadsheet = new Spreadsheet();
