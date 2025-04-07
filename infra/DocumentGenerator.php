@@ -33,11 +33,19 @@ class DocumentGenerator
         return $result;
     }
 
+    /** @return array<string, string> */
     private static function getCategories(): array
     {
-        return (new ReflectionClass(Category::class))->getConstants();
+        /** @var array<string, string> */
+        $x = (new ReflectionClass(Category::class))->getConstants();
+
+        return $x;
     }
 
+    /**
+     * @param int[] $lengths
+     * @param null|array<int, int|string> $values
+     */
     private static function tableRow(array $lengths, ?array $values = null): string
     {
         $result = '';
@@ -46,7 +54,7 @@ class DocumentGenerator
             if ($i > 0) {
                 $result .= '|' . $pad;
             }
-            $result .= str_pad($value ?? '', $length, $pad);
+            $result .= str_pad("$value", $length ?? 0, $pad);
         }
 
         return rtrim($result, ' ');
@@ -71,7 +79,7 @@ class DocumentGenerator
     }
 
     /**
-     * @param array[] $phpSpreadsheetFunctions
+     * @param array<string, array<string, int|string>> $phpSpreadsheetFunctions
      */
     public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
     {

@@ -488,7 +488,7 @@ class Html extends BaseWriter
             foreach ($condStylesCollection as $condStyles) {
                 foreach ($condStyles as $key => $cs) {
                     if ($cs->getConditionType() === Conditional::CONDITION_COLORSCALE) {
-                        $cs->getColorScale()->setScaleArray();
+                        $cs->getColorScale()?->setScaleArray();
                     }
                 }
             }

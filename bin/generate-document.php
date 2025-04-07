@@ -4,7 +4,7 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/..' . '/vendor/autoload.php';
 
 $phpSpreadsheetFunctions = Calculation::getFunctions();
 ksort($phpSpreadsheetFunctions);

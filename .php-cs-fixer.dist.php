@@ -1,9 +1,8 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('vendor')
+    ->exclude(['vendor', 'docs', '.git', '.github'])
     ->notPath('src/PhpSpreadsheet/Writer/ZipStream3.php')
-    ->name('/(\.php|^generate-document|^generate-locales|^check-phpdoc-types)$/')
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
