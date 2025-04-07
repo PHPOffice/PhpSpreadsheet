@@ -1,7 +1,7 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('vendor', 'docs', '.git', '.github')
+    ->exclude(['vendor', 'docs', '.git', '.github'])
     ->notPath('src/PhpSpreadsheet/Writer/ZipStream3.php')
     ->in(__DIR__);
 
