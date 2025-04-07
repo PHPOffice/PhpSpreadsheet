@@ -87,7 +87,7 @@ jobs:
 
       # This is non-ideal because it only checks for the last commit of the PR, not all of them, but better than nothing
       - name: Check PHPDoc types
-        run: ./bin/check-phpdoc-types
+        run: ./bin/check-phpdoc-types.php
 
   php-cs-fixer:
     runs-on: ubuntu-latest

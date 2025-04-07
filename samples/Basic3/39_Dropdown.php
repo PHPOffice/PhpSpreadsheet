@@ -22,6 +22,7 @@ $spreadsheet->getProperties()
     ->setKeywords('Office PhpSpreadsheet php')
     ->setCategory('Test result file');
 
+/** @return array<int, string> */
 function transpose(string $value): array
 {
     return [$value];

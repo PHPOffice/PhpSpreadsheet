@@ -135,6 +135,7 @@ class Theme
         'Geor' => 'Sylfaen',
     ];
 
+    /** @return string[] */
     public function getThemeColors(): array
     {
         return $this->themeColors;
@@ -152,6 +153,7 @@ class Theme
         return $this->themeColorName;
     }
 
+    /** @param null|string[] $themeColors */
     public function setThemeColorName(string $name, ?array $themeColors = null): self
     {
         $this->themeColorName = $name;
@@ -182,11 +184,13 @@ class Theme
         return $this->majorFontComplexScript;
     }
 
+    /** @return string[] */
     public function getMajorFontSubstitutions(): array
     {
         return $this->majorFontSubstitutions;
     }
 
+    /** @param null|string[] $substitutions */
     public function setMajorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
     {
         if (!empty($latin)) {
@@ -220,11 +224,13 @@ class Theme
         return $this->minorFontComplexScript;
     }
 
+    /** @return string[] */
     public function getMinorFontSubstitutions(): array
     {
         return $this->minorFontSubstitutions;
     }
 
+    /** @param null|string[] $substitutions */
     public function setMinorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
     {
         if (!empty($latin)) {

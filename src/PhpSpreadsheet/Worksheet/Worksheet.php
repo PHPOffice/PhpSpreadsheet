@@ -158,6 +158,8 @@ class Worksheet
 
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
+     *
+     * @var Conditional[][]
      */
     private array $conditionalStylesCollection = [];
 
@@ -1558,6 +1560,8 @@ class Worksheet
 
     /**
      * Get collection of conditional styles.
+     *
+     * @return Conditional[][]
      */
     public function getConditionalStylesCollection(): array
     {
