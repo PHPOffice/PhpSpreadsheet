@@ -3870,4 +3870,36 @@ class Worksheet
 
         return true;
     }
+
+
+     /**
+      * Copy a row, including style, data and height
+      *
+      * @param int $from row that will be copied
+      * @param int $to row that will receive the copy
+      * @return void
+      */
+      public function copyRow($from, $to) {
+        $this->getRowDimension($to)->setRowHeight($this->getRowDimension($from)->getRowHeight());
+        $fromRowCellIterator = $this->getRowIterator($from,$from)->current()->getCellIterator();
+        try {
+          $fromRowCellIterator->setIterateOnlyExistingCells(true);
+          foreach ($fromRowCellIterator as $fromCellIt) {
+            $fromCoordinates = $fromCellIt->getCoordinate();
+            $toCellCoordinates = $fromCellIt->getColumn().$to;
+            // Cache data as trying to save the cells as variables doesn't work
+            $style = $this->getCell($fromCoordinates)->getStyle();
+            $value = $this->getCell($fromCoordinates)->getValue();
+            $dataType = $this->getCell($fromCoordinates)->getDataType();
+            // Copy data and style
+            $toCell = $this->getCell($toCellCoordinates);
+            $toCell->setValue($value);
+            $toCell->setDataType($dataType);
+            $this->duplicateStyle($style,$toCellCoordinates);
+          }
+        } catch (\Exception $e) {
+          unset($e); // Do nothing, the row was empty
+        }
+    }
+
 }
