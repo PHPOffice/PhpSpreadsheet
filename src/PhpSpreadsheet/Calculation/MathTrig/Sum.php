@@ -47,12 +47,19 @@ class Sum
      */
     public static function sumErroringStrings(mixed ...$args): float|int|string|array
     {
-        $returnValue = 0;
+        $returnValue = $maxDecimals = 0;
         // Loop through the arguments
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
             // Is it a numeric value?
             if (is_numeric($arg)) {
+                // We count the number of signs after aim
+                $parts = explode('.', (string)$arg);
+                if (isset($parts[1])) {
+                    $decimals = strlen(rtrim($parts[1], '0'));
+                    $maxDecimals = max($maxDecimals, $decimals);
+                }
+                
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
                 $returnValue += (int) $arg;
@@ -64,7 +71,10 @@ class Sum
             }
         }
 
-        return $returnValue;
+        return $maxDecimals
+            ? round($returnValue, $maxDecimals)
+            : $returnValue;
+
     }
 
     /**
