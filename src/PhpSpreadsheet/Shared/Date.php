@@ -214,6 +214,13 @@ class Date
             $baseDate = new DateTime('1899-12-30', $timeZone);
         }
 
+        if (is_int($excelTimestamp)) {
+            if ($excelTimestamp >= 0) {
+                return $baseDate->modify("+ $excelTimestamp days");
+            }
+
+            return $baseDate->modify("$excelTimestamp days");
+        }
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hms = 86400 * $partDay;
