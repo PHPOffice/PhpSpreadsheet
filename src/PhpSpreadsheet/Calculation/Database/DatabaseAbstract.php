@@ -5,9 +5,26 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 abstract class DatabaseAbstract
 {
+    /**
+     * @param mixed[] $database The range of cells that makes up the list or database.
+     *                                        A database is a list of related data in which rows of related
+     *                                        information are records, and columns of data are fields. The
+     *                                        first row of the list contains labels for each column.
+     * @param null|array<mixed>|int|string $field Indicates which column is used in the function. Enter the
+     *                                        column label enclosed between double quotation marks, such as
+     *                                        "Age" or "Yield," or a number (without quotation marks) that
+     *                                        represents the position of the column within the list: 1 for
+     *                                        the first column, 2 for the second column, and so on.
+     * @param mixed[] $criteria The range of cells that contains the conditions you specify.
+     *                                        You can use any range for the criteria argument, as long as it
+     *                                        includes at least one column label and at least one cell below
+     *                                        the column label in which you specify a condition for the
+     *                                        column.
+     */
     abstract public static function evaluate(array $database, array|null|int|string $field, array $criteria): null|float|int|string;
 
     /**
@@ -61,7 +78,7 @@ abstract class DatabaseAbstract
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param mixed[] $criteria The range of cells that contains the conditions you specify.
+     * @param mixed[][] $criteria The range of cells that contains the conditions you specify.
      *                                        You can use any range for the criteria argument, as long as it
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
@@ -83,6 +100,10 @@ abstract class DatabaseAbstract
         return self::executeQuery($database, $query, $criteriaNames, $fieldNames);
     }
 
+    /**
+     * @param mixed[] $database The range of cells that makes up the list or database
+     * @param mixed[][] $criteria
+     */
     protected static function getFilteredColumn(array $database, ?int $field, array $criteria): array
     {
         //    reduce the database to a set of rows that match all the criteria
@@ -102,6 +123,10 @@ abstract class DatabaseAbstract
         return $columnData;
     }
 
+    /**
+     * @param string[] $criteriaNames
+     * @param mixed[][] $criteria
+     */
     private static function buildQuery(array $criteriaNames, array $criteria): string
     {
         $baseQuery = [];
@@ -143,12 +168,19 @@ abstract class DatabaseAbstract
         return $condition;
     }
 
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     * @param array<mixed> $fields
+     */
     private static function executeQuery(array $database, string $query, array $criteria, array $fields): array
     {
         foreach ($database as $dataRow => $dataValues) {
             //    Substitute actual values from the database row for our [:placeholders]
             $conditions = $query;
             foreach ($criteria as $criterion) {
+                /** @var string $criterion */
+                /** @var mixed[] $dataValues */
                 $conditions = self::processCondition($criterion, $fields, $dataValues, $conditions);
             }
 
@@ -164,6 +196,10 @@ abstract class DatabaseAbstract
         return $database;
     }
 
+    /**
+     * @param array<mixed> $fields
+     * @param array<mixed> $dataValues
+     */
     private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions): string
     {
         $key = array_search($criterion, $fields, true);
@@ -177,7 +213,10 @@ abstract class DatabaseAbstract
             if (is_string($dataValue) && str_contains($dataValue, '"')) {
                 $dataValue = str_replace('"', '""', $dataValue);
             }
-            $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+            if (is_string($dataValue)) {
+                $dataValue = Calculation::wrapResult(strtoupper($dataValue));
+            }
+            $dataValue = StringHelper::convertToString($dataValue);
         }
 
         return str_replace('[:' . $criterion . ']', $dataValue, $conditions);
