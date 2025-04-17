@@ -155,6 +155,14 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_conditionalFormatting">$conditionalFormatting</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Conditional Formatting
+Enables conditional formatting in writer, disabled here, must be enabled in writer via a setter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_fileHandle">$fileHandle</a>
     <span>
                         &nbsp;: resource            </span>
@@ -176,6 +184,14 @@ Identifies whether the Writer should write definitions for any charts that exist
 <dd>Pre-calculate formulas
 Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
 immediately available to MS Excel or other office spreadsheet viewer when opening the file.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_tableFormats">$tableFormats</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Table formats
+Enables table formats in writer, disabled here, must be enabled in writer via a setter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html#property_colors">$colors</a>
@@ -294,6 +310,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
 <dd>Create a new Xls Writer.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getConditionalFormatting">getConditionalFormatting()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getDiskCachingDirectory">getDiskCachingDirectory()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -321,6 +343,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getTableFormats">getTableFormats()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getUseDiskCaching">getUseDiskCaching()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -342,6 +370,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
 <dd>Save Spreadsheet to file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setConditionalFormatting">setConditionalFormatting()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setIncludeCharts">setIncludeCharts()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -357,6 +391,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
 <dd>Set Pre-Calculate Formulas
        Set to true (the default) to advise the Writer to calculate all formulae on save
        Set to false to prevent precalculation of formulae on save.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setTableFormats">setTableFormats()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching">setUseDiskCaching()</a>
@@ -462,6 +502,43 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_conditionalFormatting">
+        $conditionalFormatting
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_conditionalFormatting" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Conditional Formatting
+Enables conditional formatting in writer, disabled here, must be enabled in writer via a setter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$conditionalFormatting</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_fileHandle">
         $fileHandle
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_fileHandle" class="headerlink"><i class="fas fa-link"></i></a>
@@ -472,7 +549,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -507,7 +584,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
@@ -544,7 +621,7 @@ Identifies whether the Writer should write definitions for any charts that exist
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -557,6 +634,43 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$preCalculateFormulas</span>
      = <span class="phpdocumentor-signature__default-value">true</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_tableFormats">
+        $tableFormats
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_tableFormats" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Table formats
+Enables table formats in writer, disabled here, must be enabled in writer via a setter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$tableFormats</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
     
@@ -618,7 +732,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -762,7 +876,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -1012,7 +1126,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -1161,6 +1275,43 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getConditionalFormatting">
+        getConditionalFormatting()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getConditionalFormatting" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">89</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getConditionalFormatting</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getDiskCachingDirectory">
         getDiskCachingDirectory()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getDiskCachingDirectory" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1169,7 +1320,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
@@ -1207,7 +1358,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -1248,7 +1399,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1283,6 +1434,43 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getTableFormats">
+        getTableFormats()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getTableFormats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">75</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getTableFormats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getUseDiskCaching">
         getUseDiskCaching()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getUseDiskCaching" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1291,7 +1479,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -1329,7 +1517,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -1420,6 +1608,53 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setConditionalFormatting">
+        setConditionalFormatting()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setConditionalFormatting" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">94</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setConditionalFormatting</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$conditionalFormatting</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$conditionalFormatting</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setIncludeCharts">
         setIncludeCharts()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setIncludeCharts" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1428,7 +1663,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -1479,7 +1714,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -1523,6 +1758,53 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setTableFormats">
+        setTableFormats()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setTableFormats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">80</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setTableFormats</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tableFormats</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$tableFormats</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setUseDiskCaching">
         setUseDiskCaching()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1531,7 +1813,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -1588,7 +1870,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 
@@ -1622,7 +1904,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/BaseWriter.php"><a href="files/src-phpspreadsheet-writer-basewriter.html"><abbr title="src/PhpSpreadsheet/Writer/BaseWriter.php">BaseWriter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
@@ -2244,9 +2526,11 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_conditionalFormatting">$conditionalFormatting<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_fileHandle">$fileHandle<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_includeCharts">$includeCharts<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_preCalculateFormulas">$preCalculateFormulas<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_tableFormats">$tableFormats<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html#property_colors">$colors<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_diskCachingDirectory">$diskCachingDirectory<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html#property_documentSummaryInformation">$documentSummaryInformation<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html"></li>
@@ -2269,14 +2553,18 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getConditionalFormatting">getConditionalFormatting()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getDiskCachingDirectory">getDiskCachingDirectory()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getIncludeCharts">getIncludeCharts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getPreCalculateFormulas">getPreCalculateFormulas()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getTableFormats">getTableFormats()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getUseDiskCaching">getUseDiskCaching()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_openFileHandle">openFileHandle()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls.html#method_save">save()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setConditionalFormatting">setConditionalFormatting()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setIncludeCharts">setIncludeCharts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setPreCalculateFormulas">setPreCalculateFormulas()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setTableFormats">setTableFormats()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching">setUseDiskCaching()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_maybeCloseFileHandle">maybeCloseFileHandle()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_processFlags">processFlags()</a></li>

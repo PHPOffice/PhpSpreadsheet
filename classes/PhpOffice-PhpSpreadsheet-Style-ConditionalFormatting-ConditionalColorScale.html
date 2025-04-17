@@ -120,7 +120,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 
     </aside>
 
@@ -165,6 +165,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_maxValue">$maxValue</a>
+    <span>
+                        &nbsp;: float            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midpointColor">$midpointColor</a>
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a>|null            </span>
@@ -174,6 +180,12 @@
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midpointConditionalFormatValueObject">$midpointConditionalFormatValueObject</a>
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject">ConditionalFormatValueObject</abbr></a>|null            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midValue">$midValue</a>
+    <span>
+                        &nbsp;: float            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
@@ -188,6 +200,30 @@
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject">ConditionalFormatValueObject</abbr></a>|null            </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_minValue">$minValue</a>
+    <span>
+                        &nbsp;: float            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_sqref">$sqref</a>
+    <span>
+                        &nbsp;: string|null            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_valueArray">$valueArray</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_worksheet">$worksheet</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null            </span>
+</dt>
+
     </dl>
 
 <h4 id="toc-methods">
@@ -196,6 +232,19 @@
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_colorScaleReadyForUse">colorScaleReadyForUse()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks that all needed color scale data is in place.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getColorForValue">getColorForValue()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMaximumColor">getMaximumColor()</a>
     <span>
@@ -233,6 +282,19 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getSqRef">getSqRef()</a>
+    <span>
+                                &nbsp;: string|null    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_prepareColorScale">prepareColorScale()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+<dd>Prepares color scale for execution, see the first if for variables that must be set beforehand.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMaximumColor">setMaximumColor()</a>
     <span>
                                 &nbsp;: self    </span>
@@ -268,6 +330,24 @@
                                 &nbsp;: self    </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setScaleArray">setScaleArray()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setSqRef">setSqRef()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getLimitValue">getLimitValue()</a>
+    <span>
+                                &nbsp;: float    </span>
+</dt>
+
     </dl>
 
 
@@ -298,7 +378,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -333,7 +413,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -343,6 +423,41 @@
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject">ConditionalFormatValueObject</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$maximumConditionalFormatValueObject</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_maxValue">
+        $maxValue
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_maxValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$maxValue</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
 
     
     
@@ -368,7 +483,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -403,7 +518,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 
     </aside>
 
@@ -413,6 +528,41 @@
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject">ConditionalFormatValueObject</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$midpointConditionalFormatValueObject</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_midValue">
+        $midValue
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$midValue</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
 
     
     
@@ -438,7 +588,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
@@ -473,7 +623,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">9</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
@@ -482,6 +632,146 @@
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject">ConditionalFormatValueObject</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$minimumConditionalFormatValueObject</span>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_minValue">
+        $minValue
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_minValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$minValue</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_sqref">
+        $sqref
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_sqref" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$sqref</span>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_valueArray">
+        $valueArray
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_valueArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$valueArray</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_worksheet">
+        $worksheet
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_worksheet" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$worksheet</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
@@ -505,6 +795,91 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_colorScaleReadyForUse">
+        colorScaleReadyForUse()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_colorScaleReadyForUse" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">248</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks that all needed color scale data is in place.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">colorScaleReadyForUse</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getColorForValue">
+        getColorForValue()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getColorForValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">135</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getColorForValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getMaximumColor">
         getMaximumColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMaximumColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -513,7 +888,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -550,7 +925,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -587,7 +962,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
@@ -624,7 +999,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -661,7 +1036,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -698,7 +1073,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -727,6 +1102,81 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getSqRef">
+        getSqRef()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getSqRef" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">106</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSqRef</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_prepareColorScale">
+        prepareColorScale()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_prepareColorScale" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">210</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepares color scale for execution, see the first if for variables that must be set beforehand.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareColorScale</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setMaximumColor">
         setMaximumColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMaximumColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -735,7 +1185,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
@@ -782,7 +1232,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -829,7 +1279,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -876,7 +1326,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -923,7 +1373,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -970,7 +1420,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -1000,6 +1450,158 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setScaleArray">
+        setScaleArray()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setScaleArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">119</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setScaleArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSqRef">
+        setSqRef()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setSqRef" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">111</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setSqRef</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sqref</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$sqref</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getLimitValue">
+        getLimitValue()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getLimitValue" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-conditionalcolorscale.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalColorScale.php">ConditionalColorScale.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">183</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getLimitValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formula</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
             </section>
 
 </article>
@@ -1118,28 +1720,41 @@
                     <ul class="phpdocumentor-list -clean">
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_maximumColor">$maximumColor<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_maximumConditionalFormatValueObject">$maximumConditionalFormatValueObject<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_maxValue">$maxValue<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midpointColor">$midpointColor<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midpointConditionalFormatValueObject">$midpointConditionalFormatValueObject<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_midValue">$midValue<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_minimumColor">$minimumColor<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_minimumConditionalFormatValueObject">$minimumConditionalFormatValueObject<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_minValue">$minValue<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_sqref">$sqref<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_valueArray">$valueArray<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#property_worksheet">$worksheet<a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html"></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_colorScaleReadyForUse">colorScaleReadyForUse()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getColorForValue">getColorForValue()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMaximumColor">getMaximumColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMaximumConditionalFormatValueObject">getMaximumConditionalFormatValueObject()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMidpointColor">getMidpointColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMidpointConditionalFormatValueObject">getMidpointConditionalFormatValueObject()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMinimumColor">getMinimumColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getMinimumConditionalFormatValueObject">getMinimumConditionalFormatValueObject()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getSqRef">getSqRef()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_prepareColorScale">prepareColorScale()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMaximumColor">setMaximumColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMaximumConditionalFormatValueObject">setMaximumConditionalFormatValueObject()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMidpointColor">setMidpointColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMidpointConditionalFormatValueObject">setMidpointConditionalFormatValueObject()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMinimumColor">setMinimumColor()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setMinimumConditionalFormatValueObject">setMinimumConditionalFormatValueObject()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setScaleArray">setScaleArray()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_setSqRef">setSqRef()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalColorScale.html#method_getLimitValue">getLimitValue()</a></li>
                                     </ul>
             </li>
                     </ul>

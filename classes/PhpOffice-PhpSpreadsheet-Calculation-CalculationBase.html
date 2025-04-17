@@ -94,13 +94,11 @@
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation-financial.html">Financial</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation-financial-securities.html">Securities</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Rates
+    CalculationBase
 
     
             <div class="phpdocumentor-element__package">
@@ -119,9 +117,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php"><a href="files/src-phpspreadsheet-calculation-financial-securities-rates.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php">Rates.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationBase.php"><a href="files/src-phpspreadsheet-calculation-calculationbase.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationBase.php">CalculationBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">5</span>
 
     </aside>
 
@@ -135,7 +133,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -150,23 +148,35 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_discount">discount()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_addFunction">addFunction()</a>
     <span>
-                                &nbsp;: float|string    </span>
+                                &nbsp;: bool    </span>
 </dt>
-<dd>DISC.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_interest">interest()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctions">getFunctions()</a>
     <span>
-                                &nbsp;: float|string    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>INTRATE.</dd>
+<dd>Get a list of all implemented functions as an array of function objects.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_removeFunction">removeFunction()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctionsAddress">getFunctionsAddress()</a>
+    <span>
+                                &nbsp;: array&lt;string, array&lt;string, mixed&gt;&gt;    </span>
+</dt>
+<dd>Get address of list of all implemented functions as an array of function objects.</dd>
 
     </dl>
 
@@ -179,7 +189,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -188,85 +198,41 @@
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name" id="method_discount">
-        discount()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_discount" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_addFunction">
+        addFunction()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_addFunction" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php"><a href="files/src-phpspreadsheet-calculation-financial-securities-rates.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php">Rates.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationBase.php"><a href="files/src-phpspreadsheet-calculation-calculationbase.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationBase.php">CalculationBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">DISC.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">discount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$settlement</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maturity</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$price</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$redemption</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$basis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">FinancialConstants::BASIS_DAYS_PER_YEAR_NASD</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string, array&lt;string, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>Returns the discount rate for a security.</p>
-<p>Excel Function:
-DISC(settlement,maturity,price,redemption[,basis])</p>
-</section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$settlement</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's settlement date.
-The security settlement date is the date after the issue
-date when the security is traded to the buyer.</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$maturity</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, array&lt;string, mixed&gt;&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's maturity date.
-The maturity date is the date when the security expires.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$price</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's price per $100 face value</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$redemption</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's redemption value per $100 face value</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$basis</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">FinancialConstants::BASIS_DAYS_PER_YEAR_NASD</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The type of day count to use.
-0 or omitted    US (NASD) 30/360
-1               Actual/actual
-2               Actual/360
-3               Actual/365
-4               European 30/360</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -276,7 +242,7 @@ The maturity date is the date when the security expires.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|string</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -286,85 +252,74 @@ The maturity date is the date when the security expires.</p>
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name" id="method_interest">
-        interest()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_interest" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getFunctions">
+        getFunctions()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctions" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php"><a href="files/src-phpspreadsheet-calculation-financial-securities-rates.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php">Rates.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationBase.php"><a href="files/src-phpspreadsheet-calculation-calculationbase.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationBase.php">CalculationBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">INTRATE.</p>
+        <p class="phpdocumentor-summary">Get a list of all implemented functions as an array of function objects.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">interest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$settlement</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maturity</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$investment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$redemption</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$basis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">FinancialConstants::BASIS_DAYS_PER_YEAR_NASD</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getFunctions</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>Returns the interest rate for a fully invested security.</p>
-<p>Excel Function:
-INTRATE(settlement,maturity,investment,redemption[,basis])</p>
+        <section class="phpdocumentor-description"><p>return array&lt;string, array&lt;string, mixed&gt;&gt;</p>
 </section>
 
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_removeFunction">
+        removeFunction()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_removeFunction" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationBase.php"><a href="files/src-phpspreadsheet-calculation-calculationbase.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationBase.php">CalculationBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">removeFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$settlement</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's settlement date.
-The security settlement date is the date after the issue date when the security
-is traded to the buyer.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$maturity</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The security's maturity date.
-The maturity date is the date when the security expires.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$investment</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the amount invested in the security</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$redemption</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the amount to be received at maturity</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$basis</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">FinancialConstants::BASIS_DAYS_PER_YEAR_NASD</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The type of day count to use.
-0 or omitted    US (NASD) 30/360
-1               Actual/actual
-2               Actual/360
-3               Actual/365
-4               European 30/360</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -374,7 +329,45 @@ The maturity date is the date when the security expires.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|string</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFunctionsAddress">
+        getFunctionsAddress()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctionsAddress" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationBase.php"><a href="files/src-phpspreadsheet-calculation-calculationbase.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationBase.php">CalculationBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get address of list of all implemented functions as an array of function objects.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__reference-operator">&amp;</span>    <span class="phpdocumentor-signature__name">getFunctionsAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;string, mixed&gt;&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;string, mixed&gt;&gt;</span>
             </section>
 
 </article>
@@ -384,7 +377,7 @@ The maturity date is the date when the security expires.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Calculation/CalculationBase.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -483,7 +476,7 @@ The maturity date is the date when the security expires.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
@@ -491,8 +484,10 @@ The maturity date is the date when the security expires.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_discount">discount()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#method_interest">interest()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_addFunction">addFunction()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctions">getFunctions()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_removeFunction">removeFunction()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctionsAddress">getFunctionsAddress()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -512,7 +507,7 @@ The maturity date is the date when the security expires.</p>
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Securities-Rates.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
