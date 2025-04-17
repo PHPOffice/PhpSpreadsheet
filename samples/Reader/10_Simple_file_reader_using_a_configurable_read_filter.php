@@ -13,6 +13,7 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
+    /** @param array<int, string> $columns */
     public function __construct(
         private int $startRow,
         private int $endRow,

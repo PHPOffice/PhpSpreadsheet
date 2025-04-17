@@ -16,7 +16,7 @@ class Mpdf2 extends Mpdf
      *     be used by Mpdf (which would instead use a default substitution).
      * Other configuration options may be specified here.
      *
-     * @param array $config Configuration array
+     * @param array<string, mixed> $config Configuration array
      */
     protected function createExternalWriterInstance($config): \Mpdf\Mpdf
     {
