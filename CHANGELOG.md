@@ -5,7 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 4.2.0
+## TBD - 4.3.0
+
+### Added
+
+- Nothing yet.
+
+### Removed
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-04-16 - 4.2.0
 
 ### Added
 
@@ -15,10 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Permit read to class which extends Spreadsheet. [Discussion #4402](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4402) [PR #4404](https://github.com/PHPOffice/PhpSpreadsheet/pull/4404)
 - Conditional and table formatting support for html writer [PR #4412](https://github.com/PHPOffice/PhpSpreadsheet/pull/4412)
 
-### Removed
-
-- Nothing yet.
-
 ### Changed
 
 - Phpstan Version 2. [PR #4384](https://github.com/PHPOffice/PhpSpreadsheet/pull/4384)
@@ -26,14 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Calculation locale logic moved to separate class. [PR #4398](https://github.com/PHPOffice/PhpSpreadsheet/pull/4398)
 - TREND_POLYNOMIAL_* and TREND_BEST_FIT do not work, and are changed to throw Exceptions if attempted. (TREND_BEST_FIT_NO_POLY works.) An attempt to use an unknown trend type will now also throw an exception. [Issue #4400](https://github.com/PHPOffice/PhpSpreadsheet/issues/4400) [PR #4339](https://github.com/PHPOffice/PhpSpreadsheet/pull/4339)
 - Month parameter of DATE function will now return VALUE if an ordinal string (e.g. '3rd') is used, but will accept bool or null. [PR #4420](https://github.com/PHPOffice/PhpSpreadsheet/pull/4420)
-
-### Moved
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
 
 ### Fixed
 
