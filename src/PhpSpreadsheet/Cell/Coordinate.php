@@ -139,7 +139,7 @@ abstract class Coordinate
      *
      * @param string $range e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
      *
-     * @return array Array containing one or more arrays containing one or two coordinate strings
+     * @return array<array<string>> Array containing one or more arrays containing one or two coordinate strings
      *                                e.g. ['B4','D9'] or [['B4','D9'], ['H2','O11']]
      *                                        or ['B4']
      */

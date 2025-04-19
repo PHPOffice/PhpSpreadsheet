@@ -154,10 +154,12 @@ $spreadsheet->getActiveSheet()
 
 // Set rules for Value Comparison with Formula
 $cellRange = 'A24:E27';
+// accommodation for phpstan
+$absoluteCoordinate = fn (mixed $cell): string => is_string($cell) ? Coordinate::absoluteCoordinate($cell) : '';
 $formulaRange = implode(
     ':',
     array_map(
-        [Coordinate::class, 'absoluteCoordinate'],
+        $absoluteCoordinate,
         Coordinate::splitRange($cellRange)[0]
     )
 );
@@ -188,7 +190,7 @@ $cellRange = 'A31:A33';
 $formulaRange = implode(
     ':',
     array_map(
-        [Coordinate::class, 'absoluteCoordinate'],
+        $absoluteCoordinate,
         Coordinate::splitRange($cellRange)[0]
     )
 );

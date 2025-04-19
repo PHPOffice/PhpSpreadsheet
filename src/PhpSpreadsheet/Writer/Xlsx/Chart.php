@@ -1313,12 +1313,12 @@ class Chart extends WriterPart
                     }
                     if ($trendLineType == TrendLine::TRENDLINE_POLYNOMIAL) {
                         $objWriter->startElement('c:order');
-                        $objWriter->writeAttribute('val', $order);
+                        $objWriter->writeAttribute('val', "$order");
                         $objWriter->endElement(); // order
                     }
                     if ($trendLineType == TrendLine::TRENDLINE_MOVING_AVG) {
                         $objWriter->startElement('c:period');
-                        $objWriter->writeAttribute('val', $period);
+                        $objWriter->writeAttribute('val', "$period");
                         $objWriter->endElement(); // period
                     }
                     $objWriter->startElement('c:dispRSqr');

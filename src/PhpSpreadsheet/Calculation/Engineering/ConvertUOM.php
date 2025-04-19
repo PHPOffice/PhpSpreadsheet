@@ -230,7 +230,7 @@ class ConvertUOM
     /**
      * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     ** @var array<string, array{multiplier: float|int, name: string}>
+     * @var array<string, array{multiplier: float|int, name: string}>
      */
     private static array $binaryConversionMultipliers = [
         'Yi' => ['multiplier' => 2 ** 80, 'name' => 'yobi'],
@@ -435,6 +435,8 @@ class ConvertUOM
     /**
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
+     *
+     * @return string[]
      */
     public static function getConversionCategories(): array
     {
@@ -451,6 +453,8 @@ class ConvertUOM
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
      * @param ?string $category The group whose units of measure you want to retrieve
+     *
+     * @return string[][]
      */
     public static function getConversionCategoryUnits(?string $category = null): array
     {
@@ -468,6 +472,8 @@ class ConvertUOM
      * getConversionGroupUnitDetails.
      *
      * @param ?string $category The group whose units of measure you want to retrieve
+     *
+     * @return array<string, list<array<string, string>>>
      */
     public static function getConversionCategoryUnitDetails(?string $category = null): array
     {
@@ -488,7 +494,7 @@ class ConvertUOM
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @return mixed[]
+     * @return array<string, array{multiplier: float, name: string}>
      */
     public static function getConversionMultipliers(): array
     {
@@ -499,7 +505,7 @@ class ConvertUOM
      *    getBinaryConversionMultipliers
      * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().
      *
-     * @return mixed[]
+     * @return array<string, array{multiplier: float|int, name: string}>
      */
     public static function getBinaryConversionMultipliers(): array
     {
@@ -516,14 +522,14 @@ class ConvertUOM
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @param array|float|int|string $value the value in fromUOM to convert
+     * @param array<mixed>|float|int|string $value the value in fromUOM to convert
      *                      Or can be an array of values
-     * @param array|string $fromUOM the units for value
+     * @param string|string[] $fromUOM the units for value
      *                      Or can be an array of values
-     * @param array|string $toUOM the units for the result
+     * @param string|string[] $toUOM the units for the result
      *                      Or can be an array of values
      *
-     * @return array|float|string Result, or a string containing an error
+     * @return float|mixed[]|string Result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -566,6 +572,7 @@ class ConvertUOM
         return ($baseValue * self::$unitConversions[$fromCategory][$toUOM]) / $toMultiplier;
     }
 
+    /** @return array{0: string, 1: string, 2: float} */
     private static function getUOMDetails(string $uom): array
     {
         if (isset(self::$conversionUnits[$uom])) {

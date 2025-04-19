@@ -116,7 +116,7 @@ class DefinedNames
 
             $range[0] = Coordinate::absoluteCoordinate($range[0] ?? '');
             if (count($range) > 1) {
-                $range[1] = Coordinate::absoluteCoordinate($range[1]);
+                $range[1] = Coordinate::absoluteCoordinate($range[1] ?? '');
             }
             $range = implode(':', $range);
 

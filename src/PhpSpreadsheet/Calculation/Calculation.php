@@ -77,6 +77,8 @@ class Calculation extends CalculationLocale
 
     /**
      * Calculation cache.
+     *
+     * @var mixed[]
      */
     private array $calculationCache = [];
 
@@ -168,6 +170,8 @@ class Calculation extends CalculationLocale
 
     /**
      *    Internal functions used for special control purposes.
+     *
+     * @var array<string, array<string, array<string>|string>>
      */
     private static array $controlFunctions = [
         'MKMATRIX' => [
@@ -713,6 +717,8 @@ class Calculation extends CalculationLocale
      *                                            0 = no resize
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
+     *
+     * @return mixed[]
      */
     public static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
     {
@@ -746,6 +752,8 @@ class Calculation extends CalculationLocale
             self::resizeMatricesExtend($operand1, $operand2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns);
         } elseif ($resize == 1) {
             //    Given two matrices of (potentially) unequal size, convert the larger in each dimension to match the smaller
+            /** @var mixed[][] $operand1 */
+            /** @var mixed[][] $operand2 */
             self::resizeMatricesShrink($operand1, $operand2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns);
         }
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
@@ -757,7 +765,7 @@ class Calculation extends CalculationLocale
     /**
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0.
      *
-     * @param array $matrix matrix operand
+     * @param mixed[] $matrix matrix operand
      *
      * @return int[] An array comprising the number of rows, and number of columns
      */
@@ -782,8 +790,8 @@ class Calculation extends CalculationLocale
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param array $matrix1 First matrix operand
-     * @param array $matrix2 Second matrix operand
+     * @param mixed[][] $matrix1 First matrix operand
+     * @param mixed[][] $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
@@ -825,8 +833,8 @@ class Calculation extends CalculationLocale
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param array $matrix1 First matrix operand
-     * @param array $matrix2 Second matrix operand
+     * @param mixed[] $matrix1 First matrix operand
+     * @param mixed[] $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
@@ -1205,7 +1213,7 @@ class Calculation extends CalculationLocale
                     return $this->raiseFormulaError('Formula Error: Unexpected ,');
                 }
 
-                /** @var array $d */
+                /** @var array<string, int> $d */
                 $d = $stack->pop();
                 ++$d['value']; // increment the argument count
 
@@ -1509,6 +1517,7 @@ class Calculation extends CalculationLocale
         return $output;
     }
 
+    /** @param mixed[] $operandData */
     private static function dataTestReference(array &$operandData): mixed
     {
         $operand = $operandData['value'];
@@ -1711,7 +1720,9 @@ class Calculation extends CalculationLocale
                         }
                         $sheet1 ??= '';
 
-                        [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true, true);
+                        /** @var string */
+                        $op2ref = $operand2Data['reference'];
+                        [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($op2ref, true, true);
                         if (empty($sheet2)) {
                             $sheet2 = $sheet1;
                         }
@@ -1845,8 +1856,8 @@ class Calculation extends CalculationLocale
 
                         break;
                     case '∩':            //    Intersect
-                        /** @var array $operand1 */
-                        /** @var array $operand2 */
+                        /** @var mixed[][] $operand1 */
+                        /** @var mixed[][] $operand2 */
                         $rowIntersect = array_intersect_key($operand1, $operand2);
                         $cellIntersect = $oCol = $oRow = [];
                         foreach (array_keys($rowIntersect) as $row) {
@@ -2001,7 +2012,7 @@ class Calculation extends CalculationLocale
                 }
 
                 $functionName = $matches[1];
-                /** @var array $argCount */
+                /** @var array<string, int> $argCount */
                 $argCount = $stack->pop();
                 $argCount = $argCount['value'];
                 if ($functionName !== 'MKMATRIX') {
@@ -2032,7 +2043,7 @@ class Calculation extends CalculationLocale
                             && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) //* @phpstan-ignore-line
                             && ($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
                         ) {
-                            /** @var array $arg */
+                            /** @var mixed[] $arg */
                             if ($arg['reference'] === null) {
                                 $nextArg = $cellID;
                                 if ($functionName === 'ISREF' && ($arg['type'] ?? '') === 'Value') {
@@ -2056,7 +2067,7 @@ class Calculation extends CalculationLocale
                                 }
                             }
                         } else {
-                            /** @var array $arg */
+                            /** @var mixed[] $arg */
                             if ($arg['type'] === 'Empty Argument' && in_array($functionName, ['MIN', 'MINA', 'MAX', 'MAXA', 'IF'], true)) {
                                 $emptyArguments[] = false;
                                 $args[] = $arg['value'] = 0;
@@ -2076,7 +2087,9 @@ class Calculation extends CalculationLocale
                     krsort($emptyArguments);
 
                     if ($argCount > 0 && is_array($functionCall)) {
-                        $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
+                        /** @var string[] */
+                        $functionCallCopy = $functionCall;
+                        $args = $this->addDefaultArgumentValues($functionCallCopy, $args, $emptyArguments);
                     }
 
                     if (($passByReference) && ($argCount == 0)) {
@@ -2095,6 +2108,7 @@ class Calculation extends CalculationLocale
                     if ($pCellWorksheet !== null && $originalCoordinate !== null) {
                         $pCellWorksheet->getCell($originalCoordinate);
                     }
+                    /** @var array<string>|string $functionCall */
                     $args = $this->addCellReference($args, $passCellReference, $functionCall, $cell);
 
                     if (!is_array($functionCall)) {
@@ -2104,6 +2118,7 @@ class Calculation extends CalculationLocale
                         unset($arg);
                     }
 
+                    /** @var callable $functionCall */
                     $result = call_user_func_array($functionCall, $args);
 
                     if ($functionName !== 'MKMATRIX') {
@@ -2179,7 +2194,7 @@ class Calculation extends CalculationLocale
         if ($stack->count() != 1) {
             return $this->raiseFormulaError('internal error');
         }
-        /** @var array $output */
+        /** @var array<string, array<int, mixed>|false|string> */
         $output = $stack->pop();
         $output = $output['value'];
 
@@ -2224,6 +2239,7 @@ class Calculation extends CalculationLocale
         return true;
     }
 
+    /** @return mixed[] */
     private function executeArrayComparison(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays): array
     {
         $result = [];
@@ -2232,7 +2248,7 @@ class Calculation extends CalculationLocale
             foreach ($operand1 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operandData), $operation, $this->showValue($operand2));
                 $this->executeBinaryComparisonOperation($operandData, $operand2, $operation, $stack);
-                /** @var array $r */
+                /** @var array<string, mixed> $r */
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -2241,7 +2257,7 @@ class Calculation extends CalculationLocale
             foreach ($operand2 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operand1), $operation, $this->showValue($operandData));
                 $this->executeBinaryComparisonOperation($operand1, $operandData, $operation, $stack);
-                /** @var array $r */
+                /** @var array<string, mixed> $r */
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -2253,7 +2269,7 @@ class Calculation extends CalculationLocale
             foreach ($operand1 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operandData), $operation, $this->showValue($operand2[$x]));
                 $this->executeBinaryComparisonOperation($operandData, $operand2[$x], $operation, $stack, true);
-                /** @var array $r */
+                /** @var array<string, mixed> $r */
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -2268,6 +2284,7 @@ class Calculation extends CalculationLocale
         return $result;
     }
 
+    /** @return bool|mixed[] */
     private function executeBinaryComparisonOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool
     {
         //    If we're dealing with matrix operations, we want a matrix result
@@ -2442,7 +2459,7 @@ class Calculation extends CalculationLocale
      * @param ?Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @return array Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return mixed[] Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractCellRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): array
     {
@@ -2506,7 +2523,7 @@ class Calculation extends CalculationLocale
      * @param null|Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @return array|string Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return mixed[]|string Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): string|array
     {
@@ -2578,6 +2595,8 @@ class Calculation extends CalculationLocale
 
     /**
      * Get a list of implemented Excel function names.
+     *
+     * @return string[]
      */
     public function getImplementedFunctionNames(): array
     {
@@ -2592,6 +2611,13 @@ class Calculation extends CalculationLocale
         return $returnValue;
     }
 
+    /**
+     * @param string[] $functionCall
+     * @param mixed[] $args
+     * @param mixed[] $emptyArguments
+     *
+     * @return mixed[]
+     */
     private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
     {
         $reflector = new ReflectionMethod($functionCall[0], $functionCall[1]);
@@ -2642,6 +2668,11 @@ class Calculation extends CalculationLocale
 
     /**
      * Add cell reference if needed while making sure that it is the last argument.
+     *
+     * @param mixed[] $args
+     * @param string|string[] $functionCall
+     *
+     * @return mixed[]
      */
     private function addCellReference(array $args, bool $passCellReference, array|string $functionCall, ?Cell $cell = null): array
     {

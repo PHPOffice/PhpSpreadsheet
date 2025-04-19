@@ -53,6 +53,7 @@ class Issue4269Test extends TestCase
         }
     }
 
+    /** @return array<string, array<int, mixed>> */
     public static function validationProvider(): array
     {
         return [
