@@ -132,19 +132,9 @@ class ArrayArgumentHelper
         return $this->columns[$argument] === 1;
     }
 
-    public function rowCountMixed(mixed $argument): int
-    {
-        return is_int($argument) ? $this->rowCount($argument) : throw new Exception('arg should be int');
-    }
-
     public function rowCount(int $argument): int
     {
         return $this->rows[$argument];
-    }
-
-    public function columnCountMixed(mixed $argument): int
-    {
-        return is_int($argument) ? $this->columnCount($argument) : throw new Exception('arg should be int');
     }
 
     public function columnCount(int $argument): int

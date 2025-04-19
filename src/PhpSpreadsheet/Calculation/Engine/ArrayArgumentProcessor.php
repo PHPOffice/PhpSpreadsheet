@@ -70,14 +70,16 @@ class ArrayArgumentProcessor
         /** @var mixed[][] $matrixValues1 */
         $matrixValues1 = $arguments[$matrix1];
 
-        $rows = min(array_map(self::$arrayArgumentHelper->rowCountMixed(...), [$matrix1, $matrix2]));
-        $columns = min(array_map(self::$arrayArgumentHelper->columnCountMixed(...), [$matrix1, $matrix2]));
+        /** @var non-empty-array<int> */
+        $matrix12 = [$matrix1, $matrix2];
+        $rows = min(array_map(self::$arrayArgumentHelper->rowCount(...), $matrix12));
+        $columns = min(array_map(self::$arrayArgumentHelper->columnCount(...), $matrix12));
 
         if ($rows === 1) {
-            $rows = max(array_map(self::$arrayArgumentHelper->rowCountMixed(...), [$matrix1, $matrix2]));
+            $rows = max(array_map(self::$arrayArgumentHelper->rowCount(...), $matrix12));
         }
         if ($columns === 1) {
-            $columns = max(array_map(self::$arrayArgumentHelper->columnCountMixed(...), [$matrix1, $matrix2]));
+            $columns = max(array_map(self::$arrayArgumentHelper->columnCount(...), $matrix12));
         }
 
         $result = [];
