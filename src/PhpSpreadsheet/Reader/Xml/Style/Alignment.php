@@ -50,6 +50,10 @@ class Alignment extends StyleBase
                     $style['alignment']['textRotation'] = $styleAttributeValue;
 
                     break;
+                case 'Indent':
+                    $style['alignment']['indent'] = $styleAttributeValue;
+
+                    break;
             }
         }
 
