@@ -21,6 +21,7 @@ parameters:
         - src/PhpSpreadsheet/Collection/Memory/SimpleCache3.php
         - src/PhpSpreadsheet/Writer/ZipStream2.php
         - src/PhpSpreadsheet/Writer/ZipStream3.php
+        #- tests/PhpSpreadsheetTests/Writer/Xlsx/ArrayFunctions2Test.php
     parallel:
         processTimeout: 300.0
     ignoreErrors:

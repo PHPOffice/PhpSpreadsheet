@@ -59,6 +59,7 @@ class LocaleFloatsTest extends AbstractFunctional
         }
         $localeconv = localeconv();
         $decimalSeparator = $localeconv['decimal_point'];
+        self::assertIsString($decimalSeparator);
         self::assertNotEquals('.', $decimalSeparator, 'unexpected change to French decimal separator');
         $this->spreadsheet = $spreadsheet = new Spreadsheet();
         $properties = $spreadsheet->getProperties();
@@ -114,6 +115,8 @@ class LocaleFloatsTest extends AbstractFunctional
         $localeconv = localeconv();
         $thousandsSeparator = $localeconv['thousands_sep'];
         $decimalSeparator = $localeconv['decimal_point'];
+        self::assertIsString($decimalSeparator);
+        self::assertIsString($thousandsSeparator);
         self::assertNotEquals('.', $decimalSeparator, 'unexpected change to French decimal separator');
         self::assertNotEquals(',', $thousandsSeparator, 'unexpected change to French thousands separator');
         $reader = new XlsxReader();
