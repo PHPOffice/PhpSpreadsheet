@@ -149,7 +149,7 @@ class PageSetup extends BaseParserClass
     private function rowBreaks(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         foreach ($xmlSheet->rowBreaks->brk as $brk) {
-            $rowBreakMax = isset($brk['max']) ? ((int) $brk['max']) : -1;
+            $rowBreakMax = /*isset($brk['max']) ? ((int) $brk['max']) :*/ -1;
             if ($brk['man']) {
                 $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW, $rowBreakMax);
             }
