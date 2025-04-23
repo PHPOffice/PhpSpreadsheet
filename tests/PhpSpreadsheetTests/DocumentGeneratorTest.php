@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Category as Cat;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
@@ -18,14 +19,14 @@ class DocumentGeneratorTest extends TestCase
 
     private static bool $succeededByCategory = false;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGenerateFunctionListByName')]
+    #[DataProvider('providerGenerateFunctionListByName')]
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions));
         self::$succeededByName = true;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGenerateFunctionListByCategory')]
+    #[DataProvider('providerGenerateFunctionListByCategory')]
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions));
@@ -160,7 +161,11 @@ class DocumentGeneratorTest extends TestCase
         $phpSpreadsheetFunctions = [
             'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 1],
         ];
-        DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions);
+        // Phpstan is right to complain about next line,
+        // but we still need to make sure it is handled correctly at run time.
+        DocumentGenerator::generateFunctionListByName(
+            $phpSpreadsheetFunctions //* @phpstan-ignore-line
+        );
     }
 
     public function testGenerateDocuments(): void

@@ -661,7 +661,9 @@ class Workbook extends BIFFwriter
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
                     $printAreaRect[0] = Coordinate::indexesFromString($printAreaRect[0]);
-                    $printAreaRect[1] = Coordinate::indexesFromString($printAreaRect[1]);
+                    /** @var string */
+                    $printAreaRect1 = $printAreaRect[1];
+                    $printAreaRect[1] = Coordinate::indexesFromString($printAreaRect1);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;

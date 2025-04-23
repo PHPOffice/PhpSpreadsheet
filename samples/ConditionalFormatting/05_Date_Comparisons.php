@@ -126,8 +126,9 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
     /** @var string */
     $cellContents = $spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue();
     $methodName = trim($cellContents, '()');
-    $dateWizard->$methodName()
-        ->setStyle($yellowStyle);
+    /** @var Wizard\DateValue */
+    $targetStyle = $dateWizard->$methodName();
+    $targetStyle->setStyle($yellowStyle);
 
     $conditionalStyles[] = $dateWizard->getConditional();
 

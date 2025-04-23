@@ -54,20 +54,21 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        $tbod = $tabl?->item(0)?->getElementsByTagName('tbody');
+        $rows = $tbod?->item(0)?->getElementsByTagName('tr');
         self::assertCount(2, $rows);
 
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows?->item(0)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $img = $tds[0]->getElementsByTagName('img');
+        $img = $tds?->item(0)?->getElementsByTagName('img');
         self::assertCount(1, $img);
-        self::assertEquals("$root/$stub", $img[0]->getAttribute('src'));
-        self::assertEquals($desc, $img[0]->getAttribute('alt'));
+        self::assertSame("$root/$stub", $img?->item(0)?->getAttribute('src'));
+        self::assertSame($desc, $img->item(0)->getAttribute('alt'));
         $spreadsheet->disconnectWorksheets();
     }
 }

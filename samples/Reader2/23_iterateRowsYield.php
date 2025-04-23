@@ -4,8 +4,10 @@
  * Use rangeToArrayYieldRows() to efficiently iterate over all rows.
  */
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+
 $inputFileName = __DIR__ . '/../Reader/sampleData/example1.xls';
 
 $spreadsheet = PhpOffice\PhpSpreadsheet\IOFactory::load(
@@ -21,5 +23,5 @@ $rowGenerator = $sheet->rangeToArrayYieldRows(
     false
 );
 foreach ($rowGenerator as $row) {
-    echo '| ' . $row[0] . ' | ' . $row[1] . "|\n";
+    echo '| ' . StringHelper::convertToString($row[0]) . ' | ' . StringHelper::convertToString($row[1]) . "|\n";
 }

@@ -10,9 +10,9 @@ use UnexpectedValueException;
 class DocumentGenerator
 {
     /**
-     * @param array[] $phpSpreadsheetFunctions
+     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
      */
-    public static function generateFunctionListByCategory(array $phpSpreadsheetFunctions): string
+    public static function generateFunctionListByCategory($phpSpreadsheetFunctions): string
     {
         $result = "# Function list by category\n";
         foreach (self::getCategories() as $categoryConstant => $category) {
@@ -60,7 +60,7 @@ class DocumentGenerator
         return rtrim($result, ' ');
     }
 
-    /** @param array<int,string>|scalar $functionCall */
+    /** @param scalar|string|string[] $functionCall */
     private static function getPhpSpreadsheetFunctionText(mixed $functionCall): string
     {
         if (is_string($functionCall)) {
@@ -79,7 +79,7 @@ class DocumentGenerator
     }
 
     /**
-     * @param array<string, array<string, int|string>> $phpSpreadsheetFunctions
+     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
      */
     public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
     {
@@ -87,7 +87,6 @@ class DocumentGenerator
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
-            /** @var string $excelFunction */
             $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {
                 $lastAlphabet = $excelFunction[0];

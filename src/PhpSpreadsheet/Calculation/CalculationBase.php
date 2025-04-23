@@ -7,7 +7,7 @@ class CalculationBase
     /**
      * Get a list of all implemented functions as an array of function objects.
      *
-     * return array<string, array<string, mixed>>
+     * @return array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}>
      */
     public static function getFunctions(): array
     {
@@ -25,7 +25,7 @@ class CalculationBase
     }
 
     /**
-     * @param array<string, array<string, mixed>> $value
+     * @param array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool} $value
      */
     public static function addFunction(string $key, array $value): bool
     {

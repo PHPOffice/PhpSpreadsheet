@@ -30,7 +30,7 @@ class LocaleGenerator
 
     protected string $translationBaseFolder;
 
-    /** @var string[] */
+    /** @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> */
     protected array $phpSpreadsheetFunctions;
 
     protected Spreadsheet $translationSpreadsheet;
@@ -42,7 +42,7 @@ class LocaleGenerator
     /** @var string[] */
     protected array $localeLanguageMap = [];
 
-    /** @var array<string, int> */
+    /** @var int[] */
     protected array $errorCodeMap = [];
 
     private Worksheet $functionNameTranslations;
@@ -50,11 +50,11 @@ class LocaleGenerator
     /** @var string[] */
     protected array $functionNameLanguageMap = [];
 
-    /** @var array<string, int|string> */
+    /** @var array<int|string> */
     protected array $functionNameMap = [];
 
     /**
-     * @param string[] $phpSpreadsheetFunctions
+     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
      */
     public function __construct(
         string $translationBaseFolder,

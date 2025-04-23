@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\FunctionPrefix;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FunctionPrefixTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('functionPrefixProvider')]
+    #[DataProvider('functionPrefixProvider')]
     public function testFunctionPrefix(string $expectedResult, string $functionString): void
     {
         $result = FunctionPrefix::addFunctionPrefix($functionString);
@@ -18,6 +19,7 @@ class FunctionPrefixTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
+    /** @return array<string, array<int, string>> */
     public static function functionPrefixProvider(): array
     {
         return [

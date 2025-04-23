@@ -172,6 +172,8 @@ abstract class DatabaseAbstract
      * @param mixed[] $database
      * @param mixed[][] $criteria
      * @param array<mixed> $fields
+     *
+     * @return mixed[]
      */
     private static function executeQuery(array $database, string $query, array $criteria, array $fields): array
     {
