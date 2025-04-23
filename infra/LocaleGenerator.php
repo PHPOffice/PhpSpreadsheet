@@ -30,6 +30,7 @@ class LocaleGenerator
 
     protected string $translationBaseFolder;
 
+    /** @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> */
     protected array $phpSpreadsheetFunctions;
 
     protected Spreadsheet $translationSpreadsheet;
@@ -38,16 +39,23 @@ class LocaleGenerator
 
     protected Worksheet $localeTranslations;
 
+    /** @var string[] */
     protected array $localeLanguageMap = [];
 
+    /** @var int[] */
     protected array $errorCodeMap = [];
 
     private Worksheet $functionNameTranslations;
 
+    /** @var string[] */
     protected array $functionNameLanguageMap = [];
 
+    /** @var array<int|string> */
     protected array $functionNameMap = [];
 
+    /**
+     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
+     */
     public function __construct(
         string $translationBaseFolder,
         string $translationSpreadsheetName,
@@ -268,6 +276,7 @@ class LocaleGenerator
         return $worksheet;
     }
 
+    /** @return string[] */
     protected function mapLanguageColumns(Worksheet $translationWorksheet): array
     {
         $sheetName = $translationWorksheet->getTitle();
@@ -282,7 +291,7 @@ class LocaleGenerator
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
-                    $languageNameMap[$cell->getColumn()] = $cell->getValue();
+                    $languageNameMap[$cell->getColumn()] = $cell->getValueString();
                     $this->log($cell->getColumn() . ' -> ' . $cell->getValueString());
                 }
             }

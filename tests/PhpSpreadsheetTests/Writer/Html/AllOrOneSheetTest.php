@@ -28,20 +28,31 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
         self::assertCount(1, $divs);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(2, $divs);
-        self::assertEquals('page: page0', $divs->item(0)->getAttribute('style'));
-        $tbl = $divs->item(0)->getElementsByTagName('table');
-        self::assertEquals('sheet0', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet0 gridlines', $tbl->item(0)->getAttribute('class'));
-        $tbl = $divs->item(1)->getElementsByTagName('table');
-        self::assertEquals('page: page1', $divs->item(1)->getAttribute('style'));
-        self::assertEquals('sheet1', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet1 gridlines', $tbl->item(0)->getAttribute('class'));
-        $this->writeAndReload($spreadsheet, 'Html');
+        $divsItem0 = $divs->item(0);
+        self::assertNotNull($divsItem0);
+        $divsItem1 = $divs->item(1);
+        self::assertNotNull($divsItem1);
+        self::assertEquals('page: page0', $divsItem0->getAttribute('style'));
+        $tbl = $divsItem0->getElementsByTagName('table');
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet0', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet0 gridlines', $tblItem0->getAttribute('class'));
+        $tbl = $divsItem1->getElementsByTagName('table');
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('page: page1', $divsItem1->getAttribute('style'));
+        self::assertEquals('sheet1', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet1 gridlines', $tblItem0->getAttribute('class'));
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testWriteAllSheetsNoNav(): void
@@ -58,20 +69,31 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
         self::assertCount(0, $divs);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(2, $divs);
-        self::assertEquals('page: page0', $divs->item(0)->getAttribute('style'));
-        $tbl = $divs->item(0)->getElementsByTagName('table');
-        self::assertEquals('sheet0', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet0 gridlines', $tbl->item(0)->getAttribute('class'));
-        $tbl = $divs->item(1)->getElementsByTagName('table');
-        self::assertEquals('page: page1', $divs->item(1)->getAttribute('style'));
-        self::assertEquals('sheet1', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet1 gridlines', $tbl->item(0)->getAttribute('class'));
-        $this->writeAndReload($spreadsheet, 'Html');
+        $divsItem0 = $divs->item(0);
+        self::assertNotNull($divsItem0);
+        self::assertEquals('page: page0', $divsItem0->getAttribute('style'));
+        $tbl = $divsItem0->getElementsByTagName('table');
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet0', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet0 gridlines', $tblItem0->getAttribute('class'));
+        $divsItem1 = $divs->item(1);
+        self::assertNotNull($divsItem1);
+        $tbl = $divsItem1->getElementsByTagName('table');
+        self::assertEquals('page: page1', $divsItem1->getAttribute('style'));
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet1', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet1 gridlines', $tblItem0->getAttribute('class'));
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testWriteAllSheetsPdf(): void
@@ -87,19 +109,29 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
         self::assertCount(0, $divs);
         $divs = $body->getElementsByTagName('div');
+        $divsItem0 = $divs->item(0);
+        self::assertNotNull($divsItem0);
         self::assertCount(2, $divs);
-        self::assertEquals('page: page0', $divs->item(0)->getAttribute('style'));
-        $tbl = $divs->item(0)->getElementsByTagName('table');
-        self::assertEquals('sheet0', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet0 gridlines', $tbl->item(0)->getAttribute('class'));
-        $tbl = $divs->item(1)->getElementsByTagName('table');
-        self::assertEquals('page: page1', $divs->item(1)->getAttribute('style'));
-        self::assertEquals('sheet1', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet1 gridlines', $tbl->item(0)->getAttribute('class'));
+        self::assertEquals('page: page0', $divsItem0->getAttribute('style'));
+        $tbl = $divsItem0->getElementsByTagName('table');
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet0', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet0 gridlines', $tblItem0->getAttribute('class'));
+        $divsItem1 = $divs->item(1);
+        self::assertNotNull($divsItem1);
+        $tbl = $divsItem1->getElementsByTagName('table');
+        self::assertEquals('page: page1', $divsItem1->getAttribute('style'));
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet1', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet1 gridlines', $tblItem0->getAttribute('class'));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testWriteOneSheet(): void
@@ -115,16 +147,23 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
         self::assertCount(0, $divs);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(1, $divs);
-        self::assertEquals('page: page1', $divs->item(0)->getAttribute('style'));
-        $tbl = $divs->item(0)->getElementsByTagName('table');
-        self::assertEquals('sheet1', $tbl->item(0)->getAttribute('id'));
-        self::assertEquals('sheet1 gridlines', $tbl->item(0)->getAttribute('class'));
-        $this->writeAndReload($spreadsheet, 'Html');
+        $divsItem0 = $divs->item(0);
+        self::assertNotNull($divsItem0);
+        self::assertEquals('page: page1', $divsItem0->getAttribute('style'));
+        $tbl = $divsItem0->getElementsByTagName('table');
+        $tblItem0 = $tbl->item(0);
+        self::assertNotNull($tblItem0);
+        self::assertEquals('sheet1', $tblItem0->getAttribute('id'));
+        self::assertEquals('sheet1 gridlines', $tblItem0->getAttribute('class'));
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testPageBreak(): void
@@ -146,24 +185,33 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(3, $divs);
 
-        $sty = $divs[0]->getAttribute('style');
-        $cls = $divs[0]->getAttribute('class');
+        $divsItem0 = $divs->item(0);
+        $divsItem1 = $divs->item(1);
+        $divsItem2 = $divs->item(2);
+        self::assertNotNull($divsItem0);
+        self::assertNotNull($divsItem1);
+        self::assertNotNull($divsItem2);
+        $sty = $divsItem0->getAttribute('style');
+        $cls = $divsItem0->getAttribute('class');
         self::assertEquals('page: page0', $sty);
         self::assertEquals('', $cls);
-        $sty = $divs[1]->getAttribute('style');
-        $cls = $divs[1]->getAttribute('class');
+        $sty = $divsItem1->getAttribute('style');
+        $cls = $divsItem1->getAttribute('class');
         self::assertEquals('page: page0', $sty);
         self::assertEquals('scrpgbrk', $cls);
-        $sty = $divs[2]->getAttribute('style');
-        $cls = $divs[2]->getAttribute('class');
+        $sty = $divsItem2->getAttribute('style');
+        $cls = $divsItem2->getAttribute('class');
         self::assertEquals('page: page1', $sty);
         self::assertEquals('', $cls);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testTcpdfPageBreak(): void
@@ -182,14 +230,16 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $html = $writer->generateHtmlAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(5, $divs);
 
-        self::assertEquals('page: page0', $divs[0]->getAttribute('style'));
-        self::assertEquals('page: page1', $divs[2]->getAttribute('style'));
-        self::assertEquals('page: page1', $divs[4]->getAttribute('style'));
-        self::assertEquals('page-break-before:always', $divs[1]->getAttribute('style'));
-        self::assertEquals('page-break-before:always', $divs[3]->getAttribute('style'));
+        self::assertEquals('page: page0', $divs->item(0)?->getAttribute('style'));
+        self::assertEquals('page: page1', $divs->item(2)?->getAttribute('style'));
+        self::assertEquals('page: page1', $divs->item(4)?->getAttribute('style'));
+        self::assertEquals('page-break-before:always', $divs->item(1)?->getAttribute('style'));
+        self::assertEquals('page-break-before:always', $divs->item(3)?->getAttribute('style'));
+        $spreadsheet->disconnectWorksheets();
     }
 }

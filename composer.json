@@ -46,7 +46,7 @@
     ],
     "scripts": {
         "check": [
-            "php ./bin/check-phpdoc-types",
+            "php bin/check-phpdoc-types.php",
             "phpcs samples/ src/ tests/ --report=checkstyle",
             "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n",
             "php-cs-fixer fix --ansi --dry-run --diff",

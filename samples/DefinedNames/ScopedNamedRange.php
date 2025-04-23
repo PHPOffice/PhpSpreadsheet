@@ -64,10 +64,12 @@ $range = $spreadsheet->getNamedRange('CHARGE_RATE');
 if ($range === null || $range->getWorksheet() === null) {
     throw new Exception('expected named range not found');
 }
+/** @var string */
+$cellsInRange0 = $range->getCellsInRange()[0];
 /** @var float */
 $chargeRateCellValue = $spreadsheet
     ->getSheetByNameOrThrow($range->getWorksheet()->getTitle())
-    ->getCell($range->getCellsInRange()[0])->getValue();
+    ->getCell($cellsInRange0)->getValue();
 
 /** @var float */
 $calc1 = $worksheet->getCell("B{$row}")->getCalculatedValue();

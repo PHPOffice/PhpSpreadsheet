@@ -34,24 +34,27 @@ class GridlinesTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(4, $divs);
 
-        $tbl = $divs[0]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
-        self::assertEquals('sheet0 gridlines gridlinesp', $cls);
-        $tbl = $divs[1]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
-        self::assertEquals('sheet1 gridlines', $cls);
-        $tbl = $divs[2]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
-        self::assertEquals('sheet2 gridlinesp', $cls);
-        $tbl = $divs[3]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
-        self::assertEquals('sheet3', $cls);
+        $tbl = $divs->item(0)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
+        self::assertSame('sheet0 gridlines gridlinesp', $cls);
+        $tbl = $divs->item(1)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
+        self::assertSame('sheet1 gridlines', $cls);
+        $tbl = $divs->item(2)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
+        self::assertSame('sheet2 gridlinesp', $cls);
+        $tbl = $divs->item(3)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
+        self::assertSame('sheet3', $cls);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testGridlinesInline(): void
@@ -77,24 +80,29 @@ class GridlinesTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(4, $divs);
 
-        $tbl = $divs[0]->getElementsByTagName('table')[0];
+        $tbl = $divs->item(0)?->getElementsByTagName('table')->item(0);
+        self::assertNotNull($tbl);
         $cls = $tbl->getAttribute('class');
-        self::assertEquals('gridlines gridlinesp', $cls);
-        $tbl = $divs[1]->getElementsByTagName('table')[0];
+        self::assertSame('gridlines gridlinesp', $cls);
+        $tbl = $divs->item(1)?->getElementsByTagName('table')->item(0);
+        self::assertNotNull($tbl);
         $cls = $tbl->getAttribute('class');
-        self::assertEquals('gridlines', $cls);
-        $tbl = $divs[2]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
+        self::assertSame('gridlines', $cls);
+        $tbl = $divs->item(2)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
         self::assertEquals('gridlinesp', $cls);
-        $tbl = $divs[3]->getElementsByTagName('table')[0];
-        $cls = $tbl->getAttribute('class');
-        self::assertEquals('', $cls);
+        $tbl = $divs->item(3)?->getElementsByTagName('table')->item(0);
+        $cls = $tbl?->getAttribute('class');
+        self::assertSame('', $cls);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testRichText(): void
@@ -142,68 +150,76 @@ class GridlinesTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
         self::assertCount(1, $divs);
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        self::assertNotNull($tabl);
+        $tbod = $tabl->item(0)?->getElementsByTagName('tbody');
+        self::assertNotNull($tbod);
+        $rows = $tbod->item(0)?->getElementsByTagName('tr');
+        self::assertNotNull($rows);
         self::assertCount(5, $rows);
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows->item(0)?->getElementsByTagName('td');
+        self::assertNotNull($tds);
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds->item(0)?->getElementsByTagName('span');
+        self::assertNotNull($spans);
         self::assertCount(2, $spans);
-        self::assertEquals('e=mc', $spans[0]->textContent);
-        $style = $spans[0]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:#0000FF/', $style));
-        $style = $spans[1]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:#008000/', $style));
-        $sups = $spans[1]->getElementsByTagName('sup');
+        self::assertEquals('e=mc', $spans->item(0)?->textContent);
+        $style = $spans->item(0)?->getAttribute('style');
+        self::assertEquals(1, preg_match('/color:#0000FF/', "$style"));
+        $style = $spans->item(1)?->getAttribute('style');
+        self::assertEquals(1, preg_match('/color:#008000/', "$style"));
+        $sups = $spans->item(1)?->getElementsByTagName('sup');
         self::assertCount(1, $sups);
-        assert('2' == $sups[0]->textContent);
+        self::assertSame('2', $sups?->item(0)?->textContent);
 
-        $tds = $rows[1]->getElementsByTagName('td');
-        assert(1 == count($tds));
-        $spans = $tds[0]->getElementsByTagName('span');
-        assert(3 == count($spans));
-        assert('H' == $spans[0]->textContent);
-        $style = $spans[1]->getAttribute('style');
-        assert(1 == preg_match('/color:#FF0000/', $style));
-        $subs = $spans[1]->getElementsByTagName('sub');
-        assert(1 == count($subs));
-        assert('2' == $subs[0]->textContent);
-        assert('O' == $spans[2]->textContent);
-
-        $tds = $rows[2]->getElementsByTagName('td');
+        $tds = $rows->item(1)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
+        self::assertCount(3, $spans);
+        self::assertSame('H', $spans?->item(0)?->textContent);
+        $style = $spans->item(1)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:#FF0000/', "$style"));
+        $subs = $spans->item(1)?->getElementsByTagName('sub');
+        self::assertCount(1, $subs);
+        self::assertSame('2', $subs?->item(0)?->textContent);
+        self::assertSame('O', $spans->item(2)?->textContent);
+
+        $tds = $rows->item(2)?->getElementsByTagName('td');
+        self::assertCount(1, $tds);
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(4, $spans);
-        self::assertEquals('H', $spans[0]->textContent);
-        $subs = $spans[1]->getElementsByTagName('sub');
+        self::assertEquals('H', $spans?->item(0)?->textContent);
+        $subs = $spans?->item(1)?->getElementsByTagName('sub');
         self::assertCount(1, $subs);
-        self::assertEquals('2', $subs[0]->textContent);
-        self::assertEquals('SO', $spans[2]->textContent);
-        $subs = $spans[3]->getElementsByTagName('sub');
+        self::assertEquals('2', $subs?->item(0)?->textContent);
+        self::assertEquals('SO', $spans?->item(2)?->textContent);
+        $subs = $spans?->item(3)?->getElementsByTagName('sub');
         self::assertCount(1, $subs);
-        self::assertEquals('4', $subs[0]->textContent);
+        self::assertEquals('4', $subs?->item(0)?->textContent);
 
-        $tds = $rows[3]->getElementsByTagName('td');
+        $tds = $rows->item(3)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        $sups = $tds[0]->getElementsByTagName('sup');
+        $sups = $tds?->item(0)?->getElementsByTagName('sup');
         self::assertCount(1, $sups);
-        self::assertEquals('5', $sups[0]->textContent);
+        self::assertEquals('5', $sups?->item(0)?->textContent);
 
-        $tds = $rows[4]->getElementsByTagName('td');
+        $tds = $rows->item(4)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        $subs = $tds[0]->getElementsByTagName('sub');
+        $subs = $tds?->item(0)?->getElementsByTagName('sub');
         self::assertCount(1, $subs);
-        self::assertEquals('6', $subs[0]->textContent);
+        self::assertEquals('6', $subs?->item(0)?->textContent);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 }

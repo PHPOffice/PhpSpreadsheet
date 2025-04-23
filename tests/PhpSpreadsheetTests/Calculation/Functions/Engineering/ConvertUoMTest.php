@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConvertUoMTest extends TestCase
@@ -25,7 +26,6 @@ class ConvertUoMTest extends TestCase
     {
         $result = ConvertUOM::getConversionCategoryUnits();
         self::assertArrayHasKey('Speed', $result);
-        self::assertIsArray($result['Speed']);
         self::assertContains('mph', $result['Speed']);
     }
 
@@ -33,7 +33,6 @@ class ConvertUoMTest extends TestCase
     {
         $result = ConvertUOM::getConversionCategoryUnitDetails();
         self::assertArrayHasKey('Information', $result);
-        self::assertIsArray($result['Information']);
         self::assertContains(['unit' => 'byte', 'description' => 'Byte'], $result['Information']);
     }
 
@@ -51,14 +50,14 @@ class ConvertUoMTest extends TestCase
         self::assertSame(['multiplier' => 1024, 'name' => 'kibi'], $result['ki']);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    #[DataProvider('providerCONVERTUOM')]
     public function testDirectCallToCONVERTUOM(float|int|string $expectedResult, float|int|string $value, string $from, string $to): void
     {
         $result = ConvertUOM::convert($value, $from, $to);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    #[DataProvider('providerCONVERTUOM')]
     public function testCONVERTUOMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -70,7 +69,7 @@ class ConvertUoMTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCONVERTUOM')]
+    #[DataProvider('providerCONVERTUOM')]
     public function testCONVERTUOMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,12 +87,16 @@ class ConvertUoMTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return mixed[] */
     public static function providerCONVERTUOM(): array
     {
-        return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
+        /** @var mixed[] */
+        $return = require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
+
+        return $return;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyCONVERTUOM')]
+    #[DataProvider('providerUnhappyCONVERTUOM')]
     public function testCONVERTUOMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -121,7 +124,8 @@ class ConvertUoMTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerConvertUoMArray')]
+    /** @param float[] $expectedResult */
+    #[DataProvider('providerConvertUoMArray')]
     public function testConvertUoMArray(array $expectedResult, string $value, string $fromUoM, string $toUoM): void
     {
         $calculation = Calculation::getInstance();
@@ -131,6 +135,7 @@ class ConvertUoMTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
+    /** @return mixed[] */
     public static function providerConvertUoMArray(): array
     {
         return [
