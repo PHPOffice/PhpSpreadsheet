@@ -21,7 +21,7 @@ class RowBreakTest extends TestCase
         $writer = new XlsxWriter($spreadsheet);
         $writerWorksheet = new XlsxWriter\Worksheet($writer);
         $data = $writerWorksheet->writeWorksheet($sheet, []);
-        $expected = '<rowBreaks count="1" manualBreakCount="1"><brk id="25" man="1" max="16383"/></rowBreaks>';
+        $expected = '<rowBreaks count="1" manualBreakCount="1"><brk id="25" man="1" max="11"/></rowBreaks>';
         self::assertStringContainsString($expected, $data);
         $spreadsheet->disconnectWorksheets();
     }
@@ -51,6 +51,8 @@ class RowBreakTest extends TestCase
     {
         // This test does not specify max for setBreak,
         // and appears incorrect. Probable Excel bug.
+        // See issue #1275, which now has a fix.
+        // And I agree that the fix probably indicates an Excel bug.
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row < 60; ++$row) {
@@ -64,7 +66,7 @@ class RowBreakTest extends TestCase
         $writer = new XlsxWriter($spreadsheet);
         $writerWorksheet = new XlsxWriter\Worksheet($writer);
         $data = $writerWorksheet->writeWorksheet($sheet, []);
-        $expected = '<rowBreaks count="1" manualBreakCount="1"><brk id="25" man="1"/></rowBreaks>';
+        $expected = '<rowBreaks count="1" manualBreakCount="1"><brk id="25" man="1" max="11"/></rowBreaks>';
         self::assertStringContainsString($expected, $data);
         $spreadsheet->disconnectWorksheets();
     }

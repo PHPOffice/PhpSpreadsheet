@@ -1273,6 +1273,9 @@ class Worksheet extends WriterPart
                 $rowBreakMax = $break->getMaxColOrRow();
                 if ($rowBreakMax >= 0) {
                     $objWriter->writeAttribute('max', "$rowBreakMax");
+                } elseif ($worksheet->getPageSetup()->getPrintArea() !== '') {
+                    $maxCol = Coordinate::columnIndexFromString($worksheet->getHighestColumn());
+                    $objWriter->writeAttribute('max', "$maxCol");
                 }
                 $objWriter->endElement();
             }
@@ -1292,6 +1295,13 @@ class Worksheet extends WriterPart
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', (string) ((int) $coords[0] - 1));
                 $objWriter->writeAttribute('man', '1');
+                $colBreakMax = $break->getMaxColOrRow();
+                if ($colBreakMax >= 0) {
+                    $objWriter->writeAttribute('max', "$colBreakMax");
+                } elseif ($worksheet->getPageSetup()->getPrintArea() !== '') {
+                    $maxRow = $worksheet->getHighestRow();
+                    $objWriter->writeAttribute('max', "$maxRow");
+                }
                 $objWriter->endElement();
             }
 

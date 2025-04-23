@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Xml Reader recognize indents. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
 
 ### Removed
 
@@ -29,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Micro-optimization for excelToDateTimeObject. [Issue #4438](https://github.com/PHPOffice/PhpSpreadsheet/issues/4438) [PR #4442](https://github.com/PHPOffice/PhpSpreadsheet/pull/4442)
+- Print Area and Row Break. [Issue #1275](https://github.com/PHPOffice/PhpSpreadsheet/issues/1275) [PR #4450](https://github.com/PHPOffice/PhpSpreadsheet/pull/4450)
 
 ## 2025-04-16 - 4.2.0
 
