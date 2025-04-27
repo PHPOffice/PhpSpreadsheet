@@ -176,6 +176,7 @@ class Rels extends WriterPart
      *
      * @param bool $includeCharts Flag indicating if we should write charts
      * @param int $tableRef Table ID
+     * @param string[] $zipContent
      *
      * @return string XML Output
      */
@@ -198,6 +199,7 @@ class Rels extends WriterPart
 
         // Write drawing relationships?
         $drawingOriginalIds = [];
+        /** @var string[][][][] */
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'])) {
             $drawingOriginalIds = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'];
@@ -314,6 +316,7 @@ class Rels extends WriterPart
 
     private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, XMLWriter $objWriter, string $relationship, string $type): void
     {
+        /** @var mixed[][][][] */
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (!isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship])) {
             return;
@@ -321,6 +324,7 @@ class Rels extends WriterPart
 
         foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship] as $rId => $value) {
             if (!str_starts_with($rId, '_headerfooter_vml')) {
+                /** @var string[] $value */
                 $this->writeRelationship(
                     $objWriter,
                     $rId,

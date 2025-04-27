@@ -1751,7 +1751,7 @@ class Xlsx extends BaseReader
                                                         $docSheet->getPageSetup()->setColumnsToRepeatAtLeft([$matches[1], $matches[2]]);
                                                     } elseif (preg_match('/!?(\d+)\:(\d+)$/', $range, $matches)) {
                                                         // check for repeating rows, e.g. '1:1' or '1:5'
-                                                        $docSheet->getPageSetup()->setRowsToRepeatAtTop([$matches[1], $matches[2]]);
+                                                        $docSheet->getPageSetup()->setRowsToRepeatAtTop([(int) $matches[1], (int) $matches[2]]);
                                                     }
                                                 }
 

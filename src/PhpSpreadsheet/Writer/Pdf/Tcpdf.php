@@ -24,7 +24,7 @@ class Tcpdf extends Pdf
      *
      * @param string $orientation Page orientation
      * @param string $unit Unit measure
-     * @param array|string $paperSize Paper size
+     * @param float[]|string $paperSize Paper size
      *
      * @return \TCPDF implementation
      */
@@ -50,7 +50,7 @@ class Tcpdf extends Pdf
         $orientation = $this->getOrientation() ?? $setup->getOrientation();
         $orientation = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
         $printPaperSize = $this->getPaperSize() ?? $setup->getPaperSize();
-        $paperSize = self::$paperSizes[$printPaperSize] ?? PageSetup::getPaperSizeDefault();
+        $paperSize = self::$paperSizes[$printPaperSize] ?? self::$paperSizes[PageSetup::getPaperSizeDefault()] ?? 'LETTER';
         $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageMargins();
 
         //  Create PDF
