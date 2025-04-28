@@ -259,6 +259,7 @@ class Ods extends BaseReader
             throw new Exception('Unable to read data from {$pFilename}');
         }
 
+        /** @var array{meta?: string, office?: string, dc?: string} */
         $namespacesMeta = $xml->getNamespaces(true);
 
         (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
@@ -383,6 +384,7 @@ class Ods extends BaseReader
                                 $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
                                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex);
                                 for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0; --$rowRepeats2) {
+                                    /** @var string $tableColumnString */
                                     $spreadsheet->getActiveSheet()
                                         ->getColumnDimension($tableColumnString)
                                         ->setWidth($columnWidth->toUnit('cm'), 'cm');

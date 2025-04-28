@@ -15,10 +15,11 @@ class Properties
         $this->spreadsheet = $spreadsheet;
     }
 
+    /** @param array{meta?: string, office?: string, dc?: string} $namespacesMeta */
     public function load(SimpleXMLElement $xml, array $namespacesMeta): void
     {
         $docProps = $this->spreadsheet->getProperties();
-        $officeProperty = $xml->children($namespacesMeta['office']);
+        $officeProperty = $xml->children($namespacesMeta['office'] ?? '');
         foreach ($officeProperty as $officePropertyData) {
             if (isset($namespacesMeta['dc'])) {
                 $officePropertiesDC = $officePropertyData->children($namespacesMeta['dc']);
@@ -27,7 +28,7 @@ class Properties
 
             $officePropertyMeta = null;
             if (isset($namespacesMeta['dc'])) {
-                $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
+                $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta'] ?? '');
             }
             $officePropertyMeta = $officePropertyMeta ?? [];
             foreach ($officePropertyMeta as $propertyName => $propertyValue) {
@@ -66,13 +67,14 @@ class Properties
         }
     }
 
+    /** @param array{meta?: string, office?: mixed, dc?: mixed} $namespacesMeta */
     private function setMetaProperties(
         array $namespacesMeta,
         SimpleXMLElement $propertyValue,
         string $propertyName,
         DocumentProperties $docProps
     ): void {
-        $propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
+        $propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta'] ?? '');
         $propertyValue = (string) $propertyValue;
         switch ($propertyName) {
             case 'initial-creator':
@@ -101,14 +103,17 @@ class Properties
         }
     }
 
+    /** @param iterable<string> $propertyValueAttributes */
     private function setUserDefinedProperty(iterable $propertyValueAttributes, string $propertyValue, DocumentProperties $docProps): void
     {
         $propertyValueName = '';
         $propertyValueType = DocumentProperties::PROPERTY_TYPE_STRING;
         foreach ($propertyValueAttributes as $key => $value) {
             if ($key == 'name') {
+                /** @var scalar $value */
                 $propertyValueName = (string) $value;
             } elseif ($key == 'value-type') {
+                /** @var string $value */
                 switch ($value) {
                     case 'date':
                         $propertyValue = DocumentProperties::convertProperty($propertyValue, 'date');

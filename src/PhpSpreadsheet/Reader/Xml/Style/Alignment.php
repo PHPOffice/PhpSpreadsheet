@@ -23,6 +23,7 @@ class Alignment extends StyleBase
         AlignmentStyles::HORIZONTAL_JUSTIFY,
     ];
 
+    /** @return mixed[] */
     public function parseStyle(SimpleXMLElement $styleAttributes): array
     {
         $style = [];

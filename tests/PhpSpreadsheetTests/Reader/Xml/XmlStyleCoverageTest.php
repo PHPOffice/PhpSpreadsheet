@@ -15,6 +15,7 @@ class XmlStyleCoverageTest extends TestCase
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $styles = Xml::XmlMappings();
+        /** @var string[] */
         $borders = $styles['borderStyle'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -22,6 +23,7 @@ class XmlStyleCoverageTest extends TestCase
     public function testBorderStyleCoverage(): void
     {
         $styles = Xml::XmlMappings();
+        /** @var mixed[] */
         $expected = $styles['borderStyle'];
         $covered = [];
         foreach ($expected as $key => $val) {
@@ -29,6 +31,7 @@ class XmlStyleCoverageTest extends TestCase
         }
         $tests = $this->providerBorderStyle();
         foreach ($tests as $test) {
+            /** @var string[] $test */
             $covered[$test[0]] = 1;
         }
         foreach ($covered as $key => $val) {
@@ -40,6 +43,7 @@ class XmlStyleCoverageTest extends TestCase
     public function testFillType(string $style, string $expectedResult): void
     {
         $styles = Xml::xmlMappings();
+        /** @var string[] */
         $borders = $styles['fillType'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -47,6 +51,7 @@ class XmlStyleCoverageTest extends TestCase
     public function testFillTypeCoverage(): void
     {
         $styles = Xml::XmlMappings();
+        /** @var string[] */
         $expected = $styles['fillType'];
         $covered = [];
         foreach ($expected as $key => $val) {
@@ -54,6 +59,7 @@ class XmlStyleCoverageTest extends TestCase
         }
         $tests = $this->providerfillType();
         foreach ($tests as $test) {
+            /** @var string[] $test */
             $covered[$test[0]] = 1;
         }
         foreach ($covered as $key => $val) {

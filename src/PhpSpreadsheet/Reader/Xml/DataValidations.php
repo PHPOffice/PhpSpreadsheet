@@ -30,6 +30,7 @@ class DataValidations
 
     private int $thisColumn = 0;
 
+    /** @param string[] $matches */
     private function replaceR1C1(array $matches): string
     {
         return AddressHelper::convertToA1($matches[0], $this->thisRow, $this->thisColumn, false);
