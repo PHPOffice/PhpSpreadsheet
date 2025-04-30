@@ -228,6 +228,7 @@ class Csv extends BaseReader
         $this->checkSeparator();
         $this->inferSeparator();
 
+        /** @var array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}> */
         $worksheetInfo = [];
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
         $worksheetInfo[0]['lastColumnLetter'] = 'A';

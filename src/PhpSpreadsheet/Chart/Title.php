@@ -46,6 +46,8 @@ class Title
 
     /**
      * Get caption.
+     *
+     * @return array<RichText|string>|RichText|string
      */
     public function getCaption(): array|RichText|string
     {

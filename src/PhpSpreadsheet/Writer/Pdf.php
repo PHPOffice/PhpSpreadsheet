@@ -31,6 +31,8 @@ abstract class Pdf extends Html
 
     /**
      * Paper Sizes xRef List.
+     *
+     * @var array<int, float[]|string>
      */
     protected static array $paperSizes = [
         PageSetup::PAPERSIZE_LETTER => 'LETTER', //    (8.5 in. by 11 in.)

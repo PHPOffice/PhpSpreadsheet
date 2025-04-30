@@ -208,14 +208,14 @@ class PageSetup
     /**
      * Columns to repeat at left.
      *
-     * @var array Containing start column and end column, empty array if option unset
+     * @var array{string, string} Containing start column and end column, empty array if option unset
      */
     private array $columnsToRepeatAtLeft = ['', ''];
 
     /**
      * Rows to repeat at top.
      *
-     * @var array Containing start row number and end row number, empty array if option unset
+     * @var int[] Containing start row number and end row number, empty array if option unset
      */
     private array $rowsToRepeatAtTop = [0, 0];
 
@@ -443,7 +443,7 @@ class PageSetup
     /**
      * Get Columns to repeat at left.
      *
-     * @return array Containing start column and end column, empty array if option unset
+     * @return array{string, string} Containing start column and end column, empty array if option unset
      */
     public function getColumnsToRepeatAtLeft(): array
     {
@@ -453,7 +453,7 @@ class PageSetup
     /**
      * Set Columns to repeat at left.
      *
-     * @param array $columnsToRepeatAtLeft Containing start column and end column, empty array if option unset
+     * @param array{string, string} $columnsToRepeatAtLeft Containing start column and end column, empty array if option unset
      *
      * @return $this
      */
@@ -496,7 +496,7 @@ class PageSetup
     /**
      * Get Rows to repeat at top.
      *
-     * @return array Containing start column and end column, empty array if option unset
+     * @return int[] Containing start column and end column, empty array if option unset
      */
     public function getRowsToRepeatAtTop(): array
     {
@@ -506,7 +506,7 @@ class PageSetup
     /**
      * Set Rows to repeat at top.
      *
-     * @param array $rowsToRepeatAtTop Containing start column and end column, empty array if option unset
+     * @param int[] $rowsToRepeatAtTop Containing start column and end column, empty array if option unset
      *
      * @return $this
      */

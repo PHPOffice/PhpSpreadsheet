@@ -5,11 +5,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ArrayFormula2Test extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('arrayFormulaReaderProvider')]
+    /** @param mixed[] $expectedValue */
+    #[DataProvider('arrayFormulaReaderProvider')]
     public function testArrayFormulaReader(
         string $cellAddress,
         string $expectedRange,

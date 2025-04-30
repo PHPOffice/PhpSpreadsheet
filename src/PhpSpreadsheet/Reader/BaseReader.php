@@ -112,11 +112,13 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
+    /** @return null|string[] */
     public function getLoadSheetsOnly(): ?array
     {
         return $this->loadSheetsOnly;
     }
 
+    /** @param null|string|string[] $sheetList */
     public function setLoadSheetsOnly(string|array|null $sheetList): self
     {
         if ($sheetList === null) {

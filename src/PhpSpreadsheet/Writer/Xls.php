@@ -46,11 +46,15 @@ class Xls extends BaseWriter
 
     /**
      * Array of unique shared strings in workbook.
+     *
+     * @var array<string, int>
      */
     private array $strTable = [];
 
     /**
      * Color cache. Mapping between RGB value and color index.
+     *
+     * @var mixed[]
      */
     private array $colors;
 
@@ -61,6 +65,8 @@ class Xls extends BaseWriter
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.
+     *
+     * @var mixed[]
      */
     private array $IDCLs;
 
@@ -297,6 +303,7 @@ class Xls extends BaseWriter
                 $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Xls::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
                 if (is_array($twoAnchor)) {
+                    /** @var array{startCoordinates: string, startOffsetX: float|int, startOffsetY: float|int, endCoordinates: string, endOffsetX: float|int, endOffsetY: float|int} $twoAnchor */
                     $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
                     $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
                     $spContainer->setStartOffsetY($twoAnchor['startOffsetY']);
@@ -752,6 +759,7 @@ class Xls extends BaseWriter
         return $data;
     }
 
+    /** @param array<int, array{summary: array{pack: string, data: mixed}, offset: array{pack: string}, type: array{pack: string, data: int}, data: array{data: mixed}}> $dataSection */
     private function writeSummaryPropOle(float|int $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
@@ -765,6 +773,7 @@ class Xls extends BaseWriter
         }
     }
 
+    /** @param array<int, array{summary: array{pack: string, data: mixed}, offset: array{pack: string}, type: array{pack: string, data: int}, data: array{data: mixed}}> $dataSection */
     private function writeSummaryProp(string $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
@@ -840,6 +849,7 @@ class Xls extends BaseWriter
         //        8 * $dataSection_NumProps (8 =  ID (4) + OffSet(4))
         $dataSection_Content_Offset = 8 + $dataSection_NumProps * 8;
         foreach ($dataSection as $dataProp) {
+            /** @var array{data: array{data: string, length: int}, summary: array{pack: string, data: string}, offset: array{pack: string}, type: array{data: int, pack: string}} $dataProp */
             // Summary
             $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
             // Offset

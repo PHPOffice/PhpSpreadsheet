@@ -10,12 +10,16 @@ use stdClass;
 
 class PageSettings
 {
+    /** @var (object{orientation: string, scale: ?int, printOrder: string|null,
+     * paperSize: int,
+     * horizontalCentered: bool, verticalCentered: bool, leftMargin: float, rightMargin: float, topMargin: float,
+     * bottomMargin: float, headerMargin: float, footerMargin: float}&stdClass) */
     private stdClass $printSettings;
 
     public function __construct(SimpleXMLElement $xmlX)
     {
         $printSettings = $this->pageSetup($xmlX, $this->getPrintDefaults());
-        $this->printSettings = $this->printSetup($xmlX, $printSettings);
+        $this->printSettings = $this->printSetup($xmlX, $printSettings); //* @phpstan-ignore-line
     }
 
     public function loadPageSettings(Spreadsheet $spreadsheet): void

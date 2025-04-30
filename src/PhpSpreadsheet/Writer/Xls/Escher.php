@@ -26,11 +26,15 @@ class Escher
 
     /**
      * Shape offsets. Positions in binary stream where a new shape record begins.
+     *
+     * @var int[]
      */
     private array $spOffsets;
 
     /**
      * Shape types.
+     *
+     * @var mixed[]
      */
     private array $spTypes;
 
@@ -91,6 +95,7 @@ class Escher
                 $IDCLs = $this->object->getIDCLs();
 
                 foreach ($IDCLs as $dgId => $maxReducedSpId) {
+                    /** @var int $maxReducedSpId */
                     $dggData .= pack('VV', $dgId, $maxReducedSpId + 1);
                 }
 
@@ -323,6 +328,7 @@ class Escher
 
                 // treat the inner data
                 foreach ($this->object->getChildren() as $spContainer) {
+                    /** @var Blip|BSE|BstoreContainer|DgContainer|DggContainer|SharedEscher|SpContainer|SpgrContainer $spContainer */
                     $writer = new self($spContainer);
                     $spData = $writer->close();
                     $innerData .= $spData;
@@ -481,6 +487,8 @@ class Escher
 
     /**
      * Gets the shape offsets.
+     *
+     * @return int[]
      */
     public function getSpOffsets(): array
     {
@@ -489,6 +497,8 @@ class Escher
 
     /**
      * Gets the shape types.
+     *
+     * @return mixed[]
      */
     public function getSpTypes(): array
     {

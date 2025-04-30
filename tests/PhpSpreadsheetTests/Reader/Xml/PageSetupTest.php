@@ -82,6 +82,7 @@ class PageSetupTest extends TestCase
         self::assertCount($sheetCount, $assertions);
     }
 
+    /** @return array<string, array{orientation: string, scale: int, horizontalCentered: bool, verticalCentered: bool, pageOrder: string}> */
     private function pageSetupAssertions(): array
     {
         return [
@@ -117,6 +118,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
+    /** @return array<string, float[]> */
     private function pageMarginAssertions(): array
     {
         return [

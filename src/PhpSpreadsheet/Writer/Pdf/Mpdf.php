@@ -13,7 +13,7 @@ class Mpdf extends Pdf
     /**
      * Gets the implementation of external PDF library that should be used.
      *
-     * @param array $config Configuration array
+     * @param mixed[] $config Configuration array
      *
      * @return \Mpdf\Mpdf implementation
      */
@@ -79,7 +79,9 @@ class Mpdf extends Pdf
         }
 
         //  Write to file
-        fwrite($fileHandle, $pdf->Output('', 'S'));
+        /** @var string */
+        $str = $pdf->Output('', 'S');
+        fwrite($fileHandle, $str);
 
         parent::restoreStateAfterSave();
     }

@@ -628,6 +628,8 @@ class LoadSpreadsheet extends Xls
                                     if (count($coordinateStrings) == 2) {
                                         [$firstColumn, $firstRow] = Coordinate::coordinateFromString($coordinateStrings[0]);
                                         [$lastColumn, $lastRow] = Coordinate::coordinateFromString($coordinateStrings[1]);
+                                        $firstRow = (int) $firstRow;
+                                        $lastRow = (int) $lastRow;
 
                                         if ($firstColumn == 'A' && $lastColumn == 'IV') {
                                             // then we have repeating rows
