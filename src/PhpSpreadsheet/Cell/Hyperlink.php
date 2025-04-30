@@ -68,11 +68,11 @@ class Hyperlink
     }
 
     /**
-     * Is this hyperlink internal? (to another worksheet).
+     * Is this hyperlink internal? (to another worksheet or a cell in this worksheet).
      */
     public function isInternal(): bool
     {
-        return str_contains($this->url, 'sheet://');
+        return str_starts_with($this->url, 'sheet://') || str_starts_with($this->url, '#');
     }
 
     public function getTypeHyperlink(): string

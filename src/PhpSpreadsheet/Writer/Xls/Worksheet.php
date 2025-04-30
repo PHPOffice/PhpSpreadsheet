@@ -458,8 +458,9 @@ class Worksheet extends BIFFwriter
             [$column, $row] = Coordinate::indexesFromString($coordinate);
 
             $url = $hyperlink->getUrl();
-
-            if (str_contains($url, 'sheet://')) {
+            if ($url[0] === '#') {
+                $url = "internal:$url";
+            } elseif (str_starts_with($url, 'sheet://')) {
                 // internal to current workbook
                 $url = str_replace('sheet://', 'internal:', $url);
             } elseif (Preg::isMatch('/^(http:|https:|ftp:|mailto:)/', $url)) {
@@ -946,12 +947,11 @@ class Worksheet extends BIFFwriter
         // Check for internal/external sheet links or default to web link
         if (Preg::isMatch('[^internal:]', $url)) {
             $this->writeUrlInternal($row1, $col1, $row2, $col2, $url);
-        }
-        if (Preg::isMatch('[^external:]', $url)) {
+        } elseif (Preg::isMatch('[^external:]', $url)) {
             $this->writeUrlExternal($row1, $col1, $row2, $col2, $url);
+        } else {
+            $this->writeUrlWeb($row1, $col1, $row2, $col2, $url);
         }
-
-        $this->writeUrlWeb($row1, $col1, $row2, $col2, $url);
     }
 
     /**
