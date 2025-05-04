@@ -241,6 +241,7 @@ class Sample
             : $this->log(sprintf('Function: %s() - %s.', rtrim($functionName, '()'), rtrim($description, '.')));
     }
 
+    /** @param mixed[][] $matrix */
     public function displayGrid(array $matrix): void
     {
         $renderer = new TextGrid($matrix, $this->isCli());

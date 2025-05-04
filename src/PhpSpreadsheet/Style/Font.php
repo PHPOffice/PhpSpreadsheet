@@ -560,6 +560,7 @@ class Font extends Supervisor
         return $this->underlineColor;
     }
 
+    /** @param array{value: ?string, alpha: null|int|string, brightness?: null|int|string, type: ?string}  $colorArray */
     public function setUnderlineColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
@@ -584,6 +585,7 @@ class Font extends Supervisor
         return $this->chartColor;
     }
 
+    /** @param array{value: ?string, alpha: null|int|string, brightness?: null|int|string, type: ?string}  $colorArray */
     public function setChartColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {

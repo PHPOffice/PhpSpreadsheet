@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use SimpleXMLElement;
 
 class Issue3679ImgTest extends AbstractFunctional
 {
@@ -23,6 +24,7 @@ class Issue3679ImgTest extends AbstractFunctional
         if ($drawings[0] === null) {
             self::fail('Unexpected null drawing');
         } else {
+            /** @var SimpleXMLElement */
             $srcRect = $drawings[0]->getSrcRect();
             self::assertSame('448', (string) ($srcRect['r'] ?? ''));
             self::assertSame('65769', (string) ($srcRect['b'] ?? ''));

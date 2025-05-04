@@ -1330,7 +1330,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    /** @return array{null|''|Cell, array{}|non-falsy-string, non-empty-string} */
+    /** @return array{null|''|Cell, array{}|string, non-empty-string} */
     private function generateRowCellCss(Worksheet $worksheet, string $cellAddress, int $row, int $columnNumber): array
     {
         $cell = ($cellAddress > '') ? $worksheet->getCellCollection()->get($cellAddress) : '';

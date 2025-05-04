@@ -48,7 +48,7 @@ class ListFunctions extends Xls
         }
 
         foreach ($xls->sheets as $sheet) {
-            if ($sheet['sheetType'] === 0x00 && is_string($sheet['name'])) {
+            if ($sheet['sheetType'] === 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
                 $worksheetNames[] = $sheet['name'];
             }

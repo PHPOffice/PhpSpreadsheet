@@ -166,7 +166,9 @@ class XlsxTest extends TestCase
         self::assertEquals(Conditional::CONDITION_CELLIS, $conditionalRule->getConditionType());
         self::assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
         self::assertEquals(['200', '400'], $conditionalRule->getConditions());
-        self::assertSame('#,##0.00_-"€"', $conditionalRule->getStyle()->exportArray()['numberFormat']['formatCode']);
+        /** @var mixed[][] */
+        $temp = $conditionalRule->getStyle()->exportArray();
+        self::assertSame('#,##0.00_-"€"', $temp['numberFormat']['formatCode']);
         $spreadsheet->disconnectWorksheets();
     }
 

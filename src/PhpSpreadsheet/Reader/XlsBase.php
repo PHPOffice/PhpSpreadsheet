@@ -177,6 +177,8 @@ class XlsBase extends BaseReader
      * OpenOffice.org's Documentation of the Microsoft Excel File Format, section 2.5.4.
      *
      * @param string $rgb Encoded RGB value (4 bytes)
+     *
+     * @return array{rgb: string}
      */
     protected static function readRGB(string $rgb): array
     {
@@ -199,6 +201,8 @@ class XlsBase extends BaseReader
      * Extracts an Excel Unicode short string (8-bit string length)
      * OpenOffice documentation: 2.5.3
      * function will automatically find out where the Unicode string ends.
+     *
+     * @return array{value: string, size: int}
      */
     protected static function readUnicodeStringShort(string $subData): array
     {
@@ -217,6 +221,8 @@ class XlsBase extends BaseReader
      * Extracts an Excel Unicode long string (16-bit string length)
      * OpenOffice documentation: 2.5.3
      * this function is under construction, needs to support rich text, and Asian phonetic settings.
+     *
+     * @return array{value: string, size: int}
      */
     protected static function readUnicodeStringLong(string $subData): array
     {
@@ -235,6 +241,8 @@ class XlsBase extends BaseReader
      * Read Unicode string with no string length field, but with known character count
      * this function is under construction, needs to support rich text, and Asian phonetic settings
      * OpenOffice.org's Documentation of the Microsoft Excel File Format, section 2.5.3.
+     *
+     * @return array{value: string, size: int}
      */
     protected static function readUnicodeString(string $subData, int $characterCount): array
     {

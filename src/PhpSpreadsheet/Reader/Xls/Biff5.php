@@ -46,6 +46,8 @@ class Biff5 extends Xls
     /**
      * Read BIFF5 cell range address list
      * section 2.5.15.
+     *
+     * @return array{size: int, cellRangeAddresses: string[]}
      */
     public static function readBIFF5CellRangeAddressList(string $subData): array
     {

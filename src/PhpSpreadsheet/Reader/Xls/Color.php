@@ -10,9 +10,9 @@ class Color
      * Read color.
      *
      * @param int $color Indexed color
-     * @param array $palette Color palette
+     * @param string[][] $palette Color palette
      *
-     * @return array RGB color value, example: ['rgb' => 'FF0000']
+     * @return string[] RGB color value, example: ['rgb' => 'FF0000']
      */
     public static function map(int $color, array $palette, int $version): array
     {

@@ -18,6 +18,11 @@ class PageSetup extends BaseParserClass
         $this->worksheetXml = $worksheetXml;
     }
 
+    /**
+     * @param mixed[] $unparsedLoadedData
+     *
+     * @return mixed[]
+     */
     public function load(array $unparsedLoadedData): array
     {
         $worksheetXml = $this->worksheetXml;
@@ -46,6 +51,11 @@ class PageSetup extends BaseParserClass
         }
     }
 
+    /**
+     * @param mixed[] $unparsedLoadedData
+     *
+     * @return mixed[]
+     */
     private function pageSetup(SimpleXMLElement $xmlSheet, Worksheet $worksheet, array $unparsedLoadedData): array
     {
         if ($xmlSheet->pageSetup) {
@@ -82,6 +92,7 @@ class PageSetup extends BaseParserClass
                 if (!str_ends_with($relid, 'ps')) {
                     $relid .= 'ps';
                 }
+                /** @var mixed[][][] $unparsedLoadedData */
                 $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'] = $relid;
             }
         }

@@ -102,6 +102,7 @@ class FontTest extends TestCase
             [
                 'type' => 'srgbClr',
                 'value' => 'FF0000',
+                'alpha' => null,
             ]
         );
         $font2bHash = $font2->getHashCode();
