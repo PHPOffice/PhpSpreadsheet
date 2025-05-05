@@ -1201,26 +1201,36 @@ class Chart
         if ($fontArray['size'] !== null && $fontArray['size'] >= 100) {
             $fontArray['size'] /= 100.0;
         }
-        $fontArray['bold'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
-        $fontArray['italic'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
+        if ($fontArray['size'] !== null) {
+            $fontArray['size'] = (int) ($fontArray['size']);
+        }
+        $fontArray['bold'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
+        $fontArray['italic'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
         $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
-        $fontArray['strikethrough'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
-        $fontArray['cap'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
+        $strikethrough = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
+        if ($strikethrough !== null) {
+            if ($strikethrough == 'noStrike') {
+                $fontArray['strikethrough'] = false;
+            } else {
+                $fontArray['strikethrough'] = true;
+            }
+        }
+        $fontArray['cap'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
 
         if (isset($titleDetailPart->pPr->defRPr->latin)) {
-            $fontArray['latin'] = self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');
+            $fontArray['latin'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->ea)) {
-            $fontArray['eastAsian'] = self::getAttributeString($titleDetailPart->pPr->defRPr->ea, 'typeface');
+            $fontArray['eastAsian'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->ea, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->cs)) {
-            $fontArray['complexScript'] = self::getAttributeString($titleDetailPart->pPr->defRPr->cs, 'typeface');
+            $fontArray['complexScript'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->cs, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->solidFill)) {
             $fontArray['chartColor'] = new ChartColor($this->readColor($titleDetailPart->pPr->defRPr->solidFill));
         }
         $font = new Font();
-        $font->setSize(null, true);
+        //$font->setSize(null, true);
         $font->applyFromArray($fontArray);
 
         return $font;

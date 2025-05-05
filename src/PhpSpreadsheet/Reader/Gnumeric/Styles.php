@@ -114,7 +114,11 @@ class Styles
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
                     $styleArray = $this->readStyle($styleArray, $styleAttributes, $style);
                 }
-                $this->spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
+                /** @var mixed[][] $styleArray */
+                $this->spreadsheet
+                    ->getActiveSheet()
+                    ->getStyle($cellRange)
+                    ->applyFromArray($styleArray);
             }
         }
     }

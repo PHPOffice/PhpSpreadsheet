@@ -44,7 +44,12 @@ class Formatter extends BaseFormatter
         };
     }
 
-    /** @param float|int|numeric-string $value value to be formatted */
+    /**
+     * @param float|int|numeric-string $value value to be formatted
+     * @param string[] $sections
+     *
+     * @return mixed[]
+     */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
@@ -110,10 +115,10 @@ class Formatter extends BaseFormatter
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
-     * @param null|array|bool|float|int|RichText|string $value Value to format
+     * @param null|array<mixed>|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param null|array|callable $callBack Callback function for additional formatting of string
+     * @param null|array<mixed>|callable $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
      */
@@ -176,7 +181,9 @@ class Formatter extends BaseFormatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        $format = (string) preg_replace('/_.?/ui', ' ', $format);
+        /** @var string */
+        $temp = $format;
+        $format = (string) preg_replace('/_.?/ui', ' ', $temp);
 
         // Let's begin inspecting the format and converting the value to a formatted string
         if (
@@ -188,15 +195,21 @@ class Formatter extends BaseFormatter
             && (preg_match('/[0\?#]\.(?![^\[]*\])/miu', $format) === 0)
         ) {
             // datetime format
-            $value = DateFormatter::format($value, $format);
+            /** @var float|int */
+            $temp = $value;
+            $value = DateFormatter::format($temp, $format);
         } else {
             if (str_starts_with($format, '"') && str_ends_with($format, '"') && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format - avoid weird '-0' problem
-                $value = PercentageFormatter::format(0 + (float) $value, $format);
+                /** @var float */
+                $temp = $value;
+                $value = PercentageFormatter::format(0 + (float) $temp, $format);
             } else {
-                $value = NumberFormatter::format($value, $format);
+                /** @var float|int|numeric-string */
+                $temp = $value;
+                $value = NumberFormatter::format($temp, $format);
             }
         }
 
@@ -204,6 +217,7 @@ class Formatter extends BaseFormatter
         if (is_callable($callBack)) {
             $value = $callBack($value, $colors);
         }
+        /** @var string $value */
 
         return str_replace(chr(0x00), '.', $value);
     }

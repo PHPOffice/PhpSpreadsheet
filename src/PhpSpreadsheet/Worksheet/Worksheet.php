@@ -3816,6 +3816,7 @@ class Worksheet
     {
         $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
         $valueString = $this->getCell($fromCell)->getValueString();
+        /** @var mixed[][] */
         $style = $this->getStyle($fromCell)->exportArray();
         $fromIndexes = Coordinate::indexesFromString($fromCell);
         $referenceHelper = ReferenceHelper::getInstance();
@@ -3864,6 +3865,7 @@ class Worksheet
         return false;
     }
 
+    /** @param mixed[][] $styleArray */
     public function applyStylesFromArray(string $coordinate, array $styleArray): bool
     {
         $spreadsheet = $this->parent;

@@ -640,9 +640,10 @@ class Html extends BaseReader
     private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
-            ++$column; //* @phpstan-ignore-line
+            $temp = (string) $column;
+            ++$temp;
+            $column = (string) $temp;
         }
-        //* @phpstan-ignore-next-line
         $this->processDomElement($child, $sheet, $row, $column, $cellContent); // ++$column above confuses Phpstan
 
         // apply inline style

@@ -23,7 +23,7 @@ class Styles extends BaseParserClass
      */
     private ?Theme $theme = null;
 
-    /** @var mixed[] */
+    /** @var string[] */
     private array $workbookPalette = [];
 
     /** @var mixed[] */
@@ -41,7 +41,7 @@ class Styles extends BaseParserClass
         $this->namespace = $namespace;
     }
 
-    /** @param mixed[] $palette */
+    /** @param string[] $palette */
     public function setWorkbookPalette(array $palette): void
     {
         $this->workbookPalette = $palette;

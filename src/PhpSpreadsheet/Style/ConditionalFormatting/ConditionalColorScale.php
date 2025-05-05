@@ -21,6 +21,7 @@ class ConditionalColorScale
 
     private ?string $sqref = null;
 
+    /** @var mixed[] */
     private array $valueArray = [];
 
     private float $minValue = 0;
@@ -122,6 +123,7 @@ class ConditionalColorScale
             $values = $this->worksheet->rangesToArray($this->sqref, null, true, true, true);
             $this->valueArray = [];
             foreach ($values as $key => $value) {
+                /** @var array<float|int|string> $value */
                 foreach ($value as $k => $v) {
                     $this->valueArray[] = (float) $v;
                 }
@@ -187,16 +189,26 @@ class ConditionalColorScale
         }
         switch ($type) {
             case 'min':
-                return (float) min($this->valueArray);
+                /** @var float|int */
+                $temp = min($this->valueArray);
+
+                return (float) $temp;
             case 'max':
-                return (float) max($this->valueArray);
+                /** @var float|int */
+                $temp = max($this->valueArray);
+
+                return (float) $temp;
             case 'percentile':
                 return (float) Percentiles::PERCENTILE($this->valueArray, (float) ($value / 100));
             case 'formula':
                 return $formula;
             case 'percent':
-                $min = (float) min($this->valueArray);
-                $max = (float) max($this->valueArray);
+                /** @var float|int */
+                $min = min($this->valueArray);
+                $min = (float) $min;
+                /** @var float|int */
+                $max = max($this->valueArray);
+                $max = (float) $max;
 
                 return $min + (float) ($value / 100) * ($max - $min);
             default:

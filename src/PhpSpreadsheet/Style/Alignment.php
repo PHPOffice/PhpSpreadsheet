@@ -168,6 +168,10 @@ class Alignment extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return array{alignment: mixed[]}
      */
     public function getStyleArray(array $array): array
     {
@@ -188,7 +192,7 @@ class Alignment extends Supervisor
      * );
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param mixed[] $styleArray Array containing style information
      *
      * @return $this
      */
@@ -198,6 +202,7 @@ class Alignment extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())
                 ->applyFromArray($this->getStyleArray($styleArray));
         } else {
+            /** @var array{horizontal?: string, vertical?: string, justifyLastLine?: bool, textRotation?: int, wrapText?: bool, shrinkToFit?: bool, readOrder?: int, indent?: int} $styleArray */
             if (isset($styleArray['horizontal'])) {
                 $this->setHorizontal($styleArray['horizontal']);
             }
@@ -523,6 +528,7 @@ class Alignment extends Supervisor
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];

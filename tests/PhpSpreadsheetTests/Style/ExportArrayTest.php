@@ -33,6 +33,7 @@ class ExportArrayTest extends TestCase
         self::assertEquals(Font::UNDERLINE_SINGLE, $cell1style->getFont()->getUnderline());
         $cell1style->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
         $cell1style->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -74,6 +75,7 @@ class ExportArrayTest extends TestCase
         $cell1style->getFont()->setUnderline(true);
         self::assertEquals(Font::UNDERLINE_SINGLE, $cell1style->getFont()->getUnderline());
         $cell1style->getProtection()->applyFromArray(['hidden' => Protection::PROTECTION_UNPROTECTED, 'locked' => Protection::PROTECTION_UNPROTECTED]);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -107,6 +109,7 @@ class ExportArrayTest extends TestCase
         $cell1style->getFont()->setUnderline('');
         self::assertEquals(Font::UNDERLINE_NONE, $cell1style->getFont()->getUnderline());
         $cell1->setValue(2345.679);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         self::assertEquals('$ 2,345.679', $cell1->getFormattedValue());
 
@@ -132,6 +135,7 @@ class ExportArrayTest extends TestCase
         self::assertEquals(Font::UNDERLINE_NONE, $cell1style->getFont()->getUnderline());
         $cell1style->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
         $cell1->setValue(2345.679);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         self::assertEquals('$ 2,345.679', $cell1->getFormattedValue());
 
@@ -157,6 +161,7 @@ class ExportArrayTest extends TestCase
         $cell1style = $cell1->getStyle();
         $cell1style->getAlignment()->setTextRotation(Alignment::TEXTROTATION_STACK_EXCEL);
         self::assertEquals(Alignment::TEXTROTATION_STACK_PHPSPREADSHEET, $cell1style->getAlignment()->getTextRotation());
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -300,7 +305,9 @@ class ExportArrayTest extends TestCase
         $sheet->getCell('A2')->setValue('=1+2');
         self::assertSame(3, $sheet->getCell('A2')->getCalculatedValue());
         self::assertFalse($sheet->getStyle('A2')->getQuotePrefix());
+        /** @var mixed[][] */
         $styleArray1 = $sheet->getStyle('A1')->exportArray();
+        /** @var mixed[][] */
         $styleArray2 = $sheet->getStyle('A2')->exportArray();
         $sheet->getStyle('B1')->applyFromArray($styleArray1);
         $sheet->getStyle('B2')->applyFromArray($styleArray2);

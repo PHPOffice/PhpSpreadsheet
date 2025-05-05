@@ -38,6 +38,7 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected string $operator = Conditional::OPERATOR_EQUAL;
 
+    /** @var array<int|string> */
     protected array $operand = [0];
 
     /**
@@ -65,7 +66,7 @@ class CellValue extends WizardAbstract implements WizardInterface
             $operand = $this->validateOperand($operand, $operandValueType);
         }
 
-        $this->operand[$index] = $operand;
+        $this->operand[$index] = $operand; //* @phpstan-ignore-line
         $this->operandValueType[$index] = $operandValueType;
     }
 

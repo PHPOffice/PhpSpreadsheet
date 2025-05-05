@@ -144,6 +144,7 @@ class ColumnAndRowAttributes extends BaseParserClass
                 $endColumn = Coordinate::stringFromColumnIndex((int) $column['max']);
                 ++$endColumn;
                 for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
+                    /** @var string $columnAddress */
                     $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
 
                     if ((int) ($column['max']) == 16384) {

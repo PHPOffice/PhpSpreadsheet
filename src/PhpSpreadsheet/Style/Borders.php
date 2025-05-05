@@ -124,6 +124,10 @@ class Borders extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return array{borders: mixed[]}
      */
     public function getStyleArray(array $array): array
     {
@@ -165,7 +169,7 @@ class Borders extends Supervisor
      * );
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param mixed[] $styleArray Array containing style information
      *
      * @return $this
      */
@@ -174,6 +178,7 @@ class Borders extends Supervisor
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
+            /** @var array{left?: float[], right?: float[], top?: float[], bottom?: float[], diagonal?: mixed[], diagonalDirection?: int, allBorders?: mixed[][]} $styleArray */
             if (isset($styleArray['left'])) {
                 $this->getLeft()->applyFromArray($styleArray['left']);
             }
@@ -356,6 +361,7 @@ class Borders extends Supervisor
         );
     }
 
+    /** @return mixed[][] */
     protected function exportArray1(): array
     {
         $exportedArray = [];
@@ -365,6 +371,7 @@ class Borders extends Supervisor
         $this->exportArray2($exportedArray, 'left', $this->getLeft());
         $this->exportArray2($exportedArray, 'right', $this->getRight());
         $this->exportArray2($exportedArray, 'top', $this->getTop());
+        /** @var mixed[][] $exportedArray */
 
         return $exportedArray;
     }
