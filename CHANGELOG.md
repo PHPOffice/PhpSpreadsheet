@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Micro-optimization for excelToDateTimeObject. [Issue #4438](https://github.com/PHPOffice/PhpSpreadsheet/issues/4438) [PR #4442](https://github.com/PHPOffice/PhpSpreadsheet/pull/4442)
 - Print Area and Row Break. [Issue #1275](https://github.com/PHPOffice/PhpSpreadsheet/issues/1275) [PR #4450](https://github.com/PHPOffice/PhpSpreadsheet/pull/4450)
+- Xls Writer Treat Hyperlink Starting with # as Internal. [Issue #56](https://github.com/PHPOffice/PhpSpreadsheet/issues/56) [PR #4453](https://github.com/PHPOffice/PhpSpreadsheet/pull/4453)
 
 ## 2025-04-16 - 4.2.0
 
