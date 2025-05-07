@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TextGridTest extends TestCase
 {
+    /** @param mixed[] $expected */
     #[DataProvider('providerTextGrid')]
     public function testTextGrid(
         bool $cli,
@@ -26,8 +27,10 @@ class TextGridTest extends TestCase
             ['="6"', '=TEXT(A2,"yyyy-mm-dd hh:mm")', null, '1<>2'],
             ['xyz', '=TEXT(A3,"yyyy-mm-dd hh:mm")'],
         ], strictNullComparison: true);
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, true, true);
         $textGrid = new TextGrid(
-            $sheet->toArray(null, true, true, true),
+            $temp,
             $cli,
             rowDividers: $rowDividers,
             rowHeaders: $rowHeaders,
@@ -136,8 +139,10 @@ class TextGridTest extends TestCase
             [true, false],
             [true, true],
         ], strictNullComparison: true);
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, false, true);
         $textGrid = new TextGrid(
-            $sheet->toArray(null, true, false, true),
+            $temp,
             true,
             rowDividers: false,
             rowHeaders: false,

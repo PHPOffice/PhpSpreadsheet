@@ -116,6 +116,8 @@ abstract class IOFactory
 
     /**
      * Identify file type using automatic IReader resolution.
+     *
+     * @param string[] $readers
      */
     public static function identify(string $filename, ?array $readers = null, bool $fullClassName = false): string
     {

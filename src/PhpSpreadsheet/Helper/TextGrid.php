@@ -8,10 +8,13 @@ class TextGrid
 {
     private bool $isCli;
 
+    /** @var mixed[][] */
     protected array $matrix;
 
+    /** @var int[] */
     protected array $rows;
 
+    /** @var string[] */
     protected array $columns;
 
     private string $gridDisplay;
@@ -22,6 +25,7 @@ class TextGrid
 
     private bool $columnHeaders = true;
 
+    /** @param mixed[][] $matrix */
     public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true)
     {
         $this->rows = array_keys($matrix);
@@ -63,6 +67,7 @@ class TextGrid
         return $this->gridDisplay;
     }
 
+    /** @param int[] $columnWidths */
     private function renderRows(int $maxRowLength, array $columnWidths): void
     {
         foreach ($this->matrix as $row => $rowData) {
@@ -77,6 +82,10 @@ class TextGrid
         }
     }
 
+    /**
+     * @param mixed[] $rowData
+     * @param int[] $columnWidths
+     */
     private function renderCells(array $rowData, array $columnWidths): void
     {
         foreach ($rowData as $column => $cell) {
@@ -87,6 +96,7 @@ class TextGrid
         }
     }
 
+    /** @param int[] $columnWidths */
     private function renderColumnHeader(int $maxRowLength, array &$columnWidths): void
     {
         if (!$this->columnHeaders) {
@@ -95,6 +105,7 @@ class TextGrid
             return;
         }
         foreach ($this->columns as $column => $reference) {
+            /** @var string $reference */
             $columnWidths[$column] = max($columnWidths[$column], $this->strlen($reference));
         }
         if ($this->rowHeaders) {
@@ -109,6 +120,7 @@ class TextGrid
             $this->gridDisplay .= str_repeat(' ', $maxRowLength + 2);
         }
         foreach ($this->columns as $column => $reference) {
+            /** @var scalar $reference */
             $this->gridDisplay .= '| ' . str_pad((string) $reference, $columnWidths[$column] + 1, ' ');
         }
         $this->gridDisplay .= '|' . PHP_EOL;
@@ -116,6 +128,7 @@ class TextGrid
         $this->renderFooter($maxRowLength, $columnWidths);
     }
 
+    /** @param int[] $columnWidths */
     private function renderFooter(int $maxRowLength, array $columnWidths): void
     {
         if ($this->rowHeaders) {
@@ -128,6 +141,7 @@ class TextGrid
         $this->gridDisplay .= '+' . PHP_EOL;
     }
 
+    /** @return int[] */
     private function getColumnWidths(): array
     {
         $columnCount = count($this->matrix, COUNT_RECURSIVE) / count($this->matrix);
@@ -139,6 +153,7 @@ class TextGrid
         return $columnWidths;
     }
 
+    /** @param mixed[] $columnData */
     private function getColumnWidth(array $columnData): int
     {
         $columnWidth = 0;

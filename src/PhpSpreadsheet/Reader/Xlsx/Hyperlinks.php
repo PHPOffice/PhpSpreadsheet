@@ -11,6 +11,7 @@ class Hyperlinks
 {
     private Worksheet $worksheet;
 
+    /** @var string[] */
     private array $hyperlinks = [];
 
     public function __construct(Worksheet $workSheet)
@@ -44,7 +45,7 @@ class Hyperlinks
         foreach (Coordinate::extractAllCellReferencesInRange($attributes->ref) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
             if (isset($linkRel['id'])) {
-                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? null;
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? '';
                 if (isset($attributes['location'])) {
                     $hyperlinkUrl .= '#' . (string) $attributes['location'];
                 }

@@ -355,7 +355,7 @@ class Worksheet
      */
     public function disconnectCells(): void
     {
-        if (isset($this->cellCollection)) {
+        if (isset($this->cellCollection)) { //* @phpstan-ignore-line
             $this->cellCollection->unsetWorksheetCells();
             unset($this->cellCollection);
         }
@@ -456,7 +456,7 @@ class Worksheet
      */
     public function getCoordinates(bool $sorted = true): array
     {
-        if (!isset($this->cellCollection)) {
+        if (!isset($this->cellCollection)) { //* @phpstan-ignore-line
             return [];
         }
 
@@ -2897,6 +2897,8 @@ class Worksheet
      *                             True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
+     *
+     * @return mixed[][]
      */
     public function rangeToArray(
         string $range,
@@ -3116,6 +3118,8 @@ class Worksheet
      *                             True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
+     *
+     * @return mixed[][]
      */
     public function namedRangeToArray(
         string $definedName,
@@ -3150,6 +3154,8 @@ class Worksheet
      *                             True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
+     *
+     * @return mixed[][]
      */
     public function toArray(
         mixed $nullValue = null,
@@ -3810,6 +3816,7 @@ class Worksheet
     {
         $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
         $valueString = $this->getCell($fromCell)->getValueString();
+        /** @var mixed[][] */
         $style = $this->getStyle($fromCell)->exportArray();
         $fromIndexes = Coordinate::indexesFromString($fromCell);
         $referenceHelper = ReferenceHelper::getInstance();
@@ -3858,6 +3865,7 @@ class Worksheet
         return false;
     }
 
+    /** @param mixed[][] $styleArray */
     public function applyStylesFromArray(string $coordinate, array $styleArray): bool
     {
         $spreadsheet = $this->parent;

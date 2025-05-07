@@ -96,6 +96,10 @@ class Fill extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return array{fill: mixed[]}
      */
     public function getStyleArray(array $array): array
     {
@@ -120,7 +124,7 @@ class Fill extends Supervisor
      * );
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param array{fillType?: string, rotation?: float, startColor?: array{rgb?: string, argb?: string}, endColor?: array{rgb?: string, argb?: string}, color?: array{rgb?: string, argb?: string}} $styleArray Array containing style information
      *
      * @return $this
      */
@@ -136,14 +140,18 @@ class Fill extends Supervisor
                 $this->setRotation($styleArray['rotation']);
             }
             if (isset($styleArray['startColor'])) {
-                $this->getStartColor()->applyFromArray($styleArray['startColor']);
+                $this->getStartColor()
+                    ->applyFromArray($styleArray['startColor']);
             }
             if (isset($styleArray['endColor'])) {
-                $this->getEndColor()->applyFromArray($styleArray['endColor']);
+                $this->getEndColor()
+                    ->applyFromArray($styleArray['endColor']);
             }
             if (isset($styleArray['color'])) {
-                $this->getStartColor()->applyFromArray($styleArray['color']);
-                $this->getEndColor()->applyFromArray($styleArray['color']);
+                $this->getStartColor()
+                    ->applyFromArray($styleArray['color']);
+                $this->getEndColor()
+                    ->applyFromArray($styleArray['color']);
             }
         }
 
@@ -302,6 +310,7 @@ class Fill extends Supervisor
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];

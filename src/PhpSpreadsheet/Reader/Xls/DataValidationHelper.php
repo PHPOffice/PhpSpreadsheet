@@ -176,6 +176,7 @@ class DataValidationHelper extends Xls
 
         // offset: var; size: var; cell range address list with
         $cellRangeAddressList = Biff8::readBIFF8CellRangeAddressList(substr($recordData, $offset));
+        /** @var string[] */
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
         $maxRow = (string) AddressRange::MAX_ROW;
         $maxCol = AddressRange::MAX_COLUMN;

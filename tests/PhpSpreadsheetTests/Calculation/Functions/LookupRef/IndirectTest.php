@@ -107,13 +107,13 @@ class IndirectTest extends AllSetupTeardown
     {
         $reader = new ReaderXlsx();
         $file = 'tests/data/Calculation/LookupRef/IndirectFormulaSelection.xlsx';
-        $this->spreadsheet = $reader->load($file);
-        $sheet = $this->spreadsheet->getActiveSheet();
+        $spreadsheet = $this->spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
         $result = $sheet->getCell('A5')->getCalculatedValue();
         self::assertSame(100, $result);
         $value = $sheet->getCell('A5')->getValue();
         self::assertSame('=CURRENCY_SELECTOR', $value);
-        $formula = $this->spreadsheet->getNamedFormula('CURRENCY_SELECTOR');
+        $formula = $spreadsheet->getNamedFormula('CURRENCY_SELECTOR');
         if ($formula === null) {
             self::fail('Expected named formula was not defined');
         } else {

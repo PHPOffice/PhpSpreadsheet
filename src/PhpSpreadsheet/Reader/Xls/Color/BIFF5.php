@@ -65,6 +65,8 @@ class BIFF5
 
     /**
      * Map color array from BIFF5 built-in color index.
+     *
+     * @return array{rgb: string}
      */
     public static function lookup(int $color): array
     {

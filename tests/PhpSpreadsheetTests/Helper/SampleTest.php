@@ -31,6 +31,7 @@ class SampleTest extends TestCase
 
         // Unfortunately some tests are too long to run with code-coverage
         // analysis on GitHub Actions, so we need to exclude them
+        /** @var string[] */
         global $argv;
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [

@@ -51,6 +51,7 @@ class AutoFilter
                 //    Entries can be either filter elements
                 foreach ($filterColumn->filters->filter as $filterRule) {
                     //    Operator is undefined, but always treated as EQUAL
+                    /** @var SimpleXMLElement */
                     $attr2 = $filterRule->attributes() ?? ['val' => ''];
                     $column->createRule()->setRule('', (string) $attr2['val'])->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
                 }
@@ -103,6 +104,7 @@ class AutoFilter
                 $column->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
             }
             foreach ($customFilters->customFilter as $filterRule) {
+                /** @var SimpleXMLElement */
                 $attr2 = $filterRule->attributes() ?? ['operator' => '', 'val' => ''];
                 $column->createRule()->setRule(
                     (string) $attr2['operator'],

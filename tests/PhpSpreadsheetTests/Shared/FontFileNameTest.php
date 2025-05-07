@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Exception as SSException;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FontFileNameTest extends TestCase
@@ -39,7 +41,10 @@ class FontFileNameTest extends TestCase
         Font::setExtraFontArray($this->holdExtraFontArray);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDefault')]
+    /**
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $fontArray Array containing style information
+     */
+    #[DataProvider('providerDefault')]
     public function testDefaultFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {
@@ -79,7 +84,10 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMac')]
+    /**
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $fontArray Array containing style information
+     */
+    #[DataProvider('providerMac')]
     public function testMacFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {
@@ -119,7 +127,10 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerOverride')]
+    /**
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $fontArray Array containing style information
+     */
+    #[DataProvider('providerOverride')]
     public function testOverrideFilenames(string $expected, array $fontArray): void
     {
         Font::setTrueTypeFontPath(self::DEFAULT_DIRECTORY);
@@ -147,7 +158,10 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerOverrideAbsolute')]
+    /**
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $fontArray Array containing style information
+     */
+    #[DataProvider('providerOverrideAbsolute')]
     public function testOverrideFilenamesAbsolute(string $expected, array $fontArray): void
     {
         $realPath = realpath(self::MAC_DIRECTORY) . DIRECTORY_SEPARATOR;
@@ -176,7 +190,10 @@ class FontFileNameTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerRecurse')]
+    /**
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $fontArray Array containing style information
+     */
+    #[DataProvider('providerRecurse')]
     public function testRecurseFilenames(string $expected, array $fontArray): void
     {
         if ($expected === 'exception') {

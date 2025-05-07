@@ -145,7 +145,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertEquals('autoMin', $extDataBar->getMinimumConditionalFormatValueObject()->getType());
         self::assertEquals('autoMax', $extDataBar->getMaximumConditionalFormatValueObject()->getType());
 
-        self::assertArrayHasKey('rgb', $extDataBar->getAxisColor());
         self::assertEquals('FF000000', $extDataBar->getAxisColor()['rgb']);
     }
 
@@ -203,7 +202,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertEquals('-5', $extDataBar->getMinimumConditionalFormatValueObject()->getCellFormula());
         self::assertEquals('5', $extDataBar->getMaximumConditionalFormatValueObject()->getCellFormula());
 
-        self::assertArrayHasKey('rgb', $extDataBar->getAxisColor());
         self::assertEquals('FF000000', $extDataBar->getAxisColor()['rgb']);
     }
 
@@ -262,7 +260,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertEmpty($extDataBar->getMinimumConditionalFormatValueObject()->getCellFormula());
         self::assertEmpty($extDataBar->getMaximumConditionalFormatValueObject()->getCellFormula());
 
-        self::assertArrayHasKey('rgb', $extDataBar->getAxisColor());
         self::assertEmpty($extDataBar->getAxisColor()['rgb']);
     }
 
@@ -323,7 +320,6 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
         self::assertEquals('3+2', $extDataBar->getMinimumConditionalFormatValueObject()->getCellFormula());
         self::assertEquals('10+10', $extDataBar->getMaximumConditionalFormatValueObject()->getCellFormula());
 
-        self::assertArrayHasKey('rgb', $extDataBar->getAxisColor());
         self::assertEquals('FF000000', $extDataBar->getAxisColor()['rgb']);
     }
 }

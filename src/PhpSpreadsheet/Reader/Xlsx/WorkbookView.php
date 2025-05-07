@@ -14,6 +14,7 @@ class WorkbookView
         $this->spreadsheet = $spreadsheet;
     }
 
+    /** @param array<int, ?int> $mapSheetId */
     public function viewSettings(SimpleXMLElement $xmlWorkbook, string $mainNS, array $mapSheetId, bool $readDataOnly): void
     {
         // Default active sheet index to the first loaded worksheet from the file

@@ -138,6 +138,7 @@ class CellMatcher
         return $this->wrapValue($this->cell->getCalculatedValue());
     }
 
+    /** @param string[] $matches */
     protected function conditionCellAdjustment(array $matches): float|int|string
     {
         $column = $matches[6];
@@ -150,7 +151,7 @@ class CellMatcher
         }
 
         if (!str_contains($row, '$')) {
-            $row += $this->cellRow - $this->referenceRow;
+            $row = (int) $row + $this->cellRow - $this->referenceRow;
         }
 
         if (!empty($matches[4])) {
@@ -194,6 +195,11 @@ class CellMatcher
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
+    /**
+     * @param mixed[] $conditions
+     *
+     * @return mixed[]
+     */
     protected function adjustConditionsForCellReferences(array $conditions): array
     {
         return array_map(
@@ -210,7 +216,11 @@ class CellMatcher
 
         $operator = self::COMPARISON_OPERATORS[$conditional->getOperatorType()];
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
-        $expression = sprintf('%s%s%s', (string) $this->wrapCellValue(), $operator, (string) array_pop($conditions));
+        /** @var float|int|string */
+        $temp1 = $this->wrapCellValue();
+        /** @var scalar */
+        $temp2 = array_pop($conditions);
+        $expression = sprintf('%s%s%s', (string) $temp1, $operator, (string) $temp2);
 
         return $this->evaluateExpression($expression);
     }
@@ -234,7 +244,7 @@ class CellMatcher
                 (string) $this->wrapCellValue(),
                 self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]
             ),
-            ...$conditions
+            ...$conditions //* @phpstan-ignore-line
         );
 
         return $this->evaluateExpression($expression);
@@ -257,11 +267,14 @@ class CellMatcher
     protected function processExpression(Conditional $conditional): bool
     {
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
+        /** @var string */
         $expression = array_pop($conditions);
+        /** @var float|int|string */
+        $temp = $this->wrapCellValue();
 
         $expression = (string) preg_replace(
             '/\b' . $this->referenceCell . '\b/i',
-            (string) $this->wrapCellValue(),
+            (string) $temp,
             $expression
         );
 

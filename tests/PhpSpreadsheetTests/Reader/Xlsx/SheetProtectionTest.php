@@ -43,6 +43,7 @@ class SheetProtectionTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<array{sheet: ?bool, autoFilter: ?bool, formatCells: ?bool, formatColumns: ?bool, formatRows: ?bool, insertColumns: ?bool, insertHyperlinks: ?bool, insertRows: ?bool, deleteColumns: ?bool, deleteRows: ?bool, objects: ?bool, pivotTables: ?bool, scenarios: ?bool, selectLockedCells: ?bool, selectUnlockedCells: ?bool, sort: ?bool, algorithm: string, spinCount: int}> */
     private function pageSetupAssertions(): array
     {
         return [

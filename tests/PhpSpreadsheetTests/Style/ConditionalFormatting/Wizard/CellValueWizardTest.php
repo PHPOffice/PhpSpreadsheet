@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CellValueWizardTest extends TestCase
@@ -24,7 +25,7 @@ class CellValueWizardTest extends TestCase
         $this->style = new Style();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('basicCellValueDataProvider')]
+    #[DataProvider('basicCellValueDataProvider')]
     public function testBasicCellValueWizard(string $operator, mixed $operand, string $expectedOperator, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -61,7 +62,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('relativeCellValueDataProvider')]
+    #[DataProvider('relativeCellValueDataProvider')]
     public function testRelativeCellValueWizard(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -90,7 +91,7 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('formulaCellValueDataProvider')]
+    #[DataProvider('formulaCellValueDataProvider')]
     public function testCellValueWizardWithFormula(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -123,15 +124,18 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('rangeCellValueDataProvider')]
+    /** @param mixed[] $operands */
+    #[DataProvider('rangeCellValueDataProvider')]
     public function testRangeCellValueWizard(string $operator, array $operands, string $expectedOperator): void
     {
         $ruleType = Wizard::CELL_VALUE;
-        /** @var Wizard\CellValue $wizard */
+        /** @var Wizard\CellValue */
         $wizard = $this->wizardFactory->newRule($ruleType);
 
         $wizard->setStyle($this->style);
-        $wizard->$operator($operands[0])->and($operands[1]);
+        /** @var Wizard\CellValue */
+        $temp = $wizard->$operator($operands[0]);
+        $temp->and($operands[1]);
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_CELLIS, $conditional->getConditionType());
@@ -153,7 +157,11 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('rangeRelativeCellValueDataProvider')]
+    /**
+     * @param mixed[] $operands
+     * @param mixed[] $expectedConditions
+     */
+    #[DataProvider('rangeRelativeCellValueDataProvider')]
     public function testRelativeRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;
@@ -183,7 +191,11 @@ class CellValueWizardTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('rangeFormulaCellValueDataProvider')]
+    /**
+     * @param mixed[] $operands
+     * @param mixed[] $expectedConditions
+     */
+    #[DataProvider('rangeFormulaCellValueDataProvider')]
     public function testFormulaRangeCellValueWizard(array $operands, array $expectedConditions): void
     {
         $ruleType = Wizard::CELL_VALUE;

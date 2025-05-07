@@ -82,6 +82,7 @@ abstract class WizardAbstract
         return $operand;
     }
 
+    /** @param string[] $matches */
     protected static function reverseCellAdjustment(array $matches, int $referenceColumn, int $referenceRow): string
     {
         $worksheet = $matches[1];
@@ -95,7 +96,7 @@ abstract class WizardAbstract
         }
 
         if (!str_contains($row, '$')) {
-            $row -= $referenceRow - 1;
+            $row = (int) $row - ($referenceRow - 1);
         }
 
         return "{$worksheet}{$column}{$row}";
@@ -126,6 +127,7 @@ abstract class WizardAbstract
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
+    /** @param string[] $matches */
     protected function conditionCellAdjustment(array $matches): string
     {
         $worksheet = $matches[1];
@@ -139,7 +141,7 @@ abstract class WizardAbstract
         }
 
         if (!str_contains($row, '$')) {
-            $row += $this->referenceRow - 1;
+            $row = (int) $row + ($this->referenceRow - 1);
         }
 
         return "{$worksheet}{$column}{$row}";
@@ -166,6 +168,11 @@ abstract class WizardAbstract
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
+    /**
+     * @param mixed[] $conditions
+     *
+     * @return mixed[]
+     */
     protected function adjustConditionsForCellReferences(array $conditions): array
     {
         return array_map(
