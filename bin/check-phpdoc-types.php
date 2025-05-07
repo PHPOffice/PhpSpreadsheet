@@ -8,7 +8,7 @@
  *
  * This will help us slowly migrate away from PHPDoc typing to PHP native typing.
  */
-function checkPhpDocTypes(): void
+function checkPhpDocTypes(): int
 {
     $content = shell_exec('git diff --cached') ?? shell_exec('git diff') ?? shell_exec('git show HEAD');
     preg_match_all('~^\+ +\* @(param|var) (mixed|string|int|float|bool|null|array|\?|\|)+( \$\w+)?$~m', "$content", $parameters);
@@ -19,11 +19,16 @@ function checkPhpDocTypes(): void
         ...$returns[0],
     ];
 
-    if ($errors) {
+    if (!empty($errors)) {
         echo 'PHP native types must be used instead of PHPDoc types (without comments), for the following lines:' . PHP_EOL . PHP_EOL;
         echo implode(PHP_EOL, $errors) . PHP_EOL;
-        exit(1);
+
+        return 1;
     }
+
+    return 0;
 }
 
-checkPhpDocTypes();
+if (checkPhpDocTypes()) {
+    exit(1);
+}

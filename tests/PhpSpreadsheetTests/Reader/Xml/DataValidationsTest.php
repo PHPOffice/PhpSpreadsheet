@@ -99,6 +99,7 @@ class DataValidationsTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<string, array{bool, string, mixed}> */
     private function validationAssertions(): array
     {
         return [

@@ -289,7 +289,7 @@ class Csv extends BaseWriter
      * Write line to CSV file.
      *
      * @param resource $fileHandle PHP filehandle
-     * @param array $values Array containing values in a row
+     * @param mixed[] $values Array containing values in a row
      */
     private function writeLine($fileHandle, array $values): void
     {

@@ -23,6 +23,7 @@ class Alignment extends StyleBase
         AlignmentStyles::HORIZONTAL_JUSTIFY,
     ];
 
+    /** @return mixed[] */
     public function parseStyle(SimpleXMLElement $styleAttributes): array
     {
         $style = [];
@@ -48,6 +49,10 @@ class Alignment extends StyleBase
                     break;
                 case 'Rotate':
                     $style['alignment']['textRotation'] = $styleAttributeValue;
+
+                    break;
+                case 'Indent':
+                    $style['alignment']['indent'] = $styleAttributeValue;
 
                     break;
             }

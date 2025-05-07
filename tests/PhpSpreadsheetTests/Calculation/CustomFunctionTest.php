@@ -13,8 +13,6 @@ class CustomFunctionTest extends TestCase
     {
         $calculation = Calculation::getInstance();
         $key = 'FOURTHPOWER';
-        // I have no idea why Phpstan needs this
-        /** @var array<string, array> */
         $value = [
             'category' => 'custom',
             'functionCall' => [CustomFunction::class, 'fourthPower'],

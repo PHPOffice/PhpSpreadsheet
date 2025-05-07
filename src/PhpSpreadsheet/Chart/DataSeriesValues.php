@@ -532,6 +532,7 @@ class DataSeriesValues extends Properties
         return $this;
     }
 
+    /** @param TrendLine[] $trendLines */
     public function setTrendLines(array $trendLines): self
     {
         $this->trendLines = $trendLines;
@@ -539,6 +540,7 @@ class DataSeriesValues extends Properties
         return $this;
     }
 
+    /** @return TrendLine[] */
     public function getTrendLines(): array
     {
         return $this->trendLines;

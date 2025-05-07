@@ -91,21 +91,29 @@ class Parser
 
     /**
      * The parse tree to be generated.
+     *
+     * @var mixed[]|string
      */
     public array|string $parseTree;
 
     /**
      * Array of external sheets.
+     *
+     * @var array<string, int>
      */
     private array $externalSheets;
 
     /**
      * Array of sheet references in the form of REF structures.
+     *
+     * @var array<int|string, int|string>
      */
     public array $references;
 
     /**
      * The Excel ptg indices.
+     *
+     * @var array<string, int>
      */
     private array $ptg = [
         'ptgExp' => 0x01,
@@ -218,6 +226,8 @@ class Parser
      *           -1  is a variable  number of arguments.
      * class: The reference, value or array class of the function args.
      * vol:   The function is volatile.
+     *
+     * @var array<string, array{int, int, int, int}>
      */
     private array $functions = [
         // function                  ptg  args  class  vol
@@ -883,7 +893,7 @@ class Parser
      *
      * @param string $cell The Excel cell reference to be packed
      *
-     * @return array Array containing the row and column in packed() format
+     * @return array{string, string} Array containing the row and column in packed() format
      */
     private function cellToPackedRowcol(string $cell): array
     {
@@ -912,7 +922,7 @@ class Parser
      *
      * @param string $range The Excel range to be packed
      *
-     * @return array Array containing (row1,col1,row2,col2) in packed() format
+     * @return array{string, string, string, string} Array containing (row1,col1,row2,col2) in packed() format
      */
     private function rangeToPackedRange(string $range): array
     {
@@ -956,6 +966,8 @@ class Parser
      * whether the row or column are relative references.
      *
      * @param string $cell the Excel cell reference in A1 format
+     *
+     * @return array{int, int, int, int}
      */
     private function cellToRowcol(string $cell): array
     {
@@ -983,7 +995,7 @@ class Parser
         --$row;
         --$col;
 
-        return [$row, $col, $row_rel, $col_rel];
+        return [(int) $row, (int) $col, $row_rel, $col_rel];
     }
 
     /**
@@ -1213,7 +1225,7 @@ class Parser
      * It parses a condition. It assumes the following rule:
      * Cond -> Expr [(">" | "<") Expr].
      *
-     * @return array The parsed ptg'd tree on success
+     * @return mixed[] The parsed ptg'd tree on success
      */
     private function condition(): array
     {
@@ -1255,7 +1267,7 @@ class Parser
      *      -> "+" Term : Positive value
      *      -> Error code.
      *
-     * @return array The parsed ptg'd tree on success
+     * @return mixed[] The parsed ptg'd tree on success
      */
     private function expression(): array
     {
@@ -1326,7 +1338,7 @@ class Parser
      * This function just introduces a ptgParen element in the tree, so that Excel
      * doesn't get confused when working with a parenthesized formula afterwards.
      *
-     * @return array The parsed ptg'd tree
+     * @return mixed[] The parsed ptg'd tree
      *
      * @see fact()
      */
@@ -1339,7 +1351,7 @@ class Parser
      * It parses a term. It assumes the following rule:
      * Term -> Fact [("*" | "/") Fact].
      *
-     * @return array The parsed ptg'd tree on success
+     * @return mixed[] The parsed ptg'd tree on success
      */
     private function term(): array
     {
@@ -1370,7 +1382,7 @@ class Parser
      *       | Number
      *       | Function.
      *
-     * @return array The parsed ptg'd tree on success
+     * @return mixed[] The parsed ptg'd tree on success
      */
     private function fact(): array
     {
@@ -1503,7 +1515,7 @@ class Parser
      * It parses a function call. It assumes the following rule:
      * Func -> ( Expr [,Expr]* ).
      *
-     * @return array The parsed ptg'd tree on success
+     * @return mixed[] The parsed ptg'd tree on success
      */
     private function func(): array
     {
@@ -1550,7 +1562,7 @@ class Parser
      * @param mixed $left the left array (sub-tree) or a final node
      * @param mixed $right the right array (sub-tree) or a final node
      *
-     * @return array A tree
+     * @return mixed[] A tree
      */
     private function createTree(mixed $value, mixed $left, mixed $right): array
     {
@@ -1580,7 +1592,7 @@ class Parser
      *
      * In fact all operands, functions, references, etc... are written as ptg's
      *
-     * @param array $tree the optional tree to convert
+     * @param mixed[] $tree the optional tree to convert
      *
      * @return string The tree in reverse polish notation
      */
@@ -1605,19 +1617,21 @@ class Parser
             $converted_tree = $this->toReversePolish($tree['right']);
             $polish .= $converted_tree;
         } elseif ($tree['right'] != '') { // It's a final node
-            $converted_tree = $this->convert($tree['right']);
+            $converted_tree = $this->convert(StringHelper::convertToString($tree['right']));
             $polish .= $converted_tree;
         }
         // if it's a function convert it here (so we can set it's arguments)
+        /** @var string */
+        $treeValueString = $tree['value'];
         if (
-            Preg::isMatch("/^[A-Z0-9\xc0-\xdc\\.]+$/", $tree['value'])
-            && !Preg::isMatch('/^([A-Ia-i]?[A-Za-z])(\d+)$/', $tree['value'])
+            Preg::isMatch("/^[A-Z0-9\xc0-\xdc\\.]+$/", $treeValueString)
+            && !Preg::isMatch('/^([A-Ia-i]?[A-Za-z])(\d+)$/', $treeValueString)
             && !Preg::isMatch(
                 '/^[A-Ia-i]?[A-Za-z](\d+)\.\.[A-Ia-i]?[A-Za-z](\d+)$/',
-                $tree['value']
+                $treeValueString
             )
-            && !is_numeric($tree['value'])
-            && !isset($this->ptg[$tree['value']])
+            && !is_numeric($treeValueString)
+            && !isset($this->ptg[$treeValueString])
         ) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
@@ -1628,10 +1642,17 @@ class Parser
 
             // add its left subtree and return.
             if ($left_tree !== '' || $tree['right'] !== '') {
-                return $left_tree . $this->convertFunction($tree['value'], $tree['right'] ?: 0);
+                /** @var string */
+                $treeValueString = $tree['value'];
+                /** @var int */
+                $treeRightInt = is_numeric($tree['right']) ? ((int) $tree['right']) : 0;
+
+                return $left_tree . $this->convertFunction($treeValueString, $treeRightInt);
             }
         }
-        $converted_tree = $this->convert($tree['value']);
+        /** @var string */
+        $treeValueString = $tree['value'];
+        $converted_tree = $this->convert($treeValueString);
 
         return $polish . $converted_tree;
     }

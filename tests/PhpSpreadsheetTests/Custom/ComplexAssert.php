@@ -15,7 +15,8 @@ class ComplexAssert extends TestCase
 
     public function __construct()
     {
-        parent::__construct('complexAssert');
+        // Phpstan doesn't want you to use "internal" method outside PHPunit namespace
+        parent::__construct('complexAssert'); //* @phpstan-ignore-line
     }
 
     private function testExpectedExceptions(string|float $expected, string|float $actual): bool

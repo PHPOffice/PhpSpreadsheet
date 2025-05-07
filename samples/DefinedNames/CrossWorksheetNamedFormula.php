@@ -40,6 +40,7 @@ setYearlyData($worksheet, '2020', $data2020);
 $worksheet = $spreadsheet->addSheet(new Worksheet($spreadsheet));
 setYearlyData($worksheet, '2020', [], 'GROWTH');
 
+/** @param array<int, array<int, int>> $yearlyData */
 function setYearlyData(Worksheet $worksheet, string $year, array $yearlyData, ?string $title = null): void
 {
     // Set up some basic data

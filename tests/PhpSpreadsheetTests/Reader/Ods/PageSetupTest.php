@@ -73,6 +73,7 @@ class PageSetupTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<string, array<string, mixed>> */
     private function pageSetupAssertions(): array
     {
         return [
@@ -108,6 +109,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
+    /** @return array<string, array<string, float>> */
     private function pageMarginAssertions(): array
     {
         return [

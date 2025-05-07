@@ -29,8 +29,8 @@ class SpreadsheetCopyCloneTest extends TestCase
     #[DataProvider('providerCopyClone')]
     public function testCopyClone(string $type): void
     {
-        $this->spreadsheet = new Spreadsheet();
-        $sheet = $this->spreadsheet->getActiveSheet();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('original');
         $sheet->getStyle('A1')->getFont()->setName('font1');
         $sheet->getStyle('A2')->getFont()->setName('font2');
@@ -45,14 +45,14 @@ class SpreadsheetCopyCloneTest extends TestCase
         self::assertSame('font1', $sheet->getStyle('A1')->getFont()->getName());
         $sheet->setSelectedCells('A3');
         if ($type === 'copy') {
-            $this->spreadsheet2 = $this->spreadsheet->copy();
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
         } else {
-            $this->spreadsheet2 = clone $this->spreadsheet;
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
         }
-        self::assertSame($this->spreadsheet, $this->spreadsheet->getCalculationEngine()?->getSpreadsheet());
-        self::assertSame($this->spreadsheet2, $this->spreadsheet2->getCalculationEngine()?->getSpreadsheet());
+        self::assertSame($spreadsheet, $spreadsheet->getCalculationEngine()?->getSpreadsheet());
+        self::assertSame($spreadsheet2, $spreadsheet2->getCalculationEngine()?->getSpreadsheet());
         self::assertSame('A3', $sheet->getSelectedCells());
-        $copysheet = $this->spreadsheet2->getActiveSheet();
+        $copysheet = $spreadsheet2->getActiveSheet();
         self::assertSame('A3', $copysheet->getSelectedCells());
         self::assertSame('original', $copysheet->getTitle());
         $copysheet->setTitle('unoriginal');
@@ -130,19 +130,19 @@ class SpreadsheetCopyCloneTest extends TestCase
     #[DataProvider('providerCopyClone2')]
     public function testCopyClone2(string $type, bool $suppress, bool $cache, bool $pruning, string $return): void
     {
-        $this->spreadsheet = new Spreadsheet();
-        $calc = $this->spreadsheet->getCalculationEngine();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $calc = $spreadsheet->getCalculationEngine();
         self::assertNotNull($calc);
         $calc->setSuppressFormulaErrors($suppress);
         $calc->setCalculationCacheEnabled($cache);
         $calc->setBranchPruningEnabled($pruning);
         $calc->setInstanceArrayReturnType($return);
         if ($type === 'copy') {
-            $this->spreadsheet2 = $this->spreadsheet->copy();
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
         } else {
-            $this->spreadsheet2 = clone $this->spreadsheet;
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
         }
-        $calc2 = $this->spreadsheet2->getCalculationEngine();
+        $calc2 = $spreadsheet2->getCalculationEngine();
         self::assertNotNull($calc2);
         self::assertSame($suppress, $calc2->getSuppressFormulaErrors());
         self::assertSame($cache, $calc2->getCalculationCacheEnabled());

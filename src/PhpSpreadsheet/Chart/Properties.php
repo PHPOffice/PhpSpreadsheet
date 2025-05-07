@@ -177,6 +177,7 @@ abstract class Properties
         return ((float) $value) / self::PERCENTAGE_MULTIPLIER;
     }
 
+    /** @return array{type: ?string, value: ?string, alpha: ?int} */
     protected function setColorProperties(?string $color, null|float|int|string $alpha, ?string $colorType): array
     {
         return [
@@ -506,11 +507,14 @@ abstract class Properties
         return $this->softEdges['size'];
     }
 
+    /** @param null|array{value?: ?string, alpha?: null|int|string, brightness?: null|int|string, type?: ?string}|float|string  $value */
     public function setShadowProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
         if ($propertyName === 'color' && is_array($value)) {
-            $this->shadowColor->setColorPropertiesArray($value);
+            /** @var array{value: ?string, alpha: null|int|string, brightness?: null|int|string, type: ?string} */
+            $valuex = $value;
+            $this->shadowColor->setColorPropertiesArray($valuex);
         } else {
             $this->shadowProperties[$propertyName] = $value;
         }

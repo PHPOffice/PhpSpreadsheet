@@ -4,8 +4,9 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+/** @var PhpOffice\PhpSpreadsheet\Spreadsheet */
 $sampleSpreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $filename = $helper->getTemporaryFilename();
 $writer = new XlsxWriter($sampleSpreadsheet);
 $callStartTime = microtime(true);

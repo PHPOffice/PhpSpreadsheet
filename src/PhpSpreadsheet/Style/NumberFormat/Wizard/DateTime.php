@@ -22,7 +22,7 @@ class DateTime extends DateTimeWizard
     public function __construct($separators, ...$formatBlocks)
     {
         $this->separators = $this->padSeparatorArray(
-            is_array($separators) ? $separators : [$separators],
+            is_array($separators) ? $separators : [$separators], //* @phpstan-ignore-line
             count($formatBlocks) - 1
         );
         $this->formatBlocks = array_map([$this, 'mapFormatBlocks'], $formatBlocks);

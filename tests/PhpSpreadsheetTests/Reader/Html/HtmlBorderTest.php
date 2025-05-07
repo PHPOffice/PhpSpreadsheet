@@ -94,6 +94,7 @@ class HtmlBorderTest extends TestCase
         }
         $tests = $this->providerBorderStyle();
         foreach ($tests as $test) {
+            /** @var array<int, int|string> $test */
             $covered[$test[0]] = 1;
         }
         foreach ($covered as $key => $val) {

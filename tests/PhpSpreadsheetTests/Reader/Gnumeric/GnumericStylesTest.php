@@ -10,14 +10,16 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class GnumericStylesTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBorderStyle')]
+    #[DataProvider('providerBorderStyle')]
     public function testBorderStyle(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var string[] */
         $borders = $styles['borderStyle'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -25,11 +27,13 @@ class GnumericStylesTest extends TestCase
     public function testBorderStyleCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['borderStyle'];
         $covered = [];
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
+        /** @var mixed[][] */
         $tests = $this->providerBorderStyle();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -39,10 +43,11 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerfillType')]
+    #[DataProvider('providerfillType')]
     public function testFillType(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var string[] */
         $borders = $styles['fillType'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -50,6 +55,7 @@ class GnumericStylesTest extends TestCase
     public function testFillTypeCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['fillType'];
         $covered = [];
         foreach ($expected as $key => $val) {
@@ -64,10 +70,11 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHorizontal')]
+    #[DataProvider('providerHorizontal')]
     public function testHorizontal(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var string[] */
         $borders = $styles['horizontal'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -75,11 +82,13 @@ class GnumericStylesTest extends TestCase
     public function testHorizontalCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['horizontal'];
         $covered = [];
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
+        /** @var mixed[][] */
         $tests = $this->providerHorizontal();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -89,10 +98,11 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerunderline')]
+    #[DataProvider('providerunderline')]
     public function testUnderline(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var string[] */
         $borders = $styles['underline'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -100,11 +110,14 @@ class GnumericStylesTest extends TestCase
     public function testUnderlineCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['underline'];
+        /** @var int[] $covered */
         $covered = [];
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
+        /** @var mixed[][] */
         $tests = $this->providerUnderline();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -114,10 +127,11 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerVertical')]
+    #[DataProvider('providerVertical')]
     public function testVertical(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $borders = $styles['vertical'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -125,11 +139,13 @@ class GnumericStylesTest extends TestCase
     public function testVerticalCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['vertical'];
         $covered = [];
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
+        /** @var int[][] */
         $tests = $this->providerVertical();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -139,10 +155,11 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataType')]
+    #[DataProvider('providerDataType')]
     public function testDataType(string $style, string $expectedResult): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var string[] */
         $borders = $styles['dataType'];
         self::assertEquals($expectedResult, $borders[$style]);
     }
@@ -150,6 +167,7 @@ class GnumericStylesTest extends TestCase
     public function testDataTypeCoverage(): void
     {
         $styles = Gnumeric::gnumericMappings();
+        /** @var mixed[] */
         $expected = $styles['dataType'];
         self::assertArrayNotHasKey('70', $expected);
         self::assertArrayNotHasKey('80', $expected);
@@ -157,6 +175,7 @@ class GnumericStylesTest extends TestCase
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
+        /** @var int[][] */
         $tests = $this->providerDataType();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -186,6 +205,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
+    /** @return string[][] */
     public static function providerFillType(): array
     {
         return [

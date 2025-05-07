@@ -188,7 +188,8 @@ class Csv extends BaseReader
      */
     protected function inferSeparator(): void
     {
-        if ($this->delimiter !== null) {
+        $temp = $this->delimiter;
+        if ($temp !== null) {
             return;
         }
 
@@ -214,6 +215,8 @@ class Csv extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
      */
     public function listWorksheetInfo(string $filename): array
     {
@@ -226,12 +229,15 @@ class Csv extends BaseReader
         $this->checkSeparator();
         $this->inferSeparator();
 
-        $worksheetInfo = [];
-        $worksheetInfo[0]['worksheetName'] = 'Worksheet';
-        $worksheetInfo[0]['lastColumnLetter'] = 'A';
-        $worksheetInfo[0]['lastColumnIndex'] = 0;
-        $worksheetInfo[0]['totalRows'] = 0;
-        $worksheetInfo[0]['totalColumns'] = 0;
+        $worksheetInfo = [
+            [
+                'worksheetName' => 'Worksheet',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 0,
+                'totalColumns' => 0,
+            ],
+        ];
         $delimiter = $this->delimiter ?? '';
 
         // Loop through each line of the file in turn

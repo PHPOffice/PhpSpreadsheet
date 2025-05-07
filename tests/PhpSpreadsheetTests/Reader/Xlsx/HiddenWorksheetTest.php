@@ -35,6 +35,7 @@ class HiddenWorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<array{sheetState: string}> */
     private function worksheetAssertions(): array
     {
         return [

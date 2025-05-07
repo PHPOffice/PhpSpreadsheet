@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Formula
 {
+    /** @var string[] */
     private array $definedNames = [];
 
     /**

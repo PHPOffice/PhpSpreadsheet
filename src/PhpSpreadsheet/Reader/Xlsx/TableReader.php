@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableDxfsStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
@@ -13,7 +14,7 @@ class TableReader
 
     private SimpleXMLElement $tableXml;
 
-    /** @var array|SimpleXMLElement */
+    /** @var mixed[]|SimpleXMLElement */
     private $tableAttributes;
 
     public function __construct(Worksheet $workSheet, SimpleXMLElement $tableXml)
@@ -24,6 +25,9 @@ class TableReader
 
     /**
      * Loads Table into the Worksheet.
+     *
+     * @param TableDxfsStyle[] $tableStyles
+     * @param mixed[] $dxfs
      */
     public function load(array $tableStyles, array $dxfs): void
     {
@@ -37,13 +41,18 @@ class TableReader
 
     /**
      * Read Table from xml.
+     *
+     * @param TableDxfsStyle[] $tableStyles
+     * @param mixed[] $dxfs
      */
     private function readTable(string $tableRange, array $tableStyles, array $dxfs): void
     {
         $table = new Table($tableRange);
-        $table->setName((string) ($this->tableAttributes['displayName'] ?? ''));
-        $table->setShowHeaderRow(((string) ($this->tableAttributes['headerRowCount'] ?? '')) !== '0');
-        $table->setShowTotalsRow(((string) ($this->tableAttributes['totalsRowCount'] ?? '')) === '1');
+        /** @var string[] */
+        $attributes = $this->tableAttributes;
+        $table->setName((string) ($attributes['displayName'] ?? ''));
+        $table->setShowHeaderRow(((string) ($attributes['headerRowCount'] ?? '')) !== '0');
+        $table->setShowTotalsRow(((string) ($attributes['totalsRowCount'] ?? '')) === '1');
 
         $this->readTableAutoFilter($table, $this->tableXml->autoFilter);
         $this->readTableColumns($table, $this->tableXml->tableColumns);
@@ -65,6 +74,7 @@ class TableReader
         }
 
         foreach ($autoFilterXml->filterColumn as $filterColumn) {
+            /** @var SimpleXMLElement */
             $attributes = $filterColumn->attributes() ?? ['colId' => 0, 'hiddenButton' => 0];
             $column = $table->getColumnByOffset((int) $attributes['colId']);
             $column->setShowFilterButton(((string) $attributes['hiddenButton']) !== '1');
@@ -78,6 +88,7 @@ class TableReader
     {
         $offset = 0;
         foreach ($tableColumnsXml->tableColumn as $tableColumn) {
+            /** @var SimpleXMLElement */
             $attributes = $tableColumn->attributes() ?? ['totalsRowLabel' => 0, 'totalsRowFunction' => 0];
             $column = $table->getColumnByOffset($offset++);
 
@@ -99,6 +110,9 @@ class TableReader
 
     /**
      * Reads TableStyle from xml.
+     *
+     * @param TableDxfsStyle[] $tableStyles
+     * @param mixed[] $dxfs
      */
     private function readTableStyle(Table $table, SimpleXMLElement $tableStyleInfoXml, array $tableStyles, array $dxfs): void
     {

@@ -139,6 +139,8 @@ class Ods extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
      */
     public function listWorksheetInfo(string $filename): array
     {
@@ -175,7 +177,7 @@ class Ods extends BaseReader
                 $styleName = $xml->getAttribute('table:style-name') ?? '';
                 $visibility = $tableVisibility[$styleName] ?? '';
                 $tmpInfo = [
-                    'worksheetName' => $xml->getAttribute('table:name'),
+                    'worksheetName' => (string) $xml->getAttribute('table:name'),
                     'lastColumnLetter' => 'A',
                     'lastColumnIndex' => 0,
                     'totalRows' => 0,
@@ -189,7 +191,7 @@ class Ods extends BaseReader
                     $xml->read();
                     if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                         $rowspan = $xml->getAttribute('table:number-rows-repeated');
-                        $rowspan = empty($rowspan) ? 1 : $rowspan;
+                        $rowspan = empty($rowspan) ? 1 : (int) $rowspan;
                         $tmpInfo['totalRows'] += $rowspan;
                         $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                         $currCells = 0;
@@ -257,6 +259,7 @@ class Ods extends BaseReader
             throw new Exception('Unable to read data from {$pFilename}');
         }
 
+        /** @var array{meta?: string, office?: string, dc?: string} */
         $namespacesMeta = $xml->getNamespaces(true);
 
         (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
@@ -381,6 +384,7 @@ class Ods extends BaseReader
                                 $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
                                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex);
                                 for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0; --$rowRepeats2) {
+                                    /** @var string $tableColumnString */
                                     $spreadsheet->getActiveSheet()
                                         ->getColumnDimension($tableColumnString)
                                         ->setWidth($columnWidth->toUnit('cm'), 'cm');

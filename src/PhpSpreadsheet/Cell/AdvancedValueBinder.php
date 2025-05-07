@@ -110,6 +110,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         return parent::bindValue($cell, $value);
     }
 
+    /** @param array{0: string, 1: ?string, 2: numeric-string, 3: numeric-string, 4: numeric-string} $matches */
     protected function setImproperFraction(array $matches, Cell $cell): bool
     {
         // Convert value to number
@@ -130,6 +131,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         return true;
     }
 
+    /** @param array{0: string, 1: ?string, 2: numeric-string, 3: numeric-string} $matches */
     protected function setProperFraction(array $matches, Cell $cell): bool
     {
         // Convert value to number

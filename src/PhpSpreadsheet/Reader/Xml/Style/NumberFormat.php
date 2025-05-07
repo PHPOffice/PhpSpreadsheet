@@ -6,6 +6,7 @@ use SimpleXMLElement;
 
 class NumberFormat extends StyleBase
 {
+    /** @return mixed[] */
     public function parseStyle(SimpleXMLElement $styleAttributes): array
     {
         $style = [];

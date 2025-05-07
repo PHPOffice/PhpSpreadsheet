@@ -24,6 +24,7 @@ class StringTable extends WriterPart
     public function createStringTable(ActualWorksheet $worksheet, ?array $existingTable = null): array
     {
         // Create string lookup table
+        /** @var string[] */
         $aStringTable = $existingTable ?? [];
 
         // Fill index array
@@ -51,6 +52,7 @@ class StringTable extends WriterPart
                 $aFlippedStringTable[$cellValue->getHashCode()] = true;
             }
         }
+        /** @var string[] $aStringTable */
 
         return $aStringTable;
     }
@@ -317,7 +319,9 @@ class StringTable extends WriterPart
     /**
      * Flip string table (for index searching).
      *
-     * @param array $stringTable Stringtable
+     * @param array<RichText|string> $stringTable Stringtable
+     *
+     * @return array<RichText|string>
      */
     public function flipStringTable(array $stringTable): array
     {

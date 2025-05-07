@@ -39,6 +39,10 @@ class WorkbookTest extends TestCase
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
+    /**
+     * @param string[] $testColors
+     * @param string[] $expectedResult
+     */
     public function xtestAddColor(array $testColors, array $expectedResult): void
     {
         $workbookReflection = new ReflectionClass(Workbook::class);
@@ -61,12 +65,17 @@ class WorkbookTest extends TestCase
         $i = 0;
         $arrayEntries = $this->arrayAddColor();
         while ($i < count($arrayEntries)) {
-            $this->xtestAddColor($arrayEntries[$i][0], $arrayEntries[$i][1]);
+            /** @var string[] */
+            $entry0 = $arrayEntries[$i][0];
+            /** @var string[] */
+            $entry1 = $arrayEntries[$i][1];
+            $this->xtestAddColor($entry0, $entry1);
             ++$i;
             $arrayEntries = $this->arrayAddColor();
         }
     }
 
+    /** @return array<int, array<int, array<mixed>>> */
     public function arrayAddColor(): array
     {
         $this->setUpWorkbook();
@@ -140,12 +149,19 @@ class WorkbookTest extends TestCase
 
     /**
      * Change palette color to rgb string.
+     *
+     * @param array<mixed, mixed> $palette
      */
     private function paletteToColor(array $palette): string
     {
-        return $this->right('00' . dechex((int) ($palette[0])), 2)
-            . $this->right('00' . dechex((int) ($palette[1])), 2)
-            . $this->right('00' . dechex((int) ($palette[2])), 2);
+        return $this->right('00' . self::dec2hex($palette[0]), 2)
+            . $this->right('00' . self::dec2hex($palette[1]), 2)
+            . $this->right('00' . self::dec2hex($palette[2]), 2);
+    }
+
+    private static function dec2hex(mixed $value): string
+    {
+        return is_numeric($value) ? dechex((int) $value) : '0';
     }
 
     /**

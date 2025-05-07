@@ -96,13 +96,15 @@ interface IReader
      * Get which sheets to load
      * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
      *        indicating that all worksheets in the workbook should be loaded.
+     *
+     * @return null|string[]
      */
     public function getLoadSheetsOnly(): ?array;
 
     /**
      * Set which sheets to load.
      *
-     * @param null|array|string $value This should be either an array of worksheet names to be loaded,
+     * @param null|string|string[] $value This should be either an array of worksheet names to be loaded,
      *          or a string containing a single worksheet name. If NULL, then it tells the Reader to
      *          read all worksheets in the workbook
      *

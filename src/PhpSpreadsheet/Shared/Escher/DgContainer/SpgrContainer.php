@@ -65,6 +65,7 @@ class SpgrContainer
                 $allSpContainers[] = $child;
             }
         }
+        /** @var SpgrContainer\SpContainer[] $allSpContainers */
 
         return $allSpContainers;
     }

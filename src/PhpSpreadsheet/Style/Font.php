@@ -138,6 +138,10 @@ class Font extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return array{font: mixed[]}
      */
     public function getStyleArray(array $array): array
     {
@@ -162,7 +166,7 @@ class Font extends Supervisor
      * );
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string} $styleArray Array containing style information
      *
      * @return $this
      */
@@ -560,6 +564,7 @@ class Font extends Supervisor
         return $this->underlineColor;
     }
 
+    /** @param array{value: null|string, alpha: null|int|string, brightness?: null|int|string, type: null|string} $colorArray */
     public function setUnderlineColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
@@ -584,6 +589,7 @@ class Font extends Supervisor
         return $this->chartColor;
     }
 
+    /** @param array{value: null|string, alpha: null|int|string, brightness?: null|int|string, type: null|string} $colorArray */
     public function setChartColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
@@ -756,6 +762,7 @@ class Font extends Supervisor
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];

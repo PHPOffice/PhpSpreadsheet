@@ -1313,12 +1313,12 @@ class Chart extends WriterPart
                     }
                     if ($trendLineType == TrendLine::TRENDLINE_POLYNOMIAL) {
                         $objWriter->startElement('c:order');
-                        $objWriter->writeAttribute('val', $order);
+                        $objWriter->writeAttribute('val', "$order");
                         $objWriter->endElement(); // order
                     }
                     if ($trendLineType == TrendLine::TRENDLINE_MOVING_AVG) {
                         $objWriter->startElement('c:period');
-                        $objWriter->writeAttribute('val', $period);
+                        $objWriter->writeAttribute('val', "$period");
                         $objWriter->endElement(); // period
                     }
                     $objWriter->startElement('c:dispRSqr');
@@ -1435,6 +1435,7 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         foreach (($plotSeriesLabel->getDataValues() ?? []) as $plotLabelKey => $plotLabelValue) {
+            /** @var string $plotLabelValue */
             $objWriter->startElement('c:pt');
             $objWriter->writeAttribute('idx', $plotLabelKey);
 
@@ -1477,6 +1478,7 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:lvl');
 
                 foreach (($plotSeriesValues->getDataValues() ?? []) as $plotSeriesKey => $plotSeriesValue) {
+                    /** @var string[] $plotSeriesValue */
                     if (isset($plotSeriesValue[$level])) {
                         $objWriter->startElement('c:pt');
                         $objWriter->writeAttribute('idx', $plotSeriesKey);
@@ -1519,6 +1521,7 @@ class Chart extends WriterPart
                 $objWriter->writeAttribute('val', (string) $plotSeriesValues->getPointCount());
                 $objWriter->endElement();
 
+                /** @var array<string, string> */
                 $dataValues = $plotSeriesValues->getDataValues();
                 if (!empty($dataValues)) {
                     foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {

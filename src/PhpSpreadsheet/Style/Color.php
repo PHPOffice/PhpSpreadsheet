@@ -156,6 +156,10 @@ class Color extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return mixed[]
      */
     public function getStyleArray(array $array): array
     {
@@ -172,7 +176,7 @@ class Color extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param array{rgb?: string, argb?: string} $styleArray Array containing style information
      *
      * @return $this
      */
@@ -365,6 +369,7 @@ class Color extends Supervisor
      * @param int $colorIndex Index entry point into the colour array
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                                            should be returned if the indexed colour doesn't exist
+     * @param null|string[] $palette
      */
     public static function indexedColor(int $colorIndex, bool $background = false, ?array $palette = null): self
     {
@@ -401,6 +406,7 @@ class Color extends Supervisor
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];

@@ -112,11 +112,13 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
+    /** @return null|string[] */
     public function getLoadSheetsOnly(): ?array
     {
         return $this->loadSheetsOnly;
     }
 
+    /** @param null|string|string[] $sheetList */
     public function setLoadSheetsOnly(string|array|null $sheetList): self
     {
         if ($sheetList === null) {
@@ -221,6 +223,8 @@ abstract class BaseReader implements IReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
      */
     public function listWorksheetInfo(string $filename): array
     {
@@ -232,15 +236,15 @@ abstract class BaseReader implements IReader
      * possibly without parsing the whole file to a Spreadsheet object.
      * Readers will often have a more efficient method with which
      * they can override this method.
+     *
+     * @return string[]
      */
     public function listWorksheetNames(string $filename): array
     {
         $returnArray = [];
         $info = $this->listWorksheetInfo($filename);
         foreach ($info as $infoArray) {
-            if (isset($infoArray['worksheetName'])) {
-                $returnArray[] = $infoArray['worksheetName'];
-            }
+            $returnArray[] = $infoArray['worksheetName'];
         }
 
         return $returnArray;

@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
@@ -42,43 +43,46 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        $tbod = $tabl?->item(0)?->getElementsByTagName('tbody');
+        $rows = $tbod?->item(0)?->getElementsByTagName('tr');
         self::assertCount(4, $rows);
 
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows?->item(0)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(1, $spans);
-        $style = $spans[0]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:red/', $style));
-        self::assertEquals('$50', $spans[0]->textContent);
+        $style = $spans?->item(0)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:red/', "$style"));
+        self::assertSame('$50', $spans?->item(0)?->textContent);
 
-        $tds = $rows[1]->getElementsByTagName('td');
+        $tds = $rows?->item(1)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(1, $spans);
-        $style = $spans[0]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:blue/', $style));
-        self::assertEquals('$3,000', $spans[0]->textContent);
+        $style = $spans?->item(0)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:blue/', "$style"));
+        self::assertSame('$3,000', $spans?->item(0)?->textContent);
 
-        $tds = $rows[2]->getElementsByTagName('td');
+        $tds = $rows?->item(2)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        self::assertEquals('$0', $tds[0]->textContent);
+        self::assertSame('$0', $tds?->item(0)?->textContent);
 
-        $tds = $rows[3]->getElementsByTagName('td');
+        $tds = $rows?->item(3)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        self::assertEquals('<br>', $tds[0]->textContent);
+        self::assertEquals('<br>', $tds?->item(0)?->textContent);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
     public function testColorNumberFormatComplex(): void
@@ -96,46 +100,49 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        $tbod = $tabl?->item(0)?->getElementsByTagName('tbody');
+        $rows = $tbod?->item(0)?->getElementsByTagName('tr');
         self::assertCount(4, $rows);
 
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows?->item(0)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(1, $spans);
-        $style = $spans[0]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:red/', $style));
-        self::assertEquals('$50.00', $spans[0]->textContent);
+        $style = $spans?->item(0)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:red/', "$style"));
+        self::assertSame('$50.00', $spans?->item(0)?->textContent);
 
-        $tds = $rows[1]->getElementsByTagName('td');
+        $tds = $rows?->item(1)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(1, $spans);
-        $style = $spans[0]->getAttribute('style');
-        self::assertEquals(1, preg_match('/color:blue/', $style));
-        self::assertEquals('$3,000.75', $spans[0]->textContent);
+        $style = $spans?->item(0)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:blue/', "$style"));
+        self::assertSame('$3,000.75', $spans?->item(0)?->textContent);
 
-        $tds = $rows[2]->getElementsByTagName('td');
+        $tds = $rows?->item(2)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        self::assertEquals('$0.00', $tds[0]->textContent);
+        self::assertSame('$0.00', $tds?->item(0)?->textContent);
 
-        $tds = $rows[3]->getElementsByTagName('td');
+        $tds = $rows?->item(3)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
-        $spans = $tds[0]->getElementsByTagName('span');
+        $spans = $tds?->item(0)?->getElementsByTagName('span');
         self::assertCount(0, $spans);
-        self::assertEquals('$3,000.25', $tds[0]->textContent);
+        self::assertSame('$3,000.25', $tds?->item(0)?->textContent);
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormat')]
+    #[DataProvider('numberFormatProvider')]
     public function testFormatValueWithMask(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
@@ -146,26 +153,33 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        $tbod = $tabl?->item(0)?->getElementsByTagName('tbody');
+        $rows = $tbod?->item(0)?->getElementsByTagName('tr');
 
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows?->item(0)?->getElementsByTagName('td');
         $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
-        self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
+        self::assertEquals($expectedResult, str_replace($nbsp, ' ', (string) $tds?->item(0)?->textContent));
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
-    public static function providerNumberFormat(): array
+    /** @return mixed[] */
+    public static function numberFormatProvider(): array
     {
-        return require __DIR__ . '/../../../data/Style/NumberFormat.php';
+        /** @var mixed[] */
+        $retVal = require __DIR__ . '/../../../data/Style/NumberFormat.php';
+
+        return $retVal;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberFormatDates')]
+    #[DataProvider('numberFormatDatesProvider')]
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
@@ -176,22 +190,29 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         $dom = new DOMDocument();
         $dom->loadHTML($html);
-        $body = $dom->getElementsByTagName('body')[0];
+        $body = $dom->getElementsByTagName('body')->item(0);
+        self::assertNotNull($body);
         $divs = $body->getElementsByTagName('div');
 
-        $tabl = $divs[0]->getElementsByTagName('table');
-        $tbod = $tabl[0]->getElementsByTagName('tbody');
-        $rows = $tbod[0]->getElementsByTagName('tr');
+        $tabl = $divs->item(0)?->getElementsByTagName('table');
+        $tbod = $tabl?->item(0)?->getElementsByTagName('tbody');
+        $rows = $tbod?->item(0)?->getElementsByTagName('tr');
 
-        $tds = $rows[0]->getElementsByTagName('td');
+        $tds = $rows?->item(0)?->getElementsByTagName('td');
         $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
-        self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
+        self::assertSame($expectedResult, str_replace($nbsp, ' ', (string) $tds?->item(0)?->textContent));
 
-        $this->writeAndReload($spreadsheet, 'Html');
+        $rls = $this->writeAndReload($spreadsheet, 'Html');
+        $spreadsheet->disconnectWorksheets();
+        $rls->disconnectWorksheets();
     }
 
-    public static function providerNumberFormatDates(): array
+    /** @return mixed[] */
+    public static function numberFormatDatesProvider(): array
     {
-        return require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
+        /** @var mixed[] */
+        $retVal = require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
+
+        return $retVal;
     }
 }

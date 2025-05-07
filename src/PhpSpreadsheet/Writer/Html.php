@@ -34,6 +34,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableDxfsStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Html extends BaseWriter
@@ -84,11 +86,15 @@ class Html extends BaseWriter
 
     /**
      * Array of CSS styles.
+     *
+     * @var string[][]
      */
     private ?array $cssStyles = null;
 
     /**
      * Array of column widths in points.
+     *
+     * @var array<array<float|int>>
      */
     private array $columnWidths;
 
@@ -104,16 +110,22 @@ class Html extends BaseWriter
 
     /**
      * Excel cells that should not be written as HTML cells.
+     *
+     * @var mixed[][][][]
      */
     private array $isSpannedCell = [];
 
     /**
      * Excel cells that are upper-left corner in a cell merge.
+     *
+     * @var int[][][][]
      */
     private array $isBaseCell = [];
 
     /**
      * Excel rows that should not be written as HTML rows.
+     *
+     * @var mixed[][]
      */
     private array $isSpannedRow = [];
 
@@ -130,7 +142,7 @@ class Html extends BaseWriter
     /**
      * Callback for editing generated html.
      *
-     * @var null|callable
+     * @var null|callable(string): string
      */
     private $editHtmlCallback;
 
@@ -428,6 +440,7 @@ class Html extends BaseWriter
         return $sheets;
     }
 
+    /** @return array{int, int, int} */
     private function generateSheetStarts(Worksheet $sheet, int $rowMin): array
     {
         // calculate start of <tbody>, <thead>
@@ -447,6 +460,7 @@ class Html extends BaseWriter
         return [$theadStart, $theadEnd, $tbodyStart];
     }
 
+    /** @return array{string, string, string} */
     private function generateSheetTags(int $row, int $theadStart, int $theadEnd, int $tbodyStart): array
     {
         // <thead> ?
@@ -488,7 +502,7 @@ class Html extends BaseWriter
             foreach ($condStylesCollection as $condStyles) {
                 foreach ($condStyles as $key => $cs) {
                     if ($cs->getConditionType() === Conditional::CONDITION_COLORSCALE) {
-                        $cs->getColorScale()->setScaleArray();
+                        $cs->getColorScale()?->setScaleArray();
                     }
                 }
             }
@@ -503,7 +517,7 @@ class Html extends BaseWriter
             $row = $minRow - 1;
             while ($row++ < $maxRow) {
                 [$cellType, $startTag, $endTag] = $this->generateSheetTags($row, $theadStart, $theadEnd, $tbodyStart);
-                $html .= $startTag;
+                $html .= StringHelper::convertToString($startTag);
 
                 // Write row if there are HTML table cells in it
                 if ($this->shouldGenerateRow($sheet, $row) && !isset($this->isSpannedRow[$sheet->getParentOrThrow()->getIndex($sheet)][$row])) {
@@ -519,12 +533,13 @@ class Html extends BaseWriter
                             $rowData[$column] = ($sheet->getCellCollection()->has($cellAddress)) ? $cellAddress : '';
                         }
                         ++$column;
+                        /** @var string $colStr */
                         ++$colStr;
                     }
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
 
-                $html .= $endTag;
+                $html .= StringHelper::convertToString($endTag);
             }
             // Write table footer
             $html .= $this->generateTableFooter();
@@ -774,6 +789,7 @@ class Html extends BaseWriter
         $topLeft = $chart->getTopLeftPosition();
         $bottomRight = $chart->getBottomRightPosition();
         $tlCell = $topLeft['cell'];
+        /** @var string */
         $brCell = $bottomRight['cell'];
         if ($tlCell !== '' && $brCell !== '') {
             $tlCoordinate = Coordinate::indexesFromString($tlCell);
@@ -789,10 +805,12 @@ class Html extends BaseWriter
                 }
                 $rightEdge = $brCoordinate[2];
                 ++$rightEdge;
-                for ($column = $tlCoordinate[2]; $column !== $rightEdge; ++$column) {
+                for ($column = $tlCoordinate[2]; $column !== $rightEdge;) {
                     $width = $sheet->getColumnDimension($column)->getWidth();
                     $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
                     $totalWidth += $width;
+                    /** @var string $column */
+                    ++$column;
                 }
                 $chart->setRenderedWidth($totalWidth);
                 $chart->setRenderedHeight($totalHeight);
@@ -836,6 +854,7 @@ class Html extends BaseWriter
         return $html;
     }
 
+    /** @param string[][] $css */
     private function buildCssRowHeights(Worksheet $sheet, array &$css, int $sheetIndex): void
     {
         // Calculate row heights
@@ -856,6 +875,7 @@ class Html extends BaseWriter
         }
     }
 
+    /** @param string[][] $css */
     private function buildCssPerSheet(Worksheet $sheet, array &$css): void
     {
         // Calculate hash code
@@ -928,6 +948,8 @@ class Html extends BaseWriter
      * Build CSS styles.
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
+     *
+     * @return string[][]
      */
     public function buildCSS(bool $generateSurroundingHTML = true): array
     {
@@ -940,6 +962,7 @@ class Html extends BaseWriter
         $this->calculateSpans();
 
         // Construct CSS
+        /** @var string[][] */
         $css = [];
 
         // Start styles
@@ -1020,6 +1043,8 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style.
+     *
+     * @return string[]
      */
     private function createCSSStyle(Style $style): array
     {
@@ -1034,6 +1059,8 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style.
+     *
+     * @return string[]
      */
     private function createCSSStyleAlignment(Alignment $alignment): array
     {
@@ -1066,6 +1093,8 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style.
+     *
+     * @return string[]
      */
     private function createCSSStyleFont(Font $font): array
     {
@@ -1098,6 +1127,8 @@ class Html extends BaseWriter
      * Create CSS style.
      *
      * @param Borders $borders Borders
+     *
+     * @return string[]
      */
     private function createCSSStyleBorders(Borders $borders): array
     {
@@ -1146,6 +1177,8 @@ class Html extends BaseWriter
      * Create CSS style (Fill).
      *
      * @param Fill $fill Fill
+     *
+     * @return string[]
      */
     private function createCSSStyleFill(Fill $fill): array
     {
@@ -1297,6 +1330,7 @@ class Html extends BaseWriter
         return $html;
     }
 
+    /** @return array{null|''|Cell, array{}|string, non-empty-string} */
     private function generateRowCellCss(Worksheet $worksheet, string $cellAddress, int $row, int $columnNumber): array
     {
         $cell = ($cellAddress > '') ? $worksheet->getCellCollection()->get($cellAddress) : '';
@@ -1305,19 +1339,6 @@ class Html extends BaseWriter
             $cssClass = 'column' . $columnNumber;
         } else {
             $cssClass = [];
-            // The statements below do nothing.
-            // Commenting out the code rather than deleting it
-            // in case someone can figure out what their intent was.
-            //if ($cellType == 'th') {
-            //    if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum])) {
-            //        $this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum];
-            //    }
-            //} else {
-            //    if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum])) {
-            //        $this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum];
-            //    }
-            //}
-            // End of mystery statements.
         }
 
         return [$cell, $cssClass, $coordinate];
@@ -1406,6 +1427,7 @@ class Html extends BaseWriter
         }
     }
 
+    /** @param string|string[] $cssClass */
     private function generateRowCellData(Worksheet $worksheet, null|Cell|string $cell, array|string &$cssClass): string
     {
         $cellData = '&nbsp;';
@@ -1479,6 +1501,10 @@ class Html extends BaseWriter
         return $html;
     }
 
+    /**
+     * @param string|string[] $cssClass
+     * @param Conditional[] $condStyles
+     */
     private function generateRowWriteCell(
         string &$html,
         Worksheet $worksheet,
@@ -1553,6 +1579,7 @@ class Html extends BaseWriter
             if ($htmlx) {
                 $xcssClass['position'] = 'relative';
             }
+            /** @var string[] $xcssClass */
             $html .= ' style="' . $this->assembleCSS($xcssClass) . '"';
             if ($this->useInlineCss) {
                 $html .= ' class="gridlines gridlinesp"';
@@ -1568,9 +1595,12 @@ class Html extends BaseWriter
             if ($this->tableFormats) {
                 if (count($tables) > 0) {
                     foreach ($tables as $ts) {
+                        /** @var Table $ts */
                         $dxfsTableStyle = $ts->getStyle()->getTableDxfsStyle();
                         if ($dxfsTableStyle !== null) {
+                            /** @var int */
                             $tableRow = $ts->getRowNumber($coordinate);
+                            /** @var TableDxfsStyle $dxfsTableStyle */
                             if ($tableRow === 0 && $dxfsTableStyle->getHeaderRowStyle() !== null) {
                                 $styleMerger->mergeStyle($dxfsTableStyle->getHeaderRowStyle());
                                 $matched = true;
@@ -1684,6 +1714,7 @@ class Html extends BaseWriter
             $colSpan = 1;
             $rowSpan = 1;
             if (isset($this->isBaseCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum])) {
+                /** @var array<string, int> */
                 $spans = $this->isBaseCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum];
                 $rowSpan = $spans['rowspan'];
                 $colSpan = $spans['colspan'];
@@ -1720,6 +1751,7 @@ class Html extends BaseWriter
         return $html;
     }
 
+    /** @param string[] $matches */
     private static function replaceNonAscii(array $matches): string
     {
         return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
@@ -1736,6 +1768,8 @@ class Html extends BaseWriter
 
     /**
      * Takes array where of CSS properties / values and converts to CSS string.
+     *
+     * @param string[] $values
      */
     private function assembleCSS(array $values = []): string
     {
@@ -1928,6 +1962,7 @@ class Html extends BaseWriter
         $this->spansAreCalculated = true;
     }
 
+    /** @param int[] $candidateSpannedRow */
     private function calculateSpansOmitRows(Worksheet $sheet, int $sheetIndex, array $candidateSpannedRow): void
     {
         // Identify which rows should be omitted in HTML. These are the rows where all the cells
@@ -1952,6 +1987,7 @@ class Html extends BaseWriter
 
                     if (!in_array($baseCell, $adjustedBaseCells, true)) {
                         // subtract rowspan by 1
+                        /** @var array<int|string> $baseCell */
                         --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
                         $adjustedBaseCells[] = $baseCell;
                     }

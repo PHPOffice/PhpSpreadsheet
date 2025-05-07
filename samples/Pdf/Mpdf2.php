@@ -16,15 +16,17 @@ class Mpdf2 extends Mpdf
      *     be used by Mpdf (which would instead use a default substitution).
      * Other configuration options may be specified here.
      *
-     * @param array $config Configuration array
+     * @param array<string, mixed> $config Configuration array
      */
     protected function createExternalWriterInstance($config): \Mpdf\Mpdf
     {
+        /** @var string[][] */
         $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
         $newFontDirectory = __DIR__;
         $config['fontDir'] = array_merge($fontDirs, [$newFontDirectory]);
 
+        /** @var string[][][] */
         $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
         // Note that Mpdf config uses lower-case fontdata
         //    even though it uses camel-case fontDir.
