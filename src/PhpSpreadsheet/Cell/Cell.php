@@ -464,6 +464,7 @@ class Cell implements Stringable
                                         }
                                     }
                                 }
+                                /** @var string $newColumn */
                                 ++$newColumn;
                             }
                             ++$newRow;
@@ -502,6 +503,7 @@ class Cell implements Stringable
                                     $maxRow = (int) $matches[5];
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
                                         for ($col = $minCol; $col !== $maxCol; ++$col) {
+                                            /** @var string $col */
                                             if ("$col$row" !== $coordinate) {
                                                 $thisworksheet->getCell("$col$row")->setValue(null);
                                             }
@@ -524,8 +526,11 @@ class Cell implements Stringable
                             $newColumn = $column;
                             foreach ($resultRow as $resultValue) {
                                 if ($row !== $newRow || $column !== $newColumn) {
-                                    $thisworksheet->getCell($newColumn . $newRow)->setValue($resultValue);
+                                    $thisworksheet
+                                        ->getCell($newColumn . $newRow)
+                                        ->setValue($resultValue);
                                 }
+                                /** @var string $newColumn */
                                 ++$newColumn;
                             }
                             ++$newRow;
@@ -934,9 +939,7 @@ class Cell implements Stringable
     /**
      * Set the formula attributes.
      *
-     * @param $attributes null|array<string, string>
-     *
-     * @return $this
+     * @param null|array<string, string> $attributes
      */
     public function setFormulaAttributes(?array $attributes): self
     {

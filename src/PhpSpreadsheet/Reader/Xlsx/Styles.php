@@ -427,7 +427,7 @@ class Styles extends BaseParserClass
         return ($background) ? 'FFFFFFFF' : 'FF000000';
     }
 
-    /** @return mixed[] */
+    /** @return Style[] */
     public function dxfs(bool $readDataOnly = false): array
     {
         $dxfs = [];

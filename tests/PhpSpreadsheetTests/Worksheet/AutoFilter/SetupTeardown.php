@@ -45,11 +45,13 @@ class SetupTeardown extends TestCase
         return $this->sheet;
     }
 
+    /** @return int[] */
     public function getVisible(): array
     {
         return $this->getVisibleSheet($this->getSheet());
     }
 
+    /** @return int[] */
     public function getVisibleSheet(Worksheet $sheet): array
     {
         $sheet->getAutoFilter()->showHideRows();

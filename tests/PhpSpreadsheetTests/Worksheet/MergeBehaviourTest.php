@@ -7,16 +7,17 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class MergeBehaviourTest extends AbstractFunctional
 {
-    private static array $testDataRaw = [
+    private const TEST_DATA_RAW = [
         [1.1, 2.2, '=ROUND(A1+B1, 1)'],
         [4.4, 5.5, '=ROUND(A2+B2, 1)'],
         ['=ROUND(A1+A2, 1)', '=ROUND(B1+B2, 1)', '=ROUND(A3+B3, 1)'],
     ];
 
-    private array $testDataFormatted = [
+    private const TEST_DATE_FORMATTED = [
         ['=DATE(1960, 12, 19)', '=DATE(2022, 09, 15)'],
     ];
 
@@ -31,7 +32,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $mergeRange = 'A1:C3';
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->fromArray(self::$testDataRaw, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATA_RAW, null, 'A1', true);
         $worksheet->mergeCells($mergeRange);
 
         $mergeResult = $worksheet->toArray(null, true, false, false);
@@ -48,7 +49,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $mergeRange = 'A1:B1';
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->fromArray($this->testDataFormatted, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A1', true);
         $worksheet->getStyle($mergeRange)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
         $worksheet->mergeCells($mergeRange);
 
@@ -68,7 +69,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $mergeRange = 'A1:C3';
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->fromArray(self::$testDataRaw, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATA_RAW, null, 'A1', true);
         $worksheet->mergeCells($mergeRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
 
         $mergeResult = $worksheet->toArray(null, true, false, false);
@@ -85,7 +86,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $mergeRange = 'A1:B1';
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->fromArray($this->testDataFormatted, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A1', true);
         $worksheet->getStyle($mergeRange)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
         $worksheet->mergeCells($mergeRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
 
@@ -94,7 +95,11 @@ class MergeBehaviourTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('mergeCellsMergeBehaviourProvider')]
+    /**
+     * @param mixed[] $testData
+     * @param mixed[] $expectedResult
+     */
+    #[DataProvider('mergeCellsMergeBehaviourProvider')]
     public function testMergeCellsMergeBehaviour(array $testData, string $mergeRange, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -113,7 +118,7 @@ class MergeBehaviourTest extends AbstractFunctional
     {
         return [
             'With Calculated Values' => [
-                self::$testDataRaw,
+                self::TEST_DATA_RAW,
                 'A1:C3',
                 [
                     ['1.1 2.2 1.1 4.4 5.5 0 1.1 0 0', null, null],
@@ -155,7 +160,7 @@ class MergeBehaviourTest extends AbstractFunctional
         $mergeRange = 'A1:B1';
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->fromArray($this->testDataFormatted, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A1', true);
         $worksheet->getStyle($mergeRange)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
         $worksheet->mergeCells($mergeRange, Worksheet::MERGE_CELL_CONTENT_MERGE);
 
