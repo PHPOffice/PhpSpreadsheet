@@ -14,7 +14,7 @@ class Trim
      * @param mixed $stringValue String Value to check
      *                              Or can be an array of values
      *
-     * @return array|string If an array of values is passed as the argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function nonPrintable(mixed $stringValue = '')
@@ -34,7 +34,7 @@ class Trim
      * @param mixed $stringValue String Value to check
      *                              Or can be an array of values
      *
-     * @return array|string If an array of values is passed as the argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function spaces(mixed $stringValue = ''): array|string

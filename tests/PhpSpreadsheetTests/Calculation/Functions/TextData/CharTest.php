@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CharTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHAR')]
+    #[DataProvider('providerCHAR')]
     public function testCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -28,7 +29,8 @@ class CharTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/CHAR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCharArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerCharArray')]
     public function testCharArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
