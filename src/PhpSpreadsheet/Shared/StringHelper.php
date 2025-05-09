@@ -17,6 +17,8 @@ class StringHelper
 
     /**
      * SYLK Characters array.
+     *
+     * @var string[]
      */
     private static array $SYLKCharacters = [];
 
@@ -485,6 +487,8 @@ class StringHelper
 
     /**
      * Splits a UTF-8 string into an array of individual characters.
+     *
+     * @return string[]
      */
     public static function mbStrSplit(string $string): array
     {
@@ -522,6 +526,7 @@ class StringHelper
 
     private static function getLocaleValue(string $key, string $altKey, string $default, bool $trimAlt = false): string
     {
+        /** @var string[] */
         $localeconv = localeconv();
         $rslt = $localeconv[$key];
         // win-1252 implements Euro as 0x80 plus other symbols

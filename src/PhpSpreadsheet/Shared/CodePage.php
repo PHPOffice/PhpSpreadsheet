@@ -107,6 +107,7 @@ class CodePage
         throw new PhpSpreadsheetException('Unknown codepage: ' . $codePage);
     }
 
+    /** @return array<int, array<int, string>|string> */
     public static function getEncodings(): array
     {
         return self::$pageArray;

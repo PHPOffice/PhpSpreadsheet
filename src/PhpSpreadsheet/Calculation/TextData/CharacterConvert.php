@@ -17,7 +17,7 @@ class CharacterConvert
      * @param mixed $character Integer Value to convert to its character representation
      *                              Or can be an array of values
      *
-     * @return array|string The character string
+     * @return array<mixed>|string The character string
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -48,7 +48,7 @@ class CharacterConvert
      * @param mixed $characters String character to convert to its ASCII value
      *                              Or can be an array of values
      *
-     * @return array|int|string A string if arguments are invalid
+     * @return array<mixed>|int|string A string if arguments are invalid
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HashTableTest extends TestCase
 {
+    /** @return array{Comment, Comment} */
     public static function createArray(): array
     {
         $comment1 = new Comment();

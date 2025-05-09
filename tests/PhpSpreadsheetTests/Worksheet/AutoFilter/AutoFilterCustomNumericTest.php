@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AutoFilterCustomNumericTest extends SetupTeardown
 {
@@ -43,7 +44,8 @@ class AutoFilterCustomNumericTest extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomRule')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerCustomRule')]
     public function testCustomTest(array $expectedVisible, string $rule, int $comparand): void
     {
         $sheet = $this->initSheet();

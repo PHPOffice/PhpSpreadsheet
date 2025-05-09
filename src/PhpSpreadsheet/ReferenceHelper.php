@@ -451,6 +451,7 @@ class ReferenceHelper
         $highColumn = Coordinate::columnIndexFromString($highestDataColumn);
         for ($row = $startRow; $row <= $highestDataRow; ++$row) {
             for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, ++$colString) {
+                /** @var string $colString */
                 $worksheet->getCell("$colString$row"); // create cell if it doesn't exist
             }
         }
@@ -1041,6 +1042,7 @@ class ReferenceHelper
 
         for ($row = 1; $row <= $highestRow - 1; ++$row) {
             for ($column = $startColumnId; $column !== $endColumnId; ++$column) {
+                /** @var string $column */
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
             }
@@ -1053,6 +1055,7 @@ class ReferenceHelper
         ++$highestColumn;
 
         for ($column = $startColumnId; $column !== $highestColumn; ++$column) {
+            /** @var string $column */
             for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
@@ -1108,6 +1111,7 @@ class ReferenceHelper
         }
     }
 
+    /** @param mixed[] $autoFilterColumns */
     private function adjustAutoFilterDeleteRules(int $columnIndex, int $numberOfColumns, array $autoFilterColumns, AutoFilter $autoFilter): void
     {
         // If we're actually deleting any columns that fall within the autofilter range,
@@ -1146,9 +1150,11 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
+            /** @var string $toColID */
             ++$toColID;
-            ++$startColID; // this confuses phpstan into thinking startColID is int/float
-        } while ($startColID !== $endColID); // @phpstan-ignore-line
+            /** @var string $startColID */
+            ++$startColID;
+        } while ($startColID !== $endColID);
     }
 
     private function adjustTable(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns): void
@@ -1187,6 +1193,7 @@ class ReferenceHelper
         }
     }
 
+    /** @param mixed[] $tableColumns */
     private function adjustTableDeleteRules(int $columnIndex, int $numberOfColumns, array $tableColumns, Table $table): void
     {
         // If we're actually deleting any columns that fall within the table range,
@@ -1225,9 +1232,11 @@ class ReferenceHelper
 
         do {
             $table->shiftColumn($startColID, $toColID);
+            /** @var string $toColID */
             ++$toColID;
-            ++$startColID; // this confuses phpstan into thinking startColID is int/float
-        } while ($startColID !== $endColID); // @phpstan-ignore-line
+            /** @var string $startColID */
+            ++$startColID;
+        } while ($startColID !== $endColID);
     }
 
     private function duplicateStylesByColumn(Worksheet $worksheet, int $beforeColumn, int $beforeRow, int $highestRow, int $numberOfColumns): void

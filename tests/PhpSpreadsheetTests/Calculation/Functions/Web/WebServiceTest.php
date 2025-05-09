@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -26,7 +27,8 @@ class WebServiceTest extends TestCase
         Settings::unsetHttpClient();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEBSERVICE')]
+    /** @param null|mixed[] $responseData */
+    #[DataProvider('providerWEBSERVICE')]
     public function testWEBSERVICE(string $expectedResult, string $url, ?array $responseData): void
     {
         if (!empty($responseData)) {

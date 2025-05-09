@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AutoFilterYearTest extends SetupTeardown
 {
@@ -22,7 +23,8 @@ class AutoFilterYearTest extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYear')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerYear')]
     public function testYears(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

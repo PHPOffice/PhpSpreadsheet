@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ExactTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEXACT')]
+    #[DataProvider('providerEXACT')]
     public function testEXACT(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,7 +33,8 @@ class ExactTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerExactArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerExactArray')]
     public function testExactArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

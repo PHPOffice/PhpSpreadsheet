@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableDxfsStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
@@ -27,7 +28,7 @@ class TableReader
      * Loads Table into the Worksheet.
      *
      * @param TableDxfsStyle[] $tableStyles
-     * @param mixed[] $dxfs
+     * @param Style[] $dxfs
      */
     public function load(array $tableStyles, array $dxfs): void
     {
@@ -43,7 +44,7 @@ class TableReader
      * Read Table from xml.
      *
      * @param TableDxfsStyle[] $tableStyles
-     * @param mixed[] $dxfs
+     * @param Style[] $dxfs
      */
     private function readTable(string $tableRange, array $tableStyles, array $dxfs): void
     {
@@ -112,7 +113,7 @@ class TableReader
      * Reads TableStyle from xml.
      *
      * @param TableDxfsStyle[] $tableStyles
-     * @param mixed[] $dxfs
+     * @param Style[] $dxfs
      */
     private function readTableStyle(Table $table, SimpleXMLElement $tableStyleInfoXml, array $tableStyles, array $dxfs): void
     {

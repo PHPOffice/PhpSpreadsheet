@@ -287,12 +287,16 @@ class Worksheet
 
     /**
      * Hyperlinks. Indexed by cell coordinate, e.g. 'A1'.
+     *
+     * @var Hyperlink[]
      */
     private array $hyperlinkCollection = [];
 
     /**
      * Data validation objects. Indexed by cell coordinate, e.g. 'A1'.
      * Index can include ranges, and multiple cells/ranges.
+     *
+     * @var DataValidation[]
      */
     private array $dataValidationCollection = [];
 
@@ -389,6 +393,8 @@ class Worksheet
 
     /**
      * Get array of invalid characters for sheet title.
+     *
+     * @return string[]
      */
     public static function getInvalidCharacters(): array
     {
@@ -729,6 +735,7 @@ class Worksheet
                         $filterAdjustment = false;
                         if (!empty($autoFilterIndentRanges)) {
                             foreach ($autoFilterIndentRanges as $autoFilterFirstRowRange) {
+                                /** @var string $autoFilterFirstRowRange */
                                 if ($cell->isInRange($autoFilterFirstRowRange)) {
                                     $filterAdjustment = true;
 
@@ -1101,7 +1108,7 @@ class Worksheet
     /**
      * Get highest worksheet column and highest row that have cell records.
      *
-     * @return array Highest column name and highest row number
+     * @return array{row: int, column: string} Highest column name and highest row number
      */
     public function getHighestRowAndColumn(): array
     {
@@ -1421,6 +1428,8 @@ class Worksheet
      *
      * @param Cell $cell
      *              The Cell for which the tables are retrieved
+     *
+     * @return mixed[]
      */
     public function getTablesWithStylesForCell(Cell $cell): array
     {
@@ -1861,6 +1870,11 @@ class Worksheet
         }
     }
 
+    /**
+     * @param mixed[] $leftCellValue
+     *
+     * @return mixed[]
+     */
     public function mergeCellBehaviour(Cell $cell, string $upperLeft, string $behaviour, array $leftCellValue): array
     {
         if ($cell->getCoordinate() !== $upperLeft) {
@@ -2416,6 +2430,7 @@ class Worksheet
         return $this;
     }
 
+    /** @return RowDimension[] */
     private function removeRowDimensions(int $row, int $numberOfRows): array
     {
         $highRow = $row + $numberOfRows - 1;
@@ -2477,6 +2492,7 @@ class Worksheet
         return $this;
     }
 
+    /** @return ColumnDimension[] */
     private function removeColumnDimensions(int $pColumnIndex, int $numberOfColumns): array
     {
         $highCol = $pColumnIndex + $numberOfColumns - 1;
@@ -2809,7 +2825,7 @@ class Worksheet
     /**
      * Fill worksheet from values in array.
      *
-     * @param array $source Source array
+     * @param mixed[]|mixed[][] $source Source array
      * @param mixed $nullValue Value in source array that stands for blank cell
      * @param string $startCell Insert array starting from this cell address as the top left coordinate
      * @param bool $strictNullComparison Apply strict comparison when testing for null values in the array
@@ -2822,19 +2838,23 @@ class Worksheet
         if (!is_array(end($source))) {
             $source = [$source];
         }
+        /** @var mixed[][] $source */
 
         // start coordinate
         [$startColumn, $startRow] = Coordinate::coordinateFromString($startCell);
+        $startRow = (int) $startRow;
 
         // Loop through $source
         if ($strictNullComparison) {
             foreach ($source as $rowData) {
+                /** @var string */
                 $currentColumn = $startColumn;
                 foreach ($rowData as $cellValue) {
                     if ($cellValue !== $nullValue) {
-                        // Set cell value
+                        /** @var string $currentColumn */
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
+                    /** @var string $currentColumn */
                     ++$currentColumn;
                 }
                 ++$startRow;
@@ -2844,9 +2864,10 @@ class Worksheet
                 $currentColumn = $startColumn;
                 foreach ($rowData as $cellValue) {
                     if ($cellValue != $nullValue) {
-                        // Set cell value
+                        /** @var string $currentColumn */
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
+                    /** @var string $currentColumn */
                     ++$currentColumn;
                 }
                 ++$startRow;
@@ -2930,6 +2951,8 @@ class Worksheet
      *                             True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
+     *
+     * @return mixed[][]
      */
     public function rangesToArray(
         string $ranges,
@@ -2965,7 +2988,7 @@ class Worksheet
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
      *
-     * @return Generator<array>
+     * @return Generator<array<mixed>>
      */
     public function rangeToArrayYieldRows(
         string $range,
@@ -3049,6 +3072,8 @@ class Worksheet
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                             True - Don't return values for rows/columns that are defined as hidden.
      * @param array<string, bool> $hiddenColumns
+     *
+     * @return mixed[]
      */
     private function buildNullRow(
         mixed $nullValue,
@@ -3061,8 +3086,9 @@ class Worksheet
         $nullRow = [];
         $c = -1;
         for ($col = $minCol; $col !== $maxCol; ++$col) {
+            /** @var string $col */
             if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
-                $hiddenColumns[$col] = true; // @phpstan-ignore-line
+                $hiddenColumns[$col] = true;
             } else {
                 $columnRef = $returnCellRef ? $col : ++$c;
                 $nullRow[$columnRef] = $nullValue;
@@ -3230,6 +3256,7 @@ class Worksheet
         } else {
             $this->cachedHighestColumn = $highestColumn;
         }
+        /** @var int $highestRow */
         $this->cachedHighestRow = $highestRow;
 
         // Return

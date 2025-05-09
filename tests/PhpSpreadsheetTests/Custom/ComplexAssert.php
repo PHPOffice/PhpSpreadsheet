@@ -91,6 +91,7 @@ class ComplexAssert extends TestCase
         return $this->errorMessage;
     }
 
+    /** @param array<mixed>|float|string $actual */
     public function runAssertComplexEquals(string $expected, array|float|string $actual, ?float $delta = null): void
     {
         self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());

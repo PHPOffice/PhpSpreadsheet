@@ -6,10 +6,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class UpperTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUPPER')]
+    #[DataProvider('providerUPPER')]
     public function testUPPER(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,7 +30,7 @@ class UpperTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/UPPER.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleLOWER')]
+    #[DataProvider('providerLocaleLOWER')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -57,7 +58,8 @@ class UpperTest extends AllSetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUpperArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerUpperArray')]
     public function testUpperArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

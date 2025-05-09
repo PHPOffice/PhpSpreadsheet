@@ -436,6 +436,7 @@ class Font
         }
 
         // Get corners positions
+        /** @var int[] $textBox */
         $lowerLeftCornerX = $textBox[0];
         $lowerRightCornerX = $textBox[2];
         $upperRightCornerX = $textBox[4];
