@@ -14,7 +14,7 @@ class MergeCellsDeletedTest extends TestCase
         $infile = 'tests/data/Reader/XLSX/issue.282.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($infile);
-        $sheet = $spreadsheet->getSheetByName('Sheet1');
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Sheet1');
 
         $mergeCells = $sheet->getMergeCells();
         self::assertSame(['B1:F1', 'G1:I1'], array_values($mergeCells));
@@ -31,7 +31,7 @@ class MergeCellsDeletedTest extends TestCase
         $infile = 'tests/data/Reader/XLSX/issue.282.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($infile);
-        $sheet = $spreadsheet->getSheetByName('Sheet2');
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Sheet2');
 
         $mergeCells = $sheet->getMergeCells();
         self::assertSame(['A2:A6', 'A7:A9'], array_values($mergeCells));
