@@ -2392,6 +2392,20 @@ class Worksheet
         if ($row < 1) {
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
+        $startRow = $row;
+        $endRow = $startRow + $numberOfRows - 1;
+        $removeKeys = [];
+        foreach ($this->mergeCells as $key => $value) {
+            if (preg_match('/^[a-z]{1,3}(\d+)/i', $key, $matches) === 1) {
+                $startMergeInt = (int) $matches[1];
+                if ($startMergeInt >= $startRow && $startMergeInt <= $endRow) {
+                    $removeKeys[] = $key;
+                }
+            }
+        }
+        foreach ($removeKeys as $key) {
+            unset($this->mergeCells[$key]);
+        }
 
         $holdRowDimensions = $this->removeRowDimensions($row, $numberOfRows);
         $highestRow = $this->getHighestDataRow();
@@ -2447,6 +2461,20 @@ class Worksheet
     {
         if (is_numeric($column)) {
             throw new Exception('Column references should not be numeric.');
+        }
+        $startColumnInt = Coordinate::columnIndexFromString($column);
+        $endColumnInt = $startColumnInt + $numberOfColumns - 1;
+        $removeKeys = [];
+        foreach ($this->mergeCells as $key => $value) {
+            if (preg_match('/^[a-z]{1,3}/i', $key, $matches) === 1) {
+                $startMergeInt = Coordinate::columnIndexFromString($matches[0]);
+                if ($startMergeInt >= $startColumnInt && $startMergeInt <= $endColumnInt) {
+                    $removeKeys[] = $key;
+                }
+            }
+        }
+        foreach ($removeKeys as $key) {
+            unset($this->mergeCells[$key]);
         }
 
         $highestColumn = $this->getHighestDataColumn();
