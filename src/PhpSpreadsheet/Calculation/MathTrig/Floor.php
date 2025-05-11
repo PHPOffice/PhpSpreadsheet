@@ -89,6 +89,9 @@ class Floor
             return $e->getMessage();
         }
 
+        if (empty($significance * $number)) {
+            return 0.0;
+        }
         if ($checkSigns) {
             if (($number > 0 && $significance < 0) || ($number < 0 && $significance > 0)) {
                 return ExcelError::VALUE();
@@ -145,6 +148,9 @@ class Floor
             $significance = Helpers::validateNumericNullSubstitution($significance, null);
         } catch (Exception $e) {
             return $e->getMessage();
+        }
+        if (!$significance) {
+            return 0.0;
         }
 
         return self::argumentsOkPrecise((float) $number, (float) $significance);
