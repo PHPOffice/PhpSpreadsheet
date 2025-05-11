@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RightTest extends AllSetupTeardown
 {
@@ -14,7 +15,7 @@ class RightTest extends AllSetupTeardown
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerRIGHT')]
+    #[DataProvider('providerRIGHT')]
     public function testRIGHT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -38,7 +39,7 @@ class RightTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerLocaleRIGHT')]
+    #[DataProvider('providerLocaleRIGHT')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -68,7 +69,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTTrue')]
+    #[DataProvider('providerCalculationTypeRIGHTTrue')]
     public function testCalculationTypeTrue(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -102,7 +103,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTFalse')]
+    #[DataProvider('providerCalculationTypeRIGHTFalse')]
     public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -136,7 +137,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCalculationTypeRIGHTNull')]
+    #[DataProvider('providerCalculationTypeRIGHTNull')]
     public function testCalculationTypeNull(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -169,7 +170,8 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerRightArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerRightArray')]
     public function testRightArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

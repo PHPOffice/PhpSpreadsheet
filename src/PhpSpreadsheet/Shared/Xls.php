@@ -201,6 +201,8 @@ class Xls
      * @param int $offsetY Vertical offset in pixels
      * @param int $width Width in pixels
      * @param int $height Height in pixels
+     *
+     * @return array{startCoordinates: string, startOffsetX: int, startOffsetY: int, endCoordinates: string, endOffsetX: int, endOffsetY: int}
      */
     public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, int $offsetX, int $offsetY, int $width, int $height): ?array
     {

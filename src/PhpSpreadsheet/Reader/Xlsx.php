@@ -813,7 +813,6 @@ class Xlsx extends BaseReader
                                 $xmlSheetMain = $xmlSheetNS->children($mainNS);
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
-                                /** @var Style[] $dxfs */
                                 if (!$this->readDataOnly && ($xmlSheet->conditionalFormatting)) {
                                     (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->load();
                                 }
@@ -1936,6 +1935,7 @@ class Xlsx extends BaseReader
             }
         }
 
+        /** @var array<array<array<array<string>|string>>> $unparsedLoadedData */
         $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
@@ -2345,7 +2345,7 @@ class Xlsx extends BaseReader
 
     /**
      * @param TableDxfsStyle[] $tableStyles
-     * @param mixed[] $dxfs
+     * @param Style[] $dxfs
      */
     private function readTables(
         SimpleXMLElement $xmlSheet,
@@ -2368,7 +2368,7 @@ class Xlsx extends BaseReader
 
     /**
      * @param TableDxfsStyle[] $tableStyles
-     * @param mixed[] $dxfs
+     * @param Style[] $dxfs
      */
     private function readTablesInTablesFile(
         SimpleXMLElement $xmlSheet,

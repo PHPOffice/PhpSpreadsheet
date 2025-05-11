@@ -19,6 +19,7 @@ class DocumentGeneratorTest extends TestCase
 
     private static bool $succeededByCategory = false;
 
+    /** @param array<string, array{category: string, functionCall: array<string>|string, argumentCount: string, passCellReference?: bool, passByReference?: array<bool>, custom?: bool}> $phpSpreadsheetFunctions */
     #[DataProvider('providerGenerateFunctionListByName')]
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
@@ -26,6 +27,7 @@ class DocumentGeneratorTest extends TestCase
         self::$succeededByName = true;
     }
 
+    /** @param array<string, array{category: string, functionCall: array<string>|string, argumentCount: string, passCellReference?: bool, passByReference?: array<bool>, custom?: bool}> $phpSpreadsheetFunctions */
     #[DataProvider('providerGenerateFunctionListByCategory')]
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {

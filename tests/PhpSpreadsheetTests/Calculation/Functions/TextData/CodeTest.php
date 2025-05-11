@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CodeTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCODE')]
+    #[DataProvider('providerCODE')]
     public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -28,7 +29,8 @@ class CodeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/CODE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCodeArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerCodeArray')]
     public function testCodeArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

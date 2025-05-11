@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DollarTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDOLLAR')]
+    #[DataProvider('providerDOLLAR')]
     public function testDOLLAR(mixed $expectedResult, mixed $amount = 'omitted', mixed $decimals = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,7 +33,8 @@ class DollarTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/DOLLAR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDollarArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDollarArray')]
     public function testDollarArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

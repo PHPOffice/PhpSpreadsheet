@@ -51,12 +51,14 @@ class CalculationTest extends TestCase
         $tree = $calculation->parseFormula('=_xlfn.ISFORMULA(A1)');
         self::assertIsArray($tree);
         self::assertCount(3, $tree);
+        /** @var mixed[] */
         $function = $tree[2];
         self::assertEquals('Function', $function['type']);
 
         $tree = $calculation->parseFormula('=_xlfn.STDEV.S(A1:B2)');
         self::assertIsArray($tree);
         self::assertCount(5, $tree);
+        /** @var mixed[] */
         $function = $tree[4];
         self::assertEquals('Function', $function['type']);
     }
@@ -253,6 +255,7 @@ class CalculationTest extends TestCase
         $foundEqualAssociatedToStoreKey = false;
         $foundConditionalOnB1 = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isBinaryOperator = $token['type'] == 'Binary Operator';
             $isEqual = $token['value'] == '=';
             $correctStoreKey = ($token['storeKey'] ?? '') == 'storeKey-0';
@@ -283,6 +286,7 @@ class CalculationTest extends TestCase
         $plusGotTagged = false;
         $productFunctionCorrectlyTagged = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isBinaryOperator = $token['type'] == 'Binary Operator';
             $isPlus = $token['value'] == '+';
             $anyStoreKey = isset($token['storeKey']);
@@ -315,6 +319,7 @@ class CalculationTest extends TestCase
         $notFunctionCorrectlyTagged = false;
         $findOneOperandCountTagged = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $value = $token['value'];
             $isPlus = $value == '+';
             $isProductFunction = $value == 'PRODUCT(';
@@ -357,6 +362,7 @@ class CalculationTest extends TestCase
 
         $properlyTaggedPlus = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isPlus = $token['value'] === '+';
             $hasOnlyIf = !empty($token['onlyIf']);
 
