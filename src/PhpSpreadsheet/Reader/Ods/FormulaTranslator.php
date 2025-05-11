@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FormulaTranslator
@@ -27,7 +28,7 @@ class FormulaTranslator
         // Cell range 3-d reference
         // As we don't support 3-d ranges, we're just going to take a quick and dirty approach
         //  and assume that the second worksheet reference is the same as the first
-        $excelAddress = (string) preg_replace(
+        $excelAddress = Preg::replace(
             [
                 '/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu',
                 '/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', // Cell range reference in another sheet
@@ -62,7 +63,7 @@ class FormulaTranslator
             //      so that conversion isn't done in string values
             $tKey = $tKey === false;
             if ($tKey) {
-                $value = (string) preg_replace(
+                $value = Preg::replace(
                     [
                         '/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', // Cell range reference in another sheet
                         '/\[\$?([^\.]+)\.([^\.]+)\]/miu', // Cell reference in another sheet
@@ -103,7 +104,18 @@ class FormulaTranslator
                     Calculation::FORMULA_CLOSE_MATRIX_BRACE
                 );
 
-                $value = (string) preg_replace('/COM\.MICROSOFT\./ui', '', $value);
+                $value = Preg::replace(
+                    [
+                        '/\b(?<!com[.]microsoft[.])'
+                            . '(floor|ceiling)\s*[(]/ui',
+                        '/COM\.MICROSOFT\./ui',
+                    ],
+                    [
+                        '$1.ODS(',
+                        '',
+                    ],
+                    $value
+                );
             }
         }
 
