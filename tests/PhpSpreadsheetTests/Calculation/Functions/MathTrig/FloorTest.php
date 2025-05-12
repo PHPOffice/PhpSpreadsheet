@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class FloorTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFLOOR')]
+    #[DataProvider('providerFLOOR')]
     public function testFLOOR(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -25,6 +26,24 @@ class FloorTest extends AllSetupTeardown
     public static function providerFLOOR(): array
     {
         return require 'tests/data/Calculation/MathTrig/FLOOR.php';
+    }
+
+    public function testFLOORGnumericClashingSigns(): void
+    {
+        self::setGnumeric();
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=FLOOR(17,8)');
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEqualsWithDelta(16, $result, 1E-12);
+        $sheet->getCell('A2')->setValue('=FLOOR(-17,-8)');
+        $result = $sheet->getCell('A2')->getCalculatedValue();
+        self::assertEqualsWithDelta(-16, $result, 1E-12);
+        $sheet->getCell('A3')->setValue('=FLOOR(17,-8)');
+        $result = $sheet->getCell('A3')->getCalculatedValue();
+        self::assertSame('#NUM!', $result);
+        $sheet->getCell('A4')->setValue('=FLOOR(-17,8)');
+        $result = $sheet->getCell('A4')->getCalculatedValue();
+        self::assertSame('#NUM!', $result);
     }
 
     public function testFLOORGnumeric1Arg(): void
@@ -54,7 +73,7 @@ class FloorTest extends AllSetupTeardown
         self::assertEqualsWithDelta(5, $result, 1E-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFloorArray')]
+    #[DataProvider('providerFloorArray')]
     public function testFloorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();

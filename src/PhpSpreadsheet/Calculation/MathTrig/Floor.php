@@ -94,7 +94,7 @@ class Floor
         }
         if ($checkSigns) {
             if (($number > 0 && $significance < 0) || ($number < 0 && $significance > 0)) {
-                return ExcelError::VALUE();
+                return ExcelError::NAN();
             }
         }
 
@@ -210,10 +210,12 @@ class Floor
         if ($number == 0.0) {
             return 0.0;
         }
-        if (Helpers::returnSign($significance) == 1) {
-            return floor($number / $significance) * $significance;
-        }
-        if (Helpers::returnSign($number) == -1 && Helpers::returnSign($significance) == -1) {
+        $signSig = Helpers::returnSign($significance);
+        $signNum = Helpers::returnSign($number);
+        if (
+            ($signSig === 1 && ($signNum === 1 || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))
+            || ($signNum === -1 && $signSig === -1)
+        ) {
             return floor($number / $significance) * $significance;
         }
 

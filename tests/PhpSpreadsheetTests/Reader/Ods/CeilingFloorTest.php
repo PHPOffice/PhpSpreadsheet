@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CeilingFloorTest extends AbstractFunctional
@@ -49,8 +50,8 @@ class CeilingFloorTest extends AbstractFunctional
                 "Error in cell $key"
             );
         }
-        self::assertSame('#VALUE!', $oldSheet->getCell('E1')->getCalculatedValue());
-        self::assertSame('#VALUE!', $oldSheet->getCell('F1')->getCalculatedValue());
+        self::assertSame('#NUM!', $oldSheet->getCell('E1')->getCalculatedValue());
+        self::assertSame('#NUM!', $oldSheet->getCell('F1')->getCalculatedValue());
 
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
         $spreadsheetOld->disconnectWorksheets();
@@ -62,8 +63,8 @@ class CeilingFloorTest extends AbstractFunctional
                 "Error in cell $key"
             );
         }
-        self::assertSame('#VALUE!', $sheet->getCell('E1')->getCalculatedValue());
-        self::assertSame('#VALUE!', $sheet->getCell('F1')->getCalculatedValue());
+        self::assertSame('#NUM!', $sheet->getCell('E1')->getCalculatedValue());
+        self::assertSame('#NUM!', $sheet->getCell('F1')->getCalculatedValue());
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -85,6 +86,34 @@ class CeilingFloorTest extends AbstractFunctional
         }
         self::assertSame(37.0, $sheet->getCell('E1')->getCalculatedValue()); // different from ODS
         self::assertSame(-37.0, $sheet->getCell('F1')->getCalculatedValue()); // different from ODS
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testWriteXcl(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('=CEILING.XCL(17.8,8)');
+        $sheet->getCell('B1')->setValue('=FLOOR.XCL(17.8,8)');
+
+        $spreadsheetOds = $this->writeAndReload($spreadsheet, 'Ods');
+        $sheetOds = $spreadsheetOds->getActiveSheet();
+        self::assertSame('=CEILING(17.8,8)', $sheetOds->getCell('A1')->getValue());
+        self::assertSame('=FLOOR(17.8,8)', $sheetOds->getCell('B1')->getValue());
+        $spreadsheetOds->disconnectWorksheets();
+
+        $spreadsheetXlsx = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $sheetXlsx = $spreadsheetXlsx->getActiveSheet();
+        self::assertSame('=CEILING(17.8,8)', $sheetXlsx->getCell('A1')->getValue());
+        self::assertSame('=FLOOR(17.8,8)', $sheetXlsx->getCell('B1')->getValue());
+        $spreadsheetXlsx->disconnectWorksheets();
+
+        $spreadsheetXls = $this->writeAndReload($spreadsheet, 'Xls');
+        $sheetXls = $spreadsheetXls->getActiveSheet();
+        self::assertSame('=CEILING(17.8,8)', $sheetXls->getCell('A1')->getValue());
+        self::assertSame('=FLOOR(17.8,8)', $sheetXls->getCell('B1')->getValue());
+        $spreadsheetXls->disconnectWorksheets();
 
         $spreadsheet->disconnectWorksheets();
     }

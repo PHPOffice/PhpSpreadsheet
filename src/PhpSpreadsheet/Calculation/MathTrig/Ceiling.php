@@ -89,7 +89,7 @@ class Ceiling
         }
         if ($checkSigns) {
             if (($number > 0 && $significance < 0) || ($number < 0 && $significance > 0)) {
-                return ExcelError::VALUE();
+                return ExcelError::NAN();
             }
         }
         if (self::ceilingMathTest((float) $significance, (float) $number, (int) $mode)) {
@@ -170,7 +170,12 @@ class Ceiling
         if (empty($number * $significance)) {
             return 0.0;
         }
-        if (Helpers::returnSign($number) == Helpers::returnSign($significance)) {
+        $signSig = Helpers::returnSign($significance);
+        $signNum = Helpers::returnSign($number);
+        if (
+            ($signSig === 1 && ($signNum === 1 || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))
+            || ($signSig === -1 && $signNum === -1)
+        ) {
             return ceil($number / $significance) * $significance;
         }
 
