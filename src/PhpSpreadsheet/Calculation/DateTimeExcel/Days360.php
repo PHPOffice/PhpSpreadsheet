@@ -40,7 +40,7 @@ class Days360
      *                                        same month.
      *                         Or can be an array of methods
      *
-     * @return array|int|string Number of days between start date and end date
+     * @return array<mixed>|int|string Number of days between start date and end date
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */

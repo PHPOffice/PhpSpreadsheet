@@ -48,7 +48,9 @@ class PolynomialBestFit extends BestFit
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
         foreach ($slope as $key => $value) {
+            /** @var float $value */
             if ($value != 0.0) {
+                /** @var int $key */
                 $retVal += $value * $xValue ** ($key + 1);
             }
         }
@@ -82,8 +84,10 @@ class PolynomialBestFit extends BestFit
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
         foreach ($slope as $key => $value) {
+            /** @var float|int $value */
             if ($value != 0.0) {
                 $equation .= ' + ' . $value . ' * X';
+                /** @var int $key */
                 if ($key > 0) {
                     $equation .= '^' . ($key + 1);
                 }
@@ -104,6 +108,7 @@ class PolynomialBestFit extends BestFit
             $coefficients = [];
             //* @phpstan-ignore-next-line
             foreach ($this->slope as $coefficient) {
+                /** @var float|int $coefficient */
                 $coefficients[] = round($coefficient, $dp);
             }
 
@@ -114,6 +119,7 @@ class PolynomialBestFit extends BestFit
         return $this->slope;
     }
 
+    /** @return array<float|int> */
     public function getCoefficients(int $dp = 0): array
     {
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.

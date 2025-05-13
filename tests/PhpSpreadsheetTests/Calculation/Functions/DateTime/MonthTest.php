@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MonthTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMONTH')]
+    #[DataProvider('providerMONTH')]
     public function testDirectCallToMONTH(mixed $expectedResultExcel, mixed ...$args): void
     {
         $result = DateParts::month(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMONTH')]
+    #[DataProvider('providerMONTH')]
     public function testMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class MonthTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMONTH')]
+    #[DataProvider('providerMONTH')]
     public function testMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class MonthTest extends TestCase
         return require 'tests/data/Calculation/DateTime/MONTH.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyMONTH')]
+    #[DataProvider('providerUnhappyMONTH')]
     public function testMONTHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,7 +82,8 @@ class MonthTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMonthArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerMonthArray')]
     public function testMonthArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

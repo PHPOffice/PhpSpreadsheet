@@ -217,7 +217,7 @@ class Functions
      *
      * @param mixed $array Array to be flattened
      *
-     * @return array Flattened array
+     * @return array<mixed> Flattened array
      */
     public static function flattenArray(mixed $array): array
     {
@@ -247,7 +247,7 @@ class Functions
      *
      * @param mixed $array Array to be flattened
      *
-     * @return array Flattened array
+     * @return array<mixed> Flattened array
      */
     public static function flattenArray2(mixed ...$array): array
     {
@@ -285,7 +285,7 @@ class Functions
      *
      * @param array|mixed $array Array to be flattened
      *
-     * @return array Flattened array
+     * @return array<mixed> Flattened array
      */
     public static function flattenArrayIndexed($array): array
     {

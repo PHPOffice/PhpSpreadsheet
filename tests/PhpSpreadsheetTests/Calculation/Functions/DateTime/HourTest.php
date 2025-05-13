@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class HourTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
+    #[DataProvider('providerHOUR')]
     public function testDirectCallToHOUR(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::hour(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
+    #[DataProvider('providerHOUR')]
     public function testHOURAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class HourTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHOUR')]
+    #[DataProvider('providerHOUR')]
     public function testHOURInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class HourTest extends TestCase
         return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyHOUR')]
+    #[DataProvider('providerUnhappyHOUR')]
     public function testHOURUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,7 +82,8 @@ class HourTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHourArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerHourArray')]
     public function testHourArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

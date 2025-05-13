@@ -31,7 +31,7 @@ class YearFrac
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *                         Or can be an array of methods
-     * @param array|int $method Method used for the calculation
+     * @param array<mixed>|int $method Method used for the calculation
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -39,7 +39,7 @@ class YearFrac
      *                                        4                European 30/360
      *                         Or can be an array of methods
      *
-     * @return array|float|int|string fraction of the year, or a string containing an error
+     * @return array<mixed>|float|int|string fraction of the year, or a string containing an error
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */

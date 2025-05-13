@@ -15,7 +15,7 @@ class ErrorValue
      * @param mixed $value Value to check
      *                      Or can be an array of values
      *
-     * @return array|bool If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|bool If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function isErr(mixed $value = ''): array|bool
@@ -33,7 +33,7 @@ class ErrorValue
      * @param mixed $value Value to check
      *                      Or can be an array of values
      *
-     * @return array|bool If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|bool If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function isError(mixed $value = '', bool $tryNotImplemented = false): array|bool
@@ -58,7 +58,7 @@ class ErrorValue
      * @param mixed $value Value to check
      *                      Or can be an array of values
      *
-     * @return array|bool If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|bool If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function isNa(mixed $value = ''): array|bool
