@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use ArrayObject;
+use Composer\Pcre\Preg;
 use Generator;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -1205,8 +1206,8 @@ class Worksheet
                 throw new Exception('Sheet not found for name: ' . $worksheetReference[0]);
             }
         } elseif (
-            !preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $coordinate)
-            && preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/iu', $coordinate)
+            !Preg::isMatch('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $coordinate)
+            && Preg::isMatch('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/iu', $coordinate)
         ) {
             // Named range?
             $namedRange = $this->validateNamedRange($coordinate, true);
@@ -1458,7 +1459,7 @@ class Worksheet
     public function getConditionalStyles(string $coordinate, bool $firstOnly = true): array
     {
         $coordinate = strtoupper($coordinate);
-        if (preg_match('/[: ,]/', $coordinate) === 1) {
+        if (Preg::isMatch('/[: ,]/', $coordinate)) {
             return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
@@ -1778,7 +1779,7 @@ class Worksheet
             $range .= ":{$range}";
         }
 
-        if (preg_match('/^([A-Z]+)(\d+):([A-Z]+)(\d+)$/', $range, $matches) !== 1) {
+        if (!Preg::isMatch('/^([A-Z]+)(\d+):([A-Z]+)(\d+)$/', $range, $matches)) {
             throw new Exception('Merge must be on a valid range of cells.');
         }
 
@@ -2395,16 +2396,38 @@ class Worksheet
         $startRow = $row;
         $endRow = $startRow + $numberOfRows - 1;
         $removeKeys = [];
+        $addKeys = [];
         foreach ($this->mergeCells as $key => $value) {
-            if (preg_match('/^[a-z]{1,3}(\d+)/i', $key, $matches) === 1) {
-                $startMergeInt = (int) $matches[1];
-                if ($startMergeInt >= $startRow && $startMergeInt <= $endRow) {
-                    $removeKeys[] = $key;
+            if (
+                Preg::isMatch(
+                    '/^([a-z]{1,3})(\d+):([a-z]{1,3})(\d+)/i',
+                    $key,
+                    $matches
+                )
+            ) {
+                $startMergeInt = (int) $matches[2];
+                $endMergeInt = (int) $matches[4];
+                if ($startMergeInt >= $startRow) {
+                    if ($startMergeInt <= $endRow) {
+                        $removeKeys[] = $key;
+                    }
+                } elseif ($endMergeInt >= $startRow) {
+                    if ($endMergeInt <= $endRow) {
+                        $temp = $endMergeInt - 1;
+                        $removeKeys[] = $key;
+                        if ($temp !== $startMergeInt) {
+                            $temp3 = $matches[1] . $matches[2] . ':' . $matches[3] . $temp;
+                            $addKeys[] = $temp3;
+                        }
+                    }
                 }
             }
         }
         foreach ($removeKeys as $key) {
             unset($this->mergeCells[$key]);
+        }
+        foreach ($addKeys as $key) {
+            $this->mergeCells[$key] = $key;
         }
 
         $holdRowDimensions = $this->removeRowDimensions($row, $numberOfRows);
@@ -2465,16 +2488,39 @@ class Worksheet
         $startColumnInt = Coordinate::columnIndexFromString($column);
         $endColumnInt = $startColumnInt + $numberOfColumns - 1;
         $removeKeys = [];
+        $addKeys = [];
         foreach ($this->mergeCells as $key => $value) {
-            if (preg_match('/^[a-z]{1,3}/i', $key, $matches) === 1) {
-                $startMergeInt = Coordinate::columnIndexFromString($matches[0]);
-                if ($startMergeInt >= $startColumnInt && $startMergeInt <= $endColumnInt) {
-                    $removeKeys[] = $key;
+            if (
+                Preg::isMatch(
+                    '/^([a-z]{1,3})(\d+):([a-z]{1,3})(\d+)/i',
+                    $key,
+                    $matches
+                )
+            ) {
+                $startMergeInt = Coordinate::columnIndexFromString($matches[1]);
+                $endMergeInt = Coordinate::columnIndexFromString($matches[3]);
+                if ($startMergeInt >= $startColumnInt) {
+                    if ($startMergeInt <= $endColumnInt) {
+                        $removeKeys[] = $key;
+                    }
+                } elseif ($endMergeInt >= $startColumnInt) {
+                    if ($endMergeInt <= $endColumnInt) {
+                        $temp = Coordinate::columnIndexFromString($matches[3]) - 1;
+                        $temp2 = Coordinate::stringFromColumnIndex($temp);
+                        $removeKeys[] = $key;
+                        if ($temp2 !== $matches[1]) {
+                            $temp3 = $matches[1] . $matches[2] . ':' . $temp2 . $matches[4];
+                            $addKeys[] = $temp3;
+                        }
+                    }
                 }
             }
         }
         foreach ($removeKeys as $key) {
             unset($this->mergeCells[$key]);
+        }
+        foreach ($addKeys as $key) {
+            $this->mergeCells[$key] = $key;
         }
 
         $highestColumn = $this->getHighestDataColumn();
@@ -3464,7 +3510,7 @@ class Worksheet
         $collectionCells = [];
         $collectionRanges = [];
         foreach ($this->dataValidationCollection as $key => $dataValidation) {
-            if (preg_match('/[: ]/', $key) === 1) {
+            if (Preg::isMatch('/[: ]/', $key)) {
                 $collectionRanges[$key] = $dataValidation;
             } else {
                 $collectionCells[$key] = $dataValidation;
@@ -3732,7 +3778,7 @@ class Worksheet
 
     public static function nameRequiresQuotes(string $sheetName): bool
     {
-        return preg_match(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName) !== 1;
+        return !Preg::isMatch(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName);
     }
 
     public function isRowVisible(int $row): bool
@@ -3865,7 +3911,7 @@ class Worksheet
             $keys = $this->cellCollection->getCoordinates();
             foreach ($keys as $key) {
                 if ($this->getCell($key)->getDataType() === DataType::TYPE_FORMULA) {
-                    if (preg_match(self::FUNCTION_LIKE_GROUPBY, $this->getCell($key)->getValueString()) !== 1) {
+                    if (!Preg::isMatch(self::FUNCTION_LIKE_GROUPBY, $this->getCell($key)->getValueString())) {
                         $this->getCell($key)->getCalculatedValue();
                     }
                 }
