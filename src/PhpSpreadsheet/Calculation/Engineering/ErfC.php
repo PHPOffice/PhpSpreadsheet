@@ -26,7 +26,7 @@ class ErfC
      * @param mixed $value The float lower bound for integrating ERFC
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function ERFC(mixed $value)

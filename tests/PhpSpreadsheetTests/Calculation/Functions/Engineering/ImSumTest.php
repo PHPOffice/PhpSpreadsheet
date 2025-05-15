@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImSumTest extends TestCase
@@ -28,7 +29,7 @@ class ImSumTest extends TestCase
     /**
      * @param string ...$args variadic arguments
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUM')]
+    #[DataProvider('providerIMSUM')]
     public function testDirectCallToIMSUM(mixed $expectedResult, ...$args): void
     {
         $result = ComplexOperations::IMSUM(...$args);
@@ -43,7 +44,7 @@ class ImSumTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUM')]
+    #[DataProvider('providerIMSUM')]
     public function testIMSUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -59,7 +60,7 @@ class ImSumTest extends TestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUM')]
+    #[DataProvider('providerIMSUM')]
     public function testIMSUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -85,7 +86,7 @@ class ImSumTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSUM.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSUM')]
+    #[DataProvider('providerUnhappyIMSUM')]
     public function testIMSUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);

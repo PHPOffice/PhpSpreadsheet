@@ -19,10 +19,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMABS(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the absolute value
+     * @param array<mixed>|string $complexNumber the complex number for which you want the absolute value
      *                      Or can be an array of values
      *
-     * @return array|float|string         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMABS(array|string $complexNumber): array|float|string
@@ -49,10 +49,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMARGUMENT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the argument theta
+     * @param array<mixed>|string $complexNumber the complex number for which you want the argument theta
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMARGUMENT(array|string $complexNumber): array|float|string
@@ -82,10 +82,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCONJUGATE(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the conjugate
+     * @param array<mixed>|string $complexNumber the complex number for which you want the conjugate
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCONJUGATE(array|string $complexNumber): array|string
@@ -111,10 +111,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOS(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cosine
+     * @param array<mixed>|string $complexNumber the complex number for which you want the cosine
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCOS(array|string $complexNumber): array|string
@@ -140,10 +140,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOSH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
+     * @param array<mixed>|string $complexNumber the complex number for which you want the hyperbolic cosine
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCOSH(array|string $complexNumber): array|string
@@ -169,10 +169,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCOT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cotangent
+     * @param array<mixed>|string $complexNumber the complex number for which you want the cotangent
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCOT(array|string $complexNumber): array|string
@@ -198,10 +198,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCSC(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the cosecant
+     * @param array<mixed>|string $complexNumber the complex number for which you want the cosecant
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCSC(array|string $complexNumber): array|string
@@ -227,10 +227,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMCSCH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
+     * @param array<mixed>|string $complexNumber the complex number for which you want the hyperbolic cosecant
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMCSCH(array|string $complexNumber): array|string
@@ -256,10 +256,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMSIN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the sine
+     * @param array<mixed>|string $complexNumber the complex number for which you want the sine
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSIN(array|string $complexNumber): array|string
@@ -285,10 +285,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMSINH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic sine
+     * @param array<mixed>|string $complexNumber the complex number for which you want the hyperbolic sine
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSINH(array|string $complexNumber): array|string
@@ -314,10 +314,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMSEC(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the secant
+     * @param array<mixed>|string $complexNumber the complex number for which you want the secant
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSEC(array|string $complexNumber): array|string
@@ -343,10 +343,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMSECH(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the hyperbolic secant
+     * @param array<mixed>|string $complexNumber the complex number for which you want the hyperbolic secant
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSECH(array|string $complexNumber): array|string
@@ -372,10 +372,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMTAN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the tangent
+     * @param array<mixed>|string $complexNumber the complex number for which you want the tangent
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMTAN(array|string $complexNumber): array|string
@@ -401,10 +401,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMSQRT(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the square root
+     * @param array<mixed>|string $complexNumber the complex number for which you want the square root
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSQRT(array|string $complexNumber): array|string
@@ -435,10 +435,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMLN(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the natural logarithm
+     * @param array<mixed>|string $complexNumber the complex number for which you want the natural logarithm
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMLN(array|string $complexNumber): array|string
@@ -468,10 +468,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMLOG10(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the common logarithm
+     * @param array<mixed>|string $complexNumber the complex number for which you want the common logarithm
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMLOG10(array|string $complexNumber): array|string
@@ -501,10 +501,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMLOG2(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the base-2 logarithm
+     * @param array<mixed>|string $complexNumber the complex number for which you want the base-2 logarithm
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMLOG2(array|string $complexNumber): array|string
@@ -534,10 +534,10 @@ class ComplexFunctions
      * Excel Function:
      *        IMEXP(complexNumber)
      *
-     * @param array|string $complexNumber the complex number for which you want the exponential
+     * @param array<mixed>|string $complexNumber the complex number for which you want the exponential
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMEXP(array|string $complexNumber): array|string
@@ -563,12 +563,12 @@ class ComplexFunctions
      * Excel Function:
      *        IMPOWER(complexNumber,realNumber)
      *
-     * @param array|string $complexNumber the complex number you want to raise to a power
+     * @param array<mixed>|string $complexNumber the complex number you want to raise to a power
      *                      Or can be an array of values
-     * @param array|float|int|string $realNumber the power to which you want to raise the complex number
+     * @param array<mixed>|float|int|string $realNumber the power to which you want to raise the complex number
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMPOWER(array|string $complexNumber, array|float|int|string $realNumber): array|string

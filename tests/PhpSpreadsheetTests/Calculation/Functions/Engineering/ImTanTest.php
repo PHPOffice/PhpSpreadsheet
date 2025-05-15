@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImTanTest extends TestCase
@@ -25,7 +26,7 @@ class ImTanTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
+    #[DataProvider('providerIMTAN')]
     public function testDirectCallToIMTAN(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMTAN($arg);
@@ -40,7 +41,7 @@ class ImTanTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
+    #[DataProvider('providerIMTAN')]
     public function testIMTANAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,7 +57,7 @@ class ImTanTest extends TestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMTAN')]
+    #[DataProvider('providerIMTAN')]
     public function testIMTANInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,7 @@ class ImTanTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMTAN.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMTAN')]
+    #[DataProvider('providerUnhappyIMTAN')]
     public function testIMTANUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,7 +109,8 @@ class ImTanTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImTanArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerImTanArray')]
     public function testImTanArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Dec2BinTest extends TestCase
@@ -26,7 +27,7 @@ class Dec2BinTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2BIN')]
+    #[DataProvider('providerDEC2BIN')]
     public function testDirectCallToDEC2BIN(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         $result = ($digits === null) ? ConvertDecimal::toBinary($value) : ConvertDecimal::toBinary($value, $digits);
@@ -38,7 +39,7 @@ class Dec2BinTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2BIN')]
+    #[DataProvider('providerDEC2BIN')]
     public function testDEC2BINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -51,7 +52,7 @@ class Dec2BinTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2BIN')]
+    #[DataProvider('providerDEC2BIN')]
     public function testDEC2BINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -74,7 +75,7 @@ class Dec2BinTest extends TestCase
         return require 'tests/data/Calculation/Engineering/DEC2BIN.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDEC2BIN')]
+    #[DataProvider('providerUnhappyDEC2BIN')]
     public function testDEC2BINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -100,7 +101,7 @@ class Dec2BinTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEC2BINOds')]
+    #[DataProvider('providerDEC2BINOds')]
     public function testDEC2BINOds(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -135,7 +136,8 @@ class Dec2BinTest extends TestCase
         self::assertSame('101', $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDec2BinArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDec2BinArray')]
     public function testDec2BinArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

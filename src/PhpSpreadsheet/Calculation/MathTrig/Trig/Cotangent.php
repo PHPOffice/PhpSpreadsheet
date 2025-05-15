@@ -15,9 +15,9 @@ class Cotangent
      *
      * Returns the cotangent of an angle.
      *
-     * @param array|float $angle Number, or can be an array of numbers
+     * @param array<mixed>|float $angle Number, or can be an array of numbers
      *
-     * @return array|float|string The cotangent of the angle
+     * @return array<mixed>|float|string The cotangent of the angle
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -41,9 +41,9 @@ class Cotangent
      *
      * Returns the hyperbolic cotangent of an angle.
      *
-     * @param array|float $angle Number, or can be an array of numbers
+     * @param array<mixed>|float $angle Number, or can be an array of numbers
      *
-     * @return array|float|string The hyperbolic cotangent of the angle
+     * @return array<mixed>|float|string The hyperbolic cotangent of the angle
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -67,9 +67,9 @@ class Cotangent
      *
      * Returns the arccotangent of a number.
      *
-     * @param array|float $number Number, or can be an array of numbers
+     * @param array<mixed>|float $number Number, or can be an array of numbers
      *
-     * @return array|float|string The arccotangent of the number
+     * @return array<mixed>|float|string The arccotangent of the number
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -93,9 +93,9 @@ class Cotangent
      *
      * Returns the hyperbolic arccotangent of a number.
      *
-     * @param array|float $number Number, or can be an array of numbers
+     * @param array<mixed>|float $number Number, or can be an array of numbers
      *
-     * @return array|float|string The hyperbolic arccotangent of the number
+     * @return array<mixed>|float|string The hyperbolic arccotangent of the number
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

@@ -31,7 +31,7 @@ class BesselI
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|float|string Result, or a string containing an error
+     * @return array<mixed>|float|string Result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

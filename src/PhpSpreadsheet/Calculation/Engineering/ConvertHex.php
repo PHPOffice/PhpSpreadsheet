@@ -15,7 +15,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @param array|bool|float|string $value The hexadecimal number you want to convert.
+     * @param array<mixed>|bool|float|string $value The hexadecimal number you want to convert.
      *                      Number cannot contain more than 10 characters.
      *                      The most significant bit of number is the sign bit (40th bit from the right).
      *                      The remaining 9 bits are magnitude bits.
@@ -26,7 +26,7 @@ class ConvertHex extends ConvertBase
      *                      If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
      *                      If HEX2BIN requires more than places characters, it returns the #NUM! error value.
      *                      Or can be an array of values
-     * @param array|int $places The number of characters to use. If places is omitted,
+     * @param array<mixed>|int $places The number of characters to use. If places is omitted,
      *                          HEX2BIN uses the minimum number of characters necessary. Places
      *                          is useful for padding the return value with leading 0s (zeros).
      *                      If places is not an integer, it is truncated.
@@ -34,7 +34,7 @@ class ConvertHex extends ConvertBase
      *                      If places is negative, HEX2BIN returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -65,7 +65,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @param array|bool|float|int|string $value The hexadecimal number you want to convert. This number cannot
+     * @param array<mixed>|bool|float|int|string $value The hexadecimal number you want to convert. This number cannot
      *                          contain more than 10 characters (40 bits). The most significant
      *                          bit of number is the sign bit. The remaining 39 bits are magnitude
      *                          bits. Negative numbers are represented using two's-complement
@@ -74,7 +74,7 @@ class ConvertHex extends ConvertBase
      *                          #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Result, or an error
+     * @return array<mixed>|float|int|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -118,7 +118,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @param array|bool|float|int|string $value The hexadecimal number you want to convert. Number cannot
+     * @param array<mixed>|bool|float|int|string $value The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
      *                                    number is the sign bit. The remaining 39 bits are magnitude
      *                                    bits. Negative numbers are represented using two's-complement
@@ -132,7 +132,7 @@ class ConvertHex extends ConvertBase
      *                                    If HEX2OCT requires more than places characters, it returns
      *                                    the #NUM! error value.
      *                      Or can be an array of values
-     * @param array|int $places The number of characters to use. If places is omitted, HEX2OCT
+     * @param array<mixed>|int $places The number of characters to use. If places is omitted, HEX2OCT
      *                                    uses the minimum number of characters necessary. Places is
      *                                    useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -141,7 +141,7 @@ class ConvertHex extends ConvertBase
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

@@ -28,7 +28,7 @@ class Random
      * @param mixed $max Maximal value
      *                      Or can be an array of values
      *
-     * @return array|int|string Random number
+     * @return array<mixed>|int|string Random number
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -65,7 +65,7 @@ class Random
      *                             False - Decimal numbers to 15 decimal places. (default)
      *                             True - Whole (integer) numbers
      *
-     * @return array|string The resulting array, or a string containing an error
+     * @return array<mixed>|string The resulting array, or a string containing an error
      */
     public static function randArray(mixed $rows = 1, mixed $columns = 1, mixed $min = 0, mixed $max = 1, bool $wholeNumber = false): string|array
     {

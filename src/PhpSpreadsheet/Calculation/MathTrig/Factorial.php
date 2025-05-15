@@ -21,9 +21,9 @@ class Factorial
      * Excel Function:
      *        FACT(factVal)
      *
-     * @param array|float $factVal Factorial Value, or can be an array of numbers
+     * @param array<mixed>|float $factVal Factorial Value, or can be an array of numbers
      *
-     * @return array|float|int|string Factorial, or a string containing an error
+     * @return array<mixed>|float|int|string Factorial, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -63,9 +63,9 @@ class Factorial
      * Excel Function:
      *        FACTDOUBLE(factVal)
      *
-     * @param array|float $factVal Factorial Value, or can be an array of numbers
+     * @param array<mixed>|float $factVal Factorial Value, or can be an array of numbers
      *
-     * @return array|float|int|string Double Factorial, or a string containing an error
+     * @return array<mixed>|float|int|string Double Factorial, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -113,7 +113,9 @@ class Factorial
                 Helpers::validateNotNegative($arg);
                 $arg = (int) $arg;
                 $summer += $arg;
-                $divisor *= self::fact($arg);
+                /** @var float|int */
+                $temp = self::fact($arg);
+                $divisor *= $temp;
             }
         } catch (Exception $e) {
             return $e->getMessage();

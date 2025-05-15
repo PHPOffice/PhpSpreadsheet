@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BitLShiftTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITLSHIFT')]
+    #[DataProvider('providerBITLSHIFT')]
     public function testDirectCallToBITLSHIFT(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITLSHIFT($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITLSHIFT')]
+    #[DataProvider('providerBITLSHIFT')]
     public function testBITLSHIFTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class BitLShiftTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITLSHIFT')]
+    #[DataProvider('providerBITLSHIFT')]
     public function testBITLSHIFTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class BitLShiftTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITLSHIFT')]
+    #[DataProvider('providerUnhappyBITLSHIFT')]
     public function testBITLSHIFTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,8 @@ class BitLShiftTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitLShiftArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBitLShiftArray')]
     public function testBitLShiftArray(array $expectedResult, string $number, string $bits): void
     {
         $calculation = Calculation::getInstance();

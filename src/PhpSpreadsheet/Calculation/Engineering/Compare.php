@@ -20,12 +20,12 @@ class Compare
      *        functions you calculate the count of equal pairs. This function is also known as the
      *        Kronecker Delta function.
      *
-     * @param array|bool|float|int|string $a the first number
+     * @param array<mixed>|bool|float|int|string $a the first number
      *                      Or can be an array of values
-     * @param array|bool|float|int|string $b The second number. If omitted, b is assumed to be zero.
+     * @param array<mixed>|bool|float|int|string $b The second number. If omitted, b is assumed to be zero.
      *                      Or can be an array of values
      *
-     * @return array|int|string (string in the event of an error)
+     * @return array<mixed>|int|string (string in the event of an error)
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -55,12 +55,12 @@ class Compare
      *    Use this function to filter a set of values. For example, by summing several GESTEP
      *        functions you calculate the count of values that exceed a threshold.
      *
-     * @param array|bool|float|int|string $number the value to test against step
+     * @param array<mixed>|bool|float|int|string $number the value to test against step
      *                      Or can be an array of values
-     * @param null|array|bool|float|int|string $step The threshold value. If you omit a value for step, GESTEP uses zero.
+     * @param null|array<mixed>|bool|float|int|string $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *                      Or can be an array of values
      *
-     * @return array|int|string (string in the event of an error)
+     * @return array<mixed>|int|string (string in the event of an error)
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

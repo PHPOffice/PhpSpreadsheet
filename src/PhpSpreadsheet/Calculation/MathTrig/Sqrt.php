@@ -16,7 +16,7 @@ class Sqrt
      *
      * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return array|float|string square root
+     * @return array<mixed>|float|string square root
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -40,9 +40,9 @@ class Sqrt
      *
      * Returns the square root of (number * pi).
      *
-     * @param array|float $number Number, or can be an array of numbers
+     * @param array<mixed>|float $number Number, or can be an array of numbers
      *
-     * @return array|float|string Square Root of Number * Pi, or a string containing an error
+     * @return array<mixed>|float|string Square Root of Number * Pi, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

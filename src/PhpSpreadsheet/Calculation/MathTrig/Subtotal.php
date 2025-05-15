@@ -10,6 +10,11 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
 class Subtotal
 {
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     protected static function filterHiddenArgs(Cell $cellReference, array $args): array
     {
         return array_filter(
@@ -27,6 +32,11 @@ class Subtotal
         );
     }
 
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     protected static function filterFormulaArgs(Cell $cellReference, array $args): array
     {
         return array_filter(

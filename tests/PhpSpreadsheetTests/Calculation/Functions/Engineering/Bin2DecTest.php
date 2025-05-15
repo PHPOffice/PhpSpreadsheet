@@ -140,6 +140,7 @@ class Bin2DecTest extends TestCase
         self::assertSame(ExcelError::NAN(), $result, 'Excel');
     }
 
+    /** @param mixed[] $expectedResult */
     #[DataProvider('providerBin2DecArray')]
     public function testBin2DecArray(array $expectedResult, string $value): void
     {

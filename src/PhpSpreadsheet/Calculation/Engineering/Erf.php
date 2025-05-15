@@ -31,7 +31,7 @@ class Erf
      *                           If omitted, ERF integrates between zero and lower_limit
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function ERF(mixed $lower, mixed $upper = null): array|float|string
@@ -63,7 +63,7 @@ class Erf
      * @param mixed $limit Float bound for integrating ERF, other bound is zero
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function ERFPRECISE(mixed $limit)
