@@ -9,6 +9,13 @@ use UnexpectedValueException;
 
 class DocumentGenerator
 {
+    private const EXCLUDED_FUNCTIONS = [
+        'CEILING.ODS',
+        'CEILING.XCL',
+        'FLOOR.ODS',
+        'FLOOR.XCL',
+    ];
+
     /**
      * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
      */
@@ -23,6 +30,9 @@ class DocumentGenerator
             $result .= self::tableRow($lengths, ['Excel Function', 'PhpSpreadsheet Function']) . "\n";
             $result .= self::tableRow($lengths, null) . "\n";
             foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
+                if (in_array($excelFunction, self::EXCLUDED_FUNCTIONS, true)) {
+                    continue;
+                }
                 if ($category === $functionInfo['category']) {
                     $phpFunction = self::getPhpSpreadsheetFunctionText($functionInfo['functionCall']);
                     $result .= self::tableRow($lengths, [$excelFunction, $phpFunction]) . "\n";
@@ -87,6 +97,9 @@ class DocumentGenerator
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
+            if (in_array($excelFunction, self::EXCLUDED_FUNCTIONS, true)) {
+                continue;
+            }
             $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {
                 $lastAlphabet = $excelFunction[0];

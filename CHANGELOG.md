@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Removing Columns/Rows Containing Merged Cells. [Issue #282](https://github.com/PHPOffice/PhpSpreadsheet/issues/282) [PR #4465](https://github.com/PHPOffice/PhpSpreadsheet/pull/4465)
 - Print Area and Row Break. [Issue #1275](https://github.com/PHPOffice/PhpSpreadsheet/issues/1275) [PR #4450](https://github.com/PHPOffice/PhpSpreadsheet/pull/4450)
 - Xls Writer Treat Hyperlink Starting with # as Internal. [Issue #56](https://github.com/PHPOffice/PhpSpreadsheet/issues/56) [PR #4453](https://github.com/PHPOffice/PhpSpreadsheet/pull/4453)
+- ODS Handling of Ceiling and Floor. [Issue #407](https://github.com/PHPOffice/PhpSpreadsheet/issues/407) [PR #4466](https://github.com/PHPOffice/PhpSpreadsheet/pull/4466)
 
 ## 2025-04-16 - 4.2.0
 

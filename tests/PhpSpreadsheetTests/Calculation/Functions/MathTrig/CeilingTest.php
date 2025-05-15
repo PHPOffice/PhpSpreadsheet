@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CeilingTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCEILING')]
+    #[DataProvider('providerCEILING')]
     public function testCEILING(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -25,6 +26,24 @@ class CeilingTest extends AllSetupTeardown
     public static function providerCEILING(): array
     {
         return require 'tests/data/Calculation/MathTrig/CEILING.php';
+    }
+
+    public function testCEILINGGnumericClashingSigns(): void
+    {
+        self::setGnumeric();
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=CEILING(17,8)');
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEqualsWithDelta(24, $result, 1E-12);
+        $sheet->getCell('A2')->setValue('=CEILING(-17,-8)');
+        $result = $sheet->getCell('A2')->getCalculatedValue();
+        self::assertEqualsWithDelta(-24, $result, 1E-12);
+        $sheet->getCell('A3')->setValue('=CEILING(17,-8)');
+        $result = $sheet->getCell('A3')->getCalculatedValue();
+        self::assertSame('#NUM!', $result);
+        $sheet->getCell('A4')->setValue('=CEILING(-17,8)');
+        $result = $sheet->getCell('A4')->getCalculatedValue();
+        self::assertSame('#NUM!', $result);
     }
 
     public function testCEILINGGnumeric1Arg(): void
@@ -54,7 +73,7 @@ class CeilingTest extends AllSetupTeardown
         self::assertEqualsWithDelta(6, $result, 1E-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCeilingArray')]
+    #[DataProvider('providerCeilingArray')]
     public function testCeilingArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
