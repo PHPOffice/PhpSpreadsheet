@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Bin2OctTest extends TestCase
@@ -27,7 +28,7 @@ class Bin2OctTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2OCT')]
+    #[DataProvider('providerBIN2OCT')]
     public function testDirectCallToBIN2OCT(mixed $expectedResult, bool|float|int|string $value, null|float|int|string $digits = null): void
     {
         $result = ($digits === null) ? ConvertBinary::toOctal($value) : ConvertBinary::toOctal($value, $digits);
@@ -39,7 +40,7 @@ class Bin2OctTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2OCT')]
+    #[DataProvider('providerBIN2OCT')]
     public function testBIN2OCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -52,7 +53,7 @@ class Bin2OctTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2OCT')]
+    #[DataProvider('providerBIN2OCT')]
     public function testBIN2OCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -75,7 +76,7 @@ class Bin2OctTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BIN2OCT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBIN2OCT')]
+    #[DataProvider('providerUnhappyBIN2OCT')]
     public function testBIN2OCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -101,7 +102,7 @@ class Bin2OctTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBIN2OCTOds')]
+    #[DataProvider('providerBIN2OCTOds')]
     public function testBIN2OCTOds(mixed $expectedResult, bool|float|int|string $value, ?int $digits = null): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
@@ -136,7 +137,8 @@ class Bin2OctTest extends TestCase
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBin2OctArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBin2OctArray')]
     public function testBin2OctArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();

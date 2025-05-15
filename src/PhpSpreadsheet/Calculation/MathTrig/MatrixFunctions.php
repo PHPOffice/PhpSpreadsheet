@@ -55,7 +55,7 @@ class MatrixFunctions
      * @param mixed $start the first number in the sequence, defaults to 1
      * @param mixed $step the amount to increment each subsequent value in the array, defaults to 1
      *
-     * @return array|string The resulting array, or a string containing an error
+     * @return array<mixed>|string The resulting array, or a string containing an error
      */
     public static function sequence(mixed $rows = 1, mixed $columns = 1, mixed $start = 1, mixed $step = 1): string|array
     {
@@ -118,7 +118,7 @@ class MatrixFunctions
      *
      * @param mixed $matrixValues A matrix of values
      *
-     * @return array|string The result, or a string containing an error
+     * @return array<mixed>|string The result, or a string containing an error
      */
     public static function inverse(mixed $matrixValues): array|string
     {
@@ -141,7 +141,7 @@ class MatrixFunctions
      * @param mixed $matrixData1 A matrix of values
      * @param mixed $matrixData2 A matrix of values
      *
-     * @return array|string The result, or a string containing an error
+     * @return array<mixed>|string The result, or a string containing an error
      */
     public static function multiply(mixed $matrixData1, mixed $matrixData2): array|string
     {
@@ -162,7 +162,7 @@ class MatrixFunctions
      *
      * @param mixed $dimension Number of rows and columns
      *
-     * @return array|string The result, or a string containing an error
+     * @return array<mixed>|string The result, or a string containing an error
      */
     public static function identity(mixed $dimension)
     {

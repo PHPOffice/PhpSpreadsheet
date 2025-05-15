@@ -15,7 +15,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not
+     * @param array<mixed>|bool|float|int|string $value The octal number you want to convert. Number may not
      *                          contain more than 10 characters. The most significant
      *                          bit of number is the sign bit. The remaining 29 bits
      *                          are magnitude bits. Negative numbers are represented
@@ -29,7 +29,7 @@ class ConvertOctal extends ConvertBase
      *                      If OCT2BIN requires more than places characters, it
      *                          returns the #NUM! error value.
      *                      Or can be an array of values
-     * @param array|int $places The number of characters to use. If places is omitted,
+     * @param array<mixed>|int $places The number of characters to use. If places is omitted,
      *                          OCT2BIN uses the minimum number of characters necessary.
      *                          Places is useful for padding the return value with
      *                          leading 0s (zeros).
@@ -40,7 +40,7 @@ class ConvertOctal extends ConvertBase
      *                          value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -69,7 +69,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not contain
+     * @param array<mixed>|bool|float|int|string $value The octal number you want to convert. Number may not contain
      *                          more than 10 octal characters (30 bits). The most significant
      *                          bit of number is the sign bit. The remaining 29 bits are
      *                          magnitude bits. Negative numbers are represented using
@@ -78,7 +78,7 @@ class ConvertOctal extends ConvertBase
      *                          #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Result, or an error
+     * @return array<mixed>|float|int|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -118,7 +118,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not contain
+     * @param array<mixed>|bool|float|int|string $value The octal number you want to convert. Number may not contain
      *                          more than 10 octal characters (30 bits). The most significant
      *                          bit of number is the sign bit. The remaining 29 bits are
      *                          magnitude bits. Negative numbers are represented using
@@ -130,7 +130,7 @@ class ConvertOctal extends ConvertBase
      *                      If OCT2HEX requires more than places characters, it returns
      *                          the #NUM! error value.
      *                      Or can be an array of values
-     * @param array|int $places The number of characters to use. If places is omitted, OCT2HEX
+     * @param array<mixed>|int $places The number of characters to use. If places is omitted, OCT2HEX
      *                          uses the minimum number of characters necessary. Places is useful
      *                          for padding the return value with leading 0s (zeros).
      *                      If places is not an integer, it is truncated.
@@ -138,7 +138,7 @@ class ConvertOctal extends ConvertBase
      *                      If places is negative, OCT2HEX returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
