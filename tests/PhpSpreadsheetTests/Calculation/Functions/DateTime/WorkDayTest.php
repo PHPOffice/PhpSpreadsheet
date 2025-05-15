@@ -8,18 +8,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\WorkDay;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class WorkDayTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    #[DataProvider('providerWORKDAY')]
     public function testDirectCallToWORKDAY(mixed $expectedResult, mixed ...$args): void
     {
         $result = WorkDay::date(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    #[DataProvider('providerWORKDAY')]
     public function testWORKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -31,7 +32,7 @@ class WorkDayTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWORKDAY')]
+    #[DataProvider('providerWORKDAY')]
     public function testWORKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -54,7 +55,7 @@ class WorkDayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWORKDAY')]
+    #[DataProvider('providerUnhappyWORKDAY')]
     public function testWORKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -80,7 +81,8 @@ class WorkDayTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWorkDayArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerWorkDayArray')]
     public function testWorkDayArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
     {
         $calculation = Calculation::getInstance();

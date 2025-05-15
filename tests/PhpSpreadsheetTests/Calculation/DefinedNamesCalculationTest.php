@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNamesCalculationTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('namedRangeCalculationTest1')]
+    #[DataProvider('namedRangeCalculationProvider1')]
     public function testNamedRangeCalculations1(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -22,7 +23,7 @@ class DefinedNamesCalculationTest extends TestCase
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('namedRangeCalculationTest2')]
+    #[DataProvider('namedRangeCalculationProvider2')]
     public function testNamedRangeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -37,7 +38,7 @@ class DefinedNamesCalculationTest extends TestCase
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('namedRangeCalculationTest1')]
+    #[DataProvider('namedRangeCalculationProvider1')]
     public function testNamedFormulaCalculations1(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -50,7 +51,7 @@ class DefinedNamesCalculationTest extends TestCase
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('namedRangeCalculationTest2')]
+    #[DataProvider('namedRangeCalculationProvider2')]
     public function testNamedFormulaeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -65,7 +66,7 @@ class DefinedNamesCalculationTest extends TestCase
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
-    public static function namedRangeCalculationTest1(): array
+    public static function namedRangeCalculationProvider1(): array
     {
         return [
             ['C4', 56.25],
@@ -78,7 +79,7 @@ class DefinedNamesCalculationTest extends TestCase
         ];
     }
 
-    public static function namedRangeCalculationTest2(): array
+    public static function namedRangeCalculationProvider2(): array
     {
         return [
             ['C4', 93.75],

@@ -48,10 +48,16 @@ class Trend
      */
     private static array $trendCache = [];
 
+    /**
+     * @param mixed[] $yValues
+     * @param mixed[] $xValues
+     */
     public static function calculate(string $trendType = self::TREND_BEST_FIT, array $yValues = [], array $xValues = [], bool $const = true): BestFit
     {
         //    Calculate number of points in each dataset
+        /** @var float[] $xValues */
         $nY = count($yValues);
+        /** @var float[] $xValues */
         $nX = count($xValues);
 
         //    Define X Values if necessary
@@ -71,7 +77,9 @@ class Trend
             case self::TREND_EXPONENTIAL:
             case self::TREND_POWER:
                 if (!isset(self::$trendCache[$key])) {
+                    /** @var float[] $yValues */
                     $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
+                    /** @var float[] $xValues */
                     self::$trendCache[$key] = new $className($yValues, $xValues, $const);
                 }
 
@@ -83,6 +91,7 @@ class Trend
             case self::TREND_POLYNOMIAL_6:
                 if (!isset(self::$trendCache[$key])) {
                     $order = (int) substr($trendType, -1);
+                    /** @var float[] $yValues */
                     self::$trendCache[$key] = new PolynomialBestFit($order, $yValues, $xValues);
                 }
 
@@ -91,7 +100,9 @@ class Trend
             case self::TREND_BEST_FIT_NO_POLY:
                 //    If the request is to determine the best fit regression, then we test each Trend line in turn
                 //    Start by generating an instance of each available Trend method
+                /** @var float[] $yValues */
                 $bestFit = [];
+                /** @var float[] $xValues */
                 $bestFitValue = [];
                 foreach (self::TREND_TYPES as $trendMethod) {
                     $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendMethod . 'BestFit';

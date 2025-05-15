@@ -39,13 +39,13 @@ class TimeValue
      * Excel Function:
      *        TIMEVALUE(timeValue)
      *
-     * @param null|array|bool|float|int|string $timeValue A text string that represents a time in any one of the Microsoft
+     * @param null|array<mixed>|bool|float|int|string $timeValue A text string that represents a time in any one of the Microsoft
      *                                    Excel time formats; for example, "6:45 PM" and "18:45" text strings
      *                                    within quotation marks that represent time.
      *                                    Date information in time_text is ignored.
      *                         Or can be an array of date/time values
      *
-     * @return array|Datetime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|Datetime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions

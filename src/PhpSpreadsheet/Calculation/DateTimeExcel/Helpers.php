@@ -131,6 +131,8 @@ class Helpers
 
     /**
      * Return result in one of three formats.
+     *
+     * @param array{year: int, month: int, day: int, hour: int, minute: int, second: int} $dateArray
      */
     public static function returnIn3FormatsArray(array $dateArray, bool $noFrac = false): DateTime|float|int
     {
@@ -268,11 +270,16 @@ class Helpers
         }
     }
 
+    /** @return array{year: int, month: int, day: int, hour: int, minute: int, second: int} */
     public static function dateParse(string $string): array
     {
-        return self::forceArray(date_parse($string));
+        /** @var array{year: int, month: int, day: int, hour: int, minute: int, second: int} */
+        $temp = self::forceArray(date_parse($string));
+
+        return $temp;
     }
 
+    /** @param mixed[] $dateArray */
     public static function dateParseSucceeded(array $dateArray): bool
     {
         return $dateArray['error_count'] === 0;
@@ -282,7 +289,9 @@ class Helpers
      * Despite documentation, date_parse probably never returns false.
      * Just in case, this routine helps guarantee it.
      *
-     * @param array|false $dateArray
+     * @param array<mixed>|false $dateArray
+     *
+     * @return mixed[]
      */
     private static function forceArray(array|bool $dateArray): array
     {

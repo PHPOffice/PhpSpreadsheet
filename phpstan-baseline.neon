@@ -1,2 +1,61 @@
 parameters:
 	ignoreErrors:
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Sum\:\:sumErroringStrings\(\) should return array\|float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sum.php
+
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Sum\:\:sumIgnoringStrings\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sum.php
+
+		-
+			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/SumSquares.php
+
+		-
+			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/MathTrig/SumSquares.php
+
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\:\:max\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Maximum.php
+
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\:\:maxA\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Maximum.php
+
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\:\:min\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Minimum.php
+
+		-
+			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\:\:minA\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Minimum.php
+
+		-
+			message: '#^Parameter \#1 \$str of function preg_quote expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
+
+		-
+			message: '#^Parameter \#1 \$str of function preg_quote expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/TextData/Text.php

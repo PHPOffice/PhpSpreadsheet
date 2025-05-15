@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
@@ -27,7 +28,7 @@ class CalculationTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryComparisonOperation')]
+    #[DataProvider('providerBinaryComparisonOperation')]
     public function testBinaryComparisonOperation(string $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -373,13 +374,14 @@ class CalculationTest extends TestCase
     }
 
     /**
+     * @param mixed[] $dataArray
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
      *  be set in cache
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderBranchPruningFullExecution')]
+    #[DataProvider('dataProviderBranchPruningFullExecution')]
     public function testFullExecutionDataPruning(
         mixed $expectedResult,
         array $dataArray,

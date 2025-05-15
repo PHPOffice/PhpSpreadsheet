@@ -26,11 +26,15 @@ class DggContainer
 
     /**
      * Array of options for the drawing group.
+     *
+     * @var mixed[]
      */
     private array $OPT = [];
 
     /**
      * Array of identifier clusters containg information about the maximum shape identifiers.
+     *
+     * @var mixed[]
      */
     private array $IDCLs = [];
 
@@ -124,6 +128,8 @@ class DggContainer
 
     /**
      * Get identifier clusters.
+     *
+     * @return mixed[]
      */
     public function getIDCLs(): array
     {
@@ -132,6 +138,8 @@ class DggContainer
 
     /**
      * Set identifier clusters. [<drawingId> => <max shape id>, ...].
+     *
+     * @param mixed[] $IDCLs
      */
     public function setIDCLs(array $IDCLs): void
     {

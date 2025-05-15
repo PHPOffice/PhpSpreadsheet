@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class YearFracTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEARFRAC')]
+    #[DataProvider('providerYEARFRAC')]
     public function testDirectCallToYEARFRAC(mixed $expectedResult, mixed ...$args): void
     {
         $result = YearFrac::fraction(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEARFRAC')]
+    #[DataProvider('providerYEARFRAC')]
     public function testYEARFRACAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class YearFracTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEARFRAC')]
+    #[DataProvider('providerYEARFRAC')]
     public function testYEARFRACInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class YearFracTest extends TestCase
         return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyYEARFRAC')]
+    #[DataProvider('providerUnhappyYEARFRAC')]
     public function testYEARFRACUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,8 @@ class YearFracTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYearFracArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerYearFracArray')]
     public function testYearFracArray(array $expectedResult, string $startDate, string $endDate, ?string $methods): void
     {
         $calculation = Calculation::getInstance();

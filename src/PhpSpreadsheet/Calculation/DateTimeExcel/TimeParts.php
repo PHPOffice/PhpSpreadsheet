@@ -23,7 +23,7 @@ class TimeParts
      *                                    PHP DateTime object, or a standard time string
      *                         Or can be an array of date/time values
      *
-     * @return array|int|string Hour
+     * @return array<mixed>|int|string Hour
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -64,7 +64,7 @@ class TimeParts
      *                                    PHP DateTime object, or a standard time string
      *                         Or can be an array of date/time values
      *
-     * @return array|int|string Minute
+     * @return array<mixed>|int|string Minute
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -105,7 +105,7 @@ class TimeParts
      *                                    PHP DateTime object, or a standard time string
      *                         Or can be an array of date/time values
      *
-     * @return array|int|string Second
+     * @return array<mixed>|int|string Second
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

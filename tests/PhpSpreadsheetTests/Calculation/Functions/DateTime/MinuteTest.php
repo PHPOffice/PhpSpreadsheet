@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MinuteTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINUTE')]
+    #[DataProvider('providerMINUTE')]
     public function testDirectCallToMINUTE(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::MINUTE(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINUTE')]
+    #[DataProvider('providerMINUTE')]
     public function testMINUTEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class MinuteTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINUTE')]
+    #[DataProvider('providerMINUTE')]
     public function testMINUTEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class MinuteTest extends TestCase
         return require 'tests/data/Calculation/DateTime/MINUTE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyMINUTE')]
+    #[DataProvider('providerUnhappyMINUTE')]
     public function testMINUTEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,7 +82,8 @@ class MinuteTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerMinuteArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerMinuteArray')]
     public function testMinuteArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
