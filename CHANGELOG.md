@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - TEXT and TIMEVALUE functions. [Issue #4249](https://github.com/PHPOffice/PhpSpreadsheet/issues/4249) [PR #4355](https://github.com/PHPOffice/PhpSpreadsheet/pull/4355)
+- Removing Columns/Rows Containing Merged Cells. Backport of [PR #4465](https://github.com/PHPOffice/PhpSpreadsheet/pull/4465)
 
 ## 2025-02-07 - 3.9.1
 
