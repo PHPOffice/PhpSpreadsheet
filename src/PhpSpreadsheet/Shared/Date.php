@@ -223,13 +223,27 @@ class Date
         }
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
-        $hms = 86400 * $partDay;
-        $microseconds = (int) round(fmod($hms, 1) * 1000000);
-        $hms = (int) floor($hms);
-        $hours = intdiv($hms, 3600);
-        $hms -= $hours * 3600;
-        $minutes = intdiv($hms, 60);
-        $seconds = $hms % 60;
+        $hoursInMs = 86400 * $partDay;
+        $wholeSeconds = (int) floor($hoursInMs);
+
+        // flooring here might lose data due to precision issues, hence round it
+        $microseconds = (int) round(($hoursInMs - $wholeSeconds) * 1_000_000);
+        $microseconds = (int) round($microseconds, -2);
+
+        // rounding may lead to edge cases
+        if ($microseconds === 1_000_000) {
+            $microseconds = 0;
+            ++$wholeSeconds;
+        }
+        if ($wholeSeconds >= 86400) {
+            $wholeSeconds = 0;
+            ++$days;
+        }
+
+        $hours = intdiv($wholeSeconds, 3600);
+        $remainingSeconds = $wholeSeconds % 3600;
+        $minutes = intdiv($remainingSeconds, 60);
+        $seconds = $remainingSeconds % 60;
 
         if ($days >= 0) {
             $days = '+' . $days;

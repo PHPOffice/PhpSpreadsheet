@@ -40,11 +40,16 @@ class ExplicitDateTest extends \PHPUnit\Framework\TestCase
         $formatted = $sheet->getCell('B3')->getFormattedValue();
         self::assertEquals(44561, $value);
         self::assertSame('2021-12-31', $formatted);
-        // Time only
+        // Time only, with seconds
         $value = $sheet->getCell('C3')->getValue();
         $formatted = $sheet->getCell('C3')->getFormattedValue();
         self::assertEqualsWithDelta(0.98948, $value, 0.00001);
         self::assertSame('23:44:52', $formatted);
+        // Time only, full minute
+        $value = $sheet->getCell('F3')->getValue();
+        $formatted = $sheet->getCell('F3')->getFormattedValue();
+        self::assertEqualsWithDelta(0.5673611, $value, 0.00001);
+        self::assertSame('13:37', $formatted);
 
         $spreadsheet->disconnectWorksheets();
     }
