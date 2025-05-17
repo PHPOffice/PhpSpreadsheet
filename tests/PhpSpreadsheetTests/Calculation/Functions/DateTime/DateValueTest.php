@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateValueTest extends TestCase
@@ -54,7 +55,7 @@ class DateValueTest extends TestCase
         return (string) $x;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    #[DataProvider('providerDATEVALUE')]
     public function testDirectCallToDATEVALUE(int|string $expectedResult, bool|int|string $value): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
@@ -65,7 +66,7 @@ class DateValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    #[DataProvider('providerDATEVALUE')]
     public function testDATEVALUEAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
@@ -81,7 +82,7 @@ class DateValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDATEVALUE')]
+    #[DataProvider('providerDATEVALUE')]
     public function testDATEVALUEInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
@@ -117,7 +118,7 @@ class DateValueTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDATEVALUE')]
+    #[DataProvider('providerUnhappyDATEVALUE')]
     public function testDATEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -175,7 +176,8 @@ class DateValueTest extends TestCase
         self::assertEquals('#VALUE!', DateValue::fromString('1900-02-29'));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateValueArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDateValueArray')]
     public function testDateValueArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

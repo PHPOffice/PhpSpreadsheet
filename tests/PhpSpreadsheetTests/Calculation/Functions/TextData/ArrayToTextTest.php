@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class ArrayToTextTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerARRAYTOTEXT')]
+    /** @param mixed[] $testData */
+    #[DataProvider('providerARRAYTOTEXT')]
     public function testArrayToText(string $expectedResult, array $testData, int $mode): void
     {
         $worksheet = $this->getSheet();

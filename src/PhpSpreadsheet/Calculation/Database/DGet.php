@@ -42,6 +42,7 @@ class DGet extends DatabaseAbstract
             return ExcelError::NAN();
         }
 
+        /** @var array<null|float|int|string> */
         $row = array_pop($columnData);
 
         return array_pop($row);

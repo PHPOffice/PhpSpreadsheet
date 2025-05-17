@@ -6,11 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class InternalFunctionsTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('anchorArrayDataProvider')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('anchorArrayDataProvider')]
     public function testAnchorArrayFormula(string $reference, string $range, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
@@ -49,7 +51,7 @@ class InternalFunctionsTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('singleDataProvider')]
+    #[DataProvider('singleDataProvider')]
     public function testSingleArrayFormula(string $reference, mixed $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();

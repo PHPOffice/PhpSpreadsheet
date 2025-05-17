@@ -34,7 +34,7 @@ class Format
      *                            If you omit decimals, it is assumed to be 2
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function DOLLAR(mixed $value = 0, mixed $decimals = 2)
@@ -76,7 +76,7 @@ class Format
      * @param mixed $noCommas Boolean value indicating whether the value should have thousands separators or not
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function FIXEDFORMAT(mixed $value, mixed $decimals = 2, mixed $noCommas = false): array|string
@@ -116,7 +116,7 @@ class Format
      * @param mixed $format A string with the Format mask that should be used
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function TEXTFORMAT(mixed $value, mixed $format): array|string
@@ -176,7 +176,7 @@ class Format
      * @param mixed $value Value to check
      *                         Or can be an array of values
      *
-     * @return array|DateTimeInterface|float|int|string A string if arguments are invalid
+     * @return array<mixed>|DateTimeInterface|float|int|string A string if arguments are invalid
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
@@ -236,7 +236,7 @@ class Format
      * @param mixed $value The value to format
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function valueToText(mixed $value, mixed $format = false): array|string
@@ -279,6 +279,8 @@ class Format
      *                         Or can be an array of values
      * @param mixed $groupSeparator A string with the group/thousands separator to use, defaults to locale defined value
      *                         Or can be an array of values
+     *
+     * @return array<mixed>|float|string
      */
     public static function NUMBERVALUE(mixed $value = '', mixed $decimalSeparator = null, mixed $groupSeparator = null): array|string|float
     {
@@ -294,7 +296,7 @@ class Format
             return $e->getMessage();
         }
 
-        /** @var null|array|scalar $value */
+        /** @var null|array<scalar>|scalar $value */
         if (!is_array($value) && !is_numeric($value)) {
             $value = StringHelper::convertToString($value);
             $decimalPositions = Preg::matchAllWithOffsets('/' . preg_quote($decimalSeparator, '/') . '/', $value, $matches);

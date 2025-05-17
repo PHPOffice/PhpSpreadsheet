@@ -29,7 +29,7 @@ class NetworkDays
      *                         Or can be an array of date values
      * @param mixed $dateArgs An array of dates (such as holidays) to exclude from the calculation
      *
-     * @return array|int|string Interval between the dates
+     * @return array<mixed>|int|string Interval between the dates
      *         If an array of values is passed for the $startDate or $endDate arguments, then the returned result
      *            will also be an array with matching dimensions
      */

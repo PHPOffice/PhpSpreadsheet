@@ -170,13 +170,16 @@ abstract class Coordinate
     public static function buildRange(array $range): string
     {
         // Verify range
-        if (empty($range) || !is_array($range[0])) {
+        if (empty($range)) {
             throw new Exception('Range does not contain any information');
         }
 
         // Build range
         $counter = count($range);
         for ($i = 0; $i < $counter; ++$i) {
+            if (!is_array($range[$i])) {
+                throw new Exception('Each array entry must be an array');
+            }
             $range[$i] = implode(':', $range[$i]);
         }
 

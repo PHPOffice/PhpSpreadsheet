@@ -25,7 +25,7 @@ class DateValue
      * Excel Function:
      *        DATEVALUE(dateValue)
      *
-     * @param null|array|bool|float|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
+     * @param null|array<mixed>|bool|float|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
      *                                    quotation marks that represent dates. Using the default date
      *                                    system in Excel for Windows, date_text must represent a date from
@@ -35,7 +35,7 @@ class DateValue
      *                                    #VALUE! error value if date_text is out of this range.
      *                         Or can be an array of date values
      *
-     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
@@ -86,6 +86,7 @@ class DateValue
         return self::finalResults($PHPDateArray, $dti, $baseYear);
     }
 
+    /** @param mixed[] $t1 */
     private static function t1ToString(array $t1, DateTimeImmutable $dti, bool $yearFound): string
     {
         if (count($t1) == 2) {
@@ -108,6 +109,8 @@ class DateValue
 
     /**
      * Parse date.
+     *
+     * @return mixed[]
      */
     private static function setUpArray(string $dateValue, DateTimeImmutable $dti): array
     {
@@ -132,6 +135,8 @@ class DateValue
     /**
      * Final results.
      *
+     * @param mixed[] $PHPDateArray
+     *
      * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
@@ -139,6 +144,7 @@ class DateValue
     {
         $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
+            /** @var array{year: int, month: int, day: int, hour: int, minute: int, second: int} $PHPDateArray */
             // Execute function
             Helpers::replaceIfEmpty($PHPDateArray['year'], $dti->format('Y'));
             if ($PHPDateArray['year'] < $baseYear) {
@@ -146,6 +152,7 @@ class DateValue
             }
             Helpers::replaceIfEmpty($PHPDateArray['month'], $dti->format('m'));
             Helpers::replaceIfEmpty($PHPDateArray['day'], $dti->format('d'));
+            /** @var array{year: int, month: int, day: int, hour: int, minute: int, second: int} $PHPDateArray */
             $PHPDateArray['hour'] = 0;
             $PHPDateArray['minute'] = 0;
             $PHPDateArray['second'] = 0;
@@ -161,6 +168,7 @@ class DateValue
         return $retValue;
     }
 
+    /** @param mixed[] $array */
     private static function getInt(array $array, string $index): int
     {
         return (array_key_exists($index, $array) && is_numeric($array[$index])) ? (int) $array[$index] : 0;

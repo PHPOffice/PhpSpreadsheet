@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ValueTest extends AllSetupTeardown
 {
@@ -17,7 +18,7 @@ class ValueTest extends AllSetupTeardown
         StringHelper::setThousandsSeparator(null);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerVALUE')]
+    #[DataProvider('providerVALUE')]
     public function testVALUE(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         StringHelper::setDecimalSeparator('.');
@@ -41,7 +42,8 @@ class ValueTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/VALUE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerValueArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerValueArray')]
     public function testValueArray(array $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();

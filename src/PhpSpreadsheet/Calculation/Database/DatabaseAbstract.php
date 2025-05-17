@@ -53,8 +53,7 @@ abstract class DatabaseAbstract
 
         /** @var callable */
         $callable = 'strtoupper';
-        /** @var non-empty-array $database */
-        $fieldNames = array_map($callable, array_shift($database));
+        $fieldNames = array_map($callable, array_shift($database)); //* @phpstan-ignore-line
         if (is_numeric($field)) {
             $field = (int) $field - 1;
             if ($field < 0 || $field >= count($fieldNames)) {
@@ -88,21 +87,24 @@ abstract class DatabaseAbstract
      */
     protected static function filter(array $database, array $criteria): array
     {
-        /** @var array */
+        /** @var mixed[] */
         $fieldNames = array_shift($database);
-        /** @var array */
         $criteriaNames = array_shift($criteria);
 
         //    Convert the criteria into a set of AND/OR conditions with [:placeholders]
+        /** @var string[] $criteriaNames */
         $query = self::buildQuery($criteriaNames, $criteria);
 
         //    Loop through each row of the database
+        /** @var mixed[][] $criteriaNames */
         return self::executeQuery($database, $query, $criteriaNames, $fieldNames);
     }
 
     /**
      * @param mixed[] $database The range of cells that makes up the list or database
      * @param mixed[][] $criteria
+     *
+     * @return mixed[]
      */
     protected static function getFilteredColumn(array $database, ?int $field, array $criteria): array
     {
@@ -112,7 +114,7 @@ abstract class DatabaseAbstract
 
         //    extract an array of values for the requested column
         $columnData = [];
-        /** @var array $row */
+        /** @var mixed[] $row */
         foreach ($database as $rowKey => $row) {
             $keys = array_keys($row);
             $key = $keys[$field] ?? null;

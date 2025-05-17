@@ -8,11 +8,13 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands\StructuredReference;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ParseFormulaTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryOperations')]
+    /** @param mixed[] $expectedStack */
+    #[DataProvider('providerBinaryOperations')]
     public function testParseOperations(array $expectedStack, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

@@ -59,6 +59,7 @@ class AutoSizeTest extends TestCase
         return $table;
     }
 
+    /** @return float[] */
     private function readColumnSizes(): array
     {
         $columnSizes = [];

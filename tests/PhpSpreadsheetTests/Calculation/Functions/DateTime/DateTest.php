@@ -137,6 +137,7 @@ class DateTest extends TestCase
         self::assertEquals($result, ExcelError::NAN());
     }
 
+    /** @param array<mixed> $expectedResult */
     #[DataProvider('providerDateArray')]
     public function testDateArray(array $expectedResult, string $year, string $month, string $day): void
     {

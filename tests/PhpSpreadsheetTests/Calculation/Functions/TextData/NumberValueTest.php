@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class NumberValueTest extends AllSetupTeardown
 {
     const NV_PRECISION = 1.0E-8;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNUMBERVALUE')]
+    #[DataProvider('providerNUMBERVALUE')]
     public function testNUMBERVALUE(mixed $expectedResult, mixed $number = 'omitted', mixed $decimal = 'omitted', mixed $group = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,7 +40,8 @@ class NumberValueTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberValueArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerNumberValueArray')]
     public function testNumberValueArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();

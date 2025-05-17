@@ -166,6 +166,7 @@ class TableTest extends SetupTeardown
         }
     }
 
+    /** @return array{array{array{int, int, int, int}|CellRange|string, string}} */
     public function validTableRanges(): array
     {
         $sheet = $this->getSheet();

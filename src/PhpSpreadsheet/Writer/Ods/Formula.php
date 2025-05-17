@@ -26,6 +26,7 @@ class Formula
     {
         $formula = $this->convertCellReferences($formula, $worksheetName);
         $formula = $this->convertDefinedNames($formula);
+        $formula = $this->convertFunctionNames($formula);
 
         if (!str_starts_with($formula, '=')) {
             $formula = '=' . $formula;
@@ -116,5 +117,23 @@ class Formula
         }
 
         return $formula;
+    }
+
+    private function convertFunctionNames(string $formula): string
+    {
+        return Preg::replace(
+            [
+                '/\b((CEILING|FLOOR)'
+                    . '([.](MATH|PRECISE))?)\s*[(]/ui',
+                '/\b(CEILING|FLOOR)[.]XCL\s*[(]/ui',
+                '/\b(CEILING|FLOOR)[.]ODS\s*[(]/ui',
+            ],
+            [
+                'COM.MICROSOFT.$1(',
+                'COM.MICROSOFT.$1(',
+                '$1(',
+            ],
+            $formula
+        );
     }
 }
