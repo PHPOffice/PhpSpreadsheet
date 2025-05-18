@@ -28,7 +28,7 @@ class Date
      * A Month name or abbreviation (English only at this point) such as 'January' or 'Jan' will still be accepted,
      *     as will a day value with a suffix (e.g. '21st' rather than simply 21); again only English language.
      *
-     * @param array|float|int|string $year The value of the year argument can include one to four digits.
+     * @param array<mixed>|float|int|string $year The value of the year argument can include one to four digits.
      *                                Excel interprets the year argument according to the configured
      *                                date system: 1900 or 1904.
      *                                If year is between 0 (zero) and 1899 (inclusive), Excel adds that
@@ -39,7 +39,7 @@ class Date
      *                                2008.
      *                                If year is less than 0 or is 10000 or greater, Excel returns the
      *                                #NUM! error value.
-     * @param array|float|int|string $month A positive or negative integer representing the month of the year
+     * @param array<mixed>|float|int|string $month A positive or negative integer representing the month of the year
      *                                from 1 to 12 (January to December).
      *                                If month is greater than 12, month adds that number of months to
      *                                the first month in the year specified. For example, DATE(2008,14,2)
@@ -48,7 +48,7 @@ class Date
      *                                number of months, plus 1, from the first month in the year
      *                                specified. For example, DATE(2008,-3,2) returns the serial number
      *                                representing September 2, 2007.
-     * @param array|float|int|string $day A positive or negative integer representing the day of the month
+     * @param array<mixed>|float|int|string $day A positive or negative integer representing the day of the month
      *                                from 1 to 31.
      *                                If day is greater than the number of days in the month specified,
      *                                day adds that number of days to the first day in the month. For
@@ -59,7 +59,7 @@ class Date
      *                                example, DATE(2008,1,-15) returns the serial number representing
      *                                December 16, 2007.
      *
-     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions

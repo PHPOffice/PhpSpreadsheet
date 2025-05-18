@@ -6,17 +6,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DVarTest extends SetupTeardownDatabases
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVar')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDVar')]
     public function testDirectCallToDVar(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVar::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDVar')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDVar')]
     public function testDVarAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVAR', $database, $field, $criteria);

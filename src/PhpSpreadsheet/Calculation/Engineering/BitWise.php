@@ -30,10 +30,10 @@ class BitWise
      * Excel Function:
      *        BITAND(number1, number2)
      *
-     * @param null|array|bool|float|int|string $number1 Or can be an array of values
-     * @param null|array|bool|float|int|string $number2 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number1 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number2 Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITAND(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
@@ -62,10 +62,10 @@ class BitWise
      * Excel Function:
      *        BITOR(number1, number2)
      *
-     * @param null|array|bool|float|int|string $number1 Or can be an array of values
-     * @param null|array|bool|float|int|string $number2 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number1 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number2 Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
@@ -95,10 +95,10 @@ class BitWise
      * Excel Function:
      *        BITXOR(number1, number2)
      *
-     * @param null|array|bool|float|int|string $number1 Or can be an array of values
-     * @param null|array|bool|float|int|string $number2 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number1 Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number2 Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITXOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
@@ -128,10 +128,10 @@ class BitWise
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
-     * @param null|array|bool|float|int|string $number Or can be an array of values
-     * @param null|array|bool|float|int|string $shiftAmount Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $shiftAmount Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITLSHIFT(null|array|bool|float|int|string $number, null|array|bool|float|int|string $shiftAmount): array|string|float
@@ -163,10 +163,10 @@ class BitWise
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
      *
-     * @param null|array|bool|float|int|string $number Or can be an array of values
-     * @param null|array|bool|float|int|string $shiftAmount Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $number Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $shiftAmount Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITRSHIFT(null|array|bool|float|int|string $number, null|array|bool|float|int|string $shiftAmount): array|string|float

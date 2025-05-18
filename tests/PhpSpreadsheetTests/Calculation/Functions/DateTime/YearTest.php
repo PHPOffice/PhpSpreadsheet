@@ -8,18 +8,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class YearTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
+    #[DataProvider('providerYEAR')]
     public function testDirectCallToYEAR(mixed $expectedResultExcel, mixed ...$args): void
     {
         $result = DateParts::year(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
+    #[DataProvider('providerYEAR')]
     public function testYEARAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -31,7 +32,7 @@ class YearTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYEAR')]
+    #[DataProvider('providerYEAR')]
     public function testYEARInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -54,7 +55,7 @@ class YearTest extends TestCase
         return require 'tests/data/Calculation/DateTime/YEAR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyYEAR')]
+    #[DataProvider('providerUnhappyYEAR')]
     public function testYEARUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -80,7 +81,8 @@ class YearTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerYearArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerYearArray')]
     public function testYearArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();

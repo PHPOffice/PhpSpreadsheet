@@ -6,17 +6,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DSumTest extends SetupTeardownDatabases
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDSum')]
     public function testDirectCallToDSum(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DSum::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDSum')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDSum')]
     public function testDSumAsWorksheetFormula(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSUM', $database, $field, $criteria);

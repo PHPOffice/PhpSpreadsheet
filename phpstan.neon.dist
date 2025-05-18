@@ -29,4 +29,5 @@ parameters:
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
         #- '~Method .*rovider.* return type has no value type specified in iterable type array\.$~'
         #- '~Method .*rovider.* should return array but returns mixed\.$~'
+        #- '~.* has parameter \$expectedResult with no value type specified in iterable type array\.$~'
         - identifier: missingType.iterableValue

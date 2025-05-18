@@ -6,17 +6,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DGetTest extends SetupTeardownDatabases
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDGet')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDGet')]
     public function testDirectCallToDGet(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DGet::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDGet')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDGet')]
     public function testDGetAsWorksheetFormula(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DGET', $database, $field, $criteria);

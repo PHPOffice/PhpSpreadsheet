@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CalculationFunctionListTest extends TestCase
@@ -24,7 +25,8 @@ class CalculationFunctionListTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGetFunctions')]
+    /** @param array<mixed>|string $functionCall */
+    #[DataProvider('providerGetFunctions')]
     public function testGetFunctions(array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);

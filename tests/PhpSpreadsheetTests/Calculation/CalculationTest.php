@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
@@ -27,7 +28,7 @@ class CalculationTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBinaryComparisonOperation')]
+    #[DataProvider('providerBinaryComparisonOperation')]
     public function testBinaryComparisonOperation(string $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -51,12 +52,14 @@ class CalculationTest extends TestCase
         $tree = $calculation->parseFormula('=_xlfn.ISFORMULA(A1)');
         self::assertIsArray($tree);
         self::assertCount(3, $tree);
+        /** @var mixed[] */
         $function = $tree[2];
         self::assertEquals('Function', $function['type']);
 
         $tree = $calculation->parseFormula('=_xlfn.STDEV.S(A1:B2)');
         self::assertIsArray($tree);
         self::assertCount(5, $tree);
+        /** @var mixed[] */
         $function = $tree[4];
         self::assertEquals('Function', $function['type']);
     }
@@ -253,6 +256,7 @@ class CalculationTest extends TestCase
         $foundEqualAssociatedToStoreKey = false;
         $foundConditionalOnB1 = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isBinaryOperator = $token['type'] == 'Binary Operator';
             $isEqual = $token['value'] == '=';
             $correctStoreKey = ($token['storeKey'] ?? '') == 'storeKey-0';
@@ -283,6 +287,7 @@ class CalculationTest extends TestCase
         $plusGotTagged = false;
         $productFunctionCorrectlyTagged = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isBinaryOperator = $token['type'] == 'Binary Operator';
             $isPlus = $token['value'] == '+';
             $anyStoreKey = isset($token['storeKey']);
@@ -315,6 +320,7 @@ class CalculationTest extends TestCase
         $notFunctionCorrectlyTagged = false;
         $findOneOperandCountTagged = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $value = $token['value'];
             $isPlus = $value == '+';
             $isProductFunction = $value == 'PRODUCT(';
@@ -357,6 +363,7 @@ class CalculationTest extends TestCase
 
         $properlyTaggedPlus = false;
         foreach ($tokens as $token) {
+            /** @var mixed[] $token */
             $isPlus = $token['value'] === '+';
             $hasOnlyIf = !empty($token['onlyIf']);
 
@@ -367,13 +374,14 @@ class CalculationTest extends TestCase
     }
 
     /**
+     * @param mixed[] $dataArray
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
      *  be set in cache
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderBranchPruningFullExecution')]
+    #[DataProvider('dataProviderBranchPruningFullExecution')]
     public function testFullExecutionDataPruning(
         mixed $expectedResult,
         array $dataArray,

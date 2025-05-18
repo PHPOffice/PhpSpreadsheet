@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class SubstituteTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBSTITUTE')]
+    #[DataProvider('providerSUBSTITUTE')]
     public function testSUBSTITUTE(mixed $expectedResult, mixed $text = 'omitted', mixed $oldText = 'omitted', mixed $newText = 'omitted', mixed $instance = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -43,7 +44,8 @@ class SubstituteTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/SUBSTITUTE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSubstituteArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerSubstituteArray')]
     public function testSubstituteArray(array $expectedResult, string $oldText, string $fromText, string $toText): void
     {
         $calculation = Calculation::getInstance();

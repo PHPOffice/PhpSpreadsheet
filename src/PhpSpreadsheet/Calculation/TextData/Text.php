@@ -20,7 +20,7 @@ class Text
      * @param mixed $value String Value
      *                         Or can be an array of values
      *
-     * @return array|int|string If an array of values is passed for the argument, then the returned result
+     * @return array<mixed>|int|string If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function length(mixed $value = ''): array|int|string
@@ -48,7 +48,7 @@ class Text
      * @param mixed $value2 String Value
      *                         Or can be an array of values
      *
-     * @return array|bool|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|bool|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function exact(mixed $value1, mixed $value2): array|bool|string
@@ -73,7 +73,7 @@ class Text
      * @param mixed $testValue Value to check
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for the argument, then the returned result
+     * @return array<mixed>|string If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function test(mixed $testValue = ''): array|string
@@ -93,9 +93,9 @@ class Text
      * TEXTSPLIT.
      *
      * @param mixed $text the text that you're searching
-     * @param null|array|string $columnDelimiter The text that marks the point where to spill the text across columns.
+     * @param null|array<string>|string $columnDelimiter The text that marks the point where to spill the text across columns.
      *                          Multiple delimiters can be passed as an array of string values
-     * @param null|array|string $rowDelimiter The text that marks the point where to spill the text down rows.
+     * @param null|array<string>|string $rowDelimiter The text that marks the point where to spill the text down rows.
      *                          Multiple delimiters can be passed as an array of string values
      * @param bool $ignoreEmpty Specify FALSE to create an empty cell when two delimiters are consecutive.
      *                              true = create empty cells
@@ -108,7 +108,7 @@ class Text
      * @param mixed $padding The value with which to pad the result.
      *                              The default is #N/A.
      *
-     * @return array|string the array built from the text, split by the row and column delimiters, or an error string
+     * @return array<mixed>|string the array built from the text, split by the row and column delimiters, or an error string
      */
     public static function split(mixed $text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, mixed $padding = '#N/A'): array|string
     {
@@ -162,16 +162,21 @@ class Text
         return self::applyPadding($rows, $padding);
     }
 
+    /**
+     * @param mixed[] $rows
+     *
+     * @return mixed[]
+     */
     private static function applyPadding(array $rows, mixed $padding): array
     {
         $columnCount = array_reduce(
             $rows,
-            fn (int $counter, array $row): int => max($counter, count($row)),
+            fn (int $counter, array $row): int => max($counter, count($row)), //* @phpstan-ignore-line
             0
         );
 
         return array_map(
-            fn (array $row): array => (count($row) < $columnCount)
+            fn (array $row): array => (count($row) < $columnCount) //* @phpstan-ignore-line
                     ? array_merge($row, array_fill(0, $columnCount - count($row), $padding))
                     : $row,
             $rows
@@ -179,7 +184,7 @@ class Text
     }
 
     /**
-     * @param null|array|string $delimiter the text that marks the point before which you want to split
+     * @param null|array<string>|string $delimiter the text that marks the point before which you want to split
      *                                 Multiple delimiters can be passed as an array of string values
      */
     private static function buildDelimiter($delimiter): string
@@ -187,8 +192,9 @@ class Text
         $valueSet = Functions::flattenArray($delimiter);
 
         if (is_array($delimiter) && count($valueSet) > 1) {
+            /** @var array<?string> $valueSet */
             $quotedDelimiters = array_map(
-                fn ($delimiter): string => preg_quote($delimiter ?? '', '/'),
+                fn (?string $delimiter): string => preg_quote($delimiter ?? '', '/'),
                 $valueSet
             );
             $delimiters = implode('|', $quotedDelimiters);
@@ -204,6 +210,7 @@ class Text
         return ($matchMode === true) ? 'miu' : 'mu';
     }
 
+    /** @param mixed[][] $array */
     public static function fromArray(array $array, int $format = 0): string
     {
         $result = [];

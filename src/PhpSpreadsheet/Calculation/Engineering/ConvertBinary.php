@@ -15,7 +15,7 @@ class ConvertBinary extends ConvertBase
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @param array|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
+     * @param array<mixed>|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
@@ -23,7 +23,7 @@ class ConvertBinary extends ConvertBase
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Result, or an error
+     * @return array<mixed>|float|int|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -58,14 +58,14 @@ class ConvertBinary extends ConvertBase
      * Excel Function:
      *        BIN2HEX(x[,places])
      *
-     * @param array|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
+     * @param array<mixed>|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2HEX returns the #NUM! error value.
      *                      Or can be an array of values
-     * @param null|array|float|int|string $places The number of characters to use. If places is omitted, BIN2HEX uses the
+     * @param null|array<mixed>|float|int|string $places The number of characters to use. If places is omitted, BIN2HEX uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -73,7 +73,7 @@ class ConvertBinary extends ConvertBase
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -111,14 +111,14 @@ class ConvertBinary extends ConvertBase
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @param array|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
+     * @param array<mixed>|bool|float|int|string $value The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2OCT returns the #NUM! error value.
      *                      Or can be an array of values
-     * @param null|array|float|int|string $places The number of characters to use. If places is omitted, BIN2OCT uses the
+     * @param null|array<mixed>|float|int|string $places The number of characters to use. If places is omitted, BIN2OCT uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -126,7 +126,7 @@ class ConvertBinary extends ConvertBase
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *                      Or can be an array of values
      *
-     * @return array|string Result, or an error
+     * @return array<mixed>|string Result, or an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

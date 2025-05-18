@@ -6,17 +6,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DAverageTest extends SetupTeardownDatabases
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAverage')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDAverage')]
     public function testDirectCallToDAverage(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DAverage::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDAverage')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDAverage')]
     public function testDAverageAsWorksheetFormula(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DAVERAGE', $database, $field, $criteria);

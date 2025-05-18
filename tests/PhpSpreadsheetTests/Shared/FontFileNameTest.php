@@ -19,6 +19,7 @@ class FontFileNameTest extends TestCase
 
     private string $holdDirectory;
 
+    /** @var array<string, array<string, string>> */
     private array $holdExtraFontArray;
 
     protected function setUp(): void

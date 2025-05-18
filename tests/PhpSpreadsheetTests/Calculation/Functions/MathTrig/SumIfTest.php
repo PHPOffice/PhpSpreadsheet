@@ -9,6 +9,10 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class SumIfTest extends AllSetupTeardown
 {
+    /**
+     * @param mixed[] $array1
+     * @param null|mixed[] $array2
+     */
     #[DataProvider('providerSUMIF')]
     public function testSUMIF2(mixed $expectedResult, array $array1, mixed $condition, ?array $array2 = null): void
     {

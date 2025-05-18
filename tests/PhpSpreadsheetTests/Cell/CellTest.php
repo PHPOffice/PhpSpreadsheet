@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CellTest extends TestCase
@@ -76,7 +77,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSetValueExplicit')]
+    #[DataProvider('providerSetValueExplicit')]
     public function testSetValueExplicit(mixed $expected, mixed $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();
@@ -103,7 +104,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($dateValue, DataType::TYPE_ISO_DATE);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSetValueExplicitException')]
+    #[DataProvider('providerSetValueExplicitException')]
     public function testSetValueExplicitException(mixed $value, string $dataType): void
     {
         $this->expectException(Exception::class);
@@ -246,7 +247,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('appliedStyling')]
+    #[DataProvider('appliedStylingProvider')]
     public function testAppliedStyleSingleCell(string $cellAddress, string $fillStyle, ?string $fillColor): void
     {
         $spreadsheet = new Spreadsheet();
@@ -296,7 +297,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public static function appliedStyling(): array
+    public static function appliedStylingProvider(): array
     {
         return [
             'A1 - Conditional with Match' => ['A1', Fill::FILL_SOLID, Color::COLOR_RED],
