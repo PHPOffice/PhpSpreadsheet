@@ -21,7 +21,7 @@ class Combinations
      * @param mixed $numObjs Number of different objects, or can be an array of numbers
      * @param mixed $numInSet Number of objects in each combination, or can be an array of numbers
      *
-     * @return array|float|string Number of combinations, or a string containing an error
+     * @return array<mixed>|float|string Number of combinations, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -62,7 +62,7 @@ class Combinations
      * @param mixed $numObjs Number of different objects, or can be an array of numbers
      * @param mixed $numInSet Number of objects in each combination, or can be an array of numbers
      *
-     * @return array|float|int|string Number of combinations, or a string containing an error
+     * @return array<mixed>|float|int|string Number of combinations, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

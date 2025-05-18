@@ -8,11 +8,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ComplexTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
+    #[DataProvider('providerCOMPLEX')]
     public function testDirectCallToCOMPLEX(mixed $expectedResult, mixed ...$args): void
     {
         $result = Complex::complex(...$args);
@@ -24,7 +25,7 @@ class ComplexTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
+    #[DataProvider('providerCOMPLEX')]
     public function testCOMPLEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -37,7 +38,7 @@ class ComplexTest extends TestCase
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMPLEX')]
+    #[DataProvider('providerCOMPLEX')]
     public function testCOMPLEXInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,7 +61,8 @@ class ComplexTest extends TestCase
         return require 'tests/data/Calculation/Engineering/COMPLEX.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerComplexArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerComplexArray')]
     public function testComplexArray(array $expectedResult, string $real, string $imaginary): void
     {
         $calculation = Calculation::getInstance();

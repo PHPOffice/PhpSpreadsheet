@@ -25,7 +25,7 @@ class Base
      * @param mixed $minLength expect int or null
      *                      Or can be an array of values
      *
-     * @return array|string the text representation with the given radix (base)
+     * @return array<mixed>|string the text representation with the given radix (base)
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

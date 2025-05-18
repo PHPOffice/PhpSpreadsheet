@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImSubTest extends TestCase
@@ -25,7 +26,7 @@ class ImSubTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
+    #[DataProvider('providerIMSUB')]
     public function testDirectCallToIMSUB(string $expectedResult, string $arg1, string $arg2): void
     {
         $result = ComplexOperations::IMSUB($arg1, $arg2);
@@ -40,7 +41,7 @@ class ImSubTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
+    #[DataProvider('providerIMSUB')]
     public function testIMSUBAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,7 +57,7 @@ class ImSubTest extends TestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSUB')]
+    #[DataProvider('providerIMSUB')]
     public function testIMSUBInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,7 @@ class ImSubTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSUB.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSUB')]
+    #[DataProvider('providerUnhappyIMSUB')]
     public function testIMSUBUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,7 +110,8 @@ class ImSubTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSubArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerImSubArray')]
     public function testImSubArray(array $expectedResult, string $subidend, string $subisor): void
     {
         $calculation = Calculation::getInstance();

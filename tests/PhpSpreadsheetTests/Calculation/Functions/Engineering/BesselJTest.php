@@ -9,20 +9,21 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BesselJTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-8;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
+    #[DataProvider('providerBESSELJ')]
     public function testDirectCallToBESSELJ(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselJ::besselJ(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
+    #[DataProvider('providerBESSELJ')]
     public function testBESSELJAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -34,7 +35,7 @@ class BesselJTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBESSELJ')]
+    #[DataProvider('providerBESSELJ')]
     public function testBESSELJInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -57,7 +58,7 @@ class BesselJTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBESSELJ')]
+    #[DataProvider('providerUnhappyBESSELJ')]
     public function testBESSELJUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -84,7 +85,8 @@ class BesselJTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBesselJArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBesselJArray')]
     public function testBesselJArray(array $expectedResult, string $value, string $ord): void
     {
         $calculation = Calculation::getInstance();
