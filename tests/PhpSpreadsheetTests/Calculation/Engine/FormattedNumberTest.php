@@ -12,12 +12,10 @@ use PHPUnit\Framework\TestCase;
 class FormattedNumberTest extends TestCase
 {
     #[DataProvider('providerNumbers')]
-    public function testNumber(float $expected, string $value): void
+    public function testNumber(mixed $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
-        // Call by ref convert... changed type from string to float.
-        // Phpstan can't figure that out.
-        self::assertSame($expected, $value); // @phpstan-ignore-line
+        self::assertSame($expected, $value);
     }
 
     public static function providerNumbers(): array

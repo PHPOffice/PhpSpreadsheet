@@ -33,17 +33,20 @@ class Unique
             : self::uniqueByRow($lookupVector, $exactlyOnce);
     }
 
+    /** @param mixed[] $lookupVector */
     private static function uniqueByRow(array $lookupVector, bool $exactlyOnce): mixed
     {
         // When not $byColumn, we count whole rows or values, not individual values
         //      so implode each row into a single string value
         array_walk(
             $lookupVector,
+            //* @phpstan-ignore-next-line
             function (array &$value): void {
                 $valuex = '';
                 $separator = '';
                 $numericIndicator = "\x01";
                 foreach ($value as $cellValue) {
+                    /** @var scalar $cellValue */
                     $valuex .= $separator . $cellValue;
                     $separator = "\x00";
                     if (is_int($cellValue) || is_float($cellValue)) {
@@ -54,6 +57,7 @@ class Unique
             }
         );
 
+        /** @var string[] $lookupVector */
         $result = self::countValuesCaseInsensitive($lookupVector);
 
         if ($exactlyOnce === true) {
@@ -84,8 +88,10 @@ class Unique
         return (count($result) === 1) ? array_pop($result) : $result;
     }
 
+    /** @param mixed[] $lookupVector */
     private static function uniqueByColumn(array $lookupVector, bool $exactlyOnce): mixed
     {
+        /** @var string[] */
         $flattenedLookupVector = Functions::flattenArray($lookupVector);
 
         if (count($lookupVector, COUNT_RECURSIVE) > count($flattenedLookupVector, COUNT_RECURSIVE) + 1) {
@@ -111,6 +117,11 @@ class Unique
         return $result;
     }
 
+    /**
+     * @param string[] $caseSensitiveLookupValues
+     *
+     * @return mixed[]
+     */
     private static function countValuesCaseInsensitive(array $caseSensitiveLookupValues): array
     {
         $caseInsensitiveCounts = array_count_values(
@@ -138,6 +149,11 @@ class Unique
         return $caseSensitiveCounts;
     }
 
+    /**
+     * @param mixed[] $values
+     *
+     * @return mixed[]
+     */
     private static function exactlyOnceFilter(array $values): array
     {
         return array_filter(
