@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExplicitDateTest extends \PHPUnit\Framework\TestCase
 {
@@ -52,5 +56,43 @@ class ExplicitDateTest extends \PHPUnit\Framework\TestCase
         self::assertSame('13:37', $formatted);
 
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testThatDateTimesCanBePersistedAndReread(): void
+    {
+        $originalDateTime = new DateTime('2020-10-21T14:55:31');
+
+        $dateTimeFromSpreadsheet = $this->getDateTimeFrom($this->excelSheetWithDateTime($originalDateTime));
+        $dateTimeFromSpreadsheetAfterPersistAndReread = $this->getDateTimeFrom($this->persistAndReread($this->excelSheetWithDateTime($originalDateTime)));
+
+        self::assertEquals($originalDateTime, $dateTimeFromSpreadsheet);
+        self::assertEquals($originalDateTime, $dateTimeFromSpreadsheetAfterPersistAndReread);
+    }
+
+    private function excelSheetWithDateTime(DateTime $dateTime): Spreadsheet
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setCellValue('A1', Date::dateTimeToExcel($dateTime));
+
+        return $spreadsheet;
+    }
+
+    public function getDateTimeFrom(Spreadsheet $spreadsheet): DateTime
+    {
+        $value = $spreadsheet->getSheet(0)->getCell('A1')->getCalculatedValue();
+        self::assertIsNumeric($value);
+        $value = (float) $value;
+
+        return Date::excelToDateTimeObject($value);
+    }
+
+    private function persistAndReread(Spreadsheet $spreadsheet): Spreadsheet
+    {
+        $tempPointer = tmpfile();
+        $tempFileName = stream_get_meta_data($tempPointer)['uri'] ?? null;
+        self::assertNotNull($tempFileName, 'Temp file not created');
+        (new Xlsx($spreadsheet))->save($tempFileName);
+
+        return (new \PhpOffice\PhpSpreadsheet\Reader\Xlsx())->load($tempFileName);
     }
 }
