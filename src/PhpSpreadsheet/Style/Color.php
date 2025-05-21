@@ -423,7 +423,6 @@ class Color extends Supervisor
     {
         $exportedArray = [];
         $this->exportArray2($exportedArray, 'argb', $this->getARGB());
-        $theme = $this->getTheme();
         $this->exportArray2($exportedArray, 'theme', $this->getTheme());
 
         return $exportedArray;
