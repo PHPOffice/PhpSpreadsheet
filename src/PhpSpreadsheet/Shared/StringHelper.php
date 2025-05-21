@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use Stringable;
@@ -494,9 +495,9 @@ class StringHelper
     {
         // Split at all position not after the start: ^
         // and not before the end: $
-        $split = preg_split('/(?<!^)(?!$)/u', $string);
+        $split = Preg::split('/(?<!^)(?!$)/u', $string);
 
-        return ($split === false) ? [] : $split;
+        return $split;
     }
 
     /**
@@ -530,6 +531,7 @@ class StringHelper
         $localeconv = localeconv();
         $rslt = $localeconv[$key];
         // win-1252 implements Euro as 0x80 plus other symbols
+        // Not suitable for Composer\Pcre\Preg
         if (preg_match('//u', $rslt) !== 1) {
             $rslt = '';
         }
@@ -658,6 +660,22 @@ class StringHelper
     {
         if ($convertBool && is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();
+        }
+        if (is_float($value)) {
+            $string = (string) $value;
+            // look out for scientific notation
+            if (!Preg::isMatch('/[^-+0-9.]/', $string)) {
+                $minus = $value < 0 ? '-' : '';
+                $positive = abs($value);
+                $floor = floor($positive);
+                $oldFrac = (string) ($positive - $floor);
+                $frac = Preg::replace('/^0[.](\d+)$/', '$1', $oldFrac);
+                if ($frac !== $oldFrac) {
+                    return "$minus$floor.$frac";
+                }
+            }
+
+            return $string;
         }
         if ($value === null || is_scalar($value) || $value instanceof Stringable) {
             return (string) $value;
