@@ -631,17 +631,33 @@ $spreadsheet->getActiveSheet()->getCell('A1')
 You can make a cell a clickable URL by setting its hyperlink property:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
+$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
+$spreadsheet->getActiveSheet()->getCell('E26')
+    ->getHyperlink()
+    ->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
 following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://'Sheetname'!A1");
+$spreadsheet->getActiveSheet()
+    ->setCellValue('E27', 'go to another sheet');
+$spreadsheet->getActiveSheet()->getCell('E27')
+    ->getHyperlink()
+    ->setUrl("sheet://'Sheetname'!A1");
 ```
+
+Excel automatically supplies a special style when a hyperlink is
+entered into a cell. PhpSpreadsheet cannot do so. However, you
+can mimic Excel's behavior with:
+```php
+$spreadsheet->getActiveSheet()
+    ->getStyle('E26')
+    ->getFont()
+    ->setHyperlinkTheme();
+```
+This will set underline (all formats) and text color (Xlsx only).
 
 ## Setting Printer Options for Excel files
 
