@@ -347,7 +347,12 @@ class Style extends WriterPart
         }
 
         // Foreground color
-        if ($font->getColor()->getARGB() !== null) {
+        if ($font->getColor()->getTheme() >= 0) {
+            $this->startFont($objWriter, $fontStarted);
+            $objWriter->startElement('color');
+            $objWriter->writeAttribute('theme', (string) $font->getColor()->getTheme());
+            $objWriter->endElement();
+        } elseif ($font->getColor()->getARGB() !== null) {
             $this->startFont($objWriter, $fontStarted);
             $objWriter->startElement('color');
             $objWriter->writeAttribute('rgb', $font->getColor()->getARGB());

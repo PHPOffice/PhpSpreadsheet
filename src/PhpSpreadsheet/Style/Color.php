@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Theme;
+
 class Color extends Supervisor
 {
     const NAMED_COLORS = [
@@ -111,6 +113,8 @@ class Color extends Supervisor
 
     private bool $hasChanged = false;
 
+    private int $theme = -1;
+
     /**
      * Create a new Color.
      *
@@ -176,20 +180,27 @@ class Color extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
      * </code>
      *
-     * @param array{rgb?: string, argb?: string} $styleArray Array containing style information
+     * @param array{rgb?: string, argb?: string, theme?: int} $styleArray Array containing style information
      *
      * @return $this
      */
     public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray(
+                    $this->getStyleArray($styleArray)
+                );
         } else {
             if (isset($styleArray['rgb'])) {
                 $this->setRGB($styleArray['rgb']);
             }
             if (isset($styleArray['argb'])) {
                 $this->setARGB($styleArray['argb']);
+            }
+            if (isset($styleArray['theme'])) {
+                $this->setTheme($styleArray['theme']);
             }
         }
 
@@ -402,6 +413,7 @@ class Color extends Supervisor
 
         return md5(
             $this->argb
+            . (string) $this->theme
             . __CLASS__
         );
     }
@@ -411,6 +423,8 @@ class Color extends Supervisor
     {
         $exportedArray = [];
         $this->exportArray2($exportedArray, 'argb', $this->getARGB());
+        $theme = $this->getTheme();
+        $this->exportArray2($exportedArray, 'theme', $this->getTheme());
 
         return $exportedArray;
     }
@@ -422,5 +436,35 @@ class Color extends Supervisor
         }
 
         return $this->hasChanged;
+    }
+
+    public function getTheme(): int
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getTheme();
+        }
+
+        return $this->theme;
+    }
+
+    public function setTheme(int $theme): self
+    {
+        $this->hasChanged = true;
+
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['theme' => $theme]);
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray($styleArray);
+        } else {
+            $this->theme = $theme;
+        }
+
+        return $this;
+    }
+
+    public function setHyperlinkTheme(): self
+    {
+        return $this->setTheme(Theme::HYPERLINK_THEME);
     }
 }
