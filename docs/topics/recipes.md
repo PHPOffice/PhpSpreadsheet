@@ -20,7 +20,7 @@ finding a specific document in a file repository or a document
 management system. For example Microsoft Sharepoint uses document
 metadata to search for a specific document in its document lists.
 
-<details>
+<details markdown>
   <summary>Click here for details of Spreadsheet Document Properties</summary>
 
 These are accessed in MS Excel from the "Info" option on the "File" menu:
@@ -67,7 +67,7 @@ $spreadsheet->getProperties()
 
 You can choose which properties to set or ignore.
 
-<details>
+<details markdown>
   <summary>Click here for details of Property Getters/Setters</summary>
 
 PhpSpreadsheet provides specific getters/setters for a number of pre-defined properties.
@@ -90,7 +90,7 @@ PhpSpreadsheet provides specific getters/setters for a number of pre-defined pro
 
 </details>
 
-<details>
+<details markdown>
   <summary>Click here for details of Custom Properties</summary>
 
 Additionally, PhpSpreadsheet supports the creation and reading of custom properties for those file formats that accept custom properties.
@@ -143,7 +143,7 @@ $spreadsheet->getProperties()
 
 A Spreadsheet consists of (very rarely) none, one or more Worksheets. If you have 1 or more Worksheets, then one (and only one) of those Worksheets can be "Active" (viewed or updated) at a time, but there will always be an "Active" Worksheet (unless you explicitly delete all of the Worksheets in the Spreadsheet).
 
-<details>
+<details markdown>
   <summary>Click here for details about Worksheets</summary>
 
 When you create a new Spreadsheet in MS Excel, it creates the Spreadsheet with a single Worksheet ("Sheet1")
@@ -278,7 +278,7 @@ define your own values as long as they are a valid MS Excel format.
 PhpSpreadsheet also provides a number of Wizards to help you create
 Date, Time and DateTime format masks.
 
-<details>
+<details markdown>
   <summary>Click here for an example of the Date/Time Wizards</summary>
 
 ```php
@@ -657,7 +657,8 @@ $spreadsheet->getActiveSheet()
     ->getFont()
     ->setHyperlinkTheme();
 ```
-This will set underline (all formats) and text color (Xlsx only).
+This will set underline (all formats) and text color (always
+for Xlsx, and usually for other formats).
 
 ## Setting Printer Options for Excel files
 
@@ -840,7 +841,9 @@ $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$spreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
 ```
 
 ### Setting printing breaks on a row or column
@@ -2034,7 +2037,11 @@ $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
+$payable->getFont()->setColor(
+    new \PhpOffice\PhpSpreadsheet\Style\Color( 
+        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN
+    )
+);
 $richText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```

@@ -104,14 +104,14 @@ class Styles extends BaseParserClass
             $attr = $this->getStyleAttributes($fontStyleXml->strike);
             $fontStyle->setStrikethrough(!isset($attr['val']) || self::boolean((string) $attr['val']));
         }
-        $theme = $this->readColorTheme($fontStyleXml->color);
-        if ($theme >= 0) {
-            $fontStyle->getColor()->setTheme($theme);
-        }
         $fontStyle->getColor()
             ->setARGB(
                 $this->readColor($fontStyleXml->color)
             );
+        $theme = $this->readColorTheme($fontStyleXml->color);
+        if ($theme >= 0) {
+            $fontStyle->getColor()->setTheme($theme);
+        }
 
         if (isset($fontStyleXml->u)) {
             $attr = $this->getStyleAttributes($fontStyleXml->u);
@@ -408,8 +408,12 @@ class Styles extends BaseParserClass
     public function readColorTheme(SimpleXMLElement $color): int
     {
         $attr = $this->getStyleAttributes($color);
+        $retVal = -1;
+        if (isset($attr['theme']) && is_numeric((string) $attr['theme']) && !isset($attr['tint'])) {
+            $retVal = (int) $attr['theme'];
+        }
 
-        return isset($attr['theme']) ? (int) $attr['theme'] : -1;
+        return $retVal;
     }
 
     public function readColor(SimpleXMLElement $color, bool $background = false): string

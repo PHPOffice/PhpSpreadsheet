@@ -248,6 +248,7 @@ class Color extends Supervisor
     public function setARGB(?string $colorValue = self::COLOR_BLACK, bool $nullStringOkay = false): static
     {
         $this->hasChanged = true;
+        $this->setTheme(-1);
         if (!$nullStringOkay || $colorValue !== '') {
             $colorValue = $this->validateColor($colorValue);
             if ($colorValue === '') {
@@ -464,6 +465,14 @@ class Color extends Supervisor
 
     public function setHyperlinkTheme(): self
     {
+        $rgb = $this->getActiveSheet()
+            ->getParent()
+            ?->getTheme()
+            ->getThemeColors();
+        if (is_array($rgb) && array_key_exists('hlink', $rgb)) {
+            $this->setRGB($rgb['hlink']);
+        }
+
         return $this->setTheme(Theme::HYPERLINK_THEME);
     }
 }

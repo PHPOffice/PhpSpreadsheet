@@ -55,6 +55,13 @@ class HyperlinkTest extends AbstractFunctional
         $rsheet2 = $reloadedSpreadsheet->getSheet(1);
         self::assertSame('link to other sheet', $rsheet2->getCell('A2')->getValue());
         self::assertSame("sheet://'Sheet One'!A1", $rsheet2->getCell('A2')->getHyperlink()->getUrl());
+         self::assertSame(
+             'FF0000FF',
+             $rsheet2
+                 ->getStyle('A2')
+                 ->getFont()->getColor()->getARGB(),
+             'argb is set in addition to theme'
+         );
 
         self::assertSame('external link', $rsheet2->getCell('A3')->getValue());
         self::assertSame('https://www.example.com', $rsheet2->getCell('A3')->getHyperlink()->getUrl());
