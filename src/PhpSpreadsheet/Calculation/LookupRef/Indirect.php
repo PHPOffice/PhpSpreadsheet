@@ -34,6 +34,8 @@ class Indirect
 
     /**
      * Convert cellAddress to string, verify not null string.
+     *
+     * @param null|mixed[]|string $cellAddress
      */
     private static function validateAddress(array|string|null $cellAddress): string
     {
@@ -54,12 +56,12 @@ class Indirect
      * Excel Function:
      *        =INDIRECT(cellAddress, bool) where the bool argument is optional
      *
-     * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
+     * @param mixed[]|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param mixed $a1fmt Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1,
      *                      but can be provided as numeric which is cast to bool
      * @param Cell $cell The current cell (containing this formula)
      *
-     * @return array|string An array containing a cell or range of cells, or a string on error
+     * @return mixed[]|string An array containing a cell or range of cells, or a string on error
      */
     public static function INDIRECT($cellAddress, mixed $a1fmt, Cell $cell): string|array
     {
@@ -99,7 +101,7 @@ class Indirect
     /**
      * Extract range values.
      *
-     * @return array Array of values in range if range contains more than one element.
+     * @return mixed[] Array of values in range if range contains more than one element.
      *                  Otherwise, a single value is returned.
      */
     private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress): array
