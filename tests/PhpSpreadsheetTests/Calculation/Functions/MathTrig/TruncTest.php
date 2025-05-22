@@ -54,8 +54,9 @@ class TruncTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('E1')->setValue($value);
         $sheet->getCell('E2')->setValue("=TRUNC(E1,$digits)");
-        $result = $sheet->getCell('E2')->getCalculatedValueString();
-        self::assertSame($expectedResult, $result);
+        /** @var float|string */
+        $result = $sheet->getCell('E2')->getCalculatedValue();
+        self::assertSame($expectedResult, (string) $result);
     }
 
     public static function providerTooMuchPrecision(): array

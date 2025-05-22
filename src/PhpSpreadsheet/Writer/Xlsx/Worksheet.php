@@ -1463,15 +1463,11 @@ class Worksheet extends WriterPart
 
     private function writeCellNumeric(XMLWriter $objWriter, float|int $cellValue): void
     {
-        //force a decimal to be written if the type is float
-        if (is_float($cellValue)) {
-            // force point as decimal separator in case current locale uses comma
-            $cellValue = str_replace(',', '.', (string) $cellValue);
-            if (!str_contains($cellValue, '.')) {
-                $cellValue = $cellValue . '.0';
-            }
+        $result = StringHelper::convertToString($cellValue);
+        if (is_float($cellValue) && !str_contains($result, '.')) {
+            $result .= '.0';
         }
-        $objWriter->writeElement('v', "$cellValue");
+        $objWriter->writeElement('v', $result);
     }
 
     private function writeCellBoolean(XMLWriter $objWriter, string $mappedType, bool $cellValue): void
