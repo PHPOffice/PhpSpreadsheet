@@ -206,7 +206,10 @@ class Font extends Supervisor
                 $this->setStrikethrough($styleArray['strikethrough']);
             }
             if (isset($styleArray['color'])) {
-                $this->getColor()->applyFromArray($styleArray['color']);
+                /** @var array{rgb?: string, argb?: string, theme?: int} */
+                $temp = $styleArray['color'];
+                $this->getColor()
+                    ->applyFromArray($temp);
             }
             if (isset($styleArray['size'])) {
                 $this->setSize($styleArray['size']);
@@ -398,9 +401,6 @@ class Font extends Supervisor
      */
     public function setBold(bool $bold): static
     {
-        if ($bold == '') {
-            $bold = false;
-        }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['bold' => $bold]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -430,9 +430,6 @@ class Font extends Supervisor
      */
     public function setItalic(bool $italic): static
     {
-        if ($italic == '') {
-            $italic = false;
-        }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['italic' => $italic]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -669,10 +666,6 @@ class Font extends Supervisor
      */
     public function setStrikethrough(bool $strikethru): static
     {
-        if ($strikethru == '') {
-            $strikethru = false;
-        }
-
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['strikethrough' => $strikethru]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -828,6 +821,14 @@ class Font extends Supervisor
     public function getCap(): ?string
     {
         return $this->cap;
+    }
+
+    public function setHyperlinkTheme(): self
+    {
+        $this->color->setHyperlinkTheme();
+        $this->setUnderline(self::UNDERLINE_SINGLE);
+
+        return $this;
     }
 
     /**

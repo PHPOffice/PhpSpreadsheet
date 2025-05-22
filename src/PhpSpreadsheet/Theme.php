@@ -8,6 +8,7 @@ class Theme
 
     private string $themeFontName = 'Office';
 
+    public const HYPERLINK_THEME = 10;
     public const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
     public const COLOR_SCHEME_2013_PLUS = [
         'dk1' => '000000',

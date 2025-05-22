@@ -142,9 +142,11 @@ $spreadsheet->getActiveSheet()
     ->getHyperlink()
     ->setUrl('https://github.com/PHPOffice/PhpSpreadsheet')
     ->setTooltip('Navigate to PhpSpreadsheet website');
+$spreadsheet->getActiveSheet()->getStyle('C17')->getFont()->setHyperlinkTheme();
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
+$spreadsheet->getActiveSheet()->getStyle('C18')->getFont()->setHyperlinkTheme();
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A20', 'String')
