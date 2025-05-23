@@ -30,7 +30,7 @@ class Binomial
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function distribution(mixed $value, mixed $trials, mixed $probability, mixed $cumulative)
@@ -78,7 +78,7 @@ class Binomial
      *                           If null, then this will indicate the same as the number of Successes
      *                      Or can be an array of values
      *
-     * @return array|float|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function range(mixed $trials, mixed $probability, mixed $successes, mixed $limit = null): array|string|float|int
@@ -132,7 +132,7 @@ class Binomial
      * @param mixed $probability Probability of success on each trial as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      *
@@ -181,7 +181,7 @@ class Binomial
      * @param mixed $alpha criterion value as a float
      *                      Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function inverse(mixed $trials, mixed $probability, mixed $alpha): array|string|int
