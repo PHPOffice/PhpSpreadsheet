@@ -11,6 +11,10 @@ use PHPUnit\Framework\TestCase;
 // TODO Convert to Spreadsheet context.
 class ChiTestTest extends TestCase
 {
+    /**
+     * @param float[] $actual
+     * @param float[] $expected
+     */
     #[DataProvider('providerCHITEST')]
     public function testCHITEST(mixed $expectedResult, array $actual, array $expected): void
     {

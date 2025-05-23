@@ -33,7 +33,7 @@ class Beta
      * @param mixed $rMax as an float
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function distribution(mixed $value, mixed $alpha, mixed $beta, mixed $rMin = 0.0, mixed $rMax = 1.0): array|string|float
@@ -86,7 +86,7 @@ class Beta
      * @param mixed $rMax Maximum value as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function inverse(mixed $probability, mixed $alpha, mixed $beta, mixed $rMin = 0.0, mixed $rMax = 1.0): array|string|float

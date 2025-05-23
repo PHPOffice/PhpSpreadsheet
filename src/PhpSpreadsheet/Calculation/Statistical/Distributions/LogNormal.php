@@ -23,7 +23,7 @@ class LogNormal
      * @param mixed $stdDev Standard Deviation as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -63,7 +63,7 @@ class LogNormal
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -106,7 +106,7 @@ class LogNormal
      * @param mixed $stdDev Standard Deviation as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      *

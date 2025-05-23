@@ -55,7 +55,7 @@ class Deviations
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @param array ...$args Data Series
+     * @param mixed[] ...$args Data Series
      */
     public static function kurtosis(...$args): string|int|float
     {
@@ -98,7 +98,7 @@ class Deviations
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @param array ...$args Data Series
+     * @param mixed[] ...$args Data Series
      *
      * @return float|int|string The result, or a string containing an error
      */
