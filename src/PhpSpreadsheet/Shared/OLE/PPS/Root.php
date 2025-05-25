@@ -96,7 +96,7 @@ class Root extends PPS
     /**
      * Calculate some numbers.
      *
-     * @param array $raList Reference to an array of PPS's
+     * @param PPS[] $raList Reference to an array of PPS's
      *
      * @return float[] The array of numbers
      */
@@ -223,7 +223,7 @@ class Root extends PPS
     /**
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param array $raList Reference to array of PPS's
+     * @param PPS[] $raList Reference to array of PPS's
      */
     private function saveBigData(int $iStBlk, array &$raList): void
     {
@@ -243,7 +243,7 @@ class Root extends PPS
                     // Set For PPS
                     $raList[$i]->startBlock = $iStBlk;
                     $iStBlk
-                        += (floor($raList[$i]->Size / $this->bigBlockSize)
+                        += ((int) floor($raList[$i]->Size / $this->bigBlockSize)
                             + (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
                 }
             }
@@ -253,7 +253,7 @@ class Root extends PPS
     /**
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param array $raList Reference to array of PPS's
+     * @param PPS[] $raList Reference to array of PPS's
      */
     private function makeSmallData(array &$raList): string
     {
@@ -269,7 +269,7 @@ class Root extends PPS
                     continue;
                 }
                 if ($raList[$i]->Size < OLE::OLE_DATA_SIZE_SMALL) {
-                    $iSmbCnt = floor($raList[$i]->Size / $this->smallBlockSize)
+                    $iSmbCnt = (int) floor($raList[$i]->Size / $this->smallBlockSize)
                         + (($raList[$i]->Size % $this->smallBlockSize) ? 1 : 0);
                     // Add to SBD
                     $jB = $iSmbCnt - 1;
@@ -303,7 +303,7 @@ class Root extends PPS
     /**
      * Saves all the PPS's WKs.
      *
-     * @param array $raList Reference to an array with all PPS's
+     * @param PPS[] $raList Reference to an array with all PPS's
      */
     private function savePps(array &$raList): void
     {

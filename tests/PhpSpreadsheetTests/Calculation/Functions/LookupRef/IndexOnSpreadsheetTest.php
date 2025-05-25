@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class IndexOnSpreadsheetTest extends AllSetupTeardown
 {
+    /** @param mixed[] $matrix */
     #[DataProvider('providerINDEXonSpreadsheet')]
     public function testIndexOnSpreadsheet(mixed $expectedResult, array $matrix, null|int|string $rowNum = null, null|int|string $colNum = null): void
     {

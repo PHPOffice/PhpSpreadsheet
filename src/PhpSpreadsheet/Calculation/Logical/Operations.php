@@ -130,7 +130,10 @@ class Operations
         return !$logical;
     }
 
-    /** @param mixed[] $args */
+    /**
+     * @param mixed[] $args
+     * @param callable(int, int): bool $func
+     */
     private static function countTrueValues(array $args, callable $func): bool|string
     {
         $trueValueCount = 0;

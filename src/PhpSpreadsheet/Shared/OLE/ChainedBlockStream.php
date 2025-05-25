@@ -17,6 +17,8 @@ class ChainedBlockStream
 
     /**
      * Parameters specified by fopen().
+     *
+     * @var mixed[]
      */
     public array $params = [];
 
@@ -74,6 +76,7 @@ class ChainedBlockStream
             // Block id refers to small blocks
             $rootPos = $this->ole->getBlockOffset((int) $this->ole->root->startBlock);
             while ($blockId != -2) {
+                /** @var int $blockId */
                 $pos = $rootPos + $blockId * $this->ole->bigBlockSize;
                 $blockId = $this->ole->sbat[$blockId];
                 fseek($this->ole->_file_handle, $pos);
@@ -82,6 +85,7 @@ class ChainedBlockStream
         } else {
             // Block id refers to big blocks
             while ($blockId != -2) {
+                /** @var int $blockId */
                 $pos = $this->ole->getBlockOffset($blockId);
                 fseek($this->ole->_file_handle, $pos);
                 $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
@@ -169,6 +173,8 @@ class ChainedBlockStream
     /**
      * Implements support for fstat(). Currently the only supported field is
      * "size".
+     *
+     * @return array{size: int}
      */
     public function stream_stat(): array // @codingStandardsIgnoreLine
     {

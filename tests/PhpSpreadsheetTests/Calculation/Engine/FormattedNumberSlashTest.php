@@ -19,15 +19,13 @@ class FormattedNumberSlashTest extends TestCase
     }
 
     #[DataProvider('providerNumbers')]
-    public function testNumber(float $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
+    public function testNumber(mixed $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         StringHelper::setThousandsSeparator($thousandsSeparator);
         StringHelper::setDecimalSeparator($decimalSeparator);
         $result = FormattedNumber::convertToNumberIfFormatted($value);
         self::assertTrue($result);
-        // Call by ref convert... changed type from string to float.
-        // Phpstan can't figure that out.
-        self::assertSame($expected, $value); // @phpstan-ignore-line
+        self::assertSame($expected, $value);
     }
 
     public static function providerNumbers(): array
