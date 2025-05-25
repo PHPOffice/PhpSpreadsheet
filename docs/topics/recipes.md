@@ -649,8 +649,9 @@ $spreadsheet->getActiveSheet()->getCell('E27')
 ```
 
 Excel automatically supplies a special style when a hyperlink is
-entered into a cell. PhpSpreadsheet cannot do so. However, you
-can mimic Excel's behavior with:
+entered into a cell. PhpSpreadsheet cannot do so. However,
+starting with release 4.3,
+you can mimic Excel's behavior with:
 ```php
 $spreadsheet->getActiveSheet()
     ->getStyle('E26')
