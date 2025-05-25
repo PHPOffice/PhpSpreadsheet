@@ -80,6 +80,11 @@ class ChooseRowsEtc
         return $outputArray;
     }
 
+    /**
+     * @param mixed[] $array
+     *
+     * @return mixed[]|string
+     */
     private static function dropRows(array $array, mixed $offset): array|string
     {
         if ($offset === null) {
@@ -134,6 +139,11 @@ class ChooseRowsEtc
         return self::transpose($outputArray3);
     }
 
+    /**
+     * @param mixed[] $array
+     *
+     * @return mixed[]|string
+     */
     private static function takeRows(array $array, mixed $offset): array|string
     {
         if ($offset === null) {
