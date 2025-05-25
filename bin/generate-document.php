@@ -11,9 +11,20 @@ ksort($phpSpreadsheetFunctions);
 
 file_put_contents(
     __DIR__ . '/../docs/references/function-list-by-category.md',
-    DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+    DocumentGenerator::generateFunctionListByCategory(
+        $phpSpreadsheetFunctions
+    )
 );
 file_put_contents(
     __DIR__ . '/../docs/references/function-list-by-name.md',
-    DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+    DocumentGenerator::generateFunctionListByName(
+        $phpSpreadsheetFunctions
+    )
+);
+file_put_contents(
+    __DIR__ . '/../docs/references/function-list-by-name-compact.md',
+    DocumentGenerator::generateFunctionListByName(
+        $phpSpreadsheetFunctions,
+        true
+    )
 );

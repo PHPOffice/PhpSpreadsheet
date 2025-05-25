@@ -91,16 +91,30 @@ class DocumentGenerator
     /**
      * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
      */
-    public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
+    public static function generateFunctionListByName(array $phpSpreadsheetFunctions, bool $compact = false): string
     {
         $categoryConstants = array_flip(self::getCategories());
-        $result = "# Function list by name\n";
+        if ($compact) {
+            $result = "# Function list by name compact\n";
+            $result .= "\n";
+            $result .= 'Category should be prefixed by `CATEGORY_` to match the values in \PhpOffice\PhpSpreadsheet\Calculation\Category';
+            $result .= "\n\n";
+            $result .= 'Function should be prefixed by `PhpOffice\PhpSpreadsheet\Calculation\`';
+            $result .= "\n\n";
+            $result .= 'A less compact list can be found [here](./function-list-by-name.md)';
+            $result .= "\n\n";
+        } else {
+            $result = "# Function list by name\n";
+            $result .= "\n";
+            $result .= 'A more compact list can be found [here](./function-list-by-name-compact.md)';
+            $result .= "\n\n";
+        }
         $lastAlphabet = null;
+        $lengths = $compact ? [25, 22, 37] : [25, 31, 37];
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
             if (in_array($excelFunction, self::EXCLUDED_FUNCTIONS, true)) {
                 continue;
             }
-            $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {
                 $lastAlphabet = $excelFunction[0];
                 $result .= "\n";
@@ -111,6 +125,14 @@ class DocumentGenerator
             }
             $category = $categoryConstants[$functionInfo['category']];
             $phpFunction = self::getPhpSpreadsheetFunctionText($functionInfo['functionCall']);
+            if ($compact) {
+                $category = str_replace('CATEGORY_', '', $category);
+                $phpFunction = str_replace(
+                    '\PhpOffice\PhpSpreadsheet\Calculation\\',
+                    '',
+                    $phpFunction
+                );
+            }
             $result .= self::tableRow($lengths, [$excelFunction, $category, $phpFunction]) . "\n";
         }
 

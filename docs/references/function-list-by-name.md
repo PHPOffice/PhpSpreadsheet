@@ -1,5 +1,8 @@
 # Function list by name
 
+A more compact list can be found [here](./function-list-by-name-compact.md)
+
+
 ## A
 
 Excel Function           | Category                       | PhpSpreadsheet Function
