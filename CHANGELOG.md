@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Copy Styles after insertNewColumnBefore. [Issue #1425](https://github.com/PHPOffice/PhpSpreadsheet/issues/1425) [PR #4468](https://github.com/PHPOffice/PhpSpreadsheet/pull/4468)
 - Xls Writer Treat Hyperlink Starting with # as Internal. [Issue #56](https://github.com/PHPOffice/PhpSpreadsheet/issues/56) [PR #4453](https://github.com/PHPOffice/PhpSpreadsheet/pull/4453)
 - ODS Handling of Ceiling and Floor. [Issue #407](https://github.com/PHPOffice/PhpSpreadsheet/issues/407) [PR #4466](https://github.com/PHPOffice/PhpSpreadsheet/pull/4466)
+- More Precision for Float to String Casts. [Issue #3899](https://github.com/PHPOffice/PhpSpreadsheet/issues/3899) [PR #4479](https://github.com/PHPOffice/PhpSpreadsheet/pull/4479)
 
 ## 2025-04-16 - 4.2.0
 
