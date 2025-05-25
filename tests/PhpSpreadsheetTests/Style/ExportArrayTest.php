@@ -179,15 +179,17 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A2');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
-        $cell1style->getFill()->getStartColor()->setArgb('FF112233');
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->getStartColor()
+            ->setArgb('FF112233');
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF000000'],
-                'startColor' => ['argb' => 'FF112233'],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
+                'startColor' => ['argb' => 'FF112233', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed start color with setArgb'
@@ -208,15 +210,16 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A3');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
         $cell1style->getFill()->getEndColor()->setArgb('FF112233');
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF112233'],
-                'startColor' => ['argb' => 'FFFFFFFF'],
+                'endColor' => ['argb' => 'FF112233', 'theme' => -1],
+                'startColor' => ['argb' => 'FFFFFFFF', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed end color with setArgb'
@@ -224,15 +227,16 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A4');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
         $cell1style->getFill()->setEndColor(new Color('FF0000FF'));
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF0000FF'],
-                'startColor' => ['argb' => 'FFFFFFFF'],
+                'endColor' => ['argb' => 'FF0000FF', 'theme' => -1],
+                'startColor' => ['argb' => 'FFFFFFFF', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed end color with setEndColor'
@@ -241,14 +245,15 @@ class ExportArrayTest extends TestCase
         $cell1 = $sheet->getCell('A5');
         $cell1style = $cell1->getStyle();
         $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
-        $cell1style->getFill()->setStartColor(new Color('FF0000FF'));
+        $cell1style->getFill()
+            ->setStartColor(new Color('FF0000FF'));
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'startColor' => ['argb' => 'FF0000FF'],
-                'endColor' => ['argb' => 'FF000000'],
+                'startColor' => ['argb' => 'FF0000FF', 'theme' => -1],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed start color with setStartColor'
@@ -259,7 +264,7 @@ class ExportArrayTest extends TestCase
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 45.0,
-                'startColor' => ['argb' => 'FF00FFFF'],
+                'startColor' => ['argb' => 'FF00FFFF', 'theme' => -1],
             ]
         );
         $cell1style = $cell1->getStyle();
@@ -268,8 +273,8 @@ class ExportArrayTest extends TestCase
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 45.0,
-                'startColor' => ['argb' => 'FF00FFFF'],
-                'endColor' => ['argb' => 'FF000000'],
+                'startColor' => ['argb' => 'FF00FFFF', 'theme' => -1],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
             ],
             $styleArray['fill'],
             'applyFromArray with startColor'
