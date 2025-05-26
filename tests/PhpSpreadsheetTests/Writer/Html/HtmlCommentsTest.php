@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HtmlCommentsTest extends Functional\AbstractFunctional
 {
@@ -60,15 +61,15 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
                 . 'comment.</div>' . PHP_EOL
                 . 'Comment</td>'],
             'single line simple rich text' => [$richSingle, '<td class="column0 style0 s"><a class="comment-indicator"></a><div class="comment">'
-                . "<span style=\"font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt\">I am comment.</span></div>" . PHP_EOL
+                . "<span style=\"font-weight:bold; text-decoration:normal; font-style:normal; color:#000000; font-family:'Calibri'; font-size:11pt\">I am comment.</span></div>" . PHP_EOL
                 . 'Comment</td>'],
             'multi-line simple rich text' => [$richMultiSimple, '<td class="column0 style0 s"><a class="comment-indicator"></a><div class="comment">'
-                . "<span style=\"font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt\">I am <br />" . PHP_EOL
+                . "<span style=\"font-weight:bold; text-decoration:normal; font-style:normal; color:#000000; font-family:'Calibri'; font-size:11pt\">I am <br />" . PHP_EOL
                 . 'multi-line<br />' . PHP_EOL
                 . 'comment.</span></div>' . PHP_EOL
                 . 'Comment</td>'],
             'multi-line mixed rich text' => [$richMultiMixed, '<td class="column0 style0 s"><a class="comment-indicator"></a><div class="comment">I am<br />' . PHP_EOL
-                . "<span style=\"font-weight:bold; color:#000000; font-family:'Calibri'; font-size:11pt\">multi-line</span><br />" . PHP_EOL
+                . "<span style=\"font-weight:bold; text-decoration:normal; font-style:normal; color:#000000; font-family:'Calibri'; font-size:11pt\">multi-line</span><br />" . PHP_EOL
                 . 'comment!</div>' . PHP_EOL
                 . 'Comment</td>'],
             'script single' => [$scriptSingle, '<td class="column0 style0 s"><a class="comment-indicator"></a><div class="comment">'
@@ -77,12 +78,14 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCommentRichText')]
+    #[DataProvider('providerCommentRichText')]
     public function testComments(RichText $richText, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
 
-        $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Comment');
+        $spreadsheet->getActiveSheet()
+            ->getCell('A1')
+            ->setValue('Comment');
 
         $spreadsheet->getActiveSheet()
             ->getComment('A1')

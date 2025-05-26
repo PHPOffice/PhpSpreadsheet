@@ -1096,7 +1096,7 @@ class Html extends BaseWriter
      *
      * @return string[]
      */
-    private function createCSSStyleFont(Font $font): array
+    private function createCSSStyleFont(Font $font, bool $useDefaults = false): array
     {
         // Construct CSS
         $css = [];
@@ -1104,6 +1104,8 @@ class Html extends BaseWriter
         // Create CSS
         if ($font->getBold()) {
             $css['font-weight'] = 'bold';
+        } elseif ($useDefaults) {
+            $css['font-weight'] = 'normal';
         }
         if ($font->getUnderline() != Font::UNDERLINE_NONE && $font->getStrikethrough()) {
             $css['text-decoration'] = 'underline line-through';
@@ -1111,9 +1113,13 @@ class Html extends BaseWriter
             $css['text-decoration'] = 'underline';
         } elseif ($font->getStrikethrough()) {
             $css['text-decoration'] = 'line-through';
+        } elseif ($useDefaults) {
+            $css['text-decoration'] = 'normal';
         }
         if ($font->getItalic()) {
             $css['font-style'] = 'italic';
+        } elseif ($useDefaults) {
+            $css['font-style'] = 'normal';
         }
 
         $css['color'] = '#' . $font->getColor()->getRGB();
@@ -1344,22 +1350,23 @@ class Html extends BaseWriter
         return [$cell, $cssClass, $coordinate];
     }
 
-    private function generateRowCellDataValueRich(RichText $richText): string
+    private function generateRowCellDataValueRich(RichText $richText, ?Font $defaultFont = null): string
     {
         $cellData = '';
         // Loop through rich text elements
         $elements = $richText->getRichTextElements();
         foreach ($elements as $element) {
             // Rich text start?
-            if ($element instanceof Run) {
+            $font = ($element instanceof Run) ? $element->getFont() : $defaultFont;
+            if ($element instanceof Run || $font !== null) {
                 $cellEnd = '';
-                if ($element->getFont() !== null) {
-                    $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
+                if ($font !== null) {
+                    $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($font, true)) . '">';
 
-                    if ($element->getFont()->getSuperscript()) {
+                    if ($font->getSuperscript()) {
                         $cellData .= '<sup>';
                         $cellEnd = '</sup>';
-                    } elseif ($element->getFont()->getSubscript()) {
+                    } elseif ($font->getSubscript()) {
                         $cellData .= '<sub>';
                         $cellEnd = '</sub>';
                     }
@@ -1387,7 +1394,7 @@ class Html extends BaseWriter
     private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, string &$cellData): void
     {
         if ($cell->getValue() instanceof RichText) {
-            $cellData .= $this->generateRowCellDataValueRich($cell->getValue());
+            $cellData .= $this->generateRowCellDataValueRich($cell->getValue(), $cell->getStyle()->getFont());
         } else {
             if ($this->preCalculateFormulas) {
                 try {
