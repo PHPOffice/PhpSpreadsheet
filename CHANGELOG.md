@@ -31,6 +31,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Nothing yet.
 
+## 2025-05-26 - 4.3.1
+
+### Fixed
+
+- Regression in Date::stringToExcel. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+
 ## 2025-05-25 - 4.3.0
 
 ### Added

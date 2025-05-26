@@ -189,6 +189,12 @@ class DateTest extends TestCase
         self::assertTrue((bool) Date::stringToExcel('2019-02-28'));
         self::assertTrue((bool) Date::stringToExcel('2019-02-28 11:18'));
         self::assertFalse(Date::stringToExcel('2019-02-28 11:71'));
+        $timestamp1 = Date::stringToExcel('26.05.2025 14:28:00');
+        $timestamp2 = Date::stringToExcel('26.05.2025 14:28:00.00');
+        self::assertNotFalse($timestamp1);
+        self::assertNotFalse($timestamp2);
+        self::assertEqualsWithDelta($timestamp1, 45803.60277777778, 1.0E-10);
+        self::assertSame($timestamp1, $timestamp2);
 
         $date = Date::PHPToExcel('2020-01-01');
         self::assertEquals(43831.0, $date);
