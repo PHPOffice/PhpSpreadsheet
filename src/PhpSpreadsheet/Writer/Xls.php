@@ -155,13 +155,13 @@ class Xls extends BaseWriter
                     $sheet = $cell->getWorksheet();
                     $selected = $sheet->getSelectedCells();
                     $font = $cell->getStyle()->getFont();
+                    $this->writerWorksheets[$i]
+                        ->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                     $sheet->setSelectedCells($selected);
                     if ($active > -1) {
                         $this->spreadsheet
                             ->setActiveSheetIndex($active);
                     }
-                    $this->writerWorksheets[$i]
-                        ->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
                         if ($element instanceof Run) {
