@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 4.3.0
+## TBD - 4.4.0
 
 ### Added
 
-- Xml Reader recognize indents. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+- Nothing yet.
 
 ### Removed
 
@@ -26,6 +26,20 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Deprecated
 
 - Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-05-25 - 4.3.0
+
+### Added
+
+- Xml Reader recognize indents. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+
+### Changed
+
+- Phpstan Level 10.
 
 ### Fixed
 
