@@ -249,7 +249,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_binaryConversionMultipliers">$binaryConversionMultipliers</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, array{multiplier: float|int, name: string}&gt;            </span>
 </dt>
 <dd>Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</dd>
 
@@ -291,14 +291,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_CONVERT">CONVERT()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
+                                &nbsp;: float|array&lt;string|int, mixed&gt;|string    </span>
 </dt>
 <dd>CONVERT.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getBinaryConversionMultipliers">getBinaryConversionMultipliers()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, array{multiplier: float|int, name: string}&gt;    </span>
 </dt>
 <dd>getBinaryConversionMultipliers
 Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</dd>
@@ -306,7 +306,7 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategories">getConversionCategories()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>getConversionGroups
 Returns a list of the different conversion groups for UOM conversions.</dd>
@@ -314,14 +314,14 @@ Returns a list of the different conversion groups for UOM conversions.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnitDetails">getConversionCategoryUnitDetails()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, array&lt;int, array&lt;string, string&gt;&gt;&gt;    </span>
 </dt>
 <dd>getConversionGroupUnitDetails.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnits">getConversionCategoryUnits()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, array&lt;string|int, string&gt;&gt;    </span>
 </dt>
 <dd>getConversionGroupUnits
 Returns an array of units of measure, for a specified conversion group, or for all groups.</dd>
@@ -329,7 +329,7 @@ Returns an array of units of measure, for a specified conversion group, or for a
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionMultipliers">getConversionMultipliers()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, array{multiplier: float, name: string}&gt;    </span>
 </dt>
 <dd>getConversionMultipliers
 Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</dd>
@@ -382,7 +382,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getUOMDetails">getUOMDetails()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{0: string, 1: string, 2: float}    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
@@ -873,15 +873,11 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, array{multiplier: float|int, name: string}&gt;</span>
     <span class="phpdocumentor-signature__name">$binaryConversionMultipliers</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;Yi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 80, &#039;name&#039; =&gt; &#039;yobi&#039;], &#039;Zi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 70, &#039;name&#039; =&gt; &#039;zebi&#039;], &#039;Ei&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 60, &#039;name&#039; =&gt; &#039;exbi&#039;], &#039;Pi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 50, &#039;name&#039; =&gt; &#039;pebi&#039;], &#039;Ti&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 40, &#039;name&#039; =&gt; &#039;tebi&#039;], &#039;Gi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 30, &#039;name&#039; =&gt; &#039;gibi&#039;], &#039;Mi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 20, &#039;name&#039; =&gt; &#039;mebi&#039;], &#039;ki&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 10, &#039;name&#039; =&gt; &#039;kibi&#039;]]</span></code>
 
-        <section class="phpdocumentor-description"><ul>
-<li>@var array&lt;string, array{multiplier: float|int, name: string}&gt;</li>
-</ul>
-</section>
-
+    
     
     
 
@@ -1245,7 +1241,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">530</span>
+    <span class="phpdocumentor-element-found-in__line">536</span>
 
     </aside>
 
@@ -1253,7 +1249,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">CONVERT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromUOM</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toUOM</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">CONVERT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromUOM</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toUOM</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|array&lt;string|int, mixed&gt;|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1278,7 +1274,7 @@ Or can be an array of values</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$fromUOM</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>the units for value
@@ -1288,7 +1284,7 @@ Or can be an array of values</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$toUOM</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>the units for the result
@@ -1304,7 +1300,7 @@ Or can be an array of values</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
+        <span class="phpdocumentor-signature__response_type">float|array&lt;string|int, mixed&gt;|string</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Result, or a string containing an error
 If an array of numbers is passed as an argument, then the returned result will also be an array
@@ -1328,7 +1324,7 @@ with the same dimensions</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">504</span>
+    <span class="phpdocumentor-element-found-in__line">510</span>
 
     </aside>
 
@@ -1337,7 +1333,7 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getBinaryConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getBinaryConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array{multiplier: float|int, name: string}&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1349,7 +1345,7 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, array{multiplier: float|int, name: string}&gt;</span>
             </section>
 
 </article>
@@ -1367,7 +1363,7 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">439</span>
+    <span class="phpdocumentor-element-found-in__line">441</span>
 
     </aside>
 
@@ -1376,7 +1372,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategories</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategories</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1388,7 +1384,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             </section>
 
 </article>
@@ -1406,7 +1402,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">472</span>
+    <span class="phpdocumentor-element-found-in__line">478</span>
 
     </aside>
 
@@ -1414,7 +1410,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnitDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnitDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;int, array&lt;string, string&gt;&gt;&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1438,7 +1434,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, array&lt;int, array&lt;string, string&gt;&gt;&gt;</span>
             </section>
 
 </article>
@@ -1456,7 +1452,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">455</span>
+    <span class="phpdocumentor-element-found-in__line">459</span>
 
     </aside>
 
@@ -1465,7 +1461,7 @@ Returns an array of units of measure, for a specified conversion group, or for a
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnits</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnits</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string|int, string&gt;&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1489,7 +1485,7 @@ Returns an array of units of measure, for a specified conversion group, or for a
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string|int, string&gt;&gt;</span>
             </section>
 
 </article>
@@ -1507,7 +1503,7 @@ Returns an array of units of measure, for a specified conversion group, or for a
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">493</span>
+    <span class="phpdocumentor-element-found-in__line">499</span>
 
     </aside>
 
@@ -1516,7 +1512,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array{multiplier: float, name: string}&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1528,7 +1524,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, array{multiplier: float, name: string}&gt;</span>
             </section>
 
 </article>
@@ -1546,7 +1542,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">618</span>
+    <span class="phpdocumentor-element-found-in__line">625</span>
 
     </aside>
 
@@ -1607,7 +1603,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -1666,7 +1662,7 @@ ROUND() or DATE().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -1733,7 +1729,7 @@ rather than as an array argument.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -1800,7 +1796,7 @@ to be treated as a such rather than as an array arguments.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -1867,7 +1863,7 @@ rather than as an array argument.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -1925,14 +1921,14 @@ DAYOFMONTH() or FACT().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">569</span>
+    <span class="phpdocumentor-element-found-in__line">576</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getUOMDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uom</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getUOMDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uom</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{0: string, 1: string, 2: float}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1954,7 +1950,7 @@ DAYOFMONTH() or FACT().</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{0: string, 1: string, 2: float}</span>
             </section>
 
 </article>
@@ -1979,7 +1975,7 @@ DAYOFMONTH() or FACT().</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initialiseHelper</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|false&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arguments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initialiseHelper</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arguments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1988,12 +1984,10 @@ DAYOFMONTH() or FACT().</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$arguments</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|false</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Can be changed to array for Php8.1+</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -2017,7 +2011,7 @@ DAYOFMONTH() or FACT().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">670</span>
+    <span class="phpdocumentor-element-found-in__line">677</span>
 
     </aside>
 
@@ -2064,7 +2058,7 @@ DAYOFMONTH() or FACT().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php"><a href="files/src-phpspreadsheet-calculation-arrayenabled.html"><abbr title="src/PhpSpreadsheet/Calculation/ArrayEnabled.php">ArrayEnabled.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 

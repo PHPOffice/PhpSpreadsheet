@@ -170,7 +170,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-DateTimeExcel-Helpers.html#method_dateParse">dateParse()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{year: int, month: int, day: int, hour: int, minute: int, second: int}    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -417,14 +417,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">274</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">dateParse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">dateParse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{year: int, month: int, day: int, hour: int, minute: int, second: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -446,7 +446,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{year: int, month: int, day: int, hour: int, minute: int, second: int}</span>
             </section>
 
 </article>
@@ -464,7 +464,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">276</span>
+    <span class="phpdocumentor-element-found-in__line">283</span>
 
     </aside>
 
@@ -511,7 +511,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">292</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 
     </aside>
 
@@ -723,7 +723,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 
     </aside>
 
@@ -825,7 +825,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 
     </aside>
 
@@ -833,7 +833,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">returnIn3FormatsArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dateArray</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$noFrac</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\DateTime">DateTime</abbr>|float|int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">returnIn3FormatsArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array{year: int, month: int, day: int, hour: int, minute: int, second: int}&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dateArray</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$noFrac</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\DateTime">DateTime</abbr>|float|int</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -842,7 +842,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$dateArray</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array{year: int, month: int, day: int, hour: int, minute: int, second: int}</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -880,7 +880,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">168</span>
+    <span class="phpdocumentor-element-found-in__line">170</span>
 
     </aside>
 
@@ -928,7 +928,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -976,7 +976,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">263</span>
+    <span class="phpdocumentor-element-found-in__line">265</span>
 
     </aside>
 
@@ -1026,7 +1026,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 
     </aside>
 
@@ -1090,7 +1090,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
@@ -1138,7 +1138,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">203</span>
 
     </aside>
 
@@ -1175,7 +1175,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php"><a href="files/src-phpspreadsheet-calculation-datetimeexcel-helpers.html"><abbr title="src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php">Helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">296</span>
 
     </aside>
 

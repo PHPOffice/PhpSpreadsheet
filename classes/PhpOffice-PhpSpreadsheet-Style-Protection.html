@@ -317,7 +317,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Protection.html#method_getStyleArray">getStyleArray()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{protection: array}    </span>
 </dt>
 <dd>Build style array from subcomponents.</dd>
 
@@ -756,7 +756,7 @@ its ramifications are</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -764,7 +764,7 @@ its ramifications are</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">applyFromArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$styleArray</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">applyFromArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array{locked?: string, hidden?: string}&nbsp;</span><span class="phpdocumentor-signature__argument__name">$styleArray</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -782,7 +782,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$styleArray</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array{locked?: string, hidden?: string}</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Array containing style information</p>
@@ -870,7 +870,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">116</span>
 
     </aside>
 
@@ -994,7 +994,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -1036,7 +1036,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
     </aside>
 
@@ -1112,7 +1112,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -1234,7 +1234,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1242,7 +1242,7 @@ NumberFormat, Protection, and Style.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getStyleArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$array</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getStyleArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$array</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{protection: array}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1264,7 +1264,7 @@ NumberFormat, Protection, and Style.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{protection: array}</span>
             </section>
 
 </article>
@@ -1282,7 +1282,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -1332,7 +1332,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
@@ -1382,7 +1382,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Protection.php"><a href="files/src-phpspreadsheet-style-protection.html"><abbr title="src/PhpSpreadsheet/Style/Protection.php">Protection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">176</span>
+    <span class="phpdocumentor-element-found-in__line">181</span>
 
     </aside>
 
@@ -1395,11 +1395,7 @@ extends this class.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>This method invokes exportArray2 with the names and values
-of all properties to be included in output array,
-returning that array to exportArray, then to caller.</p>
-</section>
-
+    
     
     
 
@@ -1425,7 +1421,7 @@ returning that array to exportArray, then to caller.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 

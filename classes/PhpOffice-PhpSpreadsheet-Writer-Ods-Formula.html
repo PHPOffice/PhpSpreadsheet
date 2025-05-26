@@ -155,7 +155,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#property_definedNames">$definedNames</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, string&gt;            </span>
 </dt>
 
     </dl>
@@ -190,6 +190,12 @@
                                 &nbsp;: string    </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertFunctionNames">convertFunctionNames()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
     </dl>
 
 
@@ -220,14 +226,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$definedNames</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -260,7 +266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
@@ -303,7 +309,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -357,7 +363,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
@@ -411,7 +417,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -419,6 +425,53 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">convertDefinedNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formula</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_convertFunctionNames">
+        convertFunctionNames()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertFunctionNames" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Ods/Formula.php"><a href="files/src-phpspreadsheet-writer-ods-formula.html"><abbr title="src/PhpSpreadsheet/Writer/Ods/Formula.php">Formula.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">122</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">convertFunctionNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -568,6 +621,7 @@
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertFormula">convertFormula()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertCellReferences">convertCellReferences()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertDefinedNames">convertDefinedNames()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Formula.html#method_convertFunctionNames">convertFunctionNames()</a></li>
                                     </ul>
             </li>
                     </ul>

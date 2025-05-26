@@ -757,7 +757,7 @@ Time: 5:45 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#property_lineStyleProperties">$lineStyleProperties</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array{width: null|float|int|string, compound: ?string, dash: ?string, cap: ?string, join: ?string, arrow: array{head: array{type: ?string, size: null|int|string, w: ?string, len: ?string}, end: array{type: ?string, size: null|int|string, w: ?string, len: ?string}}}            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
@@ -781,7 +781,7 @@ Time: 5:45 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#property_softEdges">$softEdges</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array{size: ?float}            </span>
 </dt>
 
     </dl>
@@ -920,7 +920,7 @@ Time: 5:45 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getShadowProperty">getShadowProperty()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;|string|null    </span>
+                                &nbsp;: null|array&lt;string|int, mixed&gt;|string    </span>
 </dt>
 <dd>Get Shadow Property.</dd>
 
@@ -1037,7 +1037,7 @@ Time: 5:45 PM.</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_setColorProperties">setColorProperties()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{type: ?string, value: ?string, alpha: ?int}    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
@@ -3653,7 +3653,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">847</span>
+    <span class="phpdocumentor-element-found-in__line">880</span>
 
     </aside>
 
@@ -3683,7 +3683,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -3756,7 +3756,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">560</span>
+    <span class="phpdocumentor-element-found-in__line">576</span>
 
     </aside>
 
@@ -3872,7 +3872,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">671</span>
+    <span class="phpdocumentor-element-found-in__line">698</span>
 
     </aside>
 
@@ -3907,14 +3907,14 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">673</span>
+    <span class="phpdocumentor-element-found-in__line">701</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array{width: null|float|int|string, compound: ?string, dash: ?string, cap: ?string, join: ?string, arrow: array{head: array{type: ?string, size: null|int|string, w: ?string, len: ?string}, end: array{type: ?string, size: null|int|string, w: ?string, len: ?string}}}</span>
     <span class="phpdocumentor-signature__name">$lineStyleProperties</span>
      = <span class="phpdocumentor-signature__default-value">[
     &#039;width&#039; =&gt; null,
@@ -4003,7 +4003,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">120</span>
 
     </aside>
 
@@ -4038,7 +4038,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -4073,14 +4073,14 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array{size: ?float}</span>
     <span class="phpdocumentor-signature__name">$softEdges</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;size&#039; =&gt; null]</span></code>
 
@@ -4113,7 +4113,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">894</span>
+    <span class="phpdocumentor-element-found-in__line">927</span>
 
     </aside>
 
@@ -4147,7 +4147,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 
     </aside>
 
@@ -4180,7 +4180,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -4218,7 +4218,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 
     </aside>
 
@@ -4265,7 +4265,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">695</span>
+    <span class="phpdocumentor-element-found-in__line">723</span>
 
     </aside>
 
@@ -4308,7 +4308,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">460</span>
+    <span class="phpdocumentor-element-found-in__line">473</span>
 
     </aside>
 
@@ -4356,7 +4356,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">478</span>
 
     </aside>
 
@@ -4393,7 +4393,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">439</span>
+    <span class="phpdocumentor-element-found-in__line">450</span>
 
     </aside>
 
@@ -4441,7 +4441,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">473</span>
+    <span class="phpdocumentor-element-found-in__line">486</span>
 
     </aside>
 
@@ -4479,7 +4479,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">705</span>
+    <span class="phpdocumentor-element-found-in__line">733</span>
 
     </aside>
 
@@ -4516,7 +4516,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">728</span>
+    <span class="phpdocumentor-element-found-in__line">756</span>
 
     </aside>
 
@@ -4564,7 +4564,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">797</span>
+    <span class="phpdocumentor-element-found-in__line">826</span>
 
     </aside>
 
@@ -4601,7 +4601,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">886</span>
+    <span class="phpdocumentor-element-found-in__line">919</span>
 
     </aside>
 
@@ -4649,7 +4649,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">870</span>
+    <span class="phpdocumentor-element-found-in__line">903</span>
 
     </aside>
 
@@ -4704,7 +4704,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">878</span>
+    <span class="phpdocumentor-element-found-in__line">911</span>
 
     </aside>
 
@@ -4752,7 +4752,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">833</span>
+    <span class="phpdocumentor-element-found-in__line">866</span>
 
     </aside>
 
@@ -4800,7 +4800,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
@@ -4838,7 +4838,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">661</span>
+    <span class="phpdocumentor-element-found-in__line">688</span>
 
     </aside>
 
@@ -4875,7 +4875,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">630</span>
+    <span class="phpdocumentor-element-found-in__line">654</span>
 
     </aside>
 
@@ -4912,7 +4912,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">640</span>
+    <span class="phpdocumentor-element-found-in__line">666</span>
 
     </aside>
 
@@ -4920,7 +4920,7 @@ Time: 5:45 PM.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getShadowProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$elements</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string|null</span></code>
+                    <span class="phpdocumentor-signature__name">getShadowProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$elements</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|array&lt;string|int, mixed&gt;|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4942,7 +4942,7 @@ Time: 5:45 PM.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string|null</span>
+        <span class="phpdocumentor-signature__response_type">null|array&lt;string|int, mixed&gt;|string</span>
             </section>
 
 </article>
@@ -4960,7 +4960,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">504</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 
     </aside>
 
@@ -4998,7 +4998,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
@@ -5045,7 +5045,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
+    <span class="phpdocumentor-element-found-in__line">429</span>
 
     </aside>
 
@@ -5110,7 +5110,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">713</span>
+    <span class="phpdocumentor-element-found-in__line">741</span>
 
     </aside>
 
@@ -5168,7 +5168,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">802</span>
+    <span class="phpdocumentor-element-found-in__line">832</span>
 
     </aside>
 
@@ -5215,7 +5215,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">736</span>
+    <span class="phpdocumentor-element-found-in__line">764</span>
 
     </aside>
 
@@ -5343,7 +5343,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">822</span>
+    <span class="phpdocumentor-element-found-in__line">853</span>
 
     </aside>
 
@@ -5397,7 +5397,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">524</span>
+    <span class="phpdocumentor-element-found-in__line">540</span>
 
     </aside>
 
@@ -5483,14 +5483,14 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">509</span>
+    <span class="phpdocumentor-element-found-in__line">523</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setShadowProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$propertyName</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setShadowProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$propertyName</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|array{value?: ?string, alpha?: null|int|string, brightness?: null|int|string, type?: ?string}|float|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5506,7 +5506,7 @@ Time: 5:45 PM.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|array{value?: ?string, alpha?: null|int|string, brightness?: null|int|string, type?: ?string}|float|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -5537,7 +5537,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">493</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 
     </aside>
 
@@ -5581,7 +5581,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -5628,7 +5628,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -5675,7 +5675,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -5722,7 +5722,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
@@ -5769,7 +5769,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">405</span>
+    <span class="phpdocumentor-element-found-in__line">412</span>
 
     </aside>
 
@@ -5820,7 +5820,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">862</span>
+    <span class="phpdocumentor-element-found-in__line">895</span>
 
     </aside>
 
@@ -5875,7 +5875,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">397</span>
+    <span class="phpdocumentor-element-found-in__line">401</span>
 
     </aside>
 
@@ -5922,14 +5922,14 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">setColorProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$color</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alpha</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$colorType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">setColorProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$color</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alpha</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$colorType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{type: ?string, value: ?string, alpha: ?int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5965,7 +5965,7 @@ Time: 5:45 PM.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{type: ?string, value: ?string, alpha: ?int}</span>
             </section>
 
 </article>
@@ -5983,7 +5983,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">483</span>
+    <span class="phpdocumentor-element-found-in__line">496</span>
 
     </aside>
 
@@ -6031,7 +6031,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">607</span>
+    <span class="phpdocumentor-element-found-in__line">631</span>
 
     </aside>
 
@@ -6079,7 +6079,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">593</span>
+    <span class="phpdocumentor-element-found-in__line">617</span>
 
     </aside>
 
@@ -6127,7 +6127,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">621</span>
+    <span class="phpdocumentor-element-found-in__line">645</span>
 
     </aside>
 
@@ -6175,7 +6175,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">552</span>
+    <span class="phpdocumentor-element-found-in__line">568</span>
 
     </aside>
 
@@ -6223,7 +6223,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Properties.php"><a href="files/src-phpspreadsheet-chart-properties.html"><abbr title="src/PhpSpreadsheet/Chart/Properties.php">Properties.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">567</span>
+    <span class="phpdocumentor-element-found-in__line">586</span>
 
     </aside>
 
@@ -6231,7 +6231,7 @@ Time: 5:45 PM.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">setShadowPropertiesMapValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$propertiesMap</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$reference</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setShadowPropertiesMapValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$propertiesMap</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$reference</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6247,7 +6247,7 @@ Time: 5:45 PM.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$reference</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 

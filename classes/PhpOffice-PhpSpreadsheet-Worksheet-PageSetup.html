@@ -669,7 +669,7 @@ Paper size taken from Office Open XML Part 4 - Markup Language Reference, page 1
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#property_columnsToRepeatAtLeft">$columnsToRepeatAtLeft</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array{: string, : string}            </span>
 </dt>
 <dd>Columns to repeat at left.</dd>
 
@@ -755,7 +755,7 @@ Number of horizontal pages to fit on.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#property_rowsToRepeatAtTop">$rowsToRepeatAtTop</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, int&gt;            </span>
 </dt>
 <dd>Rows to repeat at top.</dd>
 
@@ -812,7 +812,7 @@ Number of horizontal pages to fit on.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method_getColumnsToRepeatAtLeft">getColumnsToRepeatAtLeft()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{: string, : string}    </span>
 </dt>
 <dd>Get Columns to repeat at left.</dd>
 
@@ -894,7 +894,7 @@ Number of horizontal pages to fit on.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method_getRowsToRepeatAtTop">getRowsToRepeatAtTop()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, int&gt;    </span>
 </dt>
 <dd>Get Rows to repeat at top.</dd>
 
@@ -3299,7 +3299,7 @@ Number of horizontal pages to fit on.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array{: string, : string}</span>
     <span class="phpdocumentor-signature__name">$columnsToRepeatAtLeft</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;&#039;, &#039;&#039;]</span></code>
 
@@ -3735,7 +3735,7 @@ Number of horizontal pages to fit on.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, int&gt;</span>
     <span class="phpdocumentor-signature__name">$rowsToRepeatAtTop</span>
      = <span class="phpdocumentor-signature__default-value">[0, 0]</span></code>
 
@@ -4093,7 +4093,7 @@ Print areas are numbered from 1</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getColumnsToRepeatAtLeft</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getColumnsToRepeatAtLeft</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{: string, : string}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4105,7 +4105,7 @@ Print areas are numbered from 1</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{: string, : string}</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Containing start column and end column, empty array if option unset</p>
 </section>
@@ -4566,7 +4566,7 @@ Print areas are numbered from 1</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getRowsToRepeatAtTop</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getRowsToRepeatAtTop</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, int&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4578,7 +4578,7 @@ Print areas are numbered from 1</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, int&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Containing start column and end column, empty array if option unset</p>
 </section>
@@ -4851,7 +4851,7 @@ Print areas are numbered from 1</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setColumnsToRepeatAtLeft</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnsToRepeatAtLeft</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setColumnsToRepeatAtLeft</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array{: string, : string}&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnsToRepeatAtLeft</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4860,7 +4860,7 @@ Print areas are numbered from 1</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$columnsToRepeatAtLeft</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array{: string, : string}</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Containing start column and end column, empty array if option unset</p>
@@ -5635,7 +5635,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setRowsToRepeatAtTop</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rowsToRepeatAtTop</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setRowsToRepeatAtTop</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rowsToRepeatAtTop</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5644,7 +5644,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$rowsToRepeatAtTop</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Containing start column and end column, empty array if option unset</p>

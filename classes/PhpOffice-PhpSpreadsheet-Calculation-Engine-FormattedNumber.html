@@ -157,12 +157,6 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_CONVERSION_LIST">STRING_CONVERSION_LIST</a>
-    <span>
-        &nbsp;= [[self::class, &#039;convertToNumberIfNumeric&#039;], [self::class, &#039;convertToNumberIfFraction&#039;], [self::class, &#039;convertToNumberIfPercent&#039;], [self::class, &#039;convertToNumberIfCurrency&#039;]]                            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_FRACTION">STRING_REGEXP_FRACTION</a>
     <span>
         &nbsp;= &#039;~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~&#039;                            </span>
@@ -273,36 +267,6 @@ convert it to a numeric.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_STRING_CONVERSION_LIST">
-        STRING_CONVERSION_LIST
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_CONVERSION_LIST" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">19</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">STRING_CONVERSION_LIST</span>
-    = <span class="phpdocumentor-signature__default-value">[[self::class, &#039;convertToNumberIfNumeric&#039;], [self::class, &#039;convertToNumberIfFraction&#039;], [self::class, &#039;convertToNumberIfPercent&#039;], [self::class, &#039;convertToNumberIfCurrency&#039;]]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_STRING_REGEXP_FRACTION">
         STRING_REGEXP_FRACTION
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_FRACTION" class="headerlink"><i class="fas fa-link"></i></a>
@@ -387,7 +351,7 @@ convert it to a numeric.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -438,7 +402,7 @@ convert it to a numeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -447,7 +411,7 @@ and convert it to a numeric if it is.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">convertToNumberIfFormatted</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$operand</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">convertToNumberIfFormatted</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$operand</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -456,7 +420,7 @@ and convert it to a numeric if it is.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$operand</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>string value to test</p>
@@ -489,7 +453,7 @@ and convert it to a numeric if it is.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
@@ -540,7 +504,7 @@ and convert it to a numeric if it is.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -591,7 +555,7 @@ and convert it to a numeric if it is.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 
     </aside>
 
@@ -642,7 +606,7 @@ convert it to a numeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php"><a href="files/src-phpspreadsheet-calculation-engine-formattednumber.html"><abbr title="src/PhpSpreadsheet/Calculation/Engine/FormattedNumber.php">FormattedNumber.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -778,7 +742,6 @@ convert it to a numeric.</p>
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_CURRENCY_CONVERSION_LIST">CURRENCY_CONVERSION_LIST</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_CONVERSION_LIST">STRING_CONVERSION_LIST</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_FRACTION">STRING_REGEXP_FRACTION</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-FormattedNumber.html#constant_STRING_REGEXP_PERCENT">STRING_REGEXP_PERCENT</a></li>
                                             </ul>

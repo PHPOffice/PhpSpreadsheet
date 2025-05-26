@@ -323,6 +323,18 @@ The true/false value indicates whether it is a binary operator or a unary operat
 Constant conversion from text name/value to actual (datatyped) value.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_FROM">MATRIX_REPLACE_FROM</a>
+    <span>
+        &nbsp;= [self::FORMULA_OPEN_MATRIX_BRACE, &#039;;&#039;, self::FORMULA_CLOSE_MATRIX_BRACE]                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_TO">MATRIX_REPLACE_TO</a>
+    <span>
+        &nbsp;= [&#039;MKMATRIX(MKMATRIX(&#039;, &#039;),MKMATRIX(&#039;, &#039;))&#039;]                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_OPERATOR_PRECEDENCE">OPERATOR_PRECEDENCE</a>
     <span>
         &nbsp;= [
@@ -388,13 +400,13 @@ Constant conversion from text name/value to actual (datatyped) value.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationLocale.html#property_functionReplaceFromLocale">$functionReplaceFromLocale</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                        &nbsp;: null|array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationLocale.html#property_functionReplaceToExcel">$functionReplaceToExcel</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                        &nbsp;: null|array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
@@ -414,7 +426,7 @@ Constant conversion from text name/value to actual (datatyped) value.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationLocale.html#property_localeFunctions">$localeFunctions</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
@@ -467,7 +479,7 @@ Note that this is read for the locale subdirectory only when requested.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#property_controlFunctions">$controlFunctions</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, array&lt;string, array&lt;string|int, string&gt;|string&gt;&gt;            </span>
 </dt>
 <dd>Internal functions used for special control purposes.</dd>
 
@@ -503,13 +515,13 @@ otherwise they will iterate to the limit defined here before returning a result.
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationLocale.html#property_functionReplaceFromExcel">$functionReplaceFromExcel</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                        &nbsp;: null|array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationLocale.html#property_functionReplaceToLocale">$functionReplaceToLocale</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                        &nbsp;: null|array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
@@ -750,14 +762,14 @@ Retained for backward compatibility.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-CalculationBase.html#method_getFunctions">getFunctions()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}&gt;    </span>
 </dt>
 <dd>Get a list of all implemented functions as an array of function objects.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_getImplementedFunctionNames">getImplementedFunctionNames()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Get a list of implemented Excel function names.</dd>
 
@@ -1015,7 +1027,7 @@ Retained for backward compatibility.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_executeBinaryComparisonOperation">executeBinaryComparisonOperation()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;|bool    </span>
+                                &nbsp;: bool|array&lt;string|int, mixed&gt;    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
@@ -1807,7 +1819,7 @@ Retained for backward compatibility.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -1838,7 +1850,7 @@ Retained for backward compatibility.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -1870,7 +1882,7 @@ The true/false value indicates whether it is a binary operator or a unary operat
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1008</span>
+    <span class="phpdocumentor-element-found-in__line">1023</span>
 
     </aside>
 
@@ -1903,7 +1915,7 @@ The true/false value indicates whether it is a binary operator or a unary operat
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 
@@ -1926,6 +1938,66 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
 
 </article>
                     <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_MATRIX_REPLACE_FROM">
+        MATRIX_REPLACE_FROM
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_FROM" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">964</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MATRIX_REPLACE_FROM</span>
+    = <span class="phpdocumentor-signature__default-value">[self::FORMULA_OPEN_MATRIX_BRACE, &#039;;&#039;, self::FORMULA_CLOSE_MATRIX_BRACE]</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_MATRIX_REPLACE_TO">
+        MATRIX_REPLACE_TO
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_TO" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">965</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MATRIX_REPLACE_TO</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;MKMATRIX(MKMATRIX(&#039;, &#039;),MKMATRIX(&#039;, &#039;))&#039;]</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_PRECEDENCE">
         OPERATOR_PRECEDENCE
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_OPERATOR_PRECEDENCE" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1935,7 +2007,7 @@ Constant conversion from text name/value to actual (datatyped) value.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1015</span>
+    <span class="phpdocumentor-element-found-in__line">1030</span>
 
     </aside>
 
@@ -2012,7 +2084,7 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -2048,7 +2120,7 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
@@ -2084,7 +2156,7 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -2119,14 +2191,14 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">379</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">null|array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$functionReplaceFromLocale</span>
     </code>
 
@@ -2154,14 +2226,14 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">369</span>
+    <span class="phpdocumentor-element-found-in__line">382</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">null|array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$functionReplaceToExcel</span>
     </code>
 
@@ -2225,7 +2297,7 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -2261,14 +2333,14 @@ Array key is the operator, the value is its precedence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$localeFunctions</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -2369,7 +2441,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -2404,7 +2476,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
@@ -2439,7 +2511,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 
     </aside>
 
@@ -2475,7 +2547,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
@@ -2511,7 +2583,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -2546,7 +2618,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
@@ -2554,7 +2626,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, array&lt;string, array&lt;string|int, string&gt;|string&gt;&gt;</span>
     <span class="phpdocumentor-signature__name">$controlFunctions</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;MKMATRIX&#039; =&gt; [&#039;argumentCount&#039; =&gt; &#039;*&#039;, &#039;functionCall&#039; =&gt; [\PhpOffice\PhpSpreadsheet\Calculation\Internal\MakeMatrix::class, &#039;make&#039;]], &#039;NAME.ERROR&#039; =&gt; [&#039;argumentCount&#039; =&gt; &#039;*&#039;, &#039;functionCall&#039; =&gt; [\PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError::class, &#039;NAME&#039;]], &#039;WILDCARDMATCH&#039; =&gt; [&#039;argumentCount&#039; =&gt; &#039;2&#039;, &#039;functionCall&#039; =&gt; [\PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch::class, &#039;compare&#039;]]]</span></code>
 
@@ -2582,7 +2654,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -2617,7 +2689,7 @@ Note that this is read for the locale subdirectory only when requested.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -2655,7 +2727,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 
     </aside>
 
@@ -2691,7 +2763,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
@@ -2727,14 +2799,14 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">330</span>
+    <span class="phpdocumentor-element-found-in__line">340</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">null|array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$functionReplaceFromExcel</span>
     </code>
 
@@ -2762,14 +2834,14 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">332</span>
+    <span class="phpdocumentor-element-found-in__line">343</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">null|array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$functionReplaceToLocale</span>
     </code>
 
@@ -2869,7 +2941,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1538</span>
+    <span class="phpdocumentor-element-found-in__line">1559</span>
 
     </aside>
 
@@ -2904,7 +2976,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1534</span>
+    <span class="phpdocumentor-element-found-in__line">1555</span>
 
     </aside>
 
@@ -2939,7 +3011,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1536</span>
+    <span class="phpdocumentor-element-found-in__line">1557</span>
 
     </aside>
 
@@ -2974,7 +3046,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
@@ -3081,7 +3153,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -3121,7 +3193,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">238</span>
+    <span class="phpdocumentor-element-found-in__line">243</span>
 
     </aside>
 
@@ -3155,7 +3227,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -3198,7 +3270,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">630</span>
+    <span class="phpdocumentor-element-found-in__line">639</span>
 
     </aside>
 
@@ -3278,7 +3350,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string, array&lt;string, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -3294,7 +3366,7 @@ otherwise they will iterate to the limit defined here before returning a result.
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string, array&lt;string, mixed&gt;&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -3325,7 +3397,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2733</span>
+    <span class="phpdocumentor-element-found-in__line">2801</span>
 
     </aside>
 
@@ -3368,7 +3440,7 @@ otherwise they will iterate to the limit defined here before returning a result.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">439</span>
+    <span class="phpdocumentor-element-found-in__line">444</span>
 
     </aside>
 
@@ -3415,7 +3487,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">454</span>
+    <span class="phpdocumentor-element-found-in__line">459</span>
 
     </aside>
 
@@ -3470,7 +3542,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">566</span>
+    <span class="phpdocumentor-element-found-in__line">575</span>
 
     </aside>
 
@@ -3534,7 +3606,7 @@ Retained for backward compatibility.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">717</span>
+    <span class="phpdocumentor-element-found-in__line">728</span>
 
     </aside>
 
@@ -3595,7 +3667,7 @@ larger should shrink.
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>array $operand1</p>
+                                                 <section class="phpdocumentor-description"><p>mixed[] $operand1</p>
 </section>
 
                                     </dd>
@@ -3604,7 +3676,7 @@ larger should shrink.
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>array $operand2</p>
+                                                 <section class="phpdocumentor-description"><p>mixed[] $operand2</p>
 </section>
 
                                     </dd>
@@ -3632,7 +3704,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">345</span>
+    <span class="phpdocumentor-element-found-in__line">350</span>
 
     </aside>
 
@@ -3666,7 +3738,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">353</span>
+    <span class="phpdocumentor-element-found-in__line">358</span>
 
     </aside>
 
@@ -3710,7 +3782,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">394</span>
 
     </aside>
 
@@ -3743,7 +3815,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">342</span>
 
     </aside>
 
@@ -3777,7 +3849,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">384</span>
+    <span class="phpdocumentor-element-found-in__line">389</span>
 
     </aside>
 
@@ -3810,7 +3882,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">329</span>
+    <span class="phpdocumentor-element-found-in__line">334</span>
 
     </aside>
 
@@ -3844,7 +3916,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2447</span>
+    <span class="phpdocumentor-element-found-in__line">2499</span>
 
     </aside>
 
@@ -3916,7 +3988,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2511</span>
+    <span class="phpdocumentor-element-found-in__line">2564</span>
 
     </aside>
 
@@ -3988,7 +4060,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">226</span>
 
     </aside>
 
@@ -4023,7 +4095,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 
     </aside>
 
@@ -4065,7 +4137,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">371</span>
+    <span class="phpdocumentor-element-found-in__line">376</span>
 
     </aside>
 
@@ -4102,7 +4174,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">315</span>
 
     </aside>
 
@@ -4140,7 +4212,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">235</span>
 
     </aside>
 
@@ -4178,7 +4250,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -4225,7 +4297,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -4267,7 +4339,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 
     </aside>
 
@@ -4312,13 +4384,11 @@ larger should shrink.
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getFunctions</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getFunctions</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>return array&lt;string, array&lt;string, mixed&gt;&gt;</p>
-</section>
-
+    
     
     
 
@@ -4326,7 +4396,7 @@ larger should shrink.
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}&gt;</span>
             </section>
 
 </article>
@@ -4344,7 +4414,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2582</span>
+    <span class="phpdocumentor-element-found-in__line">2638</span>
 
     </aside>
 
@@ -4352,7 +4422,7 @@ larger should shrink.
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getImplementedFunctionNames</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getImplementedFunctionNames</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -4364,7 +4434,7 @@ larger should shrink.
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             </section>
 
 </article>
@@ -4382,7 +4452,7 @@ larger should shrink.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
@@ -4433,7 +4503,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">302</span>
+    <span class="phpdocumentor-element-found-in__line">307</span>
 
     </aside>
 
@@ -4475,7 +4545,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -4513,7 +4583,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -4560,7 +4630,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">764</span>
+    <span class="phpdocumentor-element-found-in__line">777</span>
 
     </aside>
 
@@ -4614,7 +4684,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2769</span>
+    <span class="phpdocumentor-element-found-in__line">2837</span>
 
     </aside>
 
@@ -4651,7 +4721,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2728</span>
+    <span class="phpdocumentor-element-found-in__line">2796</span>
 
     </aside>
 
@@ -4688,7 +4758,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -4730,7 +4800,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">598</span>
+    <span class="phpdocumentor-element-found-in__line">607</span>
 
     </aside>
 
@@ -4784,7 +4854,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2570</span>
+    <span class="phpdocumentor-element-found-in__line">2624</span>
 
     </aside>
 
@@ -4834,7 +4904,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 
     </aside>
 
@@ -4881,7 +4951,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">396</span>
+    <span class="phpdocumentor-element-found-in__line">409</span>
 
     </aside>
 
@@ -4928,7 +4998,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">537</span>
+    <span class="phpdocumentor-element-found-in__line">546</span>
 
     </aside>
 
@@ -5025,7 +5095,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">363</span>
+    <span class="phpdocumentor-element-found-in__line">368</span>
 
     </aside>
 
@@ -5076,7 +5146,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">615</span>
+    <span class="phpdocumentor-element-found-in__line">624</span>
 
     </aside>
 
@@ -5126,7 +5196,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">250</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
@@ -5180,7 +5250,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">376</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
@@ -5227,7 +5297,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">323</span>
 
     </aside>
 
@@ -5275,7 +5345,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">287</span>
 
     </aside>
 
@@ -5329,7 +5399,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 
     </aside>
 
@@ -5379,7 +5449,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2721</span>
+    <span class="phpdocumentor-element-found-in__line">2789</span>
 
     </aside>
 
@@ -5426,7 +5496,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">371</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 
     </aside>
 
@@ -5473,7 +5543,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">334</span>
+    <span class="phpdocumentor-element-found-in__line">345</span>
 
     </aside>
 
@@ -5520,7 +5590,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 
     </aside>
 
@@ -5602,7 +5672,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">419</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 
     </aside>
 
@@ -5646,7 +5716,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">397</span>
+    <span class="phpdocumentor-element-found-in__line">402</span>
 
     </aside>
 
@@ -5728,7 +5798,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -5796,7 +5866,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -5829,7 +5899,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2426</span>
+    <span class="phpdocumentor-element-found-in__line">2478</span>
 
     </aside>
 
@@ -5891,14 +5961,14 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">298</span>
+    <span class="phpdocumentor-element-found-in__line">307</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">translateFormula</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromSeparator</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toSeparator</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">translateFormula</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromSeparator</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toSeparator</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5907,14 +5977,14 @@ or NULL to create a standalone calculation engine</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$from</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$to</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -5966,14 +6036,14 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/CalculationLocale.php"><a href="files/src-phpspreadsheet-calculation-calculationlocale.html"><abbr title="src/PhpSpreadsheet/Calculation/CalculationLocale.php">CalculationLocale.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">274</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">translateFormulaBlock</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$inFunctionBracesLevel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$inMatrixBracesLevel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromSeparator</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toSeparator</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">translateFormulaBlock</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$from</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$inFunctionBracesLevel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$inMatrixBracesLevel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromSeparator</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toSeparator</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -5982,14 +6052,14 @@ or NULL to create a standalone calculation engine</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$from</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$to</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6055,7 +6125,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2646</span>
+    <span class="phpdocumentor-element-found-in__line">2714</span>
 
     </aside>
 
@@ -6063,7 +6133,7 @@ or NULL to create a standalone calculation engine</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">addCellReference</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$passCellReference</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionCall</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">addCellReference</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$passCellReference</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionCall</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6086,7 +6156,7 @@ or NULL to create a standalone calculation engine</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$functionCall</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6124,14 +6194,14 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2595</span>
+    <span class="phpdocumentor-element-found-in__line">2658</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">addDefaultArgumentValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionCall</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$emptyArguments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">addDefaultArgumentValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$functionCall</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$emptyArguments</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6140,7 +6210,7 @@ or NULL to create a standalone calculation engine</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$functionCall</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6185,7 +6255,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">952</span>
+    <span class="phpdocumentor-element-found-in__line">970</span>
 
     </aside>
 
@@ -6236,7 +6306,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1512</span>
+    <span class="phpdocumentor-element-found-in__line">1533</span>
 
     </aside>
 
@@ -6279,7 +6349,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2666</span>
+    <span class="phpdocumentor-element-found-in__line">2734</span>
 
     </aside>
 
@@ -6350,7 +6420,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2227</span>
+    <span class="phpdocumentor-element-found-in__line">2276</span>
 
     </aside>
 
@@ -6425,14 +6495,14 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2271</span>
+    <span class="phpdocumentor-element-found-in__line">2321</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">executeBinaryComparisonOperation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operation</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Token-Stack.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Token\Stack">Stack</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$stack</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$recursingArrays</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|bool</span></code>
+                    <span class="phpdocumentor-signature__name">executeBinaryComparisonOperation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operand2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operation</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Token-Stack.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Token\Stack">Stack</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$stack</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$recursingArrays</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6482,7 +6552,7 @@ or NULL to create a standalone calculation engine</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|bool</span>
+        <span class="phpdocumentor-signature__response_type">bool|array&lt;string|int, mixed&gt;</span>
             </section>
 
 </article>
@@ -6500,7 +6570,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2288</span>
+    <span class="phpdocumentor-element-found-in__line">2338</span>
 
     </aside>
 
@@ -6564,7 +6634,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2620</span>
+    <span class="phpdocumentor-element-found-in__line">2683</span>
 
     </aside>
 
@@ -6607,7 +6677,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1031</span>
+    <span class="phpdocumentor-element-found-in__line">1046</span>
 
     </aside>
 
@@ -6661,7 +6731,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2744</span>
+    <span class="phpdocumentor-element-found-in__line">2812</span>
 
     </aside>
 
@@ -6708,7 +6778,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2749</span>
+    <span class="phpdocumentor-element-found-in__line">2817</span>
 
     </aside>
 
@@ -6755,14 +6825,14 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1543</span>
+    <span class="phpdocumentor-element-found-in__line">1566</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">processTokenStack</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">false|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokens</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellID</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, mixed&gt;|false|string</span></code>
+                    <span class="phpdocumentor-signature__name">processTokenStack</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|false&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokens</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellID</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, mixed&gt;|false|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6771,7 +6841,7 @@ or NULL to create a standalone calculation engine</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tokens</span>
-                : <span class="phpdocumentor-signature__argument__return-type">false|array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|false</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6816,7 +6886,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">835</span>
+    <span class="phpdocumentor-element-found-in__line">848</span>
 
     </aside>
 
@@ -6907,7 +6977,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">792</span>
+    <span class="phpdocumentor-element-found-in__line">805</span>
 
     </aside>
 
@@ -6915,7 +6985,7 @@ or NULL to create a standalone calculation engine</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resizeMatricesShrink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$matrix1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$matrix2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix1Rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix1Columns</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix2Rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix2Columns</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resizeMatricesShrink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$matrix1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$matrix2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix1Rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix1Columns</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix2Rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matrix2Columns</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6924,7 +6994,7 @@ or NULL to create a standalone calculation engine</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$matrix1</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>First matrix operand</p>
@@ -6933,7 +7003,7 @@ or NULL to create a standalone calculation engine</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$matrix2</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Second matrix operand</p>
@@ -6998,7 +7068,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">915</span>
+    <span class="phpdocumentor-element-found-in__line">930</span>
 
     </aside>
 
@@ -7048,7 +7118,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">877</span>
+    <span class="phpdocumentor-element-found-in__line">892</span>
 
     </aside>
 
@@ -7094,7 +7164,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2754</span>
+    <span class="phpdocumentor-element-found-in__line">2822</span>
 
     </aside>
 
@@ -7148,7 +7218,7 @@ or NULL to create a standalone calculation engine</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Calculation.php"><a href="files/src-phpspreadsheet-calculation-calculation.html"><abbr title="src/PhpSpreadsheet/Calculation/Calculation.php">Calculation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2189</span>
+    <span class="phpdocumentor-element-found-in__line">2237</span>
 
     </aside>
 
@@ -7328,6 +7398,8 @@ or NULL to create a standalone calculation engine</p>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_CALCULATION_OPERATORS">CALCULATION_OPERATORS</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_COMPARISON_OPERATORS">COMPARISON_OPERATORS</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_EXCEL_CONSTANTS">EXCEL_CONSTANTS</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_FROM">MATRIX_REPLACE_FROM</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_MATRIX_REPLACE_TO">MATRIX_REPLACE_TO</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#constant_OPERATOR_PRECEDENCE">OPERATOR_PRECEDENCE</a></li>
                                             </ul>
                 </li>

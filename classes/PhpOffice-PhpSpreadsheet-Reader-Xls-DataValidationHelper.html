@@ -766,7 +766,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_definedname">$definedname</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array{isBuiltInName: int, name: string, formula: string, scope: int}            </span>
 </dt>
 <dd>Defined names.</dd>
 
@@ -799,6 +799,12 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
 <dd>The type of encryption in use.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionPassword">$encryptionPassword</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionStartPos">$encryptionStartPos</a>
     <span>
                         &nbsp;: int            </span>
@@ -808,14 +814,14 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalBooks">$externalBooks</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array&lt;string|int, mixed&gt;&gt;            </span>
 </dt>
 <dd>External books.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalNames">$externalNames</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array&lt;string, mixed&gt;|string&gt;            </span>
 </dt>
 <dd>External names.</dd>
 
@@ -873,14 +879,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellStyleXfIndex">$mapCellStyleXfIndex</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, int&gt;            </span>
 </dt>
 <dd>Mapping of XF index (that is a style XF) to final index in cellStyleXf collection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_mapCellXfIndex">$mapCellXfIndex</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, int&gt;            </span>
 </dt>
 <dd>Mapping of XF index (that is a cell XF) to final index in cellXf collection.</dd>
 
@@ -901,7 +907,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_palette">$palette</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array&lt;string|int, string&gt;&gt;            </span>
 </dt>
 <dd>Color palette.</dd>
 
@@ -961,7 +967,7 @@ Identifies whether the Reader should read data values for all cells, or should i
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_ref">$ref</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array&lt;string|int, mixed&gt;&gt;            </span>
 </dt>
 <dd>REF structures. Only applies to BIFF8.</dd>
 
@@ -989,7 +995,7 @@ refers to a shared formula.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sheets">$sheets</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array{name: string, offset: int, sheetState: string, sheetType: int|string}&gt;            </span>
 </dt>
 <dd>Worksheets.</dd>
 
@@ -1003,7 +1009,7 @@ refers to a shared formula.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_sst">$sst</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array{value: string, fmtRuns: array}&gt;            </span>
 </dt>
 <dd>Shared strings. Only applies to BIFF8.</dd>
 
@@ -1017,7 +1023,7 @@ refers to a shared formula.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_textObjects">$textObjects</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, array{text: string, format: string, alignment: int, rotation: int}&gt;            </span>
 </dt>
 <dd>Text Objects. One TXO record corresponds with one entry.</dd>
 
@@ -1136,7 +1142,7 @@ refers to a shared formula.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+                                &nbsp;: null|array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Get which sheets to load
 Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
@@ -1207,14 +1213,14 @@ Returns either an array of worksheet names (the list of worksheets that should b
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetInfo">listWorksheetInfo()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;    </span>
 </dt>
 <dd>Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetNames">listWorksheetNames()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.</dd>
 
@@ -1235,6 +1241,12 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_setCodepage">setCodepage()</a>
     <span>
                                 &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_setEncryptionPassword">setEncryptionPassword()</a>
+    <span>
+                                &nbsp;: self    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -1408,7 +1420,7 @@ cell.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readByteStringLong">readByteStringLong()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{value: mixed, size: int}    </span>
 </dt>
 <dd>Read byte string (16-bit string length)
 OpenOffice documentation: 2.5.2.</dd>
@@ -1416,7 +1428,7 @@ OpenOffice documentation: 2.5.2.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_readByteStringShort">readByteStringShort()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{value: mixed, size: int}    </span>
 </dt>
 <dd>Read byte string (8-bit string length)
 OpenOffice documentation: 2.5.2.</dd>
@@ -1770,7 +1782,7 @@ where it is referred to as FEAT record.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_readRGB">readRGB()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{rgb: string}    </span>
 </dt>
 <dd>Extract RGB color
 OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 2.5.4.</dd>
@@ -1915,7 +1927,7 @@ it occurs directly after the FORMULA record.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_readUnicodeString">readUnicodeString()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{value: string, size: int}    </span>
 </dt>
 <dd>Read Unicode string with no string length field, but with known character count
 this function is under construction, needs to support rich text, and Asian phonetic settings
@@ -1924,7 +1936,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_readUnicodeStringLong">readUnicodeStringLong()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{value: string, size: int}    </span>
 </dt>
 <dd>Extracts an Excel Unicode long string (16-bit string length)
 OpenOffice documentation: 2.5.3
@@ -1933,7 +1945,7 @@ this function is under construction, needs to support rich text, and Asian phone
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_readUnicodeStringShort">readUnicodeStringShort()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{value: string, size: int}    </span>
 </dt>
 <dd>Extracts an Excel Unicode short string (8-bit string length)
 OpenOffice documentation: 2.5.3
@@ -4746,7 +4758,7 @@ is in one piece.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 
     </aside>
 
@@ -4781,7 +4793,7 @@ is in one piece.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">241</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 
     </aside>
 
@@ -4816,7 +4828,7 @@ is in one piece.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
@@ -4961,7 +4973,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 
     </aside>
 
@@ -4969,7 +4981,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array{isBuiltInName: int, name: string, formula: string, scope: int}</span>
     <span class="phpdocumentor-signature__name">$definedname</span>
     </code>
 
@@ -5033,7 +5045,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -5069,7 +5081,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 
     </aside>
 
@@ -5105,7 +5117,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">246</span>
 
     </aside>
 
@@ -5131,6 +5143,41 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_encryptionPassword">
+        $encryptionPassword
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">253</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$encryptionPassword</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;VelvetSweatshop&#039;</span></code>
+
+    
+    
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_encryptionStartPos">
         $encryptionStartPos
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionStartPos" class="headerlink"><i class="fas fa-link"></i></a>
@@ -5141,7 +5188,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">251</span>
 
     </aside>
 
@@ -5177,7 +5224,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
@@ -5185,7 +5232,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
     <span class="phpdocumentor-signature__name">$externalBooks</span>
     </code>
 
@@ -5213,7 +5260,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
@@ -5221,7 +5268,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array&lt;string, mixed&gt;|string&gt;</span>
     <span class="phpdocumentor-signature__name">$externalNames</span>
     </code>
 
@@ -5284,7 +5331,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">108</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 
     </aside>
 
@@ -5320,7 +5367,7 @@ For BIFF8 (Excel 97 - Excel 2003) this will always have the value &#039;UTF-16LE
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 
@@ -5432,7 +5479,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 
     </aside>
 
@@ -5507,7 +5554,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">226</span>
 
     </aside>
 
@@ -5515,7 +5562,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, int&gt;</span>
     <span class="phpdocumentor-signature__name">$mapCellStyleXfIndex</span>
     </code>
 
@@ -5543,7 +5590,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
@@ -5551,7 +5598,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, int&gt;</span>
     <span class="phpdocumentor-signature__name">$mapCellXfIndex</span>
     </code>
 
@@ -5579,7 +5626,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
@@ -5615,7 +5662,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
@@ -5651,7 +5698,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -5659,7 +5706,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array&lt;string|int, string&gt;&gt;</span>
     <span class="phpdocumentor-signature__name">$palette</span>
     </code>
 
@@ -5759,7 +5806,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">226</span>
+    <span class="phpdocumentor-element-found-in__line">258</span>
 
     </aside>
 
@@ -5795,7 +5842,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">231</span>
+    <span class="phpdocumentor-element-found-in__line">263</span>
 
     </aside>
 
@@ -5943,7 +5990,7 @@ Identifies whether the Reader should read data values for all cells, or should i
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -5951,7 +5998,7 @@ Identifies whether the Reader should read data values for all cells, or should i
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
     <span class="phpdocumentor-signature__name">$ref</span>
     </code>
 
@@ -6014,7 +6061,7 @@ Identifies whether the Reader should read data values for all cells, or should i
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 
     </aside>
 
@@ -6051,7 +6098,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
@@ -6087,7 +6134,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -6095,7 +6142,7 @@ refers to a shared formula.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array{name: string, offset: int, sheetState: string, sheetType: int|string}&gt;</span>
     <span class="phpdocumentor-signature__name">$sheets</span>
     </code>
 
@@ -6159,7 +6206,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
@@ -6167,7 +6214,7 @@ refers to a shared formula.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array{value: string, fmtRuns: array}&gt;</span>
     <span class="phpdocumentor-signature__name">$sst</span>
     </code>
 
@@ -6231,7 +6278,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">190</span>
 
     </aside>
 
@@ -6239,7 +6286,7 @@ refers to a shared formula.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, array{text: string, format: string, alignment: int, rotation: int}&gt;</span>
     <span class="phpdocumentor-signature__name">$textObjects</span>
     </code>
 
@@ -6267,7 +6314,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">239</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -6373,7 +6420,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
     </aside>
 
@@ -6444,7 +6491,7 @@ refers to a shared formula.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 
     </aside>
 
@@ -6456,7 +6503,7 @@ refers to a shared formula.</p>
     <span class="phpdocumentor-signature__name">$md5Ctxt</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"><p>It is never set in the program, so code which uses it is suspect.</p>
+        <section class="phpdocumentor-description"><p>It is set via call-by-reference to verifyPassword.</p>
 </section>
 
     
@@ -6801,7 +6848,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">374</span>
+    <span class="phpdocumentor-element-found-in__line">382</span>
 
     </aside>
 
@@ -6856,7 +6903,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">390</span>
 
     </aside>
 
@@ -6911,7 +6958,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">116</span>
 
     </aside>
 
@@ -6921,7 +6968,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getLoadSheetsOnly</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+                    <span class="phpdocumentor-signature__name">getLoadSheetsOnly</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -6933,7 +6980,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+        <span class="phpdocumentor-signature__response_type">null|array&lt;string|int, string&gt;</span>
             </section>
 
 </article>
@@ -6951,7 +6998,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4743</span>
+    <span class="phpdocumentor-element-found-in__line">4858</span>
 
     </aside>
 
@@ -7090,7 +7137,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -7128,7 +7175,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
@@ -7165,7 +7212,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -7202,7 +7249,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">366</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 
     </aside>
 
@@ -7257,7 +7304,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 
     </aside>
 
@@ -7294,7 +7341,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4763</span>
+    <span class="phpdocumentor-element-found-in__line">4881</span>
 
     </aside>
 
@@ -7331,7 +7378,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">256</span>
+    <span class="phpdocumentor-element-found-in__line">292</span>
 
     </aside>
 
@@ -7339,7 +7386,7 @@ which satisfies Phpstan.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">listWorksheetInfo</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">listWorksheetInfo</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -7361,7 +7408,7 @@ which satisfies Phpstan.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;</span>
             </section>
 
 </article>
@@ -7379,7 +7426,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">282</span>
 
     </aside>
 
@@ -7387,7 +7434,7 @@ which satisfies Phpstan.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">listWorksheetNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">listWorksheetNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -7409,7 +7456,7 @@ which satisfies Phpstan.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             </section>
 
 </article>
@@ -7427,7 +7474,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">192</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 
     </aside>
 
@@ -7570,6 +7617,53 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setEncryptionPassword">
+        setEncryptionPassword()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_setEncryptionPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">823</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setEncryptionPassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encryptionPassword</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$encryptionPassword</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setIgnoreRowsWithNoCells">
         setIgnoreRowsWithNoCells()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells" class="headerlink"><i class="fas fa-link"></i></a>
@@ -7677,7 +7771,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 
     </aside>
 
@@ -7716,7 +7810,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 
     </aside>
 
@@ -7724,7 +7818,7 @@ Set to false (the default) to discard charts.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setLoadSheetsOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheetList</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                    <span class="phpdocumentor-signature__name">setLoadSheetsOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheetList</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -7733,7 +7827,7 @@ Set to false (the default) to discard charts.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$sheetList</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;|null</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|string|array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -7867,7 +7961,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -7915,7 +8009,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">254</span>
+    <span class="phpdocumentor-element-found-in__line">258</span>
 
     </aside>
 
@@ -8009,7 +8103,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">358</span>
+    <span class="phpdocumentor-element-found-in__line">366</span>
 
     </aside>
 
@@ -8057,7 +8151,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">332</span>
+    <span class="phpdocumentor-element-found-in__line">340</span>
 
     </aside>
 
@@ -8112,7 +8206,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">278</span>
+    <span class="phpdocumentor-element-found-in__line">286</span>
 
     </aside>
 
@@ -8162,7 +8256,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4015</span>
+    <span class="phpdocumentor-element-found-in__line">4111</span>
 
     </aside>
 
@@ -8225,7 +8319,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">303</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
@@ -8272,7 +8366,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">328</span>
+    <span class="phpdocumentor-element-found-in__line">364</span>
 
     </aside>
 
@@ -8316,7 +8410,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">264</span>
+    <span class="phpdocumentor-element-found-in__line">300</span>
 
     </aside>
 
@@ -8364,7 +8458,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">265</span>
 
     </aside>
 
@@ -8401,7 +8495,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -8445,7 +8539,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4727</span>
+    <span class="phpdocumentor-element-found-in__line">4840</span>
 
     </aside>
 
@@ -8492,7 +8586,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
@@ -8535,7 +8629,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3172</span>
+    <span class="phpdocumentor-element-found-in__line">3263</span>
 
     </aside>
 
@@ -8569,7 +8663,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">743</span>
+    <span class="phpdocumentor-element-found-in__line">787</span>
 
     </aside>
 
@@ -8603,7 +8697,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3026</span>
+    <span class="phpdocumentor-element-found-in__line">3116</span>
 
     </aside>
 
@@ -8642,7 +8736,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2305</span>
+    <span class="phpdocumentor-element-found-in__line">2386</span>
 
     </aside>
 
@@ -8676,7 +8770,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4712</span>
+    <span class="phpdocumentor-element-found-in__line">4825</span>
 
     </aside>
 
@@ -8685,7 +8779,7 @@ OpenOffice documentation: 2.5.2.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">readByteStringLong</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">readByteStringLong</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{value: mixed, size: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -8707,7 +8801,7 @@ OpenOffice documentation: 2.5.2.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{value: mixed, size: int}</span>
             </section>
 
 </article>
@@ -8725,7 +8819,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4694</span>
+    <span class="phpdocumentor-element-found-in__line">4805</span>
 
     </aside>
 
@@ -8734,7 +8828,7 @@ OpenOffice documentation: 2.5.2.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">readByteStringShort</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">readByteStringShort</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{value: mixed, size: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -8756,7 +8850,7 @@ OpenOffice documentation: 2.5.2.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{value: mixed, size: int}</span>
             </section>
 
 </article>
@@ -8774,7 +8868,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4753</span>
+    <span class="phpdocumentor-element-found-in__line">4870</span>
 
     </aside>
 
@@ -8829,14 +8923,14 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4758</span>
+    <span class="phpdocumentor-element-found-in__line">4876</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">readCFRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readCFRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -8845,7 +8939,7 @@ OpenOffice documentation: 2.5.2.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$cellRangeAddresses</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -8872,7 +8966,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">942</span>
+    <span class="phpdocumentor-element-found-in__line">996</span>
 
     </aside>
 
@@ -8911,7 +9005,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2484</span>
+    <span class="phpdocumentor-element-found-in__line">2565</span>
 
     </aside>
 
@@ -8945,7 +9039,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3929</span>
+    <span class="phpdocumentor-element-found-in__line">4023</span>
 
     </aside>
 
@@ -8982,7 +9076,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3720</span>
+    <span class="phpdocumentor-element-found-in__line">3813</span>
 
     </aside>
 
@@ -9060,7 +9154,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3708</span>
+    <span class="phpdocumentor-element-found-in__line">3801</span>
 
     </aside>
 
@@ -9094,7 +9188,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">968</span>
+    <span class="phpdocumentor-element-found-in__line">1022</span>
 
     </aside>
 
@@ -9136,7 +9230,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">630</span>
+    <span class="phpdocumentor-element-found-in__line">666</span>
 
     </aside>
 
@@ -9170,7 +9264,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2066</span>
+    <span class="phpdocumentor-element-found-in__line">2136</span>
 
     </aside>
 
@@ -9204,7 +9298,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2466</span>
+    <span class="phpdocumentor-element-found-in__line">2547</span>
 
     </aside>
 
@@ -9238,7 +9332,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1775</span>
+    <span class="phpdocumentor-element-found-in__line">1832</span>
 
     </aside>
 
@@ -9279,7 +9373,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">492</span>
+    <span class="phpdocumentor-element-found-in__line">528</span>
 
     </aside>
 
@@ -9313,7 +9407,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1643</span>
+    <span class="phpdocumentor-element-found-in__line">1700</span>
 
     </aside>
 
@@ -9347,7 +9441,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1705</span>
+    <span class="phpdocumentor-element-found-in__line">1762</span>
 
     </aside>
 
@@ -9381,7 +9475,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1739</span>
+    <span class="phpdocumentor-element-found-in__line">1796</span>
 
     </aside>
 
@@ -9415,7 +9509,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">794</span>
+    <span class="phpdocumentor-element-found-in__line">845</span>
 
     </aside>
 
@@ -9459,7 +9553,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">988</span>
+    <span class="phpdocumentor-element-found-in__line">1042</span>
 
     </aside>
 
@@ -9493,7 +9587,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2190</span>
+    <span class="phpdocumentor-element-found-in__line">2265</span>
 
     </aside>
 
@@ -9527,7 +9621,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1065</span>
+    <span class="phpdocumentor-element-found-in__line">1120</span>
 
     </aside>
 
@@ -9570,7 +9664,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2836</span>
+    <span class="phpdocumentor-element-found-in__line">2925</span>
 
     </aside>
 
@@ -9609,7 +9703,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2216</span>
+    <span class="phpdocumentor-element-found-in__line">2297</span>
 
     </aside>
 
@@ -9643,7 +9737,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2163</span>
+    <span class="phpdocumentor-element-found-in__line">2233</span>
 
     </aside>
 
@@ -9677,7 +9771,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2109</span>
+    <span class="phpdocumentor-element-found-in__line">2179</span>
 
     </aside>
 
@@ -9711,7 +9805,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3534</span>
+    <span class="phpdocumentor-element-found-in__line">3627</span>
 
     </aside>
 
@@ -9745,7 +9839,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3128</span>
+    <span class="phpdocumentor-element-found-in__line">3218</span>
 
     </aside>
 
@@ -9786,7 +9880,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2657</span>
+    <span class="phpdocumentor-element-found-in__line">2738</span>
 
     </aside>
 
@@ -9826,7 +9920,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2254</span>
+    <span class="phpdocumentor-element-found-in__line">2335</span>
 
     </aside>
 
@@ -9860,7 +9954,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3510</span>
+    <span class="phpdocumentor-element-found-in__line">3602</span>
 
     </aside>
 
@@ -9899,7 +9993,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3202</span>
+    <span class="phpdocumentor-element-found-in__line">3293</span>
 
     </aside>
 
@@ -9933,7 +10027,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1830</span>
+    <span class="phpdocumentor-element-found-in__line">1887</span>
 
     </aside>
 
@@ -9967,7 +10061,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3085</span>
+    <span class="phpdocumentor-element-found-in__line">3175</span>
 
     </aside>
 
@@ -10006,7 +10100,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2742</span>
+    <span class="phpdocumentor-element-found-in__line">2831</span>
 
     </aside>
 
@@ -10045,7 +10139,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">678</span>
 
     </aside>
 
@@ -10080,7 +10174,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2795</span>
+    <span class="phpdocumentor-element-found-in__line">2884</span>
 
     </aside>
 
@@ -10119,7 +10213,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3216</span>
+    <span class="phpdocumentor-element-found-in__line">3307</span>
 
     </aside>
 
@@ -10153,7 +10247,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2425</span>
+    <span class="phpdocumentor-element-found-in__line">2506</span>
 
     </aside>
 
@@ -10187,7 +10281,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3341</span>
+    <span class="phpdocumentor-element-found-in__line">3432</span>
 
     </aside>
 
@@ -10221,7 +10315,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2322</span>
+    <span class="phpdocumentor-element-found-in__line">2403</span>
 
     </aside>
 
@@ -10255,7 +10349,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1567</span>
+    <span class="phpdocumentor-element-found-in__line">1624</span>
 
     </aside>
 
@@ -10289,7 +10383,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3399</span>
+    <span class="phpdocumentor-element-found-in__line">3490</span>
 
     </aside>
 
@@ -10323,7 +10417,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2448</span>
+    <span class="phpdocumentor-element-found-in__line">2529</span>
 
     </aside>
 
@@ -10357,7 +10451,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2048</span>
+    <span class="phpdocumentor-element-found-in__line">2118</span>
 
     </aside>
 
@@ -10391,7 +10485,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2380</span>
+    <span class="phpdocumentor-element-found-in__line">2461</span>
 
     </aside>
 
@@ -10426,7 +10520,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3867</span>
+    <span class="phpdocumentor-element-found-in__line">3961</span>
 
     </aside>
 
@@ -10462,7 +10556,7 @@ where it is referred to as FEAT record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">278</span>
+    <span class="phpdocumentor-element-found-in__line">314</span>
 
     </aside>
 
@@ -10534,7 +10628,7 @@ where it is referred to as FEAT record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
@@ -10543,7 +10637,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readRGB</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rgb</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readRGB</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rgb</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{rgb: string}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -10567,7 +10661,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{rgb: string}</span>
             </section>
 
 </article>
@@ -10585,7 +10679,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2271</span>
+    <span class="phpdocumentor-element-found-in__line">2352</span>
 
     </aside>
 
@@ -10619,7 +10713,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2613</span>
+    <span class="phpdocumentor-element-found-in__line">2694</span>
 
     </aside>
 
@@ -10661,7 +10755,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2544</span>
+    <span class="phpdocumentor-element-found-in__line">2625</span>
 
     </aside>
 
@@ -10701,7 +10795,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2402</span>
+    <span class="phpdocumentor-element-found-in__line">2483</span>
 
     </aside>
 
@@ -10735,7 +10829,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3378</span>
+    <span class="phpdocumentor-element-found-in__line">3469</span>
 
     </aside>
 
@@ -10769,7 +10863,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3433</span>
+    <span class="phpdocumentor-element-found-in__line">3524</span>
 
     </aside>
 
@@ -10807,7 +10901,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2968</span>
+    <span class="phpdocumentor-element-found-in__line">3057</span>
 
     </aside>
 
@@ -10844,7 +10938,7 @@ which usually contains relative references.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1599</span>
+    <span class="phpdocumentor-element-found-in__line">1656</span>
 
     </aside>
 
@@ -10886,7 +10980,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3728</span>
+    <span class="phpdocumentor-element-found-in__line">3821</span>
 
     </aside>
 
@@ -10920,7 +11014,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2083</span>
+    <span class="phpdocumentor-element-found-in__line">2153</span>
 
     </aside>
 
@@ -10954,7 +11048,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3763</span>
+    <span class="phpdocumentor-element-found-in__line">3857</span>
 
     </aside>
 
@@ -10988,7 +11082,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4646</span>
+    <span class="phpdocumentor-element-found-in__line">4755</span>
 
     </aside>
 
@@ -11039,7 +11133,7 @@ in which case an Exception is thrown.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1852</span>
+    <span class="phpdocumentor-element-found-in__line">1910</span>
 
     </aside>
 
@@ -11080,7 +11174,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2999</span>
+    <span class="phpdocumentor-element-found-in__line">3088</span>
 
     </aside>
 
@@ -11124,7 +11218,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1530</span>
+    <span class="phpdocumentor-element-found-in__line">1587</span>
 
     </aside>
 
@@ -11158,7 +11252,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">345</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
@@ -11192,7 +11286,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">696</span>
+    <span class="phpdocumentor-element-found-in__line">732</span>
 
     </aside>
 
@@ -11226,7 +11320,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2288</span>
+    <span class="phpdocumentor-element-found-in__line">2369</span>
 
     </aside>
 
@@ -11260,7 +11354,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">239</span>
+    <span class="phpdocumentor-element-found-in__line">247</span>
 
     </aside>
 
@@ -11270,7 +11364,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$characterCount</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$characterCount</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -11299,7 +11393,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span>
             </section>
 
 </article>
@@ -11317,7 +11411,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">227</span>
 
     </aside>
 
@@ -11327,7 +11421,7 @@ this function is under construction, needs to support rich text, and Asian phone
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeStringLong</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeStringLong</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -11349,7 +11443,7 @@ this function is under construction, needs to support rich text, and Asian phone
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span>
             </section>
 
 </article>
@@ -11367,7 +11461,7 @@ this function is under construction, needs to support rich text, and Asian phone
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -11377,7 +11471,7 @@ function will automatically find out where the Unicode string ends.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeStringShort</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readUnicodeStringShort</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -11399,7 +11493,7 @@ function will automatically find out where the Unicode string ends.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{value: string, size: int}</span>
             </section>
 
 </article>
@@ -11417,7 +11511,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2235</span>
+    <span class="phpdocumentor-element-found-in__line">2316</span>
 
     </aside>
 
@@ -11451,7 +11545,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2136</span>
+    <span class="phpdocumentor-element-found-in__line">2206</span>
 
     </aside>
 
@@ -11485,7 +11579,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3256</span>
+    <span class="phpdocumentor-element-found-in__line">3347</span>
 
     </aside>
 
@@ -11519,7 +11613,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1106</span>
+    <span class="phpdocumentor-element-found-in__line">1161</span>
 
     </aside>
 
@@ -11563,7 +11657,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1354</span>
+    <span class="phpdocumentor-element-found-in__line">1411</span>
 
     </aside>
 
@@ -11596,7 +11690,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">344</span>
+    <span class="phpdocumentor-element-found-in__line">352</span>
 
     </aside>
 
@@ -11644,7 +11738,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">268</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
 
     </aside>
 
@@ -11696,7 +11790,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4064</span>
+    <span class="phpdocumentor-element-found-in__line">4162</span>
 
     </aside>
 
@@ -11704,7 +11798,7 @@ Excel File Format&quot;</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">createFormulaFromTokens</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokens</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$additionalData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">createFormulaFromTokens</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokens</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$additionalData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -11713,7 +11807,7 @@ Excel File Format&quot;</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tokens</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -11757,7 +11851,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4042</span>
+    <span class="phpdocumentor-element-found-in__line">4138</span>
 
     </aside>
 
@@ -11829,7 +11923,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4237</span>
+    <span class="phpdocumentor-element-found-in__line">4345</span>
 
     </aside>
 
@@ -11888,7 +11982,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3978</span>
+    <span class="phpdocumentor-element-found-in__line">4074</span>
 
     </aside>
 
@@ -11930,7 +12024,7 @@ is in one piece.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3483</span>
+    <span class="phpdocumentor-element-found-in__line">3574</span>
 
     </aside>
 
@@ -11977,7 +12071,7 @@ is in one piece.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">823</span>
+    <span class="phpdocumentor-element-found-in__line">877</span>
 
     </aside>
 
@@ -12036,7 +12130,7 @@ is in one piece.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">858</span>
+    <span class="phpdocumentor-element-found-in__line">912</span>
 
     </aside>
 
@@ -12330,6 +12424,7 @@ is in one piece.</p>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingData">$drawingData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_drawingGroupData">$drawingGroupData<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryption">$encryption<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionPassword">$encryptionPassword<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_encryptionStartPos">$encryptionStartPos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalBooks">$externalBooks<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_externalNames">$externalNames<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html"></li>
@@ -12398,6 +12493,7 @@ is in one piece.</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_load">load()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-DataValidationHelper.html#method_operator">operator()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_setCodepage">setCodepage()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_setEncryptionPassword">setEncryptionPassword()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells">setIgnoreRowsWithNoCells()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIncludeCharts">setIncludeCharts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadAllSheets">setLoadAllSheets()</a></li>

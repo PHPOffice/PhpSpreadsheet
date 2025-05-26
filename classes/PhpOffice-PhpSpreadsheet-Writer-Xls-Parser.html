@@ -221,14 +221,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_references">$references</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;int|string, int|string&gt;            </span>
 </dt>
 <dd>Array of sheet references in the form of REF structures.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_externalSheets">$externalSheets</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, int&gt;            </span>
 </dt>
 <dd>Array of external sheets.</dd>
 
@@ -242,14 +242,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_functions">$functions</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, array{: int, : int, : int, : int}&gt;            </span>
 </dt>
 <dd>Thanks to Michael Meeks and Gnumeric for the initial arg values.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_ptg">$ptg</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, int&gt;            </span>
 </dt>
 <dd>The Excel ptg indices.</dd>
 
@@ -326,14 +326,14 @@ would use in a HP calculator stack).</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToPackedRowcol">cellToPackedRowcol()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{: string, : string}    </span>
 </dt>
 <dd>pack() row and column into the required 3 or 4 byte format.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToRowcol">cellToRowcol()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{: int, : int, : int, : int}    </span>
 </dt>
 <dd>Convert an Excel cell reference such as A1 or $B2 or C$3 or $D$4 to a zero
 indexed row and column number. Also returns two (0,1) values to indicate
@@ -501,7 +501,7 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_rangeToPackedRange">rangeToPackedRange()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{: string, : string, : string, : string}    </span>
 </dt>
 <dd>pack() row range into the required 3 or 4 byte format.</dd>
 
@@ -809,7 +809,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -845,7 +845,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -853,7 +853,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;int|string, int|string&gt;</span>
     <span class="phpdocumentor-signature__name">$references</span>
     </code>
 
@@ -881,7 +881,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -889,7 +889,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string, int&gt;</span>
     <span class="phpdocumentor-signature__name">$externalSheets</span>
     </code>
 
@@ -953,7 +953,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
@@ -961,7 +961,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string, array{: int, : int, : int, : int}&gt;</span>
     <span class="phpdocumentor-signature__name">$functions</span>
      = <span class="phpdocumentor-signature__default-value">[
     // function                  ptg  args  class  vol
@@ -1144,9 +1144,11 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     &#039;FISHER&#039; =&gt; [283, 1, 1, 0],
     &#039;FISHERINV&#039; =&gt; [284, 1, 1, 0],
     &#039;FLOOR&#039; =&gt; [285, 2, 1, 0],
+    &#039;FLOOR.XCL&#039; =&gt; [285, 2, 1, 0],
     &#039;GAMMADIST&#039; =&gt; [286, 4, 1, 0],
     &#039;GAMMAINV&#039; =&gt; [287, 3, 1, 0],
     &#039;CEILING&#039; =&gt; [288, 2, 1, 0],
+    &#039;CEILING.XCL&#039; =&gt; [288, 2, 1, 0],
     &#039;HYPGEOMDIST&#039; =&gt; [289, 4, 1, 0],
     &#039;LOGNORMDIST&#039; =&gt; [290, 3, 1, 0],
     &#039;LOGINV&#039; =&gt; [291, 3, 1, 0],
@@ -1251,7 +1253,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -1259,7 +1261,7 @@ vol:   The function is volatile.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string, int&gt;</span>
     <span class="phpdocumentor-signature__name">$ptg</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;ptgExp&#039; =&gt; 0x1, &#039;ptgTbl&#039; =&gt; 0x2, &#039;ptgAdd&#039; =&gt; 0x3, &#039;ptgSub&#039; =&gt; 0x4, &#039;ptgMul&#039; =&gt; 0x5, &#039;ptgDiv&#039; =&gt; 0x6, &#039;ptgPower&#039; =&gt; 0x7, &#039;ptgConcat&#039; =&gt; 0x8, &#039;ptgLT&#039; =&gt; 0x9, &#039;ptgLE&#039; =&gt; 0xa, &#039;ptgEQ&#039; =&gt; 0xb, &#039;ptgGE&#039; =&gt; 0xc, &#039;ptgGT&#039; =&gt; 0xd, &#039;ptgNE&#039; =&gt; 0xe, &#039;ptgIsect&#039; =&gt; 0xf, &#039;ptgUnion&#039; =&gt; 0x10, &#039;ptgRange&#039; =&gt; 0x11, &#039;ptgUplus&#039; =&gt; 0x12, &#039;ptgUminus&#039; =&gt; 0x13, &#039;ptgPercent&#039; =&gt; 0x14, &#039;ptgParen&#039; =&gt; 0x15, &#039;ptgMissArg&#039; =&gt; 0x16, &#039;ptgStr&#039; =&gt; 0x17, &#039;ptgAttr&#039; =&gt; 0x19, &#039;ptgSheet&#039; =&gt; 0x1a, &#039;ptgEndSheet&#039; =&gt; 0x1b, &#039;ptgErr&#039; =&gt; 0x1c, &#039;ptgBool&#039; =&gt; 0x1d, &#039;ptgInt&#039; =&gt; 0x1e, &#039;ptgNum&#039; =&gt; 0x1f, &#039;ptgArray&#039; =&gt; 0x20, &#039;ptgFunc&#039; =&gt; 0x21, &#039;ptgFuncVar&#039; =&gt; 0x22, &#039;ptgName&#039; =&gt; 0x23, &#039;ptgRef&#039; =&gt; 0x24, &#039;ptgArea&#039; =&gt; 0x25, &#039;ptgMemArea&#039; =&gt; 0x26, &#039;ptgMemErr&#039; =&gt; 0x27, &#039;ptgMemNoMem&#039; =&gt; 0x28, &#039;ptgMemFunc&#039; =&gt; 0x29, &#039;ptgRefErr&#039; =&gt; 0x2a, &#039;ptgAreaErr&#039; =&gt; 0x2b, &#039;ptgRefN&#039; =&gt; 0x2c, &#039;ptgAreaN&#039; =&gt; 0x2d, &#039;ptgMemAreaN&#039; =&gt; 0x2e, &#039;ptgMemNoMemN&#039; =&gt; 0x2f, &#039;ptgNameX&#039; =&gt; 0x39, &#039;ptgRef3d&#039; =&gt; 0x3a, &#039;ptgArea3d&#039; =&gt; 0x3b, &#039;ptgRefErr3d&#039; =&gt; 0x3c, &#039;ptgAreaErr3d&#039; =&gt; 0x3d, &#039;ptgArrayV&#039; =&gt; 0x40, &#039;ptgFuncV&#039; =&gt; 0x41, &#039;ptgFuncVarV&#039; =&gt; 0x42, &#039;ptgNameV&#039; =&gt; 0x43, &#039;ptgRefV&#039; =&gt; 0x44, &#039;ptgAreaV&#039; =&gt; 0x45, &#039;ptgMemAreaV&#039; =&gt; 0x46, &#039;ptgMemErrV&#039; =&gt; 0x47, &#039;ptgMemNoMemV&#039; =&gt; 0x48, &#039;ptgMemFuncV&#039; =&gt; 0x49, &#039;ptgRefErrV&#039; =&gt; 0x4a, &#039;ptgAreaErrV&#039; =&gt; 0x4b, &#039;ptgRefNV&#039; =&gt; 0x4c, &#039;ptgAreaNV&#039; =&gt; 0x4d, &#039;ptgMemAreaNV&#039; =&gt; 0x4e, &#039;ptgMemNoMemNV&#039; =&gt; 0x4f, &#039;ptgFuncCEV&#039; =&gt; 0x58, &#039;ptgNameXV&#039; =&gt; 0x59, &#039;ptgRef3dV&#039; =&gt; 0x5a, &#039;ptgArea3dV&#039; =&gt; 0x5b, &#039;ptgRefErr3dV&#039; =&gt; 0x5c, &#039;ptgAreaErr3dV&#039; =&gt; 0x5d, &#039;ptgArrayA&#039; =&gt; 0x60, &#039;ptgFuncA&#039; =&gt; 0x61, &#039;ptgFuncVarA&#039; =&gt; 0x62, &#039;ptgNameA&#039; =&gt; 0x63, &#039;ptgRefA&#039; =&gt; 0x64, &#039;ptgAreaA&#039; =&gt; 0x65, &#039;ptgMemAreaA&#039; =&gt; 0x66, &#039;ptgMemErrA&#039; =&gt; 0x67, &#039;ptgMemNoMemA&#039; =&gt; 0x68, &#039;ptgMemFuncA&#039; =&gt; 0x69, &#039;ptgRefErrA&#039; =&gt; 0x6a, &#039;ptgAreaErrA&#039; =&gt; 0x6b, &#039;ptgRefNA&#039; =&gt; 0x6c, &#039;ptgAreaNA&#039; =&gt; 0x6d, &#039;ptgMemAreaNA&#039; =&gt; 0x6e, &#039;ptgMemNoMemNA&#039; =&gt; 0x6f, &#039;ptgFuncCEA&#039; =&gt; 0x78, &#039;ptgNameXA&#039; =&gt; 0x79, &#039;ptgRef3dA&#039; =&gt; 0x7a, &#039;ptgArea3dA&#039; =&gt; 0x7b, &#039;ptgRefErr3dA&#039; =&gt; 0x7c, &#039;ptgAreaErr3dA&#039; =&gt; 0x7d]</span></code>
 
@@ -1287,7 +1289,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">476</span>
+    <span class="phpdocumentor-element-found-in__line">488</span>
 
     </aside>
 
@@ -1322,7 +1324,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">761</span>
+    <span class="phpdocumentor-element-found-in__line">773</span>
 
     </aside>
 
@@ -1362,7 +1364,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">481</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 
     </aside>
 
@@ -1406,7 +1408,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1639</span>
+    <span class="phpdocumentor-element-found-in__line">1662</span>
 
     </aside>
 
@@ -1453,7 +1455,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1647</span>
+    <span class="phpdocumentor-element-found-in__line">1670</span>
 
     </aside>
 
@@ -1500,7 +1502,7 @@ vol:   The function is volatile.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1201</span>
+    <span class="phpdocumentor-element-found-in__line">1215</span>
 
     </aside>
 
@@ -1555,7 +1557,7 @@ sign (=)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">876</span>
+    <span class="phpdocumentor-element-found-in__line">888</span>
 
     </aside>
 
@@ -1627,7 +1629,7 @@ called by the addWorksheet() method of the
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1587</span>
+    <span class="phpdocumentor-element-found-in__line">1601</span>
 
     </aside>
 
@@ -1700,7 +1702,7 @@ would use in a HP calculator stack).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">992</span>
+    <span class="phpdocumentor-element-found-in__line">1006</span>
 
     </aside>
 
@@ -1734,7 +1736,7 @@ would use in a HP calculator stack).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">888</span>
+    <span class="phpdocumentor-element-found-in__line">900</span>
 
     </aside>
 
@@ -1742,7 +1744,7 @@ would use in a HP calculator stack).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">cellToPackedRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">cellToPackedRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{: string, : string}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1766,7 +1768,7 @@ would use in a HP calculator stack).</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{: string, : string}</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array containing the row and column in packed() format</p>
 </section>
@@ -1788,7 +1790,7 @@ would use in a HP calculator stack).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">960</span>
+    <span class="phpdocumentor-element-found-in__line">974</span>
 
     </aside>
 
@@ -1798,7 +1800,7 @@ whether the row or column are relative references.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">cellToRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">cellToRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{: int, : int, : int, : int}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1822,7 +1824,7 @@ whether the row or column are relative references.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{: int, : int, : int, : int}</span>
             </section>
 
 </article>
@@ -1840,7 +1842,7 @@ whether the row or column are relative references.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1218</span>
+    <span class="phpdocumentor-element-found-in__line">1232</span>
 
     </aside>
 
@@ -1883,7 +1885,7 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">501</span>
+    <span class="phpdocumentor-element-found-in__line">513</span>
 
     </aside>
 
@@ -1937,7 +1939,7 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
@@ -1984,7 +1986,7 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">763</span>
+    <span class="phpdocumentor-element-found-in__line">775</span>
 
     </aside>
 
@@ -2031,7 +2033,7 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">747</span>
+    <span class="phpdocumentor-element-found-in__line">759</span>
 
     </aside>
 
@@ -2085,7 +2087,7 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">616</span>
+    <span class="phpdocumentor-element-found-in__line">628</span>
 
     </aside>
 
@@ -2149,7 +2151,7 @@ args that it takes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">569</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 
     </aside>
 
@@ -2199,7 +2201,7 @@ args that it takes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">634</span>
+    <span class="phpdocumentor-element-found-in__line">646</span>
 
     </aside>
 
@@ -2256,7 +2258,7 @@ args that it takes.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">671</span>
+    <span class="phpdocumentor-element-found-in__line">683</span>
 
     </aside>
 
@@ -2311,7 +2313,7 @@ a ptgArea3d.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">703</span>
+    <span class="phpdocumentor-element-found-in__line">715</span>
 
     </aside>
 
@@ -2365,7 +2367,7 @@ a ptgArea3d.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">723</span>
+    <span class="phpdocumentor-element-found-in__line">735</span>
 
     </aside>
 
@@ -2420,7 +2422,7 @@ ptgRef3d.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">596</span>
+    <span class="phpdocumentor-element-found-in__line">608</span>
 
     </aside>
 
@@ -2474,7 +2476,7 @@ ptgRef3d.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1555</span>
+    <span class="phpdocumentor-element-found-in__line">1569</span>
 
     </aside>
 
@@ -2547,7 +2549,7 @@ as elements.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1260</span>
+    <span class="phpdocumentor-element-found-in__line">1274</span>
 
     </aside>
 
@@ -2594,7 +2596,7 @@ Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1375</span>
+    <span class="phpdocumentor-element-found-in__line">1389</span>
 
     </aside>
 
@@ -2641,7 +2643,7 @@ Fact -&gt; ( Expr )
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1508</span>
+    <span class="phpdocumentor-element-found-in__line">1522</span>
 
     </aside>
 
@@ -2684,7 +2686,7 @@ Func -&gt; ( Expr [,Expr]* ).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">797</span>
+    <span class="phpdocumentor-element-found-in__line">809</span>
 
     </aside>
 
@@ -2740,7 +2742,7 @@ array. It assumes all sheet names given must exist.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">857</span>
+    <span class="phpdocumentor-element-found-in__line">869</span>
 
     </aside>
 
@@ -2796,7 +2798,7 @@ sheet names is updated by the addworksheet() method of the
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1042</span>
+    <span class="phpdocumentor-element-found-in__line">1056</span>
 
     </aside>
 
@@ -2850,7 +2852,7 @@ sheet names is updated by the addworksheet() method of the
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1333</span>
+    <span class="phpdocumentor-element-found-in__line">1347</span>
 
     </aside>
 
@@ -2908,7 +2910,7 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">917</span>
+    <span class="phpdocumentor-element-found-in__line">929</span>
 
     </aside>
 
@@ -2916,7 +2918,7 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">rangeToPackedRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">rangeToPackedRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{: string, : string, : string, : string}</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2942,7 +2944,7 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{: string, : string, : string, : string}</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array containing (row1,col1,row2,col2) in packed() format</p>
 </section>
@@ -2964,7 +2966,7 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1344</span>
+    <span class="phpdocumentor-element-found-in__line">1358</span>
 
     </aside>
 
