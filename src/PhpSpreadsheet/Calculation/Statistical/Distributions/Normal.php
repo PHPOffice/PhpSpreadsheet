@@ -29,7 +29,7 @@ class Normal
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -71,7 +71,7 @@ class Normal
      * @param mixed $stdDev Standard Deviation as a float
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -119,6 +119,7 @@ class Normal
         //    Input paramater is $p - probability - where 0 < p < 1.
 
         //    Coefficients in rational approximations
+        /** @var array<int, float> */
         static $a = [
             1 => -3.969683028665376e+01,
             2 => 2.209460984245205e+02,
@@ -128,6 +129,7 @@ class Normal
             6 => 2.506628277459239e+00,
         ];
 
+        /** @var array<int, float> */
         static $b = [
             1 => -5.447609879822406e+01,
             2 => 1.615858368580409e+02,
@@ -136,6 +138,7 @@ class Normal
             5 => -1.328068155288572e+01,
         ];
 
+        /** @var array<int, float> */
         static $c = [
             1 => -7.784894002430293e-03,
             2 => -3.223964580411365e-01,
@@ -145,6 +148,7 @@ class Normal
             6 => 2.938163982698783e+00,
         ];
 
+        /** @var array<int, float> */
         static $d = [
             1 => 7.784695709041462e-03,
             2 => 3.224671290700398e-01,

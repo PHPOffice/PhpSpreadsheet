@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class SkewTest extends AllSetupTeardown
 {
+    /** @param mixed[] $args */
     #[DataProvider('providerSKEW')]
     public function testSKEW(mixed $expectedResult, array $args): void
     {
