@@ -22,6 +22,7 @@ use ReflectionClassConstant;
 use ReflectionMethod;
 use ReflectionParameter;
 use Throwable;
+use TypeError;
 
 class Calculation extends CalculationLocale
 {
@@ -2150,8 +2151,14 @@ class Calculation extends CalculationLocale
                     }
 
                     /** @var callable $functionCall */
-                    $result = call_user_func_array($functionCall, $args);
-
+                    try {
+                        $result = call_user_func_array($functionCall, $args);
+                    } catch (TypeError $e) {
+                        if (!$this->suppressFormulaErrors) {
+                            throw $e;
+                        }
+                        $result = false;
+                    }
                     if ($functionName !== 'MKMATRIX') {
                         $this->debugLog->writeDebugLog('Evaluation Result for %s() function call is %s', self::localeFunc($functionName), $this->showTypeDetails($result));
                     }
