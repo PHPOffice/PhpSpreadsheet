@@ -255,7 +255,7 @@ HEX2DEC                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 HEX2OCT                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toOctal
 HLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
 HOUR                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::hour
-HSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+HSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hstack::hstack
 HYPERLINK                | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 HYPGEOM.DIST             | CATEGORY_STATISTICAL           | **Not yet Implemented**
 HYPGEOMDIST              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\HyperGeometric::distribution
@@ -615,7 +615,7 @@ VARP                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 VARPA                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARPA
 VDB                      | CATEGORY_FINANCIAL             | **Not yet Implemented**
 VLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
-VSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+VSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
 
 ## W
 

@@ -251,6 +251,7 @@ FORMULATEXT              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formu
 GETPIVOTDATA             | **Not yet Implemented**
 GROUPBY                  | **Not yet Implemented**
 HLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
+HSTACK                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hstack::hstack
 HYPERLINK                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 INDEX                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
 INDIRECT                 | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
@@ -266,6 +267,7 @@ TAKE                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Choos
 TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 UNIQUE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
+VSTACK                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
 XLOOKUP                  | **Not yet Implemented**
 XMATCH                   | **Not yet Implemented**
 
@@ -308,7 +310,6 @@ FLOOR                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor:
 FLOOR.MATH               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::math
 FLOOR.PRECISE            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::precise
 GCD                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Gcd::evaluate
-HSTACK                   | **Not yet Implemented**
 INT                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
 ISO.CEILING              | **Not yet Implemented**
 LCM                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Lcm::evaluate
@@ -360,7 +361,6 @@ TANH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\T
 TOCOL                    | **Not yet Implemented**
 TOROW                    | **Not yet Implemented**
 TRUNC                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trunc::evaluate
-VSTACK                   | **Not yet Implemented**
 WRAPCOLS                 | **Not yet Implemented**
 WRAPROWS                 | **Not yet Implemented**
 
