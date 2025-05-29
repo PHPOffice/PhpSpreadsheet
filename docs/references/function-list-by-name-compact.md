@@ -583,9 +583,9 @@ THAIYEAR                 | DATE_AND_TIME         | **Not yet Implemented**
 TIME                     | DATE_AND_TIME         | DateTimeExcel\Time::fromHMS
 TIMEVALUE                | DATE_AND_TIME         | DateTimeExcel\TimeValue::fromString
 TINV                     | STATISTICAL           | Statistical\Distributions\StudentT::inverse
-TOCOL                    | MATH_AND_TRIG         | **Not yet Implemented**
+TOCOL                    | LOOKUP_AND_REFERENCE  | LookupRef\TorowTocol::tocol
 TODAY                    | DATE_AND_TIME         | DateTimeExcel\Current::today
-TOROW                    | MATH_AND_TRIG         | **Not yet Implemented**
+TOROW                    | LOOKUP_AND_REFERENCE  | LookupRef\TorowTocol::torow
 TRANSPOSE                | LOOKUP_AND_REFERENCE  | LookupRef\Matrix::transpose
 TREND                    | STATISTICAL           | Statistical\Trends::TREND
 TRIM                     | TEXT_AND_DATA         | TextData\Trim::spaces

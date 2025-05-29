@@ -263,6 +263,8 @@ RTD                      | **Not yet Implemented**
 SORT                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sort
 SORTBY                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sortBy
 TAKE                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::take
+TOCOL                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::tocol
+TOROW                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::torow
 TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 UNIQUE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
@@ -357,8 +359,6 @@ SUMX2PY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSqu
 SUMXMY2                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXMinusYSquared
 TAN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
 TANH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
-TOCOL                    | **Not yet Implemented**
-TOROW                    | **Not yet Implemented**
 TRUNC                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trunc::evaluate
 VSTACK                   | **Not yet Implemented**
 WRAPCOLS                 | **Not yet Implemented**
