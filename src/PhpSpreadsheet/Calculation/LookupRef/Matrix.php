@@ -44,6 +44,9 @@ class Matrix
         if (!is_array($matrixData)) {
             $matrixData = [[$matrixData]];
         }
+        if (!is_array(end($matrixData))) {
+            $matrixData = [$matrixData];
+        }
 
         $column = 0;
         /** @var mixed[][] $matrixData */
