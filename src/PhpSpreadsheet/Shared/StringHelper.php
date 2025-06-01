@@ -317,8 +317,7 @@ class StringHelper
         $textValue = str_replace(["\xef\xbf\xbe", "\xef\xbf\xbf"], "\xef\xbf\xbd", $textValue);
         $subst = mb_substitute_character(); // default is question mark
         mb_substitute_character(65533); // Unicode substitution character
-        // Phpstan does not think this can return false.
-        $returnValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
+        $returnValue = (string) mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
         mb_substitute_character($subst);
 
         return $returnValue;
@@ -411,7 +410,7 @@ class StringHelper
             }
         }
 
-        return mb_convert_encoding($textValue, $to, $from);
+        return (string) mb_convert_encoding($textValue, $to, $from);
     }
 
     /**

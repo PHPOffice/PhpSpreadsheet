@@ -57,7 +57,8 @@ class Settings
      */
     public static function setChartRenderer(string $rendererClassName): void
     {
-        if (!is_a($rendererClassName, IRenderer::class, true)) {
+        // We want phpstan to validate caller, but still need this test
+        if (!is_a($rendererClassName, IRenderer::class, true)) { //* @phpstan-ignore-line
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
 
