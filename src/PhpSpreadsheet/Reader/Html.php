@@ -338,7 +338,7 @@ class Html extends BaseReader
     {
         $attributeArray = [];
         /** @var DOMAttr $attribute */
-        foreach ($child->attributes as $attribute) {
+        foreach (($child->attributes ?? []) as $attribute) {
             $attributeArray[$attribute->name] = $attribute->value;
         }
 

@@ -66,7 +66,7 @@ class ChainedBlockStream
             return false;
         }
         $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']]; //* @phpstan-ignore-line
-        if (!($this->ole instanceof OLE)) {
+        if (!($this->ole instanceof OLE)) { //* @phpstan-ignore-line
             throw new Exception('class is not OLE');
         }
 
