@@ -720,7 +720,7 @@ class Html
 
     protected function startFontTag(DOMElement $tag): void
     {
-        $attrs = $tag->attributes;
+        $attrs = $tag->attributes ?? [];
         /** @var DOMAttr $attribute */
         foreach ($attrs as $attribute) {
             $attributeName = strtolower($attribute->name);

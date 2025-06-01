@@ -136,6 +136,10 @@ This is normal behaviour of the compatibility pack, Xlsx displays this
 correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
 
+#### PAD (Precision As Displayed) Not Supported
+
+There are no plans to support Precision As Displayed.
+
 ## Handling Date and Time Values
 
 ### Excel functions that return a Date and Time value

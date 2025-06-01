@@ -2231,6 +2231,9 @@ class Xlsx extends BaseReader
     /** @param mixed[][][][] $unparsedLoadedData */
     private function readPrinterSettings(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
+        if ($this->readDataOnly) {
+            return;
+        }
         $zip = $this->zip;
         if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels') === false) {
             return;

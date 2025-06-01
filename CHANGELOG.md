@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 4.3.0
+## TBD - 4.4.0
 
 ### Added
 
-- Xml Reader recognize indents. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+- Nothing yet.
 
 ### Removed
 
@@ -29,12 +29,35 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Nothing yet.
+
+## 2025-05-26 - 4.3.1
+
+### Fixed
+
+- Regression in Date::stringToExcel. [Issue #4488](https://github.com/PHPOffice/PhpSpreadsheet/issues/4488) [PR #4489](https://github.com/PHPOffice/PhpSpreadsheet/pull/4489)
+
+## 2025-05-25 - 4.3.0
+
+### Added
+
+- Xml Reader recognize indents. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+
+### Changed
+
+- Phpstan Level 10.
+
+### Fixed
+
 - Micro-optimization for excelToDateTimeObject. [Issue #4438](https://github.com/PHPOffice/PhpSpreadsheet/issues/4438) [PR #4442](https://github.com/PHPOffice/PhpSpreadsheet/pull/4442)
 - Removing Columns/Rows Containing Merged Cells. [Issue #282](https://github.com/PHPOffice/PhpSpreadsheet/issues/282) [PR #4465](https://github.com/PHPOffice/PhpSpreadsheet/pull/4465)
 - Print Area and Row Break. [Issue #1275](https://github.com/PHPOffice/PhpSpreadsheet/issues/1275) [PR #4450](https://github.com/PHPOffice/PhpSpreadsheet/pull/4450)
 - Copy Styles after insertNewColumnBefore. [Issue #1425](https://github.com/PHPOffice/PhpSpreadsheet/issues/1425) [PR #4468](https://github.com/PHPOffice/PhpSpreadsheet/pull/4468)
 - Xls Writer Treat Hyperlink Starting with # as Internal. [Issue #56](https://github.com/PHPOffice/PhpSpreadsheet/issues/56) [PR #4453](https://github.com/PHPOffice/PhpSpreadsheet/pull/4453)
-- ODS Handling of Ceiling and Floor. [Issue #407](https://github.com/PHPOffice/PhpSpreadsheet/issues/407) [PR #4466](https://github.com/PHPOffice/PhpSpreadsheet/pull/4466)
+- More Precision for Float to String Casts. [Issue #3899](https://github.com/PHPOffice/PhpSpreadsheet/issues/3899) [PR #4479](https://github.com/PHPOffice/PhpSpreadsheet/pull/4479)
+- Hyperlink Styles. [Issue #1632](https://github.com/PHPOffice/PhpSpreadsheet/issues/1632) [PR #4478](https://github.com/PHPOffice/PhpSpreadsheet/pull/4478)
+- ODS Handling of Ceiling and Floor. [Issue #477](https://github.com/PHPOffice/PhpSpreadsheet/issues/407) [PR #4466](https://github.com/PHPOffice/PhpSpreadsheet/pull/4466)
+- Xlsx Reader Do Not Process Printer Settings for Dataonly. [Issue #4477](https://github.com/PHPOffice/PhpSpreadsheet/issues/4477) [PR #4480](https://github.com/PHPOffice/PhpSpreadsheet/pull/4480)
 
 ## 2025-04-16 - 4.2.0
 

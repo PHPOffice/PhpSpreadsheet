@@ -280,7 +280,7 @@ class NumberFormatter extends BaseFormatter
         $preDecimal = $postDecimal = '';
         $pregArray = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
         if (is_array($pregArray)) {
-            $preDecimal = $pregArray[0] ?? '';
+            $preDecimal = $pregArray[0];
             $postDecimal = $pregArray[1] ?? '';
         }
 

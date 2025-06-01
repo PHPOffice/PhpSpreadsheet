@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
@@ -97,9 +98,8 @@ class TimeValueTest extends TestCase
 
         $result = TimeValue::fromString('7:30:20');
         //    Must return an object...
-        self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertInstanceOf(DateTimeInterface::class, $result);
         //    ... with the correct value
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
