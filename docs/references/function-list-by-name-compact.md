@@ -259,7 +259,7 @@ HEX2DEC                  | ENGINEERING           | Engineering\ConvertHex::toDec
 HEX2OCT                  | ENGINEERING           | Engineering\ConvertHex::toOctal
 HLOOKUP                  | LOOKUP_AND_REFERENCE  | LookupRef\HLookup::lookup
 HOUR                     | DATE_AND_TIME         | DateTimeExcel\TimeParts::hour
-HSTACK                   | MATH_AND_TRIG         | **Not yet Implemented**
+HSTACK                   | LOOKUP_AND_REFERENCE  | LookupRef\Hstack::hstack
 HYPERLINK                | LOOKUP_AND_REFERENCE  | LookupRef\Hyperlink::set
 HYPGEOM.DIST             | STATISTICAL           | **Not yet Implemented**
 HYPGEOMDIST              | STATISTICAL           | Statistical\Distributions\HyperGeometric::distribution
@@ -619,7 +619,7 @@ VARP                     | STATISTICAL           | Statistical\Variances::VARP
 VARPA                    | STATISTICAL           | Statistical\Variances::VARPA
 VDB                      | FINANCIAL             | **Not yet Implemented**
 VLOOKUP                  | LOOKUP_AND_REFERENCE  | LookupRef\VLookup::lookup
-VSTACK                   | MATH_AND_TRIG         | **Not yet Implemented**
+VSTACK                   | LOOKUP_AND_REFERENCE  | LookupRef\Vstack::vstack
 
 ## W
 
