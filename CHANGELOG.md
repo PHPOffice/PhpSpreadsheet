@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- VSTACK and HSTACK. [Issue #4485](https://github.com/PHPOffice/PhpSpreadsheet/issues/4485) [PR #4492](https://github.com/PHPOffice/PhpSpreadsheet/pull/4492)
+- TOCOL and TOROW. [PR #4493](https://github.com/PHPOffice/PhpSpreadsheet/pull/4493)
 
 ### Removed
 
@@ -29,7 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Various Writers RichText TextElement Should Inherit Cell Style. [Issue #1154](https://github.com/PHPOffice/PhpSpreadsheet/issues/1154) [PR #4487](https://github.com/PHPOffice/PhpSpreadsheet/pull/4487)
+- Minor Changes to FILTER function. [PR #4491](https://github.com/PHPOffice/PhpSpreadsheet/pull/4491)
 
 ## 2025-05-26 - 4.3.1
 
