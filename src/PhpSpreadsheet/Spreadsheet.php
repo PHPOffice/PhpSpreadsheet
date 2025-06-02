@@ -608,7 +608,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function removeSheetByIndex(int $sheetIndex): void
     {
-        $numSheets = count($this->workSheetCollection);
+        $numSheets = $this->getSheetCount();
         if ($sheetIndex > $numSheets - 1) {
             throw new Exception(
                 "You tried to remove a sheet by the out of bounds index: {$sheetIndex}. The actual number of sheets is {$numSheets}."
@@ -660,10 +660,9 @@ class Spreadsheet implements JsonSerializable
      */
     public function getSheetByName(string $worksheetName): ?Worksheet
     {
-        $worksheetCount    = count($this->workSheetCollection);
         $trimWorksheetName = trim($worksheetName, "'");
 
-        for ($i = 0; $i < $worksheetCount; ++$i) {
+        for ($i = 0; $i < $this->getSheetCount(); ++$i) {
             if (strcasecmp($this->workSheetCollection[$i]->getTitle(), $trimWorksheetName) === 0) {
                 return $this->workSheetCollection[$i];
             }
@@ -792,8 +791,8 @@ class Spreadsheet implements JsonSerializable
     public function getSheetNames(): array
     {
         $returnValue = [];
-        $worksheetCount = $this->getSheetCount();
-        for ($i = 0; $i < $worksheetCount; ++$i) {
+
+        for ($i = 0; $i < $this->getSheetCount(); ++$i) {
             $returnValue[] = $this->getSheet($i)->getTitle();
         }
 
