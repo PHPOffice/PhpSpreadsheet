@@ -660,9 +660,11 @@ class Spreadsheet implements JsonSerializable
      */
     public function getSheetByName(string $worksheetName): ?Worksheet
     {
-        $worksheetCount = count($this->workSheetCollection);
+        $worksheetCount    = count($this->workSheetCollection);
+        $trimWorksheetName = trim($worksheetName, "'");
+
         for ($i = 0; $i < $worksheetCount; ++$i) {
-            if (strcasecmp($this->workSheetCollection[$i]->getTitle(), trim($worksheetName, "'")) === 0) {
+            if (strcasecmp($this->workSheetCollection[$i]->getTitle(), $trimWorksheetName) === 0) {
                 return $this->workSheetCollection[$i];
             }
         }
