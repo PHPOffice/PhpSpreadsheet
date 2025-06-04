@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
+use PhpOffice\PhpSpreadsheet\Theme;
 
 class Font extends Supervisor
 {
@@ -122,6 +123,14 @@ class Font extends Supervisor
         if ($isSupervisor) {
             $this->color->bindParent($this, 'color');
         }
+    }
+
+    public function applyThemeFonts(Theme $theme): void
+    {
+        $this->setName($theme->getMinorFontLatin());
+        $this->setLatin($theme->getMinorFontLatin());
+        $this->setEastAsian($theme->getMinorFontEastAsian());
+        $this->setComplexScript($theme->getMinorFontComplexScript());
     }
 
     /**
