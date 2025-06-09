@@ -1178,6 +1178,8 @@ class Xlsx extends BaseReader
                                     foreach ($shapes as $shape) {
                                         /** @var SimpleXMLElement $shape */
                                         $shape->registerXPathNamespace('v', Namespaces::URN_VML);
+                                        $shape->registerXPathNamespace('x', Namespaces::URN_VML);
+                                        $shape->registerXPathNamespace('o', Namespaces::URN_MSOFFICE);
 
                                         if (isset($shape['style'])) {
                                             $style = (string) $shape['style'];
