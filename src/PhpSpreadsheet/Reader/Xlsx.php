@@ -655,7 +655,11 @@ class Xlsx extends BaseReader
 
                             // add style to cellXf collection
                             $objStyle = new Style();
-                            $this->styleReader->readStyle($objStyle, $style);
+                            $this->styleReader
+                                ->readStyle($objStyle, $style);
+                            foreach ($this->styleReader->getFontCharsets() as $fontName => $charset) {
+                                $excel->addFontCharset($fontName, $charset);
+                            }
                             if ($addingFirstCellXf) {
                                 $excel->removeCellXfByIndex(0); // remove the default style
                                 $addingFirstCellXf = false;
