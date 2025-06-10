@@ -183,7 +183,12 @@ class Spreadsheet implements JsonSerializable
         'B Nazanin' => SharedFont::CHARSET_ANSI_ARABIC,
     ];
 
-    public function addFontCharset(string $fontName, int $charset): void
+    /**
+     * @param int $charset uses any value from Shared\Font,
+     *    but defaults to ARABIC because that is the only known
+     *    charset for which this declaration might be needed
+     */
+    public function addFontCharset(string $fontName, int $charset = SharedFont::CHARSET_ANSI_ARABIC): void
     {
         $this->fontCharsets[$fontName] = $charset;
     }

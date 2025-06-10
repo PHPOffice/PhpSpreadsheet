@@ -1099,6 +1099,21 @@ All cells bound to the theme fonts (via the `Font::setScheme` method) can be eas
 $spreadsheet->resetThemeFonts();
 ```
 
+### Charset for Arabic and Persian Fonts
+
+It is unknown why this should be needed. However, some Excel
+users have reported better results if the internal declaration for an
+Arabic/Persian font includes a `charset` declaration.
+This seems like a bug in Excel, but, starting with release 4.4,
+this can be accomplished at the spreadsheet level, via:
+```php
+$spreadsheet->addFontCharset('C Nazanin');
+```
+As many charsets as desired can be added in this manner.
+There is a second optional parameter specifying the charset id
+to this method, but, since this seems to be needed only for
+Arabic/Persian, that is its default value.
+
 ### Styling cell borders
 
 In PhpSpreadsheet it is easy to apply various borders on a rectangular
