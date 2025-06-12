@@ -13,7 +13,6 @@ class StylesWriterTest extends TestCase
     public function testStylesWriter(): void
     {
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->createStyleDictionaries();
