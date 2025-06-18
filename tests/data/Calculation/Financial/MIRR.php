@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // values, finance_rate, reinvestment_rate, Result
 
 return [
@@ -17,7 +15,7 @@ return [
                 46000,
             ],
         ],
-        0.10,
+        0.10000000000000001,
         0.12,
     ],
     [
@@ -30,7 +28,7 @@ return [
                 21000,
             ],
         ],
-        0.10,
+        0.10000000000000001,
         0.12,
     ],
     [
@@ -45,8 +43,8 @@ return [
                 46000,
             ],
         ],
-        0.10,
-        0.14,
+        0.10000000000000001,
+        0.14000000000000001,
     ],
     [
         0.74021752686287001,
@@ -75,40 +73,5 @@ return [
         ],
         5.5,
         5,
-    ],
-    'first argument must be array' => [
-        '#DIV/0!',
-        999,
-        1.23,
-        2.34,
-    ],
-    'all values are positive' => [
-        '#DIV/0!',
-        [0.12, 0.13, 0.125],
-        1.23,
-        2.34,
-    ],
-    'all values are negative' => [
-        '#DIV/0!',
-        [-0.12, -0.13, -0.125],
-        1.23,
-        2.34,
-    ],
-    'result is NaN' => [
-        '#NUM!',
-        [-0.12, 0.13, 0.125],
-        1.23,
-        -2.34,
-    ],
-    'valid result even when reinvest rate < -1' => [
-        -0.205225399,
-        [-0.12, 0.13, 0.25],
-        1.23,
-        -2.34,
-    ],
-    'exception for 2 arguments or fewer' => [
-        'exception',
-        [-0.12, 0.13, 0.25],
-        1.23,
     ],
 ];

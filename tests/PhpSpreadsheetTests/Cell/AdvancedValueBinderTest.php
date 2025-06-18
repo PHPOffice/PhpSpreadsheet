@@ -1,251 +1,79 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
-use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
 {
-    const AVB_PRECISION = 1.0E-8;
-
-    private string $originalLocale;
-
-    private IValueBinder $valueBinder;
-
-    protected function setUp(): void
+    public function provider()
     {
-        $this->originalLocale = Settings::getLocale();
+        $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+        $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
-        $this->valueBinder = Cell::getValueBinder();
-        Cell::setValueBinder(new AdvancedValueBinder());
+        return [
+            ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'],
+            ['$10.11', 10.11, $currencyUSD, ',', '.', '$'],
+            ['$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'],
+            ['$20,20', 20.2, $currencyUSD, '.', ',', '$'],
+            ['$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'],
+            ['€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'],
+        ];
     }
 
-    protected function tearDown(): void
+    /**
+     * @dataProvider provider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     * @param mixed $thousandsSeparator
+     * @param mixed $decimalSeparator
+     * @param mixed $currencyCode
+     */
+    public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
-        StringHelper::setCurrencyCode(null);
-        StringHelper::setDecimalSeparator(null);
-        StringHelper::setThousandsSeparator(null);
-        Settings::setLocale($this->originalLocale);
-        Cell::setValueBinder($this->valueBinder);
-    }
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->getMock();
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects($this->any())
+            ->method('getParent')
+            ->will($this->returnValue($sheet));
 
-    public function testNullValue(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->expects($this->once())
+            ->method('getStyle')
+            ->will($this->returnSelf());
+        $sheet->expects($this->once())
+            ->method('getNumberFormat')
+            ->will($this->returnSelf());
+        $sheet->expects($this->once())
+            ->method('setFormatCode')
+            ->with($format)
+            ->will($this->returnSelf());
+        $sheet->expects($this->any())
+            ->method('getCellCollection')
+            ->will($this->returnValue($cellCollection));
 
-        $sheet->getCell('A1')->setValue(null);
-        self::assertNull($sheet->getCell('A1')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testBoolean(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue(true);
-        self::assertTrue($sheet->getCell('A1')->getValue());
-
-        $sheet->getCell('A2')->setValue(false);
-        self::assertFalse($sheet->getCell('A2')->getValue());
-
-        $sheet->getCell('A3')->setValue('true');
-        self::assertTrue($sheet->getCell('A3')->getValue());
-
-        $sheet->getCell('A4')->setValue('false');
-        self::assertFalse($sheet->getCell('A4')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testBooleanLocale(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        Settings::setLocale('nl_NL');
-
-        $sheet->getCell('A1')->setValue('Waar');
-        self::assertTrue($sheet->getCell('A1')->getValue());
-
-        $sheet->getCell('A2')->setValue('OnWaar');
-        self::assertFalse($sheet->getCell('A2')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('currencyProvider')]
-    public function testCurrency(string $value, float $valueBinded, string $thousandsSeparator, string $decimalSeparator, string $currencyCode): void
-    {
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);
         StringHelper::setThousandsSeparator($thousandsSeparator);
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
 
-        $sheet->getCell('A1')->setValue($value);
-        self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function currencyProvider(): array
-    {
-        return [
-            ['$10.11', 10.11, ',', '.', '$'],
-            ['$1,010.12', 1010.12, ',', '.', '$'],
-            ['$20,20', 20.2, '.', ',', '$'],
-            ['$2.020,20', 2020.2, '.', ',', '$'],
-            ['€2.020,20', 2020.2, '.', ',', '€'],
-            ['€ 2.020,20', 2020.2, '.', ',', '€'],
-            ['€2,020.22', 2020.22, ',', '.', '€'],
-            ['$10.11', 10.11, ',', '.', '€'],
-            ['€2,020.20', 2020.2, ',', '.', '$'],
-            'slash as group separator' => ['€2/020.20', 2020.2, '/', '.', '$'],
-            'slash as decimal separator' => ['€2,020/20', 2020.2, ',', '/', '$'],
-            ['-2,020.20€', -2020.2, ',', '.', '$'],
-            ['- 2,020.20 € ', -2020.2, ',', '.', '$'],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('fractionProvider')]
-    public function testFractions(mixed $value, mixed $valueBinded): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue($value);
-        self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function fractionProvider(): array
-    {
-        return [
-            ['1/5', 0.2],
-            ['-1/5', -0.2],
-            ['- 1/5', -0.2],
-            ['12/5', 2.4],
-            ['2/100', 0.02],
-            ['15/12', 1.25],
-            ['20/100', 0.2],
-            ['1 3/5', 1.6],
-            ['-1 3/5', -1.6],
-            ['1 4/20', 1.2],
-            ['1 16/20', 1.8],
-            ['12 20/100', 12.2],
-            ['-1 4/20', -1.2],
-            ['407 / ', '407 / '],
-            ['407 /', '407 /'],
-            ['407 3/', '407 3/'],
-            ['-407 /4', -101.75],
-            [' /', ' /'],
-            [' / ', ' / '],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('percentageProvider')]
-    public function testPercentages(mixed $value, mixed $valueBinded): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue($value);
-        self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function percentageProvider(): array
-    {
-        return [
-            ['10%', 0.1],
-            ['-12%', -0.12],
-            ['120%', 1.2],
-            ['12.5%', 0.125],
-            ['-12.5%', -0.125],
-            ['12,345%', 123.45],
-            ['12,345.67%', 123.4567],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('timeProvider')]
-    public function testTimes(mixed $value, mixed $valueBinded): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue($value);
-        self::assertEqualsWithDelta($valueBinded, $sheet->getCell('A1')->getValue(), self::AVB_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function timeProvider(): array
-    {
-        return [
-            ['1:20', 0.05555555556],
-            ['09:17', 0.386805555556],
-            ['15:00', 0.625],
-            ['17:12:35', 0.71707175926],
-            ['23:58:20', 0.99884259259],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('stringProvider')]
-    public function testStringWrapping(string $value): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue($value);
-        self::assertEquals($value, $sheet->getCell('A1')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function stringProvider(): array
-    {
-        return [
-            ['Hello World', false],
-            ["Hello\nWorld", true],
-        ];
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('formulaProvider')]
-    public function testFormula(string $value, string $dataType): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->getCell('A1')->setValue($value);
-        self::assertSame($dataType, $sheet->getCell('A1')->getDataType());
-        if ($dataType === DataType::TYPE_FORMULA) {
-            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
-        } else {
-            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
-        }
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function formulaProvider(): array
-    {
-        return [
-            'normal formula' => ['=SUM(A1:C3)', DataType::TYPE_FORMULA],
-            'issue 1310' => ['======', DataType::TYPE_STRING],
-        ];
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+        self::assertEquals($valueBinded, $cell->getValue());
     }
 }

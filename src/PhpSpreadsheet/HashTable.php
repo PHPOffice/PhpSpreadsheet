@@ -2,51 +2,52 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * @template T of IComparable
- */
 class HashTable
 {
     /**
      * HashTable elements.
      *
-     * @var array<string, T>
+     * @var IComparable[]
      */
-    protected array $items = [];
+    protected $items = [];
 
     /**
      * HashTable key map.
      *
-     * @var array<int, string>
+     * @var string[]
      */
-    protected array $keyMap = [];
+    protected $keyMap = [];
 
     /**
-     * Create a new HashTable.
+     * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
      *
-     * @param T[] $source Optional source array to create HashTable from
+     * @param IComparable[] $pSource Optional source array to create HashTable from
+     *
+     * @throws Exception
      */
-    public function __construct(?array $source = [])
+    public function __construct($pSource = null)
     {
-        if ($source !== null) {
+        if ($pSource !== null) {
             // Create HashTable
-            $this->addFromSource($source);
+            $this->addFromSource($pSource);
         }
     }
 
     /**
      * Add HashTable items from source.
      *
-     * @param T[] $source Source array to create HashTable from
+     * @param IComparable[] $pSource Source array to create HashTable from
+     *
+     * @throws Exception
      */
-    public function addFromSource(?array $source = null): void
+    public function addFromSource(array $pSource = null)
     {
         // Check if an array was passed
-        if ($source === null) {
+        if ($pSource == null) {
             return;
         }
 
-        foreach ($source as $item) {
+        foreach ($pSource as $item) {
             $this->add($item);
         }
     }
@@ -54,13 +55,13 @@ class HashTable
     /**
      * Add HashTable item.
      *
-     * @param T $source Item to add
+     * @param IComparable $pSource Item to add
      */
-    public function add(IComparable $source): void
+    public function add(IComparable $pSource)
     {
-        $hash = $source->getHashCode();
+        $hash = $pSource->getHashCode();
         if (!isset($this->items[$hash])) {
-            $this->items[$hash] = $source;
+            $this->items[$hash] = $pSource;
             $this->keyMap[count($this->items) - 1] = $hash;
         }
     }
@@ -68,11 +69,11 @@ class HashTable
     /**
      * Remove HashTable item.
      *
-     * @param T $source Item to remove
+     * @param IComparable $pSource Item to remove
      */
-    public function remove(IComparable $source): void
+    public function remove(IComparable $pSource)
     {
-        $hash = $source->getHashCode();
+        $hash = $pSource->getHashCode();
         if (isset($this->items[$hash])) {
             unset($this->items[$hash]);
 
@@ -93,7 +94,7 @@ class HashTable
     /**
      * Clear HashTable.
      */
-    public function clear(): void
+    public function clear()
     {
         $this->items = [];
         $this->keyMap = [];
@@ -101,29 +102,37 @@ class HashTable
 
     /**
      * Count.
+     *
+     * @return int
      */
-    public function count(): int
+    public function count()
     {
         return count($this->items);
     }
 
     /**
      * Get index for hash code.
+     *
+     * @param string $pHashCode
+     *
+     * @return int Index
      */
-    public function getIndexForHashCode(string $hashCode): false|int
+    public function getIndexForHashCode($pHashCode)
     {
-        return array_search($hashCode, $this->keyMap, true);
+        return array_search($pHashCode, $this->keyMap);
     }
 
     /**
      * Get by index.
      *
-     * @return null|T
+     * @param int $pIndex
+     *
+     * @return IComparable
      */
-    public function getByIndex(int $index): ?IComparable
+    public function getByIndex($pIndex)
     {
-        if (isset($this->keyMap[$index])) {
-            return $this->getByHashCode($this->keyMap[$index]);
+        if (isset($this->keyMap[$pIndex])) {
+            return $this->getByHashCode($this->keyMap[$pIndex]);
         }
 
         return null;
@@ -132,12 +141,14 @@ class HashTable
     /**
      * Get by hashcode.
      *
-     * @return null|T
+     * @param string $pHashCode
+     *
+     * @return IComparable
      */
-    public function getByHashCode(string $hashCode): ?IComparable
+    public function getByHashCode($pHashCode)
     {
-        if (isset($this->items[$hashCode])) {
-            return $this->items[$hashCode];
+        if (isset($this->items[$pHashCode])) {
+            return $this->items[$pHashCode];
         }
 
         return null;
@@ -146,9 +157,9 @@ class HashTable
     /**
      * HashTable to array.
      *
-     * @return T[]
+     * @return IComparable[]
      */
-    public function toArray(): array
+    public function toArray()
     {
         return $this->items;
     }
@@ -160,15 +171,8 @@ class HashTable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            // each member of this class is an array
-            if (is_array($value)) {
-                $array1 = $value;
-                foreach ($array1 as $key1 => $value1) {
-                    if (is_object($value1)) {
-                        $array1[$key1] = clone $value1;
-                    }
-                }
-                $this->$key = $array1;
+            if (is_object($value)) {
+                $this->$key = clone $value;
             }
         }
     }

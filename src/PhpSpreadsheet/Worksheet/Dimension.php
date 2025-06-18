@@ -8,30 +8,38 @@ abstract class Dimension
 {
     /**
      * Visible?
+     *
+     * @var bool
      */
-    private bool $visible = true;
+    private $visible = true;
 
     /**
      * Outline level.
+     *
+     * @var int
      */
-    private int $outlineLevel = 0;
+    private $outlineLevel = 0;
 
     /**
      * Collapsed.
+     *
+     * @var bool
      */
-    private bool $collapsed = false;
+    private $collapsed = false;
 
     /**
      * Index to cellXf. Null value means row has no explicit cellXf format.
+     *
+     * @var null|int
      */
-    private ?int $xfIndex;
+    private $xfIndex;
 
     /**
      * Create a new Dimension.
      *
-     * @param ?int $initialValue Numeric row index
+     * @param int $initialValue Numeric row index
      */
-    public function __construct(?int $initialValue = null)
+    public function __construct($initialValue = null)
     {
         // set dimension as unformatted by default
         $this->xfIndex = $initialValue;
@@ -39,8 +47,10 @@ abstract class Dimension
 
     /**
      * Get Visible.
+     *
+     * @return bool
      */
-    public function getVisible(): bool
+    public function getVisible()
     {
         return $this->visible;
     }
@@ -48,19 +58,23 @@ abstract class Dimension
     /**
      * Set Visible.
      *
-     * @return $this
+     * @param bool $pValue
+     *
+     * @return Dimension
      */
-    public function setVisible(bool $visible)
+    public function setVisible($pValue)
     {
-        $this->visible = $visible;
+        $this->visible = $pValue;
 
         return $this;
     }
 
     /**
      * Get Outline Level.
+     *
+     * @return int
      */
-    public function getOutlineLevel(): int
+    public function getOutlineLevel()
     {
         return $this->outlineLevel;
     }
@@ -69,23 +83,29 @@ abstract class Dimension
      * Set Outline Level.
      * Value must be between 0 and 7.
      *
-     * @return $this
+     * @param int $pValue
+     *
+     * @throws PhpSpreadsheetException
+     *
+     * @return Dimension
      */
-    public function setOutlineLevel(int $level)
+    public function setOutlineLevel($pValue)
     {
-        if ($level < 0 || $level > 7) {
+        if ($pValue < 0 || $pValue > 7) {
             throw new PhpSpreadsheetException('Outline level must range between 0 and 7.');
         }
 
-        $this->outlineLevel = $level;
+        $this->outlineLevel = $pValue;
 
         return $this;
     }
 
     /**
      * Get Collapsed.
+     *
+     * @return bool
      */
-    public function getCollapsed(): bool
+    public function getCollapsed()
     {
         return $this->collapsed;
     }
@@ -93,19 +113,23 @@ abstract class Dimension
     /**
      * Set Collapsed.
      *
-     * @return $this
+     * @param bool $pValue
+     *
+     * @return Dimension
      */
-    public function setCollapsed(bool $collapsed)
+    public function setCollapsed($pValue)
     {
-        $this->collapsed = $collapsed;
+        $this->collapsed = $pValue;
 
         return $this;
     }
 
     /**
      * Get index to cellXf.
+     *
+     * @return int
      */
-    public function getXfIndex(): ?int
+    public function getXfIndex()
     {
         return $this->xfIndex;
     }
@@ -113,12 +137,29 @@ abstract class Dimension
     /**
      * Set index to cellXf.
      *
-     * @return $this
+     * @param int $pValue
+     *
+     * @return Dimension
      */
-    public function setXfIndex(int $XfIndex)
+    public function setXfIndex($pValue)
     {
-        $this->xfIndex = $XfIndex;
+        $this->xfIndex = $pValue;
 
         return $this;
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $value) {
+            if (is_object($value)) {
+                $this->$key = clone $value;
+            } else {
+                $this->$key = $value;
+            }
+        }
     }
 }

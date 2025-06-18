@@ -15,7 +15,7 @@ file format that was used by Microsoft Excel™ between versions 95 and 2003.
 The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
 describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
-or [downloaded as PDF](https://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
+or [downloaded as PDF](http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
 
 ### Xml
 
@@ -32,7 +32,7 @@ Office Open XML SpreadsheetML, and Excel 2010 extended this still
 further with its new features such as sparklines. These files typically
 have an extension of .xlsx. This format is based around a zipped
 collection of eXtensible Markup Language (XML) files. Microsoft Office
-Open XML SpreadsheetML is mostly standardized in [ECMA 376](https://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
+Open XML SpreadsheetML is mostly standardized in [ECMA 376](http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
 and ISO 29500.
 
 ### Ods
@@ -46,7 +46,7 @@ extension of .ods. The published specification for the file format is
 available from [the OASIS Open Office XML Format Technical Committee web
 page](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office).
 Other information is available from [the OpenOffice.org XML File Format
-web page](https://www.openoffice.org/xml/), part of the
+web page](http://www.openoffice.org/xml/), part of the
 OpenOffice.org project.
 
 ### Slk
@@ -71,7 +71,7 @@ library.
 ### Csv
 
 Comma Separated Value (CSV) file format is a common structuring strategy
-for text format files. In CSV files, each line in the file represents a
+for text format files. In CSV flies, each line in the file represents a
 row of data and (within each line of the file) the different data fields
 (or columns) are separated from one another using a comma (`,`). If a
 data field contains a comma, then it should be enclosed (typically in
@@ -80,8 +80,7 @@ semi-colon (`;`) are used as separators instead of a comma, although
 other symbols can be used. Because CSV is a text-only format, it doesn't
 support any data formatting options.
 
-"CSV" is not a single, well-defined format (although see 
-[RFC 4180](https://www.rfc-editor.org/rfc/rfc4180.html) for
+"CSV" is not a single, well-defined format (although see RFC 4180 for
 one definition that is commonly used). Rather, in practice the term
 "CSV" refers to any file that:
 
@@ -118,5 +117,5 @@ Wide Web Consortium (W3C). However, in 2000, HTML also became an
 international standard (ISO/IEC 15445:2000). HTML 4.01 was published in
 late 1999, with further errata published through 2001. In 2004
 development began on HTML5 in the Web Hypertext Application Technology
-Working Group (WHATWG), which became a joint deliverable with the W3C in 2008.
-
+Working Group (WHATWG), which became a joint deliverable with the W3C in
+2008.

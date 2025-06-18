@@ -1,89 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
-use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\TestCase;
 
-class LegendTest extends AbstractFunctional
+class LegendTest extends TestCase
 {
-    private const DIRECTORY = 'samples' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
-
-    public function readCharts(XlsxReader $reader): void
-    {
-        $reader->setIncludeCharts(true);
-    }
-
-    public function writeCharts(XlsxWriter $writer): void
-    {
-        $writer->setIncludeCharts(true);
-    }
-
-    public function testLegendWithOverlay(): void
-    {
-        $file = self::DIRECTORY . 'chart-with-and-without-overlays.xlsx';
-        $reader = new XlsxReader();
-        $reader->setIncludeCharts(true);
-        $spreadsheet = $reader->load($file);
-        $sheetName = 'With Overlay';
-        $sheet = $spreadsheet->getSheetByName($sheetName);
-        self::assertNotNull($sheet);
-        self::assertSame(1, $sheet->getChartCount());
-        /** @var callable */
-        $callableReader = [$this, 'readCharts'];
-        /** @var callable */
-        $callableWriter = [$this, 'writeCharts'];
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
-        $spreadsheet->disconnectWorksheets();
-
-        $sheet = $reloadedSpreadsheet->getSheetByName($sheetName);
-        self::assertNotNull($sheet);
-        $charts = $sheet->getChartCollection();
-        self::assertCount(1, $charts);
-        $chart = $charts[0];
-        self::assertNotNull($chart);
-        $legend = $chart->getLegend();
-        self::assertNotNull($legend);
-        self::assertTrue($legend->getOverlay());
-
-        $reloadedSpreadsheet->disconnectWorksheets();
-    }
-
-    public function testLegendWithoutOverlay(): void
-    {
-        $file = self::DIRECTORY . 'chart-with-and-without-overlays.xlsx';
-        $reader = new XlsxReader();
-        $reader->setIncludeCharts(true);
-        $spreadsheet = $reader->load($file);
-        $sheetName = 'Without Overlay';
-        $sheet = $spreadsheet->getSheetByName($sheetName);
-        self::assertNotNull($sheet);
-        self::assertSame(1, $sheet->getChartCount());
-        /** @var callable */
-        $callableReader = [$this, 'readCharts'];
-        /** @var callable */
-        $callableWriter = [$this, 'writeCharts'];
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
-        $spreadsheet->disconnectWorksheets();
-
-        $sheet = $reloadedSpreadsheet->getSheetByName($sheetName);
-        self::assertNotNull($sheet);
-        $charts = $sheet->getChartCollection();
-        self::assertCount(1, $charts);
-        $chart = $charts[0];
-        self::assertNotNull($chart);
-        $legend = $chart->getLegend();
-        self::assertNotNull($legend);
-        self::assertFalse($legend->getOverlay());
-
-        $reloadedSpreadsheet->disconnectWorksheets();
-    }
-
-    public function testSetPosition(): void
+    public function testSetPosition()
     {
         $positionValues = [
             Legend::POSITION_RIGHT,
@@ -101,7 +25,7 @@ class LegendTest extends AbstractFunctional
         }
     }
 
-    public function testSetInvalidPositionReturnsFalse(): void
+    public function testSetInvalidPositionReturnsFalse()
     {
         $testInstance = new Legend();
 
@@ -112,7 +36,7 @@ class LegendTest extends AbstractFunctional
         self::assertEquals(Legend::POSITION_RIGHT, $result);
     }
 
-    public function testGetPosition(): void
+    public function testGetPosition()
     {
         $PositionValue = Legend::POSITION_BOTTOM;
 
@@ -123,7 +47,7 @@ class LegendTest extends AbstractFunctional
         self::assertEquals($PositionValue, $result);
     }
 
-    public function testSetPositionXL(): void
+    public function testSetPositionXL()
     {
         $positionValues = [
             Legend::XL_LEGEND_POSITION_BOTTOM,
@@ -142,7 +66,7 @@ class LegendTest extends AbstractFunctional
         }
     }
 
-    public function testSetInvalidXLPositionReturnsFalse(): void
+    public function testSetInvalidXLPositionReturnsFalse()
     {
         $testInstance = new Legend();
 
@@ -153,7 +77,7 @@ class LegendTest extends AbstractFunctional
         self::assertEquals(Legend::XL_LEGEND_POSITION_RIGHT, $result);
     }
 
-    public function testGetPositionXL(): void
+    public function testGetPositionXL()
     {
         $PositionValue = Legend::XL_LEGEND_POSITION_CORNER;
 
@@ -164,7 +88,7 @@ class LegendTest extends AbstractFunctional
         self::assertEquals($PositionValue, $result);
     }
 
-    public function testSetOverlay(): void
+    public function testSetOverlay()
     {
         $overlayValues = [
             true,
@@ -174,12 +98,23 @@ class LegendTest extends AbstractFunctional
         $testInstance = new Legend();
 
         foreach ($overlayValues as $overlayValue) {
-            $testInstance->setOverlay($overlayValue);
-            self::assertSame($overlayValue, $testInstance->getOverlay());
+            $result = $testInstance->setOverlay($overlayValue);
+            self::assertTrue($result);
         }
     }
 
-    public function testGetOverlay(): void
+    public function testSetInvalidOverlayReturnsFalse()
+    {
+        $testInstance = new Legend();
+
+        $result = $testInstance->setOverlay('INVALID');
+        self::assertFalse($result);
+
+        $result = $testInstance->getOverlay();
+        self::assertFalse($result);
+    }
+
+    public function testGetOverlay()
     {
         $OverlayValue = true;
 

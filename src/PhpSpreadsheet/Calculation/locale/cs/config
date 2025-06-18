@@ -1,20 +1,23 @@
-############################################################
 ##
-## PhpSpreadsheet - locale settings
+## PhpSpreadsheet
 ##
-## Ceština (Czech)
-##
-############################################################
 
-ArgumentSeparator = ;
+ArgumentSeparator	= ;
+
 
 ##
-## Error Codes
+##	(For future use)
 ##
-NULL
-DIV0 = #DĚLENÍ_NULOU!
-VALUE = #HODNOTA!
-REF = #ODKAZ!
-NAME = #NÁZEV?
-NUM = #ČÍSLO!
-NA = #NENÍ_K_DISPOZICI
+currencySymbol	= Kč
+
+
+##
+##	Excel Error Codes	(For future use)
+##
+NULL	= #NULL!
+DIV0	= #DIV/0!
+VALUE	= #HODNOTA!
+REF	= #REF!
+NAME	= #NÁZEV?
+NUM	= #NUM!
+NA	= #N/A

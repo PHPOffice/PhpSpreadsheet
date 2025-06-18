@@ -9,6 +9,8 @@ interface IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
+     *
+     * @return bool
      */
-    public function bindValue(Cell $cell, mixed $value): bool;
+    public function bindValue(Cell $cell, $value);
 }

@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 
@@ -32,9 +31,7 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('B1', 'Invoice');
-$date = new DateTime('now');
-$date->setTime(0, 0, 0);
-$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel($date));
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(gmmktime(0, 0, 0, date('m'), date('d'), date('Y'))));
 $spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_XLSX15);
 $spreadsheet->getActiveSheet()->setCellValue('E1', '#12566');
 
@@ -75,19 +72,19 @@ $helper->log('Add comments');
 
 $spreadsheet->getActiveSheet()->getComment('E11')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFontOrThrow()->setBold(true);
+$commentRichText->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E11')->getText()->createTextRun('Total amount on the current invoice, excluding VAT.');
 
 $spreadsheet->getActiveSheet()->getComment('E12')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFontOrThrow()->setBold(true);
+$commentRichText->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E12')->getText()->createTextRun('Total amount of VAT on the current invoice.');
 
 $spreadsheet->getActiveSheet()->getComment('E13')->setAuthor('PhpSpreadsheet');
 $commentRichText = $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun('PhpSpreadsheet:');
-$commentRichText->getFontOrThrow()->setBold(true);
+$commentRichText->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun("\r\n");
 $spreadsheet->getActiveSheet()->getComment('E13')->getText()->createTextRun('Total amount on the current invoice, including VAT.');
 $spreadsheet->getActiveSheet()->getComment('E13')->setWidth('100pt');
@@ -101,9 +98,9 @@ $richText = new RichText();
 $richText->createText('This invoice is ');
 
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
-$payable->getFontOrThrow()->setBold(true);
-$payable->getFontOrThrow()->setItalic(true);
-$payable->getFontOrThrow()->setColor(new Color(Color::COLOR_DARKGREEN));
+$payable->getFont()->setBold(true);
+$payable->getFont()->setItalic(true);
+$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -121,7 +118,7 @@ $spreadsheet->getActiveSheet()->protectCells('A3:E13', 'PhpSpreadsheet');
 
 // Set cell number formats
 $helper->log('Set cell number formats');
-$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_INTEGER);
+$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 // Set column widths
 $helper->log('Set column widths');
@@ -187,59 +184,59 @@ $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->s
 $helper->log('Set style for header row using alternative method');
 $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
     [
-        'font' => [
-            'bold' => true,
-        ],
-        'alignment' => [
-            'horizontal' => Alignment::HORIZONTAL_RIGHT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => Border::BORDER_THIN,
+            'font' => [
+                'bold' => true,
             ],
-        ],
-        'fill' => [
-            'fillType' => Fill::FILL_GRADIENT_LINEAR,
-            'rotation' => 90,
-            'startColor' => [
-                'argb' => 'FFA0A0A0',
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ],
-            'endColor' => [
-                'argb' => 'FFFFFFFF',
+            'borders' => [
+                'top' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
             ],
-        ],
-    ]
+            'fill' => [
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => [
+                    'argb' => 'FFA0A0A0',
+                ],
+                'endColor' => [
+                    'argb' => 'FFFFFFFF',
+                ],
+            ],
+        ]
 );
 
 $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
     [
-        'alignment' => [
-            'horizontal' => Alignment::HORIZONTAL_LEFT,
-        ],
-        'borders' => [
-            'left' => [
-                'borderStyle' => Border::BORDER_THIN,
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
-        ],
-    ]
+            'borders' => [
+                'left' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+        ]
 );
 
 $spreadsheet->getActiveSheet()->getStyle('B3')->applyFromArray(
     [
-        'alignment' => [
-            'horizontal' => Alignment::HORIZONTAL_LEFT,
-        ],
-    ]
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+            ],
+        ]
 );
 
 $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
     [
-        'borders' => [
-            'right' => [
-                'borderStyle' => Border::BORDER_THIN,
+            'borders' => [
+                'right' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
             ],
-        ],
-    ]
+        ]
 );
 
 // Unprotect a cell
@@ -248,18 +245,16 @@ $spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Prote
 
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
+$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
 $spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-$spreadsheet->getActiveSheet()->getStyle('E26')->getFont()->setHyperlinkTheme();
 
 $helper->log('Add a hyperlink to another cell on a different worksheet within the workbook');
 $spreadsheet->getActiveSheet()->setCellValue('E27', 'Terms and conditions');
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setUrl("sheet://'Terms and conditions'!A1");
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Review terms and conditions');
 $spreadsheet->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-$spreadsheet->getActiveSheet()->getStyle('E27')->getFont()->setHyperlinkTheme();
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');

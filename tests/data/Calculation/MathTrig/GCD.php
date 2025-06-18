@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         1,
@@ -131,8 +129,4 @@ return [
         481,
         143,
     ],
-    [13, 182, 481, null, 143],
-    ['#VALUE!', null, null, null, null],
-    ['#VALUE!', null],
-    ['exception'],
 ];

@@ -4,50 +4,54 @@ namespace PhpOffice\PhpSpreadsheet\RichText;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IComparable;
-use Stringable;
 
-class RichText implements IComparable, Stringable
+class RichText implements IComparable
 {
     /**
      * Rich text elements.
      *
      * @var ITextElement[]
      */
-    private array $richTextElements;
+    private $richTextElements;
 
     /**
      * Create a new RichText instance.
+     *
+     * @param Cell $pCell
+     *
+     * @throws Exception
      */
-    public function __construct(?Cell $cell = null)
+    public function __construct(Cell $pCell = null)
     {
         // Initialise variables
         $this->richTextElements = [];
 
         // Rich-Text string attached to cell?
-        if ($cell !== null) {
+        if ($pCell !== null) {
             // Add cell text and style
-            if ($cell->getValueString() !== '') {
-                $objRun = new Run($cell->getValueString());
-                $objRun->setFont(clone $cell->getWorksheet()->getStyle($cell->getCoordinate())->getFont());
+            if ($pCell->getValue() != '') {
+                $objRun = new Run($pCell->getValue());
+                $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
             // Set parent value
-            $cell->setValueExplicit($this, DataType::TYPE_STRING);
+            $pCell->setValueExplicit($this, DataType::TYPE_STRING);
         }
     }
 
     /**
      * Add text.
      *
-     * @param ITextElement $text Rich text element
+     * @param ITextElement $pText Rich text element
      *
-     * @return $this
+     * @return RichText
      */
-    public function addText(ITextElement $text): static
+    public function addText(ITextElement $pText)
     {
-        $this->richTextElements[] = $text;
+        $this->richTextElements[] = $pText;
 
         return $this;
     }
@@ -55,11 +59,15 @@ class RichText implements IComparable, Stringable
     /**
      * Create text.
      *
-     * @param string $text Text
+     * @param string $pText Text
+     *
+     * @throws Exception
+     *
+     * @return TextElement
      */
-    public function createText(string $text): TextElement
+    public function createText($pText)
     {
-        $objText = new TextElement($text);
+        $objText = new TextElement($pText);
         $this->addText($objText);
 
         return $objText;
@@ -68,11 +76,15 @@ class RichText implements IComparable, Stringable
     /**
      * Create text run.
      *
-     * @param string $text Text
+     * @param string $pText Text
+     *
+     * @throws Exception
+     *
+     * @return Run
      */
-    public function createTextRun(string $text): Run
+    public function createTextRun($pText)
     {
-        $objText = new Run($text);
+        $objText = new Run($pText);
         $this->addText($objText);
 
         return $objText;
@@ -80,8 +92,10 @@ class RichText implements IComparable, Stringable
 
     /**
      * Get plain text.
+     *
+     * @return string
      */
-    public function getPlainText(): string
+    public function getPlainText()
     {
         // Return value
         $returnValue = '';
@@ -96,8 +110,10 @@ class RichText implements IComparable, Stringable
 
     /**
      * Convert to string.
+     *
+     * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->getPlainText();
     }
@@ -107,7 +123,7 @@ class RichText implements IComparable, Stringable
      *
      * @return ITextElement[]
      */
-    public function getRichTextElements(): array
+    public function getRichTextElements()
     {
         return $this->richTextElements;
     }
@@ -117,9 +133,9 @@ class RichText implements IComparable, Stringable
      *
      * @param ITextElement[] $textElements Array of elements
      *
-     * @return $this
+     * @return RichText
      */
-    public function setRichTextElements(array $textElements): static
+    public function setRichTextElements(array $textElements)
     {
         $this->richTextElements = $textElements;
 
@@ -131,7 +147,7 @@ class RichText implements IComparable, Stringable
      *
      * @return string Hash code
      */
-    public function getHashCode(): string
+    public function getHashCode()
     {
         $hashElements = '';
         foreach ($this->richTextElements as $element) {
@@ -139,8 +155,8 @@ class RichText implements IComparable, Stringable
         }
 
         return md5(
-            $hashElements
-            . __CLASS__
+            $hashElements .
+            __CLASS__
         );
     }
 
@@ -151,14 +167,11 @@ class RichText implements IComparable, Stringable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            $newValue = is_object($value) ? (clone $value) : $value;
-            if (is_array($value)) {
-                $newValue = [];
-                foreach ($value as $key2 => $value2) {
-                    $newValue[$key2] = is_object($value2) ? (clone $value2) : $value2;
-                }
+            if (is_object($value)) {
+                $this->$key = clone $value;
+            } else {
+                $this->$key = $value;
             }
-            $this->$key = $newValue;
         }
     }
 }

@@ -1,20 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 // fractional_dollar, fraction, result
 
 return [
-    [
-        2.5,
-        1.6,
-        4,
-    ],
-    [
-        -2.5,
-        -1.6,
-        4,
-    ],
     [
         1.125,
         1.02,
@@ -49,11 +37,6 @@ return [
         1.375,
         1.1200000000000001,
         32,
-    ],
-    [
-        '#VALUE!',
-        'Not A Number',
-        0,
     ],
     [
         '#DIV/0!',

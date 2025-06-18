@@ -1,40 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use PhpOffice\PhpSpreadsheet\Exception as SpException;
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
 use PHPUnit\Framework\TestCase;
 
 class PasswordHasherTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerHashPassword')]
-    public function testHashPassword(
-        string $expectedResult,
-        string $password,
-        ?string $algorithm = null,
-        ?string $salt = null,
-        ?int $spinCount = null
-    ): void {
-        if ($expectedResult === 'exception') {
-            $this->expectException(SpException::class);
-        }
-        if ($algorithm === null) {
-            $result = PasswordHasher::hashPassword($password);
-        } elseif ($salt === null) {
-            $result = PasswordHasher::hashPassword($password, $algorithm);
-        } elseif ($spinCount === null) {
-            $result = PasswordHasher::hashPassword($password, $algorithm, $salt);
-        } else {
-            $result = PasswordHasher::hashPassword($password, $algorithm, $salt, $spinCount);
-        }
-        self::assertSame($expectedResult, $result);
+    /**
+     * @dataProvider providerHashPassword
+     *
+     * @param mixed $expectedResult
+     */
+    public function testHashPassword($expectedResult, ...$args)
+    {
+        $result = PasswordHasher::hashPassword(...$args);
+        self::assertEquals($expectedResult, $result);
     }
 
-    public static function providerHashPassword(): array
+    public function providerHashPassword()
     {
-        return require 'tests/data/Shared/PasswordHashes.php';
+        return require 'data/Shared/PasswordHashes.php';
     }
 }

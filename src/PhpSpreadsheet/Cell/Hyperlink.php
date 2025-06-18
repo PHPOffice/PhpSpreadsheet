@@ -6,31 +6,37 @@ class Hyperlink
 {
     /**
      * URL to link the cell to.
+     *
+     * @var string
      */
-    private string $url;
+    private $url;
 
     /**
      * Tooltip to display on the hyperlink.
+     *
+     * @var string
      */
-    private string $tooltip;
+    private $tooltip;
 
     /**
      * Create a new Hyperlink.
      *
-     * @param string $url Url to link the cell to
-     * @param string $tooltip Tooltip to display on the hyperlink
+     * @param string $pUrl Url to link the cell to
+     * @param string $pTooltip Tooltip to display on the hyperlink
      */
-    public function __construct(string $url = '', string $tooltip = '')
+    public function __construct($pUrl = '', $pTooltip = '')
     {
         // Initialise member variables
-        $this->url = $url;
-        $this->tooltip = $tooltip;
+        $this->url = $pUrl;
+        $this->tooltip = $pTooltip;
     }
 
     /**
      * Get URL.
+     *
+     * @return string
      */
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
@@ -38,19 +44,23 @@ class Hyperlink
     /**
      * Set URL.
      *
-     * @return $this
+     * @param string $value
+     *
+     * @return Hyperlink
      */
-    public function setUrl(string $url): static
+    public function setUrl($value)
     {
-        $this->url = $url;
+        $this->url = $value;
 
         return $this;
     }
 
     /**
      * Get tooltip.
+     *
+     * @return string
      */
-    public function getTooltip(): string
+    public function getTooltip()
     {
         return $this->tooltip;
     }
@@ -58,24 +68,31 @@ class Hyperlink
     /**
      * Set tooltip.
      *
-     * @return $this
+     * @param string $value
+     *
+     * @return Hyperlink
      */
-    public function setTooltip(string $tooltip): static
+    public function setTooltip($value)
     {
-        $this->tooltip = $tooltip;
+        $this->tooltip = $value;
 
         return $this;
     }
 
     /**
-     * Is this hyperlink internal? (to another worksheet or a cell in this worksheet).
+     * Is this hyperlink internal? (to another worksheet).
+     *
+     * @return bool
      */
-    public function isInternal(): bool
+    public function isInternal()
     {
-        return str_starts_with($this->url, 'sheet://') || str_starts_with($this->url, '#');
+        return strpos($this->url, 'sheet://') !== false;
     }
 
-    public function getTypeHyperlink(): string
+    /**
+     * @return string
+     */
+    public function getTypeHyperlink()
     {
         return $this->isInternal() ? '' : 'External';
     }
@@ -85,12 +102,12 @@ class Hyperlink
      *
      * @return string Hash code
      */
-    public function getHashCode(): string
+    public function getHashCode()
     {
         return md5(
-            $this->url
-            . $this->tooltip
-            . __CLASS__
+            $this->url .
+            $this->tooltip .
+            __CLASS__
         );
     }
 }

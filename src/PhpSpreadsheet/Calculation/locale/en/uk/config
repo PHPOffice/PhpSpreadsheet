@@ -1,24 +1,8 @@
-############################################################
 ##
-## PhpSpreadsheet - locale settings
+## PhpSpreadsheet
 ##
-## English-UK (English-UK)
-##
-############################################################
-
-ArgumentSeparator = ,
-##
-##  (For future use)
-##
-currencySymbol = £
 
 ##
-## Error Codes
+##	(For future use)
 ##
-NULL
-DIV0
-VALUE
-REF
-NAME
-NUM
-NA
+currencySymbol	= £

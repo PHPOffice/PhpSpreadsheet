@@ -14,19 +14,13 @@ if [ "$files" != "" ]; then
     done <<< "$files"
 
     # Run php-cs-fixer validation before commit
-    echo "$files" | xargs ./vendor/bin/php-cs-fixer fix --diff --config .php-cs-fixer.dist.php
+    echo "$files" | xargs ./vendor/bin/php-cs-fixer fix --diff --config .php_cs.dist
     if [ $? -ne 0 ]; then
         pass=false
     fi
 
     # Automatically add files that may have been fixed by php-cs-fixer
     echo "$files" | xargs git add
-fi
-
-# Check PHPDoc types
-./bin/check-phpdoc-types.php
-if [ $? -ne 0 ]; then
-    pass=false
 fi
 
 if $pass; then

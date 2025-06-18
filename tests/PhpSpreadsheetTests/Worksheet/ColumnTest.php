@@ -1,52 +1,48 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
 {
-    public function testInstantiateColumnDefault(): void
+    public $mockWorksheet;
+
+    public $mockColumn;
+
+    public function setUp()
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $column = new Column($sheet);
+        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->mockWorksheet->expects($this->any())
+            ->method('getHighestRow')
+            ->will($this->returnValue(5));
+    }
+
+    public function testInstantiateColumnDefault()
+    {
+        $column = new Column($this->mockWorksheet);
+        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('A', $columnIndex);
-        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testInstantiateColumnSpecified(): void
+    public function testInstantiateColumnSpecified()
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $column = new Column($sheet, 'E');
+        $column = new Column($this->mockWorksheet, 'E');
+        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('E', $columnIndex);
-        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testGetCellIterator(): void
+    public function testGetCellIterator()
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $column = new Column($sheet);
+        $column = new Column($this->mockWorksheet);
         $cellIterator = $column->getCellIterator();
-        self::assertSame(1, $cellIterator->key());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testGetRowIterator(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $column = new Column($sheet);
-        $cellIterator = $column->getRowIterator();
-        self::assertSame(1, $cellIterator->key());
-        $spreadsheet->disconnectWorksheets();
+        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
     }
 }

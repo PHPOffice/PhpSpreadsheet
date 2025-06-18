@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 class ErrorCode
 {
-    private const ERROR_CODE_MAP = [
+    protected static $map = [
         0x00 => '#NULL!',
         0x07 => '#DIV/0!',
         0x0F => '#VALUE!',
@@ -16,9 +16,17 @@ class ErrorCode
 
     /**
      * Map error code, e.g. '#N/A'.
+     *
+     * @param int $code
+     *
+     * @return bool|string
      */
-    public static function lookup(int $code): string|bool
+    public static function lookup($code)
     {
-        return self::ERROR_CODE_MAP[$code] ?? false;
+        if (isset(self::$map[$code])) {
+            return self::$map[$code];
+        }
+
+        return false;
     }
 }

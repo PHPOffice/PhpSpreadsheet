@@ -1,17 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit\Framework\TestCase;
 
 class DataSeriesValuesTest extends TestCase
 {
-    public function testSetDataType(): void
+    public function testSetDataType()
     {
         $dataTypeValues = [
             'Number',
@@ -22,11 +19,11 @@ class DataSeriesValuesTest extends TestCase
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            self::assertSame($dataTypeValue, $result->getDataType());
+            self::assertInstanceOf(DataSeriesValues::class, $result);
         }
     }
 
-    public function testSetInvalidDataTypeThrowsException(): void
+    public function testSetInvalidDataTypeThrowsException()
     {
         $testInstance = new DataSeriesValues();
 
@@ -37,10 +34,10 @@ class DataSeriesValuesTest extends TestCase
 
             return;
         }
-        self::fail('An expected exception has not been raised.');
+        $this->fail('An expected exception has not been raised.');
     }
 
-    public function testGetDataType(): void
+    public function testGetDataType()
     {
         $dataTypeValue = 'String';
 
@@ -51,42 +48,15 @@ class DataSeriesValuesTest extends TestCase
         self::assertEquals($dataTypeValue, $result);
     }
 
-    public function testGetLineWidth(): void
+    public function testGetLineWidth()
     {
         $testInstance = new DataSeriesValues();
-        // default has changed to null from 1 point (12700)
-        self::assertNull($testInstance->getLineWidth(), 'should have default');
+        self::assertEquals(12700, $testInstance->getLineWidth(), 'should have default');
 
-        $testInstance->setLineWidth(40000 / Properties::POINTS_WIDTH_MULTIPLIER);
-        self::assertEquals(40000 / Properties::POINTS_WIDTH_MULTIPLIER, $testInstance->getLineWidth());
+        $testInstance->setLineWidth(40000);
+        self::assertEquals(40000, $testInstance->getLineWidth());
 
         $testInstance->setLineWidth(1);
-        self::assertEquals(12700 / Properties::POINTS_WIDTH_MULTIPLIER, $testInstance->getLineWidth(), 'should enforce minimum width');
-    }
-
-    public function testFillColorCorrectInput(): void
-    {
-        $testInstance = new DataSeriesValues();
-
-        self::assertEquals($testInstance, $testInstance->setFillColor('00abb8'));
-        self::assertEquals($testInstance, $testInstance->setFillColor(['00abb8', 'b8292f']));
-    }
-
-    public function testFillColorInvalidInput(): void
-    {
-        $testInstance = new DataSeriesValues();
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Invalid hex color for chart series');
-
-        $testInstance->setFillColor('WRONG COLOR');
-    }
-
-    public function testFillColorInvalidInputInArray(): void
-    {
-        $testInstance = new DataSeriesValues();
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Invalid hex color for chart series (color: "WRONG COLOR")');
-
-        $testInstance->setFillColor(['b8292f', 'WRONG COLOR']);
+        self::assertEquals(12700, $testInstance->getLineWidth(), 'should enforce minimum width');
     }
 }

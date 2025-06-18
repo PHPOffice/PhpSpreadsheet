@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         '#VALUE!',
@@ -71,5 +69,4 @@ return [
         0x2020,
         '†',
     ],
-    'omitted argument' => ['exception'],
 ];

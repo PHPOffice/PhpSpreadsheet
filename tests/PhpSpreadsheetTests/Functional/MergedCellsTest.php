@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class MergedCellsTest extends AbstractFunctional
 {
-    public static function providerFormats(): array
+    public function providerFormats()
     {
         return [
             ['Html'],
@@ -18,8 +16,12 @@ class MergedCellsTest extends AbstractFunctional
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
-    public function testMergedCells(string $format): void
+    /**
+     * @dataProvider providerFormats
+     *
+     * @param string $format
+     */
+    public function testMergedCells($format)
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0);

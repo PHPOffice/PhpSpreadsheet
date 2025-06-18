@@ -1,13 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
 return [
-    // ANSI Latin I (BIFF4-BIFF7)
-    [
-        'CP1252',
-        0,
-    ],
     // ASCII
     [
         'ASCII',
@@ -136,6 +129,11 @@ return [
     // ANSI Latin I (BIFF4-BIFF7)
     [
         'CP1252',
+        0,
+    ],
+    // ANSI Latin I (BIFF4-BIFF7)
+    [
+        'CP1252',
         1252,
     ],
     // ANSI Greek
@@ -178,31 +176,6 @@ return [
         'MAC',
         10000,
     ],
-    // Macintosh Japanese
-    [
-        'CP932',
-        10001,
-    ],
-    // Macintosh Chinese Traditional
-    [
-        'CP950',
-        10002,
-    ],
-    // Macintosh Korean
-    [
-        'CP1361',
-        10003,
-    ],
-    // Apple Arabic
-    [
-        'MACARABIC',
-        10004,
-    ],
-    // Apple Hebrew
-    [
-        'MACHEBREW',
-        10005,
-    ],
     // Macintosh Greek
     [
         'MACGREEK',
@@ -213,29 +186,9 @@ return [
         'MACCYRILLIC',
         10007,
     ],
-    // Macintosh - Simplified Chinese (GB 2312)
-    [
-        'CP936',
-        10008,
-    ],
-    // Macintosh Romania
-    [
-        'MACROMANIA',
-        10010,
-    ],
-    // Macintosh Ukraine
-    [
-        'MACUKRAINE',
-        10017,
-    ],
-    // Macintosh Thai
-    [
-        'MACTHAI',
-        10021,
-    ],
     // Macintosh Central Europe
     [
-        ['MACCENTRALEUROPE', 'MAC-CENTRALEUROPE'],
+        'MACCENTRALEUROPE',
         10029,
     ],
     // Macintosh Icelandic
@@ -247,16 +200,6 @@ return [
     [
         'MACTURKISH',
         10081,
-    ],
-    // Macintosh Croatian
-    [
-        'MACCROATIAN',
-        10082,
-    ],
-    // UTF-16 (BIFF8) grandfathers erroneous libraries
-    [
-        'UTF-16LE',
-        21010,
     ],
     // Apple Roman
     [
@@ -272,10 +215,5 @@ return [
     [
         'UTF-8',
         65001,
-    ],
-    // invalid
-    [
-        'exception',
-        99999,
     ],
 ];

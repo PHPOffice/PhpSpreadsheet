@@ -1,20 +1,24 @@
-############################################################
 ##
-## PhpSpreadsheet - locale settings
+## PhpSpreadsheet
 ##
-## Nederlands (Dutch)
-##
-############################################################
 
-ArgumentSeparator = ;
+ArgumentSeparator	= ;
+
 
 ##
-## Error Codes
+##	(For future use)
 ##
-NULL = #LEEG!
-DIV0 = #DEEL/0!
-VALUE = #WAARDE!
-REF = #VERW!
-NAME = #NAAM?
-NUM = #GETAL!
-NA = #N/B
+currencySymbol	= €
+
+
+##
+##	Excel Error Codes	(For future use)
+
+##
+NULL	= #LEEG!
+DIV0	= #DEEL/0!
+VALUE	= #WAARDE!
+REF	= #VERW!
+NAME	= #NAAM?
+NUM	= #GETAL!
+NA	= #N/B

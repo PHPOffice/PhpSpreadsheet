@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -11,15 +9,19 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
     const COLOR_GREEN = 'FF99FF66';
     const COLOR_RED = 'FFFF5050';
 
-    public static function providerFormats(): array
+    public function providerFormats()
     {
         return [
             ['Xlsx'],
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
-    public function testConditionalStopIfTrue(string $format): void
+    /**
+     * @dataProvider providerFormats
+     *
+     * @param string $format
+     */
+    public function testConditionalStopIfTrue($format)
     {
         $pCoordinate = 'A1:A3';
 
@@ -36,7 +38,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         $condition1->addCondition(0.6);
         $condition1->getStyle()->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(self::COLOR_RED);
+            ->getEndColor()->setARGB(self::COLOR_RED);
 
         // if value above 0.6 -> green background
         $condition2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
@@ -45,7 +47,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         $condition2->addCondition(0.6);
         $condition2->getStyle()->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(self::COLOR_GREEN);
+            ->getEndColor()->setARGB(self::COLOR_GREEN);
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue(0.7);

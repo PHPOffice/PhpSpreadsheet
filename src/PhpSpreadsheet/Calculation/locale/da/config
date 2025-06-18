@@ -1,20 +1,25 @@
-############################################################
 ##
-## PhpSpreadsheet - locale settings
+## PhpSpreadsheet
 ##
-## Dansk (Danish)
-##
-############################################################
 
-ArgumentSeparator = ;
+ArgumentSeparator	= ;
+
 
 ##
-## Error Codes
+##	(For future use)
 ##
-NULL = #NUL!
-DIV0
-VALUE = #VÆRDI!
-REF = #REFERENCE!
-NAME = #NAVN?
-NUM
-NA = #I/T
+currencySymbol	= kr
+
+
+
+##
+##	Excel Error Codes	(For future use)
+
+##
+NULL	= #NUL!
+DIV0	= #DIVISION/0!
+VALUE	= #VÆRDI!
+REF	= #REFERENCE!
+NAME	= #NAVN?
+NUM	= #NUM!
+NA	= #I/T

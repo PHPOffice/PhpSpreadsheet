@@ -2,12 +2,10 @@
 /analysis
 /vendor/
 /phpunit.xml
+/.php_cs.cache
 
 ## IDE support
 *.buildpath
 *.project
 /.settings
 /.idea
-
-## mkdocs output
-/site

@@ -1,48 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests;
 
-use PhpOffice\PhpSpreadsheet\Exception as SpException;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
 
 class SettingsTest extends TestCase
 {
-    protected function tearDown(): void
+    /**
+     * @var string
+     */
+    protected $prevValue;
+
+    public function setUp()
     {
-        Settings::setCache(null);
+        $this->prevValue = libxml_disable_entity_loader();
+        libxml_disable_entity_loader(false); // Enable entity loader
     }
 
-    public function testInvalidChartRenderer(): void
+    protected function tearDown()
     {
-        $this->expectException(SpException::class);
-        $this->expectExceptionMessage('Chart renderer must implement');
-        // @phpstan-ignore-next-line
-        Settings::setChartRenderer(self::class);
+        libxml_disable_entity_loader($this->prevValue);
     }
 
-    public function testInvalidRequestFactory(): void
+    public function testGetXMLSettings()
     {
-        $this->expectException(SpException::class);
-        $this->expectExceptionMessage('HTTP client must be configured');
-        Settings::getRequestFactory();
+        $result = Settings::getLibXmlLoaderOptions();
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
+        self::assertFalse(libxml_disable_entity_loader());
     }
 
-    public function testCache(): void
+    public function testSetXMLSettings()
     {
-        $cache1 = Settings::getCache();
-        Settings::setCache(null);
-        $cache2 = Settings::getCache();
-        self::assertEquals($cache1, $cache2);
-        self::assertNotSame($cache1, $cache2);
-        $array = ['A1' => 10, 'B2' => 20];
-        $cache2->setMultiple($array);
-        self::assertSame($array, $cache2->getMultiple(array_keys($array)));
-        self::assertNull($cache2->get('C3'));
-        $cache2->clear();
-        self::assertNull($cache2->get('A1'));
-        self::assertNull($cache2->get('B2'));
+        Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
+        $result = Settings::getLibXmlLoaderOptions();
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
+        self::assertFalse(libxml_disable_entity_loader());
     }
 }

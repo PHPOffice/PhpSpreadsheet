@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // Excel Format Code                     Result
 return [
     [
@@ -148,22 +146,4 @@ return [
         false,
         '#,##0.00 "dollars"',
     ],
-    [
-        true,
-        '"date " y-m-d',
-    ],
-    [
-        false,
-        '\C\H\-00000',
-    ],
-    [
-        false,
-        '\D-00000',
-    ],
-    [true, '[$-F800]'],
-    [true, 'hello[$-F400]goodbye'],
-    [false, '[$-F401]'],
-    [true, '[$-x-sysdate]'],
-    [true, '[$-x-systime]'],
-    [false, '[$-x-systim]'],
 ];

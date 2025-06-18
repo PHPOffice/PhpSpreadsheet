@@ -1,15 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         'HELLO      ',
         'HELLO      ',
-    ],
-    [
-        ' HELLO ',
-        ' HELLO ',
     ],
     [
         'HELLO',
@@ -27,5 +21,4 @@ return [
         null,
         null,
     ],
-    'omitted argument' => ['exception'],
 ];

@@ -9,9 +9,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        /** @var callable $callable */
-        $callable = [Exception::class, 'errorHandlerCallback'];
-        set_error_handler($callable, E_ALL);
+        set_error_handler([Exception::class, 'errorHandlerCallback'], E_ALL);
     }
 
     /**

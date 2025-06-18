@@ -1,8 +1,0 @@
-version: 2
-updates:
-- package-ecosystem: composer
-  directory: "/"
-  schedule:
-    interval: monthly
-    time: "11:00"
-  open-pull-requests-limit: 10
