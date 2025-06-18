@@ -249,6 +249,40 @@ class Xlsx extends BaseWriter
         return $this->writerPartWorksheet;
     }
 
+    public function createStyleDictionaries(): void
+    {
+        $this->styleHashTable->addFromSource(
+            $this->getWriterPartStyle()->allStyles(
+                $this->spreadSheet
+            )
+        );
+        $this->stylesConditionalHashTable->addFromSource(
+            $this->getWriterPartStyle()->allConditionalStyles(
+                $this->spreadSheet
+            )
+        );
+        $this->fillHashTable->addFromSource(
+            $this->getWriterPartStyle()->allFills(
+                $this->spreadSheet
+            )
+        );
+        $this->fontHashTable->addFromSource(
+            $this->getWriterPartStyle()->allFonts(
+                $this->spreadSheet
+            )
+        );
+        $this->bordersHashTable->addFromSource(
+            $this->getWriterPartStyle()->allBorders(
+                $this->spreadSheet
+            )
+        );
+        $this->numFmtHashTable->addFromSource(
+            $this->getWriterPartStyle()->allNumberFormats(
+                $this->spreadSheet
+            )
+        );
+    }
+
     /**
      * Save PhpSpreadsheet to file.
      *
@@ -275,12 +309,7 @@ class Xlsx extends BaseWriter
         }
 
         // Create styles dictionaries
-        $this->styleHashTable->addFromSource($this->getWriterPartStyle()->allStyles($this->spreadSheet));
-        $this->stylesConditionalHashTable->addFromSource($this->getWriterPartStyle()->allConditionalStyles($this->spreadSheet));
-        $this->fillHashTable->addFromSource($this->getWriterPartStyle()->allFills($this->spreadSheet));
-        $this->fontHashTable->addFromSource($this->getWriterPartStyle()->allFonts($this->spreadSheet));
-        $this->bordersHashTable->addFromSource($this->getWriterPartStyle()->allBorders($this->spreadSheet));
-        $this->numFmtHashTable->addFromSource($this->getWriterPartStyle()->allNumberFormats($this->spreadSheet));
+        $this->createStyleDictionaries();
 
         // Create drawing dictionary
         $this->drawingHashTable->addFromSource($this->getWriterPartDrawing()->allDrawings($this->spreadSheet));

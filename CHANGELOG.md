@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - VSTACK and HSTACK. [Issue #4485](https://github.com/PHPOffice/PhpSpreadsheet/issues/4485) [PR #4492](https://github.com/PHPOffice/PhpSpreadsheet/pull/4492)
 - TOCOL and TOROW. [PR #4493](https://github.com/PHPOffice/PhpSpreadsheet/pull/4493)
+- Support Current Office Theme. [PR #4500](https://github.com/PHPOffice/PhpSpreadsheet/pull/4500)
 
 ### Removed
 
@@ -26,12 +27,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing yet.
+- Theme constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
 
 ### Fixed
 
 - Various Writers RichText TextElement Should Inherit Cell Style. [Issue #1154](https://github.com/PHPOffice/PhpSpreadsheet/issues/1154) [PR #4487](https://github.com/PHPOffice/PhpSpreadsheet/pull/4487)
 - Minor Changes to FILTER function. [PR #4491](https://github.com/PHPOffice/PhpSpreadsheet/pull/4491)
+- Allow Xlsx Reader/Writer to support Font Charset. [Issue #2760](https://github.com/PHPOffice/PhpSpreadsheet/issues/2760) [PR #4501](https://github.com/PHPOffice/PhpSpreadsheet/pull/4501)
+- AutoColor for LibreOffice Dark Mode [Discussion 4502](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4502) [PR #4503](https://github.com/PHPOffice/PhpSpreadsheet/pull/4503)
+- Xlsx Style Writer Minor Refactoring. [PR #4508](https://github.com/PHPOffice/PhpSpreadsheet/pull/4508)
 
 ## 2025-05-26 - 4.3.1
 
