@@ -2,24 +2,24 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
-use PhpOffice\PhpSpreadsheet\Style\Font;
-
 class TextElement implements ITextElement
 {
     /**
      * Text.
+     *
+     * @var string
      */
-    private string $text;
+    private $text;
 
     /**
      * Create a new TextElement instance.
      *
-     * @param string $text Text
+     * @param string $pText Text
      */
-    public function __construct(string $text = '')
+    public function __construct($pText = '')
     {
         // Initialise variables
-        $this->text = $text;
+        $this->text = $pText;
     }
 
     /**
@@ -27,7 +27,7 @@ class TextElement implements ITextElement
      *
      * @return string Text
      */
-    public function getText(): string
+    public function getText()
     {
         return $this->text;
     }
@@ -35,11 +35,11 @@ class TextElement implements ITextElement
     /**
      * Set text.
      *
-     * @param string $text Text
+     * @param $text string Text
      *
-     * @return $this
+     * @return ITextElement
      */
-    public function setText(string $text): self
+    public function setText($text)
     {
         $this->text = $text;
 
@@ -47,9 +47,11 @@ class TextElement implements ITextElement
     }
 
     /**
-     * Get font. For this class, the return value is always null.
+     * Get font.
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
-    public function getFont(): ?Font
+    public function getFont()
     {
         return null;
     }
@@ -59,11 +61,26 @@ class TextElement implements ITextElement
      *
      * @return string Hash code
      */
-    public function getHashCode(): string
+    public function getHashCode()
     {
         return md5(
-            $this->text
-            . __CLASS__
+            $this->text .
+            __CLASS__
         );
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $value) {
+            if (is_object($value)) {
+                $this->$key = clone $value;
+            } else {
+                $this->$key = $value;
+            }
+        }
     }
 }

@@ -1,20 +1,23 @@
-############################################################
 ##
-## PhpSpreadsheet - locale settings
+## PhpSpreadsheet
 ##
-## Magyar (Hungarian)
-##
-############################################################
 
-ArgumentSeparator = ;
+ArgumentSeparator	= ;
+
 
 ##
-## Error Codes
+##	(For future use)
 ##
-NULL = #NULLA!
-DIV0 = #ZÉRÓOSZTÓ!
-VALUE = #ÉRTÉK!
-REF = #HIV!
-NAME = #NÉV?
-NUM = #SZÁM!
-NA = #HIÁNYZIK
+currencySymbol	= Ft
+
+
+##
+##	Excel Error Codes	(For future use)
+##
+NULL	= #NULLA!
+DIV0	= #ZÉRÓOSZTÓ!
+VALUE	= #ÉRTÉK!
+REF	= #HIV!
+NAME	= #NÉV?
+NUM	= #SZÁM!
+NA	= #HIÁNYZIK

@@ -2,83 +2,91 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
-abstract class BestFit
+class BestFit
 {
     /**
      * Indicator flag for a calculation error.
+     *
+     * @var bool
      */
-    protected bool $error = false;
+    protected $error = false;
 
     /**
      * Algorithm type to use for best-fit.
+     *
+     * @var string
      */
-    protected string $bestFitType = 'undetermined';
+    protected $bestFitType = 'undetermined';
 
     /**
      * Number of entries in the sets of x- and y-value arrays.
+     *
+     * @var int
      */
-    protected int $valueCount;
+    protected $valueCount = 0;
 
     /**
      * X-value dataseries of values.
      *
      * @var float[]
      */
-    protected array $xValues = [];
+    protected $xValues = [];
 
     /**
      * Y-value dataseries of values.
      *
      * @var float[]
      */
-    protected array $yValues = [];
+    protected $yValues = [];
 
     /**
      * Flag indicating whether values should be adjusted to Y=0.
+     *
+     * @var bool
      */
-    protected bool $adjustToZero = false;
+    protected $adjustToZero = false;
 
     /**
      * Y-value series of best-fit values.
      *
      * @var float[]
      */
-    protected array $yBestFitValues = [];
+    protected $yBestFitValues = [];
 
-    protected float $goodnessOfFit = 1;
+    protected $goodnessOfFit = 1;
 
-    protected float $stdevOfResiduals = 0;
+    protected $stdevOfResiduals = 0;
 
-    protected float $covariance = 0;
+    protected $covariance = 0;
 
-    protected float $correlation = 0;
+    protected $correlation = 0;
 
-    protected float $SSRegression = 0;
+    protected $SSRegression = 0;
 
-    protected float $SSResiduals = 0;
+    protected $SSResiduals = 0;
 
-    protected float $DFResiduals = 0;
+    protected $DFResiduals = 0;
 
-    protected float $f = 0;
+    protected $f = 0;
 
-    protected float $slope = 0;
+    protected $slope = 0;
 
-    protected float $slopeSE = 0;
+    protected $slopeSE = 0;
 
-    protected float $intersect = 0;
+    protected $intersect = 0;
 
-    protected float $intersectSE = 0;
+    protected $intersectSE = 0;
 
-    protected float $xOffset = 0;
+    protected $xOffset = 0;
 
-    protected float $yOffset = 0;
+    protected $yOffset = 0;
 
-    public function getError(): bool
+    public function getError()
     {
         return $this->error;
     }
 
-    public function getBestFitType(): string
+    public function getBestFitType()
     {
         return $this->bestFitType;
     }
@@ -88,25 +96,31 @@ abstract class BestFit
      *
      * @param float $xValue X-Value
      *
-     * @return float Y-Value
+     * @return bool Y-Value
      */
-    abstract public function getValueOfYForX(float $xValue): float;
+    public function getValueOfYForX($xValue)
+    {
+        return false;
+    }
 
     /**
      * Return the X-Value for a specified value of Y.
      *
      * @param float $yValue Y-Value
      *
-     * @return float X-Value
+     * @return bool X-Value
      */
-    abstract public function getValueOfXForY(float $yValue): float;
+    public function getValueOfXForY($yValue)
+    {
+        return false;
+    }
 
     /**
      * Return the original set of X-Values.
      *
      * @return float[] X-Values
      */
-    public function getXValues(): array
+    public function getXValues()
     {
         return $this->xValues;
     }
@@ -115,15 +129,22 @@ abstract class BestFit
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
+     *
+     * @return bool
      */
-    abstract public function getEquation(int $dp = 0): string;
+    public function getEquation($dp = 0)
+    {
+        return false;
+    }
 
     /**
      * Return the Slope of the line.
      *
      * @param int $dp Number of places of decimal precision to display
+     *
+     * @return float
      */
-    public function getSlope(int $dp = 0): float
+    public function getSlope($dp = 0)
     {
         if ($dp != 0) {
             return round($this->slope, $dp);
@@ -136,8 +157,10 @@ abstract class BestFit
      * Return the standard error of the Slope.
      *
      * @param int $dp Number of places of decimal precision to display
+     *
+     * @return float
      */
-    public function getSlopeSE(int $dp = 0): float
+    public function getSlopeSE($dp = 0)
     {
         if ($dp != 0) {
             return round($this->slopeSE, $dp);
@@ -150,8 +173,10 @@ abstract class BestFit
      * Return the Value of X where it intersects Y = 0.
      *
      * @param int $dp Number of places of decimal precision to display
+     *
+     * @return float
      */
-    public function getIntersect(int $dp = 0): float
+    public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
             return round($this->intersect, $dp);
@@ -164,8 +189,10 @@ abstract class BestFit
      * Return the standard error of the Intersect.
      *
      * @param int $dp Number of places of decimal precision to display
+     *
+     * @return float
      */
-    public function getIntersectSE(int $dp = 0): float
+    public function getIntersectSE($dp = 0)
     {
         if ($dp != 0) {
             return round($this->intersectSE, $dp);
@@ -178,8 +205,10 @@ abstract class BestFit
      * Return the goodness of fit for this regression.
      *
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getGoodnessOfFit(int $dp = 0): float
+    public function getGoodnessOfFit($dp = 0)
     {
         if ($dp != 0) {
             return round($this->goodnessOfFit, $dp);
@@ -192,8 +221,10 @@ abstract class BestFit
      * Return the goodness of fit for this regression.
      *
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getGoodnessOfFitPercent(int $dp = 0): float
+    public function getGoodnessOfFitPercent($dp = 0)
     {
         if ($dp != 0) {
             return round($this->goodnessOfFit * 100, $dp);
@@ -206,8 +237,10 @@ abstract class BestFit
      * Return the standard deviation of the residuals for this regression.
      *
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getStdevOfResiduals(int $dp = 0): float
+    public function getStdevOfResiduals($dp = 0)
     {
         if ($dp != 0) {
             return round($this->stdevOfResiduals, $dp);
@@ -218,8 +251,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getSSRegression(int $dp = 0): float
+    public function getSSRegression($dp = 0)
     {
         if ($dp != 0) {
             return round($this->SSRegression, $dp);
@@ -230,8 +265,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getSSResiduals(int $dp = 0): float
+    public function getSSResiduals($dp = 0)
     {
         if ($dp != 0) {
             return round($this->SSResiduals, $dp);
@@ -242,8 +279,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getDFResiduals(int $dp = 0): float
+    public function getDFResiduals($dp = 0)
     {
         if ($dp != 0) {
             return round($this->DFResiduals, $dp);
@@ -254,8 +293,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getF(int $dp = 0): float
+    public function getF($dp = 0)
     {
         if ($dp != 0) {
             return round($this->f, $dp);
@@ -266,8 +307,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getCovariance(int $dp = 0): float
+    public function getCovariance($dp = 0)
     {
         if ($dp != 0) {
             return round($this->covariance, $dp);
@@ -278,8 +321,10 @@ abstract class BestFit
 
     /**
      * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
      */
-    public function getCorrelation(int $dp = 0): float
+    public function getCorrelation($dp = 0)
     {
         if ($dp != 0) {
             return round($this->correlation, $dp);
@@ -291,25 +336,25 @@ abstract class BestFit
     /**
      * @return float[]
      */
-    public function getYBestFitValues(): array
+    public function getYBestFitValues()
     {
         return $this->yBestFitValues;
     }
 
-    protected function calculateGoodnessOfFit(float $sumX, float $sumY, float $sumX2, float $sumY2, float $sumXY, float $meanX, float $meanY, bool|int $const): void
+    protected function calculateGoodnessOfFit($sumX, $sumY, $sumX2, $sumY2, $sumXY, $meanX, $meanY, $const)
     {
-        $SSres = $SScov = $SStot = $SSsex = 0.0;
+        $SSres = $SScov = $SScor = $SStot = $SSsex = 0.0;
         foreach ($this->xValues as $xKey => $xValue) {
             $bestFitY = $this->yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
 
             $SSres += ($this->yValues[$xKey] - $bestFitY) * ($this->yValues[$xKey] - $bestFitY);
-            if ($const === true) {
+            if ($const) {
                 $SStot += ($this->yValues[$xKey] - $meanY) * ($this->yValues[$xKey] - $meanY);
             } else {
                 $SStot += $this->yValues[$xKey] * $this->yValues[$xKey];
             }
             $SScov += ($this->xValues[$xKey] - $meanX) * ($this->yValues[$xKey] - $meanY);
-            if ($const === true) {
+            if ($const) {
                 $SSsex += ($this->xValues[$xKey] - $meanX) * ($this->xValues[$xKey] - $meanX);
             } else {
                 $SSsex += $this->xValues[$xKey] * $this->xValues[$xKey];
@@ -317,15 +362,14 @@ abstract class BestFit
         }
 
         $this->SSResiduals = $SSres;
-        $this->DFResiduals = $this->valueCount - 1 - ($const === true ? 1 : 0);
+        $this->DFResiduals = $this->valueCount - 1 - $const;
 
         if ($this->DFResiduals == 0.0) {
             $this->stdevOfResiduals = 0.0;
         } else {
             $this->stdevOfResiduals = sqrt($SSres / $this->DFResiduals);
         }
-
-        if ($SStot == 0.0 || $SSres == $SStot) {
+        if (($SStot == 0.0) || ($SSres == $SStot)) {
             $this->goodnessOfFit = 1;
         } else {
             $this->goodnessOfFit = 1 - ($SSres / $SStot);
@@ -333,7 +377,7 @@ abstract class BestFit
 
         $this->SSRegression = $this->goodnessOfFit * $SStot;
         $this->covariance = $SScov / $this->valueCount;
-        $this->correlation = ($this->valueCount * $sumXY - $sumX * $sumY) / sqrt(($this->valueCount * $sumX2 - $sumX ** 2) * ($this->valueCount * $sumY2 - $sumY ** 2));
+        $this->correlation = ($this->valueCount * $sumXY - $sumX * $sumY) / sqrt(($this->valueCount * $sumX2 - pow($sumX, 2)) * ($this->valueCount * $sumY2 - pow($sumY, 2)));
         $this->slopeSE = $this->stdevOfResiduals / sqrt($SSsex);
         $this->intersectSE = $this->stdevOfResiduals * sqrt(1 / ($this->valueCount - ($sumX * $sumX) / $sumX2));
         if ($this->SSResiduals != 0.0) {
@@ -352,41 +396,26 @@ abstract class BestFit
     }
 
     /**
-     * @param array<float|int> $values
-     *
-     * @return float|int
-     */
-    private function sumSquares(array $values)
-    {
-        return array_sum(
-            array_map(
-                fn ($value): float|int => $value ** 2,
-                $values
-            )
-        );
-    }
-
-    /**
      * @param float[] $yValues
      * @param float[] $xValues
+     * @param bool $const
      */
-    protected function leastSquareFit(array $yValues, array $xValues, bool $const): void
+    protected function leastSquareFit(array $yValues, array $xValues, $const)
     {
         // calculate sums
-        $sumValuesX = array_sum($xValues);
-        $sumValuesY = array_sum($yValues);
-        $meanValueX = $sumValuesX / $this->valueCount;
-        $meanValueY = $sumValuesY / $this->valueCount;
-        $sumSquaresX = $this->sumSquares($xValues);
-        $sumSquaresY = $this->sumSquares($yValues);
-        $mBase = $mDivisor = 0.0;
-        $xy_sum = 0.0;
+        $x_sum = array_sum($xValues);
+        $y_sum = array_sum($yValues);
+        $meanX = $x_sum / $this->valueCount;
+        $meanY = $y_sum / $this->valueCount;
+        $mBase = $mDivisor = $xx_sum = $xy_sum = $yy_sum = 0.0;
         for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
+            $xx_sum += $xValues[$i] * $xValues[$i];
+            $yy_sum += $yValues[$i] * $yValues[$i];
 
-            if ($const === true) {
-                $mBase += ($xValues[$i] - $meanValueX) * ($yValues[$i] - $meanValueY);
-                $mDivisor += ($xValues[$i] - $meanValueX) * ($xValues[$i] - $meanValueX);
+            if ($const) {
+                $mBase += ($xValues[$i] - $meanX) * ($yValues[$i] - $meanY);
+                $mDivisor += ($xValues[$i] - $meanX) * ($xValues[$i] - $meanX);
             } else {
                 $mBase += $xValues[$i] * $yValues[$i];
                 $mDivisor += $xValues[$i] * $xValues[$i];
@@ -397,9 +426,13 @@ abstract class BestFit
         $this->slope = $mBase / $mDivisor;
 
         // calculate intersect
-        $this->intersect = ($const === true) ? $meanValueY - ($this->slope * $meanValueX) : 0.0;
+        if ($const) {
+            $this->intersect = $meanY - ($this->slope * $meanX);
+        } else {
+            $this->intersect = 0;
+        }
 
-        $this->calculateGoodnessOfFit($sumValuesX, $sumValuesY, $sumSquaresX, $sumSquaresY, $xy_sum, $meanValueX, $meanValueY, $const);
+        $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, $meanX, $meanY, $const);
     }
 
     /**
@@ -407,22 +440,23 @@ abstract class BestFit
      *
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
+     * @param bool $const
      */
-    public function __construct(array $yValues, array $xValues = [])
+    public function __construct($yValues, $xValues = [], $const = true)
     {
         //    Calculate number of points
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $nY = count($yValues);
+        $nX = count($xValues);
 
         //    Define X Values if necessary
-        if ($xValueCount === 0) {
-            $xValues = range(1, $yValueCount);
-        } elseif ($yValueCount !== $xValueCount) {
+        if ($nX == 0) {
+            $xValues = range(1, $nY);
+        } elseif ($nY != $nX) {
             //    Ensure both arrays of points are the same size
             $this->error = true;
         }
 
-        $this->valueCount = $yValueCount;
+        $this->valueCount = $nY;
         $this->xValues = $xValues;
         $this->yValues = $yValues;
     }

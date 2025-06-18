@@ -2,33 +2,35 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
-use PhpOffice\PhpSpreadsheet\Style\Font;
-
 interface ITextElement
 {
     /**
      * Get text.
+     *
+     * @return string Text
      */
-    public function getText(): string;
+    public function getText();
 
     /**
      * Set text.
      *
-     * @param string $text Text
+     * @param $text string Text
      *
-     * @return $this
+     * @return ITextElement
      */
-    public function setText(string $text): self;
+    public function setText($text);
 
     /**
      * Get font.
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
-    public function getFont(): ?Font;
+    public function getFont();
 
     /**
      * Get hash code.
      *
      * @return string Hash code
      */
-    public function getHashCode(): string;
+    public function getHashCode();
 }

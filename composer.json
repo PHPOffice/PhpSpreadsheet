@@ -1,113 +1,68 @@
 {
     "name": "phpoffice/phpspreadsheet",
     "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
-    "keywords": [
-        "PHP",
-        "OpenXML",
-        "Excel",
-        "xlsx",
-        "xls",
-        "ods",
-        "gnumeric",
-        "spreadsheet"
-    ],
-    "config": {
-        "platform": {
-            "php" : "8.1.99"
-        },
-        "process-timeout": 600,
-        "sort-packages": true,
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    },
+    "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
-    "license": "MIT",
+    "license": "LGPL-2.1-or-later",
     "authors": [
         {
             "name": "Maarten Balliauw",
-            "homepage": "https://blog.maartenballiauw.be"
+            "homepage": "http://blog.maartenballiauw.be"
         },
         {
             "name": "Mark Baker",
-            "homepage": "https://markbakeruk.net"
+            "homepage": "http://markbakeruk.net"
         },
         {
             "name": "Franck Lefevre",
-            "homepage": "https://rootslabs.net"
+            "homepage": "http://rootslabs.net"
         },
         {
             "name": "Erik Tilt"
-        },
-        {
-            "name": "Adrien Crivelli"
         }
     ],
     "scripts": {
         "check": [
-            "php bin/check-phpdoc-types.php",
-            "phpcs samples/ src/ tests/ --report=checkstyle",
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpstan analyse --ansi --memory-limit=2048M",
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
             "phpunit --color=always"
         ],
-        "style": [
-            "phpcs samples/ src/ tests/ --report=checkstyle",
-            "php-cs-fixer fix --ansi --dry-run --diff"
-        ],
         "fix": [
-            "phpcbf samples/ src/ tests/ --report=checkstyle",
-            "php-cs-fixer fix"
-        ],
-        "versions": [
-            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
+            "php-cs-fixer fix --ansi"
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": "^5.6|^7.0",
         "ext-ctype": "*",
         "ext-dom": "*",
-        "ext-fileinfo": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
-        "ext-simplexml": "*",
+        "ext-SimpleXML": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "composer/pcre": "^1||^2||^3",
-        "maennchen/zipstream-php": "^2.1 || ^3.0",
-        "markbaker/complex": "^3.0",
-        "markbaker/matrix": "^3.0",
-        "psr/http-client": "^1.0",
-        "psr/http-factory": "^1.0",
-        "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
+        "psr/simple-cache": "^1.0",
+        "markbaker/complex": "^1.4.1"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
-        "dompdf/dompdf": "^2.0 || ^3.0",
-        "friendsofphp/php-cs-fixer": "^3.2",
-        "mitoteam/jpgraph": "^10.3",
-        "mpdf/mpdf": "^8.1.1",
-        "phpcompatibility/php-compatibility": "^9.3",
-        "phpstan/phpstan": "^1.1 || ^2.0",
-        "phpstan/phpstan-phpunit": "^1.0 || ^2.0",
-        "phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
-        "phpunit/phpunit": "^10.5",
-        "squizlabs/php_codesniffer": "^3.7",
-        "tecnickcom/tcpdf": "^6.5"
+        "tecnickcom/tcpdf": "^6.2",
+        "phpunit/phpunit": "^5.7",
+        "dompdf/dompdf": "^0.8.0",
+        "mpdf/mpdf": "^7.0.0",
+        "jpgraph/jpgraph": "^4.0",
+        "friendsofphp/php-cs-fixer": "@stable",
+        "squizlabs/php_codesniffer": "^3.3"
     },
     "suggest": {
-        "ext-intl": "PHP Internationalization Functions",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
-        "mitoteam/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
+        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
         "psr-4": {
@@ -116,8 +71,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
-            "PhpOffice\\PhpSpreadsheetInfra\\": "infra"
+            "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests"
         }
     }
 }

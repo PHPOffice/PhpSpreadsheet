@@ -3,51 +3,26 @@
 PhpSpreadsheet introduced many breaking changes by introducing
 namespaces and renaming some classes. To help you migrate existing
 project, a tool was written to replace all references to PHPExcel
-classes to their new names. But there are also manual changes that
+classes to their new names. But they are also manual changes that
 need to be done.
 
 ## Automated tool
 
-[RectorPHP](https://github.com/rectorphp/rector) can be used to automatically migrate your codebase.
-Note that this support has been dropped from current releases of rector,
-so you need to require an earlier release to do this.
-Assuming that your files to be migrated live
-in `src/`, you can run the migration like so:
+The tool is included in PhpSpreadsheet. It scans recursively all files
+and directories, starting from the current directory. Assuming it was
+installed with composer, it can be run like so:
 
-```sh
-composer require rector/rector:0.15.10 rector/rector-phpoffice phpoffice/phpspreadsheet --dev
-
-# this creates rector.php config
-vendor/bin/rector init 
+``` sh
+cd /project/to/migrate/src
+/project/to/migrate/vendor/phpoffice/phpspreadsheet/bin/migrate-from-phpexcel
 ```
 
-Add `PHPOfficeSetList` set to `rector.php`
-
-```php
-declare(strict_types=1);
-
-use Rector\Config\RectorConfig;
-use Rector\PHPOffice\Set\PHPOfficeSetList;
-
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([
-        PHPOfficeSetList::PHPEXCEL_TO_PHPSPREADSHEET
-    ]);
-};
-```
-
-And run Rector on your code:
-
-```sh
-vendor/bin/rector process src
-```
-
-For more details, see
-[rector-phpoffice](https://github.com/rectorphp/rector-phpoffice).
+**Important** The tool will irreversibly modify your sources, be sure to
+backup everything, and double check the result before committing.
 
 ## Manual changes
 
-RectorPHP should take care of everything, but if somehow it does not work, you can review/apply the following manual changes
+In addition to automated changes, a few things need to be migrated manually.
 
 ### Renamed readers and writers
 
@@ -82,10 +57,12 @@ IOFactory now relies on classes autoloading.
 Before:
 
 ```php
-// Before
 \PHPExcel_IOFactory::addSearchLocation($type, $location, $classname);
+```
 
-// After
+After:
+
+```php
 \PhpOffice\PhpSpreadsheet\IOFactory::registerReader($type, $classname);
 ```
 
@@ -224,17 +201,13 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 
 ### Rendering charts
 
-When rendering charts for HTML or PDF outputs, the process was simplified.
-And, while JpGraph support is still available,
-the version distributed via Composer is no longer maintained,
-so you would need to install the current version manually.
-If you rely on this package, please consider
-contributing patches either to JpGraph or another `IRenderer` implementation (a good
-candidate might be [CpChart](https://github.com/szymach/c-pchart)).
+When rendering charts for HTML or PDF outputs, the process was also simplified. And while
+JpGraph support is still available, it is unfortunately not up to date for latest PHP versions
+and it will generate various warnings.
 
-The package [mitoteam/jpgraph](https://github.com/mitoteam/jpgraph)
-is distributed via Composer, and is fully compatible with Jpgraph.
-We recommend that it be used for rendering.
+If you rely on this feature, please consider
+contributing either patches to JpGraph or another `IRenderer` implementation (a good
+candidate might be [CpChart](https://github.com/szymach/c-pchart)).
 
 Before:
 
@@ -251,19 +224,19 @@ After:
 Require the dependency via composer:
 
 ```sh
-composer require mitoteam/jpgraph
+composer require jpgraph/jpgraph
 ```
 
 And then:
 
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 ```
 
 ### PclZip and ZipArchive
 
 Support for PclZip were dropped in favor of the more complete and modern
-[PHP extension ZipArchive](https://php.net/manual/en/book.zip.php).
+[PHP extension ZipArchive](http://php.net/manual/en/book.zip.php).
 So the following were removed:
 
 - `PclZip`
@@ -275,7 +248,7 @@ So the following were removed:
 ### Cell caching
 
 Cell caching was heavily refactored to leverage
-[PSR-16](https://www.php-fig.org/psr/psr-16/). That means most classes
+[PSR-16](http://www.php-fig.org/psr/psr-16/). That means most classes
 related to that feature were removed:
 
 - `PHPExcel_CachedObjectStorage_APC`
@@ -300,13 +273,13 @@ Refer to [the new documentation](./memory_saving.md) to see how to migrate.
 
 ### Dropped conditionally returned cell
 
-For all the following methods, it is not possible to change the type of
-returned value. They will always return the Worksheet and never the Cell or Rule:
+For all the following methods, it is no more possible to change the type of
+returned value. It always return the Worksheet and never the Cell or Rule:
 
 - Worksheet::setCellValue()
-- Worksheet::setCellValueByColumnAndRow() (*deprecated*)
+- Worksheet::setCellValueByColumnAndRow()
 - Worksheet::setCellValueExplicit()
-- Worksheet::setCellValueExplicitByColumnAndRow() (*deprecated*)
+- Worksheet::setCellValueExplicitByColumnAndRow()
 - Worksheet::addRule()
 
 Migration would be similar to:
@@ -418,19 +391,19 @@ So the code must be adapted with something like:
 // Before
 $cell = $worksheet->getCellByColumnAndRow($column, $row);
 
-for ($column = 0; $column < $max; ++$column) {
-    $worksheet->setCellValueByColumnAndRow($column, $row, 'value');
+for ($column = 0; $column < $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
 }
 
 // After
-$cell = $worksheet->getCell([$column + 1, $row]);
+$cell = $worksheet->getCellByColumnAndRow($column + 1, $row);
 
-for ($column = 1; $column <= $max; ++$column) {
-    $worksheet->setCellValue([$column, $row], 'value');
+for ($column = 1; $column <= $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
 }
 ```
 
-All the following methods are affected, and all are now deprecated (see example above for how to replace them):
+All the following methods are affected:
 
 - `PHPExcel_Worksheet::cellExistsByColumnAndRow()`
 - `PHPExcel_Worksheet::freezePaneByColumnAndRow()`

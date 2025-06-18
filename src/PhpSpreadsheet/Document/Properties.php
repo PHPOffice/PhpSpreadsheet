@@ -2,92 +2,99 @@
 
 namespace PhpOffice\PhpSpreadsheet\Document;
 
-use DateTime;
-use PhpOffice\PhpSpreadsheet\Shared\IntOrFloat;
-
 class Properties
 {
     /** constants */
-    public const PROPERTY_TYPE_BOOLEAN = 'b';
-    public const PROPERTY_TYPE_INTEGER = 'i';
-    public const PROPERTY_TYPE_FLOAT = 'f';
-    public const PROPERTY_TYPE_DATE = 'd';
-    public const PROPERTY_TYPE_STRING = 's';
-    public const PROPERTY_TYPE_UNKNOWN = 'u';
-
-    private const VALID_PROPERTY_TYPE_LIST = [
-        self::PROPERTY_TYPE_BOOLEAN,
-        self::PROPERTY_TYPE_INTEGER,
-        self::PROPERTY_TYPE_FLOAT,
-        self::PROPERTY_TYPE_DATE,
-        self::PROPERTY_TYPE_STRING,
-    ];
+    const PROPERTY_TYPE_BOOLEAN = 'b';
+    const PROPERTY_TYPE_INTEGER = 'i';
+    const PROPERTY_TYPE_FLOAT = 'f';
+    const PROPERTY_TYPE_DATE = 'd';
+    const PROPERTY_TYPE_STRING = 's';
+    const PROPERTY_TYPE_UNKNOWN = 'u';
 
     /**
      * Creator.
+     *
+     * @var string
      */
-    private string $creator = 'Unknown Creator';
+    private $creator = 'Unknown Creator';
 
     /**
      * LastModifiedBy.
+     *
+     * @var string
      */
-    private string $lastModifiedBy;
+    private $lastModifiedBy;
 
     /**
      * Created.
+     *
+     * @var int
      */
-    private float|int $created;
+    private $created;
 
     /**
      * Modified.
+     *
+     * @var int
      */
-    private float|int $modified;
+    private $modified;
 
     /**
      * Title.
+     *
+     * @var string
      */
-    private string $title = 'Untitled Spreadsheet';
+    private $title = 'Untitled Spreadsheet';
 
     /**
      * Description.
+     *
+     * @var string
      */
-    private string $description = '';
+    private $description = '';
 
     /**
      * Subject.
+     *
+     * @var string
      */
-    private string $subject = '';
+    private $subject = '';
 
     /**
      * Keywords.
+     *
+     * @var string
      */
-    private string $keywords = '';
+    private $keywords = '';
 
     /**
      * Category.
+     *
+     * @var string
      */
-    private string $category = '';
+    private $category = '';
 
     /**
      * Manager.
+     *
+     * @var string
      */
-    private string $manager = '';
+    private $manager = '';
 
     /**
      * Company.
+     *
+     * @var string
      */
-    private string $company = '';
+    private $company = 'Microsoft Corporation';
 
     /**
      * Custom Properties.
      *
-     * @var array{value: null|bool|float|int|string, type: string}[]
+     * @var string
      */
-    private array $customProperties = [];
-
-    private string $hyperlinkBase = '';
-
-    private string $viewport = '';
+    private $customProperties = [];
 
     /**
      * Create a new Document Properties instance.
@@ -96,14 +103,16 @@ class Properties
     {
         // Initialise values
         $this->lastModifiedBy = $this->creator;
-        $this->created = self::intOrFloatTimestamp(null);
-        $this->modified = $this->created;
+        $this->created = time();
+        $this->modified = time();
     }
 
     /**
      * Get Creator.
+     *
+     * @return string
      */
-    public function getCreator(): string
+    public function getCreator()
     {
         return $this->creator;
     }
@@ -111,9 +120,11 @@ class Properties
     /**
      * Set Creator.
      *
-     * @return $this
+     * @param string $creator
+     *
+     * @return Properties
      */
-    public function setCreator(string $creator): self
+    public function setCreator($creator)
     {
         $this->creator = $creator;
 
@@ -122,8 +133,10 @@ class Properties
 
     /**
      * Get Last Modified By.
+     *
+     * @return string
      */
-    public function getLastModifiedBy(): string
+    public function getLastModifiedBy()
     {
         return $this->lastModifiedBy;
     }
@@ -131,37 +144,23 @@ class Properties
     /**
      * Set Last Modified By.
      *
-     * @return $this
+     * @param string $pValue
+     *
+     * @return Properties
      */
-    public function setLastModifiedBy(string $modifiedBy): self
+    public function setLastModifiedBy($pValue)
     {
-        $this->lastModifiedBy = $modifiedBy;
+        $this->lastModifiedBy = $pValue;
 
         return $this;
     }
 
-    private static function intOrFloatTimestamp(null|bool|float|int|string $timestamp): float|int
-    {
-        if ($timestamp === null || is_bool($timestamp)) {
-            $timestamp = (float) (new DateTime())->format('U');
-        } elseif (is_string($timestamp)) {
-            if (is_numeric($timestamp)) {
-                $timestamp = (float) $timestamp;
-            } else {
-                $timestamp = (string) preg_replace('/[.][0-9]*$/', '', $timestamp);
-                $timestamp = (string) preg_replace('/^(\d{4})- (\d)/', '$1-0$2', $timestamp);
-                $timestamp = (string) preg_replace('/^(\d{4}-\d{2})- (\d)/', '$1-0$2', $timestamp);
-                $timestamp = (float) (new DateTime($timestamp))->format('U');
-            }
-        }
-
-        return IntOrFloat::evaluate($timestamp);
-    }
-
     /**
      * Get Created.
+     *
+     * @return int
      */
-    public function getCreated(): float|int
+    public function getCreated()
     {
         return $this->created;
     }
@@ -169,19 +168,33 @@ class Properties
     /**
      * Set Created.
      *
-     * @return $this
+     * @param int|string $time
+     *
+     * @return Properties
      */
-    public function setCreated(null|float|int|string $timestamp): self
+    public function setCreated($time)
     {
-        $this->created = self::intOrFloatTimestamp($timestamp);
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
+            } else {
+                $time = strtotime($time);
+            }
+        }
+
+        $this->created = $time;
 
         return $this;
     }
 
     /**
      * Get Modified.
+     *
+     * @return int
      */
-    public function getModified(): float|int
+    public function getModified()
     {
         return $this->modified;
     }
@@ -189,19 +202,33 @@ class Properties
     /**
      * Set Modified.
      *
-     * @return $this
+     * @param int|string $time
+     *
+     * @return Properties
      */
-    public function setModified(null|float|int|string $timestamp): self
+    public function setModified($time)
     {
-        $this->modified = self::intOrFloatTimestamp($timestamp);
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
+            } else {
+                $time = strtotime($time);
+            }
+        }
+
+        $this->modified = $time;
 
         return $this;
     }
 
     /**
      * Get Title.
+     *
+     * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -209,9 +236,11 @@ class Properties
     /**
      * Set Title.
      *
-     * @return $this
+     * @param string $title
+     *
+     * @return Properties
      */
-    public function setTitle(string $title): self
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -220,8 +249,10 @@ class Properties
 
     /**
      * Get Description.
+     *
+     * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -229,9 +260,11 @@ class Properties
     /**
      * Set Description.
      *
-     * @return $this
+     * @param string $description
+     *
+     * @return Properties
      */
-    public function setDescription(string $description): self
+    public function setDescription($description)
     {
         $this->description = $description;
 
@@ -240,8 +273,10 @@ class Properties
 
     /**
      * Get Subject.
+     *
+     * @return string
      */
-    public function getSubject(): string
+    public function getSubject()
     {
         return $this->subject;
     }
@@ -249,9 +284,11 @@ class Properties
     /**
      * Set Subject.
      *
-     * @return $this
+     * @param string $subject
+     *
+     * @return Properties
      */
-    public function setSubject(string $subject): self
+    public function setSubject($subject)
     {
         $this->subject = $subject;
 
@@ -260,8 +297,10 @@ class Properties
 
     /**
      * Get Keywords.
+     *
+     * @return string
      */
-    public function getKeywords(): string
+    public function getKeywords()
     {
         return $this->keywords;
     }
@@ -269,9 +308,11 @@ class Properties
     /**
      * Set Keywords.
      *
-     * @return $this
+     * @param string $keywords
+     *
+     * @return Properties
      */
-    public function setKeywords(string $keywords): self
+    public function setKeywords($keywords)
     {
         $this->keywords = $keywords;
 
@@ -280,8 +321,10 @@ class Properties
 
     /**
      * Get Category.
+     *
+     * @return string
      */
-    public function getCategory(): string
+    public function getCategory()
     {
         return $this->category;
     }
@@ -289,9 +332,11 @@ class Properties
     /**
      * Set Category.
      *
-     * @return $this
+     * @param string $category
+     *
+     * @return Properties
      */
-    public function setCategory(string $category): self
+    public function setCategory($category)
     {
         $this->category = $category;
 
@@ -300,8 +345,10 @@ class Properties
 
     /**
      * Get Company.
+     *
+     * @return string
      */
-    public function getCompany(): string
+    public function getCompany()
     {
         return $this->company;
     }
@@ -309,9 +356,11 @@ class Properties
     /**
      * Set Company.
      *
-     * @return $this
+     * @param string $company
+     *
+     * @return Properties
      */
-    public function setCompany(string $company): self
+    public function setCompany($company)
     {
         $this->company = $company;
 
@@ -320,8 +369,10 @@ class Properties
 
     /**
      * Get Manager.
+     *
+     * @return string
      */
-    public function getManager(): string
+    public function getManager()
     {
         return $this->manager;
     }
@@ -329,9 +380,11 @@ class Properties
     /**
      * Set Manager.
      *
-     * @return $this
+     * @param string $manager
+     *
+     * @return Properties
      */
-    public function setManager(string $manager): self
+    public function setManager($manager)
     {
         $this->manager = $manager;
 
@@ -341,169 +394,236 @@ class Properties
     /**
      * Get a List of Custom Property Names.
      *
-     * @return string[]
+     * @return array of string
      */
-    public function getCustomProperties(): array
+    public function getCustomProperties()
     {
         return array_keys($this->customProperties);
     }
 
     /**
      * Check if a Custom Property is defined.
+     *
+     * @param string $propertyName
+     *
+     * @return bool
      */
-    public function isCustomPropertySet(string $propertyName): bool
+    public function isCustomPropertySet($propertyName)
     {
-        return array_key_exists($propertyName, $this->customProperties);
+        return isset($this->customProperties[$propertyName]);
     }
 
     /**
      * Get a Custom Property Value.
+     *
+     * @param string $propertyName
+     *
+     * @return string
      */
-    public function getCustomPropertyValue(string $propertyName): bool|int|float|string|null
+    public function getCustomPropertyValue($propertyName)
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
         }
-
-        return null;
     }
 
     /**
      * Get a Custom Property Type.
+     *
+     * @param string $propertyName
+     *
+     * @return string
      */
-    public function getCustomPropertyType(string $propertyName): ?string
+    public function getCustomPropertyType($propertyName)
     {
-        return $this->customProperties[$propertyName]['type'] ?? null;
-    }
-
-    private function identifyPropertyType(bool|int|float|string|null $propertyValue): string
-    {
-        if (is_float($propertyValue)) {
-            return self::PROPERTY_TYPE_FLOAT;
+        if (isset($this->customProperties[$propertyName])) {
+            return $this->customProperties[$propertyName]['type'];
         }
-        if (is_int($propertyValue)) {
-            return self::PROPERTY_TYPE_INTEGER;
-        }
-        if (is_bool($propertyValue)) {
-            return self::PROPERTY_TYPE_BOOLEAN;
-        }
-
-        return self::PROPERTY_TYPE_STRING;
     }
 
     /**
      * Set a Custom Property.
      *
-     * @param ?string $propertyType see `self::VALID_PROPERTY_TYPE_LIST`
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @param string $propertyType
+     *      'i'    : Integer
+     *   'f' : Floating Point
+     *   's' : String
+     *   'd' : Date/Time
+     *   'b' : Boolean
      *
-     * @return $this
+     * @return Properties
      */
-    public function setCustomProperty(string $propertyName, bool|int|float|string|null $propertyValue = '', ?string $propertyType = null): self
+    public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {
-        if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
-            $propertyType = $this->identifyPropertyType($propertyValue);
+        if (($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
+                                                                        self::PROPERTY_TYPE_FLOAT,
+                                                                        self::PROPERTY_TYPE_STRING,
+                                                                        self::PROPERTY_TYPE_DATE,
+                                                                        self::PROPERTY_TYPE_BOOLEAN, ]))) {
+            if ($propertyValue === null) {
+                $propertyType = self::PROPERTY_TYPE_STRING;
+            } elseif (is_float($propertyValue)) {
+                $propertyType = self::PROPERTY_TYPE_FLOAT;
+            } elseif (is_int($propertyValue)) {
+                $propertyType = self::PROPERTY_TYPE_INTEGER;
+            } elseif (is_bool($propertyValue)) {
+                $propertyType = self::PROPERTY_TYPE_BOOLEAN;
+            } else {
+                $propertyType = self::PROPERTY_TYPE_STRING;
+            }
         }
 
         $this->customProperties[$propertyName] = [
-            'value' => self::convertProperty($propertyValue, $propertyType),
+            'value' => $propertyValue,
             'type' => $propertyType,
         ];
 
         return $this;
     }
 
-    private const PROPERTY_TYPE_ARRAY = [
-        'i' => self::PROPERTY_TYPE_INTEGER,      //    Integer
-        'i1' => self::PROPERTY_TYPE_INTEGER,     //    1-Byte Signed Integer
-        'i2' => self::PROPERTY_TYPE_INTEGER,     //    2-Byte Signed Integer
-        'i4' => self::PROPERTY_TYPE_INTEGER,     //    4-Byte Signed Integer
-        'i8' => self::PROPERTY_TYPE_INTEGER,     //    8-Byte Signed Integer
-        'int' => self::PROPERTY_TYPE_INTEGER,    //    Integer
-        'ui1' => self::PROPERTY_TYPE_INTEGER,    //    1-Byte Unsigned Integer
-        'ui2' => self::PROPERTY_TYPE_INTEGER,    //    2-Byte Unsigned Integer
-        'ui4' => self::PROPERTY_TYPE_INTEGER,    //    4-Byte Unsigned Integer
-        'ui8' => self::PROPERTY_TYPE_INTEGER,    //    8-Byte Unsigned Integer
-        'uint' => self::PROPERTY_TYPE_INTEGER,   //    Unsigned Integer
-        'f' => self::PROPERTY_TYPE_FLOAT,        //    Real Number
-        'r4' => self::PROPERTY_TYPE_FLOAT,       //    4-Byte Real Number
-        'r8' => self::PROPERTY_TYPE_FLOAT,       //    8-Byte Real Number
-        'decimal' => self::PROPERTY_TYPE_FLOAT,  //    Decimal
-        's' => self::PROPERTY_TYPE_STRING,       //    String
-        'empty' => self::PROPERTY_TYPE_STRING,   //    Empty
-        'null' => self::PROPERTY_TYPE_STRING,    //    Null
-        'lpstr' => self::PROPERTY_TYPE_STRING,   //    LPSTR
-        'lpwstr' => self::PROPERTY_TYPE_STRING,  //    LPWSTR
-        'bstr' => self::PROPERTY_TYPE_STRING,    //    Basic String
-        'd' => self::PROPERTY_TYPE_DATE,         //    Date and Time
-        'date' => self::PROPERTY_TYPE_DATE,      //    Date and Time
-        'filetime' => self::PROPERTY_TYPE_DATE,  //    File Time
-        'b' => self::PROPERTY_TYPE_BOOLEAN,      //    Boolean
-        'bool' => self::PROPERTY_TYPE_BOOLEAN,   //    Boolean
-    ];
-
-    private const SPECIAL_TYPES = [
-        'empty' => '',
-        'null' => null,
-    ];
-
     /**
-     * Convert property to form desired by Excel.
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
-    public static function convertProperty(bool|int|float|string|null $propertyValue, string $propertyType): bool|int|float|string|null
+    public function __clone()
     {
-        return self::SPECIAL_TYPES[$propertyType] ?? self::convertProperty2($propertyValue, $propertyType);
-    }
-
-    /**
-     * Convert property to form desired by Excel.
-     */
-    private static function convertProperty2(bool|int|float|string|null $propertyValue, string $type): bool|int|float|string|null
-    {
-        $propertyType = self::convertPropertyType($type);
-        switch ($propertyType) {
-            case self::PROPERTY_TYPE_INTEGER:
-                $intValue = (int) $propertyValue;
-
-                return ($type[0] === 'u') ? abs($intValue) : $intValue;
-            case self::PROPERTY_TYPE_FLOAT:
-                return (float) $propertyValue;
-            case self::PROPERTY_TYPE_DATE:
-                return self::intOrFloatTimestamp($propertyValue);
-            case self::PROPERTY_TYPE_BOOLEAN:
-                return is_bool($propertyValue) ? $propertyValue : ($propertyValue === 'true');
-            default: // includes string
-                return $propertyValue;
+        $vars = get_object_vars($this);
+        foreach ($vars as $key => $value) {
+            if (is_object($value)) {
+                $this->$key = clone $value;
+            } else {
+                $this->$key = $value;
+            }
         }
     }
 
-    public static function convertPropertyType(string $propertyType): string
+    public static function convertProperty($propertyValue, $propertyType)
     {
-        return self::PROPERTY_TYPE_ARRAY[$propertyType] ?? self::PROPERTY_TYPE_UNKNOWN;
+        switch ($propertyType) {
+            case 'empty':     //    Empty
+                return '';
+
+                break;
+            case 'null':      //    Null
+                return null;
+
+                break;
+            case 'i1':        //    1-Byte Signed Integer
+            case 'i2':        //    2-Byte Signed Integer
+            case 'i4':        //    4-Byte Signed Integer
+            case 'i8':        //    8-Byte Signed Integer
+            case 'int':       //    Integer
+                return (int) $propertyValue;
+
+                break;
+            case 'ui1':       //    1-Byte Unsigned Integer
+            case 'ui2':       //    2-Byte Unsigned Integer
+            case 'ui4':       //    4-Byte Unsigned Integer
+            case 'ui8':       //    8-Byte Unsigned Integer
+            case 'uint':      //    Unsigned Integer
+                return abs((int) $propertyValue);
+
+                break;
+            case 'r4':        //    4-Byte Real Number
+            case 'r8':        //    8-Byte Real Number
+            case 'decimal':   //    Decimal
+                return (float) $propertyValue;
+
+                break;
+            case 'lpstr':     //    LPSTR
+            case 'lpwstr':    //    LPWSTR
+            case 'bstr':      //    Basic String
+                return $propertyValue;
+
+                break;
+            case 'date':      //    Date and Time
+            case 'filetime':  //    File Time
+                return strtotime($propertyValue);
+
+                break;
+            case 'bool':     //    Boolean
+                return ($propertyValue == 'true') ? true : false;
+
+                break;
+            case 'cy':       //    Currency
+            case 'error':    //    Error Status Code
+            case 'vector':   //    Vector
+            case 'array':    //    Array
+            case 'blob':     //    Binary Blob
+            case 'oblob':    //    Binary Blob Object
+            case 'stream':   //    Binary Stream
+            case 'ostream':  //    Binary Stream Object
+            case 'storage':  //    Binary Storage
+            case 'ostorage': //    Binary Storage Object
+            case 'vstream':  //    Binary Versioned Stream
+            case 'clsid':    //    Class ID
+            case 'cf':       //    Clipboard Data
+                return $propertyValue;
+
+                break;
+        }
+
+        return $propertyValue;
     }
 
-    public function getHyperlinkBase(): string
+    public static function convertPropertyType($propertyType)
     {
-        return $this->hyperlinkBase;
-    }
+        switch ($propertyType) {
+            case 'i1':       //    1-Byte Signed Integer
+            case 'i2':       //    2-Byte Signed Integer
+            case 'i4':       //    4-Byte Signed Integer
+            case 'i8':       //    8-Byte Signed Integer
+            case 'int':      //    Integer
+            case 'ui1':      //    1-Byte Unsigned Integer
+            case 'ui2':      //    2-Byte Unsigned Integer
+            case 'ui4':      //    4-Byte Unsigned Integer
+            case 'ui8':      //    8-Byte Unsigned Integer
+            case 'uint':     //    Unsigned Integer
+                return self::PROPERTY_TYPE_INTEGER;
 
-    public function setHyperlinkBase(string $hyperlinkBase): self
-    {
-        $this->hyperlinkBase = $hyperlinkBase;
+                break;
+            case 'r4':       //    4-Byte Real Number
+            case 'r8':       //    8-Byte Real Number
+            case 'decimal':  //    Decimal
+                return self::PROPERTY_TYPE_FLOAT;
 
-        return $this;
-    }
+                break;
+            case 'empty':    //    Empty
+            case 'null':     //    Null
+            case 'lpstr':    //    LPSTR
+            case 'lpwstr':   //    LPWSTR
+            case 'bstr':     //    Basic String
+                return self::PROPERTY_TYPE_STRING;
 
-    public function getViewport(): string
-    {
-        return $this->viewport;
-    }
+                break;
+            case 'date':     //    Date and Time
+            case 'filetime': //    File Time
+                return self::PROPERTY_TYPE_DATE;
 
-    public const SUGGESTED_VIEWPORT = 'width=device-width, initial-scale=1';
+                break;
+            case 'bool':     //    Boolean
+                return self::PROPERTY_TYPE_BOOLEAN;
 
-    public function setViewport(string $viewport): self
-    {
-        $this->viewport = $viewport;
+                break;
+            case 'cy':       //    Currency
+            case 'error':    //    Error Status Code
+            case 'vector':   //    Vector
+            case 'array':    //    Array
+            case 'blob':     //    Binary Blob
+            case 'oblob':    //    Binary Blob Object
+            case 'stream':   //    Binary Stream
+            case 'ostream':  //    Binary Stream Object
+            case 'storage':  //    Binary Storage
+            case 'ostorage': //    Binary Storage Object
+            case 'vstream':  //    Binary Versioned Stream
+            case 'clsid':    //    Class ID
+            case 'cf':       //    Clipboard Data
+                return self::PROPERTY_TYPE_UNKNOWN;
 
-        return $this;
+                break;
+        }
+
+        return self::PROPERTY_TYPE_UNKNOWN;
     }
 }

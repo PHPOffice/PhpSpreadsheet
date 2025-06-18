@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         '#VALUE!',
@@ -63,8 +61,4 @@ return [
         3.9633272976060101,
         5,
     ],
-    ['#VALUE!', true],
-    ['#VALUE!', false],
-    ['0', null],
-    ['exception', 'omitted'],
 ];

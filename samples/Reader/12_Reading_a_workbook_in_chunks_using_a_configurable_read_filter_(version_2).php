@@ -6,27 +6,30 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 require __DIR__ . '/../Header.php';
-/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+
 $inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/sampleData/example2.xls';
 
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private int $startRow = 0;
+    private $startRow = 0;
 
-    private int $endRow = 0;
+    private $endRow = 0;
 
     /**
      * Set the list of rows that we want to read.
+     *
+     * @param mixed $startRow
+     * @param mixed $chunkSize
      */
-    public function setRows(int $startRow, int $chunkSize): void
+    public function setRows($startRow, $chunkSize)
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
     }
 
-    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
+    public function readCell($column, $row, $worksheetName = '')
     {
         //  Only read the heading row, and the rows that are configured in $this->_startRow and $this->_endRow
         if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
@@ -59,7 +62,6 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
 
     // Do some processing here
 
-    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
-    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
-    $helper->displayGrid($sheetData);
+    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+    var_dump($sheetData);
 }

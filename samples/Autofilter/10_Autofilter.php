@@ -3,7 +3,6 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -86,19 +85,17 @@ $dataArray = [
     ['2011', 'Q4', 'Italy', 335],
 ];
 $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
-$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, false, true));
 
 // Set title row bold
 $helper->log('Set title row bold');
 $spreadsheet->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
 
 // Set autofilter
-$filterRange = $spreadsheet->getActiveSheet()->calculateWorksheetDimension();
-$helper->log("Set autofilter for cells {$filterRange}");
-// Always include the complete filter range if you can!
+$helper->log('Set autofilter');
+// Always include the complete filter range!
 // Excel does support setting only the caption
 // row, but that's not a best practise...
-$spreadsheet->getActiveSheet()->setAutoFilter($filterRange);
+$spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Xlsx']);
+$helper->write($spreadsheet, __FILE__);

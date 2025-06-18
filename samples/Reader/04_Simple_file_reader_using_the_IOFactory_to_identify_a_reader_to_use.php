@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
 
 $inputFileType = IOFactory::identify($inputFileName);
@@ -14,4 +14,4 @@ $reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-$helper->displayGrid($sheetData);
+var_dump($sheetData);

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -11,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class BorderRangeTest extends TestCase
 {
-    public function testBorderRangeInAction(): void
+    public function testBorderRangeInAction()
     {
         // testcase for the initial bug problem: setting border+color fails
         // set red borders aroundlA1:B3 square. Verify that the borders set are actually correct
@@ -54,7 +52,7 @@ class BorderRangeTest extends TestCase
                 $func = "get$side";
                 $b = $bs->$func(); // boo
 
-                if (!str_contains($borders, $sidekey)) {
+                if (strpos($borders, $sidekey) === false) {
                     self::assertSame(Border::BORDER_NONE, $b->getBorderStyle(), $assertion);
                 } else {
                     self::assertSame(Border::BORDER_THIN, $b->getBorderStyle(), $assertion);
@@ -62,16 +60,14 @@ class BorderRangeTest extends TestCase
                 }
             }
         }
-        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testBorderRangeDirectly(): void
+    public function testBorderRangeDirectly()
     {
         // testcase for the underlying problem directly
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $style = $sheet->getStyle('A1:C1')->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
         self::assertSame('A1:C1', $style->getSelectedCells(), 'getSelectedCells should not change after a style operation on a border range');
-        $spreadsheet->disconnectWorksheets();
     }
 }

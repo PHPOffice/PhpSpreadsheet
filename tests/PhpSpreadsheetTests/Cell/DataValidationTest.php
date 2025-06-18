@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -9,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    public function testNoValidation(): void
+    public function testNoValidation()
     {
         $dataValidation = new DataValidation();
         self::assertSame('090624f04837265d79323c4a1b7e89d1', $dataValidation->getHashCode());

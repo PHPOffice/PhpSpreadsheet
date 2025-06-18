@@ -27,6 +27,8 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  * Class for creating File PPS's for OLE containers.
  *
  * @author   Xavier Noguer <xnoguer@php.net>
+ *
+ * @category PhpSpreadsheet
  */
 class File extends PPS
 {
@@ -37,15 +39,17 @@ class File extends PPS
      *
      * @see OLE::ascToUcs()
      */
-    public function __construct(string $name)
+    public function __construct($name)
     {
         parent::__construct(null, $name, OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
     }
 
     /**
      * Initialization method. Has to be called right after OLE_PPS_File().
+     *
+     * @return mixed true on success
      */
-    public function init(): bool
+    public function init()
     {
         return true;
     }
@@ -55,7 +59,7 @@ class File extends PPS
      *
      * @param string $data The data to append
      */
-    public function append(string $data): void
+    public function append($data)
     {
         $this->_data .= $data;
     }

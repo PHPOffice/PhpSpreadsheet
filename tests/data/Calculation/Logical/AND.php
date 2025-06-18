@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 return [
-    'no arguments' => [
-        'exception',
-    ],
-    'only argument is null reference' => [
+    // No arguments
+    [
         '#VALUE!',
+    ],
+    // NULL
+    [
+        false,
         null,
     ],
     // Boolean TRUE and NULL
@@ -88,25 +88,28 @@ return [
         1,
         1,
     ],
-    'string 1 is ignored' => [
-        true,
+    [
+        '#VALUE!',
         '1',
         1,
     ],
-    'true string is ignored' => [
+    // 'TRUE' String
+    [
         true,
         'TRUE',
         1,
     ],
-    'false string is ignored' => [
-        true,
+    // 'FALSE' String
+    [
+        false,
         'FALSE',
         true,
     ],
-    'non-boolean string is ignored' => [
-        false,
+    // Non-numeric String
+    [
+        '#VALUE!',
         'ABCD',
-        0,
+        1,
     ],
     [
         true,

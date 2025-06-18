@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-
 return [
     [
         12.34,
@@ -124,9 +120,5 @@ return [
     [
         -3.5,
         '-3.5-2.5i',
-    ],
-    [
-        ExcelError::NAN(),
-        'Invalid Complex Number',
     ],
 ];

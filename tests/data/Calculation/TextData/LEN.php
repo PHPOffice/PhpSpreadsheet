@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         0,
@@ -27,5 +25,4 @@ return [
         5,
         false,
     ],
-    'no arguments' => ['exception'],
 ];

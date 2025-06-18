@@ -42,7 +42,7 @@ column, such as "Equals a red cell color" or "Larger than 150".
 
 To set an autoFilter on a range of cells.
 
-```php
+``` php
 $spreadsheet->getActiveSheet()->setAutoFilter('A1:E20');
 ```
 
@@ -56,7 +56,7 @@ developer to avoid such errors.
 
 If you want to set the whole worksheet as an autofilter region
 
-```php
+``` php
 $spreadsheet->getActiveSheet()->setAutoFilter(
     $spreadsheet->getActiveSheet()
         ->calculateWorksheetDimension()
@@ -64,13 +64,6 @@ $spreadsheet->getActiveSheet()->setAutoFilter(
 ```
 
 This enables filtering, but does not actually apply any filters.
-
-After setting the range, you can change it so that the end row is the
-last row used on the worksheet:
-
-```php
-$spreadsheet->getActiveSheet()->getAutoFilter()->setRangeToMaxRow();
-```
 
 ## Autofilter Expressions
 
@@ -81,7 +74,7 @@ will extend this to other formats.
 To apply a filter expression to an autoFilter range, you first need to
 identify which column you're going to be applying this filter to.
 
-```php
+``` php
 $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
 $columnFilter = $autoFilter->getColumn('C');
 ```
@@ -106,8 +99,6 @@ results are unpredictable.
 Other filter expression types (such as cell colour filters) are not yet
 supported.
 
-String comparisons in filters are case-insensitive.
-
 ### Simple filters
 
 In MS Excel, Simple Filters are a dropdown list of all values used in
@@ -122,10 +113,8 @@ will be hidden.
 To create a filter expression, we need to start by identifying the
 filter type. In this case, we're just going to specify that this filter
 is a standard filter.
-*Please note that Excel regards only tests for equal as a standard filter;
-all others, including tests for not equal, must be supplied as custom filters.*
 
-```php
+``` php
 $columnFilter->setFilterType(
     \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER
 );
@@ -138,7 +127,7 @@ When creating a simple filter in PhpSpreadsheet, you only need to
 specify the values for "checked" columns: you do this by creating a
 filter rule for each value.
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -163,7 +152,7 @@ standard filters are always treated as being joined by an OR condition.
 
 If you want to create a filter to select blank cells, you would use:
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -181,7 +170,7 @@ within a year, or individual days within each month.
 
 DateGroup filters are still applied as a Standard Filter type.
 
-```php
+``` php
 $columnFilter->setFilterType(
     \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER
 );
@@ -192,7 +181,7 @@ for "checked" columns as an associative array of year. month, day, hour
 minute and second. To select a year and month, you need to create a
 DateGroup rule identifying the selected year and month:
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -240,7 +229,7 @@ either an AND or an OR.
 
 We start by specifying a Filter type, this time a CUSTOMFILTER.
 
-```php
+``` php
 $columnFilter->setFilterType(
     \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER
 );
@@ -251,7 +240,7 @@ And then define our rules.
 The following shows a simple wildcard filter to show all column entries
 beginning with the letter `U`.
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -262,21 +251,20 @@ $columnFilter->createRule()
     );
 ```
 
-MS Excel uses `*` as a wildcard to match any number of characters, and `?`
-as a wildcard to match a single character. `U*` equates to "begins with
-a 'U'"; `*U` equates to "ends with a 'U'"; and `*U*` equates to
-"contains a 'U'".
-Note that PhpSpreadsheet recognizes wildcards only for equal/not-equal tests.
+MS Excel uses \* as a wildcard to match any number of characters, and ?
+as a wildcard to match a single character. 'U\*' equates to "begins with
+a 'U'"; '\*U' equates to "ends with a 'U'"; and '\*U\*' equates to
+"contains a 'U'"
 
-If you want to match explicitly against `*` or `?`, you can
-escape it with a tilde `~`, so `?~**` would explicitly match for `*`
-as the second character in the cell value, followed by any
+If you want to match explicitly against a \* or a ? character, you can
+escape it with a tilde (\~), so ?\~\*\* would explicitly match for a \*
+character as the second character in the cell value, followed by any
 number of other characters. The only other character that needs escaping
-is the `~` itself.
+is the \~ itself.
 
 To create a "between" condition, we need to define two rules:
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
@@ -301,9 +289,9 @@ This defined two rules, filtering numbers that are `>= -20` OR `<=
 20`, so we also need to modify the join condition to reflect AND rather
 than OR.
 
-```php
-$columnFilter->setJoin(
-    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND
+``` php
+$columnFilter->setAndOr(
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_ANDOR_AND
 );
 ```
 
@@ -332,21 +320,21 @@ column at a time.
 
 Again, we start by specifying a Filter type, this time a DYNAMICFILTER.
 
-```php
+``` php
 $columnFilter->setFilterType(
     \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER
 );
 ```
 
 When defining the rule for a dynamic filter, we don't define a value (we
-can simply set that to null string) but we do specify the dynamic filter
+can simply set that to NULL) but we do specify the dynamic filter
 category.
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        '',
+        NULL,
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
     )
     ->setRuleType(
@@ -432,7 +420,7 @@ column at a time.
 
 We start by specifying a Filter type, this time a DYNAMICFILTER.
 
-```php
+``` php
 $columnFilter->setFilterType(
     \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER
 );
@@ -440,7 +428,7 @@ $columnFilter->setFilterType(
 
 Then we create the rule:
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
@@ -456,7 +444,7 @@ This will filter the Top 5 percent of values in the column.
 
 To specify the lowest (bottom 2 values), we would specify a rule of:
 
-```php
+``` php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
@@ -502,7 +490,7 @@ If you wish to execute your filter from within a script, you need to do
 this manually. You can do this using the autofilters `showHideRows()`
 method.
 
-```php
+``` php
 $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
 $autoFilter->showHideRows();
 ```
@@ -510,31 +498,14 @@ $autoFilter->showHideRows();
 This will set all rows that match the filter criteria to visible, while
 hiding all other rows within the autofilter area.
 
-Excel allows you to explicitly hide a row after applying a filter even
-if the row wasn't hidden by the filter. However, if a row is hidden *before*
-applying the filter, and the filter is applied, the row will no longer be hidden.
-This can make a difference during PhpSpreadsheet save, since PhpSpreadsheet
-will apply the filter during save if it hasn't been previously applied,
-or if the filter criteria have changed since it was last applied.
-Note that an autofilter read in from an existing spreadsheet is assumed to have been applied.
-Also note that changing the data in the columns being filtered
-does not result in reevaluation in either Excel or PhpSpreadsheet.
-If you wish to re-apply all filters in the spreadsheet
-(possibly just before save):
-```php
-$spreadsheet->reevaluateAutoFilters(false);
-```
-You can specify `true` rather than `false` to adjust the filter ranges
-on each sheet so that they end at the last row used on the sheet.
-
 ### Displaying Filtered Rows
 
 Simply looping through the rows in an autofilter area will still access
-every row, whether it matches the filter criteria or not. To selectively
+ever row, whether it matches the filter criteria or not. To selectively
 access only the filtered rows, you need to test each row’s visibility
 settings.
 
-```php
+``` php
 foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
     if ($spreadsheet->getActiveSheet()
         ->getRowDimension($row->getRowIndex())->getVisible()) {

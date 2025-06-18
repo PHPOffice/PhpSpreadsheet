@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     [
         3.7795275590999999,

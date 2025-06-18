@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // Year   Month  Day  Hours  Minutes  Seconds  Result            Comments
 
 return [

@@ -3,7 +3,8 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+
+$spreadsheet = new Spreadsheet();
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 
@@ -61,4 +62,4 @@ $spreadsheet->getActiveSheet()
     ->setTitle('Simple');
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Ods']);
+$helper->write($spreadsheet, __FILE__);

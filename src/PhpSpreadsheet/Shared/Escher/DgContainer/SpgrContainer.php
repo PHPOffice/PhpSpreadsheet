@@ -6,28 +6,34 @@ class SpgrContainer
 {
     /**
      * Parent Shape Group Container.
+     *
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
      */
-    private ?self $parent = null;
+    private $parent;
 
     /**
      * Shape Container collection.
      *
-     * @var mixed[]
+     * @var array
      */
-    private array $children = [];
+    private $children = [];
 
     /**
      * Set parent Shape Group Container.
+     *
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
      */
-    public function setParent(?self $parent): void
+    public function setParent($parent)
     {
         $this->parent = $parent;
     }
 
     /**
      * Get the parent Shape Group Container if any.
+     *
+     * @return null|\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
      */
-    public function getParent(): ?self
+    public function getParent()
     {
         return $this->parent;
     }
@@ -35,9 +41,9 @@ class SpgrContainer
     /**
      * Add a child. This will be either spgrContainer or spContainer.
      *
-     * @param SpgrContainer|SpgrContainer\SpContainer $child child to be added
+     * @param mixed $child
      */
-    public function addChild(mixed $child): void
+    public function addChild($child)
     {
         $this->children[] = $child;
         $child->setParent($this);
@@ -45,10 +51,8 @@ class SpgrContainer
 
     /**
      * Get collection of Shape Containers.
-     *
-     * @return mixed[]
      */
-    public function getChildren(): array
+    public function getChildren()
     {
         return $this->children;
     }
@@ -58,7 +62,7 @@ class SpgrContainer
      *
      * @return SpgrContainer\SpContainer[]
      */
-    public function getAllSpContainers(): array
+    public function getAllSpContainers()
     {
         $allSpContainers = [];
 
@@ -69,7 +73,6 @@ class SpgrContainer
                 $allSpContainers[] = $child;
             }
         }
-        /** @var SpgrContainer\SpContainer[] $allSpContainers */
 
         return $allSpContainers;
     }

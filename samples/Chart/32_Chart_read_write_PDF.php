@@ -4,12 +4,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
-IOFactory::registerWriter('Pdf', PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 // Change these values to select the Rendering library that you wish to use
-//Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
-Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/36write*.xlsx';
@@ -20,7 +19,7 @@ if ((isset($argc)) && ($argc > 1)) {
         $inputFileNames[] = __DIR__ . '/../templates/' . $argv[$i];
     }
 } else {
-    $inputFileNames = glob($inputFileNames) ?: [];
+    $inputFileNames = glob($inputFileNames);
 }
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
@@ -37,9 +36,6 @@ foreach ($inputFileNames as $inputFileName) {
     $reader->setIncludeCharts(true);
     $spreadsheet = $reader->load($inputFileName);
 
-    $helper->log('Merge chart cells (needed only for Pdf)');
-    $spreadsheet->mergeChartCellsForPdf();
-
     $helper->log('Iterate worksheets looking at the charts');
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
@@ -51,22 +47,22 @@ foreach ($inputFileNames as $inputFileName) {
         } else {
             natsort($chartNames);
             foreach ($chartNames as $i => $chartName) {
-                $chart = $worksheet->getChartByNameOrThrow($chartName);
+                $chart = $worksheet->getChartByName($chartName);
                 if ($chart->getTitle() !== null) {
-                    $caption = '"' . $chart->getTitle()->getCaptionText($spreadsheet) . '"';
+                    $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
                 } else {
                     $caption = 'Untitled';
                 }
                 $helper->log('    ' . $chartName . ' - ' . $caption);
                 $helper->log(str_repeat(' ', strlen($chartName) + 3));
-                $groupCount = $chart->getPlotAreaOrThrow()->getPlotGroupCount();
+                $groupCount = $chart->getPlotArea()->getPlotGroupCount();
                 if ($groupCount == 1) {
-                    $chartType = $chart->getPlotAreaOrThrow()->getPlotGroupByIndex(0)->getPlotType();
+                    $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
                     $helper->log('    ' . $chartType);
                 } else {
                     $chartTypes = [];
                     for ($i = 0; $i < $groupCount; ++$i) {
-                        $chartTypes[] = $chart->getPlotAreaOrThrow()->getPlotGroupByIndex($i)->getPlotType();
+                        $chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
                     }
                     $chartTypes = array_unique($chartTypes);
                     if (count($chartTypes) == 1) {
@@ -84,7 +80,11 @@ foreach ($inputFileNames as $inputFileName) {
 
     // Save
     $filename = $helper->getFilename($inputFileName, 'pdf');
-    $helper->write($spreadsheet, $filename, ['Pdf'], true);
+    $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
+    $writer->setIncludeCharts(true);
+    $callStartTime = microtime(true);
+    $writer->save($filename);
+    $helper->logWrite($writer, $filename, $callStartTime);
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);

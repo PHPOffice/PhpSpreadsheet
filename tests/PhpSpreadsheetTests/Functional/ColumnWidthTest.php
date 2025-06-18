@@ -1,23 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 class ColumnWidthTest extends AbstractFunctional
 {
-    public static function providerFormats(): array
+    public function providerFormats()
     {
         return [
             ['Xlsx'],
         ];
     }
 
-    #[DataProvider('providerFormats')]
-    public function testReadColumnWidth(string $format): void
+    /**
+     * @dataProvider providerFormats
+     *
+     * @param $format
+     */
+    public function testReadColumnWidth($format)
     {
         // create new sheet with column width
         $spreadsheet = new Spreadsheet();
@@ -30,7 +31,7 @@ class ColumnWidthTest extends AbstractFunctional
         $this->assertColumn($reloadedSpreadsheet);
     }
 
-    private function assertColumn(Spreadsheet $spreadsheet): void
+    private function assertColumn(Spreadsheet $spreadsheet)
     {
         $sheet = $spreadsheet->getActiveSheet();
         $columnDimensions = $sheet->getColumnDimensions();

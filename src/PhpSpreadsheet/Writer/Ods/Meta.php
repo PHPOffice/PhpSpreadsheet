@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -12,11 +10,17 @@ class Meta extends WriterPart
     /**
      * Write meta.xml to XML format.
      *
+     * @param Spreadsheet $spreadsheet
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string XML Output
      */
-    public function write(): string
+    public function write(Spreadsheet $spreadsheet = null)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet();
+        if (!$spreadsheet) {
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
+        }
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -43,80 +47,31 @@ class Meta extends WriterPart
 
         $objWriter->writeElement('meta:initial-creator', $spreadsheet->getProperties()->getCreator());
         $objWriter->writeElement('dc:creator', $spreadsheet->getProperties()->getCreator());
-        $created = $spreadsheet->getProperties()->getCreated();
-        $date = Date::dateTimeFromTimestamp("$created");
-        $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
-        $objWriter->writeElement('meta:creation-date', $date->format(DATE_W3C));
-        $created = $spreadsheet->getProperties()->getModified();
-        $date = Date::dateTimeFromTimestamp("$created");
-        $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
-        $objWriter->writeElement('dc:date', $date->format(DATE_W3C));
+        $objWriter->writeElement('meta:creation-date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeElement('dc:date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
         $objWriter->writeElement('dc:title', $spreadsheet->getProperties()->getTitle());
         $objWriter->writeElement('dc:description', $spreadsheet->getProperties()->getDescription());
         $objWriter->writeElement('dc:subject', $spreadsheet->getProperties()->getSubject());
-        $objWriter->writeElement('meta:keyword', $spreadsheet->getProperties()->getKeywords());
-        // Don't know if this changed over time, but the keywords are all
-        //  in a single declaration now.
-        //$keywords = explode(' ', $spreadsheet->getProperties()->getKeywords());
-        //foreach ($keywords as $keyword) {
-        //    $objWriter->writeElement('meta:keyword', $keyword);
-        //}
+        $keywords = explode(' ', $spreadsheet->getProperties()->getKeywords());
+        foreach ($keywords as $keyword) {
+            $objWriter->writeElement('meta:keyword', $keyword);
+        }
 
         //<meta:document-statistic meta:table-count="XXX" meta:cell-count="XXX" meta:object-count="XXX"/>
         $objWriter->startElement('meta:user-defined');
         $objWriter->writeAttribute('meta:name', 'Company');
-        $objWriter->writeRawData($spreadsheet->getProperties()->getCompany());
+        $objWriter->writeRaw($spreadsheet->getProperties()->getCompany());
         $objWriter->endElement();
 
         $objWriter->startElement('meta:user-defined');
         $objWriter->writeAttribute('meta:name', 'category');
-        $objWriter->writeRawData($spreadsheet->getProperties()->getCategory());
+        $objWriter->writeRaw($spreadsheet->getProperties()->getCategory());
         $objWriter->endElement();
-
-        self::writeDocPropsCustom($objWriter, $spreadsheet);
 
         $objWriter->endElement();
 
         $objWriter->endElement();
 
         return $objWriter->getData();
-    }
-
-    private static function writeDocPropsCustom(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
-    {
-        $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
-        foreach ($customPropertyList as $customProperty) {
-            $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
-            $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
-
-            $objWriter->startElement('meta:user-defined');
-            $objWriter->writeAttribute('meta:name', $customProperty);
-
-            switch ($propertyType) {
-                case Properties::PROPERTY_TYPE_INTEGER:
-                case Properties::PROPERTY_TYPE_FLOAT:
-                    $objWriter->writeAttribute('meta:value-type', 'float');
-                    $objWriter->writeRawData((string) $propertyValue);
-
-                    break;
-                case Properties::PROPERTY_TYPE_BOOLEAN:
-                    $objWriter->writeAttribute('meta:value-type', 'boolean');
-                    $objWriter->writeRawData($propertyValue ? 'true' : 'false');
-
-                    break;
-                case Properties::PROPERTY_TYPE_DATE:
-                    $objWriter->writeAttribute('meta:value-type', 'date');
-                    $dtobj = Date::dateTimeFromTimestamp((string) ($propertyValue ?? 0));
-                    $objWriter->writeRawData($dtobj->format(DATE_W3C));
-
-                    break;
-                default:
-                    $objWriter->writeRawData((string) $propertyValue);
-
-                    break;
-            }
-
-            $objWriter->endElement();
-        }
     }
 }

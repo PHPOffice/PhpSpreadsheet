@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -61,7 +60,7 @@ $conditional1->setConditionType(Conditional::CONDITION_CELLIS)
     ->addCondition('400');
 $conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_YELLOW);
 $conditional1->getStyle()->getFont()->setBold(true);
-$conditional1->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_INTEGER);
+$conditional1->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditional2 = new Conditional();
 $conditional2->setConditionType(Conditional::CONDITION_CELLIS)
@@ -69,7 +68,7 @@ $conditional2->setConditionType(Conditional::CONDITION_CELLIS)
     ->addCondition('0');
 $conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $conditional2->getStyle()->getFont()->setItalic(true);
-$conditional2->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_INTEGER);
+$conditional2->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditional3 = new Conditional();
 $conditional3->setConditionType(Conditional::CONDITION_CELLIS)
@@ -77,7 +76,7 @@ $conditional3->setConditionType(Conditional::CONDITION_CELLIS)
     ->addCondition('0');
 $conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 $conditional3->getStyle()->getFont()->setItalic(true);
-$conditional3->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_INTEGER);
+$conditional3->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
 $conditionalStyles[] = $conditional1;

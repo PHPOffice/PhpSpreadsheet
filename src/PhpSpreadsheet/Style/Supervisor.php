@@ -10,20 +10,24 @@ abstract class Supervisor implements IComparable
 {
     /**
      * Supervisor?
+     *
+     * @var bool
      */
-    protected bool $isSupervisor;
+    protected $isSupervisor;
 
     /**
      * Parent. Only used for supervisor.
      *
-     * @var Spreadsheet|Supervisor
+     * @var Spreadsheet|Style
      */
     protected $parent;
 
     /**
      * Parent property name.
+     *
+     * @var null|string
      */
-    protected ?string $parentPropertyName = null;
+    protected $parentPropertyName;
 
     /**
      * Create a new Supervisor.
@@ -32,7 +36,7 @@ abstract class Supervisor implements IComparable
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct(bool $isSupervisor = false)
+    public function __construct($isSupervisor = false)
     {
         // Supervisor?
         $this->isSupervisor = $isSupervisor;
@@ -41,9 +45,12 @@ abstract class Supervisor implements IComparable
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @return $this
+     * @param Spreadsheet|Style $parent
+     * @param null|string $parentPropertyName
+     *
+     * @return Supervisor
      */
-    public function bindParent(Spreadsheet|self $parent, ?string $parentPropertyName = null)
+    public function bindParent($parent, $parentPropertyName = null)
     {
         $this->parent = $parent;
         $this->parentPropertyName = $parentPropertyName;
@@ -53,16 +60,20 @@ abstract class Supervisor implements IComparable
 
     /**
      * Is this a supervisor or a cell style component?
+     *
+     * @return bool
      */
-    public function getIsSupervisor(): bool
+    public function getIsSupervisor()
     {
         return $this->isSupervisor;
     }
 
     /**
      * Get the currently active sheet. Only used for supervisor.
+     *
+     * @return Worksheet
      */
-    public function getActiveSheet(): Worksheet
+    public function getActiveSheet()
     {
         return $this->parent->getActiveSheet();
     }
@@ -73,7 +84,7 @@ abstract class Supervisor implements IComparable
      *
      * @return string E.g. 'A1'
      */
-    public function getSelectedCells(): string
+    public function getSelectedCells()
     {
         return $this->getActiveSheet()->getSelectedCells();
     }
@@ -84,7 +95,7 @@ abstract class Supervisor implements IComparable
      *
      * @return string E.g. 'A1'
      */
-    public function getActiveCell(): string
+    public function getActiveCell()
     {
         return $this->getActiveSheet()->getActiveCell();
     }
@@ -103,64 +114,4 @@ abstract class Supervisor implements IComparable
             }
         }
     }
-
-    /**
-     * Export style as array.
-     *
-     * Available to anything which extends this class:
-     * Alignment, Border, Borders, Color, Fill, Font,
-     * NumberFormat, Protection, and Style.
-     *
-     * @return mixed[]
-     */
-    final public function exportArray(): array
-    {
-        return $this->exportArray1();
-    }
-
-    /**
-     * Abstract method to be implemented in anything which
-     * extends this class.
-     *
-     * This method invokes exportArray2 with the names and values
-     * of all properties to be included in output array,
-     * returning that array to exportArray, then to caller.
-     *
-     * @return mixed[]
-     */
-    abstract protected function exportArray1(): array;
-
-    /**
-     * Populate array from exportArray1.
-     * This method is available to anything which extends this class.
-     * The parameter index is the key to be added to the array.
-     * The parameter objOrValue is either a primitive type,
-     * which is the value added to the array,
-     * or a Style object to be recursively added via exportArray.
-     *
-     * @param mixed[] $exportedArray
-     */
-    final protected function exportArray2(array &$exportedArray, string $index, mixed $objOrValue): void
-    {
-        if ($objOrValue instanceof self) {
-            $exportedArray[$index] = $objOrValue->exportArray();
-        } else {
-            $exportedArray[$index] = $objOrValue;
-        }
-    }
-
-    /**
-     * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor.
-     */
-    abstract public function getSharedComponent(): mixed;
-
-    /**
-     * Build style array from subcomponents.
-     *
-     * @param mixed[] $array
-     *
-     * @return mixed[]
-     */
-    abstract public function getStyleArray(array $array): array;
 }

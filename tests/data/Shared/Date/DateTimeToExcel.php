@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // DateTime object                          Result           Comments
 return [
     // Excel 1900 base calendar date

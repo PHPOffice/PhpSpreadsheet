@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // Unix TimeStamp   Result           Comments
 
 return [

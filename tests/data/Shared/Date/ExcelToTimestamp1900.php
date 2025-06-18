@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // Excel DateTimeStamp  Result            Comments
 return [
     // PHP 32-bit Earliest Date 14-Dec-1901
@@ -74,11 +72,4 @@ return [
         10666,
         0.12345,
     ],
-    // 29-Apr-2038 00:00:00 beyond PHP 32-bit Latest Date
-    [
-        2156112000,
-        50524,
-    ],
-    [-2147483648, -2147483648 / 86400], // Okay on 64- and 32-bit systems
-    [-2147483649, -2147483649 / 86400], // Skipped test on 32-bit
 ];

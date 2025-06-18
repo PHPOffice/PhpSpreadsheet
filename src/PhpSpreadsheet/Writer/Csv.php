@@ -3,69 +3,71 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Stringable;
 
 class Csv extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
+     *
+     * @var Spreadsheet
      */
-    private Spreadsheet $spreadsheet;
+    private $spreadsheet;
 
     /**
      * Delimiter.
+     *
+     * @var string
      */
-    private string $delimiter = ',';
+    private $delimiter = ',';
 
     /**
      * Enclosure.
+     *
+     * @var string
      */
-    private string $enclosure = '"';
+    private $enclosure = '"';
 
     /**
      * Line ending.
+     *
+     * @var string
      */
-    private string $lineEnding = PHP_EOL;
+    private $lineEnding = PHP_EOL;
 
     /**
      * Sheet index to write.
+     *
+     * @var int
      */
-    private int $sheetIndex = 0;
+    private $sheetIndex = 0;
 
     /**
-     * Whether to write a UTF8 BOM.
+     * Whether to write a BOM (for UTF8).
+     *
+     * @var bool
      */
-    private bool $useBOM = false;
+    private $useBOM = false;
 
     /**
      * Whether to write a Separator line as the first line of the file
      *     sep=x.
+     *
+     * @var bool
      */
-    private bool $includeSeparatorLine = false;
+    private $includeSeparatorLine = false;
 
     /**
      * Whether to write a fully Excel compatible CSV file.
+     *
+     * @var bool
      */
-    private bool $excelCompatibility = false;
-
-    /**
-     * Output encoding.
-     */
-    private string $outputEncoding = '';
-
-    /**
-     * Whether number of columns should be allowed to vary
-     * between rows, or use a fixed range based on the max
-     * column overall.
-     */
-    private bool $variableColumns = false;
-
-    private bool $preferHyperlinkToLabel = false;
+    private $excelCompatibility = false;
 
     /**
      * Create a new CSV.
+     *
+     * @param Spreadsheet $spreadsheet Spreadsheet object
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -75,21 +77,25 @@ class Csv extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param resource|string $filename
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
-    public function save($filename, int $flags = 0): void
+    public function save($pFilename)
     {
-        $this->processFlags($flags);
-
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
 
         $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $sheet->calculateArrays($this->preCalculateFormulas);
+        $saveArrayReturnType = Calculation::getArrayReturnType();
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $this->openFileHandle($filename);
+        $fileHandle = fopen($pFilename, 'wb+');
+        if ($fileHandle === false) {
+            throw new Exception("Could not open file $pFilename for writing.");
+        }
 
         if ($this->excelCompatibility) {
             $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
@@ -98,15 +104,13 @@ class Csv extends BaseWriter
             $this->setDelimiter(';'); //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
-
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($this->fileHandle, "\xEF\xBB\xBF");
+            fwrite($fileHandle, "\xEF\xBB\xBF");
         }
-
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
-            fwrite($this->fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
 
         //    Identify the range that we need to extract from the worksheet
@@ -114,108 +118,149 @@ class Csv extends BaseWriter
         $maxRow = $sheet->getHighestDataRow();
 
         // Write rows to file
-        $row = 0;
-        foreach ($sheet->rangeToArrayYieldRows("A1:$maxCol$maxRow", '', $this->preCalculateFormulas) as $cellsArray) {
-            ++$row;
-            if ($this->variableColumns) {
-                $column = $sheet->getHighestDataColumn($row);
-                if ($column === 'A' && !$sheet->cellExists("A$row")) {
-                    $cellsArray = [];
-                } else {
-                    array_splice($cellsArray, Coordinate::columnIndexFromString($column));
-                }
-            }
-            if ($this->preferHyperlinkToLabel) {
-                foreach ($cellsArray as $key => $value) {
-                    $url = $sheet->getCell([$key + 1, $row])->getHyperlink()->getUrl();
-                    if ($url !== '') {
-                        $cellsArray[$key] = $url;
-                    }
-                }
-            }
-            $this->writeLine($this->fileHandle, $cellsArray);
+        for ($row = 1; $row <= $maxRow; ++$row) {
+            // Convert the row to an array...
+            $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
+            // ... and write to the file
+            $this->writeLine($fileHandle, $cellsArray[0]);
         }
 
-        $this->maybeCloseFileHandle();
+        // Close file
+        fclose($fileHandle);
+
+        Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
-    public function getDelimiter(): string
+    /**
+     * Get delimiter.
+     *
+     * @return string
+     */
+    public function getDelimiter()
     {
         return $this->delimiter;
     }
 
-    public function setDelimiter(string $delimiter): self
+    /**
+     * Set delimiter.
+     *
+     * @param string $pValue Delimiter, defaults to ','
+     *
+     * @return CSV
+     */
+    public function setDelimiter($pValue)
     {
-        $this->delimiter = $delimiter;
+        $this->delimiter = $pValue;
 
         return $this;
     }
 
-    public function getEnclosure(): string
+    /**
+     * Get enclosure.
+     *
+     * @return string
+     */
+    public function getEnclosure()
     {
         return $this->enclosure;
     }
 
-    public function setEnclosure(string $enclosure = '"'): self
+    /**
+     * Set enclosure.
+     *
+     * @param string $pValue Enclosure, defaults to "
+     *
+     * @return CSV
+     */
+    public function setEnclosure($pValue)
     {
-        $this->enclosure = $enclosure;
+        if ($pValue == '') {
+            $pValue = null;
+        }
+        $this->enclosure = $pValue;
 
         return $this;
     }
 
-    public function getLineEnding(): string
+    /**
+     * Get line ending.
+     *
+     * @return string
+     */
+    public function getLineEnding()
     {
         return $this->lineEnding;
     }
 
-    public function setLineEnding(string $lineEnding): self
+    /**
+     * Set line ending.
+     *
+     * @param string $pValue Line ending, defaults to OS line ending (PHP_EOL)
+     *
+     * @return CSV
+     */
+    public function setLineEnding($pValue)
     {
-        $this->lineEnding = $lineEnding;
+        $this->lineEnding = $pValue;
 
         return $this;
     }
 
     /**
      * Get whether BOM should be used.
+     *
+     * @return bool
      */
-    public function getUseBOM(): bool
+    public function getUseBOM()
     {
         return $this->useBOM;
     }
 
     /**
-     * Set whether BOM should be used, typically when non-ASCII characters are used.
+     * Set whether BOM should be used.
+     *
+     * @param bool $pValue Use UTF-8 byte-order mark? Defaults to false
+     *
+     * @return CSV
      */
-    public function setUseBOM(bool $useBOM): self
+    public function setUseBOM($pValue)
     {
-        $this->useBOM = $useBOM;
+        $this->useBOM = $pValue;
 
         return $this;
     }
 
     /**
      * Get whether a separator line should be included.
+     *
+     * @return bool
      */
-    public function getIncludeSeparatorLine(): bool
+    public function getIncludeSeparatorLine()
     {
         return $this->includeSeparatorLine;
     }
 
     /**
      * Set whether a separator line should be included as the first line of the file.
+     *
+     * @param bool $pValue Use separator line? Defaults to false
+     *
+     * @return CSV
      */
-    public function setIncludeSeparatorLine(bool $includeSeparatorLine): self
+    public function setIncludeSeparatorLine($pValue)
     {
-        $this->includeSeparatorLine = $includeSeparatorLine;
+        $this->includeSeparatorLine = $pValue;
 
         return $this;
     }
 
     /**
      * Get whether the file should be saved with full Excel Compatibility.
+     *
+     * @return bool
      */
-    public function getExcelCompatibility(): bool
+    public function getExcelCompatibility()
     {
         return $this->excelCompatibility;
     }
@@ -223,150 +268,75 @@ class Csv extends BaseWriter
     /**
      * Set whether the file should be saved with full Excel Compatibility.
      *
-     * @param bool $excelCompatibility Set the file to be written as a fully Excel compatible csv file
+     * @param bool $pValue Set the file to be written as a fully Excel compatible csv file
      *                                Note that this overrides other settings such as useBOM, enclosure and delimiter
+     *
+     * @return CSV
      */
-    public function setExcelCompatibility(bool $excelCompatibility): self
+    public function setExcelCompatibility($pValue)
     {
-        $this->excelCompatibility = $excelCompatibility;
+        $this->excelCompatibility = $pValue;
 
         return $this;
     }
 
-    public function getSheetIndex(): int
+    /**
+     * Get sheet index.
+     *
+     * @return int
+     */
+    public function getSheetIndex()
     {
         return $this->sheetIndex;
     }
 
-    public function setSheetIndex(int $sheetIndex): self
-    {
-        $this->sheetIndex = $sheetIndex;
-
-        return $this;
-    }
-
-    public function getOutputEncoding(): string
-    {
-        return $this->outputEncoding;
-    }
-
-    public function setOutputEncoding(string $outputEnconding): self
-    {
-        $this->outputEncoding = $outputEnconding;
-
-        return $this;
-    }
-
-    private bool $enclosureRequired = true;
-
-    public function setEnclosureRequired(bool $value): self
-    {
-        $this->enclosureRequired = $value;
-
-        return $this;
-    }
-
-    public function getEnclosureRequired(): bool
-    {
-        return $this->enclosureRequired;
-    }
-
     /**
-     * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
+     * Set sheet index.
      *
-     * @param null|bool|float|int|string|Stringable $element element to be converted
+     * @param int $pValue Sheet index
+     *
+     * @return CSV
      */
-    private static function elementToString(mixed $element): string
+    public function setSheetIndex($pValue)
     {
-        if (is_bool($element)) {
-            return $element ? 'TRUE' : 'FALSE';
-        }
+        $this->sheetIndex = $pValue;
 
-        return (string) $element;
+        return $this;
     }
 
     /**
      * Write line to CSV file.
      *
-     * @param resource $fileHandle PHP filehandle
-     * @param mixed[] $values Array containing values in a row
+     * @param resource $pFileHandle PHP filehandle
+     * @param array $pValues Array containing values in a row
      */
-    private function writeLine($fileHandle, array $values): void
+    private function writeLine($pFileHandle, array $pValues)
     {
         // No leading delimiter
-        $delimiter = '';
+        $writeDelimiter = false;
 
         // Build the line
         $line = '';
 
-        /** @var null|bool|float|int|string|Stringable $element */
-        foreach ($values as $element) {
-            $element = self::elementToString($element);
-            // Add delimiter
-            $line .= $delimiter;
-            $delimiter = $this->delimiter;
+        foreach ($pValues as $element) {
             // Escape enclosures
-            $enclosure = $this->enclosure;
-            if ($enclosure) {
-                // If enclosure is not required, use enclosure only if
-                // element contains newline, delimiter, or enclosure.
-                if (!$this->enclosureRequired && strpbrk($element, "$delimiter$enclosure\n") === false) {
-                    $enclosure = '';
-                } else {
-                    $element = str_replace($enclosure, $enclosure . $enclosure, $element);
-                }
+            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+
+            // Add delimiter
+            if ($writeDelimiter) {
+                $line .= $this->delimiter;
+            } else {
+                $writeDelimiter = true;
             }
+
             // Add enclosed string
-            $line .= $enclosure . $element . $enclosure;
+            $line .= $this->enclosure . $element . $this->enclosure;
         }
 
         // Add line ending
         $line .= $this->lineEnding;
 
         // Write to file
-        if ($this->outputEncoding != '') {
-            $line = (string) mb_convert_encoding($line, $this->outputEncoding);
-        }
-        fwrite($fileHandle, $line);
-    }
-
-    /**
-     * Get whether number of columns should be allowed to vary
-     * between rows, or use a fixed range based on the max
-     * column overall.
-     */
-    public function getVariableColumns(): bool
-    {
-        return $this->variableColumns;
-    }
-
-    /**
-     * Set whether number of columns should be allowed to vary
-     * between rows, or use a fixed range based on the max
-     * column overall.
-     */
-    public function setVariableColumns(bool $pValue): self
-    {
-        $this->variableColumns = $pValue;
-
-        return $this;
-    }
-
-    /**
-     * Get whether hyperlink or label should be output.
-     */
-    public function getPreferHyperlinkToLabel(): bool
-    {
-        return $this->preferHyperlinkToLabel;
-    }
-
-    /**
-     * Set whether hyperlink or label should be output.
-     */
-    public function setPreferHyperlinkToLabel(bool $preferHyperlinkToLabel): self
-    {
-        $this->preferHyperlinkToLabel = $preferHyperlinkToLabel;
-
-        return $this;
+        fwrite($pFileHandle, $line);
     }
 }

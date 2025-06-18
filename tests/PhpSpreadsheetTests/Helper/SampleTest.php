@@ -1,41 +1,47 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
-use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
 class SampleTest extends TestCase
 {
-    private static bool $alwaysTrue = true;
-
-    #[Attributes\RunInSeparateProcess]
-    #[Attributes\PreserveGlobalState(false)]
-    #[Attributes\DataProvider('providerSample')]
-    public function testSample(string $sample): void
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider providerSample
+     *
+     * @param mixed $sample
+     */
+    public function testSample($sample)
     {
-        ob_start();
-        require $sample;
-        ob_end_clean();
+        // Suppress output to console
+        $this->setOutputCallback(function () {
+        });
 
-        self::assertTrue(self::$alwaysTrue);
+        require $sample;
     }
 
-    public static function providerSample(): array
+    public function providerSample()
     {
         $skipped = [
+            'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
+            'Chart/32_Chart_read_write_HTML.php', // idem
         ];
 
-        // Unfortunately some tests are too long to run with code-coverage
-        // analysis on GitHub Actions, so we need to exclude them
-        /** @var string[] */
+        // TCPDF does not support PHP 7.2
+        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
+            $skipped[] = 'Pdf/21_Pdf_TCPDF.php';
+        }
+
+        // Unfortunately some tests are too long be ran with code-coverage
+        // analysis on Travis, so we need to exclude them
         global $argv;
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [
                 'Basic/06_Largescale.php',
+                'Basic/13_CalculationCyclicFormulae.php',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }
@@ -45,8 +51,8 @@ class SampleTest extends TestCase
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $sample) {
                 if (!in_array($sample, $skipped)) {
-                    $file = 'samples/' . $sample;
-                    $result[$sample] = [$file];
+                    $file = '../samples/' . $sample;
+                    $result[] = [$file];
                 }
             }
         }

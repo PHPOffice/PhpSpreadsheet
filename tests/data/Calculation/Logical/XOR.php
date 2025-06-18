@@ -1,18 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 return [
-    'no arguments' => [
-        'exception',
-    ],
-    'only argument is null reference' => [
+    // No arguments
+    [
         '#VALUE!',
-        null,
     ],
     [
         false,
-        true, true,
+        1 > 0, 2 > 0,
     ],
     [
         true,
@@ -20,25 +15,25 @@ return [
     ],
     [
         true,
-        true, false,
+        1 > 0, 0 > 1,
     ],
     [
         true,
-        false, true,
+        0 > 1, 2 > 0,
     ],
     [
         false,
-        false, false,
+        0 > 1, 0 > 2,
     ],
     [
         false,
-        true, true, false, false,
+        1 > 0, 2 > 0, 0 > 1, 0 > 2,
     ],
     [
         true,
-        true, true, true, false,
+        1 > 0, 2 > 0, 3 > 0, 0 > 1,
     ],
-    'ignore string other two should be true' => [
+    [
         false,
         'TRUE',
         1,
@@ -50,28 +45,8 @@ return [
         1.5,
         0,
     ],
-    'only arg is string' => [
+    [
         '#VALUE!',
         'HELLO WORLD',
-    ],
-    'true string is ignored' => [
-        true,
-        'TRUE',
-        1,
-    ],
-    'false string is ignored' => [
-        true,
-        'FALSE',
-        true,
-    ],
-    'string 1 is ignored' => [
-        true,
-        '1',
-        true,
-    ],
-    'non-boolean string is ignored' => [
-        true,
-        'ABCD',
-        1,
     ],
 ];

@@ -41,25 +41,33 @@ class BIFFwriter
 {
     /**
      * The byte order of this architecture. 0 => little endian, 1 => big endian.
+     *
+     * @var int
      */
-    private static ?int $byteOrder = null;
+    private static $byteOrder;
 
     /**
      * The string containing the data of the BIFF stream.
+     *
+     * @var string
      */
-    public ?string $_data;
+    public $_data;
 
     /**
      * The size of the data in bytes. Should be the same as strlen($this->_data).
+     *
+     * @var int
      */
-    public int $_datasize;
+    public $_datasize;
 
     /**
      * The maximum length for a BIFF record (excluding record header and length field). See addContinue().
      *
+     * @var int
+     *
      * @see addContinue()
      */
-    private int $limit = 8224;
+    private $limit = 8224;
 
     /**
      * Constructor.
@@ -73,8 +81,10 @@ class BIFFwriter
     /**
      * Determine the byte order and store it as class data to avoid
      * recalculating it for each call to new().
+     *
+     * @return int
      */
-    public static function getByteOrder(): int
+    public static function getByteOrder()
     {
         if (!isset(self::$byteOrder)) {
             // Check if "pack" gives the required IEEE 64bit float
@@ -99,7 +109,7 @@ class BIFFwriter
      *
      * @param string $data binary data to append
      */
-    protected function append(string $data): void
+    protected function append($data)
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -112,8 +122,10 @@ class BIFFwriter
      * General storage function like append, but returns string instead of modifying $this->_data.
      *
      * @param string $data binary data to write
+     *
+     * @return string
      */
-    public function writeData(string $data): string
+    public function writeData($data)
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -130,7 +142,7 @@ class BIFFwriter
      * @param int $type type of BIFF file to write: 0x0005 Workbook,
      *                       0x0010 Worksheet
      */
-    protected function storeBof(int $type): void
+    protected function storeBof($type)
     {
         $record = 0x0809; // Record identifier    (BIFF5-BIFF8)
         $length = 0x0010;
@@ -151,7 +163,7 @@ class BIFFwriter
     /**
      * Writes Excel EOF record to indicate the end of a BIFF stream.
      */
-    protected function storeEof(): void
+    protected function storeEof()
     {
         $record = 0x000A; // Record identifier
         $length = 0x0000; // Number of bytes to follow
@@ -163,7 +175,7 @@ class BIFFwriter
     /**
      * Writes Excel EOF record to indicate the end of a BIFF stream.
      */
-    public function writeEof(): string
+    public function writeEof()
     {
         $record = 0x000A; // Record identifier
         $length = 0x0000; // Number of bytes to follow
@@ -184,7 +196,7 @@ class BIFFwriter
      *
      * @return string A very convenient string of continue blocks
      */
-    private function addContinue(string $data): string
+    private function addContinue($data)
     {
         $limit = $this->limit;
         $record = 0x003C; // Record identifier

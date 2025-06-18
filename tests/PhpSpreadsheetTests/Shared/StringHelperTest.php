@@ -1,32 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use DateTime;
-use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
 {
-    protected function tearDown(): void
+    public function setUp()
     {
+        parent::setUp();
+
+        // Reset Currency Code
         StringHelper::setCurrencyCode(null);
-        StringHelper::setDecimalSeparator(null);
-        StringHelper::setThousandsSeparator(null);
     }
 
-    public function testGetIsIconvEnabled(): void
+    public function testGetIsIconvEnabled()
     {
         $result = StringHelper::getIsIconvEnabled();
         self::assertTrue($result);
     }
 
-    public function testGetDecimalSeparator(): void
+    public function testGetDecimalSeparator()
     {
         $localeconv = localeconv();
 
@@ -35,7 +30,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetDecimalSeparator(): void
+    public function testSetDecimalSeparator()
     {
         $expectedResult = ',';
         StringHelper::setDecimalSeparator($expectedResult);
@@ -44,7 +39,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testGetThousandsSeparator(): void
+    public function testGetThousandsSeparator()
     {
         $localeconv = localeconv();
 
@@ -53,7 +48,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetThousandsSeparator(): void
+    public function testSetThousandsSeparator()
     {
         $expectedResult = ' ';
         StringHelper::setThousandsSeparator($expectedResult);
@@ -62,7 +57,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testGetCurrencyCode(): void
+    public function testGetCurrencyCode()
     {
         $localeconv = localeconv();
         $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol'] : '$'));
@@ -70,7 +65,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetCurrencyCode(): void
+    public function testSetCurrencyCode()
     {
         $expectedResult = '£';
         StringHelper::setCurrencyCode($expectedResult);
@@ -79,7 +74,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testControlCharacterPHP2OOXML(): void
+    public function testControlCharacterPHP2OOXML()
     {
         $expectedResult = 'foo_x000B_bar';
         $result = StringHelper::controlCharacterPHP2OOXML('foo' . chr(11) . 'bar');
@@ -87,7 +82,7 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testControlCharacterOOXML2PHP(): void
+    public function testControlCharacterOOXML2PHP()
     {
         $expectedResult = 'foo' . chr(11) . 'bar';
         $result = StringHelper::controlCharacterOOXML2PHP('foo_x000B_bar');
@@ -95,40 +90,11 @@ class StringHelperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSYLKtoUTF8(): void
+    public function testSYLKtoUTF8()
     {
         $expectedResult = 'foo' . chr(11) . 'bar';
         $result = StringHelper::SYLKtoUTF8("foo\x1B ;bar");
 
         self::assertEquals($expectedResult, $result);
-    }
-
-    public function testIssue3900(): void
-    {
-        StringHelper::setDecimalSeparator('.');
-        StringHelper::setThousandsSeparator('');
-
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 1.4);
-        $sheet->setCellValue('B1', 1004.5);
-        $sheet->setCellValue('C1', 1000000.5);
-
-        ob_start();
-        $ioWriter = new Csv($spreadsheet);
-        $ioWriter->setDelimiter(';');
-        $ioWriter->save('php://output');
-        $output = ob_get_clean();
-        $spreadsheet->disconnectWorksheets();
-        self::assertSame('"1.4";"1004.5";"1000000.5"' . PHP_EOL, $output);
-    }
-
-    public function testNonStringable(): void
-    {
-        $dt = new DateTime();
-        self::assertSame('', StringHelper::convertToString($dt, false));
-        $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('Unable to convert to string');
-        StringHelper::convertToString($dt);
     }
 }

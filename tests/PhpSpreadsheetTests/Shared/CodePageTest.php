@@ -1,56 +1,30 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CodePageTest extends TestCase
 {
     /**
-     * @param string|string[] $expectedResult
+     * @dataProvider providerCodePage
+     *
+     * @param mixed $expectedResult
      */
-    #[DataProvider('providerCodePage')]
-    public function testCodePageNumberToName(array|string $expectedResult, int $codePageIndex): void
+    public function testCodePageNumberToName($expectedResult, ...$args)
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(Exception::class);
-        }
-        $result = CodePage::numberToName($codePageIndex);
-        if (is_array($expectedResult)) {
-            self::assertContains($result, $expectedResult);
-        } else {
-            self::assertEquals($expectedResult, $result);
-        }
+        $result = CodePage::numberToName(...$args);
+        self::assertEquals($expectedResult, $result);
     }
 
-    public static function providerCodePage(): array
+    public function providerCodePage()
     {
-        return require 'tests/data/Shared/CodePage.php';
+        return require 'data/Shared/CodePage.php';
     }
 
-    public function testCoverage(): void
-    {
-        $covered = [];
-        $expected = CodePage::getEncodings();
-        foreach ($expected as $key => $val) {
-            $covered[$key] = 0;
-        }
-        $tests = $this->providerCodePage();
-        foreach ($tests as $test) {
-            /** @var string[] $test */
-            $covered[$test[1]] = 1;
-        }
-        foreach ($covered as $key => $val) {
-            self::assertEquals(1, $val, "Codepage $key not tested");
-        }
-    }
-
-    public function testNumberToNameWithInvalidCodePage(): void
+    public function testNumberToNameWithInvalidCodePage()
     {
         $invalidCodePage = 12345;
 
@@ -61,10 +35,10 @@ class CodePageTest extends TestCase
 
             return;
         }
-        self::fail('An expected exception has not been raised.');
+        $this->fail('An expected exception has not been raised.');
     }
 
-    public function testNumberToNameWithUnsupportedCodePage(): void
+    public function testNumberToNameWithUnsupportedCodePage()
     {
         $unsupportedCodePage = 720;
 
@@ -75,6 +49,6 @@ class CodePageTest extends TestCase
 
             return;
         }
-        self::fail('An expected exception has not been raised.');
+        $this->fail('An expected exception has not been raised.');
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -8,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -82,7 +80,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
     ->getStyle('C9')
     ->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD);
+    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD2);
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A10', 'Date/Time')
@@ -110,9 +108,9 @@ $richText = new RichText();
 $richText->createText('你好 ');
 
 $payable = $richText->createTextRun('你 好 吗？');
-$payable->getFontOrThrow()->setBold(true);
-$payable->getFontOrThrow()->setItalic(true);
-$payable->getFontOrThrow()->setColor(new Color(Color::COLOR_DARKGREEN));
+$payable->getFont()->setBold(true);
+$payable->getFont()->setItalic(true);
+$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -124,7 +122,7 @@ $richText2 = new RichText();
 $richText2->createText("black text\n");
 
 $red = $richText2->createTextRun('red text');
-$red->getFontOrThrow()->setColor(new Color(Color::COLOR_RED));
+$red->getFont()->setColor(new Color(Color::COLOR_RED));
 
 $spreadsheet->getActiveSheet()
     ->getCell('C14')
@@ -142,16 +140,9 @@ $spreadsheet->getActiveSheet()
     ->getHyperlink()
     ->setUrl('https://github.com/PHPOffice/PhpSpreadsheet')
     ->setTooltip('Navigate to PhpSpreadsheet website');
-$spreadsheet->getActiveSheet()->getStyle('C17')->getFont()->setHyperlinkTheme();
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
-$spreadsheet->getActiveSheet()->getStyle('C18')->getFont()->setHyperlinkTheme();
-
-$spreadsheet->getActiveSheet()
-    ->setCellValue('A20', 'String')
-    ->setCellValue('B20', 'inline')
-    ->setCellValueExplicit('C20', 'This will not be added to sharedStrings.xml', DataType::TYPE_INLINE);
 
 $spreadsheet->getActiveSheet()
     ->getColumnDimension('B')

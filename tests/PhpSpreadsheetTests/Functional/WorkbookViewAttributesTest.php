@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class WorkbookViewAttributesTest extends AbstractFunctional
 {
-    public static function providerFormats(): array
+    public function providerFormats()
     {
         return [
             ['Xlsx'],
@@ -21,9 +19,12 @@ class WorkbookViewAttributesTest extends AbstractFunctional
      * are preserved when xlsx documents are read and written.
      *
      * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/523
+     *
+     * @dataProvider providerFormats
+     *
+     * @param string $format
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
-    public function testPreserveWorkbookViewAttributes(string $format): void
+    public function testPreserveWorkbookViewAttributes($format)
     {
         // Create a dummy workbook with two worksheets
         $workbook = new Spreadsheet();
@@ -35,14 +36,14 @@ class WorkbookViewAttributesTest extends AbstractFunctional
         $worksheet2->setCellValue('A1', 2);
 
         // Check that the bookview attributes return default values
-        self::assertTrue($workbook->getShowHorizontalScroll());
-        self::assertTrue($workbook->getShowVerticalScroll());
-        self::assertTrue($workbook->getShowSheetTabs());
-        self::assertTrue($workbook->getAutoFilterDateGrouping());
-        self::assertFalse($workbook->getMinimized());
-        self::assertSame(0, $workbook->getFirstSheetIndex());
-        self::assertSame(600, $workbook->getTabRatio());
-        self::assertSame(Spreadsheet::VISIBILITY_VISIBLE, $workbook->getVisibility());
+        $this->assertTrue($workbook->getShowHorizontalScroll());
+        $this->assertTrue($workbook->getShowVerticalScroll());
+        $this->assertTrue($workbook->getShowSheetTabs());
+        $this->assertTrue($workbook->getAutoFilterDateGrouping());
+        $this->assertFalse($workbook->getMinimized());
+        $this->assertSame(0, $workbook->getFirstSheetIndex());
+        $this->assertSame(600, $workbook->getTabRatio());
+        $this->assertSame(Spreadsheet::VISIBILITY_VISIBLE, $workbook->getVisibility());
 
         // Set the bookview attributes to non-default values
         $workbook->setShowHorizontalScroll(false);
@@ -55,25 +56,25 @@ class WorkbookViewAttributesTest extends AbstractFunctional
         $workbook->setVisibility(Spreadsheet::VISIBILITY_HIDDEN);
 
         // Check that bookview attributes were set properly
-        self::assertFalse($workbook->getShowHorizontalScroll());
-        self::assertFalse($workbook->getShowVerticalScroll());
-        self::assertFalse($workbook->getShowSheetTabs());
-        self::assertFalse($workbook->getAutoFilterDateGrouping());
-        self::assertTrue($workbook->getMinimized());
-        self::assertSame(1, $workbook->getFirstSheetIndex());
-        self::assertSame(700, $workbook->getTabRatio());
-        self::assertSame(Spreadsheet::VISIBILITY_HIDDEN, $workbook->getVisibility());
+        $this->assertFalse($workbook->getShowHorizontalScroll());
+        $this->assertFalse($workbook->getShowVerticalScroll());
+        $this->assertFalse($workbook->getShowSheetTabs());
+        $this->assertFalse($workbook->getAutoFilterDateGrouping());
+        $this->assertTrue($workbook->getMinimized());
+        $this->assertSame(1, $workbook->getFirstSheetIndex());
+        $this->assertSame(700, $workbook->getTabRatio());
+        $this->assertSame(Spreadsheet::VISIBILITY_HIDDEN, $workbook->getVisibility());
 
         $workbook2 = $this->writeAndReload($workbook, $format);
 
         // Check that the read spreadsheet has the right bookview attributes
-        self::assertFalse($workbook2->getShowHorizontalScroll());
-        self::assertFalse($workbook2->getShowVerticalScroll());
-        self::assertFalse($workbook2->getShowSheetTabs());
-        self::assertFalse($workbook2->getAutoFilterDateGrouping());
-        self::assertTrue($workbook2->getMinimized());
-        self::assertSame(1, $workbook2->getFirstSheetIndex());
-        self::assertSame(700, $workbook2->getTabRatio());
-        self::assertSame(Spreadsheet::VISIBILITY_HIDDEN, $workbook2->getVisibility());
+        $this->assertFalse($workbook2->getShowHorizontalScroll());
+        $this->assertFalse($workbook2->getShowVerticalScroll());
+        $this->assertFalse($workbook2->getShowSheetTabs());
+        $this->assertFalse($workbook2->getAutoFilterDateGrouping());
+        $this->assertTrue($workbook2->getMinimized());
+        $this->assertSame(1, $workbook2->getFirstSheetIndex());
+        $this->assertSame(700, $workbook2->getTabRatio());
+        $this->assertSame(Spreadsheet::VISIBILITY_HIDDEN, $workbook2->getVisibility());
     }
 }

@@ -23,7 +23,7 @@ When you make use of any of the worksheet protection features (e.g. cell
 range protection, prohibiting deleting rows, ...), make sure you enable
 worksheet security. This can for example be done like this:
 
-```php
+``` php
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 ```
 
@@ -55,7 +55,3 @@ file in Excel, the actual width is 0.71 less than it should be.
 The short answer is that PhpSpreadsheet uses a measure where padding is
 included. See [how to set a column's width](./topics/recipes.md#setting-a-columns-width)
 for more details.
-
-## I cannot serialize or json_encode my Spreadsheet
-
-No, you can't. Consider the Spreadsheet object as a PHP resource, which cannot be serialized.

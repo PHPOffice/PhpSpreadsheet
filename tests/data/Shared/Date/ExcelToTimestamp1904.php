@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 // Excel DateTimeStamp        Result            Comments
 
 return [
@@ -31,22 +29,17 @@ return [
     ],
     // 06:00:00
     [
-        gmmktime(6, 0, 0, 1, 1, 1904), // 32-bit safe - no Y2038 problem
+        21600,
         0.25,
     ],
     // 08:00.00
     [
-        gmmktime(8, 0, 0, 1, 1, 1904), // 32-bit safe - no Y2038 problem
+        28800,
         0.3333333333333333333,
     ],
-    // 13:02:13
+    // 02:57:46
     [
-        gmmktime(13, 2, 13, 1, 1, 1904), // 32-bit safe - no Y2038 problem
+        46933,
         0.54321,
-    ],
-    // 29-Apr-2038 00:00:00 beyond PHP 32-bit Latest Date
-    [
-        2156112000,
-        49062,
     ],
 ];

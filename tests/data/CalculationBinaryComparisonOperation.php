@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 //  formula, expectedResultExcel, expectedResultOpenOffice
 
 return [
@@ -239,36 +237,6 @@ return [
         '="a" <> "A"',
         false,
         true,
-    ],
-    [
-        '= NULL = 0',
-        true,
-        true,
-    ],
-    [
-        '= NULL < 0',
-        false,
-        false,
-    ],
-    [
-        '= NULL <= 0',
-        true,
-        true,
-    ],
-    [
-        '= NULL > 0',
-        false,
-        false,
-    ],
-    [
-        '= NULL >= 0',
-        true,
-        true,
-    ],
-    [
-        '= NULL <> 0',
-        false,
-        false,
     ],
     [
         '="A" > "b"',

@@ -9,5 +9,5 @@ interface IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode(): string;
+    public function getHashCode();
 }

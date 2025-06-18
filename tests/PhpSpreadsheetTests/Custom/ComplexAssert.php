@@ -1,25 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
 use Complex\Complex;
-use PHPUnit\Framework\TestCase;
 
-class ComplexAssert extends TestCase
+class ComplexAssert
 {
-    private string $errorMessage = '';
+    private $errorMessage = '';
 
-    private float $delta = 0.0;
-
-    public function __construct()
-    {
-        // Phpstan doesn't want you to use "internal" method outside PHPunit namespace
-        parent::__construct('complexAssert'); //* @phpstan-ignore-line
-    }
-
-    private function testExpectedExceptions(string|float $expected, string|float $actual): bool
+    private function testExpectedExceptions($expected, $actual)
     {
         //    Expecting an error, so we do a straight string comparison
         if ($expected === $actual) {
@@ -32,36 +21,36 @@ class ComplexAssert extends TestCase
         return false;
     }
 
-    private function adjustDelta(float $expected, float $actual, float $delta): float
+    private function adjustDelta($expected, $actual, $delta)
     {
         $adjustedDelta = $delta;
 
         if (abs($actual) > 10 && abs($expected) > 10) {
             $variance = floor(log10(abs($expected)));
-            $adjustedDelta *= 10 ** $variance;
+            $adjustedDelta *= pow(10, $variance);
         }
 
         return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
     }
 
-    public function setDelta(float $delta): self
+    public function assertComplexEquals($expected, $actual, $delta = 0)
     {
-        $this->delta = $delta;
-
-        return $this;
-    }
-
-    public function assertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): bool
-    {
-        if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
-            return $this->testExpectedExceptions($expected, (is_string($actual) || is_float($actual)) ? $actual : 'neither string nor float');
+        if ($expected === INF || $expected[0] === '#') {
+            return $this->testExpectedExceptions($expected, $actual);
         }
 
-        if ($delta === null) {
-            $delta = $this->delta;
-        }
         $expectedComplex = new Complex($expected);
         $actualComplex = new Complex($actual);
+
+        if (!is_numeric($actualComplex->getReal()) || !is_numeric($expectedComplex->getReal())) {
+            if ($actualComplex->getReal() !== $expectedComplex->getReal()) {
+                $this->errorMessage = 'Mismatched String: ' . $actualComplex->getReal() . ' !== ' . $expectedComplex->getReal();
+
+                return false;
+            }
+
+            return true;
+        }
 
         $adjustedDelta = $this->adjustDelta($expectedComplex->getReal(), $actualComplex->getReal(), $delta);
         if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $adjustedDelta) {
@@ -86,14 +75,8 @@ class ComplexAssert extends TestCase
         return true;
     }
 
-    public function getErrorMessage(): string
+    public function getErrorMessage()
     {
         return $this->errorMessage;
-    }
-
-    /** @param array<mixed>|float|string $actual */
-    public function runAssertComplexEquals(string $expected, array|float|string $actual, ?float $delta = null): void
-    {
-        self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());
     }
 }

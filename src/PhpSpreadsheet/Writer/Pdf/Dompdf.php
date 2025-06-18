@@ -8,16 +8,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Dompdf extends Pdf
 {
     /**
-     * embed images, or link to images.
-     */
-    protected bool $embedImages = true;
-
-    /**
      * Gets the implementation of external PDF library that should be used.
      *
      * @return \Dompdf\Dompdf implementation
      */
-    protected function createExternalWriterInstance(): \Dompdf\Dompdf
+    protected function createExternalWriterInstance()
     {
         return new \Dompdf\Dompdf();
     }
@@ -25,34 +20,59 @@ class Dompdf extends Pdf
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $filename Name of the file to save as
+     * @param string $pFilename Name of the file to save as
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($filename, int $flags = 0): void
+    public function save($pFilename)
     {
-        $fileHandle = parent::prepareForSave($filename);
+        $fileHandle = parent::prepareForSave($pFilename);
+
+        //  Default PDF paper size
+        $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        $setup = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
-        $orientation = $this->getOrientation() ?? $setup->getOrientation();
-        $orientation = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-        $printPaperSize = $this->getPaperSize() ?? $setup->getPaperSize();
-        $paperSize = self::$paperSizes[$printPaperSize] ?? self::$paperSizes[PageSetup::getPaperSizeDefault()] ?? 'LETTER';
-        if (is_array($paperSize) && count($paperSize) === 2) {
-            $paperSize = [0.0, 0.0, $paperSize[0], $paperSize[1]];
+        if ($this->getSheetIndex() === null) {
+            $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
+                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+            $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
+        } else {
+            $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
+                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+            $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
         }
 
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
 
+        //  Override Page Orientation
+        if ($this->getOrientation() !== null) {
+            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
+                ? PageSetup::ORIENTATION_PORTRAIT
+                : $this->getOrientation();
+        }
+        //  Override Paper Size
+        if ($this->getPaperSize() !== null) {
+            $printPaperSize = $this->getPaperSize();
+        }
+
+        if (isset(self::$paperSizes[$printPaperSize])) {
+            $paperSize = self::$paperSizes[$printPaperSize];
+        }
+
         //  Create PDF
         $pdf = $this->createExternalWriterInstance();
-        $pdf->setPaper($paperSize, $orientation);
+        $pdf->setPaper(strtolower($paperSize), $orientation);
 
-        $pdf->loadHtml($this->generateHTMLAll());
+        $pdf->loadHtml(
+            $this->generateHTMLHeader(false) .
+            $this->generateSheetData() .
+            $this->generateHTMLFooter()
+        );
         $pdf->render();
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output() ?? '');
+        fwrite($fileHandle, $pdf->output());
 
-        parent::restoreStateAfterSave();
+        parent::restoreStateAfterSave($fileHandle);
     }
 }

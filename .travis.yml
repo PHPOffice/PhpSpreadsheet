@@ -1,0 +1,59 @@
+language: php
+dist: trusty
+sudo: false
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+
+cache:
+  directories:
+    - cache
+    - vendor
+    - $HOME/.composer/cache
+
+before_script:
+  # Deactivate xdebug
+  - if [ -z "$KEEP_XDEBUG" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
+  - composer install --ignore-platform-reqs
+
+script:
+  - ./vendor/bin/phpunit
+
+jobs:
+  include:
+
+    - stage: Code style
+      php: 7.1
+      script:
+        - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
+        - ./vendor/bin/phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
+
+    - stage: Coverage
+      php: 7.1
+      env: KEEP_XDEBUG=1
+      script:
+        - travis_wait 40 ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
+      after_script:
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
+
+    - stage: API documentation
+      php: 7.1
+      before_script:
+      - curl -O http://get.sensiolabs.org/sami.phar
+      script:
+      - git fetch origin master:master
+      - git fetch origin --tags
+      - php sami.phar update .sami.php
+      - echo '<html><head><meta http-equiv="Refresh" content="0; url=master/"></head><body><p>If you are not automatically redirected, please go to <a href="master/">the latest stable API documentation</a>.</p></body></html>' > build/index.html
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        local-dir: build
+        github-token: $GITHUB_TOKEN
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^master|develop$

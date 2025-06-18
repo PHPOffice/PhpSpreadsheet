@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -12,12 +12,12 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-        ['', 2010, 2011, 2012],
-        ['Q1', 12, 15, 21],
-        ['Q2', 56, 73, 86],
-        ['Q3', 52, 61, 69],
-        ['Q4', 30, 32, 0],
-    ]
+            ['', 2010, 2011, 2012],
+            ['Q1', 12, 15, 21],
+            ['Q2', 56, 73, 86],
+            ['Q3', 52, 61, 69],
+            ['Q4', 30, 32, 0],
+        ]
 );
 
 // Set the Labels for each data series we want to plot
@@ -71,7 +71,7 @@ $series->setPlotDirection(DataSeries::DIRECTION_BAR);
 // Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
-$legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
+$legend = new Legend(Legend::POSITION_RIGHT, null, false);
 
 $title = new Title('Test Bar Chart');
 $yAxisLabel = new Title('Value ($k)');
@@ -83,7 +83,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
+    0, // displayBlanksAs
     null, // xAxisLabel
     $yAxisLabel  // yAxisLabel
 );
@@ -94,8 +94,5 @@ $chart->setBottomRightPosition('H20');
 
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
-
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
-$helper->renderChart($chart, __FILE__);
 
 return $spreadsheet;
