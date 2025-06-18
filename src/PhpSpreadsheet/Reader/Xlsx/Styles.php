@@ -152,6 +152,12 @@ class Styles extends BaseParserClass
             $attr = $this->getStyleAttributes($fontStyleXml->scheme);
             $fontStyle->setScheme((string) $attr['val']);
         }
+        if (isset($fontStyleXml->auto)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->auto);
+            if (isset($attr['val'])) {
+                $fontStyle->setAutoColor(self::boolean((string) $attr['val']));
+            }
+        }
     }
 
     private function readNumberFormat(NumberFormat $numfmtStyle, SimpleXMLElement $numfmtStyleXml): void
