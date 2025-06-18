@@ -204,15 +204,26 @@ class Style
 
         if ($font->getBold()) {
             $this->writer->writeAttribute('fo:font-weight', 'bold');
-            $this->writer->writeAttribute('style:font-weight-complex', 'bold');
-            $this->writer->writeAttribute('style:font-weight-asian', 'bold');
+            $this->writer->writeAttribute(
+                'style:font-weight-complex',
+                'bold'
+            );
+            $this->writer->writeAttribute(
+                'style:font-weight-asian',
+                'bold'
+            );
         }
 
         if ($font->getItalic()) {
             $this->writer->writeAttribute('fo:font-style', 'italic');
         }
 
-        $this->writer->writeAttribute('fo:color', sprintf('#%s', $font->getColor()->getRGB()));
+        if ($font->getAutoColor()) {
+            $this->writer
+                ->writeAttribute('style:use-window-font-color', 'true');
+        } else {
+            $this->writer->writeAttribute('fo:color', sprintf('#%s', $font->getColor()->getRGB()));
+        }
 
         if ($family = $font->getName()) {
             $this->writer->writeAttribute('fo:font-family', $family);
