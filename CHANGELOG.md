@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - TEXT and TIMEVALUE functions. [Issue #4249](https://github.com/PHPOffice/PhpSpreadsheet/issues/4249) [PR #4354](https://github.com/PHPOffice/PhpSpreadsheet/pull/4354)
 - Removing Columns/Rows Containing Merged Cells. Backport of [PR #4465](https://github.com/PHPOffice/PhpSpreadsheet/pull/4465)
+- Allow Xlsx Reader to Specify ParseHuge. [Issue #4260](https://github.com/PHPOffice/PhpSpreadsheet/issues/4260) [PR #4517](https://github.com/PHPOffice/PhpSpreadsheet/pull/4517)
 
 # 2025-02-07 - 2.3.8
 
