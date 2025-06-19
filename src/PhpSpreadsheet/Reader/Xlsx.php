@@ -60,6 +60,19 @@ class Xlsx extends BaseReader
 
     private array $sharedFormulae = [];
 
+    private bool $parseHuge = false;
+
+    /**
+     * Allow use of LIBXML_PARSEHUGE.
+     * This option can lead to memory leaks and failures,
+     * and is not recommended. But some very large spreadsheets
+     * seem to require it.
+     */
+    public function setParseHuge(bool $parseHuge): void
+    {
+        $this->parseHuge = $parseHuge;
+    }
+
     /**
      * Create a new Xlsx Reader instance.
      */
@@ -121,8 +134,8 @@ class Xlsx extends BaseReader
         }
         $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
-            'SimpleXMLElement',
-            0,
+            SimpleXMLElement::class,
+            $this->parseHuge ? LIBXML_PARSEHUGE : 0,
             $ns
         );
 
@@ -136,8 +149,8 @@ class Xlsx extends BaseReader
         $contents = $this->getFromZipArchive($this->zip, $filename);
         $rels = simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
-            'SimpleXMLElement',
-            0,
+            SimpleXMLElement::class,
+            $this->parseHuge ? LIBXML_PARSEHUGE : 0,
             ($ns === '' ? $ns : '')
         );
 
@@ -250,7 +263,9 @@ class Xlsx extends BaseReader
                                         $this->zip,
                                         $fileWorksheetPath
                                     )
-                                )
+                                ),
+                            null,
+                            $this->parseHuge ? LIBXML_PARSEHUGE : 0
                         );
                         $xml->setParserProperty(2, true);
 
@@ -2005,7 +2020,9 @@ class Xlsx extends BaseReader
             // exists and not empty if the ribbon have some pictures (other than internal MSO)
             $UIRels = simplexml_load_string(
                 $this->getSecurityScannerOrThrow()
-                    ->scan($dataRels)
+                    ->scan($dataRels),
+                SimpleXMLElement::class,
+                $this->parseHuge ? LIBXML_PARSEHUGE : 0
             );
             if (false !== $UIRels) {
                 // we need to save id and target to avoid parsing customUI.xml and "guess" if it's a pseudo callback who load the image
