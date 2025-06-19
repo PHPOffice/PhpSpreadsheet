@@ -71,7 +71,6 @@ class Xlsx extends BaseReader
         $this->parseHuge = $parseHuge;
     }
 
-
     /**
      * Create a new Xlsx Reader instance.
      */
