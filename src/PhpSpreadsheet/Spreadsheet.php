@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Document\Security;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
@@ -176,6 +177,36 @@ class Spreadsheet implements JsonSerializable
     private Theme $theme;
 
     private ?IValueBinder $valueBinder = null;
+
+    /** @var array<string, int> */
+    private array $fontCharsets = [
+        'B Nazanin' => SharedFont::CHARSET_ANSI_ARABIC,
+    ];
+
+    /**
+     * @param int $charset uses any value from Shared\Font,
+     *    but defaults to ARABIC because that is the only known
+     *    charset for which this declaration might be needed
+     */
+    public function addFontCharset(string $fontName, int $charset = SharedFont::CHARSET_ANSI_ARABIC): void
+    {
+        $this->fontCharsets[$fontName] = $charset;
+    }
+
+    public function getFontCharset(string $fontName): int
+    {
+        return $this->fontCharsets[$fontName] ?? -1;
+    }
+
+    /**
+     * Return all fontCharsets.
+     *
+     * @return array<string, int>
+     */
+    public function getFontCharsets(): array
+    {
+        return $this->fontCharsets;
+    }
 
     public function getTheme(): Theme
     {

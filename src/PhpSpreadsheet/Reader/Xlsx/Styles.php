@@ -36,6 +36,15 @@ class Styles extends BaseParserClass
 
     private string $namespace = '';
 
+    /** @var array<string, int> */
+    private array $fontCharsets = [];
+
+    /** @return array<string, int> */
+    public function getFontCharsets(): array
+    {
+        return $this->fontCharsets;
+    }
+
     public function setNamespace(string $namespace): void
     {
         $this->namespace = $namespace;
@@ -84,6 +93,13 @@ class Styles extends BaseParserClass
             $attr = $this->getStyleAttributes($fontStyleXml->name);
             if (isset($attr['val'])) {
                 $fontStyle->setName((string) $attr['val']);
+            }
+            if (isset($fontStyleXml->charset)) {
+                $charsetAttr = $this->getStyleAttributes($fontStyleXml->charset);
+                if (isset($charsetAttr['val'])) {
+                    $charsetVal = (int) $charsetAttr['val'];
+                    $this->fontCharsets[$fontStyle->getName()] = $charsetVal;
+                }
             }
         }
         if (isset($fontStyleXml->sz)) {
@@ -135,6 +151,12 @@ class Styles extends BaseParserClass
         if (isset($fontStyleXml->scheme)) {
             $attr = $this->getStyleAttributes($fontStyleXml->scheme);
             $fontStyle->setScheme((string) $attr['val']);
+        }
+        if (isset($fontStyleXml->auto)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->auto);
+            if (isset($attr['val'])) {
+                $fontStyle->setAutoColor(self::boolean((string) $attr['val']));
+            }
         }
     }
 
