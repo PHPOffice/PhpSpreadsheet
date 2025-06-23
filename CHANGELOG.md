@@ -5,13 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## TBD - 4.4.0
+## TBD - 4.5.0
 
 ### Added
 
-- VSTACK and HSTACK. [Issue #4485](https://github.com/PHPOffice/PhpSpreadsheet/issues/4485) [PR #4492](https://github.com/PHPOffice/PhpSpreadsheet/pull/4492)
-- TOCOL and TOROW. [PR #4493](https://github.com/PHPOffice/PhpSpreadsheet/pull/4493)
-- Support Current Office Theme. [PR #4500](https://github.com/PHPOffice/PhpSpreadsheet/pull/4500)
+- Nothing yet.
 
 ### Removed
 
@@ -27,6 +25,22 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-06-22 - 4.4.0
+
+### Added
+
+- VSTACK and HSTACK. [Issue #4485](https://github.com/PHPOffice/PhpSpreadsheet/issues/4485) [PR #4492](https://github.com/PHPOffice/PhpSpreadsheet/pull/4492)
+- TOCOL and TOROW. [PR #4493](https://github.com/PHPOffice/PhpSpreadsheet/pull/4493)
+- Support Current Office Theme. [PR #4500](https://github.com/PHPOffice/PhpSpreadsheet/pull/4500)
+
+### Deprecated
+
 - Theme constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
 
 ### Fixed
@@ -36,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow Xlsx Reader/Writer to support Font Charset. [Issue #2760](https://github.com/PHPOffice/PhpSpreadsheet/issues/2760) [PR #4501](https://github.com/PHPOffice/PhpSpreadsheet/pull/4501)
 - AutoColor for LibreOffice Dark Mode [Discussion 4502](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4502) [PR #4503](https://github.com/PHPOffice/PhpSpreadsheet/pull/4503)
 - Xlsx Style Writer Minor Refactoring. [PR #4508](https://github.com/PHPOffice/PhpSpreadsheet/pull/4508)
+- Allow Xlsx Reader to Specify ParseHuge. [Issue #4260](https://github.com/PHPOffice/PhpSpreadsheet/issues/4260) [PR #4515](https://github.com/PHPOffice/PhpSpreadsheet/pull/4515)
 
 ## 2025-05-26 - 4.3.1
 
