@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-# TBD - 2.1.10
+# 2025-06-22 - 2.1.10
 
 ### Changed
 
