@@ -30,9 +30,9 @@ class DefaultValueBinder implements IValueBinder
         } elseif ($value instanceof DateTimeInterface) {
             $value = $value->format('Y-m-d H:i:s');
         } elseif ($value instanceof Stringable) {
-            $value = (string)$value;
+            $value = (string) $value;
         } else {
-            throw new SpreadsheetException('Unable to bind unstringable '.gettype($value));
+            throw new SpreadsheetException('Unable to bind unstringable ' . gettype($value));
         }
 
         // Set value explicit
