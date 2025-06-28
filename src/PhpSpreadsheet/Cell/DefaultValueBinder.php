@@ -12,6 +12,8 @@ use Stringable;
 
 class DefaultValueBinder implements IValueBinder
 {
+    const EXCEL_MAX_INT = 9007199254740992; // 2^53, max safe integer in JavaScript
+
     /**
      * Bind value to a cell.
      *
@@ -28,9 +30,9 @@ class DefaultValueBinder implements IValueBinder
         } elseif ($value instanceof DateTimeInterface) {
             $value = $value->format('Y-m-d H:i:s');
         } elseif ($value instanceof Stringable) {
-            $value = (string) $value;
+            $value = (string)$value;
         } else {
-            throw new SpreadsheetException('Unable to bind unstringable ' . gettype($value));
+            throw new SpreadsheetException('Unable to bind unstringable '.gettype($value));
         }
 
         // Set value explicit
@@ -62,7 +64,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_INLINE;
         }
         if ($value instanceof Stringable) {
-            $value = (string) $value;
+            $value = (string)$value;
         }
         if (!is_string($value)) {
             $gettype = is_object($value) ? get_class($value) : gettype($value);
@@ -93,7 +95,7 @@ class DefaultValueBinder implements IValueBinder
             $tValue = ltrim($value, '+-');
             if (strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((!str_contains($value, '.')) && ($value > PHP_INT_MAX)) {
+            } elseif ((!str_contains($value, '.')) && ($value > self::EXCEL_MAX_INT)) {
                 return DataType::TYPE_STRING;
             } elseif (!is_numeric($value)) {
                 return DataType::TYPE_STRING;
