@@ -64,7 +64,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_INLINE;
         }
         if ($value instanceof Stringable) {
-            $value = (string)$value;
+            $value = (string) $value;
         }
         if (!is_string($value)) {
             $gettype = is_object($value) ? get_class($value) : gettype($value);
