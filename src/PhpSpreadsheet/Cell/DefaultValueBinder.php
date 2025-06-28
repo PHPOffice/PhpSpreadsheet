@@ -12,6 +12,8 @@ use Stringable;
 
 class DefaultValueBinder implements IValueBinder
 {
+    const EXCEL_MAX_INT = 9007199254740992; // 2^53, max safe integer in JavaScript
+
     /**
      * Bind value to a cell.
      *
@@ -93,7 +95,7 @@ class DefaultValueBinder implements IValueBinder
             $tValue = ltrim($value, '+-');
             if (strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((!str_contains($value, '.')) && ($value > PHP_INT_MAX)) {
+            } elseif ((!str_contains($value, '.')) && ($value > self::EXCEL_MAX_INT)) {
                 return DataType::TYPE_STRING;
             } elseif (!is_numeric($value)) {
                 return DataType::TYPE_STRING;
