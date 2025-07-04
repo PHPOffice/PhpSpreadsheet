@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RangeTest extends TestCase
@@ -33,7 +34,7 @@ class RangeTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeEvaluation')]
+    #[DataProvider('providerRangeEvaluation')]
     public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -95,7 +96,8 @@ class RangeTest extends TestCase
         $workSheet->getCell('E1')->getCalculatedValue();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNamedRangeEvaluation')]
+    /** @param string[] $ranges */
+    #[DataProvider('providerNamedRangeEvaluation')]
     public function testNamedRangeEvaluation(array $ranges, string $formula, int $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -133,7 +135,7 @@ class RangeTest extends TestCase
      * @param string[] $names
      * @param string[] $ranges
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUTF8NamedRangeEvaluation')]
+    #[DataProvider('providerUTF8NamedRangeEvaluation')]
     public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, int $expectedResult): void
     {
         $this->spreadSheet = $this->getSpreadsheet();
@@ -157,7 +159,7 @@ class RangeTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompositeNamedRangeEvaluation')]
+    #[DataProvider('providerCompositeNamedRangeEvaluation')]
     public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
         if ($this->incompleteMessage !== '') {

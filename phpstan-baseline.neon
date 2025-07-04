@@ -1,61 +1,49 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Sum\:\:sumErroringStrings\(\) should return array\|float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Sum.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Sum\:\:sumIgnoringStrings\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Sum.php
-
-		-
-			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/MathTrig/SumSquares.php
-
-		-
-			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/MathTrig/SumSquares.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\:\:max\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Maximum.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\:\:maxA\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Maximum.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\:\:min\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Minimum.php
-
-		-
-			message: '#^Method PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\:\:minA\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Minimum.php
-
-		-
-			message: '#^Parameter \#1 \$str of function preg_quote expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$array of function array_multisort expects array, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Sort.php
 
 		-
-			message: '#^Parameter \#1 \$str of function preg_quote expects string, mixed given\.$#'
+			message: '#^Cannot call method getAllSpContainers\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
+
+		-
+			message: '#^Cannot call method getBSECollection\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
+
+		-
+			message: '#^Cannot call method getBstoreContainer\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
+
+		-
+			message: '#^Cannot call method getSpgrContainer\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
+
+		-
+			message: '#^Cannot access offset 0 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: '#^Parameter \#1 \$string of function trim expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: '#^Cannot call method setParent\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php

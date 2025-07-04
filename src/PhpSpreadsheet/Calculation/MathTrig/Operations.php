@@ -19,7 +19,7 @@ class Operations
      * @param mixed $divisor Divisor
      *                      Or can be an array of values
      *
-     * @return array|float|string Remainder, or a string containing an error
+     * @return array<mixed>|float|string Remainder, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -52,10 +52,10 @@ class Operations
      *
      * Computes x raised to the power y.
      *
-     * @param null|array|bool|float|int|string $x Or can be an array of values
-     * @param null|array|bool|float|int|string $y Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $x Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $y Or can be an array of values
      *
-     * @return array|float|int|string The result, or a string containing an error
+     * @return array<mixed>|float|int|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -133,7 +133,7 @@ class Operations
      * @param mixed $denominator Expect float|int
      *                      Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function quotient(mixed $numerator, mixed $denominator): array|string|int

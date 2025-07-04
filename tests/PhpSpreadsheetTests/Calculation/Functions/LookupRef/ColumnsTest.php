@@ -6,11 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOLUMNS')]
+    /** @param null|mixed[]|string $arg */
+    #[DataProvider('providerCOLUMNS')]
     public function testCOLUMNS(mixed $expectedResult, null|array|string $arg): void
     {
         $result = LookupRef\RowColumnInformation::COLUMNS($arg);
@@ -22,7 +24,7 @@ class ColumnsTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerColumnsArray')]
+    #[DataProvider('providerColumnsArray')]
     public function testColumnsArray(int $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();

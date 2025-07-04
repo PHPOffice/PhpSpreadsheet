@@ -506,7 +506,7 @@ class ReferenceHelper
         $highestColumn = $worksheet->getHighestColumn();
         $highestRow = $worksheet->getHighestRow();
 
-        if ($numberOfColumns > 0 && $beforeColumn - 2 > 0) {
+        if ($numberOfColumns > 0 && $beforeColumn > 1) {
             $this->duplicateStylesByColumn($worksheet, $beforeColumn, $beforeRow, $highestRow, $numberOfColumns);
         }
 
@@ -1242,7 +1242,7 @@ class ReferenceHelper
     private function duplicateStylesByColumn(Worksheet $worksheet, int $beforeColumn, int $beforeRow, int $highestRow, int $numberOfColumns): void
     {
         $beforeColumnName = Coordinate::stringFromColumnIndex($beforeColumn - 1);
-        for ($i = $beforeRow; $i <= $highestRow - 1; ++$i) {
+        for ($i = $beforeRow; $i <= $highestRow; ++$i) {
             // Style
             $coordinate = $beforeColumnName . $i;
             if ($worksheet->cellExists($coordinate)) {

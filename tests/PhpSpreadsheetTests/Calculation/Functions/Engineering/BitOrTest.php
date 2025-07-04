@@ -9,18 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BitOrTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    #[DataProvider('providerBITOR')]
     public function testDirectCallToBITOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    #[DataProvider('providerBITOR')]
     public function testBITORAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,7 +33,7 @@ class BitOrTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITOR')]
+    #[DataProvider('providerBITOR')]
     public function testBITORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -55,7 +56,7 @@ class BitOrTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITOR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITOR')]
+    #[DataProvider('providerUnhappyBITOR')]
     public function testBITORUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,8 @@ class BitOrTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitOrArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBitOrArray')]
     public function testBitOrArray(array $expectedResult, string $number1, string $number2): void
     {
         $calculation = Calculation::getInstance();

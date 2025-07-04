@@ -1106,8 +1106,8 @@ class FunctionArray extends CalculationBase
             'argumentCount' => '1',
         ],
         'HSTACK' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\Hstack::class, 'hstack'],
             'argumentCount' => '1+',
         ],
         'HYPERLINK' => [
@@ -2439,13 +2439,13 @@ class FunctionArray extends CalculationBase
             'argumentCount' => '0',
         ],
         'TOCOL' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\TorowTocol::class, 'tocol'],
             'argumentCount' => '1-3',
         ],
         'TOROW' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\TorowTocol::class, 'torow'],
             'argumentCount' => '1-3',
         ],
         'TRANSPOSE' => [
@@ -2569,8 +2569,8 @@ class FunctionArray extends CalculationBase
             'argumentCount' => '3,4',
         ],
         'VSTACK' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef\Vstack::class, 'vstack'],
             'argumentCount' => '1+',
         ],
         'WEBSERVICE' => [

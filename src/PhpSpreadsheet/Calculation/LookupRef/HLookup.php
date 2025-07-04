@@ -18,8 +18,8 @@ class HLookup extends LookupBase
      *     in the same column based on the index_number.
      *
      * @param mixed $lookupValue The value that you want to match in lookup_array
-     * @param array $lookupArray The range of cells being searched
-     * @param array|float|int|string $indexNumber The row number in table_array from which the matching value must be returned.
+     * @param mixed[][] $lookupArray The range of cells being searched
+     * @param array<mixed>|float|int|string $indexNumber The row number in table_array from which the matching value must be returned.
      *                                The first row is 1.
      * @param mixed $notExactMatch determines if you are looking for an exact match based on lookup_value
      *
@@ -49,6 +49,7 @@ class HLookup extends LookupBase
 
         $firstkey = $f[0] - 1;
         $returnColumn = $firstkey + $indexNumber;
+        /** @var mixed[][] $lookupArray */
         $firstColumn = array_shift($f) ?? 1;
         $rowNumber = self::hLookupSearch($lookupValue, $lookupArray, $firstColumn, $notExactMatch);
 
@@ -62,6 +63,7 @@ class HLookup extends LookupBase
 
     /**
      * @param mixed $lookupValue The value that you want to match in lookup_array
+     * @param mixed[][] $lookupArray
      * @param  int|string $column
      */
     private static function hLookupSearch(mixed $lookupValue, array $lookupArray, $column, bool $notExactMatch): ?int
@@ -71,8 +73,10 @@ class HLookup extends LookupBase
         $rowNumber = null;
         foreach ($lookupArray[$column] as $rowKey => $rowData) {
             // break if we have passed possible keys
+            /** @var string $rowKey */
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData);
             $bothNotNumeric = !is_numeric($lookupValue) && !is_numeric($rowData);
+            /** @var scalar $rowData */
             $cellDataLower = StringHelper::strToLower((string) $rowData);
 
             if (
@@ -96,6 +100,11 @@ class HLookup extends LookupBase
         return $rowNumber;
     }
 
+    /**
+     * @param mixed[] $lookupArray
+     *
+     * @return mixed[]
+     */
     private static function convertLiteralArray(array $lookupArray): array
     {
         if (array_key_exists(0, $lookupArray)) {

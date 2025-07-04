@@ -140,6 +140,7 @@ class Oct2DecTest extends TestCase
         self::assertSame(ExcelError::NAN(), $result, 'Excel');
     }
 
+    /** @param mixed[] $expectedResult */
     #[DataProvider('providerOct2DecArray')]
     public function testOct2DecArray(array $expectedResult, string $value): void
     {

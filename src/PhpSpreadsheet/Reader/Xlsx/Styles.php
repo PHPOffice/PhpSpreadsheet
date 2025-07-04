@@ -36,6 +36,15 @@ class Styles extends BaseParserClass
 
     private string $namespace = '';
 
+    /** @var array<string, int> */
+    private array $fontCharsets = [];
+
+    /** @return array<string, int> */
+    public function getFontCharsets(): array
+    {
+        return $this->fontCharsets;
+    }
+
     public function setNamespace(string $namespace): void
     {
         $this->namespace = $namespace;
@@ -85,6 +94,13 @@ class Styles extends BaseParserClass
             if (isset($attr['val'])) {
                 $fontStyle->setName((string) $attr['val']);
             }
+            if (isset($fontStyleXml->charset)) {
+                $charsetAttr = $this->getStyleAttributes($fontStyleXml->charset);
+                if (isset($charsetAttr['val'])) {
+                    $charsetVal = (int) $charsetAttr['val'];
+                    $this->fontCharsets[$fontStyle->getName()] = $charsetVal;
+                }
+            }
         }
         if (isset($fontStyleXml->sz)) {
             $attr = $this->getStyleAttributes($fontStyleXml->sz);
@@ -104,7 +120,14 @@ class Styles extends BaseParserClass
             $attr = $this->getStyleAttributes($fontStyleXml->strike);
             $fontStyle->setStrikethrough(!isset($attr['val']) || self::boolean((string) $attr['val']));
         }
-        $fontStyle->getColor()->setARGB($this->readColor($fontStyleXml->color));
+        $fontStyle->getColor()
+            ->setARGB(
+                $this->readColor($fontStyleXml->color)
+            );
+        $theme = $this->readColorTheme($fontStyleXml->color);
+        if ($theme >= 0) {
+            $fontStyle->getColor()->setTheme($theme);
+        }
 
         if (isset($fontStyleXml->u)) {
             $attr = $this->getStyleAttributes($fontStyleXml->u);
@@ -128,6 +151,12 @@ class Styles extends BaseParserClass
         if (isset($fontStyleXml->scheme)) {
             $attr = $this->getStyleAttributes($fontStyleXml->scheme);
             $fontStyle->setScheme((string) $attr['val']);
+        }
+        if (isset($fontStyleXml->auto)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->auto);
+            if (isset($attr['val'])) {
+                $fontStyle->setAutoColor(self::boolean((string) $attr['val']));
+            }
         }
     }
 
@@ -396,6 +425,17 @@ class Styles extends BaseParserClass
                 $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
             }
         }
+    }
+
+    public function readColorTheme(SimpleXMLElement $color): int
+    {
+        $attr = $this->getStyleAttributes($color);
+        $retVal = -1;
+        if (isset($attr['theme']) && is_numeric((string) $attr['theme']) && !isset($attr['tint'])) {
+            $retVal = (int) $attr['theme'];
+        }
+
+        return $retVal;
     }
 
     public function readColor(SimpleXMLElement $color, bool $background = false): string

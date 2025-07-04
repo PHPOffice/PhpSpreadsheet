@@ -13,7 +13,7 @@ class RowColumnInformation
     /**
      * Test if cellAddress is null or whitespace string.
      *
-     * @param null|array|string $cellAddress A reference to a range of cells
+     * @param null|mixed[]|string $cellAddress A reference to a range of cells
      */
     private static function cellAddressNullOrWhitespace($cellAddress): bool
     {
@@ -38,7 +38,7 @@ class RowColumnInformation
      * Excel Function:
      *        =COLUMN([cellAddress])
      *
-     * @param null|array|string $cellAddress A reference to a range of cells for which you want the column numbers
+     * @param null|mixed[]|string $cellAddress A reference to a range of cells for which you want the column numbers
      *
      * @return int|int[]
      */
@@ -90,7 +90,7 @@ class RowColumnInformation
      * Excel Function:
      *        =COLUMNS(cellAddress)
      *
-     * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells
+     * @param null|mixed[]|string $cellAddress An array or array formula, or a reference to a range of cells
      *                                          for which you want the number of columns
      *
      * @return int|string The number of columns in cellAddress, or a string if arguments are invalid
@@ -133,7 +133,7 @@ class RowColumnInformation
      * Excel Function:
      *        =ROW([cellAddress])
      *
-     * @param null|array|string $cellAddress A reference to a range of cells for which you want the row numbers
+     * @param null|mixed[][]|string $cellAddress A reference to a range of cells for which you want the row numbers
      *
      * @return int|mixed[]
      */
@@ -183,7 +183,7 @@ class RowColumnInformation
      * Excel Function:
      *        =ROWS(cellAddress)
      *
-     * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells
+     * @param null|mixed[]|string $cellAddress An array or array formula, or a reference to a range of cells
      *                                          for which you want the number of rows
      *
      * @return int|string The number of rows in cellAddress, or a string if arguments are invalid

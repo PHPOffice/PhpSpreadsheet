@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImSqrtTest extends TestCase
@@ -25,7 +26,7 @@ class ImSqrtTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
+    #[DataProvider('providerIMSQRT')]
     public function testDirectCallToIMSQRT(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMSQRT($arg);
@@ -40,7 +41,7 @@ class ImSqrtTest extends TestCase
         return trim($value, '"');
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
+    #[DataProvider('providerIMSQRT')]
     public function testIMSQRTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -56,7 +57,7 @@ class ImSqrtTest extends TestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSQRT')]
+    #[DataProvider('providerIMSQRT')]
     public function testIMSQRTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -82,7 +83,7 @@ class ImSqrtTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSQRT')]
+    #[DataProvider('providerUnhappyIMSQRT')]
     public function testIMSQRTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,7 +109,8 @@ class ImSqrtTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSqrtArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerImSqrtArray')]
     public function testImSqrtArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

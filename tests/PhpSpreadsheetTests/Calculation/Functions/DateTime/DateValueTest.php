@@ -159,9 +159,8 @@ class DateValueTest extends TestCase
 
         $result = DateValue::fromString('2012-1-31');
         //    Must return an object...
-        self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, DateTimeInterface::class));
+        self::assertInstanceOf(DateTimeInterface::class, $result);
         //    ... with the correct value
         self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }

@@ -1,5 +1,8 @@
 # Function list by name
 
+A more compact list can be found [here](./function-list-by-name-compact.md)
+
+
 ## A
 
 Excel Function           | Category                       | PhpSpreadsheet Function
@@ -252,7 +255,7 @@ HEX2DEC                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 HEX2OCT                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toOctal
 HLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
 HOUR                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::hour
-HSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+HSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hstack::hstack
 HYPERLINK                | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 HYPGEOM.DIST             | CATEGORY_STATISTICAL           | **Not yet Implemented**
 HYPGEOMDIST              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\HyperGeometric::distribution
@@ -576,9 +579,9 @@ THAIYEAR                 | CATEGORY_DATE_AND_TIME         | **Not yet Implemente
 TIME                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time::fromHMS
 TIMEVALUE                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue::fromString
 TINV                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
-TOCOL                    | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TOCOL                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::tocol
 TODAY                    | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::today
-TOROW                    | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TOROW                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::torow
 TRANSPOSE                | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 TREND                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::TREND
 TRIM                     | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
@@ -612,7 +615,7 @@ VARP                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 VARPA                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARPA
 VDB                      | CATEGORY_FINANCIAL             | **Not yet Implemented**
 VLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
-VSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+VSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
 
 ## W
 

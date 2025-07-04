@@ -47,6 +47,9 @@ class DocumentGeneratorTest extends TestCase
                 <<<'EXPECTED'
                     # Function list by name
 
+                    A more compact list can be found [here](./function-list-by-name-compact.md)
+
+
                     ## A
 
                     Excel Function           | Category                       | PhpSpreadsheet Function
@@ -181,11 +184,22 @@ class DocumentGeneratorTest extends TestCase
 
         self::assertNotFalse(file_put_contents(
             $directory . 'function-list-by-category.md',
-            DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+            DocumentGenerator::generateFunctionListByCategory(
+                $phpSpreadsheetFunctions
+            )
         ));
         self::assertNotFalse(file_put_contents(
             $directory . 'function-list-by-name.md',
-            DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+            DocumentGenerator::generateFunctionListByName(
+                $phpSpreadsheetFunctions
+            )
+        ));
+        self::assertNotFalse(file_put_contents(
+            $directory . 'function-list-by-name-compact.md',
+            DocumentGenerator::generateFunctionListByName(
+                $phpSpreadsheetFunctions,
+                true
+            )
         ));
     }
 }

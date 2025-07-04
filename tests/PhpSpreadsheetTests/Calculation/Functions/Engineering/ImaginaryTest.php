@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ImaginaryTest extends TestCase
@@ -21,14 +22,14 @@ class ImaginaryTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testDirectCallToIMAGINARY(float|int|string $expectedResult, float|int|string $arg): void
     {
         $result = Complex::IMAGINARY((string) $arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testIMAGINARYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -40,7 +41,7 @@ class ImaginaryTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testIMAGINARYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,7 +64,7 @@ class ImaginaryTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMAGINARY')]
+    #[DataProvider('providerUnhappyIMAGINARY')]
     public function testIMAGINARYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,7 +90,8 @@ class ImaginaryTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImaginaryArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerImaginaryArray')]
     public function testImaginaryArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();

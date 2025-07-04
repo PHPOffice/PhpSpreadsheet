@@ -227,7 +227,8 @@ abstract class IOFactory
      */
     public static function registerWriter(string $writerType, string $writerClass): void
     {
-        if (!is_a($writerClass, IWriter::class, true)) {
+        // We want phpstan to validate caller, but still need this test
+        if (!is_a($writerClass, IWriter::class, true)) { //* @phpstan-ignore-line
             throw new Writer\Exception('Registered writers must implement ' . IWriter::class);
         }
 
@@ -241,7 +242,8 @@ abstract class IOFactory
      */
     public static function registerReader(string $readerType, string $readerClass): void
     {
-        if (!is_a($readerClass, IReader::class, true)) {
+        // We want phpstan to validate caller, but still need this test
+        if (!is_a($readerClass, IReader::class, true)) { //* @phpstan-ignore-line
             throw new Reader\Exception('Registered readers must implement ' . IReader::class);
         }
 
