@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Recognize application/x-empty mimetype. [Issue #4521](https://github.com/PHPOffice/PhpSpreadsheet/issues/4521) [PR #4524](https://github.com/PHPOffice/PhpSpreadsheet/pull/4524)
 
 ## 2025-06-22 - 4.4.0
 
