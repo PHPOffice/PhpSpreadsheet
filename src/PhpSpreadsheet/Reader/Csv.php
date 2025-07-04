@@ -605,6 +605,7 @@ class Csv extends BaseReader
             'text/csv',
             'text/plain',
             'inode/x-empty',
+            'application/x-empty', // has now replaced previous
             'text/html',
         ];
 
