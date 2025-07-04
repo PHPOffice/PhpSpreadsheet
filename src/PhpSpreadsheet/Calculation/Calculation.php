@@ -852,15 +852,15 @@ class Calculation extends CalculationLocale
             if ($matrix2Columns < $matrix1Columns) {
                 for ($i = 0; $i < $matrix2Rows; ++$i) {
                     /** @var mixed[][] $matrix2 */
-                    $x = $matrix2[$i][$matrix2Columns - 1];
+                    $x = ($matrix2Columns === 1) ? $matrix2[$i][0] : null;
                     for ($j = $matrix2Columns; $j < $matrix1Columns; ++$j) {
                         $matrix2[$i][$j] = $x;
                     }
                 }
             }
             if ($matrix2Rows < $matrix1Rows) {
-                $x = $matrix2[$matrix2Rows - 1];
-                for ($i = 0; $i < $matrix1Rows; ++$i) {
+                $x = ($matrix2Rows === 1) ? $matrix2[0] : array_fill(0, $matrix2Columns, null);
+                for ($i = $matrix2Rows; $i < $matrix1Rows; ++$i) {
                     $matrix2[$i] = $x;
                 }
             }
@@ -870,15 +870,15 @@ class Calculation extends CalculationLocale
             if ($matrix1Columns < $matrix2Columns) {
                 for ($i = 0; $i < $matrix1Rows; ++$i) {
                     /** @var mixed[][] $matrix1 */
-                    $x = $matrix1[$i][$matrix1Columns - 1];
+                    $x = ($matrix1Columns === 1) ? $matrix1[$i][0] : null;
                     for ($j = $matrix1Columns; $j < $matrix2Columns; ++$j) {
                         $matrix1[$i][$j] = $x;
                     }
                 }
             }
             if ($matrix1Rows < $matrix2Rows) {
-                $x = $matrix1[$matrix1Rows - 1];
-                for ($i = 0; $i < $matrix2Rows; ++$i) {
+                $x = ($matrix1Rows === 1) ? $matrix1[0] : array_fill(0, $matrix1Columns, null);
+                for ($i = $matrix1Rows; $i < $matrix2Rows; ++$i) {
                     $matrix1[$i] = $x;
                 }
             }
@@ -2375,7 +2375,7 @@ class Calculation extends CalculationLocale
             for ($row = 0; $row < $rows; ++$row) {
                 for ($column = 0; $column < $columns; ++$column) {
                     /** @var mixed[][] $operand1 */
-                    if ($operand1[$row][$column] === null) {
+                    if (($operand1[$row][$column] ?? null) === null) {
                         $operand1[$row][$column] = 0;
                     } elseif (!self::isNumericOrBool($operand1[$row][$column])) {
                         $operand1[$row][$column] = self::makeError($operand1[$row][$column]);
@@ -2383,7 +2383,7 @@ class Calculation extends CalculationLocale
                         continue;
                     }
                     /** @var mixed[][] $operand2 */
-                    if ($operand2[$row][$column] === null) {
+                    if (($operand2[$row][$column] ?? null) === null) {
                         $operand2[$row][$column] = 0;
                     } elseif (!self::isNumericOrBool($operand2[$row][$column])) {
                         $operand1[$row][$column] = self::makeError($operand2[$row][$column]);
