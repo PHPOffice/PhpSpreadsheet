@@ -663,7 +663,7 @@ class Spreadsheet implements JsonSerializable
         $worksheetCount = count($this->workSheetCollection);
         $trimWorksheetName = trim($worksheetName, "'");
 
-        for ($i = 0; $i < $wroksheetCount; ++$i) {
+        for ($i = 0; $i < $worksheetCount; ++$i) {
             if (strcasecmp($this->workSheetCollection[$i]->getTitle(), $trimWorksheetName) === 0) {
                 return $this->workSheetCollection[$i];
             }
