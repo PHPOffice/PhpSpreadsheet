@@ -29,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Micro-optimization in getSheetByName. [PR #4499](https://github.com/PHPOffice/PhpSpreadsheet/pull/4499)
+- Bug in resizeMatricesExtend. [Issue #4451](https://github.com/PHPOffice/PhpSpreadsheet/issues/4451) [PR #4474](https://github.com/PHPOffice/PhpSpreadsheet/pull/4474)
 
 ## 2025-06-22 - 4.4.0
 

@@ -851,6 +851,7 @@ class Calculation extends CalculationLocale
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Columns < $matrix1Columns) {
                 for ($i = 0; $i < $matrix2Rows; ++$i) {
+                    /** @var mixed[][] $matrix2 */
                     $x = ($matrix2Columns === 1) ? $matrix2[$i][0] : null;
                     for ($j = $matrix2Columns; $j < $matrix1Columns; ++$j) {
                         $matrix2[$i][$j] = $x;
@@ -868,6 +869,7 @@ class Calculation extends CalculationLocale
         if (($matrix1Columns < $matrix2Columns) || ($matrix1Rows < $matrix2Rows)) {
             if ($matrix1Columns < $matrix2Columns) {
                 for ($i = 0; $i < $matrix1Rows; ++$i) {
+                    /** @var mixed[][] $matrix1 */
                     $x = ($matrix1Columns === 1) ? $matrix1[$i][0] : null;
                     for ($j = $matrix1Columns; $j < $matrix2Columns; ++$j) {
                         $matrix1[$i][$j] = $x;
@@ -2372,6 +2374,7 @@ class Calculation extends CalculationLocale
 
             for ($row = 0; $row < $rows; ++$row) {
                 for ($column = 0; $column < $columns; ++$column) {
+                    /** @var mixed[][] $operand1 */
                     if (($operand1[$row][$column] ?? null) === null) {
                         $operand1[$row][$column] = 0;
                     } elseif (!self::isNumericOrBool($operand1[$row][$column])) {
@@ -2379,6 +2382,7 @@ class Calculation extends CalculationLocale
 
                         continue;
                     }
+                    /** @var mixed[][] $operand2 */
                     if (($operand2[$row][$column] ?? null) === null) {
                         $operand2[$row][$column] = 0;
                     } elseif (!self::isNumericOrBool($operand2[$row][$column])) {
