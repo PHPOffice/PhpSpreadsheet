@@ -354,317 +354,90 @@ class Ods extends BaseReader
                         continue;
                     }
 
-                    $key = $childNode->nodeName;
-
-                    // Remove ns from node name
-                    if (str_contains($key, ':')) {
-                        $keyChunks = explode(':', $key);
-                        $key = array_pop($keyChunks);
-                    }
+                    $key = self::extractNodeName($childNode->nodeName);
 
                     switch ($key) {
                         case 'table-header-rows':
-                            /// TODO :: Figure this out. This is only a partial implementation I guess.
-                            //          ($rowData it's not used at all and I'm not sure that PHPExcel
-                            //          has an API for this)
+                        case 'table-rows':
+                            $this->processTableHeaderRows(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
 
-//                            foreach ($rowData as $keyRowData => $cellData) {
-//                                $rowData = $cellData;
-//                                break;
-//                            }
+                            break;
+                        case 'table-row-group':
+                            $this->processTableRowGroup(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
+
+                            break;
+                        case 'table-header-columns':
+                        case 'table-columns':
+                            $this->processTableHeaderColumns(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet
+                            );
+
+                            break;
+                        case 'table-column-group':
+                            $this->processTableColumnGroup(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet
+                            );
+
                             break;
                         case 'table-column':
-                            if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
-                            } else {
-                                $rowRepeats = 1;
-                            }
-                            $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
-                            if (isset($columnWidths[$tableStyleName])) {
-                                $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
-                                $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex);
-                                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0; --$rowRepeats2) {
-                                    /** @var string $tableColumnString */
-                                    $spreadsheet->getActiveSheet()
-                                        ->getColumnDimension($tableColumnString)
-                                        ->setWidth($columnWidth->toUnit('cm'), 'cm');
-                                    ++$tableColumnString;
-                                }
-                            }
-                            $tableColumnIndex += $rowRepeats;
+                            $this->processTableColumn(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet
+                            );
 
                             break;
                         case 'table-row':
-                            if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
-                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
-                            } else {
-                                $rowRepeats = 1;
-                            }
-
-                            $columnID = 'A';
-                            /** @var DOMElement|DOMText $cellData */
-                            foreach ($childNode->childNodes as $cellData) {
-                                if ($cellData instanceof DOMText) {
-                                    continue; // should just be whitespace
-                                }
-                                if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-                                    if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-                                        $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
-                                    } else {
-                                        $colRepeats = 1;
-                                    }
-
-                                    for ($i = 0; $i < $colRepeats; ++$i) {
-                                        ++$columnID;
-                                    }
-
-                                    continue;
-                                }
-
-                                // Initialize variables
-                                $formatting = $hyperlink = null;
-                                $hasCalculatedValue = false;
-                                $cellDataFormula = '';
-                                $cellDataType = '';
-                                $cellDataRef = '';
-
-                                if ($cellData->hasAttributeNS($tableNs, 'formula')) {
-                                    $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
-                                    $hasCalculatedValue = true;
-                                }
-                                if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
-                                    if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
-                                        $cellDataType = 'array';
-                                        $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
-                                        $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
-                                        $lastRow = $rowID + $arrayRow - 1;
-                                        $lastCol = $columnID;
-                                        while ($arrayCol > 1) {
-                                            ++$lastCol;
-                                            --$arrayCol;
-                                        }
-                                        $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
-                                    }
-                                }
-
-                                // Annotations
-                                $annotation = $cellData->getElementsByTagNameNS($officeNs, 'annotation');
-
-                                if ($annotation->length > 0 && $annotation->item(0) !== null) {
-                                    $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
-                                    $textNodeLength = $textNode->length;
-                                    $newLineOwed = false;
-                                    for ($textNodeIndex = 0; $textNodeIndex < $textNodeLength; ++$textNodeIndex) {
-                                        $textNodeItem = $textNode->item($textNodeIndex);
-                                        if ($textNodeItem !== null) {
-                                            $text = $this->scanElementForText($textNodeItem);
-                                            if ($newLineOwed) {
-                                                $spreadsheet->getActiveSheet()
-                                                    ->getComment($columnID . $rowID)
-                                                    ->getText()
-                                                    ->createText("\n");
-                                            }
-                                            $newLineOwed = true;
-
-                                            $spreadsheet->getActiveSheet()
-                                                ->getComment($columnID . $rowID)
-                                                ->getText()
-                                                ->createText($this->parseRichText($text));
-                                        }
-                                    }
-                                }
-
-                                // Content
-
-                                /** @var DOMElement[] $paragraphs */
-                                $paragraphs = [];
-
-                                foreach ($cellData->childNodes as $item) {
-                                    /** @var DOMElement $item */
-
-                                    // Filter text:p elements
-                                    if ($item->nodeName == 'text:p') {
-                                        $paragraphs[] = $item;
-                                    }
-                                }
-
-                                if (count($paragraphs) > 0) {
-                                    // Consolidate if there are multiple p records (maybe with spans as well)
-                                    $dataArray = [];
-
-                                    // Text can have multiple text:p and within those, multiple text:span.
-                                    // text:p newlines, but text:span does not.
-                                    // Also, here we assume there is no text data is span fields are specified, since
-                                    // we have no way of knowing proper positioning anyway.
-
-                                    foreach ($paragraphs as $pData) {
-                                        $dataArray[] = $this->scanElementForText($pData);
-                                    }
-                                    $allCellDataText = implode("\n", $dataArray);
-
-                                    $type = $cellData->getAttributeNS($officeNs, 'value-type');
-
-                                    switch ($type) {
-                                        case 'string':
-                                            $type = DataType::TYPE_STRING;
-                                            $dataValue = $allCellDataText;
-
-                                            foreach ($paragraphs as $paragraph) {
-                                                $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
-                                                if ($link->length > 0 && $link->item(0) !== null) {
-                                                    $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
-                                                }
-                                            }
-
-                                            break;
-                                        case 'boolean':
-                                            $type = DataType::TYPE_BOOL;
-                                            $dataValue = ($cellData->getAttributeNS($officeNs, 'boolean-value') === 'true') ? true : false;
-
-                                            break;
-                                        case 'percentage':
-                                            $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                                            // percentage should always be float
-                                            //if (floor($dataValue) == $dataValue) {
-                                            //    $dataValue = (int) $dataValue;
-                                            //}
-                                            $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
-
-                                            break;
-                                        case 'currency':
-                                            $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                                            if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (int) $dataValue;
-                                            }
-                                            $formatting = NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
-
-                                            break;
-                                        case 'float':
-                                            $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                                            if (floor($dataValue) == $dataValue) {
-                                                if ($dataValue == (int) $dataValue) {
-                                                    $dataValue = (int) $dataValue;
-                                                }
-                                            }
-
-                                            break;
-                                        case 'date':
-                                            $type = DataType::TYPE_NUMERIC;
-                                            $value = $cellData->getAttributeNS($officeNs, 'date-value');
-                                            $dataValue = Date::convertIsoDate($value);
-
-                                            if ($dataValue != floor($dataValue)) {
-                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15
-                                                    . ' '
-                                                    . NumberFormat::FORMAT_DATE_TIME4;
-                                            } else {
-                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15;
-                                            }
-
-                                            break;
-                                        case 'time':
-                                            $type = DataType::TYPE_NUMERIC;
-
-                                            $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
-
-                                            $dataValue = Date::PHPToExcel(
-                                                strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
-                                                )
-                                            );
-                                            $formatting = NumberFormat::FORMAT_DATE_TIME4;
-
-                                            break;
-                                        default:
-                                            $dataValue = null;
-                                    }
-                                } else {
-                                    $type = DataType::TYPE_NULL;
-                                    $dataValue = null;
-                                }
-
-                                if ($hasCalculatedValue) {
-                                    $type = DataType::TYPE_FORMULA;
-                                    $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
-                                    $cellDataFormula = FormulaTranslator::convertToExcelFormulaValue($cellDataFormula);
-                                }
-
-                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-                                    $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
-                                } else {
-                                    $colRepeats = 1;
-                                }
-
-                                if ($type !== null) { // @phpstan-ignore-line
-                                    for ($i = 0; $i < $colRepeats; ++$i) {
-                                        if ($i > 0) {
-                                            ++$columnID;
-                                        }
-
-                                        if ($type !== DataType::TYPE_NULL) {
-                                            for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
-                                                $rID = $rowID + $rowAdjust;
-
-                                                $cell = $spreadsheet->getActiveSheet()
-                                                    ->getCell($columnID . $rID);
-
-                                                // Set value
-                                                if ($hasCalculatedValue) {
-                                                    $cell->setValueExplicit($cellDataFormula, $type);
-                                                    if ($cellDataType === 'array') {
-                                                        $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
-                                                    }
-                                                } elseif ($type !== '' || $dataValue !== null) {
-                                                    $cell->setValueExplicit($dataValue, $type);
-                                                }
-
-                                                if ($hasCalculatedValue) {
-                                                    $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
-                                                }
-
-                                                // Set other properties
-                                                if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode($formatting);
-                                                } else {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                                                }
-
-                                                if ($hyperlink !== null) {
-                                                    if ($hyperlink[0] === '#') {
-                                                        $hyperlink = 'sheet://' . substr($hyperlink, 1);
-                                                    }
-                                                    $cell->getHyperlink()
-                                                        ->setUrl($hyperlink);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // Merged cells
-                                $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
-
-                                ++$columnID;
-                            }
-                            $rowID += $rowRepeats;
+                            $this->processTableRow(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
 
                             break;
                     }
                 }
-                $pageSettings->setVisibilityForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
-                $pageSettings->setPrintSettingsForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
+                $pageSettings->setVisibilityForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
+                $pageSettings->setPrintSettingsForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
                 ++$worksheetID;
             }
 
@@ -681,6 +454,491 @@ class Ods extends BaseReader
         return $spreadsheet;
     }
 
+    private function processTableHeaderRows(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-row':
+                    $this->processTableRow(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    private function processTableRowGroup(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-row':
+                    $this->processTableRow(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-header-rows':
+                case 'table-rows':
+                    $this->processTableHeaderRows(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-row-group':
+                    $this->processTableRowGroup(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    private function processTableRow(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
+            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+        } else {
+            $rowRepeats = 1;
+        }
+
+        $columnID = 'A';
+        /** @var DOMElement|DOMText $cellData */
+        foreach ($childNode->childNodes as $cellData) {
+            if ($cellData instanceof DOMText) {
+                continue; // should just be whitespace
+            }
+            if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                    $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+                } else {
+                    $colRepeats = 1;
+                }
+
+                for ($i = 0; $i < $colRepeats; ++$i) {
+                    ++$columnID;
+                }
+
+                continue;
+            }
+
+            // Initialize variables
+            $formatting = $hyperlink = null;
+            $hasCalculatedValue = false;
+            $cellDataFormula = '';
+            $cellDataType = '';
+            $cellDataRef = '';
+
+            if ($cellData->hasAttributeNS($tableNs, 'formula')) {
+                $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
+                $hasCalculatedValue = true;
+            }
+            if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
+                if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
+                    $cellDataType = 'array';
+                    $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                    $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
+                    $lastRow = $rowID + $arrayRow - 1;
+                    $lastCol = $columnID;
+                    while ($arrayCol > 1) {
+                        ++$lastCol;
+                        --$arrayCol;
+                    }
+                    $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
+                }
+            }
+
+            // Annotations
+            $annotation = $cellData->getElementsByTagNameNS($officeNs, 'annotation');
+
+            if ($annotation->length > 0 && $annotation->item(0) !== null) {
+                $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
+                $textNodeLength = $textNode->length;
+                $newLineOwed = false;
+                for ($textNodeIndex = 0; $textNodeIndex < $textNodeLength; ++$textNodeIndex) {
+                    $textNodeItem = $textNode->item($textNodeIndex);
+                    if ($textNodeItem !== null) {
+                        $text = $this->scanElementForText($textNodeItem);
+                        if ($newLineOwed) {
+                            $spreadsheet->getActiveSheet()
+                                ->getComment($columnID . $rowID)
+                                ->getText()
+                                ->createText("\n");
+                        }
+                        $newLineOwed = true;
+
+                        $spreadsheet->getActiveSheet()
+                            ->getComment($columnID . $rowID)
+                            ->getText()
+                            ->createText(
+                                $this->parseRichText($text)
+                            );
+                    }
+                }
+            }
+
+            // Content
+
+            /** @var DOMElement[] $paragraphs */
+            $paragraphs = [];
+
+            foreach ($cellData->childNodes as $item) {
+                /** @var DOMElement $item */
+
+                // Filter text:p elements
+                if ($item->nodeName == 'text:p') {
+                    $paragraphs[] = $item;
+                }
+            }
+
+            if (count($paragraphs) > 0) {
+                // Consolidate if there are multiple p records (maybe with spans as well)
+                $dataArray = [];
+
+                // Text can have multiple text:p and within those, multiple text:span.
+                // text:p newlines, but text:span does not.
+                // Also, here we assume there is no text data is span fields are specified, since
+                // we have no way of knowing proper positioning anyway.
+
+                foreach ($paragraphs as $pData) {
+                    $dataArray[] = $this->scanElementForText($pData);
+                }
+                $allCellDataText = implode("\n", $dataArray);
+
+                $type = $cellData->getAttributeNS($officeNs, 'value-type');
+
+                switch ($type) {
+                    case 'string':
+                        $type = DataType::TYPE_STRING;
+                        $dataValue = $allCellDataText;
+
+                        foreach ($paragraphs as $paragraph) {
+                            $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                            if ($link->length > 0 && $link->item(0) !== null) {
+                                $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                            }
+                        }
+
+                        break;
+                    case 'boolean':
+                        $type = DataType::TYPE_BOOL;
+                        $dataValue = ($cellData->getAttributeNS($officeNs, 'boolean-value') === 'true') ? true : false;
+
+                        break;
+                    case 'percentage':
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        // percentage should always be float
+                        //if (floor($dataValue) == $dataValue) {
+                        //    $dataValue = (int) $dataValue;
+                        //}
+                        $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
+
+                        break;
+                    case 'currency':
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        if (floor($dataValue) == $dataValue) {
+                            $dataValue = (int) $dataValue;
+                        }
+                        $formatting = NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+
+                        break;
+                    case 'float':
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        if (floor($dataValue) == $dataValue) {
+                            if ($dataValue == (int) $dataValue) {
+                                $dataValue = (int) $dataValue;
+                            }
+                        }
+
+                        break;
+                    case 'date':
+                        $type = DataType::TYPE_NUMERIC;
+                        $value = $cellData->getAttributeNS($officeNs, 'date-value');
+                        $dataValue = Date::convertIsoDate($value);
+
+                        if ($dataValue != floor($dataValue)) {
+                            $formatting = NumberFormat::FORMAT_DATE_XLSX15
+                                . ' '
+                                . NumberFormat::FORMAT_DATE_TIME4;
+                        } else {
+                            $formatting = NumberFormat::FORMAT_DATE_XLSX15;
+                        }
+
+                        break;
+                    case 'time':
+                        $type = DataType::TYPE_NUMERIC;
+
+                        $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
+
+                        $dataValue = Date::PHPToExcel(
+                            strtotime(
+                                '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
+                            )
+                        );
+                        $formatting = NumberFormat::FORMAT_DATE_TIME4;
+
+                        break;
+                    default:
+                        $dataValue = null;
+                }
+            } else {
+                $type = DataType::TYPE_NULL;
+                $dataValue = null;
+            }
+
+            if ($hasCalculatedValue) {
+                $type = DataType::TYPE_FORMULA;
+                $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
+                $cellDataFormula = FormulaTranslator::convertToExcelFormulaValue($cellDataFormula);
+            }
+
+            if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+            } else {
+                $colRepeats = 1;
+            }
+
+            if ($type !== null) { // @phpstan-ignore-line
+                for ($i = 0; $i < $colRepeats; ++$i) {
+                    if ($i > 0) {
+                        ++$columnID;
+                    }
+
+                    if ($type !== DataType::TYPE_NULL) {
+                        for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
+                            $rID = $rowID + $rowAdjust;
+
+                            $cell = $spreadsheet->getActiveSheet()
+                                ->getCell($columnID . $rID);
+
+                            // Set value
+                            if ($hasCalculatedValue) {
+                                $cell->setValueExplicit($cellDataFormula, $type);
+                                if ($cellDataType === 'array') {
+                                    $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
+                                }
+                            } elseif ($type !== '' || $dataValue !== null) {
+                                $cell->setValueExplicit($dataValue, $type);
+                            }
+
+                            if ($hasCalculatedValue) {
+                                $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
+                            }
+
+                            // Set other properties
+                            if ($formatting !== null) {
+                                $spreadsheet->getActiveSheet()
+                                    ->getStyle($columnID . $rID)
+                                    ->getNumberFormat()
+                                    ->setFormatCode($formatting);
+                            } else {
+                                $spreadsheet->getActiveSheet()
+                                    ->getStyle($columnID . $rID)
+                                    ->getNumberFormat()
+                                    ->setFormatCode(NumberFormat::FORMAT_GENERAL);
+                            }
+
+                            if ($hyperlink !== null) {
+                                if ($hyperlink[0] === '#') {
+                                    $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                                }
+                                $cell->getHyperlink()
+                                    ->setUrl($hyperlink);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Merged cells
+            $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
+
+            ++$columnID;
+        }
+        $rowID += $rowRepeats;
+    }
+
+    private static function extractNodeName(string $key): string
+    {
+        // Remove ns from node name
+        if (str_contains($key, ':')) {
+            $keyChunks = explode(':', $key);
+            $key = array_pop($keyChunks);
+        }
+
+        return $key;
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableHeaderColumns(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-column':
+                    $this->processTableColumn(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableColumnGroup(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-column':
+                    $this->processTableColumn(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-header-columns':
+                case 'table-columns':
+                    $this->processTableHeaderColumns(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-column-group':
+                    $this->processTableColumnGroup(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableColumn(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet
+    ): void {
+        if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+        } else {
+            $rowRepeats = 1;
+        }
+        $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
+        if (isset($columnWidths[$tableStyleName])) {
+            $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
+            $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex);
+            for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0; --$rowRepeats2) {
+                /** @var string $tableColumnString */
+                $spreadsheet->getActiveSheet()
+                    ->getColumnDimension($tableColumnString)
+                    ->setWidth($columnWidth->toUnit('cm'), 'cm');
+                ++$tableColumnString;
+            }
+        }
+        $tableColumnIndex += $rowRepeats;
+    }
+
     private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
     {
         $dom = new DOMDocument('1.01', 'UTF-8');
@@ -688,9 +946,7 @@ class Ods extends BaseReader
             $this->getSecurityScannerOrThrow()
                 ->scan($zip->getFromName('settings.xml'))
         );
-        //$xlinkNs = $dom->lookupNamespaceUri('xlink');
         $configNs = (string) $dom->lookupNamespaceUri('config');
-        //$oooNs = $dom->lookupNamespaceUri('ooo');
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
             ->item(0);
