@@ -184,7 +184,7 @@ MS Excel allows any separator character between hours/minutes/seconds; PhpSpread
 
 ### Duration (Elapsed Time)
 
-Excel also supports formatting a value as a duration; a total number of hours, minutes or seconds rather than a time of day.
+Excel also supports formatting a value as a duration; a total number of hours, minutes or seconds rather than a time of day. However, please note that negative durations are supported only if using base year 1904 (Mac default).
 
 | Code    | Description                                                    | Displays as |
 |---------|----------------------------------------------------------------|-------------|
