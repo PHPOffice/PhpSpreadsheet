@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ReplaceBuiltinNumberFormatTest extends AbstractFunctional
@@ -25,17 +26,17 @@ class ReplaceBuiltinNumberFormatTest extends AbstractFunctional
         }
     }
 
-    public function testJustifyLastLine(): void
+    public function testReplaceBuiltinNumberFormat(): void
     {
         $spreadsheet = $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->fromArray([45486, 1023, 45487, 45488, 45489]);
         $sheet->getStyle('A1')->getNumberFormat()
-            ->setBuiltInFormatCode(14);
+            ->setBuiltInFormatCode(NumberFormat::SHORT_DATE_INDEX);
         $sheet->getStyle('B1')->getNumberFormat()
             ->setFormatCode('#,##0.00');
         $sheet->getStyle('C1')->getNumberFormat()
-            ->setBuiltInFormatCode(14);
+            ->setBuiltInFormatCode(NumberFormat::SHORT_DATE_INDEX);
         $sheet->getStyle('D1')->getNumberFormat()
             ->setFormatCode('dd-MMM-yyyy');
         $sheet->getStyle('E1')->getNumberFormat()
@@ -51,7 +52,7 @@ class ReplaceBuiltinNumberFormatTest extends AbstractFunctional
         self::assertSame($expected, $values);
         $this->reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $this->reloadedSpreadsheet->replaceBuiltinNumberFormat(
-            14,
+            NumberFormat::SHORT_DATE_INDEX,
             'yyyy-mm-dd'
         );
         $rsheet = $this->reloadedSpreadsheet->getActiveSheet();

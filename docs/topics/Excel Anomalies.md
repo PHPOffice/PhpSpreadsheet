@@ -15,6 +15,7 @@ If you have a spreadsheet that has been altered in this way, it can be fixed wit
 ```php
         foreach ($spreadsheet->getCellXfCollection() as $style) {
             $numberFormat = $style->getNumberFormat();
+            // okay to use NumberFormat::SHORT_DATE_INDEX below
             if ($numberFormat->getBuiltInFormatCode() === 14) {
                 $numberFormat->setFormatCode('yyyy-mm-dd');
             }
@@ -23,7 +24,7 @@ If you have a spreadsheet that has been altered in this way, it can be fixed wit
 Starting with PhpSpreadsheet 4.5.0, this can be simplified to:
 ```php
         $spreadsheet->replaceBuiltinNumberFormat(
-            14,
+            \PhpOffice\PhpSpreadsheet\Style\NumberFormat::SHORT_DATE_INDEX,
             'yyyy-mm-dd'
         );
 ```
