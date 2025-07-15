@@ -1784,4 +1784,21 @@ class Spreadsheet implements JsonSerializable
             }
         }
     }
+
+    /**
+     * Excel will sometimes replace user's formatting choice
+     * with a built-in choice that it thinks is equivalent.
+     * Its choice is often not equivalent after all.
+     * Such treatment is astonishingly user-hostile.
+     * This function will undo such changes.
+     */
+    public function replaceBuiltinNumberFormat(int $builtinFormatIndex, string $formatCode): void
+    {
+        foreach ($this->cellXfCollection as $style) {
+            $numberFormat = $style->getNumberFormat();
+            if ($numberFormat->getBuiltInFormatCode() === $builtinFormatIndex) {
+                $numberFormat->setFormatCode($formatCode);
+            }
+        }
+    }
 }
