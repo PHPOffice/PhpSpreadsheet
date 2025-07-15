@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Ods Reader Nested table-row. [Issue #4528](https://github.com/PHPOffice/PhpSpreadsheet/issues/4528) [Issue #2507](https://github.com/PHPOffice/PhpSpreadsheet/issues/2507) [PR #4531](https://github.com/PHPOffice/PhpSpreadsheet/pull/4531)
 
 ## 2025-06-22 - 4.4.0
 
