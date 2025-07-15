@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Address Excel Inappropriate Number Format Substitution. [PR #4532](https://github.com/PHPOffice/PhpSpreadsheet/pull/4532)
 
 ### Removed
 
