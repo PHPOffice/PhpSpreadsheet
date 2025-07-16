@@ -93,7 +93,7 @@ class HideMergeTest extends TestCase
         );
         self::assertStringContainsString(
             '<tr class="row1">'
-                . '<td class="column1 style1 s style1" style="width:84pt; height:17pt" colspan="2" rowspan="2">Hello World Headline</td>'
+                . '<td class="column1 style1 s style1" colspan="2" rowspan="2" style="width:84pt; height:17pt">Hello World Headline</td>'
                 . '</tr>',
             $html
         );
@@ -104,8 +104,8 @@ class HideMergeTest extends TestCase
         );
         self::assertStringContainsString(
             '<tr class="row3">'
-                . '<td class="column1 style2 s style2" style="width:42pt; height:17pt" rowspan="2">Label 1</td>'
-                . '<td class="column2 style3 s style3" style="width:42pt; height:17pt" rowspan="2">Text 1</td>'
+                . '<td class="column1 style2 s style2" rowspan="2" style="width:42pt; height:17pt">Label 1</td>'
+                . '<td class="column2 style3 s style3" rowspan="2" style="width:42pt; height:17pt">Text 1</td>'
                 . '</tr>',
             $html
         );
@@ -116,8 +116,8 @@ class HideMergeTest extends TestCase
         );
         self::assertStringContainsString(
             '<tr class="row5">'
-                . '<td class="column1 style2 s style2" style="width:42pt; height:17pt" rowspan="2">Label 2</td>'
-                . '<td class="column2 style3 s style3" style="width:42pt; height:17pt" rowspan="2">Text 2</td>'
+                . '<td class="column1 style2 s style2" rowspan="2" style="width:42pt; height:17pt">Label 2</td>'
+                . '<td class="column2 style3 s style3" rowspan="2" style="width:42pt; height:17pt">Text 2</td>'
                 . '</tr>',
             $html
         );

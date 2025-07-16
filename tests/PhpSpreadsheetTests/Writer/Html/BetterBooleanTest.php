@@ -153,15 +153,15 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
         $html = str_replace('vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; ', '', $html);
-        $html = str_replace(' width:42pt" class="gridlines gridlinesp"', '"', $html);
+        $html = str_replace(' width:42pt"', '"', $html);
         self::assertStringNotContainsString('TRUE', $html);
-        self::assertStringContainsString('<td style="text-align:right;">1</td>', $html);
-        self::assertStringContainsString('<td style="text-align:left;">Hello</td>', $html);
-        self::assertStringContainsString('<td data-type="b" style="text-align:center;">VRAI</td>', $html);
-        self::assertStringContainsString('<td data-type="b" style="text-align:center;">FAUX</td>', $html);
-        self::assertStringContainsString('<td data-type="s" style="text-align:left;">1</td>', $html);
-        self::assertStringContainsString('<td style="text-align:left;">AB</td>', $html);
-        self::assertStringContainsString('<td style="text-align:right;">3</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:right;">1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:left;">Hello</td>', $html);
+        self::assertStringContainsString('<td data-type="b" class="gridlines gridlinesp" style="text-align:center;">VRAI</td>', $html);
+        self::assertStringContainsString('<td data-type="b" class="gridlines gridlinesp" style="text-align:center;">FAUX</td>', $html);
+        self::assertStringContainsString('<td data-type="s" class="gridlines gridlinesp" style="text-align:left;">1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:left;">AB</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:right;">3</td>', $html);
 
         $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $this->setBetter(...));
         $spreadsheet->disconnectWorksheets();

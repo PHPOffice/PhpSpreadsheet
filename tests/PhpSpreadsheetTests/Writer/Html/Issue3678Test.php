@@ -34,7 +34,7 @@ class Issue3678Test extends TestCase
         self::assertStringContainsString('.n { text-align:right }', $html);
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
-        self::assertStringContainsString('<td style="' . $style2 . '" class="gridlines gridlinesp">1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="' . $style2 . '">1</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
 }

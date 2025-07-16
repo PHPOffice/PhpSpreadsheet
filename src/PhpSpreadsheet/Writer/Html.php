@@ -1330,7 +1330,11 @@ class Html extends BaseWriter
             $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $row])
                 ? $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $row]) : '';
 
-            $html .= '          <tr style="' . $style . '">' . PHP_EOL;
+            if ($style === '') {
+                $html .= '          <tr>' . PHP_EOL;
+            } else {
+                $html .= '          <tr style="' . $style . '">' . PHP_EOL;
+            }
         }
 
         return $html;
@@ -1542,6 +1546,7 @@ class Html extends BaseWriter
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
             }
         }
+        $holdCss = '';
         if (!$this->useInlineCss && !$this->isPdf && is_string($cssClass)) {
             $html .= ' class="' . $cssClass . '"';
             if ($htmlx) {
@@ -1587,7 +1592,7 @@ class Html extends BaseWriter
                 $xcssClass['position'] = 'relative';
             }
             /** @var string[] $xcssClass */
-            $html .= ' style="' . $this->assembleCSS($xcssClass) . '"';
+            $holdCss = $this->assembleCSS($xcssClass);
             if ($this->useInlineCss) {
                 $html .= ' class="gridlines gridlinesp"';
             }
@@ -1638,12 +1643,16 @@ class Html extends BaseWriter
             }
             if ($matched) {
                 $styles = $this->createCSSStyle($styleMerger->getStyle());
-                $html .= ' style="';
+                $html .= ' style="' . $holdCss . ' ';
+                $holdCss = '';
                 foreach ($styles as $key => $value) {
                     $html .= $key . ':' . $value . ';';
                 }
                 $html .= '"';
             }
+        }
+        if ($holdCss !== '') {
+            $html .= ' style="' . $holdCss . '"';
         }
 
         $html .= '>';
