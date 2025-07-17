@@ -14,7 +14,10 @@ class StyleMerger
 
     public function __construct(Style $baseStyle)
     {
-        $this->baseStyle = $baseStyle;
+        // Setting to $baseStyle sometimes causes problems later on.
+        $array = $baseStyle->exportArray();
+        $this->baseStyle = new Style();
+        $this->baseStyle->applyFromArray($array);
     }
 
     public function getStyle(): Style
