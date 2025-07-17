@@ -1046,13 +1046,13 @@ class Html extends BaseWriter
      *
      * @return string[]
      */
-    private function createCSSStyle(Style $style): array
+    private function createCSSStyle(Style $style, bool $conditional = false): array
     {
         // Create CSS
         return array_merge(
-            $this->createCSSStyleAlignment($style->getAlignment()),
+            $conditional ? [] : $this->createCSSStyleAlignment($style->getAlignment()),
             $this->createCSSStyleBorders($style->getBorders()),
-            $this->createCSSStyleFont($style->getFont()),
+            $this->createCSSStyleFont($style->getFont(), conditional: $conditional),
             $this->createCSSStyleFill($style->getFill())
         );
     }
@@ -1096,7 +1096,7 @@ class Html extends BaseWriter
      *
      * @return string[]
      */
-    private function createCSSStyleFont(Font $font, bool $useDefaults = false): array
+    private function createCSSStyleFont(Font $font, bool $useDefaults = false, bool $conditional = false): array
     {
         // Construct CSS
         $css = [];
@@ -1123,10 +1123,27 @@ class Html extends BaseWriter
         }
 
         $css['color'] = '#' . $font->getColor()->getRGB();
-        $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
-        $css['font-size'] = $font->getSize() . 'pt';
+        if (!$conditional) {
+            $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+            $css['font-size'] = $font->getSize() . 'pt';
+        }
 
         return $css;
+    }
+
+    /**
+     * @param string[] $css
+     */
+    private function styleBorder(array &$css, string $index, Border $border): void
+    {
+        $borderStyle = $border->getBorderStyle();
+        // Mpdf doesn't process !important, so omit unimportant border none
+        if ($borderStyle === Border::BORDER_NONE && $this instanceof Pdf\Mpdf) {
+            return;
+        }
+        if ($borderStyle !== Border::BORDER_OMIT) {
+            $css[$index] = $this->createCSSStyleBorder($border);
+        }
     }
 
     /**
@@ -1142,26 +1159,10 @@ class Html extends BaseWriter
         $css = [];
 
         // Create CSS
-        if (!($this instanceof Pdf\Mpdf)) {
-            $css['border-bottom'] = $this->createCSSStyleBorder($borders->getBottom());
-            $css['border-top'] = $this->createCSSStyleBorder($borders->getTop());
-            $css['border-left'] = $this->createCSSStyleBorder($borders->getLeft());
-            $css['border-right'] = $this->createCSSStyleBorder($borders->getRight());
-        } else {
-            // Mpdf doesn't process !important, so omit unimportant border none
-            if ($borders->getBottom()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-bottom'] = $this->createCSSStyleBorder($borders->getBottom());
-            }
-            if ($borders->getTop()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-top'] = $this->createCSSStyleBorder($borders->getTop());
-            }
-            if ($borders->getLeft()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-left'] = $this->createCSSStyleBorder($borders->getLeft());
-            }
-            if ($borders->getRight()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-right'] = $this->createCSSStyleBorder($borders->getRight());
-            }
-        }
+        $this->styleBorder($css, 'border-bottom', $borders->getBottom());
+        $this->styleBorder($css, 'border-top', $borders->getTop());
+        $this->styleBorder($css, 'border-left', $borders->getLeft());
+        $this->styleBorder($css, 'border-right', $borders->getRight());
 
         return $css;
     }
@@ -1594,7 +1595,15 @@ class Html extends BaseWriter
             /** @var string[] $xcssClass */
             $holdCss = $this->assembleCSS($xcssClass);
             if ($this->useInlineCss) {
-                $html .= ' class="gridlines gridlinesp"';
+                $prntgrid = $worksheet->getPrintGridlines();
+                $viewgrid = $this->isPdf ? $prntgrid : $worksheet->getShowGridlines();
+                if ($viewgrid && $prntgrid) {
+                    $html .= ' class="gridlines gridlinesp"';
+                } elseif ($viewgrid) {
+                    $html .= ' class="gridlines"';
+                } elseif ($prntgrid) {
+                    $html .= ' class="gridlinesp"';
+                }
             }
         }
 
@@ -1642,9 +1651,12 @@ class Html extends BaseWriter
                 }
             }
             if ($matched) {
-                $styles = $this->createCSSStyle($styleMerger->getStyle());
-                $html .= ' style="' . $holdCss . ' ';
-                $holdCss = '';
+                $styles = $this->createCSSStyle($styleMerger->getStyle(), true);
+                $html .= ' style="';
+                if ($holdCss !== '') {
+                    $html .= "$holdCss; ";
+                    $holdCss = '';
+                }
                 foreach ($styles as $key => $value) {
                     $html .= $key . ':' . $value . ';';
                 }

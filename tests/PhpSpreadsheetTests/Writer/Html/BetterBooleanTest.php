@@ -139,6 +139,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setPrintGridlines(true);
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('B1')->setValue('Hello');
         $sheet->getCell('C1')->setValue(true);

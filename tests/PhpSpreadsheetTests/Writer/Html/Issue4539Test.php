@@ -19,14 +19,14 @@ class Issue4539Test extends TestCase
         $writer->setConditionalFormatting(true);
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
-        $expected = '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Aptos Narrow\'; font-size:12pt; text-align:right; width:102pt vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Aptos Narrow\';font-size:12pt;background-color:#5A8AC6;">5</td>';
+        $expected = '<td class="gridlines" style="vertical-align:bottom; color:#000000; font-family:\'Aptos Narrow\'; font-size:12pt; text-align:right; width:102pt; color:#000000;background-color:#5A8AC6;">5</td>';
         self::assertStringContainsString($expected, $html, 'inline conditional style');
-        $expected = '<td class="gridlines gridlinesp" style="vertical-align:bottom; font-weight:bold; color:#000000; font-family:\'Aptos Narrow\'; font-size:12pt; text-align:left; width:102pt">Column Heading</td>';
+        $expected = '<td class="gridlines" style="vertical-align:bottom; font-weight:bold; color:#000000; font-family:\'Aptos Narrow\'; font-size:12pt; text-align:left; width:102pt">Column Heading</td>';
         self::assertStringContainsString($expected, $html, 'inline no conditional style');
 
         $writer->setUseInlineCss(false);
         $html = $writer->generateHtmlAll();
-        $expected = '<td class="column0 style2 n" style=" vertical-align:bottom;border-bottom:none #000000;border-top:none #000000;border-left:none #000000;border-right:none #000000;color:#000000;font-family:\'Aptos Narrow\';font-size:12pt;background-color:#5A8AC6;">5</td>';
+        $expected = '<td class="column0 style2 n" style="color:#000000;background-color:#5A8AC6;">5</td>';
         self::assertStringContainsString($expected, $html, 'notinline conditional style');
         $expected = '<td class="column0 style1 s">Column Heading</td>';
         self::assertStringContainsString($expected, $html, 'notinline no conditional style');

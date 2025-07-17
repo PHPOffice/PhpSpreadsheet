@@ -17,6 +17,7 @@ class HideMergeTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setPrintGridlines(true);
         // just some labels for better visualisation of the problem
         $worksheet->setCellValue('A1', 'A');
         $worksheet->setCellValue('B1', 'B');
