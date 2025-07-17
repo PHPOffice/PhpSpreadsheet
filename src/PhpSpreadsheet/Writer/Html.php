@@ -1658,7 +1658,9 @@ class Html extends BaseWriter
                     $holdCss = '';
                 }
                 foreach ($styles as $key => $value) {
-                    $html .= $key . ':' . $value . ';';
+                    if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
+                        $html .= $key . ':' . $value . ';';
+                    }
                 }
                 $html .= '"';
             }

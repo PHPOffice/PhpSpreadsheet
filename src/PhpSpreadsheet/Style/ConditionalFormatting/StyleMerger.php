@@ -78,7 +78,11 @@ class StyleMerger
 
     protected function mergeBorderStyle(Border $baseBorderStyle, Border $borderStyle): void
     {
-        $baseBorderStyle->setBorderStyle($borderStyle->getBorderStyle());
+        if ($borderStyle->getBorderStyle() !== Border::BORDER_OMIT) {
+            $baseBorderStyle->setBorderStyle(
+                $borderStyle->getBorderStyle()
+            );
+        }
         if ($borderStyle->getColor()->getARGB() !== null) {
             $baseBorderStyle->setColor($borderStyle->getColor());
         }
