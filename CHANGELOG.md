@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Writer Html/Pdf support RTL alignment of tables. [Issue #1104](https://github.com/PHPOffice/PhpSpreadsheet/issues/1104) [PR #4535](https://github.com/PHPOffice/PhpSpreadsheet/pull/4535)
 
 ## 2025-06-22 - 4.4.0
 
