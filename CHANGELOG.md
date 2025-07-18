@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Xlsx Reader use dynamic arrays if spreadsheet did so. [PR #4533](https://github.com/PHPOffice/PhpSpreadsheet/pull/4533)
 
 ## 2025-06-22 - 4.4.0
 
