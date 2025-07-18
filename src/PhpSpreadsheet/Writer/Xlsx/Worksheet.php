@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -1440,10 +1439,7 @@ class Worksheet extends WriterPart
             $objWriter->writeElement(
                 't',
                 StringHelper::controlCharacterPHP2OOXML(
-                    htmlspecialchars(
-                        $cellValue,
-                        Settings::htmlEntityFlags()
-                    )
+                    $cellValue
                 )
             );
             $objWriter->endElement();
