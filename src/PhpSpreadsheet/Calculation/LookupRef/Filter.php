@@ -62,7 +62,7 @@ class Filter
 
         return array_filter(
             array_values($lookupArray),
-            fn ($index): bool => (bool) $matchArray[$index],
+            fn ($index): bool => (bool) ($matchArray[$index] ?? null),
             ARRAY_FILTER_USE_KEY
         );
     }
