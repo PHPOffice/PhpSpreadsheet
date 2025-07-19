@@ -27,7 +27,7 @@ class LoadSpreadsheet extends Xls
 
         // Initialisations
         $xls->spreadsheet = $this->newSpreadsheet();
-        $xls->spreadsheet->setValueBinder($this->valueBinder);
+        $xls->spreadsheet->setValueBinder($xls->valueBinder);
         $xls->spreadsheet->removeSheetByIndex(0); // remove 1st sheet
         if (!$xls->readDataOnly) {
             $xls->spreadsheet->removeCellStyleXfByIndex(0); // remove the default style
