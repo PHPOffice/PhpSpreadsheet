@@ -2,12 +2,10 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 
 require __DIR__ . '/../Header.php';
-/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
-require_once __DIR__ . '/Mpdf2.php';
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
@@ -41,11 +39,6 @@ $helper->log('Merge drawing cells for Pdf');
 $spreadsheet->mergeDrawingCellsForPdf();
 
 $helper->log('Write to Mpdf');
-$writer = new Mpdf($spreadsheet);
-$filename = $helper->getFileName(__FILE__, 'pdf');
-$writer->save($filename);
-$helper->log("Saved $filename");
-if (PHP_SAPI !== 'cli') {
-    echo '<a href="/download.php?type=pdf&name=' . basename($filename) . '">Download ' . basename($filename) . '</a><br />';
-}
+$helper->write($spreadsheet, __FILE__, ['Mpdf']);
+
 $spreadsheet->disconnectWorksheets();

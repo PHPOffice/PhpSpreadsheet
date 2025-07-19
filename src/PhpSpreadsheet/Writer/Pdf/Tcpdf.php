@@ -67,14 +67,28 @@ class Tcpdf extends Pdf
 
         //  Set the appropriate font
         $pdf->SetFont($this->getFont());
+        $this->checkRtlAndLtr();
+        if ($this->rtlSheets && !$this->ltrSheets) {
+            $pdf->setRTL(true);
+        }
         $pdf->writeHTML($this->generateHTMLAll());
 
         //  Document info
-        $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
-        $pdf->SetAuthor($this->spreadsheet->getProperties()->getCreator());
-        $pdf->SetSubject($this->spreadsheet->getProperties()->getSubject());
-        $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
-        $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
+        $pdf->SetTitle(
+            $this->spreadsheet->getProperties()->getTitle()
+        );
+        $pdf->SetAuthor(
+            $this->spreadsheet->getProperties()->getCreator()
+        );
+        $pdf->SetSubject(
+            $this->spreadsheet->getProperties()->getSubject()
+        );
+        $pdf->SetKeywords(
+            $this->spreadsheet->getProperties()->getKeywords()
+        );
+        $pdf->SetCreator(
+            $this->spreadsheet->getProperties()->getCreator()
+        );
 
         //  Write to file
         fwrite($fileHandle, $pdf->output('', 'S'));
