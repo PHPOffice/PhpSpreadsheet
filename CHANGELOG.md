@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing yet.
+- Address Excel Inappropriate Number Format Substitution. [PR #4532](https://github.com/PHPOffice/PhpSpreadsheet/pull/4532)
 
 ### Removed
 
@@ -29,7 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Writer Html/Pdf support RTL alignment of tables. [Issue #1104](https://github.com/PHPOffice/PhpSpreadsheet/issues/1104) [PR #4535](https://github.com/PHPOffice/PhpSpreadsheet/pull/4535)
+- Xlsx Reader use dynamic arrays if spreadsheet did so. [PR #4533](https://github.com/PHPOffice/PhpSpreadsheet/pull/4533)
+- Ods Reader Nested table-row. [Issue #4528](https://github.com/PHPOffice/PhpSpreadsheet/issues/4528) [Issue #2507](https://github.com/PHPOffice/PhpSpreadsheet/issues/2507) [PR #4531](https://github.com/PHPOffice/PhpSpreadsheet/pull/4531)
+- Recognize application/x-empty mimetype. [Issue #4521](https://github.com/PHPOffice/PhpSpreadsheet/issues/4521) [PR #4524](https://github.com/PHPOffice/PhpSpreadsheet/pull/4524)
+- Micro-optimization in getSheetByName. [PR #4499](https://github.com/PHPOffice/PhpSpreadsheet/pull/4499)
+- Bug in resizeMatricesExtend. [Issue #4451](https://github.com/PHPOffice/PhpSpreadsheet/issues/4451) [PR #4474](https://github.com/PHPOffice/PhpSpreadsheet/pull/4474)
+- Preserve 0x0a in Strings if Desired. [Issue #347](https://github.com/PHPOffice/PhpSpreadsheet/issues/347) [PR #4536](https://github.com/PHPOffice/PhpSpreadsheet/pull/4536)
 
 ## 2025-06-22 - 4.4.0
 

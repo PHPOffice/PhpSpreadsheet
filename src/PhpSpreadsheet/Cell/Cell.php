@@ -278,7 +278,14 @@ class Cell implements Stringable
             case DataType::TYPE_INLINE:
                 // Rich text
                 $value2 = StringHelper::convertToString($value, true);
-                $this->value = DataType::checkString(($value instanceof RichText) ? $value : $value2);
+                // Cells?->Worksheet?->Spreadsheet
+                $binder = $this->parent?->getParent()?->getParent()?->getValueBinder();
+                $preserveCr = false;
+                if ($binder !== null && method_exists($binder, 'getPreserveCr')) {
+                    /** @var bool */
+                    $preserveCr = $binder->getPreserveCr();
+                }
+                $this->value = DataType::checkString(($value instanceof RichText) ? $value : $value2, $preserveCr);
 
                 break;
             case DataType::TYPE_NUMERIC:
