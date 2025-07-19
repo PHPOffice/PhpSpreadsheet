@@ -1114,7 +1114,10 @@ $reader->load("spreadsheetWithCharts.xlsx", $reader::LOAD_WITH_CHARTS);
 If you wish to use the IOFactory `load()` method rather than instantiating a specific Reader, then you can still pass these flags.
 
 ```php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(
+    "spreadsheetWithCharts.xlsx",
+    \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS
+);
 ```
 
 Flags that are available that can be passed to the Reader in this way include:
@@ -1123,17 +1126,19 @@ Flags that are available that can be passed to the Reader in this way include:
  - $reader::READ_DATA_ONLY
  - $reader::IGNORE_EMPTY_CELLS
  - $reader::IGNORE_ROWS_WITH_NO_CELLS
+ - $reader::ALLOW_EXTERNAL_IMAGES (starting with release 4.5)
+ - $reader::DONT_ALLOW_EXTERNAL_IMAGES (starting with release 4.5)
 
-| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS | IGNORE_ROWS_WITH_NO_CELLS |
-|----------|------------------|----------------|--------------------|---------------------------|
-| Xlsx     | YES              | YES            | YES                | YES                       |
-| Xls      | NO               | YES            | YES                | NO                        |
-| Xml      | NO               | NO             | NO                 | NO                        |
-| Ods      | NO               | YES            | NO                 | NO                        |
-| Gnumeric | NO               | YES            | NO                 | NO                        |
-| Html     | N/A              | N/A            | N/A                | N/A                       |
-| Slk      | N/A              | NO             | NO                 | NO                        |
-| Csv      | N/A              | NO             | NO                 | NO                        |
+| Readers  | LOAD<br>CHARTS | DATA<br>ONLY | IGNORE<br>EMPTY | IGNORE<br>ROWS | EXTERNAL<br>IMAGES |
+|----------|--------|------|--------|--------|--------|
+| Xlsx     | YES | YES | YES | YES | YES |
+| Xls      | NO  | YES | YES | NO  | NO  |
+| Xml      | NO  | NO  | NO  | NO  | NO  |
+| Ods      | NO  | YES | NO  | NO  | NO  |
+| Gnumeric | NO  | YES | NO  | NO  | NO  |
+| Html     | N/A | N/A | N/A | N/A | YES |
+| Slk      | N/A | NO  | NO  | NO  | N/A |
+| Csv      | N/A | NO  | NO  | NO  | N/A |
 
 Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
