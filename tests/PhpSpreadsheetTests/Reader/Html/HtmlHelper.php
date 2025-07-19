@@ -18,9 +18,12 @@ class HtmlHelper
         return $filename;
     }
 
-    public static function loadHtmlIntoSpreadsheet(string $filename, bool $unlink = false): Spreadsheet
+    public static function loadHtmlIntoSpreadsheet(string $filename, bool $unlink = false, ?bool $allowExternalImages = null): Spreadsheet
     {
         $html = new Html();
+        if ($allowExternalImages !== null) {
+            $html->setAllowExternalImages($allowExternalImages);
+        }
         $spreadsheet = $html->load($filename);
         if ($unlink) {
             unlink($filename);
