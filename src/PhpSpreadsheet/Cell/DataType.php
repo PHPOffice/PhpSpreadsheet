@@ -53,7 +53,7 @@ class DataType
      *
      * @return RichText|string Sanitized value
      */
-    public static function checkString(null|RichText|string $textValue): RichText|string
+    public static function checkString(null|RichText|string $textValue, bool $preserveCr = false): RichText|string
     {
         if ($textValue instanceof RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
@@ -64,7 +64,9 @@ class DataType
         $textValue = StringHelper::substring((string) $textValue, 0, self::MAX_STRING_LENGTH);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
-        $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);
+        if (!$preserveCr) {
+            $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);
+        }
 
         return $textValue;
     }
