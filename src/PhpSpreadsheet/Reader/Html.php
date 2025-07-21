@@ -1090,7 +1090,7 @@ class Html extends BaseReader
         $name = $attributes['alt'] ?? null;
 
         $drawing = new Drawing();
-        $drawing->setPath($src, false);
+        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages);
         if ($drawing->getPath() === '') {
             return;
         }

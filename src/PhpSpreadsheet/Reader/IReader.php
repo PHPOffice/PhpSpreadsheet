@@ -38,6 +38,14 @@ interface IReader
      */
     public const IGNORE_ROWS_WITH_NO_CELLS = 8;
 
+    /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     */
+    public const ALLOW_EXTERNAL_IMAGES = 16;
+    public const DONT_ALLOW_EXTERNAL_IMAGES = 32;
+
     public function __construct();
 
     /**
@@ -129,6 +137,15 @@ interface IReader
     public function getReadFilter(): IReadFilter;
 
     /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     */
+    public function setAllowExternalImages(bool $allowExternalImages): self;
+
+    public function getAllowExternalImages(): bool;
+
+    /**
      * Set read filter.
      *
      * @return $this
@@ -144,6 +161,9 @@ interface IReader
      *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
      *            self::IGNORE_EMPTY_CELLS  Don't read empty cells (cells that contain a null value,
      *                                      empty string, or a string containing only whitespace characters)
+     *            self::IGNORE_ROWS_WITH_NO_CELLS    Don't load any rows that contain no cells.
+     *            self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
+     *            self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
 }
