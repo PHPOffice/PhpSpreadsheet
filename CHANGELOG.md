@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Micro-optimization in getSheetByName. [PR #4499](https://github.com/PHPOffice/PhpSpreadsheet/pull/4499)
 - Bug in resizeMatricesExtend. [Issue #4451](https://github.com/PHPOffice/PhpSpreadsheet/issues/4451) [PR #4474](https://github.com/PHPOffice/PhpSpreadsheet/pull/4474)
 - Allow Replace of Dummy Function with Custom Function. [PR #4544](https://github.com/PHPOffice/PhpSpreadsheet/pull/4544)
+- Preserve 0x0a in Strings if Desired. [Issue #347](https://github.com/PHPOffice/PhpSpreadsheet/issues/347) [PR #4536](https://github.com/PHPOffice/PhpSpreadsheet/pull/4536)
 
 ## 2025-06-22 - 4.4.0
 
