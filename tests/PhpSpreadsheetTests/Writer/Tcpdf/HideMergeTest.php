@@ -17,6 +17,7 @@ class HideMergeTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setPrintGridlines(true);
         // just some labels for better visualisation of the problem
         $worksheet->setCellValue('A1', 'A');
         $worksheet->setCellValue('B1', 'B');
@@ -87,15 +88,15 @@ class HideMergeTest extends TestCase
         self::assertStringContainsString(
             '<tbody><tr style="height:17pt">'
                 . '<td></td>'
-                . '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp">B</td>'
-                . '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp">C</td>'
+                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">B</td>'
+                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">C</td>'
                 . '</tr>',
             $html
         );
         self::assertStringContainsString(
             '<tr style="height:17pt">'
                 . '<td></td>'
-                . '<td style="vertical-align:bottom; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; width:84pt; height:17pt" class="gridlines gridlinesp" colspan="2" rowspan="2">Hello World Headline</td>'
+                . '<td class="gridlines gridlinesp" colspan="2" rowspan="2" style="vertical-align:bottom; text-align:center; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; width:84pt; height:17pt">Hello World Headline</td>'
                 . '</tr>',
             $html
         );
@@ -109,16 +110,16 @@ class HideMergeTest extends TestCase
         self::assertStringContainsString(
             '<tr style="height:17pt">'
                 . '<td></td>'
-                . '<td style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp" rowspan="2">Label 1</td>'
-                . '<td style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp" rowspan="2">Text 1</td>'
+                . '<td class="gridlines gridlinesp" rowspan="2" style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">Label 1</td>'
+                . '<td class="gridlines gridlinesp" rowspan="2" style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">Text 1</td>'
                 . '</tr>',
             $html
         );
         self::assertStringContainsString(
             '<tr style="height:17pt">'
                 . '<td></td>'
-                . '<td style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp" rowspan="2">Label 2</td>'
-                . '<td style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt" class="gridlines gridlinesp" rowspan="2">Text 2</td>'
+                . '<td class="gridlines gridlinesp" rowspan="2" style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; font-weight:bold; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">Label 2</td>'
+                . '<td class="gridlines gridlinesp" rowspan="2" style="vertical-align:middle; border-bottom:1px solid #000000 !important; border-top:1px solid #000000 !important; border-left:1px solid #000000 !important; border-right:1px solid #000000 !important; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">Text 2</td>'
                 . '</tr>',
             $html
         );

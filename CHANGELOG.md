@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Html Writer Conditional Formatting Inline Css. [Issue #4539](https://github.com/PHPOffice/PhpSpreadsheet/issues/4539) [PR #4541](https://github.com/PHPOffice/PhpSpreadsheet/pull/4541)
 - Do not use htmlspecialchars when formatting XML. [Issue #4537](https://github.com/PHPOffice/PhpSpreadsheet/issues/4537) [PR #4540](https://github.com/PHPOffice/PhpSpreadsheet/pull/4540)
 - Writer Html/Pdf support RTL alignment of tables. [Issue #1104](https://github.com/PHPOffice/PhpSpreadsheet/issues/1104) [PR #4535](https://github.com/PHPOffice/PhpSpreadsheet/pull/4535)
 - Xlsx Reader use dynamic arrays if spreadsheet did so. [PR #4533](https://github.com/PHPOffice/PhpSpreadsheet/pull/4533)
