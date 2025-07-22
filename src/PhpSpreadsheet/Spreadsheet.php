@@ -691,10 +691,10 @@ class Spreadsheet implements JsonSerializable
      */
     public function getSheetByName(string $worksheetName): ?Worksheet
     {
-        $worksheetCount = count($this->workSheetCollection);
-        for ($i = 0; $i < $worksheetCount; ++$i) {
-            if (strcasecmp($this->workSheetCollection[$i]->getTitle(), trim($worksheetName, "'")) === 0) {
-                return $this->workSheetCollection[$i];
+        $trimWorksheetName = trim($worksheetName, "'");
+        foreach ($this->workSheetCollection as $worksheet) {
+            if (strcasecmp($worksheet->getTitle(), $trimWorksheetName) === 0) {
+                return $worksheet;
             }
         }
 
@@ -1781,6 +1781,23 @@ class Spreadsheet implements JsonSerializable
                     }
                     $worksheet->mergeCells("$tl:$br");
                 }
+            }
+        }
+    }
+
+    /**
+     * Excel will sometimes replace user's formatting choice
+     * with a built-in choice that it thinks is equivalent.
+     * Its choice is often not equivalent after all.
+     * Such treatment is astonishingly user-hostile.
+     * This function will undo such changes.
+     */
+    public function replaceBuiltinNumberFormat(int $builtinFormatIndex, string $formatCode): void
+    {
+        foreach ($this->cellXfCollection as $style) {
+            $numberFormat = $style->getNumberFormat();
+            if ($numberFormat->getBuiltInFormatCode() === $builtinFormatIndex) {
+                $numberFormat->setFormatCode($formatCode);
             }
         }
     }

@@ -14,20 +14,20 @@ Open/Libre Office and Gnumeric don't have this limitation, and negative date/tim
 To write a date in a cell using PhpSpreadsheet, we need to calculate the serialized Excel datestamp for that date. Methods to do this are available in the Shared\Date class, which provides a number of methods for conversion between different date options typically used in PHP applications (Unix timestamp, PHP DateTime objects and some recognisable formatted strings) and the Excel serialized value; and vice versa.
 
  - Shared\Date::convertIsoDate()
-   - Converts a date/time in [ISO-8601 standard format](https://en.wikipedia.org/wiki/ISO_8601) to an Excel serialized timestamp
+     - Converts a date/time in [ISO-8601 standard format](https://en.wikipedia.org/wiki/ISO_8601) to an Excel serialized timestamp
  - Shared\Date::PHPToExcel()
-   - Converts a Unix timestamp, a PHP DateTime object, or a recognisable formatted string to an Excel serialized timestamp
+     - Converts a Unix timestamp, a PHP DateTime object, or a recognisable formatted string to an Excel serialized timestamp
  - Shared\Date::dateTimeToExcel()
-   - Converts a Unix timestamp to an Excel serialized timestamp
+     - Converts a Unix timestamp to an Excel serialized timestamp
  - Shared\Date::timestampToExcel()
-   - Converts a PHP DateTime object to an Excel serialized timestamp
+     - Converts a PHP DateTime object to an Excel serialized timestamp
  - Shared\Date::formattedPHPToExcel()
-   - Converts year, month, day, hour, minute, and second to an Excel serialized timestamp
+     - Converts year, month, day, hour, minute, and second to an Excel serialized timestamp
  - Shared\Date::excelToDateTimeObject()
-   - Converts an Excel serialized timestamp to a PHP DateTime object
+     - Converts an Excel serialized timestamp to a PHP DateTime object
  - Shared\Date::excelToTimestamp()
-   - Converts an Excel serialized timestamp to a Unix timestamp.
-   - The use of Unix timestamps, and therefore this function, is discouraged: they are not Y2038-safe on a 32-bit system, and have no timezone info.
+     - Converts an Excel serialized timestamp to a Unix timestamp.
+     - The use of Unix timestamps, and therefore this function, is discouraged: they are not Y2038-safe on a 32-bit system, and have no timezone info.
 
 We probably also want to set the number format mask for the cell so that it will be displayed as a human-readable date.
 ```php
@@ -184,7 +184,7 @@ MS Excel allows any separator character between hours/minutes/seconds; PhpSpread
 
 ### Duration (Elapsed Time)
 
-Excel also supports formatting a value as a duration; a total number of hours, minutes or seconds rather than a time of day.
+Excel also supports formatting a value as a duration; a total number of hours, minutes or seconds rather than a time of day. However, please note that negative durations are supported only if using base year 1904 (Mac default).
 
 | Code    | Description                                                    | Displays as |
 |---------|----------------------------------------------------------------|-------------|

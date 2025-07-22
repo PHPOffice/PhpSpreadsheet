@@ -158,6 +158,10 @@ class Html extends BaseWriter
 
     private string $getFalse = 'FALSE';
 
+    protected bool $rtlSheets = false;
+
+    protected bool $ltrSheets = false;
+
     /**
      * Create a new HTML.
      */
@@ -186,11 +190,31 @@ class Html extends BaseWriter
         $this->maybeCloseFileHandle();
     }
 
+    protected function checkRtlAndLtr(): void
+    {
+        $this->rtlSheets = false;
+        $this->ltrSheets = false;
+        if ($this->sheetIndex === null) {
+            foreach ($this->spreadsheet->getAllSheets() as $sheet) {
+                if ($sheet->getRightToLeft()) {
+                    $this->rtlSheets = true;
+                } else {
+                    $this->ltrSheets = true;
+                }
+            }
+        } else {
+            if ($this->spreadsheet->getSheet($this->sheetIndex)->getRightToLeft()) {
+                $this->rtlSheets = true;
+            }
+        }
+    }
+
     /**
      * Save Spreadsheet as html to variable.
      */
     public function generateHtmlAll(): string
     {
+        $this->checkRtlAndLtr();
         $sheets = $this->generateSheetPrep();
         foreach ($sheets as $sheet) {
             $sheet->calculateArrays($this->preCalculateFormulas);
@@ -369,7 +393,8 @@ class Html extends BaseWriter
         // Construct HTML
         $properties = $this->spreadsheet->getProperties();
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . PHP_EOL;
-        $html .= '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL;
+        $rtl = ($this->rtlSheets && !$this->ltrSheets) ? " dir='rtl'" : '';
+        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $rtl . '>' . PHP_EOL;
         $html .= '  <head>' . PHP_EOL;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . PHP_EOL;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet" />' . PHP_EOL;
@@ -1013,6 +1038,9 @@ class Html extends BaseWriter
         // .s {}
         $css['.s']['text-align'] = 'left'; // STRING
 
+        $css['.floatright']['float'] = 'right';
+        $css['.floatleft']['float'] = 'left';
+
         // Calculate cell style hashes
         foreach ($this->spreadsheet->getCellXfCollection() as $index => $style) {
             $css['td.style' . $index . ', th.style' . $index] = $this->createCSSStyle($style);
@@ -1222,21 +1250,52 @@ class Html extends BaseWriter
         return $html;
     }
 
+    private function getDir(Worksheet $worksheet): string
+    {
+        if ($worksheet->getRightToLeft()) {
+            return " dir='rtl'";
+        }
+        if ($this->rtlSheets) {
+            return " dir='ltr'";
+        }
+
+        return '';
+    }
+
+    private function getFloat(Worksheet $worksheet): string
+    {
+        $float = '';
+        if ($worksheet->getRightToLeft()) {
+            if ($this->ltrSheets) {
+                $float = ' floatright';
+            }
+        } else {
+            if ($this->rtlSheets) {
+                $float = ' floatleft';
+            }
+        }
+
+        return $float;
+    }
+
     private function generateTableTagInline(Worksheet $worksheet, string $id): string
     {
         $style = isset($this->cssStyles['table'])
             ? $this->assembleCSS($this->cssStyles['table']) : '';
-
+        $rtl = $this->getDir($worksheet);
+        $float = $this->getFloat($worksheet);
         $prntgrid = $worksheet->getPrintGridlines();
         $viewgrid = $this->isPdf ? $prntgrid : $worksheet->getShowGridlines();
         if ($viewgrid && $prntgrid) {
-            $html = "    <table border='1' cellpadding='1' $id cellspacing='1' style='$style' class='gridlines gridlinesp'>" . PHP_EOL;
+            $html = "    <table border='1' cellpadding='1'$rtl $id cellspacing='1' style='$style' class='gridlines gridlinesp$float'>" . PHP_EOL;
         } elseif ($viewgrid) {
-            $html = "    <table border='0' cellpadding='0' $id cellspacing='0' style='$style' class='gridlines'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='0'$rtl $id cellspacing='0' style='$style' class='gridlines$float'>" . PHP_EOL;
         } elseif ($prntgrid) {
-            $html = "    <table border='0' cellpadding='0' $id cellspacing='0' style='$style' class='gridlinesp'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='0'$rtl $id cellspacing='0' style='$style' class='gridlinesp$float'>" . PHP_EOL;
+        } elseif ($float === '') {
+            $html = "    <table border='0' cellpadding='1'$rtl $id cellspacing='0' style='$style'>" . PHP_EOL;
         } else {
-            $html = "    <table border='0' cellpadding='1' $id cellspacing='0' style='$style'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='1'$rtl $id cellspacing='0' style='$style' class='$float'>" . PHP_EOL;
         }
 
         return $html;
@@ -1245,9 +1304,11 @@ class Html extends BaseWriter
     private function generateTableTag(Worksheet $worksheet, string $id, string &$html, int $sheetIndex): void
     {
         if (!$this->useInlineCss) {
+            $rtl = $this->getDir($worksheet);
+            $float = $this->getFloat($worksheet);
             $gridlines = $worksheet->getShowGridlines() ? ' gridlines' : '';
             $gridlinesp = $worksheet->getPrintGridlines() ? ' gridlinesp' : '';
-            $html .= "    <table border='0' cellpadding='0' cellspacing='0' $id class='sheet$sheetIndex$gridlines$gridlinesp'>" . PHP_EOL;
+            $html .= "    <table border='0' cellpadding='0' cellspacing='0'$rtl $id class='sheet$sheetIndex$gridlines$gridlinesp$float'>" . PHP_EOL;
         } else {
             $html .= $this->generateTableTagInline($worksheet, $id);
         }
@@ -1266,10 +1327,12 @@ class Html extends BaseWriter
         // Construct HTML
         $html = '';
         $id = $showid ? "id='sheet$sheetIndex'" : '';
+        $clear = ($this->rtlSheets && $this->ltrSheets) ? '; clear:both' : '';
+
         if ($showid) {
-            $html .= "<div style='page: page$sheetIndex'>" . PHP_EOL;
+            $html .= "<div style='page: page$sheetIndex$clear'>" . PHP_EOL;
         } else {
-            $html .= "<div style='page: page$sheetIndex' class='scrpgbrk'>" . PHP_EOL;
+            $html .= "<div style='page: page$sheetIndex$clear' class='scrpgbrk'>" . PHP_EOL;
         }
 
         $this->generateTableTag($worksheet, $id, $html, $sheetIndex);
