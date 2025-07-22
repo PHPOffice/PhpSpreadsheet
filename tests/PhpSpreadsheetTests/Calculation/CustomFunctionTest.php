@@ -31,4 +31,19 @@ class CustomFunctionTest extends TestCase
         self::assertSame('#NAME?', $calculation->calculateFormula('=FOURTHPOWER(3)'));
         self::assertFalse(Calculation::removeFunction('WHATEVER'));
     }
+
+    public static function testReplaceDummyFunction(): void
+    {
+        $functions = Calculation::getFunctions();
+        $key = 'ASC';
+        $oldValue = $functions[$key] ?? null;
+        self::assertIsArray($oldValue);
+        $calculation = Calculation::getInstance();
+        $value = $oldValue;
+        $value['functionCall'] = [CustomFunction::class, 'ASC'];
+        self::assertTrue(Calculation::addFunction($key, $value));
+        self::assertSame('ABC', $calculation->calculateFormula('=ASC("ＡＢＣ")'));
+        self::assertTrue(Calculation::removeFunction('ASC'));
+        self::assertTrue(Calculation::addFunction($key, $oldValue));
+    }
 }
