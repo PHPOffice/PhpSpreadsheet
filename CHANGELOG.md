@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Don't use htmlspecialchars when formatting XML. [Issue #4537](https://github.com/PHPOffice/PhpSpreadsheet/issues/4537) [PR #4540](https://github.com/PHPOffice/PhpSpreadsheet/pull/4540)
 
 ## 2025-06-22 - 4.4.0
 
