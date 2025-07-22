@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Html Writer Conditional Formatting Inline Css. [Issue #4539](https://github.com/PHPOffice/PhpSpreadsheet/issues/4539) [PR #4541](https://github.com/PHPOffice/PhpSpreadsheet/pull/4541)
 
 ## 2025-06-22 - 4.4.0
 
