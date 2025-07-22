@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Don't use htmlspecialchars when formatting XML. [Issue #4537](https://github.com/PHPOffice/PhpSpreadsheet/issues/4537) [PR #4540](https://github.com/PHPOffice/PhpSpreadsheet/pull/4540)
+- Do not use htmlspecialchars when formatting XML. [Issue #4537](https://github.com/PHPOffice/PhpSpreadsheet/issues/4537) [PR #4540](https://github.com/PHPOffice/PhpSpreadsheet/pull/4540)
 - Writer Html/Pdf support RTL alignment of tables. [Issue #1104](https://github.com/PHPOffice/PhpSpreadsheet/issues/1104) [PR #4535](https://github.com/PHPOffice/PhpSpreadsheet/pull/4535)
 - Xlsx Reader use dynamic arrays if spreadsheet did so. [PR #4533](https://github.com/PHPOffice/PhpSpreadsheet/pull/4533)
 - Ods Reader Nested table-row. [Issue #4528](https://github.com/PHPOffice/PhpSpreadsheet/issues/4528) [Issue #2507](https://github.com/PHPOffice/PhpSpreadsheet/issues/2507) [PR #4531](https://github.com/PHPOffice/PhpSpreadsheet/pull/4531)
