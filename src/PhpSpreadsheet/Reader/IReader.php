@@ -12,6 +12,14 @@ interface IReader
     public const IGNORE_EMPTY_CELLS = 4;
 
     /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     */
+    public const ALLOW_EXTERNAL_IMAGES = 16;
+    public const DONT_ALLOW_EXTERNAL_IMAGES = 32;
+
+    /**
      * IReader constructor.
      */
     public function __construct();
@@ -128,6 +136,22 @@ interface IReader
     public function setReadFilter(IReadFilter $readFilter);
 
     /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     *
+     * @param bool $allowExternalImages
+     *
+     * @return IReader
+     */
+    public function setAllowExternalImages(bool $allowExternalImages);
+
+    /**
+     * @return bool
+     */
+    public function getAllowExternalImages();
+
+    /**
      * Loads PhpSpreadsheet from file.
      *
      * @param string $filename The name of the file to load
@@ -136,6 +160,8 @@ interface IReader
      *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
      *            self::SKIP_EMPTY_CELLS    Don't read empty cells (cells that contain a null value,
      *                                      empty string, or a string containing only whitespace characters)
+     *            self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
+     *            self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
      *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
