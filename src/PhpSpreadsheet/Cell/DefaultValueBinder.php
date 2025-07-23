@@ -108,4 +108,18 @@ class DefaultValueBinder implements IValueBinder
 
         return DataType::TYPE_STRING;
     }
+
+    protected bool $preserveCr = false;
+
+    public function getPreserveCr(): bool
+    {
+        return $this->preserveCr;
+    }
+
+    public function setPreserveCr(bool $preserveCr): self
+    {
+        $this->preserveCr = $preserveCr;
+
+        return $this;
+    }
 }

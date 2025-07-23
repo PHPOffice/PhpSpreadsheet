@@ -158,6 +158,10 @@ class Html extends BaseWriter
 
     private string $getFalse = 'FALSE';
 
+    protected bool $rtlSheets = false;
+
+    protected bool $ltrSheets = false;
+
     /**
      * Create a new HTML.
      */
@@ -186,11 +190,31 @@ class Html extends BaseWriter
         $this->maybeCloseFileHandle();
     }
 
+    protected function checkRtlAndLtr(): void
+    {
+        $this->rtlSheets = false;
+        $this->ltrSheets = false;
+        if ($this->sheetIndex === null) {
+            foreach ($this->spreadsheet->getAllSheets() as $sheet) {
+                if ($sheet->getRightToLeft()) {
+                    $this->rtlSheets = true;
+                } else {
+                    $this->ltrSheets = true;
+                }
+            }
+        } else {
+            if ($this->spreadsheet->getSheet($this->sheetIndex)->getRightToLeft()) {
+                $this->rtlSheets = true;
+            }
+        }
+    }
+
     /**
      * Save Spreadsheet as html to variable.
      */
     public function generateHtmlAll(): string
     {
+        $this->checkRtlAndLtr();
         $sheets = $this->generateSheetPrep();
         foreach ($sheets as $sheet) {
             $sheet->calculateArrays($this->preCalculateFormulas);
@@ -369,7 +393,8 @@ class Html extends BaseWriter
         // Construct HTML
         $properties = $this->spreadsheet->getProperties();
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . PHP_EOL;
-        $html .= '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL;
+        $rtl = ($this->rtlSheets && !$this->ltrSheets) ? " dir='rtl'" : '';
+        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $rtl . '>' . PHP_EOL;
         $html .= '  <head>' . PHP_EOL;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . PHP_EOL;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet" />' . PHP_EOL;
@@ -1013,6 +1038,9 @@ class Html extends BaseWriter
         // .s {}
         $css['.s']['text-align'] = 'left'; // STRING
 
+        $css['.floatright']['float'] = 'right';
+        $css['.floatleft']['float'] = 'left';
+
         // Calculate cell style hashes
         foreach ($this->spreadsheet->getCellXfCollection() as $index => $style) {
             $css['td.style' . $index . ', th.style' . $index] = $this->createCSSStyle($style);
@@ -1046,13 +1074,13 @@ class Html extends BaseWriter
      *
      * @return string[]
      */
-    private function createCSSStyle(Style $style): array
+    private function createCSSStyle(Style $style, bool $conditional = false): array
     {
         // Create CSS
         return array_merge(
-            $this->createCSSStyleAlignment($style->getAlignment()),
+            $conditional ? [] : $this->createCSSStyleAlignment($style->getAlignment()),
             $this->createCSSStyleBorders($style->getBorders()),
-            $this->createCSSStyleFont($style->getFont()),
+            $this->createCSSStyleFont($style->getFont(), conditional: $conditional),
             $this->createCSSStyleFill($style->getFill())
         );
     }
@@ -1096,7 +1124,7 @@ class Html extends BaseWriter
      *
      * @return string[]
      */
-    private function createCSSStyleFont(Font $font, bool $useDefaults = false): array
+    private function createCSSStyleFont(Font $font, bool $useDefaults = false, bool $conditional = false): array
     {
         // Construct CSS
         $css = [];
@@ -1123,10 +1151,27 @@ class Html extends BaseWriter
         }
 
         $css['color'] = '#' . $font->getColor()->getRGB();
-        $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
-        $css['font-size'] = $font->getSize() . 'pt';
+        if (!$conditional) {
+            $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+            $css['font-size'] = $font->getSize() . 'pt';
+        }
 
         return $css;
+    }
+
+    /**
+     * @param string[] $css
+     */
+    private function styleBorder(array &$css, string $index, Border $border): void
+    {
+        $borderStyle = $border->getBorderStyle();
+        // Mpdf doesn't process !important, so omit unimportant border none
+        if ($borderStyle === Border::BORDER_NONE && $this instanceof Pdf\Mpdf) {
+            return;
+        }
+        if ($borderStyle !== Border::BORDER_OMIT) {
+            $css[$index] = $this->createCSSStyleBorder($border);
+        }
     }
 
     /**
@@ -1142,26 +1187,10 @@ class Html extends BaseWriter
         $css = [];
 
         // Create CSS
-        if (!($this instanceof Pdf\Mpdf)) {
-            $css['border-bottom'] = $this->createCSSStyleBorder($borders->getBottom());
-            $css['border-top'] = $this->createCSSStyleBorder($borders->getTop());
-            $css['border-left'] = $this->createCSSStyleBorder($borders->getLeft());
-            $css['border-right'] = $this->createCSSStyleBorder($borders->getRight());
-        } else {
-            // Mpdf doesn't process !important, so omit unimportant border none
-            if ($borders->getBottom()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-bottom'] = $this->createCSSStyleBorder($borders->getBottom());
-            }
-            if ($borders->getTop()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-top'] = $this->createCSSStyleBorder($borders->getTop());
-            }
-            if ($borders->getLeft()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-left'] = $this->createCSSStyleBorder($borders->getLeft());
-            }
-            if ($borders->getRight()->getBorderStyle() !== Border::BORDER_NONE) {
-                $css['border-right'] = $this->createCSSStyleBorder($borders->getRight());
-            }
-        }
+        $this->styleBorder($css, 'border-bottom', $borders->getBottom());
+        $this->styleBorder($css, 'border-top', $borders->getTop());
+        $this->styleBorder($css, 'border-left', $borders->getLeft());
+        $this->styleBorder($css, 'border-right', $borders->getRight());
 
         return $css;
     }
@@ -1221,21 +1250,52 @@ class Html extends BaseWriter
         return $html;
     }
 
+    private function getDir(Worksheet $worksheet): string
+    {
+        if ($worksheet->getRightToLeft()) {
+            return " dir='rtl'";
+        }
+        if ($this->rtlSheets) {
+            return " dir='ltr'";
+        }
+
+        return '';
+    }
+
+    private function getFloat(Worksheet $worksheet): string
+    {
+        $float = '';
+        if ($worksheet->getRightToLeft()) {
+            if ($this->ltrSheets) {
+                $float = ' floatright';
+            }
+        } else {
+            if ($this->rtlSheets) {
+                $float = ' floatleft';
+            }
+        }
+
+        return $float;
+    }
+
     private function generateTableTagInline(Worksheet $worksheet, string $id): string
     {
         $style = isset($this->cssStyles['table'])
             ? $this->assembleCSS($this->cssStyles['table']) : '';
-
+        $rtl = $this->getDir($worksheet);
+        $float = $this->getFloat($worksheet);
         $prntgrid = $worksheet->getPrintGridlines();
         $viewgrid = $this->isPdf ? $prntgrid : $worksheet->getShowGridlines();
         if ($viewgrid && $prntgrid) {
-            $html = "    <table border='1' cellpadding='1' $id cellspacing='1' style='$style' class='gridlines gridlinesp'>" . PHP_EOL;
+            $html = "    <table border='1' cellpadding='1'$rtl $id cellspacing='1' style='$style' class='gridlines gridlinesp$float'>" . PHP_EOL;
         } elseif ($viewgrid) {
-            $html = "    <table border='0' cellpadding='0' $id cellspacing='0' style='$style' class='gridlines'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='0'$rtl $id cellspacing='0' style='$style' class='gridlines$float'>" . PHP_EOL;
         } elseif ($prntgrid) {
-            $html = "    <table border='0' cellpadding='0' $id cellspacing='0' style='$style' class='gridlinesp'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='0'$rtl $id cellspacing='0' style='$style' class='gridlinesp$float'>" . PHP_EOL;
+        } elseif ($float === '') {
+            $html = "    <table border='0' cellpadding='1'$rtl $id cellspacing='0' style='$style'>" . PHP_EOL;
         } else {
-            $html = "    <table border='0' cellpadding='1' $id cellspacing='0' style='$style'>" . PHP_EOL;
+            $html = "    <table border='0' cellpadding='1'$rtl $id cellspacing='0' style='$style' class='$float'>" . PHP_EOL;
         }
 
         return $html;
@@ -1244,9 +1304,11 @@ class Html extends BaseWriter
     private function generateTableTag(Worksheet $worksheet, string $id, string &$html, int $sheetIndex): void
     {
         if (!$this->useInlineCss) {
+            $rtl = $this->getDir($worksheet);
+            $float = $this->getFloat($worksheet);
             $gridlines = $worksheet->getShowGridlines() ? ' gridlines' : '';
             $gridlinesp = $worksheet->getPrintGridlines() ? ' gridlinesp' : '';
-            $html .= "    <table border='0' cellpadding='0' cellspacing='0' $id class='sheet$sheetIndex$gridlines$gridlinesp'>" . PHP_EOL;
+            $html .= "    <table border='0' cellpadding='0' cellspacing='0'$rtl $id class='sheet$sheetIndex$gridlines$gridlinesp$float'>" . PHP_EOL;
         } else {
             $html .= $this->generateTableTagInline($worksheet, $id);
         }
@@ -1265,10 +1327,12 @@ class Html extends BaseWriter
         // Construct HTML
         $html = '';
         $id = $showid ? "id='sheet$sheetIndex'" : '';
+        $clear = ($this->rtlSheets && $this->ltrSheets) ? '; clear:both' : '';
+
         if ($showid) {
-            $html .= "<div style='page: page$sheetIndex'>" . PHP_EOL;
+            $html .= "<div style='page: page$sheetIndex$clear'>" . PHP_EOL;
         } else {
-            $html .= "<div style='page: page$sheetIndex' class='scrpgbrk'>" . PHP_EOL;
+            $html .= "<div style='page: page$sheetIndex$clear' class='scrpgbrk'>" . PHP_EOL;
         }
 
         $this->generateTableTag($worksheet, $id, $html, $sheetIndex);
@@ -1330,7 +1394,11 @@ class Html extends BaseWriter
             $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $row])
                 ? $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $row]) : '';
 
-            $html .= '          <tr style="' . $style . '">' . PHP_EOL;
+            if ($style === '') {
+                $html .= '          <tr>' . PHP_EOL;
+            } else {
+                $html .= '          <tr style="' . $style . '">' . PHP_EOL;
+            }
         }
 
         return $html;
@@ -1542,6 +1610,7 @@ class Html extends BaseWriter
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
             }
         }
+        $holdCss = '';
         if (!$this->useInlineCss && !$this->isPdf && is_string($cssClass)) {
             $html .= ' class="' . $cssClass . '"';
             if ($htmlx) {
@@ -1587,9 +1656,17 @@ class Html extends BaseWriter
                 $xcssClass['position'] = 'relative';
             }
             /** @var string[] $xcssClass */
-            $html .= ' style="' . $this->assembleCSS($xcssClass) . '"';
+            $holdCss = $this->assembleCSS($xcssClass);
             if ($this->useInlineCss) {
-                $html .= ' class="gridlines gridlinesp"';
+                $prntgrid = $worksheet->getPrintGridlines();
+                $viewgrid = $this->isPdf ? $prntgrid : $worksheet->getShowGridlines();
+                if ($viewgrid && $prntgrid) {
+                    $html .= ' class="gridlines gridlinesp"';
+                } elseif ($viewgrid) {
+                    $html .= ' class="gridlines"';
+                } elseif ($prntgrid) {
+                    $html .= ' class="gridlinesp"';
+                }
             }
         }
 
@@ -1637,13 +1714,22 @@ class Html extends BaseWriter
                 }
             }
             if ($matched) {
-                $styles = $this->createCSSStyle($styleMerger->getStyle());
+                $styles = $this->createCSSStyle($styleMerger->getStyle(), true);
                 $html .= ' style="';
+                if ($holdCss !== '') {
+                    $html .= "$holdCss; ";
+                    $holdCss = '';
+                }
                 foreach ($styles as $key => $value) {
-                    $html .= $key . ':' . $value . ';';
+                    if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
+                        $html .= $key . ':' . $value . ';';
+                    }
                 }
                 $html .= '"';
             }
+        }
+        if ($holdCss !== '') {
+            $html .= ' style="' . $holdCss . '"';
         }
 
         $html .= '>';

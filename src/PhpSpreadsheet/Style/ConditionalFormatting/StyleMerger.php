@@ -14,7 +14,10 @@ class StyleMerger
 
     public function __construct(Style $baseStyle)
     {
-        $this->baseStyle = $baseStyle;
+        // Setting to $baseStyle sometimes causes problems later on.
+        $array = $baseStyle->exportArray();
+        $this->baseStyle = new Style();
+        $this->baseStyle->applyFromArray($array);
     }
 
     public function getStyle(): Style
@@ -75,7 +78,11 @@ class StyleMerger
 
     protected function mergeBorderStyle(Border $baseBorderStyle, Border $borderStyle): void
     {
-        $baseBorderStyle->setBorderStyle($borderStyle->getBorderStyle());
+        if ($borderStyle->getBorderStyle() !== Border::BORDER_OMIT) {
+            $baseBorderStyle->setBorderStyle(
+                $borderStyle->getBorderStyle()
+            );
+        }
         if ($borderStyle->getColor()->getARGB() !== null) {
             $baseBorderStyle->setColor($borderStyle->getColor());
         }

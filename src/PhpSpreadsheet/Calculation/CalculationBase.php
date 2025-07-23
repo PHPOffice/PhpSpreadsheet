@@ -30,11 +30,28 @@ class CalculationBase
     public static function addFunction(string $key, array $value): bool
     {
         $key = strtoupper($key);
-        if (array_key_exists($key, FunctionArray::$phpSpreadsheetFunctions)) {
+        if (
+            array_key_exists($key, FunctionArray::$phpSpreadsheetFunctions)
+            && !self::isDummy($key)
+        ) {
             return false;
         }
         $value['custom'] = true;
         FunctionArray::$phpSpreadsheetFunctions[$key] = $value;
+
+        return true;
+    }
+
+    private static function isDummy(string $key): bool
+    {
+        // key is already known to exist
+        $functionCall = FunctionArray::$phpSpreadsheetFunctions[$key]['functionCall'] ?? null;
+        if (!is_array($functionCall)) {
+            return false;
+        }
+        if (($functionCall[1] ?? '') !== 'DUMMY') {
+            return false;
+        }
 
         return true;
     }

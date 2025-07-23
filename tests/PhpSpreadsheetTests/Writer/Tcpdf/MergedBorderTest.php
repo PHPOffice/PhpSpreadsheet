@@ -32,7 +32,7 @@ class MergedBorderTest extends TestCase
         $sheet->setShowGridlines(false);
         $writer = new Tcpdf($spreadsheet);
         $html = $writer->generateHtmlAll();
-        self::assertSame(1, preg_match('/border-bottom:1px solid #FF0000 !important; border-top:1px solid #FF0000 !important; border-left:1px solid #FF0000 !important; border-right:1px solid #FF0000 !important; color:#000000;[^>]+ colspan="2" rowspan="4"/', $html));
+        self::assertSame(1, preg_match('/ colspan="2" rowspan="4" style="vertical-align:bottom; border-bottom:1px solid #FF0000 !important; border-top:1px solid #FF0000 !important; border-left:1px solid #FF0000 !important; border-right:1px solid #FF0000 !important; color:#000000;[^>]+/', $html));
         $spreadsheet->disconnectWorksheets();
     }
 }
