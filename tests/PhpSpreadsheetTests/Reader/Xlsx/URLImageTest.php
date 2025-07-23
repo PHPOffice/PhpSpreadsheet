@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
 {
-    public function testURLImageSource(): void
+    public function testURLImageSourceAllowed(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -20,6 +20,7 @@ class URLImageTest extends TestCase
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.xlsx');
         self::assertNotFalse($filename);
         $reader = IOFactory::createReader('Xlsx');
+        $reader->setAllowExternalImages(true);
         $spreadsheet = $reader->load($filename);
         $worksheet = $spreadsheet->getActiveSheet();
         $collection = $worksheet->getDrawingCollection();
@@ -37,7 +38,20 @@ class URLImageTest extends TestCase
         }
     }
 
-    public function xtestURLImageSourceNotFound(): void
+    public function testURLImageSourceNotAllowed(): void
+    {
+        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.xlsx');
+        self::assertNotFalse($filename);
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setAllowExternalImages(false);
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $collection = $worksheet->getDrawingCollection();
+        self::assertCount(0, $collection);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testURLImageSourceNotFoundAllowed(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
@@ -45,6 +59,20 @@ class URLImageTest extends TestCase
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.notfound.xlsx');
         self::assertNotFalse($filename);
         $reader = IOFactory::createReader('Xlsx');
+        $reader->setAllowExternalImages(true);
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $collection = $worksheet->getDrawingCollection();
+        self::assertCount(0, $collection);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testURLImageSourceNotFoundNotAllowed(): void
+    {
+        $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.notfound.xlsx');
+        self::assertNotFalse($filename);
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setAllowExternalImages(false);
         $spreadsheet = $reader->load($filename);
         $worksheet = $spreadsheet->getActiveSheet();
         $collection = $worksheet->getDrawingCollection();

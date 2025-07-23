@@ -40,6 +40,13 @@ abstract class BaseReader implements IReader
     protected ?array $loadSheetsOnly = null;
 
     /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     */
+    protected bool $allowExternalImages = true;
+
+    /**
      * IReadFilter instance.
      */
     protected IReadFilter $readFilter;
@@ -125,6 +132,23 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
+    /**
+     * Allow external images. Use with caution.
+     * Improper specification of these within a spreadsheet
+     * can subject the caller to security exploits.
+     */
+    public function setAllowExternalImages(bool $allowExternalImages): self
+    {
+        $this->allowExternalImages = $allowExternalImages;
+
+        return $this;
+    }
+
+    public function getAllowExternalImages(): bool
+    {
+        return $this->allowExternalImages;
+    }
+
     public function getSecurityScanner(): ?XmlScanner
     {
         return $this->securityScanner;
@@ -149,6 +173,12 @@ abstract class BaseReader implements IReader
         }
         if (((bool) ($flags & self::SKIP_EMPTY_CELLS) || (bool) ($flags & self::IGNORE_EMPTY_CELLS)) === true) {
             $this->setReadEmptyCells(false);
+        }
+        if (((bool) ($flags & self::ALLOW_EXTERNAL_IMAGES)) === true) {
+            $this->setAllowExternalImages(true);
+        }
+        if (((bool) ($flags & self::DONT_ALLOW_EXTERNAL_IMAGES)) === true) {
+            $this->setAllowExternalImages(false);
         }
     }
 
