@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Add to all readers the option to allow or forbid fetching external images. This is unconditionally allowed now. The default will be set to "allow", so no code changes are necessary. However, we are giving consideration to changing the default. [PR #4543](https://github.com/PHPOffice/PhpSpreadsheet/pull/4543)
 - Address Excel Inappropriate Number Format Substitution. [PR #4532](https://github.com/PHPOffice/PhpSpreadsheet/pull/4532)
 
 ### Removed
