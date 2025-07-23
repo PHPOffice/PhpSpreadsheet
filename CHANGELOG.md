@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-# TBD - 1.29.12
+# 2025-07-23 - 1.29.12
 
 ### Added
 
-- Add to all readers the option to allow or forbid fetching external images. This is unconditionally allowed now. The default will be set to "allow", so no code changes are necessary. However, we are giving consideration to changing the default.
+- Add to all readers the option to allow or forbid fetching external images. This is unconditionally allowed now. The default will be set to "allow", so no code changes are necessary. However, we are giving consideration to changing the default.[PR #4545](https://github.com/PHPOffice/PhpSpreadsheet/pull/4545)
 
 # 2025-06-22 - 1.29.11
 
