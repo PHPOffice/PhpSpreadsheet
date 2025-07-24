@@ -12,17 +12,19 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ThemeColorsTest extends AbstractFunctional
 {
+    private const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
+
     public function testOffice2013Theme(): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getTheme()
             ->setThemeColorName(
-                SpreadsheetTheme::COLOR_SCHEME_2013_PLUS_NAME //* @phpstan-ignore-line
+                self::COLOR_SCHEME_2013_PLUS_NAME
             );
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $spreadsheet->disconnectWorksheets();
         self::assertSame(
-            SpreadsheetTheme::COLOR_SCHEME_2013_PLUS_NAME, //* @phpstan-ignore-line
+            SpreadsheetTheme::COLOR_SCHEME_2013_2022_NAME,
             $reloadedSpreadsheet->getTheme()->getThemeColorName()
         );
         self::assertSame('FFC000', $reloadedSpreadsheet->getTheme()->getThemeColors()['accent4']);
