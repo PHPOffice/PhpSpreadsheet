@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Breaking Changes
 
-- Nothing yet.
+- Deletion of items deprecated in Release 4. See "removed" below.
 
 ### Added
 
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Removed
 
-- Nothing yet.
+- Theme public constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
 
 ### Changed
 
