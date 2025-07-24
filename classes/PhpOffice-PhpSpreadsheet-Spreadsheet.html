@@ -975,6 +975,14 @@ filtering optiomd in the user interface.</dd>
 <dd>Remove sheet by index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_replaceBuiltinNumberFormat">replaceBuiltinNumberFormat()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Excel will sometimes replace user&#039;s formatting choice
+with a built-in choice that it thinks is equivalent.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_resetThemeFonts">resetThemeFonts()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -5974,6 +5982,62 @@ this method on, and then writing, the clone.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_replaceBuiltinNumberFormat">
+        replaceBuiltinNumberFormat()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_replaceBuiltinNumberFormat" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1795</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Excel will sometimes replace user&#039;s formatting choice
+with a built-in choice that it thinks is equivalent.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">replaceBuiltinNumberFormat</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$builtinFormatIndex</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formatCode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+        <section class="phpdocumentor-description"><p>Its choice is often not equivalent after all.
+Such treatment is astonishingly user-hostile.
+This function will undo such changes.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$builtinFormatIndex</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$formatCode</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_resetThemeFonts">
         resetThemeFonts()
         <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_resetThemeFonts" class="headerlink"><i class="fas fa-link"></i></a>
@@ -7424,6 +7488,7 @@ user interface.</li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_removeNamedFormula">removeNamedFormula()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_removeNamedRange">removeNamedRange()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_removeSheetByIndex">removeSheetByIndex()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_replaceBuiltinNumberFormat">replaceBuiltinNumberFormat()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_resetThemeFonts">resetThemeFonts()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_setActiveSheetIndex">setActiveSheetIndex()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_setActiveSheetIndexByName">setActiveSheetIndexByName()</a></li>
