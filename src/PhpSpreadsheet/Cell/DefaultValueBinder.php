@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use Composer\Pcre\Preg;
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
@@ -12,6 +13,9 @@ use Stringable;
 
 class DefaultValueBinder implements IValueBinder
 {
+    //                            123 456 789 012 345
+    private const FIFTEEN_NINES = 999_999_999_999_999;
+
     /**
      * Bind value to a cell.
      *
@@ -48,6 +52,9 @@ class DefaultValueBinder implements IValueBinder
         // Match the value against a few data types
         if ($value === null) {
             return DataType::TYPE_NULL;
+        }
+        if (is_int($value) && abs($value) > self::FIFTEEN_NINES) {
+            return DataType::TYPE_STRING;
         }
         if (is_float($value) || is_int($value)) {
             return DataType::TYPE_NUMERIC;
@@ -89,13 +96,18 @@ class DefaultValueBinder implements IValueBinder
 
             return DataType::TYPE_FORMULA;
         }
-        if (preg_match('/^[\+\-]?(\d+\.?\d*|\d*\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $value)) {
+        if (Preg::isMatch('/^[\+\-]?(\d+\.?\d*|\d*\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $value)) {
             $tValue = ltrim($value, '+-');
             if (strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((!str_contains($value, '.')) && ($value > PHP_INT_MAX)) {
-                return DataType::TYPE_STRING;
-            } elseif (!is_numeric($value)) {
+            }
+            if (!Preg::isMatch('/[eE.]/', $value)) {
+                $aValue = abs((float) $value);
+                if ($aValue > self::FIFTEEN_NINES) {
+                    return DataType::TYPE_STRING;
+                }
+            }
+            if (!is_numeric($value)) {
                 return DataType::TYPE_STRING;
             }
 
