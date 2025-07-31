@@ -39,10 +39,15 @@ class DateTest extends TestCase
             Date::CALENDAR_WINDOWS_1900,
         ];
 
+        $spreadsheet = new Spreadsheet();
         foreach ($calendarValues as $calendarValue) {
             $result = Date::setExcelCalendar($calendarValue);
             self::assertTrue($result);
+            $result = $spreadsheet->setExcelCalendar($calendarValue);
+            self::assertTrue($result);
         }
+        self::assertFalse($spreadsheet->setExcelCalendar(0));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSetExcelCalendarWithInvalidValue(): void
