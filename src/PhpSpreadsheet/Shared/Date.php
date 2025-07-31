@@ -172,10 +172,7 @@ class Date
             throw new Exception("Invalid string $value supplied for datatype Date");
         }
 
-        $newValue = self::PHPToExcel($date);
-        if ($newValue === false) {
-            throw new Exception("Invalid string $value supplied for datatype Date");
-        }
+        $newValue = self::dateTimeToExcel($date);
 
         if (preg_match('/^\s*\d?\d:\d\d(:\d\d([.]\d+)?)?\s*(am|pm)?\s*$/i', $value) == 1) {
             $newValue = fmod($newValue, 1.0);

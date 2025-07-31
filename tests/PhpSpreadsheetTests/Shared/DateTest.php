@@ -204,6 +204,9 @@ class DateTest extends TestCase
 
         $date = Date::PHPToExcel('2020-01-01');
         self::assertEquals(43831.0, $date);
+        $phpDate = new DateTime('2020-01-02T00:00Z');
+        $date = Date::PHPToExcel($phpDate);
+        self::assertEquals(43832.0, $date);
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
