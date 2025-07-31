@@ -49,8 +49,8 @@ class SpreadsheetCopyCloneTest extends TestCase
         } else {
             $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
         }
-        self::assertSame($spreadsheet, $spreadsheet->getCalculationEngine()?->getSpreadsheet());
-        self::assertSame($spreadsheet2, $spreadsheet2->getCalculationEngine()?->getSpreadsheet());
+        self::assertSame($spreadsheet, $spreadsheet->getCalculationEngine()->getSpreadsheet());
+        self::assertSame($spreadsheet2, $spreadsheet2->getCalculationEngine()->getSpreadsheet());
         self::assertSame('A3', $sheet->getSelectedCells());
         $copysheet = $spreadsheet2->getActiveSheet();
         self::assertSame('A3', $copysheet->getSelectedCells());
@@ -132,7 +132,6 @@ class SpreadsheetCopyCloneTest extends TestCase
     {
         $spreadsheet = $this->spreadsheet = new Spreadsheet();
         $calc = $spreadsheet->getCalculationEngine();
-        self::assertNotNull($calc);
         $calc->setSuppressFormulaErrors($suppress);
         $calc->setCalculationCacheEnabled($cache);
         $calc->setBranchPruningEnabled($pruning);
@@ -143,7 +142,6 @@ class SpreadsheetCopyCloneTest extends TestCase
             $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
         }
         $calc2 = $spreadsheet2->getCalculationEngine();
-        self::assertNotNull($calc2);
         self::assertSame($suppress, $calc2->getSuppressFormulaErrors());
         self::assertSame($cache, $calc2->getCalculationCacheEnabled());
         self::assertSame($pruning, $calc2->getBranchPruningEnabled());

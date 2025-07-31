@@ -207,10 +207,7 @@ class Calculation extends CalculationLocale
     public static function getInstance(?Spreadsheet $spreadsheet = null): self
     {
         if ($spreadsheet !== null) {
-            $instance = $spreadsheet->getCalculationEngine();
-            if (isset($instance)) {
-                return $instance;
-            }
+            return $spreadsheet->getCalculationEngine();
         }
 
         if (!self::$instance) {
@@ -218,6 +215,20 @@ class Calculation extends CalculationLocale
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Intended for use only via a destructor.
+     *
+     * @internal
+     */
+    public static function getInstanceOrNull(?Spreadsheet $spreadsheet = null): ?self
+    {
+        if ($spreadsheet !== null) {
+            return $spreadsheet->getCalculationEngineOrNull();
+        }
+
+        return null;
     }
 
     /**

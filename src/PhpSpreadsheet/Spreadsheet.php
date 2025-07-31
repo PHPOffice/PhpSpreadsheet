@@ -58,7 +58,7 @@ class Spreadsheet implements JsonSerializable
     /**
      * Calculation Engine.
      */
-    private ?Calculation $calculationEngine;
+    private Calculation $calculationEngine;
 
     /**
      * Active sheet index.
@@ -477,7 +477,7 @@ class Spreadsheet implements JsonSerializable
     public function __destruct()
     {
         $this->disconnectWorksheets();
-        $this->calculationEngine = null;
+        unset($this->calculationEngine);
         $this->cellXfCollection = [];
         $this->cellStyleXfCollection = [];
         $this->definedNames = [];
@@ -499,8 +499,22 @@ class Spreadsheet implements JsonSerializable
     /**
      * Return the calculation engine for this worksheet.
      */
-    public function getCalculationEngine(): ?Calculation
+    public function getCalculationEngine(): Calculation
     {
+        return $this->calculationEngine;
+    }
+
+    /**
+     * Intended for use only via a destructor.
+     *
+     * @internal
+     */
+    public function getCalculationEngineOrNull(): ?Calculation
+    {
+        if (!isset($this->calculationEngine)) { //* @phpstan-ignore-line
+            return null;
+        }
+
         return $this->calculationEngine;
     }
 
@@ -1120,21 +1134,19 @@ class Spreadsheet implements JsonSerializable
 
         $oldCalc = $this->calculationEngine;
         $this->calculationEngine = new Calculation($this);
-        if ($oldCalc !== null) {
-            $this->calculationEngine
-                ->setSuppressFormulaErrors(
-                    $oldCalc->getSuppressFormulaErrors()
-                )
-                ->setCalculationCacheEnabled(
-                    $oldCalc->getCalculationCacheEnabled()
-                )
-                ->setBranchPruningEnabled(
-                    $oldCalc->getBranchPruningEnabled()
-                )
-                ->setInstanceArrayReturnType(
-                    $oldCalc->getInstanceArrayReturnType()
-                );
-        }
+        $this->calculationEngine
+            ->setSuppressFormulaErrors(
+                $oldCalc->getSuppressFormulaErrors()
+            )
+            ->setCalculationCacheEnabled(
+                $oldCalc->getCalculationCacheEnabled()
+            )
+            ->setBranchPruningEnabled(
+                $oldCalc->getBranchPruningEnabled()
+            )
+            ->setInstanceArrayReturnType(
+                $oldCalc->getInstanceArrayReturnType()
+            );
         $usedKeys['calculationEngine'] = true;
 
         $currentCollection = $this->cellStyleXfCollection;
@@ -1800,5 +1812,19 @@ class Spreadsheet implements JsonSerializable
                 $numberFormat->setFormatCode($formatCode);
             }
         }
+    }
+
+    public function returnArrayAsArray(): void
+    {
+        $this->calculationEngine->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_ARRAY
+        );
+    }
+
+    public function returnArrayAsValue(): void
+    {
+        $this->calculationEngine->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
     }
 }
