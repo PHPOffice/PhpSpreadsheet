@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -452,10 +451,7 @@ class Xlsx extends BaseReader
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/sheetMetadata":
                     if ($this->fileExistsInArchive($zip, "xl/{$relTarget}")) {
-                        $excel->getCalculationEngine()
-                            ?->setInstanceArrayReturnType(
-                                Calculation::RETURN_ARRAY_AS_ARRAY
-                            );
+                        $excel->returnArrayAsArray();
                     }
 
                     break;

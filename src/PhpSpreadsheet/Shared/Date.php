@@ -374,7 +374,12 @@ class Date
             $selected = $worksheet->getSelectedCells();
 
             try {
-                $result = is_numeric($value ?? $cell->getCalculatedValue())
+                if ($value === null) {
+                    $value = Functions::flattenSingleValue(
+                        $cell->getCalculatedValue()
+                    );
+                }
+                $result = is_numeric($value)
                     && self::isDateTimeFormat(
                         $worksheet->getStyle(
                             $cell->getCoordinate()

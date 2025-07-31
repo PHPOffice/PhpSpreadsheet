@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
@@ -51,7 +52,7 @@ class DateTest extends TestCase
         self::assertFalse($result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeExcelToTimestamp1900')]
+    #[DataProvider('providerDateTimeExcelToTimestamp1900')]
     public function testDateTimeExcelToTimestamp1900(float|int $expectedResult, float|int $excelDateTimeValue): void
     {
         if ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN) {
@@ -68,7 +69,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/ExcelToTimestamp1900.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeTimestampToExcel1900')]
+    #[DataProvider('providerDateTimeTimestampToExcel1900')]
     public function testDateTimeTimestampToExcel1900(float|int $expectedResult, float|int|string $unixTimestamp): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
@@ -82,7 +83,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/TimestampToExcel1900.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeDateTimeToExcel')]
+    #[DataProvider('providerDateTimeDateTimeToExcel')]
     public function testDateTimeDateTimeToExcel(float|int $expectedResult, DateTimeInterface $dateTimeObject): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
@@ -99,7 +100,7 @@ class DateTest extends TestCase
     /**
      * @param array{0: int, 1: int, 2: int, 3: int, 4: int, 5: float|int} $args Array containing year/month/day/hours/minutes/seconds
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeFormattedPHPToExcel1900')]
+    #[DataProvider('providerDateTimeFormattedPHPToExcel1900')]
     public function testDateTimeFormattedPHPToExcel1900(mixed $expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
@@ -113,7 +114,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/FormattedPHPToExcel1900.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeExcelToTimestamp1904')]
+    #[DataProvider('providerDateTimeExcelToTimestamp1904')]
     public function testDateTimeExcelToTimestamp1904(float|int $expectedResult, float|int $excelDateTimeValue): void
     {
         if ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN) {
@@ -130,7 +131,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/ExcelToTimestamp1904.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeTimestampToExcel1904')]
+    #[DataProvider('providerDateTimeTimestampToExcel1904')]
     public function testDateTimeTimestampToExcel1904(mixed $expectedResult, float|int|string $unixTimestamp): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
@@ -144,7 +145,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/TimestampToExcel1904.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsDateTimeFormatCode')]
+    #[DataProvider('providerIsDateTimeFormatCode')]
     public function testIsDateTimeFormatCode(mixed $expectedResult, string $format): void
     {
         $result = Date::isDateTimeFormatCode($format);
@@ -156,7 +157,7 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/FormatCodes.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTimeExcelToTimestamp1900Timezone')]
+    #[DataProvider('providerDateTimeExcelToTimestamp1900Timezone')]
     public function testDateTimeExcelToTimestamp1900Timezone(float|int $expectedResult, float|int $excelDateTimeValue, string $timezone): void
     {
         if ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN) {
@@ -237,6 +238,27 @@ class DateTest extends TestCase
             ->getNumberFormat()
             ->setFormatCode('yyyy-mm-dd');
         self::assertFalse(Date::isDateTime($cella4));
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testArray(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->returnArrayAsArray();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 45000);
+        $sheet->setCellValue('A2', 44000);
+        $sheet->setCellValue('A3', 46000);
+        $sheet->setCellValue('C1', '=SORT(A1:A3)');
+        $sheet->setCellValue('D1', '=SORT(A1:A3)');
+        $sheet->getStyle('C1')
+            ->getNumberFormat()
+            ->setFormatCode('yyyy-mm-dd');
+        self::assertTrue(Date::isDateTime($sheet->getCell('C1')));
+        self::assertFalse(Date::isDateTime($sheet->getCell('D1')));
+        self::assertIsArray(
+            $sheet->getCell('C1')->getCalculatedValue()
+        );
         $spreadsheet->disconnectWorksheets();
     }
 
