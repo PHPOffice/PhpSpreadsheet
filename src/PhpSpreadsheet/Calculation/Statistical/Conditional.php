@@ -40,6 +40,7 @@ class Conditional
             throw new CalcException('Must specify range of cells, not any kind of literal');
         }
         $database = self::databaseFromRangeAndValue($range, $averageRange);
+        $condition = Functions::flattenSingleValue($condition);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
@@ -105,6 +106,7 @@ class Conditional
         );
 
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
+        $condition = Functions::flattenSingleValue($condition);
         $condition = array_merge([[self::CONDITION_COLUMN_NAME]], [[$condition]]);
 
         return DCount::evaluate($range, null, $condition, false);
@@ -205,6 +207,7 @@ class Conditional
             throw new CalcException('Must specify range of cells, not any kind of literal');
         }
         $database = self::databaseFromRangeAndValue($range, $sumRange);
+        $condition = Functions::flattenSingleValue($condition);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $condition);

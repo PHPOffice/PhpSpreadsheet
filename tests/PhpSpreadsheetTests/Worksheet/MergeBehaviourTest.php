@@ -139,13 +139,14 @@ class MergeBehaviourTest extends AbstractFunctional
                     [null, null, null],
                 ],
             ],
-            [
+            'A2 referenced and therefore created' => [
                 [
                     [12, '=5+1', '=A1/A2'],
                 ],
                 'A1:C1',
                 [
                     ['12 6 #DIV/0!', null, null],
+                    [null, null, null],
                 ],
             ],
         ];
