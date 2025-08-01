@@ -38,9 +38,9 @@ class Periodic
     ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
-        $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
-        $presentValue = ($presentValue === null) ? 0.0 : Functions::flattenSingleValue($presentValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $payment = Functions::flattenSingleValue($payment) ?? 0.0;
+        $presentValue = Functions::flattenSingleValue($presentValue) ?? 0.0;
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $rate = CashFlowValidations::validateRate($rate);
@@ -77,9 +77,9 @@ class Periodic
     ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
-        $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
-        $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $payment = Functions::flattenSingleValue($payment) ?? 0.0;
+        $futureValue = Functions::flattenSingleValue($futureValue) ?? 0.0;
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $rate = CashFlowValidations::validateRate($rate);
@@ -122,8 +122,8 @@ class Periodic
         $rate = Functions::flattenSingleValue($rate);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
-        $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $futureValue = Functions::flattenSingleValue($futureValue) ?? 0.0;
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $rate = CashFlowValidations::validateRate($rate);
