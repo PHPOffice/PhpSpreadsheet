@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Breaking Changes
 
+- Images will be loaded from an external source (e.g. http://example.com/img.png) only if the reader is explicitly set to allow it via `$reader->setAllowExternalImages(true)`. We do not believe that loading of external images is a widely used feature.
 - Deletion of items deprecated in Release 4. See "removed" below.
+- Move some properties from Base Reader to Html Reader. [PR #4551](https://github.com/PHPOffice/PhpSpreadsheet/pull/4551)
+- DefaultValueBinder will treat integers with more than 15 digits as strings. [Issue #4522](https://github.com/PHPOffice/PhpSpreadsheet/issues/4522) [PR #4527](https://github.com/PHPOffice/PhpSpreadsheet/pull/4527)
 
 ### Added
 
