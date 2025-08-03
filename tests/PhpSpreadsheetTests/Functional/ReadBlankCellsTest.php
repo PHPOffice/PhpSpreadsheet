@@ -73,8 +73,11 @@ class ReadBlankCellsTest extends AbstractFunctional
      * Test generate file with some empty cells.
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetFormat')]
-    public function testLoadAndSaveDontReadEmpty(string $format): void
+    public function testLoadAndSaveDontReadEmpty(string $format, mixed $expected): void
     {
+        if (!is_bool($expected)) {
+            self::fail('unexpected unused arg');
+        }
         $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';
         $reader = new Xlsx();
         $reader->setReadEmptyCells(false);

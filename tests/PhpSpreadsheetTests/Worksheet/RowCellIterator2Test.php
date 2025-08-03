@@ -83,8 +83,11 @@ class RowCellIterator2Test extends TestCase
     }
 
     #[DataProvider('providerNullOrCreate')]
-    public function testNullOrCreateOption(?bool $existingBehaviour, int $expectedCreatedResult): void
+    public function testNullOrCreateOption(?bool $existingBehaviour, int $expectedCreatedResult, mixed $expectedNullResult): void
     {
+        if (!is_int($expectedNullResult)) {
+            self::fail('unexpected unused arg');
+        }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $iterator = new RowCellIterator($sheet, 2);

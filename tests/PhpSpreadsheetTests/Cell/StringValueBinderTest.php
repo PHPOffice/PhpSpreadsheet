@@ -250,7 +250,7 @@ class StringValueBinderTest extends TestCase
             ['-.123', '-.123', DataType::TYPE_STRING],
             ['1.23e-4', '1.23e-4', DataType::TYPE_STRING],
             ['ABC', 'ABC', DataType::TYPE_STRING],
-            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
+            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA],
             [123, 123, DataType::TYPE_NUMERIC],
             [123.456, 123.456, DataType::TYPE_NUMERIC],
             [0.123, 0.123, DataType::TYPE_NUMERIC],

@@ -116,7 +116,7 @@ class MidTest extends AllSetupTeardown
     }
 
     #[DataProvider('providerCalculationTypeMIDFalse')]
-    public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
+    public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2, string $resultB3): void
     {
         Functions::setCompatibilityMode($type);
         $sheet = $this->getSheet();
@@ -127,6 +127,7 @@ class MidTest extends AllSetupTeardown
         $this->setCell('B3', '=MID(A2, 2, A1)');
         self::assertEquals($resultB1, $sheet->getCell('B1')->getCalculatedValue());
         self::assertEquals($resultB2, $sheet->getCell('B2')->getCalculatedValue());
+        self::assertEquals($resultB3, $sheet->getCell('B3')->getCalculatedValue());
     }
 
     public static function providerCalculationTypeMIDFalse(): array
