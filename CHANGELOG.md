@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)
 
 ## 2025-07-23 - 4.5.0
 
