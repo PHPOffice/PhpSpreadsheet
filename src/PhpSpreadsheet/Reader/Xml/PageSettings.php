@@ -10,7 +10,7 @@ use stdClass;
 
 class PageSettings
 {
-    /** @var (object{orientation: string, scale: ?int, printOrder: string|null,
+    /** @var (object{orientation: string, scale: ?int, printOrder: ?string,
      * paperSize: int,
      * horizontalCentered: bool, verticalCentered: bool, leftMargin: float, rightMargin: float, topMargin: float,
      * bottomMargin: float, headerMargin: float, footerMargin: float}&stdClass) */
