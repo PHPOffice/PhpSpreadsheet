@@ -51,7 +51,7 @@ abstract class BaseReader implements IReader
      *
      * @var bool
      */
-    protected $allowExternalImages = true;
+    protected $allowExternalImages = false;
 
     /**
      * IReadFilter instance.
