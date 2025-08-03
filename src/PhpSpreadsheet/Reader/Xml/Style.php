@@ -23,7 +23,7 @@ class Style
     {
         $children = $xml->children('urn:schemas-microsoft-com:office:spreadsheet');
         $stylesXml = $children->Styles[0];
-        if (!isset($stylesXml) || !is_iterable($stylesXml)) {
+        if (!isset($stylesXml)) {
             return [];
         }
 

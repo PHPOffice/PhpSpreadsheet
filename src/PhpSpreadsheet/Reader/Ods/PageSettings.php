@@ -153,7 +153,7 @@ class PageSettings
         if (!array_key_exists($printSettingsIndex, $this->pageLayoutStyles)) {
             return;
         }
-        /** @var (object{orientation: string, scale: int|string, printOrder: string|null,
+        /** @var (object{orientation: string, scale: int|string, printOrder: ?string,
          * horizontalCentered: bool, verticalCentered: bool, marginLeft: float, marginRight: float, marginTop: float,
          * marginBottom: float, marginHeader: float, marginFooter: float}&stdClass) */
         $printSettings = $this->pageLayoutStyles[$printSettingsIndex];

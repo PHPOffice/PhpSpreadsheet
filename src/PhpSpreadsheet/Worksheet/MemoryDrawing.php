@@ -130,9 +130,6 @@ class MemoryDrawing extends BaseDrawing
     public static function fromStream($imageStream): self
     {
         $streamValue = stream_get_contents($imageStream);
-        if ($streamValue === false) {
-            throw new Exception('Unable to read data from stream');
-        }
 
         return self::fromString($streamValue);
     }
