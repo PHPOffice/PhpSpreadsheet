@@ -15,7 +15,7 @@ class CalculationErrorTest extends TestCase
         $calculation = Calculation::getInstance();
         self::assertFalse($calculation->getSuppressFormulaErrors());
         $calculation->setSuppressFormulaErrors(true);
-        $result = $calculation->_calculateFormulaValue('=SUM(');
+        $result = $calculation->calculateFormula('=SUM(');
         $calculation->setSuppressFormulaErrors(false);
         self::assertFalse($result);
     }
@@ -26,7 +26,7 @@ class CalculationErrorTest extends TestCase
         self::assertFalse($calculation->getSuppressFormulaErrors());
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage("Formula Error: Expecting ')'");
-        $result = $calculation->_calculateFormulaValue('=SUM(');
+        $result = $calculation->calculateFormula('=SUM(');
         self::assertFalse($result);
     }
 }
