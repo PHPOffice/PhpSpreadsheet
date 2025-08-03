@@ -7,22 +7,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ErfCTest extends TestCase
+class ErfCTest extends AllSetupTeardown
 {
     const ERF_PRECISION = 1E-14;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFC')]
+    #[DataProvider('providerERFC')]
     public function testDirectCallToERFC(mixed $expectedResult, mixed ...$args): void
     {
         $result = ErfC::ERFC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFC')]
+    #[DataProvider('providerERFC')]
     public function testERFCAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -30,17 +29,16 @@ class ErfCTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=ERFC({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerERFC')]
+    #[DataProvider('providerERFC')]
     public function testERFCInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=ERFC({$argumentCells})";
 
@@ -48,8 +46,6 @@ class ErfCTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerERFC(): array
@@ -57,13 +53,12 @@ class ErfCTest extends TestCase
         return require 'tests/data/Calculation/Engineering/ERFC.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyERFC')]
+    #[DataProvider('providerUnhappyERFC')]
     public function testERFCUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=ERFC({$argumentCells})";
 
@@ -72,8 +67,6 @@ class ErfCTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyERFC(): array
@@ -83,13 +76,13 @@ class ErfCTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerErfCArray')]
+    #[DataProvider('providerErfCArray')]
     public function testErfCArray(array $expectedResult, string $lower): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ERFC({$lower})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
