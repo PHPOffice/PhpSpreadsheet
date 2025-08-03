@@ -7,40 +7,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ImPowerTest extends TestCase
+class ImPowerTest extends ComplexAssert
 {
-    const COMPLEX_PRECISION = 1E-12;
-
-    private ComplexAssert $complexAssert;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $this->complexAssert = new ComplexAssert();
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    #[DataProvider('providerIMPOWER')]
     public function testDirectCallToIMPOWER(float|int|string $expectedResult, string $arg1, float|int|string $arg2): void
     {
         $result = ComplexFunctions::IMPOWER($arg1, $arg2);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->assertComplexEquals($expectedResult, $result);
     }
 
-    private function trimIfQuoted(string $value): string
-    {
-        return trim($value, '"');
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    #[DataProvider('providerIMPOWER')]
     public function testIMPOWERAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -49,14 +30,11 @@ class ImPowerTest extends TestCase
         $formula = "=IMPOWER({$arguments})";
 
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $result = $calculation->calculateFormula($formula);
+        $this->assertComplexEquals($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMPOWER')]
+    #[DataProvider('providerIMPOWER')]
     public function testIMPOWERInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -69,10 +47,7 @@ class ImPowerTest extends TestCase
         $result = $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->assertComplexEquals($expectedResult, $result);
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -82,7 +57,7 @@ class ImPowerTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMPOWER.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMPOWER')]
+    #[DataProvider('providerUnhappyIMPOWER')]
     public function testIMPOWERUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,13 +83,13 @@ class ImPowerTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImPowerArray')]
+    #[DataProvider('providerImPowerArray')]
     public function testImPowerArray(array $expectedResult, string $complex, string $real): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IMPOWER({$complex}, {$real})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 
