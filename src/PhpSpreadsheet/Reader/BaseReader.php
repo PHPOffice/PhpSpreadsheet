@@ -51,7 +51,7 @@ abstract class BaseReader implements IReader
      * Improper specification of these within a spreadsheet
      * can subject the caller to security exploits.
      */
-    protected bool $allowExternalImages = true;
+    protected bool $allowExternalImages = false;
 
     /**
      * IReadFilter instance.
