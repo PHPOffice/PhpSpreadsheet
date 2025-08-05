@@ -67,11 +67,29 @@ class HeaderFooter
 {
     // Header/footer image location
     const IMAGE_HEADER_LEFT = 'LH';
+    const IMAGE_HEADER_LEFT_ODD = 'LH';
+    const IMAGE_HEADER_LEFT_FIRST = 'LHFIRST';
+    const IMAGE_HEADER_LEFT_EVEN = 'LHEVEN';
     const IMAGE_HEADER_CENTER = 'CH';
+    const IMAGE_HEADER_CENTER_ODD = 'CH';
+    const IMAGE_HEADER_CENTER_FIRST = 'CHFIRST';
+    const IMAGE_HEADER_CENTER_EVEN = 'CHEVEN';
     const IMAGE_HEADER_RIGHT = 'RH';
+    const IMAGE_HEADER_RIGHT_ODD = 'RH';
+    const IMAGE_HEADER_RIGHT_FIRST = 'RHFIRST';
+    const IMAGE_HEADER_RIGHT_EVEN = 'RHEVEN';
     const IMAGE_FOOTER_LEFT = 'LF';
+    const IMAGE_FOOTER_LEFT_ODD = 'LF';
+    const IMAGE_FOOTER_LEFT_FIRST = 'LFFIRST';
+    const IMAGE_FOOTER_LEFT_EVEN = 'LFEVEN';
     const IMAGE_FOOTER_CENTER = 'CF';
+    const IMAGE_FOOTER_CENTER_ODD = 'CF';
+    const IMAGE_FOOTER_CENTER_FIRST = 'CFFIRST';
+    const IMAGE_FOOTER_CENTER_EVEN = 'CFEVEN';
     const IMAGE_FOOTER_RIGHT = 'RF';
+    const IMAGE_FOOTER_RIGHT_ODD = 'RF';
+    const IMAGE_FOOTER_RIGHT_FIRST = 'RFFIRST';
+    const IMAGE_FOOTER_RIGHT_EVEN = 'RFEVEN';
 
     /**
      * OddHeader.
@@ -377,6 +395,27 @@ class HeaderFooter
         return $this;
     }
 
+    private const IMAGE_SORT_ORDER = [
+        self::IMAGE_HEADER_LEFT,
+        self::IMAGE_HEADER_LEFT_FIRST,
+        self::IMAGE_HEADER_LEFT_EVEN,
+        self::IMAGE_HEADER_CENTER,
+        self::IMAGE_HEADER_CENTER_FIRST,
+        self::IMAGE_HEADER_CENTER_EVEN,
+        self::IMAGE_HEADER_RIGHT,
+        self::IMAGE_HEADER_RIGHT_FIRST,
+        self::IMAGE_HEADER_RIGHT_EVEN,
+        self::IMAGE_FOOTER_LEFT,
+        self::IMAGE_FOOTER_LEFT_FIRST,
+        self::IMAGE_FOOTER_LEFT_EVEN,
+        self::IMAGE_FOOTER_CENTER,
+        self::IMAGE_FOOTER_CENTER_FIRST,
+        self::IMAGE_FOOTER_CENTER_EVEN,
+        self::IMAGE_FOOTER_RIGHT,
+        self::IMAGE_FOOTER_RIGHT_FIRST,
+        self::IMAGE_FOOTER_RIGHT_EVEN,
+    ];
+
     /**
      * Get header/footer images.
      *
@@ -384,25 +423,12 @@ class HeaderFooter
      */
     public function getImages(): array
     {
-        // Sort array
+        // Sort array - not sure why needed
         $images = [];
-        if (isset($this->headerFooterImages[self::IMAGE_HEADER_LEFT])) {
-            $images[self::IMAGE_HEADER_LEFT] = $this->headerFooterImages[self::IMAGE_HEADER_LEFT];
-        }
-        if (isset($this->headerFooterImages[self::IMAGE_HEADER_CENTER])) {
-            $images[self::IMAGE_HEADER_CENTER] = $this->headerFooterImages[self::IMAGE_HEADER_CENTER];
-        }
-        if (isset($this->headerFooterImages[self::IMAGE_HEADER_RIGHT])) {
-            $images[self::IMAGE_HEADER_RIGHT] = $this->headerFooterImages[self::IMAGE_HEADER_RIGHT];
-        }
-        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_LEFT])) {
-            $images[self::IMAGE_FOOTER_LEFT] = $this->headerFooterImages[self::IMAGE_FOOTER_LEFT];
-        }
-        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_CENTER])) {
-            $images[self::IMAGE_FOOTER_CENTER] = $this->headerFooterImages[self::IMAGE_FOOTER_CENTER];
-        }
-        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_RIGHT])) {
-            $images[self::IMAGE_FOOTER_RIGHT] = $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT];
+        foreach (self::IMAGE_SORT_ORDER as $key) {
+            if (isset($this->headerFooterImages[$key])) {
+                $images[$key] = $this->headerFooterImages[$key];
+            }
         }
         $this->headerFooterImages = $images;
 
