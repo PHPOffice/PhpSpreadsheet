@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Shared/Date::isDateTime handle cells which calculate as arrays. [Issue #4557](https://github.com/PHPOffice/PhpSpreadsheet/issues/4557) [PR #4562](https://github.com/PHPOffice/PhpSpreadsheet/pull/4562)
 
 ## 2025-07-23 - 4.5.0
 
