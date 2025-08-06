@@ -20,11 +20,6 @@ class ComplexTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    private function trimIfQuoted(string $value): string
-    {
-        return trim($value, '"');
-    }
-
     #[DataProvider('providerCOMPLEX')]
     public function testCOMPLEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
@@ -34,8 +29,8 @@ class ComplexTest extends TestCase
         $formula = "=COMPLEX({$arguments})";
 
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     #[DataProvider('providerCOMPLEX')]
@@ -68,7 +63,7 @@ class ComplexTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=COMPLEX({$real}, {$imaginary})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

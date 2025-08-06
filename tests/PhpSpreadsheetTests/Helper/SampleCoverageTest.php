@@ -32,8 +32,7 @@ class SampleCoverageTest extends TestCase
             ->getMock();
         $helper->expects(self::once())
             ->method('isDirOrMkdir')
-            ->with(self::isType('string'))
             ->willReturn(false);
-        self::assertSame('', $helper->getFilename('a.xlsx'));
+        $helper->getFilename('a.xlsx');
     }
 }

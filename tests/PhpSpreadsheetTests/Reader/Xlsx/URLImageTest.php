@@ -6,12 +6,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheetTests\Reader\Utility\File;
 use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
 {
+    public function testDefault(): void
+    {
+        $reader = new XlsxReader();
+        self::assertFalse($reader->getAllowExternalImages());
+    }
+
     public function testURLImageSourceAllowed(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {

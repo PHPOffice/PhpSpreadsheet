@@ -24,10 +24,7 @@ class Theme
         'hlink' => '0563C1',
         'folHlink' => '954F72',
     ];
-    /** @deprecated 4.4.0 Use COLOR_SCHEME_2013_2022_NAME */
-    public const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
-    /** @deprecated 4.4.0 Use COLOR_SCHEME_2013_2022 */
-    public const COLOR_SCHEME_2013_PLUS = self::COLOR_SCHEME_2013_2022;
+    private const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
 
     public const COLOR_SCHEME_2007_2010_NAME = 'Office 2007-2010';
     public const COLOR_SCHEME_2007_2010 = [
@@ -177,15 +174,15 @@ class Theme
     /** @param null|string[] $themeColors */
     public function setThemeColorName(string $name, ?array $themeColors = null, ?Spreadsheet $spreadsheet = null): self
     {
+        if ($name === self::COLOR_SCHEME_2013_PLUS_NAME) {
+            // Ensure against this value being found in
+            // spreadsheets created while constant was public.
+            $name = self::COLOR_SCHEME_2013_2022_NAME;
+        }
         $this->themeColorName = $name;
         if ($name === self::COLOR_SCHEME_2007_2010_NAME) {
             $themeColors = $themeColors ?? self::COLOR_SCHEME_2007_2010;
             $this->majorFontLatin = 'Cambria';
-            $this->minorFontLatin = 'Calibri';
-        } elseif ($name === self::COLOR_SCHEME_2013_PLUS_NAME) { //* @phpstan-ignore-line
-            // delete this block when deprecated constants removed
-            $themeColors = $themeColors ?? self::COLOR_SCHEME_2013_PLUS; //* @phpstan-ignore-line
-            $this->majorFontLatin = 'Calibri Light';
             $this->minorFontLatin = 'Calibri';
         } elseif ($name === self::COLOR_SCHEME_2013_2022_NAME) {
             $themeColors = $themeColors ?? self::COLOR_SCHEME_2013_2022;
