@@ -36,9 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)
-
-## 2025-07-23 - 4.5.0
+- Shared/Date::isDateTime handle cells which calculate as arrays. [Issue #4557](https://github.com/PHPOffice/PhpSpreadsheet/issues/4557) [PR #4562](https://github.com/PHPOffice/PhpSpreadsheet/pull/4562)
+- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)## 2025-07-23 - 4.5.0
 
 ### Added
 
