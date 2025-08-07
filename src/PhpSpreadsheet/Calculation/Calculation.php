@@ -207,10 +207,7 @@ class Calculation extends CalculationLocale
     public static function getInstance(?Spreadsheet $spreadsheet = null): self
     {
         if ($spreadsheet !== null) {
-            $instance = $spreadsheet->getCalculationEngine();
-            if (isset($instance)) {
-                return $instance;
-            }
+            return $spreadsheet->getCalculationEngine();
         }
 
         if (!self::$instance) {
@@ -218,6 +215,20 @@ class Calculation extends CalculationLocale
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Intended for use only via a destructor.
+     *
+     * @internal
+     */
+    public static function getInstanceOrNull(?Spreadsheet $spreadsheet = null): ?self
+    {
+        if ($spreadsheet !== null) {
+            return $spreadsheet->getCalculationEngineOrNull();
+        }
+
+        return null;
     }
 
     /**
@@ -1999,6 +2010,9 @@ class Calculation extends CalculationLocale
                             $this->debugLog->writeDebugLog('Evaluating Cell %s in worksheet %s', $cellRef, $matches[2]);
                             if ($pCellParent !== null && $this->spreadsheet !== null) {
                                 $cellSheet = $this->spreadsheet->getSheetByName($matches[2]);
+                                if ($cellSheet && !$cellSheet->cellExists($cellRef)) {
+                                    $cellSheet->setCellValue($cellRef, null);
+                                }
                                 if ($cellSheet && $cellSheet->cellExists($cellRef)) {
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                                     $cell->attach($pCellParent);
@@ -2503,7 +2517,7 @@ class Calculation extends CalculationLocale
      *
      * @return mixed[] Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): array
+    public function extractCellRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true, bool $createCell = false): array
     {
         // Return value
         /** @var mixed[][] */
@@ -2525,6 +2539,9 @@ class Calculation extends CalculationLocale
             if (!isset($aReferences[1])) {
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
+                if ($createCell && $worksheet !== null && !$worksheet->cellExists($aReferences[0])) {
+                    $worksheet->setCellValue($aReferences[0], null);
+                }
                 if ($worksheet !== null && $worksheet->cellExists($aReferences[0])) {
                     $temp = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                     if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
@@ -2541,6 +2558,9 @@ class Calculation extends CalculationLocale
                 foreach ($aReferences as $reference) {
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
+                    if ($createCell && $worksheet !== null && !$worksheet->cellExists($reference)) {
+                        $worksheet->setCellValue($reference, null);
+                    }
                     if ($worksheet !== null && $worksheet->cellExists($reference)) {
                         $temp = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                         if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {

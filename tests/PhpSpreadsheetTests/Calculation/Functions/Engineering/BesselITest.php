@@ -31,7 +31,7 @@ class BesselITest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BESSELI({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
@@ -92,7 +92,7 @@ class BesselITest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BESSELI({$value}, {$ord})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 

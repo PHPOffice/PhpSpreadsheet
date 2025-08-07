@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PHPUnit\Framework\TestCase;
 
@@ -15,10 +14,7 @@ class DefinedNamesTest extends TestCase
         $filename = 'tests/data/Reader/Ods/DefinedNames.ods';
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
-        $calculation = Calculation::getInstance($spreadsheet);
-        $calculation->setInstanceArrayReturnType(
-            Calculation::RETURN_ARRAY_AS_VALUE
-        );
+        $spreadsheet->returnArrayAsValue();
         $worksheet = $spreadsheet->getActiveSheet();
 
         $firstDefinedNameValue = $worksheet->getCell('First')->getValue();
@@ -36,10 +32,7 @@ class DefinedNamesTest extends TestCase
         $filename = 'tests/data/Reader/Ods/DefinedNames.apostrophe.ods';
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
-        $calculation = Calculation::getInstance($spreadsheet);
-        $calculation->setInstanceArrayReturnType(
-            Calculation::RETURN_ARRAY_AS_VALUE
-        );
+        $spreadsheet->returnArrayAsValue();
         $worksheet = $spreadsheet->getActiveSheet();
         self::assertSame("apo'strophe", $worksheet->getTitle());
 
@@ -58,10 +51,7 @@ class DefinedNamesTest extends TestCase
         $filename = 'tests/data/Reader/Ods/DefinedNames.ods';
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
-        $calculation = Calculation::getInstance($spreadsheet);
-        $calculation->setInstanceArrayReturnType(
-            Calculation::RETURN_ARRAY_AS_ARRAY
-        );
+        $spreadsheet->returnArrayAsArray();
         $worksheet = $spreadsheet->getActiveSheet();
 
         $firstDefinedNameValue = $worksheet->getCell('First')->getValue();

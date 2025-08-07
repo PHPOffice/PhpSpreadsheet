@@ -7,20 +7,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class DeltaTest extends TestCase
+class DeltaTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
+    #[DataProvider('providerDELTA')]
     public function testDirectCallToDELTA(mixed $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
         $result = ($arg2 === null) ? Compare::delta($arg1) : Compare::delta($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
+    #[DataProvider('providerDELTA')]
     public function testDELTAAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -28,17 +27,16 @@ class DeltaTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DELTA({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDELTA')]
+    #[DataProvider('providerDELTA')]
     public function testDELTAInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=DELTA({$argumentCells})";
 
@@ -46,8 +44,6 @@ class DeltaTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerDELTA(): array
@@ -55,13 +51,12 @@ class DeltaTest extends TestCase
         return require 'tests/data/Calculation/Engineering/DELTA.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyDELTA')]
+    #[DataProvider('providerUnhappyDELTA')]
     public function testDELTAUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=DELTA({$argumentCells})";
 
@@ -70,8 +65,6 @@ class DeltaTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyDELTA(): array
@@ -81,13 +74,13 @@ class DeltaTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDeltaArray')]
+    #[DataProvider('providerDeltaArray')]
     public function testDeltaArray(array $expectedResult, string $a, string $b): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=DELTA({$a}, {$b})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 
