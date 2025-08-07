@@ -27,14 +27,14 @@ class Payments
         mixed $interestRate,
         mixed $numberOfPeriods,
         mixed $presentValue,
-        mixed $futureValue = 0,
+        mixed $futureValue = 0.0,
         mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
-        $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $futureValue = Functions::flattenSingleValue($futureValue) ?? 0.0;
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);
@@ -83,7 +83,7 @@ class Payments
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);
