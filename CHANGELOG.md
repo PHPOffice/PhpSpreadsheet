@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
+- Header/Footer images expand location. [Issue #484](https://github.com/PHPOffice/PhpSpreadsheet/issues/484) [Issue #1318](https://github.com/PHPOffice/PhpSpreadsheet/issues/1318) [PR #4572](https://github.com/PHPOffice/PhpSpreadsheet/pull/4572)
 - Create uninitialized cell if used in calculation. [Issue #4558](https://github.com/PHPOffice/PhpSpreadsheet/issues/4558) [Issue #4530](https://github.com/PHPOffice/PhpSpreadsheet/issues/4530) [PR #4565](https://github.com/PHPOffice/PhpSpreadsheet/pull/4565)
 - Shared/Date::isDateTime handle cells which calculate as arrays. [Issue #4557](https://github.com/PHPOffice/PhpSpreadsheet/issues/4557) [PR #4562](https://github.com/PHPOffice/PhpSpreadsheet/pull/4562)
 - Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)## 2025-07-23 - 4.5.0
