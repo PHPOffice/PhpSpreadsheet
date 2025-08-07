@@ -219,8 +219,8 @@ class AdvancedValueBinderTest extends TestCase
     public static function stringProvider(): array
     {
         return [
-            ['Hello World', false],
-            ["Hello\nWorld", true],
+            ['Hello World'],
+            ["Hello\nWorld"],
         ];
     }
 

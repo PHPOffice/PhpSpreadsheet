@@ -163,6 +163,18 @@ class Html extends BaseWriter
     protected bool $ltrSheets = false;
 
     /**
+     * Table formats
+     * Enables table formats in writer, disabled here, must be enabled in writer via a setter.
+     */
+    protected bool $tableFormats = false;
+
+    /**
+     * Conditional Formatting
+     * Enables conditional formatting in writer, disabled here, must be enabled in writer via a setter.
+     */
+    protected bool $conditionalFormatting = false;
+
+    /**
      * Create a new HTML.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -1935,11 +1947,21 @@ class Html extends BaseWriter
         return $this;
     }
 
+    public function getTableFormats(): bool
+    {
+        return $this->tableFormats;
+    }
+
     public function setTableFormats(bool $tableFormats): self
     {
         $this->tableFormats = $tableFormats;
 
         return $this;
+    }
+
+    public function getConditionalFormatting(): bool
+    {
+        return $this->conditionalFormatting;
     }
 
     public function setConditionalFormatting(bool $conditionalFormatting): self

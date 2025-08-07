@@ -5,12 +5,19 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Reader\Html as HtmlReader;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class HtmlImage2Test extends TestCase
 {
+    public function testDefault(): void
+    {
+        $reader = new HtmlReader();
+        self::assertFalse($reader->getAllowExternalImages());
+    }
+
     public function testCanInsertImageGoodProtocolAllowed(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
