@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing yet.
+- Create uninitialized cell if used in calculation. [Issue #4558](https://github.com/PHPOffice/PhpSpreadsheet/issues/4558) [Issue #4530](https://github.com/PHPOffice/PhpSpreadsheet/issues/4530) [PR #4565](https://github.com/PHPOffice/PhpSpreadsheet/pull/4565)
 
 ## 2025-07-23 - 4.5.0
 
