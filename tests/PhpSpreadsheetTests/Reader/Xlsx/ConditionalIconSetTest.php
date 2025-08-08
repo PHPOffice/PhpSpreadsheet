@@ -76,5 +76,12 @@ class ConditionalIconSetTest extends AbstractFunctional
 
             ++$columnIndex;
         }
+
+        // unsupported icon sets
+        for ($columnIndex = 'R'; $columnIndex <= 'U'; ++$columnIndex) {
+            $styles = $worksheet->getConditionalStyles("{$columnIndex}2:{$columnIndex}11");
+            $iconSet = $styles[0]->getIconSet();
+            self::assertNull($iconSet);
+        }
     }
 }
