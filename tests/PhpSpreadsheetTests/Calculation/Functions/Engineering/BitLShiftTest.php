@@ -7,12 +7,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
-class BitLShiftTest extends TestCase
+class BitLShiftTest extends AllSetupTeardown
 {
     #[DataProvider('providerBITLSHIFT')]
     public function testDirectCallToBITLSHIFT(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
@@ -29,7 +27,7 @@ class BitLShiftTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BITLSHIFT({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -38,8 +36,7 @@ class BitLShiftTest extends TestCase
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITLSHIFT({$argumentCells})";
 
@@ -47,8 +44,6 @@ class BitLShiftTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerBITLSHIFT(): array
@@ -61,8 +56,7 @@ class BitLShiftTest extends TestCase
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITLSHIFT({$argumentCells})";
 
@@ -71,8 +65,6 @@ class BitLShiftTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyBITLSHIFT(): array
@@ -90,7 +82,7 @@ class BitLShiftTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BITLSHIFT({$number}, {$bits})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

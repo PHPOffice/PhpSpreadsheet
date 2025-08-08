@@ -6,14 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerArrayFormulae')]
+    #[DataProvider('providerArrayFormulae')]
     public function testArrayFormula(string $formula, mixed $expectedResult): void
     {
-        $result = Calculation::getInstance()->_calculateFormulaValue($formula);
+        $result = Calculation::getInstance()->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

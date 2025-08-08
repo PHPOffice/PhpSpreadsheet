@@ -763,6 +763,17 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()
     ->setOddFooter('&L&B' . $spreadsheet->getProperties()->getTitle() . '&RPage &P of &N');
 ```
 
+<a id='setDifferent'></a>
+Notice the use of `oddHeader/Footer` above. This is, by default, the header used on all pages, not just the odd-numbered pages. You can specify a different header/footer for the first page and/or for even-numbered pages.
+```php
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentFirst(true);
+// then as above except setFirstHeader/Footer rather than Odd
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentOddEven(true);
+// then as above except setEvenHeader/Footer rather than Odd
+```
+
 Substitution and formatting codes (starting with &) can be used inside
 headers and footers. There is no required order in which these codes
 must appear.
@@ -792,7 +803,7 @@ Code                     | Meaning
 `&C`                     | Code for "center section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the center section.
 `&D`                     | Code for "date"
 `&T`                     | Code for "time"
-`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see Tip for picture)
+`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see [Tip for picture](#Tip-for-picture))
 `&U`                     | Code for "text single underline"
 `&E`                     | Code for "double underline"
 `&R`                     | Code for "right section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the right section.
@@ -835,6 +846,7 @@ users may find it easier to rename test.xlsx to test.zip, unzip it, and
 inspect directly the contents of the relevant xl/worksheets/sheetX.xml
 to find the codes for header/footer.
 
+<a id='Tip-for-picture'></a>
 **Tip for picture**
 
 ```php
@@ -844,8 +856,14 @@ $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
 $spreadsheet->getActiveSheet()
     ->getHeaderFooter()
-    ->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+    ->addImage(
+        $drawing,
+        \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT
+    );
 ```
+If you want your image to be used only on the first page or only on even pages, use, for example, `HeaderFooter::IMAGE_FOOTER_CENTER_EVEN`.
+You must still call [`setDifferentFirst/Even`](#setDifferent) for this to work.
+This will work only for Xlsx.
 
 ### Setting printing breaks on a row or column
 
@@ -853,13 +871,19 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
+$spreadsheet->getActiveSheet()->setBreak(
+    'A10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW
+);
 ```
 
 The following line of code sets a print break on column D:
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
+$spreadsheet->getActiveSheet()->setBreak(
+    'D10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN
+);
 ```
 
 ### Show/hide gridlines when printing

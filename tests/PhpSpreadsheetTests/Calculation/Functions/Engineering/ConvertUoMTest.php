@@ -7,12 +7,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 
-class ConvertUoMTest extends TestCase
+class ConvertUoMTest extends AllSetupTeardown
 {
     const UOM_PRECISION = 1E-12;
 
@@ -65,7 +63,7 @@ class ConvertUoMTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=CONVERT({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
@@ -74,8 +72,7 @@ class ConvertUoMTest extends TestCase
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=CONVERT({$argumentCells})";
 
@@ -83,8 +80,6 @@ class ConvertUoMTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     /** @return mixed[] */
@@ -101,8 +96,7 @@ class ConvertUoMTest extends TestCase
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=CONVERT({$argumentCells})";
 
@@ -111,8 +105,6 @@ class ConvertUoMTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyCONVERTUOM(): array
@@ -131,7 +123,7 @@ class ConvertUoMTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=CONVERT({$value}, {$fromUoM}, {$toUoM})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
