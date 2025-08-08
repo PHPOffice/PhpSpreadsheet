@@ -2,10 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Stringable;
 
 class Csv extends BaseWriter
 {
@@ -133,6 +133,7 @@ class Csv extends BaseWriter
                     }
                 }
             }
+            /** @var string[] $cellsArray */
             $this->writeLine($this->fileHandle, $cellsArray);
         }
 
@@ -272,24 +273,10 @@ class Csv extends BaseWriter
     }
 
     /**
-     * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
-     *
-     * @param null|bool|float|int|string|Stringable $element element to be converted
-     */
-    private static function elementToString(mixed $element): string
-    {
-        if (is_bool($element)) {
-            return $element ? 'TRUE' : 'FALSE';
-        }
-
-        return (string) $element;
-    }
-
-    /**
      * Write line to CSV file.
      *
      * @param resource $fileHandle PHP filehandle
-     * @param mixed[] $values Array containing values in a row
+     * @param string[] $values Array containing values in a row
      */
     private function writeLine($fileHandle, array $values): void
     {
@@ -299,9 +286,23 @@ class Csv extends BaseWriter
         // Build the line
         $line = '';
 
-        /** @var null|bool|float|int|string|Stringable $element */
         foreach ($values as $element) {
-            $element = self::elementToString($element);
+            if (Preg::isMatch('/^([+-])?(\d+)[.](\d+)/', $element, $matches)) {
+                // Excel will "convert" file with pop-up
+                // if there are more than 15 digits precision.
+                $whole = $matches[2];
+                if ($whole !== '0') {
+                    $wholeLen = strlen($whole);
+                    $frac = $matches[3];
+                    $maxFracLen = 15 - $wholeLen;
+                    if ($maxFracLen >= 0 && strlen($frac) > $maxFracLen) {
+                        $result = sprintf("%.{$maxFracLen}F", $element);
+                        if (str_contains($result, '.')) {
+                            $element = Preg::replace('/[.]?0+$/', '', $result); // strip trailing zeros
+                        }
+                    }
+                }
+            }
             // Add delimiter
             $line .= $delimiter;
             $delimiter = $this->delimiter;
