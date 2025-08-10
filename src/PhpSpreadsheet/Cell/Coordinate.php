@@ -136,7 +136,8 @@ abstract class Coordinate
     }
 
     /**
-     * Split range into coordinate strings.
+     * Split range into coordinate strings, using comma for union
+     * and ignoring intersection (space).
      *
      * @param string $range e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
      *
@@ -158,6 +159,28 @@ abstract class Coordinate
         }
 
         return $outArray;
+    }
+
+    /**
+     * Split range into coordinate strings, resolving unions and intersections.
+     *
+     * @param string $range e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
+     * @param bool $unionIsComma true=comma is union, space is intersection
+     *                           false=space is union, comma is intersection
+     *
+     * @return array<array<string>> Array containing one or more arrays containing one or two coordinate strings
+     *                                e.g. ['B4','D9'] or [['B4','D9'], ['H2','O11']]
+     *                                        or ['B4']
+     */
+    public static function allRanges(string $range, bool $unionIsComma = true): array
+    {
+        if (!$unionIsComma) {
+            $range = str_replace([',', ' ', "\0"], ["\0", ',', ' '], $range);
+        }
+
+        return self::splitRange(
+            self::resolveUnionAndIntersection($range)
+        );
     }
 
     /**
