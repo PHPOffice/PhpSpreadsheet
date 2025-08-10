@@ -3984,4 +3984,22 @@ class Worksheet
 
         return true;
     }
+
+    public function copyFormula(string $fromCell, string $toCell): void
+    {
+        $formula = $this->getCell($fromCell)->getValue();
+        $newFormula = $formula;
+        if (is_string($formula) && $this->getCell($fromCell)->getDataType() === DataType::TYPE_FORMULA) {
+            [$fromColInt, $fromRow] = Coordinate::indexesFromString($fromCell);
+            [$toColInt, $toRow] = Coordinate::indexesFromString($toCell);
+            $helper = ReferenceHelper::getInstance();
+            $newFormula = $helper->updateFormulaReferences(
+                $formula,
+                'A1',
+                $toColInt - $fromColInt,
+                $toRow - $fromRow
+            );
+        }
+        $this->setCellValue($toCell, $newFormula);
+    }
 }
