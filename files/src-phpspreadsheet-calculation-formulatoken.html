@@ -97,13 +97,12 @@
         <h2 class="phpdocumentor-content__title">FormulaToken.php</h2>
 
         
+        
+        
+        
 
 
-
-
-
-
-
+        
 <h3 id="toc">
     Table of Contents
     <a href="files/src-phpspreadsheet-calculation-formulatoken.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -121,7 +120,6 @@
     <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken">FormulaToken</abbr></a></dt><dd>PARTLY BASED ON:
 Copyright (c) 2007 E. W. Bachtal, Inc.</dd>    </dl>
-
 
 
 
@@ -170,6 +168,8 @@ Copyright (c) 2007 E. W. Bachtal, Inc.</dd>    </dl>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 

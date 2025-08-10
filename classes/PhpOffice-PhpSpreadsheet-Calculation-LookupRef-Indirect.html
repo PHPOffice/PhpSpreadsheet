@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,38 +155,11 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_INDIRECT">INDIRECT()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_INDIRECT">INDIRECT()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
 </dt>
 <dd>INDIRECT.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_a1Format">a1Format()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Determine whether cell address is in A1 (true) or R1C1 (false) format.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_extractRequiredCells">extractRequiredCells()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>Extract range values.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_handleRowColumnRanges">handleRowColumnRanges()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_validateAddress">validateAddress()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Convert cellAddress to string, verify not null string.</dd>
 
     </dl>
 
@@ -227,6 +201,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the reference specified by a text string.
 References are immediately evaluated to display their contents.</p>
 <p>Excel Function:
@@ -279,226 +254,6 @@ but can be provided as numeric which is cast to bool</p>
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_a1Format">
-        a1Format()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_a1Format" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php"><a href="files/src-phpspreadsheet-calculation-lookupref-indirect.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php">Indirect.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">22</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Determine whether cell address is in A1 (true) or R1C1 (false) format.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">a1Format</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a1fmt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$a1fmt</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1,
-but can be provided as numeric which is cast to bool</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_extractRequiredCells">
-        extractRequiredCells()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_extractRequiredCells" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php"><a href="files/src-phpspreadsheet-calculation-lookupref-indirect.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php">Indirect.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">107</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Extract range values.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">extractRequiredCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Array of values in range if range contains more than one element.
-Otherwise, a single value is returned.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_handleRowColumnRanges">
-        handleRowColumnRanges()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_handleRowColumnRanges" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php"><a href="files/src-phpspreadsheet-calculation-lookupref-indirect.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php">Indirect.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">113</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">handleRowColumnRanges</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$end</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_validateAddress">
-        validateAddress()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_validateAddress" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php"><a href="files/src-phpspreadsheet-calculation-lookupref-indirect.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php">Indirect.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">40</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Convert cellAddress to string, verify not null string.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateAddress</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
-                : <span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -537,6 +292,8 @@ Otherwise, a single value is returned.</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -612,11 +369,7 @@ Otherwise, a single value is returned.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_INDIRECT">INDIRECT()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_a1Format">a1Format()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_extractRequiredCells">extractRequiredCells()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_handleRowColumnRanges">handleRowColumnRanges()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_validateAddress">validateAddress()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Indirect.html#method_INDIRECT">INDIRECT()</a></li>
                                     </ul>
             </li>
                     </ul>

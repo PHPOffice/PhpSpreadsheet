@@ -127,6 +127,7 @@
 
             <p class="phpdocumentor-summary">Helper class to manipulate cell coordinates.</p>
 
+
     <section class="phpdocumentor-description"><p>Columns indexes and rows are always based on 1, <strong>not</strong> on 0. This match the behavior
 that Excel users are used to, and also match the Excel functions <code class="prettyprint">COLUMN()</code> and <code class="prettyprint">ROW()</code>.</p>
 </section>
@@ -156,28 +157,22 @@ that Excel users are used to, and also match the Excel functions <code class="pr
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_A1_COORDINATE_REGEX">A1_COORDINATE_REGEX</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_A1_COORDINATE_REGEX">A1_COORDINATE_REGEX</a>
     <span>
         &nbsp;= &#039;/^(?&lt;col&gt;\$?[A-Z]{1,3})(?&lt;row&gt;\$?\d{1,7})$/i&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_DEFAULT_RANGE">DEFAULT_RANGE</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_DEFAULT_RANGE">DEFAULT_RANGE</a>
     <span>
         &nbsp;= &#039;A1:A1&#039;                            </span>
 </dt>
 <dd>Default range variable constant.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_FULL_REFERENCE_REGEX">FULL_REFERENCE_REGEX</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_FULL_REFERENCE_REGEX">FULL_REFERENCE_REGEX</a>
     <span>
         &nbsp;= &#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7})(?:\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7}))?)$/i&#039;                            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_LOOKUP_CACHE">LOOKUP_CACHE</a>
-    <span>
-        &nbsp;= &#039; ABCDEFGHIJKLMNOPQRSTUVWXYZ&#039;                            </span>
 </dt>
 
     </dl>
@@ -191,77 +186,77 @@ that Excel users are used to, and also match the Excel functions <code class="pr
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteCoordinate">absoluteCoordinate()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteCoordinate">absoluteCoordinate()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Make string coordinate absolute.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteReference">absoluteReference()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteReference">absoluteReference()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Make string row, column or cell coordinate absolute.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_buildRange">buildRange()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_buildRange">buildRange()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Build range from coordinate strings.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_columnIndexFromString">columnIndexFromString()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_columnIndexFromString">columnIndexFromString()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Column index from string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateFromString">coordinateFromString()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateFromString">coordinateFromString()</a>
     <span>
                                 &nbsp;: array{0: string, 1: string}    </span>
 </dt>
 <dd>Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index].</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsInsideRange">coordinateIsInsideRange()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsInsideRange">coordinateIsInsideRange()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Check if coordinate is inside a range.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsRange">coordinateIsRange()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsRange">coordinateIsRange()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Checks if a Cell Address represents a range of cells.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_extractAllCellReferencesInRange">extractAllCellReferencesInRange()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_extractAllCellReferencesInRange">extractAllCellReferencesInRange()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Extract all cell references in range, which may be comprised of multiple cell ranges.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getRangeBoundaries">getRangeBoundaries()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getRangeBoundaries">getRangeBoundaries()</a>
     <span>
                                 &nbsp;: array{: array{: string, : int}, : array{: string, : int}}    </span>
 </dt>
 <dd>Calculate range boundaries.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_indexesFromString">indexesFromString()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_indexesFromString">indexesFromString()</a>
     <span>
                                 &nbsp;: array{0: int, 1: int, 2: string}    </span>
 </dt>
 <dd>Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index, 2 =&gt; string column string].</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a>
     <span>
                                 &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
@@ -270,81 +265,39 @@ of cell ranges to values.  Only adjacent cell coordinates with the same
 value will be merged.  If the value is an object, it must implement the method getHashCode().</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeBoundaries">rangeBoundaries()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeBoundaries">rangeBoundaries()</a>
     <span>
                                 &nbsp;: array{: array{: int, : int}, : array{: int, : int}}    </span>
 </dt>
 <dd>Calculate range boundaries.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeDimension">rangeDimension()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeDimension">rangeDimension()</a>
     <span>
                                 &nbsp;: array{: int, : int}    </span>
 </dt>
 <dd>Calculate range dimension.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Get all cell references applying union and intersection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a>
     <span>
                                 &nbsp;: array&lt;string|int, array&lt;string|int, string&gt;&gt;    </span>
 </dt>
 <dd>Split range into coordinate strings.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_stringFromColumnIndex">stringFromColumnIndex()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_stringFromColumnIndex">stringFromColumnIndex()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>String from column index.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getCellBlocksFromRangeString">getCellBlocksFromRangeString()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, array&lt;string|int, mixed&gt;&gt;    </span>
-</dt>
-<dd>Get the individual cell blocks from a range string, removing any $ characters.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getReferencesForCellBlock">getReferencesForCellBlock()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, string&gt;    </span>
-</dt>
-<dd>Get all cell references for an individual cell block.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_processRangeSetOperators">processRangeSetOperators()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_sortCellReferenceArray">sortCellReferenceArray()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, string&gt;    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateRange">validateRange()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Check that the given range is valid, i.e. that the start column and row are not greater than the end column and
-row.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateReferenceAndGetData">validateReferenceAndGetData()</a>
-    <span>
-                                &nbsp;: array{type: string, firstCoordinate?: string, secondCoordinate?: string, coordinate?: string, worksheet?: string, localReference?: string}    </span>
-</dt>
-<dd>Check if cell or range reference is valid and return an array with type of reference (cell or range), worksheet (if it was given)
-and the coordinate or the first coordinate and second coordinate if it is a range.</dd>
 
     </dl>
 
@@ -371,6 +324,7 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
     </aside>
 
+    
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -403,6 +357,7 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
         <p class="phpdocumentor-summary">Default range variable constant.</p>
 
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
@@ -433,41 +388,12 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
     </aside>
 
     
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FULL_REFERENCE_REGEX</span>
     = <span class="phpdocumentor-signature__default-value">&#039;/^(?:(?&lt;worksheet&gt;[^!]*)!)?(?&lt;localReference&gt;(?&lt;firstCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7})(?:\:(?&lt;secondCoordinate&gt;[$]?[A-Z]{1,3}[$]?\d{1,7}))?)$/i&#039;</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_LOOKUP_CACHE">
-        LOOKUP_CACHE
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_LOOKUP_CACHE" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">419</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">LOOKUP_CACHE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039; ABCDEFGHIJKLMNOPQRSTUVWXYZ&#039;</span>
 </code>
 
 
@@ -514,6 +440,7 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -568,6 +495,7 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -624,6 +552,7 @@ Note that this value can be a row or column reference as well as a cell referenc
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -677,6 +606,7 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -732,6 +662,7 @@ Note that this value can be a row or column reference as well as a cell referenc
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -785,6 +716,7 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -849,6 +781,7 @@ Note that this value can be a row or column reference as well as a cell referenc
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -903,6 +836,7 @@ Note that this value can be a row or column reference as well as a cell referenc
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -956,6 +890,7 @@ Note that this value can be a row or column reference as well as a cell referenc
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1012,6 +947,7 @@ where Start Cell and End Cell are arrays [Column ID, Row Number]</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1067,6 +1003,7 @@ value will be merged.  If the value is an object, it must implement the method g
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>For example, this function converts:</p>
 <p>[ 'A1' =&gt; 'x', 'A2' =&gt; 'x', 'A3' =&gt; 'x', 'A4' =&gt; 'y' ]</p>
 <p>to:</p>
@@ -1127,6 +1064,7 @@ value will be merged.  If the value is an object, it must implement the method g
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1182,6 +1120,7 @@ where Start Cell and End Cell are arrays (Column Number, Row Number)</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1235,6 +1174,7 @@ where Start Cell and End Cell are arrays (Column Number, Row Number)</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1299,6 +1239,7 @@ Otherwise, return cells and/or cell ranges in that range separated by comma.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1355,6 +1296,7 @@ or ['B4']</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1375,341 +1317,6 @@ or ['B4']</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getCellBlocksFromRangeString">
-        getCellBlocksFromRangeString()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getCellBlocksFromRangeString" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">728</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Get the individual cell blocks from a range string, removing any $ characters.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCellBlocksFromRangeString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rangeString</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-        <section class="phpdocumentor-description"><p>then splitting by operators and returning an array with ranges and operators.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rangeString</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getReferencesForCellBlock">
-        getReferencesForCellBlock()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getReferencesForCellBlock" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">587</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Get all cell references for an individual cell block.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getReferencesForCellBlock</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellBlock</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellBlock</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>A cell range e.g. A4:B5</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>All individual cells in that range</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_processRangeSetOperators">
-        processRangeSetOperators()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_processRangeSetOperators" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">500</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">processRangeSetOperators</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$operators</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$operators</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cells</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_sortCellReferenceArray">
-        sortCellReferenceArray()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_sortCellReferenceArray" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">525</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">sortCellReferenceArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellList</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellList</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_validateRange">
-        validateRange()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateRange" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">747</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Check that the given range is valid, i.e. that the start column and row are not greater than the end column and
-row.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellBlock</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startColumnIndex</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$endColumnIndex</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currentRow</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$endRow</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellBlock</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The original range, for displaying a meaningful error message</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$startColumnIndex</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$endColumnIndex</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$currentRow</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$endRow</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_validateReferenceAndGetData">
-        validateReferenceAndGetData()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateReferenceAndGetData" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">278</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Check if cell or range reference is valid and return an array with type of reference (cell or range), worksheet (if it was given)
-and the coordinate or the first coordinate and second coordinate if it is a range.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateReferenceAndGetData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$reference</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{type: string, firstCoordinate?: string, secondCoordinate?: string, coordinate?: string, worksheet?: string, localReference?: string}</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$reference</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Coordinate or Range (e.g. A1:A1, B2, B:C, 2:3)</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array{type: string, firstCoordinate?: string, secondCoordinate?: string, coordinate?: string, worksheet?: string, localReference?: string}</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>reference data</p>
-</section>
-
             </section>
 
 </article>
@@ -1751,6 +1358,8 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -1825,10 +1434,9 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_A1_COORDINATE_REGEX">A1_COORDINATE_REGEX</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_DEFAULT_RANGE">DEFAULT_RANGE</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_FULL_REFERENCE_REGEX">FULL_REFERENCE_REGEX</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_LOOKUP_CACHE">LOOKUP_CACHE</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_A1_COORDINATE_REGEX">A1_COORDINATE_REGEX</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_DEFAULT_RANGE">DEFAULT_RANGE</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#constant_FULL_REFERENCE_REGEX">FULL_REFERENCE_REGEX</a></li>
                                             </ul>
                 </li>
             
@@ -1836,28 +1444,22 @@ and the coordinate or the first coordinate and second coordinate if it is a rang
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteCoordinate">absoluteCoordinate()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteReference">absoluteReference()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_buildRange">buildRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_columnIndexFromString">columnIndexFromString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateFromString">coordinateFromString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsInsideRange">coordinateIsInsideRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsRange">coordinateIsRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_extractAllCellReferencesInRange">extractAllCellReferencesInRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getRangeBoundaries">getRangeBoundaries()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_indexesFromString">indexesFromString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeBoundaries">rangeBoundaries()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeDimension">rangeDimension()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_stringFromColumnIndex">stringFromColumnIndex()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getCellBlocksFromRangeString">getCellBlocksFromRangeString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getReferencesForCellBlock">getReferencesForCellBlock()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_processRangeSetOperators">processRangeSetOperators()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_sortCellReferenceArray">sortCellReferenceArray()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateRange">validateRange()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_validateReferenceAndGetData">validateReferenceAndGetData()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteCoordinate">absoluteCoordinate()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_absoluteReference">absoluteReference()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_buildRange">buildRange()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_columnIndexFromString">columnIndexFromString()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateFromString">coordinateFromString()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsInsideRange">coordinateIsInsideRange()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsRange">coordinateIsRange()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_extractAllCellReferencesInRange">extractAllCellReferencesInRange()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_getRangeBoundaries">getRangeBoundaries()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_indexesFromString">indexesFromString()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeBoundaries">rangeBoundaries()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_rangeDimension">rangeDimension()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_resolveUnionAndIntersection">resolveUnionAndIntersection()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange">splitRange()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_stringFromColumnIndex">stringFromColumnIndex()</a></li>
                                     </ul>
             </li>
                     </ul>

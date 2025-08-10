@@ -135,6 +135,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,7 +155,7 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#constant_STRUCTURE">STRUCTURE</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#constant_STRUCTURE">STRUCTURE</a>
     <span>
         &nbsp;= &#039;/^(?P&lt;language&gt;[a-z]{2})([-_](?P&lt;script&gt;[a-z]{4}))?([-_](?P&lt;country&gt;[a-z]{2}))?$/i&#039;                            </span>
 </dt>
@@ -163,19 +164,6 @@
     </dl>
 
 
-<h4 id="toc-properties">
-    Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#property_formatter">$formatter</a>
-    <span>
-                        &nbsp;: <abbr title="\NumberFormatter">NumberFormatter</abbr>            </span>
-</dt>
-
-    </dl>
 
 <h4 id="toc-methods">
     Methods
@@ -184,13 +172,13 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method___construct">__construct()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method_format">format()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method_format">format()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -222,6 +210,7 @@
 
         <p class="phpdocumentor-summary">Language code: ISO-639 2 character, alpha.</p>
 
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -244,48 +233,6 @@ Separated by underscores or dashes.</p>
             </section>
 
         
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_formatter">
-        $formatter
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#property_formatter" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Locale.php"><a href="files/src-phpspreadsheet-style-numberformat-wizard-locale.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/Wizard/Locale.php">Locale.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">18</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\NumberFormatter">NumberFormatter</abbr></span>
-    <span class="phpdocumentor-signature__name">$formatter</span>
-    </code>
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -318,6 +265,7 @@ Separated by underscores or dashes.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -368,6 +316,7 @@ Separated by underscores or dashes.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -428,6 +377,8 @@ Separated by underscores or dashes.</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -496,29 +447,22 @@ Separated by underscores or dashes.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                         <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#constant_STRUCTURE">STRUCTURE</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#constant_STRUCTURE">STRUCTURE</a></li>
                                             </ul>
                 </li>
             
-                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#property_formatter">$formatter<a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html"></li>
-                                            </ul>
-                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method___construct">__construct()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method_format">format()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-Wizard-Locale.html#method_format">format()</a></li>
                                     </ul>
             </li>
                     </ul>

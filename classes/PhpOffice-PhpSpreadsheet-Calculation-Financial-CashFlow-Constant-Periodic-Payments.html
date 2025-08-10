@@ -135,6 +135,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -157,14 +158,14 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_annuity">annuity()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_annuity">annuity()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
 <dd>PMT.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_interestPayment">interestPayment()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_interestPayment">interestPayment()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
@@ -206,10 +207,11 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">annuity</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$interestRate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$presentValue</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$futureValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">FinancialConstants::PAYMENT_END_OF_PERIOD</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">annuity</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$interestRate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$presentValue</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$futureValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0.0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">FinancialConstants::PAYMENT_END_OF_PERIOD</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the constant payment (annuity) for a cash flow with a constant interest rate.</p>
 </section>
 
@@ -245,7 +247,7 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$futureValue</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">0.0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Future Value</p>
 </section>
@@ -302,6 +304,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the interest payment for a given period for an investment based on periodic, constant payments
 and a constant interest rate.</p>
 </section>
@@ -416,6 +419,8 @@ and a constant interest rate.</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -491,8 +496,8 @@ and a constant interest rate.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_annuity">annuity()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_interestPayment">interestPayment()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_annuity">annuity()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic-Payments.html#method_interestPayment">interestPayment()</a></li>
                                     </ul>
             </li>
                     </ul>

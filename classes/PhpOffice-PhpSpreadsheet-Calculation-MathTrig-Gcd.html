@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,18 +155,11 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluate">evaluate()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluate">evaluate()</a>
     <span>
                                 &nbsp;: float|int|string    </span>
 </dt>
 <dd>GCD.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluateGCD">evaluateGCD()</a>
-    <span>
-                                &nbsp;: float|int    </span>
-</dt>
-<dd>Recursively determine GCD.</dd>
 
     </dl>
 
@@ -207,6 +201,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the greatest common divisor of a series of numbers.
 The greatest common divisor is the largest integer that divides both
 number1 and number2 without a remainder.</p>
@@ -238,67 +233,6 @@ GCD(number1[,number2[, ...]])</p>
                 <section class="phpdocumentor-description"><p>Greatest Common Divisor, or a string containing an error</p>
 </section>
 
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_evaluateGCD">
-        evaluateGCD()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluateGCD" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Gcd.php"><a href="files/src-phpspreadsheet-calculation-mathtrig-gcd.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Gcd.php">Gcd.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">21</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Recursively determine GCD.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">evaluateGCD</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$b</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|int</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-        <section class="phpdocumentor-description"><p>Returns the greatest common divisor of a series of numbers.
-The greatest common divisor is the largest integer that divides both
-number1 and number2 without a remainder.</p>
-<p>Excel Function:
-GCD(number1[,number2[, ...]])</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$a</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$b</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|int</span>
             </section>
 
 </article>
@@ -340,6 +274,8 @@ GCD(number1[,number2[, ...]])</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -415,8 +351,7 @@ GCD(number1[,number2[, ...]])</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluate">evaluate()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluateGCD">evaluateGCD()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Gcd.html#method_evaluate">evaluate()</a></li>
                                     </ul>
             </li>
                     </ul>

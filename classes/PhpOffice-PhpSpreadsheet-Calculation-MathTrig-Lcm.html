@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,30 +155,11 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_evaluate">evaluate()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_evaluate">evaluate()</a>
     <span>
                                 &nbsp;: int|string    </span>
 </dt>
 <dd>LCM.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_factors">factors()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, int&gt;    </span>
-</dt>
-<dd>Private method to return an array of the factors of the input value.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_processPoweredFactors">processPoweredFactors()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_testNonNulls">testNonNulls()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
 
     </dl>
 
@@ -219,6 +201,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the lowest common multiplier of a series of numbers
 The least common multiple is the smallest positive integer that is a multiple
 of all integer arguments number1, number2, and so on. Use LCM to add fractions
@@ -253,147 +236,6 @@ LCM(number1[,number2[, ...]])</p>
 
             </section>
 
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_factors">
-        factors()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_factors" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php"><a href="files/src-phpspreadsheet-calculation-mathtrig-lcm.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php">Lcm.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">16</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Private method to return an array of the factors of the input value.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">factors</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, int&gt;</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, int&gt;</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_processPoweredFactors">
-        processPoweredFactors()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_processPoweredFactors" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php"><a href="files/src-phpspreadsheet-calculation-mathtrig-lcm.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php">Lcm.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">100</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">processPoweredFactors</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$allPoweredFactors</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$myPoweredFactors</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$allPoweredFactors</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$myPoweredFactors</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_testNonNulls">
-        testNonNulls()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_testNonNulls" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php"><a href="files/src-phpspreadsheet-calculation-mathtrig-lcm.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php">Lcm.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">113</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">testNonNulls</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$anyNonNulls</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$anyNonNulls</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
 </article>
             </section>
 
@@ -433,6 +275,8 @@ LCM(number1[,number2[, ...]])</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -508,10 +352,7 @@ LCM(number1[,number2[, ...]])</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_evaluate">evaluate()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_factors">factors()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_processPoweredFactors">processPoweredFactors()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_testNonNulls">testNonNulls()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Lcm.html#method_evaluate">evaluate()</a></li>
                                     </ul>
             </li>
                     </ul>

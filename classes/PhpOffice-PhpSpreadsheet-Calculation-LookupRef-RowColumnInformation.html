@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,51 +155,32 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMN">COLUMN()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMN">COLUMN()</a>
     <span>
                                 &nbsp;: int|array&lt;string|int, int&gt;    </span>
 </dt>
 <dd>COLUMN.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMNS">COLUMNS()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMNS">COLUMNS()</a>
     <span>
                                 &nbsp;: int|string    </span>
 </dt>
 <dd>COLUMNS.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROW">ROW()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROW">ROW()</a>
     <span>
                                 &nbsp;: int|array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>ROW.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROWS">ROWS()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROWS">ROWS()</a>
     <span>
                                 &nbsp;: int|string    </span>
 </dt>
 <dd>ROWS.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellAddressNullOrWhitespace">cellAddressNullOrWhitespace()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Test if cellAddress is null or whitespace string.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellColumn">cellColumn()</a>
-    <span>
-                                &nbsp;: int    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellRow">cellRow()</a>
-    <span>
-                                &nbsp;: int    </span>
-</dt>
 
     </dl>
 
@@ -240,6 +222,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the column number of the given cell reference
 If the cell reference is a range of cells, COLUMN returns the column numbers of each column
 in the reference as a horizontal array.
@@ -306,6 +289,7 @@ otherwise this function returns 1.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the number of columns in an array or reference.</p>
 <p>Excel Function:
 =COLUMNS(cellAddress)</p>
@@ -365,6 +349,7 @@ for which you want the number of columns</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the row number of the given cell reference
 If the cell reference is a range of cells, ROW returns the row numbers of each row in the reference
 as a vertical array.
@@ -431,6 +416,7 @@ otherwise this function returns 1.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the number of rows in an array or reference.</p>
 <p>Excel Function:
 =ROWS(cellAddress)</p>
@@ -461,150 +447,6 @@ for which you want the number of rows</p>
                 <section class="phpdocumentor-description"><p>The number of rows in cellAddress, or a string if arguments are invalid</p>
 </section>
 
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_cellAddressNullOrWhitespace">
-        cellAddressNullOrWhitespace()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellAddressNullOrWhitespace" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php"><a href="files/src-phpspreadsheet-calculation-lookupref-rowcolumninformation.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php">RowColumnInformation.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">18</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Test if cellAddress is null or whitespace string.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">cellAddressNullOrWhitespace</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
-                : <span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, mixed&gt;|string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>A reference to a range of cells</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_cellColumn">
-        cellColumn()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellColumn" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php"><a href="files/src-phpspreadsheet-calculation-lookupref-rowcolumninformation.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php">RowColumnInformation.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">23</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">cellColumn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cell</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_cellRow">
-        cellRow()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellRow" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php"><a href="files/src-phpspreadsheet-calculation-lookupref-rowcolumninformation.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php">RowColumnInformation.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">118</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">cellRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cell</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
             </section>
 
 </article>
@@ -646,6 +488,8 @@ for which you want the number of rows</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -721,13 +565,10 @@ for which you want the number of rows</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMN">COLUMN()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMNS">COLUMNS()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROW">ROW()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROWS">ROWS()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellAddressNullOrWhitespace">cellAddressNullOrWhitespace()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellColumn">cellColumn()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_cellRow">cellRow()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMN">COLUMN()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_COLUMNS">COLUMNS()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROW">ROW()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-RowColumnInformation.html#method_ROWS">ROWS()</a></li>
                                     </ul>
             </li>
                     </ul>

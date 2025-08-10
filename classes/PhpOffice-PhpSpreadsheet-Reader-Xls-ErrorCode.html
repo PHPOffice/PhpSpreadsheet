@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -144,19 +145,6 @@
 
 
 
-<h4 id="toc-constants">
-    Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#constant_ERROR_CODE_MAP">ERROR_CODE_MAP</a>
-    <span>
-        &nbsp;= [0x0 =&gt; &#039;#NULL!&#039;, 0x7 =&gt; &#039;#DIV/0!&#039;, 0xf =&gt; &#039;#VALUE!&#039;, 0x17 =&gt; &#039;#REF!&#039;, 0x1d =&gt; &#039;#NAME?&#039;, 0x24 =&gt; &#039;#NUM!&#039;, 0x2a =&gt; &#039;#N/A&#039;]                            </span>
-</dt>
-
-    </dl>
 
 
 
@@ -167,7 +155,7 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#method_lookup">lookup()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#method_lookup">lookup()</a>
     <span>
                                 &nbsp;: string|bool    </span>
 </dt>
@@ -178,43 +166,6 @@
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_ERROR_CODE_MAP">
-        ERROR_CODE_MAP
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#constant_ERROR_CODE_MAP" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/ErrorCode.php"><a href="files/src-phpspreadsheet-reader-xls-errorcode.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/ErrorCode.php">ErrorCode.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">7</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">ERROR_CODE_MAP</span>
-    = <span class="phpdocumentor-signature__default-value">[0x0 =&gt; &#039;#NULL!&#039;, 0x7 =&gt; &#039;#DIV/0!&#039;, 0xf =&gt; &#039;#VALUE!&#039;, 0x17 =&gt; &#039;#REF!&#039;, 0x1d =&gt; &#039;#NAME?&#039;, 0x24 =&gt; &#039;#NUM!&#039;, 0x2a =&gt; &#039;#N/A&#039;]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
         
 
@@ -250,6 +201,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -310,6 +262,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -377,22 +331,15 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#toc-constants">Constants</a></li>
                                                                                 <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
-                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#constant_ERROR_CODE_MAP">ERROR_CODE_MAP</a></li>
-                                            </ul>
-                </li>
             
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#method_lookup">lookup()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ErrorCode.html#method_lookup">lookup()</a></li>
                                     </ul>
             </li>
                     </ul>

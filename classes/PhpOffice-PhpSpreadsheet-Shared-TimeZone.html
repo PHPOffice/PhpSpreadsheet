@@ -131,6 +131,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -152,7 +153,7 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#property_timezone">$timezone</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#property_timezone">$timezone</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
@@ -167,14 +168,14 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZone">getTimeZone()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZone">getTimeZone()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Return the Default Timezone used for date/time conversions.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZoneAdjustment">getTimeZoneAdjustment()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZoneAdjustment">getTimeZoneAdjustment()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
@@ -182,18 +183,11 @@
 This requires both the timezone and the calculated date/time to allow for local DST.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_setTimeZone">setTimeZone()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_setTimeZone">setTimeZone()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Set the Default Timezone used for date/time conversions.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_validateTimeZone">validateTimeZone()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Validate a Timezone name.</dd>
 
     </dl>
 
@@ -213,14 +207,14 @@ This requires both the timezone and the calculated date/time to allow for local 
             phpdocumentor-element
             -property
             -protected
-            -static                                            "
+            -static                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="property_timezone">
         $timezone
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#property_timezone" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
-                                </span>
+                                            </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/TimeZone.php"><a href="files/src-phpspreadsheet-shared-timezone.html"><abbr title="src/PhpSpreadsheet/Shared/TimeZone.php">TimeZone.php</abbr></a></abbr>
@@ -231,14 +225,17 @@ This requires both the timezone and the calculated date/time to allow for local 
 
         <p class="phpdocumentor-summary">Default Timezone used for date/time conversions.</p>
 
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$timezone</span>
      = <span class="phpdocumentor-signature__default-value">&#039;UTC&#039;</span></code>
 
     
     
+    
+
     
 
     
@@ -278,6 +275,7 @@ This requires both the timezone and the calculated date/time to allow for local 
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
     
     
@@ -321,6 +319,7 @@ This requires both the timezone and the calculated date/time to allow for local 
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -385,59 +384,6 @@ This requires both the timezone and the calculated date/time to allow for local 
     <div class="phpdocumentor-label-line">
         </div>
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$timezoneName</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Time zone (e.g. 'Europe/London')</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>Success or failure</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_validateTimeZone">
-        validateTimeZone()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_validateTimeZone" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/TimeZone.php"><a href="files/src-phpspreadsheet-shared-timezone.html"><abbr title="src/PhpSpreadsheet/Shared/TimeZone.php">TimeZone.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">22</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Validate a Timezone name.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateTimeZone</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timezoneName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -504,6 +450,8 @@ This requires both the timezone and the calculated date/time to allow for local 
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -579,17 +527,16 @@ This requires both the timezone and the calculated date/time to allow for local 
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#property_timezone">$timezone<a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html"></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#property_timezone">$timezone</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZone">getTimeZone()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZoneAdjustment">getTimeZoneAdjustment()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_setTimeZone">setTimeZone()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_validateTimeZone">validateTimeZone()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZone">getTimeZone()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_getTimeZoneAdjustment">getTimeZoneAdjustment()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-TimeZone.html#method_setTimeZone">setTimeZone()</a></li>
                                     </ul>
             </li>
                     </ul>

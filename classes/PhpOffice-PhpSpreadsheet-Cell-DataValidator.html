@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -144,19 +145,6 @@
 
 
 
-<h4 id="toc-constants">
-    Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#constant_TWO_FORMULAS">TWO_FORMULAS</a>
-    <span>
-        &nbsp;= [\PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN, \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN]                            </span>
-</dt>
-
-    </dl>
 
 
 
@@ -167,73 +155,17 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValid">isValid()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValid">isValid()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Does this cell contain valid value?</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_evaluateNumericFormula">evaluateNumericFormula()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValueInList">isValueInList()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Does this cell contain valid value, based on list?</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_numericOperator">numericOperator()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
 
     </dl>
 
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_TWO_FORMULAS">
-        TWO_FORMULAS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#constant_TWO_FORMULAS" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataValidator.php"><a href="files/src-phpspreadsheet-cell-datavalidator.html"><abbr title="src/PhpSpreadsheet/Cell/DataValidator.php">DataValidator.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">56</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">TWO_FORMULAS</span>
-    = <span class="phpdocumentor-signature__default-value">[\PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN, \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
         
 
@@ -270,105 +202,6 @@
     <div class="phpdocumentor-label-line">
         </div>
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cell</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Cell to check the value</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_evaluateNumericFormula">
-        evaluateNumericFormula()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_evaluateNumericFormula" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataValidator.php"><a href="files/src-phpspreadsheet-cell-datavalidator.html"><abbr title="src/PhpSpreadsheet/Cell/DataValidator.php">DataValidator.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">58</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">evaluateNumericFormula</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$formula</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cell</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_isValueInList">
-        isValueInList()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValueInList" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataValidator.php"><a href="files/src-phpspreadsheet-cell-datavalidator.html"><abbr title="src/PhpSpreadsheet/Cell/DataValidator.php">DataValidator.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">113</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Does this cell contain valid value, based on list?</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">isValueInList</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -380,67 +213,6 @@
                     <section class="phpdocumentor-description"><p>Cell to check the value</p>
 </section>
 
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_numericOperator">
-        numericOperator()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_numericOperator" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataValidator.php"><a href="files/src-phpspreadsheet-cell-datavalidator.html"><abbr title="src/PhpSpreadsheet/Cell/DataValidator.php">DataValidator.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">79</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">numericOperator</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidation.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\DataValidation">DataValidation</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataValidation</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$dataValidation</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidation.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\DataValidation">DataValidation</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cell</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
             </dd>
             </dl>
 
@@ -492,6 +264,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -559,25 +333,15 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#toc-constants">Constants</a></li>
                                                                                 <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
-                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#constant_TWO_FORMULAS">TWO_FORMULAS</a></li>
-                                            </ul>
-                </li>
             
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValid">isValid()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_evaluateNumericFormula">evaluateNumericFormula()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValueInList">isValueInList()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_numericOperator">numericOperator()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataValidator.html#method_isValid">isValid()</a></li>
                                     </ul>
             </li>
                     </ul>

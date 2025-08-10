@@ -131,6 +131,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -150,7 +151,7 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#constant_DEFAULT_CODE_PAGE">DEFAULT_CODE_PAGE</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#constant_DEFAULT_CODE_PAGE">DEFAULT_CODE_PAGE</a>
     <span>
         &nbsp;= &#039;CP1252&#039;                            </span>
 </dt>
@@ -158,19 +159,6 @@
     </dl>
 
 
-<h4 id="toc-properties">
-    Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#property_pageArray">$pageArray</a>
-    <span>
-                        &nbsp;: array&lt;int, array&lt;int, string&gt;|string&gt;            </span>
-</dt>
-
-    </dl>
 
 <h4 id="toc-methods">
     Methods
@@ -179,13 +167,13 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_getEncodings">getEncodings()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_getEncodings">getEncodings()</a>
     <span>
                                 &nbsp;: array&lt;int, array&lt;int, string&gt;|string&gt;    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_numberToName">numberToName()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_numberToName">numberToName()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -193,7 +181,7 @@
 and mbstring understands.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_validate">validate()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_validate">validate()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -224,6 +212,7 @@ and mbstring understands.</dd>
     </aside>
 
     
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -242,160 +231,6 @@ and mbstring understands.</dd>
             </section>
 
         
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_pageArray">
-        $pageArray
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#property_pageArray" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/CodePage.php"><a href="files/src-phpspreadsheet-shared-codepage.html"><abbr title="src/PhpSpreadsheet/Shared/CodePage.php">CodePage.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">12</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;int, array&lt;int, string&gt;|string&gt;</span>
-    <span class="phpdocumentor-signature__name">$pageArray</span>
-     = <span class="phpdocumentor-signature__default-value">[
-    0 =&gt; &#039;CP1252&#039;,
-    //    CodePage is not always correctly set when the xls file was saved by Apple&#039;s Numbers program
-    367 =&gt; &#039;ASCII&#039;,
-    //    ASCII
-    437 =&gt; &#039;CP437&#039;,
-    //    OEM US
-    //720 =&gt; &#039;notsupported&#039;, //    OEM Arabic
-    737 =&gt; &#039;CP737&#039;,
-    //    OEM Greek
-    775 =&gt; &#039;CP775&#039;,
-    //    OEM Baltic
-    850 =&gt; &#039;CP850&#039;,
-    //    OEM Latin I
-    852 =&gt; &#039;CP852&#039;,
-    //    OEM Latin II (Central European)
-    855 =&gt; &#039;CP855&#039;,
-    //    OEM Cyrillic
-    857 =&gt; &#039;CP857&#039;,
-    //    OEM Turkish
-    858 =&gt; &#039;CP858&#039;,
-    //    OEM Multilingual Latin I with Euro
-    860 =&gt; &#039;CP860&#039;,
-    //    OEM Portugese
-    861 =&gt; &#039;CP861&#039;,
-    //    OEM Icelandic
-    862 =&gt; &#039;CP862&#039;,
-    //    OEM Hebrew
-    863 =&gt; &#039;CP863&#039;,
-    //    OEM Canadian (French)
-    864 =&gt; &#039;CP864&#039;,
-    //    OEM Arabic
-    865 =&gt; &#039;CP865&#039;,
-    //    OEM Nordic
-    866 =&gt; &#039;CP866&#039;,
-    //    OEM Cyrillic (Russian)
-    869 =&gt; &#039;CP869&#039;,
-    //    OEM Greek (Modern)
-    874 =&gt; &#039;CP874&#039;,
-    //    ANSI Thai
-    932 =&gt; &#039;CP932&#039;,
-    //    ANSI Japanese Shift-JIS
-    936 =&gt; &#039;CP936&#039;,
-    //    ANSI Chinese Simplified GBK
-    949 =&gt; &#039;CP949&#039;,
-    //    ANSI Korean (Wansung)
-    950 =&gt; &#039;CP950&#039;,
-    //    ANSI Chinese Traditional BIG5
-    1200 =&gt; &#039;UTF-16LE&#039;,
-    //    UTF-16 (BIFF8)
-    1250 =&gt; &#039;CP1250&#039;,
-    //    ANSI Latin II (Central European)
-    1251 =&gt; &#039;CP1251&#039;,
-    //    ANSI Cyrillic
-    1252 =&gt; &#039;CP1252&#039;,
-    //    ANSI Latin I (BIFF4-BIFF7)
-    1253 =&gt; &#039;CP1253&#039;,
-    //    ANSI Greek
-    1254 =&gt; &#039;CP1254&#039;,
-    //    ANSI Turkish
-    1255 =&gt; &#039;CP1255&#039;,
-    //    ANSI Hebrew
-    1256 =&gt; &#039;CP1256&#039;,
-    //    ANSI Arabic
-    1257 =&gt; &#039;CP1257&#039;,
-    //    ANSI Baltic
-    1258 =&gt; &#039;CP1258&#039;,
-    //    ANSI Vietnamese
-    1361 =&gt; &#039;CP1361&#039;,
-    //    ANSI Korean (Johab)
-    10000 =&gt; &#039;MAC&#039;,
-    //    Apple Roman
-    10001 =&gt; &#039;CP932&#039;,
-    //    Macintosh Japanese
-    10002 =&gt; &#039;CP950&#039;,
-    //    Macintosh Chinese Traditional
-    10003 =&gt; &#039;CP1361&#039;,
-    //    Macintosh Korean
-    10004 =&gt; &#039;MACARABIC&#039;,
-    //    Apple Arabic
-    10005 =&gt; &#039;MACHEBREW&#039;,
-    //    Apple Hebrew
-    10006 =&gt; &#039;MACGREEK&#039;,
-    //    Macintosh Greek
-    10007 =&gt; &#039;MACCYRILLIC&#039;,
-    //    Macintosh Cyrillic
-    10008 =&gt; &#039;CP936&#039;,
-    //    Macintosh - Simplified Chinese (GB 2312)
-    10010 =&gt; &#039;MACROMANIA&#039;,
-    //    Macintosh Romania
-    10017 =&gt; &#039;MACUKRAINE&#039;,
-    //    Macintosh Ukraine
-    10021 =&gt; &#039;MACTHAI&#039;,
-    //    Macintosh Thai
-    10029 =&gt; [&#039;MACCENTRALEUROPE&#039;, &#039;MAC-CENTRALEUROPE&#039;],
-    //    Macintosh Central Europe
-    10079 =&gt; &#039;MACICELAND&#039;,
-    //    Macintosh Icelandic
-    10081 =&gt; &#039;MACTURKISH&#039;,
-    //    Macintosh Turkish
-    10082 =&gt; &#039;MACCROATIAN&#039;,
-    //    Macintosh Croatian
-    21010 =&gt; &#039;UTF-16LE&#039;,
-    //    UTF-16 (BIFF8) This isn&#039;t correct, but some Excel writer libraries erroneously use Codepage 21010 for UTF-16LE
-    32768 =&gt; &#039;MAC&#039;,
-    //    Apple Roman
-    //32769 =&gt; &#039;unsupported&#039;, //    ANSI Latin I (BIFF2-BIFF3)
-    65000 =&gt; &#039;UTF-7&#039;,
-    //    Unicode (UTF-7)
-    65001 =&gt; &#039;UTF-8&#039;,
-    //    Unicode (UTF-8)
-    99999 =&gt; [&#039;unsupported&#039;],
-]</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -428,6 +263,7 @@ and mbstring understands.</dd>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
     
     
@@ -467,6 +303,7 @@ and mbstring understands.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -520,6 +357,7 @@ and mbstring understands.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -580,6 +418,8 @@ and mbstring understands.</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -648,30 +488,23 @@ and mbstring understands.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                         <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#constant_DEFAULT_CODE_PAGE">DEFAULT_CODE_PAGE</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#constant_DEFAULT_CODE_PAGE">DEFAULT_CODE_PAGE</a></li>
                                             </ul>
                 </li>
             
-                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#property_pageArray">$pageArray<a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html"></li>
-                                            </ul>
-                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_getEncodings">getEncodings()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_numberToName">numberToName()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_validate">validate()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_getEncodings">getEncodings()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_numberToName">numberToName()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#method_validate">validate()</a></li>
                                     </ul>
             </li>
                     </ul>

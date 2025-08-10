@@ -134,6 +134,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -156,43 +157,25 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_futureValue">futureValue()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_futureValue">futureValue()</a>
     <span>
                                 &nbsp;: string|float    </span>
 </dt>
 <dd>FV.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_periods">periods()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_periods">periods()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
 <dd>NPER.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_presentValue">presentValue()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_presentValue">presentValue()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
 <dd>PV.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculateFutureValue">calculateFutureValue()</a>
-    <span>
-                                &nbsp;: float    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePeriods">calculatePeriods()</a>
-    <span>
-                                &nbsp;: string|float    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePresentValue">calculatePresentValue()</a>
-    <span>
-                                &nbsp;: float    </span>
-</dt>
 
     </dl>
 
@@ -234,6 +217,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the Future Value of a cash flow with constant payments and interest rate (annuities).</p>
 <p>Excel Function:
 FV(rate,nper,pmt[,pv[,type]])</p>
@@ -329,6 +313,7 @@ future payments is worth right now</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the number of periods for a cash flow with constant periodic payments (annuities), and interest rate.</p>
 </section>
 
@@ -421,6 +406,7 @@ future payments is worth right now</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the Present Value of a cash flow with constant payments and interest rate (annuities).</p>
 </section>
 
@@ -487,231 +473,6 @@ future payments is worth right now</p>
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_calculateFutureValue">
-        calculateFutureValue()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculateFutureValue" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-constant-periodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php">Periodic.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">146</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculateFutureValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$presentValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rate</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$payment</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$presentValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_calculatePeriods">
-        calculatePeriods()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePeriods" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-constant-periodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php">Periodic.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">177</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculatePeriods</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$presentValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$futureValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|float</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rate</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$payment</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$presentValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$futureValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|float</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_calculatePresentValue">
-        calculatePresentValue()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePresentValue" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-constant-periodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php">Periodic.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">162</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculatePresentValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$futureValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rate</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$numberOfPeriods</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$payment</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$futureValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float</span>
-            </section>
-
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -750,6 +511,8 @@ future payments is worth right now</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -825,12 +588,9 @@ future payments is worth right now</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_futureValue">futureValue()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_periods">periods()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_presentValue">presentValue()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculateFutureValue">calculateFutureValue()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePeriods">calculatePeriods()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_calculatePresentValue">calculatePresentValue()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_futureValue">futureValue()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_periods">periods()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Constant-Periodic.html#method_presentValue">presentValue()</a></li>
                                     </ul>
             </li>
                     </ul>

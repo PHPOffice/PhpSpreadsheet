@@ -97,13 +97,12 @@
         <h2 class="phpdocumentor-content__title">JpGraph.php</h2>
 
         
+        
+        
+        
 
 
-
-
-
-
-
+        
 <h3 id="toc">
     Table of Contents
     <a href="files/src-phpspreadsheet-chart-renderer-jpgraph.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -123,7 +122,6 @@
 could be out of date. For that reason, all unit test requiring Jpgraph
 are skipped. So, do not measure code coverage for this class till that
 is fixed.</dd>    </dl>
-
 
 
 
@@ -172,6 +170,8 @@ is fixed.</dd>    </dl>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 

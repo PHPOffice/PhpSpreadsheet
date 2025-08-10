@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -154,24 +155,18 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORDEGRC">AMORDEGRC()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORDEGRC">AMORDEGRC()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
 <dd>AMORDEGRC.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORLINC">AMORLINC()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORLINC">AMORLINC()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
 <dd>AMORLINC.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_getAmortizationCoefficient">getAmortizationCoefficient()</a>
-    <span>
-                                &nbsp;: float    </span>
-</dt>
 
     </dl>
 
@@ -213,6 +208,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the depreciation for each accounting period.
 This function is provided for the French accounting system. If an asset is purchased in
 the middle of the accounting period, the prorated depreciation is taken into account.
@@ -325,7 +321,7 @@ AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/Amortization.php"><a href="files/src-phpspreadsheet-calculation-financial-amortization.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/Amortization.php">Amortization.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
@@ -337,6 +333,7 @@ AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Returns the depreciation for each accounting period.
 This function is provided for the French accounting system. If an asset is purchased in
 the middle of the accounting period, the prorated depreciation is taken into account.</p>
@@ -430,53 +427,6 @@ AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p>
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getAmortizationCoefficient">
-        getAmortizationCoefficient()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_getAmortizationCoefficient" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/Amortization.php"><a href="files/src-phpspreadsheet-calculation-financial-amortization.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/Amortization.php">Amortization.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">197</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getAmortizationCoefficient</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rate</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rate</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float</span>
-            </section>
-
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -515,6 +465,8 @@ AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -590,9 +542,8 @@ AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORDEGRC">AMORDEGRC()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORLINC">AMORLINC()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_getAmortizationCoefficient">getAmortizationCoefficient()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORDEGRC">AMORDEGRC()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-Amortization.html#method_AMORLINC">AMORLINC()</a></li>
                                     </ul>
             </li>
                     </ul>

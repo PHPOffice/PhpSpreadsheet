@@ -131,6 +131,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -143,355 +144,8 @@
 
 
 
-<h4 id="toc-constants">
-    Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_KEYS">CONTROL_CHARACTERS_KEYS</a>
-    <span>
-        &nbsp;= [&quot;\x00&quot;, &quot;\x01&quot;, &quot;\x02&quot;, &quot;\x03&quot;, &quot;\x04&quot;, &quot;\x05&quot;, &quot;\x06&quot;, &quot;\x07&quot;, &quot;\x08&quot;, &quot;\t&quot;, &quot;\n&quot;, &quot;\v&quot;, &quot;\f&quot;, &quot;\r&quot;, &quot;\x0e&quot;, &quot;\x0f&quot;, &quot;\x10&quot;, &quot;\x11&quot;, &quot;\x12&quot;, &quot;\x13&quot;, &quot;\x14&quot;, &quot;\x15&quot;, &quot;\x16&quot;, &quot;\x17&quot;, &quot;\x18&quot;, &quot;\x19&quot;, &quot;\x1a&quot;, &quot;\x1b&quot;, &quot;\x1c&quot;, &quot;\x1d&quot;, &quot;\x1e&quot;, &quot;\x1f&quot;]                            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_VALUES">CONTROL_CHARACTERS_VALUES</a>
-    <span>
-        &nbsp;= [&#039;_x0000_&#039;, &#039;_x0001_&#039;, &#039;_x0002_&#039;, &#039;_x0003_&#039;, &#039;_x0004_&#039;, &#039;_x0005_&#039;, &#039;_x0006_&#039;, &#039;_x0007_&#039;, &#039;_x0008_&#039;, &#039;_x0009_&#039;, &#039;_x000A_&#039;, &#039;_x000B_&#039;, &#039;_x000C_&#039;, &#039;_x000D_&#039;, &#039;_x000E_&#039;, &#039;_x000F_&#039;, &#039;_x0010_&#039;, &#039;_x0011_&#039;, &#039;_x0012_&#039;, &#039;_x0013_&#039;, &#039;_x0014_&#039;, &#039;_x0015_&#039;, &#039;_x0016_&#039;, &#039;_x0017_&#039;, &#039;_x0018_&#039;, &#039;_x0019_&#039;, &#039;_x001A_&#039;, &#039;_x001B_&#039;, &#039;_x001C_&#039;, &#039;_x001D_&#039;, &#039;_x001E_&#039;, &#039;_x001F_&#039;]                            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_SYLK_CHARACTERS">SYLK_CHARACTERS</a>
-    <span>
-        &nbsp;= [
-    &quot;\x1b 0&quot; =&gt; &quot;\x00&quot;,
-    &quot;\x1b 1&quot; =&gt; &quot;\x01&quot;,
-    &quot;\x1b 2&quot; =&gt; &quot;\x02&quot;,
-    &quot;\x1b 3&quot; =&gt; &quot;\x03&quot;,
-    &quot;\x1b 4&quot; =&gt; &quot;\x04&quot;,
-    &quot;\x1b 5&quot; =&gt; &quot;\x05&quot;,
-    &quot;\x1b 6&quot; =&gt; &quot;\x06&quot;,
-    &quot;\x1b 7&quot; =&gt; &quot;\x07&quot;,
-    &quot;\x1b 8&quot; =&gt; &quot;\x08&quot;,
-    &quot;\x1b 9&quot; =&gt; &quot;\t&quot;,
-    &quot;\x1b :&quot; =&gt; &quot;\n&quot;,
-    &quot;\x1b ;&quot; =&gt; &quot;\v&quot;,
-    &quot;\x1b &lt;&quot; =&gt; &quot;\f&quot;,
-    &quot;\x1b =&quot; =&gt; &quot;\r&quot;,
-    &quot;\x1b &gt;&quot; =&gt; &quot;\x0e&quot;,
-    &quot;\x1b ?&quot; =&gt; &quot;\x0f&quot;,
-    &quot;\x1b!0&quot; =&gt; &quot;\x10&quot;,
-    &quot;\x1b!1&quot; =&gt; &quot;\x11&quot;,
-    &quot;\x1b!2&quot; =&gt; &quot;\x12&quot;,
-    &quot;\x1b!3&quot; =&gt; &quot;\x13&quot;,
-    &quot;\x1b!4&quot; =&gt; &quot;\x14&quot;,
-    &quot;\x1b!5&quot; =&gt; &quot;\x15&quot;,
-    &quot;\x1b!6&quot; =&gt; &quot;\x16&quot;,
-    &quot;\x1b!7&quot; =&gt; &quot;\x17&quot;,
-    &quot;\x1b!8&quot; =&gt; &quot;\x18&quot;,
-    &quot;\x1b!9&quot; =&gt; &quot;\x19&quot;,
-    &quot;\x1b!:&quot; =&gt; &quot;\x1a&quot;,
-    &quot;\x1b!;&quot; =&gt; &quot;\x1b&quot;,
-    &quot;\x1b!&lt;&quot; =&gt; &quot;\x1c&quot;,
-    &quot;\x1b!=&quot; =&gt; &quot;\x1d&quot;,
-    &quot;\x1b!&gt;&quot; =&gt; &quot;\x1e&quot;,
-    &quot;\x1b!?&quot; =&gt; &quot;\x1f&quot;,
-    &quot;\x1b&#039;?&quot; =&gt; &quot;&quot;,
-    &quot;\x1b(0&quot; =&gt; &#039;€&#039;,
-    // 128 in CP1252
-    &quot;\x1b(2&quot; =&gt; &#039;‚&#039;,
-    // 130 in CP1252
-    &quot;\x1b(3&quot; =&gt; &#039;ƒ&#039;,
-    // 131 in CP1252
-    &quot;\x1b(4&quot; =&gt; &#039;„&#039;,
-    // 132 in CP1252
-    &quot;\x1b(5&quot; =&gt; &#039;…&#039;,
-    // 133 in CP1252
-    &quot;\x1b(6&quot; =&gt; &#039;†&#039;,
-    // 134 in CP1252
-    &quot;\x1b(7&quot; =&gt; &#039;‡&#039;,
-    // 135 in CP1252
-    &quot;\x1b(8&quot; =&gt; &#039;ˆ&#039;,
-    // 136 in CP1252
-    &quot;\x1b(9&quot; =&gt; &#039;‰&#039;,
-    // 137 in CP1252
-    &quot;\x1b(:&quot; =&gt; &#039;Š&#039;,
-    // 138 in CP1252
-    &quot;\x1b(;&quot; =&gt; &#039;‹&#039;,
-    // 139 in CP1252
-    &quot;\x1bNj&quot; =&gt; &#039;Œ&#039;,
-    // 140 in CP1252
-    &quot;\x1b(&gt;&quot; =&gt; &#039;Ž&#039;,
-    // 142 in CP1252
-    &quot;\x1b)1&quot; =&gt; &#039;‘&#039;,
-    // 145 in CP1252
-    &quot;\x1b)2&quot; =&gt; &#039;’&#039;,
-    // 146 in CP1252
-    &quot;\x1b)3&quot; =&gt; &#039;“&#039;,
-    // 147 in CP1252
-    &quot;\x1b)4&quot; =&gt; &#039;”&#039;,
-    // 148 in CP1252
-    &quot;\x1b)5&quot; =&gt; &#039;•&#039;,
-    // 149 in CP1252
-    &quot;\x1b)6&quot; =&gt; &#039;–&#039;,
-    // 150 in CP1252
-    &quot;\x1b)7&quot; =&gt; &#039;—&#039;,
-    // 151 in CP1252
-    &quot;\x1b)8&quot; =&gt; &#039;˜&#039;,
-    // 152 in CP1252
-    &quot;\x1b)9&quot; =&gt; &#039;™&#039;,
-    // 153 in CP1252
-    &quot;\x1b):&quot; =&gt; &#039;š&#039;,
-    // 154 in CP1252
-    &quot;\x1b);&quot; =&gt; &#039;›&#039;,
-    // 155 in CP1252
-    &quot;\x1bNz&quot; =&gt; &#039;œ&#039;,
-    // 156 in CP1252
-    &quot;\x1b)&gt;&quot; =&gt; &#039;ž&#039;,
-    // 158 in CP1252
-    &quot;\x1b)?&quot; =&gt; &#039;Ÿ&#039;,
-    // 159 in CP1252
-    &quot;\x1b*0&quot; =&gt; &#039; &#039;,
-    // 160 in CP1252
-    &quot;\x1bN!&quot; =&gt; &#039;¡&#039;,
-    // 161 in CP1252
-    &quot;\x1bN\&quot;&quot; =&gt; &#039;¢&#039;,
-    // 162 in CP1252
-    &quot;\x1bN#&quot; =&gt; &#039;£&#039;,
-    // 163 in CP1252
-    &quot;\x1bN(&quot; =&gt; &#039;¤&#039;,
-    // 164 in CP1252
-    &quot;\x1bN%&quot; =&gt; &#039;¥&#039;,
-    // 165 in CP1252
-    &quot;\x1b*6&quot; =&gt; &#039;¦&#039;,
-    // 166 in CP1252
-    &quot;\x1bN&#039;&quot; =&gt; &#039;§&#039;,
-    // 167 in CP1252
-    &quot;\x1bNH &quot; =&gt; &#039;¨&#039;,
-    // 168 in CP1252
-    &quot;\x1bNS&quot; =&gt; &#039;©&#039;,
-    // 169 in CP1252
-    &quot;\x1bNc&quot; =&gt; &#039;ª&#039;,
-    // 170 in CP1252
-    &quot;\x1bN+&quot; =&gt; &#039;«&#039;,
-    // 171 in CP1252
-    &quot;\x1b*&lt;&quot; =&gt; &#039;¬&#039;,
-    // 172 in CP1252
-    &quot;\x1b*=&quot; =&gt; &#039;­&#039;,
-    // 173 in CP1252
-    &quot;\x1bNR&quot; =&gt; &#039;®&#039;,
-    // 174 in CP1252
-    &quot;\x1b*?&quot; =&gt; &#039;¯&#039;,
-    // 175 in CP1252
-    &quot;\x1bN0&quot; =&gt; &#039;°&#039;,
-    // 176 in CP1252
-    &quot;\x1bN1&quot; =&gt; &#039;±&#039;,
-    // 177 in CP1252
-    &quot;\x1bN2&quot; =&gt; &#039;²&#039;,
-    // 178 in CP1252
-    &quot;\x1bN3&quot; =&gt; &#039;³&#039;,
-    // 179 in CP1252
-    &quot;\x1bNB &quot; =&gt; &#039;´&#039;,
-    // 180 in CP1252
-    &quot;\x1bN5&quot; =&gt; &#039;µ&#039;,
-    // 181 in CP1252
-    &quot;\x1bN6&quot; =&gt; &#039;¶&#039;,
-    // 182 in CP1252
-    &quot;\x1bN7&quot; =&gt; &#039;·&#039;,
-    // 183 in CP1252
-    &quot;\x1b+8&quot; =&gt; &#039;¸&#039;,
-    // 184 in CP1252
-    &quot;\x1bNQ&quot; =&gt; &#039;¹&#039;,
-    // 185 in CP1252
-    &quot;\x1bNk&quot; =&gt; &#039;º&#039;,
-    // 186 in CP1252
-    &quot;\x1bN;&quot; =&gt; &#039;»&#039;,
-    // 187 in CP1252
-    &quot;\x1bN&lt;&quot; =&gt; &#039;¼&#039;,
-    // 188 in CP1252
-    &quot;\x1bN=&quot; =&gt; &#039;½&#039;,
-    // 189 in CP1252
-    &quot;\x1bN&gt;&quot; =&gt; &#039;¾&#039;,
-    // 190 in CP1252
-    &quot;\x1bN?&quot; =&gt; &#039;¿&#039;,
-    // 191 in CP1252
-    &quot;\x1bNAA&quot; =&gt; &#039;À&#039;,
-    // 192 in CP1252
-    &quot;\x1bNBA&quot; =&gt; &#039;Á&#039;,
-    // 193 in CP1252
-    &quot;\x1bNCA&quot; =&gt; &#039;Â&#039;,
-    // 194 in CP1252
-    &quot;\x1bNDA&quot; =&gt; &#039;Ã&#039;,
-    // 195 in CP1252
-    &quot;\x1bNHA&quot; =&gt; &#039;Ä&#039;,
-    // 196 in CP1252
-    &quot;\x1bNJA&quot; =&gt; &#039;Å&#039;,
-    // 197 in CP1252
-    &quot;\x1bNa&quot; =&gt; &#039;Æ&#039;,
-    // 198 in CP1252
-    &quot;\x1bNKC&quot; =&gt; &#039;Ç&#039;,
-    // 199 in CP1252
-    &quot;\x1bNAE&quot; =&gt; &#039;È&#039;,
-    // 200 in CP1252
-    &quot;\x1bNBE&quot; =&gt; &#039;É&#039;,
-    // 201 in CP1252
-    &quot;\x1bNCE&quot; =&gt; &#039;Ê&#039;,
-    // 202 in CP1252
-    &quot;\x1bNHE&quot; =&gt; &#039;Ë&#039;,
-    // 203 in CP1252
-    &quot;\x1bNAI&quot; =&gt; &#039;Ì&#039;,
-    // 204 in CP1252
-    &quot;\x1bNBI&quot; =&gt; &#039;Í&#039;,
-    // 205 in CP1252
-    &quot;\x1bNCI&quot; =&gt; &#039;Î&#039;,
-    // 206 in CP1252
-    &quot;\x1bNHI&quot; =&gt; &#039;Ï&#039;,
-    // 207 in CP1252
-    &quot;\x1bNb&quot; =&gt; &#039;Ð&#039;,
-    // 208 in CP1252
-    &quot;\x1bNDN&quot; =&gt; &#039;Ñ&#039;,
-    // 209 in CP1252
-    &quot;\x1bNAO&quot; =&gt; &#039;Ò&#039;,
-    // 210 in CP1252
-    &quot;\x1bNBO&quot; =&gt; &#039;Ó&#039;,
-    // 211 in CP1252
-    &quot;\x1bNCO&quot; =&gt; &#039;Ô&#039;,
-    // 212 in CP1252
-    &quot;\x1bNDO&quot; =&gt; &#039;Õ&#039;,
-    // 213 in CP1252
-    &quot;\x1bNHO&quot; =&gt; &#039;Ö&#039;,
-    // 214 in CP1252
-    &quot;\x1b-7&quot; =&gt; &#039;×&#039;,
-    // 215 in CP1252
-    &quot;\x1bNi&quot; =&gt; &#039;Ø&#039;,
-    // 216 in CP1252
-    &quot;\x1bNAU&quot; =&gt; &#039;Ù&#039;,
-    // 217 in CP1252
-    &quot;\x1bNBU&quot; =&gt; &#039;Ú&#039;,
-    // 218 in CP1252
-    &quot;\x1bNCU&quot; =&gt; &#039;Û&#039;,
-    // 219 in CP1252
-    &quot;\x1bNHU&quot; =&gt; &#039;Ü&#039;,
-    // 220 in CP1252
-    &quot;\x1b-=&quot; =&gt; &#039;Ý&#039;,
-    // 221 in CP1252
-    &quot;\x1bNl&quot; =&gt; &#039;Þ&#039;,
-    // 222 in CP1252
-    &quot;\x1bN{&quot; =&gt; &#039;ß&#039;,
-    // 223 in CP1252
-    &quot;\x1bNAa&quot; =&gt; &#039;à&#039;,
-    // 224 in CP1252
-    &quot;\x1bNBa&quot; =&gt; &#039;á&#039;,
-    // 225 in CP1252
-    &quot;\x1bNCa&quot; =&gt; &#039;â&#039;,
-    // 226 in CP1252
-    &quot;\x1bNDa&quot; =&gt; &#039;ã&#039;,
-    // 227 in CP1252
-    &quot;\x1bNHa&quot; =&gt; &#039;ä&#039;,
-    // 228 in CP1252
-    &quot;\x1bNJa&quot; =&gt; &#039;å&#039;,
-    // 229 in CP1252
-    &quot;\x1bNq&quot; =&gt; &#039;æ&#039;,
-    // 230 in CP1252
-    &quot;\x1bNKc&quot; =&gt; &#039;ç&#039;,
-    // 231 in CP1252
-    &quot;\x1bNAe&quot; =&gt; &#039;è&#039;,
-    // 232 in CP1252
-    &quot;\x1bNBe&quot; =&gt; &#039;é&#039;,
-    // 233 in CP1252
-    &quot;\x1bNCe&quot; =&gt; &#039;ê&#039;,
-    // 234 in CP1252
-    &quot;\x1bNHe&quot; =&gt; &#039;ë&#039;,
-    // 235 in CP1252
-    &quot;\x1bNAi&quot; =&gt; &#039;ì&#039;,
-    // 236 in CP1252
-    &quot;\x1bNBi&quot; =&gt; &#039;í&#039;,
-    // 237 in CP1252
-    &quot;\x1bNCi&quot; =&gt; &#039;î&#039;,
-    // 238 in CP1252
-    &quot;\x1bNHi&quot; =&gt; &#039;ï&#039;,
-    // 239 in CP1252
-    &quot;\x1bNs&quot; =&gt; &#039;ð&#039;,
-    // 240 in CP1252
-    &quot;\x1bNDn&quot; =&gt; &#039;ñ&#039;,
-    // 241 in CP1252
-    &quot;\x1bNAo&quot; =&gt; &#039;ò&#039;,
-    // 242 in CP1252
-    &quot;\x1bNBo&quot; =&gt; &#039;ó&#039;,
-    // 243 in CP1252
-    &quot;\x1bNCo&quot; =&gt; &#039;ô&#039;,
-    // 244 in CP1252
-    &quot;\x1bNDo&quot; =&gt; &#039;õ&#039;,
-    // 245 in CP1252
-    &quot;\x1bNHo&quot; =&gt; &#039;ö&#039;,
-    // 246 in CP1252
-    &quot;\x1b/7&quot; =&gt; &#039;÷&#039;,
-    // 247 in CP1252
-    &quot;\x1bNy&quot; =&gt; &#039;ø&#039;,
-    // 248 in CP1252
-    &quot;\x1bNAu&quot; =&gt; &#039;ù&#039;,
-    // 249 in CP1252
-    &quot;\x1bNBu&quot; =&gt; &#039;ú&#039;,
-    // 250 in CP1252
-    &quot;\x1bNCu&quot; =&gt; &#039;û&#039;,
-    // 251 in CP1252
-    &quot;\x1bNHu&quot; =&gt; &#039;ü&#039;,
-    // 252 in CP1252
-    &quot;\x1b/=&quot; =&gt; &#039;ý&#039;,
-    // 253 in CP1252
-    &quot;\x1bN|&quot; =&gt; &#039;þ&#039;,
-    // 254 in CP1252
-    &quot;\x1bNHy&quot; =&gt; &#039;ÿ&#039;,
-]                            </span>
-</dt>
-<dd>SYLK Characters array.</dd>
-
-    </dl>
 
 
-<h4 id="toc-properties">
-    Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_currencyCode">$currencyCode</a>
-    <span>
-                        &nbsp;: string|null            </span>
-</dt>
-<dd>Currency code.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_decimalSeparator">$decimalSeparator</a>
-    <span>
-                        &nbsp;: string|null            </span>
-</dt>
-<dd>Decimal separator.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_iconvOptions">$iconvOptions</a>
-    <span>
-                        &nbsp;: string            </span>
-</dt>
-<dd>iconv options.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_isIconvEnabled">$isIconvEnabled</a>
-    <span>
-                        &nbsp;: bool|null            </span>
-</dt>
-<dd>Is iconv extension avalable?</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_thousandsSeparator">$thousandsSeparator</a>
-    <span>
-                        &nbsp;: string|null            </span>
-</dt>
-<dd>Thousands separator.</dd>
-
-    </dl>
 
 <h4 id="toc-methods">
     Methods
@@ -500,55 +154,55 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterOOXML2PHP">controlCharacterOOXML2PHP()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterOOXML2PHP">controlCharacterOOXML2PHP()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert from OpenXML escaped control character to PHP control character.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterPHP2OOXML">controlCharacterPHP2OOXML()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterPHP2OOXML">controlCharacterPHP2OOXML()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert from PHP control character to OpenXML escaped control character.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertEncoding">convertEncoding()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertEncoding">convertEncoding()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert string from one encoding to another.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertPostToString">convertPostToString()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertPostToString">convertPostToString()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Assist with POST items when samples are run in browser.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToString">convertToString()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToString">convertToString()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters">countCharacters()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters">countCharacters()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Get character count.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs">countCharactersDbcs()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs">countCharactersDbcs()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Get character count using mb_strwidth rather than mb_strlen.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_formatNumber">formatNumber()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_formatNumber">formatNumber()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -556,7 +210,7 @@
 point as decimal separator in case locale is other than English.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getCurrencyCode">getCurrencyCode()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getCurrencyCode">getCurrencyCode()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -564,7 +218,7 @@ point as decimal separator in case locale is other than English.</dd>
        symbol information from locale.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getDecimalSeparator">getDecimalSeparator()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getDecimalSeparator">getDecimalSeparator()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -572,14 +226,14 @@ point as decimal separator in case locale is other than English.</dd>
 formatting information from locale.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getIsIconvEnabled">getIsIconvEnabled()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getIsIconvEnabled">getIsIconvEnabled()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Get whether iconv extension is available.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getThousandsSeparator">getThousandsSeparator()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getThousandsSeparator">getThousandsSeparator()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -587,34 +241,34 @@ formatting information from locale.</dd>
 formatting information from locale.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_isUTF8">isUTF8()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_isUTF8">isUTF8()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Check if a string contains UTF8 data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbIsUpper">mbIsUpper()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbIsUpper">mbIsUpper()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbStrSplit">mbStrSplit()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbStrSplit">mbStrSplit()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Splits a UTF-8 string into an array of individual characters.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_sanitizeUTF8">sanitizeUTF8()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_sanitizeUTF8">sanitizeUTF8()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Try to sanitize UTF8, replacing invalid sequences with Unicode substitution characters.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setCurrencyCode">setCurrencyCode()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setCurrencyCode">setCurrencyCode()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -622,7 +276,7 @@ formatting information from locale.</dd>
        to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setDecimalSeparator">setDecimalSeparator()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setDecimalSeparator">setDecimalSeparator()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -630,7 +284,7 @@ formatting information from locale.</dd>
 to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setThousandsSeparator">setThousandsSeparator()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setThousandsSeparator">setThousandsSeparator()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -638,7 +292,7 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
 to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strCaseReverse">strCaseReverse()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strCaseReverse">strCaseReverse()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -646,20 +300,20 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
 and all lowercase characters become uppercase.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strlenAllowNull">strlenAllowNull()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strlenAllowNull">strlenAllowNull()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToLower">strToLower()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToLower">strToLower()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert a UTF-8 encoded string to lower case.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToTitle">strToTitle()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToTitle">strToTitle()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -667,28 +321,28 @@ and all lowercase characters become uppercase.</dd>
 (uppercase every first character in each word, lower case all other characters).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToUpper">strToUpper()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToUpper">strToUpper()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert a UTF-8 encoded string to upper case.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_substring">substring()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_substring">substring()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Get a substring of a UTF-8 encoded string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_SYLKtoUTF8">SYLKtoUTF8()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_SYLKtoUTF8">SYLKtoUTF8()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Convert SYLK encoded string to UTF-8.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_testStringAsNumeric">testStringAsNumeric()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_testStringAsNumeric">testStringAsNumeric()</a>
     <span>
                                 &nbsp;: float|string    </span>
 </dt>
@@ -696,7 +350,7 @@ and all lowercase characters become uppercase.</dd>
 (handles basic integer or float, but not exponent or non decimal).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeLong">UTF8toBIFF8UnicodeLong()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeLong">UTF8toBIFF8UnicodeLong()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -707,7 +361,7 @@ although this will give wrong results for non-ASCII strings
 see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect. 2.5.3.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeShort">UTF8toBIFF8UnicodeShort()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeShort">UTF8toBIFF8UnicodeShort()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -717,589 +371,13 @@ If mbstring extension is not available, ASCII is assumed, and compressed notatio
 although this will give wrong results for non-ASCII strings
 see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect. 2.5.3.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getLocaleValue">getLocaleValue()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_useAlt">useAlt()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-
     </dl>
 
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_CONTROL_CHARACTERS_KEYS">
-        CONTROL_CHARACTERS_KEYS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_KEYS" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">12</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">CONTROL_CHARACTERS_KEYS</span>
-    = <span class="phpdocumentor-signature__default-value">[&quot;\x00&quot;, &quot;\x01&quot;, &quot;\x02&quot;, &quot;\x03&quot;, &quot;\x04&quot;, &quot;\x05&quot;, &quot;\x06&quot;, &quot;\x07&quot;, &quot;\x08&quot;, &quot;\t&quot;, &quot;\n&quot;, &quot;\v&quot;, &quot;\f&quot;, &quot;\r&quot;, &quot;\x0e&quot;, &quot;\x0f&quot;, &quot;\x10&quot;, &quot;\x11&quot;, &quot;\x12&quot;, &quot;\x13&quot;, &quot;\x14&quot;, &quot;\x15&quot;, &quot;\x16&quot;, &quot;\x17&quot;, &quot;\x18&quot;, &quot;\x19&quot;, &quot;\x1a&quot;, &quot;\x1b&quot;, &quot;\x1c&quot;, &quot;\x1d&quot;, &quot;\x1e&quot;, &quot;\x1f&quot;]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_CONTROL_CHARACTERS_VALUES">
-        CONTROL_CHARACTERS_VALUES
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_VALUES" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">46</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">CONTROL_CHARACTERS_VALUES</span>
-    = <span class="phpdocumentor-signature__default-value">[&#039;_x0000_&#039;, &#039;_x0001_&#039;, &#039;_x0002_&#039;, &#039;_x0003_&#039;, &#039;_x0004_&#039;, &#039;_x0005_&#039;, &#039;_x0006_&#039;, &#039;_x0007_&#039;, &#039;_x0008_&#039;, &#039;_x0009_&#039;, &#039;_x000A_&#039;, &#039;_x000B_&#039;, &#039;_x000C_&#039;, &#039;_x000D_&#039;, &#039;_x000E_&#039;, &#039;_x000F_&#039;, &#039;_x0010_&#039;, &#039;_x0011_&#039;, &#039;_x0012_&#039;, &#039;_x0013_&#039;, &#039;_x0014_&#039;, &#039;_x0015_&#039;, &#039;_x0016_&#039;, &#039;_x0017_&#039;, &#039;_x0018_&#039;, &#039;_x0019_&#039;, &#039;_x001A_&#039;, &#039;_x001B_&#039;, &#039;_x001C_&#039;, &#039;_x001D_&#039;, &#039;_x001E_&#039;, &#039;_x001F_&#039;]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_SYLK_CHARACTERS">
-        SYLK_CHARACTERS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_SYLK_CHARACTERS" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">84</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">SYLK Characters array.</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">SYLK_CHARACTERS</span>
-    = <span class="phpdocumentor-signature__default-value">[
-    &quot;\x1b 0&quot; =&gt; &quot;\x00&quot;,
-    &quot;\x1b 1&quot; =&gt; &quot;\x01&quot;,
-    &quot;\x1b 2&quot; =&gt; &quot;\x02&quot;,
-    &quot;\x1b 3&quot; =&gt; &quot;\x03&quot;,
-    &quot;\x1b 4&quot; =&gt; &quot;\x04&quot;,
-    &quot;\x1b 5&quot; =&gt; &quot;\x05&quot;,
-    &quot;\x1b 6&quot; =&gt; &quot;\x06&quot;,
-    &quot;\x1b 7&quot; =&gt; &quot;\x07&quot;,
-    &quot;\x1b 8&quot; =&gt; &quot;\x08&quot;,
-    &quot;\x1b 9&quot; =&gt; &quot;\t&quot;,
-    &quot;\x1b :&quot; =&gt; &quot;\n&quot;,
-    &quot;\x1b ;&quot; =&gt; &quot;\v&quot;,
-    &quot;\x1b &lt;&quot; =&gt; &quot;\f&quot;,
-    &quot;\x1b =&quot; =&gt; &quot;\r&quot;,
-    &quot;\x1b &gt;&quot; =&gt; &quot;\x0e&quot;,
-    &quot;\x1b ?&quot; =&gt; &quot;\x0f&quot;,
-    &quot;\x1b!0&quot; =&gt; &quot;\x10&quot;,
-    &quot;\x1b!1&quot; =&gt; &quot;\x11&quot;,
-    &quot;\x1b!2&quot; =&gt; &quot;\x12&quot;,
-    &quot;\x1b!3&quot; =&gt; &quot;\x13&quot;,
-    &quot;\x1b!4&quot; =&gt; &quot;\x14&quot;,
-    &quot;\x1b!5&quot; =&gt; &quot;\x15&quot;,
-    &quot;\x1b!6&quot; =&gt; &quot;\x16&quot;,
-    &quot;\x1b!7&quot; =&gt; &quot;\x17&quot;,
-    &quot;\x1b!8&quot; =&gt; &quot;\x18&quot;,
-    &quot;\x1b!9&quot; =&gt; &quot;\x19&quot;,
-    &quot;\x1b!:&quot; =&gt; &quot;\x1a&quot;,
-    &quot;\x1b!;&quot; =&gt; &quot;\x1b&quot;,
-    &quot;\x1b!&lt;&quot; =&gt; &quot;\x1c&quot;,
-    &quot;\x1b!=&quot; =&gt; &quot;\x1d&quot;,
-    &quot;\x1b!&gt;&quot; =&gt; &quot;\x1e&quot;,
-    &quot;\x1b!?&quot; =&gt; &quot;\x1f&quot;,
-    &quot;\x1b&#039;?&quot; =&gt; &quot;&quot;,
-    &quot;\x1b(0&quot; =&gt; &#039;€&#039;,
-    // 128 in CP1252
-    &quot;\x1b(2&quot; =&gt; &#039;‚&#039;,
-    // 130 in CP1252
-    &quot;\x1b(3&quot; =&gt; &#039;ƒ&#039;,
-    // 131 in CP1252
-    &quot;\x1b(4&quot; =&gt; &#039;„&#039;,
-    // 132 in CP1252
-    &quot;\x1b(5&quot; =&gt; &#039;…&#039;,
-    // 133 in CP1252
-    &quot;\x1b(6&quot; =&gt; &#039;†&#039;,
-    // 134 in CP1252
-    &quot;\x1b(7&quot; =&gt; &#039;‡&#039;,
-    // 135 in CP1252
-    &quot;\x1b(8&quot; =&gt; &#039;ˆ&#039;,
-    // 136 in CP1252
-    &quot;\x1b(9&quot; =&gt; &#039;‰&#039;,
-    // 137 in CP1252
-    &quot;\x1b(:&quot; =&gt; &#039;Š&#039;,
-    // 138 in CP1252
-    &quot;\x1b(;&quot; =&gt; &#039;‹&#039;,
-    // 139 in CP1252
-    &quot;\x1bNj&quot; =&gt; &#039;Œ&#039;,
-    // 140 in CP1252
-    &quot;\x1b(&gt;&quot; =&gt; &#039;Ž&#039;,
-    // 142 in CP1252
-    &quot;\x1b)1&quot; =&gt; &#039;‘&#039;,
-    // 145 in CP1252
-    &quot;\x1b)2&quot; =&gt; &#039;’&#039;,
-    // 146 in CP1252
-    &quot;\x1b)3&quot; =&gt; &#039;“&#039;,
-    // 147 in CP1252
-    &quot;\x1b)4&quot; =&gt; &#039;”&#039;,
-    // 148 in CP1252
-    &quot;\x1b)5&quot; =&gt; &#039;•&#039;,
-    // 149 in CP1252
-    &quot;\x1b)6&quot; =&gt; &#039;–&#039;,
-    // 150 in CP1252
-    &quot;\x1b)7&quot; =&gt; &#039;—&#039;,
-    // 151 in CP1252
-    &quot;\x1b)8&quot; =&gt; &#039;˜&#039;,
-    // 152 in CP1252
-    &quot;\x1b)9&quot; =&gt; &#039;™&#039;,
-    // 153 in CP1252
-    &quot;\x1b):&quot; =&gt; &#039;š&#039;,
-    // 154 in CP1252
-    &quot;\x1b);&quot; =&gt; &#039;›&#039;,
-    // 155 in CP1252
-    &quot;\x1bNz&quot; =&gt; &#039;œ&#039;,
-    // 156 in CP1252
-    &quot;\x1b)&gt;&quot; =&gt; &#039;ž&#039;,
-    // 158 in CP1252
-    &quot;\x1b)?&quot; =&gt; &#039;Ÿ&#039;,
-    // 159 in CP1252
-    &quot;\x1b*0&quot; =&gt; &#039; &#039;,
-    // 160 in CP1252
-    &quot;\x1bN!&quot; =&gt; &#039;¡&#039;,
-    // 161 in CP1252
-    &quot;\x1bN\&quot;&quot; =&gt; &#039;¢&#039;,
-    // 162 in CP1252
-    &quot;\x1bN#&quot; =&gt; &#039;£&#039;,
-    // 163 in CP1252
-    &quot;\x1bN(&quot; =&gt; &#039;¤&#039;,
-    // 164 in CP1252
-    &quot;\x1bN%&quot; =&gt; &#039;¥&#039;,
-    // 165 in CP1252
-    &quot;\x1b*6&quot; =&gt; &#039;¦&#039;,
-    // 166 in CP1252
-    &quot;\x1bN&#039;&quot; =&gt; &#039;§&#039;,
-    // 167 in CP1252
-    &quot;\x1bNH &quot; =&gt; &#039;¨&#039;,
-    // 168 in CP1252
-    &quot;\x1bNS&quot; =&gt; &#039;©&#039;,
-    // 169 in CP1252
-    &quot;\x1bNc&quot; =&gt; &#039;ª&#039;,
-    // 170 in CP1252
-    &quot;\x1bN+&quot; =&gt; &#039;«&#039;,
-    // 171 in CP1252
-    &quot;\x1b*&lt;&quot; =&gt; &#039;¬&#039;,
-    // 172 in CP1252
-    &quot;\x1b*=&quot; =&gt; &#039;­&#039;,
-    // 173 in CP1252
-    &quot;\x1bNR&quot; =&gt; &#039;®&#039;,
-    // 174 in CP1252
-    &quot;\x1b*?&quot; =&gt; &#039;¯&#039;,
-    // 175 in CP1252
-    &quot;\x1bN0&quot; =&gt; &#039;°&#039;,
-    // 176 in CP1252
-    &quot;\x1bN1&quot; =&gt; &#039;±&#039;,
-    // 177 in CP1252
-    &quot;\x1bN2&quot; =&gt; &#039;²&#039;,
-    // 178 in CP1252
-    &quot;\x1bN3&quot; =&gt; &#039;³&#039;,
-    // 179 in CP1252
-    &quot;\x1bNB &quot; =&gt; &#039;´&#039;,
-    // 180 in CP1252
-    &quot;\x1bN5&quot; =&gt; &#039;µ&#039;,
-    // 181 in CP1252
-    &quot;\x1bN6&quot; =&gt; &#039;¶&#039;,
-    // 182 in CP1252
-    &quot;\x1bN7&quot; =&gt; &#039;·&#039;,
-    // 183 in CP1252
-    &quot;\x1b+8&quot; =&gt; &#039;¸&#039;,
-    // 184 in CP1252
-    &quot;\x1bNQ&quot; =&gt; &#039;¹&#039;,
-    // 185 in CP1252
-    &quot;\x1bNk&quot; =&gt; &#039;º&#039;,
-    // 186 in CP1252
-    &quot;\x1bN;&quot; =&gt; &#039;»&#039;,
-    // 187 in CP1252
-    &quot;\x1bN&lt;&quot; =&gt; &#039;¼&#039;,
-    // 188 in CP1252
-    &quot;\x1bN=&quot; =&gt; &#039;½&#039;,
-    // 189 in CP1252
-    &quot;\x1bN&gt;&quot; =&gt; &#039;¾&#039;,
-    // 190 in CP1252
-    &quot;\x1bN?&quot; =&gt; &#039;¿&#039;,
-    // 191 in CP1252
-    &quot;\x1bNAA&quot; =&gt; &#039;À&#039;,
-    // 192 in CP1252
-    &quot;\x1bNBA&quot; =&gt; &#039;Á&#039;,
-    // 193 in CP1252
-    &quot;\x1bNCA&quot; =&gt; &#039;Â&#039;,
-    // 194 in CP1252
-    &quot;\x1bNDA&quot; =&gt; &#039;Ã&#039;,
-    // 195 in CP1252
-    &quot;\x1bNHA&quot; =&gt; &#039;Ä&#039;,
-    // 196 in CP1252
-    &quot;\x1bNJA&quot; =&gt; &#039;Å&#039;,
-    // 197 in CP1252
-    &quot;\x1bNa&quot; =&gt; &#039;Æ&#039;,
-    // 198 in CP1252
-    &quot;\x1bNKC&quot; =&gt; &#039;Ç&#039;,
-    // 199 in CP1252
-    &quot;\x1bNAE&quot; =&gt; &#039;È&#039;,
-    // 200 in CP1252
-    &quot;\x1bNBE&quot; =&gt; &#039;É&#039;,
-    // 201 in CP1252
-    &quot;\x1bNCE&quot; =&gt; &#039;Ê&#039;,
-    // 202 in CP1252
-    &quot;\x1bNHE&quot; =&gt; &#039;Ë&#039;,
-    // 203 in CP1252
-    &quot;\x1bNAI&quot; =&gt; &#039;Ì&#039;,
-    // 204 in CP1252
-    &quot;\x1bNBI&quot; =&gt; &#039;Í&#039;,
-    // 205 in CP1252
-    &quot;\x1bNCI&quot; =&gt; &#039;Î&#039;,
-    // 206 in CP1252
-    &quot;\x1bNHI&quot; =&gt; &#039;Ï&#039;,
-    // 207 in CP1252
-    &quot;\x1bNb&quot; =&gt; &#039;Ð&#039;,
-    // 208 in CP1252
-    &quot;\x1bNDN&quot; =&gt; &#039;Ñ&#039;,
-    // 209 in CP1252
-    &quot;\x1bNAO&quot; =&gt; &#039;Ò&#039;,
-    // 210 in CP1252
-    &quot;\x1bNBO&quot; =&gt; &#039;Ó&#039;,
-    // 211 in CP1252
-    &quot;\x1bNCO&quot; =&gt; &#039;Ô&#039;,
-    // 212 in CP1252
-    &quot;\x1bNDO&quot; =&gt; &#039;Õ&#039;,
-    // 213 in CP1252
-    &quot;\x1bNHO&quot; =&gt; &#039;Ö&#039;,
-    // 214 in CP1252
-    &quot;\x1b-7&quot; =&gt; &#039;×&#039;,
-    // 215 in CP1252
-    &quot;\x1bNi&quot; =&gt; &#039;Ø&#039;,
-    // 216 in CP1252
-    &quot;\x1bNAU&quot; =&gt; &#039;Ù&#039;,
-    // 217 in CP1252
-    &quot;\x1bNBU&quot; =&gt; &#039;Ú&#039;,
-    // 218 in CP1252
-    &quot;\x1bNCU&quot; =&gt; &#039;Û&#039;,
-    // 219 in CP1252
-    &quot;\x1bNHU&quot; =&gt; &#039;Ü&#039;,
-    // 220 in CP1252
-    &quot;\x1b-=&quot; =&gt; &#039;Ý&#039;,
-    // 221 in CP1252
-    &quot;\x1bNl&quot; =&gt; &#039;Þ&#039;,
-    // 222 in CP1252
-    &quot;\x1bN{&quot; =&gt; &#039;ß&#039;,
-    // 223 in CP1252
-    &quot;\x1bNAa&quot; =&gt; &#039;à&#039;,
-    // 224 in CP1252
-    &quot;\x1bNBa&quot; =&gt; &#039;á&#039;,
-    // 225 in CP1252
-    &quot;\x1bNCa&quot; =&gt; &#039;â&#039;,
-    // 226 in CP1252
-    &quot;\x1bNDa&quot; =&gt; &#039;ã&#039;,
-    // 227 in CP1252
-    &quot;\x1bNHa&quot; =&gt; &#039;ä&#039;,
-    // 228 in CP1252
-    &quot;\x1bNJa&quot; =&gt; &#039;å&#039;,
-    // 229 in CP1252
-    &quot;\x1bNq&quot; =&gt; &#039;æ&#039;,
-    // 230 in CP1252
-    &quot;\x1bNKc&quot; =&gt; &#039;ç&#039;,
-    // 231 in CP1252
-    &quot;\x1bNAe&quot; =&gt; &#039;è&#039;,
-    // 232 in CP1252
-    &quot;\x1bNBe&quot; =&gt; &#039;é&#039;,
-    // 233 in CP1252
-    &quot;\x1bNCe&quot; =&gt; &#039;ê&#039;,
-    // 234 in CP1252
-    &quot;\x1bNHe&quot; =&gt; &#039;ë&#039;,
-    // 235 in CP1252
-    &quot;\x1bNAi&quot; =&gt; &#039;ì&#039;,
-    // 236 in CP1252
-    &quot;\x1bNBi&quot; =&gt; &#039;í&#039;,
-    // 237 in CP1252
-    &quot;\x1bNCi&quot; =&gt; &#039;î&#039;,
-    // 238 in CP1252
-    &quot;\x1bNHi&quot; =&gt; &#039;ï&#039;,
-    // 239 in CP1252
-    &quot;\x1bNs&quot; =&gt; &#039;ð&#039;,
-    // 240 in CP1252
-    &quot;\x1bNDn&quot; =&gt; &#039;ñ&#039;,
-    // 241 in CP1252
-    &quot;\x1bNAo&quot; =&gt; &#039;ò&#039;,
-    // 242 in CP1252
-    &quot;\x1bNBo&quot; =&gt; &#039;ó&#039;,
-    // 243 in CP1252
-    &quot;\x1bNCo&quot; =&gt; &#039;ô&#039;,
-    // 244 in CP1252
-    &quot;\x1bNDo&quot; =&gt; &#039;õ&#039;,
-    // 245 in CP1252
-    &quot;\x1bNHo&quot; =&gt; &#039;ö&#039;,
-    // 246 in CP1252
-    &quot;\x1b/7&quot; =&gt; &#039;÷&#039;,
-    // 247 in CP1252
-    &quot;\x1bNy&quot; =&gt; &#039;ø&#039;,
-    // 248 in CP1252
-    &quot;\x1bNAu&quot; =&gt; &#039;ù&#039;,
-    // 249 in CP1252
-    &quot;\x1bNBu&quot; =&gt; &#039;ú&#039;,
-    // 250 in CP1252
-    &quot;\x1bNCu&quot; =&gt; &#039;û&#039;,
-    // 251 in CP1252
-    &quot;\x1bNHu&quot; =&gt; &#039;ü&#039;,
-    // 252 in CP1252
-    &quot;\x1b/=&quot; =&gt; &#039;ý&#039;,
-    // 253 in CP1252
-    &quot;\x1bN|&quot; =&gt; &#039;þ&#039;,
-    // 254 in CP1252
-    &quot;\x1bNHy&quot; =&gt; &#039;ÿ&#039;,
-]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
         
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_currencyCode">
-        $currencyCode
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_currencyCode" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">256</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Currency code.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$currencyCode</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_decimalSeparator">
-        $decimalSeparator
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_decimalSeparator" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">246</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Decimal separator.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$decimalSeparator</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_iconvOptions">
-        $iconvOptions
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_iconvOptions" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">266</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">iconv options.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$iconvOptions</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;//IGNORE//TRANSLIT&#039;</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_isIconvEnabled">
-        $isIconvEnabled
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_isIconvEnabled" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">261</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Is iconv extension avalable?</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">bool|null</span>
-    <span class="phpdocumentor-signature__name">$isIconvEnabled</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_thousandsSeparator">
-        $thousandsSeparator
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_thousandsSeparator" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">251</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Thousands separator.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$thousandsSeparator</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -1333,6 +411,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><h2>Excel 2007 team:</h2>
 <p>That's correct, control characters are stored directly in the shared-strings table.
 We do encode characters that cannot be represented in XML using the following escape sequence:
@@ -1390,6 +469,7 @@ element or in the shared string <t> element.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><h2>Excel 2007 team:</h2>
 <p>That's correct, control characters are stored directly in the shared-strings table.
 We do encode characters that cannot be represented in XML using the following escape sequence:
@@ -1447,6 +527,7 @@ element or in the shared string <t> element.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1513,6 +594,7 @@ element or in the shared string <t> element.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
         <section class="phpdocumentor-description"><p>Never run as part of unit tests, which are command line.</p>
 </section>
 
@@ -1583,6 +665,7 @@ element or in the shared string <t> element.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1655,6 +738,7 @@ element or in the shared string <t> element.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1715,6 +799,7 @@ element or in the shared string <t> element.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1778,6 +863,7 @@ point as decimal separator in case locale is other than English.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1826,6 +912,7 @@ point as decimal separator in case locale is other than English.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1878,6 +965,7 @@ formatting information from locale.</p>
     
     
     
+    
 
     
 
@@ -1913,6 +1001,7 @@ formatting information from locale.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
     
     
@@ -1955,6 +1044,7 @@ formatting information from locale.</p>
     
     
     
+    
 
     
 
@@ -1990,6 +1080,7 @@ formatting information from locale.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2037,6 +1128,7 @@ formatting information from locale.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2086,6 +1178,7 @@ formatting information from locale.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2133,6 +1226,7 @@ formatting information from locale.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2183,6 +1277,7 @@ formatting information from locale.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2229,6 +1324,7 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2277,6 +1373,7 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2323,6 +1420,7 @@ and all lowercase characters become uppercase.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2373,6 +1471,7 @@ and all lowercase characters become uppercase.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2420,6 +1519,7 @@ and all lowercase characters become uppercase.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2472,6 +1572,7 @@ and all lowercase characters become uppercase.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2522,6 +1623,7 @@ and all lowercase characters become uppercase.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2571,6 +1673,7 @@ and all lowercase characters become uppercase.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2640,6 +1743,7 @@ and all lowercase characters become uppercase.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2694,6 +1798,7 @@ and all lowercase characters become uppercase.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -2751,6 +1856,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2805,6 +1911,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <div class="phpdocumentor-label-line">
         </div>
     
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2824,135 +1931,6 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
                     <section class="phpdocumentor-description"><p>Details of rich text runs in $value</p>
 </section>
 
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_getLocaleValue">
-        getLocaleValue()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getLocaleValue" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">550</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getLocaleValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$altKey</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$default</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trimAlt</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$key</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$altKey</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$default</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$trimAlt</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_useAlt">
-        useAlt()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_useAlt" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">545</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">useAlt</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$altValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$default</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trimAlt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$altValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$default</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$trimAlt</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
             </dd>
             </dl>
 
@@ -3004,6 +1982,8 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -3071,65 +2051,43 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
-                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_KEYS">CONTROL_CHARACTERS_KEYS</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_CONTROL_CHARACTERS_VALUES">CONTROL_CHARACTERS_VALUES</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_SYLK_CHARACTERS">SYLK_CHARACTERS</a></li>
-                                            </ul>
-                </li>
             
-                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_currencyCode">$currencyCode<a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_decimalSeparator">$decimalSeparator<a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_iconvOptions">$iconvOptions<a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_isIconvEnabled">$isIconvEnabled<a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_thousandsSeparator">$thousandsSeparator<a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html"></li>
-                                            </ul>
-                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterOOXML2PHP">controlCharacterOOXML2PHP()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterPHP2OOXML">controlCharacterPHP2OOXML()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertEncoding">convertEncoding()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertPostToString">convertPostToString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToString">convertToString()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters">countCharacters()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs">countCharactersDbcs()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_formatNumber">formatNumber()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getCurrencyCode">getCurrencyCode()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getDecimalSeparator">getDecimalSeparator()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getIsIconvEnabled">getIsIconvEnabled()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getThousandsSeparator">getThousandsSeparator()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_isUTF8">isUTF8()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbIsUpper">mbIsUpper()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbStrSplit">mbStrSplit()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_sanitizeUTF8">sanitizeUTF8()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setCurrencyCode">setCurrencyCode()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setDecimalSeparator">setDecimalSeparator()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setThousandsSeparator">setThousandsSeparator()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strCaseReverse">strCaseReverse()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strlenAllowNull">strlenAllowNull()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToLower">strToLower()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToTitle">strToTitle()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToUpper">strToUpper()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_substring">substring()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_SYLKtoUTF8">SYLKtoUTF8()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_testStringAsNumeric">testStringAsNumeric()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeLong">UTF8toBIFF8UnicodeLong()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeShort">UTF8toBIFF8UnicodeShort()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getLocaleValue">getLocaleValue()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_useAlt">useAlt()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterOOXML2PHP">controlCharacterOOXML2PHP()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_controlCharacterPHP2OOXML">controlCharacterPHP2OOXML()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertEncoding">convertEncoding()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertPostToString">convertPostToString()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToString">convertToString()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters">countCharacters()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs">countCharactersDbcs()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_formatNumber">formatNumber()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getCurrencyCode">getCurrencyCode()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getDecimalSeparator">getDecimalSeparator()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getIsIconvEnabled">getIsIconvEnabled()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_getThousandsSeparator">getThousandsSeparator()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_isUTF8">isUTF8()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbIsUpper">mbIsUpper()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbStrSplit">mbStrSplit()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_sanitizeUTF8">sanitizeUTF8()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setCurrencyCode">setCurrencyCode()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setDecimalSeparator">setDecimalSeparator()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setThousandsSeparator">setThousandsSeparator()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strCaseReverse">strCaseReverse()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strlenAllowNull">strlenAllowNull()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToLower">strToLower()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToTitle">strToTitle()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_strToUpper">strToUpper()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_substring">substring()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_SYLKtoUTF8">SYLKtoUTF8()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_testStringAsNumeric">testStringAsNumeric()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeLong">UTF8toBIFF8UnicodeLong()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_UTF8toBIFF8UnicodeShort">UTF8toBIFF8UnicodeShort()</a></li>
                                     </ul>
             </li>
                     </ul>

@@ -133,6 +133,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -147,20 +148,6 @@
 
 
 
-<h4 id="toc-properties">
-    Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#property_BSECollection">$BSECollection</a>
-    <span>
-                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>&gt;            </span>
-</dt>
-<dd>BLIP Store Entries. Each of them holds one BLIP (Big Large Image or Picture).</dd>
-
-    </dl>
 
 <h4 id="toc-methods">
     Methods
@@ -169,14 +156,14 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_addBSE">addBSE()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_addBSE">addBSE()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Add a BLIP Store Entry.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_getBSECollection">getBSECollection()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_getBSECollection">getBSECollection()</a>
     <span>
                                 &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>&gt;    </span>
 </dt>
@@ -189,49 +176,6 @@
         
 
         
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_BSECollection">
-        $BSECollection
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#property_BSECollection" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dggcontainer-bstorecontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer.php">BstoreContainer.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">12</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">BLIP Store Entries. Each of them holds one BLIP (Big Large Image or Picture).</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>&gt;</span>
-    <span class="phpdocumentor-signature__name">$BSECollection</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -265,6 +209,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -309,6 +254,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
     
     
@@ -359,6 +305,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -426,23 +374,16 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
-                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#property_BSECollection">$BSECollection<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"></li>
-                                            </ul>
-                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_addBSE">addBSE()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_getBSECollection">getBSECollection()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_addBSE">addBSE()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html#method_getBSECollection">getBSECollection()</a></li>
                                     </ul>
             </li>
                     </ul>

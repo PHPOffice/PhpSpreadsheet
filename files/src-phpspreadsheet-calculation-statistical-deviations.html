@@ -97,13 +97,12 @@
         <h2 class="phpdocumentor-content__title">Deviations.php</h2>
 
         
+        
+        
+        
 
 
-
-
-
-
-
+        
 <h3 id="toc">
     Table of Contents
     <a href="files/src-phpspreadsheet-calculation-statistical-deviations.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -120,7 +119,6 @@
     </h4>
     <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Deviations.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations">Deviations</abbr></a></dt>    </dl>
-
 
 
 
@@ -169,6 +167,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 

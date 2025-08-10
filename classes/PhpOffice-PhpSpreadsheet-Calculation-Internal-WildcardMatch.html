@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -144,37 +145,6 @@
 
 
 
-<h4 id="toc-constants">
-    Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_REPLACEMENT_SET">REPLACEMENT_SET</a>
-    <span>
-        &nbsp;= [&quot;\x1c&quot;, &#039;[*]&#039;, &#039;.*&#039;, &#039;[?]&#039;, &#039;.&#039;, &#039;~&#039;]                            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_SEARCH_SET">SEARCH_SET</a>
-    <span>
-        &nbsp;= [
-    &#039;~~&#039;,
-    // convert double tilde to unprintable value
-    &#039;~\*&#039;,
-    // convert tilde backslash asterisk to [*] (matches literal asterisk in regexp)
-    &#039;\*&#039;,
-    // convert backslash asterisk to .* (matches string of any length in regexp)
-    &#039;~\?&#039;,
-    // convert tilde backslash question to [?] (matches literal question mark in regexp)
-    &#039;\?&#039;,
-    // convert backslash question to . (matches one character in regexp)
-    &quot;\x1c&quot;,
-]                            </span>
-</dt>
-
-    </dl>
 
 
 
@@ -185,13 +155,13 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_compare">compare()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_compare">compare()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_wildcard">wildcard()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_wildcard">wildcard()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
@@ -201,85 +171,6 @@
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_REPLACEMENT_SET">
-        REPLACEMENT_SET
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_REPLACEMENT_SET" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php"><a href="files/src-phpspreadsheet-calculation-internal-wildcardmatch.html"><abbr title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php">WildcardMatch.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">16</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">REPLACEMENT_SET</span>
-    = <span class="phpdocumentor-signature__default-value">[&quot;\x1c&quot;, &#039;[*]&#039;, &#039;.*&#039;, &#039;[?]&#039;, &#039;.&#039;, &#039;~&#039;]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_SEARCH_SET">
-        SEARCH_SET
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_SEARCH_SET" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php"><a href="files/src-phpspreadsheet-calculation-internal-wildcardmatch.html"><abbr title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php">WildcardMatch.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">7</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">SEARCH_SET</span>
-    = <span class="phpdocumentor-signature__default-value">[
-    &#039;~~&#039;,
-    // convert double tilde to unprintable value
-    &#039;~\*&#039;,
-    // convert tilde backslash asterisk to [*] (matches literal asterisk in regexp)
-    &#039;\*&#039;,
-    // convert backslash asterisk to .* (matches string of any length in regexp)
-    &#039;~\?&#039;,
-    // convert tilde backslash question to [?] (matches literal question mark in regexp)
-    &#039;\?&#039;,
-    // convert backslash question to . (matches one character in regexp)
-    &quot;\x1c&quot;,
-]</span>
-</code>
-
-
-    
-    
-    
-
-    
-
-</article>
-            </section>
 
         
 
@@ -314,6 +205,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -368,6 +260,7 @@
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -428,6 +321,8 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -495,24 +390,16 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#toc-constants">Constants</a></li>
                                                                                 <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
-                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_REPLACEMENT_SET">REPLACEMENT_SET</a></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_SEARCH_SET">SEARCH_SET</a></li>
-                                            </ul>
-                </li>
             
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_compare">compare()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_wildcard">wildcard()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_compare">compare()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_wildcard">wildcard()</a></li>
                                     </ul>
             </li>
                     </ul>

@@ -132,6 +132,7 @@
 
 
 
+
 <h3 id="toc">
     Table of Contents
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
@@ -153,32 +154,18 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a>
     <span>
                         &nbsp;: string|null            </span>
 </dt>
 <dd>The string containing the data of the BIFF stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
 <dd>The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder">$byteOrder</a>
-    <span>
-                        &nbsp;: int|null            </span>
-</dt>
-<dd>The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_limit">$limit</a>
-    <span>
-                        &nbsp;: int            </span>
-</dt>
-<dd>The maximum length for a BIFF record (excluding record header and length field). See addContinue().</dd>
 
     </dl>
 
@@ -189,14 +176,14 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method___construct">__construct()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
@@ -204,28 +191,28 @@
 recalculating it for each call to new().</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeData">writeData()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeData">writeData()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>General storage function like append, but returns string instead of modifying $this-&gt;_data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Writes Excel EOF record to indicate the end of a BIFF stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_append">append()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_append">append()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>General storage function.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeBof">storeBof()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeBof">storeBof()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -233,20 +220,11 @@ recalculating it for each call to new().</dd>
 sub-stream in the BIFF file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeEof">storeEof()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeEof">storeEof()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Writes Excel EOF record to indicate the end of a BIFF stream.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_addContinue">addContinue()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
-Excel 97 the limit is 8228 bytes. Records that are longer than these limits
-must be split up into CONTINUE blocks.</dd>
 
     </dl>
 
@@ -266,14 +244,14 @@ must be split up into CONTINUE blocks.</dd>
             phpdocumentor-element
             -property
             -public
-                                                        "
+                                                                    "
 >
     <h4 class="phpdocumentor-element__name" id="property__data">
         $_data
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
-                                </span>
+                                            </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
@@ -284,14 +262,17 @@ must be split up into CONTINUE blocks.</dd>
 
         <p class="phpdocumentor-summary">The string containing the data of the BIFF stream.</p>
 
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
+        <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$_data</span>
     </code>
 
     
     
+    
+
     
 
     
@@ -302,14 +283,14 @@ must be split up into CONTINUE blocks.</dd>
             phpdocumentor-element
             -property
             -public
-                                                        "
+                                                                    "
 >
     <h4 class="phpdocumentor-element__name" id="property__datasize">
         $_datasize
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
-                                </span>
+                                            </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
@@ -320,9 +301,10 @@ must be split up into CONTINUE blocks.</dd>
 
         <p class="phpdocumentor-summary">The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</p>
 
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">$_datasize</span>
     </code>
 
@@ -331,91 +313,6 @@ must be split up into CONTINUE blocks.</dd>
     
 
     
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_byteOrder">
-        $byteOrder
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">45</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int|null</span>
-    <span class="phpdocumentor-signature__name">$byteOrder</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
-
-    
-    
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_limit">
-        $limit
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_limit" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">62</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The maximum length for a BIFF record (excluding record header and length field). See addContinue().</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$limit</span>
-     = <span class="phpdocumentor-signature__default-value">8224</span></code>
-
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_limit#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xls\addContinue()">addContinue()</abbr></span>
-                                        
-                                             
-                                    </dd>
-                                            </dl>
 
     
 
@@ -457,6 +354,7 @@ must be split up into CONTINUE blocks.</dd>
     
     
     
+    
 
     
 
@@ -489,6 +387,7 @@ recalculating it for each call to new().</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
     
     
@@ -527,6 +426,7 @@ recalculating it for each call to new().</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -580,6 +480,7 @@ recalculating it for each call to new().</p>
     
     
     
+    
 
     
 
@@ -615,6 +516,7 @@ recalculating it for each call to new().</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -662,6 +564,7 @@ sub-stream in the BIFF file.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
+    
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -712,69 +615,11 @@ sub-stream in the BIFF file.</p>
     
     
     
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_addContinue">
-        addContinue()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_addContinue" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">187</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
-Excel 97 the limit is 8228 bytes. Records that are longer than these limits
-must be split up into CONTINUE blocks.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">addContinue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-        <section class="phpdocumentor-description"><p>This function takes a long BIFF record and inserts CONTINUE records as
-necessary.</p>
-</section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The original binary data to be written</p>
-</section>
-
-            </dd>
-            </dl>
-
     
 
     
 
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>A very convenient string of continue blocks</p>
-</section>
-
-            </section>
-
+    
 </article>
             </section>
 
@@ -814,6 +659,8 @@ necessary.</p>
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
                             return;
                         }
 
@@ -889,24 +736,21 @@ necessary.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder">$byteOrder<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html"></li>
-                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_limit">$limit<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html"></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method___construct">__construct()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeData">writeData()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_append">append()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeBof">storeBof()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeEof">storeEof()</a></li>
-                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_addContinue">addContinue()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeData">writeData()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_append">append()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeBof">storeBof()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeEof">storeEof()</a></li>
                                     </ul>
             </li>
                     </ul>
