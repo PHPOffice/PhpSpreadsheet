@@ -5,14 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.0.0
-
-### Breaking Changes
-
-- Images will be loaded from an external source (e.g. http://example.com/img.png) only if the reader is explicitly set to allow it via `$reader->setAllowExternalImages(true)`. We do not believe that loading of external images is a widely used feature.
-- Deletion of items deprecated in Release 4. See "removed" below.
-- Move some properties from Base Reader to Html Reader. [PR #4551](https://github.com/PHPOffice/PhpSpreadsheet/pull/4551)
-- DefaultValueBinder will treat integers with more than 15 digits as strings. [Issue #4522](https://github.com/PHPOffice/PhpSpreadsheet/issues/4522) [PR #4527](https://github.com/PHPOffice/PhpSpreadsheet/pull/4527)
+## TBD - 5.1.0
 
 ### Added
 
@@ -20,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Removed
 
-- Theme public constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
+- Nothing yet.
 
 ### Changed
 
@@ -36,11 +29,28 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
+- Nothing yet.
+
+## 2025-08-10 - 5.0.0
+
+### Breaking Changes
+
+- Images will be loaded from an external source (e.g. http://example.com/img.png) only if the reader is explicitly set to allow it via `$reader->setAllowExternalImages(true)`. We do not believe that loading of external images is a widely used feature.
+- Deletion of items deprecated in Release 4. See "removed" below.
+- Move some properties from Base Reader to Html Reader. [PR #4551](https://github.com/PHPOffice/PhpSpreadsheet/pull/4551)
+- DefaultValueBinder will treat integers with more than 15 digits as strings. [Issue #4522](https://github.com/PHPOffice/PhpSpreadsheet/issues/4522) [PR #4527](https://github.com/PHPOffice/PhpSpreadsheet/pull/4527)
+
+### Removed
+
+- Theme public constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
+
+### Fixed
+
 - Additional floating-point precision changes. [Issue #1324](https://github.com/PHPOffice/PhpSpreadsheet/issues/1324) [PR #4575](https://github.com/PHPOffice/PhpSpreadsheet/pull/4575)
 - Header/Footer images expand location. [Issue #484](https://github.com/PHPOffice/PhpSpreadsheet/issues/484) [Issue #1318](https://github.com/PHPOffice/PhpSpreadsheet/issues/1318) [PR #4572](https://github.com/PHPOffice/PhpSpreadsheet/pull/4572)
 - Create uninitialized cell if used in calculation. [Issue #4558](https://github.com/PHPOffice/PhpSpreadsheet/issues/4558) [Issue #4530](https://github.com/PHPOffice/PhpSpreadsheet/issues/4530) [PR #4565](https://github.com/PHPOffice/PhpSpreadsheet/pull/4565)
 - Shared/Date::isDateTime handle cells which calculate as arrays. [Issue #4557](https://github.com/PHPOffice/PhpSpreadsheet/issues/4557) [PR #4562](https://github.com/PHPOffice/PhpSpreadsheet/pull/4562)
-- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)## 2025-07-23 - 4.5.0
+- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)
 
 ## 2025-07-23 - 4.5.0
 
