@@ -21,6 +21,7 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
 
         $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('localname', $sheet1, '$F$6:$H$6', true));
 
         if ($cellReference === 'omitted') {
             $sheet->getCell('B3')->setValue('=COLUMN()');
@@ -61,7 +62,7 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
         $sheet = $this->getSheet();
 
         $sheet1 = $this->getSpreadsheet()->createSheet();
-        $sheet1->setTitle("apo''strophe");
+        $sheet1->setTitle("apo'strophe");
         $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$5', true)); // defined locally, only usable on sheet1
 
         $sheet1->getCell('B3')->setValue('=COLUMN(newnr)');
