@@ -21,6 +21,24 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNamedRangeCalculationsIfError(): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedRanges.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('E1')
+            ->setValue('=IFERROR(CHARGE_RATE, 999)');
+        $sheet->getCell('F1')
+            ->setValue('=IFERROR(CHARGE_RATX, 999)');
+        self::assertSame(7.5, $sheet->getCell('E1')->getCalculatedValue());
+        self::assertSame(999, $sheet->getCell('F1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     #[DataProvider('namedRangeCalculationProvider2')]
@@ -36,6 +54,7 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
     #[DataProvider('namedRangeCalculationProvider1')]
@@ -49,6 +68,7 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
     #[DataProvider('namedRangeCalculationProvider2')]
@@ -64,6 +84,7 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function namedRangeCalculationProvider1(): array

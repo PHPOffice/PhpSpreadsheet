@@ -81,7 +81,9 @@ class IsFormulaTest extends TestCase
         $sheet1->getCell('G5')->setValue('=ISFORMULA(range2f)');
         $sheet1->getCell('G6')->setValue('=ISFORMULA(range2t)');
         $sheet1->getCell('G7')->setValue('=ISFORMULA(range2ft)');
-        self::assertSame('#NAME?', $sheet1->getCell('G1')->getCalculatedValue());
+        self::assertTrue(
+            $sheet1->getCell('G1')->getCalculatedValue()
+        );
         self::assertFalse($sheet1->getCell('G3')->getCalculatedValue());
         self::assertTrue($sheet1->getCell('G4')->getCalculatedValue());
         self::assertFalse($sheet1->getCell('G5')->getCalculatedValue());

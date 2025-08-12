@@ -16,5 +16,5 @@ return [
     'unknown name' => ['#NAME?', 'namedrange2'],
     'unknown name as first part of range' => ['#NAME?', 'InvalidCell:A2'],
     'unknown name as second part of range' => ['#NAME?', 'A2:InvalidCell'],
-    //'qualified name' => [6, 'OtherSheet!localname'], // Never reaches function
+    'qualified name' => [6, 'OtherSheet!localname'],
 ];

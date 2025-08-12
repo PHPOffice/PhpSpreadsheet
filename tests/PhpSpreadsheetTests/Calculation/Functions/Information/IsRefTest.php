@@ -36,7 +36,7 @@ class IsRefTest extends AllSetupTeardown
             'quoted sheet name' => [true, "'Worksheet2'!B1:B2"],
             'quoted sheet name with apostrophe' => [true, "'Work''sheet2'!B1:B2"],
             'named range' => [true, 'NAMED_RANGE'],
-            'unknown named range' => ['#NAME?', 'xNAMED_RANGE'],
+            'unknown named range' => [false, 'xNAMED_RANGE'],
             'indirect to a cell reference' => [true, 'INDIRECT("A1")'],
             'indirect to a worksheet/cell reference' => [true, 'INDIRECT("\'Worksheet\'!A1")'],
             'indirect to invalid worksheet/cell reference' => [false, 'INDIRECT("\'Invalid Worksheet\'!A1")'],

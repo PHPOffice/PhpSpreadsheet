@@ -705,9 +705,9 @@ class Spreadsheet implements JsonSerializable
      */
     public function getSheetByName(string $worksheetName): ?Worksheet
     {
-        $trimWorksheetName = trim($worksheetName, "'");
+        $trimWorksheetName = StringHelper::strToUpper(trim($worksheetName, "'"));
         foreach ($this->workSheetCollection as $worksheet) {
-            if (strcasecmp($worksheet->getTitle(), $trimWorksheetName) === 0) {
+            if (StringHelper::strToUpper($worksheet->getTitle()) === $trimWorksheetName) {
                 return $worksheet;
             }
         }
@@ -1031,13 +1031,34 @@ class Spreadsheet implements JsonSerializable
         if ($definedName !== '') {
             $definedName = StringHelper::strToUpper($definedName);
             // first look for global defined name
-            if (isset($this->definedNames[$definedName])) {
-                $returnValue = $this->definedNames[$definedName];
+            foreach ($this->definedNames as $dn) {
+                $upper = StringHelper::strToUpper($dn->getName());
+                if (
+                    !$dn->getLocalOnly()
+                    && $definedName === $upper
+                ) {
+                    $returnValue = $dn;
+
+                    break;
+                }
             }
 
             // then look for local defined name (has priority over global defined name if both names exist)
-            if (($worksheet !== null) && isset($this->definedNames[$worksheet->getTitle() . '!' . $definedName])) {
-                $returnValue = $this->definedNames[$worksheet->getTitle() . '!' . $definedName];
+            if ($worksheet !== null) {
+                $wsTitle = StringHelper::strToUpper($worksheet->getTitle());
+                $definedName = (string) preg_replace('/^.*!/', '', $definedName);
+                foreach ($this->definedNames as $dn) {
+                    $sheet = $dn->getScope() ?? $dn->getWorksheet();
+                    $upper = StringHelper::strToUpper($dn->getName());
+                    $upperTitle = StringHelper::strToUpper((string) $sheet?->getTitle());
+                    if (
+                        $dn->getLocalOnly()
+                        && $upper === $definedName
+                        && $upperTitle === $wsTitle
+                    ) {
+                        return $dn;
+                    }
+                }
             }
         }
 
