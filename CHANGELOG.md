@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Add Conditional Formatting with IconSet (Xlsx only). [Issue #4560](https://github.com/PHPOffice/PhpSpreadsheet/issues/4560) [PR #4574](https://github.com/PHPOffice/PhpSpreadsheet/pull/4574)
+- Copy cell adjusting formula. [Issue #1203](https://github.com/PHPOffice/PhpSpreadsheet/issues/1203) [PR #4577](https://github.com/PHPOffice/PhpSpreadsheet/pull/4577)
+- splitRange and ProtectedRange. [Issue #1457](https://github.com/PHPOffice/PhpSpreadsheet/issues/1457) [PR #4580](https://github.com/PHPOffice/PhpSpreadsheet/pull/4580)
 
 ### Removed
 
@@ -29,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Google-only formulas exported from Google Sheets. [Issue #1637](https://github.com/PHPOffice/PhpSpreadsheet/issues/1637) [PR #4579](https://github.com/PHPOffice/PhpSpreadsheet/pull/4579)
 
 ## 2025-08-10 - 5.0.0
 
