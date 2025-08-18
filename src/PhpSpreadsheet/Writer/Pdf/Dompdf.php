@@ -2,6 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+require_once __DIR__ . '/DompdfImageDestroy1.php';
+require_once __DIR__ . '/DompdfImageDestroy2.php';
+require_once __DIR__ . '/DompdfImageDestroy3.php';
+require_once __DIR__ . '/DompdfImageDestroy4.php';
+
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
