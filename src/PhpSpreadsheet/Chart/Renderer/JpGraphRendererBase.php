@@ -58,15 +58,15 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->chart = $chart;
 
         self::$markSet = [
-            'diamond' => \MARK_DIAMOND,
-            'square' => \MARK_SQUARE,
-            'triangle' => \MARK_UTRIANGLE,
-            'x' => \MARK_X,
-            'star' => \MARK_STAR,
-            'dot' => \MARK_FILLEDCIRCLE,
-            'dash' => \MARK_DTRIANGLE,
-            'circle' => \MARK_CIRCLE,
-            'plus' => \MARK_CROSS,
+            'diamond' => MARK_DIAMOND,
+            'square' => MARK_SQUARE,
+            'triangle' => MARK_UTRIANGLE,
+            'x' => MARK_X,
+            'star' => MARK_STAR,
+            'dot' => MARK_FILLEDCIRCLE,
+            'dash' => MARK_DTRIANGLE,
+            'circle' => MARK_CIRCLE,
+            'plus' => MARK_CROSS,
         ];
     }
 
