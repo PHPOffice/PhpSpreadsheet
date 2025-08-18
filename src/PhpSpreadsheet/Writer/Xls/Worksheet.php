@@ -270,7 +270,7 @@ class Worksheet extends BIFFwriter
             if (isset($columnDimensions[$columnLetter])) {
                 $columnDimension = $columnDimensions[$columnLetter];
                 if ($columnDimension->getWidth() >= 0) {
-                    $width = $columnDimension->getWidth();
+                    $width = $columnDimension->getWidthForOutput(true);
                 }
                 $hidden = $columnDimension->getVisible() ? 0 : 1;
                 $level = $columnDimension->getOutlineLevel();

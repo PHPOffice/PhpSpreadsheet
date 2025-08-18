@@ -37,6 +37,8 @@ class Worksheet extends WriterPart
 
     private bool $useDynamicArrays = false;
 
+    private bool $restrictMaxColumnWidth = false;
+
     /**
      * Write worksheet to XML format.
      *
@@ -62,6 +64,7 @@ class Worksheet extends WriterPart
         } else {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
+        $this->restrictMaxColumnWidth = $this->getParentWriter()->getRestrictMaxColumnWidth();
 
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
@@ -435,7 +438,7 @@ class Worksheet extends WriterPart
 
         // Default column width
         if ($worksheet->getDefaultColumnDimension()->getWidth() >= 0) {
-            $objWriter->writeAttribute('defaultColWidth', StringHelper::formatNumber($worksheet->getDefaultColumnDimension()->getWidth()));
+            $objWriter->writeAttribute('defaultColWidth', StringHelper::formatNumber($worksheet->getDefaultColumnDimension()->getWidthForOutput($this->restrictMaxColumnWidth)));
         }
 
         // Outline level - row
@@ -482,7 +485,7 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('width', '9.10');
                 } else {
                     // Width set
-                    $objWriter->writeAttribute('width', StringHelper::formatNumber($colDimension->getWidth()));
+                    $objWriter->writeAttribute('width', StringHelper::formatNumber($colDimension->getWidthForOutput($this->restrictMaxColumnWidth)));
                 }
 
                 // Column visibility
