@@ -606,42 +606,13 @@ class Chart
         if ($libraryName === null) {
             return false;
         }
-        $restoreHandler = false;
-        if (PHP_VERSION_ID >= self::$temporaryVersionCheck && str_contains($libraryName, 'MtJpGraphRenderer')) {
-            set_error_handler(self::specialErrorHandler(...));
-            $restoreHandler = true;
-        }
 
         // Ensure that data series values are up-to-date before we render
         $this->refresh();
 
         $renderer = new $libraryName($this);
 
-        $x = $renderer->render($outputDestination);
-        if ($restoreHandler) {
-            restore_error_handler();
-        }
-
-        return $x;
-    }
-
-    protected static int $temporaryVersionCheck = 80500;
-
-    public function specialErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
-    {
-        if ($errno === E_DEPRECATED) {
-            if (str_ends_with($filename, 'jpgraph.php') && $lineno === 1408) {
-                return true;
-            }
-            if (str_ends_with($filename, 'jpgraph_legend.inc.php') && $lineno === 174) {
-                return true;
-            }
-            if (str_ends_with($filename, 'jpgraph_regstat.php') && in_array($lineno, [155, 185, 198, 202], true)) {
-                return true;
-            }
-        }
-
-        return false; // continue error handling
+        return $renderer->render($outputDestination);
     }
 
     public function getRotX(): ?int
