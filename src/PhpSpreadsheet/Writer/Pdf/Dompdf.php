@@ -2,6 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+require_once __DIR__ . '/DompdfImageDestroy1.php';
+require_once __DIR__ . '/DompdfImageDestroy2.php';
+require_once __DIR__ . '/DompdfImageDestroy3.php';
+require_once __DIR__ . '/DompdfImageDestroy4.php';
+
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
@@ -44,6 +49,11 @@ class Dompdf extends Pdf
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
 
         //  Create PDF
+        $restoreHandler = false;
+        if (PHP_VERSION_ID >= self::$temporaryVersionCheck) {
+            set_error_handler(self::specialErrorHandler(...));
+            $restoreHandler = true;
+        }
         $pdf = $this->createExternalWriterInstance();
         $pdf->setPaper($paperSize, $orientation);
 
@@ -53,6 +63,22 @@ class Dompdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->output() ?? '');
 
+        if ($restoreHandler) {
+            restore_error_handler();
+        }
         parent::restoreStateAfterSave();
+    }
+
+    protected static int $temporaryVersionCheck = 80500;
+
+    public function specialErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
+    {
+        if ($errno === E_DEPRECATED) {
+            if (str_ends_with($filename, 'AttributeTranslator.php') && $lineno === 506) {
+                return true;
+            }
+        }
+
+        return false; // continue error handling
     }
 }

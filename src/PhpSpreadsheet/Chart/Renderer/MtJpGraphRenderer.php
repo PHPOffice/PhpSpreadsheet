@@ -14,8 +14,13 @@ use mitoteam\jpgraph\MtJpGraph;
  */
 class MtJpGraphRenderer extends JpGraphRendererBase
 {
+    protected static int $temporaryVersionCheck = 80500;
+
     protected static function init(): void
     {
+        if (PHP_VERSION_ID >= self::$temporaryVersionCheck) {
+            MtJpGraph::setSkipExceptionHandler(true);
+        }
         static $loaded = false;
         if ($loaded) {
             return;
