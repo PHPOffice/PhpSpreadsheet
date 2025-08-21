@@ -41,13 +41,18 @@ class WorkbookTest extends TestCase
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
+    /** @var int */
+    protected static $accessibleNoop = 80100;
+
     public function xtestAddColor(array $testColors, array $expectedResult): void
     {
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $methodAddColor->setAccessible(true);
-        $propertyPalette->setAccessible(true);
+        if (self::$accessibleNoop < PHP_VERSION_ID) {
+            $methodAddColor->setAccessible(true);
+            $propertyPalette->setAccessible(true);
+        }
 
         foreach ($testColors as $testColor) {
             $methodAddColor->invoke($this->workbook, $testColor);
@@ -75,7 +80,9 @@ class WorkbookTest extends TestCase
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $propertyPalette->setAccessible(true);
+        if (self::$accessibleNoop < PHP_VERSION_ID) {
+            $propertyPalette->setAccessible(true);
+        }
 
         $palette = $propertyPalette->getValue($this->workbook);
 
