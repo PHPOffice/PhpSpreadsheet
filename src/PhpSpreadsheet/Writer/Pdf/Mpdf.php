@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-require_once __DIR__ . '/MpdfImageDestroy.php';
-
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
