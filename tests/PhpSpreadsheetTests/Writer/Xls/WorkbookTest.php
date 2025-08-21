@@ -49,7 +49,7 @@ class WorkbookTest extends TestCase
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
-        if (self::$accessibleNoop < PHP_VERSION_ID) {
+        if (self::$accessibleNoop > PHP_VERSION_ID) {
             $methodAddColor->setAccessible(true);
             $propertyPalette->setAccessible(true);
         }
@@ -80,7 +80,7 @@ class WorkbookTest extends TestCase
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');
-        if (self::$accessibleNoop < PHP_VERSION_ID) {
+        if (self::$accessibleNoop > PHP_VERSION_ID) {
             $propertyPalette->setAccessible(true);
         }
 
