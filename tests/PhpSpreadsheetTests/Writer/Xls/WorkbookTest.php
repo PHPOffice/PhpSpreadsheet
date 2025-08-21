@@ -44,8 +44,6 @@ class WorkbookTest extends TestCase
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $methodAddColor->setAccessible(true);
-        $propertyPalette->setAccessible(true);
 
         foreach ($testColors as $testColor) {
             $methodAddColor->invoke($this->workbook, $testColor);
@@ -73,7 +71,6 @@ class WorkbookTest extends TestCase
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $propertyPalette->setAccessible(true);
 
         $palette = $propertyPalette->getValue($this->workbook);
         self::assertIsArray($palette);
