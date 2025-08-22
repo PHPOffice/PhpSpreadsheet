@@ -1095,6 +1095,10 @@ class Calculation extends CalculationLocale
             $this->branchPruner->initialiseForLoop();
 
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
+            if ($opCharacter === "\xe2") { // intersection or union
+                $opCharacter .= $formula[++$index];
+                $opCharacter .= $formula[++$index];
+            }
 
             // Check for two-character operators (e.g. >=, <=, <>)
             if ((isset(self::COMPARISON_OPERATORS[$opCharacter])) && (strlen($formula) > $index) && isset($formula[$index + 1], self::COMPARISON_OPERATORS[$formula[$index + 1]])) {
@@ -1115,7 +1119,7 @@ class Calculation extends CalculationLocale
                 ++$index;
             } elseif ($opCharacter === '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
                 ++$index; //    Drop the redundant plus symbol
-            } elseif ((($opCharacter === '~') || ($opCharacter === '∩') || ($opCharacter === '∪')) && (!$isOperandOrFunction)) {
+            } elseif ((($opCharacter === '~') /*|| ($opCharacter === '∩') || ($opCharacter === '∪')*/) && (!$isOperandOrFunction)) {
                 //    We have to explicitly deny a tilde, union or intersect because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::CALCULATION_OPERATORS[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
@@ -1232,7 +1236,13 @@ class Calculation extends CalculationLocale
                     //     because at least the braces are paired up (at this stage in the formula)
                     // MS Excel allows this if the content is cell references; but doesn't allow actual values,
                     //    but at this point, we can't differentiate (so allow both)
-                    return $this->raiseFormulaError('Formula Error: Unexpected ,');
+                    //return $this->raiseFormulaError('Formula Error: Unexpected ,');
+                    $stack->push('Binary Operator', '∪');
+
+                    ++$index;
+                    $expectingOperator = false;
+
+                    continue;
                 }
 
                 /** @var array<string, int> $d */
@@ -1926,6 +1936,14 @@ class Calculation extends CalculationLocale
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
                             $stack->push('Value', $cellIntersect, $cellRef);
                         }
+
+                        break;
+                    case '∪':            //    union
+                        /** @var mixed[][] $operand1 */
+                        /** @var mixed[][] $operand2 */
+                        $cellUnion = array_merge($operand1, $operand2);
+                        $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellUnion));
+                        $stack->push('Value', $cellUnion, 'A1');
 
                         break;
                 }
@@ -2792,6 +2810,14 @@ class Calculation extends CalculationLocale
 
         $definedNameValue = $namedRange->getValue();
         $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
+        if ($definedNameType === 'Range') {
+            if (preg_match('/^(.*!)?(.*)$/', $definedNameValue, $matches) === 1) {
+                $matches2 = trim($matches[2]);
+                $matches2 = preg_replace('/ +/', ' ∩ ', $matches2) ?? $matches2;
+                $matches2 = preg_replace('/,/', ' ∪ ', $matches2) ?? $matches2;
+                $definedNameValue = $matches[1] . $matches2;
+            }
+        }
         $definedNameWorksheet = $namedRange->getWorksheet();
 
         if ($definedNameValue[0] !== '=') {
