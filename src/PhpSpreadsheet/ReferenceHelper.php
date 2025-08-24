@@ -558,12 +558,7 @@ class ReferenceHelper
             $worksheet->freezePane($splitCell, $topLeftCell);
         }
 
-        // Page setup
-        if ($worksheet->getPageSetup()->isPrintAreaSet()) {
-            $worksheet->getPageSetup()->setPrintArea(
-                $this->updateCellReference($worksheet->getPageSetup()->getPrintArea())
-            );
-        }
+        $this->updatePrintArea($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: drawings
         $aDrawings = $worksheet->getDrawingCollection();
@@ -587,6 +582,84 @@ class ReferenceHelper
 
         // Garbage collect
         $worksheet->garbageCollect();
+    }
+
+    private function updatePrintArea(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        $pageSetup = $worksheet->getPageSetup();
+        if (!$pageSetup->isPrintAreaSet()) {
+            return;
+        }
+        $printArea = $pageSetup->getPrintArea();
+        $coordinates = Coordinate::indexesFromString($beforeCellAddress);
+        if (preg_match('/^([A-Z]{1,3})(\d{1,7}):([A-Z]{1,3})(\d{1,7})$/i', $printArea, $matches) === 1) {
+            $firstRow = (int) $matches[2];
+            $lastRow = (int) $matches[4];
+            $firstColumnString = $matches[1];
+            $lastColumnString = $matches[3];
+            if ($numberOfRows < 0) {
+                $affectedRow = $coordinates[1] + $numberOfRows - 1;
+                $lastAffectedRow = $coordinates[1] - 1;
+                if ($affectedRow >= $firstRow && $affectedRow <= $lastRow) {
+                    $newLastRow = max($affectedRow, $lastRow + $numberOfRows);
+                    if ($newLastRow >= $firstRow) {
+                        $pageSetup->setPrintArea($matches[1] . $matches[2] . ':' . $matches[3] . $newLastRow);
+                    } else {
+                        $pageSetup->clearPrintArea();
+                    }
+
+                    return;
+                }
+                if ($lastAffectedRow >= $firstRow && $affectedRow <= $lastRow) {
+                    $newFirstRow = $affectedRow + 1;
+                    $newLastRow = $lastRow + $numberOfRows;
+                    if ($newFirstRow >= 1 && $newLastRow >= $newFirstRow) {
+                        $pageSetup->setPrintArea($matches[1] . $newFirstRow . ':' . $matches[3] . $newLastRow);
+                    } else {
+                        $pageSetup->clearPrintArea();
+                    }
+
+                    return;
+                }
+            }
+            if ($numberOfColumns < 0) {
+                $firstColumnInt = Coordinate::columnIndexFromString($firstColumnString);
+                $lastColumnInt = Coordinate::columnIndexFromString($lastColumnString);
+                $affectedColumn = $coordinates[0] + $numberOfColumns - 1;
+                $lastAffectedColumn = $coordinates[0] - 1;
+                //var_dump($affectedColumn, $lastAffectedColumn, $firstColumnInt, $lastColumnInt);
+                if ($affectedColumn >= $firstColumnInt && $affectedColumn <= $lastColumnInt) {
+                    $newLastColumnInt = max($affectedColumn, $lastColumnInt + $numberOfColumns);
+                    if ($newLastColumnInt >= $firstColumnInt) {
+                        $newLastColumnString = Coordinate::stringFromColumnIndex($newLastColumnInt);
+                        $pageSetup->setPrintArea($matches[1] . $matches[2] . ':' . $newLastColumnString . $matches[4]);
+                    } else {
+                        $pageSetup->clearPrintArea();
+                    }
+
+                    return;
+                }
+                if ($affectedColumn < $firstColumnInt && $lastAffectedColumn > $lastColumnInt) {
+                    $pageSetup->clearPrintArea();
+
+                    return;
+                }
+                if ($lastAffectedColumn >= $firstColumnInt && $lastAffectedColumn <= $lastColumnInt) {
+                    $newFirstColumn = $affectedColumn + 1;
+                    $newLastColumn = $lastColumnInt + $numberOfColumns;
+                    if ($newFirstColumn >= 1 && $newLastColumn >= $newFirstColumn) {
+                        $firstString = Coordinate::stringFromColumnIndex($newFirstColumn);
+                        $lastString = Coordinate::stringFromColumnIndex($newLastColumn);
+                        $pageSetup->setPrintArea($firstString . $matches[2] . ':' . $lastString . $matches[4]);
+                    } else {
+                        $pageSetup->clearPrintArea();
+                    }
+
+                    return;
+                }
+            }
+        }
+        $pageSetup->setPrintArea($this->updateCellReference($printArea));
     }
 
     private static function matchSheetName(?string $match, string $worksheetName): bool
