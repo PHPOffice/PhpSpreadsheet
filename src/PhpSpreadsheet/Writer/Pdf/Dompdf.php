@@ -61,14 +61,14 @@ class Dompdf extends Pdf
         fwrite($fileHandle, $pdf->output() ?? '');
 
         if ($restoreHandler) {
-            restore_error_handler();
+            restore_error_handler(); // @codeCoverageIgnore
         }
         parent::restoreStateAfterSave();
     }
 
     protected static int $temporaryVersionCheck = 80500;
 
-    /*
+    /**
      * Temporary handler for Php8.5 waiting for Dompdf release.
      *
      * @codeCoverageIgnore
