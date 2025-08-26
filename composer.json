@@ -12,9 +12,6 @@
         "spreadsheet"
     ],
     "config": {
-        "platform": {
-            "php" : "8.0.99"
-        },
         "process-timeout": 600,
         "sort-packages": true,
         "allow-plugins": {
@@ -66,7 +63,7 @@
         ]
     },
     "require": {
-        "php": "^8.0",
+        "php": ">=8.0.0 <8.5.0",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
