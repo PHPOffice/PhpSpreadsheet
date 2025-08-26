@@ -16,10 +16,6 @@ jobs:
           - '8.3'
           - '8.4'
 
-        include:
-          - php-version: 'nightly'
-            experimental: true
-
     name: PHP ${{ matrix.php-version }}
 
     steps:
