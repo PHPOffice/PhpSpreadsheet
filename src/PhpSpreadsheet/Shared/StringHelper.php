@@ -647,4 +647,19 @@ class StringHelper
 
         return (is_numeric(substr($textValue, 0, strlen((string) $v)))) ? $v : $textValue;
     }
+
+    /**
+     * Php introduced str_increment with Php8.3,
+     * but didn't issue deprecation notices till 8.5.
+     *
+     * @codeCoverageIgnore
+     */
+    public static function stringIncrement(string &$str): void
+    {
+        if (function_exists('str_increment')) {
+            $str = str_increment($str);
+        } else {
+            ++$str;
+        }
+    }
 }
