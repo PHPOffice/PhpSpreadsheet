@@ -1236,13 +1236,16 @@ class Calculation extends CalculationLocale
                     //     because at least the braces are paired up (at this stage in the formula)
                     // MS Excel allows this if the content is cell references; but doesn't allow actual values,
                     //    but at this point, we can't differentiate (so allow both)
-                    //return $this->raiseFormulaError('Formula Error: Unexpected ,');
+                    return $this->raiseFormulaError('Formula Error: Unexpected ,');
+                    /* The following code may be a better choice, but, with
+                       the other changes for this PR, I can no longer come up
+                       with a test case that gets here
                     $stack->push('Binary Operator', '∪');
 
                     ++$index;
                     $expectingOperator = false;
 
-                    continue;
+                    continue;*/
                 }
 
                 /** @var array<string, int> $d */
