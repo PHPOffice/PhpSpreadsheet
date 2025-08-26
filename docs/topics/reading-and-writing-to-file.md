@@ -181,14 +181,25 @@ Because of a bug in the Office2003 compatibility pack, there can be some
 small issues when opening Xlsx spreadsheets (mostly related to formula
 calculation). You can enable Office2003 compatibility with the following
 code:
-
+```php
     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
     $writer->setOffice2003Compatibility(true);
     $writer->save("05featuredemo.xlsx");
+```
 
 **Office2003 compatibility option should only be used when needed** because 
 it disables several Office2007 file format options, resulting in a
 lower-featured Office2007 spreadsheet.
+
+#### Maximum Column Width
+
+In the Xlsx User Interface, the user cannot set a column width > 255.
+Nevertheless, it will honor a higher value if supplied in the Xml.
+PhpSpreadsheet will, by default, allow values > 255 to be written.
+However, Excel's behavior, restricting the value to 255, can be emulated:
+```php
+    $writer->setRestrictMaxColumnWidth(true);
+```
 
 ### Form Control Fields
 

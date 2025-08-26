@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Google-only formulas exported from Google Sheets. [Issue #1637](https://github.com/PHPOffice/PhpSpreadsheet/issues/1637) [PR #4579](https://github.com/PHPOffice/PhpSpreadsheet/pull/4579)
+- Maximum column width. [PR #4581](https://github.com/PHPOffice/PhpSpreadsheet/pull/4581)
+- PrintArea after row/column delete. [Issue #2912](https://github.com/PHPOffice/PhpSpreadsheet/issues/2912) [PR #4598](https://github.com/PHPOffice/PhpSpreadsheet/pull/4598)
 
 ## 2025-08-10 - 5.0.0
 
