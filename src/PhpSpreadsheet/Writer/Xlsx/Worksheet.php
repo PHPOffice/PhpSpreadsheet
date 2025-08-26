@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalIconSet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
@@ -866,6 +867,47 @@ class Worksheet extends WriterPart
         }
     }
 
+    private function writeIconSetElements(XMLWriter $objWriter, ?ConditionalIconSet $iconSet): void
+    {
+        if ($iconSet === null) {
+            return;
+        }
+
+        $objWriter->startElement('iconSet');
+        if ($iconSet->getIconSetType() !== null) {
+            $objWriter->writeAttribute('iconSet', $iconSet->getIconSetType()->value);
+        }
+        foreach (
+            [
+                'reverse' => $iconSet->getReverse(),
+                'showValue' => $iconSet->getShowValue(),
+                'custom' => $iconSet->getCustom(),
+            ] as $attr => $value
+        ) {
+            self::writeAttributeIf($objWriter, $value !== null, $attr, $value ? '1' : '0');
+        }
+
+        foreach ($iconSet->getCfvos() as $cfvo) {
+            $objWriter->startElement('cfvo');
+            $objWriter->writeAttribute('type', $cfvo->getType());
+            self::writeAttributeIf(
+                $objWriter,
+                $cfvo->getValue() !== null,
+                'val',
+                (string) $cfvo->getValue(),
+            );
+            self::writeAttributeIf(
+                $objWriter,
+                $cfvo->getGreaterThanOrEqual() !== null,
+                'gte',
+                $cfvo->getGreaterThanOrEqual() ? '1' : '0',
+            );
+            $objWriter->endElement(); // end cfvo
+        }
+
+        $objWriter->endElement(); // end iconSet
+    }
+
     /**
      * Write ConditionalFormatting.
      */
@@ -900,6 +942,7 @@ class Worksheet extends WriterPart
                     $objWriter,
                     ($conditional->getConditionType() !== Conditional::CONDITION_COLORSCALE
                         && $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
+                        && $conditional->getConditionType() !== Conditional::CONDITION_ICONSET
                         && $conditional->getNoFormatSet() === false),
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
@@ -936,6 +979,8 @@ class Worksheet extends WriterPart
                     self::writeTimePeriodCondElements($objWriter, $conditional, $topLeftCell);
                 } elseif ($conditional->getConditionType() === Conditional::CONDITION_COLORSCALE) {
                     self::writeColorScaleElements($objWriter, $conditional->getColorScale());
+                } elseif ($conditional->getConditionType() === Conditional::CONDITION_ICONSET) {
+                    self::writeIconSetElements($objWriter, $conditional->getIconSet());
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $topLeftCell);
                 }
@@ -1569,8 +1614,8 @@ class Worksheet extends WriterPart
             self::writeElementIf(
                 $objWriter,
                 $this->getParentWriter()->getOffice2003Compatibility() === false
-                && $this->getParentWriter()->getPreCalculateFormulas()
-                && $calculatedValue !== null,
+                    && $this->getParentWriter()->getPreCalculateFormulas()
+                    && $calculatedValue !== null,
                 'v',
                 (!is_array($calculatedValue) && !str_starts_with($calculatedValueString, '#'))
                     ? StringHelper::formatNumber($calculatedValueString) : '0'

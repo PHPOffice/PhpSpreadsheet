@@ -250,9 +250,15 @@ jobs:
 
       - name: Coverage
         run: |
-          ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
-          composer global require scrutinizer/ocular
-          ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
+          ./vendor/bin/phpunit --coverage-clover build/clover.xml
+
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.4.3/php-coveralls.phar
+          chmod +x php-coveralls.phar
+          php php-coveralls.phar --coverage_clover=build/clover.xml --json_path=build/coveralls-upload.json -vvv
 
   release:
     permissions:

@@ -20,7 +20,6 @@ class Issue4451Test extends TestCase
         // Use reflection to make the protected method accessible
         $calculation = new Calculation();
         $reflectionMethod = new ReflectionMethod(Calculation::class, 'resizeMatricesExtend');
-        $reflectionMethod->setAccessible(true);
 
         // Call the method using reflection
         $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 1]);
