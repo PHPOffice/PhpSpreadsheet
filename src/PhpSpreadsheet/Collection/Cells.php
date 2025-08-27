@@ -165,6 +165,9 @@ class Cells
         if (!$this->indexSorted) {
             asort($this->index);
             $this->indexSorted = true;
+            // Clear unsorted cache
+            $this->indexKeysCache = null;
+            $this->indexValuesCache = null;
         }
 
         // Build or rebuild index keys cache
@@ -185,6 +188,9 @@ class Cells
         if (!$this->indexSorted) {
             asort($this->index);
             $this->indexSorted = true;
+            // Clear unsorted cache
+            $this->indexKeysCache = null;
+            $this->indexValuesCache = null;
         }
 
         if ($this->indexValuesCache === null) {
