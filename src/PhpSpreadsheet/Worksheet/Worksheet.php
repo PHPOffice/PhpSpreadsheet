@@ -3104,9 +3104,30 @@ class Worksheet
 
             $index = ($row - 1) * AddressRange::MAX_COLUMN_INT + 1;
             $indexPlus = $index + AddressRange::MAX_COLUMN_INT - 1;
+
+            // Binary search to quickly approach the correct index
+            $keyIndex = intdiv($keysCount, 2);
+            $boundLow = 0;
+            $boundHigh = $keysCount - 1;
+            while ($boundLow <= $boundHigh) {
+                $keyIndex = intdiv($boundLow + $boundHigh, 2);
+                if ($keys[$keyIndex] < $index) {
+                    $boundLow = $keyIndex + 1;
+                } elseif ($keys[$keyIndex] > $index) {
+                    $boundHigh = $keyIndex - 1;
+                } else {
+                    break;
+                }
+            }
+
+            // Realign to the proper index value
+            while ($keyIndex > 0 && $keys[$keyIndex] > $index) {
+                --$keyIndex;
+            }
             while ($keyIndex < $keysCount && $keys[$keyIndex] < $index) {
                 ++$keyIndex;
             }
+
             while ($keyIndex < $keysCount && $keys[$keyIndex] <= $indexPlus) {
                 $key = $keys[$keyIndex];
                 $thisRow = intdiv($key - 1, AddressRange::MAX_COLUMN_INT) + 1;
