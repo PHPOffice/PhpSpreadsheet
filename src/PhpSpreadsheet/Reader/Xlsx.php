@@ -2490,9 +2490,9 @@ class Xlsx extends BaseReader
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
                     }
-                    ++$lastCol;
+                    StringHelper::stringIncrement($lastCol);
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
-                        for ($col = $firstCol; $col !== $lastCol; ++$col) {
+                        for ($col = $firstCol; $col !== $lastCol; StringHelper::stringIncrement($col)) {
                             /** @var string $col */
                             if (!$cellCollection->has2("$col$row")) {
                                 continue;

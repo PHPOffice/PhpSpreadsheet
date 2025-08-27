@@ -2930,7 +2930,7 @@ class Worksheet
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
                     /** @var string $currentColumn */
-                    ++$currentColumn;
+                    StringHelper::stringIncrement($currentColumn);
                 }
                 ++$startRow;
             }
@@ -2943,7 +2943,7 @@ class Worksheet
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
                     /** @var string $currentColumn */
-                    ++$currentColumn;
+                    StringHelper::stringIncrement($currentColumn);
                 }
                 ++$startRow;
             }
@@ -3085,7 +3085,7 @@ class Worksheet
         $minColInt = $rangeStart[0];
         $maxColInt = $rangeEnd[0];
 
-        ++$maxCol;
+        StringHelper::stringIncrement($maxCol);
         /** @var array<string, bool> */
         $hiddenColumns = [];
         $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden, $hiddenColumns);
@@ -3160,7 +3160,7 @@ class Worksheet
     ): array {
         $nullRow = [];
         $c = -1;
-        for ($col = $minCol; $col !== $maxCol; ++$col) {
+        for ($col = $minCol; $col !== $maxCol; StringHelper::stringIncrement($col)) {
             /** @var string $col */
             if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
                 $hiddenColumns[$col] = true;
