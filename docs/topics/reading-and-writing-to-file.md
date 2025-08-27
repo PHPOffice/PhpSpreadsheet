@@ -1099,7 +1099,7 @@ $secondHtmlString = '<table>
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
 $spreadsheet = $reader->loadFromString($firstHtmlString);
 $reader->setSheetIndex(1);
-$spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
+$spreadsheet = $reader->loadFromString($secondHtmlString, $spreadsheet);
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
