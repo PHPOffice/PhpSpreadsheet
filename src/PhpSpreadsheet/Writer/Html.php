@@ -764,8 +764,8 @@ class Html extends BaseWriter
                     $totalHeight += ($height >= 0) ? $height : $defaultRowHeight;
                 }
                 $rightEdge = $brCoordinate[2];
-                ++$rightEdge;
-                for ($column = $tlCoordinate[2]; $column !== $rightEdge; ++$column) {
+                StringHelper::stringIncrement($rightEdge);
+                for ($column = $tlCoordinate[2]; $column !== $rightEdge; StringHelper::stringIncrement($column)) {
                     $width = $sheet->getColumnDimension($column)->getWidth();
                     $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
                     $totalWidth += $width;

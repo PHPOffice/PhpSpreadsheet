@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
@@ -30,7 +31,7 @@ class ColumnDimension2Test extends AbstractFunctional
         }
         $spreadsheet->disconnectWorksheets();
         $sheet = $reloadedSpreadsheet->getActiveSheet();
-        for ($column = 'A'; $column !== 'Z'; ++$column) {
+        for ($column = 'A'; $column !== 'Z'; StringHelper::stringIncrement($column)) {
             if (in_array($column, $columns, true)) {
                 self::assertEqualsWithDelta($expectedCm, $sheet->getColumnDimension($column)->getWidth(Dimension::UOM_CENTIMETERS), 1E-3, "column $column");
             } elseif ($type === 'Xls' && $column <= 'T') {

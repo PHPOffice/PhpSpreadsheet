@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
@@ -410,7 +411,7 @@ class ReferenceHelper
         }
         $highColumn = Coordinate::columnIndexFromString($highestDataColumn);
         for ($row = $startRow; $row <= $highestDataRow; ++$row) {
-            for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, ++$colString) {
+            for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, StringHelper::stringIncrement($colString)) {
                 $worksheet->getCell("$colString$row"); // create cell if it doesn't exist
             }
         }
@@ -999,7 +1000,7 @@ class ReferenceHelper
         $endColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
 
         for ($row = 1; $row <= $highestRow - 1; ++$row) {
-            for ($column = $startColumnId; $column !== $endColumnId; ++$column) {
+            for ($column = $startColumnId; $column !== $endColumnId; StringHelper::stringIncrement($column)) {
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
             }
@@ -1009,9 +1010,9 @@ class ReferenceHelper
     private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
     {
         $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
-        ++$highestColumn;
+        StringHelper::stringIncrement($highestColumn);
 
-        for ($column = $startColumnId; $column !== $highestColumn; ++$column) {
+        for ($column = $startColumnId; $column !== $highestColumn; StringHelper::stringIncrement($column)) {
             for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
@@ -1090,7 +1091,10 @@ class ReferenceHelper
         $toColRef = $rangeEnd + $numberOfColumns;
 
         do {
-            $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+            $autoFilter->shiftColumn(
+                Coordinate::stringFromColumnIndex($endColRef),
+                Coordinate::stringFromColumnIndex($toColRef)
+            );
             --$endColRef;
             --$toColRef;
         } while ($startColRef <= $endColRef);
@@ -1105,8 +1109,8 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
-            ++$startColID;
-            ++$toColID;
+            StringHelper::stringIncrement($startColID);
+            StringHelper::stringIncrement($toColID);
         } while ($startColID !== $endColID);
     }
 
@@ -1169,7 +1173,10 @@ class ReferenceHelper
         $toColRef = $rangeEnd + $numberOfColumns;
 
         do {
-            $table->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+            $table->shiftColumn(
+                Coordinate::stringFromColumnIndex($endColRef),
+                Coordinate::stringFromColumnIndex($toColRef)
+            );
             --$endColRef;
             --$toColRef;
         } while ($startColRef <= $endColRef);
@@ -1184,8 +1191,8 @@ class ReferenceHelper
 
         do {
             $table->shiftColumn($startColID, $toColID);
-            ++$startColID;
-            ++$toColID;
+            StringHelper::stringIncrement($startColID);
+            StringHelper::stringIncrement($toColID);
         } while ($startColID !== $endColID);
     }
 

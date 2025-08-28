@@ -39,9 +39,6 @@ function strIncrement85(int $version, int $errno, string $errstr, string $filena
     if ($version < 80500 || $errno !== E_DEPRECATED) {
         return false;
     }
-    if (preg_match('/Increment on non-numeric string/', $errstr) === 1) {
-        return true;
-    }
     if (preg_match('/canonical/', $errstr) === 1 && preg_match('/mitoteam/', $filename) === 1) {
         return true;
     }

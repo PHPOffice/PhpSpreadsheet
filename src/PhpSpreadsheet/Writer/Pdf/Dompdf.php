@@ -76,7 +76,7 @@ class Dompdf extends Pdf
     public function specialErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
     {
         if ($errno === E_DEPRECATED) {
-            if (preg_match('/canonical|imagedestroy/', $errstr) === 1) {
+            if (preg_match('/canonical|imagedestroy|http_get_last_response_headers/', $errstr) === 1) {
                 return true;
             }
         }
