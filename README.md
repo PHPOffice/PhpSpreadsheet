@@ -1,8 +1,7 @@
 # PhpSpreadsheet
 
 [![Build Status](https://github.com/PHPOffice/PhpSpreadsheet/workflows/main/badge.svg)](https://github.com/PHPOffice/PhpSpreadsheet/actions)
-[![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
+[![Code Coverage](https://coveralls.io/repos/github/PHPOffice/PhpSpreadsheet/badge.svg?branch=master)](https://coveralls.io/github/PHPOffice/PhpSpreadsheet?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Latest Stable Version](https://img.shields.io/github/v/release/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![License](https://img.shields.io/github/license/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
@@ -11,12 +10,23 @@
 PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
 
+This branch (release1291) is *not* the latest version of PhpSpreadsheet, and may therefore lack features and bug fixes found in the latest version.
+
+## Security Changes Only
+
+Except for security changes, no further maintenance will be applied to this branch.
+You are encouraged to upgrade to a maintained branch as soon as possible.
+Maintained branches are master (preferred - version is 5.0.0 as of the date when this is being written), release390 (current version is 3.10.0), and release222 (2.4.0).
+
+Of particular note is that this branch will *not* be updated to avoid deprecation notices about using the `++` operator on strings, a notice about to be introduced with Php 8.5.
+
 ## PHP Version Support
 
-LTS: Support for PHP versions will only be maintained for a period of six months beyond the
+LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
 [end of life](https://www.php.net/supported-versions) of that PHP version.
 
 Currently the required PHP minimum version is PHP __7.4__, and we [will support that version](https://www.php.net/eol.php) until 28th June 2023.
+However, since this branch is no longer maintained, that policy is not enforced.
 
 See the `composer.json` for other requirements.
 
