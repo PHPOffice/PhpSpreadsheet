@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetInfra;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -283,7 +284,7 @@ class LocaleGenerator
         $this->log("Mapping Languages for {$sheetName}:");
 
         $baseColumn = self::ENGLISH_REFERENCE_COLUMN;
-        $languagesList = $translationWorksheet->getColumnIterator(++$baseColumn);
+        $languagesList = $translationWorksheet->getColumnIterator(StringHelper::stringIncrement($baseColumn));
 
         $languageNameMap = [];
         foreach ($languagesList as $languageColumn) {

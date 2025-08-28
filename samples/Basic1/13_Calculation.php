@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 mt_srand(1234567890);
@@ -156,7 +157,7 @@ $spreadsheet->getActiveSheet()->setCellValue('E23', 'Mode of both ranges:')
 
 // Calculated data
 $helper->log('Calculated data');
-for ($col = 'B'; $col != 'G'; ++$col) {
+for ($col = 'B'; $col != 'G'; StringHelper::stringIncrement($col)) {
     for ($row = 14; $row <= 41; ++$row) {
         $formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue();
         if (

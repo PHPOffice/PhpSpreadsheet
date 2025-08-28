@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as Except;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -41,7 +42,8 @@ class RowCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $RowCell) {
             $values[] = $RowCell->getValue();
-            self::assertEquals($RowCellIndexResult++, $key);
+            self::assertEquals($RowCellIndexResult, $key);
+            StringHelper::stringIncrement($RowCellIndexResult);
         }
         self::assertSame(self::CELL_VALUES[0], $values);
         $spreadsheet->disconnectWorksheets();
@@ -58,7 +60,8 @@ class RowCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $RowCell) {
             $values[] = $RowCell->getValue();
-            self::assertEquals($RowCellIndexResult++, $key);
+            self::assertEquals($RowCellIndexResult, $key);
+            StringHelper::stringIncrement($RowCellIndexResult);
         }
         self::assertSame([220, 230, 240], $values);
         $spreadsheet->disconnectWorksheets();
