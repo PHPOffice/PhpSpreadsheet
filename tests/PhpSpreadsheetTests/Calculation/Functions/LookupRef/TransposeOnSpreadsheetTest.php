@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class TransposeOnSpreadsheetTest extends AllSetupTeardown
@@ -20,7 +21,7 @@ class TransposeOnSpreadsheetTest extends AllSetupTeardown
         $highColumn = $sheet->getHighestDataColumn();
         $highRow = $sheet->getHighestDataRow();
         $newHighColumn = $highColumn;
-        ++$newHighColumn;
+        StringHelper::stringIncrement($newHighColumn);
         $sheet->getCell("{$newHighColumn}1")
             ->setValue("=TRANSPOSE(A1:$highColumn$highRow)");
         self::assertSame($expectedResult, $sheet->getCell("{$newHighColumn}1")->getCalculatedValue());

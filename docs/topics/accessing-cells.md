@@ -472,6 +472,7 @@ $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFrom
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
+    // Use StringHelper::stringIncrement($col) rather than ++$col if using Php8.5+.
     for ($col = 1; $col <= $highestColumnIndex; ++$col) {
         $value = $worksheet->getCell([$col, $row])->getValue();
         echo '<td>' . $value . '</td>' . PHP_EOL;
@@ -494,11 +495,12 @@ $worksheet = $spreadsheet->getActiveSheet();
 $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 // Increment the highest column letter
-++$highestColumn;
+++$highestColumn; // StringHelper::stringIncrement($highestColumn); if using Php8.5+.
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
+    // Use StringHelper::stringIncrement($col) rather than ++$col if using Php8.5+.
     for ($col = 'A'; $col != $highestColumn; ++$col) {
         echo '<td>' .
              $worksheet->getCell($col . $row)

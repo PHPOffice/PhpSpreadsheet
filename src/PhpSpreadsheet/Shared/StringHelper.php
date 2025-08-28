@@ -729,12 +729,14 @@ class StringHelper
      *
      * @codeCoverageIgnore
      */
-    public static function stringIncrement(string &$str): void
+    public static function stringIncrement(string &$str): string
     {
         if (function_exists('str_increment')) {
             $str = str_increment($str); // @phpstan-ignore-line
         } else {
             ++$str; // @phpstan-ignore-line
         }
+
+        return $str; // @phpstan-ignore-line
     }
 }

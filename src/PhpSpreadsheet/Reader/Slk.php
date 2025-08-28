@@ -420,7 +420,11 @@ class Slk extends BaseReader
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
                     /** @var string $startCol */
-                    $spreadsheet->getActiveSheet()->getColumnDimension((string) ++$startCol)->setWidth((float) $columnWidth);
+                    $spreadsheet->getActiveSheet()
+                        ->getColumnDimension(
+                            StringHelper::stringIncrement($startCol)
+                        )
+                        ->setWidth((float) $columnWidth);
                 } while ($startCol !== $endCol);
             }
         }
