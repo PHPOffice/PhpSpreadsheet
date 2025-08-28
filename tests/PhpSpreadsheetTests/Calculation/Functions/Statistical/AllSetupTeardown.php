@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -187,7 +188,7 @@ class AllSetupTeardown extends TestCase
                     $cellId = "$col$row";
                     $arrayRange = "A$row:$cellId";
                     $this->setCell($cellId, $arrayItem);
-                    ++$col;
+                    StringHelper::stringIncrement($col);
                 }
                 $formula .= "$comma$arrayRange";
                 $comma = ',';

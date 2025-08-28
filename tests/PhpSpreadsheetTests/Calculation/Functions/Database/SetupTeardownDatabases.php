@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -141,7 +142,7 @@ class SetupTeardownDatabases extends TestCase
             foreach ($dataRow as $dataCell) {
                 $sheet->getCell("$col$row")->setValue($dataCell);
                 $maxCol = max($col, $maxCol);
-                ++$col;
+                StringHelper::stringIncrement($col);
             }
             $maxRow = $row;
             ++$row;
@@ -159,7 +160,7 @@ class SetupTeardownDatabases extends TestCase
                     $sheet->getCell("$col$row")->setValueExplicit($dataCell, DataType::TYPE_STRING);
                 }
                 $maxCol = max($col, $maxCol);
-                ++$col;
+                StringHelper::stringIncrement($col);
             }
             $maxRow = $row;
             ++$row;

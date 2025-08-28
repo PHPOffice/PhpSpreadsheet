@@ -466,7 +466,7 @@ class Cell implements Stringable
                                         }
                                     }
                                 }
-                                ++$newColumn;
+                                StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;
                         } else {
@@ -478,7 +478,7 @@ class Cell implements Stringable
                                     }
                                 }
                             }
-                            ++$newColumn;
+                            StringHelper::stringIncrement($newColumn);
                         }
                         if ($spill) {
                             break;
@@ -501,10 +501,10 @@ class Cell implements Stringable
                                     $minRow = (int) $matches[2];
                                     // https://github.com/phpstan/phpstan/issues/11602
                                     $maxCol = $matches[4]; // @phpstan-ignore-line
-                                    ++$maxCol;
+                                    StringHelper::stringIncrement($maxCol);
                                     $maxRow = (int) $matches[5]; // @phpstan-ignore-line
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
-                                        for ($col = $minCol; $col !== $maxCol; ++$col) {
+                                        for ($col = $minCol; $col !== $maxCol; StringHelper::stringIncrement($col)) {
                                             if ("$col$row" !== $coordinate) {
                                                 $thisworksheet->getCell("$col$row")->setValue(null);
                                             }
@@ -529,14 +529,14 @@ class Cell implements Stringable
                                 if ($row !== $newRow || $column !== $newColumn) {
                                     $thisworksheet->getCell($newColumn . $newRow)->setValue($resultValue);
                                 }
-                                ++$newColumn;
+                                StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;
                         } else {
                             if ($row !== $newRow || $column !== $newColumn) {
                                 $thisworksheet->getCell($newColumn . $newRow)->setValue($resultRow);
                             }
-                            ++$newColumn;
+                            StringHelper::stringIncrement($newColumn);
                         }
                     }
                     $thisworksheet->getCell($column . $row);

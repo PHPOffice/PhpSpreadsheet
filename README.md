@@ -1,8 +1,7 @@
 # PhpSpreadsheet
 
 [![Build Status](https://github.com/PHPOffice/PhpSpreadsheet/workflows/main/badge.svg)](https://github.com/PHPOffice/PhpSpreadsheet/actions)
-[![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
+[![Code Coverage](https://coveralls.io/repos/github/PHPOffice/PhpSpreadsheet/badge.svg?branch=master)](https://coveralls.io/github/PHPOffice/PhpSpreadsheet?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Latest Stable Version](https://img.shields.io/github/v/release/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![License](https://img.shields.io/github/license/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
@@ -10,6 +9,17 @@
 
 PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
+
+This branch (release390) is maintained (for security and some bug fixes), but it is *not* the latest version of PhpSpreadsheet, and may therefore lack features and bug fixes found in the latest version.
+
+## PHP Version Support
+
+LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
+[end of life](https://www.php.net/supported-versions) of that PHP version.
+
+Currently the required PHP minimum version is PHP __8.1__, and we [will support that version](https://www.php.net/supported-versions.php) until 30th June 2026.
+
+See the `composer.json` for other requirements.
 
 ## Installation
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as Except;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnIterator;
@@ -39,7 +40,8 @@ class ColumnIteratorTest extends TestCase
         $counter = 0;
         foreach ($iterator as $key => $column) {
             ++$counter;
-            self::assertEquals($columnIndexResult++, $key);
+            self::assertEquals($columnIndexResult, $key);
+            StringHelper::stringIncrement($columnIndexResult);
             self::assertInstanceOf(Column::class, $column);
         }
         self::assertCount($counter, self::CELL_VALUES[0]);
@@ -57,7 +59,8 @@ class ColumnIteratorTest extends TestCase
         $counter = 0;
         foreach ($iterator as $key => $column) {
             ++$counter;
-            self::assertEquals($columnIndexResult++, $key);
+            self::assertEquals($columnIndexResult, $key);
+            StringHelper::stringIncrement($columnIndexResult);
             self::assertInstanceOf(Column::class, $column);
         }
         self::assertSame(3, $counter);
