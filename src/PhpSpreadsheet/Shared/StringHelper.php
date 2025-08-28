@@ -654,12 +654,14 @@ class StringHelper
      *
      * @codeCoverageIgnore
      */
-    public static function stringIncrement(string &$str): void
+    public static function stringIncrement(string &$str): string
     {
         if (function_exists('str_increment')) {
             $str = str_increment($str);
         } else {
             ++$str;
         }
+
+        return $str;
     }
 }

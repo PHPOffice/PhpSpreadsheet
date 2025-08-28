@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -409,15 +410,15 @@ class Worksheet
      */
     private static function checkSheetCodeName(string $sheetCodeName): string
     {
-        $charCount = Shared\StringHelper::countCharacters($sheetCodeName);
+        $charCount = StringHelper::countCharacters($sheetCodeName);
         if ($charCount == 0) {
             throw new Exception('Sheet code name cannot be empty.');
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
             (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName)
-            || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
-            || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
+            || (StringHelper::substring($sheetCodeName, -1, 1) == '\'')
+            || (StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
             throw new Exception('Invalid character found in sheet code name');
         }
@@ -445,7 +446,7 @@ class Worksheet
         }
 
         // Enforce maximum characters allowed for sheet title
-        if (Shared\StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
+        if (StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
             throw new Exception('Maximum ' . self::SHEET_TITLE_MAXIMUM_LENGTH . ' characters allowed in sheet title.');
         }
 
@@ -868,19 +869,19 @@ class Worksheet
                 if ($this->parent->sheetNameExists($title)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($title) > 29) {
-                        $title = Shared\StringHelper::substring($title, 0, 29);
+                    if (StringHelper::countCharacters($title) > 29) {
+                        $title = StringHelper::substring($title, 0, 29);
                     }
                     $i = 1;
                     while ($this->parent->sheetNameExists($title . ' ' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($title) > 28) {
-                                $title = Shared\StringHelper::substring($title, 0, 28);
+                            if (StringHelper::countCharacters($title) > 28) {
+                                $title = StringHelper::substring($title, 0, 28);
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($title) > 27) {
-                                $title = Shared\StringHelper::substring($title, 0, 27);
+                            if (StringHelper::countCharacters($title) > 27) {
+                                $title = StringHelper::substring($title, 0, 27);
                             }
                         }
                     }
@@ -2031,10 +2032,10 @@ class Worksheet
      */
     protected function getTableIndexByName(string $name): ?int
     {
-        $name = Shared\StringHelper::strToUpper($name);
+        $name = StringHelper::strToUpper($name);
         foreach ($this->tableCollection as $index => $table) {
             /** @var Table $table */
-            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+            if (StringHelper::strToUpper($table->getName()) === $name) {
                 return $index;
             }
         }
@@ -2864,7 +2865,7 @@ class Worksheet
                         $this->getCell($currentColumn . $startRow)->setValue($cellValue);
                     }
                 }
-                ++$currentColumn;
+                StringHelper::stringIncrement($currentColumn);
             }
             ++$startRow;
         }
@@ -2965,7 +2966,7 @@ class Worksheet
         $minColInt = $rangeStart[0];
         $maxColInt = $rangeEnd[0];
 
-        ++$maxCol;
+        StringHelper::stringIncrement($maxCol);
         /** @var array<string, bool> */
         $hiddenColumns = [];
         $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden, $hiddenColumns);
@@ -3033,7 +3034,7 @@ class Worksheet
     ): array {
         $nullRow = [];
         $c = -1;
-        for ($col = $minCol; $col !== $maxCol; ++$col) {
+        for ($col = $minCol; $col !== $maxCol; StringHelper::stringIncrement($col)) {
             if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
                 $hiddenColumns[$col] = true;
             } else {
@@ -3574,19 +3575,19 @@ class Worksheet
                 if ($this->parent->sheetCodeNameExists($codeName)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($codeName) > 29) {
-                        $codeName = Shared\StringHelper::substring($codeName, 0, 29);
+                    if (StringHelper::countCharacters($codeName) > 29) {
+                        $codeName = StringHelper::substring($codeName, 0, 29);
                     }
                     $i = 1;
                     while ($this->getParentOrThrow()->sheetCodeNameExists($codeName . '_' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($codeName) > 28) {
-                                $codeName = Shared\StringHelper::substring($codeName, 0, 28);
+                            if (StringHelper::countCharacters($codeName) > 28) {
+                                $codeName = StringHelper::substring($codeName, 0, 28);
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($codeName) > 27) {
-                                $codeName = Shared\StringHelper::substring($codeName, 0, 27);
+                            if (StringHelper::countCharacters($codeName) > 27) {
+                                $codeName = StringHelper::substring($codeName, 0, 27);
                             }
                         }
                     }

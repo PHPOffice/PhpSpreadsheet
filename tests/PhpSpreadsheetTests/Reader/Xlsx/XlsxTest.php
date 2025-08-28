@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
@@ -58,7 +59,7 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 8; $row += 2) {
-            for ($column = 'A'; $column !== 'G'; ++$column, ++$column) {
+            for ($column = 'A'; $column !== 'G'; StringHelper::stringIncrement($column), StringHelper::stringIncrement($column)) {
                 self::assertEquals(
                     $expectedColours[$row][$column],
                     $worksheet->getStyle($column . $row)->getFill()->getStartColor()->getRGB()

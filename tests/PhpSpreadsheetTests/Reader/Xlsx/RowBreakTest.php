@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
@@ -32,7 +33,7 @@ class RowBreakTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row < 60; ++$row) {
-            for ($column = 'A'; $column !== 'L'; ++$column) {
+            for ($column = 'A'; $column !== 'L'; StringHelper::stringIncrement($column)) {
                 $cell = $column . $row;
                 $sheet->getCell($cell)->setValue($cell);
             }
@@ -54,7 +55,7 @@ class RowBreakTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row < 60; ++$row) {
-            for ($column = 'A'; $column !== 'L'; ++$column) {
+            for ($column = 'A'; $column !== 'L'; StringHelper::stringIncrement($column)) {
                 $cell = $column . $row;
                 $sheet->getCell($cell)->setValue($cell);
             }

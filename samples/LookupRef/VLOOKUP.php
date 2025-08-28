@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -40,7 +41,7 @@ $worksheet->getCell('H5')->setValue('=VLOOKUP(H3, B3:E9, 4, FALSE)');
 $worksheet->getCell('I5')->setValue('=VLOOKUP(I3, B3:E9, 4, FALSE)');
 $worksheet->getCell('J5')->setValue('=VLOOKUP(J3, B3:E9, 4, FALSE)');
 
-for ($column = 'H'; $column !== 'K'; ++$column) {
+for ($column = 'H'; $column !== 'K'; StringHelper::stringIncrement($column)) {
     for ($row = 4; $row <= 5; ++$row) {
         $cell = $worksheet->getCell("{$column}{$row}");
         $helper->log("{$column}{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
