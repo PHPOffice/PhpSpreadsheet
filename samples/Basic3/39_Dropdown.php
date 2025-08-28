@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -57,7 +58,7 @@ foreach ($continents as $key => $filename) {
     $spreadsheet->getActiveSheet()
         ->setCellValue($continentColumn . ($key + 1), $continent);
 
-    ++$column;
+    StringHelper::stringIncrement($column);
 }
 
 // Hide the dropdown data

@@ -3486,9 +3486,9 @@ class Xls extends XlsBase
         if ($this->getReadFilter() !== null) {
             $includeCellRange = false;
             $rangeBoundaries = Coordinate::getRangeBoundaries($cellRangeAddress);
-            ++$rangeBoundaries[1][0];
+            StringHelper::stringIncrement($rangeBoundaries[1][0]);
             for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
-                for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; ++$column) {
+                for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; StringHelper::stringIncrement($column)) {
                     if ($this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                         $includeCellRange = true;
 

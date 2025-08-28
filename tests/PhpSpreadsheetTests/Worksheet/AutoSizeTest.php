@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
@@ -36,8 +37,8 @@ class AutoSizeTest extends TestCase
         $this->worksheet->fromArray($dataArray, null, 'A2');
 
         $toColumn = $this->worksheet->getHighestColumn();
-        ++$toColumn;
-        for ($i = 'A'; $i !== $toColumn; ++$i) {
+        StringHelper::stringIncrement($toColumn);
+        for ($i = 'A'; $i !== $toColumn; StringHelper::stringIncrement($i)) {
             $this->worksheet->getColumnDimension($i)->setAutoSize(true);
         }
     }
@@ -63,8 +64,8 @@ class AutoSizeTest extends TestCase
     {
         $columnSizes = [];
         $toColumn = $this->worksheet->getHighestColumn();
-        ++$toColumn;
-        for ($column = 'A'; $column !== $toColumn; ++$column) {
+        StringHelper::stringIncrement($toColumn);
+        for ($column = 'A'; $column !== $toColumn; StringHelper::stringIncrement($column)) {
             $columnSizes[$column] = $this->worksheet->getColumnDimension($column)->getWidth();
         }
 

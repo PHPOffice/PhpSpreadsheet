@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -96,7 +97,7 @@ $spreadsheet->getActiveSheet()
     ->fromArray($dateFunctionArray, null, 'B1', true);
 $spreadsheet->getActiveSheet()
     ->fromArray($dateTitleArray, null, 'A2', true);
-for ($column = 'B'; $column !== 'L'; ++$column) {
+for ($column = 'B'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     $spreadsheet->getActiveSheet()
         ->fromArray($dataArray, null, "{$column}2", true);
 }
@@ -116,7 +117,7 @@ $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
-for ($column = 'B'; $column !== 'L'; ++$column) {
+for ($column = 'B'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     $wizardFactory = new Wizard("{$column}2:{$column}19");
     /** @var Wizard\DateValue $dateWizard */
     $dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
@@ -139,7 +140,7 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
 $helper->log('Set some additional styling for date formats');
 
 $spreadsheet->getActiveSheet()->getStyle('B:B')->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');
-for ($column = 'A'; $column !== 'L'; ++$column) {
+for ($column = 'A'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     if ($column !== 'A') {
         $spreadsheet->getActiveSheet()->getStyle("{$column}:{$column}")
             ->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');
