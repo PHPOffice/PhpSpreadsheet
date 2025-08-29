@@ -53,4 +53,17 @@ class CreateBlankSheetIfNoneReadTest extends TestCase
             ['samples/templates/excel2003.xml', 'Xml', Reader\Xml::class],
         ];
     }
+
+    public function testUsingFlage(): void
+    {
+        $file = 'samples/templates/26template.xlsx';
+        $reader = IOFactory::createReaderForFile($file);
+        $sheetlist = ['Unknown sheetname'];
+        $reader->setLoadSheetsOnly($sheetlist);
+        $spreadsheet = $reader->load($file, Reader\BaseReader::CREATE_BLANK_SHEET_IF_NONE_READ);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Worksheet', $sheet->getTitle());
+        self::assertCount(1, $spreadsheet->getAllSheets());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
