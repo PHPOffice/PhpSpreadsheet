@@ -34,6 +34,7 @@ class BinderTest extends TestCase
 
         $reader2 = new Csv();
         $reader2->setValueBinder(new StringValueBinder());
+        self::assertInstanceOf(StringValueBinder::class, $reader2->getValueBinder());
         $spreadsheet2 = $reader2->loadSpreadsheetFromString($data);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $sheet2->getCell('A3')->setValueExplicit(7, DataType::TYPE_STRING);

@@ -41,6 +41,8 @@ interface IReader
     public const ALLOW_EXTERNAL_IMAGES = 16;
     public const DONT_ALLOW_EXTERNAL_IMAGES = 32;
 
+    public const CREATE_BLANK_SHEET_IF_NONE_READ = 64;
+
     public function __construct();
 
     /**
@@ -150,6 +152,12 @@ interface IReader
     public function getAllowExternalImages(): bool;
 
     /**
+     * Create a blank sheet if none are read,
+     * possibly due to a typo when using LoadSheetsOnly.
+     */
+    public function setCreateBlankSheetIfNoneRead(bool $createBlankSheetIfNoneRead): self;
+
+    /**
      * Loads PhpSpreadsheet from file.
      *
      * @param string $filename The name of the file to load
@@ -161,6 +169,7 @@ interface IReader
      *            self::IGNORE_ROWS_WITH_NO_CELLS    Don't load any rows that contain no cells.
      *            self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
      *            self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
+     *            self::CREATE_BLANK_SHEET_IF_NONE_READ    If no sheets are read, create a blank one.
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
 }
