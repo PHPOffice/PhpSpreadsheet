@@ -700,6 +700,7 @@ class Xls extends BaseReader
 
         // Parse the individual sheets
         $this->activeSheetSet = false;
+        $sheetCreated = false;
         foreach ($this->sheets as $sheet) {
             $selectedCells = '';
             if ($sheet['sheetType'] != 0x00) {
@@ -714,6 +715,7 @@ class Xls extends BaseReader
 
             // add sheet to PhpSpreadsheet object
             $this->phpSheet = $this->spreadsheet->createSheet();
+            $sheetCreated = true;
             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
             //        cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
             //        name in line with the formula, not the reverse
@@ -1114,6 +1116,9 @@ class Xls extends BaseReader
             if ($selectedCells !== '') {
                 $this->phpSheet->setSelectedCells($selectedCells);
             }
+        }
+        if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+            $this->spreadsheet->createSheet();
         }
         if ($this->activeSheetSet === false) {
             $this->spreadsheet->setActiveSheetIndex(0);

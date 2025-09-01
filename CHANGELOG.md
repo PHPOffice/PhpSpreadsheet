@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). This is always true of the master branch. Some earlier branches, including the branch from which you are reading this file, remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
+## 2025-09-03 - 2.4.1
+
+### Added
+
+- Option for Readers to create a new blank sheet if none match LoadSheetsOnly list. Backport of PR #4618.
+
+### Fixed
+
+ - Compatibility changes for Php 8.5. [Issue #4600](https://github.com/PHPOffice/PhpSpreadsheet/issues/4600) [PR #4614](https://github.com/PHPOffice/PhpSpreadsheet/pull/4614) [PR #4594](https://github.com/PHPOffice/PhpSpreadsheet/pull/4594) [PR #4588](https://github.com/PHPOffice/PhpSpreadsheet/pull/4588)
+
 ## 2025-08-10 - 2.4.0
 
 ### Breaking Changes

@@ -320,6 +320,7 @@ class Ods extends BaseReader
             $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
 
             $worksheetID = 0;
+            $sheetCreated = false;
             foreach ($tables as $worksheetDataSet) {
                 /** @var DOMElement $worksheetDataSet */
                 $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
@@ -337,6 +338,7 @@ class Ods extends BaseReader
 
                 // Create sheet
                 $spreadsheet->createSheet();
+                $sheetCreated = true;
                 $spreadsheet->setActiveSheetIndex($worksheetID);
 
                 if ($worksheetName || is_numeric($worksheetName)) {
@@ -657,6 +659,9 @@ class Ods extends BaseReader
                 $pageSettings->setVisibilityForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
                 $pageSettings->setPrintSettingsForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
                 ++$worksheetID;
+            }
+            if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+                $spreadsheet->createSheet();
             }
 
             $autoFilterReader->read($workbookData);
