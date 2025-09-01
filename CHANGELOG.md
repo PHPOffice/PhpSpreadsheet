@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ### Added
 
-- Option for Readers to create a new blank sheet if none match LoadSheetsOnly list. Backport of PR #4618.
+- Option for Readers to create a new blank sheet if none match LoadSheetsOnly list. [PR #4623](https://github.com/PHPOffice/PhpSpreadsheet/pull/4623) Backport of [PR #4618](https://github.com/PHPOffice/PhpSpreadsheet/pull/4618).
 
 ### Fixed
 
