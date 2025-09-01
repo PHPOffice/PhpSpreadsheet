@@ -30,6 +30,15 @@ class CustomFunctionTest extends TestCase
         self::assertTrue(Calculation::removeFunction($key));
         self::assertSame('#NAME?', $calculation->calculateFormula('=FOURTHPOWER(3)'));
         self::assertFalse(Calculation::removeFunction('WHATEVER'));
+        $key = 'NATIVECOS';
+        $value = [
+            'category' => 'custom',
+            'functionCall' => 'cos',
+            'argumentCount' => '1',
+        ];
+        self::assertTrue(Calculation::addFunction($key, $value));
+        self::assertSame(1.0, $calculation->calculateFormula('=NATIVECOS(0)'));
+        self::assertTrue(Calculation::removeFunction($key));
     }
 
     public static function testReplaceDummyFunction(): void
