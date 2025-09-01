@@ -38,6 +38,8 @@ interface IReader
      */
     public const IGNORE_ROWS_WITH_NO_CELLS = 8;
 
+    public const CREATE_BLANK_SHEET_IF_NONE_READ = 64;
+
     /**
      * Allow external images. Use with caution.
      * Improper specification of these within a spreadsheet
@@ -146,6 +148,12 @@ interface IReader
     public function getAllowExternalImages(): bool;
 
     /**
+     * Create a blank sheet if none are read,
+     * possibly due to a typo when using LoadSheetsOnly.
+     */
+    public function setCreateBlankSheetIfNoneRead(bool $createBlankSheetIfNoneRead): self;
+
+    /**
      * Set read filter.
      *
      * @return $this
@@ -164,6 +172,7 @@ interface IReader
      *            self::IGNORE_ROWS_WITH_NO_CELLS    Don't load any rows that contain no cells.
      *            self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
      *            self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
+     *            self::CREATE_BLANK_SHEET_IF_NONE_READ    If no sheets are read, create a blank one.
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
 }
