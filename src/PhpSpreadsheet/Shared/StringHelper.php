@@ -426,7 +426,7 @@ class StringHelper
      */
     public static function convertEncoding(string $textValue, string $to, string $from): string
     {
-        if (self::getIsIconvEnabled()) {
+        if (static::getIsIconvEnabled()) {
             $result = iconv($from, $to . self::$iconvOptions, $textValue);
             if (false !== $result) {
                 return $result;
