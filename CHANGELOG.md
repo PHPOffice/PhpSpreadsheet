@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 ### Added
 
 - Option for Readers to create a new blank sheet if none match LoadSheetsOnly list. [PR #4622](https://github.com/PHPOffice/PhpSpreadsheet/pull/4622) Backport of [PR #4618](https://github.com/PHPOffice/PhpSpreadsheet/pull/4618).
+- Remove `imagedestroy` from MemoryDrawing. Backport of [PR #4625](https://github.com/PHPOffice/PhpSpreadsheet/pull/4625).
 
 ### Fixed
 
