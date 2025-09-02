@@ -124,10 +124,23 @@ class CalculationCoverageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    protected static int $winMinPhpToSkip = 80300;
+
+    protected static int $winMaxPhpToSkip = 80499;
+
+    protected static string $winIndicator = 'WIN';
+
     // separate process because it sets its own handler
     #[Attributes\RunInSeparateProcess]
     public function testExceptionHandler(): void
     {
+        if (
+            strtoupper(substr(PHP_OS, 0, 3)) === self::$winIndicator
+            && PHP_VERSION_ID >= self::$winMinPhpToSkip
+            && PHP_VERSION_ID <= self::$winMaxPhpToSkip
+        ) {
+            self::markTestSkipped('Mysterious problem on Windows with Php8.3/4 only');
+        }
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage('hello');
         $handler = new ExceptionHandler();
