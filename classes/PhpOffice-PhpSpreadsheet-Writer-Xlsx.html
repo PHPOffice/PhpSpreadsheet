@@ -191,6 +191,12 @@ Identifies whether the Writer should write definitions for any charts that exist
 Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
 immediately available to MS Excel or other office spreadsheet viewer when opening the file.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_restrictMaxColumnWidth">$restrictMaxColumnWidth</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+
     </dl>
 
 <h4 id="toc-methods">
@@ -292,6 +298,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
        viewer when opening the file
     If false, then formulae are not calculated on save. This is faster for saving in PhpSpreadsheet, but slower
        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getRestrictMaxColumnWidth">getRestrictMaxColumnWidth()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getSpreadsheet">getSpreadsheet()</a>
@@ -467,6 +479,13 @@ and a button will be available to force re-calculation.</dd>
 <dd>Set Pre-Calculate Formulas
        Set to true (the default) to advise the Writer to calculate all formulae on save
        Set to false to prevent precalculation of formulae on save.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setRestrictMaxColumnWidth">setRestrictMaxColumnWidth()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+<dd>Excel has a nominal width limint of 255 for a column.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setSpreadsheet">setSpreadsheet()</a>
@@ -677,6 +696,44 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_restrictMaxColumnWidth">
+        $restrictMaxColumnWidth
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_restrictMaxColumnWidth" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">149</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$restrictMaxColumnWidth</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
@@ -699,7 +756,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">152</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 
     </aside>
 
@@ -746,7 +803,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">290</span>
+    <span class="phpdocumentor-element-found-in__line">292</span>
 
     </aside>
 
@@ -788,7 +845,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">253</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
@@ -822,7 +879,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">656</span>
+    <span class="phpdocumentor-element-found-in__line">658</span>
 
     </aside>
 
@@ -900,7 +957,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">676</span>
+    <span class="phpdocumentor-element-found-in__line">678</span>
 
     </aside>
 
@@ -939,7 +996,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">770</span>
+    <span class="phpdocumentor-element-found-in__line">772</span>
 
     </aside>
 
@@ -977,7 +1034,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">636</span>
+    <span class="phpdocumentor-element-found-in__line">638</span>
 
     </aside>
 
@@ -1016,7 +1073,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">646</span>
+    <span class="phpdocumentor-element-found-in__line">648</span>
 
     </aside>
 
@@ -1097,7 +1154,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">666</span>
+    <span class="phpdocumentor-element-found-in__line">668</span>
 
     </aside>
 
@@ -1136,7 +1193,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">684</span>
+    <span class="phpdocumentor-element-found-in__line">686</span>
 
     </aside>
 
@@ -1211,6 +1268,44 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getRestrictMaxColumnWidth">
+        getRestrictMaxColumnWidth()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getRestrictMaxColumnWidth" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">842</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getRestrictMaxColumnWidth</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getSpreadsheet">
         getSpreadsheet()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getSpreadsheet" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1219,7 +1314,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">582</span>
+    <span class="phpdocumentor-element-found-in__line">584</span>
 
     </aside>
 
@@ -1258,7 +1353,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">608</span>
 
     </aside>
 
@@ -1297,7 +1392,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">616</span>
+    <span class="phpdocumentor-element-found-in__line">618</span>
 
     </aside>
 
@@ -1336,7 +1431,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">626</span>
+    <span class="phpdocumentor-element-found-in__line">628</span>
 
     </aside>
 
@@ -1414,7 +1509,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -1452,7 +1547,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">190</span>
 
     </aside>
 
@@ -1490,7 +1585,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
@@ -1528,7 +1623,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">198</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -1566,7 +1661,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
@@ -1604,7 +1699,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">208</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 
     </aside>
 
@@ -1642,7 +1737,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
+    <span class="phpdocumentor-element-found-in__line">215</span>
 
     </aside>
 
@@ -1680,7 +1775,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
     </aside>
 
@@ -1718,7 +1813,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 
     </aside>
 
@@ -1756,7 +1851,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">228</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
@@ -1794,7 +1889,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">238</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 
     </aside>
 
@@ -1832,7 +1927,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">233</span>
+    <span class="phpdocumentor-element-found-in__line">235</span>
 
     </aside>
 
@@ -1870,7 +1965,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 
     </aside>
 
@@ -1908,7 +2003,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">250</span>
 
     </aside>
 
@@ -1991,7 +2086,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">305</span>
+    <span class="phpdocumentor-element-found-in__line">307</span>
 
     </aside>
 
@@ -2047,7 +2142,7 @@ self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">780</span>
+    <span class="phpdocumentor-element-found-in__line">782</span>
 
     </aside>
 
@@ -2098,7 +2193,7 @@ with LibreOffice or Gnumeric.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">815</span>
+    <span class="phpdocumentor-element-found-in__line">817</span>
 
     </aside>
 
@@ -2207,7 +2302,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">696</span>
+    <span class="phpdocumentor-element-found-in__line">698</span>
 
     </aside>
 
@@ -2303,6 +2398,64 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setRestrictMaxColumnWidth">
+        setRestrictMaxColumnWidth()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setRestrictMaxColumnWidth" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">835</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Excel has a nominal width limint of 255 for a column.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setRestrictMaxColumnWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$restrictMaxColumnWidth</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Surprisingly, Xlsx can read and write larger values,
+and the file will appear as desired,
+but the User Interface does not allow you to set the width beyond 255,
+either directly or though auto-fit width.
+Xls sets its own value when the width is beyond 255.
+This method gets whether PhpSpreadsheet should restrict the
+column widths which it writes to the Excel limit, for formats
+which allow it to exceed 255.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$restrictMaxColumnWidth</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setSpreadsheet">
         setSpreadsheet()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setSpreadsheet" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2311,7 +2464,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">594</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
@@ -2362,7 +2515,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">787</span>
+    <span class="phpdocumentor-element-found-in__line">789</span>
 
     </aside>
 
@@ -2464,7 +2617,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">795</span>
+    <span class="phpdocumentor-element-found-in__line">797</span>
 
     </aside>
 
@@ -2692,6 +2845,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_fileHandle">$fileHandle</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_includeCharts">$includeCharts</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_preCalculateFormulas">$preCalculateFormulas</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_restrictMaxColumnWidth">$restrictMaxColumnWidth</a></li>
                                             </ul>
                 </li>
             
@@ -2711,6 +2865,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getNumFmtHashTable">getNumFmtHashTable()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getOffice2003Compatibility">getOffice2003Compatibility()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getPreCalculateFormulas">getPreCalculateFormulas()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getRestrictMaxColumnWidth">getRestrictMaxColumnWidth()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getSpreadsheet">getSpreadsheet()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getStringTable">getStringTable()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getStyleHashTable">getStyleHashTable()</a></li>
@@ -2737,6 +2892,7 @@ Nevertheless, default is set to false in PhpSpreadsheet 4.0.0.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setIncludeCharts">setIncludeCharts()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setOffice2003Compatibility">setOffice2003Compatibility()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setPreCalculateFormulas">setPreCalculateFormulas()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setRestrictMaxColumnWidth">setRestrictMaxColumnWidth()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setSpreadsheet">setSpreadsheet()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setUseCSEArrays">setUseCSEArrays()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_setUseDiskCaching">setUseDiskCaching()</a></li>

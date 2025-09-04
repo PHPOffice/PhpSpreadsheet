@@ -149,6 +149,12 @@
 <dd>Allow external images. Use with caution.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_CREATE_BLANK_SHEET_IF_NONE_READ">CREATE_BLANK_SHEET_IF_NONE_READ</a>
+    <span>
+        &nbsp;= 64                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_DONT_ALLOW_EXTERNAL_IMAGES">DONT_ALLOW_EXTERNAL_IMAGES</a>
     <span>
         &nbsp;= 32                            </span>
@@ -267,6 +273,14 @@ Returns either an array of worksheet names (the list of worksheets that should b
 <dd>Allow external images. Use with caution.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setCreateBlankSheetIfNoneRead">setCreateBlankSheetIfNoneRead()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+<dd>Create a blank sheet if none are read,
+possibly due to a typo when using LoadSheetsOnly.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setIncludeCharts">setIncludeCharts()</a>
     <span>
                                 &nbsp;: $this    </span>
@@ -354,6 +368,37 @@ Returns either an array of worksheet names (the list of worksheets that should b
 can subject the caller to security exploits.</p>
 </section>
 
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CREATE_BLANK_SHEET_IF_NONE_READ">
+        CREATE_BLANK_SHEET_IF_NONE_READ
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_CREATE_BLANK_SHEET_IF_NONE_READ" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">44</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CREATE_BLANK_SHEET_IF_NONE_READ</span>
+    = <span class="phpdocumentor-signature__default-value">64</span>
+</code>
+
+
+    
     
     
 
@@ -548,7 +593,7 @@ This can heavily improve performance for some files.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -582,7 +627,7 @@ This can heavily improve performance for some files.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -631,7 +676,7 @@ This can heavily improve performance for some files.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
@@ -669,7 +714,7 @@ This can heavily improve performance for some files.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -712,7 +757,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -753,7 +798,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
@@ -796,7 +841,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -838,7 +883,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -877,7 +922,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -914,7 +959,8 @@ self::IGNORE_EMPTY_CELLS  Don't read empty cells (cells that contain a null valu
 empty string, or a string containing only whitespace characters)
 self::IGNORE_ROWS_WITH_NO_CELLS    Don't load any rows that contain no cells.
 self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
-self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.</p>
+self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
+self::CREATE_BLANK_SHEET_IF_NONE_READ    If no sheets are read, create a blank one.</p>
 </section>
 
             </dd>
@@ -944,7 +990,7 @@ self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -988,6 +1034,56 @@ can subject the caller to security exploits.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setCreateBlankSheetIfNoneRead">
+        setCreateBlankSheetIfNoneRead()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setCreateBlankSheetIfNoneRead" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">158</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Create a blank sheet if none are read,
+possibly due to a typo when using LoadSheetsOnly.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setCreateBlankSheetIfNoneRead</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$createBlankSheetIfNoneRead</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$createBlankSheetIfNoneRead</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setIncludeCharts">
         setIncludeCharts()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setIncludeCharts" class="headerlink"><i class="fas fa-link"></i></a>
@@ -996,7 +1092,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -1049,7 +1145,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -1089,7 +1185,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
@@ -1142,7 +1238,7 @@ read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -1195,7 +1291,7 @@ read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1247,7 +1343,7 @@ read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">141</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -1406,6 +1502,7 @@ read all worksheets in the workbook</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_getReadFilter">getReadFilter()</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_load">load()</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setAllowExternalImages">setAllowExternalImages()</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setCreateBlankSheetIfNoneRead">setCreateBlankSheetIfNoneRead()</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setIncludeCharts">setIncludeCharts()</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setLoadAllSheets">setLoadAllSheets()</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setLoadSheetsOnly">setLoadSheetsOnly()</a></li>
@@ -1419,6 +1516,7 @@ read all worksheets in the workbook</p>
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_ALLOW_EXTERNAL_IMAGES">ALLOW_EXTERNAL_IMAGES</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_CREATE_BLANK_SHEET_IF_NONE_READ">CREATE_BLANK_SHEET_IF_NONE_READ</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_DONT_ALLOW_EXTERNAL_IMAGES">DONT_ALLOW_EXTERNAL_IMAGES</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_IGNORE_EMPTY_CELLS">IGNORE_EMPTY_CELLS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_IGNORE_ROWS_WITH_NO_CELLS">IGNORE_ROWS_WITH_NO_CELLS</a></li>

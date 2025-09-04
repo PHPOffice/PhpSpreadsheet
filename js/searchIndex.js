@@ -5948,8 +5948,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate\u003A\u003AsplitRange\u0028\u0029",
             "name": "splitRange",
-            "summary": "Split\u0020range\u0020into\u0020coordinate\u0020strings.",
+            "summary": "Split\u0020range\u0020into\u0020coordinate\u0020strings,\u0020using\u0020comma\u0020for\u0020union\nand\u0020ignoring\u0020intersection\u0020\u0028space\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_splitRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate\u003A\u003AallRanges\u0028\u0029",
+            "name": "allRanges",
+            "summary": "Split\u0020range\u0020into\u0020coordinate\u0020strings,\u0020resolving\u0020unions\u0020and\u0020intersections.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_allRanges"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate\u003A\u003AbuildRange\u0028\u0029",
             "name": "buildRange",
@@ -10961,6 +10966,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getAllowExternalImages"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\BaseReader\u003A\u003AsetCreateBlankSheetIfNoneRead\u0028\u0029",
+            "name": "setCreateBlankSheetIfNoneRead",
+            "summary": "Create\u0020a\u0020blank\u0020sheet\u0020if\u0020none\u0020are\u0020read,\npossibly\u0020due\u0020to\u0020a\u0020typo\u0020when\u0020using\u0020LoadSheetsOnly.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setCreateBlankSheetIfNoneRead"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\BaseReader\u003A\u003AgetSecurityScanner\u0028\u0029",
             "name": "getSecurityScanner",
             "summary": "",
@@ -11045,6 +11055,11 @@ Search.appendIndex(
             "name": "allowExternalImages",
             "summary": "Allow\u0020external\u0020images.\u0020Use\u0020with\u0020caution.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_allowExternalImages"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\BaseReader\u003A\u003A\u0024createBlankSheetIfNoneRead",
+            "name": "createBlankSheetIfNoneRead",
+            "summary": "Create\u0020a\u0020blank\u0020sheet\u0020if\u0020none\u0020are\u0020read,\npossibly\u0020due\u0020to\u0020a\u0020typo\u0020when\u0020using\u0020LoadSheetsOnly.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_createBlankSheetIfNoneRead"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\BaseReader\u003A\u003A\u0024readFilter",
             "name": "readFilter",
@@ -11776,6 +11791,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_getAllowExternalImages"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\IReader\u003A\u003AsetCreateBlankSheetIfNoneRead\u0028\u0029",
+            "name": "setCreateBlankSheetIfNoneRead",
+            "summary": "Create\u0020a\u0020blank\u0020sheet\u0020if\u0020none\u0020are\u0020read,\npossibly\u0020due\u0020to\u0020a\u0020typo\u0020when\u0020using\u0020LoadSheetsOnly.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setCreateBlankSheetIfNoneRead"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\IReader\u003A\u003Aload\u0028\u0029",
             "name": "load",
             "summary": "Loads\u0020PhpSpreadsheet\u0020from\u0020file.",
@@ -11810,6 +11830,11 @@ Search.appendIndex(
             "name": "DONT_ALLOW_EXTERNAL_IMAGES",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_DONT_ALLOW_EXTERNAL_IMAGES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\IReader\u003A\u003ACREATE_BLANK_SHEET_IF_NONE_READ",
+            "name": "CREATE_BLANK_SHEET_IF_NONE_READ",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_CREATE_BLANK_SHEET_IF_NONE_READ"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\IReadFilter",
             "name": "IReadFilter",
@@ -16676,6 +16701,11 @@ Search.appendIndex(
             "summary": "Assist\u0020with\u0020POST\u0020items\u0020when\u0020samples\u0020are\u0020run\u0020in\u0020browser.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertPostToString"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\StringHelper\u003A\u003AstringIncrement\u0028\u0029",
+            "name": "stringIncrement",
+            "summary": "Php\u0020introduced\u0020str_increment\u0020with\u0020Php8.3,\nbut\u0020didn\u0027t\u0020issue\u0020deprecation\u0020notices\u0020till\u00208.5.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_stringIncrement"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\TimeZone",
             "name": "TimeZone",
             "summary": "",
@@ -18706,6 +18736,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setColorScale"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AgetIconSet\u0028\u0029",
+            "name": "getIconSet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getIconSet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AsetIconSet\u0028\u0029",
+            "name": "setIconSet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setIconSet"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AgetHashCode\u0028\u0029",
             "name": "getHashCode",
             "summary": "Get\u0020hash\u0020code.",
@@ -18800,6 +18840,11 @@ Search.appendIndex(
             "name": "CONDITION_UNIQUE",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_UNIQUE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003ACONDITION_ICONSET",
+            "name": "CONDITION_ICONSET",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_ICONSET"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AOPERATOR_NONE",
             "name": "OPERATOR_NONE",
@@ -19480,6 +19525,161 @@ Search.appendIndex(
             "name": "setCellFormula",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_setCellFormula"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AgetGreaterThanOrEqual\u0028\u0029",
+            "name": "getGreaterThanOrEqual",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_getGreaterThanOrEqual"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AsetGreaterThanOrEqual\u0028\u0029",
+            "name": "setGreaterThanOrEqual",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_setGreaterThanOrEqual"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet",
+            "name": "ConditionalIconSet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AgetIconSetType\u0028\u0029",
+            "name": "getIconSetType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_getIconSetType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AsetIconSetType\u0028\u0029",
+            "name": "setIconSetType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_setIconSetType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AgetReverse\u0028\u0029",
+            "name": "getReverse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_getReverse"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AsetReverse\u0028\u0029",
+            "name": "setReverse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_setReverse"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AgetShowValue\u0028\u0029",
+            "name": "getShowValue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_getShowValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AsetShowValue\u0028\u0029",
+            "name": "setShowValue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_setShowValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AgetCustom\u0028\u0029",
+            "name": "getCustom",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_getCustom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AsetCustom\u0028\u0029",
+            "name": "setCustom",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_setCustom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AgetCfvos\u0028\u0029",
+            "name": "getCfvos",
+            "summary": "Get\u0020the\u0020conditional\u0020format\u0020value\u0020objects.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_getCfvos"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalIconSet\u003A\u003AsetCfvos\u0028\u0029",
+            "name": "setCfvos",
+            "summary": "Set\u0020the\u0020conditional\u0020format\u0020value\u0020objects.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalIconSet.html#method_setCfvos"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues",
+            "name": "IconSetValues",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeArrows",
+            "name": "ThreeArrows",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeArrows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeArrowsGray",
+            "name": "ThreeArrowsGray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeArrowsGray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeFlags",
+            "name": "ThreeFlags",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeFlags"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeTrafficLights1",
+            "name": "ThreeTrafficLights1",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeTrafficLights1"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeTrafficLights2",
+            "name": "ThreeTrafficLights2",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeTrafficLights2"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeSigns",
+            "name": "ThreeSigns",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeSigns"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeSymbols",
+            "name": "ThreeSymbols",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeSymbols"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AThreeSymbols2",
+            "name": "ThreeSymbols2",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_ThreeSymbols2"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFourArrows",
+            "name": "FourArrows",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FourArrows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFourArrowsGray",
+            "name": "FourArrowsGray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FourArrowsGray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFourRedToBlack",
+            "name": "FourRedToBlack",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FourRedToBlack"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFourRating",
+            "name": "FourRating",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FourRating"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFourTrafficLights",
+            "name": "FourTrafficLights",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FourTrafficLights"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFiveArrows",
+            "name": "FiveArrows",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FiveArrows"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFiveArrowsGray",
+            "name": "FiveArrowsGray",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FiveArrowsGray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFiveRating",
+            "name": "FiveRating",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FiveRating"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\IconSetValues\u003A\u003AFiveQuarters",
+            "name": "FiveQuarters",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-IconSetValues.html#enumcase_FiveQuarters"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\StyleMerger",
             "name": "StyleMerger",
@@ -23626,6 +23826,11 @@ Search.appendIndex(
             "summary": "Get\u0020Width.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_getWidth"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ColumnDimension\u003A\u003AgetWidthForOutput\u0028\u0029",
+            "name": "getWidthForOutput",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_getWidthForOutput"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ColumnDimension\u003A\u003AsetWidth\u0028\u0029",
             "name": "setWidth",
             "summary": "Set\u0020Width.",
@@ -23640,6 +23845,11 @@ Search.appendIndex(
             "name": "setAutoSize",
             "summary": "Set\u0020Auto\u0020Size.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_setAutoSize"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ColumnDimension\u003A\u003AEXCEL_MAX_WIDTH",
+            "name": "EXCEL_MAX_WIDTH",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#constant_EXCEL_MAX_WIDTH"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ColumnIterator",
             "name": "ColumnIterator",
@@ -25145,6 +25355,11 @@ Search.appendIndex(
             "name": "getSecurityDescriptor",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ProtectedRange.html#method_getSecurityDescriptor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ProtectedRange\u003A\u003AallRanges\u0028\u0029",
+            "name": "allRanges",
+            "summary": "Split\u0020range\u0020into\u0020coordinate\u0020strings.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-ProtectedRange.html#method_allRanges"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Protection",
             "name": "Protection",
@@ -27371,6 +27586,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_applyStylesFromArray"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AcopyFormula\u0028\u0029",
+            "name": "copyFormula",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_copyFormula"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003ABREAK_NONE",
             "name": "BREAK_NONE",
             "summary": "",
@@ -28236,10 +28456,20 @@ Search.appendIndex(
             "summary": "Save\u0020Spreadsheet\u0020to\u0020file.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_save"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Dompdf\u003A\u003AspecialErrorHandler\u0028\u0029",
+            "name": "specialErrorHandler",
+            "summary": "Temporary\u0020handler\u0020for\u0020Php8.5\u0020waiting\u0020for\u0020Dompdf\u0020release.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_specialErrorHandler"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Dompdf\u003A\u003A\u0024embedImages",
             "name": "embedImages",
             "summary": "embed\u0020images,\u0020or\u0020link\u0020to\u0020images.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#property_embedImages"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Dompdf\u003A\u003A\u0024temporaryVersionCheck",
+            "name": "temporaryVersionCheck",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#property_temporaryVersionCheck"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Mpdf",
             "name": "Mpdf",
@@ -29446,10 +29676,25 @@ Search.appendIndex(
             "summary": "If\u0020this\u0020is\u0020set\u0020when\u0020a\u0020spreadsheet\u0020is\u0020opened,\nvalues\u0020may\u0020not\u0020be\u0020automatically\u0020re\u002Dcalculated,\nand\u0020a\u0020button\u0020will\u0020be\u0020available\u0020to\u0020force\u0020re\u002Dcalculation.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setForceFullCalc"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AsetRestrictMaxColumnWidth\u0028\u0029",
+            "name": "setRestrictMaxColumnWidth",
+            "summary": "Excel\u0020has\u0020a\u0020nominal\u0020width\u0020limint\u0020of\u0020255\u0020for\u0020a\u0020column.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setRestrictMaxColumnWidth"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AgetRestrictMaxColumnWidth\u0028\u0029",
+            "name": "getRestrictMaxColumnWidth",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getRestrictMaxColumnWidth"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003ADEFAULT_FORCE_FULL_CALC",
             "name": "DEFAULT_FORCE_FULL_CALC",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#constant_DEFAULT_FORCE_FULL_CALC"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003A\u0024restrictMaxColumnWidth",
+            "name": "restrictMaxColumnWidth",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_restrictMaxColumnWidth"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\ZipStream0",
             "name": "ZipStream0",
