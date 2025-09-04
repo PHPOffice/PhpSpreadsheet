@@ -46,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Maximum column width. [PR #4581](https://github.com/PHPOffice/PhpSpreadsheet/pull/4581)
 - PrintArea after row/column delete. [Issue #2912](https://github.com/PHPOffice/PhpSpreadsheet/issues/2912) [PR #4598](https://github.com/PHPOffice/PhpSpreadsheet/pull/4598)
 - Remove deprecated imagedestroy call. [PR #4625](https://github.com/PHPOffice/PhpSpreadsheet/pull/4625)
+- Excel 2007 problem with newlines. [Issue #4619](https://github.com/PHPOffice/PhpSpreadsheet/issues/4619) [PR #4620](https://github.com/PHPOffice/PhpSpreadsheet/pull/4620)
+- Compatibility changes for Php 8.5. [PR #4601](https://github.com/PHPOffice/PhpSpreadsheet/pull/4601) [PR #4611](https://github.com/PHPOffice/PhpSpreadsheet/pull/4611)
 
 ## 2025-08-10 - 5.0.0
 
