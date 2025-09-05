@@ -1227,7 +1227,7 @@ class Xlsx extends BaseReader
                                                 // Set comment properties
                                                 $comment = $docSheet->getComment([$column + 1, $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
-                                                if (isset($drowingImages[$fillImageRelId])) {
+                                                if (isset($fillImageRelId, $drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
                                                     $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
