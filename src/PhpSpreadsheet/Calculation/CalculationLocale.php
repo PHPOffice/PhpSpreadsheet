@@ -63,6 +63,11 @@ class CalculationLocale extends CalculationBase
             $filename = substr($filename, strlen($localeFileDirectory));
             if ($filename != 'en') {
                 self::$validLocaleLanguages[] = $filename;
+                $subdirs = glob("$localeFileDirectory$filename/*", GLOB_ONLYDIR) ?: [];
+                foreach ($subdirs as $subdir) {
+                    $subdirx = basename($subdir);
+                    self::$validLocaleLanguages[] = "{$filename}_{$subdirx}";
+                }
             }
         }
     }

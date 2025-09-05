@@ -131,4 +131,14 @@ class StringHelperTest extends TestCase
         $this->expectExceptionMessage('Unable to convert to string');
         StringHelper::convertToString($dt);
     }
+
+    public function testNoIconv(): void
+    {
+        $string = "\xBF"; // inverted question mark in ISO-8859-1
+        $expected = '¿';
+        $from = 'ISO-8859-1';
+        $to = 'UTF-8';
+        self::assertSame($expected, StringHelper::convertEncoding($string, $to, $from));
+        self::assertSame($expected, StringHelperNoIconv::convertEncoding($string, $to, $from));
+    }
 }

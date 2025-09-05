@@ -59,6 +59,18 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $sheet->getCell('G1')->setValue('=1+2');
 
         $reloaded = $this->writeAndReload($spreadsheet, 'Html');
+        $falseTrue = Calculation::getInstance($spreadsheet)->getFalseTrueArray();
+        $countPortTrue = 0;
+        $portTrue = 'VERDADEIRO';
+        $portFalse = 'FALSO';
+        $countArray = count($falseTrue[1]);
+        for ($i = 0; $i < $countArray; ++$i) {
+            if ($falseTrue[1][$i] === $portTrue) {
+                ++$countPortTrue;
+                self::assertSame($portFalse, $falseTrue[0][$i]);
+            }
+        }
+        self::assertSame(2, $countPortTrue, '1 for pt, 1 for pt-br');
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
