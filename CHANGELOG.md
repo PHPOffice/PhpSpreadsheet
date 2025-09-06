@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ### Fixed
 
- - Php8.5 deprecates use of null as array index. [PR #4618](https://github.com/PHPOffice/PhpSpreadsheet/pull/4618)
+ - Php8.5 deprecates use of null as array index. [PR #4636](https://github.com/PHPOffice/PhpSpreadsheet/pull/4636)
 
 ## 2025-09-03 - 3.10.1
 
