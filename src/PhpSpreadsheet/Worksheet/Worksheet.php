@@ -380,8 +380,18 @@ class Worksheet
         unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
-    public function __wakeup(): void
+    /** @return array<string, mixed> */
+    public function __serialize(): array
     {
+        return get_object_vars($this);
+    }
+
+    /** @param array<string, mixed> $data */
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }
         $this->hash = spl_object_id($this);
     }
 
