@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
 
 ## 2025-09-03 - 5.1.0
 
