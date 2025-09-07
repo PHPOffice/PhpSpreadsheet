@@ -888,7 +888,7 @@ class Calculation extends CalculationLocale
                 }
             }
             if ($matrix1Rows < $matrix2Rows) {
-                $x = ($matrix1Rows === 1) ? $matrix1[0] : array_fill(0, $matrix1Columns, null);
+                $x = ($matrix1Rows === 1) ? $matrix1[0] : array_fill(0, $matrix2Columns, null);
                 for ($i = $matrix1Rows; $i < $matrix2Rows; ++$i) {
                     $matrix1[$i] = $x;
                 }
