@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eebf758015c7124f27782196c50a3253",
+    "content-hash": "bdd52c7e8b5927c46d3962857f7bb48d",
     "packages": [
         {
             "name": "composer/pcre",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.4.4",
+            "version": "10.5.0-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "9ad8e2fcc30f765c788a28543e9705fb541d499f"
+                "reference": "2a9c57a91f8e9460af5ffafe780355890711f36f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/9ad8e2fcc30f765c788a28543e9705fb541d499f",
-                "reference": "9ad8e2fcc30f765c788a28543e9705fb541d499f",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/2a9c57a91f8e9460af5ffafe780355890711f36f",
+                "reference": "2a9c57a91f8e9460af5ffafe780355890711f36f",
                 "shasum": ""
             },
             "require": {
@@ -1269,16 +1269,16 @@
                     "role": "Composer package maintenance, PHP-compatibility patches"
                 }
             ],
-            "description": "JpGraph library composer package with PHP 8.4 support",
+            "description": "JpGraph library composer package with PHP 8.5 support",
             "homepage": "https://github.com/mitoteam/jpgraph",
             "keywords": [
                 "jpgraph"
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.4.4"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.5.0-beta"
             },
-            "time": "2025-01-01T05:39:20+00:00"
+            "time": "2025-08-19T05:32:34+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -5644,7 +5644,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dealerdirect/phpcodesniffer-composer-installer": 20
+        "dealerdirect/phpcodesniffer-composer-installer": 20,
+        "mitoteam/jpgraph": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -5664,7 +5665,7 @@
         "ext-zip": "*",
         "ext-zlib": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1.99"
     },
