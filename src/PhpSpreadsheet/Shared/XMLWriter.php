@@ -39,6 +39,7 @@ class XMLWriter extends \XMLWriter
             if (empty($this->tempFileName) || $this->openUri($this->tempFileName) === false) {
                 // Fallback to memory...
                 $this->openMemory();
+                $this->tempFileName = '';
             }
         }
 
