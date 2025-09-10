@@ -25,11 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Worksheet::getHashInt serves no useful purpose. No replacement.
+- Spreadsheet::getId serves no useful purpose. No replacement.
 
 ### Fixed
 
 - Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
+- For Php8.5, replace one of our two uses of `__wakeup` with `__unserialize`, and eliminate the other. [PR #4639](https://github.com/PHPOffice/PhpSpreadsheet/pull/4639)
 
 ## 2025-09-03 - 5.1.0
 

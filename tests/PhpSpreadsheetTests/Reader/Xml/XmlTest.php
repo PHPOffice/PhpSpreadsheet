@@ -57,7 +57,6 @@ class XmlTest extends TestCase
 
         $xmlReader = new Xml();
         $spreadsheet = @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
-        self::assertNotSame('', $spreadsheet->getID());
     }
 
     public function testListWorksheetNamesCorruptedFile(): void
