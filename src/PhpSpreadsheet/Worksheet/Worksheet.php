@@ -3310,11 +3310,7 @@ class Worksheet
         }
 
         // Cache values
-        if ($highestColumn < 1) {
-            $this->cachedHighestColumn = 1;
-        } else {
-            $this->cachedHighestColumn = $highestColumn;
-        }
+        $this->cachedHighestColumn = max(1, $highestColumn);
         /** @var int $highestRow */
         $this->cachedHighestRow = $highestRow;
 
