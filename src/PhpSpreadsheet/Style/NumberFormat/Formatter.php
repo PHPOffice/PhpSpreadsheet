@@ -119,10 +119,11 @@ class Formatter extends BaseFormatter
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
      * @param null|array<mixed>|callable $callBack Callback function for additional formatting of string
+     * @param bool $lessFloatPrecision If true, unstyled floats will be converted to a more human-friendly but less computationally accurate value
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, string $format, null|array|callable $callBack = null): string
+    public static function toFormattedString($value, string $format, null|array|callable $callBack = null, bool $lessFloatPrecision = false): string
     {
         while (is_array($value)) {
             $value = array_shift($value);
@@ -135,13 +136,13 @@ class Formatter extends BaseFormatter
         $formatx = str_replace('\"', self::QUOTE_REPLACEMENT, $format);
         if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
             if (!str_contains($format, '"')) {
-                return str_replace('@', StringHelper::convertToString($value), $format);
+                return str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
             }
             //escape any dollar signs on the string, so they are not replaced with an empty value
             $value = str_replace(
                 ['$', '"'],
                 ['\$', self::QUOTE_REPLACEMENT],
-                StringHelper::convertToString($value)
+                StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision)
             );
 
             return str_replace(
@@ -153,14 +154,18 @@ class Formatter extends BaseFormatter
 
         // If we have a text value, return it "as is"
         if (!is_numeric($value)) {
-            return StringHelper::convertToString($value);
+            return StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision);
         }
 
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
         // it seems to round numbers to a total of 10 digits.
         if (($format === NumberFormat::FORMAT_GENERAL) || ($format === NumberFormat::FORMAT_TEXT)) {
+            if (is_float($value) && $lessFloatPrecision) {
+                return self::adjustSeparators((string) $value);
+            }
+
             return self::adjustSeparators(
-                StringHelper::convertToString($value)
+                StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision)
             );
         }
 
