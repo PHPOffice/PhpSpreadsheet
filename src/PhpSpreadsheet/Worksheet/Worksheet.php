@@ -3286,9 +3286,9 @@ class Worksheet
         $this->garbageCollect();
         $this->calculateArrays($calculateFormulas);
 
-        //    Identify the range that we need to extract from the worksheet
-        $maxCol = $this->getHighestColumn();
-        $maxRow = $this->getHighestRow();
+        // Identify the range that we need to extract from the worksheet
+        $maxCol = $this->getHighestDataColumn();
+        $maxRow = $this->getHighestDataRow();
 
         // Return
         return $this->rangeToArray("A1:{$maxCol}{$maxRow}", $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays);
