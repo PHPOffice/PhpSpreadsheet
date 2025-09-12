@@ -66,6 +66,8 @@ class FunctionPrefix
         . '|var[.]s'
         . '|weibull[.]dist'
         . '|z[.]test'
+        // probably added with Excel 2010 but not properly documented
+        . '|base'
         // functions added with Excel 2013
         . '|acot'
         . '|acoth'

@@ -1079,7 +1079,8 @@ class Xlsx extends BaseReader
                                             $childNode = $node->addChild('formula1');
                                             if ($childNode !== null) { // null should never happen
                                                 // see https://github.com/phpstan/phpstan/issues/8236
-                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                                // resolved with Phpstan 2.1.23
+                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f;
                                             }
                                         }
                                     }
