@@ -80,10 +80,10 @@ class ColumnAndRowAttributes extends BaseParserClass
         }
     }
 
-    public function load(?IReadFilter $readFilter = null, bool $readDataOnly = false, bool $ignoreRowsWithNoCells = false): void
+    public function load(?IReadFilter $readFilter = null, bool $readDataOnly = false, bool $ignoreRowsWithNoCells = false): bool
     {
         if ($this->worksheetXml === null) {
-            return;
+            return false;
         }
         if ($readFilter !== null && $readFilter::class === DefaultReadFilter::class) {
             $readFilter = null;
@@ -127,6 +127,8 @@ class ColumnAndRowAttributes extends BaseParserClass
                 }
             }
         }
+
+        return true;
     }
 
     /** @param mixed[] $rowsAttributes */
