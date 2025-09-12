@@ -274,7 +274,8 @@ class Rule
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
-            $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]);
+            //    I have no idea what Phpstan is complaining about below
+            $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]); // @phpstan-ignore-line
         }
         $this->value = $value;
 

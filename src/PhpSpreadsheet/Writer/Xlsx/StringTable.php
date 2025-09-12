@@ -35,6 +35,7 @@ class StringTable extends WriterPart
         foreach ($worksheet->getCellCollection()->getCoordinates() as $coordinate) {
             /** @var Cell $cell */
             $cell = $worksheet->getCellCollection()->get($coordinate);
+            /** @var null|int|RichText|string */
             $cellValue = $cell->getValue();
             if (
                 !is_object($cellValue)

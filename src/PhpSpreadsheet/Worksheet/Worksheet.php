@@ -3005,6 +3005,7 @@ class Worksheet
 
         // Loop through rows
         foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays) as $rowRef => $rowArray) {
+            /** @var int $rowRef */
             $returnValue[$rowRef] = $rowArray;
         }
 
@@ -3040,6 +3041,7 @@ class Worksheet
         foreach ($parts as $part) {
             // Loop through rows
             foreach ($this->rangeToArrayYieldRows($part, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays) as $rowRef => $rowArray) {
+                /** @var int $rowRef */
                 $returnValue[$rowRef] = $rowArray;
             }
         }

@@ -327,7 +327,7 @@ class LocaleGenerator
             foreach ($cells as $cell) {
                 if ($cell->getValue() != '') {
                     $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
-                    $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
+                    $this->errorCodeMap[$cell->getValueString()] = $cell->getRow();
                 }
             }
         }
@@ -345,7 +345,7 @@ class LocaleGenerator
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
                         $this->log('CATEGORY: ' . $cell->getValueString());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
 
                     continue;
@@ -356,7 +356,7 @@ class LocaleGenerator
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
                     } else {
                         $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
                 }
             }
