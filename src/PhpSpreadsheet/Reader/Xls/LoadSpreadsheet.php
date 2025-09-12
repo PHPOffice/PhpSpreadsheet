@@ -549,6 +549,7 @@ class LoadSpreadsheet extends Xls
                 foreach ($xls->sharedFormulaParts as $cell => $baseCell) {
                     /** @var int $row */
                     [$column, $row] = Coordinate::coordinateFromString($cell);
+                    /** @var string $baseCell */
                     if ($xls->getReadFilter()->readCell($column, $row, $xls->phpSheet->getTitle())) {
                         /** @var string */
                         $temp = $xls->sharedFormulas[$baseCell];

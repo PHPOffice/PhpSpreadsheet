@@ -1699,7 +1699,7 @@ class Calculation extends CalculationLocale
                         return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                     }
                 }
-            } elseif (!is_numeric($token) && !is_object($token) && isset($token, self::BINARY_OPERATORS[$token])) {
+            } elseif (!is_numeric($token) && !is_object($token) && isset($token, self::BINARY_OPERATORS[$token])) { //* @phpstan-ignore-line
                 // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
                 //    We must have two operands, error if we don't
                 $operand2Data = $stack->pop();
@@ -2879,6 +2879,7 @@ class Calculation extends CalculationLocale
         if ($stack->count() > 0) {
             $o2 = $stack->last();
             if ($o2) {
+                /** @var array{value: string} $o2 */
                 if (isset(self::CALCULATION_OPERATORS[$o2['value']])) {
                     $retVal = (self::OPERATOR_PRECEDENCE[$opCharacter] ?? 0) <= self::OPERATOR_PRECEDENCE[$o2['value']];
                 }

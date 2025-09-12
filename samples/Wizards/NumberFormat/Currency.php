@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
         $helper->log('Unrecognized currency symbol');
     } else {
         try {
-            $negative = $negatives[$_POST['negative']] ?? CurrencyNegative::minus;
+            $negative = $negatives[$_POST['negative']] ?? CurrencyNegative::minus; //* @phpstan-ignore-line
             $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $wizard->setNegative($negative);
             $mask = $wizard->format();
@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
                 . ');'
             );
-            $helper->log('$wizard->setNegative(' . $negativesString[$_POST['negative']] . ');');
+            $helper->log('$wizard->setNegative(' . $negativesString[$_POST['negative']] . ');'); //* @phpstan-ignore-line
             $helper->log('$mask = $wizard->format();');
             $helper->log('<br />echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');

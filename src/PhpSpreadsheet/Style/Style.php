@@ -400,6 +400,7 @@ class Style extends Supervisor
                     }
 
                     // Find existing style by hash.
+                    /** @var string $styleHash */
                     $existingStyle = self::$cachedStyles['styleByHash'][$styleHash] ?? null;
 
                     if (!$existingStyle) {
