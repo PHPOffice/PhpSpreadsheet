@@ -2647,7 +2647,14 @@ class Xls extends XlsBase
             $useDefaultHeight = (0x8000 & self::getUInt2d($recordData, 6)) >> 15;
 
             if (!$useDefaultHeight) {
-                $this->phpSheet->getRowDimension($r + 1)->setRowHeight($height / 20);
+                if (
+                    $this->phpSheet->getDefaultRowDimension()->getRowHeight() > 0
+                ) {
+                    $this->phpSheet->getRowDimension($r + 1)
+                        ->setCustomFormat(true, ($height === 255) ? -1 : ($height / 20));
+                } else {
+                    $this->phpSheet->getRowDimension($r + 1)->setRowHeight($height / 20);
+                }
             }
 
             // offset: 8; size: 2; not used
