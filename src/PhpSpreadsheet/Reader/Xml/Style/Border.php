@@ -85,6 +85,7 @@ class Border extends StyleBase
                 }
             }
 
+            /** @var int|string $borderPosition */
             if ($borderPosition) {
                 $style['borders'][$borderPosition] = $thisBorder;
             } elseif ($diagonalDirection) {
@@ -99,6 +100,7 @@ class Border extends StyleBase
     /** @return mixed[] */
     protected function parsePosition(string $borderStyleValue, string $diagonalDirection): array
     {
+        // TODO diagonalDirection seems to return int not string
         $borderStyleValue = strtolower($borderStyleValue);
 
         if (in_array($borderStyleValue, self::BORDER_POSITIONS)) {

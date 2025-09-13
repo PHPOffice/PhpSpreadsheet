@@ -307,11 +307,6 @@ class Worksheet
     private ?Color $tabColor = null;
 
     /**
-     * Hash.
-     */
-    private int $hash;
-
-    /**
      * CodeName.
      */
     private ?string $codeName = null;
@@ -323,7 +318,6 @@ class Worksheet
     {
         // Set parent and title
         $this->parent = $parent;
-        $this->hash = spl_object_id($this);
         $this->setTitle($title, false);
         // setTitle can change $pTitle
         $this->setCodeName($this->getTitle());
@@ -378,11 +372,6 @@ class Worksheet
 
         $this->disconnectCells();
         unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
-    }
-
-    public function __wakeup(): void
-    {
-        $this->hash = spl_object_id($this);
     }
 
     /**
@@ -3012,6 +3001,7 @@ class Worksheet
 
         // Loop through rows
         foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays, $lessFloatPrecision) as $rowRef => $rowArray) {
+            /** @var int $rowRef */
             $returnValue[$rowRef] = $rowArray;
         }
 
@@ -3050,6 +3040,7 @@ class Worksheet
         foreach ($parts as $part) {
             // Loop through rows
             foreach ($this->rangeToArrayYieldRows($part, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays, $lessFloatPrecision) as $rowRef => $rowArray) {
+                /** @var int $rowRef */
                 $returnValue[$rowRef] = $rowArray;
             }
         }
@@ -3113,9 +3104,30 @@ class Worksheet
 
             $index = ($row - 1) * AddressRange::MAX_COLUMN_INT + 1;
             $indexPlus = $index + AddressRange::MAX_COLUMN_INT - 1;
+
+            // Binary search to quickly approach the correct index
+            $keyIndex = intdiv($keysCount, 2);
+            $boundLow = 0;
+            $boundHigh = $keysCount - 1;
+            while ($boundLow <= $boundHigh) {
+                $keyIndex = intdiv($boundLow + $boundHigh, 2);
+                if ($keys[$keyIndex] < $index) {
+                    $boundLow = $keyIndex + 1;
+                } elseif ($keys[$keyIndex] > $index) {
+                    $boundHigh = $keyIndex - 1;
+                } else {
+                    break;
+                }
+            }
+
+            // Realign to the proper index value
+            while ($keyIndex > 0 && $keys[$keyIndex] > $index) {
+                --$keyIndex;
+            }
             while ($keyIndex < $keysCount && $keys[$keyIndex] < $index) {
                 ++$keyIndex;
             }
+
             while ($keyIndex < $keysCount && $keys[$keyIndex] <= $indexPlus) {
                 $key = $keys[$keyIndex];
                 $thisRow = intdiv($key - 1, AddressRange::MAX_COLUMN_INT) + 1;
@@ -3202,7 +3214,7 @@ class Worksheet
 
         if ($namedRange->getLocalOnly()) {
             $worksheet = $namedRange->getWorksheet();
-            if ($worksheet === null || $this->hash !== $worksheet->getHashInt()) {
+            if ($worksheet === null || $this !== $worksheet) {
                 if ($returnNullIfInvalid) {
                     return null;
                 }
@@ -3340,11 +3352,7 @@ class Worksheet
         }
 
         // Cache values
-        if ($highestColumn < 1) {
-            $this->cachedHighestColumn = 1;
-        } else {
-            $this->cachedHighestColumn = $highestColumn;
-        }
+        $this->cachedHighestColumn = max(1, $highestColumn);
         /** @var int $highestRow */
         $this->cachedHighestRow = $highestRow;
 
@@ -3352,9 +3360,14 @@ class Worksheet
         return $this;
     }
 
+    /**
+     * @deprecated 5.2.0 Serves no useful purpose. No replacement.
+     *
+     * @codeCoverageIgnore
+     */
     public function getHashInt(): int
     {
-        return $this->hash;
+        return spl_object_id($this);
     }
 
     /**
@@ -3741,7 +3754,6 @@ class Worksheet
                 }
             }
         }
-        $this->hash = spl_object_id($this);
     }
 
     /**

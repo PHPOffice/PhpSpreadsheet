@@ -83,4 +83,28 @@ class XmlWriterTest extends TestCase
         $expected .= '</root>' . $indentnl;
         self::assertSame($expected, $objWriter->getData());
     }
+
+    public function testFallbackToMemory(): void
+    {
+        XMLWriter::$debugEnabled = false;
+        $indent = '';
+        $indentnl = '';
+        $objWriter = new XMLWriterNoUri(XMLWriter::STORAGE_DISK);
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
+        $expected = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n";
+        $objWriter->startElement('root');
+        $expected .= '<root>' . $indentnl;
+        $objWriter->startElement('node');
+        $expected .= $indent . '<node>';
+        $objWriter->writeRawData('xyz');
+        $expected .= 'xyz';
+        $objWriter->writeRawData(null);
+        $objWriter->writeRawData(['12', '34', '5']);
+        $expected .= "12\n34\n5";
+        $objWriter->endElement(); // node
+        $expected .= '</node>' . $indentnl;
+        $objWriter->endElement(); // root
+        $expected .= '</root>' . $indentnl;
+        self::assertSame($expected, $objWriter->getData());
+    }
 }
