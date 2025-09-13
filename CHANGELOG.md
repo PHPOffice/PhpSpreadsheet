@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
 
 ### Removed
 
