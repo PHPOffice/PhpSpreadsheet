@@ -76,4 +76,20 @@ class ToArrayTest extends TestCase
         self::assertSame('start', $array[0][0]);
         self::assertSame('end', $array[0][16383]);
     }
+
+    public static function testToArrayConsidersValuesButNotFormatting(): void
+    {
+         $spreadsheet = new Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet();
+
+         $sheet->getCell('A1')->setValue('hello');
+         $array = $sheet->toArray(null, false, false, false, false);
+         self::assertSame([['hello']], $array);
+
+         // Create column dimension object that didn't exist yet
+         $sheet->getColumnDimension('C');
+         $array = $sheet->toArray(null, false, false, false, false);
+         // Yet there should be no column C in the export
+         self::assertSame([['hello']], $array);
+    }
 }
