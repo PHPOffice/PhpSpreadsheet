@@ -6,9 +6,6 @@ use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 
 class RowDimension extends Dimension
 {
-    /**
-     * Row index.
-     */
     private ?int $rowIndex;
 
     /**
@@ -23,9 +20,9 @@ class RowDimension extends Dimension
      */
     private bool $zeroHeight = false;
 
+    private bool $customFormat = false;
+
     /**
-     * Create a new RowDimension.
-     *
      * @param ?int $index Numeric row index
      */
     public function __construct(?int $index = 0)
@@ -37,19 +34,11 @@ class RowDimension extends Dimension
         parent::__construct(null);
     }
 
-    /**
-     * Get Row Index.
-     */
     public function getRowIndex(): ?int
     {
         return $this->rowIndex;
     }
 
-    /**
-     * Set Row Index.
-     *
-     * @return $this
-     */
     public function setRowIndex(int $index): static
     {
         $this->rowIndex = $index;
@@ -76,34 +65,40 @@ class RowDimension extends Dimension
      * @param float $height in points. A value of -1 tells Excel to display this column in its default height.
      * By default, this will be the passed argument value; but this method also accepts an optional unit of measure
      *    argument, and will convert the passed argument value to points from the specified UoM
-     *
-     * @return $this
      */
     public function setRowHeight(float $height, ?string $unitOfMeasure = null): static
     {
         $this->height = ($unitOfMeasure === null || $height < 0)
             ? $height
             : (new CssDimension("{$height}{$unitOfMeasure}"))->height();
+        $this->customFormat = false;
 
         return $this;
     }
 
-    /**
-     * Get ZeroHeight.
-     */
     public function getZeroHeight(): bool
     {
         return $this->zeroHeight;
     }
 
-    /**
-     * Set ZeroHeight.
-     *
-     * @return $this
-     */
     public function setZeroHeight(bool $zeroHeight): static
     {
         $this->zeroHeight = $zeroHeight;
+
+        return $this;
+    }
+
+    public function getCustomFormat(): bool
+    {
+        return $this->customFormat;
+    }
+
+    public function setCustomFormat(bool $customFormat, ?float $height = -1): self
+    {
+        $this->customFormat = $customFormat;
+        if ($height !== null) {
+            $this->height = $height;
+        }
 
         return $this;
     }
