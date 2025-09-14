@@ -133,6 +133,11 @@ class XlsBase extends BaseReader
      */
     protected string $codepage = '';
 
+    /**
+     * @deprecated 5.2.0 Serves no useful purpose. No replacement.
+     *
+     * @codeCoverageIgnore
+     */
     public function setCodepage(string $codepage): void
     {
         if (CodePage::validate($codepage) === false) {

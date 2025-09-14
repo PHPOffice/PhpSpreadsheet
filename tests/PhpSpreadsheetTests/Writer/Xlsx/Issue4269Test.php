@@ -36,10 +36,13 @@ class Issue4269Test extends TestCase
         $sheet->setCellValue('A2', 0);
 
         $writer = new XlsxWriter($spreadsheet);
-        $writer->setPreCalculateFormulas($preCalculateFormulas);
         $writer->setForceFullCalc($forceFullCalc);
         $this->outputFile = File::temporaryFilename();
-        $writer->save($this->outputFile);
+        if ($preCalculateFormulas) {
+            $writer->save($this->outputFile);
+        } else {
+            $writer->save($this->outputFile, XlsxWriter::DISABLE_PRECALCULATE_FORMULAE);
+        }
         $spreadsheet->disconnectWorksheets();
 
         $file = 'zip://';

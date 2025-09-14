@@ -727,13 +727,13 @@ class Html extends BaseReader
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
-            $convert = self::replaceNonAsciiIfNeeded($convert);
+            $convert = static::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load ' . $filename . ' as a DOM Document', 0, $e ?? null);
+            throw new Exception('Failed to load file ' . $filename . ' as a DOM Document', 0, $e ?? null);
         }
         self::loadProperties($dom, $spreadsheet);
 
@@ -821,7 +821,7 @@ class Html extends BaseReader
         return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
     }
 
-    private static function replaceNonAsciiIfNeeded(string $convert): ?string
+    protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
         if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
             $lowend = "\u{80}";
@@ -846,7 +846,7 @@ class Html extends BaseReader
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);
-            $convert = self::replaceNonAsciiIfNeeded($convert);
+            $convert = static::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
@@ -1111,7 +1111,7 @@ class Html extends BaseReader
         if (!isset($attributes['src'])) {
             return;
         }
-        $styleArray = self::getStyleArray($attributes);
+        $styleArray = self::getStyleArray($attributes, null);
 
         $src = $attributes['src'];
         if (substr($src, 0, 5) !== 'data:') {
@@ -1169,7 +1169,7 @@ class Html extends BaseReader
      *
      * @return mixed[]
      */
-    private static function getStyleArray(array $attributes): array
+    private static function getStyleArray(array $attributes, ?string $defaultAbsoluteUnit = CssDimension::ABSOLUTE_DEFAULT_UNIT): array
     {
         $styleArray = [];
         if (isset($attributes['style'])) {
@@ -1183,13 +1183,13 @@ class Html extends BaseReader
                         if (substr($arrayValue, -2) === 'px') {
                             $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
                         } else {
-                            $arrayValue = (new CssDimension($arrayValue))->width();
+                            $arrayValue = (new CssDimension($arrayValue, $defaultAbsoluteUnit))->width();
                         }
                     } elseif ($arrayKey === 'height') {
                         if (substr($arrayValue, -2) === 'px') {
                             $arrayValue = substr($arrayValue, 0, -2);
                         } else {
-                            $arrayValue = (new CssDimension($arrayValue))->height();
+                            $arrayValue = (new CssDimension($arrayValue, $defaultAbsoluteUnit))->height();
                         }
                     }
                     $styleArray[$arrayKey] = $arrayValue;
