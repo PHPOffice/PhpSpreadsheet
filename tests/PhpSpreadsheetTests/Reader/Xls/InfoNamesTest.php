@@ -117,6 +117,17 @@ class InfoNamesTest extends TestCase
         self::assertContains($reader->getCodepage(), self::MAC_CE);
     }
 
+    public function testWorksheetNamesBiff5Special(): void
+    {
+        // Sadly, no unit test was added for PR #1484,
+        // so we have to invent a fake one now.
+        $reader = new XlsSpecialCodePage();
+        $reader->setCodePage('CP855'); // use Cyrillic rather than MACCENTRAL
+        $names = $reader->listWorksheetNames(self::MAC_FILE5);
+        $expected = ['ђrkusz1']; // first character interpreted as Cyrillic
+        self::assertSame($expected, $names);
+    }
+
     public function testLoadMacCentralEuropeBiff5(): void
     {
         $reader = new Xls();

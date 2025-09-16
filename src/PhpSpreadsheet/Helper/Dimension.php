@@ -14,7 +14,6 @@ class Dimension
     public const UOM_PIXELS = 'px';
     public const UOM_POINTS = 'pt';
     public const UOM_PICA = 'pc';
-    public const ABSOLUTE_DEFAULT_UNIT = 'px';
 
     /**
      * Based on 96 dpi.
@@ -53,7 +52,7 @@ class Dimension
 
     protected ?string $unit = null;
 
-    public function __construct(string $dimension, ?string $absoluteDefaultUnit = self::ABSOLUTE_DEFAULT_UNIT)
+    public function __construct(string $dimension)
     {
         $size = 0.0;
         $unit = '';
@@ -66,7 +65,7 @@ class Dimension
         // If a UoM is specified, then convert the size to pixels for internal storage
         if (isset(self::ABSOLUTE_UNITS[$unit])) {
             $size *= self::ABSOLUTE_UNITS[$unit];
-            $this->unit = $absoluteDefaultUnit;
+            $this->unit = self::UOM_PIXELS;
         } elseif (isset(self::RELATIVE_UNITS[$unit])) {
             $size *= self::RELATIVE_UNITS[$unit];
             $size = round($size, 4);

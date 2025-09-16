@@ -1111,7 +1111,7 @@ class Html extends BaseReader
         if (!isset($attributes['src'])) {
             return;
         }
-        $styleArray = self::getStyleArray($attributes, null);
+        $styleArray = self::getStyleArray($attributes);
 
         $src = $attributes['src'];
         if (substr($src, 0, 5) !== 'data:') {
@@ -1169,7 +1169,7 @@ class Html extends BaseReader
      *
      * @return mixed[]
      */
-    private static function getStyleArray(array $attributes, ?string $defaultAbsoluteUnit = CssDimension::ABSOLUTE_DEFAULT_UNIT): array
+    private static function getStyleArray(array $attributes): array
     {
         $styleArray = [];
         if (isset($attributes['style'])) {
@@ -1183,13 +1183,13 @@ class Html extends BaseReader
                         if (substr($arrayValue, -2) === 'px') {
                             $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
                         } else {
-                            $arrayValue = (new CssDimension($arrayValue, $defaultAbsoluteUnit))->width();
+                            $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
                         }
                     } elseif ($arrayKey === 'height') {
                         if (substr($arrayValue, -2) === 'px') {
                             $arrayValue = substr($arrayValue, 0, -2);
                         } else {
-                            $arrayValue = (new CssDimension($arrayValue, $defaultAbsoluteUnit))->height();
+                            $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
                         }
                     }
                     $styleArray[$arrayKey] = $arrayValue;
