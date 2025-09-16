@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PHPUnit\Framework\TestCase;
@@ -126,6 +127,14 @@ class InfoNamesTest extends TestCase
         $names = $reader->listWorksheetNames(self::MAC_FILE5);
         $expected = ['ђrkusz1']; // first character interpreted as Cyrillic
         self::assertSame($expected, $names);
+    }
+
+    public function testBadCodePage(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('Unknown codepage');
+        $reader = new Xls();
+        $reader->setCodePage('XXXCP855');
     }
 
     public function testLoadMacCentralEuropeBiff5(): void
