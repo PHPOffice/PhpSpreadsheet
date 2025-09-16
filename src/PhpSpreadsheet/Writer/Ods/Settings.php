@@ -88,9 +88,7 @@ class Settings extends WriterPart
         $objWriter->writeAttribute('config:name', $worksheet->getTitle());
 
         $this->writeSelectedCells($objWriter, $worksheet);
-        if ($worksheet->getFreezePane() !== null) {
-            $this->writeFreezePane($objWriter, $worksheet);
-        }
+        $this->writeFreezePane($objWriter, $worksheet);
 
         $objWriter->endElement(); // config:config-item-map-entry Worksheet
     }
@@ -125,7 +123,7 @@ class Settings extends WriterPart
 
     private function writeFreezePane(XMLWriter $objWriter, Worksheet $worksheet): void
     {
-        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane() ?? '');
+        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane() ?? 'A1');
         if ($freezePane->cellAddress() === 'A1') {
             return;
         }

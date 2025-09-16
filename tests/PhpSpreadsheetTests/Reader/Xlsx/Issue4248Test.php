@@ -28,6 +28,7 @@ class Issue4248Test extends TestCase
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($file);
         $writer = new XlsxWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $this->outfile = File::temporaryFilename();
         $writer->save($this->outfile);
         $spreadsheet->disconnectWorksheets();
