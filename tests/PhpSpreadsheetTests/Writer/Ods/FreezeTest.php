@@ -19,20 +19,20 @@ class FreezeTest extends TestCase
             ['A', 'B', 'C', 'D'],
             [1, 2, 3, 4],
         ]);
-        $sheet->freezePane('A2');
+        $sheet->freezePane('B2');
         $writer = new OdsWriter($spreadsheet);
         $writerSettings = new OdsWriter\Settings($writer);
         $settings = $writerSettings->write();
         // The items we are particular interested in below are:
-        // HorizontalSplitMode, HorizontalSplitPosition
-        // VerticalSplitMode, VerticalSplitPosition
+        // HorizontalSplitMode, HorizontalSplitPosition, PositionLeft, PositionRight
+        // VerticalSplitMode, VerticalSplitPosition, PositionTop, PositionBottom
         $expected = '<config:config-item-map-entry config:name="Worksheet">'
             . '<config:config-item config:name="CursorPositionX" config:type="int">0</config:config-item>'
             . '<config:config-item config:name="CursorPositionY" config:type="int">0</config:config-item>'
             . '<config:config-item config:name="HorizontalSplitMode" config:type="short">2</config:config-item>'
-            . '<config:config-item config:name="HorizontalSplitPosition" config:type="int">0</config:config-item>'
+            . '<config:config-item config:name="HorizontalSplitPosition" config:type="int">1</config:config-item>'
             . '<config:config-item config:name="PositionLeft" config:type="short">0</config:config-item>'
-            . '<config:config-item config:name="PositionRight" config:type="short">0</config:config-item>'
+            . '<config:config-item config:name="PositionRight" config:type="short">1</config:config-item>'
             . '<config:config-item config:name="VerticalSplitMode" config:type="short">2</config:config-item>'
             . '<config:config-item config:name="VerticalSplitPosition" config:type="int">1</config:config-item>'
             . '<config:config-item config:name="PositionTop" config:type="short">0</config:config-item>'
