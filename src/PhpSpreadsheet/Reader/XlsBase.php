@@ -371,7 +371,7 @@ class XlsBase extends BaseReader
     protected static function confirmPos(string $data, int $pos): void
     {
         if ($pos >= strlen($data)) {
-            throw new PhpSpreadsheetException('File appears to be corrupt'); //* @codeCoverageIgnore
+            throw new PhpSpreadsheetException('File appears to be corrupt'); // @codeCoverageIgnore
         }
     }
 
