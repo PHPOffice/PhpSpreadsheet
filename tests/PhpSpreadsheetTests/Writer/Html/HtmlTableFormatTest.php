@@ -13,17 +13,6 @@ class HtmlTableFormatTest extends TestCase
 {
     private string $data = '';
 
-    protected function setUp(): void
-    {
-        $file = 'samples/templates/TableFormat.xlsx';
-        $reader = new XlsxReader();
-        $spreadsheet = $reader->load($file);
-        $writer = new HtmlWriter($spreadsheet);
-        $writer->setTableFormats(true);
-        $this->data = $writer->generateHtmlAll();
-        $spreadsheet->disconnectWorksheets();
-    }
-
     private function extractCell(string $coordinate): string
     {
         [$column, $row] = Coordinate::indexesFromString($coordinate);
@@ -46,6 +35,14 @@ class HtmlTableFormatTest extends TestCase
 
     public function testHtmlTableFormatOutput(): void
     {
+        $file = 'samples/templates/TableFormat.xlsx';
+        $reader = new XlsxReader();
+        $spreadsheet = $reader->load($file);
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setTableFormats(true);
+        self::assertTrue($writer->getTableFormats());
+        $this->data = $writer->generateHtmlAll();
+        $spreadsheet->disconnectWorksheets();
         $expectedMatches = [
             ['J1', 'background-color:#145F82;">Sep<', 'table style for header row cell J1'],
             ['J2', 'background-color:#C0E4F5;">110<', 'table style for cell J2'],

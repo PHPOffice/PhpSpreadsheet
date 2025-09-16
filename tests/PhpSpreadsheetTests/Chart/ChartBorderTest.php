@@ -21,6 +21,7 @@ class ChartBorderTest extends AbstractFunctional
     public function writeCharts(XlsxWriter $writer): void
     {
         $writer->setIncludeCharts(true);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
     }
 
     public function testChartBorder(): void
