@@ -1398,6 +1398,16 @@ class Worksheet extends WriterPart
             }
         }
 
+        $customHeightNeeded = false;
+        if ($worksheet->getDefaultRowDimension()->getRowHeight() >= 0) {
+            foreach ($worksheet->getRowDimensions() as $rowDimension) {
+                if ($rowDimension->getCustomFormat()) {
+                    $customHeightNeeded = true;
+
+                    break;
+                }
+            }
+        }
         $currentRow = 0;
         $emptyDimension = new RowDimension();
         while ($currentRow++ < $highestRow) {
@@ -1411,6 +1421,7 @@ class Worksheet extends WriterPart
 
                 if ($writeCurrentRow) {
                     // Start a new row
+                    $customFormatWritten = false;
                     $objWriter->startElement('row');
                     $objWriter->writeAttribute('r', "$currentRow");
                     $objWriter->writeAttribute('spans', '1:' . $colCount);
@@ -1419,6 +1430,12 @@ class Worksheet extends WriterPart
                     if ($rowDimension->getRowHeight() >= 0) {
                         $objWriter->writeAttribute('customHeight', '1');
                         $objWriter->writeAttribute('ht', StringHelper::formatNumber($rowDimension->getRowHeight()));
+                    } elseif ($rowDimension->getCustomFormat()) {
+                        $objWriter->writeAttribute('customFormat', '1');
+                        $customFormatWritten = true;
+                        $objWriter->writeAttribute('ht', StringHelper::formatNumber($rowDimension->getRowHeight()));
+                    } elseif ($customHeightNeeded) {
+                        $objWriter->writeAttribute('customHeight', '1');
                     }
 
                     // Row visibility
@@ -1439,7 +1456,9 @@ class Worksheet extends WriterPart
                     // Style
                     if ($rowDimension->getXfIndex() !== null) {
                         $objWriter->writeAttribute('s', (string) $rowDimension->getXfIndex());
-                        $objWriter->writeAttribute('customFormat', '1');
+                        if (!$customFormatWritten) {
+                            $objWriter->writeAttribute('customFormat', '1');
+                        }
                     }
 
                     // Write cells

@@ -108,4 +108,13 @@ class FontTest extends TestCase
         $font2bHash = $font2->getHashCode();
         self::assertNotEquals($font1->getHashCode(), $font2bHash);
     }
+
+    public function testAutoColorSupervisor(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getStyle('A1')->getFont()->setAutoColor(true);
+        self::assertTrue($sheet->getStyle('A1')->getFont()->getAutoColor());
+        $spreadsheet->disconnectWorksheets();
+    }
 }

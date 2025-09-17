@@ -453,6 +453,7 @@ class Cell implements Stringable
                 }
                 $newColumn = $this->getColumn();
                 if (is_array($result)) {
+                    $result = self::convertSpecialArray($result);
                     $this->formulaAttributes['t'] = 'array';
                     $this->formulaAttributes['ref'] = $maxCoordinate = $coordinate;
                     $newRow = $row = $this->getRow();
@@ -579,6 +580,36 @@ class Cell implements Stringable
         }
 
         return $this->convertDateTimeInt($this->value);
+    }
+
+    /**
+     * Convert array like the following (preserve values, lose indexes):
+     * [
+     *   rowNumber1 => [colLetter1 => value, colLetter2 => value ...],
+     *   rowNumber2 => [colLetter1 => value, colLetter2 => value ...],
+     *   ...
+     * ].
+     *
+     * @param mixed[] $array
+     *
+     * @return mixed[]
+     */
+    private static function convertSpecialArray(array $array): array
+    {
+        $newArray = [];
+        foreach ($array as $rowIndex => $row) {
+            if (!is_int($rowIndex) || $rowIndex <= 0 || !is_array($row)) {
+                return $array;
+            }
+            $keys = array_keys($row);
+            $key0 = $keys[0] ?? '';
+            if (!is_string($key0)) {
+                return $array;
+            }
+            $newArray[] = array_values($row);
+        }
+
+        return $newArray;
     }
 
     /**

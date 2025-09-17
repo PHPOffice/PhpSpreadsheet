@@ -420,7 +420,7 @@ class StringHelper
      */
     public static function convertEncoding(string $textValue, string $to, string $from): string
     {
-        if (self::getIsIconvEnabled()) {
+        if (static::getIsIconvEnabled()) {
             $result = iconv($from, $to . self::$iconvOptions, $textValue);
             if (false !== $result) {
                 return $result;
@@ -669,13 +669,16 @@ class StringHelper
         return strlen("$string");
     }
 
-    /** @param bool $convertBool If true, convert bool to locale-aware TRUE/FALSE rather than 1/null-string */
-    public static function convertToString(mixed $value, bool $throw = true, string $default = '', bool $convertBool = false): string
+    /**
+     * @param bool $convertBool If true, convert bool to locale-aware TRUE/FALSE rather than 1/null-string
+     * @param bool $lessFloatPrecision If true, floats will be converted to a more human-friendly but less computationally accurate value
+     */
+    public static function convertToString(mixed $value, bool $throw = true, string $default = '', bool $convertBool = false, bool $lessFloatPrecision = false): string
     {
         if ($convertBool && is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();
         }
-        if (is_float($value)) {
+        if (is_float($value) && !$lessFloatPrecision) {
             $string = (string) $value;
             // look out for scientific notation
             if (!Preg::isMatch('/[^-+0-9.]/', $string)) {

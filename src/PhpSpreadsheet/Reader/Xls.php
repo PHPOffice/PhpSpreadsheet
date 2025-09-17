@@ -140,7 +140,7 @@ class Xls extends XlsBase
     /**
      * REF structures. Only applies to BIFF8.
      *
-     * @var mixed[][]
+     * @var array<int, array{'externalBookIndex': int, 'firstSheetIndex': int, 'lastSheetIndex': int}>
      */
     protected array $ref;
 
@@ -2022,8 +2022,8 @@ class Xls extends XlsBase
 
                     // repeated option flags
                     // OpenOffice.org documentation 5.21
-                    $option = ord($recordData[$pos]);
                     /** @var int $pos */
+                    $option = ord($recordData[$pos]);
                     ++$pos;
 
                     /** @var int $limitpos */
@@ -2647,7 +2647,14 @@ class Xls extends XlsBase
             $useDefaultHeight = (0x8000 & self::getUInt2d($recordData, 6)) >> 15;
 
             if (!$useDefaultHeight) {
-                $this->phpSheet->getRowDimension($r + 1)->setRowHeight($height / 20);
+                if (
+                    $this->phpSheet->getDefaultRowDimension()->getRowHeight() > 0
+                ) {
+                    $this->phpSheet->getRowDimension($r + 1)
+                        ->setCustomFormat(true, ($height === 255) ? -1 : ($height / 20));
+                } else {
+                    $this->phpSheet->getRowDimension($r + 1)->setRowHeight($height / 20);
+                }
             }
 
             // offset: 8; size: 2; not used

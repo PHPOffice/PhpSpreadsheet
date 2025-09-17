@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
 class Issue3659Test extends SetupTeardown
@@ -49,7 +48,7 @@ class Issue3659Test extends SetupTeardown
     public function testTableAsArray(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet->returnArrayAsArray();
         $sheet = $this->getSheet();
         $sheet->setTitle('Feuil1');
         $tableSheet = $spreadsheet->createSheet();
@@ -76,13 +75,13 @@ class Issue3659Test extends SetupTeardown
         $sheet->getCell('F9')->setValue('=Tableau1');
         $sheet->getCell('J9')->setValue('=CONCAT(Tableau1)');
         $sheet->getCell('J11')->setValue('=SUM(Tableau1[])');
-        $expectedResult = [2 => ['B' => 10], ['B' => 2], ['B' => 3], ['B' => 4]];
+        $expectedResult = [[10], [2], [3], [4]];
         self::assertSame($expectedResult, $sheet->getCell('F1')->getCalculatedValue());
         $expectedResult = [
-            2 => ['B' => 10, 'C' => 20, 'D' => null],
-            ['B' => 2, 'C' => null, 'D' => null],
-            ['B' => 3, 'C' => null, 'D' => null],
-            ['B' => 4, 'C' => null, 'D' => null],
+            [10, 20, null],
+            [2, null, null],
+            [3, null, null],
+            [4, null, null],
         ];
         self::assertSame($expectedResult, $sheet->getCell('H1')->getCalculatedValue());
         self::assertSame($expectedResult, $sheet->getCell('F9')->getCalculatedValue());

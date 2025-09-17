@@ -57,6 +57,9 @@ It can return the raw cell value (which isn't particularly useful if the cell co
 | $calculateFormulas | boolean  | false   | Flag to indicate if formula values should be calculated before returning.                                                                                                           |
 | $formatData        | boolean  | false   | Flag to request that values should be formatting before returning.                                                                                                                  |
 | $returnCellRef     | boolean  | false   | False - Return a simple enumerated array of rows and columns (indexed by number counting from zero)<br />True - Return rows and columns indexed by their actual row and column IDs. |
+| $ignoreHidden      | boolean  | false   | True - Ignore hidden rows and columns. |
+| $reduceArrays      | boolean  | false   | True - If calculated value is an array, reduce it to top leftmost value. |
+| $lessFloatPrecision | boolean  | false   | True - PhpSpreadsheet 5.2+ - Floats, if formatted, will display as a more human-friendly but possibly less accurate value. |
 
 ### Dealing with empty rows
 

@@ -1468,7 +1468,7 @@ class Spreadsheet implements JsonSerializable
     /**
      * Return the unique ID value assigned to this spreadsheet workbook.
      *
-     * @deprecated 5.2.0 Serves no useful purpose. No replacement
+     * @deprecated 5.2.0 Serves no useful purpose. No replacement.
      *
      * @codeCoverageIgnore
      */
