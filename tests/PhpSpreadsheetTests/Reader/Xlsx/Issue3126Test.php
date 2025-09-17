@@ -52,6 +52,7 @@ class Issue3126Test extends TestCase
 
         $generation3Name = File::temporaryFilename();
         $writer = new XlsxWriter($generation2);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($generation3Name);
         $generation2->disconnectWorksheets();
         $reader3 = new XlsxReader();

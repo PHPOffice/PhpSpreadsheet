@@ -262,6 +262,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertNotNull($chartColor);
         self::assertSame('000000', $chartColor->getValue());
         self::assertSame('srgbClr', $chartColor->getType());
+        self::assertSame(50, $chartColor->getAlpha());
 
         $plotArea = $chart->getPlotArea();
         self::assertNotNull($plotArea);

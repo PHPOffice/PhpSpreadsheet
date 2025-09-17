@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class Issue1449Test extends TestCase
 {
-    /** @var bool */
-    private $skipTests = true;
+    protected bool $skipTests = true;
 
     public function testDeleteColumns(): void
     {

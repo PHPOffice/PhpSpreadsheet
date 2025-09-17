@@ -140,7 +140,7 @@ class Xls extends XlsBase
     /**
      * REF structures. Only applies to BIFF8.
      *
-     * @var mixed[][]
+     * @var array<int, array{'externalBookIndex': int, 'firstSheetIndex': int, 'lastSheetIndex': int}>
      */
     protected array $ref;
 
@@ -2022,8 +2022,8 @@ class Xls extends XlsBase
 
                     // repeated option flags
                     // OpenOffice.org documentation 5.21
-                    $option = ord($recordData[$pos]);
                     /** @var int $pos */
+                    $option = ord($recordData[$pos]);
                     ++$pos;
 
                     /** @var int $limitpos */

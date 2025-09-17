@@ -34,6 +34,7 @@ class VmlTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getComment('A1')->getText()->createText('top left cell');
         $writer = new XlsxWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $this->outfile1 = File::temporaryFileName();
         $writer->save($this->outfile1);
         $spreadsheet->disconnectWorksheets();

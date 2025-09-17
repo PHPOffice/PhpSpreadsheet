@@ -166,7 +166,7 @@ $config
         'php_unit_test_class_requires_covers' => false, // We don't care as much as we should about coverage
         'phpdoc_add_missing_param_annotation' => false, // Don't add things that bring no value
         'phpdoc_align' => false, // Waste of time
-        'phpdoc_annotation_without_dot' => true,
+        'phpdoc_annotation_without_dot' => false,
         'phpdoc_indent' => true,
         'phpdoc_line_span' => false, // Unfortunately our old comments turn even uglier with this
         'phpdoc_no_access' => true,

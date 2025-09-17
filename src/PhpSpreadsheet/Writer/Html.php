@@ -2093,6 +2093,7 @@ class Html extends BaseWriter
         // For each of the omitted rows we found above, the affected rowspans should be subtracted by 1
         if (isset($this->isSpannedRow[$sheetIndex])) {
             foreach ($this->isSpannedRow[$sheetIndex] as $rowIndex) {
+                /** @var int $rowIndex */
                 $adjustedBaseCells = [];
                 $c = -1;
                 $e = $countColumns - 1;
