@@ -35,6 +35,7 @@ class StringTable extends WriterPart
         foreach ($worksheet->getCellCollection()->getCoordinates() as $coordinate) {
             /** @var Cell $cell */
             $cell = $worksheet->getCellCollection()->get($coordinate);
+            /** @var null|int|RichText|string */
             $cellValue = $cell->getValue();
             if (
                 !is_object($cellValue)
@@ -305,7 +306,7 @@ class StringTable extends WriterPart
                 $objWriter->writeAttribute('val', $value);
                 $alpha = $underlineColor->getAlpha();
                 if (is_numeric($alpha)) {
-                    $objWriter->startElement('a:alpha');
+                    $objWriter->startElement($prefix . 'alpha');
                     $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
                     $objWriter->endElement();
                 }

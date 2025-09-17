@@ -117,9 +117,9 @@ abstract class DatabaseAbstract
         /** @var mixed[] $row */
         foreach ($database as $rowKey => $row) {
             $keys = array_keys($row);
-            $key = $keys[$field] ?? null;
+            $key = ($field === null) ? null : ($keys[$field] ?? null);
             $columnKey = $key ?? 'A';
-            $columnData[$rowKey][$columnKey] = $row[$key] ?? $defaultReturnColumnValue;
+            $columnData[$rowKey][$columnKey] = ($key === null) ? $defaultReturnColumnValue : ($row[$key] ?? $defaultReturnColumnValue);
         }
 
         return $columnData;

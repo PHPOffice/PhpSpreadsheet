@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -88,9 +89,7 @@ class Settings extends WriterPart
         $objWriter->writeAttribute('config:name', $worksheet->getTitle());
 
         $this->writeSelectedCells($objWriter, $worksheet);
-        if ($worksheet->getFreezePane() !== null) {
-            $this->writeFreezePane($objWriter, $worksheet);
-        }
+        $this->writeFreezePane($objWriter, $worksheet);
 
         $objWriter->endElement(); // config:config-item-map-entry Worksheet
     }
@@ -125,7 +124,7 @@ class Settings extends WriterPart
 
     private function writeFreezePane(XMLWriter $objWriter, Worksheet $worksheet): void
     {
-        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane() ?? '');
+        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane() ?? 'A1');
         if ($freezePane->cellAddress() === 'A1') {
             return;
         }
@@ -139,7 +138,7 @@ class Settings extends WriterPart
         $this->writeSplitValue($objWriter, 'PositionLeft', 'short', '0');
         $this->writeSplitValue($objWriter, 'PositionRight', 'short', (string) ($columnId - 1));
 
-        for ($column = 'A'; $column !== $columnName; ++$column) {
+        for ($column = 'A'; $column !== $columnName; StringHelper::stringIncrement($column)) {
             $worksheet->getColumnDimension($column)->setAutoSize(true);
         }
 

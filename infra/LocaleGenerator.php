@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetInfra;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -283,7 +284,7 @@ class LocaleGenerator
         $this->log("Mapping Languages for {$sheetName}:");
 
         $baseColumn = self::ENGLISH_REFERENCE_COLUMN;
-        $languagesList = $translationWorksheet->getColumnIterator(++$baseColumn);
+        $languagesList = $translationWorksheet->getColumnIterator(StringHelper::stringIncrement($baseColumn));
 
         $languageNameMap = [];
         foreach ($languagesList as $languageColumn) {
@@ -326,7 +327,7 @@ class LocaleGenerator
             foreach ($cells as $cell) {
                 if ($cell->getValue() != '') {
                     $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
-                    $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
+                    $this->errorCodeMap[$cell->getValueString()] = $cell->getRow();
                 }
             }
         }
@@ -344,7 +345,7 @@ class LocaleGenerator
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
                         $this->log('CATEGORY: ' . $cell->getValueString());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
 
                     continue;
@@ -355,7 +356,7 @@ class LocaleGenerator
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
                     } else {
                         $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
                 }
             }

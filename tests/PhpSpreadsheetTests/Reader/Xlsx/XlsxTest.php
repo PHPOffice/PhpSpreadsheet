@@ -9,10 +9,12 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
@@ -59,7 +61,7 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 8; $row += 2) {
-            for ($column = 'A'; $column !== 'G'; ++$column, ++$column) {
+            for ($column = 'A'; $column !== 'G'; StringHelper::stringIncrement($column), StringHelper::stringIncrement($column)) {
                 self::assertEquals(
                     $expectedColours[$row][$column],
                     $worksheet->getStyle($column . $row)->getFill()->getStartColor()->getRGB()
@@ -193,11 +195,11 @@ class XlsxTest extends TestCase
         $reader = new Xlsx();
         $reader->setReadFilter(new OddColumnReadFilter());
         $spreadsheet = $reader->load($filename);
-        $data = $spreadsheet->getActiveSheet()->toArray();
-        $ref = [1.0, null, 3.0, null, 5.0, null, 7.0, null, 9.0, null];
+        $data = $spreadsheet->getActiveSheet()->toArray(formatData: false);
+        $ref = [1, null, 3, null, 5, null, 7, null, 9, null];
 
         for ($i = 0; $i < 10; ++$i) {
-            self::assertEquals($ref, \array_slice($data[$i], 0, 10, true));
+            self::assertSame($ref, \array_slice($data[$i], 0, 10, true));
         }
         $spreadsheet->disconnectWorksheets();
     }
@@ -236,7 +238,7 @@ class XlsxTest extends TestCase
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerStripsWhiteSpaceFromStyleString')]
+    #[DataProvider('providerStripsWhiteSpaceFromStyleString')]
     public function testStripsWhiteSpaceFromStyleString(string $string): void
     {
         $string = Xlsx::stripWhiteSpaceFromStyleString($string);

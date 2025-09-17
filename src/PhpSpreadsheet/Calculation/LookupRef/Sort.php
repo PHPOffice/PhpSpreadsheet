@@ -335,6 +335,7 @@ class Sort extends LookupRefValidations
         // Building a new array in the correct (sorted) order works; but may be memory heavy for larger arrays
         $sortedArray = [];
         foreach ($sortVector as $index) {
+            /** @var int|string $index */
             $sortedArray[] = $sortArray[$index];
         }
 

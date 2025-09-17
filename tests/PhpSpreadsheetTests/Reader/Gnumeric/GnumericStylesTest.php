@@ -33,7 +33,6 @@ class GnumericStylesTest extends TestCase
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
-        /** @var mixed[][] */
         $tests = $this->providerBorderStyle();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -88,7 +87,6 @@ class GnumericStylesTest extends TestCase
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
-        /** @var mixed[][] */
         $tests = $this->providerHorizontal();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -117,7 +115,6 @@ class GnumericStylesTest extends TestCase
         foreach ($expected as $key => $val) {
             $covered[$key] = 0;
         }
-        /** @var mixed[][] */
         $tests = $this->providerUnderline();
         foreach ($tests as $test) {
             $covered[$test[0]] = 1;
@@ -185,6 +182,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
+    /** @return array<int, array{0: string, 1:string}> */
     public static function providerBorderStyle(): array
     {
         return [
@@ -205,7 +203,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    /** @return string[][] */
+    /** @return array<int, array{0: string, 1:string}> */
     public static function providerFillType(): array
     {
         return [
@@ -230,6 +228,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
+    /** @return array<int, array{0: string, 1:string}> */
     public static function providerHorizontal(): array
     {
         return [
@@ -243,6 +242,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
+    /** @return array<int, array{0: string, 1:string}> */
     public static function providerUnderline(): array
     {
         return [

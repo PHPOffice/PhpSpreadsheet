@@ -5,13 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.1.0
+## TBD - 5.2.0
 
 ### Added
 
-- Add Conditional Formatting with IconSet (Xlsx only). [Issue #4560](https://github.com/PHPOffice/PhpSpreadsheet/issues/4560) [PR #4574](https://github.com/PHPOffice/PhpSpreadsheet/pull/4574)
-- Copy cell adjusting formula. [Issue #1203](https://github.com/PHPOffice/PhpSpreadsheet/issues/1203) [PR #4577](https://github.com/PHPOffice/PhpSpreadsheet/pull/4577)
-- splitRange and ProtectedRange. [Issue #1457](https://github.com/PHPOffice/PhpSpreadsheet/issues/1457) [PR #4580](https://github.com/PHPOffice/PhpSpreadsheet/pull/4580)
+- Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
 
 ### Removed
 
@@ -27,11 +25,35 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Worksheet::getHashInt serves no useful purpose. No replacement.
+- Spreadsheet::getId serves no useful purpose. No replacement.
+
+### Fixed
+
+- Performance improvement when working with large amounts of cells. [Issue #4607](https://github.com/PHPOffice/PhpSpreadsheet/issues/4607) [PR #4609](https://github.com/PHPOffice/PhpSpreadsheet/pull/4609)
+- Minor improvements to Calculation coverage. [PR #4624](https://github.com/PHPOffice/PhpSpreadsheet/pull/4624)
+- Conditional formatting in extLst. [Issue #4629](https://github.com/PHPOffice/PhpSpreadsheet/issues/4629) [PR #4633](https://github.com/PHPOffice/PhpSpreadsheet/pull/4633)
+- Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
+- For Php8.5, replace one of our two uses of `__wakeup` with `__unserialize`, and eliminate the other. [PR #4639](https://github.com/PHPOffice/PhpSpreadsheet/pull/4639)
+- Use prefix _xlfn for BASE function. [Issue #4638](https://github.com/PHPOffice/PhpSpreadsheet/issues/4638) [PR #4641](https://github.com/PHPOffice/PhpSpreadsheet/pull/4641)
+
+## 2025-09-03 - 5.1.0
+
+### Added
+
+- Add Conditional Formatting with IconSet (Xlsx only). [Issue #4560](https://github.com/PHPOffice/PhpSpreadsheet/issues/4560) [PR #4574](https://github.com/PHPOffice/PhpSpreadsheet/pull/4574)
+- Copy cell adjusting formula. [Issue #1203](https://github.com/PHPOffice/PhpSpreadsheet/issues/1203) [PR #4577](https://github.com/PHPOffice/PhpSpreadsheet/pull/4577)
+- splitRange and ProtectedRange. [Issue #1457](https://github.com/PHPOffice/PhpSpreadsheet/issues/1457) [PR #4580](https://github.com/PHPOffice/PhpSpreadsheet/pull/4580)
+- Option to create Blank Sheet if LoadSheetsOnly doesn't find any. [PR #4618](https://github.com/PHPOffice/PhpSpreadsheet/pull/4618)
 
 ### Fixed
 
 - Google-only formulas exported from Google Sheets. [Issue #1637](https://github.com/PHPOffice/PhpSpreadsheet/issues/1637) [PR #4579](https://github.com/PHPOffice/PhpSpreadsheet/pull/4579)
+- Maximum column width. [PR #4581](https://github.com/PHPOffice/PhpSpreadsheet/pull/4581)
+- PrintArea after row/column delete. [Issue #2912](https://github.com/PHPOffice/PhpSpreadsheet/issues/2912) [PR #4598](https://github.com/PHPOffice/PhpSpreadsheet/pull/4598)
+- Remove deprecated imagedestroy call. [PR #4625](https://github.com/PHPOffice/PhpSpreadsheet/pull/4625)
+- Excel 2007 problem with newlines. [Issue #4619](https://github.com/PHPOffice/PhpSpreadsheet/issues/4619) [PR #4620](https://github.com/PHPOffice/PhpSpreadsheet/pull/4620)
+- Compatibility changes for Php 8.5. [PR #4601](https://github.com/PHPOffice/PhpSpreadsheet/pull/4601) [PR #4611](https://github.com/PHPOffice/PhpSpreadsheet/pull/4611)
 
 ## 2025-08-10 - 5.0.0
 

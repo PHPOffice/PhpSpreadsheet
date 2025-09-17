@@ -38,6 +38,7 @@ class FunctionPrefixTest extends TestCase
             'DAYS/NETWORKDAYS 5' => ['NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)', 'NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)'],
             'COUNTIFS reclassified as Legacy' => ['COUNTIFS()', 'COUNTIFS()'],
             'SUMIFS reclassified as Legacy' => ['SUMIFS()', 'SUMIFS()'],
+            'BASE improperly classified by MS' => ['_xlfn.BASE()', 'BASE()'],
         ];
     }
 }

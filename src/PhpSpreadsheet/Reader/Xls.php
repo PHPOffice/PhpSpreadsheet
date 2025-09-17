@@ -140,7 +140,7 @@ class Xls extends XlsBase
     /**
      * REF structures. Only applies to BIFF8.
      *
-     * @var mixed[][]
+     * @var array<int, array{'externalBookIndex': int, 'firstSheetIndex': int, 'lastSheetIndex': int}>
      */
     protected array $ref;
 
@@ -2022,8 +2022,8 @@ class Xls extends XlsBase
 
                     // repeated option flags
                     // OpenOffice.org documentation 5.21
-                    $option = ord($recordData[$pos]);
                     /** @var int $pos */
+                    $option = ord($recordData[$pos]);
                     ++$pos;
 
                     /** @var int $limitpos */
@@ -3575,10 +3575,9 @@ class Xls extends XlsBase
     {
         $includeCellRange = false;
         $rangeBoundaries = Coordinate::getRangeBoundaries($cellRangeAddress);
-        ++$rangeBoundaries[1][0];
+        StringHelper::stringIncrement($rangeBoundaries[1][0]);
         for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
-            for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; ++$column) {
-                /** @var string $column */
+            for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; StringHelper::stringIncrement($column)) {
                 if ($this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                     $includeCellRange = true;
 

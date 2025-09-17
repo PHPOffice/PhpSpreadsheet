@@ -841,13 +841,12 @@ class Html extends BaseWriter
                     $totalHeight += ($height >= 0) ? $height : $defaultRowHeight;
                 }
                 $rightEdge = $brCoordinate[2];
-                ++$rightEdge;
+                StringHelper::stringIncrement($rightEdge);
                 for ($column = $tlCoordinate[2]; $column !== $rightEdge;) {
                     $width = $sheet->getColumnDimension($column)->getWidth();
                     $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
                     $totalWidth += $width;
-                    /** @var string $column */
-                    ++$column;
+                    StringHelper::stringIncrement($column);
                 }
                 $chart->setRenderedWidth($totalWidth);
                 $chart->setRenderedHeight($totalHeight);
@@ -2094,6 +2093,7 @@ class Html extends BaseWriter
         // For each of the omitted rows we found above, the affected rowspans should be subtracted by 1
         if (isset($this->isSpannedRow[$sheetIndex])) {
             foreach ($this->isSpannedRow[$sheetIndex] as $rowIndex) {
+                /** @var int $rowIndex */
                 $adjustedBaseCells = [];
                 $c = -1;
                 $e = $countColumns - 1;

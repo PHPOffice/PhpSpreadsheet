@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
@@ -450,8 +451,7 @@ class ReferenceHelper
         }
         $highColumn = Coordinate::columnIndexFromString($highestDataColumn);
         for ($row = $startRow; $row <= $highestDataRow; ++$row) {
-            for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, ++$colString) {
-                /** @var string $colString */
+            for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, StringHelper::stringIncrement($colString)) {
                 $worksheet->getCell("$colString$row"); // create cell if it doesn't exist
             }
         }
@@ -558,12 +558,7 @@ class ReferenceHelper
             $worksheet->freezePane($splitCell, $topLeftCell);
         }
 
-        // Page setup
-        if ($worksheet->getPageSetup()->isPrintAreaSet()) {
-            $worksheet->getPageSetup()->setPrintArea(
-                $this->updateCellReference($worksheet->getPageSetup()->getPrintArea())
-            );
-        }
+        $this->updatePrintAreas($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: drawings
         $aDrawings = $worksheet->getDrawingCollection();
@@ -587,6 +582,93 @@ class ReferenceHelper
 
         // Garbage collect
         $worksheet->garbageCollect();
+    }
+
+    private function updatePrintAreas(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        $pageSetup = $worksheet->getPageSetup();
+        if (!$pageSetup->isPrintAreaSet()) {
+            return;
+        }
+        $printAreas = explode(',', $pageSetup->getPrintArea());
+        $newPrintAreas = [];
+        foreach ($printAreas as $printArea) {
+            $result = $this->updatePrintArea($printArea, $beforeCellAddress, $numberOfColumns, $numberOfRows);
+            if ($result !== '') {
+                $newPrintAreas[] = $result;
+            }
+        }
+        $result = implode(',', $newPrintAreas);
+        if ($result === '') {
+            $pageSetup->clearPrintArea();
+        } else {
+            $pageSetup->setPrintArea($result);
+        }
+    }
+
+    private function updatePrintArea(string $printArea, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): string
+    {
+        $coordinates = Coordinate::indexesFromString($beforeCellAddress);
+        if (preg_match('/^([A-Z]{1,3})(\d{1,7}):([A-Z]{1,3})(\d{1,7})$/i', $printArea, $matches) === 1) {
+            $firstRow = (int) $matches[2];
+            $lastRow = (int) $matches[4];
+            $firstColumnString = $matches[1];
+            $lastColumnString = $matches[3];
+            if ($numberOfRows < 0) {
+                $affectedRow = $coordinates[1] + $numberOfRows - 1;
+                $lastAffectedRow = $coordinates[1] - 1;
+                if ($affectedRow >= $firstRow && $affectedRow <= $lastRow) {
+                    $newLastRow = max($affectedRow, $lastRow + $numberOfRows);
+                    if ($newLastRow >= $firstRow) {
+                        return $matches[1] . $matches[2] . ':' . $matches[3] . $newLastRow;
+                    }
+
+                    return '';
+                }
+                if ($lastAffectedRow >= $firstRow && $affectedRow <= $lastRow) {
+                    $newFirstRow = $affectedRow + 1;
+                    $newLastRow = $lastRow + $numberOfRows;
+                    if ($newFirstRow >= 1 && $newLastRow >= $newFirstRow) {
+                        return $matches[1] . $newFirstRow . ':' . $matches[3] . $newLastRow;
+                    }
+
+                    return '';
+                }
+            }
+            if ($numberOfColumns < 0) {
+                $firstColumnInt = Coordinate::columnIndexFromString($firstColumnString);
+                $lastColumnInt = Coordinate::columnIndexFromString($lastColumnString);
+                $affectedColumn = $coordinates[0] + $numberOfColumns - 1;
+                $lastAffectedColumn = $coordinates[0] - 1;
+                if ($affectedColumn >= $firstColumnInt && $affectedColumn <= $lastColumnInt) {
+                    $newLastColumnInt = max($affectedColumn, $lastColumnInt + $numberOfColumns);
+                    if ($newLastColumnInt >= $firstColumnInt) {
+                        $newLastColumnString = Coordinate::stringFromColumnIndex($newLastColumnInt);
+
+                        return $matches[1] . $matches[2] . ':' . $newLastColumnString . $matches[4];
+                    }
+
+                    return '';
+                }
+                if ($affectedColumn < $firstColumnInt && $lastAffectedColumn > $lastColumnInt) {
+                    return '';
+                }
+                if ($lastAffectedColumn >= $firstColumnInt && $lastAffectedColumn <= $lastColumnInt) {
+                    $newFirstColumn = $affectedColumn + 1;
+                    $newLastColumn = $lastColumnInt + $numberOfColumns;
+                    if ($newFirstColumn >= 1 && $newLastColumn >= $newFirstColumn) {
+                        $firstString = Coordinate::stringFromColumnIndex($newFirstColumn);
+                        $lastString = Coordinate::stringFromColumnIndex($newLastColumn);
+
+                        return $firstString . $matches[2] . ':' . $lastString . $matches[4];
+                    }
+
+                    return '';
+                }
+            }
+        }
+
+        return $this->updateCellReference($printArea);
     }
 
     private static function matchSheetName(?string $match, string $worksheetName): bool
@@ -963,7 +1045,7 @@ class ReferenceHelper
     {
         $cellAddress = $definedName->getValue();
         $asFormula = ($cellAddress[0] === '=');
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
+        if ($definedName->getWorksheet() === $worksheet) {
             /**
              * If we delete the entire range that is referenced by a Named Range, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Range will still reference Cells.
@@ -982,7 +1064,7 @@ class ReferenceHelper
 
     private function updateNamedFormula(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
     {
-        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashInt() === $worksheet->getHashInt()) {
+        if ($definedName->getWorksheet() === $worksheet) {
             /**
              * If we delete the entire range that is referenced by a Named Formula, MS Excel sets the value to #REF!
              * PhpSpreadsheet still only does a basic adjustment, so the Named Formula will still reference Cells.
@@ -1041,8 +1123,7 @@ class ReferenceHelper
         $endColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
 
         for ($row = 1; $row <= $highestRow - 1; ++$row) {
-            for ($column = $startColumnId; $column !== $endColumnId; ++$column) {
-                /** @var string $column */
+            for ($column = $startColumnId; $column !== $endColumnId; StringHelper::stringIncrement($column)) {
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
             }
@@ -1052,10 +1133,9 @@ class ReferenceHelper
     private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
     {
         $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
-        ++$highestColumn;
+        StringHelper::stringIncrement($highestColumn);
 
-        for ($column = $startColumnId; $column !== $highestColumn; ++$column) {
-            /** @var string $column */
+        for ($column = $startColumnId; $column !== $highestColumn; StringHelper::stringIncrement($column)) {
             for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
                 $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
@@ -1135,7 +1215,10 @@ class ReferenceHelper
         $toColRef = $rangeEnd + $numberOfColumns;
 
         do {
-            $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+            $autoFilter->shiftColumn(
+                Coordinate::stringFromColumnIndex($endColRef),
+                Coordinate::stringFromColumnIndex($toColRef)
+            );
             --$endColRef;
             --$toColRef;
         } while ($startColRef <= $endColRef);
@@ -1150,10 +1233,8 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
-            /** @var string $toColID */
-            ++$toColID;
-            /** @var string $startColID */
-            ++$startColID;
+            StringHelper::stringIncrement($toColID);
+            StringHelper::stringIncrement($startColID);
         } while ($startColID !== $endColID);
     }
 
@@ -1217,7 +1298,10 @@ class ReferenceHelper
         $toColRef = $rangeEnd + $numberOfColumns;
 
         do {
-            $table->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+            $table->shiftColumn(
+                Coordinate::stringFromColumnIndex($endColRef),
+                Coordinate::stringFromColumnIndex($toColRef)
+            );
             --$endColRef;
             --$toColRef;
         } while ($startColRef <= $endColRef);
@@ -1232,10 +1316,8 @@ class ReferenceHelper
 
         do {
             $table->shiftColumn($startColID, $toColID);
-            /** @var string $toColID */
-            ++$toColID;
-            /** @var string $startColID */
-            ++$startColID;
+            StringHelper::stringIncrement($toColID);
+            StringHelper::stringIncrement($startColID);
         } while ($startColID !== $endColID);
     }
 

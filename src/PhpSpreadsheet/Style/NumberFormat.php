@@ -467,12 +467,13 @@ class NumberFormat extends Supervisor
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
      * @param ?mixed[] $callBack Callback function for additional formatting of string
+     * @param bool $lessFloatPrecision If true, unstyled floats will be converted to a more human-friendly but less computationally accurate value
      *
      * @return string Formatted string
      */
-    public static function toFormattedString(mixed $value, string $format, ?array $callBack = null): string
+    public static function toFormattedString(mixed $value, string $format, ?array $callBack = null, bool $lessFloatPrecision = false): string
     {
-        return NumberFormat\Formatter::toFormattedString($value, $format, $callBack);
+        return NumberFormat\Formatter::toFormattedString($value, $format, $callBack, $lessFloatPrecision);
     }
 
     /** @return mixed[] */

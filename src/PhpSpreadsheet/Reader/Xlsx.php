@@ -784,6 +784,7 @@ class Xlsx extends BaseReader
 
                     $charts = $chartDetails = [];
 
+                    $sheetCreated = false;
                     if ($xmlWorkbookNS->sheets) {
                         foreach ($xmlWorkbookNS->sheets->sheet as $eleSheet) {
                             $eleSheetAttr = self::getAttributes($eleSheet);
@@ -810,6 +811,7 @@ class Xlsx extends BaseReader
 
                             // Load sheet
                             $docSheet = $excel->createSheet();
+                            $sheetCreated = true;
                             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet
                             //        references in formula cells... during the load, all formulae should be correct,
                             //        and we're simply bringing the worksheet name in line with the formula, not the
@@ -1077,7 +1079,8 @@ class Xlsx extends BaseReader
                                             $childNode = $node->addChild('formula1');
                                             if ($childNode !== null) { // null should never happen
                                                 // see https://github.com/phpstan/phpstan/issues/8236
-                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                                // resolved with Phpstan 2.1.23
+                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f;
                                             }
                                         }
                                     }
@@ -1275,7 +1278,7 @@ class Xlsx extends BaseReader
                                                 // Set comment properties
                                                 $comment = $docSheet->getComment([(int) $column + 1, (int) $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
-                                                if (isset($drowingImages[$fillImageRelId])) {
+                                                if (isset($fillImageRelId, $drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
                                                     $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
@@ -1897,6 +1900,9 @@ class Xlsx extends BaseReader
                             }
                         }
                     }
+                    if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+                        $excel->createSheet();
+                    }
 
                     (new WorkbookView($excel))->viewSettings($xmlWorkbook, $mainNS, $mapSheetId, $this->readDataOnly);
 
@@ -2490,10 +2496,9 @@ class Xlsx extends BaseReader
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
                     }
-                    ++$lastCol;
+                    StringHelper::stringIncrement($lastCol);
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
-                        for ($col = $firstCol; $col !== $lastCol; ++$col) {
-                            /** @var string $col */
+                        for ($col = $firstCol; $col !== $lastCol; StringHelper::stringIncrement($col)) {
                             if (!$cellCollection->has2("$col$row")) {
                                 continue;
                             }

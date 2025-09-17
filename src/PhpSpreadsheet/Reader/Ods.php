@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -317,6 +318,7 @@ class Ods extends BaseReader
             $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
 
             $worksheetID = 0;
+            $sheetCreated = false;
             foreach ($tables as $worksheetDataSet) {
                 /** @var DOMElement $worksheetDataSet */
                 $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
@@ -334,6 +336,7 @@ class Ods extends BaseReader
 
                 // Create sheet
                 $spreadsheet->createSheet();
+                $sheetCreated = true;
                 $spreadsheet->setActiveSheetIndex($worksheetID);
 
                 if ($worksheetName || is_numeric($worksheetName)) {
@@ -439,6 +442,9 @@ class Ods extends BaseReader
                     $worksheetStyleName
                 );
                 ++$worksheetID;
+            }
+            if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+                $spreadsheet->createSheet();
             }
 
             $autoFilterReader->read($workbookData);
@@ -573,7 +579,7 @@ class Ods extends BaseReader
                 }
 
                 for ($i = 0; $i < $colRepeats; ++$i) {
-                    ++$columnID;
+                    StringHelper::stringIncrement($columnID);
                 }
 
                 continue;
@@ -598,7 +604,7 @@ class Ods extends BaseReader
                     $lastRow = $rowID + $arrayRow - 1;
                     $lastCol = $columnID;
                     while ($arrayCol > 1) {
-                        ++$lastCol;
+                        StringHelper::stringIncrement($lastCol);
                         --$arrayCol;
                     }
                     $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
@@ -764,7 +770,7 @@ class Ods extends BaseReader
             if ($type !== null) { // @phpstan-ignore-line
                 for ($i = 0; $i < $colRepeats; ++$i) {
                     if ($i > 0) {
-                        ++$columnID;
+                        StringHelper::stringIncrement($columnID);
                     }
 
                     if ($type !== DataType::TYPE_NULL) {
@@ -816,7 +822,7 @@ class Ods extends BaseReader
             // Merged cells
             $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
 
-            ++$columnID;
+            StringHelper::stringIncrement($columnID);
         }
         $rowID += $rowRepeats;
     }
@@ -933,7 +939,7 @@ class Ods extends BaseReader
                 $spreadsheet->getActiveSheet()
                     ->getColumnDimension($tableColumnString)
                     ->setWidth($columnWidth->toUnit('cm'), 'cm');
-                ++$tableColumnString;
+                StringHelper::stringIncrement($tableColumnString);
             }
         }
         $tableColumnIndex += $rowRepeats;

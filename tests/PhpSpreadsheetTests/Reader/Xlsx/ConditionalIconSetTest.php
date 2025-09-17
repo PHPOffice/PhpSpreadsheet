@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\IconSetValues;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -29,7 +30,7 @@ class ConditionalIconSetTest extends AbstractFunctional
             self::assertNotNull($iconSet);
             self::assertSame($iconSetValue, $iconSet->getIconSetType() ?? IconSetValues::ThreeTrafficLights1);
 
-            ++$columnIndex;
+            StringHelper::stringIncrement($columnIndex);
         }
 
         // icon set attributes
@@ -48,7 +49,7 @@ class ConditionalIconSetTest extends AbstractFunctional
             self::assertSame($expected['showValue'], $iconSet->getShowValue() ?? true);
             self::assertFalse($iconSet->getCustom() ?? false);
 
-            ++$columnIndex;
+            StringHelper::stringIncrement($columnIndex);
         }
 
         // cfvos
@@ -74,11 +75,11 @@ class ConditionalIconSetTest extends AbstractFunctional
                 self::assertNull($cfvo->getCellFormula());
             }
 
-            ++$columnIndex;
+            StringHelper::stringIncrement($columnIndex);
         }
 
         // unsupported icon sets
-        for ($columnIndex = 'R'; $columnIndex <= 'U'; ++$columnIndex) {
+        for ($columnIndex = 'R'; $columnIndex <= 'U'; StringHelper::stringIncrement($columnIndex)) {
             $styles = $worksheet->getConditionalStyles("{$columnIndex}2:{$columnIndex}11");
             $iconSet = $styles[0]->getIconSet();
             self::assertNull($iconSet);

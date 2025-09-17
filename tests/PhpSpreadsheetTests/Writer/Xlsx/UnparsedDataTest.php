@@ -24,6 +24,7 @@ class UnparsedDataTest extends TestCase
         $excel->getSheet(1)->setCellValue('B1', '222');
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($resultFilename);
         self::assertFileExists($resultFilename);
 
