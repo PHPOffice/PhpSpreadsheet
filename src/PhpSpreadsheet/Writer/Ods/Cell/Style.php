@@ -302,6 +302,21 @@ class Style
         $this->writer->endElement(); // Close style:style
     }
 
+    public function writeDefaultRowStyle(RowDimension $rowDimension, int $sheetId): void
+    {
+        $this->writer->startElement('style:style');
+        $this->writer->writeAttribute('style:family', 'table-row');
+        $this->writer->writeAttribute(
+            'style:name',
+            sprintf('%s%d', self::ROW_STYLE_PREFIX, $sheetId)
+        );
+
+        $this->writeRowProperties($rowDimension);
+
+        // End
+        $this->writer->endElement(); // Close style:style
+    }
+
     public function writeTableStyle(Worksheet $worksheet, int $sheetId): void
     {
         $this->writer->startElement('style:style');
