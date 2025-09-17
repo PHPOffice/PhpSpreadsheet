@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
+- Wrapped cells and default row height. [Issue #4584](https://github.com/PHPOffice/PhpSpreadsheet/issues/4584) [PR #4645](https://github.com/PHPOffice/PhpSpreadsheet/pull/4645)
 
 ## 2025-09-03 - 5.1.0
 
