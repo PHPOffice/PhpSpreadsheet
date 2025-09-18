@@ -35,7 +35,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, fileinfo, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
 
       - name: Get composer cache directory
@@ -81,8 +81,8 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          php-version: 8.4
+          extensions: ctype, dom, fileinfo, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
 
       # This is non-ideal because it only checks for the last commit of the PR, not all of them, but better than nothing
@@ -98,8 +98,8 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          php-version: 8.4
+          extensions: ctype, dom, fileinfo, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
@@ -129,8 +129,8 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          php-version: 8.4
+          extensions: ctype, dom, fileinfo, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
@@ -160,8 +160,8 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          php-version: 8.4
+          extensions: ctype, dom, fileinfo, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
@@ -191,8 +191,8 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          php-version: 8.4
+          extensions: ctype, dom, gd, fileinfo, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
