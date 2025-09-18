@@ -194,6 +194,7 @@ But if we use the "pull down" for that block, we access the "Number" tab of "For
 This gives us access to a number of "Wizards" for different "Categories" of masking, as well as "Custom", which allows us to build our own masks.
 
 Since version 1.28.0, PhpSpreadsheet has also provided a set of "Wizards", allowing for the easier creation of Mask values for most Categories.
+In many cases, you will need to enable PHP's `Intl` extension in order to use the Wizards.
 
 ## Mask Categories
 
@@ -232,7 +233,7 @@ var_dump($worksheet->getCell('C20')
 var_dump($worksheet->getCell('C20')->getFormattedValue()); // "-12,345.679"
 ```
 
-PhpSpreadsheet's "Wizard" doesn't yet offer options for displaying negative values; they will simply be masked so that they always display the sign.
+PhpSpreadsheet's Number Wizard doesn't yet offer options for displaying negative values; they will simply be masked so that they always display the sign.
 But alternative masking for negative values is an option that may be added in the future.
 
 ### Currency
@@ -245,6 +246,7 @@ The "Symbol" dropdown provides a lot of locale-specific variants of the same cur
 
 The PhpSpreadsheet Currency "Wizard" allows you to specify the currency code, number of decimals, and the use of a thousands separator.
 In addition, optionally, you can also specify whether the currency symbol should be leading or trailing, and whether it should be separated from the value or not.
+Finally, you have a choice of 4 ways of specifying negative values - minus sign, minus sign with the field in red, parentheses, and parentheses with the field in red.
  
 ```php
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
@@ -302,9 +304,6 @@ var_dump($worksheet->getCell('C21')->getFormattedValue()); // -12,345.68 €
 If we use the locale in the "Wizard", then a typical mask might look like '#,##0.00 [$€-de-DE]', with the currency wrapped in braces, a `$` to indicate that this is a localised value, and the locale included.
  > Note: The Wizard does not accept LCIDs.
 
-PhpSpreadsheet's "Wizard" doesn't yet offer options for displaying negative values; they will simply be masked so that they always display the sign.
-But alternative masking for negative values is an option that may be added in the future.
-
 ### Accounting
 
 Excel's Accounting "Wizard" is like the Currency "Wizard", but without the options for presenting negative values.
@@ -340,7 +339,6 @@ var_dump($worksheet->getCell('C20')->getFormattedValue()); //  -12,345.68 €
 ```
 A typical Accounting mask might look something like '_-#,##0.00 €*_-', with the currency symbol as a literal; and with placement indicators like `_-`, that ensure the alignment of the currency symbols and decimal points of numbers in a column.
 
-At the moment, none of the PhpSpreadsheet Wizards provide different masks for zero and negative values; unless you have the PHP `Intl` extension enabled, and can use the locale to generate the Mask.
 As with using a locale with the Currency "Wizard", when you use a locale with the Accounting "Wizard" the locale value must be valid, and any additional options will be ignored.
 ```php
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
@@ -391,8 +389,6 @@ I've written in detail about Date Format Masks elsewhere in "The Dating Game"; b
 | yyyy  | Year (4 digits)                     | 2023                                  |
 
 
-There is currently no PhpSpreadsheet "Wizard" for Date Masks; but this will be introduced in the 1.29.0 release.
-
 ### Time
 
 As with Dates, when you use the Excel Time "Wizard", you can select a locale and you'll then be presented with a number of time format options that are appropriate for that locale.
@@ -411,7 +407,7 @@ I've written in detail about Time Format Masks elsewhere in "The Dating Game"; b
 | ss     | Seconds with a leading zero                                        | 00-59       |
 | AM/PM  | Periods of the day <br/>(if omitted, 24-hour time format is used)  | AM or PM    |
 
-Excel also supports Masks for Time Durations, although there is no "Wizard" for this; but the following Mask codes can be used to display Durations.
+Excel also supports Masks for Time Durations (note that spreadsheets using the 1904 base date can display negative durations, but those using the 1900 base date cannot). There is no "Wizard" for this; but the following Mask codes can be used to display Durations.
 
 | Code    | Description                                                    | Displays as |
 |---------|----------------------------------------------------------------|-------------|
@@ -421,8 +417,6 @@ Excel also supports Masks for Time Durations, although there is no "Wizard" for 
 | [m]:ss  | Elapsed time in minutes<br>with a leading zero if less than 10 | e.g. 03:46  |
 | [s]     | Elapsed time in seconds                                        |             |
 | [ss]    | Elapsed time in seconds<br>with a leading zero if less than 10 |             |
-
-There is currently no PhpSpreadsheet "Wizard" for Time Masks, or for Durations; but these will be introduced in the 1.29.0 release.
 
 ### Percentage
 

@@ -11,11 +11,13 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class AccountingTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccounting')]
+    #[DataProvider('providerAccounting')]
     public function testAccounting(
         string $expectedResultPositive,
         string $expectedResultNegative,
@@ -45,7 +47,7 @@ class AccountingTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccountingLocale')]
+    #[DataProvider('providerAccountingLocale')]
     public function testAccountingLocale(
         string $expectedResult,
         string $currencyCode,
@@ -105,7 +107,7 @@ class AccountingTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerAccountingLocaleNoDecimals')]
+    #[DataProvider('providerAccountingLocaleNoDecimals')]
     public function testAccountingLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,
@@ -169,5 +171,13 @@ class AccountingTest extends TestCase
 
         $wizard = new Accounting('€');
         $wizard->setLocale($locale);
+    }
+
+    public function testLocaleNull2(): void
+    {
+        $wizard = new Accounting('$', 2);
+        $reflectionMethod = new ReflectionMethod($wizard, 'formatCurrencyCode');
+        $result = $reflectionMethod->invokeArgs($wizard, []);
+        self::assertSame('$*', $result);
     }
 }

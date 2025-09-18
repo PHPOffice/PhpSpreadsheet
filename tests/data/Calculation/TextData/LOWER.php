@@ -31,5 +31,9 @@ return [
         'false',
         false,
     ],
+    'error code unchanged' => [
+        '#VALUE!',
+        '#VALUE!',
+    ],
     'no argument' => ['exception'],
 ];

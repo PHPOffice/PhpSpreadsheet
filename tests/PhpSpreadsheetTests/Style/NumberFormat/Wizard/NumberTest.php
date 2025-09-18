@@ -65,4 +65,10 @@ class NumberTest extends TestCase
         $wizard = new Number(2);
         $wizard->setLocale($locale);
     }
+
+    public function testNonOverriddenFormat(): void
+    {
+        $wizard = new NumberBase2();
+        self::assertSame('General', $wizard->format());
+    }
 }
