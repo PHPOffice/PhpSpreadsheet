@@ -380,11 +380,6 @@ class Worksheet
         unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
-    public function __wakeup(): void
-    {
-        $this->hash = spl_object_id($this);
-    }
-
     /**
      * Return the cell collection.
      */
@@ -1734,9 +1729,9 @@ class Worksheet
         if ($behaviour !== self::MERGE_CELL_CONTENT_HIDE) {
             // Blank out the rest of the cells in the range (if they exist)
             if ($numberRows > $numberColumns) {
-                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft, $behaviour); //* @phpstan-ignore-line
+                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft, $behaviour);
             } else {
-                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft, $behaviour); //* @phpstan-ignore-line
+                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft, $behaviour);
             }
         }
 
@@ -3067,7 +3062,7 @@ class Worksheet
 
         if ($namedRange->getLocalOnly()) {
             $worksheet = $namedRange->getWorksheet();
-            if ($worksheet === null || $this->hash !== $worksheet->getHashInt()) {
+            if ($worksheet === null || $this !== $worksheet) {
                 if ($returnNullIfInvalid) {
                     return null;
                 }
