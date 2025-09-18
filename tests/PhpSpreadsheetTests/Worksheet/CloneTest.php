@@ -61,7 +61,6 @@ class CloneTest extends TestCase
         $newSheet = unserialize($serialized);
         self::assertInstanceOf(Worksheet::class, $newSheet);
         self::assertSame(10, $newSheet->getCell('A1')->getValue());
-        self::assertNotEquals($newSheet->getHashInt(), $sheet1->getHashInt());
         self::assertNotNull($newSheet->getParent());
         self::assertNotSame($newSheet->getParent(), $sheet1->getParent());
         $newSheet->getParent()->disconnectWorksheets();
@@ -75,6 +74,5 @@ class CloneTest extends TestCase
         /** @var Worksheet */
         $newSheet = unserialize($serialized);
         self::assertSame(10, $newSheet->getCell('A1')->getValue());
-        self::assertNotEquals($newSheet->getHashInt(), $sheet1->getHashInt());
     }
 }

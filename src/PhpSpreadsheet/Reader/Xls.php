@@ -362,7 +362,7 @@ class Xls extends BaseReader
      * The current MD5 context state.
      * It is never set in the program, so code which uses it is suspect.
      */
-    private string $md5Ctxt; // @phpstan-ignore-line
+    private string $md5Ctxt;
 
     private int $textObjRef;
 

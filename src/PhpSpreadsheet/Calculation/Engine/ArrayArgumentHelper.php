@@ -145,11 +145,9 @@ class ArrayArgumentHelper
     private function columns(array $arguments): array
     {
         return array_map(
-            function (mixed $argument): int {
-                return is_array($argument) && is_array($argument[array_keys($argument)[0]])
+            fn (mixed $argument): int => is_array($argument) && is_array($argument[array_keys($argument)[0]])
                     ? count($argument[array_keys($argument)[0]])
-                    : 1;
-            },
+                    : 1,
             $arguments
         );
     }

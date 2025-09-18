@@ -971,11 +971,11 @@ class Parser
         $row = $match[4];
 
         // Convert base26 column string to a number.
-        $expn = strlen($col_ref) - 1; // @phpstan-ignore-line
+        $expn = strlen($col_ref) - 1;
         $col = 0;
-        $col_ref_length = strlen($col_ref); // @phpstan-ignore-line
+        $col_ref_length = strlen($col_ref);
         for ($i = 0; $i < $col_ref_length; ++$i) {
-            $col += (ord($col_ref[$i]) - 64) * 26 ** $expn; // @phpstan-ignore-line
+            $col += (ord($col_ref[$i]) - 64) * 26 ** $expn;
             --$expn;
         }
 

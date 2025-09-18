@@ -171,11 +171,9 @@ class Text
         );
 
         return array_map(
-            function (array $row) use ($columnCount, $padding): array {
-                return (count($row) < $columnCount)
+            fn (array $row): array => (count($row) < $columnCount)
                     ? array_merge($row, array_fill(0, $columnCount - count($row), $padding))
-                    : $row;
-            },
+                    : $row,
             $rows
         );
     }

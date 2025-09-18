@@ -668,9 +668,8 @@ class Spreadsheet implements JsonSerializable
      */
     public function getIndex(Worksheet $worksheet, bool $noThrow = false): int
     {
-        $wsHash = $worksheet->getHashInt();
         foreach ($this->workSheetCollection as $key => $value) {
-            if ($value->getHashInt() === $wsHash) {
+            if ($value === $worksheet) {
                 return $key;
             }
         }
