@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -1011,6 +1012,17 @@ class Html extends BaseReader
                     $cellStyle->getFont()->setSize(
                         (float) $styleValue
                     );
+
+                    break;
+
+                case 'direction':
+                    if ($styleValue === 'rtl') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_RTL);
+                    } elseif ($styleValue === 'ltr') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_LTR);
+                    }
 
                     break;
 
