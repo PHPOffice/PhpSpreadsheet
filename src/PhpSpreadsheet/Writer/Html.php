@@ -1126,6 +1126,12 @@ class Html extends BaseWriter
                 $css['transform'] = "rotate({$rotation}deg)";
             }
         }
+        $direction = $alignment->getReadOrder();
+        if ($direction === Alignment::READORDER_LTR) {
+            $css['direction'] = 'ltr';
+        } elseif ($direction === Alignment::READORDER_RTL) {
+            $css['direction'] = 'rtl';
+        }
 
         return $css;
     }
