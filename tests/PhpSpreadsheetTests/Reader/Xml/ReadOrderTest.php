@@ -13,7 +13,7 @@ class ReadOrderTest extends AbstractFunctional
     public function testReadOrder(): void
     {
         // Issue 850 - Xls Reader/Writer didn't support Alignment ReadOrder
-        $infile = 'tests\data\Reader\Xml\issue.850.xml';
+        $infile = 'tests/data/Reader/Xml/issue.850.xml';
         $reader = new XmlReader();
         $robj = $reader->load($infile);
 
