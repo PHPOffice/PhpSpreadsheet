@@ -1095,8 +1095,11 @@ class Html extends BaseReader
                     break;
 
                 case 'text-indent':
+                    $indentDimension = new CssDimension($styleValueString);
+                    $indent = $indentDimension
+                        ->toUnit(CssDimension::UOM_PIXELS);
                     $cellStyle->getAlignment()->setIndent(
-                        (int) str_replace(['px'], '', $styleValueString)
+                        (int) ($indent / Alignment::INDENT_UNITS_TO_PIXELS)
                     );
 
                     break;

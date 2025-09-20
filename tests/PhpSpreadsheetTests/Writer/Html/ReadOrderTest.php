@@ -25,6 +25,10 @@ class ReadOrderTest extends TestCase
             ->getAlignment()->setReadOrder(Alignment::READORDER_LTR);
         $sheet->getStyle('A2')->getFont()->setName('Arial');
         $sheet->getStyle('A3')->getFont()->setName('Times New Roman');
+        $sheet->setCellValue('A5', 'hello');
+        $sheet->getStyle('A5')->getFont()->setName('Tahoma');
+        $sheet->getStyle('A5')
+            ->getAlignment()->setIndent(2);
         $writer = new HtmlWriter($spreadsheet);
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
@@ -38,6 +42,14 @@ class ReadOrderTest extends TestCase
         );
         self::assertStringContainsString(
             '<td class="gridlines" style="vertical-align:bottom; color:#000000; font-family:\'Times New Roman\';',
+            $html
+        );
+        self::assertStringContainsString(
+            '>&nbsp;</td>',
+            $html
+        );
+        self::assertStringContainsString(
+            '<td class="gridlines" style="vertical-align:bottom; text-indent:18px; color:#000000; font-family:\'Tahoma\';',
             $html
         );
         $spreadsheet->disconnectWorksheets();
@@ -57,6 +69,10 @@ class ReadOrderTest extends TestCase
             Alignment::READORDER_CONTEXT,
             $sheet0->getStyle('A3')->getAlignment()->getReadOrder()
         );
+        self::assertSame(
+            2,
+            $sheet0->getStyle('A5')->getAlignment()->getIndent()
+        );
         $spreadsheet2->disconnectWorksheets();
     }
 
@@ -73,6 +89,10 @@ class ReadOrderTest extends TestCase
             ->getAlignment()->setReadOrder(Alignment::READORDER_LTR);
         $sheet->getStyle('A2')->getFont()->setName('Arial');
         $sheet->getStyle('A3')->getFont()->setName('Times New Roman');
+        $sheet->setCellValue('A5', 'hello');
+        $sheet->getStyle('A5')->getFont()->setName('Tahoma');
+        $sheet->getStyle('A5')
+            ->getAlignment()->setIndent(2);
         $writer = new HtmlWriter($spreadsheet);
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString(
@@ -85,6 +105,14 @@ class ReadOrderTest extends TestCase
         );
         self::assertStringContainsString(
             'td.style3, th.style3 { vertical-align:bottom; border-bottom',
+            $html
+        );
+        self::assertStringContainsString(
+            '>&nbsp;</td>',
+            $html
+        );
+        self::assertStringContainsString(
+            'td.style4, th.style4 { vertical-align:bottom; text-indent:18px;',
             $html
         );
         $spreadsheet->disconnectWorksheets();

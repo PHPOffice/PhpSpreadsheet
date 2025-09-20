@@ -199,7 +199,7 @@ class HtmlTest extends TestCase
                         <td valign="center">Center valign</td>
                         <td style="text-align: center;">Center align</td>
                         <td style="vertical-align: center;">Center valign</td>
-                        <td style="text-indent: 10px;">Text indent</td>
+                        <td style="text-indent: 9px;">Text indent</td>
                         <td style="word-wrap: break-word;">Wraptext</td>
                     </tr>
                 </table>';
@@ -220,7 +220,7 @@ class HtmlTest extends TestCase
         self::assertEquals(Alignment::VERTICAL_CENTER, $style->getAlignment()->getVertical());
 
         $style = $firstSheet->getCell('E1')->getStyle();
-        self::assertEquals(10, $style->getAlignment()->getIndent());
+        self::assertEquals(1, $style->getAlignment()->getIndent());
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getAlignment()->getWrapText());
@@ -302,14 +302,14 @@ class HtmlTest extends TestCase
                   </tr>
                   <tr>
                     <td>2</td>
-                    <td style="text-indent:10px">Text Indent</td>
+                    <td style="text-indent:9px">Text Indent</td>
                   </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
         $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
-        self::assertEquals(10, $style->getAlignment()->getIndent());
+        self::assertEquals(1, $style->getAlignment()->getIndent());
         $spreadsheet->disconnectWorksheets();
     }
 

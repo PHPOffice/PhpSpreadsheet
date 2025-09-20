@@ -92,6 +92,8 @@ class Alignment extends Supervisor
     const TEXTROTATION_STACK_EXCEL = 255;
     const TEXTROTATION_STACK_PHPSPREADSHEET = -165; // 90 - 255
 
+    public const INDENT_UNITS_TO_PIXELS = 9;
+
     /**
      * Horizontal alignment.
      */
