@@ -37,6 +37,7 @@ class Issue4537Test extends TestCase
         $richText->addText(new TextElement($testString));
         $sheet->getCell('A3')->setValue($richText);
         $writer = new OdsWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($this->outputFilename);
         $spreadsheet->disconnectWorksheets();
 

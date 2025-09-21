@@ -34,9 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Minor improvements to Calculation coverage. [PR #4624](https://github.com/PHPOffice/PhpSpreadsheet/pull/4624)
 - Conditional formatting in extLst. [Issue #4629](https://github.com/PHPOffice/PhpSpreadsheet/issues/4629) [PR #4633](https://github.com/PHPOffice/PhpSpreadsheet/pull/4633)
 - Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
+- Wrapped cells and default row height. [Issue #4584](https://github.com/PHPOffice/PhpSpreadsheet/issues/4584) [PR #4645](https://github.com/PHPOffice/PhpSpreadsheet/pull/4645)
 - For Php8.5, replace one of our two uses of `__wakeup` with `__unserialize`, and eliminate the other. [PR #4639](https://github.com/PHPOffice/PhpSpreadsheet/pull/4639)
 - Use prefix _xlfn for BASE function. [Issue #4638](https://github.com/PHPOffice/PhpSpreadsheet/issues/4638) [PR #4641](https://github.com/PHPOffice/PhpSpreadsheet/pull/4641)
 - Warning messages with corrupt Xls file. [Issue #4647](https://github.com/PHPOffice/PhpSpreadsheet/issues/4647) [PR #4648](https://github.com/PHPOffice/PhpSpreadsheet/pull/4648)
+- Additional support for union and intersection. [PR #4596](https://github.com/PHPOffice/PhpSpreadsheet/pull/4596)
 
 ## 2025-09-03 - 5.1.0
 

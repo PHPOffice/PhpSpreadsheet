@@ -387,6 +387,7 @@ class HtmlTest extends TestCase
                         <td data-type="s">=B1</td>
                         <td data-type="d">2022-02-21 10:20:30</td>
                         <td data-type="null">null</td>
+                        <td data-type="b">0</td>
                         <td data-type="invalid-datatype">text with invalid datatype</td>
                     </tr>
                 </table>';
@@ -395,9 +396,10 @@ class HtmlTest extends TestCase
         $spreadsheet = $reader->loadFromString($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
-        // check boolean data type
+        // check boolean data type and true
         self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
         self::assertIsBool($firstSheet->getCell('A1')->getValue());
+        self::assertTrue($firstSheet->getCell('A1')->getValue());
 
         // check string data type
         self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
@@ -413,5 +415,10 @@ class HtmlTest extends TestCase
 
         //null
         self::assertEquals($firstSheet->getCell('E1')->getValue(), null);
+
+        // check boolean data type and true
+        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('F1')->getDataType());
+        self::assertIsBool($firstSheet->getCell('F1')->getValue());
+        self::assertFalse($firstSheet->getCell('F1')->getValue());
     }
 }

@@ -306,7 +306,7 @@ class StringTable extends WriterPart
                 $objWriter->writeAttribute('val', $value);
                 $alpha = $underlineColor->getAlpha();
                 if (is_numeric($alpha)) {
-                    $objWriter->startElement('a:alpha');
+                    $objWriter->startElement($prefix . 'alpha');
                     $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
                     $objWriter->endElement();
                 }

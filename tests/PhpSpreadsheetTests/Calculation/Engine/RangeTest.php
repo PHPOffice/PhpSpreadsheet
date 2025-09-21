@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 class RangeTest extends TestCase
 {
-    private string $incompleteMessage = 'Must be revisited';
-
     private ?Spreadsheet $spreadSheet = null;
 
     protected function getSpreadsheet(): Spreadsheet
@@ -162,9 +160,6 @@ class RangeTest extends TestCase
     #[DataProvider('providerCompositeNamedRangeEvaluation')]
     public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
-        if ($this->incompleteMessage !== '') {
-            self::markTestIncomplete($this->incompleteMessage);
-        }
         $this->spreadSheet = $this->getSpreadsheet();
 
         $workSheet = $this->spreadSheet->getActiveSheet();
@@ -182,17 +177,47 @@ class RangeTest extends TestCase
     public static function providerCompositeNamedRangeEvaluation(): array
     {
         return [
-            //  Calculation engine doesn't yet handle union ranges with overlap
             'Union with overlap' => [
-                'A1:C1,A3:C3,B1:C3',
-                63,
+                '$A$1:$C$1,$A$3:$C$3,$B$1:$C$3',
+                99,
                 12,
             ],
             'Union and Intersection' => [
-                'A1:C1,A3:C3 B1:C3',
-                23,
+                '$A$1:$C$1,$A$3:$C$3 $B$1:$C$3',
+                35,
                 5,
             ],
         ];
+    }
+
+    public function testIntersectCellFormula(): void
+    {
+        $this->spreadSheet = $this->getSpreadsheet();
+
+        $sheet = $this->spreadSheet->getActiveSheet();
+        $array = [
+            [null, 'Planets', 'Lives', 'Babies'],
+            ['Batman', 5, 10, 4],
+            ['Superman', 4, 56, 34],
+            ['Spiderman', 23, 45, 67],
+            ['Hulk', 12, 34, 58],
+            ['Steve', 10, 34, 78],
+        ];
+        $sheet->fromArray($array, null, 'A3', true);
+        $this->spreadSheet->addNamedRange(new NamedRange('Hulk', $sheet, '$B$7:$D$7'));
+        $this->spreadSheet->addNamedRange(new NamedRange('Planets', $sheet, '$B$4:$B$8'));
+        $this->spreadSheet->addNamedRange(new NamedRange('Intersect', $sheet, '$A$6:$D$6 $C$4:$C$8'));
+        $this->spreadSheet->addNamedRange(new NamedRange('SupHulk', $sheet, '$B$5:$D$5,$B$7:$D$7'));
+
+        $sheet->setCellValue('F1', '=Intersect');
+        $sheet->setCellValue('F2', '=SUM(SupHulk)');
+        $sheet->setCellValue('F3', '=Planets Hulk');
+        $sheet->setCellValue('F4', '=B4:D4 B4:C5');
+
+        $this->spreadSheet->returnArrayAsArray();
+        self::assertSame(45, $sheet->getCell('F1')->getCalculatedValue());
+        self::assertSame(198, $sheet->getCell('F2')->getCalculatedValue());
+        self::assertSame(12, $sheet->getCell('F3')->getCalculatedValue());
+        self::assertSame([[5, 10]], $sheet->getCell('F4')->getCalculatedValue());
     }
 }
