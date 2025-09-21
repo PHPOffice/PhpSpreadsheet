@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class DurationTest extends TestCase
 {
@@ -32,5 +33,13 @@ class DurationTest extends TestCase
             ['[h]:mm:ss', null, [Duration::HOURS_DURATION, Duration::MINUTES_LONG, Duration::SECONDS_LONG]],
             ['[h]:mm:ss'],
         ];
+    }
+
+    public function testOddCase(): void
+    {
+        $wizard = new Duration(null, Duration::HOURS_DURATION, Duration::MINUTES_LONG, Duration::SECONDS_LONG);
+        $reflectionMethod = new ReflectionMethod($wizard, 'mapFormatBlocks');
+        $result = $reflectionMethod->invokeArgs($wizard, ['%%%']);
+        self::assertSame('"%%%"', $result);
     }
 }
