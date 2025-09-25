@@ -253,12 +253,13 @@ jobs:
           ./vendor/bin/phpunit --coverage-clover build/clover.xml
 
       - name: Upload coverage results to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.4.3/php-coveralls.phar
-          chmod +x php-coveralls.phar
-          php php-coveralls.phar --coverage_clover=build/clover.xml --json_path=build/coveralls-upload.json -vvv
+          env:
+            FAILURE_ACTION: "${{ true }}"
+          uses: coverallsapp/github-action@v2
+          with:
+              github-token: ${{ secrets.GITHUB_TOKEN }}
+              file: build/clover.xml
+              format: clover
 
   release:
     permissions:
