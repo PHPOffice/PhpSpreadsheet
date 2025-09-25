@@ -1254,6 +1254,8 @@ class Xls extends XlsBase
 
                         break;
                 }
+                $readOrder = (0xC0 & ord($recordData[8])) >> 6;
+                $objStyle->getAlignment()->setReadOrder($readOrder);
 
                 // offset:  9; size: 1; Flags used for attribute groups
 
