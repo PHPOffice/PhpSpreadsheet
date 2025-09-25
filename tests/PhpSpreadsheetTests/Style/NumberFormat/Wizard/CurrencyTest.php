@@ -11,11 +11,13 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class CurrencyTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrency')]
+    #[DataProvider('providerCurrency')]
     public function testCurrency(
         string $expectedResultPositive,
         string $expectedResultNegative,
@@ -43,10 +45,25 @@ class CurrencyTest extends TestCase
             [' 1,234.56€ ', ' -1,234.56€ ', ' 0.00€ ', '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
             [' 1234.56€ ', ' -1234.56€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
             [' 1234.56€ ', ' (1234.56)€ ', ' 0.00€ ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING, CurrencyNegative::parentheses],
+            [' 1234.56 GBP ', ' (1234.56) GBP ', '  0.00GBP ', 'GBP', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING, CurrencyNegative::parentheses],
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencyLocale')]
+    public function testSetNegative(): void
+    {
+        $expectedResultNegative = ' (1234.56)€ ';
+        $currencyCode = '€';
+        $decimals = 2;
+        $thousandsSeparator = Number::WITHOUT_THOUSANDS_SEPARATOR;
+        $currencySymbolPosition = Currency::TRAILING_SYMBOL;
+        $currencySymbolSpacing = Currency::SYMBOL_WITHOUT_SPACING;
+        $negative = CurrencyNegative::parentheses;
+        $wizard = new Currency($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing);
+        $wizard->setNegative($negative);
+        self::assertSame($expectedResultNegative, Formatter::toFormattedString(-1234.56, $wizard->format()));
+    }
+
+    #[DataProvider('providerCurrencyLocale')]
     public function testCurrencyLocale(
         string $expectedResult,
         string $currencyCode,
@@ -106,7 +123,7 @@ class CurrencyTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCurrencyLocaleNoDecimals')]
+    #[DataProvider('providerCurrencyLocaleNoDecimals')]
     public function testCurrencyLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,
@@ -170,5 +187,13 @@ class CurrencyTest extends TestCase
 
         $wizard = new Currency('€');
         $wizard->setLocale($locale);
+    }
+
+    public function testLocaleNull3(): void
+    {
+        $wizard = new Currency('$', 2);
+        $reflectionMethod = new ReflectionMethod($wizard, 'formatCurrencyCode');
+        $result = $reflectionMethod->invokeArgs($wizard, []);
+        self::assertSame('$', $result);
     }
 }
