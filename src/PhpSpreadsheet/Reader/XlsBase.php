@@ -368,11 +368,20 @@ class XlsBase extends BaseReader
         return StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }
 
+    protected static function confirmPos(string $data, int $pos): void
+    {
+        if ($pos >= strlen($data)) {
+            throw new PhpSpreadsheetException('File appears to be corrupt'); // @codeCoverageIgnore
+        }
+    }
+
     /**
      * Read 16-bit unsigned integer.
      */
     public static function getUInt2d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 1);
+
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
     }
 
@@ -381,6 +390,8 @@ class XlsBase extends BaseReader
      */
     public static function getInt2d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 1);
+
         return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore-line
     }
 
@@ -389,6 +400,8 @@ class XlsBase extends BaseReader
      */
     public static function getInt4d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 3);
+
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
         // Changed by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
