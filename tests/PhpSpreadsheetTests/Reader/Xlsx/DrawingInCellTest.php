@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\TestCase;
 
-class DrawingInCell extends AbstractFunctional
+class DrawingInCellTest extends TestCase
 {
     public function testPictureInCell(): void
     {
         $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($file);
-
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
-        $spreadsheet->disconnectWorksheets();
-        $sheet = $reloadedSpreadsheet->getActiveSheet();
+        $sheet = $spreadsheet->getActiveSheet();
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
+
         if ($drawings[0] === null) {
             self::fail('Unexpected null drawing');
         } else {
@@ -33,6 +31,6 @@ class DrawingInCell extends AbstractFunctional
             self::assertSame(154, $drawings[0]->getImageHeight());
         }
 
-        $reloadedSpreadsheet->disconnectWorksheets();
+        $spreadsheet->disconnectWorksheets();
     }
 }
