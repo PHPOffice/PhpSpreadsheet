@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Stringable;
@@ -308,6 +309,12 @@ class Cell implements Stringable
             case DataType::TYPE_ISO_DATE:
                 $this->value = SharedDate::convertIsoDate($value);
                 $dataType = DataType::TYPE_NUMERIC;
+
+                break;
+            case DataType::TYPE_DRAWING_IN_CELL:
+                if ($value instanceof BaseDrawing) {
+                    $this->value = $value;
+                }
 
                 break;
             case DataType::TYPE_ERROR:

@@ -137,6 +137,8 @@ class BaseDrawing implements IComparable
      */
     protected ?int $opacity = null;
 
+    protected bool $inCell = false;
+
     /**
      * Create a new BaseDrawing.
      */
@@ -571,5 +573,17 @@ class BaseDrawing implements IComparable
     public function getOpacity(): ?int
     {
         return $this->opacity;
+    }
+
+    public function setInCell(bool $inCell): self
+    {
+        $this->inCell = $inCell;
+
+        return $this;
+    }
+
+    public function isInCell(): ?bool
+    {
+        return $this->inCell;
     }
 }

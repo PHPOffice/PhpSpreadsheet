@@ -53,10 +53,11 @@ class Drawing extends WriterPart
             $pRelationId = $i;
             $hlinkClickId = $pDrawing->getHyperlink() === null ? null : ++$i;
 
-            $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
-
+            if (!$pDrawing->isInCell()) {
+                $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
+                ++$i;
+            }
             $iterator->next();
-            ++$i;
         }
 
         if ($includeCharts) {
