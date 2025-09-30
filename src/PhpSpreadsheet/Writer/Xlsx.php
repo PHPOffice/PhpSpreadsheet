@@ -440,6 +440,8 @@ class Xlsx extends BaseWriter
             if (($drawingCount > 0) || ($chartCount > 0)) {
                 // Drawing relationships
                 $zipContent['xl/drawings/_rels/drawing' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeDrawingRelationships($this->spreadSheet->getSheet($i), $chartRef1, $this->includeCharts);
+                // richData relationships
+                $zipContent['xl/richData/_rels/richValueRel.xml.rels'] = $this->getWriterPartRels()->writeDrawingRelationships($this->spreadSheet->getSheet($i), $chartRef1, $this->includeCharts);
 
                 // Drawings
                 $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = $this->getWriterPartDrawing()->writeDrawings($this->spreadSheet->getSheet($i), $this->includeCharts);

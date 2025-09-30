@@ -121,4 +121,9 @@ class Namespaces
     const DYNAMIC_ARRAY = 'http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray';
 
     const DYNAMIC_ARRAY_RICHDATA = 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata';
+
+    /**
+     * @see https://learn.microsoft.com/en-us/openspecs/office_standards/ms-xlsx/896934fd-8df7-43f4-b154-2d39371c270d
+     */
+    const RICH_VALUE_DATA = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValue';
 }
