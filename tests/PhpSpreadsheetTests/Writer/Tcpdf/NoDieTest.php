@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\TcpdfNoDie;
 use PHPUnit\Framework\Attributes;
 
-// Separate processes because of global defined names
-#[Attributes\RunTestsInSeparateProcesses]
 class NoDieTest extends \PHPUnit\Framework\TestCase
 {
     private Spreadsheet $spreadsheet;
@@ -23,6 +21,9 @@ class NoDieTest extends \PHPUnit\Framework\TestCase
         unset($this->spreadsheet);
     }
 
+    // Separate processes because of global defined names
+    #[Attributes\RunInSeparateProcess]
+    #[Attributes\PreserveGlobalState(false)]
     public function testExceptionRatherThanDie(): void
     {
         $this->expectException(Exception::class);
