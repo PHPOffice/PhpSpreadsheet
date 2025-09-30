@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
 
@@ -30,6 +31,9 @@ class DrawingInCellTest extends TestCase
             self::assertSame(296, $drawings[0]->getImageWidth());
             self::assertSame(154, $drawings[0]->getImageHeight());
         }
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('tests/data/Reader/XLSX/drawing_in_cell-written.xlsx');
 
         $spreadsheet->disconnectWorksheets();
     }

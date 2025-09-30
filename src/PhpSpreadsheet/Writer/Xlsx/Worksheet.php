@@ -1557,6 +1557,13 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
+    private function writeCellDrawing(XMLWriter $objWriter): void
+    {
+        $objWriter->writeAttribute('t', 'e');
+        $objWriter->writeAttribute('vm', '1');
+        $objWriter->writeElement('v', '#VALUE!');
+    }
+
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $attributes = $cell->getFormulaAttributes() ?? [];
@@ -1736,6 +1743,10 @@ class Worksheet extends WriterPart
                     break;
                 case 'b':            // Boolean
                     $this->writeCellBoolean($objWriter, $mappedType, (bool) $cellValue);
+
+                    break;
+                case 'drawingcell':  // DrawingInCell
+                    $this->writeCellDrawing($objWriter);
 
                     break;
                 case 'e':            // Error

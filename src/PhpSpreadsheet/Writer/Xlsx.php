@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RichDataDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Table;
@@ -461,6 +462,14 @@ class Xlsx extends BaseWriter
             }
             if (isset($unparsedSheet['drawingOriginalIds']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
                 $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = '<xml></xml>';
+            }
+
+            $richDataDrawing = new RichDataDrawing();
+            $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet->getSheet($i));
+
+            // Add all Rich Data files to ZIP
+            foreach ($richDataFiles as $path => $content) {
+                $zipContent[$path] = $content;
             }
 
             // Add comment relationship parts
