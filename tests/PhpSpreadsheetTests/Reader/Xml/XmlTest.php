@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PHPUnit\Framework\TestCase;
@@ -101,5 +102,25 @@ class XmlTest extends TestCase
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('File "" does not exist');
         $xmlReader->load('');
+    }
+
+    /**
+     * Ensures that a PHP warning for `Undefined array key "x"` is not triggered.
+     *
+     * Relies on PHPUnit's conversion of PHP warnings, deprecations, and notices to exceptions.
+     * If that warning occurs, the test should fail.
+     */
+    public function testLoadXlsBug4669(): void
+    {
+        $filename = 'tests/data/Reader/Xml/bug4669.xml';
+
+        $reader = IOFactory::createReaderForFile($filename);
+        $reader->setReadDataOnly(true);
+
+        $spreadsheet = $reader->load($filename);
+
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Report Date', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }
