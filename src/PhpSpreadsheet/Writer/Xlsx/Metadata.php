@@ -10,8 +10,6 @@ class Metadata extends WriterPart
     /**
      * Write content types to XML format.
      *
-     * @param int $richDataCount
-     *
      * @return string XML Output
      */
     public function writeMetadata(int $richDataCount = 0): string

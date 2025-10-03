@@ -413,7 +413,7 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
-     * This workbook have in cell images
+     * This workbook has in cell images.
      */
     public function hasInCellDrawings(): bool
     {
