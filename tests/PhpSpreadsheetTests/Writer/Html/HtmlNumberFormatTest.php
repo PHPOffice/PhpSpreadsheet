@@ -151,6 +151,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
+        $html = str_replace('>&nbsp;<', '><', $html); // clear empty cells
         $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')->item(0);

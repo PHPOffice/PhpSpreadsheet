@@ -57,7 +57,7 @@ class HtmlColourScaleTest extends TestCase
             ['G3', 'background-color:#EC926F;">7<', 'cell G3'],
             ['H3', 'background-color:#E67C73;">8<', 'cell H3'],
             ['A4', 'background-color:#57BB8A;">1<', 'cell A4'],
-            ['I4', 'null"><', 'empty cell I4'],
+            ['I4', 'null">&nbsp;<', 'empty cell I4'],
             ['J4', 'background-color:#E67C73;">10<', 'cell J4'],
         ];
         foreach ($expectedMatches as $expected) {

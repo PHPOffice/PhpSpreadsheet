@@ -93,7 +93,7 @@ class Issue4248Test extends TestCase
         $data = str_replace(["\r", "\n"], '', $writer->generateHtmlAll());
         $expected = '          <tr class="row17">' // Cell D18
             . '            <td class="column0 style0">&nbsp;</td>'
-            . '            <td class="column1 style28 null"></td>'
+            . '            <td class="column1 style28 null">&nbsp;</td>'
             . '            <td class="column2 style35 s">Eligible </td>'
             . '            <td class="column3 style70 s">Non</td>';
         self::assertStringContainsString($expected, $data, 'Cell D18 style');

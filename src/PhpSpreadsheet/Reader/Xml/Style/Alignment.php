@@ -55,6 +55,14 @@ class Alignment extends StyleBase
                     $style['alignment']['indent'] = $styleAttributeValue;
 
                     break;
+                case 'ReadingOrder':
+                    if ($styleAttributeValue === 'RightToLeft') {
+                        $style['alignment']['readOrder'] = AlignmentStyles::READORDER_RTL;
+                    } elseif ($styleAttributeValue === 'LeftToRight') {
+                        $style['alignment']['readOrder'] = AlignmentStyles::READORDER_LTR;
+                    }
+
+                    break;
             }
         }
 
