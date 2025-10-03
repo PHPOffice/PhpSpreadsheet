@@ -21,7 +21,6 @@ class DrawingInCellTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
         $spreadsheet->disconnectWorksheets();
-        self::assertNotNull($reloadedSpreadsheet->getSheet(0));
 
         $sheet = $reloadedSpreadsheet->getSheet(0);
         $drawings = $sheet->getInCellDrawingCollection();
