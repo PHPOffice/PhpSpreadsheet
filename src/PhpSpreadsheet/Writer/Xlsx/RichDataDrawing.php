@@ -3,12 +3,12 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class RichDataDrawing
 {
-    /** @var BaseDrawing[] */
+    /** @var Drawing[] */
     private array $drawings = [];
 
     /**
@@ -16,16 +16,26 @@ class RichDataDrawing
      *
      * @return array<string,string> [path => XML content]
      */
-    public function generateFiles(Worksheet $worksheet): array
+    public function generateFiles(Spreadsheet $spreadsheet): array
     {
-        $iterator = $worksheet->getDrawingCollection()->getIterator();
-        while ($iterator->valid()) {
-            /** @var BaseDrawing $pDrawing */
-            $pDrawing = $iterator->current();
-            if ($pDrawing->isInCell()) {
-                $this->drawings[] = $pDrawing;
+        $worksheetCount = $spreadsheet->getSheetCount();
+
+        $index = 0;
+        for ($i = 0; $i < $worksheetCount; ++$i) {
+            $worksheet = $spreadsheet->getSheet($i);
+            $iterator = $worksheet->getInCellDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                /** @var Drawing $pDrawing */
+                $pDrawing = $iterator->current();
+                $indexedFilename = $pDrawing->getIndexedFilename();
+                if (!isset($this->drawings[$indexedFilename])) {
+                    $pDrawing->setIndex(++$index);
+                    $this->drawings[$indexedFilename] = $pDrawing;
+                } else {
+                    $pDrawing->setIndex($this->drawings[$indexedFilename]->getIndex());
+                }
+                $iterator->next();
             }
-            $iterator->next();
         }
 
         if (count($this->drawings) === 0) {
@@ -49,17 +59,12 @@ class RichDataDrawing
         $xml->writeAttribute('xmlns', 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata');
         $xml->writeAttribute('count', (string) count($this->drawings));
 
-        foreach ($this->drawings as $index => $drawing) {
-            if (!$drawing->isInCell()) {
-                continue;
-            }
+        $index = 0;
+        foreach ($this->drawings as $drawing) {
             $xml->startElement('rv');
-            $xml->writeAttribute('s', (string) $index);
-
-            // Sample values; adapt to your needs
-            $xml->writeElement('v', '0');
+            $xml->writeAttribute('s', '0');
+            $xml->writeElement('v', (string) $index++);
             $xml->writeElement('v', '5');
-
             $xml->endElement(); // rv
         }
 
@@ -74,28 +79,22 @@ class RichDataDrawing
         $xml->startDocument('1.0', 'UTF-8', 'yes');
         $xml->startElement('rvStructures');
         $xml->writeAttribute('xmlns', 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata');
-        $xml->writeAttribute('count', (string) count($this->drawings));
+        $xml->writeAttribute('count', '1');
 
-        foreach ($this->drawings as $drawing) {
-            if (!$drawing->isInCell()) {
-                continue;
-            }
+        $xml->startElement('s');
+        $xml->writeAttribute('t', '_localImage');
 
-            $xml->startElement('s');
-            $xml->writeAttribute('t', '_localImage');
+        $xml->startElement('k');
+        $xml->writeAttribute('n', '_rvRel:LocalImageIdentifier');
+        $xml->writeAttribute('t', 'i');
+        $xml->endElement();
 
-            $xml->startElement('k');
-            $xml->writeAttribute('n', '_rvRel:LocalImageIdentifier');
-            $xml->writeAttribute('t', 'i');
-            $xml->endElement();
+        $xml->startElement('k');
+        $xml->writeAttribute('n', 'CalcOrigin');
+        $xml->writeAttribute('t', 'i');
+        $xml->endElement();
 
-            $xml->startElement('k');
-            $xml->writeAttribute('n', 'CalcOrigin');
-            $xml->writeAttribute('t', 'i');
-            $xml->endElement();
-
-            $xml->endElement(); // s
-        }
+        $xml->endElement(); // s
 
         $xml->endElement(); // rvStructures
 
@@ -153,12 +152,10 @@ class RichDataDrawing
         $xml->writeAttribute('xmlns', 'http://schemas.microsoft.com/office/spreadsheetml/2022/richvaluerel');
         $xml->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
-        foreach ($this->drawings as $index => $drawing) {
-            if (!$drawing->isInCell()) {
-                continue;
-            }
+        $index = 0;
+        foreach ($this->drawings as $drawing) {
             $xml->startElement('rel');
-            $xml->writeAttribute('r:id', 'rId' . ($index + 1));
+            $xml->writeAttribute('r:id', 'rId' . ++$index);
             $xml->endElement();
         }
 
@@ -174,12 +171,10 @@ class RichDataDrawing
         $xml->startElement('Relationships');
         $xml->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 
-        foreach ($this->drawings as $index => $drawing) {
-            if (!$drawing->isInCell()) {
-                continue;
-            }
+        $index = 0;
+        foreach ($this->drawings as $drawing) {
             $xml->startElement('Relationship');
-            $xml->writeAttribute('Id', 'rId' . ($index + 1));
+            $xml->writeAttribute('Id', 'rId' . ++$index);
             $xml->writeAttribute('Type', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image');
             $xml->writeAttribute('Target', '../media/' . $drawing->getIndexedFilename());
             $xml->endElement();

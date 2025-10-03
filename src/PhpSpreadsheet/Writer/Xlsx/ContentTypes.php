@@ -157,6 +157,13 @@ class ContentTypes extends WriterPart
             }
         }
 
+        if ($spreadsheet->hasInCellDrawings()) {
+            $this->writeOverrideContentType($objWriter, '/xl/richData/richValueRel.xml', 'application/vnd.ms-excel.richvaluerel+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdrichvalue.xml', 'application/vnd.ms-excel.rdrichvalue+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdrichvaluestructure.xml', 'application/vnd.ms-excel.rdrichvaluestructure+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdRichValueTypes.xml', 'application/vnd.ms-excel.rdrichvaluetypes+xml');
+        }
+
         // Add pass-through media content types
         /** @var array<string, array<string, mixed>> $sheets */
         $sheets = $unparsedLoadedData['sheets'] ?? [];
@@ -212,12 +219,12 @@ class ContentTypes extends WriterPart
                     }
 
                     $bgImage = $comment->getBackgroundImage();
-                    $bgImageExtensionKey = strtolower($bgImage->getImageFileExtensionForSave(false));
+                    $bgImageExtentionKey = strtolower($bgImage->getImageFileExtensionForSave(false));
 
-                    if (!isset($aMediaContentTypes[$bgImageExtensionKey])) {
-                        $aMediaContentTypes[$bgImageExtensionKey] = $bgImage->getImageMimeType();
+                    if (!isset($aMediaContentTypes[$bgImageExtentionKey])) {
+                        $aMediaContentTypes[$bgImageExtentionKey] = $bgImage->getImageMimeType();
 
-                        $this->writeDefaultContentType($objWriter, $bgImageExtensionKey, $aMediaContentTypes[$bgImageExtensionKey]);
+                        $this->writeDefaultContentType($objWriter, $bgImageExtentionKey, $aMediaContentTypes[$bgImageExtentionKey]);
                     }
                 }
             }

@@ -413,6 +413,21 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
+     * This workbook have in cell images
+     */
+    public function hasInCellDrawings(): bool
+    {
+        $sheetCount = $this->getSheetCount();
+        for ($i = 0; $i < $sheetCount; ++$i) {
+            if ($this->getSheet($i)->getInCellDrawingCollection()->count() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Check if a sheet with a specified code name already exists.
      *
      * @param string $codeName Name of the worksheet to check

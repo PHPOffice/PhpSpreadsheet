@@ -977,8 +977,8 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setOffsetX(0);
                                                     $objDrawing->setOffsetY(0);
                                                     $objDrawing->setResizeProportional(false);
-                                                    $objDrawing->setWorksheet($docSheet);
                                                     $objDrawing->setInCell(true);
+                                                    $objDrawing->setWorksheet($docSheet);
 
                                                     $value = $objDrawing;
                                                     $cellDataType = DataType::TYPE_DRAWING_IN_CELL;
