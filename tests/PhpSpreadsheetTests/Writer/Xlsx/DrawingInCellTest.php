@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
-use PHPUnit\Framework\TestCase;
 
 class DrawingInCellTest extends AbstractFunctional
 {
