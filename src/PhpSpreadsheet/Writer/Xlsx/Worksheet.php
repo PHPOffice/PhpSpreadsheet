@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalIconSet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
@@ -1557,10 +1558,10 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
-    private function writeCellDrawing(XMLWriter $objWriter): void
+    private function writeCellDrawing(XMLWriter $objWriter, int $index): void
     {
         $objWriter->writeAttribute('t', 'e');
-        $objWriter->writeAttribute('vm', '1');
+        $objWriter->writeAttribute('vm', (string) $index);
         $objWriter->writeElement('v', '#VALUE!');
     }
 
@@ -1746,7 +1747,10 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'drawingcell':  // DrawingInCell
-                    $this->writeCellDrawing($objWriter);
+                    if ($cellValue instanceof BaseDrawing) {
+                        $index = $cellValue->getIndex();
+                        $this->writeCellDrawing($objWriter, $index);
+                    }
 
                     break;
                 case 'e':            // Error

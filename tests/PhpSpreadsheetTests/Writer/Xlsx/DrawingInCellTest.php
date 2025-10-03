@@ -2,21 +2,28 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 use PHPUnit\Framework\TestCase;
 
-class DrawingInCellTest extends TestCase
+class DrawingInCellTest extends AbstractFunctional
 {
     public function testPictureInCell(): void
     {
-        $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
+        $file = 'tests/data/Writer/XLSX/drawing_in_cell.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($file);
 
-        $sheet = $spreadsheet->getSheet(0);
+        // Save spreadsheet to file and read it back
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+
+        $spreadsheet->disconnectWorksheets();
+        self::assertNotNull($reloadedSpreadsheet->getSheet(0));
+
+        $sheet = $reloadedSpreadsheet->getSheet(0);
         $drawings = $sheet->getInCellDrawingCollection();
         self::assertCount(2, $drawings);
 
@@ -35,7 +42,7 @@ class DrawingInCellTest extends TestCase
 
         self::assertSame($drawings[0], $sheet->getCell('B2')->getValue());
 
-        $sheet = $spreadsheet->getSheet(1);
+        $sheet = $reloadedSpreadsheet->getSheet(1);
         $drawings = $sheet->getInCellDrawingCollection();
         self::assertCount(1, $drawings);
 
@@ -52,6 +59,6 @@ class DrawingInCellTest extends TestCase
             self::assertSame(218, $drawings[0]->getImageHeight());
         }
 
-        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 }

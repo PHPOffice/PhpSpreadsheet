@@ -48,11 +48,10 @@ class Drawing extends WriterPart
             $pRelationId = $i;
             $hlinkClickId = $pDrawing->getHyperlink() === null ? null : ++$i;
 
-            if (!$pDrawing->isInCell()) {
-                $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
-                ++$i;
-            }
+            $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
+
             $iterator->next();
+            ++$i;
         }
 
         if ($includeCharts) {
@@ -560,6 +559,12 @@ class Drawing extends WriterPart
         for ($i = 0; $i < $sheetCount; ++$i) {
             // Loop through images and add to array
             $iterator = $spreadsheet->getSheet($i)->getDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                $aDrawings[] = $iterator->current();
+
+                $iterator->next();
+            }
+            $iterator = $spreadsheet->getSheet($i)->getInCellDrawingCollection()->getIterator();
             while ($iterator->valid()) {
                 $aDrawings[] = $iterator->current();
 

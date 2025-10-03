@@ -156,6 +156,14 @@ class ContentTypes extends WriterPart
                 $this->writeDefaultContentType($objWriter, $extension, $mimeType);
             }
         }
+
+        if ($spreadsheet->hasInCellDrawings()) {
+            $this->writeOverrideContentType($objWriter, '/xl/richData/richValueRel.xml', 'application/vnd.ms-excel.richvaluerel+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdrichvalue.xml', 'application/vnd.ms-excel.rdrichvalue+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdrichvaluestructure.xml', 'application/vnd.ms-excel.rdrichvaluestructure+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/richData/rdRichValueTypes.xml', 'application/vnd.ms-excel.rdrichvaluetypes+xml');
+        }
+
         if ($spreadsheet->hasRibbonBinObjects()) {
             // Some additional objects in the ribbon ?
             // we need to write "Extension" but not already write for media content

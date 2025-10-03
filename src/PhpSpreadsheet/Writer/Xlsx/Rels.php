@@ -162,6 +162,14 @@ class Rels extends WriterPart
             ++$i; //increment i if needed for an another relation
         }
 
+        if ($spreadsheet->getActiveSheet()->getInCellDrawingCollection()->count() > 0) {
+            $i = ($i + 1 + 3);
+            $this->writeRelationship($objWriter, $i, Namespaces::RELATIONSHIPS_RICH_VALUE, 'richData/rdrichvalue.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_STRUCTURE, 'richData/rdrichvaluestructure.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_TYPES, 'richData/rdRichValueTypes.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_REL, 'richData/richValueRel.xml');
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();

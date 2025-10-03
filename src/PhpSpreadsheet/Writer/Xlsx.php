@@ -330,9 +330,22 @@ class Xlsx extends BaseWriter
 
         /** @var string[] */
         $zipContent = [];
+        $richDataCount = 0;
+
+        if ($this->spreadSheet->hasInCellDrawings()) {
+            $richDataDrawing = new RichDataDrawing();
+            $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet);
+            $richDataCount = count($richDataFiles);
+
+            // Add all Rich Data files to ZIP
+            foreach ($richDataFiles as $path => $content) {
+                $zipContent[$path] = $content;
+            }
+        }
+
         // Add [Content_Types].xml to ZIP file
         $zipContent['[Content_Types].xml'] = $this->getWriterPartContentTypes()->writeContentTypes($this->spreadSheet, $this->includeCharts);
-        $metadataData = (new Xlsx\Metadata($this))->writeMetadata();
+        $metadataData = (new Xlsx\Metadata($this))->writeMetadata($richDataCount);
         if ($metadataData !== '') {
             $zipContent['xl/metadata.xml'] = $metadataData;
         }
@@ -462,14 +475,6 @@ class Xlsx extends BaseWriter
             }
             if (isset($unparsedSheet['drawingOriginalIds']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
                 $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = '<xml></xml>';
-            }
-
-            $richDataDrawing = new RichDataDrawing();
-            $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet->getSheet($i));
-
-            // Add all Rich Data files to ZIP
-            foreach ($richDataFiles as $path => $content) {
-                $zipContent[$path] = $content;
             }
 
             // Add comment relationship parts
