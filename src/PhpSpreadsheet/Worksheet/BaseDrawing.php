@@ -137,6 +137,10 @@ class BaseDrawing implements IComparable
      */
     protected ?int $opacity = null;
 
+    protected bool $inCell = false;
+
+    protected int $index = 0;
+
     /**
      * Create a new BaseDrawing.
      */
@@ -203,8 +207,13 @@ class BaseDrawing implements IComparable
                 if (!($this instanceof Drawing && $this->getPath() === '')) {
                     $this->worksheet->getCell($this->coordinates);
                 }
-                $this->worksheet->getDrawingCollection()
-                    ->append($this);
+                if ($this->inCell) {
+                    $this->worksheet->getInCellDrawingCollection()
+                        ->append($this);
+                } else {
+                    $this->worksheet->getDrawingCollection()
+                        ->append($this);
+                }
             }
         } else {
             if ($overrideOld) {
@@ -571,5 +580,29 @@ class BaseDrawing implements IComparable
     public function getOpacity(): ?int
     {
         return $this->opacity;
+    }
+
+    public function setInCell(bool $inCell): self
+    {
+        $this->inCell = $inCell;
+
+        return $this;
+    }
+
+    public function isInCell(): ?bool
+    {
+        return $this->inCell;
+    }
+
+    public function setIndex(int $index): self
+    {
+        $this->index = $index;
+
+        return $this;
+    }
+
+    public function getIndex(): int
+    {
+        return $this->index;
     }
 }
