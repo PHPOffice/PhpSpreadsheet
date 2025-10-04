@@ -253,13 +253,12 @@ jobs:
           ./vendor/bin/phpunit --coverage-clover build/clover.xml
 
       - name: Upload coverage results to Coveralls
-        env:
-          FAILURE_ACTION: "${{ true }}"
         uses: coverallsapp/github-action@v2
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             file: build/clover.xml
             format: clover
+            fail-on-error: false
 
   release:
     permissions:
