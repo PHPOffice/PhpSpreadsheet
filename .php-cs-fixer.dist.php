@@ -84,6 +84,7 @@ $config
         'method_chaining_indentation' => true,
         'modernize_strpos' => true,
         'modernize_types_casting' => true,
+        'modifier_keywords' => ['elements' => ['property', 'method']], // not const
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => true,
         'native_constant_invocation' => false, // Micro optimization that look messy
@@ -236,7 +237,6 @@ $config
         'types_spaces' => true,
         'unary_operator_spaces' => true,
         'use_arrow_functions' => true,
-        'visibility_required' => ['elements' => ['property', 'method']], // not const
         'void_return' => true,
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => false,

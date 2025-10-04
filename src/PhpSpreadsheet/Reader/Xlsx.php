@@ -2201,22 +2201,78 @@ class Xlsx extends BaseReader
             return;
         }
 
-        $excel->getSecurity()->setLockRevision(self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision'));
-        $excel->getSecurity()->setLockStructure(self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure'));
-        $excel->getSecurity()->setLockWindows(self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows'));
+        $security = $excel->getSecurity();
+        $security->setLockRevision(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision')
+        );
+        $security->setLockStructure(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure')
+        );
+        $security->setLockWindows(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows')
+        );
 
         if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
-            $excel->getSecurity()->setRevisionsPassword(
+            $security->setRevisionsPassword(
                 (string) $xmlWorkbook->workbookProtection['revisionsPassword'],
                 true
             );
         }
+        if ($xmlWorkbook->workbookProtection['revisionsAlgorithmName']) {
+            $security->setRevisionsAlgorithmName(
+                (string) $xmlWorkbook->workbookProtection['revisionsAlgorithmName']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsSaltValue']) {
+            $security->setRevisionsSaltValue(
+                (string) $xmlWorkbook->workbookProtection['revisionsSaltValue'],
+                false
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsSpinCount']) {
+            $security->setRevisionsSpinCount(
+                (int) $xmlWorkbook->workbookProtection['revisionsSpinCount']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsHashValue']) {
+            if ($security->advancedRevisionsPassword()) {
+                $security->setRevisionsPassword(
+                    (string) $xmlWorkbook->workbookProtection['revisionsHashValue'],
+                    true
+                );
+            }
+        }
 
         if ($xmlWorkbook->workbookProtection['workbookPassword']) {
-            $excel->getSecurity()->setWorkbookPassword(
+            $security->setWorkbookPassword(
                 (string) $xmlWorkbook->workbookProtection['workbookPassword'],
                 true
             );
+        }
+
+        if ($xmlWorkbook->workbookProtection['workbookAlgorithmName']) {
+            $security->setWorkbookAlgorithmName(
+                (string) $xmlWorkbook->workbookProtection['workbookAlgorithmName']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookSaltValue']) {
+            $security->setWorkbookSaltValue(
+                (string) $xmlWorkbook->workbookProtection['workbookSaltValue'],
+                false
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookSpinCount']) {
+            $security->setWorkbookSpinCount(
+                (int) $xmlWorkbook->workbookProtection['workbookSpinCount']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookHashValue']) {
+            if ($security->advancedPassword()) {
+                $security->setWorkbookPassword(
+                    (string) $xmlWorkbook->workbookProtection['workbookHashValue'],
+                    true
+                );
+            }
         }
     }
 
