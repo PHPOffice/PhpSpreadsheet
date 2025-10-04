@@ -258,7 +258,7 @@ jobs:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             file: build/clover.xml
             format: clover
-        continue-on-error: true
+            fail-on-error: false
 
   release:
     permissions:
