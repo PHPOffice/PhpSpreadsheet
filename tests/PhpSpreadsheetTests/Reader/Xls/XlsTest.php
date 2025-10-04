@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -92,7 +93,7 @@ class XlsTest extends AbstractFunctional
     public function testLoadXlsBug1114(): void
     {
         $filename = 'tests/data/Reader/XLS/bug1114.xls';
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+        $spreadsheet = IOFactory::load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame(1148140800.0, $sheet->getCell('B2')->getValue());
         $spreadsheet->disconnectWorksheets();
