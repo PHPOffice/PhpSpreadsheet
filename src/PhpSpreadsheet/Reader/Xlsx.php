@@ -963,8 +963,6 @@ class Xlsx extends BaseReader
                                                     );
 
                                                     $objDrawing->setCoordinates($r);
-                                                    $objDrawing->setOffsetX(0);
-                                                    $objDrawing->setOffsetY(0);
                                                     $objDrawing->setResizeProportional(false);
                                                     $objDrawing->setInCell(true);
                                                     $objDrawing->setWorksheet($docSheet);
