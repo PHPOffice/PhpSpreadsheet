@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 ### Fixed
 
  - Php8.5 deprecates use of null as array index. [PR #4636](https://github.com/PHPOffice/PhpSpreadsheet/pull/4636)
+ - Backport of 'do not trigger `Undefined array key "x"`'. [PR #4669](https://github.com/PHPOffice/PhpSpreadsheet/pull/4669)
 
 ## 2025-09-03 - 3.10.1
 
