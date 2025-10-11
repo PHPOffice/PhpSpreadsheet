@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Added
 
 - Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
+- Offer Tcpdf Interface which throws exception rather than die. [PR #4666](https://github.com/PHPOffice/PhpSpreadsheet/pull/4666)
 
 ### Removed
 
@@ -39,6 +40,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Use prefix _xlfn for BASE function. [Issue #4638](https://github.com/PHPOffice/PhpSpreadsheet/issues/4638) [PR #4641](https://github.com/PHPOffice/PhpSpreadsheet/pull/4641)
 - Warning messages with corrupt Xls file. [Issue #4647](https://github.com/PHPOffice/PhpSpreadsheet/issues/4647) [PR #4648](https://github.com/PHPOffice/PhpSpreadsheet/pull/4648)
 - Additional support for union and intersection. [PR #4596](https://github.com/PHPOffice/PhpSpreadsheet/pull/4596)
+- Missing array keys x,o,v for Xml Reader. [Issue #4668](https://github.com/PHPOffice/PhpSpreadsheet/issues/4668) [PR #4669](https://github.com/PHPOffice/PhpSpreadsheet/pull/4669)
+- Missing array key x for Xlsx Reader VML. [Issue #4505](https://github.com/PHPOffice/PhpSpreadsheet/issues/4505) [PR #4676](https://github.com/PHPOffice/PhpSpreadsheet/pull/4676)
+- Better support for Style Alignment Read Order. [Issue #850](https://github.com/PHPOffice/PhpSpreadsheet/issues/850) [PR #4655](https://github.com/PHPOffice/PhpSpreadsheet/pull/4655)
 
 ## 2025-09-03 - 5.1.0
 

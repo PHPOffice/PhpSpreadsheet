@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -1014,6 +1015,17 @@ class Html extends BaseReader
 
                     break;
 
+                case 'direction':
+                    if ($styleValue === 'rtl') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_RTL);
+                    } elseif ($styleValue === 'ltr') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_LTR);
+                    }
+
+                    break;
+
                 case 'font-weight':
                     if ($styleValue === 'bold' || $styleValue >= 500) {
                         $cellStyle->getFont()->setBold(true);
@@ -1083,8 +1095,11 @@ class Html extends BaseReader
                     break;
 
                 case 'text-indent':
+                    $indentDimension = new CssDimension($styleValueString);
+                    $indent = $indentDimension
+                        ->toUnit(CssDimension::UOM_PIXELS);
                     $cellStyle->getAlignment()->setIndent(
-                        (int) str_replace(['px'], '', $styleValueString)
+                        (int) ($indent / Alignment::INDENT_UNITS_TO_PIXELS)
                     );
 
                     break;

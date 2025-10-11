@@ -1115,7 +1115,12 @@ class Html extends BaseWriter
         if ($textAlign) {
             $css['text-align'] = $textAlign;
             if (in_array($textAlign, ['left', 'right'])) {
-                $css['padding-' . $textAlign] = (string) ((int) $alignment->getIndent() * 9) . 'px';
+                $css['padding-' . $textAlign] = (string) ($alignment->getIndent() * Alignment::INDENT_UNITS_TO_PIXELS) . 'px';
+            }
+        } else {
+            $indent = $alignment->getIndent();
+            if ($indent !== 0) {
+                $css['text-indent'] = (string) ($alignment->getIndent() * Alignment::INDENT_UNITS_TO_PIXELS) . 'px';
             }
         }
         $rotation = $alignment->getTextRotation();
@@ -1125,6 +1130,12 @@ class Html extends BaseWriter
             } else {
                 $css['transform'] = "rotate({$rotation}deg)";
             }
+        }
+        $direction = $alignment->getReadOrder();
+        if ($direction === Alignment::READORDER_LTR) {
+            $css['direction'] = 'ltr';
+        } elseif ($direction === Alignment::READORDER_RTL) {
+            $css['direction'] = 'rtl';
         }
 
         return $css;
@@ -1516,7 +1527,6 @@ class Html extends BaseWriter
     /** @param string|string[] $cssClass */
     private function generateRowCellData(Worksheet $worksheet, null|Cell|string $cell, array|string &$cssClass): string
     {
-        $cellData = '&nbsp;';
         if ($cell instanceof Cell) {
             $cellData = '';
             // Don't know what this does, and no test cases.
@@ -1565,13 +1575,21 @@ class Html extends BaseWriter
                 }
             }
         } else {
+            $cellData = "$cell";
             // Use default borders for empty cell
             if (is_string($cssClass)) {
                 $cssClass .= ' style0';
             }
         }
+        /*
+         * Browsers may remove an entirely empty row.
+         * An interesting option is to leave an empty cell empty using css.
+         * td:empty::after{content: "\00a0";}
+         * This works well in modern browsers.
+         * Alas, none of our Pdf writers can handle it.
+         */
 
-        return $cellData;
+        return (trim($cellData) === '') ? '&nbsp;' : $cellData;
     }
 
     private function generateRowIncludeCharts(Worksheet $worksheet, string $coordinate): string
