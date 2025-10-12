@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Missing array keys x,o,v for Xml Reader. [Issue #4668](https://github.com/PHPOffice/PhpSpreadsheet/issues/4668) [PR #4669](https://github.com/PHPOffice/PhpSpreadsheet/pull/4669)
 - Missing array key x for Xlsx Reader VML. [Issue #4505](https://github.com/PHPOffice/PhpSpreadsheet/issues/4505) [PR #4676](https://github.com/PHPOffice/PhpSpreadsheet/pull/4676)
 - Better support for Style Alignment Read Order. [Issue #850](https://github.com/PHPOffice/PhpSpreadsheet/issues/850) [PR #4655](https://github.com/PHPOffice/PhpSpreadsheet/pull/4655)
+- More sophisticated workbook password algorithms (Xlsx only). [Issue #4673](https://github.com/PHPOffice/PhpSpreadsheet/issues/4673) [PR #4675](https://github.com/PHPOffice/PhpSpreadsheet/pull/4675)
 
 ## 2025-09-03 - 5.1.0
 

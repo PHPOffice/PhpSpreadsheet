@@ -78,7 +78,7 @@ class PasswordHasher
      *
      * @param string $password Password to hash
      * @param string $algorithm Hash algorithm used to compute the password hash value
-     * @param string $salt Pseudorandom string
+     * @param string $salt Pseudorandom base64-encoded string
      * @param int $spinCount Number of times to iterate on a hash of a password
      *
      * @return string Hashed password
