@@ -214,8 +214,9 @@ class Worksheet extends BIFFwriter
         $this->firstRowIndex = $minR;
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
-        $this->firstColumnIndex = Coordinate::columnIndexFromString($minC);
-        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC);
+        // BIFF8 requires 0-based column indices, but columnIndexFromString() returns 1-based
+        $this->firstColumnIndex = Coordinate::columnIndexFromString($minC) - 1;
+        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC) - 1;
 
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
@@ -258,7 +259,8 @@ class Worksheet extends BIFFwriter
         }
 
         $columnDimensions = $phpSheet->getColumnDimensions();
-        $maxCol = $this->lastColumnIndex - 1;
+        // lastColumnIndex is now 0-based, so no need to subtract 1
+        $maxCol = $this->lastColumnIndex;
         for ($i = 0; $i <= $maxCol; ++$i) {
             $hidden = 0;
             $level = 0;
