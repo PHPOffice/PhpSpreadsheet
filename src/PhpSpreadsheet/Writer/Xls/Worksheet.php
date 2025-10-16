@@ -457,8 +457,9 @@ class Worksheet extends BIFFwriter
         // Write WINDOW2 record
         $this->writeWindow2();
 
-        // Write PLV record
-        $this->writePageLayoutView();
+        // Write PLV record - REMOVED for Excel 5 (BIFF8) compatibility
+        // Old PHPExcel did not write PageLayoutView record
+        // $this->writePageLayoutView();
 
         // Write ZOOM record
         $this->writeZoom();
