@@ -1521,22 +1521,9 @@ class Worksheet extends BIFFwriter
         $record = 0x0867;
 
         // prepare options
-        $protection = $this->phpSheet->getProtection();
-        $options = self::protectionBitsDefaultTrue($protection->getObjects(), 0)
-            | self::protectionBitsDefaultTrue($protection->getScenarios(), 1)
-            | self::protectionBitsDefaultFalse($protection->getFormatCells(), 2)
-            | self::protectionBitsDefaultFalse($protection->getFormatColumns(), 3)
-            | self::protectionBitsDefaultFalse($protection->getFormatRows(), 4)
-            | self::protectionBitsDefaultFalse($protection->getInsertColumns(), 5)
-            | self::protectionBitsDefaultFalse($protection->getInsertRows(), 6)
-            | self::protectionBitsDefaultFalse($protection->getInsertHyperlinks(), 7)
-            | self::protectionBitsDefaultFalse($protection->getDeleteColumns(), 8)
-            | self::protectionBitsDefaultFalse($protection->getDeleteRows(), 9)
-            | self::protectionBitsDefaultTrue($protection->getSelectLockedCells(), 10)
-            | self::protectionBitsDefaultFalse($protection->getSort(), 11)
-            | self::protectionBitsDefaultFalse($protection->getAutoFilter(), 12)
-            | self::protectionBitsDefaultFalse($protection->getPivotTables(), 13)
-            | self::protectionBitsDefaultTrue($protection->getSelectUnlockedCells(), 14);
+        // Old PHPExcel always wrote 0x7FFF (all protection features disabled except sheet protection itself)
+        // This matches Excel 5 (BIFF8) behavior with inverted protection logic
+        $options = 0x7FFF;
 
         // record data
         $recordData = pack(
