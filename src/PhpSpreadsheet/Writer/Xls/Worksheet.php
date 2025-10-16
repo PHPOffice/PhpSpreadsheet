@@ -510,8 +510,9 @@ class Worksheet extends BIFFwriter
         $this->writeSheetProtection();
         $this->writeRangeProtection();
 
-        // Write Conditional Formatting Rules and Styles
-        $this->writeConditionalFormatting();
+        // Write Conditional Formatting Rules and Styles - REMOVED for Excel 5 (BIFF8) compatibility
+        // Old PHPExcel did not write ConditionalFormatting records
+        // $this->writeConditionalFormatting();
 
         $this->storeEof();
     }
