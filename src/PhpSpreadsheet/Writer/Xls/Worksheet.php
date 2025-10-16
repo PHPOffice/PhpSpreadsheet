@@ -259,8 +259,9 @@ class Worksheet extends BIFFwriter
         }
 
         $columnDimensions = $phpSheet->getColumnDimensions();
-        // lastColumnIndex is now 0-based, so no need to subtract 1
-        $maxCol = $this->lastColumnIndex;
+        // Generate 256 COLINFO records (0-255) to match old PHPExcel behavior
+        // Old PHPExcel always wrote all 256 columns, not just used ones
+        $maxCol = 255;
         for ($i = 0; $i <= $maxCol; ++$i) {
             $hidden = 0;
             $level = 0;
