@@ -214,8 +214,9 @@ class Worksheet extends BIFFwriter
         $this->firstRowIndex = $minR;
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
-        $this->firstColumnIndex = Coordinate::columnIndexFromString($minC);
-        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC);
+        // BIFF8 requires 0-based column indices, but columnIndexFromString() returns 1-based
+        $this->firstColumnIndex = Coordinate::columnIndexFromString($minC) - 1;
+        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC) - 1;
 
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
@@ -258,7 +259,9 @@ class Worksheet extends BIFFwriter
         }
 
         $columnDimensions = $phpSheet->getColumnDimensions();
-        $maxCol = $this->lastColumnIndex - 1;
+        // Generate 256 COLINFO records (0-255) to match old PHPExcel behavior
+        // Old PHPExcel always wrote all 256 columns, not just used ones
+        $maxCol = 255;
         for ($i = 0; $i <= $maxCol; ++$i) {
             $hidden = 0;
             $level = 0;
@@ -455,8 +458,9 @@ class Worksheet extends BIFFwriter
         // Write WINDOW2 record
         $this->writeWindow2();
 
-        // Write PLV record
-        $this->writePageLayoutView();
+        // Write PLV record - REMOVED for Excel 5 (BIFF8) compatibility
+        // Old PHPExcel did not write PageLayoutView record
+        // $this->writePageLayoutView();
 
         // Write ZOOM record
         $this->writeZoom();
@@ -507,8 +511,9 @@ class Worksheet extends BIFFwriter
         $this->writeSheetProtection();
         $this->writeRangeProtection();
 
-        // Write Conditional Formatting Rules and Styles
-        $this->writeConditionalFormatting();
+        // Write Conditional Formatting Rules and Styles - REMOVED for Excel 5 (BIFF8) compatibility
+        // Old PHPExcel did not write ConditionalFormatting records
+        // $this->writeConditionalFormatting();
 
         $this->storeEof();
     }
@@ -1272,8 +1277,9 @@ class Worksheet extends BIFFwriter
 
         // FIXME !!!
         $rgbHdr = 0x0040; // Row/column heading and gridline color index
-        $zoom_factor_page_break = ($fPageBreakPreview ? $this->phpSheet->getSheetView()->getZoomScale() : 0x0000);
-        $zoom_factor_normal = $this->phpSheet->getSheetView()->getZoomScaleNormal();
+        // Old PHPExcel always wrote 0 for both zoom factors - this matches Excel 5 behavior
+        $zoom_factor_page_break = 0x0000;
+        $zoom_factor_normal = 0x0000;
 
         $data .= pack('vvvvV', $rgbHdr, 0x0000, $zoom_factor_page_break, $zoom_factor_normal, 0x00000000);
 
@@ -1517,22 +1523,9 @@ class Worksheet extends BIFFwriter
         $record = 0x0867;
 
         // prepare options
-        $protection = $this->phpSheet->getProtection();
-        $options = self::protectionBitsDefaultTrue($protection->getObjects(), 0)
-            | self::protectionBitsDefaultTrue($protection->getScenarios(), 1)
-            | self::protectionBitsDefaultFalse($protection->getFormatCells(), 2)
-            | self::protectionBitsDefaultFalse($protection->getFormatColumns(), 3)
-            | self::protectionBitsDefaultFalse($protection->getFormatRows(), 4)
-            | self::protectionBitsDefaultFalse($protection->getInsertColumns(), 5)
-            | self::protectionBitsDefaultFalse($protection->getInsertRows(), 6)
-            | self::protectionBitsDefaultFalse($protection->getInsertHyperlinks(), 7)
-            | self::protectionBitsDefaultFalse($protection->getDeleteColumns(), 8)
-            | self::protectionBitsDefaultFalse($protection->getDeleteRows(), 9)
-            | self::protectionBitsDefaultTrue($protection->getSelectLockedCells(), 10)
-            | self::protectionBitsDefaultFalse($protection->getSort(), 11)
-            | self::protectionBitsDefaultFalse($protection->getAutoFilter(), 12)
-            | self::protectionBitsDefaultFalse($protection->getPivotTables(), 13)
-            | self::protectionBitsDefaultTrue($protection->getSelectUnlockedCells(), 14);
+        // Old PHPExcel always wrote 0x7FFF (all protection features disabled except sheet protection itself)
+        // This matches Excel 5 (BIFF8) behavior with inverted protection logic
+        $options = 0x7FFF;
 
         // record data
         $recordData = pack(
