@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae3ca8dc19ef05c0d80ac18f51ccd4db",
+    "content-hash": "7a4ca251627b716522de7a812d14730b",
     "packages": [
         {
             "name": "composer/pcre",
@@ -1222,16 +1222,16 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.5.0-beta",
+            "version": "10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "2a9c57a91f8e9460af5ffafe780355890711f36f"
+                "reference": "62f31c43933ff1419e59e68df8e04cd25de93131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/2a9c57a91f8e9460af5ffafe780355890711f36f",
-                "reference": "2a9c57a91f8e9460af5ffafe780355890711f36f",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/62f31c43933ff1419e59e68df8e04cd25de93131",
+                "reference": "62f31c43933ff1419e59e68df8e04cd25de93131",
                 "shasum": ""
             },
             "require": {
@@ -1271,9 +1271,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.5.0-beta"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.5.1"
             },
-            "time": "2025-08-19T05:32:34+00:00"
+            "time": "2025-10-14T07:03:12+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -5767,8 +5767,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dealerdirect/phpcodesniffer-composer-installer": 20,
-        "mitoteam/jpgraph": 10
+        "dealerdirect/phpcodesniffer-composer-installer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
