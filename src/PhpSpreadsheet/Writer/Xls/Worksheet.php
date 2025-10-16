@@ -1274,8 +1274,9 @@ class Worksheet extends BIFFwriter
 
         // FIXME !!!
         $rgbHdr = 0x0040; // Row/column heading and gridline color index
-        $zoom_factor_page_break = ($fPageBreakPreview ? $this->phpSheet->getSheetView()->getZoomScale() : 0x0000);
-        $zoom_factor_normal = $this->phpSheet->getSheetView()->getZoomScaleNormal();
+        // Old PHPExcel always wrote 0 for both zoom factors - this matches Excel 5 behavior
+        $zoom_factor_page_break = 0x0000;
+        $zoom_factor_normal = 0x0000;
 
         $data .= pack('vvvvV', $rgbHdr, 0x0000, $zoom_factor_page_break, $zoom_factor_normal, 0x00000000);
 
