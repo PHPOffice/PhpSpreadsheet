@@ -45,13 +45,14 @@ class DimensionsRecordTest extends TestCase
 
         // Read the binary file and find the DIMENSIONS record
         $fileContent = file_get_contents($filename);
+        self::assertIsString($fileContent, 'Failed to read XLS file');
         unlink($filename);
 
         // Find the DIMENSIONS record: 0x0200 (2 bytes) + length 0x000E (2 bytes)
         $recordSignature = pack('v', 0x0200) . pack('v', 0x000E);
         $pos = strpos($fileContent, $recordSignature);
 
-        self::assertNotFalse($pos, 'DIMENSIONS record not found in XLS file');
+        self::assertIsInt($pos, 'DIMENSIONS record not found in XLS file');
 
         // Parse the DIMENSIONS record (skip 4-byte header)
         $dataPos = $pos + 4;
@@ -59,6 +60,7 @@ class DimensionsRecordTest extends TestCase
 
         // Unpack DIMENSIONS record
         $data = unpack('VrwMic/VrwMac/vcolMic/vcolMac/vreserved', $dimensionsData);
+        self::assertIsArray($data, 'Failed to unpack DIMENSIONS record');
 
         // Verify the values are correct (0-based for columns, 1-based for rows)
         // First used row is 1
@@ -100,13 +102,14 @@ class DimensionsRecordTest extends TestCase
 
         // Read the binary file and find the DIMENSIONS record
         $fileContent = file_get_contents($filename);
+        self::assertIsString($fileContent, 'Failed to read XLS file');
         unlink($filename);
 
         // Find the DIMENSIONS record: 0x0200 (2 bytes) + length 0x000E (2 bytes)
         $recordSignature = pack('v', 0x0200) . pack('v', 0x000E);
         $pos = strpos($fileContent, $recordSignature);
 
-        self::assertNotFalse($pos, 'DIMENSIONS record not found in XLS file');
+        self::assertIsInt($pos, 'DIMENSIONS record not found in XLS file');
 
         // Parse the DIMENSIONS record (skip 4-byte header)
         $dataPos = $pos + 4;
@@ -114,6 +117,7 @@ class DimensionsRecordTest extends TestCase
 
         // Unpack DIMENSIONS record
         $data = unpack('VrwMic/VrwMac/vcolMic/vcolMac/vreserved', $dimensionsData);
+        self::assertIsArray($data, 'Failed to unpack DIMENSIONS record');
 
         // Last column should be capped at 256 (255 + 1 for "last used + 1")
         // The min(255, ...) ensures we don't exceed the BIFF8 limit
