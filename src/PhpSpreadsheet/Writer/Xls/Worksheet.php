@@ -216,11 +216,7 @@ class Worksheet extends BIFFwriter
 
         // BIFF8 requires 0-based column indices, but columnIndexFromString() returns 1-based
         $this->firstColumnIndex = Coordinate::columnIndexFromString($minC) - 1;
-        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC) - 1;
-
-        if ($this->lastColumnIndex > 255) {
-            $this->lastColumnIndex = 255;
-        }
+        $this->lastColumnIndex = min(255, Coordinate::columnIndexFromString($maxC) - 1);
         $this->writerWorkbook = $writerWorkbook;
     }
 
