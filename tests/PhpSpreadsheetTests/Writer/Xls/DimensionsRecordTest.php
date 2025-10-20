@@ -11,19 +11,22 @@ use PHPUnit\Framework\TestCase;
 class DimensionsRecordTest extends TestCase
 {
     /**
-     * Test that DIMENSIONS record uses 0-based column indices.
+     * Test that DIMENSIONS record uses 0-based indices for both rows and columns.
      *
      * This test verifies that the BIFF8 DIMENSIONS record correctly uses 0-based
-     * column indices. Prior to the fix, columnIndexFromString() returned 1-based
-     * indices which were written directly to the DIMENSIONS record, causing issues
-     * with old XLS parsers that expect 0-based indices per the BIFF8 specification.
+     * indices for both rows and columns. Prior to the fix, 1-based values were
+     * written directly to the DIMENSIONS record, causing issues with old XLS parsers
+     * that expect 0-based indices per the BIFF8 specification.
      *
      * The DIMENSIONS record structure (BIFF8):
-     * - Offset 0-3: Index to first used row
-     * - Offset 4-7: Index to last used row + 1
+     * - Offset 0-3: Index to first used row (0-based)
+     * - Offset 4-7: Index to last used row + 1 (0-based)
      * - Offset 8-9: Index to first used column (0-based)
      * - Offset 10-11: Index to last used column + 1 (0-based)
      * - Offset 12-13: Not used
+     *
+     * Note: All indices in the DIMENSIONS record are 0-based, meaning Excel row 1
+     * is stored as 0, row 5 as 4, column A as 0, column D as 3, etc.
      */
     public function testDimensionsRecordUsesZeroBasedColumnIndices(): void
     {
@@ -62,22 +65,22 @@ class DimensionsRecordTest extends TestCase
         $data = unpack('VrwMic/VrwMac/vcolMic/vcolMac/vreserved', $dimensionsData);
         self::assertIsArray($data, 'Failed to unpack DIMENSIONS record');
 
-        // Verify the values are correct (0-based for columns, 1-based for rows)
-        // First used row is 1
-        self::assertSame(1, $data['rwMic'], 'First row should be 1');
+        // Verify the values are correct (0-based for both rows and columns)
+        // First used row is 1 (Excel UI), which is 0 in 0-based indexing
+        self::assertSame(0, $data['rwMic'], 'First row should be 0 (0-based)');
 
-        // Last used row is 5, so rwMac should be 6 (last row + 1)
-        self::assertSame(6, $data['rwMac'], 'Last row + 1 should be 6');
+        // Last used row is 5 (Excel UI), which is 4 in 0-based, so rwMac should be 5 (4 + 1)
+        self::assertSame(5, $data['rwMac'], 'Last row + 1 should be 5 (0-based row 4 + 1)');
 
-        // First column is A (0-based: 0)
+        // First column is A (Excel UI), which is 0 in 0-based indexing
         // BEFORE FIX: This would be 1 (because columnIndexFromString('A') returns 1)
-        // AFTER FIX: This should be 0 (because we subtract 1)
+        // AFTER FIX: This is 0 (because we subtract 1)
         self::assertSame(0, $data['colMic'], 'First column should be 0 (0-based for column A)');
 
-        // Last column is D (0-based index 3), so colMac should be 4 (last used + 1)
+        // Last column is D (Excel UI), which is 3 in 0-based, so colMac should be 4 (3 + 1)
         // BEFORE FIX: This would be 5 (columnIndexFromString('D') = 4, not adjusted to 0-based)
-        // AFTER FIX: This should be 4 (columnIndexFromString('D') - 1 = 3, + 1 = 4)
-        self::assertSame(4, $data['colMac'], 'Last column + 1 should be 4 (0-based for column D + 1)');
+        // AFTER FIX: This is 4 (columnIndexFromString('D') - 1 = 3, + 1 = 4)
+        self::assertSame(4, $data['colMac'], 'Last column + 1 should be 4 (0-based column 3 + 1)');
     }
 
     /**

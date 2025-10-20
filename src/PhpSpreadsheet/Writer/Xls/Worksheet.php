@@ -211,10 +211,12 @@ class Worksheet extends BIFFwriter
         $maxC = $this->phpSheet->getHighestColumn();
 
         // Determine lowest and highest column and row
-        $this->firstRowIndex = $minR;
-        $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
+        // BIFF8 DIMENSIONS record requires 0-based indices for both rows and columns
+        // Row methods return 1-based values (Excel UI), so subtract 1 to convert to 0-based
+        $this->firstRowIndex = $minR - 1;
+        $this->lastRowIndex = ($maxR > 65536) ? 65535 : ($maxR - 1);
 
-        // BIFF8 requires 0-based column indices, but columnIndexFromString() returns 1-based
+        // Column methods return 1-based values (columnIndexFromString('A') = 1), so subtract 1
         $this->firstColumnIndex = Coordinate::columnIndexFromString($minC) - 1;
         $this->lastColumnIndex = min(255, Coordinate::columnIndexFromString($maxC) - 1);
         $this->writerWorkbook = $writerWorkbook;
