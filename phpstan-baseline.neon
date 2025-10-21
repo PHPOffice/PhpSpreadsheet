@@ -7,30 +7,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Sort.php
 
 		-
-			message: '#^Cannot call method getAllSpContainers\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
-
-		-
-			message: '#^Cannot call method getBSECollection\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
-
-		-
-			message: '#^Cannot call method getBstoreContainer\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
-
-		-
-			message: '#^Cannot call method getSpgrContainer\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/LoadSpreadsheet.php
-
-		-
 			message: '#^Cannot access offset 0 on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
