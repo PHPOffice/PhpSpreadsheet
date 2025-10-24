@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
 
+/**
+ * @template T of BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
+ */
 class Escher
 {
     const DGGCONTAINER = 0xF000;
@@ -50,11 +53,15 @@ class Escher
 
     /**
      * The object to be returned by the reader. Modified during load.
+     *
+     * @var T
      */
     private BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object;
 
     /**
      * Create a new Escher instance.
+     *
+     * @param T $object
      */
     public function __construct(BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object)
     {
@@ -84,6 +91,8 @@ class Escher
 
     /**
      * Load Escher stream data. May be a partial Escher stream.
+     *
+     * @return T
      */
     public function load(string $data): BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
     {

@@ -435,7 +435,7 @@ class LoadSpreadsheet extends Xls
 
                 // get all spContainers in one long array, so they can be mapped to OBJ records
                 /** @var SpContainer[] $allSpContainers */
-                $allSpContainers = method_exists($escherWorksheet, 'getDgContainer') ? $escherWorksheet->getDgContainer()->getSpgrContainer()->getAllSpContainers() : [];
+                $allSpContainers = $escherWorksheet->getDgContainerOrThrow()->getSpgrContainerOrThrow()->getAllSpContainers();
             }
 
             // treat OBJ records
@@ -497,7 +497,7 @@ class LoadSpreadsheet extends Xls
 
                             if ($escherWorkbook) {
                                 /** @var BSE[] */
-                                $BSECollection = method_exists($escherWorkbook, 'getDggContainer') ? $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection() : [];
+                                $BSECollection = $escherWorkbook->getDggContainerOrThrow()->getBstoreContainerOrThrow()->getBSECollection();
                                 $BSE = $BSECollection[$BSEindex - 1];
                                 $blipType = $BSE->getBlipType();
 

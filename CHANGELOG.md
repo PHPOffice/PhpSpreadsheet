@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Missing array key x for Xlsx Reader VML. [Issue #4505](https://github.com/PHPOffice/PhpSpreadsheet/issues/4505) [PR #4676](https://github.com/PHPOffice/PhpSpreadsheet/pull/4676)
 - Better support for Style Alignment Read Order. [Issue #850](https://github.com/PHPOffice/PhpSpreadsheet/issues/850) [PR #4655](https://github.com/PHPOffice/PhpSpreadsheet/pull/4655)
 - More sophisticated workbook password algorithms (Xlsx only). [Issue #4673](https://github.com/PHPOffice/PhpSpreadsheet/issues/4673) [PR #4675](https://github.com/PHPOffice/PhpSpreadsheet/pull/4675)
+- Xls Writer fix DIMENSIONS record. [Issue #4682](https://github.com/PHPOffice/PhpSpreadsheet/issues/4682) [PR #4687](https://github.com/PHPOffice/PhpSpreadsheet/pull/4687)
 
 ## 2025-09-03 - 5.1.0
 
