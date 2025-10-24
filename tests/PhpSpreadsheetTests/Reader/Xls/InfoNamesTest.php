@@ -165,4 +165,80 @@ class InfoNamesTest extends TestCase
         self::assertSame('Użytkownik Microsoft Office', $properties->getLastModifiedBy());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testDimensions(): void
+    {
+        $filename = 'tests/data/Reader/XLS/pr.4687.excel.xls';
+        $reader = new Xls();
+        $info = $reader->listWorksheetInfo($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'D',
+                'lastColumnIndex' => 3,
+                'totalRows' => 2,
+                'totalColumns' => 4,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'B',
+                'lastColumnIndex' => 1,
+                'totalRows' => 4,
+                'totalColumns' => 2,
+                'sheetState' => 'visible',
+            ],
+        ];
+        self::assertSame($expected, $info);
+        $info = $reader->listWorksheetDimensions($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 2,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 4,
+                'lastColumnLetter' => 'D',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 4,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 2,
+                'lastColumnLetter' => 'B',
+            ],
+        ];
+        self::assertSame($expected, $info);
+    }
+
+    public function testChartSheetIgnored(): void
+    {
+        $filename = 'tests/data/Reader/XLS/chartsheet.xls';
+        $reader = new Xls();
+        $info = $reader->listWorksheetInfo($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Data',
+                'lastColumnLetter' => 'M',
+                'lastColumnIndex' => 12,
+                'totalRows' => 7,
+                'totalColumns' => 13,
+                'sheetState' => 'visible',
+            ],
+        ];
+        self::assertSame($expected, $info);
+        $info = $reader->listWorksheetDimensions($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Data',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 7,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 13,
+                'lastColumnLetter' => 'M',
+            ],
+        ];
+        self::assertSame($expected, $info);
+    }
 }

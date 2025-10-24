@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
 - Offer Tcpdf Interface which throws exception rather than die. [PR #4666](https://github.com/PHPOffice/PhpSpreadsheet/pull/4666)
+- Xls Reader ListWorksheetDimensions method. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
 
 ### Removed
 
@@ -45,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Better support for Style Alignment Read Order. [Issue #850](https://github.com/PHPOffice/PhpSpreadsheet/issues/850) [PR #4655](https://github.com/PHPOffice/PhpSpreadsheet/pull/4655)
 - More sophisticated workbook password algorithms (Xlsx only). [Issue #4673](https://github.com/PHPOffice/PhpSpreadsheet/issues/4673) [PR #4675](https://github.com/PHPOffice/PhpSpreadsheet/pull/4675)
 - Xls Writer fix DIMENSIONS record. [Issue #4682](https://github.com/PHPOffice/PhpSpreadsheet/issues/4682) [PR #4687](https://github.com/PHPOffice/PhpSpreadsheet/pull/4687)
+- Xls Reader listWorksheetInfo process MULRK records. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
+- Make Reader Xls Escher generic. [PR #4690](https://github.com/PHPOffice/PhpSpreadsheet/pull/4690)
 
 ## 2025-09-03 - 5.1.0
 

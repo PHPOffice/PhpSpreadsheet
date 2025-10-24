@@ -295,6 +295,16 @@ class Xls extends XlsBase
     }
 
     /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, dimensionsMinR: int, dimensionsMinC: int, dimensionsMaxR: int, dimensionsMaxC: int, lastColumnLetter: string}>
+     */
+    public function listWorksheetDimensions(string $filename): array
+    {
+        return (new Xls\ListFunctions())->listWorksheetDimensions2($filename, $this);
+    }
+
+    /**
      * Loads PhpSpreadsheet from file.
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
