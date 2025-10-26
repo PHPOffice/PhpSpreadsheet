@@ -16,9 +16,9 @@ This branch (release210) is *not* the latest version of PhpSpreadsheet, and may 
 
 Except for security changes, no further maintenance will be applied to this branch.
 You are encouraged to upgrade to a maintained branch as soon as possible.
-Maintained branches are master (preferred - version is 5.0.0 as of the date when this is being written), release390 (current version is 3.10.0), and release222 (2.4.0).
+Maintained branches are master (preferred - version is 5.2.0 as of the date when this is being written), release390 (current version is 3.10.1), and release222 (2.4.1).
 
-Of particular note is that this branch will *not* be updated to avoid deprecation notices about using the `++` operator on strings, a notice about to be introduced with Php 8.5.
+Of particular note is that this branch should not run under Php 8.5, and will *not* be updated to avoid deprecation notices which will be introduced with Php 8.5.
 
 ## PHP Version Support
 
@@ -27,6 +27,7 @@ LTS: For maintained branches, support for PHP versions will only be maintained f
 
 Currently the required PHP minimum version is PHP __8.0__, and we [will nominally support that version](https://www.php.net/eol.php) until May 2024.
 However, since this branch is no longer maintained, that policy is not enforced.
+The PHP maximum version supported by this release is PHP __8.4__.
 
 See the `composer.json` for other requirements.
 
