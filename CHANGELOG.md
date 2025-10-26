@@ -5,13 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.2.0
+## TBD - 5.3.0
 
 ### Added
 
-- Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
-- Offer Tcpdf Interface which throws exception rather than die. [PR #4666](https://github.com/PHPOffice/PhpSpreadsheet/pull/4666)
-- Xls Reader ListWorksheetDimensions method. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
+- Nothing yet.
 
 ### Removed
 
@@ -24,6 +22,23 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Moved
 
 - Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-10-25 - 5.2.0
+
+### Added
+
+- This release should be usable with Php8.5 Release Candidates without deprecation messages.
+- Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
+- Offer Tcpdf Interface which throws exception rather than die. [PR #4666](https://github.com/PHPOffice/PhpSpreadsheet/pull/4666)
+- Xls Reader ListWorksheetDimensions method. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
 
 ### Deprecated
 
