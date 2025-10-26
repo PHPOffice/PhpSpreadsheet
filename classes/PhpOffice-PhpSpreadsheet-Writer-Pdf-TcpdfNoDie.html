@@ -99,10 +99,10 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Dompdf
+    TcpdfNoDie
 
         <span class="phpdocumentor-element__extends">
-        extends <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Pdf">Pdf</abbr></a>
+        extends <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf">Tcpdf</abbr></a>
     </span>
     
             <div class="phpdocumentor-element__package">
@@ -121,9 +121,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php"><a href="files/src-phpspreadsheet-writer-pdf-dompdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php">Dompdf.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/TcpdfNoDie.php"><a href="files/src-phpspreadsheet-writer-pdf-tcpdfnodie.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/TcpdfNoDie.php">TcpdfNoDie.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">5</span>
 
     </aside>
 
@@ -138,7 +138,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -150,7 +150,7 @@
 
 <h4 id="toc-constants">
     Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -184,7 +184,7 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -197,7 +197,7 @@
 Enables conditional formatting in writer, disabled here, must be enabled in writer via a setter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#property_embedImages">$embedImages</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_embedImages">$embedImages</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
@@ -299,12 +299,12 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html#method___construct">__construct()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
@@ -496,7 +496,7 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
 <dd>Open file handle.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_save">save()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_save">save()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -639,11 +639,18 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_createExternalWriterInstance">createExternalWriterInstance()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_createExternalWriterInstance">createExternalWriterInstance()</a>
     <span>
-                                &nbsp;: <abbr title="\Dompdf\Dompdf">Dompdf</abbr>    </span>
+                                &nbsp;: <abbr title="\TCPDF">TCPDF</abbr>    </span>
 </dt>
 <dd>Gets the implementation of external PDF library that should be used.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#method_defines">defines()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>By default, Tcpdf will die sometimes rather than throwing exception.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_maybeCloseFileHandle">maybeCloseFileHandle()</a>
@@ -686,7 +693,7 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
@@ -831,7 +838,7 @@ old logic with styling via Html tags
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -883,15 +890,15 @@ Enables conditional formatting in writer, disabled here, must be enabled in writ
 >
     <h4 class="phpdocumentor-element__name" id="property_embedImages">
         $embedImages
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#property_embedImages" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_embedImages" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php"><a href="files/src-phpspreadsheet-writer-pdf-dompdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php">Dompdf.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Html.php"><a href="files/src-phpspreadsheet-writer-html.html"><abbr title="src/PhpSpreadsheet/Writer/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -902,7 +909,7 @@ Enables conditional formatting in writer, disabled here, must be enabled in writ
         <span class="phpdocumentor-signature__visibility">protected</span>
             <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$embedImages</span>
-     = <span class="phpdocumentor-signature__default-value">true</span></code>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
     
@@ -1558,7 +1565,7 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -1569,13 +1576,13 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf.php"><a href="files/src-phpspreadsheet-writer-pdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf.php">Pdf.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php"><a href="files/src-phpspreadsheet-writer-pdf-tcpdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php">Tcpdf.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
@@ -2719,13 +2726,13 @@ Enables table formats in writer, disabled here, must be enabled in writer via a 
 >
     <h4 class="phpdocumentor-element__name" id="method_save">
         save()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_save" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_save" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php"><a href="files/src-phpspreadsheet-writer-pdf-dompdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php">Dompdf.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php"><a href="files/src-phpspreadsheet-writer-pdf-tcpdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php">Tcpdf.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -3718,13 +3725,13 @@ and it must return the edited HTML as string.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_createExternalWriterInstance">
         createExternalWriterInstance()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_createExternalWriterInstance" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_createExternalWriterInstance" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php"><a href="files/src-phpspreadsheet-writer-pdf-dompdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Dompdf.php">Dompdf.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php"><a href="files/src-phpspreadsheet-writer-pdf-tcpdf.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php">Tcpdf.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -3732,26 +3739,100 @@ and it must return the edited HTML as string.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">createExternalWriterInstance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Dompdf\Dompdf">Dompdf</abbr></span></code>
+                    <span class="phpdocumentor-signature__name">createExternalWriterInstance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$orientation</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unit</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, float&gt;|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paperSize</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\TCPDF">TCPDF</abbr></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$orientation</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Page orientation</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$unit</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Unit measure</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paperSize</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, float&gt;|string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Paper size</p>
+</section>
+
+            </dd>
+            </dl>
+
     
 
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\Dompdf\Dompdf">Dompdf</abbr></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\TCPDF">TCPDF</abbr></span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>implementation</p>
 </section>
 
             </section>
 
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_defines">
+        defines()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#method_defines" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Pdf/TcpdfNoDie.php"><a href="files/src-phpspreadsheet-writer-pdf-tcpdfnodie.html"><abbr title="src/PhpSpreadsheet/Writer/Pdf/TcpdfNoDie.php">TcpdfNoDie.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">By default, Tcpdf will die sometimes rather than throwing exception.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">defines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>And this is controlled by a defined constant in the global namespace,
+not by an instance property. Ugh!
+Using this class instead of the class which it extends will probably
+be suitable for most users. But not for those who have customized
+their config file. Which is why this isn't the default, so that
+there is no breaking change for those users.
+Note that if both Tcpdf and TcpdfNoDie are used in the same process,
+the first one used &quot;wins&quot; the battle of the defines.</p>
+</section>
+
+    
+    
+
+    
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3962,7 +4043,7 @@ and it must return the edited HTML as string.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Pdf/Dompdf.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Pdf/TcpdfNoDie.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -4063,9 +4144,9 @@ and it must return the edited HTML as string.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#toc-methods">Methods</a></li>
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
@@ -4082,7 +4163,7 @@ and it must return the edited HTML as string.</p>
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_conditionalFormatting">$conditionalFormatting</a></li>
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#property_embedImages">$embedImages</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#property_embedImages">$embedImages</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_fileHandle">$fileHandle</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html#property_font">$font</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#property_includeCharts">$includeCharts</a></li>
@@ -4102,7 +4183,7 @@ and it must return the edited HTML as string.</p>
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_buildCSS">buildCSS()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_formatColor">formatColor()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_formatColorStatic">formatColorStatic()</a></li>
@@ -4129,7 +4210,7 @@ and it must return the edited HTML as string.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_getUseDiskCaching">getUseDiskCaching()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_getUseInlineCss">getUseInlineCss()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_openFileHandle">openFileHandle()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_save">save()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_save">save()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setBetterBoolean">setBetterBoolean()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setConditionalFormatting">setConditionalFormatting()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setEditHtmlCallback">setEditHtmlCallback()</a></li>
@@ -4149,7 +4230,8 @@ and it must return the edited HTML as string.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_winFileToUrl">winFileToUrl()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_writeAllSheets">writeAllSheets()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_checkRtlAndLtr">checkRtlAndLtr()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#method_createExternalWriterInstance">createExternalWriterInstance()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Tcpdf.html#method_createExternalWriterInstance">createExternalWriterInstance()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#method_defines">defines()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_maybeCloseFileHandle">maybeCloseFileHandle()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf.html#method_prepareForSave">prepareForSave()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-BaseWriter.html#method_processFlags">processFlags()</a></li>
@@ -4174,7 +4256,7 @@ and it must return the edited HTML as string.</p>
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-Dompdf.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Pdf-TcpdfNoDie.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

@@ -983,7 +983,7 @@ Identifies whether the Reader should read data values for all cells, or should i
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_ref">$ref</a>
     <span>
-                        &nbsp;: array&lt;string|int, array&lt;string|int, mixed&gt;&gt;            </span>
+                        &nbsp;: array&lt;int, array{'externalBookIndex': int, 'firstSheetIndex': int, 'lastSheetIndex': int}&gt;            </span>
 </dt>
 <dd>REF structures. Only applies to BIFF8.</dd>
 
@@ -1202,6 +1202,13 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetDimensions">listWorksheetDimensions()</a>
+    <span>
+                                &nbsp;: array&lt;int, array{worksheetName: string, dimensionsMinR: int, dimensionsMinC: int, dimensionsMaxR: int, dimensionsMaxC: int, lastColumnLetter: string}&gt;    </span>
+</dt>
+<dd>Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetInfo">listWorksheetInfo()</a>
     <span>
                                 &nbsp;: array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;    </span>
@@ -1318,6 +1325,12 @@ possibly due to a typo when using LoadSheetsOnly.</dd>
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_type">type()</a>
     <span>
                                 &nbsp;: string|null    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_confirmPos">confirmPos()</a>
+    <span>
+                                &nbsp;: void    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
@@ -2281,7 +2294,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -2312,7 +2325,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -2343,7 +2356,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -2374,7 +2387,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 
     </aside>
 
@@ -2405,7 +2418,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -2436,7 +2449,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -2467,7 +2480,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
@@ -2498,7 +2511,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -2529,7 +2542,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
@@ -2560,7 +2573,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -2591,7 +2604,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">78</span>
 
     </aside>
 
@@ -2622,7 +2635,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -2653,7 +2666,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -2684,7 +2697,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -2715,7 +2728,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
@@ -2746,7 +2759,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -2777,7 +2790,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
@@ -2808,7 +2821,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
@@ -2901,7 +2914,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -2932,7 +2945,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -2994,7 +3007,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -3025,7 +3038,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -3056,7 +3069,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -3087,7 +3100,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
@@ -3149,7 +3162,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -3180,7 +3193,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -3211,7 +3224,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -3242,7 +3255,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -3273,7 +3286,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -3304,7 +3317,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
@@ -3335,7 +3348,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
@@ -3397,7 +3410,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -3521,7 +3534,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
@@ -3552,7 +3565,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
@@ -3583,7 +3596,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -3614,7 +3627,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
@@ -3645,7 +3658,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -3676,7 +3689,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -3707,7 +3720,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
@@ -3738,7 +3751,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
     </aside>
 
@@ -3769,7 +3782,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -3800,7 +3813,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -3831,7 +3844,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -3862,7 +3875,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -3924,7 +3937,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -3955,7 +3968,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -3986,7 +3999,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -4017,7 +4030,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -4048,7 +4061,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
@@ -4079,7 +4092,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
@@ -4110,7 +4123,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -4141,7 +4154,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -4172,7 +4185,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -4234,7 +4247,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
@@ -4265,7 +4278,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 
     </aside>
 
@@ -4327,7 +4340,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -4358,7 +4371,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
@@ -4389,7 +4402,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -4420,7 +4433,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -4482,7 +4495,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -4513,7 +4526,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -4544,7 +4557,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
@@ -4606,7 +4619,7 @@ function will automatically find out where the Unicode string ends.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -6233,7 +6246,7 @@ Identifies whether the Reader should read data values for all cells, or should i
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__type">array&lt;string|int, array&lt;string|int, mixed&gt;&gt;</span>
+            <span class="phpdocumentor-signature__type">array&lt;int, array{'externalBookIndex': int, 'firstSheetIndex': int, 'lastSheetIndex': int}&gt;</span>
     <span class="phpdocumentor-signature__name">$ref</span>
     </code>
 
@@ -6974,7 +6987,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">391</span>
 
     </aside>
 
@@ -7030,7 +7043,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">390</span>
+    <span class="phpdocumentor-element-found-in__line">401</span>
 
     </aside>
 
@@ -7127,7 +7140,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4857</span>
+    <span class="phpdocumentor-element-found-in__line">4876</span>
 
     </aside>
 
@@ -7384,7 +7397,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">374</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
@@ -7478,7 +7491,7 @@ which satisfies Phpstan.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4880</span>
+    <span class="phpdocumentor-element-found-in__line">4899</span>
 
     </aside>
 
@@ -7499,6 +7512,55 @@ which satisfies Phpstan.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_listWorksheetDimensions">
+        listWorksheetDimensions()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetDimensions" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">302</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">listWorksheetDimensions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, dimensionsMinR: int, dimensionsMinC: int, dimensionsMaxR: int, dimensionsMaxC: int, lastColumnLetter: string}&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, dimensionsMinR: int, dimensionsMinC: int, dimensionsMaxR: int, dimensionsMaxC: int, lastColumnLetter: string}&gt;</span>
             </section>
 
 </article>
@@ -7870,7 +7932,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">823</span>
+    <span class="phpdocumentor-element-found-in__line">833</span>
 
     </aside>
 
@@ -8348,6 +8410,57 @@ Set to false (the default) to discard charts.</p>
         class="phpdocumentor-element
             -method
             -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_confirmPos">
+        confirmPos()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_confirmPos" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/XlsBase.php"><a href="files/src-phpspreadsheet-reader-xlsbase.html"><abbr title="src/PhpSpreadsheet/Reader/XlsBase.php">XlsBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">371</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">confirmPos</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pos</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$data</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pos</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_decodeCodepage">
@@ -8514,7 +8627,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4110</span>
+    <span class="phpdocumentor-element-found-in__line">4129</span>
 
     </aside>
 
@@ -8626,7 +8739,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">364</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 
     </aside>
 
@@ -8671,7 +8784,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">300</span>
+    <span class="phpdocumentor-element-found-in__line">310</span>
 
     </aside>
 
@@ -8803,7 +8916,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4839</span>
+    <span class="phpdocumentor-element-found-in__line">4858</span>
 
     </aside>
 
@@ -8895,7 +9008,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3263</span>
+    <span class="phpdocumentor-element-found-in__line">3282</span>
 
     </aside>
 
@@ -8930,7 +9043,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">787</span>
+    <span class="phpdocumentor-element-found-in__line">797</span>
 
     </aside>
 
@@ -8965,7 +9078,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3116</span>
+    <span class="phpdocumentor-element-found-in__line">3135</span>
 
     </aside>
 
@@ -9005,7 +9118,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2386</span>
+    <span class="phpdocumentor-element-found-in__line">2398</span>
 
     </aside>
 
@@ -9040,7 +9153,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4824</span>
+    <span class="phpdocumentor-element-found-in__line">4843</span>
 
     </aside>
 
@@ -9090,7 +9203,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4804</span>
+    <span class="phpdocumentor-element-found-in__line">4823</span>
 
     </aside>
 
@@ -9140,7 +9253,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4869</span>
+    <span class="phpdocumentor-element-found-in__line">4888</span>
 
     </aside>
 
@@ -9262,7 +9375,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4875</span>
+    <span class="phpdocumentor-element-found-in__line">4894</span>
 
     </aside>
 
@@ -9357,7 +9470,7 @@ OpenOffice documentation: 2.5.2.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">996</span>
+    <span class="phpdocumentor-element-found-in__line">1006</span>
 
     </aside>
 
@@ -9397,7 +9510,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2565</span>
+    <span class="phpdocumentor-element-found-in__line">2577</span>
 
     </aside>
 
@@ -9432,7 +9545,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4022</span>
+    <span class="phpdocumentor-element-found-in__line">4041</span>
 
     </aside>
 
@@ -9470,7 +9583,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3812</span>
+    <span class="phpdocumentor-element-found-in__line">3831</span>
 
     </aside>
 
@@ -9505,7 +9618,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3800</span>
+    <span class="phpdocumentor-element-found-in__line">3819</span>
 
     </aside>
 
@@ -9540,7 +9653,7 @@ When MSODRAWING data on a sheet exceeds 8224 bytes, CONTINUE records are used in
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1022</span>
+    <span class="phpdocumentor-element-found-in__line">1032</span>
 
     </aside>
 
@@ -9583,7 +9696,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">666</span>
+    <span class="phpdocumentor-element-found-in__line">676</span>
 
     </aside>
 
@@ -9618,7 +9731,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2136</span>
+    <span class="phpdocumentor-element-found-in__line">2148</span>
 
     </aside>
 
@@ -9653,7 +9766,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2547</span>
+    <span class="phpdocumentor-element-found-in__line">2559</span>
 
     </aside>
 
@@ -9688,7 +9801,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1832</span>
+    <span class="phpdocumentor-element-found-in__line">1844</span>
 
     </aside>
 
@@ -9730,7 +9843,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">528</span>
+    <span class="phpdocumentor-element-found-in__line">538</span>
 
     </aside>
 
@@ -9765,7 +9878,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1700</span>
+    <span class="phpdocumentor-element-found-in__line">1712</span>
 
     </aside>
 
@@ -9800,7 +9913,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1762</span>
+    <span class="phpdocumentor-element-found-in__line">1774</span>
 
     </aside>
 
@@ -9835,7 +9948,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1796</span>
+    <span class="phpdocumentor-element-found-in__line">1808</span>
 
     </aside>
 
@@ -9870,7 +9983,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">845</span>
+    <span class="phpdocumentor-element-found-in__line">855</span>
 
     </aside>
 
@@ -9915,7 +10028,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1042</span>
+    <span class="phpdocumentor-element-found-in__line">1052</span>
 
     </aside>
 
@@ -9950,7 +10063,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2265</span>
+    <span class="phpdocumentor-element-found-in__line">2277</span>
 
     </aside>
 
@@ -9985,7 +10098,7 @@ https://metacpan.org/release/Spreadsheet-ParseExcel</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1120</span>
+    <span class="phpdocumentor-element-found-in__line">1130</span>
 
     </aside>
 
@@ -10029,7 +10142,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2925</span>
+    <span class="phpdocumentor-element-found-in__line">2944</span>
 
     </aside>
 
@@ -10069,7 +10182,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2297</span>
+    <span class="phpdocumentor-element-found-in__line">2309</span>
 
     </aside>
 
@@ -10104,7 +10217,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2233</span>
+    <span class="phpdocumentor-element-found-in__line">2245</span>
 
     </aside>
 
@@ -10139,7 +10252,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2179</span>
+    <span class="phpdocumentor-element-found-in__line">2191</span>
 
     </aside>
 
@@ -10174,7 +10287,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3626</span>
+    <span class="phpdocumentor-element-found-in__line">3645</span>
 
     </aside>
 
@@ -10209,7 +10322,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3218</span>
+    <span class="phpdocumentor-element-found-in__line">3237</span>
 
     </aside>
 
@@ -10251,7 +10364,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2738</span>
+    <span class="phpdocumentor-element-found-in__line">2757</span>
 
     </aside>
 
@@ -10292,7 +10405,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2335</span>
+    <span class="phpdocumentor-element-found-in__line">2347</span>
 
     </aside>
 
@@ -10327,7 +10440,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3601</span>
+    <span class="phpdocumentor-element-found-in__line">3620</span>
 
     </aside>
 
@@ -10367,7 +10480,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3293</span>
+    <span class="phpdocumentor-element-found-in__line">3312</span>
 
     </aside>
 
@@ -10402,7 +10515,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1887</span>
+    <span class="phpdocumentor-element-found-in__line">1899</span>
 
     </aside>
 
@@ -10437,7 +10550,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3175</span>
+    <span class="phpdocumentor-element-found-in__line">3194</span>
 
     </aside>
 
@@ -10477,7 +10590,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2831</span>
+    <span class="phpdocumentor-element-found-in__line">2850</span>
 
     </aside>
 
@@ -10517,7 +10630,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">678</span>
+    <span class="phpdocumentor-element-found-in__line">688</span>
 
     </aside>
 
@@ -10553,7 +10666,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2884</span>
+    <span class="phpdocumentor-element-found-in__line">2903</span>
 
     </aside>
 
@@ -10593,7 +10706,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3307</span>
+    <span class="phpdocumentor-element-found-in__line">3326</span>
 
     </aside>
 
@@ -10628,7 +10741,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2506</span>
+    <span class="phpdocumentor-element-found-in__line">2518</span>
 
     </aside>
 
@@ -10663,7 +10776,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3432</span>
+    <span class="phpdocumentor-element-found-in__line">3451</span>
 
     </aside>
 
@@ -10698,7 +10811,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2403</span>
+    <span class="phpdocumentor-element-found-in__line">2415</span>
 
     </aside>
 
@@ -10733,7 +10846,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1624</span>
+    <span class="phpdocumentor-element-found-in__line">1636</span>
 
     </aside>
 
@@ -10768,7 +10881,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3490</span>
+    <span class="phpdocumentor-element-found-in__line">3509</span>
 
     </aside>
 
@@ -10803,7 +10916,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2529</span>
+    <span class="phpdocumentor-element-found-in__line">2541</span>
 
     </aside>
 
@@ -10838,7 +10951,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2118</span>
+    <span class="phpdocumentor-element-found-in__line">2130</span>
 
     </aside>
 
@@ -10873,7 +10986,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2461</span>
+    <span class="phpdocumentor-element-found-in__line">2473</span>
 
     </aside>
 
@@ -10909,7 +11022,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3960</span>
+    <span class="phpdocumentor-element-found-in__line">3979</span>
 
     </aside>
 
@@ -10946,7 +11059,7 @@ where it is referred to as FEAT record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">314</span>
+    <span class="phpdocumentor-element-found-in__line">324</span>
 
     </aside>
 
@@ -11071,7 +11184,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2352</span>
+    <span class="phpdocumentor-element-found-in__line">2364</span>
 
     </aside>
 
@@ -11106,7 +11219,7 @@ OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, section 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2694</span>
+    <span class="phpdocumentor-element-found-in__line">2713</span>
 
     </aside>
 
@@ -11149,7 +11262,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2625</span>
+    <span class="phpdocumentor-element-found-in__line">2637</span>
 
     </aside>
 
@@ -11190,7 +11303,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2483</span>
+    <span class="phpdocumentor-element-found-in__line">2495</span>
 
     </aside>
 
@@ -11225,7 +11338,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3469</span>
+    <span class="phpdocumentor-element-found-in__line">3488</span>
 
     </aside>
 
@@ -11260,7 +11373,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3524</span>
+    <span class="phpdocumentor-element-found-in__line">3543</span>
 
     </aside>
 
@@ -11299,7 +11412,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3057</span>
+    <span class="phpdocumentor-element-found-in__line">3076</span>
 
     </aside>
 
@@ -11337,7 +11450,7 @@ which usually contains relative references.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1656</span>
+    <span class="phpdocumentor-element-found-in__line">1668</span>
 
     </aside>
 
@@ -11380,7 +11493,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3820</span>
+    <span class="phpdocumentor-element-found-in__line">3839</span>
 
     </aside>
 
@@ -11415,7 +11528,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2153</span>
+    <span class="phpdocumentor-element-found-in__line">2165</span>
 
     </aside>
 
@@ -11450,7 +11563,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3856</span>
+    <span class="phpdocumentor-element-found-in__line">3875</span>
 
     </aside>
 
@@ -11485,7 +11598,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">4754</span>
+    <span class="phpdocumentor-element-found-in__line">4773</span>
 
     </aside>
 
@@ -11537,7 +11650,7 @@ in which case an Exception is thrown.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1910</span>
+    <span class="phpdocumentor-element-found-in__line">1922</span>
 
     </aside>
 
@@ -11579,7 +11692,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3088</span>
+    <span class="phpdocumentor-element-found-in__line">3107</span>
 
     </aside>
 
@@ -11624,7 +11737,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1587</span>
+    <span class="phpdocumentor-element-found-in__line">1599</span>
 
     </aside>
 
@@ -11659,7 +11772,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">391</span>
 
     </aside>
 
@@ -11694,7 +11807,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">732</span>
+    <span class="phpdocumentor-element-found-in__line">742</span>
 
     </aside>
 
@@ -11729,7 +11842,7 @@ it occurs directly after the FORMULA record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2369</span>
+    <span class="phpdocumentor-element-found-in__line">2381</span>
 
     </aside>
 
@@ -11924,7 +12037,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2316</span>
+    <span class="phpdocumentor-element-found-in__line">2328</span>
 
     </aside>
 
@@ -11959,7 +12072,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2206</span>
+    <span class="phpdocumentor-element-found-in__line">2218</span>
 
     </aside>
 
@@ -11994,7 +12107,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3347</span>
+    <span class="phpdocumentor-element-found-in__line">3366</span>
 
     </aside>
 
@@ -12029,7 +12142,7 @@ function will automatically find out where the Unicode string ends.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1161</span>
+    <span class="phpdocumentor-element-found-in__line">1171</span>
 
     </aside>
 
@@ -12074,7 +12187,7 @@ Excel File Format&quot;</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1411</span>
+    <span class="phpdocumentor-element-found-in__line">1423</span>
 
     </aside>
 
@@ -12478,6 +12591,7 @@ Excel File Format&quot;</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_getUInt2d">getUInt2d()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getValueBinder">getValueBinder()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getVersion">getVersion()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetDimensions">listWorksheetDimensions()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetInfo">listWorksheetInfo()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_listWorksheetNames">listWorksheetNames()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_load">load()</a></li>
@@ -12495,6 +12609,7 @@ Excel File Format&quot;</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadFilter">setReadFilter()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setValueBinder">setValueBinder()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-ConditionalFormatting.html#method_type">type()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_confirmPos">confirmPos()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_decodeCodepage">decodeCodepage()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_encodeUTF16">encodeUTF16()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-XlsBase.html#method_extractNumber">extractNumber()</a></li>
