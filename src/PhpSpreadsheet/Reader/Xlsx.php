@@ -784,6 +784,19 @@ class Xlsx extends BaseReader
 
                     $charts = $chartDetails = [];
 
+                    // Add richData (contains relation of in-cell images)
+                    $richData = [];
+                    $relationsFileName = $dir . '/richData/_rels/richValueRel.xml.rels';
+                    if ($zip->locateName($relationsFileName)) {
+                        $relsWorksheet = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+                        foreach ($relsWorksheet->Relationship as $elex) {
+                            $ele = self::getAttributes($elex);
+                            if ($ele['Type'] == Namespaces::IMAGE) {
+                                $richData['image'][(string) $ele['Id']] = (string) $ele['Target'];
+                            }
+                        }
+                    }
+
                     $sheetCreated = false;
                     if ($xmlWorkbookNS->sheets) {
                         foreach ($xmlWorkbookNS->sheets->sheet as $eleSheet) {
@@ -940,6 +953,28 @@ class Xlsx extends BaseReader
 
                                                 break;
                                             case DataType::TYPE_ERROR:
+                                                if (isset($cAttr->vm, $richData['image']['rId' . $cAttr->vm]) && !$useFormula) {
+                                                    $imagePath = $dir . '/' . str_replace('../', '', $richData['image']['rId' . $cAttr->vm]);
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                                                    $objDrawing->setPath(
+                                                        'zip://' . File::realpath($filename) . '#' . $imagePath,
+                                                        false,
+                                                        $zip
+                                                    );
+
+                                                    $objDrawing->setCoordinates($r);
+                                                    $objDrawing->setOffsetX(0);
+                                                    $objDrawing->setOffsetY(0);
+                                                    $objDrawing->setResizeProportional(false);
+                                                    $objDrawing->setWorksheet($docSheet);
+
+                                                    $value = $objDrawing;
+                                                    $cellDataType = DataType::TYPE_NULL;
+                                                    $c->t = DataType::TYPE_NULL;
+
+                                                    break;
+                                                }
+
                                                 if (!$useFormula) {
                                                     $value = self::castToError($c);
                                                 } else {
