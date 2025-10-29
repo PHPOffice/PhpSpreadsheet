@@ -564,6 +564,12 @@ class Drawing extends WriterPart
 
                 $iterator->next();
             }
+            $iterator = $spreadsheet->getSheet($i)->getInCellDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                $aDrawings[] = $iterator->current();
+
+                $iterator->next();
+            }
         }
 
         return $aDrawings;
