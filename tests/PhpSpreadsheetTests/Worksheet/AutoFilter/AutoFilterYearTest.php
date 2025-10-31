@@ -47,6 +47,8 @@ class AutoFilterYearTest extends SetupTeardown
             }
             ++$row;
             $sheet->getCell("A$row")->setValue('=DATE(2041, 1, 1)'); // beyond epoch
+            ++$row;
+            $sheet->getCell("A$row")->setValue(7000989091802000122); // issue 4696
             ++$row; // empty row at end
             $this->maxRow = $maxRow = $row;
             $autoFilter = $sheet->getAutoFilter();

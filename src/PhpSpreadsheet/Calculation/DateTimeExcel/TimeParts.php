@@ -4,7 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
+use Throwable;
 
 class TimeParts
 {
@@ -44,6 +46,11 @@ class TimeParts
         }
 
         // Execute function
+        try {
+            SharedDateHelper::excelToDateTimeObject($timeValue);
+        } catch (Throwable) {
+            return ExcelError::NAN();
+        }
         $timeValue = fmod($timeValue, 1);
         $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
         SharedDateHelper::roundMicroseconds($timeValue);
@@ -85,6 +92,11 @@ class TimeParts
         }
 
         // Execute function
+        try {
+            SharedDateHelper::excelToDateTimeObject($timeValue);
+        } catch (Throwable) {
+            return ExcelError::NAN();
+        }
         $timeValue = fmod($timeValue, 1);
         $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
         SharedDateHelper::roundMicroseconds($timeValue);
@@ -126,6 +138,11 @@ class TimeParts
         }
 
         // Execute function
+        try {
+            SharedDateHelper::excelToDateTimeObject($timeValue);
+        } catch (Throwable) {
+            return ExcelError::NAN();
+        }
         $timeValue = fmod($timeValue, 1);
         $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
         SharedDateHelper::roundMicroseconds($timeValue);
