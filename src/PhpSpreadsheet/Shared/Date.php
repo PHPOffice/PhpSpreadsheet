@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Throwable;
 
 class Date
 {
@@ -376,15 +377,18 @@ class Date
                         $cell->getCalculatedValue()
                     );
                 }
-                $result = is_numeric($value)
-                    && self::isDateTimeFormat(
+                if (is_numeric($value)) {
+                    $result = self::isDateTimeFormat(
                         $worksheet->getStyle(
                             $cell->getCoordinate()
                         )->getNumberFormat(),
                         $dateWithoutTimeOkay
                     );
-            } catch (Exception) {
-                // Result is already false, so no need to actually do anything here
+                    /** @var float|int $value */
+                    self::excelToDateTimeObject($value);
+                }
+            } catch (Throwable) {
+                $result = false;
             }
             $worksheet->setSelectedCells($selected);
             $spreadsheet->setActiveSheetIndex($index);
