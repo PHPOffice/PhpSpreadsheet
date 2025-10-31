@@ -23,7 +23,7 @@ class Issue4696Test extends TestCase
     }
 
     #[DataProvider('providerIsDateTime')]
-    public function testTimeOnly(bool $expectedResult, string $expectedFormatted, int|float|string $value): void
+    public function testIsDateTime(bool $expectedResult, string $expectedFormatted, int|float|string $value): void
     {
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
@@ -57,6 +57,47 @@ class Issue4696Test extends TestCase
             'out-of-range float stored as string' => [false, '7000989091802000122.1', '7000989091802000122.1'],
             'non-numeric' => [false, 'xyz', 'xyz'],
             'issue 917' => [false, '5e8630b8-603c-43fe-b038-6154a3f893ab', '5e8630b8-603c-43fe-b038-6154a3f893ab'],
+        ];
+    }
+
+    #[DataProvider('providerOtherFunctions')]
+    public function testOtherFunctions(string $function): void
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(7000989091802000122);
+        $sheet->getCell('A3')->setValue(39107); // 2007-01-25
+        $sheet->getCell('A4')->setValue(39767); // 2008-11-15
+        $sheet->getCell('A5')->setValue(2);
+        $sheet->getCell('A6')->setValue(1);
+        $sheet->getCell('B1')->setValue($function);
+        self::assertSame(
+            '#NUM!',
+            $sheet->getCell('B1')->getFormattedValue()
+        );
+    }
+
+    public static function providerOtherFunctions(): array
+    {
+        return [
+            ['=YEAR(A1)'],
+            ['=MONTH(A1)'],
+            ['=DAY(A1)'],
+            ['=DAYS(A1,A1)'],
+            ['=DAYS360(A1,A1)'],
+            ['=DATEDIF(A1,A1,"D")'],
+            ['=HOUR(A1)'],
+            ['=MINUTE(A1)'],
+            ['=SECOND(A1)'],
+            ['=WEEKNUM(A1)'],
+            ['=ISOWEEKNUM(A1)'],
+            ['=WEEKDAY(A1)'],
+            ['=COUPDAYBS(A1,A4,A5,A6)'],
+            ['=COUPDAYS(A3,A2,A5,A6)'],
+            ['=COUPDAYSNC(A3,A2,A5,A6)'],
+            ['=COUPNCD(A3,A2,A5,A6)'],
+            ['=COUPNUM(A3,A2,A5,A6)'],
+            ['=COUPPCD(A3,A2,A5,A6)'],
         ];
     }
 }
