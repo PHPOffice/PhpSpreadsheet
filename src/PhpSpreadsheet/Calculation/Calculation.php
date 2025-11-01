@@ -2581,6 +2581,8 @@ class Calculation extends CalculationLocale
             if (!isset($aReferences[1])) {
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
+                /** @var string $currentCol */
+                /** @var int $currentRow */
                 if ($createCell && $worksheet !== null && !$worksheet->cellExists($aReferences[0])) {
                     $worksheet->setCellValue($aReferences[0], null);
                 }
@@ -2600,6 +2602,8 @@ class Calculation extends CalculationLocale
                 foreach ($aReferences as $reference) {
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
+                    /** @var string $currentCol */
+                    /** @var int $currentRow */
                     if ($createCell && $worksheet !== null && !$worksheet->cellExists($reference)) {
                         $worksheet->setCellValue($reference, null);
                     }
