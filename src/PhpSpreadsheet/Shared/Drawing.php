@@ -116,11 +116,7 @@ class Drawing
      */
     public static function pointsToPixels($pointValue): int
     {
-        if ($pointValue != 0) {
-            return (int) ceil($pointValue / 0.75);
-        }
-
-        return 0;
+        return (int) ceil($pointValue / 0.75);
     }
 
     /**
