@@ -49,11 +49,12 @@ class Drawing
         // Font name and size
         $name = $defaultFont->getName();
         $size = $defaultFont->getSize();
+        $sizex = ($size !== null && $size == (int) $size) ? ((int) $size) : "$size";
 
-        if (isset(Font::DEFAULT_COLUMN_WIDTHS[$name][$size])) {
+        if (isset(Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex])) {
             // Exact width can be determined
-            return $pixelValue * Font::DEFAULT_COLUMN_WIDTHS[$name][$size]['width']
-                / Font::DEFAULT_COLUMN_WIDTHS[$name][$size]['px'];
+            return $pixelValue * Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex]['width']
+                / Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex]['px'];
         }
 
         // We don't have data for this particular font and size, use approximation by
@@ -75,11 +76,12 @@ class Drawing
         // Font name and size
         $name = $defaultFont->getName();
         $size = $defaultFont->getSize();
+        $sizex = ($size !== null && $size == (int) $size) ? ((int) $size) : "$size";
 
-        if (isset(Font::DEFAULT_COLUMN_WIDTHS[$name][$size])) {
+        if (isset(Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex])) {
             // Exact width can be determined
-            $colWidth = $cellWidth * Font::DEFAULT_COLUMN_WIDTHS[$name][$size]['px']
-                / Font::DEFAULT_COLUMN_WIDTHS[$name][$size]['width'];
+            $colWidth = $cellWidth * Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex]['px']
+                / Font::DEFAULT_COLUMN_WIDTHS[$name][$sizex]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
