@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use Stringable;
+use Throwable;
 
 class AutoFilter implements Stringable
 {
@@ -339,7 +340,12 @@ class AutoFilter implements Stringable
         $timeZone = new DateTimeZone('UTC');
 
         if (is_numeric($cellValue)) {
-            $dateTime = Date::excelToDateTimeObject((float) $cellValue, $timeZone);
+            try {
+                $dateTime = Date::excelToDateTimeObject((float) $cellValue, $timeZone);
+            } catch (Throwable) {
+                return false;
+            }
+
             $cellValue = (float) $cellValue;
             if ($cellValue < 1) {
                 //    Just the time part
@@ -489,7 +495,12 @@ class AutoFilter implements Stringable
         }
 
         if (is_numeric($cellValue)) {
-            $dateObject = Date::excelToDateTimeObject((float) $cellValue, new DateTimeZone('UTC'));
+            try {
+                $dateObject = Date::excelToDateTimeObject((float) $cellValue, new DateTimeZone('UTC'));
+            } catch (Throwable) {
+                return false;
+            }
+
             $dateValue = (int) $dateObject->format('m');
             if (in_array($dateValue, $monthSet)) {
                 return true;

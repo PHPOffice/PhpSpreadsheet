@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Unexpected Exception in Php DateTime. [Issue #4696](https://github.com/PHPOffice/PhpSpreadsheet/issues/4696) [Issue #917](https://github.com/PHPOffice/PhpSpreadsheet/issues/917) [PR #4697](https://github.com/PHPOffice/PhpSpreadsheet/pull/4697)
 
 ## 2025-10-25 - 5.2.0
 
