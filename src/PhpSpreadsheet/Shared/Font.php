@@ -631,11 +631,13 @@ class Font
      */
     public static function getDefaultColumnWidthByFont(FontStyle $font, bool $returnAsPixels = false): float|int
     {
-        if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
+        $size = $font->getSize();
+        $sizex = ($size !== null && $size == (int) $size) ? ((int) $size) : "$size";
+        if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$sizex])) {
             // Exact width can be determined
             $columnWidth = $returnAsPixels
-                ? self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
-                    : self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['width'];
+                ? self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$sizex]['px']
+                    : self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$sizex]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
@@ -665,8 +667,9 @@ class Font
     {
         $name = $font->getName();
         $size = $font->getSize();
-        if (isset(self::DEFAULT_COLUMN_WIDTHS[$name][$size])) {
-            $rowHeight = self::DEFAULT_COLUMN_WIDTHS[$name][$size]['height'];
+        $sizex = ($size !== null && $size == (int) $size) ? ((int) $size) : "$size";
+        if (isset(self::DEFAULT_COLUMN_WIDTHS[$name][$sizex])) {
+            $rowHeight = self::DEFAULT_COLUMN_WIDTHS[$name][$sizex]['height'];
         } elseif ($name === 'Arial' || $name === 'Verdana') {
             $rowHeight = self::DEFAULT_COLUMN_WIDTHS[$name][10]['height'] * $size / 10.0;
         } else {

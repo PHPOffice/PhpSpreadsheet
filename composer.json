@@ -103,7 +103,7 @@
         "tecnickcom/tcpdf": "^6.5"
     },
     "suggest": {
-        "ext-intl": "PHP Internationalization Functions, regquired for NumberFormat Wizard",
+        "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",

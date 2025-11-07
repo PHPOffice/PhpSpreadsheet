@@ -98,9 +98,9 @@ class ImCscTest extends ComplexAssert
                 $string = preg_replace('/(\d{8})\d+/', '$1', $string);
             }
         }
-        foreach ($result as &$array) {
-            foreach ($array as &$string) {
-                $string = preg_replace('/(\d{8})\d+/', '$1', $string);
+        foreach ($result as &$array2) {
+            foreach ($array2 as &$string2) {
+                $string2 = preg_replace('/(\d{8})\d+/', '$1', $string2);
             }
         }
 
