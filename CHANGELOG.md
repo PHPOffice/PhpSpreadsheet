@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Protected ranges and insert/delete rows/columns. [Issue #4695](https://github.com/PHPOffice/PhpSpreadsheet/issues/4695) [PR #4702](https://github.com/PHPOffice/PhpSpreadsheet/pull/4702)
 
 ## 2025-10-25 - 5.2.0
 
