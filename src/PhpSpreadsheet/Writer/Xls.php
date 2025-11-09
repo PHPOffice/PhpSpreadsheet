@@ -128,7 +128,7 @@ class Xls extends BaseWriter
             $this->writerWorksheets[$i] = new Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i), $this->writerWorkbook);
         }
 
-        // build Escher objects. Escher objects for workbooks need to be built before Escher object for workbook.
+        // build Escher objects. Escher objects for worksheets need to be built before Escher object for workbook.
         $this->buildWorksheetEschers();
         $this->buildWorkbookEscher();
 
