@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Protected ranges and insert/delete rows/columns. [Issue #4695](https://github.com/PHPOffice/PhpSpreadsheet/issues/4695) [PR #4702](https://github.com/PHPOffice/PhpSpreadsheet/pull/4702)
 - Unexpected Exception in Php DateTime. [Issue #4696](https://github.com/PHPOffice/PhpSpreadsheet/issues/4696) [Issue #917](https://github.com/PHPOffice/PhpSpreadsheet/issues/917) [PR #4697](https://github.com/PHPOffice/PhpSpreadsheet/pull/4697)
+- Add missing translation to Dutch locale. [PR #4706](https://github.com/PHPOffice/PhpSpreadsheet/pull/4706)
 
 ## 2025-10-25 - 5.2.0
 
