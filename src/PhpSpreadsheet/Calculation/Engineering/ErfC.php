@@ -18,7 +18,7 @@ class ErfC
      *    Note: In Excel 2007 or earlier, if you input a negative value for the lower bound argument,
      *        the function would return a #NUM! error. However, in Excel 2010, the function algorithm was
      *        improved, so that it can now calculate the function for both positive and negative x values.
-     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts nagative arguments.
+     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts negative arguments.
      *
      *    Excel Function:
      *        ERFC(x)

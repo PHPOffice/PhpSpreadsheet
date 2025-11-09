@@ -30,7 +30,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * &font size - code for "text font size", where font size is a font size in points.
  * &K - code for "text font color"
  * RGB Color is specified as RRGGBB
- * Theme Color is specifed as TTSNN where TT is the theme color Id, S is either "+" or "-" of the tint/shade
+ * Theme Color is specified as TTSNN where TT is the theme color Id, S is either "+" or "-" of the tint/shade
  * value, NN is the tint/shade value.
  * &S - code for "text strikethrough" on / off
  * &X - code for "text super script" on / off

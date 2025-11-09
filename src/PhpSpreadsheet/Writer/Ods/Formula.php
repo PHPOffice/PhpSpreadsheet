@@ -76,7 +76,7 @@ class Formula
         $columns = $splitRanges[6];
         $rows = $splitRanges[7];
 
-        // Replace any commas in the formula with semi-colons for Ods
+        // Replace any commas in the formula with semicolons for Ods
         // If by chance there are commas in worksheet names, then they will be "fixed" again in the loop
         //    because we've already extracted worksheet names with our Preg::matchAllWithOffsets()
         $formula = str_replace(',', ';', $formula);

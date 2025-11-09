@@ -231,7 +231,7 @@ class OLERead
     {
         $offset = 0;
 
-        // loop through entires, each entry is 128 bytes
+        // loop through entries, each entry is 128 bytes
         $entryLen = strlen($this->entry);
         while ($offset < $entryLen) {
             // entry data (128 bytes)

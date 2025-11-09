@@ -158,7 +158,7 @@ class Rule
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM,
     ];
 
-    //  Unimplented Rule Operators (Numeric, Boolean etc)
+    //  Unimplemented Rule Operators (Numeric, Boolean etc)
     //    const AUTOFILTER_COLUMN_RULE_BETWEEN = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
     // Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values
     // Rule Operators (String) which are set as wild-carded values
@@ -357,7 +357,7 @@ class Rule
         $this->setValue($value);
         //  Only set grouping if it's been passed in as a user-supplied argument,
         //      otherwise we're calculating it when we setValue() and don't want to overwrite that
-        //      If the user supplies an argumnet for grouping, then on their own head be it
+        //      If the user supplies an argument for grouping, then on their own head be it
         if ($grouping !== null) {
             $this->setGrouping($grouping);
         }
