@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 return [
     [
+        1,
         'numfile',
-        1,
     ],
     [
-        'osversion',
         'PHP ' . PHP_VERSION,
+        'osversion',
     ],
     [
-        'recalc',
         'Automatic',
+        'recalc',
     ],
     [
+        'Automatic',
         'RECALC',
-        'AUTOMATIC',
     ],
     [
-        'system',
         'PHP',
+        'system',
     ],
     [
+        '#VALUE!',
         1,
-        '#VALUE!',
     ],
     [
-        'A',
         '#VALUE!',
+        'A',
     ],
     [
         '#VALUE!',

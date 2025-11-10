@@ -15,9 +15,9 @@ class Info
      * @param mixed $typeText String specifying the type of information to be returned
      * @param ?Cell $cell Cell from which spreadsheet information is retrieved
      *
-     * @return string|int The requested information about the current operating environment
+     * @return int|string The requested information about the current operating environment
      */
-    public static function getInfo(mixed $typeText = '', ?Cell $cell = null): string|int
+    public static function getInfo(mixed $typeText = '', ?Cell $cell = null): int|string
     {
         return match (is_string($typeText) ? strtolower($typeText) : $typeText) {
             'numfile' => $cell?->getWorksheetOrNull()?->getParent()?->getSheetCount() ?? 1,
