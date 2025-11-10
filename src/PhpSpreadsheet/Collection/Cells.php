@@ -281,7 +281,7 @@ class Cells
                 continue;
             }
             $column = ($coordinate % self::MAX_COLUMN_ID) ?: self::MAX_COLUMN_ID;
-            $maxColumn = $maxColumn > $column ? $maxColumn : $column;
+            $maxColumn = max($column, $maxColumn);
         }
 
         return Coordinate::stringFromColumnIndex($maxColumn);
