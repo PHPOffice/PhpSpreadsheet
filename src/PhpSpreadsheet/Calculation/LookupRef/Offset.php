@@ -84,7 +84,7 @@ class Offset
         $endCellColumn = self::adjustEndCellColumnForWidth($endCellColumn, $width, $startCellColumn, $columns);
         $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
 
-        $endCellRow = self::adustEndCellRowForHeight($height, $startCellRow, $rows, $endCellRow);
+        $endCellRow = self::adjustEndCellRowForHeight($height, $startCellRow, $rows, $endCellRow);
 
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
             return ExcelError::REF();
@@ -152,7 +152,7 @@ class Offset
      * @param null|object|scalar $height
      * @param scalar $rows
      */
-    private static function adustEndCellRowForHeight($height, int $startCellRow, $rows, int $endCellRow): int
+    private static function adjustEndCellRowForHeight($height, int $startCellRow, $rows, int $endCellRow): int
     {
         if (($height !== null) && (!is_object($height))) {
             $endCellRow = $startCellRow + (int) $height - 1;

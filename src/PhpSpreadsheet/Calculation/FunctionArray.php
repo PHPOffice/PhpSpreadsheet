@@ -919,7 +919,7 @@ class FunctionArray extends CalculationBase
         'FLOOR' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Floor::class, 'floor'],
-            'argumentCount' => '1-2', // Excel requries 2, Ods/Gnumeric 1-2
+            'argumentCount' => '1-2', // Excel requires 2, Ods/Gnumeric 1-2
         ],
         'FLOOR.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,

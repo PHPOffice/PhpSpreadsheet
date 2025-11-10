@@ -241,7 +241,7 @@ class Biff8 extends Xls
      */
     protected static function readBIFF8CellRangeAddress(string $subData): string
     {
-        // todo: if cell range is just a single cell, should this funciton
+        // todo: if cell range is just a single cell, should this function
         // not just return e.g. 'A1' and not 'A1:A1' ?
 
         // offset: 0; size: 2; index to first row (0... 65535) (or offset (-32768... 32767))
@@ -297,7 +297,7 @@ class Biff8 extends Xls
         [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
         $baseCol = $baseCol - 1;
 
-        // TODO: if cell range is just a single cell, should this funciton
+        // TODO: if cell range is just a single cell, should this function
         // not just return e.g. 'A1' and not 'A1:A1' ?
 
         // offset: 0; size: 2; first row

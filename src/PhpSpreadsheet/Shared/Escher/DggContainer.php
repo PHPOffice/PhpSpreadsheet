@@ -34,7 +34,7 @@ class DggContainer
     private array $OPT = [];
 
     /**
-     * Array of identifier clusters containg information about the maximum shape identifiers.
+     * Array of identifier clusters containing information about the maximum shape identifiers.
      *
      * @var mixed[]
      */

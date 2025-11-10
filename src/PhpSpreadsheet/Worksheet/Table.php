@@ -420,7 +420,7 @@ class Table implements Stringable
     }
 
     /**
-     * Get a specified Table Column by it's offset.
+     * Get a specified Table Column by its offset.
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
@@ -477,7 +477,7 @@ class Table implements Stringable
     }
 
     /**
-     * Shift an Table Column Rule to a different column.
+     * Shift a Table Column Rule to a different column.
      *
      * Note: This method bypasses validation of the destination column to ensure it is within this Table range.
      *        Nor does it verify whether any column rule already exists at $toColumn, but will simply override any existing value.

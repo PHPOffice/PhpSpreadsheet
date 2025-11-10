@@ -745,7 +745,7 @@ class Html extends BaseWriter
                     $dataUri = 'data:image/png;base64,' . base64_encode($contents);
 
                     //  Because of the nature of tables, width is more important than height.
-                    //  max-width: 100% ensures that image doesnt overflow containing cell
+                    //  max-width: 100% ensures that image doesn't overflow containing cell
                     //    However, PR #3535 broke test
                     //    25_In_memory_image, apparently because
                     //    of the use of max-with. In addition,

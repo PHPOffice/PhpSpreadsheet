@@ -131,7 +131,7 @@ class Root extends PPS
     }
 
     /**
-     * Helper function for caculating a magic value for block sizes.
+     * Helper function for calculating a magic value for block sizes.
      *
      * @param int $i2 The argument
      *

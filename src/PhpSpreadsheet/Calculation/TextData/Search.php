@@ -12,7 +12,7 @@ class Search
     use ArrayEnabled;
 
     /**
-     * FIND (case sensitive search).
+     * FIND (case-sensitive search).
      *
      * @param mixed $needle The string to look for
      *                         Or can be an array of values
@@ -54,7 +54,7 @@ class Search
     }
 
     /**
-     * SEARCH (case insensitive search).
+     * SEARCH (case-insensitive search).
      *
      * @param mixed $needle The string to look for
      *                         Or can be an array of values

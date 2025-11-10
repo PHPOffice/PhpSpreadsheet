@@ -65,7 +65,7 @@ class Binomial
     /**
      * BINOM.DIST.RANGE.
      *
-     * Returns returns the Binomial Distribution probability for the number of successes from a specified number
+     * Returns the Binomial Distribution probability for the number of successes from a specified number
      *     of trials falling into a specified range.
      *
      * @param mixed $trials Integer number of trials
