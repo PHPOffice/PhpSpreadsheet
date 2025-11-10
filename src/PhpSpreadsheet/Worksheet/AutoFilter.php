@@ -216,7 +216,7 @@ class AutoFilter implements Stringable
     }
 
     /**
-     * Get a specified AutoFilter Column by it's offset.
+     * Get a specified AutoFilter Column by its offset.
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */

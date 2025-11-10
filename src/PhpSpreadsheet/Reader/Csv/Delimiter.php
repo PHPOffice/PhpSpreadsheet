@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Csv;
 
 class Delimiter
 {
-    protected const POTENTIAL_DELIMETERS = [',', ';', "\t", '|', ':', ' ', '~'];
+    protected const POTENTIAL_DELIMITERS = [',', ';', "\t", '|', ':', ' ', '~'];
 
     /** @var resource */
     protected $fileHandle;
@@ -34,7 +34,7 @@ class Delimiter
 
     public function getDefaultDelimiter(): string
     {
-        return self::POTENTIAL_DELIMETERS[0];
+        return self::POTENTIAL_DELIMITERS[0];
     }
 
     public function linesCounted(): int
@@ -44,8 +44,8 @@ class Delimiter
 
     protected function countPotentialDelimiters(): void
     {
-        $this->counts = array_fill_keys(self::POTENTIAL_DELIMETERS, []);
-        $delimiterKeys = array_flip(self::POTENTIAL_DELIMETERS);
+        $this->counts = array_fill_keys(self::POTENTIAL_DELIMITERS, []);
+        $delimiterKeys = array_flip(self::POTENTIAL_DELIMITERS);
 
         // Count how many times each of the potential delimiters appears in each line
         $this->numberLines = 0;
@@ -61,7 +61,7 @@ class Delimiter
         $distribution = array_count_values($splitString);
         $countLine = array_intersect_key($distribution, $delimiterKeys);
 
-        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+        foreach (self::POTENTIAL_DELIMITERS as $delimiter) {
             $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
         }
     }
@@ -73,7 +73,7 @@ class Delimiter
         $meanSquareDeviations = [];
         $middleIdx = (int) floor(($this->numberLines - 1) / 2);
 
-        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+        foreach (self::POTENTIAL_DELIMITERS as $delimiter) {
             $series = $this->counts[$delimiter];
             sort($series);
 
@@ -94,7 +94,7 @@ class Delimiter
         // ... and pick the delimiter with the smallest mean square deviation
         //         (in case of ties, the order in potentialDelimiters is respected)
         $min = INF;
-        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+        foreach (self::POTENTIAL_DELIMITERS as $delimiter) {
             if (!isset($meanSquareDeviations[$delimiter])) {
                 continue;
             }

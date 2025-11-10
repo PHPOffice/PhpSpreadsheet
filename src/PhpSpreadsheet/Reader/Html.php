@@ -915,7 +915,7 @@ class Html extends BaseReader
      * and only takes 'background-color' and 'color'; property with HEX color
      *
      * TODO :
-     * - Implement to other propertie, such as border
+     * - Implement to other properties, such as border
      *
      * @param string[] $attributeArray
      */

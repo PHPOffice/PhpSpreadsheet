@@ -89,7 +89,7 @@ class TableTest extends SetupTeardown
         $sheet->addTable($table1);
 
         $table2 = new Table();
-        $table2->setName('tABlE_1'); // case insensitive
+        $table2->setName('tABlE_1'); // case-insensitive
         $sheet->addTable($table2);
     }
 
@@ -103,7 +103,7 @@ class TableTest extends SetupTeardown
         $sheet->addTable($table1);
 
         $table2 = new Table();
-        $table2->setName('table_2'); // case insensitive
+        $table2->setName('table_2'); // case-insensitive
         $sheet->addTable($table2);
         $table2->setName('tAbLe_1');
     }

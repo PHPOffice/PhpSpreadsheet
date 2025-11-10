@@ -282,7 +282,7 @@ class Worksheet extends BIFFwriter
             // $lastcol  last column on the range
             // $width    width to set
             // $xfIndex  The optional cell style Xf index to apply to the columns
-            // $hidden   The optional hidden atribute
+            // $hidden   The optional hidden attribute
             // $level    The optional outline level
             $this->columnInfo[] = [$i, $i, $width, $xfIndex, $hidden, $level];
         }
@@ -2316,7 +2316,7 @@ class Worksheet extends BIFFwriter
     }
 
     /**
-     * Store the OBJ record that precedes an IMDATA record. This could be generalise
+     * Store the OBJ record that precedes an IMDATA record. This could be generalised
      * to support other Excel objects.
      *
      * @param int $colL Column containing upper left corner of object

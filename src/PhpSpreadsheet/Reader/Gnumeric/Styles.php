@@ -47,7 +47,7 @@ class Styles
             '8' => Fill::FILL_PATTERN_DARKVERTICAL, // vertical stripe
             '9' => Fill::FILL_PATTERN_DARKDOWN, // diagonal stripe
             '10' => Fill::FILL_PATTERN_DARKUP, // reverse diagonal stripe
-            '11' => Fill::FILL_PATTERN_DARKGRID, // diagoanl crosshatch
+            '11' => Fill::FILL_PATTERN_DARKGRID, // diagonal crosshatch
             '12' => Fill::FILL_PATTERN_DARKTRELLIS, // thick diagonal crosshatch
             '13' => Fill::FILL_PATTERN_LIGHTHORIZONTAL,
             '14' => Fill::FILL_PATTERN_LIGHTVERTICAL,

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
 /**
- * Jpgraph is not oficially maintained in Composer, so the version there
+ * Jpgraph is not officially maintained in Composer, so the version there
  * could be out of date. For that reason, all unit test requiring Jpgraph
  * are skipped. So, do not measure code coverage for this class till that
  * is fixed.

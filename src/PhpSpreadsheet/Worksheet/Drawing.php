@@ -222,7 +222,7 @@ class Drawing extends BaseDrawing
     }
 
     /**
-     * Get Image file extention for Save.
+     * Get Image file extension for Save.
      */
     public function getImageFileExtensionForSave(bool $includeDot = true): string
     {
