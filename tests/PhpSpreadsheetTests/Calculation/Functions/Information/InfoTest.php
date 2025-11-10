@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
-use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig\AllSetupTeardown;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\TestCase;
 
-class InfoTest extends AllSetupTeardown
+class InfoTest extends TestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('providerINFO')]
     public function testINFO(mixed $expectedResult, string $typeText): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue($typeText);
-        $sheet->getCell('B1')->setValue('=INFO(A1)');
-        $result = $sheet->getCell('B1')->getCalculatedValue();
-        self::assertSame($expectedResult, $result);
+        $calculation = Calculation::getInstance();
+
+        $formula = "=INFO($typeText)";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
     }
 
     public static function providerINFO(): array
