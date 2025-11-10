@@ -9,7 +9,7 @@ return [
     ],
     [
         'osversion',
-        'PHP ' . phpversion(),
+        'PHP ' . PHP_VERSION,
     ],
     [
         'recalc',
