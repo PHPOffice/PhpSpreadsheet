@@ -1129,7 +1129,7 @@ class Html extends BaseReader
         $styleArray = self::getStyleArray($attributes);
 
         $src = $attributes['src'];
-        if (substr($src, 0, 5) !== 'data:') {
+        if (!str_starts_with($src, 'data:')) {
             $src = urldecode($src);
         }
         $width = isset($attributes['width']) ? (float) $attributes['width'] : ($styleArray['width'] ?? null);
@@ -1195,13 +1195,13 @@ class Html extends BaseReader
                     $arrayKey = trim($value[0]);
                     $arrayValue = trim($value[1]);
                     if ($arrayKey === 'width') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
                         }
                     } elseif ($arrayKey === 'height') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = substr($arrayValue, 0, -2);
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
