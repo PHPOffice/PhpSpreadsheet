@@ -295,7 +295,7 @@ IMSUM                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 IMTAN                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMTAN
 INDEX                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
 INDIRECT                 | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
-INFO                     | CATEGORY_INFORMATION           | **Not yet Implemented**
+INFO                     | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 INT                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
 INTERCEPT                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::INTERCEPT
 INTRATE                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates::interest

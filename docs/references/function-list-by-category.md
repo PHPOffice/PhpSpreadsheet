@@ -189,7 +189,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 CELL                     | **Not yet Implemented**
 ERROR.TYPE               | \PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError::type
-INFO                     | **Not yet Implemented**
+INFO                     | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 ISBLANK                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isBlank
 ISERR                    | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isErr
 ISERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isError
