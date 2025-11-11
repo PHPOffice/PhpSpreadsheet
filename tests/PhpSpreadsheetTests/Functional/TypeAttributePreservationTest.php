@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
-use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
-use PhpOffice\PhpSpreadsheet\Reader\Slk as ReaderSlk;
-use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
-use PhpOffice\PhpSpreadsheet\Reader\Xml as ReaderXml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
 use PHPUnit\Framework\Attributes\DataProvider;
