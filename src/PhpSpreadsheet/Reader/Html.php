@@ -533,6 +533,10 @@ class Html extends BaseReader
                 $sheet->setShowGridlines(in_array('gridlines', $classes, true));
                 $sheet->setPrintGridlines(in_array('gridlinesp', $classes, true));
             }
+            if (isset($attributeArray['data-printarea'])) {
+                $sheet->getPageSetup()
+                    ->setPrintArea($attributeArray['data-printarea']);
+            }
             if ('rtl' === ($attributeArray['dir'] ?? '')) {
                 $sheet->setRightToLeft(true);
             }
