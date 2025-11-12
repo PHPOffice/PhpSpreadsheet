@@ -2,10 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Information;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
 class Info
 {
+    public static bool $infoSupported = true;
+
     /**
      * INFO.
      *
@@ -19,6 +22,10 @@ class Info
      */
     public static function getInfo(mixed $typeText = '', ?Cell $cell = null): int|string
     {
+        if (!self::$infoSupported) {
+            return Functions::DUMMY();
+        }
+
         return match (is_string($typeText) ? strtolower($typeText) : $typeText) {
             'numfile' => $cell?->getWorksheetOrNull()?->getParent()?->getSheetCount() ?? 1,
             'osversion' => 'PHP ' . PHP_VERSION,

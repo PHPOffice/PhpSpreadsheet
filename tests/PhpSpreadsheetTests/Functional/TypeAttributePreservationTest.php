@@ -4,12 +4,28 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Info;
+use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
+use PhpOffice\PhpSpreadsheet\Reader\Slk as ReaderSlk;
+use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xml as ReaderXml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class TypeAttributePreservationTest extends AbstractFunctional
 {
+    protected function setUp(): void
+    {
+        Info::$infoSupported = false;
+    }
+
+    protected function tearDown(): void
+    {
+        Info::$infoSupported = true;
+    }
+
     public static function providerFormulae(): array
     {
         $formats = ['Xlsx'];
@@ -88,5 +104,85 @@ class TypeAttributePreservationTest extends AbstractFunctional
 
         $spreadsheet->disconnectWorksheets();
         $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnimplementedFunctionXlsx(): void
+    {
+        $file = 'tests/data/Reader/XLSX/issue.3658.xlsx';
+        $reader = new ReaderXlsx();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $unimplemented = '=INFO("SYSTEM")';
+        self::assertSame(124, $sheet->getCell('A2')->getOldCalculatedValue());
+        self::assertSame('00123', $sheet->getCell('A3')->getOldCalculatedValue());
+        self::assertSame($unimplemented, $sheet->getCell('A4')->getValue());
+        self::assertSame('pcdos', $sheet->getCell('A4')->getCalculatedValue(), 'use oldCalculatedValue from read for unimplemented function');
+        $sheet->getCell('D10')->setValue($unimplemented);
+        self::assertNull($sheet->getCell('D10')->getCalculatedValue(), 'return null for unimplemented function when old value unassigned');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnimplementedFunctionXls(): void
+    {
+        $file = 'tests/data/Reader/XLS/issue.3658.xls';
+        $reader = new ReaderXls();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $unimplemented = '=INFO("SYSTEM")';
+        self::assertSame(124, $sheet->getCell('A2')->getOldCalculatedValue());
+        self::assertSame('00123', $sheet->getCell('A3')->getOldCalculatedValue());
+        self::assertSame($unimplemented, $sheet->getCell('A4')->getValue());
+        self::assertSame('pcdos', $sheet->getCell('A4')->getCalculatedValue(), 'use oldCalculatedValue from read for unimplemented function');
+        $sheet->getCell('D10')->setValue($unimplemented);
+        self::assertNull($sheet->getCell('D10')->getCalculatedValue(), 'return null for unimplemented function when old value unassigned');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnimplementedFunctionXml(): void
+    {
+        $file = 'tests/data/Reader/Xml/issue.3658.xml';
+        $reader = new ReaderXml();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $unimplemented = '=INFO("SYSTEM")';
+        self::assertSame(124, $sheet->getCell('A2')->getOldCalculatedValue());
+        self::assertSame('00123', $sheet->getCell('A3')->getOldCalculatedValue());
+        self::assertSame($unimplemented, $sheet->getCell('A4')->getValue());
+        self::assertSame('pcdos', $sheet->getCell('A4')->getCalculatedValue(), 'use oldCalculatedValue from read for unimplemented function');
+        $sheet->getCell('D10')->setValue($unimplemented);
+        self::assertNull($sheet->getCell('D10')->getCalculatedValue(), 'return null for unimplemented function when old value unassigned');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnimplementedFunctionOds(): void
+    {
+        $file = 'tests/data/Reader/Ods/issue.3658.ods';
+        $reader = new ReaderOds();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $unimplemented = '=INFO("SYSTEM")';
+        self::assertSame(124, $sheet->getCell('A2')->getOldCalculatedValue());
+        self::assertSame('00123', $sheet->getCell('A3')->getOldCalculatedValue());
+        self::assertSame($unimplemented, $sheet->getCell('A4')->getValue());
+        self::assertSame('WNT', $sheet->getCell('A4')->getCalculatedValue(), 'use oldCalculatedValue from read for unimplemented function');
+        $sheet->getCell('D10')->setValue($unimplemented);
+        self::assertNull($sheet->getCell('D10')->getCalculatedValue(), 'return null for unimplemented function when old value unassigned');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnimplementedFunctionSlk(): void
+    {
+        $file = 'tests/data/Reader/Slk/issue.3658.slk';
+        $reader = new ReaderSlk();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $unimplemented = '=INFO("SYSTEM")';
+        self::assertSame(124, $sheet->getCell('A2')->getOldCalculatedValue());
+        self::assertSame('00123', $sheet->getCell('A3')->getOldCalculatedValue());
+        self::assertSame($unimplemented, $sheet->getCell('A4')->getValue());
+        self::assertSame('pcdos', $sheet->getCell('A4')->getCalculatedValue(), 'use oldCalculatedValue from read for unimplemented function');
+        $sheet->getCell('D10')->setValue($unimplemented);
+        self::assertNull($sheet->getCell('D10')->getCalculatedValue(), 'return null for unimplemented function when old value unassigned');
+        $spreadsheet->disconnectWorksheets();
     }
 }
