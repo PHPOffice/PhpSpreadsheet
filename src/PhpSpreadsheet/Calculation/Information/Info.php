@@ -7,6 +7,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
 class Info
 {
+    /**
+     * @internal
+     */
     public static bool $infoSupported = true;
 
     /**
@@ -27,10 +30,14 @@ class Info
         }
 
         return match (is_string($typeText) ? strtolower($typeText) : $typeText) {
+            'directory' => '/',
             'numfile' => $cell?->getWorksheetOrNull()?->getParent()?->getSheetCount() ?? 1,
+            'origin' => '$A:$A$1',
             'osversion' => 'PHP ' . PHP_VERSION,
             'recalc' => 'Automatic',
+            'release' => PHP_VERSION,
             'system' => 'PHP',
+            'memavail', 'memused', 'totmem' => ExcelError::NA(),
             default => ExcelError::VALUE(),
         };
     }
