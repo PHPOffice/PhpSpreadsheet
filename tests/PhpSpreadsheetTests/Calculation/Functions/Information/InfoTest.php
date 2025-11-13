@@ -25,4 +25,17 @@ class InfoTest extends TestCase
     {
         return require 'tests/data/Calculation/Information/INFO.php';
     }
+
+    public function testINFONumfileWithThreeSheets(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->createSheet();
+        $spreadsheet->createSheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue('=INFO("numfile")');
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+
+        self::assertEquals(3, $result);
+    }
 }
