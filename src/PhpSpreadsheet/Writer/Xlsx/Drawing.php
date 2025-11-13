@@ -23,6 +23,12 @@ class Drawing extends WriterPart
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
+        // Check if we have stored drawing XML (pass-through for unsupported elements)
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
+        if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['Drawings'])) {
+            return reset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['Drawings']);
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {

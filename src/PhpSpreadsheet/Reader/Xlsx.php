@@ -1481,6 +1481,11 @@ class Xlsx extends BaseReader
                                         $xmlDrawing = $this->loadZipNoNamespace($fileDrawing, '');
                                         $xmlDrawingChildren = $xmlDrawing->children(Namespaces::SPREADSHEET_DRAWING);
 
+                                        // Store drawing XML for pass-through if enabled
+                                        if ($this->enableDrawingPassThrough) {
+                                            $unparsedDrawings[$drawingRelId] = $xmlDrawing->asXML();
+                                        }
+
                                         if ($xmlDrawingChildren->oneCellAnchor) {
                                             foreach ($xmlDrawingChildren->oneCellAnchor as $oneCellAnchor) {
                                                 $oneCellAnchor = self::testSimpleXml($oneCellAnchor);
