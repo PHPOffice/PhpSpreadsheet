@@ -1284,8 +1284,9 @@ class FunctionArray extends CalculationBase
         ],
         'INFO' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Information\Info::class, 'getInfo'],
             'argumentCount' => '1',
+            'passCellReference' => true,
         ],
         'INT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,

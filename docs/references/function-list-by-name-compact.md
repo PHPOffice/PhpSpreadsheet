@@ -299,7 +299,7 @@ IMSUM                    | ENGINEERING           | Engineering\ComplexOperations
 IMTAN                    | ENGINEERING           | Engineering\ComplexFunctions::IMTAN
 INDEX                    | LOOKUP_AND_REFERENCE  | LookupRef\Matrix::index
 INDIRECT                 | LOOKUP_AND_REFERENCE  | LookupRef\Indirect::INDIRECT
-INFO                     | INFORMATION           | **Not yet Implemented**
+INFO                     | INFORMATION           | Information\Info::getInfo
 INT                      | MATH_AND_TRIG         | MathTrig\IntClass::evaluate
 INTERCEPT                | STATISTICAL           | Statistical\Trends::INTERCEPT
 INTRATE                  | FINANCIAL             | Financial\Securities\Rates::interest
