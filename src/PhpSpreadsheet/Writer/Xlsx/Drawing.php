@@ -23,10 +23,9 @@ class Drawing extends WriterPart
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
-        // Check if we have stored drawing XML (pass-through for unsupported elements)
-        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
-        if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['Drawings'])) {
-            return reset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['Drawings']);
+        // Try to use pass-through drawing XML if available
+        if ($passThroughXml = $this->getPassThroughDrawingXml($worksheet)) {
+            return $passThroughXml;
         }
 
         // Create XML writer
@@ -597,5 +596,35 @@ class Drawing extends WriterPart
         if ($condition) {
             $objWriter->writeAttribute($attr, $val);
         }
+    }
+
+    /**
+     * Get pass-through drawing XML if available and no drawings have been modified.
+     */
+    private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        // Only use pass-through if no drawings have been added/modified programmatically
+        if (count($worksheet->getDrawingCollection()) !== 0) {
+            return null;
+        }
+
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
+        if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
+            return null;
+        }
+
+        $codeName = $worksheet->getCodeName();
+        if (!isset($unparsedLoadedData['sheets'][$codeName]) || !is_array($unparsedLoadedData['sheets'][$codeName])) {
+            return null;
+        }
+
+        $sheetData = $unparsedLoadedData['sheets'][$codeName];
+        if (!isset($sheetData['Drawings']) || !is_array($sheetData['Drawings'])) {
+            return null;
+        }
+
+        $firstDrawing = reset($sheetData['Drawings']);
+
+        return is_string($firstDrawing) ? $firstDrawing : null;
     }
 }
