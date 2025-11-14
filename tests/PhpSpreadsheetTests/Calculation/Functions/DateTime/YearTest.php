@@ -28,7 +28,7 @@ class YearTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=YEAR({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -88,7 +88,7 @@ class YearTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=YEAR({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

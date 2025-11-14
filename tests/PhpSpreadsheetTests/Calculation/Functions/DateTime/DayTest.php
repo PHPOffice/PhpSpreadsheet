@@ -46,7 +46,7 @@ class DayTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DAY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResultExcel, $result);
     }
 
@@ -92,7 +92,7 @@ class DayTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DAY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResultOpenOffice, $result);
     }
 
@@ -140,7 +140,7 @@ class DayTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=DAY({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

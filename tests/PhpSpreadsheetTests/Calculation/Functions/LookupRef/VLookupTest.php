@@ -52,8 +52,8 @@ class VLookupTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=VLOOKUP({$values}, {$database}, {$index}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerVLookupArray(): array
