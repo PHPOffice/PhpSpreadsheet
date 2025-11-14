@@ -18,7 +18,8 @@ class InfoTest extends TestCase
         $sheet->getCell('A1')->setValue('=INFO("' . $typeText . '")');
         $result = $sheet->getCell('A1')->getCalculatedValue();
 
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerINFO(): array
@@ -36,6 +37,7 @@ class InfoTest extends TestCase
         $sheet->getCell('A1')->setValue('=INFO("numfile")');
         $result = $sheet->getCell('A1')->getCalculatedValue();
 
-        self::assertEquals(3, $result);
+        self::assertSame(3, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 }
