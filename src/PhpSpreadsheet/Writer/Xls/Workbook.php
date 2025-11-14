@@ -551,7 +551,7 @@ class Workbook extends BIFFwriter
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
                     // We should have a worksheet
-                    $worksheet = $definedName->getWorksheet() ? $definedName->getWorksheet()->getTitle() : null;
+                    $worksheet = $definedName->getWorksheet()?->getTitle();
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));

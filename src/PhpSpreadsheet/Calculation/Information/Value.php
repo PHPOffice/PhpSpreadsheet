@@ -265,7 +265,7 @@ class Value
         if (is_bool($value)) {
             return (int) $value;
         }
-        if (is_string($value) && substr($value, 0, 1) === '#') {
+        if (is_string($value) && str_starts_with($value, '#')) {
             return $value;
         }
 

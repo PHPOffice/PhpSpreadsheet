@@ -316,7 +316,7 @@ abstract class Coordinate
 
         $worksheet = $matches['worksheet'];
         if ($worksheet !== '') {
-            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+            if (str_starts_with($worksheet, "'") && str_ends_with($worksheet, "'")) {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $data['worksheet'] = strtolower($worksheet);
