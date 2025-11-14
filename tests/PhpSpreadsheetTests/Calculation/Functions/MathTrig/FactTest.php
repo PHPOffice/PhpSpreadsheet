@@ -61,7 +61,7 @@ class FactTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=FACT({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::FACT_PRECISION);
     }
 

@@ -30,8 +30,8 @@ class RowsTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ROWS({$argument})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerRowsArray(): array

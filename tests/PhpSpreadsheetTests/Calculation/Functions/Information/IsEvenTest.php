@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IsEvenTest extends TestCase
@@ -17,7 +18,7 @@ class IsEvenTest extends TestCase
         self::assertSame(ExcelError::NAME(), $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEven')]
+    #[DataProvider('providerIsEven')]
     public function testIsEven(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isEven($value);
@@ -29,14 +30,14 @@ class IsEvenTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_EVEN.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsEvenArray')]
+    #[DataProvider('providerIsEvenArray')]
     public function testIsEvenArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ISEVEN({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIsEvenArray(): array
