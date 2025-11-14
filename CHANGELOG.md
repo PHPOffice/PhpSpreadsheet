@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Added
 
 - Limited Printarea support for Html/Pdf. [Issue #3941](https://github.com/PHPOffice/PhpSpreadsheet/issues/3941) [PR #4711](https://github.com/PHPOffice/PhpSpreadsheet/pull/4711)
+- Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
 
 ### Removed
 
@@ -34,7 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Add missing Dutch translation to translation file. [PR #4707](https://github.com/PHPOffice/PhpSpreadsheet/pull/4707)
 - Fix lots of typos throughout codebase. [PR #4705](https://github.com/PHPOffice/PhpSpreadsheet/pull/4705)
 - Apply small code style improvements. [PR #4708](https://github.com/PHPOffice/PhpSpreadsheet/pull/4708)
-- Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
 
 ## 2025-10-25 - 5.2.0
 
