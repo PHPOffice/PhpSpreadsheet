@@ -525,7 +525,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 ARRAYTOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::fromArray
 ASC                      | **Not yet Implemented**
-BAHTTEXT                 | **Not yet Implemented**
+BAHTTEXT                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
 CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code

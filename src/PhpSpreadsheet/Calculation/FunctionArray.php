@@ -149,7 +149,7 @@ class FunctionArray extends CalculationBase
         ],
         'BAHTTEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [TextData\Thai::class, 'getBahtText'],
             'argumentCount' => '1',
         ],
         'BASE' => [
