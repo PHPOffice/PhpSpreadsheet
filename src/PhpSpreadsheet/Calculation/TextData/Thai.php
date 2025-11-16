@@ -118,10 +118,10 @@ class Thai
         $ten = $length > 1 ? $block[$i++] : '0';
         if ($ten !== '0') {
             $out .= match ($ten) {
-                    '1' => '',
-                    '2' => self::THAI_COMPOUND_TWO,
-                    default => self::THAI_DIGITS[$ten],
-                } . self::THAI_UNITS[1];
+                '1' => '',
+                '2' => self::THAI_COMPOUND_TWO,
+                default => self::THAI_DIGITS[$ten],
+            } . self::THAI_UNITS[1];
         }
 
         // Ones
