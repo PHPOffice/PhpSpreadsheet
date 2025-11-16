@@ -94,6 +94,8 @@ class Thai
             ...str_split(substr($digits, $length), 6),
         ];
 
+        $chunks = array_filter($chunks, fn (string $chunk): bool => $chunk !== '');
+
         return implode(
             self::THAI_UNITS[6],
             array_map(self::convertBlock(...), $chunks)
