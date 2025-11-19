@@ -39,7 +39,7 @@ AVERAGEIFS               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
-BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 BASE                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base::evaluate
 BESSELI                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselI::BESSELI
 BESSELJ                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ::BESSELJ

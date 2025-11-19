@@ -43,7 +43,7 @@ AVERAGEIFS               | STATISTICAL           | Statistical\Conditional::AVER
 
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
-BAHTTEXT                 | TEXT_AND_DATA         | **Not yet Implemented**
+BAHTTEXT                 | TEXT_AND_DATA         | TextData\Thai::getBahtText
 BASE                     | MATH_AND_TRIG         | MathTrig\Base::evaluate
 BESSELI                  | ENGINEERING           | Engineering\BesselI::BESSELI
 BESSELJ                  | ENGINEERING           | Engineering\BesselJ::BESSELJ
