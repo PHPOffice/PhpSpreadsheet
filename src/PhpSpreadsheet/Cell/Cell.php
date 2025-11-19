@@ -245,13 +245,15 @@ class Cell implements Stringable
     /**
      * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
      *
-     * @param mixed $value Value
+     * @param mixed $value Value of the cell
      * @param string $dataType Explicit data type, see DataType::TYPE_*
      *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
      *             method, then it is your responsibility as an end-user developer to validate that the value and
      *             the datatype match.
      *       If you do mismatch value and datatype, then the value you enter may be changed to match the datatype
      *          that you specify.
+     *
+     * @see DataType
      *
      * @throws SpreadsheetException
      */

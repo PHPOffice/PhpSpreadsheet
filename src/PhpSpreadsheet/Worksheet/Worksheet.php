@@ -1134,14 +1134,14 @@ class Worksheet
      *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
      *             method, then it is your responsibility as an end-user developer to validate that the value and
      *             the datatype match.
-     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
+     *       If you do mismatch value and datatype, then the value you enter may be changed to match the datatype
      *          that you specify.
      *
      * @see DataType
      *
      * @return $this
      */
-    public function setCellValueExplicit(CellAddress|string|array $coordinate, mixed $value, string $dataType): static
+    public function setCellValueExplicit(CellAddress|string|array $coordinate, mixed $value, string $dataType = DataType::TYPE_STRING): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValueExplicit($value, $dataType);

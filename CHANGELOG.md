@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Limited Printarea support for Html/Pdf. [Issue #3941](https://github.com/PHPOffice/PhpSpreadsheet/issues/3941) [PR #4711](https://github.com/PHPOffice/PhpSpreadsheet/pull/4711)
 - Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
 - Implement missing `BAHTTEXT` function. [PR #4715](https://github.com/PHPOffice/PhpSpreadsheet/pull/4715)
+- Add default value to data type parameter of `Worksheet::setCellValueExplicit`, for consistency with `Cell::setValueExplicit`. [PR #4716](https://github.com/PHPOffice/PhpSpreadsheet/pull/4716)
 
 ### Removed
 
