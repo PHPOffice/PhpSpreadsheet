@@ -307,4 +307,30 @@ class CellTest extends TestCase
             'C2 - No Conditionals' => ['C2', Fill::FILL_NONE, null],
         ];
     }
+
+    public static function setValueExplicitTypeArgumentProvider(): array
+    {
+        return require 'tests/data/Cell/SetValueExplicitTypeArguments.php';
+    }
+
+    #[DataProvider('setValueExplicitTypeArgumentProvider')]
+    public function testSetValueExplicitTypeArgumentHandling(
+        mixed $value,
+        ?string $dataType,
+        mixed $expectedValue,
+        string $expectedDataType
+    ): void {
+        $spreadsheet = new Spreadsheet();
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+
+        if ($dataType) {
+            $cell->setValueExplicit($value, $dataType);
+        } else {
+            $cell->setValueExplicit($value);
+        }
+
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
