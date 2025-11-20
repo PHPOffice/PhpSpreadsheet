@@ -669,4 +669,32 @@ class WorksheetTest extends TestCase
             ],
         ];
     }
+
+    public static function setCellValueExplicitTypeArgumentProvider(): array
+    {
+        return require 'tests/data/Cell/SetValueExplicitTypeArguments.php';
+    }
+
+    #[DataProvider('setCellValueExplicitTypeArgumentProvider')]
+    public function testSetCellValueExplicitTypeArgumentHandling(
+        mixed $value,
+        ?string $dataType,
+        mixed $expectedValue,
+        string $expectedDataType
+    ): void {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $coordinate = 'A1';
+
+        if ($dataType) {
+            $worksheet->setCellValueExplicit($coordinate, $value, $dataType);
+        } else {
+            $worksheet->setCellValueExplicit($coordinate, $value);
+        }
+
+        $cell = $worksheet->getCell($coordinate);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
