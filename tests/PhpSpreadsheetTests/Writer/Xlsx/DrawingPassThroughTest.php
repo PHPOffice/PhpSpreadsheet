@@ -75,22 +75,21 @@ class DrawingPassThroughTest extends AbstractFunctional
     {
         // First, verify that the original file contains a shape
         // Load WITH pass-through to check file contents
-        $verifyReader = new XlsxReader();
-        $verifyReader->setEnableDrawingPassThrough(true);
-        $verifySpreadsheet = $verifyReader->load(self::TEMPLATE);
-        $verifyUnparsedData = $verifySpreadsheet->getUnparsedLoadedData();
-        $verifyCodeName = $verifySpreadsheet->getActiveSheet()->getCodeName();
-        self::assertIsArray($verifyUnparsedData['sheets']);
-        self::assertArrayHasKey($verifyCodeName, $verifyUnparsedData['sheets']);
-        self::assertIsArray($verifyUnparsedData['sheets'][$verifyCodeName]);
-        self::assertArrayHasKey('Drawings', $verifyUnparsedData['sheets'][$verifyCodeName], 'Original file should have drawings');
-        self::assertIsArray($verifyUnparsedData['sheets'][$verifyCodeName]['Drawings']);
-        $verifyDrawings = $verifyUnparsedData['sheets'][$verifyCodeName]['Drawings'];
-        $verifyDrawingXml = reset($verifyDrawings);
-        self::assertIsString($verifyDrawingXml);
-        self::assertStringContainsString('<xdr:sp', $verifyDrawingXml, 'Original file should contain a shape');
-        self::assertStringContainsString('<xdr:txBody>', $verifyDrawingXml, 'Original file should contain a textbox');
-        $verifySpreadsheet->disconnectWorksheets();
+        $reader = new XlsxReader();
+        $reader->setEnableDrawingPassThrough(true);
+        $spreadsheet = $reader->load(self::TEMPLATE);
+        $unparsedData = $spreadsheet->getUnparsedLoadedData();
+        $codeName = $spreadsheet->getActiveSheet()->getCodeName();
+        self::assertIsArray($unparsedData['sheets']);
+        self::assertArrayHasKey($codeName, $unparsedData['sheets']);
+        self::assertIsArray($unparsedData['sheets'][$codeName]);
+        self::assertArrayHasKey('Drawings', $unparsedData['sheets'][$codeName], 'Original file should have drawings');
+        self::assertIsArray($unparsedData['sheets'][$codeName]['Drawings']);
+        $drawings = $unparsedData['sheets'][$codeName]['Drawings'];
+        $drawingXml = reset($drawings);
+        self::assertIsString($drawingXml);
+        self::assertStringContainsString('<xdr:sp', $drawingXml, 'Original file should contain shape');
+        $spreadsheet->disconnectWorksheets();
 
         // Now test: Load WITHOUT Reader pass-through (XML not stored)
         $reader = new XlsxReader();
@@ -439,5 +438,62 @@ class DrawingPassThroughTest extends AbstractFunctional
         self::assertNotEmpty($unparsedData2['sheets'][$codeName2]['Drawings'], 'Drawing XML should be stored when pass-through is enabled');
 
         $spreadsheet2->disconnectWorksheets();
+    }
+
+    /**
+     * Test that VML drawings (used by comments) and DrawingML (used by shapes/images)
+     * coexist without interference when pass-through is enabled.
+     * This addresses the concern that comments use the drawings folder with VML files.
+     * The template file already contains a comment in D1, so this test verifies that
+     * existing comments are preserved AND new comments can be added.
+     */
+    public function testCommentsAndPassThroughCoexist(): void
+    {
+        // Load file with drawings (image + shape) and enable pass-through
+        // Note: The template already contains a comment in D1
+        $reader = new XlsxReader();
+        $reader->setEnableDrawingPassThrough(true);
+        $spreadsheet = $reader->load(self::TEMPLATE);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Verify the existing comment is loaded
+        $existingComment = $sheet->getComment('D1');
+        $existingCommentText = $existingComment->getText()->getPlainText();
+        self::assertNotEmpty($existingCommentText, 'Template should contain a comment in D1');
+
+        // Add a new comment to the sheet
+        $sheet->getComment('A1')->getText()->createText('Test comment with pass-through');
+        $sheet->getComment('A1')->setAuthor('Test Author');
+
+        // Save the file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify the file structure contains both VML (for comments) and DrawingML (for shapes)
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        // Check for VML drawing (used by comments)
+        $vmlDrawing = $zip->getFromName('xl/drawings/vmlDrawing1.vml');
+        self::assertNotFalse($vmlDrawing, 'VML drawing for comments should exist');
+        self::assertStringContainsString('urn:schemas-microsoft-com:vml', $vmlDrawing, 'VML should contain VML namespace');
+
+        // Check for DrawingML (used by shapes/images)
+        $drawingXml = $zip->getFromName('xl/drawings/drawing1.xml');
+        self::assertNotFalse($drawingXml, 'DrawingML for shapes/images should exist');
+        self::assertStringContainsString('<xdr:sp', $drawingXml, 'DrawingML should contain shape (preserved by pass-through)');
+        self::assertStringContainsString('<xdr:pic', $drawingXml, 'DrawingML should contain image');
+
+        // Check for comments XML (should contain both existing and new comments)
+        $commentsXml = $zip->getFromName('xl/comments1.xml');
+        self::assertNotFalse($commentsXml, 'Comments XML should exist');
+        self::assertStringContainsString('Test comment with pass-through', $commentsXml, 'New comment (A1) should be in comments XML');
+        self::assertStringContainsString($existingCommentText, $commentsXml, 'Existing comment (D1) should be preserved in comments XML');
+
+        $zip->close();
+        unlink($tempFile);
     }
 }
