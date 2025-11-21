@@ -599,15 +599,13 @@ class Drawing extends WriterPart
     }
 
     /**
-     * Get pass-through drawing XML if available and no drawings have been modified.
+     * Get pass-through drawing XML if available.
+     *
+     * Returns the original drawing XML stored during load (when Reader pass-through was enabled).
+     * This preserves unsupported drawing elements (shapes, textboxes) that PhpSpreadsheet cannot parse.
      */
     private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
     {
-        // Only use pass-through if no drawings have been added/modified programmatically
-        if (count($worksheet->getDrawingCollection()) !== 0) {
-            return null;
-        }
-
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
             return null;

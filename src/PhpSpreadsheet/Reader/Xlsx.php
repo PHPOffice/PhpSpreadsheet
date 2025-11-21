@@ -1714,10 +1714,6 @@ class Xlsx extends BaseReader
                                                 }
                                             }
                                         }
-                                        if (empty($relsDrawing) && $xmlDrawing->count() == 0) {
-                                            // Save Drawing without rels and children as unparsed
-                                            $unparsedDrawings[$drawingRelId] = $xmlDrawing->asXML();
-                                        }
                                     }
 
                                     // store original rId of drawing files
