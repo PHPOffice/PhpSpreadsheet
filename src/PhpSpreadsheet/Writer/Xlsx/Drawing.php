@@ -614,21 +614,9 @@ class Drawing extends WriterPart
         }
 
         $codeName = $worksheet->getCodeName();
-        if (!isset($unparsedLoadedData['sheets'][$codeName])) {
-            return null;
-        }
-
-        $sheetData = $unparsedLoadedData['sheets'][$codeName];
-        if (!is_array($sheetData)) {
-            return null;
-        }
-
+        $sheetData = $unparsedLoadedData['sheets'][$codeName] ?? null;
         // Only use pass-through XML if the Reader flag was explicitly enabled
-        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true) {
-            return null;
-        }
-
-        if (!isset($sheetData['Drawings']) || !is_array($sheetData['Drawings'])) {
+        if (!is_array($sheetData) || ($sheetData['drawingPassThroughEnabled'] ?? false) !== true || !is_array($sheetData['Drawings'] ?? null)) {
             return null;
         }
 
