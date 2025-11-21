@@ -39,7 +39,7 @@ AVERAGEIFS               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
-BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 BASE                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base::evaluate
 BESSELI                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselI::BESSELI
 BESSELJ                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ::BESSELJ
@@ -295,7 +295,7 @@ IMSUM                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 IMTAN                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMTAN
 INDEX                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
 INDIRECT                 | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
-INFO                     | CATEGORY_INFORMATION           | **Not yet Implemented**
+INFO                     | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 INT                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
 INTERCEPT                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::INTERCEPT
 INTRATE                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates::interest

@@ -33,7 +33,7 @@ class DateDifTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DATEDIF({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -104,7 +104,7 @@ class DateDifTest extends TestCase
         } else {
             $formula = "=DATEDIF({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 

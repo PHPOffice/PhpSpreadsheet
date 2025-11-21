@@ -55,7 +55,7 @@ class Sort extends LookupRefValidations
             return $e->getMessage();
         }
 
-        // We want a simple, enumrated array of arrays where we can reference column by its index number.
+        // We want a simple, enumerated array of arrays where we can reference column by its index number.
         /** @var callable(mixed): mixed */
         $temp = 'array_values';
         /** @var array<int> $sortOrder */

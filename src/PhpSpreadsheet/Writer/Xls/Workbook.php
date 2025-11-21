@@ -551,7 +551,7 @@ class Workbook extends BIFFwriter
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
                     // We should have a worksheet
-                    $worksheet = $definedName->getWorksheet() ? $definedName->getWorksheet()->getTitle() : null;
+                    $worksheet = $definedName->getWorksheet()?->getTitle();
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
@@ -1116,7 +1116,7 @@ class Workbook extends BIFFwriter
         // combine into one chunk with all the blocks SST, CONTINUE,...
         $chunk = '';
         foreach ($recordDatas as $i => $recordData) {
-            // first block should have the SST record header, remaing should have CONTINUE header
+            // first block should have the SST record header, remaining should have CONTINUE header
             $record = ($i == 0) ? 0x00FC : 0x003C;
 
             $header = pack('vv', $record, strlen($recordData));

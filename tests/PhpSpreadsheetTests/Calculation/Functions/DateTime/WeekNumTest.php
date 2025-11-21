@@ -46,7 +46,7 @@ class WeekNumTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=WEEKNUM({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -120,7 +120,7 @@ class WeekNumTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=WEEKNUM({$dateValues}, {$methods})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

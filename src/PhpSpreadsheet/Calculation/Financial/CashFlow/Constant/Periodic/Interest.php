@@ -83,7 +83,7 @@ class Interest
      *     =ISPMT(interest_rate, period, number_payments, pv)
      *
      * @param mixed $interestRate is the interest rate for the investment
-     * @param mixed $period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
+     * @param mixed $period is the period to calculate the interest rate.  It must be between 1 and number_payments.
      * @param mixed $numberOfPeriods is the number of payments for the annuity
      * @param mixed $principleRemaining is the loan amount or present value of the payments
      */

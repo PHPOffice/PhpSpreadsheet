@@ -32,7 +32,7 @@ class Days360Test extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DAYS360({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -103,7 +103,7 @@ class Days360Test extends TestCase
         } else {
             $formula = "=DAYS360({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

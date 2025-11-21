@@ -181,7 +181,7 @@ class Formatter extends BaseFormatter
         // Convert any other escaped characters to quoted strings, e.g. (\T to "T")
         $format = (string) preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/ui', '"${2}"', $format);
 
-        // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
+        // Get the sections, there can be up to four sections, separated with a semicolon (but only if not a quoted literal)
         $sections = preg_split(self::SECTION_SPLIT, $format) ?: [];
 
         [$colors, $format, $value] = self::splitFormatForSectionSelection($sections, $value);

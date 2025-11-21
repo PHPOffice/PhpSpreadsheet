@@ -116,7 +116,7 @@ class Normal
         //    whatever purpose you want, but please show common courtesy and give credit
         //    where credit is due.
 
-        //    Input paramater is $p - probability - where 0 < p < 1.
+        //    Input parameter is $p - probability - where 0 < p < 1.
 
         //    Coefficients in rational approximations
         /** @var array<int, float> */

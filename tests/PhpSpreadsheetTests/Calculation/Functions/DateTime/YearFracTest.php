@@ -29,7 +29,7 @@ class YearFracTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=YEARFRAC({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
     }
 
@@ -94,7 +94,7 @@ class YearFracTest extends TestCase
         } else {
             $formula = "=YEARFRAC({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

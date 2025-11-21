@@ -47,7 +47,7 @@ class EoMonthTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=EOMONTH({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -128,7 +128,7 @@ class EoMonthTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=EOMONTH({$dateValues}, {$methods})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

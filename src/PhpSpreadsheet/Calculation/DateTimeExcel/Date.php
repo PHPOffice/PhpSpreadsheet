@@ -24,7 +24,7 @@ class Date
      * Excel Function:
      *        DATE(year,month,day)
      *
-     * PhpSpreadsheet is a lot more forgiving than MS Excel when passing non numeric values to this function.
+     * PhpSpreadsheet is a lot more forgiving than MS Excel when passing non-numeric values to this function.
      * A Month name or abbreviation (English only at this point) such as 'January' or 'Jan' will still be accepted,
      *     as will a day value with a suffix (e.g. '21st' rather than simply 21); again only English language.
      *
