@@ -385,4 +385,59 @@ class DrawingPassThroughTest extends AbstractFunctional
         $reader->setEnableDrawingPassThrough(false);
         self::assertFalse($reader->getEnableDrawingPassThrough());
     }
+
+    /**
+     * Test that the drawingPassThroughEnabled flag is correctly set in unparsedLoadedData.
+     * This verifies the Reader sets the flag and the Writer's getPassThroughDrawingXml checks it.
+     */
+    public function testDrawingPassThroughEnabledFlagIsSetCorrectly(): void
+    {
+        // Test 1: Load WITHOUT pass-through (default)
+        $reader = new XlsxReader();
+        self::assertFalse($reader->getEnableDrawingPassThrough(), 'Pass-through should be disabled by default');
+        $spreadsheet = $reader->load(self::TEMPLATE);
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $unparsedData = $spreadsheet->getUnparsedLoadedData();
+        $codeName = $sheet->getCodeName();
+
+        // Verify that drawingPassThroughEnabled flag is NOT set when pass-through is disabled
+        self::assertArrayHasKey('sheets', $unparsedData);
+        self::assertIsArray($unparsedData['sheets']);
+
+        // The sheet may exist in unparsedData (legacy empty drawings), but the flag should be absent or false
+        if (isset($unparsedData['sheets'][$codeName])) {
+            $sheetData = $unparsedData['sheets'][$codeName];
+            self::assertIsArray($sheetData);
+            $flag = $sheetData['drawingPassThroughEnabled'] ?? false;
+            self::assertFalse($flag, 'drawingPassThroughEnabled should be false/absent when pass-through is disabled');
+        }
+
+        $spreadsheet->disconnectWorksheets();
+
+        // Test 2: Load WITH pass-through enabled
+        $reader2 = new XlsxReader();
+        $reader2->setEnableDrawingPassThrough(true);
+        self::assertTrue($reader2->getEnableDrawingPassThrough(), 'Pass-through should be enabled');
+        $spreadsheet2 = $reader2->load(self::TEMPLATE);
+
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        $unparsedData2 = $spreadsheet2->getUnparsedLoadedData();
+        $codeName2 = $sheet2->getCodeName();
+
+        // Verify that drawingPassThroughEnabled flag IS set when pass-through is enabled
+        self::assertArrayHasKey('sheets', $unparsedData2);
+        self::assertIsArray($unparsedData2['sheets']);
+        self::assertArrayHasKey($codeName2, $unparsedData2['sheets']);
+        self::assertIsArray($unparsedData2['sheets'][$codeName2]);
+        self::assertArrayHasKey('drawingPassThroughEnabled', $unparsedData2['sheets'][$codeName2], 'drawingPassThroughEnabled flag should exist');
+        self::assertTrue($unparsedData2['sheets'][$codeName2]['drawingPassThroughEnabled'], 'drawingPassThroughEnabled should be true when pass-through is enabled');
+
+        // Verify that the drawing XML is also stored
+        self::assertArrayHasKey('Drawings', $unparsedData2['sheets'][$codeName2]);
+        self::assertIsArray($unparsedData2['sheets'][$codeName2]['Drawings']);
+        self::assertNotEmpty($unparsedData2['sheets'][$codeName2]['Drawings'], 'Drawing XML should be stored when pass-through is enabled');
+
+        $spreadsheet2->disconnectWorksheets();
+    }
 }

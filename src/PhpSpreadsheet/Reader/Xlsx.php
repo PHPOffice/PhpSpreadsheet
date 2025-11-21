@@ -1484,6 +1484,15 @@ class Xlsx extends BaseReader
                                         // Store drawing XML for pass-through if enabled
                                         if ($this->enableDrawingPassThrough) {
                                             $unparsedDrawings[$drawingRelId] = $xmlDrawing->asXML();
+                                            // Mark that pass-through is enabled for this sheet
+                                            $sheetCodeName = $docSheet->getCodeName();
+                                            if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
+                                                $unparsedLoadedData['sheets'] = [];
+                                            }
+                                            if (!isset($unparsedLoadedData['sheets'][$sheetCodeName]) || !is_array($unparsedLoadedData['sheets'][$sheetCodeName])) {
+                                                $unparsedLoadedData['sheets'][$sheetCodeName] = [];
+                                            }
+                                            $unparsedLoadedData['sheets'][$sheetCodeName]['drawingPassThroughEnabled'] = true;
                                         }
 
                                         if ($xmlDrawingChildren->oneCellAnchor) {
@@ -1713,6 +1722,10 @@ class Xlsx extends BaseReader
                                                     ];
                                                 }
                                             }
+                                        }
+                                        if (empty($relsDrawing) && $xmlDrawing->count() == 0) {
+                                            // Save Drawing without rels and children as unparsed
+                                            $unparsedDrawings[$drawingRelId] = $xmlDrawing->asXML();
                                         }
                                     }
 
