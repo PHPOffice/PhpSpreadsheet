@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ## TBD - 3.10.2
 
+### Added
+
+- Formal support for Php8.5.
+
 ### Fixed
 
  - Php8.5 deprecates use of null as array index. [PR #4636](https://github.com/PHPOffice/PhpSpreadsheet/pull/4636)
