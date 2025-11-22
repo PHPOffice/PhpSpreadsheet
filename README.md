@@ -14,6 +14,8 @@ This branch (release222) is maintained (for security and some bug fixes), but it
 
 ## PHP Version Support
 
+This branch runs with Php 8.1, 8.2, 8.3, 8.4, or 8.5.
+
 LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
 [end of life](https://www.php.net/supported-versions) of that PHP version.
 
