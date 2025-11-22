@@ -1099,7 +1099,7 @@ class AutoFilter implements Stringable
                 foreach ($value as $k => $v) {
                     $this->{$key}[$k] = clone $v; //* @phpstan-ignore-line
                     // attach the new cloned Column to this new cloned Autofilter object
-                    $this->{$key}[$k]->setParent($this);
+                    $this->{$key}[$k]->setParent($this); //* @phpstan-ignore-line
                 }
             } else {
                 $this->{$key} = $value;
