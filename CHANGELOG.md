@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ## TBD - 2.4.2
 
+### Added
+
+- Formal support for Php8.5. This is the last version of Php which can be used with this branch.
+
 ### Fixed
 
  - Php8.5 deprecates use of null as array index. [PR #4635](https://github.com/PHPOffice/PhpSpreadsheet/pull/4635)
