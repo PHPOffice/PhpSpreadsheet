@@ -17,9 +17,3 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: '#^Cannot call method setParent\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php

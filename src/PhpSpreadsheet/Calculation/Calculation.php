@@ -2764,6 +2764,7 @@ class Calculation extends CalculationLocale
                 // read constant value
                 if (str_contains($constantName, '::')) {
                     [$className, $constantName] = explode('::', $constantName);
+                    /** @var class-string $className */
                     $constantReflector = new ReflectionClassConstant($className, $constantName);
 
                     return $constantReflector->getValue();
