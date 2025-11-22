@@ -76,7 +76,7 @@ class Days360
     }
 
     /**
-     * Return the number of days between two dates based on a 360 day calendar.
+     * Return the number of days between two dates based on a 360-day calendar.
      */
     private static function dateDiff360(int $startDay, int $startMonth, int $startYear, int $endDay, int $endMonth, int $endYear, bool $methodUS): int
     {

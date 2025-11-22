@@ -58,7 +58,7 @@ class ExcelMatch
             return $e->getMessage();
         }
 
-        // MATCH() is not case sensitive, so we convert lookup value to be lower cased if it's a string type.
+        // MATCH() is not case-sensitive, so we convert lookup value to be lower cased if it's a string type.
         if (is_string($lookupValue)) {
             $lookupValue = StringHelper::strToLower($lookupValue);
         }

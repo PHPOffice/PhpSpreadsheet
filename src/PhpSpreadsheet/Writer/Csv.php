@@ -95,7 +95,7 @@ class Csv extends BaseWriter
             $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
             $this->setIncludeSeparatorLine(true); //  Set separator line
             $this->setEnclosure('"'); //  Set enclosure to "
-            $this->setDelimiter(';'); //  Set delimiter to a semi-colon
+            $this->setDelimiter(';'); //  Set delimiter to a semicolon
             $this->setLineEnding("\r\n");
         }
 
@@ -251,9 +251,9 @@ class Csv extends BaseWriter
         return $this->outputEncoding;
     }
 
-    public function setOutputEncoding(string $outputEnconding): self
+    public function setOutputEncoding(string $outputEncoding): self
     {
-        $this->outputEncoding = $outputEnconding;
+        $this->outputEncoding = $outputEncoding;
 
         return $this;
     }

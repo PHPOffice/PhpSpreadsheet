@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Spreadsheet implements JsonSerializable
 {
-    // Allowable values for workbook window visilbity
+    // Allowable values for workbook window visibility
     const VISIBILITY_VISIBLE = 'visible';
     const VISIBILITY_HIDDEN = 'hidden';
     const VISIBILITY_VERY_HIDDEN = 'veryHidden';
@@ -107,14 +107,14 @@ class Spreadsheet implements JsonSerializable
     private ?string $macrosCertificate = null;
 
     /**
-     * ribbonXMLData : null if workbook is'nt Excel 2007 or not contain a customized UI.
+     * ribbonXMLData : null if workbook isn't Excel 2007 or not contain a customized UI.
      *
      * @var null|array{target: string, data: string}
      */
     private ?array $ribbonXMLData = null;
 
     /**
-     * ribbonBinObjects : null if workbook is'nt Excel 2007 or not contain embedded objects (picture(s)) for Ribbon Elements
+     * ribbonBinObjects : null if workbook isn't Excel 2007 or not contain embedded objects (picture(s)) for Ribbon Elements
      * ignored if $ribbonXMLData is null.
      *
      * @var null|mixed[]
@@ -152,7 +152,7 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Specifies a boolean value that indicates whether to group dates
-     * when presenting the user with filtering optiomd in the user
+     * when presenting the user with filtering options in the user
      * interface.
      */
     private bool $autoFilterDateGrouping = true;
@@ -405,7 +405,7 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
-     * This workbook have additionnal object for the ribbon ?
+     * This workbook have additional object for the ribbon ?
      */
     public function hasRibbonBinObjects(): bool
     {
@@ -1146,7 +1146,7 @@ class Spreadsheet implements JsonSerializable
         $this->uniqueID = uniqid('', true);
 
         $usedKeys = [];
-        // I don't now why new Style rather than clone.
+        // I don't know why new Style rather than clone.
         $this->cellXfSupervisor = new Style(true);
         //$this->cellXfSupervisor = clone $this->cellXfSupervisor;
         $this->cellXfSupervisor->bindParent($this);
@@ -1559,7 +1559,7 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Return whether to group dates when presenting the user with
-     * filtering optiomd in the user interface.
+     * filtering options in the user interface.
      *
      * @return bool true if workbook window is minimized
      */
@@ -1570,7 +1570,7 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Set whether to group dates when presenting the user with
-     * filtering optiomd in the user interface.
+     * filtering options in the user interface.
      *
      * @param bool $autoFilterDateGrouping true if workbook window is minimized
      */

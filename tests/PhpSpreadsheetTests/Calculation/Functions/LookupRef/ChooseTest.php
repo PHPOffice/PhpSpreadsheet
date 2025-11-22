@@ -31,8 +31,8 @@ class ChooseTest extends TestCase
 
         $selections = implode(',', $selections);
         $formula = "=CHOOSE({$values}, {$selections})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerChooseArray(): array

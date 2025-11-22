@@ -53,7 +53,7 @@ class DateTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DATE({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -144,7 +144,7 @@ class DateTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=DATE({$year}, {$month}, {$day})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -211,7 +211,7 @@ class DateTest extends TestCase
         $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
 
         $formula = "=DATE({$year}, {$month}, {$day})";
-        $calculation->_calculateFormulaValue($formula);
+        $calculation->calculateFormula($formula);
     }
 
     public static function providerDateArrayException(): array

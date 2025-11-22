@@ -28,7 +28,7 @@ class WorkDayTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=WORKDAY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -92,7 +92,7 @@ class WorkDayTest extends TestCase
         } else {
             $formula = "=WORKDAY({$startDate}, {$endDays}, {$holidays})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

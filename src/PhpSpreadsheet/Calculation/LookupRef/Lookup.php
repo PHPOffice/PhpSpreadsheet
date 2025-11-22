@@ -47,8 +47,8 @@ class Lookup
             $lookupVector = array_shift($lookupVector);
         }
 
-        /** @var mixed[] $lookupVector */
-        /** @var mixed[] $resultVector */
+        /** @var array<int, mixed> $lookupVector */
+        /** @var array<int, mixed> $resultVector */
         if ($lookupColumns !== 2) {
             $lookupVector = self::verifyLookupValues($lookupVector, $resultVector);
         }
@@ -57,8 +57,8 @@ class Lookup
     }
 
     /**
-     * @param mixed[] $lookupVector
-     * @param mixed[] $resultVector
+     * @param array<int, mixed> $lookupVector
+     * @param array<int, mixed> $resultVector
      *
      * @return mixed[]
      */
@@ -80,6 +80,7 @@ class Lookup
             if (is_array($dataValue2)) {
                 $dataValue2 = array_shift($dataValue2);
             }
+            /** @var int $key2 */
             $value = [$key1 => $dataValue1, $key2 => $dataValue2];
         }
         unset($value);

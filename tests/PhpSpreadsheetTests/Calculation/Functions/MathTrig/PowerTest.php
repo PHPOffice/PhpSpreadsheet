@@ -41,7 +41,7 @@ class PowerTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=POWER({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

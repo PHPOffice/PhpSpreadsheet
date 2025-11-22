@@ -36,7 +36,7 @@ class TTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=T({$argument})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 

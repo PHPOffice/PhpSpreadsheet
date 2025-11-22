@@ -30,7 +30,7 @@ class AcoshTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=ACOSH({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

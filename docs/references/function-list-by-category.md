@@ -189,7 +189,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 CELL                     | **Not yet Implemented**
 ERROR.TYPE               | \PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError::type
-INFO                     | **Not yet Implemented**
+INFO                     | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 ISBLANK                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isBlank
 ISERR                    | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isErr
 ISERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isError
@@ -525,7 +525,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 ARRAYTOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::fromArray
 ASC                      | **Not yet Implemented**
-BAHTTEXT                 | **Not yet Implemented**
+BAHTTEXT                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
 CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code

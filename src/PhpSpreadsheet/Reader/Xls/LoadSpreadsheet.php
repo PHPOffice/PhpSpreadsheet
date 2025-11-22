@@ -34,10 +34,10 @@ class LoadSpreadsheet extends Xls
             $xls->spreadsheet->removeCellXfByIndex(0); // remove the default style
         }
 
-        // Read the summary information stream (containing meta data)
+        // Read the summary information stream (containing metadata)
         $xls->readSummaryInformation();
 
-        // Read the Additional document summary information stream (containing application-specific meta data)
+        // Read the Additional document summary information stream (containing application-specific metadata)
         $xls->readDocumentSummaryInformation();
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
@@ -435,7 +435,7 @@ class LoadSpreadsheet extends Xls
 
                 // get all spContainers in one long array, so they can be mapped to OBJ records
                 /** @var SpContainer[] $allSpContainers */
-                $allSpContainers = method_exists($escherWorksheet, 'getDgContainer') ? $escherWorksheet->getDgContainer()->getSpgrContainer()->getAllSpContainers() : [];
+                $allSpContainers = $escherWorksheet->getDgContainerOrThrow()->getSpgrContainerOrThrow()->getAllSpContainers();
             }
 
             // treat OBJ records
@@ -490,14 +490,14 @@ class LoadSpreadsheet extends Xls
                             // If there is no BSE Index, we will fail here and other fields are not read.
                             // Fix by checking here.
                             // TODO: Why is there no BSE Index? Is this a new Office Version? Password protected field?
-                            // More likely : a uncompatible picture
+                            // More likely: an incompatible picture
                             if (!$BSEindex) {
                                 continue 2;
                             }
 
                             if ($escherWorkbook) {
                                 /** @var BSE[] */
-                                $BSECollection = method_exists($escherWorkbook, 'getDggContainer') ? $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection() : [];
+                                $BSECollection = $escherWorkbook->getDggContainerOrThrow()->getBstoreContainerOrThrow()->getBSECollection();
                                 $BSE = $BSECollection[$BSEindex - 1];
                                 $blipType = $BSE->getBlipType();
 

@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -532,6 +533,10 @@ class Html extends BaseReader
                 $sheet->setShowGridlines(in_array('gridlines', $classes, true));
                 $sheet->setPrintGridlines(in_array('gridlinesp', $classes, true));
             }
+            if (isset($attributeArray['data-printarea'])) {
+                $sheet->getPageSetup()
+                    ->setPrintArea($attributeArray['data-printarea']);
+            }
             if ('rtl' === ($attributeArray['dir'] ?? '')) {
                 $sheet->setRightToLeft(true);
             }
@@ -914,7 +919,7 @@ class Html extends BaseReader
      * and only takes 'background-color' and 'color'; property with HEX color
      *
      * TODO :
-     * - Implement to other propertie, such as border
+     * - Implement to other properties, such as border
      *
      * @param string[] $attributeArray
      */
@@ -1014,6 +1019,17 @@ class Html extends BaseReader
 
                     break;
 
+                case 'direction':
+                    if ($styleValue === 'rtl') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_RTL);
+                    } elseif ($styleValue === 'ltr') {
+                        $cellStyle->getAlignment()
+                            ->setReadOrder(Alignment::READORDER_LTR);
+                    }
+
+                    break;
+
                 case 'font-weight':
                     if ($styleValue === 'bold' || $styleValue >= 500) {
                         $cellStyle->getFont()->setBold(true);
@@ -1083,8 +1099,11 @@ class Html extends BaseReader
                     break;
 
                 case 'text-indent':
+                    $indentDimension = new CssDimension($styleValueString);
+                    $indent = $indentDimension
+                        ->toUnit(CssDimension::UOM_PIXELS);
                     $cellStyle->getAlignment()->setIndent(
-                        (int) str_replace(['px'], '', $styleValueString)
+                        (int) ($indent / Alignment::INDENT_UNITS_TO_PIXELS)
                     );
 
                     break;
@@ -1114,7 +1133,7 @@ class Html extends BaseReader
         $styleArray = self::getStyleArray($attributes);
 
         $src = $attributes['src'];
-        if (substr($src, 0, 5) !== 'data:') {
+        if (!str_starts_with($src, 'data:')) {
             $src = urldecode($src);
         }
         $width = isset($attributes['width']) ? (float) $attributes['width'] : ($styleArray['width'] ?? null);
@@ -1180,13 +1199,13 @@ class Html extends BaseReader
                     $arrayKey = trim($value[0]);
                     $arrayValue = trim($value[1]);
                     if ($arrayKey === 'width') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
                         }
                     } elseif ($arrayKey === 'height') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = substr($arrayValue, 0, -2);
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);

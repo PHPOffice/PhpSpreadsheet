@@ -56,7 +56,7 @@ class WorkbookView
     /**
      * Convert an 'xsd:boolean' XML value to a PHP boolean value.
      * A valid 'xsd:boolean' XML value can be one of the following
-     * four values: 'true', 'false', '1', '0'.  It is case sensitive.
+     * four values: 'true', 'false', '1', '0'.  It is case-sensitive.
      *
      * Note that just doing '(bool) $xsdBoolean' is not safe,
      * since '(bool) "false"' returns true.

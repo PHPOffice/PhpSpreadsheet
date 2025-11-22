@@ -51,7 +51,7 @@ class BinaryComparison
             $operand2 = Calculation::unwrapResult($operand2);
         }
 
-        // Use case insensitive comparaison if not OpenOffice mode
+        // Use case-insensitive comparison if not OpenOffice mode
         if (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) {
             if (is_string($operand1)) {
                 $operand1 = StringHelper::strToUpper($operand1);

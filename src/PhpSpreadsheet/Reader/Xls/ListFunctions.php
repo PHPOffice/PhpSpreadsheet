@@ -124,6 +124,7 @@ class ListFunctions extends Xls
                     case self::XLS_TYPE_FORMULA:
                     case self::XLS_TYPE_BOOLERR:
                     case self::XLS_TYPE_LABEL:
+                    case self::XLS_TYPE_MULRK:
                         $length = self::getUInt2d($xls->data, $xls->pos + 2);
                         $recordData = $xls->readRecordData($xls->data, $xls->pos + 4, $length);
 
@@ -131,7 +132,11 @@ class ListFunctions extends Xls
                         $xls->pos += 4 + $length;
 
                         $rowIndex = self::getUInt2d($recordData, 0) + 1;
-                        $columnIndex = self::getUInt2d($recordData, 2);
+                        if ($code === self::XLS_TYPE_MULRK) {
+                            $columnIndex = self::getUInt2d($recordData, $length - 2);
+                        } else {
+                            $columnIndex = self::getUInt2d($recordData, 2);
+                        }
 
                         $tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
                         $tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
@@ -154,6 +159,105 @@ class ListFunctions extends Xls
 
             $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
+
+            $worksheetInfo[] = $tmpInfo;
+        }
+
+        return $worksheetInfo;
+    }
+
+    /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, dimensionsMinR: int, dimensionsMinC: int, dimensionsMaxR: int, dimensionsMaxC: int, lastColumnLetter: string}>
+     */
+    protected function listWorksheetDimensions2(string $filename, Xls $xls): array
+    {
+        File::assertFile($filename);
+
+        $worksheetInfo = [];
+
+        // Read the OLE file
+        $xls->loadOLE($filename);
+
+        // total byte size of Excel data (workbook global substream + sheet substreams)
+        $xls->dataSize = strlen($xls->data);
+
+        // initialize
+        $xls->pos = 0;
+        $xls->sheets = [];
+
+        // Parse Workbook Global Substream
+        while ($xls->pos < $xls->dataSize) {
+            $code = self::getUInt2d($xls->data, $xls->pos);
+
+            match ($code) {
+                self::XLS_TYPE_BOF => $xls->readBof(),
+                self::XLS_TYPE_SHEET => $xls->readSheet(),
+                self::XLS_TYPE_EOF => $xls->readDefault(),
+                self::XLS_TYPE_CODEPAGE => $xls->readCodepage(),
+                default => $xls->readDefault(),
+            };
+
+            if ($code === self::XLS_TYPE_EOF) {
+                break;
+            }
+        }
+
+        // Parse the individual sheets
+        foreach ($xls->sheets as $sheet) {
+            if ($sheet['sheetType'] !== 0x00) {
+                // 0x00: Worksheet
+                // 0x02: Chart
+                // 0x06: Visual Basic module
+                continue;
+            }
+
+            $tmpInfo = [];
+            $tmpInfo['worksheetName'] = StringHelper::convertToString($sheet['name']);
+            $tmpInfo['dimensionsMinR'] = -1;
+            $tmpInfo['dimensionsMaxR'] = -1;
+            $tmpInfo['dimensionsMinC'] = -1;
+            $tmpInfo['dimensionsMaxC'] = -1;
+            $tmpInfo['lastColumnLetter'] = '';
+
+            $xls->pos = $sheet['offset'];
+
+            while ($xls->pos <= $xls->dataSize - 4) {
+                $code = self::getUInt2d($xls->data, $xls->pos);
+
+                switch ($code) {
+                    case self::XLS_TYPE_BOF:
+                        $xls->readBof();
+
+                        break;
+                    case self::XLS_TYPE_EOF:
+                        $xls->readDefault();
+
+                        break 2;
+                    case self::XLS_TYPE_DIMENSION:
+                        $length = self::getUInt2d($xls->data, $xls->pos + 2);
+                        if ($length === 14) {
+                            $dimensionsData = substr($xls->data, $xls->pos + 4, $length);
+                            $data = unpack('VrwMic/VrwMac/vcolMic/vcolMac/vreserved', $dimensionsData);
+                            if (is_array($data)) {
+                                /** @var int[] $data */
+                                $tmpInfo['dimensionsMinR'] = $data['rwMic'];
+                                $tmpInfo['dimensionsMaxR'] = $data['rwMac'];
+                                $tmpInfo['dimensionsMinC'] = $data['colMic'];
+                                $tmpInfo['dimensionsMaxC'] = $data['colMac'];
+                                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['dimensionsMaxC']);
+                            }
+                        }
+                        $xls->readDefault();
+
+                        break;
+                    default:
+                        $xls->readDefault();
+
+                        break;
+                }
+            }
 
             $worksheetInfo[] = $tmpInfo;
         }

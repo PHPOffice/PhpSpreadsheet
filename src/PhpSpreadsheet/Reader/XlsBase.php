@@ -25,8 +25,6 @@ class XlsBase extends BaseReader
     final const XLS_TYPE_FORMULA = 0x0006;
     final const XLS_TYPE_EOF = 0x000A;
     final const XLS_TYPE_PROTECT = 0x0012;
-    final const XLS_TYPE_OBJECTPROTECT = 0x0063;
-    final const XLS_TYPE_SCENPROTECT = 0x00DD;
     final const XLS_TYPE_PASSWORD = 0x0013;
     final const XLS_TYPE_HEADER = 0x0014;
     final const XLS_TYPE_FOOTER = 0x0015;
@@ -50,6 +48,7 @@ class XlsBase extends BaseReader
     final const XLS_TYPE_CODEPAGE = 0x0042;
     final const XLS_TYPE_DEFCOLWIDTH = 0x0055;
     final const XLS_TYPE_OBJ = 0x005D;
+    final const XLS_TYPE_OBJECTPROTECT = 0x0063;
     final const XLS_TYPE_COLINFO = 0x007D;
     final const XLS_TYPE_IMDATA = 0x007F;
     final const XLS_TYPE_SHEETPR = 0x0081;
@@ -62,6 +61,7 @@ class XlsBase extends BaseReader
     final const XLS_TYPE_MULRK = 0x00BD;
     final const XLS_TYPE_MULBLANK = 0x00BE;
     final const XLS_TYPE_DBCELL = 0x00D7;
+    final const XLS_TYPE_SCENPROTECT = 0x00DD;
     final const XLS_TYPE_XF = 0x00E0;
     final const XLS_TYPE_MERGEDCELLS = 0x00E5;
     final const XLS_TYPE_MSODRAWINGGROUP = 0x00EB;
@@ -70,6 +70,8 @@ class XlsBase extends BaseReader
     final const XLS_TYPE_LABELSST = 0x00FD;
     final const XLS_TYPE_EXTSST = 0x00FF;
     final const XLS_TYPE_EXTERNALBOOK = 0x01AE;
+    final const XLS_TYPE_CFHEADER = 0x01B0;
+    final const XLS_TYPE_CFRULE = 0x01B1;
     final const XLS_TYPE_DATAVALIDATIONS = 0x01B2;
     final const XLS_TYPE_TXO = 0x01B6;
     final const XLS_TYPE_HYPERLINK = 0x01B8;
@@ -90,13 +92,11 @@ class XlsBase extends BaseReader
     final const XLS_TYPE_FORMAT = 0x041E;
     final const XLS_TYPE_SHAREDFMLA = 0x04BC;
     final const XLS_TYPE_BOF = 0x0809;
+    final const XLS_TYPE_SHEETLAYOUT = 0x0862;
     final const XLS_TYPE_SHEETPROTECTION = 0x0867;
     final const XLS_TYPE_RANGEPROTECTION = 0x0868;
-    final const XLS_TYPE_SHEETLAYOUT = 0x0862;
     final const XLS_TYPE_XFEXT = 0x087D;
     final const XLS_TYPE_PAGELAYOUTVIEW = 0x088B;
-    final const XLS_TYPE_CFHEADER = 0x01B0;
-    final const XLS_TYPE_CFRULE = 0x01B1;
     final const XLS_TYPE_UNKNOWN = 0xFFFF;
 
     // Encryption type
@@ -368,11 +368,20 @@ class XlsBase extends BaseReader
         return StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }
 
+    protected static function confirmPos(string $data, int $pos): void
+    {
+        if ($pos >= strlen($data)) {
+            throw new PhpSpreadsheetException('File appears to be corrupt'); // @codeCoverageIgnore
+        }
+    }
+
     /**
      * Read 16-bit unsigned integer.
      */
     public static function getUInt2d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 1);
+
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
     }
 
@@ -381,6 +390,8 @@ class XlsBase extends BaseReader
      */
     public static function getInt2d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 1);
+
         return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore-line
     }
 
@@ -389,6 +400,8 @@ class XlsBase extends BaseReader
      */
     public static function getInt4d(string $data, int $pos): int
     {
+        self::confirmPos($data, $pos + 3);
+
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
         // Changed by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
