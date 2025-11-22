@@ -30,7 +30,7 @@ class CoshTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=COSH({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

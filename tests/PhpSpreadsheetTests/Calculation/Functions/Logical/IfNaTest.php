@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IfNaTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFNA')]
+    #[DataProvider('providerIFNA')]
     public function testIFNA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFNA', $expectedResult, ...$args);
@@ -19,14 +20,14 @@ class IfNaTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFNA.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfNaArray')]
+    #[DataProvider('providerIfNaArray')]
     public function testIfNaArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IFNA({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIfNaArray(): array

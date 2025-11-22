@@ -16,7 +16,7 @@ class RgbTint
     private const TWO_THIRD = 2.0 / 3.0;
     private const RGBMAX = 255.0;
     /**
-     * MS excel's tint function expects that HLS is base 240.
+     * MS Excel's tint function expects that HLS is base 240.
      *
      * @see https://social.msdn.microsoft.com/Forums/en-US/e9d8c136-6d62-4098-9b1b-dac786149f43/excel-color-tint-algorithm-incorrect?forum=os_binaryfile#d3c2ac95-52e0-476b-86f1-e2a697f24969
      */

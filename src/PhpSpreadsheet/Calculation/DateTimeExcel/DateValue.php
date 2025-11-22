@@ -118,7 +118,7 @@ class DateValue
         if (!Helpers::dateParseSucceeded($PHPDateArray)) {
             // If original count was 1, we've already returned.
             // If it was 2, we added another.
-            // Therefore, neither of the first 2 stroks below can fail.
+            // Therefore, neither of the first 2 strtoks below can fail.
             $testVal1 = strtok($dateValue, '- ');
             $testVal2 = strtok('- ');
             $testVal3 = strtok('- ') ?: $dti->format('Y');

@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IsLogicalTest extends TestCase
@@ -16,7 +17,7 @@ class IsLogicalTest extends TestCase
         self::assertFalse($result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsLogical')]
+    #[DataProvider('providerIsLogical')]
     public function testIsLogical(bool $expectedResult, mixed $value): void
     {
         $result = Value::isLogical($value);
@@ -28,14 +29,14 @@ class IsLogicalTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_LOGICAL.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsLogicalArray')]
+    #[DataProvider('providerIsLogicalArray')]
     public function testIsLogicalArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ISLOGICAL({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIsLogicalArray(): array

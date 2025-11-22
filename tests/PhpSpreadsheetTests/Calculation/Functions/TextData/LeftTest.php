@@ -177,8 +177,8 @@ class LeftTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=LEFT({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerLeftArray(): array

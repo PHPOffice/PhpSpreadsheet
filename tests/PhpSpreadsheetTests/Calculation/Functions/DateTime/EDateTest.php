@@ -47,7 +47,7 @@ class EDateTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=EDATE({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -129,7 +129,7 @@ class EDateTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=EDATE({$dateValues}, {$methods})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

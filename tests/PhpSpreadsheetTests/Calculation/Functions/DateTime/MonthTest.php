@@ -29,7 +29,7 @@ class MonthTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=MONTH({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -89,7 +89,7 @@ class MonthTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=MONTH({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

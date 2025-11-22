@@ -43,7 +43,7 @@ AVERAGEIFS               | STATISTICAL           | Statistical\Conditional::AVER
 
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
-BAHTTEXT                 | TEXT_AND_DATA         | **Not yet Implemented**
+BAHTTEXT                 | TEXT_AND_DATA         | TextData\Thai::getBahtText
 BASE                     | MATH_AND_TRIG         | MathTrig\Base::evaluate
 BESSELI                  | ENGINEERING           | Engineering\BesselI::BESSELI
 BESSELJ                  | ENGINEERING           | Engineering\BesselJ::BESSELJ
@@ -299,7 +299,7 @@ IMSUM                    | ENGINEERING           | Engineering\ComplexOperations
 IMTAN                    | ENGINEERING           | Engineering\ComplexFunctions::IMTAN
 INDEX                    | LOOKUP_AND_REFERENCE  | LookupRef\Matrix::index
 INDIRECT                 | LOOKUP_AND_REFERENCE  | LookupRef\Indirect::INDIRECT
-INFO                     | INFORMATION           | **Not yet Implemented**
+INFO                     | INFORMATION           | Information\Info::getInfo
 INT                      | MATH_AND_TRIG         | MathTrig\IntClass::evaluate
 INTERCEPT                | STATISTICAL           | Statistical\Trends::INTERCEPT
 INTRATE                  | FINANCIAL             | Financial\Securities\Rates::interest

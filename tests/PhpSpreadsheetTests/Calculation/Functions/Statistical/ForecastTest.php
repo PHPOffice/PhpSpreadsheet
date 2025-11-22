@@ -30,7 +30,7 @@ class ForecastTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=FORECAST({$testValues}, {$yValues}, {$xValues})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

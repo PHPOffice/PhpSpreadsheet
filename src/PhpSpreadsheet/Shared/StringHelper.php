@@ -250,7 +250,7 @@ class StringHelper
     private static ?string $currencyCode = null;
 
     /**
-     * Is iconv extension avalable?
+     * Is iconv extension available?
      */
     private static ?bool $isIconvEnabled = null;
 

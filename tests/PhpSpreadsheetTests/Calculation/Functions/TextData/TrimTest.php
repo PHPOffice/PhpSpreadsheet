@@ -36,8 +36,8 @@ class TrimTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=TRIM({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerTrimArray(): array

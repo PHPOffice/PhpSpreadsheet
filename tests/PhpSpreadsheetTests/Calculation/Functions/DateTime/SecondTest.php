@@ -28,7 +28,7 @@ class SecondTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=SECOND({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -88,7 +88,7 @@ class SecondTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=SECOND({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

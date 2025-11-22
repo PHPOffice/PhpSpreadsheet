@@ -219,7 +219,7 @@ class Xf
 
         $header = pack('vv', $record, $length);
 
-        //BIFF8 options: identation, shrinkToFit and  text direction
+        //BIFF8 options: indentation, shrinkToFit and text direction
         $biff8_options = $this->style->getAlignment()->getIndent() & 15;
         $biff8_options |= (int) $this->style->getAlignment()->getShrinkToFit() << 4;
         $biff8_options |= $this->style->getAlignment()->getReadOrder() << 6;

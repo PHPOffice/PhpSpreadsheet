@@ -533,6 +533,10 @@ class Html extends BaseReader
                 $sheet->setShowGridlines(in_array('gridlines', $classes, true));
                 $sheet->setPrintGridlines(in_array('gridlinesp', $classes, true));
             }
+            if (isset($attributeArray['data-printarea'])) {
+                $sheet->getPageSetup()
+                    ->setPrintArea($attributeArray['data-printarea']);
+            }
             if ('rtl' === ($attributeArray['dir'] ?? '')) {
                 $sheet->setRightToLeft(true);
             }
@@ -915,7 +919,7 @@ class Html extends BaseReader
      * and only takes 'background-color' and 'color'; property with HEX color
      *
      * TODO :
-     * - Implement to other propertie, such as border
+     * - Implement to other properties, such as border
      *
      * @param string[] $attributeArray
      */
@@ -1129,7 +1133,7 @@ class Html extends BaseReader
         $styleArray = self::getStyleArray($attributes);
 
         $src = $attributes['src'];
-        if (substr($src, 0, 5) !== 'data:') {
+        if (!str_starts_with($src, 'data:')) {
             $src = urldecode($src);
         }
         $width = isset($attributes['width']) ? (float) $attributes['width'] : ($styleArray['width'] ?? null);
@@ -1195,13 +1199,13 @@ class Html extends BaseReader
                     $arrayKey = trim($value[0]);
                     $arrayValue = trim($value[1]);
                     if ($arrayKey === 'width') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = (string) (((float) substr($arrayValue, 0, -2)));
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
                         }
                     } elseif ($arrayKey === 'height') {
-                        if (substr($arrayValue, -2) === 'px') {
+                        if (str_ends_with($arrayValue, 'px')) {
                             $arrayValue = substr($arrayValue, 0, -2);
                         } else {
                             $arrayValue = (new CssDimension($arrayValue))->toUnit(CssDimension::UOM_PIXELS);
