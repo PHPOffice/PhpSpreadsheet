@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- $dataType, the second parameter of Cell::setValueExplicit, is currently optional. Omitting it is deprecated, and it will be required in a future release.
 
 ### Fixed
 
