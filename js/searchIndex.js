@@ -3126,6 +3126,16 @@ Search.appendIndex(
             "summary": "List\u0020of\u0020error\u0020codes.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#constant_ERROR_CODES"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Information\\Info",
+            "name": "Info",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Information-Info.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Information\\Info\u003A\u003AgetInfo\u0028\u0029",
+            "name": "getInfo",
+            "summary": "INFO.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Information-Info.html#method_getInfo"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Information\\Value",
             "name": "Value",
             "summary": "",
@@ -5233,12 +5243,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Search\u003A\u003Asensitive\u0028\u0029",
             "name": "sensitive",
-            "summary": "FIND\u0020\u0028case\u0020sensitive\u0020search\u0029.",
+            "summary": "FIND\u0020\u0028case\u002Dsensitive\u0020search\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Search.html#method_sensitive"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Search\u003A\u003Ainsensitive\u0028\u0029",
             "name": "insensitive",
-            "summary": "SEARCH\u0020\u0028case\u0020insensitive\u0020search\u0029.",
+            "summary": "SEARCH\u0020\u0028case\u002Dinsensitive\u0020search\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Search.html#method_insensitive"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Text",
@@ -5270,6 +5280,16 @@ Search.appendIndex(
             "name": "fromArray",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Text.html#method_fromArray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Thai",
+            "name": "Thai",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Thai.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Thai\u003A\u003AgetBahtText\u0028\u0029",
+            "name": "getBahtText",
+            "summary": "BAHTTEXT.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-TextData-Thai.html#method_getBahtText"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\\Trim",
             "name": "Trim",
@@ -8188,12 +8208,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Legend\u003A\u003AgetPosition\u0028\u0029",
             "name": "getPosition",
-            "summary": "Get\u0020legend\u0020position\u0020as\u0020an\u0020excel\u0020string\u0020value.",
+            "summary": "Get\u0020legend\u0020position\u0020as\u0020an\u0020Excel\u0020string\u0020value.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#method_getPosition"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Legend\u003A\u003AsetPosition\u0028\u0029",
             "name": "setPosition",
-            "summary": "Get\u0020legend\u0020position\u0020using\u0020an\u0020excel\u0020string\u0020value.",
+            "summary": "Get\u0020legend\u0020position\u0020using\u0020an\u0020Excel\u0020string\u0020value.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#method_setPosition"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Legend\u003A\u003AgetPositionXL\u0028\u0029",
@@ -9133,12 +9153,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph",
             "name": "JpGraph",
-            "summary": "Jpgraph\u0020is\u0020not\u0020oficially\u0020maintained\u0020in\u0020Composer,\u0020so\u0020the\u0020version\u0020there\ncould\u0020be\u0020out\u0020of\u0020date.\u0020For\u0020that\u0020reason,\u0020all\u0020unit\u0020test\u0020requiring\u0020Jpgraph\nare\u0020skipped.\u0020So,\u0020do\u0020not\u0020measure\u0020code\u0020coverage\u0020for\u0020this\u0020class\u0020till\u0020that\nis\u0020fixed.",
+            "summary": "Jpgraph\u0020is\u0020not\u0020officially\u0020maintained\u0020in\u0020Composer,\u0020so\u0020the\u0020version\u0020there\ncould\u0020be\u0020out\u0020of\u0020date.\u0020For\u0020that\u0020reason,\u0020all\u0020unit\u0020test\u0020requiring\u0020Jpgraph\nare\u0020skipped.\u0020So,\u0020do\u0020not\u0020measure\u0020code\u0020coverage\u0020for\u0020this\u0020class\u0020till\u0020that\nis\u0020fixed.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "This\u0020method\u0020should\u0020be\u0020overriden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
+            "summary": "This\u0020method\u0020should\u0020be\u0020overridden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#method_init"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraphRendererBase",
@@ -9153,7 +9173,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraphRendererBase\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "This\u0020method\u0020should\u0020be\u0020overriden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
+            "summary": "This\u0020method\u0020should\u0020be\u0020overridden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#method_init"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraphRendererBase\u003A\u003Arender\u0028\u0029",
@@ -9168,7 +9188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\MtJpGraphRenderer\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "This\u0020method\u0020should\u0020be\u0020overriden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
+            "summary": "This\u0020method\u0020should\u0020be\u0020overridden\u0020in\u0020descendants\u0020to\u0020do\u0020real\u0020JpGraph\u0020library\u0020initialization.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-MtJpGraphRenderer.html#method_init"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Chart\\Title",
@@ -11196,10 +11216,10 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020next\u0020full\u0020line\u0020from\u0020the\u0020file.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv-Delimiter.html#method_getNextLine"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\\Delimiter\u003A\u003APOTENTIAL_DELIMETERS",
-            "name": "POTENTIAL_DELIMETERS",
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\\Delimiter\u003A\u003APOTENTIAL_DELIMITERS",
+            "name": "POTENTIAL_DELIMITERS",
             "summary": "",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv-Delimiter.html#constant_POTENTIAL_DELIMETERS"
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv-Delimiter.html#constant_POTENTIAL_DELIMITERS"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\\Delimiter\u003A\u003A\u0024fileHandle",
             "name": "fileHandle",
@@ -12498,7 +12518,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xls\\RC4\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "RC4\u0020stream\u0020decryption\/encryption\u0020constrcutor.",
+            "summary": "RC4\u0020stream\u0020decryption\/encryption\u0020constructor.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xls-RC4.html#method___construct"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xls\\RC4\u003A\u003ARC4\u0028\u0029",
@@ -17483,7 +17503,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AhasRibbonBinObjects\u0028\u0029",
             "name": "hasRibbonBinObjects",
-            "summary": "This\u0020workbook\u0020have\u0020additionnal\u0020object\u0020for\u0020the\u0020ribbon\u0020\u003F",
+            "summary": "This\u0020workbook\u0020have\u0020additional\u0020object\u0020for\u0020the\u0020ribbon\u0020\u003F",
             "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_hasRibbonBinObjects"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AsheetCodeNameExists\u0028\u0029",
@@ -17823,12 +17843,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AgetAutoFilterDateGrouping\u0028\u0029",
             "name": "getAutoFilterDateGrouping",
-            "summary": "Return\u0020whether\u0020to\u0020group\u0020dates\u0020when\u0020presenting\u0020the\u0020user\u0020with\nfiltering\u0020optiomd\u0020in\u0020the\u0020user\u0020interface.",
+            "summary": "Return\u0020whether\u0020to\u0020group\u0020dates\u0020when\u0020presenting\u0020the\u0020user\u0020with\nfiltering\u0020options\u0020in\u0020the\u0020user\u0020interface.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getAutoFilterDateGrouping"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AsetAutoFilterDateGrouping\u0028\u0029",
             "name": "setAutoFilterDateGrouping",
-            "summary": "Set\u0020whether\u0020to\u0020group\u0020dates\u0020when\u0020presenting\u0020the\u0020user\u0020with\nfiltering\u0020optiomd\u0020in\u0020the\u0020user\u0020interface.",
+            "summary": "Set\u0020whether\u0020to\u0020group\u0020dates\u0020when\u0020presenting\u0020the\u0020user\u0020with\nfiltering\u0020options\u0020in\u0020the\u0020user\u0020interface.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_setAutoFilterDateGrouping"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Spreadsheet\u003A\u003AgetFirstSheetIndex\u0028\u0029",
@@ -23268,7 +23288,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\AutoFilter\u003A\u003AgetColumnByOffset\u0028\u0029",
             "name": "getColumnByOffset",
-            "summary": "Get\u0020a\u0020specified\u0020AutoFilter\u0020Column\u0020by\u0020it\u0027s\u0020offset.",
+            "summary": "Get\u0020a\u0020specified\u0020AutoFilter\u0020Column\u0020by\u0020its\u0020offset.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_getColumnByOffset"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\AutoFilter\u003A\u003AsetColumn\u0028\u0029",
@@ -24263,7 +24283,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Drawing\u003A\u003AgetImageFileExtensionForSave\u0028\u0029",
             "name": "getImageFileExtensionForSave",
-            "summary": "Get\u0020Image\u0020file\u0020extention\u0020for\u0020Save.",
+            "summary": "Get\u0020Image\u0020file\u0020extension\u0020for\u0020Save.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getImageFileExtensionForSave"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Drawing\u003A\u003AgetImageMimeType\u0028\u0029",
@@ -26713,7 +26733,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table\u003A\u003AgetColumnByOffset\u0028\u0029",
             "name": "getColumnByOffset",
-            "summary": "Get\u0020a\u0020specified\u0020Table\u0020Column\u0020by\u0020it\u0027s\u0020offset.",
+            "summary": "Get\u0020a\u0020specified\u0020Table\u0020Column\u0020by\u0020its\u0020offset.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getColumnByOffset"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table\u003A\u003AsetColumn\u0028\u0029",
@@ -26728,7 +26748,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table\u003A\u003AshiftColumn\u0028\u0029",
             "name": "shiftColumn",
-            "summary": "Shift\u0020an\u0020Table\u0020Column\u0020Rule\u0020to\u0020a\u0020different\u0020column.",
+            "summary": "Shift\u0020a\u0020Table\u0020Column\u0020Rule\u0020to\u0020a\u0020different\u0020column.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_shiftColumn"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table\u003A\u003AgetStyle\u0028\u0029",
