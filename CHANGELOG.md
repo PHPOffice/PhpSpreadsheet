@@ -5,14 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.3.0
+## TBD - 5.4.0
 
 ### Added
 
-- Formal support for Php8.5.
-- Limited Printarea support for Html/Pdf. [Issue #3941](https://github.com/PHPOffice/PhpSpreadsheet/issues/3941) [PR #4711](https://github.com/PHPOffice/PhpSpreadsheet/pull/4711)
-- Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
-- Implement missing `BAHTTEXT` function. [PR #4715](https://github.com/PHPOffice/PhpSpreadsheet/pull/4715)
+- Nothing yet.
 
 ### Removed
 
@@ -25,6 +22,23 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Moved
 
 - Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2025-11-24 - 5.3.0
+
+### Added
+
+- Formal support for Php8.5.
+- Limited Printarea support for Html/Pdf. [Issue #3941](https://github.com/PHPOffice/PhpSpreadsheet/issues/3941) [PR #4711](https://github.com/PHPOffice/PhpSpreadsheet/pull/4711)
+- Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
+- Implement missing `BAHTTEXT` function. [PR #4715](https://github.com/PHPOffice/PhpSpreadsheet/pull/4715)
 
 ### Deprecated
 
