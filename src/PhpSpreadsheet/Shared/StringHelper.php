@@ -305,7 +305,29 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP(string $textValue): string
     {
-        return str_replace(self::CONTROL_CHARACTERS_VALUES, self::CONTROL_CHARACTERS_KEYS, $textValue);
+        return Preg::replaceCallback('/_x[0-9A-F]{4}_/', self::toOutChar(...), $textValue);
+    }
+
+    private static function toHexVal(string $char): int
+    {
+        if ($char >= '0' && $char <= '9') {
+            return ord($char) - ord('0');
+        }
+
+        return ord($char) - ord('A') + 10;
+    }
+
+    /** @param array<?string> $match */
+    private static function toOutChar(array $match): string
+    {
+        /** @var string */
+        $chars = $match[0];
+        $t = ((self::toHexVal($chars[2]) << 12)
+            | (self::toHexVal($chars[3]) << 8)
+            | (self::toHexVal($chars[4]) << 4)
+            | (self::toHexVal($chars[5])));
+
+        return mb_chr($t, 'UTF-8');
     }
 
     /**
@@ -323,6 +345,8 @@ class StringHelper
      */
     public static function controlCharacterPHP2OOXML(string $textValue): string
     {
+        $textValue = Preg::replace('/_(x[0-9A-F]{4}_)/', '_x005F_$1', $textValue);
+
         return str_replace(self::CONTROL_CHARACTERS_KEYS, self::CONTROL_CHARACTERS_VALUES, $textValue);
     }
 
