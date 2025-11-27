@@ -61,6 +61,14 @@ abstract class BaseReader implements IReader
     protected bool $createBlankSheetIfNoneRead = false;
 
     /**
+     * Enable drawing pass-through?
+     * Identifies whether the Reader should preserve unsupported drawing elements (shapes, grouped images, etc.)
+     * by storing the original XML for pass-through during write operations.
+     * When enabled, drawings cannot be modified programmatically but are preserved exactly.
+     */
+    protected bool $enableDrawingPassThrough = false;
+
+    /**
      * IReadFilter instance.
      */
     protected IReadFilter $readFilter;
@@ -121,6 +129,18 @@ abstract class BaseReader implements IReader
     public function setIncludeCharts(bool $includeCharts): self
     {
         $this->includeCharts = $includeCharts;
+
+        return $this;
+    }
+
+    public function getEnableDrawingPassThrough(): bool
+    {
+        return $this->enableDrawingPassThrough;
+    }
+
+    public function setEnableDrawingPassThrough(bool $enableDrawingPassThrough): self
+    {
+        $this->enableDrawingPassThrough = $enableDrawingPassThrough;
 
         return $this;
     }

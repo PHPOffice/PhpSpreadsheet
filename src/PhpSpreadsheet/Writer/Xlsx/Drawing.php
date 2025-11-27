@@ -23,6 +23,11 @@ class Drawing extends WriterPart
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
+        // Try to use pass-through drawing XML if available
+        if ($passThroughXml = $this->getPassThroughDrawingXml($worksheet)) {
+            return $passThroughXml;
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -591,5 +596,32 @@ class Drawing extends WriterPart
         if ($condition) {
             $objWriter->writeAttribute($attr, $val);
         }
+    }
+
+    /**
+     * Get pass-through drawing XML if available.
+     *
+     * Returns the original drawing XML stored during load (when Reader pass-through was enabled).
+     * This preserves unsupported drawing elements (shapes, textboxes) that PhpSpreadsheet cannot parse.
+     *
+     * @return ?string The pass-through XML, or null if not available or should not be used
+     */
+    private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
+        if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
+            return null;
+        }
+
+        $codeName = $worksheet->getCodeName();
+        $sheetData = $unparsedLoadedData['sheets'][$codeName] ?? null;
+        // Only use pass-through XML if the Reader flag was explicitly enabled
+        if (!is_array($sheetData) || ($sheetData['drawingPassThroughEnabled'] ?? false) !== true || !is_array($sheetData['Drawings'] ?? null)) {
+            return null;
+        }
+
+        $firstDrawing = reset($sheetData['Drawings']);
+
+        return is_string($firstDrawing) ? $firstDrawing : null;
     }
 }
