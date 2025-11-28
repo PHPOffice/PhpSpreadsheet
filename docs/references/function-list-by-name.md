@@ -595,8 +595,8 @@ TYPE                     | CATEGORY_INFORMATION           | \PhpOffice\PhpSpread
 
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
-UNICHAR                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
-UNICODE                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+UNICHAR                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::characterUnicode
+UNICODE                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::codeUnicode
 UNIQUE                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 UPPER                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 USDOLLAR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::format
