@@ -14,7 +14,7 @@ class OpenOfficeTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $this->setCell('A1', $formula);
         $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerOpenOffice(): array

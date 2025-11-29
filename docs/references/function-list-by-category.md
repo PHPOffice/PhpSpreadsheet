@@ -569,8 +569,8 @@ THAINUMSOUND             | **Not yet Implemented**
 THAINUMSTRING            | **Not yet Implemented**
 THAISTRINGLENGTH         | **Not yet Implemented**
 TRIM                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
-UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
-UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::characterUnicode
+UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::codeUnicode
 UPPER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 VALUE                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
 VALUETOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::valueToText

@@ -2496,12 +2496,12 @@ class FunctionArray extends CalculationBase
         ],
         'UNICHAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\CharacterConvert::class, 'character'],
+            'functionCall' => [TextData\CharacterConvert::class, 'characterUnicode'],
             'argumentCount' => '1',
         ],
         'UNICODE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\CharacterConvert::class, 'code'],
+            'functionCall' => [TextData\CharacterConvert::class, 'codeUnicode'],
             'argumentCount' => '1',
         ],
         'UNIQUE' => [
