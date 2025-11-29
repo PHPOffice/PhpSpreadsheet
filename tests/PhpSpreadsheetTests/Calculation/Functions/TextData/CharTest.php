@@ -13,7 +13,7 @@ class CharTest extends AllSetupTeardown
     protected function tearDown(): void
     {
         parent::tearDown();
-        CC::setOneByteCharacterSet('Windows-1252');
+        CC::setWindowsCharacterSet();
     }
 
     #[DataProvider('providerCHAR')]
@@ -38,7 +38,7 @@ class CharTest extends AllSetupTeardown
     #[DataProvider('providerCHAR')]
     public function testMacCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
-        CC::setOneByteCharacterSet('MACROMAN');
+        CC::setMacCharacterSet();
         // if espected is array, 1st is for CHAR, 2nd UNICHAR, 3rd Mac CHAR
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[2] ?? $expectedResult[0];

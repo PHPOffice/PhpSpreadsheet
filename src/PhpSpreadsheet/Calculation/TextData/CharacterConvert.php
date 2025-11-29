@@ -51,6 +51,10 @@ class CharacterConvert
             return $e->getMessage();
         }
 
+        if ($ansi && $character === 219 && self::$oneByteCharacterSet[0] === 'M') {
+            return '€';
+        }
+
         $min = Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE ? 0 : 1;
         if ($character < $min || ($ansi && $character > 255) || $character > 0x10FFFF) {
             return ExcelError::VALUE();
@@ -118,9 +122,12 @@ class CharacterConvert
         if (mb_strlen($characters, 'UTF-8') > 1) {
             $character = mb_substr($characters, 0, 1, 'UTF-8');
         }
+        if ($ansi && $character === '€' && self::$oneByteCharacterSet[0] === 'M') {
+            return 219;
+        }
 
         $result = mb_ord($character, 'UTF-8');
-        if ($ansi && $result > 255) {
+        if ($ansi) {
             $result = iconv('UTF-8', self::$oneByteCharacterSet . '//IGNORE', $character);
 
             return ($result !== '') ? ord("$result") : 63; // question mark
@@ -129,14 +136,13 @@ class CharacterConvert
         return $result;
     }
 
-    public static function setOneByteCharacterSet(string $characterSet): bool
+    public static function setWindowsCharacterSet(): void
     {
-        $retVal = false;
-        if ($characterSet === 'Windows-1252' || $characterSet === 'MACROMAN') {
-            self::$oneByteCharacterSet = $characterSet;
-            $retVal = true;
-        }
+        self::$oneByteCharacterSet = 'Windows-1252';
+    }
 
-        return $retVal;
+    public static function setMacCharacterSet(): void
+    {
+        self::$oneByteCharacterSet = 'MAC';
     }
 }

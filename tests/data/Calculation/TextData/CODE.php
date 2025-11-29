@@ -76,11 +76,15 @@ return [
         '†',
     ],
     [
-        [128, 8364, 63],
+        [128, 8364, 219],
         '€',
     ],
+    [
+        [220, 220, 134],
+        'Ü',
+    ],
     'non-ascii but same win-1252 vs unicode' => [
-        0xD0,
+        [0xD0, 0xD0, 63],
         'Ð',
     ],
     'ascii control character' => [

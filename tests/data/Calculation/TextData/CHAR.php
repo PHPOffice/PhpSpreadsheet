@@ -72,6 +72,14 @@ return [
         128,
     ],
     'non-ascii same win-1252 vs unicode, different mac' => [
+        ['Û', 'Û', '€'],
+        219,
+    ],
+    'after currency symbol placeholder' => [
+        ['Ü', 'Ü', '‹'],
+        220,
+    ],
+    'Example 3 where MAC differs from others' => [
         ['Ð', 'Ð', '–'],
         0xD0,
     ],
@@ -86,6 +94,10 @@ return [
     'above highest possible code point' => [
         '#VALUE!',
         0x110000,
+    ],
+    'nbsp for win/uni, dagger for Mac' => [
+        ["\u{A0}", "\u{A0}", '†'],
+        160,
     ],
     'omitted argument' => ['exception'],
     'non-printable' => ["\x02", 2],

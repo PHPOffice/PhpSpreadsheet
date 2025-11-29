@@ -13,7 +13,7 @@ class CodeTest extends AllSetupTeardown
     protected function tearDown(): void
     {
         parent::tearDown();
-        CC::setOneByteCharacterSet('Windows-1252');
+        CC::setWindowsCharacterSet();
     }
 
     #[DataProvider('providerCODE')]
@@ -38,7 +38,7 @@ class CodeTest extends AllSetupTeardown
     #[DataProvider('providerCODE')]
     public function testMacCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
-        CC::setOneByteCharacterSet('MACROMAN');
+        CC::setMacCharacterSet();
         // if espected is array, 1st is for code, 2nd unicode, 3rd Mac CODE
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[2] ?? $expectedResult[0];
@@ -78,12 +78,5 @@ class CodeTest extends AllSetupTeardown
             'column vector' => [[[80], [72], [80]], '{"P"; "H"; "P"}'],
             'matrix' => [[[89, 111], [108, 111]], '{"Y", "o"; "l", "o"}'],
         ];
-    }
-
-    public function testCharacterSet(): void
-    {
-        self::assertFalse(CC::setOneByteCharacterSet('UTF-8'));
-        self::assertTrue(CC::setOneByteCharacterSet('MACROMAN'));
-        self::assertTrue(CC::setOneByteCharacterSet('Windows-1252'));
     }
 }
