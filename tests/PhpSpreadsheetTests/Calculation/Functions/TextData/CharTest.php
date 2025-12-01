@@ -19,7 +19,8 @@ class CharTest extends AllSetupTeardown
     #[DataProvider('providerCHAR')]
     public function testCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
-        // if espected is array, 1st is for char, 2nd for unichar
+        // If expected is array, 1st is for CHAR, 2nd for UNICHAR,
+        // 3rd is for Mac CHAR if different from Windows.
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[0];
         }
@@ -39,7 +40,8 @@ class CharTest extends AllSetupTeardown
     public function testMacCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         CC::setMacCharacterSet();
-        // if espected is array, 1st is for CHAR, 2nd UNICHAR, 3rd Mac CHAR
+        // If expected is array, 1st is for CHAR, 2nd for UNICHAR,
+        // 3rd is for Mac CHAR if different from Windows.
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[2] ?? $expectedResult[0];
         }

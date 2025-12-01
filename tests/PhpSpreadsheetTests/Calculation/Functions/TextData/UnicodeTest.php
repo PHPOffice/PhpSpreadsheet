@@ -12,7 +12,8 @@ class UnicodeTest extends AllSetupTeardown
     #[DataProvider('providerCODE')]
     public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
-        // if espected is array, 1st is for code, 2nd for unicode
+        // If expected is array, 1st is for CODE, 2nd for UNICODE,
+        // 3rd is for Mac CODE if different from Windows.
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[1];
         }
