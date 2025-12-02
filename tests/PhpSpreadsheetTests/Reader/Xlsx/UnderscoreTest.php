@@ -71,7 +71,7 @@ class UnderscoreTest extends AbstractFunctional
         if ($data === false) {
             self::fail('Unable to read file');
         } else {
-            self::assertStringContainsString('count="4"', $data);
+            self::assertStringContainsString('count="7"', $data);
             self::assertStringContainsString(
                 "<t>line_x000D_\nwith_x000D_\nbreaks</t>",
                 $data
@@ -82,6 +82,9 @@ class UnderscoreTest extends AbstractFunctional
                 $data
             );
             self::assertStringContainsString('<t>_xC1EF_</t>', $data);
+            self::assertStringContainsString('<t>_xD801__xDC05_</t>', $data);
+            self::assertStringContainsString('<t>_xD801__x0038_</t>', $data);
+            self::assertStringContainsString('<t>_x0039__xDC05_</t>', $data);
         }
     }
 
@@ -102,6 +105,12 @@ class UnderscoreTest extends AbstractFunctional
         self::assertSame($expected, $sheet->getCell('A3')->getValue());
         $expected = '쇯';
         self::assertSame($expected, $sheet->getCell('A4')->getValue());
+        $expected = '𐐅';
+        self::assertSame($expected, $sheet->getCell('A5')->getValue(), 'outside BMP');
+        $expected = '�8';
+        self::assertSame($expected, $sheet->getCell('A6')->getValue(), 'high surrogate without low');
+        $expected = '9�';
+        self::assertSame($expected, $sheet->getCell('A7')->getValue(), 'low surrogate without high');
     }
 
     public function testX000dNotPreserved(): void

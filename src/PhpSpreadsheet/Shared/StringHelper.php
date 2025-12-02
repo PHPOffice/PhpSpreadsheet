@@ -305,7 +305,7 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP(string $textValue): string
     {
-        return Preg::replaceCallback('/_x[0-9A-F]{4}_/', self::toOutChar(...), $textValue);
+        return Preg::replaceCallback('/_x[0-9A-F]{4}_(_xD[CDEF][0-9A-F]{2}_)?/', self::toOutChar(...), $textValue);
     }
 
     private static function toHexVal(string $char): int
@@ -322,12 +322,27 @@ class StringHelper
     {
         /** @var string */
         $chars = $match[0];
-        $t = ((self::toHexVal($chars[2]) << 12)
+        $h = ((self::toHexVal($chars[2]) << 12)
             | (self::toHexVal($chars[3]) << 8)
             | (self::toHexVal($chars[4]) << 4)
             | (self::toHexVal($chars[5])));
+        if (strlen($chars) === 7) { // no low surrogate
+            if ($chars[2] === 'D' && in_array($chars[3], ['8', '9', 'A', 'B', 'C', 'D', 'E', 'F'], true)) {
+                return mb_chr(0xFFFD, 'UTF-8');
+            }
 
-        return mb_chr($t, 'UTF-8');
+            return mb_chr($h, 'UTF-8');
+        }
+        if ($chars[2] !== 'D' || !in_array($chars[3], ['8', '9', 'A', 'B'], true)) {
+            return mb_chr($h, 'UTF-8') . mb_chr(0xFFFD, 'UTF-8');
+        }
+        $l = ((self::toHexVal($chars[9]) << 12)
+            | (self::toHexVal($chars[10]) << 8)
+            | (self::toHexVal($chars[11]) << 4)
+            | (self::toHexVal($chars[12])));
+        $result = 0x10000 + ($h - 0xD800) * 0x400 + ($l - 0xDC00);
+
+        return mb_chr($result, 'UTF-8');
     }
 
     /**
