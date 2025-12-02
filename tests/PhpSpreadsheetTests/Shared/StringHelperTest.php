@@ -148,13 +148,15 @@ class StringHelperTest extends TestCase
         self::assertSame('?', StringHelperNoIconv3::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
 
         $noTransliteration = 'ﾂ';
+        // There is inconsistency in how //TRANSLIT operates.
+        // On some systems, '?' seems to be used if there is
+        // no other transliteration available.
         $ignoreResult = '?';
         if (StringHelper::getIsIconvEnabled()) {
-        // There is inconsistency in how //IGNORE//TRANSLIT operates
             $ignoreResult = iconv('UTF-8', 'ISO-8859-1//IGNORE//TRANSLIT', $noTransliteration);
             self::assertContains($ignoreResult, ['', '?']);
         }
-        $result = StringHelper::convertEncoding($noTransliteration, 'ISO-8859-1', 'UTF-8');
-        self::assertSame($ignoreResult, $result, 'no transliteration available');
+        self::assertSame($ignoreResult, StringHelper::convertEncoding($noTransliteration, 'ISO-8859-1', 'UTF-8'), 'no transliteration available');
+        self::assertSame('', StringHelper::convertEncoding($noTransliteration, 'ISO-8859-1', 'UTF-8', '//IGNORE'), 'TRANSLIT not used');
     }
 }
