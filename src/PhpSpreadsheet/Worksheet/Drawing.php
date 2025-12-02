@@ -25,6 +25,11 @@ class Drawing extends BaseDrawing
     private bool $isUrl;
 
     /**
+     * check if the drawing is in cell so should be a richData image
+     */
+    private bool $inCell = false;
+
+    /**
      * Create a new Drawing.
      */
     public function __construct()
@@ -245,5 +250,21 @@ class Drawing extends BaseDrawing
         }
 
         return image_type_to_mime_type(self::IMAGE_TYPES_CONVERTION_MAP[$this->type]);
+    }
+
+    /**
+     * @param bool $inCell
+     * @return Drawing
+     */
+    public function setInCell(bool $inCell): static
+    {
+        $this->inCell = $inCell;
+
+        return $this;
+    }
+
+    public function getInCell(): bool
+    {
+        return $this->inCell;
     }
 }
