@@ -139,6 +139,13 @@ class StringHelperTest extends TestCase
         $from = 'ISO-8859-1';
         $to = 'UTF-8';
         self::assertSame($expected, StringHelper::convertEncoding($string, $to, $from));
+        self::assertSame('EUR', StringHelper::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'transliterated');
+        self::assertSame('', StringHelper::convertEncoding('ﾂ', 'ISO-8859-1', 'UTF-8'), 'no transliteration so ignored');
         self::assertSame($expected, StringHelperNoIconv::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
+        self::assertSame($expected, StringHelperNoIconv2::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv2::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
+        self::assertSame($expected, StringHelperNoIconv3::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv3::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
     }
 }

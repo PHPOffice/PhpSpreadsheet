@@ -252,42 +252,55 @@ class StringHelper
     /**
      * Is iconv extension available?
      */
-    private static ?bool $isIconvEnabled = null;
+    protected static ?bool $isIconvEnabled = null;
 
     /**
      * iconv options.
      */
     private static string $iconvOptions = '//IGNORE//TRANSLIT';
 
+    protected static string $iconvName = 'iconv';
+
+    protected static bool $iconvTest2 = false;
+
+    protected static bool $iconvTest3 = false;
+
     /**
      * Get whether iconv extension is available.
      */
     public static function getIsIconvEnabled(): bool
     {
-        if (isset(self::$isIconvEnabled)) {
-            return self::$isIconvEnabled;
+        if (isset(static::$isIconvEnabled)) {
+            return static::$isIconvEnabled;
         }
 
         // Assume no problems with iconv
-        self::$isIconvEnabled = true;
+        static::$isIconvEnabled = true;
 
         // Fail if iconv doesn't exist
-        if (!function_exists('iconv')) {
-            self::$isIconvEnabled = false;
-        } elseif (!@iconv('UTF-8', 'UTF-16LE', 'x')) {
+        if (!function_exists(static::$iconvName)) {
+            static::$isIconvEnabled = false;
+        } elseif (static::$iconvTest2 || !@iconv('UTF-8', 'UTF-16LE', 'x')) {
             // Sometimes iconv is not working, and e.g. iconv('UTF-8', 'UTF-16LE', 'x') just returns false,
-            self::$isIconvEnabled = false;
-        } elseif (defined('PHP_OS') && @stristr(PHP_OS, 'AIX') && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0) && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0)) {
+            static::$isIconvEnabled = false;
+        } elseif (static::$iconvTest3 || (defined('PHP_OS') && @stristr(PHP_OS, 'AIX') && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0) && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0))) {
             // CUSTOM: IBM AIX iconv() does not work
-            self::$isIconvEnabled = false;
+            static::$isIconvEnabled = false;
         }
 
         // Deactivate iconv default options if they fail (as seen on IMB i)
-        if (self::$isIconvEnabled && !@iconv('UTF-8', 'UTF-16LE' . self::$iconvOptions, 'x')) {
+        if (static::$isIconvEnabled) {
             self::$iconvOptions = '';
+            foreach (['//IGNORE//TRANSLIT', '//IGNORE'] as $option) {
+                if (@iconv('UTF-8', 'UTF-16LE' . $option, 'x') !== false) {
+                    self::$iconvOptions = $option;
+
+                    break;
+                }
+            }
         }
 
-        return self::$isIconvEnabled;
+        return static::$isIconvEnabled;
     }
 
     /**
