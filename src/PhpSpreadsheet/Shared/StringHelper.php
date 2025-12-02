@@ -480,6 +480,7 @@ class StringHelper
             if (false !== $result) {
                 return $result;
             }
+            var_dump($textValue, $from, $to . self::$iconvOptions);
         }
 
         return (string) mb_convert_encoding($textValue, $to, $from);
