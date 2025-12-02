@@ -599,8 +599,8 @@ TYPE                     | INFORMATION           | Information\Value::type
 
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
-UNICHAR                  | TEXT_AND_DATA         | TextData\CharacterConvert::character
-UNICODE                  | TEXT_AND_DATA         | TextData\CharacterConvert::code
+UNICHAR                  | TEXT_AND_DATA         | TextData\CharacterConvert::characterUnicode
+UNICODE                  | TEXT_AND_DATA         | TextData\CharacterConvert::codeUnicode
 UNIQUE                   | LOOKUP_AND_REFERENCE  | LookupRef\Unique::unique
 UPPER                    | TEXT_AND_DATA         | TextData\CaseConvert::upper
 USDOLLAR                 | FINANCIAL             | Financial\Dollar::format
