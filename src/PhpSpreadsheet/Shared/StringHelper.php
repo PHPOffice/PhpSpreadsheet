@@ -328,13 +328,16 @@ class StringHelper
             | (self::toHexVal($chars[5])));
         if (strlen($chars) === 7) { // no low surrogate
             if ($chars[2] === 'D' && in_array($chars[3], ['8', '9', 'A', 'B', 'C', 'D', 'E', 'F'], true)) {
-                return mb_chr(0xFFFD, 'UTF-8');
+                return '�';
             }
 
             return mb_chr($h, 'UTF-8');
         }
+        if ($chars[2] === 'D' && in_array($chars[3], ['C', 'D', 'D', 'F'], true)) {
+            return '�'; // Excel interprets as one substitute, not 2
+        }
         if ($chars[2] !== 'D' || !in_array($chars[3], ['8', '9', 'A', 'B'], true)) {
-            return mb_chr($h, 'UTF-8') . mb_chr(0xFFFD, 'UTF-8');
+            return mb_chr($h, 'UTF-8') . '�';
         }
         $l = ((self::toHexVal($chars[9]) << 12)
             | (self::toHexVal($chars[10]) << 8)
