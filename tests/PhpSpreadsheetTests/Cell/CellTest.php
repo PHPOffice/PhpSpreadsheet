@@ -141,10 +141,10 @@ class CellTest extends TestCase
         $sheet3->setCellValue('A1', "='Sheet 1'!C1+'Sheet 1'!D1");
         $sheet1->setCellValue('A1', "='Sheet 3'!A1");
         $spreadsheet->setActiveSheetIndex(0);
-        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
         $value = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
-        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
-        self::assertEquals(247, $value);
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        self::assertSame(247, $value);
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -220,21 +220,21 @@ class CellTest extends TestCase
 
         $style = $sheet->getCell('A1')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals($redStyle->getFill()->getStartColor()->getARGB(), $style->getFill()->getStartColor()->getARGB());
+        self::assertSame($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame($redStyle->getFill()->getStartColor()->getARGB(), $style->getFill()->getStartColor()->getARGB());
 
         $style = $sheet->getCell('A2')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals(
+        self::assertSame($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame(
             $yellowStyle->getFill()->getStartColor()->getARGB(),
             $style->getFill()->getStartColor()->getARGB()
         );
 
         $style = $sheet->getCell('A3')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals(
+        self::assertSame($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame(
             $greenStyle->getFill()->getStartColor()->getARGB(),
             $style->getFill()->getStartColor()->getARGB()
         );
@@ -276,9 +276,9 @@ class CellTest extends TestCase
         $style = $sheet->getCell($cellAddress)->getAppliedStyle();
 
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($fillStyle, $style->getFill()->getFillType());
+        self::assertSame($fillStyle, $style->getFill()->getFillType());
         if ($fillStyle === Fill::FILL_SOLID) {
-            self::assertEquals($fillColor, $style->getFill()->getStartColor()->getARGB());
+            self::assertSame($fillColor, $style->getFill()->getStartColor()->getARGB());
         }
         $spreadsheet->disconnectWorksheets();
     }
