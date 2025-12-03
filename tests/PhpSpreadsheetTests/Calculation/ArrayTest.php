@@ -16,14 +16,12 @@ class ArrayTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->originalArrayReturnType = Calculation::getArrayReturnType();
     }
 
     protected function tearDown(): void
     {
         Calculation::setArrayReturnType($this->originalArrayReturnType);
-        parent::tearDown();
     }
 
     private function setupMatrix(Worksheet $sheet): void
@@ -56,8 +54,6 @@ class ArrayTest extends TestCase
         $values = Functions::flattenArray($array);
 
         self::assertCount(2, $values);
-        self::assertIsNotArray($values[0]);
-        self::assertIsNotArray($values[1]);
         self::assertSame('PHP', $values[0]);
         self::assertSame('Spreadsheet', $values[1]);
     }
