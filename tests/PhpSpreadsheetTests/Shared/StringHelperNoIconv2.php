@@ -6,9 +6,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-class StringHelperNoIconv extends StringHelper
+class StringHelperNoIconv2 extends StringHelper
 {
     protected static ?bool $isIconvEnabled = null;
 
-    protected static string $iconvName = 'simulateIconvUnavilable';
+    protected static bool $iconvTest2 = true;
 }

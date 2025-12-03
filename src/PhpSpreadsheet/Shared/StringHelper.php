@@ -237,57 +237,73 @@ class StringHelper
     /**
      * Decimal separator.
      */
-    private static ?string $decimalSeparator = null;
+    protected static ?string $decimalSeparator = null;
 
     /**
      * Thousands separator.
      */
-    private static ?string $thousandsSeparator = null;
+    protected static ?string $thousandsSeparator = null;
 
     /**
      * Currency code.
      */
-    private static ?string $currencyCode = null;
+    protected static ?string $currencyCode = null;
 
     /**
      * Is iconv extension available?
      */
-    private static ?bool $isIconvEnabled = null;
+    protected static ?bool $isIconvEnabled = null;
 
     /**
      * iconv options.
      */
-    private static string $iconvOptions = '//IGNORE//TRANSLIT';
+    protected static string $iconvOptions = '//IGNORE//TRANSLIT';
+
+    /** @var string[] */
+    protected static array $iconvOptionsArray = ['//IGNORE//TRANSLIT', '//IGNORE'];
+
+    protected static string $iconvName = 'iconv';
+
+    protected static bool $iconvTest2 = false;
+
+    protected static bool $iconvTest3 = false;
 
     /**
      * Get whether iconv extension is available.
      */
     public static function getIsIconvEnabled(): bool
     {
-        if (isset(self::$isIconvEnabled)) {
-            return self::$isIconvEnabled;
+        if (isset(static::$isIconvEnabled)) {
+            return static::$isIconvEnabled;
         }
 
         // Assume no problems with iconv
-        self::$isIconvEnabled = true;
+        static::$isIconvEnabled = true;
 
         // Fail if iconv doesn't exist
-        if (!function_exists('iconv')) {
-            self::$isIconvEnabled = false;
-        } elseif (!@iconv('UTF-8', 'UTF-16LE', 'x')) {
+        if (!function_exists(static::$iconvName)) {
+            static::$isIconvEnabled = false;
+        } elseif (static::$iconvTest2 || !@iconv('UTF-8', 'UTF-16LE', 'x')) {
             // Sometimes iconv is not working, and e.g. iconv('UTF-8', 'UTF-16LE', 'x') just returns false,
-            self::$isIconvEnabled = false;
-        } elseif (defined('PHP_OS') && @stristr(PHP_OS, 'AIX') && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0) && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0)) {
+            static::$isIconvEnabled = false;
+        } elseif (static::$iconvTest3 || (defined('PHP_OS') && @stristr(PHP_OS, 'AIX') && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0) && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0))) {
             // CUSTOM: IBM AIX iconv() does not work
-            self::$isIconvEnabled = false;
+            static::$isIconvEnabled = false;
         }
 
-        // Deactivate iconv default options if they fail (as seen on IMB i)
-        if (self::$isIconvEnabled && !@iconv('UTF-8', 'UTF-16LE' . self::$iconvOptions, 'x')) {
-            self::$iconvOptions = '';
+        // Deactivate iconv default options if they fail (as seen on IBM i-series)
+        if (static::$isIconvEnabled) {
+            static::$iconvOptions = '';
+            foreach (static::$iconvOptionsArray as $option) {
+                if (@iconv('UTF-8', 'UTF-16LE' . $option, 'x') !== false) {
+                    static::$iconvOptions = $option;
+
+                    break;
+                }
+            }
         }
 
-        return self::$isIconvEnabled;
+        return static::$isIconvEnabled;
     }
 
     /**
@@ -305,7 +321,47 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP(string $textValue): string
     {
-        return str_replace(self::CONTROL_CHARACTERS_VALUES, self::CONTROL_CHARACTERS_KEYS, $textValue);
+        return Preg::replaceCallback('/_x[0-9A-F]{4}_(_xD[CDEF][0-9A-F]{2}_)?/', self::toOutChar(...), $textValue);
+    }
+
+    private static function toHexVal(string $char): int
+    {
+        if ($char >= '0' && $char <= '9') {
+            return ord($char) - ord('0');
+        }
+
+        return ord($char) - ord('A') + 10;
+    }
+
+    /** @param array<?string> $match */
+    private static function toOutChar(array $match): string
+    {
+        /** @var string */
+        $chars = $match[0];
+        $h = ((self::toHexVal($chars[2]) << 12)
+            | (self::toHexVal($chars[3]) << 8)
+            | (self::toHexVal($chars[4]) << 4)
+            | (self::toHexVal($chars[5])));
+        if (strlen($chars) === 7) { // no low surrogate
+            if ($chars[2] === 'D' && in_array($chars[3], ['8', '9', 'A', 'B', 'C', 'D', 'E', 'F'], true)) {
+                return '�';
+            }
+
+            return mb_chr($h, 'UTF-8');
+        }
+        if ($chars[2] === 'D' && in_array($chars[3], ['C', 'D', 'D', 'F'], true)) {
+            return '�'; // Excel interprets as one substitute, not 2
+        }
+        if ($chars[2] !== 'D' || !in_array($chars[3], ['8', '9', 'A', 'B'], true)) {
+            return mb_chr($h, 'UTF-8') . '�';
+        }
+        $l = ((self::toHexVal($chars[9]) << 12)
+            | (self::toHexVal($chars[10]) << 8)
+            | (self::toHexVal($chars[11]) << 4)
+            | (self::toHexVal($chars[12])));
+        $result = 0x10000 + ($h - 0xD800) * 0x400 + ($l - 0xDC00);
+
+        return mb_chr($result, 'UTF-8');
     }
 
     /**
@@ -323,6 +379,8 @@ class StringHelper
      */
     public static function controlCharacterPHP2OOXML(string $textValue): string
     {
+        $textValue = Preg::replace('/_(x[0-9A-F]{4}_)/', '_x005F_$1', $textValue);
+
         return str_replace(self::CONTROL_CHARACTERS_KEYS, self::CONTROL_CHARACTERS_VALUES, $textValue);
     }
 
@@ -418,10 +476,10 @@ class StringHelper
      * @param string $to Encoding to convert to, e.g. 'UTF-8'
      * @param string $from Encoding to convert from, e.g. 'UTF-16LE'
      */
-    public static function convertEncoding(string $textValue, string $to, string $from): string
+    public static function convertEncoding(string $textValue, string $to, string $from, ?string $options = null): string
     {
         if (static::getIsIconvEnabled()) {
-            $result = iconv($from, $to . self::$iconvOptions, $textValue);
+            $result = iconv($from, $to . ($options ?? static::$iconvOptions), $textValue);
             if (false !== $result) {
                 return $result;
             }
@@ -561,11 +619,11 @@ class StringHelper
      */
     public static function getDecimalSeparator(): string
     {
-        if (!isset(self::$decimalSeparator)) {
-            self::$decimalSeparator = self::getLocaleValue('decimal_point', 'mon_decimal_point', '.');
+        if (!isset(static::$decimalSeparator)) {
+            static::$decimalSeparator = self::getLocaleValue('decimal_point', 'mon_decimal_point', '.');
         }
 
-        return self::$decimalSeparator;
+        return static::$decimalSeparator;
     }
 
     /**
@@ -576,7 +634,7 @@ class StringHelper
      */
     public static function setDecimalSeparator(?string $separator): void
     {
-        self::$decimalSeparator = $separator;
+        static::$decimalSeparator = $separator;
     }
 
     /**
@@ -585,11 +643,11 @@ class StringHelper
      */
     public static function getThousandsSeparator(): string
     {
-        if (!isset(self::$thousandsSeparator)) {
-            self::$thousandsSeparator = self::getLocaleValue('thousands_sep', 'mon_thousands_sep', ',');
+        if (!isset(static::$thousandsSeparator)) {
+            static::$thousandsSeparator = self::getLocaleValue('thousands_sep', 'mon_thousands_sep', ',');
         }
 
-        return self::$thousandsSeparator;
+        return static::$thousandsSeparator;
     }
 
     /**
@@ -600,7 +658,7 @@ class StringHelper
      */
     public static function setThousandsSeparator(?string $separator): void
     {
-        self::$thousandsSeparator = $separator;
+        static::$thousandsSeparator = $separator;
     }
 
     /**
@@ -609,11 +667,11 @@ class StringHelper
      */
     public static function getCurrencyCode(bool $trimAlt = false): string
     {
-        if (!isset(self::$currencyCode)) {
-            self::$currencyCode = self::getLocaleValue('currency_symbol', 'int_curr_symbol', '$', $trimAlt);
+        if (!isset(static::$currencyCode)) {
+            static::$currencyCode = self::getLocaleValue('currency_symbol', 'int_curr_symbol', '$', $trimAlt);
         }
 
-        return self::$currencyCode;
+        return static::$currencyCode;
     }
 
     /**
@@ -624,7 +682,7 @@ class StringHelper
      */
     public static function setCurrencyCode(?string $currencyCode): void
     {
-        self::$currencyCode = $currencyCode;
+        static::$currencyCode = $currencyCode;
     }
 
     /**
