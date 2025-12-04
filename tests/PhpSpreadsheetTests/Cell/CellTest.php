@@ -115,9 +115,10 @@ class CellTest extends TestCase
     }
 
     #[DataProvider('providerSetValueExplicitException')]
-    public function testSetValueExplicitException(mixed $value, string $dataType): void
+    public function testSetValueExplicitException(mixed $value, string $dataType, string $message): void
     {
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage($message);
 
         $this->spreadsheet = new Spreadsheet();
         $cell = $this->spreadsheet->getActiveSheet()->getCell('A1');
