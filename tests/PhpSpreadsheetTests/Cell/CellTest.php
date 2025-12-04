@@ -36,6 +36,16 @@ class CellTest extends TestCase
         }
     }
 
+    private function createSolidFillStyle(string $color): Style
+    {
+        $style = new Style(false, true);
+        $style->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB($color);
+
+        return $style;
+    }
+
     public function testSetValueBinderOverride(): void
     {
         $value = '12.5%';
@@ -105,9 +115,10 @@ class CellTest extends TestCase
     }
 
     #[DataProvider('providerSetValueExplicitException')]
-    public function testSetValueExplicitException(mixed $value, string $dataType): void
+    public function testSetValueExplicitException(mixed $value, string $dataType, string $message): void
     {
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage($message);
 
         $this->spreadsheet = new Spreadsheet();
         $cell = $this->spreadsheet->getActiveSheet()->getCell('A1');
@@ -130,12 +141,11 @@ class CellTest extends TestCase
         $sheet1->setCellValue('D1', 124);
         $sheet3->setCellValue('A1', "='Sheet 1'!C1+'Sheet 1'!D1");
         $sheet1->setCellValue('A1', "='Sheet 3'!A1");
-        $cell = 'A1';
         $spreadsheet->setActiveSheetIndex(0);
-        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
-        $value = $spreadsheet->getActiveSheet()->getCell($cell)->getCalculatedValue();
-        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
-        self::assertEquals(247, $value);
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        $value = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        self::assertSame(247, $value);
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -172,12 +182,9 @@ class CellTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Coordinate no longer exists');
         $parent = $cell->getParent();
-        if ($parent === null) {
-            self::fail('Unexpected null parent');
-        } else {
-            $parent->delete('A1');
-            $cell->getCoordinate();
-        }
+        self::assertNotNull($parent, 'Parent should not be null');
+        $parent->delete('A1');
+        $cell->getCoordinate();
     }
 
     public function testAppliedStyleWithRange(): void
@@ -191,34 +198,22 @@ class CellTest extends TestCase
         $cellRange = 'A1:A3';
         $sheet->getStyle($cellRange)->getFont()->setBold(true);
 
-        $yellowStyle = new Style(false, true);
-        $yellowStyle->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(Color::COLOR_YELLOW);
-        $greenStyle = new Style(false, true);
-        $greenStyle->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(Color::COLOR_GREEN);
-        $redStyle = new Style(false, true);
-        $redStyle->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(Color::COLOR_RED);
+        $yellowStyle = $this->createSolidFillStyle(Color::COLOR_YELLOW);
+        $greenStyle = $this->createSolidFillStyle(Color::COLOR_GREEN);
+        $redStyle = $this->createSolidFillStyle(Color::COLOR_RED);
 
-        $conditionalStyles = [];
         $wizardFactory = new Wizard($cellRange);
         /** @var Wizard\CellValue $cellWizard */
         $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-        $cellWizard->equals(0)
-            ->setStyle($yellowStyle);
+        $conditionalStyles = [];
+        $cellWizard->equals(0)->setStyle($yellowStyle);
         $conditionalStyles[] = $cellWizard->getConditional();
 
-        $cellWizard->greaterThan(0)
-            ->setStyle($greenStyle);
+        $cellWizard->greaterThan(0)->setStyle($greenStyle);
         $conditionalStyles[] = $cellWizard->getConditional();
 
-        $cellWizard->lessThan(0)
-            ->setStyle($redStyle);
+        $cellWizard->lessThan(0)->setStyle($redStyle);
         $conditionalStyles[] = $cellWizard->getConditional();
 
         $sheet->getStyle($cellWizard->getCellRange())
@@ -226,21 +221,21 @@ class CellTest extends TestCase
 
         $style = $sheet->getCell('A1')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals($redStyle->getFill()->getStartColor()->getARGB(), $style->getFill()->getStartColor()->getARGB());
+        self::assertSame($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame($redStyle->getFill()->getStartColor()->getARGB(), $style->getFill()->getStartColor()->getARGB());
 
         $style = $sheet->getCell('A2')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals(
+        self::assertSame($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame(
             $yellowStyle->getFill()->getStartColor()->getARGB(),
             $style->getFill()->getStartColor()->getARGB()
         );
 
         $style = $sheet->getCell('A3')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals(
+        self::assertSame($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertSame(
             $greenStyle->getFill()->getStartColor()->getARGB(),
             $style->getFill()->getStartColor()->getARGB()
         );
@@ -261,14 +256,8 @@ class CellTest extends TestCase
         $cellRange = 'A1:C2';
         $sheet->getStyle($cellRange)->getFont()->setBold(true);
 
-        $yellowStyle = new Style(false, true);
-        $yellowStyle->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(Color::COLOR_YELLOW);
-        $redStyle = new Style(false, true);
-        $redStyle->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB(Color::COLOR_RED);
+        $yellowStyle = $this->createSolidFillStyle(Color::COLOR_YELLOW);
+        $redStyle = $this->createSolidFillStyle(Color::COLOR_RED);
 
         $conditionalCellRange = 'A1:C1';
         $conditionalStyles = [];
@@ -276,12 +265,10 @@ class CellTest extends TestCase
         /** @var Wizard\CellValue $cellWizard */
         $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-        $cellWizard->equals(0)
-            ->setStyle($yellowStyle);
+        $cellWizard->equals(0)->setStyle($yellowStyle);
         $conditionalStyles[] = $cellWizard->getConditional();
 
-        $cellWizard->lessThan(0)
-            ->setStyle($redStyle);
+        $cellWizard->lessThan(0)->setStyle($redStyle);
         $conditionalStyles[] = $cellWizard->getConditional();
 
         $sheet->getStyle($cellWizard->getCellRange())
@@ -290,9 +277,9 @@ class CellTest extends TestCase
         $style = $sheet->getCell($cellAddress)->getAppliedStyle();
 
         self::assertTrue($style->getFont()->getBold());
-        self::assertEquals($fillStyle, $style->getFill()->getFillType());
+        self::assertSame($fillStyle, $style->getFill()->getFillType());
         if ($fillStyle === Fill::FILL_SOLID) {
-            self::assertEquals($fillColor, $style->getFill()->getStartColor()->getARGB());
+            self::assertSame($fillColor, $style->getFill()->getStartColor()->getARGB());
         }
         $spreadsheet->disconnectWorksheets();
     }
