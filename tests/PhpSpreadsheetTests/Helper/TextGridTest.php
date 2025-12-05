@@ -215,8 +215,8 @@ class TextGridTest extends TestCase
             rowDividers: false,
             rowHeaders: false,
             columnHeaders: false,
+            numbersRight: true,
         );
-        $textGrid->setNumbersRight(true);
         $expected = [
             '+-----+-------+--------------+',
             '|   0 |  1.00 | $1,234.56    |',
