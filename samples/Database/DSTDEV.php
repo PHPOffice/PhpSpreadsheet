@@ -36,11 +36,13 @@ $worksheet->setCellValue('B12', '=DSTDEV(A4:E10,"Yield",A1:A3)');
 
 $worksheet->setCellValue('A13', 'The estimated standard deviation in height of Apple and Pear trees');
 $worksheet->setCellValue('B13', '=DSTDEV(A4:E10,2,A1:A3)');
+$worksheet->getStyle('E5:E10')->getNumberFormat()
+    ->setFormatCode('0.00');
 
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');

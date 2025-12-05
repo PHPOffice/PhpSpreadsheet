@@ -40,7 +40,7 @@ $worksheet->setCellValue('B13', '=DCOUNTA(A4:E10,3,A1:A3)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');

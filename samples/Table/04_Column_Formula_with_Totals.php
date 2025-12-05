@@ -86,7 +86,7 @@ $helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, 
 
 $helper->log('Calculate Structured References');
 
-$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true));
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true), true);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);

@@ -242,9 +242,12 @@ class Sample
     }
 
     /** @param mixed[][] $matrix */
-    public function displayGrid(array $matrix): void
+    public function displayGrid(array $matrix, ?bool $numbersRight = null): void
     {
         $renderer = new TextGrid($matrix, $this->isCli());
+        if ($numbersRight !== null) {
+            $renderer->setNumbersRight($numbersRight);
+        }
         echo $renderer->render();
     }
 
