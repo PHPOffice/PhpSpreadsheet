@@ -100,12 +100,17 @@ class TextGrid
             $valueForLength = $this->getString($cell);
             $displayCell = $this->isCli ? $valueForLength : htmlentities($valueForLength);
             $this->gridDisplay .= '| ';
-            if ($this->numbersRight && is_numeric($displayCell)) {
+            if ($this->rightAlign($displayCell)) {
                 $this->gridDisplay .= str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength)) . $displayCell . ' ';
             } else {
                 $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength) + 1);
             }
         }
+    }
+
+    protected function rightAlign(string $displayCell): bool
+    {
+        return $this->numbersRight && is_numeric($displayCell);
     }
 
     /** @param int[] $columnWidths */

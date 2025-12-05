@@ -86,7 +86,7 @@ $dataArray = [
     ['2011', 'Q4', 'Italy', 335],
 ];
 $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
-$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, false, true));
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, false, true), true);
 
 // Set title row bold
 $helper->log('Set title row bold');

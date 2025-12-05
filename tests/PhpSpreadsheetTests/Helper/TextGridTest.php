@@ -201,9 +201,9 @@ class TextGridTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->fromArray([
-            [0, 1, 'string1'],
+            [0, 1, '$1,234.56'],
             [18, 13.25, 'string2'],
-            [100, 2.5, 'string12'],
+            [100, 2.5, 'string123456'],
         ], strictNullComparison: true);
         $sheet->getStyle('B1:B3')->getNumberFormat()
             ->setFormatCode('0.00');
@@ -218,11 +218,46 @@ class TextGridTest extends TestCase
         );
         $textGrid->setNumbersRight(true);
         $expected = [
-            '+-----+-------+----------+',
-            '|   0 |  1.00 | string1  |',
-            '|  18 | 13.25 | string2  |',
-            '| 100 |  2.50 | string12 |',
-            '+-----+-------+----------+',
+            '+-----+-------+--------------+',
+            '|   0 |  1.00 | $1,234.56    |',
+            '|  18 | 13.25 | string2      |',
+            '| 100 |  2.50 | string123456 |',
+            '+-----+-------+--------------+',
+            '',
+        ];
+        $result = $textGrid->render();
+        $lines = explode(PHP_EOL, $result);
+        self::assertSame($expected, $lines);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testExtendedNumbersRight(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [0, 1, '$1,234.56'],
+            [18, 13.25, 'string2'],
+            [100, 2.5, 'string123456'],
+        ], strictNullComparison: true);
+        $sheet->getStyle('B1:B3')->getNumberFormat()
+            ->setFormatCode('0.00');
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, true, true);
+        $textGrid = new TextGridExtended(
+            $temp,
+            true,
+            rowDividers: false,
+            rowHeaders: false,
+            columnHeaders: false,
+        );
+        $textGrid->setNumbersRight(true);
+        $expected = [
+            '+-----+-------+--------------+',
+            '|   0 |  1.00 |    $1,234.56 |',
+            '|  18 | 13.25 | string2      |',
+            '| 100 |  2.50 | string123456 |',
+            '+-----+-------+--------------+',
             '',
         ];
         $result = $textGrid->render();

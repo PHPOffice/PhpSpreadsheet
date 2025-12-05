@@ -36,11 +36,13 @@ $worksheet->setCellValue('B12', '=DSUM(A4:E10,"Profit",A1:A2)');
 
 $worksheet->setCellValue('A13', 'Total profit from apple trees with a height between 10 and 16 feet, and all pear trees');
 $worksheet->setCellValue('B13', '=DSUM(A4:E10,"Profit",A1:F3)');
+$worksheet->getStyle('E5:E10')->getNumberFormat()
+    ->setFormatCode('0.00');
 
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');
