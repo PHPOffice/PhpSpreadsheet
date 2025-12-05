@@ -21,19 +21,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead($filename));
     }
 
-    public function testBadHtml(): void
-    {
-        $filename = 'tests/data/Reader/HTML/badhtml.html';
-        $reader = new Html();
-        self::assertTrue($reader->canRead($filename));
-
-        if (method_exists($this, 'setOutputCallback')) {
-            // The meat of this test is moved to HtmlPhpunit10Test
-            // to run under all PhpUnit versions.
-            $this->expectException(ReaderException::class);
-            $reader->load($filename);
-        }
-    }
+    // testBadHtml moved to HtmlPhpunit10Test
 
     public function testNonHtml(): void
     {
