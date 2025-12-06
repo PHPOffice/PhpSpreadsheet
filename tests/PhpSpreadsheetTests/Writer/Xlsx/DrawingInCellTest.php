@@ -12,7 +12,7 @@ class DrawingInCellTest extends AbstractFunctional
 {
     public function testPictureInCell(): void
     {
-        $file = 'tests/data/Writer/XLSX/drawing_in_cell.xlsx';
+        $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($file);
 
@@ -62,7 +62,7 @@ class DrawingInCellTest extends AbstractFunctional
 
     public function testWriteNewPictureInCell(): void
     {
-        $file = 'tests/data/Writer/XLSX/drawing_in_cell.xlsx';
+        $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($file);
 
