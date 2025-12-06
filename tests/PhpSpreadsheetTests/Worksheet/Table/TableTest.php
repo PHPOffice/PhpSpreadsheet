@@ -33,7 +33,7 @@ class TableTest extends SetupTeardown
         $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setName($name);
-        self::assertEquals($expected, $result->getName());
+        self::assertSame($expected, $result->getName());
     }
 
     public static function validTableNamesProvider(): array
@@ -45,6 +45,7 @@ class TableTest extends SetupTeardown
             ['\table_3', '\table_3'],
             ["	Table_4 \n", 'Table_4'],
             ['table.5', 'table.5'],
+            'issue 4739' => ['x', 'x'],
             ['தமிழ்', 'தமிழ்'], // UTF-8 letters with combined character
         ];
     }

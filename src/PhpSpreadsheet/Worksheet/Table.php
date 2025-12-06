@@ -120,7 +120,7 @@ class Table implements Stringable
             if (!preg_match('/^[\p{L}_\\\]/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name must begin a name with a letter, an underscore character (_), or a backslash (\)');
             }
-            if (!preg_match('/^[\p{L}_\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
+            if (!preg_match('/^[\p{L}_\\\][\p{L}\p{M}0-9\._]*$/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name contains invalid characters');
             }
 
