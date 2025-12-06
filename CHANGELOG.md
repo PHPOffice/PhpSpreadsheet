@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Slightly better support for escaped characters in Xlsx Reader/Writer. [Discussion #4724](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4724) [PR #4726](https://github.com/PHPOffice/PhpSpreadsheet/pull/4726)
 - CODE/UNICODE and CHAR/UNICHAR. [PR #4727](https://github.com/PHPOffice/PhpSpreadsheet/pull/4727)
 - Minor changes to TextGrid. [PR #4735](https://github.com/PHPOffice/PhpSpreadsheet/pull/4735)
+- Single-character table names. [Issue #4739](https://github.com/PHPOffice/PhpSpreadsheet/issues/4739) [PR #4740](https://github.com/PHPOffice/PhpSpreadsheet/pull/4740)
 
 ## 2025-11-24 - 5.3.0
 
