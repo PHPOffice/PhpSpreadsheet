@@ -38,7 +38,7 @@ class DefaultValueBinder implements IValueBinder
             $value->setCoordinates($cell->getCoordinate());
             $value->setResizeProportional(false);
             $value->setInCell(true);
-            $value->setWorksheet($cell->getWorksheet());
+            $value->setWorksheet($cell->getWorksheet(), true);
         } else {
             throw new SpreadsheetException('Unable to bind unstringable ' . gettype($value));
         }

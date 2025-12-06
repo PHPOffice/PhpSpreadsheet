@@ -218,14 +218,19 @@ class BaseDrawing implements IComparable
         } else {
             if ($overrideOld) {
                 // Remove drawing from old Worksheet
-                $iterator = $this->worksheet->getDrawingCollection()->getIterator();
+                $collections = [
+                    $this->worksheet->getDrawingCollection(),
+                    $this->worksheet->getInCellDrawingCollection(),
+                ];
 
-                while ($iterator->valid()) {
-                    if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
-                        $this->worksheet = null;
+                foreach ($collections as $collection) {
+                    foreach ($collection as $key => $drawing) {
+                        if ($drawing->getHashCode() === $this->getHashCode()) {
+                            $collection->offsetUnset($key);
+                            $this->worksheet = null;
 
-                        break;
+                            break 2; // break both loops
+                        }
                     }
                 }
 

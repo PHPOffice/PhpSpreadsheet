@@ -94,4 +94,94 @@ class DrawingInCellTest extends AbstractFunctional
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
+
+    public function testMoveImageInCell(): void
+    {
+        $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getSheet(1);
+
+        /** @var ?Drawing $drawing */
+        $drawing = $sheet->getCell('D7')->getValue();
+        if ($drawing === null) {
+            self::fail('Unexpected null drawing');
+        }
+        $originalWidth = $drawing->getWidth();
+        $originalHeight = $drawing->getHeight();
+        $sheet->getCell('D7')->setValue(null);
+        $sheet->getCell('D8')->setValue($drawing);
+
+        // Save spreadsheet to file and read it back
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getSheet(1);
+        $drawings = $sheet->getInCellDrawingCollection();
+        self::assertCount(1, $drawings);
+
+        /** @var ?Drawing $drawing */
+        $drawing = $sheet->getCell('D8')->getValue();
+
+        if ($drawing === null) {
+            self::fail('Unexpected null drawing');
+        } else {
+            self::assertSame(IMAGETYPE_PNG, $drawing->getType());
+            self::assertSame('D8', $drawing->getCoordinates());
+            self::assertSame($originalWidth, $drawing->getWidth());
+            self::assertSame($originalHeight, $drawing->getHeight());
+        }
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testWriteSamePictureInCellAndAsFloating(): void
+    {
+        $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($file);
+
+        $objDrawing = new Drawing();
+        $objDrawing->setPath('tests/data/Writer/XLSX/blue_square.png');
+
+        $sheet = $spreadsheet->getSheet(1);
+        $sheet->getCell('C10')->setValue($objDrawing);
+
+        $objFloatingDrawing = new Drawing();
+        $objFloatingDrawing->setPath('tests/data/Writer/XLSX/blue_square.png');
+
+        $coordinates = $sheet->getCell('B5')->getCoordinate();
+        $objFloatingDrawing->setCoordinates($coordinates);
+        $objFloatingDrawing->setOffsetX(1);
+        $objFloatingDrawing->setOffsetY(1);
+        $objFloatingDrawing->setWorksheet($sheet);
+
+        // Save spreadsheet to file and read it back
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getSheet(1);
+        $drawings = $sheet->getInCellDrawingCollection();
+        self::assertCount(2, $drawings);
+
+        /** @var ?Drawing $drawing */
+        $drawing = $sheet->getCell('C10')->getValue();
+
+        if ($drawing === null) {
+            self::fail('Unexpected null drawing');
+        } else {
+            self::assertSame(IMAGETYPE_PNG, $drawing->getType());
+            self::assertSame('C10', $drawing->getCoordinates());
+            self::assertSame(100, $drawing->getWidth());
+            self::assertSame(100, $drawing->getHeight());
+        }
+
+        $floatingDrawings = $sheet->getDrawingCollection();
+
+        self::assertCount(1, $floatingDrawings);
+        self::assertSame('B5', $floatingDrawings->getIterator()->current()->getCoordinates());
+        self::assertNull($sheet->getCell('B5')->getValue());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
 }
