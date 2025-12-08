@@ -64,7 +64,7 @@ return [
         'ƒ',
     ],
     [
-        [63, 0x2105],
+        [99, 0x2105, 63],
         '℅',
     ],
     [
@@ -91,5 +91,8 @@ return [
         2,
         "\x02",
     ],
-    'omitted argument' => ['exception'],
+    'omitted argument' => [
+        'exception',
+        'omitted',
+    ],
 ];

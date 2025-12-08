@@ -19,40 +19,45 @@ class CodeTest extends AllSetupTeardown
     #[DataProvider('providerCODE')]
     public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
-        // If expected is array, 1st is for CODE, 2nd for UNICODE,
-        // 3rd is for Mac CODE if different from Windows.
-        if (is_array($expectedResult)) {
-            $expectedResult = $expectedResult[0];
-        }
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        if ($character === 'omitted') {
-            $sheet->getCell('B1')->setValue('=CODE()');
-        } else {
-            $this->setCell('A1', $character);
-            $sheet->getCell('B1')->setValue('=CODE(A1)');
-        }
-        $result = $sheet->getCell('B1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $this->runCodeTest($expectedResult, $character, false);
     }
 
     #[DataProvider('providerCODE')]
     public function testMacCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         CC::setMacCharacterSet();
-        // If expected is array, 1st is for CODE, 2nd for UNICODE,
-        // 3rd is for Mac CODE if different from Windows.
+        $this->runCodeTest($expectedResult, $character, true);
+    }
+
+    /**
+     * Helper method for running CODE tests.
+     *
+     * @param mixed $expectedResult Expected result (can be an array for CODE/UNICODE/Mac)
+     * @param mixed $character Symbol for testing
+     * @param bool $isMacMode Use Mac character set
+     */
+    private function runCodeTest(mixed $expectedResult, mixed $character, bool $isMacMode): void
+    {
+        // If the expected result is an array:
+        // 1st element for CODE (Windows)
+        // 2nd element for UNICODE
+        // 3rd element for Mac CODE (if different from Windows)
         if (is_array($expectedResult)) {
-            $expectedResult = $expectedResult[2] ?? $expectedResult[0];
+            $expectedResult = $isMacMode
+                ? ($expectedResult[2] ?? $expectedResult[0])
+                : $expectedResult[0];
         }
+
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
+
         if ($character === 'omitted') {
             $sheet->getCell('B1')->setValue('=CODE()');
         } else {
             $this->setCell('A1', $character);
             $sheet->getCell('B1')->setValue('=CODE(A1)');
         }
+
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
