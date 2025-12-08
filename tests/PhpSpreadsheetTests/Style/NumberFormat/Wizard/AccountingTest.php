@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Formatter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
@@ -17,6 +18,13 @@ use ReflectionMethod;
 
 class AccountingTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setThousandsSeparator(null);
+        StringHelper::setDecimalSeparator(null);
+    }
+
     #[DataProvider('providerAccounting')]
     public function testAccounting(
         string $expectedResultPositive,
