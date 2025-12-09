@@ -9,13 +9,15 @@ use PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
-use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
-// Separate processes because register arrays are static
-#[Attributes\RunTestsInSeparateProcesses]
 class IOFactoryRegisterTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        IOFactory::restoreDefaultReadersAndWriters();
+    }
+
     public function testRegisterWriter(): void
     {
         IOFactory::registerWriter('Pdf', Writer\Pdf\Mpdf::class);

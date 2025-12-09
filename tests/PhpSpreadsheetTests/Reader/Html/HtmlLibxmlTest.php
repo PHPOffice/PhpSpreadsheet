@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
  * although it will generate warning messages.
  * This member demonstrates a method less intrusive than
  * set_error_handler to detect if there has been a problem.
- * I want it run in a separate
- * process because I am nervous about libxml_use_internal_errors.
  */
-#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class HtmlLibxmlTest extends TestCase
 {
     private bool $useErrors;

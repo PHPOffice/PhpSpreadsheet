@@ -47,14 +47,9 @@ class LocaleFloatsTest extends AbstractFunctional
         }
     }
 
-    /**
-     * Use separate process because this calls native Php setlocale.
-     */
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testLocaleFloatsCorrectlyConvertedByWriter(): void
     {
         if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra.utf8')) {
-            $this->currentPhpLocale = false;
             self::markTestSkipped('Unable to set locale for testing.');
         }
         $localeconv = localeconv();
@@ -102,14 +97,9 @@ class LocaleFloatsTest extends AbstractFunctional
         self::assertSame('2,50', $sheet->getCell('A12')->getFormattedValue());
     }
 
-    /**
-     * Use separate process because this calls native Php setlocale.
-     */
-    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function testPercentageStoredAsString2(): void
     {
         if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra.utf8')) {
-            $this->currentPhpLocale = false;
             self::markTestSkipped('Unable to set locale for testing.');
         }
         $localeconv = localeconv();
