@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -152,10 +151,6 @@ class Sort extends LookupRefValidations
 
     private static function validateScalarArgumentsForSort(mixed &$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
-        if (is_array($sortIndex) || is_array($sortOrder)) {
-            throw new Exception(ExcelError::VALUE());
-        }
-
         $sortIndex = self::validatePositiveInt($sortIndex, false);
 
         if ($sortIndex > $sortArraySize) {
@@ -225,12 +220,19 @@ class Sort extends LookupRefValidations
      */
     private static function prepareSortVectorValues(array $sortVector): array
     {
-        // Strings should be sorted case-insensitive; with booleans converted to locale-strings
+        // Strings should be sorted case-insensitive.
+        // Booleans are a complete mess. Excel always seems to sort
+        // booleans in a mixed vector at either the top or the bottom,
+        // so converting them to string or int doesn't really work.
+        // Best advice is to use them in a boolean-only vector.
+        // Code below chooses int conversion, which is sensible,
+        // and, as a bonus, compatible with LibreOffice.
         return array_map(
             function ($value) {
                 if (is_bool($value)) {
-                    return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-                } elseif (is_string($value)) {
+                    return (int) $value;
+                }
+                if (is_string($value)) {
                     return StringHelper::strToLower($value);
                 }
 

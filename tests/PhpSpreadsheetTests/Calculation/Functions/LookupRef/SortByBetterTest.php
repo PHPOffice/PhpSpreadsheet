@@ -89,6 +89,7 @@ class SortByBetterTest extends TestCase
     {
         $sheet = $this->getSheet($matrix);
         $sheet->fromArray([['B'], ['D'], ['A'], ['C'], ['H'], ['G'], ['F'], ['E']], null, 'G1', true);
+        $sheet->fromArray([[true], [false], [true], [false], [true], [false], [true], [false]], null, 'H1', true);
         $formula = "=SORTBY({$this->range}, $byArray";
         if ($sortOrder !== null) {
             $formula .= ", $sortOrder";
@@ -150,6 +151,20 @@ class SortByBetterTest extends TestCase
                 ],
                 self::sampleDataForSimpleSort(),
                 'G1:G8',
+            ],
+            'Boolean sort indexes' => [
+                [
+                    ['Fred', 65],
+                    ['Sal', 73],
+                    ['Srivan', 39],
+                    ['Hector', 66],
+                    ['Tom', 52],
+                    ['Amy', 22],
+                    ['Fritz', 19],
+                    ['Xi', 19],
+                ],
+                self::sampleDataForSimpleSort(),
+                'H1:H8',
             ],
             'Simple sort by name descending' => [
                 [
