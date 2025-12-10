@@ -88,6 +88,7 @@ class SortByBetterTest extends TestCase
     public function testSortByRow(array $expectedResult, array $matrix, string $byArray, ?int $sortOrder = null, ?string $byArray2 = null, ?int $sortOrder2 = null): void
     {
         $sheet = $this->getSheet($matrix);
+        $sheet->fromArray([['B'], ['D'], ['A'], ['C'], ['H'], ['G'], ['F'], ['E']], null, 'G1', true);
         $formula = "=SORTBY({$this->range}, $byArray";
         if ($sortOrder !== null) {
             $formula .= ", $sortOrder";
@@ -135,6 +136,20 @@ class SortByBetterTest extends TestCase
                 ],
                 self::sampleDataForSimpleSort(),
                 'A1:A8',
+            ],
+            'More realistic example of when to use SORTBY vs SORT' => [
+                [
+                    ['Amy', 22],
+                    ['Tom', 52],
+                    ['Sal', 73],
+                    ['Fred', 65],
+                    ['Hector', 66],
+                    ['Xi', 19],
+                    ['Srivan', 39],
+                    ['Fritz', 19],
+                ],
+                self::sampleDataForSimpleSort(),
+                'G1:G8',
             ],
             'Simple sort by name descending' => [
                 [

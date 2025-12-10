@@ -165,13 +165,13 @@ class Sort extends LookupRefValidations
         $sortOrder = self::validateSortOrder($sortOrder);
     }
 
-    /** @return mixed[] */
-    private static function validateSortVector(mixed $sortVector, int $sortArraySize): array
+    /**
+     * @param mixed[] $sortVector
+     *
+     * @return mixed[]
+     */
+    private static function validateSortVector(array $sortVector, int $sortArraySize): array
     {
-        if (!is_array($sortVector)) {
-            throw new Exception(ExcelError::VALUE());
-        }
-
         // It doesn't matter if it's a row or a column vectors, it works either way
         $sortVector = Functions::flattenArray($sortVector);
         if (count($sortVector) !== $sortArraySize) {
