@@ -496,4 +496,185 @@ class DrawingPassThroughTest extends AbstractFunctional
         $zip->close();
         unlink($tempFile);
     }
+
+    /**
+     * Test that pass-through preserves SVG images and their relationships.
+     * Excel stores SVG images with a PNG fallback using separate rIds.
+     * Without proper pass-through of relationships and media files, the rIds
+     * become misaligned and images break.
+     *
+     * File structure of merge.excel.xlsx:
+     * - xl/media/image1.png (PNG fallback for SVG)
+     * - xl/media/image2.svg (SVG image)
+     * - xl/media/image3.jpeg (JPEG image)
+     * - Drawing relationships: rId1=PNG, rId2=SVG, rId3=JPEG
+     */
+    public function testDrawingPassThroughPreservesSvgImagesAndRelationships(): void
+    {
+        $template = self::DIRECTORY . 'merge.excel.xlsx';
+
+        // Load with pass-through enabled
+        $reader = new XlsxReader();
+        $reader->setEnableDrawingPassThrough(true);
+        $spreadsheet = $reader->load($template);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Verify that drawing collection contains supported images (PNG and JPEG, not SVG)
+        $drawings = $sheet->getDrawingCollection();
+        self::assertGreaterThanOrEqual(1, count($drawings), 'Drawing collection should contain at least one supported image');
+
+        // Verify that pass-through data is stored
+        $unparsedData = $spreadsheet->getUnparsedLoadedData();
+        $codeName = $sheet->getCodeName();
+        self::assertArrayHasKey('sheets', $unparsedData);
+        self::assertIsArray($unparsedData['sheets']);
+        self::assertArrayHasKey($codeName, $unparsedData['sheets']);
+        self::assertIsArray($unparsedData['sheets'][$codeName]);
+        self::assertTrue($unparsedData['sheets'][$codeName]['drawingPassThroughEnabled'] ?? false);
+
+        // Verify that drawing relationships are stored
+        self::assertArrayHasKey('drawingRelationships', $unparsedData['sheets'][$codeName]);
+        $relsXml = $unparsedData['sheets'][$codeName]['drawingRelationships'];
+        self::assertIsString($relsXml);
+        self::assertStringContainsString('image1.png', $relsXml, 'Relationships should reference PNG');
+        self::assertStringContainsString('image2.svg', $relsXml, 'Relationships should reference SVG');
+        self::assertStringContainsString('image3.jpeg', $relsXml, 'Relationships should reference JPEG');
+
+        // Verify that media files paths are stored
+        self::assertArrayHasKey('drawingMediaFiles', $unparsedData['sheets'][$codeName]);
+        $mediaFiles = $unparsedData['sheets'][$codeName]['drawingMediaFiles'];
+        self::assertIsArray($mediaFiles);
+        self::assertGreaterThanOrEqual(3, count($mediaFiles), 'Should have at least 3 media files (PNG, SVG, JPEG)');
+
+        // Save to file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify that the saved file preserves all images and relationships
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        // Check that all media files are present
+        $pngContent = $zip->getFromName('xl/media/image1.png');
+        $svgContent = $zip->getFromName('xl/media/image2.svg');
+        $jpegContent = $zip->getFromName('xl/media/image3.jpeg');
+
+        self::assertNotFalse($pngContent, 'PNG image should be preserved');
+        self::assertNotFalse($svgContent, 'SVG image should be preserved');
+        self::assertNotFalse($jpegContent, 'JPEG image should be preserved');
+
+        // Check that drawing relationships are correct
+        $drawingRels = $zip->getFromName('xl/drawings/_rels/drawing1.xml.rels');
+        self::assertNotFalse($drawingRels, 'Drawing relationships file should exist');
+        self::assertStringContainsString('image1.png', $drawingRels, 'Drawing rels should reference PNG');
+        self::assertStringContainsString('image2.svg', $drawingRels, 'Drawing rels should reference SVG');
+        self::assertStringContainsString('image3.jpeg', $drawingRels, 'Drawing rels should reference JPEG');
+
+        // Check that drawing XML references are intact
+        $drawingXml = $zip->getFromName('xl/drawings/drawing1.xml');
+        self::assertNotFalse($drawingXml, 'Drawing XML should exist');
+
+        // Verify SVG is referenced via svgBlip extension
+        self::assertStringContainsString('svgBlip', $drawingXml, 'Drawing should contain SVG blip reference');
+
+        $zip->close();
+        unlink($tempFile);
+    }
+
+    /**
+     * Test that WITHOUT pass-through, SVG images are lost due to rId misalignment.
+     * This documents the expected behavior without the fix.
+     */
+    public function testWithoutPassThroughSvgImagesAreLost(): void
+    {
+        $template = self::DIRECTORY . 'merge.excel.xlsx';
+
+        // Verify that the original file contains SVG
+        $originalZip = new ZipArchive();
+        $originalZip->open($template);
+        $originalSvgContent = $originalZip->getFromName('xl/media/image2.svg');
+        $originalZip->close();
+        self::assertNotFalse($originalSvgContent, 'Original file should contain SVG');
+
+        // Load WITHOUT pass-through
+        $reader = new XlsxReader();
+        // Don't enable pass-through
+        $spreadsheet = $reader->load($template);
+
+        // Save to file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify that SVG is lost
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        // SVG file should NOT be present (PhpSpreadsheet doesn't support SVG)
+        $svgContent = $zip->getFromName('xl/media/image2.svg');
+        self::assertFalse($svgContent, 'SVG image should NOT be present without pass-through');
+
+        // PNG and JPEG should still be present (supported formats)
+        // Note: filenames may be different as they are regenerated
+        $mediaFiles = [];
+        for ($i = 0; $i < $zip->numFiles; ++$i) {
+            $name = $zip->getNameIndex($i);
+            if ($name !== false && str_starts_with($name, 'xl/media/')) {
+                $mediaFiles[] = $name;
+            }
+        }
+
+        // Should have some media files but not SVG
+        self::assertNotEmpty($mediaFiles, 'Should have some media files');
+        foreach ($mediaFiles as $file) {
+            self::assertStringNotContainsString('.svg', $file, 'No SVG files should be present without pass-through');
+        }
+
+        $zip->close();
+        unlink($tempFile);
+    }
+
+    /**
+     * Test that pass-through preserves shapes (textboxes, rectangles, etc.)
+     * in addition to images with SVG.
+     */
+    public function testDrawingPassThroughPreservesShapesAndSvg(): void
+    {
+        $template = self::DIRECTORY . 'merge.excel.xlsx';
+
+        // Load with pass-through enabled
+        $reader = new XlsxReader();
+        $reader->setEnableDrawingPassThrough(true);
+        $spreadsheet = $reader->load($template);
+
+        // Save to file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify shapes are preserved
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        $drawingXml = $zip->getFromName('xl/drawings/drawing1.xml');
+        self::assertNotFalse($drawingXml, 'Drawing XML should exist');
+
+        // Check for shapes (xdr:sp elements)
+        self::assertStringContainsString('<xdr:sp', $drawingXml, 'Shapes should be preserved');
+        self::assertStringContainsString('<xdr:txBody>', $drawingXml, 'Textboxes should be preserved');
+
+        // Check for images (xdr:pic elements)
+        self::assertStringContainsString('<xdr:pic', $drawingXml, 'Images should be preserved');
+
+        // Check for SVG reference
+        self::assertStringContainsString('svgBlip', $drawingXml, 'SVG reference should be preserved');
+
+        $zip->close();
+        unlink($tempFile);
+    }
 }

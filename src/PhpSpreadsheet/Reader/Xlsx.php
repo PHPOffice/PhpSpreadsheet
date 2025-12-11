@@ -1492,7 +1492,16 @@ class Xlsx extends BaseReader
                                             if (!isset($unparsedLoadedData['sheets'][$sheetCodeName]) || !is_array($unparsedLoadedData['sheets'][$sheetCodeName])) {
                                                 $unparsedLoadedData['sheets'][$sheetCodeName] = [];
                                             }
-                                            $unparsedLoadedData['sheets'][$sheetCodeName]['drawingPassThroughEnabled'] = true;
+                                            /** @var array<string, mixed> $sheetUnparsedData */
+                                            $sheetUnparsedData = &$unparsedLoadedData['sheets'][$sheetCodeName];
+                                            $sheetUnparsedData['drawingPassThroughEnabled'] = true;
+                                            // Store original drawing relationships for pass-through
+                                            if ($relsDrawing) {
+                                                $sheetUnparsedData['drawingRelationships'] = $relsDrawing->asXML();
+                                            }
+                                            // Store original media files paths and source file for pass-through
+                                            $sheetUnparsedData['drawingMediaFiles'] = $images;
+                                            $sheetUnparsedData['drawingSourceFile'] = File::realpath($filename);
                                         }
 
                                         if ($xmlDrawingChildren->oneCellAnchor) {

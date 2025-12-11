@@ -558,6 +558,9 @@ class Xlsx extends BaseWriter
             }
         }
 
+        // Add pass-through media files (original media that may not be in the drawing collection)
+        $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type
+
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
@@ -842,5 +845,44 @@ class Xlsx extends BaseWriter
     public function getRestrictMaxColumnWidth(): bool
     {
         return $this->restrictMaxColumnWidth;
+    }
+
+    /**
+     * Add pass-through media files from original spreadsheet.
+     * This copies media files that are referenced in pass-through drawing XML
+     * but may not be in the drawing collection (e.g., unsupported formats like SVG).
+     *
+     * @param string[] $zipContent
+     */
+    private function addPassThroughMediaFiles(array &$zipContent): void
+    {
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $this->spreadSheet->getUnparsedLoadedData()['sheets'] ?? [];
+        foreach ($sheets as $sheetData) {
+            /** @var string[] $mediaFiles */
+            $mediaFiles = $sheetData['drawingMediaFiles'] ?? [];
+            /** @var ?string $sourceFile */
+            $sourceFile = $sheetData['drawingSourceFile'] ?? null;
+            if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || $mediaFiles === [] || !is_string($sourceFile) || !file_exists($sourceFile)) {
+                continue;
+            }
+
+            $sourceZip = new ZipArchive();
+            if ($sourceZip->open($sourceFile) !== true) {
+                continue; // @codeCoverageIgnore
+            }
+
+            foreach ($mediaFiles as $mediaPath) {
+                $zipPath = 'xl/media/' . basename($mediaPath);
+                if (!isset($zipContent[$zipPath])) {
+                    $mediaContent = $sourceZip->getFromName($mediaPath);
+                    if ($mediaContent !== false) {
+                        $zipContent[$zipPath] = $mediaContent;
+                    }
+                }
+            }
+
+            $sourceZip->close();
+        }
     }
 }

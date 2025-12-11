@@ -608,20 +608,16 @@ class Drawing extends WriterPart
      */
     private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
     {
-        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
-        if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
-            return null;
-        }
-
-        $codeName = $worksheet->getCodeName();
-        $sheetData = $unparsedLoadedData['sheets'][$codeName] ?? null;
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'] ?? [];
+        $sheetData = $sheets[$worksheet->getCodeName()] ?? [];
         // Only use pass-through XML if the Reader flag was explicitly enabled
-        if (!is_array($sheetData) || ($sheetData['drawingPassThroughEnabled'] ?? false) !== true || !is_array($sheetData['Drawings'] ?? null)) {
+        /** @var string[] $drawings */
+        $drawings = $sheetData['Drawings'] ?? [];
+        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || $drawings === []) {
             return null;
         }
 
-        $firstDrawing = reset($sheetData['Drawings']);
-
-        return is_string($firstDrawing) ? $firstDrawing : null;
+        return reset($drawings) ?: null;
     }
 }
