@@ -53,6 +53,7 @@ class ExponentialBestFitTest extends TestCase
         self::assertEqualsWithDelta(76.0938, $bestFit->getF(self::DP), self::EBF_PRECISION5);
         self::assertEqualsWithDelta(-13.1, $bestFit->getCovariance(self::DP), self::EBF_PRECISION5);
         self::assertEqualsWithDelta(-0.919, $bestFit->getCorrelation(self::DP), self::EBF_PRECISION5);
+        self::assertEqualsWithDelta(3.51845, $bestFit->getValueOfXForY(10.0), self::EBF_PRECISION5);
         $values = $bestFit->getYBestFitValues();
         self::assertCount(10, $values);
         self::assertEqualsWithDelta(3.965445, $values[0], self::EBF_PRECISION6);
