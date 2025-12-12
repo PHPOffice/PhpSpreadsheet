@@ -1207,6 +1207,8 @@ Code like the following can be used:
             // rowDividers: true,
             // rowHeaders: false,
             // columnHeaders: false,
+            // Starting with release 5.4:
+            // numbersRight: TextGridRightAlign::numeric,
         );
         $result = $textGrid->render();
 ```

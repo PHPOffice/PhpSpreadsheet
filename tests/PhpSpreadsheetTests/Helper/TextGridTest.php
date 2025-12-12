@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\TextGrid;
+use PhpOffice\PhpSpreadsheet\Helper\TextGridRightAlign;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -215,7 +216,7 @@ class TextGridTest extends TestCase
             rowDividers: false,
             rowHeaders: false,
             columnHeaders: false,
-            numbersRight: true,
+            numbersRight: TextGridRightAlign::numeric,
         );
         $expected = [
             '+-----+-------+--------------+',
@@ -251,7 +252,7 @@ class TextGridTest extends TestCase
             rowHeaders: false,
             columnHeaders: false,
         );
-        $textGrid->setNumbersRight(true);
+        $textGrid->setNumbersRight(TextGridRightAlign::numeric);
         $expected = [
             '+-----+-------+--------------+',
             '|   0 |  1.00 |    $1,234.56 |',

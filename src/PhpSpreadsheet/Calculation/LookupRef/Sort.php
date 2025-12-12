@@ -19,6 +19,12 @@ class Sort extends LookupRefValidations
      * The returned array is the same shape as the provided array argument.
      * Both $sortIndex and $sortOrder can be arrays, to provide multi-level sorting.
      *
+     * NOTE: If $sortArray contains a mixture of data types
+     * (string/int/bool), the results may be unexpected.
+     * This is also true if the array consists of string
+     * representations of numbers, especially if there are
+     * both positive and negative numbers in the mix.
+     *
      * @param mixed $sortArray The range of cells being sorted
      * @param mixed $sortIndex The column or row number within the sortArray to sort on
      * @param mixed $sortOrder Flag indicating whether to sort ascending or descending
@@ -76,6 +82,12 @@ class Sort extends LookupRefValidations
      * When by_array is a horizontal range, SORTBY sorts horizontally by columns.
      * My interpretation of this is that by_array must be an
      * array which contains exactly one row.
+     *
+     * NOTE: If the "byArray" contains a mixture of data types
+     * (string/int/bool), the results may be unexpected.
+     * This is also true if the array consists of string
+     * representations of numbers, especially if there are
+     * both positive and negative numbers in the mix.
      *
      * @param mixed $sortArray The range of cells being sorted
      * @param mixed $args

@@ -25,10 +25,10 @@ class TextGrid
 
     protected bool $columnHeaders = true;
 
-    protected bool $numbersRight = false;
+    protected TextGridRightAlign $numbersRight = TextGridRightAlign::none;
 
     /** @param mixed[][] $matrix */
-    public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true, bool $numbersRight = false)
+    public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true, TextGridRightAlign $numbersRight = TextGridRightAlign::none)
     {
         $this->rows = array_keys($matrix);
         $this->columns = array_keys($matrix[$this->rows[0]]);
@@ -49,7 +49,7 @@ class TextGrid
         $this->numbersRight = $numbersRight;
     }
 
-    public function setNumbersRight(bool $numbersRight): void
+    public function setNumbersRight(TextGridRightAlign $numbersRight): void
     {
         $this->numbersRight = $numbersRight;
     }
@@ -100,7 +100,7 @@ class TextGrid
             $valueForLength = $this->getString($cell);
             $displayCell = $this->isCli ? $valueForLength : htmlentities($valueForLength);
             $this->gridDisplay .= '| ';
-            if ($this->rightAlign($displayCell)) {
+            if ($this->rightAlign($displayCell, $cell)) {
                 $this->gridDisplay .= str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength)) . $displayCell . ' ';
             } else {
                 $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength) + 1);
@@ -108,9 +108,9 @@ class TextGrid
         }
     }
 
-    protected function rightAlign(string $displayCell): bool
+    protected function rightAlign(string $displayCell, mixed $cell = null): bool
     {
-        return $this->numbersRight && is_numeric($displayCell);
+        return ($this->numbersRight === TextGridRightAlign::numeric && is_numeric($displayCell)) || ($this->numbersRight === TextGridRightAlign::floatOrInt && (is_int($cell) || is_float($cell)));
     }
 
     /** @param int[] $columnWidths */
