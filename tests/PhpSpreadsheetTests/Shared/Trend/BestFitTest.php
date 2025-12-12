@@ -62,6 +62,7 @@ class BestFitTest extends TestCase
         $equation = $result->getEquation();
         $match = preg_match('/^Y = 0[.]1705\d+ [*] X\^1[.]2207\d+$/', $equation);
         self::assertSame(1, $match, $equation);
+        self::assertEqualsWithDelta(0.1705, $result->getIntersect(4), self::LBF_PRECISION);
 
         $type = Trend::TREND_BEST_FIT_NO_POLY;
         $result = Trend::calculate($type, $yValues, $xValues);
