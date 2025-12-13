@@ -437,7 +437,9 @@ class Xlsx extends BaseWriter
             }
 
             // Add drawing and image relationship parts
-            if (($drawingCount > 0) || ($chartCount > 0)) {
+            /** @var bool $hasPassThroughDrawing */
+            $hasPassThroughDrawing = $unparsedSheet['drawingPassThroughEnabled'] ?? false;
+            if (($drawingCount > 0) || ($chartCount > 0) || $hasPassThroughDrawing) {
                 // Drawing relationships
                 $zipContent['xl/drawings/_rels/drawing' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeDrawingRelationships($this->spreadSheet->getSheet($i), $chartRef1, $this->includeCharts);
 

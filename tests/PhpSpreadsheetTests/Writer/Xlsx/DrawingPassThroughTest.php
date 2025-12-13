@@ -677,4 +677,167 @@ class DrawingPassThroughTest extends AbstractFunctional
         $zip->close();
         unlink($tempFile);
     }
+
+    /**
+     * Test that pass-through preserves grouped images.
+     * Grouped images are not parsed into the drawing collection, so they would be lost
+     * without proper pass-through of drawing XML, relationships, and media files.
+     *
+     * File structure of grouped_images.xlsx:
+     * - Contains a group (xdr:grpSp) with 2 images inside
+     * - xl/media/image1.png and xl/media/image2.png
+     * - The images are referenced from within the group element
+     */
+    public function testDrawingPassThroughPreservesGroupedImages(): void
+    {
+        $template = self::DIRECTORY . 'grouped_images.xlsx';
+
+        // Verify that the original file contains a group with images
+        $originalZip = new ZipArchive();
+        $originalZip->open($template);
+        $originalDrawingXml = $originalZip->getFromName('xl/drawings/drawing1.xml');
+        $originalRels = $originalZip->getFromName('xl/drawings/_rels/drawing1.xml.rels');
+        $originalZip->close();
+
+        self::assertNotFalse($originalDrawingXml, 'Original file should have drawing XML');
+        self::assertStringContainsString('<xdr:grpSp>', $originalDrawingXml, 'Original file should contain a group');
+        self::assertStringContainsString('<xdr:pic>', $originalDrawingXml, 'Original file should contain images inside group');
+        self::assertNotFalse($originalRels, 'Original file should have drawing relationships');
+        self::assertStringContainsString('image1.png', $originalRels, 'Original rels should reference image1.png');
+        self::assertStringContainsString('image2.bmp', $originalRels, 'Original rels should reference image2.bmp');
+        self::assertStringContainsString('image4.gif', $originalRels, 'Original rels should reference image4.gif');
+        self::assertStringContainsString('image6.svg', $originalRels, 'Original rels should reference image6.svg');
+
+        // Load with pass-through enabled
+        $reader = new XlsxReader();
+        $reader->setEnableDrawingPassThrough(true);
+        $spreadsheet = $reader->load($template);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Verify that drawing collection is empty (grouped images are not parsed)
+        $drawings = $sheet->getDrawingCollection();
+        self::assertCount(0, $drawings, 'Drawing collection should be empty (grouped images are not parsed)');
+
+        // Verify that pass-through data is stored
+        $unparsedData = $spreadsheet->getUnparsedLoadedData();
+        $codeName = $sheet->getCodeName();
+        self::assertArrayHasKey('sheets', $unparsedData);
+        self::assertIsArray($unparsedData['sheets']);
+        self::assertArrayHasKey($codeName, $unparsedData['sheets']);
+        self::assertIsArray($unparsedData['sheets'][$codeName]);
+        self::assertTrue($unparsedData['sheets'][$codeName]['drawingPassThroughEnabled'] ?? false, 'Pass-through should be enabled');
+
+        // Verify that drawing relationships are stored
+        self::assertArrayHasKey('drawingRelationships', $unparsedData['sheets'][$codeName], 'Drawing relationships should be stored');
+
+        // Verify that media files paths are stored
+        self::assertArrayHasKey('drawingMediaFiles', $unparsedData['sheets'][$codeName], 'Media files should be stored');
+        $mediaFiles = $unparsedData['sheets'][$codeName]['drawingMediaFiles'];
+        self::assertIsArray($mediaFiles);
+        self::assertGreaterThanOrEqual(2, count($mediaFiles), 'Should have at least 2 media files');
+
+        // Save to file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify that the saved file preserves the group and images
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        // Check that drawing XML contains the group
+        $drawingXml = $zip->getFromName('xl/drawings/drawing1.xml');
+        self::assertNotFalse($drawingXml, 'Drawing XML should exist in saved file');
+        self::assertStringContainsString('<xdr:grpSp>', $drawingXml, 'Group should be preserved');
+        self::assertStringContainsString('<xdr:pic>', $drawingXml, 'Images inside group should be preserved');
+
+        // Check that drawing relationships are preserved
+        $drawingRels = $zip->getFromName('xl/drawings/_rels/drawing1.xml.rels');
+        self::assertNotFalse($drawingRels, 'Drawing relationships file should exist');
+        self::assertStringContainsString('image1.png', $drawingRels, 'Drawing rels should reference image1.png');
+        self::assertStringContainsString('image2.bmp', $drawingRels, 'Drawing rels should reference image2.bmp');
+        self::assertStringContainsString('image4.gif', $drawingRels, 'Drawing rels should reference image4.gif');
+        self::assertStringContainsString('image6.svg', $drawingRels, 'Drawing rels should reference image6.svg');
+
+        // Check that media files are present
+        $image1Content = $zip->getFromName('xl/media/image1.png');
+        $image2Content = $zip->getFromName('xl/media/image2.bmp');
+        $image4Content = $zip->getFromName('xl/media/image4.gif');
+        $image6Content = $zip->getFromName('xl/media/image6.svg');
+        self::assertNotFalse($image1Content, 'image1.png should be preserved');
+        self::assertNotFalse($image2Content, 'image2.bmp should be preserved');
+        self::assertNotFalse($image4Content, 'image4.gif should be preserved');
+        self::assertNotFalse($image6Content, 'image6.svg should be preserved');
+
+        // Check that Content_Types.xml contains all image extensions
+        $contentTypes = $zip->getFromName('[Content_Types].xml');
+        self::assertNotFalse($contentTypes, 'Content_Types.xml should exist');
+        self::assertStringContainsString('image/png', $contentTypes, 'Content_Types should declare PNG mime type');
+        self::assertStringContainsString('image/bmp', $contentTypes, 'Content_Types should declare BMP mime type');
+        self::assertStringContainsString('image/gif', $contentTypes, 'Content_Types should declare GIF mime type');
+        self::assertStringContainsString('image/svg+xml', $contentTypes, 'Content_Types should declare SVG mime type');
+
+        $zip->close();
+        unlink($tempFile);
+    }
+
+    /**
+     * Test that WITHOUT pass-through, grouped images are lost.
+     * This documents the expected behavior without the fix.
+     */
+    public function testWithoutPassThroughGroupedImagesAreLost(): void
+    {
+        $template = self::DIRECTORY . 'grouped_images.xlsx';
+
+        // Verify that the original file contains grouped images
+        $originalZip = new ZipArchive();
+        $originalZip->open($template);
+        $originalDrawingXml = $originalZip->getFromName('xl/drawings/drawing1.xml');
+        $originalZip->close();
+        self::assertStringContainsString('<xdr:grpSp>', $originalDrawingXml, 'Original file should contain a group');
+
+        // Load WITHOUT pass-through
+        $reader = new XlsxReader();
+        // Don't enable pass-through
+        $spreadsheet = $reader->load($template);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Verify that drawing collection is empty (grouped images are not parsed)
+        $drawings = $sheet->getDrawingCollection();
+        self::assertCount(0, $drawings, 'Drawing collection should be empty without pass-through too');
+
+        // Save to file
+        $tempFile = File::temporaryFilename();
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->save($tempFile);
+        $spreadsheet->disconnectWorksheets();
+
+        // Verify that the group and images are lost
+        $zip = new ZipArchive();
+        $zip->open($tempFile);
+
+        // Drawing XML should not exist or not contain the group
+        $drawingXml = $zip->getFromName('xl/drawings/drawing1.xml');
+
+        if ($drawingXml !== false) {
+            // If drawing XML exists, it should NOT contain the group
+            self::assertStringNotContainsString('<xdr:grpSp>', $drawingXml, 'Group should be lost without pass-through');
+        }
+
+        // Media files should NOT be present (nothing was in the drawing collection)
+        $image1Content = $zip->getFromName('xl/media/image1.png');
+        $image2Content = $zip->getFromName('xl/media/image2.bmp');
+        $image4Content = $zip->getFromName('xl/media/image4.gif');
+        $image6Content = $zip->getFromName('xl/media/image6.svg');
+        self::assertFalse($image1Content, 'image1.png should NOT be present without pass-through');
+        self::assertFalse($image2Content, 'image2.bmp should NOT be present without pass-through');
+        self::assertFalse($image4Content, 'image4.gif should NOT be present without pass-through');
+        self::assertFalse($image6Content, 'image6.svg should NOT be present without pass-through');
+
+        $zip->close();
+        unlink($tempFile);
+    }
 }

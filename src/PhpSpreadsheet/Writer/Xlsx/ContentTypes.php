@@ -156,6 +156,33 @@ class ContentTypes extends WriterPart
                 $this->writeDefaultContentType($objWriter, $extension, $mimeType);
             }
         }
+
+        // Add pass-through media content types
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $unparsedLoadedData['sheets'] ?? [];
+        foreach ($sheets as $sheetData) {
+            if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true) {
+                continue;
+            }
+            /** @var string[] $mediaFiles */
+            $mediaFiles = $sheetData['drawingMediaFiles'] ?? [];
+            foreach ($mediaFiles as $mediaPath) {
+                $extension = strtolower(pathinfo($mediaPath, PATHINFO_EXTENSION));
+                if ($extension !== '' && !isset($aMediaContentTypes[$extension])) {
+                    $mimeType = match ($extension) { // @phpstan-ignore match.unhandled
+                        'png' => 'image/png',
+                        'jpg', 'jpeg' => 'image/jpeg',
+                        'gif' => 'image/gif',
+                        'bmp' => 'image/bmp',
+                        'tif', 'tiff' => 'image/tiff',
+                        'svg' => 'image/svg+xml',
+                    };
+                    $aMediaContentTypes[$extension] = $mimeType;
+                    $this->writeDefaultContentType($objWriter, $extension, $mimeType);
+                }
+            }
+        }
+
         if ($spreadsheet->hasRibbonBinObjects()) {
             // Some additional objects in the ribbon ?
             // we need to write "Extension" but not already write for media content
