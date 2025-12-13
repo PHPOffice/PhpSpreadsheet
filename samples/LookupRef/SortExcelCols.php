@@ -7,7 +7,8 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Helper\TextGridRightAlign;
 use Stringable;
 
-class SortExcel
+// this is the same class as in sortExcel
+class SortExcelCols
 {
     public const ASCENDING = 1;
     public const DESCENDING = -1;
@@ -92,26 +93,57 @@ class SortExcel
 
 require __DIR__ . '/../Header.php';
 /** @var Sample $helper */
-$helper->log('Emulating how Excel sorts different DataTypes');
+$helper->log('Emulating how Excel sorts different DataTypes by Column');
 
-/** @param mixed[] $original */
-function displaySorted(array $original, Sample $helper): void
+$array = [
+    ['a', 'a', 'a'],
+    ['a', 'a', 'b'],
+    ['a', null, 'c'],
+    ['b', 'b', 1],
+    ['b', 'c', 2],
+    ['b', 'c', true],
+    ['c', 1, false],
+    ['c', 1, 'a'],
+    ['c', 2, 'b'],
+    [1, 2, 'c'],
+    [1, true, 1],
+    [1, true, 2],
+    [2, false, true],
+    [2, false, false],
+    [2, 'a', false],
+    [true, 'b', true],
+    [true, 'c', 2],
+    [true, 1, 1],
+    [false, 2, 'a'],
+    [false, true, 'b'],
+    [false, false, 'c'],
+];
+
+/** @param array<int, array<int, mixed>> $original */
+function displaySortedCols(array $original, Sample $helper): void
 {
     $sorted = $original;
-    $sortExcel = new SortExcel();
-    $sortExcel->sortArray($sorted);
-    $outArray = [['Original', 'Sorted']];
+    $sortExcelCols = new SortExcelCols();
+    $helper->log('Sort by least significant column (descending)');
+    $sortExcelCols->sortArray($sorted, arrayCol: 2, ascending: -1);
+    $helper->log('Sort by middle column (ascending)');
+    $sortExcelCols->sortArray($sorted, arrayCol: 1, ascending: 1);
+    $helper->log('Sort by most significant column (descending)');
+    $sortExcelCols->sortArray($sorted, arrayCol: 0, ascending: -1);
+    $outArray = [['Original', '', '', 'Sorted', '', '']];
     $count = count($original);
+    /** @var string[][] $sorted */
     for ($i = 0; $i < $count; ++$i) {
-        $outArray[] = [$original[$i], $sorted[$i]];
+        $outArray[] = [
+            $original[$i][0],
+            $original[$i][1],
+            $original[$i][2],
+            $sorted[$i][0],
+            $sorted[$i][1],
+            $sorted[$i][2],
+        ];
     }
     $helper->displayGrid($outArray, TextGridRightAlign::floatOrInt);
 }
 
-$helper->log('First example');
-$original = ['-3', '40', 'A', 'B', true, false, '+3', '1', '10', '2', '25', 1, 0, -1];
-displaySorted($original, $helper);
-
-$helper->log('Second example');
-$original = ['a', 'A', null, 'x', 'X', true, false, -3, 1];
-displaySorted($original, $helper);
+displaySortedCols($array, $helper);
