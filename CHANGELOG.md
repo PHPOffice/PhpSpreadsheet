@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Passthrough support (with some restrictions) for otherwise unsupported drawing elements. [Issue #4037](https://github.com/PHPOffice/PhpSpreadsheet/issues/4037) [Issue #4704](https://github.com/PHPOffice/PhpSpreadsheet/issues/4704) [PR #4712](https://github.com/PHPOffice/PhpSpreadsheet/pull/4712)
 
 ### Removed
 
@@ -31,8 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Slightly better support for escaped characters in Xlsx Reader/Writer. [Discussion #4724](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4724) [PR #4726](https://github.com/PHPOffice/PhpSpreadsheet/pull/4726)
 - CODE/UNICODE and CHAR/UNICHAR. [PR #4727](https://github.com/PHPOffice/PhpSpreadsheet/pull/4727)
-- Minor changes to TextGrid. [PR #4735](https://github.com/PHPOffice/PhpSpreadsheet/pull/4735)
+- Minor changes to TextGrid. [PR #4735](https://github.com/PHPOffice/PhpSpreadsheet/pull/4735) [PR #4743](https://github.com/PHPOffice/PhpSpreadsheet/pull/4743)
 - Single-character table names. [Issue #4739](https://github.com/PHPOffice/PhpSpreadsheet/issues/4739) [PR #4740](https://github.com/PHPOffice/PhpSpreadsheet/pull/4740)
+- Improvements to SORT and SORTBY. [PR #4743](https://github.com/PHPOffice/PhpSpreadsheet/pull/4743)
+- Coverage-related changes in Shared. [PR #4745](https://github.com/PHPOffice/PhpSpreadsheet/pull/4745)
+- ListWorksheetInfo improvements for Xlsx and Ods. [Issue #3255](https://github.com/PHPOffice/PhpSpreadsheet/issues/3255) [PR #4746](https://github.com/PHPOffice/PhpSpreadsheet/pull/4746)
 
 ## 2025-11-24 - 5.3.0
 
