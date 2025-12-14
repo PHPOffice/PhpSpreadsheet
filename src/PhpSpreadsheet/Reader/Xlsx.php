@@ -279,15 +279,26 @@ class Xlsx extends BaseReader
                         $xml->setParserProperty(2, true);
 
                         $currCells = 0;
+                        $currRow = 0;
                         while ($xml->read()) {
                             if ($xml->localName == 'row' && $xml->nodeType == XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
                                 $row = (int) $xml->getAttribute('r');
-                                $tmpInfo['totalRows'] = $row;
+                                if ($this->readEmptyCells) {
+                                    $tmpInfo['totalRows'] = $row;
+                                } else {
+                                    $currRow = $row;
+                                }
                                 $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                                 $currCells = 0;
                             } elseif ($xml->localName == 'c' && $xml->nodeType == XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
-                                $cell = $xml->getAttribute('r');
-                                $currCells = $cell ? max($currCells, Coordinate::indexesFromString($cell)[0]) : ($currCells + 1);
+                                if ($this->readEmptyCells || !$xml->isEmptyElement) {
+                                    if ($currRow !== 0) {
+                                        $tmpInfo['totalRows'] = $currRow;
+                                        $currRow = 0;
+                                    }
+                                    $cell = $xml->getAttribute('r');
+                                    $currCells = $cell ? max($currCells, Coordinate::indexesFromString($cell)[0]) : ($currCells + 1);
+                                }
                             }
                         }
                         $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
