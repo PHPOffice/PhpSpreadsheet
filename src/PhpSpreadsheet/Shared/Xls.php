@@ -202,7 +202,7 @@ class Xls
      * @param int $width Width in pixels
      * @param int $height Height in pixels
      *
-     * @return array{startCoordinates: string, startOffsetX: int, startOffsetY: int, endCoordinates: string, endOffsetX: int, endOffsetY: int}
+     * @return ?array{startCoordinates: string, startOffsetX: float|int, startOffsetY: float|int, endCoordinates: string, endOffsetX: float|int, endOffsetY: float|int}
      */
     public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, int $offsetX, int $offsetY, int $width, int $height): ?array
     {
@@ -241,16 +241,12 @@ class Xls
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero height or width.
-        if (self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_start)) == 0) {
-            return null;
-        }
-        if (self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_end)) == 0) {
-            return null;
-        }
-        if (self::sizeRow($worksheet, $row_start + 1) == 0) {
-            return null;
-        }
-        if (self::sizeRow($worksheet, $row_end + 1) == 0) {
+        if (
+            self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_start)) == 0
+            || self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_end)) == 0
+            || self::sizeRow($worksheet, $row_start + 1) == 0
+            || self::sizeRow($worksheet, $row_end + 1) == 0
+        ) {
             return null;
         }
 
