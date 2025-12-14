@@ -1486,6 +1486,29 @@ class Xlsx extends BaseReader
                                         $xmlDrawing = $this->loadZipNoNamespace($fileDrawing, '');
                                         $xmlDrawingChildren = $xmlDrawing->children(Namespaces::SPREADSHEET_DRAWING);
 
+                                        // Store drawing XML for pass-through if enabled
+                                        if ($this->enableDrawingPassThrough) {
+                                            $unparsedDrawings[$drawingRelId] = $xmlDrawing->asXML();
+                                            // Mark that pass-through is enabled for this sheet
+                                            $sheetCodeName = $docSheet->getCodeName();
+                                            if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
+                                                $unparsedLoadedData['sheets'] = [];
+                                            }
+                                            if (!isset($unparsedLoadedData['sheets'][$sheetCodeName]) || !is_array($unparsedLoadedData['sheets'][$sheetCodeName])) {
+                                                $unparsedLoadedData['sheets'][$sheetCodeName] = [];
+                                            }
+                                            /** @var array<string, mixed> $sheetUnparsedData */
+                                            $sheetUnparsedData = &$unparsedLoadedData['sheets'][$sheetCodeName];
+                                            $sheetUnparsedData['drawingPassThroughEnabled'] = true;
+                                            // Store original drawing relationships for pass-through
+                                            if ($relsDrawing) {
+                                                $sheetUnparsedData['drawingRelationships'] = $relsDrawing->asXML();
+                                            }
+                                            // Store original media files paths and source file for pass-through
+                                            $sheetUnparsedData['drawingMediaFiles'] = $images;
+                                            $sheetUnparsedData['drawingSourceFile'] = File::realpath($filename);
+                                        }
+
                                         if ($xmlDrawingChildren->oneCellAnchor) {
                                             foreach ($xmlDrawingChildren->oneCellAnchor as $oneCellAnchor) {
                                                 $oneCellAnchor = self::testSimpleXml($oneCellAnchor);
