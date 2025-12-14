@@ -6,25 +6,65 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class SortTest extends TestCase
+class SortBetterTest extends TestCase
 {
+    private Spreadsheet $spreadsheet;
+
+    private int $maxRow;
+
+    private string $maxCol;
+
+    private string $range;
+
+    protected function tearDown(): void
+    {
+        $this->spreadsheet->disconnectWorksheets();
+        unset($this->spreadsheet);
+    }
+
+    /** @param mixed[] $values */
+    public function getSheet(array $values): Worksheet
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->returnArrayAsArray();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->fromArray($values);
+        $this->maxRow = $sheet->getHighestDataRow();
+        $this->maxCol = $sheet->getHighestDataColumn();
+        $this->range = "A1:{$this->maxCol}{$this->maxRow}";
+
+        return $sheet;
+    }
+
     public function testSortOnScalar(): void
     {
         $value = 'NON-ARRAY';
+        $sheet = $this->getSheet([$value]);
+        $sheet->getCell('Z1')->setValue('=SORT(A1, 1, -1)');
+        $sheet->getCell('Z2')->setValue('=SORT(A1:A1, 1, -1)');
+        $sheet->getCell('Z3')->setValue('=SORT(A1, "A", -1)');
 
-        $result = Sort::sort($value, 1, -1);
+        $result = $sheet->getCell('Z1')->getCalculatedValue();
         self::assertSame([[$value]], $result);
+        $result = $sheet->getCell('Z2')->getCalculatedValue();
+        self::assertSame([[$value]], $result);
+        $result = $sheet->getCell('Z3')->getCalculatedValue();
+        self::assertSame(ExcelError::VALUE(), $result);
     }
 
     #[DataProvider('providerSortWithScalarArgumentErrorReturns')]
-    public function testSortWithScalarArgumentErrorReturns(mixed $sortIndex, mixed $sortOrder = 1): void
+    public function testSortWithScalarArgumentErrorReturns(int|string $sortIndex, int|string $sortOrder = 1): void
     {
         $value = [[1, 2], [3, 4], [5, 6]];
-
-        $result = Sort::sort($value, $sortIndex, $sortOrder);
+        $sheet = $this->getSheet($value);
+        $formula = "=SORT({$this->range}, $sortIndex, $sortOrder)";
+        $sheet->getCell('Z1')->setValue($formula);
+        $result = $sheet->getCell('Z1')->getCalculatedValue();
         self::assertSame(ExcelError::VALUE(), $result);
     }
 
@@ -32,26 +72,32 @@ class SortTest extends TestCase
     {
         return [
             'Negative sortIndex' => [-1, -1],
-            'Non-numeric sortIndex' => ['A', -1],
+            'Non-numeric sortIndex' => ['"A"', -1],
             'Zero sortIndex' => [0, -1],
             'Too high sortIndex' => [3, -1],
-            'Non-numeric sortOrder' => [1, 'A'],
+            'Non-numeric sortOrder' => [1, '"A"'],
             'Invalid negative sortOrder' => [1, -2],
             'Zero sortOrder' => [1, 0],
             'Invalid positive sortOrder' => [1, 2],
-            'Too many sortOrders (scalar and array)' => [1, [-1, 1]],
-            'Too many sortOrders (both array)' => [[1, 2], [1, 2, 3]],
-            'Zero positive sortIndex in vector' => [[0, 1]],
-            'Too high sortIndex in vector' => [[1, 3]],
-            'Invalid sortOrder in vector' => [[1, 2], [1, -2]],
+            'Too many sortOrders (scalar and array)' => [1, '{-1, 1}'],
+            'Too many sortOrders (both array)' => ['{1, 2}', '{1, 2, 3}'],
+            'Zero positive sortIndex in vector' => ['{0, 1}'],
+            'Too high sortIndex in vector' => ['{1, 3}'],
+            'Invalid sortOrder in vector' => ['{1, 2}', '{1, -2}'],
         ];
     }
 
-    /** @param mixed[] $matrix */
+    /**
+     * @param mixed[] $expectedResult
+     * @param mixed[] $matrix
+     */
     #[DataProvider('providerSortByRow')]
     public function testSortByRow(array $expectedResult, array $matrix, int $sortIndex, int $sortOrder = Sort::ORDER_ASCENDING): void
     {
-        $result = Sort::sort($matrix, $sortIndex, $sortOrder);
+        $sheet = $this->getSheet($matrix);
+        $formula = "=SORT({$this->range}, $sortIndex, $sortOrder)";
+        $sheet->getCell('Z1')->setValue($formula);
+        $result = $sheet->getCell('Z1')->getCalculatedValue();
         self::assertSame($expectedResult, $result);
     }
 
@@ -79,13 +125,16 @@ class SortTest extends TestCase
     }
 
     /**
+     * @param mixed[] $expectedResult
      * @param mixed[] $matrix
-     * @param mixed[] $sortIndex
      */
     #[DataProvider('providerSortByRowMultiLevel')]
-    public function testSortByRowMultiLevel(array $expectedResult, array $matrix, array $sortIndex, int $sortOrder = Sort::ORDER_ASCENDING): void
+    public function testSortByRowMultiLevel(array $expectedResult, array $matrix, string $sortIndex, int $sortOrder = Sort::ORDER_ASCENDING): void
     {
-        $result = Sort::sort($matrix, $sortIndex, $sortOrder);
+        $sheet = $this->getSheet($matrix);
+        $formula = "=SORT({$this->range}, $sortIndex, $sortOrder)";
+        $sheet->getCell('Z1')->setValue($formula);
+        $result = $sheet->getCell('Z1')->getCalculatedValue();
         self::assertSame($expectedResult, $result);
     }
 
@@ -108,7 +157,7 @@ class SortTest extends TestCase
                     ['West', 'Oranges', 25],
                 ],
                 self::sampleDataForMultiRow(),
-                [1, 2],
+                '{1, 2}',
             ],
             [
                 [
@@ -126,7 +175,7 @@ class SortTest extends TestCase
                     ['West', 'Lemons', 34],
                 ],
                 self::sampleDataForMultiRow(),
-                [1, 3],
+                '{1, 3}',
             ],
             [
                 [
@@ -144,16 +193,22 @@ class SortTest extends TestCase
                     ['South', 'Pears', 40],
                 ],
                 self::sampleDataForMultiRow(),
-                [2, 3],
+                '{2, 3}',
             ],
         ];
     }
 
-    /** @param mixed[] $matrix */
+    /**
+     * @param mixed[] $expectedResult
+     * @param mixed[] $matrix
+     */
     #[DataProvider('providerSortByColumn')]
     public function testSortByColumn(array $expectedResult, array $matrix, int $sortIndex, int $sortOrder): void
     {
-        $result = Sort::sort($matrix, $sortIndex, $sortOrder, true);
+        $sheet = $this->getSheet($matrix);
+        $formula = "=SORT({$this->range}, $sortIndex, $sortOrder, TRUE)";
+        $sheet->getCell('Z1')->setValue($formula);
+        $result = $sheet->getCell('Z1')->getCalculatedValue();
         self::assertSame($expectedResult, $result);
     }
 
