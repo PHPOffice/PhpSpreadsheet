@@ -154,14 +154,6 @@ class StudentT
     }
 
     /**
-     * @return array<mixed>|float|string The result, or a string containing an error
-     */
-    public static function xtDotInv(mixed $probability, mixed $degrees)
-    {
-        return self::calcInverse($probability, $degrees, 1, self::tDotInv(...));
-    }
-
-    /**
      * Based on code from Perl CPAN Statistical::Distributions.
      *
      * @return array<mixed>|float|string The result, or a string containing an error
