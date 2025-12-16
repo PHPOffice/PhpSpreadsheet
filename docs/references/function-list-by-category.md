@@ -498,10 +498,10 @@ STDEVP                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Sta
 STDEVPA                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVPA
 STEYX                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::STEYX
 T.DIST                   | **Not yet Implemented**
-T.DIST.2T                | **Not yet Implemented**
-T.DIST.RT                | **Not yet Implemented**
-T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
-T.INV.2T                 | **Not yet Implemented**
+T.DIST.2T                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDot2T
+T.DIST.RT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDotRT
+T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotInv
+T.INV.2T                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
 T.TEST                   | **Not yet Implemented**
 TDIST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::distribution
 TINV                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse

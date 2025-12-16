@@ -4,9 +4,15 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
+/**
+ * Some of this code is drived from Perl CPAN Statistical::Distributions.
+ * Its copyright statement is:
+ * Copyright 2003 Michael Kospach. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+ */
 class StudentT
 {
     use ArrayEnabled;
@@ -29,8 +35,32 @@ class StudentT
      */
     public static function distribution(mixed $value, mixed $degrees, mixed $tails)
     {
+        return self::calcDistribution($value, $degrees, $tails, self::distribution(...));
+    }
+
+    /**
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    public static function tDotDistDot2T(mixed $value, mixed $degrees)
+    {
+        return self::calcDistribution($value, $degrees, 2, self::distribution(...));
+    }
+
+    /**
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    public static function tDotDistDotRT(mixed $value, mixed $degrees)
+    {
+        return self::calcDistribution($value, $degrees, 1, self::distribution(...));
+    }
+
+    /**
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    private static function calcDistribution(mixed $value, mixed $degrees, mixed $tails, callable $callback)
+    {
         if (is_array($value) || is_array($degrees) || is_array($tails)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $tails);
+            return self::evaluateArrayArguments($callback, $value, $degrees, $tails);
         }
 
         try {
@@ -45,7 +75,31 @@ class StudentT
             return ExcelError::NAN();
         }
 
-        return self::calculateDistribution($value, $degrees, $tails);
+        return self::subTProb($value, $degrees, $tails);
+    }
+
+    /**
+     * Based on code from Perl CPAN Statistical::Distributions.
+     */
+    private static function subTProb(float $x, int $n, int $tails): float
+    {
+        $w = atan2($x / sqrt($n), 1);
+        $z = cos($w) ** 2;
+        $y = 1;
+
+        for ($i = $n - 2; $i >= 2; $i -= 2) {
+            $y = 1 + ($i - 1) / $i * $z * $y;
+        }
+
+        if ($n % 2 == 0) {
+            $a = sin($w) / 2;
+            $b = 0.5;
+        } else {
+            $a = ($n == 1) ? 0 : (sin($w) * cos($w) / M_PI);
+            $b = 0.5 + $w / M_PI;
+        }
+
+        return $tails * max(0, 1 - $b - $a * $y);
     }
 
     /**
@@ -64,8 +118,16 @@ class StudentT
      */
     public static function inverse(mixed $probability, mixed $degrees)
     {
+        return self::calcInverse($probability, $degrees, 2, self::inverse(...));
+    }
+
+    /**
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    private static function calcInverse(mixed $probability, mixed $degrees, int $tails, callable $callback2)
+    {
         if (is_array($probability) || is_array($degrees)) {
-            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
+            return self::evaluateArrayArguments($callback2, $probability, $degrees, $tails);
         }
 
         try {
@@ -79,54 +141,107 @@ class StudentT
             return ExcelError::NAN();
         }
 
-        $callback = fn ($value) => self::distribution($value, $degrees, 2);
+        $callback = fn ($value) => self::distribution($value, $degrees, $tails);
 
         $newtonRaphson = new NewtonRaphson($callback);
 
-        return $newtonRaphson->execute($probability);
+        $result = $newtonRaphson->execute($probability);
+        if (is_numeric($result) && $tails === 1) {
+            $result = -$result; // @codeCoverageIgnore
+        }
+
+        return $result;
     }
 
-    private static function calculateDistribution(float $value, int $degrees, int $tails): float
+    /**
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    public static function xtDotInv(mixed $probability, mixed $degrees)
     {
-        //    tdist, which finds the probability that corresponds to a given value
-        //    of t with k degrees of freedom. This algorithm is translated from a
-        //    pascal function on p81 of "Statistical Computing in Pascal" by D
-        //    Cooke, A H Craven & G M Clark (1985: Edward Arnold (Pubs.) Ltd:
-        //    London). The above Pascal algorithm is itself a translation of the
-        //    fortran algoritm "AS 3" by B E Cooper of the Atlas Computer
-        //    Laboratory as reported in (among other places) "Applied Statistics
-        //    Algorithms", editied by P Griffiths and I D Hill (1985; Ellis
-        //    Horwood Ltd.; W. Sussex, England).
-        $tterm = $degrees;
-        $ttheta = atan2($value, sqrt($tterm));
-        $tc = cos($ttheta);
-        $ts = sin($ttheta);
+        return self::calcInverse($probability, $degrees, 1, self::tDotInv(...));
+    }
 
-        if (($degrees % 2) === 1) {
-            $ti = 3;
-            $tterm = $tc;
-        } else {
-            $ti = 2;
-            $tterm = 1;
+    /**
+     * Based on code from Perl CPAN Statistical::Distributions.
+     *
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    public static function tDotInv(mixed $probability, mixed $degrees)
+    {
+        if (is_array($probability) || is_array($degrees)) {
+            return self::evaluateArrayArguments(self::tDotInv(...), $probability, $degrees);
         }
 
-        $tsum = $tterm;
-        while ($ti < $degrees) {
-            $tterm *= $tc * $tc * ($ti - 1) / $ti;
-            $tsum += $tterm;
-            $ti += 2;
+        try {
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        $tsum *= $ts;
-        if (($degrees % 2) == 1) {
-            $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
+        if ($degrees < 1) {
+            return ExcelError::NAN();
+        }
+        if ($probability == 0.5) {
+            return 0.0;
+        }
+        if ($probability < 0.5) {
+            $result = self::tDotInv(1.0 - $probability, $degrees);
+
+            return is_numeric($result) ? -$result : $result;
+        }
+        $p = $probability;
+        $n = $degrees;
+        $u = self::subU($p);
+        $u2 = $u ** 2;
+
+        $a = ($u2 + 1) / 4;
+        $b = ((5 * $u2 + 16) * $u2 + 3) / 96;
+        $c = (((3 * $u2 + 19) * $u2 + 17) * $u2 - 15) / 384;
+        $d = ((((79 * $u2 + 776) * $u2 + 1482) * $u2 - 1920) * $u2 - 945) / 92160;
+        $e = (((((27 * $u2 + 339) * $u2 + 930) * $u2 - 1782) * $u2 - 765) * $u2 + 17955) / 368640;
+
+        $x = $u * (1 + ($a + ($b + ($c + ($d + $e / $n) / $n) / $n) / $n) / $n);
+
+        if ($n <= log10($p) ** 2 + 3) {
+            do {
+                $p1 = self::subTProb($x, $n, 1);
+                $n1 = $n + 1;
+                $delta = ($p1 - $p)
+                    / exp(($n1 * log($n1 / ($n + $x * $x))
+                    + log($n / $n1 / 2 / M_PI) - 1
+                        + (1 / $n1 - 1 / $n) / 6) / 2);
+                $x += $delta;
+                $round = sprintf('%.' . abs((int) (log10(abs($x)) - 4)) . 'f', $delta);
+            } while (($x) && ($round != 0));
         }
 
-        $tValue = 0.5 * (1 + $tsum);
-        if ($tails == 1) {
-            return 1 - abs($tValue);
+        return -$x;
+    }
+
+    /**
+     * Based on code from Perl CPAN Statistical::Distributions.
+     */
+    private static function subU(float $p): float
+    {
+        $y = -log(4 * $p * (1 - $p));
+        $x = sqrt(
+            $y * (1.570796288
+              + $y * (.03706987906
+                + $y * (-.8364353589E-3
+                  + $y * (-.2250947176E-3
+                    + $y * (.6841218299E-5
+                      + $y * (0.5824238515E-5
+                        + $y * (-.104527497E-5
+                          + $y * (.8360937017E-7
+                            + $y * (-.3231081277E-8
+                              + $y * (.3657763036E-10
+                                + $y * .6936233982E-12))))))))))
+        );
+        if ($p > 0.5) {
+            $x = -$x;
         }
 
-        return 1 - abs((1 - $tValue) - $tValue);
+        return $x;
     }
 }
