@@ -2336,17 +2336,17 @@ class FunctionArray extends CalculationBase
         ],
         'T.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDist'],
             'argumentCount' => '3',
         ],
         'T.DIST.2T' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDistDot2T'],
             'argumentCount' => '2',
         ],
         'T.DIST.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDistDotRT'],
             'argumentCount' => '2',
         ],
         'TEXT' => [
@@ -2426,12 +2426,12 @@ class FunctionArray extends CalculationBase
         ],
         'T.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotInv'],
             'argumentCount' => '2',
         ],
         'T.INV.2T' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'TODAY' => [
