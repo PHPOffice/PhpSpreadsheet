@@ -160,7 +160,6 @@ class StudentT
 
     private static function tDotDistFalse(float $value, int $degrees): float|string
     {
-        $k16 = 0;
         $result = $k15 = Gamma::gamma(($degrees + 1) / 2);
         if (is_numeric($k15)) {
             $result = $k16 = Gamma::gamma($degrees / 2);
