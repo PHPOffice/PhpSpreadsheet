@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 /**
@@ -111,14 +110,17 @@ class StudentT
 
     /**
      * T.DIST.
-     * Returns the Student's left-tailed t distribution.
-     * Only partially implemented.
+     * Returns the Student's left-tailed t distribution,
+     * either as a cumulative distribution function (cdf) (TRUE)
+     * or as a probability density function (pdf) (FALSE),
+     * where TRUE/FALSE are the value of $cumulative parameter.
      *
-     * Adapted from java org.apache.commons.math3.distribution.TDistribution.
-     * I have been able to figure out only the "true" case.
-     * I think the "false" is probably there somewhere too.
+     * "True" algoritm adapted from java.
+     * org.apache.commons.math3.distribution.TDistribution.
+     * "False" algorithm comes from:
+     * https://statproofbook.github.io/P/t-pdf.html
      *
-     * @param mixed $cumulative Expecting bool. Code to support a FALSE value is not yet implemented.
+     * @param mixed $cumulative Expecting bool. See above for explanation.
      *
      * @return array<mixed>|float|string The result, or a string containing an error
      */
@@ -136,17 +138,15 @@ class StudentT
             return $e->getMessage();
         }
 
-        // Haven't yet figure out how to implement cumulative=false
-        if (!$cumulative) {
-            return Functions::DUMMY();
-        }
-
         /** @var int $degrees */
         if (($degrees < 1)) {
             return ExcelError::NAN();
         }
-
         /** @var float $value */
+        if (!$cumulative) {
+            return self::tDotDistFalse($value, $degrees);
+        }
+
         $f16 = $degrees / ($degrees + $value * $value);
         $g16 = 0.5 * $degrees;
         $h16 = 0.5;
@@ -155,6 +155,26 @@ class StudentT
             $result = ($value < 0) ? (0.5 * $result) : (1 - 0.5 * $result);
         }
 
+        return $result;
+    }
+
+    private static function tDotDistFalse(float $value, int $degrees): float|string
+    {
+        $k16 = 0;
+        $result = $k15 = Gamma::gamma(($degrees + 1) / 2);
+        if (is_numeric($k15)) {
+            $result = $k16 = Gamma::gamma($degrees / 2);
+            if (is_numeric($k16)) {
+                $k17 = sqrt(M_PI * $degrees);
+                $k18 = $k15 / ($k16 * $k17);
+                $k19 = $value * $value / $degrees + 1;
+                $k20 = -($degrees + 1) / 2;
+                $k21 = $k19 ** $k20;
+                $result = $k18 * $k21;
+            }
+        }
+
+        /** @var float|string $result */
         return $result;
     }
 

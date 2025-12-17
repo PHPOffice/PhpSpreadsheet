@@ -7,17 +7,17 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-class TdotDistTrueTest extends AllSetupTeardown
+class TdotDistFalseTest extends AllSetupTeardown
 {
-    #[DataProvider('providerTdotDistTrue')]
-    public function testTdotDistTrue(mixed $expectedResult, mixed $value, mixed $degrees): void
+    #[DataProvider('providerTdotDistFalse')]
+    public function testTdotDistFalse(mixed $expectedResult, mixed $value, mixed $degrees): void
     {
-        $this->runTestCaseReference('T.DIST', $expectedResult, $value, $degrees, true);
+        $this->runTestCaseReference('T.DIST', $expectedResult, $value, $degrees, false);
     }
 
-    public static function providerTdotDistTrue(): array
+    public static function providerTdotDistFalse(): array
     {
-        return require 'tests/data/Calculation/Statistical/tDotDistTrue.php';
+        return require 'tests/data/Calculation/Statistical/tDotDistFalse.php';
     }
 
     #[DataProvider('providerTdotDistArray')]
@@ -25,7 +25,7 @@ class TdotDistTrueTest extends AllSetupTeardown
     {
         $calculation = Calculation::getInstance();
 
-        $formula = "=T.DIST({$values}, {$degrees}, true)";
+        $formula = "=T.DIST({$values}, {$degrees}, false)";
         $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
     }
@@ -35,7 +35,7 @@ class TdotDistTrueTest extends AllSetupTeardown
         return [
             'row/column vectors' => [
                 [
-                    [0.852416, 0.930337, 0.959742],
+                    [0.063662, 0.0675096606638932, 0.06236808463468194],
                 ],
                 '2',
                 '{1.5, 3.5, 8}',
