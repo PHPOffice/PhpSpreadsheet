@@ -2336,7 +2336,7 @@ class FunctionArray extends CalculationBase
         ],
         'T.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDist'],
             'argumentCount' => '3',
         ],
         'T.DIST.2T' => [

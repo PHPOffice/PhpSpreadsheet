@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 /**
@@ -39,6 +40,9 @@ class StudentT
     }
 
     /**
+     * T.DIST.2T.
+     * Returns the two-tailed Student's t distribution.
+     *
      * @return array<mixed>|float|string The result, or a string containing an error
      */
     public static function tDotDistDot2T(mixed $value, mixed $degrees)
@@ -47,6 +51,9 @@ class StudentT
     }
 
     /**
+     * T.DIST.RT.
+     * Returns the right-tailed Student's t distribution.
+     *
      * @return array<mixed>|float|string The result, or a string containing an error
      */
     public static function tDotDistDotRT(mixed $value, mixed $degrees)
@@ -103,9 +110,57 @@ class StudentT
     }
 
     /**
-     * TINV.
+     * T.DIST.
+     * Returns the Student's left-tailed t distribution.
+     * Only partially implemented.
      *
-     * Returns the one-tailed probability of the chi-squared distribution.
+     * Adapted from java org.apache.commons.math3.distribution.TDistribution.
+     * I have been able to figure out only the "true" case.
+     * I think the "false" is probably there somewhere too.
+     *
+     * @param mixed $cumulative Expecting bool. Code to support a FALSE value is not yet implemented.
+     *
+     * @return array<mixed>|float|string The result, or a string containing an error
+     */
+    public static function tDotDist(mixed $value, mixed $degrees, mixed $cumulative)
+    {
+        if (is_array($value) || is_array($degrees) || is_array($cumulative)) {
+            return self::evaluateArrayArguments(self::tDotDist(...), $value, $degrees, $cumulative);
+        }
+
+        try {
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
+            $cumulative = DistributionValidations::validateBool($cumulative);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        // Haven't yet figure out how to implement cumulative=false
+        if (!$cumulative) {
+            return Functions::DUMMY();
+        }
+
+        /** @var int $degrees */
+        if (($degrees < 1)) {
+            return ExcelError::NAN();
+        }
+
+        /** @var float $value */
+        $f16 = $degrees / ($degrees + $value * $value);
+        $g16 = 0.5 * $degrees;
+        $h16 = 0.5;
+        $result = Beta::distribution($f16, $g16, $h16);
+        if (is_numeric($result)) {
+            $result = ($value < 0) ? (0.5 * $result) : (1 - 0.5 * $result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * TINV and T.INV.2T.
+     * Returns the two-tailed inverse of the Student t distribution.
      *
      * @param mixed $probability Float probability for the function
      *                      Or can be an array of values
@@ -154,6 +209,9 @@ class StudentT
     }
 
     /**
+     * T.INV.
+     * Returns the left-tailed inverse of the Student's t distribution.
+     *
      * Based on code from Perl CPAN Statistical::Distributions.
      *
      * @return array<mixed>|float|string The result, or a string containing an error

@@ -555,7 +555,7 @@ SYD                      | FINANCIAL             | Financial\Depreciation::SYD
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
 T                        | TEXT_AND_DATA         | TextData\Text::test
-T.DIST                   | STATISTICAL           | **Not yet Implemented**
+T.DIST                   | STATISTICAL           | Statistical\Distributions\StudentT::tDotDist
 T.DIST.2T                | STATISTICAL           | Statistical\Distributions\StudentT::tDotDistDot2T
 T.DIST.RT                | STATISTICAL           | Statistical\Distributions\StudentT::tDotDistDotRT
 T.INV                    | STATISTICAL           | Statistical\Distributions\StudentT::tDotInv

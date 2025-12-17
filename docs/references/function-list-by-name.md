@@ -551,7 +551,7 @@ SYD                      | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpread
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 T                        | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::test
-T.DIST                   | CATEGORY_STATISTICAL           | **Not yet Implemented**
+T.DIST                   | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDist
 T.DIST.2T                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDot2T
 T.DIST.RT                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDotRT
 T.INV                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotInv
