@@ -46,17 +46,19 @@ Formulas](./recipes.md#locale-settings-for-formulas).
 
 ## HTTP client
 
-In order to use the `WEBSERVICE` function in formulae, you must configure an
-HTTP client. Assuming you chose Guzzle 7, this can be done like:
+In order to use the `WEBSERVICE` function in formulae, you must configure an HTTP client.
+As an example, you can chose Guzzle 7 with:
+```
+composer require guzzlehttp/guzzle
+```
 
-
+Then add the following to your code:
 ```php
 use GuzzleHttp\Client;
-use Http\Factory\Guzzle\RequestFactory;
+use GuzzleHttp\Psr7\HttpFactory as RequestFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 $client = new Client();
 $requestFactory = new RequestFactory();
-
 Settings::setHttpClient($client, $requestFactory);
 ``` 

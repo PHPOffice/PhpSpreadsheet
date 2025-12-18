@@ -29,4 +29,14 @@ return [
         'http://www.example3.com',
         [200, 'This is a test'],
     ],
+    [
+        'This is a test using a cell',
+        'Z1',
+        [200, 'This is a test using a cell'],
+    ],
+    [
+        '#VALUE!',
+        'Z2',
+        null,
+    ],
 ];

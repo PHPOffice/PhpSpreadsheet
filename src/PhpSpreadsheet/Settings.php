@@ -32,6 +32,8 @@ class Settings
 
     private static ?RequestFactoryInterface $requestFactory = null;
 
+    private static bool $ignoreUninitializedHttp = false;
+
     /**
      * Set the locale code to use for formula translations and any special formatting.
      *
@@ -127,14 +129,15 @@ class Settings
     {
         self::$httpClient = null;
         self::$requestFactory = null;
+        self::$ignoreUninitializedHttp = false;
     }
 
     /**
      * Get the HTTP client implementation to be used for network request.
      */
-    public static function getHttpClient(): ClientInterface
+    public static function getHttpClient(): ?ClientInterface
     {
-        if (!self::$httpClient || !self::$requestFactory) {
+        if (!self::$ignoreUninitializedHttp && (!self::$httpClient || !self::$requestFactory)) {
             throw new Exception('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
         }
 
@@ -144,12 +147,17 @@ class Settings
     /**
      * Get the HTTP request factory.
      */
-    public static function getRequestFactory(): RequestFactoryInterface
+    public static function getRequestFactory(): ?RequestFactoryInterface
     {
-        if (!self::$httpClient || !self::$requestFactory) {
+        if (!self::$ignoreUninitializedHttp && (!self::$httpClient || !self::$requestFactory)) {
             throw new Exception('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
         }
 
         return self::$requestFactory;
+    }
+
+    public static function setIgnoreUninitializedHttp(bool $ignoreUninitializedHttp): void
+    {
+        self::$ignoreUninitializedHttp = $ignoreUninitializedHttp;
     }
 }

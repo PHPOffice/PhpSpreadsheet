@@ -52,7 +52,13 @@ class WebServiceTest extends TestCase
 
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $sheet->getCell('Z1')->setValue('http://www.example3.com');
+        $sheet->getCell('Z2')->setValue(2);
+        if (str_starts_with($url, 'Z')) {
+            $sheet->getCell('A1')->setValue("=WEBSERVICE($url)");
+        } else {
+            $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        }
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
@@ -87,6 +93,17 @@ class WebServiceTest extends TestCase
     public function testWEBSERVICEThrowsIfNotClientConfigured(): void
     {
         $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
+        $url = 'https://example.com';
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEquals('#VALUE!', $result);
+    }
+
+    public function testWEBSERVICEIfCallerAllowsNotConfigured(): void
+    {
+        Settings::setIgnoreUninitializedHttp(true);
         $url = 'https://example.com';
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();

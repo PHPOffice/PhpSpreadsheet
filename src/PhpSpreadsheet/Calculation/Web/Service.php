@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Web;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class Service
@@ -18,9 +20,12 @@ class Service
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function webService(string $url): string
+    public static function webService(mixed $url): string
     {
-        $url = trim($url);
+        if (is_array($url)) {
+            $url = Functions::flattenSingleValue($url);
+        }
+        $url = trim(StringHelper::convertToString($url, false));
         if (strlen($url) > 2048) {
             return ExcelError::VALUE(); // Invalid URL length
         }
@@ -32,6 +37,9 @@ class Service
         // Get results from the webservice
         $client = Settings::getHttpClient();
         $requestFactory = Settings::getRequestFactory();
+        if ($client === null || $requestFactory === null) {
+            return ExcelError::VALUE(); // No client configured but caller says that's okay
+        }
         $request = $requestFactory->createRequest('GET', $url);
 
         try {
