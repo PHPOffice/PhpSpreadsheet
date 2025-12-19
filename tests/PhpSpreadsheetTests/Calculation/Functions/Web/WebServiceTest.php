@@ -58,7 +58,7 @@ class WebServiceTest extends TestCase
     {
         Settings::setDomainWhiteList(self::WHITELIST);
         $reader = new XlsxReader();
-        $this->spreadsheet = $reader->load('tests/data/Reader/Xlsx/fakewebservice.xlsx');
+        $this->spreadsheet = $reader->load('tests/data/Reader/XLSX/fakewebservice.xlsx');
         $sheet = $this->spreadsheet->getActiveSheet();
         $a1Formula = $sheet->getCell('A1')->getValue();
         self::assertSame(
