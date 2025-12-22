@@ -155,23 +155,4 @@ class Settings
     {
         return self::$requestFactory;
     }
-
-    /** @var string[] */
-    private static $domainWhiteList = [];
-
-    /**
-     * Currently used only by WEBSERVICE function.
-     *
-     * @param string[] $domainWhiteList
-     */
-    public static function setDomainWhiteList(array $domainWhiteList): void
-    {
-        self::$domainWhiteList = $domainWhiteList;
-    }
-
-    /** @return string[] */
-    public static function getDomainWhiteList(): array
-    {
-        return self::$domainWhiteList;
-    }
 }

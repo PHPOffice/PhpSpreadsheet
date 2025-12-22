@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,6 @@ class WebServiceTest extends TestCase
 
     protected function tearDown(): void
     {
-        Settings::setDomainWhiteList([]);
         if ($this->spreadsheet !== null) {
             $this->spreadsheet->disconnectWorksheets();
             $this->spreadsheet = null;
@@ -35,8 +34,8 @@ class WebServiceTest extends TestCase
         if (str_starts_with($url, 'https') && getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
         }
-        Settings::setDomainWhiteList(self::WHITELIST);
         $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setDomainWhiteList(self::WHITELIST);
         $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->getCell('Z1')->setValue('http://www.example.com');
         $sheet->getCell('Z2')->setValue(2);
@@ -56,9 +55,9 @@ class WebServiceTest extends TestCase
 
     public function testOldCalculated(): void
     {
-        Settings::setDomainWhiteList(self::WHITELIST);
         $reader = new XlsxReader();
         $this->spreadsheet = $reader->load('tests/data/Reader/XLSX/fakewebservice.xlsx');
+        $this->spreadsheet->setDomainWhiteList(self::WHITELIST);
         $sheet = $this->spreadsheet->getActiveSheet();
         $a1Formula = $sheet->getCell('A1')->getValue();
         self::assertSame(
@@ -81,6 +80,10 @@ class WebServiceTest extends TestCase
             'random string',
             $sheet->getCell('A3')->getCalculatedValue(),
             'oldCalculatedValue explicitly set above'
+        );
+        self::assertNull(
+            Service::webService('http://www.example.com'),
+            'no Spreadsheet so no whitelist'
         );
     }
 }

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Web;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Service
@@ -19,7 +19,7 @@ class Service
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function webService(mixed $url): string
+    public static function webService(mixed $url, ?Cell $cell = null): ?string
     {
         if (is_array($url)) {
             $url = Functions::flattenSingleValue($url);
@@ -33,9 +33,10 @@ class Service
         if ($scheme !== 'http' && $scheme !== 'https') {
             return ExcelError::VALUE(); // Invalid protocol
         }
+        $domainWhiteList = $cell?->getWorksheet()->getParent()?->getDomainWhiteList() ?? [];
         $host = $parsed['host'] ?? '';
-        if (!in_array($host, Settings::getDomainWhiteList(), true)) {
-            return Functions::NOT_YET_IMPLEMENTED; // will be converted to oldCalculatedValue or null
+        if (!in_array($host, $domainWhiteList, true)) {
+            return ($cell === null) ? null : Functions::NOT_YET_IMPLEMENTED; // will be converted to oldCalculatedValue or null
         }
 
         // Get results from the webservice
