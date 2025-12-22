@@ -1208,6 +1208,16 @@ class Spreadsheet implements JsonSerializable
                     $this->$key = [];
                     foreach ($currentCollection as $item) {
                         $clone = clone $item;
+                        $title = $clone->getWorksheet()?->getTitle();
+                        if ($title !== null) {
+                            $ws = $this->getSheetByName($title);
+                            $clone->setWorksheet($ws);
+                        }
+                        $title = $clone->getScope()?->getTitle();
+                        if ($title !== null) {
+                            $ws = $this->getSheetByName($title);
+                            $clone->setScope($ws);
+                        }
                         $this->{$key}[] = $clone;
                     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -113,6 +114,39 @@ class SpreadsheetCopyCloneTest extends TestCase
             ['copy'],
             ['clone'],
         ];
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyCloneDefinedName(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet->setTitle('original1');
+        $sheet2->setTitle('original2');
+        $spreadsheet->addDefinedName(
+            DefinedName::createInstance('defname1', $sheet, '$A$1:$A$3')
+        );
+        $spreadsheet->addDefinedName(
+            DefinedName::createInstance('defname2', $sheet2, '$B$1:$B$3', true, $sheet)
+        );
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+        $copySheet = $spreadsheet2->getSheetByNameOrThrow('original1');
+        $copySheet2 = $spreadsheet2->getSheetByNameOrThrow('original2');
+        $definedName = $spreadsheet2->getDefinedName('defname1');
+        self::assertNotNull($definedName);
+        self::assertSame('$A$1:$A$3', $definedName->getValue());
+        self::assertSame($copySheet, $definedName->getWorksheet());
+        self::assertNull($definedName->getScope());
+        $definedName = $spreadsheet2->getDefinedName('defname2', $copySheet);
+        self::assertNotNull($definedName);
+        self::assertSame('$B$1:$B$3', $definedName->getValue());
+        self::assertSame($copySheet2, $definedName->getWorksheet());
+        self::assertSame($copySheet, $definedName->getScope());
     }
 
     public static function providerCopyClone2(): array
