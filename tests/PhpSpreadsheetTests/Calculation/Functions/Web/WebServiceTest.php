@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 class WebServiceTest extends TestCase
 {
     private ?Spreadsheet $spreadsheet = null;
+
+    private const WHITELIST = [
+        'www.example.com',
+        'www.google.com',
+        'www.invalid.com',
+    ];
 
     protected function tearDown(): void
     {
@@ -24,37 +26,26 @@ class WebServiceTest extends TestCase
             $this->spreadsheet->disconnectWorksheets();
             $this->spreadsheet = null;
         }
-        Settings::unsetHttpClient();
     }
 
-    /** @param null|mixed[] $responseData */
     #[DataProvider('providerWEBSERVICE')]
-    public function testWEBSERVICE(string $expectedResult, string $url, ?array $responseData): void
+    public function testWEBSERVICE(string $expectedResult, string $url): void
     {
-        if (!empty($responseData)) {
-            $body = $this->createMock(StreamInterface::class);
-            $body->expects(self::atMost(1))->method('getContents')->willReturn($responseData[1]);
-
-            $response = $this->createMock(ResponseInterface::class);
-            $response->expects(self::once())->method('getStatusCode')->willReturn($responseData[0]);
-            $response->expects(self::atMost(1))->method('getBody')->willReturn($body);
-
-            $client = $this->createMock(ClientInterface::class);
-            $client->expects(self::once())->method('sendRequest')->willReturn($response);
-
-            $request = $this->createMock(RequestInterface::class);
-
-            $requestFactory = $this->createMock(RequestFactoryInterface::class);
-            $requestFactory->expects(self::atMost(1))->method('createRequest')->willReturn($request);
-
-            Settings::setHttpClient($client, $requestFactory);
+        if (str_starts_with($url, 'https') && getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
         }
-
         $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setDomainWhiteList(self::WHITELIST);
         $sheet = $this->spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $sheet->getCell('Z1')->setValue('http://www.example.com');
+        $sheet->getCell('Z2')->setValue(2);
+        if (str_starts_with($url, 'Z')) {
+            $sheet->getCell('A1')->setValue("=WEBSERVICE($url)");
+        } else {
+            $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        }
         $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertStringContainsString($expectedResult, $result);
     }
 
     public static function providerWEBSERVICE(): array
@@ -62,36 +53,37 @@ class WebServiceTest extends TestCase
         return require 'tests/data/Calculation/Web/WEBSERVICE.php';
     }
 
-    public function testWEBSERVICEReturnErrorWhenClientThrows(): void
+    public function testOldCalculated(): void
     {
-        $exception = $this->createMock(\Psr\Http\Client\ClientExceptionInterface::class);
-
-        $client = $this->createMock(ClientInterface::class);
-        $client->expects(self::once())->method('sendRequest')->willThrowException($exception);
-
-        $request = $this->createMock(RequestInterface::class);
-
-        $requestFactory = $this->createMock(RequestFactoryInterface::class);
-        $requestFactory->expects(self::atMost(1))->method('createRequest')->willReturn($request);
-
-        Settings::setHttpClient($client, $requestFactory);
-
-        $url = 'https://example.com';
-        $this->spreadsheet = new Spreadsheet();
+        $reader = new XlsxReader();
+        $this->spreadsheet = $reader->load('tests/data/Reader/XLSX/fakewebservice.xlsx');
+        $this->spreadsheet->setDomainWhiteList(self::WHITELIST);
         $sheet = $this->spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals('#VALUE!', $result);
-    }
-
-    public function testWEBSERVICEThrowsIfNotClientConfigured(): void
-    {
-        $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        $url = 'https://example.com';
-        $this->spreadsheet = new Spreadsheet();
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals('#VALUE!', $result);
+        $a1Formula = $sheet->getCell('A1')->getValue();
+        self::assertSame(
+            '=WEBSERVICE("http://www.phonydomain.com")', // not in whitelist
+            $a1Formula
+        );
+        self::assertSame(
+            'phony result',
+            $sheet->getCell('A1')->getCalculatedValue(),
+            'result should be oldCalculatedValue'
+        );
+        $sheet->getCell('A2')->setValue($a1Formula);
+        self::assertNull(
+            $sheet->getCell('A2')->getCalculatedValue(),
+            'no oldCalculatedValue to fall back on'
+        );
+        $sheet->getCell('A3')->setValue($a1Formula);
+        $sheet->getCell('A3')->setCalculatedValue('random string');
+        self::assertSame(
+            'random string',
+            $sheet->getCell('A3')->getCalculatedValue(),
+            'oldCalculatedValue explicitly set above'
+        );
+        self::assertNull(
+            Service::webService('http://www.example.com'),
+            'no Spreadsheet so no whitelist'
+        );
     }
 }

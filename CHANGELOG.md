@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Changed
 
-- Nothing yet.
+- Evaluation of WEBSERVICE no longer requires external client, but will use oldCalculatedValue unless the request is for a domain in a user-supplied whitelist. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
 
 ### Moved
 
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Settings methods setHttpClient, unsetHttpClient, getHttpClient, and getRequestFactory are no longer used. No replacement.
 
 ### Fixed
 
@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - ListWorksheetInfo improvements for Xlsx and Ods. [Issue #3255](https://github.com/PHPOffice/PhpSpreadsheet/issues/3255) [PR #4746](https://github.com/PHPOffice/PhpSpreadsheet/pull/4746)
 - Fix functions related to Student-T distribution. [Issue #4167](https://github.com/PHPOffice/PhpSpreadsheet/issues/4167) [PR #4748](https://github.com/PHPOffice/PhpSpreadsheet/pull/4748)
 - Fix clone spreadsheet with defined names. [PR #4753](https://github.com/PHPOffice/PhpSpreadsheet/pull/4753)
+- Changes to WEBSERVICE. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
 
 ## 2025-11-24 - 5.3.0
 
