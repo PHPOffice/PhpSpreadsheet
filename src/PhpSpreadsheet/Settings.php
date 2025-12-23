@@ -5,8 +5,6 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
 use Psr\SimpleCache\CacheInterface;
 use ReflectionClass;
 
@@ -25,12 +23,9 @@ class Settings
      */
     private static ?CacheInterface $cache = null;
 
-    /**
-     * The HTTP client implementation to be used for network request.
-     */
-    private static ?ClientInterface $httpClient = null;
+    private static mixed $httpClient = null;
 
-    private static ?RequestFactoryInterface $requestFactory = null;
+    private static mixed $requestFactory = null;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.
@@ -113,8 +108,12 @@ class Settings
 
     /**
      * Set the HTTP client implementation to be used for network request.
+     *
+     * @deprecated 5.4.0 No replacement.
+     *
+     * @codeCoverageIgnore
      */
-    public static function setHttpClient(ClientInterface $httpClient, RequestFactoryInterface $requestFactory): void
+    public static function setHttpClient(mixed $httpClient, mixed $requestFactory): void
     {
         self::$httpClient = $httpClient;
         self::$requestFactory = $requestFactory;
@@ -122,6 +121,10 @@ class Settings
 
     /**
      * Unset the HTTP client configuration.
+     *
+     * @deprecated 5.4.0 No replacement.
+     *
+     * @codeCoverageIgnore
      */
     public static function unsetHttpClient(): void
     {
@@ -131,25 +134,25 @@ class Settings
 
     /**
      * Get the HTTP client implementation to be used for network request.
+     *
+     * @deprecated 5.4.0 No replacement.
+     *
+     * @codeCoverageIgnore
      */
-    public static function getHttpClient(): ClientInterface
+    public static function getHttpClient(): mixed
     {
-        if (!self::$httpClient || !self::$requestFactory) {
-            throw new Exception('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        }
-
         return self::$httpClient;
     }
 
     /**
      * Get the HTTP request factory.
+     *
+     * @deprecated 5.4.0 No replacement.
+     *
+     * @codeCoverageIgnore
      */
-    public static function getRequestFactory(): RequestFactoryInterface
+    public static function getRequestFactory(): mixed
     {
-        if (!self::$httpClient || !self::$requestFactory) {
-            throw new Exception('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        }
-
         return self::$requestFactory;
     }
 }
