@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). This is always true of the master branch. Some earlier branches, including the branch from which you are reading this file, remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
+## TBD - 1.30.2
+
+### Changed
+
+- Evaluation of WEBSERVICE no longer requires external client, but will use oldCalculatedValue unless the request is for a domain in a user-supplied whitelist. Security-related backport of [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
+
+### Deprecated
+
+- Settings methods setHttpClient, unsetHttpClient, getHttpClient, and getRequestFactory are no longer used. No replacement.
+
+### Fixed
+
+- Changes to WEBSERVICE. Backport of [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
+
 ## 2025-10-25 - 1.30.1
 
 ### Functionally Frozen
