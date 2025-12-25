@@ -281,7 +281,7 @@ class StudentT
                     + log($n / $n1 / 2 / M_PI) - 1
                         + (1 / $n1 - 1 / $n) / 6) / 2);
                 $x += $delta;
-                $round = sprintf('%.' . abs((int) (log10(abs($x)) - 4)) . 'f', $delta);
+                $round = sprintf('%.' . abs((int) (log10(abs($x)) - 4)) . 'F', $delta);
             } while (($x) && ($round != 0));
         }
 

@@ -9,9 +9,37 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class TDotInvTest extends AllSetupTeardown
 {
+    /**
+     * @var false|string
+     */
+    private $currentLocale;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->currentLocale = setlocale(LC_ALL, '0');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        if (is_string($this->currentLocale)) {
+            setlocale(LC_ALL, $this->currentLocale);
+        }
+    }
+
     #[DataProvider('providerTdotINV')]
     public function testTdotINV(mixed $expectedResult, mixed $probability, mixed $degrees): void
     {
+        $this->runTestCaseReference('T.INV', $expectedResult, $probability, $degrees);
+    }
+
+    #[DataProvider('providerTdotINV')]
+    public function testTdotINVLocale(mixed $expectedResult, mixed $probability, mixed $degrees): void
+    {
+        if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra.utf8')) {
+            self::markTestSkipped('Unable to set locale for testing.');
+        }
         $this->runTestCaseReference('T.INV', $expectedResult, $probability, $degrees);
     }
 
