@@ -264,10 +264,13 @@ class StringHelper
     /** @var string[] */
     protected static array $iconvOptionsArray = ['//IGNORE//TRANSLIT', '//IGNORE'];
 
+    /** @internal */
     protected static string $iconvName = 'iconv';
 
+    /** @internal */
     protected static bool $iconvTest2 = false;
 
+    /** @internal */
     protected static bool $iconvTest3 = false;
 
     /**
@@ -797,6 +800,7 @@ class StringHelper
         return $str; // @phpstan-ignore-line
     }
 
+    /** @internal */
     protected static string $testClass = IntlCalendar::class;
 
     /**
