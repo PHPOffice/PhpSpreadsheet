@@ -64,4 +64,19 @@ class StringHelperLocale2Test extends TestCase
             'non-Latin' => ["₽12{$nbsp}345,7", 'ИСТИНА', 'ru_ru'],
         ];
     }
+
+    public function testNoIntl(): void
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $number = 12345.67;
+        $numberFormat = '[$]#,##0.0';
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[$number]]);
+        $sheet->getStyle('A1')->getNumberFormat()
+            ->setFormatCode($numberFormat);
+        $success = StringHelperNoIntl::setLocale('en_US');
+        self::assertFalse($success);
+    }
 }
