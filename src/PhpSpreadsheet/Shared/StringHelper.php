@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use Composer\Pcre\Preg;
+use IntlCalendar;
+use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use Stringable;
@@ -793,5 +795,65 @@ class StringHelper
         }
 
         return $str; // @phpstan-ignore-line
+    }
+
+    /**
+     * Set all of currencyCode, thousandsSeparator, decimalSeparator,
+     * and Calculation locale with a single call.
+     * The main point here is avoid the use of Php setlocale,
+     * which is not threadsafe. It uses the Intl extension instead,
+     * which is not a requirement for PhpSpreadsheet.
+     * Because of that, the function returns a bool which will
+     * be false if Intl is not available, or the supplied locale
+     * is not valid according to Intl.
+     */
+    public static function setLocale(?string $locale): bool
+    {
+        if ($locale === null) {
+            self::$currencyCode = null;
+            self::$thousandsSeparator = null;
+            self::$decimalSeparator = null;
+            Calculation::getInstance()->setLocale('en_us');
+
+            return true;
+        }
+        $localeCalc = $locale;
+        if (Preg::isMatch('/^([a-z][a-z])_([a-z][a-z])(?:[.]utf-8)?$/i', $locale, $matches)) {
+            $locale = strtolower($matches[1]) . '_' . strtoupper($matches[2]);
+            $localeCalc = strtolower($matches[1]) . '_' . strtolower($matches[2]);
+        }
+        $retVal = false;
+        if (class_exists(IntlCalendar::class)) {
+            // NumberFormatter constructor succeeds even with
+            // bad locale before Php8.4, so try to validate
+            // the locale beforehand.
+            $locales = IntlCalendar::getAvailableLocales();
+            if (in_array($locale, $locales, true)) {
+                $formatter = new NumberFormatter(
+                    $locale,
+                    NumberFormatter::CURRENCY
+                );
+                $currency = $formatter->getSymbol(
+                    NumberFormatter::CURRENCY_SYMBOL
+                );
+                $formatter = new NumberFormatter(
+                    $locale,
+                    NumberFormatter::DECIMAL
+                );
+                $thousands = $formatter->getSymbol(
+                    NumberFormatter::GROUPING_SEPARATOR_SYMBOL
+                );
+                $decimal = $formatter->getSymbol(
+                    NumberFormatter::DECIMAL_SEPARATOR_SYMBOL
+                );
+                self::$currencyCode = $currency;
+                self::$thousandsSeparator = $thousands;
+                self::$decimalSeparator = $decimal;
+                Calculation::getInstance()->setLocale($localeCalc);
+                $retVal = true;
+            }
+        }
+
+        return $retVal;
     }
 }

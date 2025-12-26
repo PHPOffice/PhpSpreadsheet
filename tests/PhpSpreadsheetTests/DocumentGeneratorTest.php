@@ -40,9 +40,9 @@ class DocumentGeneratorTest extends TestCase
         return [
             [
                 [
-                    'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
-                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
+                    'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs', 'argumentCount' => '1'],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd'], 'argumentCount' => '2'],
+                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY'], 'argumentCount' => '3'],
                 ],
                 <<<'EXPECTED'
                     # Function list by name
@@ -74,9 +74,9 @@ class DocumentGeneratorTest extends TestCase
         return [
             [
                 [
-                    'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
-                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
+                    'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs', 'argumentCount' => '1'],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd'], 'argumentCount' => '2'],
+                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY'], 'argumentCount' => '3'],
                 ],
                 <<<'EXPECTED'
                     # Function list by category
