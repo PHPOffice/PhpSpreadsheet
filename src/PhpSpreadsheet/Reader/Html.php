@@ -332,9 +332,11 @@ class Html extends BaseReader
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
             }
         } else {
-            //    We have a Rich Text run
+            //    We have a Rich Text run.
+            //    I don't actually see any way to reach this line.
             //    TODO
-            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @phpstan-ignore-line
+            // @phpstan-ignore-next-line
+            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
         $cellContent = (string) '';
     }
