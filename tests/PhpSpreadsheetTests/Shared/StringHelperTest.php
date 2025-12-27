@@ -15,9 +15,7 @@ class StringHelperTest extends TestCase
 {
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode(null);
-        StringHelper::setDecimalSeparator(null);
-        StringHelper::setThousandsSeparator(null);
+        StringHelper::setLocale(null);
     }
 
     public function testGetIsIconvEnabled(): void

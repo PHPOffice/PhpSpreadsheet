@@ -37,6 +37,11 @@ $currencies = [
     '₽' => 'Rouble (₽)',
 ];
 
+$postNegative = StringHelper::convertPostToString('negative');
+if (!in_array($postNegative, ['0', '1', '2', '3'], true)) {
+    $postNegative = '0';
+}
+$postNegative = (int) $postNegative;
 ?>
     <form action="Currency.php" method="POST">
         <div class="mb-3 row">
@@ -80,10 +85,10 @@ $currencies = [
         <div class="mb-3 row">
             <label for="negative" class="col-sm-2 col-form-label">Negative Numbers</label>
             <div class="col-sm-10">
-                <input name="negative" type="radio" value="0"  <?php echo (!isset($_POST['negative']) || $_POST['negative'] === '0') ? 'checked' : ''; ?>>Minus Sign
-                <input name="negative" type="radio" value="1"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '1') ? 'checked' : ''; ?>>Red Minus Sign
-                <input name="negative" type="radio" value="2"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '2') ? 'checked' : ''; ?>>Parentheses
-                <input name="negative" type="radio" value="3"  <?php echo (isset($_POST['negative']) && $_POST['negative'] === '3') ? 'checked' : ''; ?>>Red Parentheses
+                <input name="negative" type="radio" value="0"  <?php echo ($postNegative === 0) ? 'checked' : ''; ?>>Minus Sign
+                <input name="negative" type="radio" value="1"  <?php echo ($postNegative === 1) ? 'checked' : ''; ?>>Red Minus Sign
+                <input name="negative" type="radio" value="2"  <?php echo ($postNegative === 2) ? 'checked' : ''; ?>>Parentheses
+                <input name="negative" type="radio" value="3"  <?php echo ($postNegative === 3) ? 'checked' : ''; ?>>Red Parentheses
             </div>
         </div>
         <div class="mb-3 row">
@@ -104,7 +109,7 @@ if (isset($_POST['submit'])) {
         $helper->log('Unrecognized currency symbol');
     } else {
         try {
-            $negative = $negatives[$_POST['negative']] ?? CurrencyNegative::minus; //* @phpstan-ignore-line
+            $negative = $negatives[$postNegative];
             $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $wizard->setNegative($negative);
             $mask = $wizard->format();
@@ -118,7 +123,7 @@ if (isset($_POST['submit'])) {
                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
                 . ');'
             );
-            $helper->log('$wizard->setNegative(' . $negativesString[$_POST['negative']] . ');'); //* @phpstan-ignore-line
+            $helper->log('$wizard->setNegative(' . $negativesString[$postNegative] . ');');
             $helper->log('$mask = $wizard->format();');
             $helper->log('<br />echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');

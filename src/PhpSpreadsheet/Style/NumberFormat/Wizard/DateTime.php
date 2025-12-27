@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 class DateTime extends DateTimeWizard
 {
     /**
-     * @var string[]
+     * @var array<?string>
      */
     protected array $separators;
 
@@ -22,7 +22,7 @@ class DateTime extends DateTimeWizard
     public function __construct($separators, ...$formatBlocks)
     {
         $this->separators = $this->padSeparatorArray(
-            is_array($separators) ? $separators : [$separators], //* @phpstan-ignore-line
+            is_array($separators) ? $separators : [$separators],
             count($formatBlocks) - 1
         );
         $this->formatBlocks = array_map([$this, 'mapFormatBlocks'], $formatBlocks);

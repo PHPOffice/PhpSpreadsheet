@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Date;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
     /**
-     * @param null|string|string[] $separators
-     * @param string[] $formatBlocks
+     * @param null|array<?string>|string $separators
+     * @param array<?string> $formatBlocks
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDate')]
+    #[DataProvider('providerDate')]
     public function testDate(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Date($separators, ...$formatBlocks);

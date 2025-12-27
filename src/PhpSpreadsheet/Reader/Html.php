@@ -224,6 +224,8 @@ class Html extends BaseReader
      * Data Array used for testing only, should write to
      * Spreadsheet object on completion of tests.
      *
+     * @deprecated 5.4.0 No replacement.
+     *
      * @var mixed[][]
      */
     protected array $dataArray = [];
@@ -300,12 +302,12 @@ class Html extends BaseReader
                 } else {
                     $sheet->setCellValue($column . $row, $cellContent);
                 }
-                $this->dataArray[$row][$column] = $cellContent;
+                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
             }
         } else {
             //    We have a Rich Text run
             //    TODO
-            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent);
+            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @phpstan-ignore-line
         }
         $cellContent = (string) '';
     }
@@ -826,6 +828,7 @@ class Html extends BaseReader
         return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
     }
 
+    /** @internal */
     protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
         if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {

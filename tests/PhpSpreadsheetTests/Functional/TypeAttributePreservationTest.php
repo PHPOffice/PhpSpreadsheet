@@ -29,7 +29,7 @@ class TypeAttributePreservationTest extends AbstractFunctional
     public static function providerFormulae(): array
     {
         $formats = ['Xlsx'];
-        /** @var mixed[] */
+        /** @var mixed[][] */
         $data = require 'tests/data/Functional/TypeAttributePreservation/Formula.php';
 
         $result = [];

@@ -90,6 +90,7 @@
         "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
     },
     "require-dev": {
+        "ext-intl": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.2",
@@ -104,7 +105,7 @@
         "tecnickcom/tcpdf": "^6.5"
     },
     "suggest": {
-        "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard",
+        "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard and StringHelper::setLocale()",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",

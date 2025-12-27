@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Added
 
 - Passthrough support (with some restrictions) for otherwise unsupported drawing elements. [Issue #4037](https://github.com/PHPOffice/PhpSpreadsheet/issues/4037) [Issue #4704](https://github.com/PHPOffice/PhpSpreadsheet/issues/4704) [PR #4712](https://github.com/PHPOffice/PhpSpreadsheet/pull/4712)
+- Set all locale variables at once in a threadsafe manner. [Issue #954](https://github.com/PHPOffice/PhpSpreadsheet/issues/954) [PR #4760](https://github.com/PHPOffice/PhpSpreadsheet/pull/4760)
 
 ### Removed
 
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Deprecated
 
 - Settings methods setHttpClient, unsetHttpClient, getHttpClient, and getRequestFactory are no longer used. No replacement.
+- Reader/Html protected property dataArray, described as used only for testing, is not used for testing. No replacement.
 
 ### Fixed
 
