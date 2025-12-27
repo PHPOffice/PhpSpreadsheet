@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Deprecated
 
 - Settings methods setHttpClient, unsetHttpClient, getHttpClient, and getRequestFactory are no longer used. No replacement.
+- Reader/Html protected property dataArray, described as used only for testing, is not used for testing. No replacement.
 
 ### Fixed
 
