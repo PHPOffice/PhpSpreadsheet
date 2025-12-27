@@ -15,29 +15,35 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlLibxmlTest extends TestCase
 {
-    private bool $useErrors;
-
-    protected function setUp(): void
-    {
-        $this->useErrors = libxml_use_internal_errors(true);
-    }
-
-    protected function tearDown(): void
-    {
-        libxml_use_internal_errors($this->useErrors);
-    }
-
     public function testLoadInvalidString(): void
     {
+        $libxml = libxml_use_internal_errors();
         $html = '<table<>';
-        (new Html())->loadFromString($html);
-        self::assertNotEmpty(libxml_get_errors());
+        $reader = new Html();
+        $reader->setSuppressLoadWarnings(true);
+        $reader->loadFromString($html);
+        self::assertNotEmpty($reader->getLibxmlMessages());
+        self::assertSame($libxml, libxml_use_internal_errors());
     }
 
     public function testLoadValidString(): void
     {
+        $libxml = libxml_use_internal_errors();
         $html = '<table>';
-        (new Html())->loadFromString($html);
-        self::assertEmpty(libxml_get_errors());
+        $reader = new Html();
+        $reader->setSuppressLoadWarnings(true);
+        $reader->loadFromString($html);
+        self::assertEmpty($reader->getLibxmlMessages());
+        self::assertSame($libxml, libxml_use_internal_errors());
+    }
+
+    public function testLoadValidStringNoSuppress(): void
+    {
+        $libxml = libxml_use_internal_errors();
+        $html = '<table>';
+        $reader = new Html();
+        $reader->loadFromString($html);
+        self::assertEmpty($reader->getLibxmlMessages());
+        self::assertSame($libxml, libxml_use_internal_errors());
     }
 }
