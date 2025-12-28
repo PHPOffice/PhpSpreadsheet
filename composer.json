@@ -73,6 +73,7 @@
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
+        "ext-filter": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-libxml": "*",

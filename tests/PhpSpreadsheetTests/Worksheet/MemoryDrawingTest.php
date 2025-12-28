@@ -76,4 +76,21 @@ class MemoryDrawingTest extends TestCase
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());
     }
+
+    public function testMemoryDrawingFromStreamNoGetImageSize(): void
+    {
+        $imageFile = __DIR__ . '/../../data/Worksheet/officelogo.jpg';
+
+        $imageStream = fopen($imageFile, 'rb');
+        if ($imageStream === false) {
+            self::markTestSkipped('Unable to read Image file for MemoryDrawing');
+        }
+        $drawing = MemoryDrawing2::fromStream($imageStream);
+        fclose($imageStream);
+
+        self::assertIsObject($drawing->getImageResource());
+
+        self::assertSame(MemoryDrawing::MIMETYPE_DEFAULT, $drawing->getMimeType());
+        self::assertSame(MemoryDrawing::RENDERING_DEFAULT, $drawing->getRenderingFunction());
+    }
 }
