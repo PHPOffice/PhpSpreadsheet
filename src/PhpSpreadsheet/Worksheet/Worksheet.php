@@ -1420,14 +1420,13 @@ class Worksheet
      * @param Cell $cell
      *              The Cell for which the tables are retrieved
      *
-     * @return mixed[]
+     * @return Table[]
      */
     public function getTablesWithStylesForCell(Cell $cell): array
     {
         $retVal = [];
 
         foreach ($this->tableCollection as $table) {
-            /** @var Table $table */
             $dxfsTableStyle = $table->getStyle()->getTableDxfsStyle();
             if ($dxfsTableStyle !== null) {
                 if ($dxfsTableStyle->getHeaderRowStyle() !== null || $dxfsTableStyle->getFirstRowStripeStyle() !== null || $dxfsTableStyle->getSecondRowStripeStyle() !== null) {

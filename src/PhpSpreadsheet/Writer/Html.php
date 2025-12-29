@@ -24,8 +24,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\StyleMerger;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\MergedCellStyle;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -35,7 +34,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
-use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableDxfsStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Html extends BaseWriter
@@ -1724,61 +1722,26 @@ class Html extends BaseWriter
 
         $html = $this->generateRowSpans($html, $rowSpan, $colSpan);
 
-        $tables = $worksheet->getTablesWithStylesForCell($worksheet->getCell($coordinate));
-        if (count($tables) > 0 || count($condStyles) > 0) {
-            $matched = false; // TODO the style gotten from the merger overrides everything
-            $styleMerger = new StyleMerger($worksheet->getCell($coordinate)->getStyle());
-            if ($this->tableFormats) {
-                if (count($tables) > 0) {
-                    foreach ($tables as $ts) {
-                        /** @var Table $ts */
-                        $dxfsTableStyle = $ts->getStyle()->getTableDxfsStyle();
-                        if ($dxfsTableStyle !== null) {
-                            /** @var int */
-                            $tableRow = $ts->getRowNumber($coordinate);
-                            /** @var TableDxfsStyle $dxfsTableStyle */
-                            if ($tableRow === 0 && $dxfsTableStyle->getHeaderRowStyle() !== null) {
-                                $styleMerger->mergeStyle($dxfsTableStyle->getHeaderRowStyle());
-                                $matched = true;
-                            } elseif ($tableRow % 2 === 1 && $dxfsTableStyle->getFirstRowStripeStyle() !== null) {
-                                $styleMerger->mergeStyle($dxfsTableStyle->getFirstRowStripeStyle());
-                                $matched = true;
-                            } elseif ($tableRow % 2 === 0 && $dxfsTableStyle->getSecondRowStripeStyle() !== null) {
-                                $styleMerger->mergeStyle($dxfsTableStyle->getSecondRowStripeStyle());
-                                $matched = true;
-                            }
-                        }
-                    }
+        $mergedCellStyle = new MergedCellStyle();
+        $mergedStyle = $mergedCellStyle->getMergedStyle(
+            $worksheet,
+            $coordinate,
+            $this->tableFormats,
+            $this->conditionalFormatting
+        );
+        if ($mergedCellStyle->getMatched()) {
+            $styles = $this->createCSSStyle($mergedStyle, true);
+            $html .= ' style="';
+            if ($holdCss !== '') {
+                $html .= "$holdCss; ";
+                $holdCss = '';
+            }
+            foreach ($styles as $key => $value) {
+                if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
+                    $html .= $key . ':' . $value . ';';
                 }
             }
-            if (count($condStyles) > 0 && $this->conditionalFormatting) {
-                if ($worksheet->getConditionalRange($coordinate) !== null) {
-                    $assessor = new CellStyleAssessor($worksheet->getCell($coordinate), $worksheet->getConditionalRange($coordinate));
-                } else {
-                    $assessor = new CellStyleAssessor($worksheet->getCell($coordinate), $coordinate);
-                }
-                $matchedStyle = $assessor->matchConditionsReturnNullIfNoneMatched($condStyles, $cellData, true);
-
-                if ($matchedStyle !== null) {
-                    $matched = true;
-                    // this is really slow
-                    $styleMerger->mergeStyle($matchedStyle);
-                }
-            }
-            if ($matched) {
-                $styles = $this->createCSSStyle($styleMerger->getStyle(), true);
-                $html .= ' style="';
-                if ($holdCss !== '') {
-                    $html .= "$holdCss; ";
-                    $holdCss = '';
-                }
-                foreach ($styles as $key => $value) {
-                    if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
-                        $html .= $key . ':' . $value . ';';
-                    }
-                }
-                $html .= '"';
-            }
+            $html .= '"';
         }
         if ($holdCss !== '') {
             $html .= ' style="' . $holdCss . '"';
