@@ -1510,13 +1510,17 @@ class Html extends BaseWriter
             if ($this->preCalculateFormulas) {
                 try {
                     $origData = $cell->getCalculatedValue();
-                } catch (CalculationException $exception) {
+                } catch (CalculationException) {
                     $origData = '#ERROR'; // mark as error, rather than crash everything
                 }
                 if ($this->betterBoolean && is_bool($origData)) {
                     $origData2 = $origData ? $this->getTrue : $this->getFalse;
                 } else {
-                    $origData2 = $cell->getCalculatedValueString();
+                    try {
+                        $origData2 = $cell->getCalculatedValueString();
+                    } catch (CalculationException) {
+                        $origData2 = '#ERROR'; // mark as error, rather than crash everything
+                    }
                 }
             } else {
                 $origData = $cell->getValue();
@@ -1567,13 +1571,18 @@ class Html extends BaseWriter
             // Extend CSS class?
             $dataType = $cell->getDataType();
             if ($this->betterBoolean && $this->preCalculateFormulas && $dataType === DataType::TYPE_FORMULA) {
-                $calculatedValue = $cell->getCalculatedValue();
-                if (is_bool($calculatedValue)) {
-                    $dataType = DataType::TYPE_BOOL;
-                } elseif (is_numeric($calculatedValue)) {
-                    $dataType = DataType::TYPE_NUMERIC;
-                } elseif (is_string($calculatedValue)) {
-                    $dataType = DataType::TYPE_STRING;
+                try {
+                    $calculatedValue = $cell->getCalculatedValue();
+                    if (is_bool($calculatedValue)) {
+                        $dataType = DataType::TYPE_BOOL;
+                    } elseif (is_numeric($calculatedValue)) {
+                        $dataType = DataType::TYPE_NUMERIC;
+                    } elseif (is_string($calculatedValue)) {
+                        $dataType = DataType::TYPE_STRING;
+                    }
+                } catch (CalculationException $exception) {
+                    $calculatedValue = '#ERROR';
+                    $dataType = DataType::TYPE_ERROR;
                 }
             }
             if (!$this->useInlineCss && is_string($cssClass)) {
@@ -1654,8 +1663,20 @@ class Html extends BaseWriter
             $dataType = $worksheet->getCell($coordinate)->getDataType();
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
-            } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas && is_bool($worksheet->getCell($coordinate)->getCalculatedValue())) {
-                $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+            } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas) {
+                try {
+                    if (
+                        is_bool(
+                            $worksheet
+                                ->getCell($coordinate)
+                                ->getCalculatedValue()
+                        )
+                    ) {
+                        $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+                    }
+                } catch (CalculationException) {
+                    $html .= ' data-type="' . DataType::TYPE_ERROR . '"';
+                }
             } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
             }
