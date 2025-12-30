@@ -167,6 +167,13 @@ class Html extends BaseWriter
     protected bool $tableFormats = false;
 
     /**
+     * Table formats for unstyled tables.
+     * Enables default style for builtin table formats.
+     * If null, it takes on the same value as $tableFormats.
+     */
+    protected ?bool $tableFormatsBuiltin = null;
+
+    /**
      * Conditional Formatting
      * Enables conditional formatting in writer, disabled here, must be enabled in writer via a setter.
      */
@@ -1748,7 +1755,8 @@ class Html extends BaseWriter
             $worksheet,
             $coordinate,
             $this->tableFormats,
-            $this->conditionalFormatting
+            $this->conditionalFormatting,
+            $this->tableFormatsBuiltin
         );
         if ($mergedCellStyle->getMatched()) {
             $styles = $this->createCSSStyle($mergedStyle, true);
@@ -1970,9 +1978,10 @@ class Html extends BaseWriter
         return $this->tableFormats;
     }
 
-    public function setTableFormats(bool $tableFormats): self
+    public function setTableFormats(bool $tableFormats, ?bool $tableFormatsBuiltin = null): self
     {
         $this->tableFormats = $tableFormats;
+        $this->tableFormatsBuiltin = $tableFormatsBuiltin;
 
         return $this;
     }

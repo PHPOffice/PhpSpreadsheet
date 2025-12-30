@@ -1442,6 +1442,31 @@ class Worksheet
     }
 
     /**
+     * Get tables without styles set for the for given cell.
+     *
+     * @param Cell $cell
+     *              The Cell for which the tables are retrieved
+     *
+     * @return Table[]
+     */
+    public function getTablesWithoutStylesForCell(Cell $cell): array
+    {
+        $retVal = [];
+
+        foreach ($this->tableCollection as $table) {
+            $range = $table->getRange();
+            if ($cell->isInRange($range)) {
+                $dxfsTableStyle = $table->getStyle()->getTableDxfsStyle();
+                if ($dxfsTableStyle === null || ($dxfsTableStyle->getHeaderRowStyle() === null && $dxfsTableStyle->getFirstRowStripeStyle() === null && $dxfsTableStyle->getSecondRowStripeStyle() === null)) {
+                    $retVal[] = $table;
+                }
+            }
+        }
+
+        return $retVal;
+    }
+
+    /**
      * Get conditional styles for a cell.
      *
      * @param string $coordinate eg: 'A1' or 'A1:A3'.

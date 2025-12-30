@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -28,12 +29,16 @@ class MergedCellStyle
      * @param bool $conditionals True/false to indicate whether
      *        conditional styles should be considered.
      */
-    public function getMergedStyle(Worksheet $worksheet, string $coordinate, bool $tableFormats = true, bool $conditionals = true): Style
+    public function getMergedStyle(Worksheet $worksheet, string $coordinate, bool $tableFormats = true, bool $conditionals = true, ?bool $builtInTableStyles = null): Style
     {
+        $builtInTableStyles ??= $tableFormats;
         $this->matched = false;
         $styleMerger = new StyleMerger($worksheet->getStyle($coordinate));
         if ($tableFormats) {
             $this->assessTables($worksheet, $coordinate, $styleMerger);
+        }
+        if ($builtInTableStyles) {
+            $this->assessBuiltinTables($worksheet, $coordinate, $styleMerger);
         }
         if ($conditionals) {
             $this->assessConditionals($worksheet, $coordinate, $styleMerger);
@@ -65,6 +70,45 @@ class MergedCellStyle
                     );
                     $this->matched = true;
                 }
+            }
+        }
+    }
+
+    private static ?Style $headerStyle = null;
+
+    private static ?Style $firstRowStyle = null;
+
+    private function assessBuiltinTables(Worksheet $worksheet, string $coordinate, StyleMerger $styleMerger): void
+    {
+        if (self::$headerStyle === null) {
+            self::$headerStyle = new Style();
+            self::$headerStyle->getFill()
+                ->setFillType(Fill::FILL_SOLID)
+                ->getEndColor()
+                ->setArgb('FF000000');
+            self::$headerStyle->getFill()->getStartColor()
+                ->setArgb('FF000000');
+            self::$headerStyle->getFont()
+                ->getColor()->setRgb('FFFFFF');
+        }
+        if (self::$firstRowStyle === null) {
+            self::$firstRowStyle = new Style();
+            self::$firstRowStyle->getFill()
+                ->setFillType(Fill::FILL_SOLID)
+                ->getEndColor()
+                ->setArgb('FFD9D9D9');
+            self::$firstRowStyle->getFill()->getStartColor()
+                ->setArgb('FFD9D9D9');
+        }
+        $tables = $worksheet->getTablesWithoutStylesForCell($worksheet->getCell($coordinate));
+        foreach ($tables as $table) {
+            $tableRow = $table->getRowNumber($coordinate);
+            if ($tableRow === 0 && $table->getShowHeaderRow()) {
+                $styleMerger->mergeStyle(self::$headerStyle);
+                $this->matched = true;
+            } elseif ($tableRow % 2 === 1) {
+                $styleMerger->mergeStyle(self::$firstRowStyle);
+                $this->matched = true;
             }
         }
     }
