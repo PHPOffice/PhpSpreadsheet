@@ -36,7 +36,7 @@ class HtmlTableFormatTest extends TestCase
         return $matches[0];
     }
 
-    public function xtestHtmlTableFormatOutput(): void
+    public function testHtmlTableFormatOutput(): void
     {
         $file = 'samples/templates/TableFormat.xlsx';
         $reader = new XlsxReader();
