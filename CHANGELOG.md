@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Fix functions related to Student-T distribution. [Issue #4167](https://github.com/PHPOffice/PhpSpreadsheet/issues/4167) [PR #4748](https://github.com/PHPOffice/PhpSpreadsheet/pull/4748)
 - Fix clone spreadsheet with defined names. [PR #4753](https://github.com/PHPOffice/PhpSpreadsheet/pull/4753)
 - Changes to WEBSERVICE. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
+- SUBTOTAL and hidden rows. [Issue #820](https://github.com/PHPOffice/PhpSpreadsheet/issues/820) [PR #4765](https://github.com/PHPOffice/PhpSpreadsheet/pull/4765)
 
 ## 2025-11-24 - 5.3.0
 
