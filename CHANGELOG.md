@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Moved
 
-- Nothing yet.
+- Code to merge cell base style with table and conditional styles moved from Html Writer to its own class. [Issue #1058](https://github.com/PHPOffice/PhpSpreadsheet/issues/1058) [PR #4763](https://github.com/PHPOffice/PhpSpreadsheet/pull/4763)
 
 ### Deprecated
 
