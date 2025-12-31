@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Coverage-related changes in Shared. [PR #4745](https://github.com/PHPOffice/PhpSpreadsheet/pull/4745)
 - ListWorksheetInfo improvements for Xlsx and Ods. [Issue #3255](https://github.com/PHPOffice/PhpSpreadsheet/issues/3255) [PR #4746](https://github.com/PHPOffice/PhpSpreadsheet/pull/4746)
 - Fix functions related to Student-T distribution. [Issue #4167](https://github.com/PHPOffice/PhpSpreadsheet/issues/4167) [PR #4748](https://github.com/PHPOffice/PhpSpreadsheet/pull/4748)
+- Fix drawing hyperlinks. [Issue #993](https://github.com/PHPOffice/PhpSpreadsheet/issues/993) [PR #4764](https://github.com/PHPOffice/PhpSpreadsheet/pull/4764)
 - Fix clone spreadsheet with defined names. [PR #4753](https://github.com/PHPOffice/PhpSpreadsheet/pull/4753)
 - Changes to WEBSERVICE. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
 

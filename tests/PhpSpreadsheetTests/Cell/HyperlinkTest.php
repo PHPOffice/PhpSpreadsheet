@@ -69,13 +69,18 @@ class HyperlinkTest extends TestCase
 
     public function testGetHashCode(): void
     {
-        $urlValue = 'https://www.example.com';
-        $tooltipValue = 'PhpSpreadsheet Web Site';
-        $initialExpectedHash = '3a8d5a682dba27276dce538c39402437';
+        $url1 = 'https://www.example.com';
+        $tooltip1 = 'PhpSpreadsheet Web Site';
+        $url2 = 'https://www.example.com';
+        $tooltip2 = 'PhpSpreadsheet Web Site';
+        $url3 = 'https://www.example.com';
+        $tooltip3 = 'PhpSpreadsheet Web Site '; // note extra space
 
-        $testInstance = new Hyperlink($urlValue, $tooltipValue);
-
-        $result = $testInstance->getHashCode();
-        self::assertEquals($initialExpectedHash, $result);
+        $hy1 = new Hyperlink($url1, $tooltip1);
+        $hy2 = new Hyperlink($url2, $tooltip2);
+        $hy3 = new Hyperlink($url3, $tooltip3);
+        self::assertNotSame($hy1, $hy2);
+        self::assertSame($hy1->getHashCode(), $hy2->getHashCode());
+        self::assertNotEquals($hy1->getHashCode(), $hy3->getHashCode());
     }
 }

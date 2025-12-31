@@ -628,7 +628,7 @@ $spreadsheet->getActiveSheet()->getCell('A1')
 
 ## Change a cell into a clickable URL
 
-You can make a cell a clickable URL by setting its hyperlink property:
+You can make a cell (or, for Xlsx only, a drawing) a clickable URL by setting its hyperlink property:
 
 ```php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
@@ -647,6 +647,9 @@ $spreadsheet->getActiveSheet()->getCell('E27')
     ->getHyperlink()
     ->setUrl("sheet://'Sheetname'!A1");
 ```
+Xlsx format uses `#` in place of `sheet://`.
+PhpSpreadsheet will automatically convert to that form when writing a spreadsheet,
+so you should continue to use `sheet://` for greater interoperability.
 
 Excel automatically supplies a special style when a hyperlink is
 entered into a cell. PhpSpreadsheet cannot do so. However,
