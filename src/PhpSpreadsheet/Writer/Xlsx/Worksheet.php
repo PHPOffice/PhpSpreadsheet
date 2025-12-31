@@ -1085,6 +1085,13 @@ class Worksheet extends WriterPart
 
                 if ($hyperlink->getTooltip() !== '') {
                     $objWriter->writeAttribute('tooltip', $hyperlink->getTooltip());
+                }
+                if ($hyperlink->getDisplay() !== '') {
+                    $objWriter->writeAttribute('display', $hyperlink->getDisplay());
+                } elseif ($hyperlink->getTooltip() !== '') {
+                    // Probably shouldn't do this,
+                    // but avoids a breaking change.
+                    // This was introduced in PR 904 in 2019.
                     $objWriter->writeAttribute('display', $hyperlink->getTooltip());
                 }
 

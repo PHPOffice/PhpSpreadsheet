@@ -14,6 +14,8 @@ class Hyperlink
      */
     private string $tooltip;
 
+    private string $display = '';
+
     /**
      * Create a new Hyperlink.
      *
@@ -80,6 +82,23 @@ class Hyperlink
         return $this->isInternal() ? '' : 'External';
     }
 
+    public function getDisplay(): string
+    {
+        return $this->display;
+    }
+
+    /**
+     * This can be displayed in cell rather than actual cell contents.
+     * It seems to be ignored by Excel.
+     * It may be used by Google Sheets.
+     */
+    public function setDisplay(string $display): self
+    {
+        $this->display = $display;
+
+        return $this;
+    }
+
     /**
      * Get hash code.
      *
@@ -89,7 +108,11 @@ class Hyperlink
     {
         return md5(
             $this->url
+            . ','
             . $this->tooltip
+            . ','
+            . $this->display
+            . ','
             . __CLASS__
         );
     }

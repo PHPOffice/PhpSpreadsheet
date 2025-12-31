@@ -95,4 +95,39 @@ class HyperlinkTest extends AbstractFunctional
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
+
+    public function testDisplay(): void
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('A1 text');
+        $hy1 = $sheet->getCell('A1')->getHyperlink();
+        $hy1->setUrl('http://www.example.com');
+        $hy1->setTooltip('Go to example.com');
+
+        $sheet->getCell('A2')->setValue('A2 text');
+        $hy2 = $sheet->getCell('A2')->getHyperlink();
+        $hy2->setUrl('http://www.example.org');
+        $hy2->setTooltip('Go to example.org');
+        $hy2->setDisplay('A2 display');
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+        $rsheet = $reloadedSpreadsheet->getActiveSheet();
+
+        self::assertSame('A1 text', $rsheet->getCell('A1')->getValue());
+        $rhy1 = $rsheet->getCell('A1')->getHyperlink();
+        self::assertSame('http://www.example.com', $rhy1->getUrl());
+        self::assertSame('Go to example.com', $rhy1->getTooltip());
+        self::assertSame('Go to example.com', $rhy1->getDisplay(), 'display is set to tooltip if unset');
+
+        self::assertSame('A2 text', $rsheet->getCell('A2')->getValue());
+        $rhy2 = $rsheet->getCell('A2')->getHyperlink();
+        self::assertSame('http://www.example.org', $rhy2->getUrl());
+        self::assertSame('Go to example.org', $rhy2->getTooltip());
+        self::assertSame('A2 display', $rhy2->getDisplay(), 'display is explicitly set');
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
 }

@@ -58,6 +58,10 @@ class Hyperlinks
             if (isset($attributes['tooltip'])) {
                 $cell->getHyperlink()->setTooltip((string) $attributes['tooltip']);
             }
+
+            if (isset($attributes['display'])) {
+                $cell->getHyperlink()->setDisplay((string) $attributes['display']);
+            }
         }
     }
 }
