@@ -324,7 +324,7 @@ class DrawingsTest extends AbstractFunctional
 
         try {
             $drawing->getImageFileExtensionForSave();
-            self::fail('Should throw exception when attempting to get image file extention for tiff');
+            self::fail('Should throw exception when attempting to get image file extension for tiff');
         } catch (PhpSpreadsheetException $e) {
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }

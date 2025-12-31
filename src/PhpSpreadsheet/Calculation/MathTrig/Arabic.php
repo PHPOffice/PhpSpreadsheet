@@ -57,7 +57,7 @@ class Arabic
      *
      * @param string|string[] $roman Should be a string, or can be an array of strings
      *
-     * @return array<mixed>|int|string the arabic numberal contrived from the roman numeral
+     * @return array<mixed>|int|string the arabic numeral contrived from the roman numeral
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

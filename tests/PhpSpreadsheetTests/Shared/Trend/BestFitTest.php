@@ -45,6 +45,10 @@ class BestFitTest extends TestCase
             $maxType = $type;
         }
         self::assertEqualsWithDelta(-0.0724, $goodness, self::LBF_PRECISION);
+        self::assertEqualsWithDelta(0.3116, $result->getValueOfXForY(2.1), self::LBF_PRECISION);
+        $equation = $result->getEquation();
+        $match = preg_match('/^Y = 0[.]01765\d+ [*] log[(]2.1205\d+ [*] X[)]$/', $equation);
+        self::assertSame(1, $match, $equation);
 
         $type = Trend::TREND_POWER;
         $result = Trend::calculate($type, $yValues, $xValues);
@@ -54,6 +58,11 @@ class BestFitTest extends TestCase
             $maxType = $type;
         }
         self::assertEqualsWithDelta(0.9946, $goodness, self::LBF_PRECISION);
+        self::assertEqualsWithDelta(28.0886, $result->getValueOfXForY(10.0), self::LBF_PRECISION);
+        $equation = $result->getEquation();
+        $match = preg_match('/^Y = 0[.]1705\d+ [*] X\^1[.]2207\d+$/', $equation);
+        self::assertSame(1, $match, $equation);
+        self::assertEqualsWithDelta(0.1705, $result->getIntersect(4), self::LBF_PRECISION);
 
         $type = Trend::TREND_BEST_FIT_NO_POLY;
         $result = Trend::calculate($type, $yValues, $xValues);

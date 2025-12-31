@@ -67,7 +67,7 @@ class MatchTest extends AllSetupTeardown
         $sheet->getCell('D1')->setValue($formula);
 
         $result = $sheet->getCell('D1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerMATCH(): array
@@ -81,8 +81,8 @@ class MatchTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=MATCH({$values}, {$selections}, 0)";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerMatchArray(): array

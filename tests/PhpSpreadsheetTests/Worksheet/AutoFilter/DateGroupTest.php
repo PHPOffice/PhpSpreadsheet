@@ -54,6 +54,28 @@ class DateGroupTest extends SetupTeardown
         self::assertEquals([6], $this->getVisible());
     }
 
+    public function testIssue4696(): void
+    {
+        $year = 2011;
+        $sheet = $this->initSheet($year);
+        $sheet->getCell('A2')->setValue(7000989091802000122);
+        $columnFilter = $sheet->getAutoFilter()->getColumn('C');
+        $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                [
+                    'year' => $year,
+                    'month' => 12,
+                    'day' => 6,
+                ]
+            )
+            ->setRuleType(
+                Rule::AUTOFILTER_RULETYPE_DATEGROUP
+            );
+        self::assertEquals([6], $this->getVisible());
+    }
+
     public function testYearMonthDayHourMinuteSecond1Group(): void
     {
         $year = 2011;

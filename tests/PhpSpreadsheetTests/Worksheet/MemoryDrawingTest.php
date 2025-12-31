@@ -14,9 +14,7 @@ class MemoryDrawingTest extends TestCase
     {
         $name = 'In-Memory image';
         $gdImage = @imagecreatetruecolor(120, 20);
-        if ($gdImage === false) {
-            self::markTestSkipped('Unable to create GD Image for MemoryDrawing');
-        }
+        self::assertNotFalse($gdImage);
 
         $textColor = (int) imagecolorallocate($gdImage, 255, 255, 255);
         imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
@@ -40,9 +38,7 @@ class MemoryDrawingTest extends TestCase
         $imageFile = __DIR__ . '/../../data/Worksheet/officelogo.jpg';
 
         $imageString = file_get_contents($imageFile);
-        if ($imageString === false) {
-            self::markTestSkipped('Unable to read Image file for MemoryDrawing');
-        }
+        self::assertNotFalse($imageString);
         $drawing = MemoryDrawing::fromString($imageString);
 
         self::assertIsObject($drawing->getImageResource());
@@ -65,9 +61,7 @@ class MemoryDrawingTest extends TestCase
         $imageFile = __DIR__ . '/../../data/Worksheet/officelogo.jpg';
 
         $imageStream = fopen($imageFile, 'rb');
-        if ($imageStream === false) {
-            self::markTestSkipped('Unable to read Image file for MemoryDrawing');
-        }
+        self::assertNotFalse($imageStream);
         $drawing = MemoryDrawing::fromStream($imageStream);
         fclose($imageStream);
 
@@ -75,5 +69,50 @@ class MemoryDrawingTest extends TestCase
 
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());
+    }
+
+    public function testMemoryDrawingFromStreamNoGetImageSize(): void
+    {
+        $imageFile = __DIR__ . '/../../data/Worksheet/officelogo.jpg';
+
+        $imageStream = fopen($imageFile, 'rb');
+        self::assertNotFalse($imageStream);
+        $drawing = MemoryDrawing2::fromStream($imageStream);
+        fclose($imageStream);
+
+        self::assertIsObject($drawing->getImageResource());
+
+        self::assertSame(MemoryDrawing::MIMETYPE_DEFAULT, $drawing->getMimeType());
+        self::assertSame(MemoryDrawing::RENDERING_DEFAULT, $drawing->getRenderingFunction());
+    }
+
+    public function testMemoryDrawingGif(): void
+    {
+        $imageFile = __DIR__ . '/../../data/Writer/XLSX/green_square.gif';
+
+        $imageStream = fopen($imageFile, 'rb');
+        self::assertNotFalse($imageStream);
+        $drawing = MemoryDrawing::fromStream($imageStream);
+        fclose($imageStream);
+
+        self::assertIsObject($drawing->getImageResource());
+
+        self::assertSame(MemoryDrawing::MIMETYPE_GIF, $drawing->getMimeType());
+        self::assertSame(MemoryDrawing::RENDERING_GIF, $drawing->getRenderingFunction());
+    }
+
+    public function testMemoryDrawingBmp(): void
+    {
+        $imageFile = __DIR__ . '/../../data/Writer/XLSX/brown_square_256.bmp';
+
+        $imageStream = fopen($imageFile, 'rb');
+        self::assertNotFalse($imageStream);
+        $drawing = MemoryDrawing::fromStream($imageStream);
+        fclose($imageStream);
+
+        self::assertIsObject($drawing->getImageResource());
+
+        self::assertSame(MemoryDrawing::MIMETYPE_DEFAULT, $drawing->getMimeType(), 'bmp not supporteed - use default');
+        self::assertSame(MemoryDrawing::RENDERING_DEFAULT, $drawing->getRenderingFunction(), 'bmp not supported - use default');
     }
 }

@@ -247,6 +247,8 @@ class Cell implements Stringable
      *
      * @param mixed $value Value
      * @param string $dataType Explicit data type, see DataType::TYPE_*
+     *        This parameter is currently optional (default = string).
+     *        Omitting it is ***DEPRECATED***, and the default will be removed in a future release.
      *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
      *             method, then it is your responsibility as an end-user developer to validate that the value and
      *             the datatype match.

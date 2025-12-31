@@ -58,7 +58,7 @@ class Alignment extends Supervisor
         self::VERTICAL_CENTER => self::VERTICAL_CENTER,
         self::VERTICAL_JUSTIFY => self::VERTICAL_JUSTIFY,
         self::VERTICAL_DISTRIBUTED => self::VERTICAL_DISTRIBUTED,
-        // css settings that arent't in sync with Excel
+        // css settings that aren't in sync with Excel
         self::VERTICAL_BASELINE => self::VERTICAL_BOTTOM,
         self::VERTICAL_MIDDLE => self::VERTICAL_CENTER,
         self::VERTICAL_SUB => self::VERTICAL_BOTTOM,
@@ -74,7 +74,7 @@ class Alignment extends Supervisor
         self::VERTICAL_CENTER => self::VERTICAL_MIDDLE,
         self::VERTICAL_JUSTIFY => self::VERTICAL_MIDDLE,
         self::VERTICAL_DISTRIBUTED => self::VERTICAL_MIDDLE,
-        // css settings that arent't in sync with Excel
+        // css settings that aren't in sync with Excel
         self::VERTICAL_BASELINE => self::VERTICAL_BASELINE,
         self::VERTICAL_MIDDLE => self::VERTICAL_MIDDLE,
         self::VERTICAL_SUB => self::VERTICAL_SUB,
@@ -91,6 +91,8 @@ class Alignment extends Supervisor
     // Special value for Text Rotation
     const TEXTROTATION_STACK_EXCEL = 255;
     const TEXTROTATION_STACK_PHPSPREADSHEET = -165; // 90 - 255
+
+    public const INDENT_UNITS_TO_PIXELS = 9;
 
     /**
      * Horizontal alignment.

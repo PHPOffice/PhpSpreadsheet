@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IfsTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFS')]
+    #[DataProvider('providerIFS')]
     public function testIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFS', $expectedResult, ...$args);
@@ -19,14 +20,14 @@ class IfsTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFS.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfsArray')]
+    #[DataProvider('providerIfsArray')]
     public function testIfsArray(array $expectedResult, string $bool1, string $argument1, string $bool2, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IFS($bool1, {" . "$argument1}, $bool2, {" . "$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIfsArray(): array

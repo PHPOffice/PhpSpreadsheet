@@ -3411,7 +3411,7 @@ class Worksheet
     public static function unApostrophizeTitle(?string $title): string
     {
         $title ??= '';
-        if ($title[0] === "'" && substr($title, -1) === "'") {
+        if (str_starts_with($title, "'") && str_ends_with($title, "'")) {
             $title = str_replace("''", "'", substr($title, 1, -1));
         }
 

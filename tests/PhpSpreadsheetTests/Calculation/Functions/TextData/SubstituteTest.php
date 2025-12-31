@@ -51,8 +51,8 @@ class SubstituteTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=SUBSTITUTE({$oldText}, {$fromText}, {$toText})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerSubstituteArray(): array

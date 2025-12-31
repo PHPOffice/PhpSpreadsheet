@@ -45,7 +45,7 @@ class WeekDayTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=WEEKDAY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
@@ -114,7 +114,7 @@ class WeekDayTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=WEEKDAY({$dateValues}, {$styles})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

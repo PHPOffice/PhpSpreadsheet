@@ -16,4 +16,12 @@ class DggContainerTest extends TestCase
         $bse->setParent($container);
         self::assertSame($container, $bse->getParent());
     }
+
+    public function testGetOpt(): void
+    {
+        $dgg = new DggContainer();
+        self::assertNull($dgg->getOPT(99));
+        $dgg->setOPT(98, 'whatever');
+        self::assertSame('whatever', $dgg->getOPT(98));
+    }
 }

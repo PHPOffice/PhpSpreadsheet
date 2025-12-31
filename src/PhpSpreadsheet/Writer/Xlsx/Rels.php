@@ -148,7 +148,7 @@ class Rels extends WriterPart
                 Namespaces::VBA,
                 'vbaProject.bin'
             );
-            ++$i; //increment i if needed for an another relation
+            ++$i; //increment i if needed for another relation
         }
 
         // Metadata needed for Dynamic Arrays
@@ -159,7 +159,7 @@ class Rels extends WriterPart
                 Namespaces::RELATIONSHIPS_METADATA,
                 'metadata.xml'
             );
-            ++$i; //increment i if needed for an another relation
+            ++$i; //increment i if needed for another relation
         }
 
         $objWriter->endElement();
@@ -345,6 +345,12 @@ class Rels extends WriterPart
      */
     public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, int &$chartRef, bool $includeCharts = false): string
     {
+        // Check if we should use pass-through relationships
+        $passThroughRels = $this->getPassThroughDrawingRelationships($worksheet);
+        if ($passThroughRels !== null) {
+            return $passThroughRels;
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -522,5 +528,25 @@ class Rels extends WriterPart
         );
 
         return $i;
+    }
+
+    /**
+     * Get pass-through drawing relationships XML if available.
+     *
+     * Note: When pass-through is used, the original relationships are returned as-is.
+     * This means any drawings (images, charts, shapes) added programmatically after
+     * loading will not be included in the relationships. This is a known limitation
+     * when combining pass-through with drawing modifications.
+     */
+    private function getPassThroughDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'] ?? [];
+        $sheetData = $sheets[$worksheet->getCodeName()] ?? [];
+        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || !is_string($sheetData['drawingRelationships'] ?? null)) {
+            return null;
+        }
+
+        return $sheetData['drawingRelationships'];
     }
 }

@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class TextGrid
 {
-    private bool $isCli;
+    protected bool $isCli;
 
     /** @var mixed[][] */
     protected array $matrix;
@@ -17,16 +17,18 @@ class TextGrid
     /** @var string[] */
     protected array $columns;
 
-    private string $gridDisplay;
+    protected string $gridDisplay;
 
-    private bool $rowDividers = false;
+    protected bool $rowDividers = false;
 
-    private bool $rowHeaders = true;
+    protected bool $rowHeaders = true;
 
-    private bool $columnHeaders = true;
+    protected bool $columnHeaders = true;
+
+    protected TextGridRightAlign $numbersRight = TextGridRightAlign::none;
 
     /** @param mixed[][] $matrix */
-    public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true)
+    public function __construct(array $matrix, bool $isCli = true, bool $rowDividers = false, bool $rowHeaders = true, bool $columnHeaders = true, TextGridRightAlign $numbersRight = TextGridRightAlign::none)
     {
         $this->rows = array_keys($matrix);
         $this->columns = array_keys($matrix[$this->rows[0]]);
@@ -44,6 +46,12 @@ class TextGrid
         $this->rowDividers = $rowDividers;
         $this->rowHeaders = $rowHeaders;
         $this->columnHeaders = $columnHeaders;
+        $this->numbersRight = $numbersRight;
+    }
+
+    public function setNumbersRight(TextGridRightAlign $numbersRight): void
+    {
+        $this->numbersRight = $numbersRight;
     }
 
     public function render(): string
@@ -52,7 +60,7 @@ class TextGrid
 
         if (!empty($this->rows)) {
             $maxRow = max($this->rows);
-            $maxRowLength = strlen((string) $maxRow) + 1;
+            $maxRowLength = $this->strlen((string) $maxRow) + 1;
             $columnWidths = $this->getColumnWidths();
 
             $this->renderColumnHeader($maxRowLength, $columnWidths);
@@ -68,7 +76,7 @@ class TextGrid
     }
 
     /** @param int[] $columnWidths */
-    private function renderRows(int $maxRowLength, array $columnWidths): void
+    protected function renderRows(int $maxRowLength, array $columnWidths): void
     {
         foreach ($this->matrix as $row => $rowData) {
             if ($this->rowHeaders) {
@@ -86,18 +94,27 @@ class TextGrid
      * @param mixed[] $rowData
      * @param int[] $columnWidths
      */
-    private function renderCells(array $rowData, array $columnWidths): void
+    protected function renderCells(array $rowData, array $columnWidths): void
     {
         foreach ($rowData as $column => $cell) {
             $valueForLength = $this->getString($cell);
             $displayCell = $this->isCli ? $valueForLength : htmlentities($valueForLength);
             $this->gridDisplay .= '| ';
-            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength) + 1);
+            if ($this->rightAlign($displayCell, $cell)) {
+                $this->gridDisplay .= str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength)) . $displayCell . ' ';
+            } else {
+                $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - $this->strlen($valueForLength) + 1);
+            }
         }
     }
 
+    protected function rightAlign(string $displayCell, mixed $cell = null): bool
+    {
+        return ($this->numbersRight === TextGridRightAlign::numeric && is_numeric($displayCell)) || ($this->numbersRight === TextGridRightAlign::floatOrInt && (is_int($cell) || is_float($cell)));
+    }
+
     /** @param int[] $columnWidths */
-    private function renderColumnHeader(int $maxRowLength, array &$columnWidths): void
+    protected function renderColumnHeader(int $maxRowLength, array &$columnWidths): void
     {
         if (!$this->columnHeaders) {
             $this->renderFooter($maxRowLength, $columnWidths);
@@ -129,7 +146,7 @@ class TextGrid
     }
 
     /** @param int[] $columnWidths */
-    private function renderFooter(int $maxRowLength, array $columnWidths): void
+    protected function renderFooter(int $maxRowLength, array $columnWidths): void
     {
         if ($this->rowHeaders) {
             $this->gridDisplay .= '+' . str_repeat('-', $maxRowLength + 1);
@@ -142,7 +159,7 @@ class TextGrid
     }
 
     /** @return int[] */
-    private function getColumnWidths(): array
+    protected function getColumnWidths(): array
     {
         $columnCount = count($this->matrix, COUNT_RECURSIVE) / count($this->matrix);
         $columnWidths = [];
@@ -154,7 +171,7 @@ class TextGrid
     }
 
     /** @param mixed[] $columnData */
-    private function getColumnWidth(array $columnData): int
+    protected function getColumnWidth(array $columnData): int
     {
         $columnWidth = 0;
         $columnData = array_values($columnData);

@@ -194,20 +194,22 @@ Time functions in Excel will be a PHP `DateTime` object.
 
 #### Excel Timestamps
 
-If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
-date value by any access to the Date and Time functions in Excel will be
-a floating point value that represents a number of days from the Excel
-base date. The Excel base date is determined by which calendar Excel
+Excel timestamps are stored as integer or floating point, where the integer portion represents the number of days since a base date,
+and the fraction portion represents the time of day (0 is midnight, 0.5 is noon, 0.999... is just before midnight the next day).
+The Excel base date is determined by which calendar Excel
 uses: the Windows 1900 or the Mac 1904 calendar. 1st January 1900 is the
 base date for the Windows 1900 calendar while 1st January 1904 is the
 base date for the Mac 1904 calendar.
 
-It is possible for scripts to change the calendar used for calculating
-Excel date values by calling the
-`\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar()` method:
+If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
+date value by any access to the Date and Time functions in Excel will be
+a floating point value in Excel timestamp format (previous paragraph).
 
+It is possible for scripts to change the calendar used for calculating
+Excel date values by calling:
 ```php
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
+\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate); // static property, less preferred
+$spreadsheet->setExcelCalendar($baseDate); // instance property, preferred
 ```
 
 where the following constants can be used for `$baseDate`:
@@ -218,11 +220,10 @@ where the following constants can be used for `$baseDate`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The `\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar()` method can
-be used to determine the current value of this setting:
-
+The current value of this setting can be determined via:
 ```php
-$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
+$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar(); // static
+$baseDate = $spreadsheet->getExcelCalendar(); // instance
 ```
 
 The default is `CALENDAR_WINDOWS_1900`.

@@ -7,7 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
 
-class DataValidationBooleanValue extends TestCase
+class DataValidationBooleanValueTest extends TestCase
 {
     public static function testPr2225TrueFalse(): void
     {

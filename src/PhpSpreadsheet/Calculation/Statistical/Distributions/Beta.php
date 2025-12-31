@@ -28,9 +28,9 @@ class Beta
      *                      Or can be an array of values
      * @param mixed $beta Parameter to the distribution as a float
      *                      Or can be an array of values
-     * @param mixed $rMin as an float
+     * @param mixed $rMin as a float
      *                      Or can be an array of values
-     * @param mixed $rMax as an float
+     * @param mixed $rMax as a float
      *                      Or can be an array of values
      *
      * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array

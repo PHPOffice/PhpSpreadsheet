@@ -7,7 +7,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 class OLETest extends TestCase
 {
@@ -42,37 +41,42 @@ class OLETest extends TestCase
         self::assertSame(1024, $ole->getBlockOffset(1));
     }
 
-    public function testChainedWriteMode(): void
-    {
-        $ole = new OLE\ChainedBlockStream();
-        $openedPath = '';
-        self::assertFalse($ole->stream_open('whatever', 'w', 0, $openedPath));
+    // testChainedWriteMode moved to OLEPhpunit10Test
+    // testChainedBadPath moved to OLEPhpunit10Test
 
-        // Test moved to OLEPhpunit10Test for PhpUnit 10
-        if (method_exists($this, 'setOutputCallback')) {
-            try {
-                $ole->stream_open('whatever', 'w', STREAM_REPORT_ERRORS, $openedPath);
-                self::fail('Error in statement above should be caught');
-            } catch (Throwable $e) {
-                self::assertSame('Only reading is supported', $e->getMessage());
-            }
-        }
+    public function testOleFunctions(): void
+    {
+        $ole = new OLE();
+        $infile = 'tests/data/Reader/XLS/pr.4687.excel.xls';
+        $ole->read($infile);
+        self::assertSame(4, $ole->ppsTotal());
+        self::assertFalse($ole->isFile(0), 'root entry');
+        self::assertTrue($ole->isFile(1), 'workbook');
+        self::assertTrue($ole->isFile(2), 'summary information');
+        self::assertTrue($ole->isFile(3), 'document summary information');
+        self::assertFalse($ole->isFile(4), 'no such index');
+        self::assertTrue($ole->isRoot(0), 'root entry');
+        self::assertFalse($ole->isRoot(1), 'workbook');
+        self::assertFalse($ole->isRoot(2), 'summary information');
+        self::assertFalse($ole->isRoot(3), 'document summary information');
+        self::assertFalse($ole->isRoot(4), 'no such index');
+        self::assertSame(0, $ole->getDataLength(0), 'root entry');
+        self::assertSame(15712, $ole->getDataLength(1), 'workbook');
+        self::assertSame(4096, $ole->getDataLength(2), 'summary information');
+        self::assertSame(4096, $ole->getDataLength(3), 'document summary information');
+        self::assertSame(0, $ole->getDataLength(4), 'no such index');
+        self::assertSame('', $ole->getData(2, -1, 4), 'negative position');
+        self::assertSame('', $ole->getData(2, 5000, 4), 'position > length');
+        self::assertSame('feff0000', bin2hex($ole->getData(2, 0, 4)));
+        self::assertSame('', $ole->getData(4, 0, 4), 'no such index');
     }
 
-    public function testChainedBadPath(): void
+    public function testBadEndian(): void
     {
-        $ole = new OLE\ChainedBlockStream();
-        $openedPath = '';
-        self::assertFalse($ole->stream_open('whatever', 'r', 0, $openedPath));
-
-        // Not sure how to do this test with PhpUnit 10
-        if (method_exists($this, 'setOutputCallback')) {
-            try {
-                $ole->stream_open('whatever', 'r', STREAM_REPORT_ERRORS, $openedPath);
-                self::fail('Error in statement above should be caught');
-            } catch (Throwable $e) {
-                self::assertSame('OLE stream not found', $e->getMessage());
-            }
-        }
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Only Little-Endian encoding is supported');
+        $ole = new OLE();
+        $infile = 'tests/data/Reader/XLS/pr.4687.excel.badendian.xls';
+        $ole->read($infile);
     }
 }

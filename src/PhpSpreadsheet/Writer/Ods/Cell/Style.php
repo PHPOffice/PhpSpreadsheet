@@ -151,6 +151,7 @@ class Style
         $vAlign = $style->getAlignment()->getVertical();
         $wrap = $style->getAlignment()->getWrapText();
         $indent = $style->getAlignment()->getIndent();
+        $readOrder = $style->getAlignment()->getReadOrder();
 
         $this->writer->startElement('style:table-cell-properties');
         if (!empty($vAlign) || $wrap) {
@@ -172,7 +173,7 @@ class Style
 
         $this->writer->endElement();
 
-        if ($hAlign !== '' || !empty($indent)) {
+        if ($hAlign !== '' || !empty($indent) || $readOrder === Alignment::READORDER_RTL || $readOrder === Alignment::READORDER_LTR) {
             $this->writer
                 ->startElement('style:paragraph-properties');
             if ($hAlign !== '') {
@@ -181,6 +182,11 @@ class Style
             if (!empty($indent)) {
                 $indentString = sprintf('%.4f', $indent * self::INDENT_TO_INCHES) . 'in';
                 $this->writer->writeAttribute('fo:margin-left', $indentString);
+            }
+            if ($readOrder === Alignment::READORDER_RTL) {
+                $this->writer->writeAttribute('style:writing-mode', 'rl-tb');
+            } elseif ($readOrder === Alignment::READORDER_LTR) {
+                $this->writer->writeAttribute('style:writing-mode', 'lr-tb');
             }
             $this->writer->endElement();
         }

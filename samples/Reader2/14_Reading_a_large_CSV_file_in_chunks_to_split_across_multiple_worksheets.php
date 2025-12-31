@@ -77,8 +77,11 @@ $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . '</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
+    $sheet = $spreadsheet->getActiveSheet();
 
-    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
-    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
-    $helper->displayGrid($sheetData);
+    $activeRange = $sheet->calculateWorksheetDataDimension();
+    $sheet->getStyle($activeRange)->getNumberFormat()
+        ->setFormatCode('0.000');
+    $sheetData = $sheet->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData, true);
 }

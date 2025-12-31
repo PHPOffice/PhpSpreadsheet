@@ -81,7 +81,7 @@ abstract class JpGraphRendererBase implements IRenderer
     }
 
     /**
-     * This method should be overriden in descendants to do real JpGraph library initialization.
+     * This method should be overridden in descendants to do real JpGraph library initialization.
      */
     abstract protected static function init(): void;
 

@@ -316,7 +316,7 @@ abstract class Coordinate
 
         $worksheet = $matches['worksheet'];
         if ($worksheet !== '') {
-            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+            if (str_starts_with($worksheet, "'") && str_ends_with($worksheet, "'")) {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $data['worksheet'] = strtolower($worksheet);
@@ -401,7 +401,7 @@ abstract class Coordinate
             return $indexCache[$columnAddress];
         }
         //    It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array
-        //        rather than use ord() and make it case insensitive to get rid of the strtoupper() as well.
+        //        rather than use ord() and make it case-insensitive to get rid of the strtoupper() as well.
         //        Because it's a static, there's no significant memory overhead either.
         /** @var array<string, int> */
         static $columnLookup = [
@@ -671,7 +671,7 @@ abstract class Coordinate
      *
      * @param array<string, mixed> $coordinateCollection associative array mapping coordinates to values
      *
-     * @return array<string, mixed> associative array mapping coordinate ranges to valuea
+     * @return array<string, mixed> associative array mapping coordinate ranges to values
      */
     public static function mergeRangesInCollection(array $coordinateCollection): array
     {

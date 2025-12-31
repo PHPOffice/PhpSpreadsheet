@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\TextGrid;
+use PhpOffice\PhpSpreadsheet\Helper\TextGridRightAlign;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -154,6 +155,110 @@ class TextGridTest extends TestCase
             '| TRUE | FALSE |',
             '| TRUE | TRUE  |',
             '+------+-------+',
+            '',
+        ];
+        $result = $textGrid->render();
+        $lines = explode(PHP_EOL, $result);
+        self::assertSame($expected, $lines);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNumbersDefault(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [0, 1, 'string1'],
+            [18, 13.25, 'string2'],
+            [100, 2.5, 'string12'],
+        ], strictNullComparison: true);
+        $sheet->getStyle('B1:B3')->getNumberFormat()
+            ->setFormatCode('0.00');
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, true, true);
+        $textGrid = new TextGrid(
+            $temp,
+            true,
+            rowDividers: false,
+            rowHeaders: false,
+            columnHeaders: false,
+        );
+        $expected = [
+            '+-----+-------+----------+',
+            '| 0   | 1.00  | string1  |',
+            '| 18  | 13.25 | string2  |',
+            '| 100 | 2.50  | string12 |',
+            '+-----+-------+----------+',
+            '',
+        ];
+        $result = $textGrid->render();
+        $lines = explode(PHP_EOL, $result);
+        self::assertSame($expected, $lines);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNumbersRight(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [0, 1, '$1,234.56'],
+            [18, 13.25, 'string2'],
+            [100, 2.5, 'string123456'],
+        ], strictNullComparison: true);
+        $sheet->getStyle('B1:B3')->getNumberFormat()
+            ->setFormatCode('0.00');
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, true, true);
+        $textGrid = new TextGrid(
+            $temp,
+            true,
+            rowDividers: false,
+            rowHeaders: false,
+            columnHeaders: false,
+            numbersRight: TextGridRightAlign::numeric,
+        );
+        $expected = [
+            '+-----+-------+--------------+',
+            '|   0 |  1.00 | $1,234.56    |',
+            '|  18 | 13.25 | string2      |',
+            '| 100 |  2.50 | string123456 |',
+            '+-----+-------+--------------+',
+            '',
+        ];
+        $result = $textGrid->render();
+        $lines = explode(PHP_EOL, $result);
+        self::assertSame($expected, $lines);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testExtendedNumbersRight(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [0, 1, '$1,234.56'],
+            [18, 13.25, 'string2'],
+            [100, 2.5, 'string123456'],
+        ], strictNullComparison: true);
+        $sheet->getStyle('B1:B3')->getNumberFormat()
+            ->setFormatCode('0.00');
+        /** @var mixed[][] */
+        $temp = $sheet->toArray(null, true, true, true);
+        $textGrid = new TextGridExtended(
+            $temp,
+            true,
+            rowDividers: false,
+            rowHeaders: false,
+            columnHeaders: false,
+        );
+        $textGrid->setNumbersRight(TextGridRightAlign::numeric);
+        $expected = [
+            '+-----+-------+--------------+',
+            '|   0 |  1.00 |    $1,234.56 |',
+            '|  18 | 13.25 | string2      |',
+            '| 100 |  2.50 | string123456 |',
+            '+-----+-------+--------------+',
             '',
         ];
         $result = $textGrid->render();

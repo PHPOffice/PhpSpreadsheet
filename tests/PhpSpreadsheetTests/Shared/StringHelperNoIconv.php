@@ -8,11 +8,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class StringHelperNoIconv extends StringHelper
 {
-    /**
-     * Simulate that iconv is not available.
-     */
-    public static function getIsIconvEnabled(): bool
-    {
-        return false;
-    }
+    protected static ?bool $isIconvEnabled = null;
+
+    protected static string $iconvName = 'simulateIconvUnavilable';
 }

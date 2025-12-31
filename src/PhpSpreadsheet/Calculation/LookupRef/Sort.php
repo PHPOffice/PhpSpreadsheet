@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -20,6 +19,12 @@ class Sort extends LookupRefValidations
      * The returned array is the same shape as the provided array argument.
      * Both $sortIndex and $sortOrder can be arrays, to provide multi-level sorting.
      *
+     * NOTE: If $sortArray contains a mixture of data types
+     * (string/int/bool), the results may be unexpected.
+     * This is also true if the array consists of string
+     * representations of numbers, especially if there are
+     * both positive and negative numbers in the mix.
+     *
      * @param mixed $sortArray The range of cells being sorted
      * @param mixed $sortIndex The column or row number within the sortArray to sort on
      * @param mixed $sortOrder Flag indicating whether to sort ascending or descending
@@ -32,8 +37,7 @@ class Sort extends LookupRefValidations
     public static function sort(mixed $sortArray, mixed $sortIndex = 1, mixed $sortOrder = self::ORDER_ASCENDING, mixed $byColumn = false): mixed
     {
         if (!is_array($sortArray)) {
-            // Scalars are always returned "as is"
-            return $sortArray;
+            $sortArray = [[$sortArray]];
         }
 
         /** @var mixed[][] */
@@ -55,7 +59,7 @@ class Sort extends LookupRefValidations
             return $e->getMessage();
         }
 
-        // We want a simple, enumrated array of arrays where we can reference column by its index number.
+        // We want a simple, enumerated array of arrays where we can reference column by its index number.
         /** @var callable(mixed): mixed */
         $temp = 'array_values';
         /** @var array<int> $sortOrder */
@@ -72,6 +76,18 @@ class Sort extends LookupRefValidations
      * The SORTBY function sorts the contents of a range or array based on the values in a corresponding range or array.
      * The returned array is the same shape as the provided array argument.
      * Both $sortIndex and $sortOrder can be arrays, to provide multi-level sorting.
+     * Microsoft doesn't even bother documenting that a column sort
+     * is possible. However, it is. According to:
+     * https://exceljet.net/functions/sortby-function
+     * When by_array is a horizontal range, SORTBY sorts horizontally by columns.
+     * My interpretation of this is that by_array must be an
+     * array which contains exactly one row.
+     *
+     * NOTE: If the "byArray" contains a mixture of data types
+     * (string/int/bool), the results may be unexpected.
+     * This is also true if the array consists of string
+     * representations of numbers, especially if there are
+     * both positive and negative numbers in the mix.
      *
      * @param mixed $sortArray The range of cells being sorted
      * @param mixed $args
@@ -87,8 +103,16 @@ class Sort extends LookupRefValidations
     public static function sortBy(mixed $sortArray, mixed ...$args): mixed
     {
         if (!is_array($sortArray)) {
-            // Scalars are always returned "as is"
-            return $sortArray;
+            $sortArray = [[$sortArray]];
+        }
+        $transpose = false;
+        $args0 = $args[0] ?? null;
+        if (is_array($args0) && count($args0) === 1) {
+            $args0 = reset($args0);
+            if (is_array($args0) && count($args0) > 1) {
+                $transpose = true;
+                $sortArray = Matrix::transpose($sortArray);
+            }
         }
 
         $sortArray = self::enumerateArrayKeys($sortArray);
@@ -99,14 +123,23 @@ class Sort extends LookupRefValidations
         try {
             $sortBy = $sortOrder = [];
             for ($i = 0; $i < $argumentCount; $i += 2) {
-                $sortBy[] = self::validateSortVector($args[$i], $lookupArraySize);
+                $argsI = $args[$i];
+                if (!is_array($argsI)) {
+                    $argsI = [[$argsI]];
+                }
+                $sortBy[] = self::validateSortVector($argsI, $lookupArraySize);
                 $sortOrder[] = self::validateSortOrder($args[$i + 1] ?? self::ORDER_ASCENDING);
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        return self::processSortBy($sortArray, $sortBy, $sortOrder);
+        $temp = self::processSortBy($sortArray, $sortBy, $sortOrder);
+        if ($transpose) {
+            $temp = Matrix::transpose($temp);
+        }
+
+        return $temp;
     }
 
     /**
@@ -130,10 +163,6 @@ class Sort extends LookupRefValidations
 
     private static function validateScalarArgumentsForSort(mixed &$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
-        if (is_array($sortIndex) || is_array($sortOrder)) {
-            throw new Exception(ExcelError::VALUE());
-        }
-
         $sortIndex = self::validatePositiveInt($sortIndex, false);
 
         if ($sortIndex > $sortArraySize) {
@@ -143,13 +172,13 @@ class Sort extends LookupRefValidations
         $sortOrder = self::validateSortOrder($sortOrder);
     }
 
-    /** @return mixed[] */
-    private static function validateSortVector(mixed $sortVector, int $sortArraySize): array
+    /**
+     * @param mixed[] $sortVector
+     *
+     * @return mixed[]
+     */
+    private static function validateSortVector(array $sortVector, int $sortArraySize): array
     {
-        if (!is_array($sortVector)) {
-            throw new Exception(ExcelError::VALUE());
-        }
-
         // It doesn't matter if it's a row or a column vectors, it works either way
         $sortVector = Functions::flattenArray($sortVector);
         if (count($sortVector) !== $sortArraySize) {
@@ -203,12 +232,19 @@ class Sort extends LookupRefValidations
      */
     private static function prepareSortVectorValues(array $sortVector): array
     {
-        // Strings should be sorted case-insensitive; with booleans converted to locale-strings
+        // Strings should be sorted case-insensitive.
+        // Booleans are a complete mess. Excel always seems to sort
+        // booleans in a mixed vector at either the top or the bottom,
+        // so converting them to string or int doesn't really work.
+        // Best advice is to use them in a boolean-only vector.
+        // Code below chooses int conversion, which is sensible,
+        // and, as a bonus, compatible with LibreOffice.
         return array_map(
             function ($value) {
                 if (is_bool($value)) {
-                    return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-                } elseif (is_string($value)) {
+                    return (int) $value;
+                }
+                if (is_string($value)) {
                     return StringHelper::strToLower($value);
                 }
 

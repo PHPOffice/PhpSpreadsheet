@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Info;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
 use PhpOffice\PhpSpreadsheet\Reader\Slk as ReaderSlk;
 use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
@@ -15,10 +16,20 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class TypeAttributePreservationTest extends AbstractFunctional
 {
+    protected function setUp(): void
+    {
+        Info::$infoSupported = false;
+    }
+
+    protected function tearDown(): void
+    {
+        Info::$infoSupported = true;
+    }
+
     public static function providerFormulae(): array
     {
         $formats = ['Xlsx'];
-        /** @var mixed[] */
+        /** @var mixed[][] */
         $data = require 'tests/data/Functional/TypeAttributePreservation/Formula.php';
 
         $result = [];
