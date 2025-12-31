@@ -49,4 +49,17 @@ class RichTextTest extends TestCase
 
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testNoFont(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $rtf = new RichText();
+        $rtf->createTextRun('no font')->setFont(null);
+        $sheet->setCellValue('A1', $rtf);
+        $writer = new HtmlWriter($spreadsheet);
+        $html = $writer->generateHtmlAll();
+        self::assertStringContainsString('<td class="column0 style0 inlineStr"><span>no font</span></td>', $html);
+        $spreadsheet->disconnectWorksheets();
+    }
 }
