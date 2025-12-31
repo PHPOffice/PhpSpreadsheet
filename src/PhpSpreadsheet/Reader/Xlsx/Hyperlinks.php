@@ -44,14 +44,11 @@ class Hyperlinks
         $attributes = Xlsx::getAttributes($hyperlink);
         foreach (Coordinate::extractAllCellReferencesInRange($attributes->ref) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
-            if (isset($linkRel['id'])) {
-                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? '';
-                if (isset($attributes['location'])) {
-                    $hyperlinkUrl .= '#' . (string) $attributes['location'];
-                }
-                $cell->getHyperlink()->setUrl($hyperlinkUrl);
-            } elseif (isset($attributes['location'])) {
+            if (isset($attributes['location'])) {
                 $cell->getHyperlink()->setUrl('sheet://' . (string) $attributes['location']);
+            } elseif (isset($linkRel['id'])) {
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? '';
+                $cell->getHyperlink()->setUrl($hyperlinkUrl);
             }
 
             // Tooltip
