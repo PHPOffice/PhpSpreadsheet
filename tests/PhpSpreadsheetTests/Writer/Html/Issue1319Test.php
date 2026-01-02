@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PHPUnit\Framework\TestCase;
 
-class Issue1319 extends TestCase
+class Issue1319Test extends TestCase
 {
     public static function testFromExcelFile(): void
     {
