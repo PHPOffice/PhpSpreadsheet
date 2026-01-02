@@ -14,7 +14,7 @@ class Metadata extends WriterPart
      */
     public function writeMetadata(int $richDataCount = 0): string
     {
-        if (!$this->getParentWriter()->useDynamicArrays()) {
+        if (!$this->getParentWriter()->useDynamicArrays() && $richDataCount === 0) {
             return '';
         }
         // Create XML writer

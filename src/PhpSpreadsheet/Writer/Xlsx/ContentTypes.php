@@ -256,7 +256,7 @@ class ContentTypes extends WriterPart
         }
 
         // Metadata needed for Dynamic Arrays
-        if ($this->getParentWriter()->useDynamicArrays()) {
+        if ($this->getParentWriter()->useDynamicArrays() || $spreadsheet->hasInCellDrawings()) {
             $this->writeOverrideContentType($objWriter, '/xl/metadata.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml');
         }
 

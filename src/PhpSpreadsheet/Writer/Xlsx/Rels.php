@@ -152,7 +152,7 @@ class Rels extends WriterPart
         }
 
         // Metadata needed for Dynamic Arrays
-        if ($this->getParentWriter()->useDynamicArrays()) {
+        if ($this->getParentWriter()->useDynamicArrays() || $spreadsheet->hasInCellDrawings()) {
             $this->writeRelationShip(
                 $objWriter,
                 ($i + 1 + 3),

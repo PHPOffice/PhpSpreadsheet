@@ -5,11 +5,45 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class DrawingInCellTest extends AbstractFunctional
 {
+    public function testCreateFileWithPictureInCell(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $objDrawing = new Drawing();
+        $objDrawing->setPath('tests/data/Writer/XLSX/blue_square.png');
+        $worksheet->getCell('C2')->setValue($objDrawing);
+
+        // Save spreadsheet to file and read it back
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getSheet(0);
+        $drawings = $sheet->getInCellDrawingCollection();
+        self::assertCount(1, $drawings);
+
+        if ($drawings[0] === null) {
+            self::fail('Unexpected null drawing');
+        } else {
+            self::assertSame(IMAGETYPE_PNG, $drawings[0]->getType());
+            self::assertSame('C2', $drawings[0]->getCoordinates());
+            self::assertSame(0, $drawings[0]->getOffsetX());
+            self::assertSame(0, $drawings[0]->getOffsetY());
+            self::assertSame(100, $drawings[0]->getWidth());
+            self::assertSame(100, $drawings[0]->getHeight());
+            self::assertSame(100, $drawings[0]->getImageWidth());
+            self::assertSame(100, $drawings[0]->getImageHeight());
+        }
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
     public function testPictureInCell(): void
     {
         $file = 'tests/data/Reader/XLSX/drawing_in_cell.xlsx';
