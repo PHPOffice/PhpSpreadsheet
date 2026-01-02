@@ -11,11 +11,12 @@ use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('binderProvider')]
+    #[DataProvider('binderProvider')]
     public function testBindValue(null|string|bool|int|float|DateTime|DateTimeImmutable $value): void
     {
         $spreadsheet = new Spreadsheet();
@@ -70,7 +71,7 @@ class DefaultValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataTypeForValue')]
+    #[DataProvider('providerDataTypeForValue')]
     public function testDataTypeForValue(mixed $expectedResult, mixed $value): void
     {
         $result = DefaultValueBinder::dataTypeForValue($value);
