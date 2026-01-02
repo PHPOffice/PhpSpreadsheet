@@ -47,7 +47,7 @@ class Metadata extends WriterPart
             $objWriter->startElement('metadataTypes');
             $objWriter->writeAttribute('count', '2');
             $this->writeMetadataType($objWriter, 'XLDAPR');
-            $this->writeMetadataType($objWriter, 'XLRICHVALUE');
+            $this->writeMetadataType($objWriter, 'XLRICHVALUE', false);
             $objWriter->endElement(); // metadataTypes
 
             $this->writeFutureMetadataXLDAPR($objWriter, 1);
