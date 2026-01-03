@@ -51,6 +51,14 @@ class RichDataDrawing
         ];
     }
 
+    /**
+     * @return Drawing[]
+     */
+    public function getDrawings(): array
+    {
+        return $this->drawings;
+    }
+
     private function writeRdrichvalueXML(): string
     {
         $xml = new XMLWriter(XMLWriter::STORAGE_MEMORY);

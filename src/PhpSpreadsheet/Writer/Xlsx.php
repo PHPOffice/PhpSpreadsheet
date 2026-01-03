@@ -335,7 +335,7 @@ class Xlsx extends BaseWriter
         if ($this->spreadSheet->hasInCellDrawings()) {
             $richDataDrawing = new RichDataDrawing();
             $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet);
-            $richDataCount = count($richDataFiles);
+            $richDataCount = count($richDataDrawing->getDrawings());
 
             // Add all Rich Data files to ZIP
             foreach ($richDataFiles as $path => $content) {
