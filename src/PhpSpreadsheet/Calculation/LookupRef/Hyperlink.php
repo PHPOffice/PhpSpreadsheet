@@ -37,10 +37,7 @@ class Hyperlink
             return ExcelError::REF();
         }
 
-        if (is_object($displayName)) {
-            $displayName = $linkURL;
-        }
-        $displayName = StringHelper::convertToString($displayName);
+        $displayName = StringHelper::convertToString($displayName, false);
         if (trim($displayName) === '') {
             $displayName = $linkURL;
         }

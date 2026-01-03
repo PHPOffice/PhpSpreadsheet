@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class Hyperlink2Test extends TestCase
 {
-    public static function testTwoLiterals(): void
+    public function testTwoLiterals(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -35,7 +35,7 @@ class Hyperlink2Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public static function testCellAndLiteral(): void
+    public function testCellAndLiteral(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -60,7 +60,7 @@ class Hyperlink2Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public static function testLiteralAndCell(): void
+    public function testLiteralAndCell(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -110,7 +110,7 @@ class Hyperlink2Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public static function testResetOnSet(): void
+    public function testResetOnSet(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -132,7 +132,7 @@ class Hyperlink2Test extends TestCase
         self::assertSame('', $hyperlink->getTooltip());
     }
 
-    public static function testResetOnSetExplicit(): void
+    public function testResetOnSetExplicit(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

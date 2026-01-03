@@ -321,10 +321,7 @@ class Html extends BaseReader
                     }
 
                     //catching the Exception and ignoring the invalid data types
-                    $hyperlink = null;
-                    if ($sheet->hyperlinkExists($column . $row)) {
-                        $hyperlink = $sheet->getHyperlink($column . $row);
-                    }
+                    $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
 
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
