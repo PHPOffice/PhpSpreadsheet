@@ -23,6 +23,13 @@ class Hyperlink
      */
     public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): string
     {
+        $worksheet = null;
+        $coordinate = '';
+        if ($cell !== null) {
+            $coordinate = $cell->getCoordinate();
+            $worksheet = $cell->getWorksheetOrNull();
+        }
+
         $linkURL = ($linkURL === null) ? '' : StringHelper::convertToString(Functions::flattenSingleValue($linkURL));
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
@@ -38,9 +45,11 @@ class Hyperlink
             $displayName = $linkURL;
         }
 
-        $cell->getHyperlink()
-            ->setUrl($linkURL);
-        $cell->getHyperlink()->setTooltip($displayName);
+        $worksheet?->getCell($coordinate)
+            ->getHyperlink()
+            ->setUrl($linkURL)
+            ->setTooltip($displayName)
+            ->setDisplay('');
 
         return $displayName;
     }
