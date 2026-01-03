@@ -99,9 +99,11 @@ abstract class Properties
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22;
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
 
-    const POINTS_WIDTH_MULTIPLIER = 12700;
-    const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
-    const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
+    const POINTS_WIDTH_MULTIPLIER = 12_700;
+    const ANGLE_MULTIPLIER = 60_000; // direction and size-kx size-ky
+    const PERCENTAGE_MULTIPLIER = 100_000; // size sx and sy, and gradient pos
+    const MAX_SKEW_ANGLE_XML = 90 * self::ANGLE_MULTIPLIER - 1;
+    const MAX_SKEW_ANGLE_DEGREES = self::MAX_SKEW_ANGLE_XML / self::ANGLE_MULTIPLIER; // max for size-kx size-ky
 
     protected bool $objectState = false; // used only for minor gridlines
 
