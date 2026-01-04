@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalIconSet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
@@ -1564,6 +1565,13 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
+    private function writeCellDrawing(XMLWriter $objWriter, int $index): void
+    {
+        $objWriter->writeAttribute('t', 'e');
+        $objWriter->writeAttribute('vm', (string) $index);
+        $objWriter->writeElement('v', '#VALUE!');
+    }
+
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $attributes = $cell->getFormulaAttributes() ?? [];
@@ -1743,6 +1751,13 @@ class Worksheet extends WriterPart
                     break;
                 case 'b':            // Boolean
                     $this->writeCellBoolean($objWriter, $mappedType, (bool) $cellValue);
+
+                    break;
+                case 'drawingcell':  // DrawingInCell
+                    if ($cellValue instanceof BaseDrawing) {
+                        $index = $cellValue->getIndex();
+                        $this->writeCellDrawing($objWriter, $index);
+                    }
 
                     break;
                 case 'e':            // Error
