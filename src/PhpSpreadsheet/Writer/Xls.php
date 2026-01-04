@@ -150,6 +150,9 @@ class Xls extends BaseWriter
                 /** @var Cell $cell */
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCellCollection()->get($coordinate);
                 $cVal = $cell->getValue();
+                if ($cVal instanceof RichText && (string) $cVal === '') {
+                    $cVal = '';
+                }
                 if ($cVal instanceof RichText) {
                     $active = $this->spreadsheet->getActiveSheetIndex();
                     $sheet = $cell->getWorksheet();
