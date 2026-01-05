@@ -86,7 +86,7 @@ class MetadataTest extends TestCase
         ]);
         $sheet->setCellValue('H1', '=SORT(A1:A4)');
         $objDrawing = new Drawing();
-        $directory = 'tests/data/Writer/Xlsx';
+        $directory = 'tests/data/Writer/XLSX';
         $objDrawing->setPath($directory . '/blue_square.png');
         $sheet->getCell('C2')->setValue($objDrawing);
         $objDrawing2 = new Drawing();
@@ -119,7 +119,7 @@ class MetadataTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $objDrawing = new Drawing();
-        $directory = 'tests/data/Writer/Xlsx';
+        $directory = 'tests/data/Writer/XLSX';
         $objDrawing->setPath($directory . '/blue_square.png');
         $sheet->getCell('C2')->setValue($objDrawing);
         $objDrawing2 = new Drawing();
