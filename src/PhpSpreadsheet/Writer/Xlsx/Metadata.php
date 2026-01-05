@@ -33,7 +33,7 @@ class Metadata extends WriterPart
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
         $objWriter->writeAttribute('xmlns:xlrd', Namespaces::DYNAMIC_ARRAY_RICHDATA);
 
-        if ($richDataCount > 0) {
+        if (!$this->getParentWriter()->useDynamicArrays()) {
             $objWriter->startElement('metadataTypes');
             $objWriter->writeAttribute('count', '1');
             $this->writeMetadataType($objWriter, 'XLRICHVALUE', false);
@@ -43,7 +43,6 @@ class Metadata extends WriterPart
             $this->writeValueMetadata($objWriter, $richDataCount);
         } else {
             $objWriter->writeAttribute('xmlns:xda', Namespaces::DYNAMIC_ARRAY);
-
             $objWriter->startElement('metadataTypes');
             $objWriter->writeAttribute('count', '2');
             $this->writeMetadataType($objWriter, 'XLDAPR');
@@ -51,9 +50,9 @@ class Metadata extends WriterPart
             $objWriter->endElement(); // metadataTypes
 
             $this->writeFutureMetadataXLDAPR($objWriter, 1);
-            $this->writeFutureMetadataXLRICHVALUE($objWriter, 1);
+            $this->writeFutureMetadataXLRICHVALUE($objWriter, $richDataCount ?: 1);
             $this->writeCellMetadata($objWriter, 1);
-            $this->writeValueMetadata($objWriter, 1, 2);
+            $this->writeValueMetadata($objWriter, ($richDataCount === 0) ? 1 : $richDataCount, 2);
         }
 
         $objWriter->endElement(); // metadata
