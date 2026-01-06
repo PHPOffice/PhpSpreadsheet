@@ -11,7 +11,7 @@ class LookupRefValidations
     public static function validateInt(mixed $value): int
     {
         if (!is_numeric($value)) {
-            if (is_string($value) && ErrorValue::isError($value)) {
+            if (is_string($value) && ErrorValue::isError($value, true)) {
                 throw new Exception($value);
             }
 

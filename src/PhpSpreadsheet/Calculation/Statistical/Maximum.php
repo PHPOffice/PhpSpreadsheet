@@ -25,7 +25,7 @@ class Maximum extends MaxMinBase
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
-            if (ErrorValue::isError($arg)) {
+            if (ErrorValue::isError($arg, true)) {
                 $returnValue = $arg;
 
                 break;
@@ -63,7 +63,7 @@ class Maximum extends MaxMinBase
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
-            if (ErrorValue::isError($arg)) {
+            if (ErrorValue::isError($arg, true)) {
                 $returnValue = $arg;
 
                 break;
