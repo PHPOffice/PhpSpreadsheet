@@ -3449,6 +3449,7 @@ class Worksheet
      */
     public function getHyperlink(string $cellCoordinate): Hyperlink
     {
+        $this->getCell($cellCoordinate)->setHadHyperlink(true);
         // return hyperlink if we already have one
         if (isset($this->hyperlinkCollection[$cellCoordinate])) {
             return $this->hyperlinkCollection[$cellCoordinate];
@@ -3467,12 +3468,17 @@ class Worksheet
      *
      * @return $this
      */
-    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null): static
+    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null, bool $reset = true): static
     {
         if ($hyperlink === null) {
             unset($this->hyperlinkCollection[$cellCoordinate]);
+            if ($reset) {
+                $this->getCell($cellCoordinate)
+                    ->setHadHyperlink(false);
+            }
         } else {
             $this->hyperlinkCollection[$cellCoordinate] = $hyperlink;
+            $this->getCell($cellCoordinate)->setHadHyperlink(true);
         }
 
         return $this;
