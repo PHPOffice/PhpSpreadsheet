@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Fix clone spreadsheet with defined names. [PR #4753](https://github.com/PHPOffice/PhpSpreadsheet/pull/4753)
 - Changes to WEBSERVICE. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
 - SUBTOTAL and hidden rows. [Issue #820](https://github.com/PHPOffice/PhpSpreadsheet/issues/820) [PR #4765](https://github.com/PHPOffice/PhpSpreadsheet/pull/4765)
+- Fix some hyperlink problems. [Issue #3889](https://github.com/PHPOffice/PhpSpreadsheet/issues/3889) [Issue #2464](https://github.com/PHPOffice/PhpSpreadsheet/issues/2464) [PR #4771](https://github.com/PHPOffice/PhpSpreadsheet/pull/4771)
 
 ## 2025-11-24 - 5.3.0
 
