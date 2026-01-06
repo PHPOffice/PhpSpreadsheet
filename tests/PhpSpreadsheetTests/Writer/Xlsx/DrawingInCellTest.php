@@ -208,17 +208,20 @@ class DrawingInCellTest extends AbstractFunctional
             self::assertSame('C10', $drawing->getCoordinates());
             self::assertSame(100, $drawing->getWidth());
             self::assertSame(100, $drawing->getHeight());
-            self::assertSame(true, $drawing->isInCell());
+            self::assertTrue($drawing->isInCell());
         }
 
         $floatingDrawings = $sheet->getDrawingCollection();
         $floatingDrawing = $floatingDrawings[0];
 
-        self::assertCount(1, $floatingDrawings);
-        self::assertSame('B5', $floatingDrawing->getCoordinates());
-        self::assertSame(false, $floatingDrawing->isInCell());
-        self::assertNull($sheet->getCell('B5')->getValue());
-
+        if ($floatingDrawing === null) {
+            self::fail('Unexpected null drawing');
+        } else {
+            self::assertCount(1, $floatingDrawings);
+            self::assertSame('B5', $floatingDrawing->getCoordinates());
+            self::assertFalse($floatingDrawing->isInCell());
+            self::assertNull($sheet->getCell('B5')->getValue());
+        }
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
