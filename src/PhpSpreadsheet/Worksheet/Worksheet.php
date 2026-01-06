@@ -1439,14 +1439,13 @@ class Worksheet
      * @param Cell $cell
      *              The Cell for which the tables are retrieved
      *
-     * @return mixed[]
+     * @return Table[]
      */
     public function getTablesWithStylesForCell(Cell $cell): array
     {
         $retVal = [];
 
         foreach ($this->tableCollection as $table) {
-            /** @var Table $table */
             $dxfsTableStyle = $table->getStyle()->getTableDxfsStyle();
             if ($dxfsTableStyle !== null) {
                 if ($dxfsTableStyle->getHeaderRowStyle() !== null || $dxfsTableStyle->getFirstRowStripeStyle() !== null || $dxfsTableStyle->getSecondRowStripeStyle() !== null) {
@@ -1454,6 +1453,31 @@ class Worksheet
                     if ($cell->isInRange($range)) {
                         $retVal[] = $table;
                     }
+                }
+            }
+        }
+
+        return $retVal;
+    }
+
+    /**
+     * Get tables without styles set for the for given cell.
+     *
+     * @param Cell $cell
+     *              The Cell for which the tables are retrieved
+     *
+     * @return Table[]
+     */
+    public function getTablesWithoutStylesForCell(Cell $cell): array
+    {
+        $retVal = [];
+
+        foreach ($this->tableCollection as $table) {
+            $range = $table->getRange();
+            if ($cell->isInRange($range)) {
+                $dxfsTableStyle = $table->getStyle()->getTableDxfsStyle();
+                if ($dxfsTableStyle === null || ($dxfsTableStyle->getHeaderRowStyle() === null && $dxfsTableStyle->getFirstRowStripeStyle() === null && $dxfsTableStyle->getSecondRowStripeStyle() === null)) {
+                    $retVal[] = $table;
                 }
             }
         }
@@ -3444,6 +3468,7 @@ class Worksheet
      */
     public function getHyperlink(string $cellCoordinate): Hyperlink
     {
+        $this->getCell($cellCoordinate)->setHadHyperlink(true);
         // return hyperlink if we already have one
         if (isset($this->hyperlinkCollection[$cellCoordinate])) {
             return $this->hyperlinkCollection[$cellCoordinate];
@@ -3462,12 +3487,17 @@ class Worksheet
      *
      * @return $this
      */
-    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null): static
+    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null, bool $reset = true): static
     {
         if ($hyperlink === null) {
             unset($this->hyperlinkCollection[$cellCoordinate]);
+            if ($reset) {
+                $this->getCell($cellCoordinate)
+                    ->setHadHyperlink(false);
+            }
         } else {
             $this->hyperlinkCollection[$cellCoordinate] = $hyperlink;
+            $this->getCell($cellCoordinate)->setHadHyperlink(true);
         }
 
         return $this;

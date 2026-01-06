@@ -234,6 +234,9 @@ class Cell implements Stringable
      */
     public function setValue(mixed $value, ?IValueBinder $binder = null): self
     {
+        if ($this->hadHyperlink) {
+            $this->clearHyperlink();
+        }
         // Cells?->Worksheet?->Spreadsheet
         $binder ??= $this->parent?->getParent()?->getParent()?->getValueBinder() ?? self::getValueBinder();
         if (!$binder->bindValue($this, $value)) {
@@ -241,6 +244,24 @@ class Cell implements Stringable
         }
 
         return $this;
+    }
+
+    private bool $hadHyperlink = false;
+
+    /** @internal */
+    public function setHadHyperlink(bool $hadHyperlink): void
+    {
+        $this->hadHyperlink = $hadHyperlink;
+    }
+
+    private function clearHyperlink(): void
+    {
+        $worksheet = $this->getWorksheetOrNull();
+        if ($worksheet !== null) {
+            $coordinate = $this->getCoordinate();
+            $worksheet->setHyperlink($coordinate, null);
+        }
+        $this->hadHyperlink = false;
     }
 
     /**
@@ -260,6 +281,9 @@ class Cell implements Stringable
      */
     public function setValueExplicit(mixed $value, string $dataType = DataType::TYPE_STRING): self
     {
+        if ($this->hadHyperlink) {
+            $this->clearHyperlink();
+        }
         $oldValue = $this->value;
         $quotePrefix = false;
 
@@ -755,7 +779,8 @@ class Cell implements Stringable
             throw new SpreadsheetException('Cannot get hyperlink for cell that is not bound to a worksheet');
         }
 
-        return $this->getWorksheet()->getHyperlink($this->getCoordinate());
+        return $this->getWorksheet()
+            ->getHyperlink($this->getCoordinate());
     }
 
     /**
@@ -769,7 +794,8 @@ class Cell implements Stringable
             throw new SpreadsheetException('Cannot set hyperlink for cell that is not bound to a worksheet');
         }
 
-        $this->getWorksheet()->setHyperlink($this->getCoordinate(), $hyperlink);
+        $this->getWorksheet()
+            ->setHyperlink($this->getCoordinate(), $hyperlink);
 
         return $this->updateInCollection();
     }

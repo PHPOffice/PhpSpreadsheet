@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -531,7 +532,7 @@ class Rels extends WriterPart
             $objWriter,
             $i,
             Namespaces::HYPERLINK,
-            $drawing->getHyperlink()->getUrl(),
+            Preg::replace('~^sheet://~', '#', $drawing->getHyperlink()->getUrl()),
             $drawing->getHyperlink()->getTypeHyperlink()
         );
 

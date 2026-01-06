@@ -116,7 +116,7 @@ class DefaultValueBinder implements IValueBinder
                     return DataType::TYPE_STRING;
                 }
             }
-            if (!is_numeric($value)) {
+            if (!is_numeric($value) || !is_finite((float) $value)) {
                 return DataType::TYPE_STRING;
             }
 

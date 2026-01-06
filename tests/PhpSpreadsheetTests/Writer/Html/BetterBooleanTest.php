@@ -213,4 +213,17 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         self::assertSame('1', $sheet->getCell('G1')->getValue());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testNoPreCalc(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', true);
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setPreCalculateFormulas(false);
+        $writer->setBetterBoolean(true);
+        $html = $writer->generateHtmlAll();
+        self::assertStringContainsString('<td data-type="b" class="column0 style0 b">TRUE</td>', $html);
+        $spreadsheet->disconnectWorksheets();
+    }
 }

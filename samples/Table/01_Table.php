@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 require __DIR__ . '/../Header.php';
 /** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
@@ -96,5 +97,12 @@ $spreadsheet->getActiveSheet()->addTable($table);
 
 $helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true));
 
+function writerCallbackForHtml(IWriter $writer): void
+{
+    if (method_exists($writer, 'setTableFormats')) {
+        $writer->setTableFormats(true);
+    }
+}
+
 // Save
-$helper->write($spreadsheet, __FILE__, ['Xlsx']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Html'], writerCallback: writerCallbackForHtml(...));

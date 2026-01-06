@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class SubTotalTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTAL')]
+    #[DataProvider('providerSUBTOTAL')]
     public function testSubtotal(float|int|string $expectedResult, float|int|string $type): void
     {
         $this->mightHaveException($expectedResult);
@@ -24,7 +28,7 @@ class SubTotalTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTAL')]
+    #[DataProvider('providerSUBTOTAL')]
     public function testSubtotalColumnHidden(float|int|string $expectedResult, float|int|string $type): void
     {
         // Hidden columns don't affect calculation, only hidden rows
@@ -56,7 +60,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerSUBTOTALHIDDEN')]
+    #[DataProvider('providerSUBTOTALHIDDEN')]
     public function testSubtotalRowHidden(mixed $expectedResult, int $type): void
     {
         $this->mightHaveException($expectedResult);
@@ -141,5 +145,49 @@ class SubTotalTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=SUBTOTAL(9, Sheet99!A1)');
         self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function testTypesOfHidden(): void
+    {
+        $worksheet = $this->getSheet();
+        $worksheet->SetCellValue('A1', 'Status');
+        $worksheet->SetCellValue('B1', 'Amount');
+        $worksheet->SetCellValue('A2', 'Active');
+        $worksheet->SetCellValue('B2', 500);
+        $worksheet->SetCellValue('A3', 'Snoozed');
+        $worksheet->SetCellValue('B3', 700);
+        $worksheet->SetCellValue('A4', 'Active');
+        $worksheet->SetCellValue('B4', 300);
+
+        $worksheet->setAutoFilter('A1:B4');
+        $autoFilter = $worksheet->getAutoFilter();
+        $autoFilter->getColumn('A')
+            ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
+            ->createRule()
+            ->setRule(
+                Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                'Active'
+            );
+        $autoFilter->showHideRows(); // row 3 is filtered
+        $worksheet->getRowDimension(4)->setVisible(false); // row 4 is hidden but not filtered
+
+        $worksheet->SetCellValue('D14', '=SUM(B2:B4)');
+        self::assertSame(
+            1500,
+            $worksheet->getCell('D14')->getCalculatedValue(),
+            'all 3 rows are considered'
+        );
+        $worksheet->SetCellValue('D15', '=SUBTOTAL(109,B2:B4)');
+        self::assertSame(
+            500,
+            $worksheet->getCell('D15')->getCalculatedValue(),
+            'excude row 3 (filtered) and row 4 (hidden)'
+        );
+        $worksheet->SetCellValue('D16', '=SUBTOTAL(9,B2:B4)');
+        self::assertSame(
+            800,
+            $worksheet->getCell('D16')->getCalculatedValue(),
+            'exclude row 3 (filtered) but include row 4 (hidden)'
+        );
     }
 }

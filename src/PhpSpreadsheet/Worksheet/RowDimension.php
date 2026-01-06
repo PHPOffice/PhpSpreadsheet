@@ -22,6 +22,20 @@ class RowDimension extends Dimension
 
     private bool $customFormat = false;
 
+    private bool $visibleAfterFilter = true;
+
+    public function setVisibleAfterFilter(bool $visibleAfterFilter): self
+    {
+        $this->visibleAfterFilter = $visibleAfterFilter;
+
+        return $this;
+    }
+
+    public function getVisibleAfterFilter(): bool
+    {
+        return $this->visibleAfterFilter;
+    }
+
     /**
      * @param ?int $index Numeric row index
      */
