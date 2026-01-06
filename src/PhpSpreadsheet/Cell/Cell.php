@@ -338,6 +338,8 @@ class Cell implements Stringable
             case DataType::TYPE_DRAWING_IN_CELL:
                 if ($value instanceof BaseDrawing) {
                     $this->value = $value;
+                } else {
+                    throw new SpreadsheetException('Item is not a drawing');
                 }
 
                 break;
