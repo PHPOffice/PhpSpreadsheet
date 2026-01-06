@@ -38,11 +38,7 @@ class RichDataDrawing
             }
         }
 
-        if (count($this->drawings) === 0) {
-            return [];
-        }
-
-        return [
+        return (count($this->drawings) === 0) ? [] : [
             'xl/richData/rdrichvalue.xml' => $this->writeRdrichvalueXML(),
             'xl/richData/rdrichvaluestructure.xml' => $this->writeRdrichvaluestructureXML(),
             'xl/richData/rdRichValueTypes.xml' => $this->writeRdRichValueTypesXML(),
