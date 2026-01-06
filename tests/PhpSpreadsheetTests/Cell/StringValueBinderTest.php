@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
@@ -28,7 +29,7 @@ class StringValueBinderTest extends TestCase
         Cell::setValueBinder($this->valueBinder);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesDefault')]
+    #[DataProvider('providerDataValuesDefault')]
     public function testStringValueBinderDefaultBehaviour(
         mixed $value,
         mixed $expectedValue,
@@ -96,7 +97,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressNullConversion')]
+    #[DataProvider('providerDataValuesSuppressNullConversion')]
     public function testStringValueBinderSuppressNullConversion(
         mixed $value,
         mixed $expectedValue,
@@ -123,7 +124,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressBooleanConversion')]
+    #[DataProvider('providerDataValuesSuppressBooleanConversion')]
     public function testStringValueBinderSuppressBooleanConversion(
         mixed $value,
         mixed $expectedValue,
@@ -151,7 +152,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressNumericConversion')]
+    #[DataProvider('providerDataValuesSuppressNumericConversion')]
     public function testStringValueBinderSuppressNumericConversion(
         mixed $value,
         mixed $expectedValue,
@@ -183,10 +184,13 @@ class StringValueBinderTest extends TestCase
             [true, '1', DataType::TYPE_STRING],
             [false, '', DataType::TYPE_STRING],
             [null, '', DataType::TYPE_STRING],
+            'Issue 4766 very large positive exponent scientific notation ignored' => ['4E433', '4E433', DataType::TYPE_STRING],
+            'Issue 4766 very large negative exponent scientific notation ignored' => ['4E-433', '4E-433', DataType::TYPE_STRING],
+            'Issue 4766 small exponent scientific ignored' => ['4E4', '4E4', DataType::TYPE_STRING],
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressFormulaConversion')]
+    #[DataProvider('providerDataValuesSuppressFormulaConversion')]
     public function testStringValueBinderSuppressFormulaConversion(
         mixed $value,
         mixed $expectedValue,
@@ -217,7 +221,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDataValuesSuppressAllConversion')]
+    #[DataProvider('providerDataValuesSuppressAllConversion')]
     public function testStringValueBinderSuppressAllConversion(
         mixed $value,
         mixed $expectedValue,

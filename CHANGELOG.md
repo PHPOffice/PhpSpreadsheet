@@ -43,8 +43,12 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Fix drawing hyperlinks. [Issue #993](https://github.com/PHPOffice/PhpSpreadsheet/issues/993) [PR #4764](https://github.com/PHPOffice/PhpSpreadsheet/pull/4764)
 - Fix clone spreadsheet with defined names. [PR #4753](https://github.com/PHPOffice/PhpSpreadsheet/pull/4753)
 - Changes to WEBSERVICE. [PR #4751](https://github.com/PHPOffice/PhpSpreadsheet/pull/4751)
+- Chart shadow `kx` and `ky`. [PR #4770](https://github.com/PHPOffice/PhpSpreadsheet/pull/4770)
 - SUBTOTAL and hidden rows. [Issue #820](https://github.com/PHPOffice/PhpSpreadsheet/issues/820) [PR #4765](https://github.com/PHPOffice/PhpSpreadsheet/pull/4765)
 - Fix some hyperlink problems. [Issue #3889](https://github.com/PHPOffice/PhpSpreadsheet/issues/3889) [Issue #2464](https://github.com/PHPOffice/PhpSpreadsheet/issues/2464) [PR #4771](https://github.com/PHPOffice/PhpSpreadsheet/pull/4771)
+- Xls Writer and empty RichText. [Issue #918](https://github.com/PHPOffice/PhpSpreadsheet/issues/918) [PR #4769](https://github.com/PHPOffice/PhpSpreadsheet/pull/4769)
+- Strings that look like huge floating-point numbers. [Issue #4766](https://github.com/PHPOffice/PhpSpreadsheet/issues/4766) [PR #4768](https://github.com/PHPOffice/PhpSpreadsheet/pull/4768)
+- Rowspan in Html. [Issue #1319](https://github.com/PHPOffice/PhpSpreadsheet/issues/1319) [PR #4767](https://github.com/PHPOffice/PhpSpreadsheet/pull/4767)
 
 ## 2025-11-24 - 5.3.0
 
