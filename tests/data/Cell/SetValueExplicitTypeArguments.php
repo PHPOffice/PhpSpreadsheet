@@ -18,4 +18,7 @@ return [
     'numeric string with numeric type' => ['1887', DataType::TYPE_NUMERIC, 1887, DataType::TYPE_NUMERIC],
     'true with bool type' => [true, DataType::TYPE_BOOL, true, DataType::TYPE_BOOL],
     'false with bool type' => [false, DataType::TYPE_BOOL, false, DataType::TYPE_BOOL],
+    'ISO Date' => ['1996-01-01', DataType::TYPE_ISO_DATE, 35065.0, DataType::TYPE_NUMERIC],
+    'Valid Error' => ['#VALUE!', DataType::TYPE_ERROR, '#VALUE!', DataType::TYPE_ERROR],
+    'Invalid Error' => ['VALUE!', DataType::TYPE_ERROR, '#NULL!', DataType::TYPE_ERROR],
 ];

@@ -6,7 +6,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use ArgumentCountError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -54,6 +57,26 @@ class SetValueExplicitCellTest extends TestCase
             self::assertSame(2, $this->requiredParameters);
             self::assertNull($dataType);
         }
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSetValueExplicitImage(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        try {
+            $sheet->getCell('A1')->setValueExplicit(1, DataType::TYPE_DRAWING_IN_CELL);
+            self::fail('Should have thrown exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('not a drawing', $e->getMessage());
+        }
+
+        $objDrawing = new Drawing();
+        $directory = 'tests/data/Writer/XLSX';
+        $objDrawing->setPath($directory . '/blue_square.png');
+        $sheet->getCell('C2')->setValueExplicit($objDrawing, DataType::TYPE_DRAWING_IN_CELL);
 
         $spreadsheet->disconnectWorksheets();
     }
