@@ -2288,7 +2288,7 @@ class Html extends BaseWriter
             $string
         );
     }
-  
+
     private function extendRowsAndColumnsForMerge(Worksheet $worksheet, int &$colMax, int &$rowMax): void
     {
         foreach ($worksheet->getMergeCells() as $cellRange) {
