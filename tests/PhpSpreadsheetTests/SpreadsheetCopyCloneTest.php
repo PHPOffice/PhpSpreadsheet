@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -180,5 +181,32 @@ class SpreadsheetCopyCloneTest extends TestCase
         self::assertSame($cache, $calc2->getCalculationCacheEnabled());
         self::assertSame($pruning, $calc2->getBranchPruningEnabled());
         self::assertSame($return, $calc2->getInstanceArrayReturnType());
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyCloneImageInCell(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('original1');
+        $objDrawing = new Drawing();
+        $directory = 'tests/data/Writer/XLSX';
+        $path = $directory . '/blue_square.png';
+        $objDrawing->setPath($path);
+        $sheet->getCell('C2')->setValue($objDrawing);
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+        $copySheet = $spreadsheet2->getSheetByNameOrThrow('original1');
+        $collection = $copySheet->getInCellDrawingCollection();
+        self::assertCount(1, $collection);
+        $image = $collection[0];
+        self::assertInstanceOf(Drawing::class, $image);
+        self::assertTrue($image->isInCell());
+        self::assertSame($path, $image->getPath());
+        self::assertNotSame($objDrawing, $image);
     }
 }

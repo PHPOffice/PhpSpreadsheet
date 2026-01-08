@@ -321,13 +321,21 @@ class Html extends BaseReader
                     }
 
                     //catching the Exception and ignoring the invalid data types
+                    $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
+
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
+                    $sheet->setHyperlink($column . $row, $hyperlink);
                 } else {
+                    $hyperlink = null;
+                    if ($sheet->hyperlinkExists($column . $row)) {
+                        $hyperlink = $sheet->getHyperlink($column . $row);
+                    }
                     $sheet->setCellValue($column . $row, $cellContent);
+                    $sheet->setHyperlink($column . $row, $hyperlink);
                 }
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
             }
