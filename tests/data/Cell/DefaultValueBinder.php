@@ -86,4 +86,7 @@ return [
     'Issue 1310 Multiple = at start' => ['s', '======'],
     'Issue 1310 Variant 1' => ['s', '= ====='],
     'Issue 1310 Variant 2' => ['s', '=2*3='],
+    'Issue 4766 very large positive exponent treated as string' => ['s', '4E433'],
+    'Issue 4766 very large negative exponent numeric' => ['n', '4E-433'],
+    'Issue 4766 small exponent no decimal point numeric' => ['n', '4E4'],
 ];

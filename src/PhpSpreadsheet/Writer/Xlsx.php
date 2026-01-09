@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RichDataDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Table;
@@ -329,9 +330,22 @@ class Xlsx extends BaseWriter
 
         /** @var string[] */
         $zipContent = [];
+        $richDataCount = 0;
+
+        if ($this->spreadSheet->hasInCellDrawings()) {
+            $richDataDrawing = new RichDataDrawing();
+            $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet);
+            $richDataCount = count($richDataDrawing->getDrawings());
+
+            // Add all Rich Data files to ZIP
+            foreach ($richDataFiles as $path => $content) {
+                $zipContent[$path] = $content;
+            }
+        }
+
         // Add [Content_Types].xml to ZIP file
         $zipContent['[Content_Types].xml'] = $this->getWriterPartContentTypes()->writeContentTypes($this->spreadSheet, $this->includeCharts);
-        $metadataData = (new Xlsx\Metadata($this))->writeMetadata();
+        $metadataData = (new Xlsx\Metadata($this))->writeMetadata($richDataCount);
         if ($metadataData !== '') {
             $zipContent['xl/metadata.xml'] = $metadataData;
         }
