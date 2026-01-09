@@ -51,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Xls Writer and empty RichText. [Issue #918](https://github.com/PHPOffice/PhpSpreadsheet/issues/918) [PR #4769](https://github.com/PHPOffice/PhpSpreadsheet/pull/4769)
 - Strings that look like huge floating-point numbers. [Issue #4766](https://github.com/PHPOffice/PhpSpreadsheet/issues/4766) [PR #4768](https://github.com/PHPOffice/PhpSpreadsheet/pull/4768)
 - Rowspan in Html. [Issue #1319](https://github.com/PHPOffice/PhpSpreadsheet/issues/1319) [PR #4767](https://github.com/PHPOffice/PhpSpreadsheet/pull/4767)
+- Mpdf styling of multi-line strings. [Issue #4773](https://github.com/PHPOffice/PhpSpreadsheet/issues/4773) [PR #4775](https://github.com/PHPOffice/PhpSpreadsheet/pull/4775)
 
 ## 2025-11-24 - 5.3.0
 

@@ -57,6 +57,8 @@ class Html extends BaseWriter
      */
     public const COMMENT_HTML_TAGS_PLAINTEXT = true;
 
+    private const BRX = '<br          />';
+
     /**
      * Spreadsheet object.
      */
@@ -253,6 +255,11 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
+        if ($this instanceof Pdf\Mpdf) {
+            $html = str_replace(self::BRX, '<br />', $html);
+        } else {
+            $html = str_replace(self::BRX, '<br />' . PHP_EOL, $html);
+        }
         $callback = $this->editHtmlCallback;
         if ($callback) {
             $html = $callback($html);
@@ -1500,7 +1507,7 @@ class Html extends BaseWriter
             }
         }
 
-        return nl2br($cellData);
+        return self::nl2brx($cellData);
     }
 
     private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, string &$cellData): void
@@ -1567,7 +1574,7 @@ class Html extends BaseWriter
             $cellData = Preg::replace('/(?m)(?:^|\G) /', '&nbsp;', $cellData);
 
             // convert newline "\n" to '<br>'
-            $cellData = nl2br($cellData);
+            $cellData = self::nl2brx($cellData);
 
             // Extend CSS class?
             $dataType = $cell->getDataType();
@@ -2271,6 +2278,15 @@ class Html extends BaseWriter
         $this->betterBoolean = $betterBoolean;
 
         return $this;
+    }
+
+    private static function nl2brx(string $string, bool $useXhtml = false): string
+    {
+        return str_replace(
+            ["\r\n", "\n\r", "\r", "\n"],
+            self::BRX,
+            $string
+        );
     }
 
     private function extendRowsAndColumnsForMerge(Worksheet $worksheet, int &$colMax, int &$rowMax): void
