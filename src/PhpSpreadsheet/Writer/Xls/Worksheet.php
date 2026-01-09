@@ -369,6 +369,9 @@ class Worksheet extends BIFFwriter
             $xfIndex = $cell->getXfIndex() + 15; // there are 15 cell style Xfs
 
             $cVal = $cell->getValue();
+            if ($cVal instanceof RichText && (string) $cVal === '') {
+                $cVal = '';
+            }
             if ($cVal instanceof RichText) {
                 $arrcRun = [];
                 $str_pos = 0;

@@ -109,6 +109,13 @@ class Worksheet
     private ArrayObject $drawingCollection;
 
     /**
+     * Collection of drawings.
+     *
+     * @var ArrayObject<int, BaseDrawing>
+     */
+    private ArrayObject $inCellDrawingCollection;
+
+    /**
      * Collection of Chart objects.
      *
      * @var ArrayObject<int, Chart>
@@ -334,6 +341,8 @@ class Worksheet
         $this->sheetView = new SheetView();
         // Drawing collection
         $this->drawingCollection = new ArrayObject();
+        // In Cell Drawing collection
+        $this->inCellDrawingCollection = new ArrayObject();
         // Chart collection
         $this->chartCollection = new ArrayObject();
         // Protection
@@ -371,7 +380,7 @@ class Worksheet
             ?->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
     /**
@@ -517,6 +526,16 @@ class Worksheet
     public function getDrawingCollection(): ArrayObject
     {
         return $this->drawingCollection;
+    }
+
+    /**
+     * Get collection of drawings.
+     *
+     * @return ArrayObject<int, BaseDrawing>
+     */
+    public function getInCellDrawingCollection(): ArrayObject
+    {
+        return $this->inCellDrawingCollection;
     }
 
     /**
@@ -3449,6 +3468,7 @@ class Worksheet
      */
     public function getHyperlink(string $cellCoordinate): Hyperlink
     {
+        $this->getCell($cellCoordinate)->setHadHyperlink(true);
         // return hyperlink if we already have one
         if (isset($this->hyperlinkCollection[$cellCoordinate])) {
             return $this->hyperlinkCollection[$cellCoordinate];
@@ -3467,12 +3487,17 @@ class Worksheet
      *
      * @return $this
      */
-    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null): static
+    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null, bool $reset = true): static
     {
         if ($hyperlink === null) {
             unset($this->hyperlinkCollection[$cellCoordinate]);
+            if ($reset) {
+                $this->getCell($cellCoordinate)
+                    ->setHadHyperlink(false);
+            }
         } else {
             $this->hyperlinkCollection[$cellCoordinate] = $hyperlink;
+            $this->getCell($cellCoordinate)->setHadHyperlink(true);
         }
 
         return $this;
@@ -3750,6 +3775,13 @@ class Worksheet
                 } elseif ($key === 'drawingCollection') {
                     $currentCollection = $this->drawingCollection;
                     $this->drawingCollection = new ArrayObject();
+                    foreach ($currentCollection as $item) {
+                        $newDrawing = clone $item;
+                        $newDrawing->setWorksheet($this);
+                    }
+                } elseif ($key === 'inCellDrawingCollection') {
+                    $currentCollection = $this->inCellDrawingCollection;
+                    $this->inCellDrawingCollection = new ArrayObject();
                     foreach ($currentCollection as $item) {
                         $newDrawing = clone $item;
                         $newDrawing->setWorksheet($this);

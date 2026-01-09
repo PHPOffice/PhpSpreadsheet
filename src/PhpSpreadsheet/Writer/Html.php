@@ -58,6 +58,8 @@ class Html extends BaseWriter
      */
     public const COMMENT_HTML_TAGS_PLAINTEXT = true;
 
+    private const BRX = '<br          />';
+
     /**
      * Spreadsheet object.
      */
@@ -137,13 +139,6 @@ class Html extends BaseWriter
      * @var int[][][][]
      */
     private array $isBaseCell = [];
-
-    /**
-     * Excel rows that should not be written as HTML rows.
-     *
-     * @var mixed[][]
-     */
-    private array $isSpannedRow = [];
 
     /**
      * Is the current writer creating PDF?
@@ -278,6 +273,11 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
+        if ($this instanceof Pdf\Mpdf) {
+            $html = str_replace(self::BRX, '<br />', $html);
+        } else {
+            $html = str_replace(self::BRX, '<br />' . PHP_EOL, $html);
+        }
         $callback = $this->editHtmlCallback;
         if ($callback) {
             $html = $callback($html);
@@ -591,6 +591,7 @@ class Html extends BaseWriter
             [$minCol, $minRow, $minColString] = Coordinate::indexesFromString($min);
             [$maxCol, $maxRow] = Coordinate::indexesFromString($max);
             $this->extendRowsAndColumns($sheet, $maxCol, $maxRow);
+            $this->extendRowsAndColumnsForMerge($sheet, $maxCol, $maxRow);
 
             [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $minRow);
             // Loop through cells
@@ -600,7 +601,7 @@ class Html extends BaseWriter
                 $html .= StringHelper::convertToString($startTag);
 
                 // Write row if there are HTML table cells in it
-                if ($this->shouldGenerateRow($sheet, $row) && !isset($this->isSpannedRow[$sheet->getParentOrThrow()->getIndex($sheet)][$row])) {
+                if ($this->shouldGenerateRow($sheet, $row)) {
                     // Start a new rowData
                     $rowData = [];
                     // Loop through columns
@@ -1525,7 +1526,7 @@ class Html extends BaseWriter
             }
         }
 
-        return nl2br($cellData);
+        return self::nl2brx($cellData);
     }
 
     private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, string &$cellData): void
@@ -1592,7 +1593,7 @@ class Html extends BaseWriter
             $cellData = Preg::replace('/(?m)(?:^|\G) /', '&nbsp;', $cellData);
 
             // convert newline "\n" to '<br>'
-            $cellData = nl2br($cellData);
+            $cellData = self::nl2brx($cellData);
 
             // Extend CSS class?
             $dataType = $cell->getDataType();
@@ -1899,6 +1900,11 @@ class Html extends BaseWriter
             // Next column
             ++$colNum;
         }
+        if ($this instanceof Pdf\Tcpdf) {
+            if (str_ends_with($html, '<tr>' . PHP_EOL)) {
+                $html .= '<td>&nbsp;</td>' . PHP_EOL;
+            }
+        }
 
         // Write row end
         $html .= '          </tr>' . $this->lineEnding;
@@ -2113,49 +2119,10 @@ class Html extends BaseWriter
                     }
                 }
             }
-
-            $this->calculateSpansOmitRows($sheet, $sheetIndex, $candidateSpannedRow);
-
-            // TODO: Same for columns
         }
 
         // We have calculated the spans
         $this->spansAreCalculated = true;
-    }
-
-    /** @param int[] $candidateSpannedRow */
-    private function calculateSpansOmitRows(Worksheet $sheet, int $sheetIndex, array $candidateSpannedRow): void
-    {
-        // Identify which rows should be omitted in HTML. These are the rows where all the cells
-        //   participate in a merge and the where base cells are somewhere above.
-        $countColumns = Coordinate::columnIndexFromString($sheet->getHighestColumn());
-        foreach ($candidateSpannedRow as $rowIndex) {
-            if (isset($this->isSpannedCell[$sheetIndex][$rowIndex])) {
-                if (count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {
-                    $this->isSpannedRow[$sheetIndex][$rowIndex] = $rowIndex;
-                }
-            }
-        }
-
-        // For each of the omitted rows we found above, the affected rowspans should be subtracted by 1
-        if (isset($this->isSpannedRow[$sheetIndex])) {
-            foreach ($this->isSpannedRow[$sheetIndex] as $rowIndex) {
-                /** @var int $rowIndex */
-                $adjustedBaseCells = [];
-                $c = -1;
-                $e = $countColumns - 1;
-                while ($c++ < $e) {
-                    $baseCell = $this->isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
-
-                    if (!in_array($baseCell, $adjustedBaseCells, true)) {
-                        // subtract rowspan by 1
-                        /** @var array<int|string> $baseCell */
-                        --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
-                        $adjustedBaseCells[] = $baseCell;
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -2330,5 +2297,32 @@ class Html extends BaseWriter
         $this->betterBoolean = $betterBoolean;
 
         return $this;
+    }
+
+    private static function nl2brx(string $string, bool $useXhtml = false): string
+    {
+        return str_replace(
+            ["\r\n", "\n\r", "\r", "\n"],
+            self::BRX,
+            $string
+        );
+    }
+
+    private function extendRowsAndColumnsForMerge(Worksheet $worksheet, int &$colMax, int &$rowMax): void
+    {
+        foreach ($worksheet->getMergeCells() as $cellRange) {
+            if (Preg::isMatch('/[a-z]{1,3}\d+:([a-z]{1,3})(\d+)/i', $cellRange, $matches)) {
+                $col = Coordinate::columnIndexFromString($matches[1]);
+                if ($colMax < $col) {
+                    $colMax = $col;
+                    $worksheet->getColumnDimension($matches[1]);
+                }
+                $row = (int) $matches[2];
+                if ($rowMax < $row) {
+                    $rowMax = $row;
+                    $worksheet->getRowDimension($row);
+                }
+            }
+        }
     }
 }

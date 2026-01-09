@@ -106,7 +106,7 @@ class RowColumnInformation
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return 1;
         }
-        if (is_string($cellAddress) && ErrorValue::isError($cellAddress)) {
+        if (is_string($cellAddress) && ErrorValue::isError($cellAddress, true)) {
             return $cellAddress;
         }
         if (!is_array($cellAddress)) {
@@ -211,7 +211,7 @@ class RowColumnInformation
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return 1;
         }
-        if (is_string($cellAddress) && ErrorValue::isError($cellAddress)) {
+        if (is_string($cellAddress) && ErrorValue::isError($cellAddress, true)) {
             return $cellAddress;
         }
         if (!is_array($cellAddress)) {

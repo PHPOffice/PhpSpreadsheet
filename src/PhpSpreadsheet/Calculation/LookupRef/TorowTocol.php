@@ -80,7 +80,7 @@ class TorowTocol
                         continue;
                     }
                     $cell = 0;
-                } elseif (ErrorValue::isError($cell)) {
+                } elseif (ErrorValue::isError($cell, true)) {
                     if ($ignore === 2 || $ignore === 3) {
                         continue;
                     }

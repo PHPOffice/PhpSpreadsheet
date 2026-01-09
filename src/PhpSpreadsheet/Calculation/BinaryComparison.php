@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class BinaryComparison
@@ -41,14 +42,22 @@ class BinaryComparison
         return strcmp($str1, $str2);
     }
 
-    public static function compare(mixed $operand1, mixed $operand2, string $operator): bool
+    public static function compare(mixed $operand1, mixed $operand2, string $operator): bool|string
     {
         //    Simple validate the two operands if they are string values
         if (is_string($operand1) && $operand1 > '' && $operand1[0] == Calculation::FORMULA_STRING_QUOTE) {
             $operand1 = Calculation::unwrapResult($operand1);
         }
+        if (ErrorValue::isError($operand1, true)) {
+            /** @var string $operand1 */
+            return $operand1;
+        }
         if (is_string($operand2) && $operand2 > '' && $operand2[0] == Calculation::FORMULA_STRING_QUOTE) {
             $operand2 = Calculation::unwrapResult($operand2);
+        }
+        if (ErrorValue::isError($operand2, true)) {
+            /** @var string $operand2 */
+            return $operand2;
         }
 
         // Use case-insensitive comparison if not OpenOffice mode

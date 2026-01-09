@@ -17,6 +17,7 @@ class DataType
     const TYPE_INLINE = 'inlineStr';
     const TYPE_ERROR = 'e';
     const TYPE_ISO_DATE = 'd';
+    const TYPE_DRAWING_IN_CELL = 'drawingCell';
 
     /**
      * List of error codes.
