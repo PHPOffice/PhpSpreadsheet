@@ -16,7 +16,7 @@ This branch (1.30.x) is *not* the latest version of PhpSpreadsheet, and may ther
 
 Except for security changes, no further maintenance will be applied to this branch.
 You are encouraged to upgrade to a maintained branch as soon as possible.
-Maintained branches are master (preferred - version is 5.3.0 as of the date when this is being written), 3.10.x (current version is 3.10.2), and 2.4.x (2.4.2).
+Maintained branches are master (preferred - version is 5.4.0 as of the date when this is being written), 3.10.x (current version is 3.10.3), and 2.4.x (2.4.3).
 
 Of particular note is that this branch should not run under Php 8.5, and will *not* be updated to avoid deprecation notices which will be introduced with Php 8.5.
 
