@@ -5,7 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.4.0
+## TBD - 5.5.0
+
+### Added
+
+- Nothing yet.
+
+### Removed
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2026-01-10 - 5.4.0
 
 ### Added
 
@@ -13,10 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Passthrough support (with some restrictions) for otherwise unsupported drawing elements. [Issue #4037](https://github.com/PHPOffice/PhpSpreadsheet/issues/4037) [Issue #4704](https://github.com/PHPOffice/PhpSpreadsheet/issues/4704) [PR #4712](https://github.com/PHPOffice/PhpSpreadsheet/pull/4712)
 - Set all locale variables at once in a threadsafe manner. [Issue #954](https://github.com/PHPOffice/PhpSpreadsheet/issues/954) [PR #4760](https://github.com/PHPOffice/PhpSpreadsheet/pull/4760)
 - Reader/Html add ability to suppress warning messages from loadhtml. [Issue #647](https://github.com/PHPOffice/PhpSpreadsheet/issues/647) [Issue #849](https://github.com/PHPOffice/PhpSpreadsheet/issues/849) [PR #4761](https://github.com/PHPOffice/PhpSpreadsheet/pull/4761)
-
-### Removed
-
-- Nothing yet.
 
 ### Changed
 
