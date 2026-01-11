@@ -124,12 +124,17 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Some of this code is drived from Perl CPAN Statistical::Distributions.</p>
 
+
+    <section class="phpdocumentor-description"><p>Its copyright statement is:
+Copyright 2003 Michael Kospach. All rights reserved.</p>
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+</section>
 
 
 
@@ -170,7 +175,35 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
 </dt>
-<dd>TINV.</dd>
+<dd>TINV and T.INV.2T.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDist">tDotDist()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
+</dt>
+<dd>T.DIST.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDot2T">tDotDistDot2T()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
+</dt>
+<dd>T.DIST.2T.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDotRT">tDotDistDotRT()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
+</dt>
+<dd>T.DIST.RT.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotInv">tDotInv()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|float|string    </span>
+</dt>
+<dd>T.INV.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArguments">evaluateArrayArguments()</a>
@@ -239,7 +272,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -319,11 +352,11 @@ with the same dimensions</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">65</span>
+    <span class="phpdocumentor-element-found-in__line">193</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">TINV.</p>
+        <p class="phpdocumentor-summary">TINV and T.INV.2T.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -332,7 +365,7 @@ with the same dimensions</p>
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Returns the one-tailed probability of the chi-squared distribution.</p>
+        <section class="phpdocumentor-description"><p>Returns the two-tailed inverse of the Student t distribution.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -370,6 +403,271 @@ Or can be an array of values</p>
                 <section class="phpdocumentor-description"><p>The result, or a string containing an error
 If an array of numbers is passed as an argument, then the returned result will also be an array
 with the same dimensions</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tDotDist">
+        tDotDist()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDist" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">127</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">T.DIST.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">tDotDist</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$degrees</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cumulative</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Returns the Student's left-tailed t distribution,
+either as a cumulative distribution function (cdf) (TRUE)
+or as a probability density function (pdf) (FALSE),
+where TRUE/FALSE are the value of $cumulative parameter.</p>
+<p>&quot;True&quot; algoritm adapted from java.
+org.apache.commons.math3.distribution.TDistribution.
+&quot;False&quot; algorithm comes from:
+https://statproofbook.github.io/P/t-pdf.html</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$degrees</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cumulative</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Expecting bool. See above for explanation.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result, or a string containing an error</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tDotDistDot2T">
+        tDotDistDot2T()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDot2T" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">T.DIST.2T.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">tDotDistDot2T</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$degrees</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Returns the two-tailed Student's t distribution.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$degrees</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result, or a string containing an error</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tDotDistDotRT">
+        tDotDistDotRT()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDotRT" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">58</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">T.DIST.RT.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">tDotDistDotRT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$degrees</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Returns the right-tailed Student's t distribution.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$degrees</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result, or a string containing an error</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tDotInv">
+        tDotInv()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotInv" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-studentt.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php">StudentT.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">238</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">T.INV.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">tDotInv</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$probability</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$degrees</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Returns the left-tailed inverse of the Student's t distribution.</p>
+<p>Based on code from Perl CPAN Statistical::Distributions.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$probability</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$degrees</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|float|string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result, or a string containing an error</p>
 </section>
 
             </section>
@@ -815,6 +1113,10 @@ DAYOFMONTH() or FACT().</p>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_distribution">distribution()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_inverse">inverse()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDist">tDotDist()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDot2T">tDotDistDot2T()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotDistDotRT">tDotDistDotRT()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-StudentT.html#method_tDotInv">tDotInv()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArguments">evaluateArrayArguments()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArgumentsIgnore">evaluateArrayArgumentsIgnore()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#method_evaluateArrayArgumentsSubset">evaluateArrayArgumentsSubset()</a></li>

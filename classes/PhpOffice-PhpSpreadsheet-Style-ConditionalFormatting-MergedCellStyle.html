@@ -93,17 +93,14 @@
                                         <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-style.html">Style</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-style-conditionalformatting.html">ConditionalFormatting</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Worksheet
+    MergedCellStyle
 
-        <span class="phpdocumentor-element__extends">
-        extends <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a>
-    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -121,9 +118,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-mergedcellstyle.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php">MergedCellStyle.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 
     </aside>
 
@@ -138,7 +135,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -153,30 +150,25 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMatched">getMatched()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: bool    </span>
 </dt>
-<dd>Set parent Xlsx object.</dd>
+<dd>Indicate whether the last call to getMergedStyle found
+any conditional or table styles affecting the cell in question.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMergedStyle">getMergedStyle()</a>
     <span>
-                                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>    </span>
+                                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
-<dd>Get parent Xlsx object.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeWorksheet">writeWorksheet()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Write worksheet to XML format.</dd>
+<dd>Return a style that combines the base style for a cell
+with any conditional or table styles applicable to the cell.</dd>
 
     </dl>
 
@@ -189,7 +181,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -198,68 +190,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getMatched">
+        getMatched()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMatched" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">25</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Set parent Xlsx object.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$writer</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$writer</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getParentWriter">
-        getParentWriter()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-mergedcellstyle.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php">MergedCellStyle.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Get parent Xlsx object.</p>
+        <p class="phpdocumentor-summary">Indicate whether the last call to getMergedStyle found
+any conditional or table styles affecting the cell in question.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getParentWriter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getMatched</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -272,7 +220,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -282,23 +230,24 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_writeWorksheet">
-        writeWorksheet()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeWorksheet" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getMergedStyle">
+        getMergedStyle()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMergedStyle" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php"><a href="files/src-phpspreadsheet-style-conditionalformatting-mergedcellstyle.html"><abbr title="src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php">MergedCellStyle.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Write worksheet to XML format.</p>
+        <p class="phpdocumentor-summary">Return a style that combines the base style for a cell
+with any conditional or table styles applicable to the cell.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">writeWorksheet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stringTable</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$includeCharts</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getMergedStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$coordinate</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tableFormats</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$conditionals</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$builtInTableStyles</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -314,20 +263,39 @@
                 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stringTable</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+                <span class="phpdocumentor-signature__argument__name">$coordinate</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$includeCharts</span>
+                <span class="phpdocumentor-signature__argument__name">$tableFormats</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Flag indicating if we should write charts</p>
+                    <section class="phpdocumentor-description"><p>True/false to indicate whether
+custom table styles should be considered.
+Note that builtin table styles are not supported.</p>
 </section>
 
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$conditionals</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>True/false to indicate whether
+conditional styles should be considered.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$builtInTableStyles</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -337,11 +305,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>XML Output</p>
-</section>
-
+        <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             </section>
 
 </article>
@@ -351,7 +315,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Style/ConditionalFormatting/MergedCellStyle.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -452,7 +416,7 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
@@ -460,9 +424,8 @@
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeWorksheet">writeWorksheet()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMatched">getMatched()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#method_getMergedStyle">getMergedStyle()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -482,7 +445,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-MergedCellStyle.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
