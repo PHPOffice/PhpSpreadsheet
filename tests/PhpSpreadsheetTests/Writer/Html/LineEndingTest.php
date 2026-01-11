@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PHPUnit\Framework\TestCase;
 
