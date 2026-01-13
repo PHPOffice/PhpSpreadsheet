@@ -39,17 +39,17 @@ class FloatInlineTest extends TestCase
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString(
-            "<table border='0' cellpadding='0' dir='ltr' id='sheet0' cellspacing='0' style='border-collapse:collapse; float:left' class='gridlines'>",
+            "<table dir='ltr' id='sheet0' style='border-collapse:collapse; float:left' class='gridlines'>",
             $html,
             'ltr sheet in spreadsheet with both ltr and rtl sheets , with gridlines'
         );
         self::assertStringContainsString(
-            "<table border='0' cellpadding='1' dir='rtl' id='sheet1' cellspacing='0' style='border-collapse:collapse; float:right'>",
+            "<table dir='rtl' id='sheet1' style='border-collapse:collapse; float:right'>",
             $html,
             'rtl sheet in spreadsheet with both ltr and rtl sheets, without gridlines'
         );
         self::assertStringContainsString(
-            "<table border='0' cellpadding='1' dir='ltr' id='sheet2' cellspacing='0' style='border-collapse:collapse; float:left'>",
+            "<table dir='ltr' id='sheet2' style='border-collapse:collapse; float:left'>",
             $html,
             'second ltr sheet in spreadsheet with both ltr and rtl sheets, without gridlines'
         );

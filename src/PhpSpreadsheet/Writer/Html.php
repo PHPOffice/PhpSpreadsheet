@@ -624,7 +624,7 @@ class Html extends BaseWriter
             // Write table footer
             $html .= $this->generateTableFooter();
             // Writing PDF?
-            if ($this->isPdf && $this->useInlineCss) {
+            if ($this instanceof Pdf\Tcpdf && $this->useInlineCss) {
                 if ($this->sheetIndex === null && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
                     $html .= '<div style="page-break-before:always" ></div>';
                 }
@@ -1359,13 +1359,13 @@ class Html extends BaseWriter
         $printArea = $worksheet->getPageSetup()->getPrintArea();
         $dataPrint = ($printArea === '') ? '' : (" data-printarea='" . htmlspecialchars($printArea) . "'");
         if ($viewgrid && $prntgrid) {
-            $html = "    <table border='1' cellpadding='1'$rtl$dataPrint $id cellspacing='1' style='$style' class='gridlines gridlinesp'>" . $this->lineEnding;
+            $html = "    <table$rtl$dataPrint $id style='$style' class='gridlines gridlinesp'>" . $this->lineEnding;
         } elseif ($viewgrid) {
-            $html = "    <table border='0' cellpadding='0'$rtl$dataPrint $id cellspacing='0' style='$style' class='gridlines'>" . $this->lineEnding;
+            $html = "    <table$rtl$dataPrint $id style='$style' class='gridlines'>" . $this->lineEnding;
         } elseif ($prntgrid) {
-            $html = "    <table border='0' cellpadding='0'$rtl$dataPrint $id cellspacing='0' style='$style' class='gridlinesp'>" . $this->lineEnding;
+            $html = "    <table$rtl$dataPrint $id style='$style' class='gridlinesp'>" . $this->lineEnding;
         } else {
-            $html = "    <table border='0' cellpadding='1'$rtl$dataPrint $id cellspacing='0' style='$style'>" . $this->lineEnding;
+            $html = "    <table$rtl$dataPrint $id style='$style'>" . $this->lineEnding;
         }
 
         return $html;
@@ -1378,9 +1378,14 @@ class Html extends BaseWriter
             $printArea = $worksheet->getPageSetup()->getPrintArea();
             $dataPrint = ($printArea === '') ? '' : (" data-printarea='" . htmlspecialchars($printArea) . "'");
             $float = $this->getFloat($worksheet);
-            $gridlines = $worksheet->getShowGridlines() ? ' gridlines' : '';
-            $gridlinesp = $worksheet->getPrintGridlines() ? ' gridlinesp' : '';
-            $html .= "    <table border='0' cellpadding='0' cellspacing='0'$rtl$dataPrint $id class='sheet$sheetIndex$gridlines$gridlinesp$float'>" . $this->lineEnding;
+            if ($this instanceof Pdf\Dompdf) {
+                $gridlines = $worksheet->getPrintGridlines() ? ' gridlines' : '';
+                $gridlinesp = $worksheet->getPrintGridlines() ? ' gridlinesp' : '';
+            } else {
+                $gridlines = $worksheet->getShowGridlines() ? ' gridlines' : '';
+                $gridlinesp = $worksheet->getPrintGridlines() ? ' gridlinesp' : '';
+            }
+            $html .= "    <table$rtl$dataPrint $id class='sheet$sheetIndex$gridlines$gridlinesp$float'>" . $this->lineEnding;
         } else {
             $html .= $this->generateTableTagInline($worksheet, $id);
         }
@@ -1748,6 +1753,17 @@ class Html extends BaseWriter
                 foreach (['border-top', 'border-bottom', 'border-right', 'border-left'] as $borderType) {
                     if (($xcssClass[$borderType] ?? '') === 'none #000000') {
                         unset($xcssClass[$borderType]);
+                    }
+                }
+                $foundBorder = false;
+                if ($this instanceof Pdf\Tcpdf && $worksheet->getPrintGridLines()) {
+                    foreach (['border-top', 'border-bottom', 'border-right', 'border-left'] as $borderType) {
+                        if (isset($xcssClass[$borderType])) {
+                            $foundBorder = true;
+                        }
+                    }
+                    if (!$foundBorder) {
+                        $xcssClass['border'] = '0.1px solid black';
                     }
                 }
             }

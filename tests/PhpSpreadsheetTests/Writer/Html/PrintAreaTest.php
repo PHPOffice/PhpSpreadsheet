@@ -29,7 +29,7 @@ class PrintAreaTest extends TestCase
         $eol = $writer->getLineEnding();
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString(
-            "<table border='0' cellpadding='0' cellspacing='0' data-printarea='B2:D4' id='sheet0' class='sheet0 gridlines'>",
+            "<table data-printarea='B2:D4' id='sheet0' class='sheet0 gridlines'>",
             $html
         );
         $expectedArray = [
