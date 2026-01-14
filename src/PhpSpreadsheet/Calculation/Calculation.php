@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use Composer\Pcre\Preg; // many pregs in this program use u modifier, which has side-effects which make it unsuitable for this
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
@@ -415,7 +416,7 @@ class Calculation extends CalculationLocale
     {
         if (is_string($value)) {
             //    Error values cannot be "wrapped"
-            if (preg_match('/^' . self::CALCULATION_REGEXP_ERROR . '$/i', $value, $match)) {
+            if (Preg::isMatch('/^' . self::CALCULATION_REGEXP_ERROR . '$/i', $value, $match)) {
                 //    Return Excel errors "as is"
                 return $value;
             }
@@ -494,7 +495,7 @@ class Calculation extends CalculationLocale
         try {
             $value = $cell->getValue();
             if (is_string($value) && $cell->getDataType() === DataType::TYPE_FORMULA) {
-                $value = preg_replace_callback(
+                $value = Preg::replaceCallback(
                     self::CALCULATION_REGEXP_CELLREF_SPILL,
                     fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
                     $value
@@ -557,11 +558,11 @@ class Calculation extends CalculationLocale
      */
     public function parseFormula(string $formula): array|bool
     {
-        $formula = preg_replace_callback(
+        $formula = Preg::replaceCallback(
             self::CALCULATION_REGEXP_CELLREF_SPILL,
             fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
             $formula
-        ) ?? $formula;
+        );
         //    Basic validation that this is indeed a formula
         //    We return an empty array if not
         $formula = trim($formula);
@@ -1055,16 +1056,16 @@ class Calculation extends CalculationLocale
     /** @param string[] $matches */
     private static function unionForComma(array $matches): string
     {
-        return $matches[2] . str_replace(',', '∪', $matches[3]);
+        return $matches[1] . str_replace(',', '∪', $matches[2]);
     }
 
-    private const UNIONABLE_COMMAS = '/(([,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
+    private const UNIONABLE_COMMAS = '/((?:[,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
         . '([(]' // open paren
         . self::CALCULATION_REGEXP_CELLREF // cell address
-        . '(:' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address
-        . '(\s*,\s*' // optioonal whitespace, comma, optional whitespace
+        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
+        . '(?:\s*,\s*' // optioonal whitespace, comma, optional whitespace, non-capturing
         . self::CALCULATION_REGEXP_CELLREF // cell address
-        . '(:' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address
+        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
         . ')+' // one or more occurrences
         . '\s*[)])/i'; // optional whitespace, end paren
 
@@ -1077,7 +1078,7 @@ class Calculation extends CalculationLocale
             return false;
         }
 
-        $formula = preg_replace_callback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula) ?? $formula;
+        $formula = Preg::replaceCallback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula); // @phpstan-ignore-line
         $phpSpreadsheetFunctions = &self::getFunctionsAddress();
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
@@ -1197,7 +1198,7 @@ class Calculation extends CalculationLocale
                             }
                         }
                     } elseif (is_string($expectedArgumentCount) && $expectedArgumentCount !== '*') {
-                        if (1 !== preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch)) {
+                        if (!Preg::isMatch('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch)) {
                             $argMatch = ['', '', '', ''];
                         }
                         switch ($argMatch[2]) {
@@ -1287,7 +1288,8 @@ class Calculation extends CalculationLocale
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
-                    $val = (string) preg_replace('/\s/u', '', $val);
+                    // $val is known to be valid unicode from statement above, so Preg::replace is okay even with u modifier
+                    $val = Preg::replace('/\s/u', '', $val);
                     if (isset($phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
                     } else {
@@ -2004,7 +2006,7 @@ class Calculation extends CalculationLocale
                 } else {
                     $this->executeNumericBinaryOperation($multiplier, $arg, '*', $stack);
                 }
-            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', StringHelper::convertToString($token ?? ''), $matches)) {
+            } elseif (Preg::isMatch('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', StringHelper::convertToString($token ?? ''), $matches)) {
                 $cellRef = null;
 
                 /* Phpstan says matches[8/9/10] is never set,
@@ -2018,6 +2020,7 @@ class Calculation extends CalculationLocale
                         $cellValue = ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[self::$matchIndex9] . $matches[self::$matchIndex10];
+                        $matches[2] = (string) $matches[2];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
@@ -2048,6 +2051,7 @@ class Calculation extends CalculationLocale
                         $cellValue = ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
+                        $matches[2] = (string) $matches[2];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
@@ -2089,7 +2093,7 @@ class Calculation extends CalculationLocale
                         $cellValue = array_shift($cellValue);
                     }
                     if (is_string($cellValue)) {
-                        $cellValue = preg_replace('/"/', '""', $cellValue);
+                        $cellValue = Preg::replace('/"/', '""', $cellValue);
                     }
                     $this->debugLog->writeDebugLog('Scalar Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                 }
@@ -2835,10 +2839,12 @@ class Calculation extends CalculationLocale
         $definedNameValue = $namedRange->getValue();
         $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
         if ($definedNameType === 'Range') {
-            if (preg_match('/^(.*!)?(.*)$/', $definedNameValue, $matches) === 1) {
-                $matches2 = trim($matches[2]);
-                $matches2 = preg_replace('/ +/', ' ∩ ', $matches2) ?? $matches2;
-                $matches2 = preg_replace('/,/', ' ∪ ', $matches2) ?? $matches2;
+            if (Preg::isMatch('/^(.*!)?(.*)$/', $definedNameValue, $matches)) {
+                $matches2 = Preg::replace(
+                    ['/ +/', '/,/'],
+                    [' ∩ ', ' ∪ '],
+                    trim($matches[2])
+                );
                 $definedNameValue = $matches[1] . $matches2;
             }
         }
