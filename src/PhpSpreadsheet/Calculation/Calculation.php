@@ -1052,6 +1052,22 @@ class Calculation extends CalculationLocale
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
+    /** @param string[] $matches */
+    private static function unionForComma(array $matches): string
+    {
+        return $matches[2] . str_replace(',', '∪', $matches[3]);
+    }
+
+    private const UNIONABLE_COMMAS = '/(([,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
+        . '([(]' // open paren
+        . self::CALCULATION_REGEXP_CELLREF // cell address
+        . '(:' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address
+        . '(\s*,\s*' // optioonal whitespace, comma, optional whitespace
+        . self::CALCULATION_REGEXP_CELLREF // cell address
+        . '(:' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address
+        . ')+' // one or more occurrences
+        . '\s*[)])/i'; // optional whitespace, end paren
+
     /**
      * @return array<int, mixed>|false
      */
@@ -1060,6 +1076,8 @@ class Calculation extends CalculationLocale
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
         }
+
+        $formula = preg_replace_callback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula) ?? $formula;
         $phpSpreadsheetFunctions = &self::getFunctionsAddress();
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
