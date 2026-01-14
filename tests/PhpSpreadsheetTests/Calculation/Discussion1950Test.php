@@ -11,7 +11,7 @@ class Discussion1950Test extends TestCase
 {
     public function testMultipleUnions(): void
     {
-        $infile = 'tests/data/Reader/Xlsx/discussion.1950.xlsx';
+        $infile = 'tests/data/Reader/XLSX/discussion.1950.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($infile);
         $sheet = $spreadsheet->getActiveSheet();
@@ -24,7 +24,7 @@ class Discussion1950Test extends TestCase
     public function testUnexpectedUnion(): void
     {
         // was failing in a different manner than prior test
-        $infile = 'tests/data/Reader/Xlsx/issue.4656.d.xlsx';
+        $infile = 'tests/data/Reader/XLSX/issue.4656.d.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($infile);
         $sheet = $spreadsheet->getActiveSheet();
