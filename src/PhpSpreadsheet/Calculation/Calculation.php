@@ -1079,7 +1079,11 @@ class Calculation extends CalculationLocale
             return false;
         }
 
+        $oldFormula = $formula;
         $formula = Preg::replaceCallback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula); // @phpstan-ignore-line
+        if ($oldFormula !== $formula) {
+            $this->debugLog->writeDebugLog('Reformulated as %s', $formula);
+        }
         $phpSpreadsheetFunctions = &self::getFunctionsAddress();
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),

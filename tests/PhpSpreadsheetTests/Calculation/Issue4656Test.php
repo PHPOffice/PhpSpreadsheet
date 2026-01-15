@@ -35,4 +35,20 @@ class Issue4656Test extends TestCase
         self::assertSame(2, $sheet->getCell('A1')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public static function testCellRanges(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [10, 100, 1000],
+            [20, 200, 2000],
+            [30, 300, 3000],
+            [40, 400, 4000],
+            [50, 500, 5000],
+        ]);
+        $sheet->setCellValue('F1', '=SUM((A1:A3, A5), (B1:B2, B4:B5), C3)');
+        self::assertSame(4310, $sheet->getCell('F1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
