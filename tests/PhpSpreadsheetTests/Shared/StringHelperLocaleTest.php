@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
-// separate processes due to setLocale
-#[Attributes\RunTestsInSeparateProcesses]
 class StringHelperLocaleTest extends TestCase
 {
     /**
@@ -20,6 +17,7 @@ class StringHelperLocaleTest extends TestCase
     protected function setUp(): void
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
+        StringHelper::setCurrencyCode(null);
     }
 
     protected function tearDown(): void

@@ -44,3 +44,7 @@ Similar fraction formats have inconsistent results in Excel. For example, if a c
 ## COUNTIF and Text Cells
 
 In Excel, COUNTIF appears to ignore text cells, behavior which doesn't seem to be documented anywhere. See [this issue](https://github.com/PHPOffice/PhpSpreadsheet/issues/3802), which remains open because, in the absence of usable documentation, we aren't sure how to handle things.
+
+## SORT on Different DataTypes
+
+Excel appears to sort so that numbers are lowest in sort order, strings are next, booleans are next (LibreOffice treats booleans as ints), and null is highest. In addition, if your sort includes a numeric string with a leading plus or minus sign, the plus sign will be considered part of the string (so that `"+1"` will sort before `"0"`), but the minus sign will be ignored (so that `"-3"` will sort between `"25"` and `"40"`). There might be nuances I haven't thought of yet. PhpSpreadsheet will not necessarily duplicate Excel's behavior. The best advice we can offer is to make sure that arrays you wish to sort consist of a single datatype, and don't contain numeric strings. Samples samples/LookupRef/SortExcel and SortExcelCols are added to give an idea of how you might emulate Excel's behavior. I am not yet convinced that there is a use case for adding it as a class member in the src tree.

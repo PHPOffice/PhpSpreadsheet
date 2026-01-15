@@ -21,6 +21,17 @@ class XlsTest extends TestCase
         self::assertSame(0, SharedXls::sizeCol($sheet, 'B'));
         self::assertSame(20, SharedXls::sizeRow($sheet, 1));
         self::assertSame(0, SharedXls::sizeRow($sheet, 2));
+        self::assertNull(SharedXls::oneAnchor2twoAnchor($sheet, 'B1', 0, 0, 100, 100));
+        self::assertNull(SharedXls::oneAnchor2twoAnchor($sheet, 'A2', 0, 0, 100, 100));
+        $expected = [
+            'startCoordinates' => 'D9',
+            'startOffsetX' => 0,
+            'startOffsetY' => 0,
+            'endCoordinates' => 'E13',
+            'endOffsetX' => 576.0,
+            'endOffsetY' => 256,
+        ];
+        self::assertSame($expected, SharedXls::oneAnchor2twoAnchor($sheet, 'D9', 0, 0, 100, 100));
         $spreadsheet->disconnectWorksheets();
     }
 }

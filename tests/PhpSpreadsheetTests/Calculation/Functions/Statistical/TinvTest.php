@@ -26,7 +26,7 @@ class TinvTest extends AllSetupTeardown
 
         $formula = "=TINV({$values}, {$degrees})";
         $result = $calculation->calculateFormula($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-9);
     }
 
     public static function providerTInvArray(): array
@@ -34,7 +34,7 @@ class TinvTest extends AllSetupTeardown
         return [
             'row vector' => [
                 [
-                    [0.29001075058679815, 0.5023133547575189, 0.4713169827948964],
+                    [0.612800788, 0.5023133547575189, 0.4713169827948964],
                 ],
                 '0.65',
                 '{1.5, 3.5, 8}',

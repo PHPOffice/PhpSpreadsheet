@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\ExceptionHandler;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
 class CalculationCoverageTest extends TestCase
@@ -151,8 +150,6 @@ class CalculationCoverageTest extends TestCase
 
     protected static string $winIndicator = 'WIN';
 
-    // separate process because it sets its own handler
-    #[Attributes\RunInSeparateProcess]
     public function testExceptionHandler(): void
     {
         if (
@@ -166,6 +163,5 @@ class CalculationCoverageTest extends TestCase
         $this->expectExceptionMessage('hello');
         $handler = new ExceptionHandler();
         trigger_error('hello');
-        self::assertNotNull($handler); // @phpstan-ignore-line
     }
 }

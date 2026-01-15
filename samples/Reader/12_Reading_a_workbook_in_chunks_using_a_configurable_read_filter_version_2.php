@@ -56,10 +56,13 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     $chunkFilter->setRows($startRow, $chunkSize);
     // Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object
     $spreadsheet = $reader->load($inputFileName);
+    $sheet = $spreadsheet->getActiveSheet();
 
     // Do some processing here
 
-    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
-    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
-    $helper->displayGrid($sheetData);
+    $activeRange = $sheet->calculateWorksheetDataDimension();
+    $sheet->getStyle($activeRange)->getNumberFormat()
+        ->setFormatCode('0.000');
+    $sheetData = $sheet->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData, true);
 }

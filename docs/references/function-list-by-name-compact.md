@@ -555,11 +555,11 @@ SYD                      | FINANCIAL             | Financial\Depreciation::SYD
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
 T                        | TEXT_AND_DATA         | TextData\Text::test
-T.DIST                   | STATISTICAL           | **Not yet Implemented**
-T.DIST.2T                | STATISTICAL           | **Not yet Implemented**
-T.DIST.RT                | STATISTICAL           | **Not yet Implemented**
-T.INV                    | STATISTICAL           | Statistical\Distributions\StudentT::inverse
-T.INV.2T                 | STATISTICAL           | **Not yet Implemented**
+T.DIST                   | STATISTICAL           | Statistical\Distributions\StudentT::tDotDist
+T.DIST.2T                | STATISTICAL           | Statistical\Distributions\StudentT::tDotDistDot2T
+T.DIST.RT                | STATISTICAL           | Statistical\Distributions\StudentT::tDotDistDotRT
+T.INV                    | STATISTICAL           | Statistical\Distributions\StudentT::tDotInv
+T.INV.2T                 | STATISTICAL           | Statistical\Distributions\StudentT::inverse
 T.TEST                   | STATISTICAL           | **Not yet Implemented**
 TAKE                     | LOOKUP_AND_REFERENCE  | LookupRef\ChooseRowsEtc::take
 TAN                      | MATH_AND_TRIG         | MathTrig\Trig\Tangent::tan
@@ -599,8 +599,8 @@ TYPE                     | INFORMATION           | Information\Value::type
 
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
-UNICHAR                  | TEXT_AND_DATA         | TextData\CharacterConvert::character
-UNICODE                  | TEXT_AND_DATA         | TextData\CharacterConvert::code
+UNICHAR                  | TEXT_AND_DATA         | TextData\CharacterConvert::characterUnicode
+UNICODE                  | TEXT_AND_DATA         | TextData\CharacterConvert::codeUnicode
 UNIQUE                   | LOOKUP_AND_REFERENCE  | LookupRef\Unique::unique
 UPPER                    | TEXT_AND_DATA         | TextData\CaseConvert::upper
 USDOLLAR                 | FINANCIAL             | Financial\Dollar::format

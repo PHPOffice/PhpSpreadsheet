@@ -22,7 +22,7 @@ class OdsInfoTest extends TestCase
 
         // Test "listWorksheetNames" method
 
-        self::assertEquals([
+        self::assertSame([
             'Sheet1',
             'Second Sheet',
         ], $reader->listWorksheetNames($filename));
@@ -47,7 +47,7 @@ class OdsInfoTest extends TestCase
 
         // Test "listWorksheetNames" method
 
-        self::assertEquals([
+        self::assertSame([
             'Sheet1',
             'Second Sheet',
         ], $reader->listWorksheetNames(__FILE__));
@@ -56,14 +56,9 @@ class OdsInfoTest extends TestCase
     public function testReadFileInfo(): void
     {
         $filename = 'tests/data/Reader/Ods/data.ods';
-
-        // Load into this instance
         $reader = new Ods();
-
-        // Test "listWorksheetNames" method
-
         $wsinfo = $reader->listWorkSheetInfo($filename);
-        self::assertEquals([
+        self::assertSame([
             [
                 'worksheetName' => 'Sheet1',
                 'lastColumnLetter' => 'C',
@@ -74,10 +69,10 @@ class OdsInfoTest extends TestCase
             ],
             [
                 'worksheetName' => 'Second Sheet',
-                'lastColumnLetter' => 'A',
-                'lastColumnIndex' => 0,
+                'lastColumnLetter' => 'B',
+                'lastColumnIndex' => 1,
                 'totalRows' => 2,
-                'totalColumns' => 1,
+                'totalColumns' => 2,
                 'sheetState' => 'visible',
             ],
         ], $wsinfo);
@@ -87,27 +82,40 @@ class OdsInfoTest extends TestCase
     {
         $this->expectException(ReaderException::class);
         $filename = __FILE__;
-
-        // Load into this instance
         $reader = new Ods();
-
-        // Test "listWorksheetNames" method
-
         $wsinfo = $reader->listWorkSheetInfo($filename);
-        self::assertEquals([
+    }
+
+    public function testReadFileInfoWithEmpties(): void
+    {
+        $filename = 'tests/data/Reader/Ods/RepeatedCells.ods';
+        $reader = new Ods();
+        $wsinfo = $reader->listWorkSheetInfo($filename);
+        self::assertSame([
             [
                 'worksheetName' => 'Sheet1',
-                'lastColumnLetter' => 'C',
-                'lastColumnIndex' => 2,
-                'totalRows' => 11,
-                'totalColumns' => 3,
+                'lastColumnLetter' => 'K',
+                'lastColumnIndex' => 10,
+                'totalRows' => 1,
+                'totalColumns' => 11,
+                'sheetState' => 'visible',
             ],
+        ], $wsinfo);
+    }
+
+    public function testOneMoreWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/Ods/issue.4528.ods';
+        $reader = new Ods();
+        $wsinfo = $reader->listWorkSheetInfo($filename);
+        self::assertSame([
             [
-                'worksheetName' => 'Second Sheet',
-                'lastColumnLetter' => 'A',
-                'lastColumnIndex' => 0,
-                'totalRows' => 2,
-                'totalColumns' => 1,
+                'worksheetName' => 'Francais',
+                'lastColumnLetter' => 'AZ',
+                'lastColumnIndex' => 51,
+                'totalRows' => 811,
+                'totalColumns' => 52,
+                'sheetState' => 'visible',
             ],
         ], $wsinfo);
     }

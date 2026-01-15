@@ -21,19 +21,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead($filename));
     }
 
-    public function testBadHtml(): void
-    {
-        $filename = 'tests/data/Reader/HTML/badhtml.html';
-        $reader = new Html();
-        self::assertTrue($reader->canRead($filename));
-
-        if (method_exists($this, 'setOutputCallback')) {
-            // The meat of this test is moved to HtmlPhpunit10Test
-            // to run under all PhpUnit versions.
-            $this->expectException(ReaderException::class);
-            $reader->load($filename);
-        }
-    }
+    // testBadHtml moved to HtmlPhpunit10Test
 
     public function testNonHtml(): void
     {
@@ -85,8 +73,7 @@ class HtmlTest extends TestCase
                         <td style="background-color: antiquewhite2;color: aliceblue">Unknown fore/background</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('A1')->getStyle();
         self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
@@ -115,8 +102,7 @@ class HtmlTest extends TestCase
                         <td style="text-decoration: line-through;">Line through</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $style = $firstSheet->getCell('A1')->getStyle();
@@ -148,8 +134,7 @@ class HtmlTest extends TestCase
                         <td width="50px">50px</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getColumnDimension('A');
@@ -176,8 +161,7 @@ class HtmlTest extends TestCase
                         <td height="50px">1</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getRowDimension(1);
@@ -203,8 +187,7 @@ class HtmlTest extends TestCase
                         <td style="word-wrap: break-word;">Wraptext</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $style = $firstSheet->getCell('A1')->getStyle();
@@ -236,8 +219,7 @@ class HtmlTest extends TestCase
                         <td data-format="#.000">x</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $sheet = $spreadsheet->getSheet(0);
 
         self::assertEquals('mmm-yy', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
@@ -262,8 +244,7 @@ class HtmlTest extends TestCase
                         <td>Hello<br>World</td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $cellStyle = $firstSheet->getStyle('A1');
@@ -305,8 +286,7 @@ class HtmlTest extends TestCase
                     <td style="text-indent:9px">Text Indent</td>
                   </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
         self::assertEquals(1, $style->getAlignment()->getIndent());

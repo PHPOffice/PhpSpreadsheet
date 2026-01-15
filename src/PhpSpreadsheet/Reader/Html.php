@@ -7,6 +7,7 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
+use LibXMLError;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -133,6 +134,32 @@ class Html extends BaseReader
     protected array $rowspan = [];
 
     /**
+     * Default setting uses current setting of libxml_use_internal_errors.
+     * It will probably change to 'true' in a future release.
+     */
+    protected ?bool $suppressLoadWarnings = null;
+
+    /** @var LibXMLError[] */
+    protected array $libxmlMessages = [];
+
+    /**
+     * Suppress load warning messages, keeping them available
+     * in $this->libxmlMessages().
+     */
+    public function setSuppressLoadWarnings(?bool $suppressLoadWarnings): self
+    {
+        $this->suppressLoadWarnings = $suppressLoadWarnings;
+
+        return $this;
+    }
+
+    /** @return LibXMLError[] */
+    public function getLibxmlMessages(): array
+    {
+        return $this->libxmlMessages;
+    }
+
+    /**
      * Create a new HTML Reader instance.
      */
     public function __construct()
@@ -224,6 +251,8 @@ class Html extends BaseReader
      * Data Array used for testing only, should write to
      * Spreadsheet object on completion of tests.
      *
+     * @deprecated 5.4.0 No replacement.
+     *
      * @var mixed[][]
      */
     protected array $dataArray = [];
@@ -292,20 +321,30 @@ class Html extends BaseReader
                     }
 
                     //catching the Exception and ignoring the invalid data types
+                    $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
+
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
+                    $sheet->setHyperlink($column . $row, $hyperlink);
                 } else {
+                    $hyperlink = null;
+                    if ($sheet->hyperlinkExists($column . $row)) {
+                        $hyperlink = $sheet->getHyperlink($column . $row);
+                    }
                     $sheet->setCellValue($column . $row, $cellContent);
+                    $sheet->setHyperlink($column . $row, $hyperlink);
                 }
-                $this->dataArray[$row][$column] = $cellContent;
+                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
             }
         } else {
-            //    We have a Rich Text run
+            //    We have a Rich Text run.
+            //    I don't actually see any way to reach this line.
             //    TODO
-            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent);
+            // @phpstan-ignore-next-line
+            $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
         $cellContent = (string) '';
     }
@@ -730,12 +769,23 @@ class Html extends BaseReader
         $dom = new DOMDocument();
 
         // Reload the HTML file into the DOM object
+        if (is_bool($this->suppressLoadWarnings)) {
+            $useErrors = libxml_use_internal_errors($this->suppressLoadWarnings);
+        } else {
+            $useErrors = null;
+        }
+
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
             $convert = static::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
+        } finally {
+            $this->libxmlMessages = libxml_get_errors();
+            if (is_bool($useErrors)) {
+                libxml_use_internal_errors($useErrors);
+            }
         }
         if ($loaded === false) {
             throw new Exception('Failed to load file ' . $filename . ' as a DOM Document', 0, $e ?? null);
@@ -826,6 +876,7 @@ class Html extends BaseReader
         return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
     }
 
+    /** @internal */
     protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
         if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
@@ -849,12 +900,23 @@ class Html extends BaseReader
         $dom = new DOMDocument();
 
         //    Reload the HTML file into the DOM object
+        if (is_bool($this->suppressLoadWarnings)) {
+            $useErrors = libxml_use_internal_errors($this->suppressLoadWarnings);
+        } else {
+            $useErrors = null;
+        }
+
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);
             $convert = static::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
+        } finally {
+            $this->libxmlMessages = libxml_get_errors();
+            if (is_bool($useErrors)) {
+                libxml_use_internal_errors($useErrors);
+            }
         }
         if ($loaded === false) {
             throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);

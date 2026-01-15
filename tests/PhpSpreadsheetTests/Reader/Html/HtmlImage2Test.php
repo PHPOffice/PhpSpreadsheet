@@ -29,8 +29,7 @@ class HtmlImage2Test extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         /** @var Drawing $drawing */
@@ -48,8 +47,7 @@ class HtmlImage2Test extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true, false);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html, false);
         $firstSheet = $spreadsheet->getSheet(0);
         self::assertCount(0, $firstSheet->getDrawingCollection());
         $spreadsheet->disconnectWorksheets();
@@ -66,8 +64,7 @@ class HtmlImage2Test extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html, true);
         $firstSheet = $spreadsheet->getSheet(0);
         $drawingCollection = $firstSheet->getDrawingCollection();
         self::assertCount(0, $drawingCollection);
@@ -82,8 +79,7 @@ class HtmlImage2Test extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true, false);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html, false);
         $firstSheet = $spreadsheet->getSheet(0);
         $drawingCollection = $firstSheet->getDrawingCollection();
         self::assertCount(0, $drawingCollection);
@@ -100,8 +96,7 @@ class HtmlImage2Test extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
     }
 
     public static function providerBadProtocol(): array

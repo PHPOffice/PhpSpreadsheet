@@ -15,9 +15,7 @@ class StringHelperTest extends TestCase
 {
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode(null);
-        StringHelper::setDecimalSeparator(null);
-        StringHelper::setThousandsSeparator(null);
+        StringHelper::setLocale(null);
     }
 
     public function testGetIsIconvEnabled(): void
@@ -139,6 +137,24 @@ class StringHelperTest extends TestCase
         $from = 'ISO-8859-1';
         $to = 'UTF-8';
         self::assertSame($expected, StringHelper::convertEncoding($string, $to, $from));
+        self::assertSame('EUR', StringHelper::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'transliterated');
         self::assertSame($expected, StringHelperNoIconv::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
+        self::assertSame($expected, StringHelperNoIconv2::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv2::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
+        self::assertSame($expected, StringHelperNoIconv3::convertEncoding($string, $to, $from));
+        self::assertSame('?', StringHelperNoIconv3::convertEncoding('€', 'ISO-8859-1', 'UTF-8'), 'using MB so no transliteration - just return question mark');
+
+        $noTransliteration = 'ﾂ';
+        // There is inconsistency in how //TRANSLIT operates.
+        // On some systems, '?' seems to be used if there is
+        // no other transliteration available.
+        $ignoreResult = '?';
+        if (StringHelper::getIsIconvEnabled()) {
+            $ignoreResult = iconv('UTF-8', 'ISO-8859-1//IGNORE//TRANSLIT', $noTransliteration);
+            self::assertContains($ignoreResult, ['', '?']);
+        }
+        self::assertSame($ignoreResult, StringHelper::convertEncoding($noTransliteration, 'ISO-8859-1', 'UTF-8'), 'no transliteration available');
+        self::assertSame('', StringHelper::convertEncoding($noTransliteration, 'ISO-8859-1', 'UTF-8', '//IGNORE'), 'TRANSLIT not used');
     }
 }

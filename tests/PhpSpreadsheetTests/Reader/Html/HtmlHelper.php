@@ -31,4 +31,15 @@ class HtmlHelper
 
         return $spreadsheet;
     }
+
+    public static function loadHtmlStringIntoSpreadsheet(string $content, ?bool $allowExternalImages = null): Spreadsheet
+    {
+        $html = new Html();
+        if ($allowExternalImages !== null) {
+            $html->setAllowExternalImages($allowExternalImages);
+        }
+        $spreadsheet = $html->loadFromString($content);
+
+        return $spreadsheet;
+    }
 }

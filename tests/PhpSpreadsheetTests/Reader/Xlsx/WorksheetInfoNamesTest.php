@@ -105,4 +105,17 @@ class WorksheetInfoNamesTest extends TestCase
         self::assertSame(0, $chartSheetInfo['totalRows']);
         self::assertSame(0, $chartSheetInfo['totalColumns']);
     }
+
+    public function testListWorksheetMissingRows(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.3255.xlsx';
+        $reader = new Xlsx();
+        $actual = $reader->listWorksheetInfo($filename);
+        self::assertSame(4, $actual[0]['totalColumns']);
+        self::assertSame(1048576, $actual[0]['totalRows']);
+        $reader->setReadEmptyCells(false);
+        $actual = $reader->listWorksheetInfo($filename);
+        self::assertSame(3, $actual[0]['totalColumns'], 'all cells in D have no data');
+        self::assertSame(15, $actual[0]['totalRows'], 'rows 16 and 1048576 have no cells with data');
+    }
 }

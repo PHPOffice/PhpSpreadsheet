@@ -116,7 +116,7 @@ class ConvertUoMTest extends AllSetupTeardown
         ];
     }
 
-    /** @param float[] $expectedResult */
+    /** @param float[][] $expectedResult */
     #[DataProvider('providerConvertUoMArray')]
     public function testConvertUoMArray(array $expectedResult, string $value, string $fromUoM, string $toUoM): void
     {

@@ -80,7 +80,7 @@ class Date extends DateTimeWizard
     ];
 
     /**
-     * @var string[]
+     * @var array<?string>
      */
     protected array $separators;
 
@@ -90,12 +90,12 @@ class Date extends DateTimeWizard
     protected array $formatBlocks;
 
     /**
-     * @param null|string|string[] $separators
+     * @param null|array<?string>|string $separators
      *        If you want to use the same separator for all format blocks, then it can be passed as a string literal;
      *           if you wish to use different separators, then they should be passed as an array.
      *        If you want to use only a single format block, then pass a null as the separator argument
      */
-    public function __construct($separators = self::SEPARATOR_DASH, string ...$formatBlocks)
+    public function __construct($separators = self::SEPARATOR_DASH, string|null ...$formatBlocks)
     {
         $separators ??= self::SEPARATOR_DASH;
         $formatBlocks = (count($formatBlocks) === 0) ? self::DATE_DEFAULT : $formatBlocks;

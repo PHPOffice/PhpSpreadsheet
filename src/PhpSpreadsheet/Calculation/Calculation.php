@@ -2399,8 +2399,8 @@ class Calculation extends CalculationLocale
         return $result;
     }
 
-    /** @return bool|mixed[] */
-    private function executeBinaryComparisonOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool
+    /** @return array<mixed>|bool|string */
+    private function executeBinaryComparisonOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool|string
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {

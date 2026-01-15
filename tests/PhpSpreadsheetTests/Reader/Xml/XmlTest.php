@@ -27,7 +27,7 @@ class XmlTest extends TestCase
         $glob = glob('tests/data/Reader/Xml/XEETestInvalidSimpleXML*.xml');
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
-            $tests[basename($file)] = [realpath($file)];
+            $tests[basename($file)] = [(string) realpath($file)];
         }
 
         return $tests;

@@ -15,8 +15,8 @@ class SortByTest extends TestCase
     {
         $value = 'NON-ARRAY';
 
-        $result = Sort::sortBy($value);
-        self::assertSame($value, $result);
+        $result = Sort::sortBy($value, [[$value]]);
+        self::assertSame([[$value]], $result);
     }
 
     #[DataProvider('providerSortWithScalarArgumentErrorReturns')]

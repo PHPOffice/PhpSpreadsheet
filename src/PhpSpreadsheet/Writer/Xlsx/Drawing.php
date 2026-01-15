@@ -23,6 +23,11 @@ class Drawing extends WriterPart
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
+        // Try to use pass-through drawing XML if available
+        if ($passThroughXml = $this->getPassThroughDrawingXml($worksheet)) {
+            return $passThroughXml;
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -564,6 +569,12 @@ class Drawing extends WriterPart
 
                 $iterator->next();
             }
+            $iterator = $spreadsheet->getSheet($i)->getInCellDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                $aDrawings[] = $iterator->current();
+
+                $iterator->next();
+            }
         }
 
         return $aDrawings;
@@ -591,5 +602,28 @@ class Drawing extends WriterPart
         if ($condition) {
             $objWriter->writeAttribute($attr, $val);
         }
+    }
+
+    /**
+     * Get pass-through drawing XML if available.
+     *
+     * Returns the original drawing XML stored during load (when Reader pass-through was enabled).
+     * This preserves unsupported drawing elements (shapes, textboxes) that PhpSpreadsheet cannot parse.
+     *
+     * @return ?string The pass-through XML, or null if not available or should not be used
+     */
+    private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'] ?? [];
+        $sheetData = $sheets[$worksheet->getCodeName()] ?? [];
+        // Only use pass-through XML if the Reader flag was explicitly enabled
+        /** @var string[] $drawings */
+        $drawings = $sheetData['Drawings'] ?? [];
+        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || $drawings === []) {
+            return null;
+        }
+
+        return reset($drawings) ?: null;
     }
 }

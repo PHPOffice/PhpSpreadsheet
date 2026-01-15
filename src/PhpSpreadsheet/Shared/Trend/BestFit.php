@@ -112,6 +112,16 @@ abstract class BestFit
     }
 
     /**
+     * Return the original set of Y-Values.
+     *
+     * @return float[] Y-Values
+     */
+    public function getYValues(): array
+    {
+        return $this->yValues;
+    }
+
+    /**
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
@@ -416,7 +426,7 @@ abstract class BestFit
 
         //    Define X Values if necessary
         if ($xValueCount === 0) {
-            $xValues = range(1, $yValueCount);
+            $xValues = range(1.0, $yValueCount);
         } elseif ($yValueCount !== $xValueCount) {
             //    Ensure both arrays of points are the same size
             $this->error = true;

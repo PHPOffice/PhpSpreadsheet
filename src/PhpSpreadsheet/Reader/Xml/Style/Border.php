@@ -59,58 +59,48 @@ class Border extends StyleBase
     {
         $style = [];
 
-        $diagonalDirection = '';
-        $borderPosition = '';
+        $diagonalDirection = Borders::DIAGONAL_NONE;
         foreach ($styleData->Border as $borderStyle) {
             $borderAttributes = self::getAttributes($borderStyle, $namespaces['ss']);
+            /** @var array{color?: array{rgb: string}, borderStyle: string} */
             $thisBorder = [];
             $styleType = (string) $borderAttributes->Weight;
             $styleType .= strtolower((string) $borderAttributes->LineStyle);
             $thisBorder['borderStyle'] = self::BORDER_MAPPINGS['borderStyle'][$styleType] ?? BorderStyle::BORDER_NONE;
 
-            foreach ($borderAttributes as $borderStyleKey => $borderStyleValuex) {
-                $borderStyleValue = (string) $borderStyleValuex;
-                switch ($borderStyleKey) {
-                    case 'Position':
-                        /** @var string $diagonalDirection */
-                        [$borderPosition, $diagonalDirection]
-                            = $this->parsePosition($borderStyleValue, $diagonalDirection);
-
-                        break;
-                    case 'Color':
-                        $borderColour = substr($borderStyleValue, 1);
-                        $thisBorder['color']['rgb'] = $borderColour;
-
-                        break;
-                }
+            $color = (string) ($borderAttributes['Color'] ?? '');
+            if ($color !== '') {
+                $thisBorder['color']['rgb'] = substr($color, 1);
             }
-
-            /** @var int|string $borderPosition */
-            if ($borderPosition) {
-                $style['borders'][$borderPosition] = $thisBorder;
-            } elseif ($diagonalDirection) {
-                $style['borders']['diagonalDirection'] = $diagonalDirection;
-                $style['borders']['diagonal'] = $thisBorder;
+            $position = (string) ($borderAttributes['Position'] ?? '');
+            if ($position !== '') {
+                [$borderPosition, $diagonalDirection] = $this->parsePosition($position, $diagonalDirection);
+                if ($borderPosition) {
+                    $style['borders'][$borderPosition] = $thisBorder;
+                } elseif ($diagonalDirection !== Borders::DIAGONAL_NONE) {
+                    $style['borders']['diagonalDirection'] = $diagonalDirection;
+                    $style['borders']['diagonal'] = $thisBorder;
+                }
             }
         }
 
         return $style;
     }
 
-    /** @return mixed[] */
-    protected function parsePosition(string $borderStyleValue, string $diagonalDirection): array
+    /** @return array{0: string, 1: int} */
+    protected function parsePosition(string $borderStyleValue, int $diagonalDirection): array
     {
-        // TODO diagonalDirection seems to return int not string
         $borderStyleValue = strtolower($borderStyleValue);
+        $borderPosition = '';
 
         if (in_array($borderStyleValue, self::BORDER_POSITIONS)) {
             $borderPosition = $borderStyleValue;
         } elseif ($borderStyleValue === 'diagonalleft') {
-            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_DOWN;
+            $diagonalDirection = ($diagonalDirection !== Borders::DIAGONAL_NONE) ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_DOWN;
         } elseif ($borderStyleValue === 'diagonalright') {
-            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_UP;
+            $diagonalDirection = ($diagonalDirection !== Borders::DIAGONAL_NONE) ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_UP;
         }
 
-        return [$borderPosition ?? null, $diagonalDirection];
+        return [$borderPosition, $diagonalDirection];
     }
 }

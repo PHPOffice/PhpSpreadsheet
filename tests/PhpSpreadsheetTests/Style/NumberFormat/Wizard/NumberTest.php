@@ -6,12 +6,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class NumberTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumber')]
+    protected function tearDown(): void
+    {
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setThousandsSeparator(null);
+        StringHelper::setDecimalSeparator(null);
+    }
+
+    #[DataProvider('providerNumber')]
     public function testNumber(string $expectedResult, int $decimals, bool $thousandsSeparator): void
     {
         $wizard = new Number($decimals, $thousandsSeparator);
@@ -30,7 +39,7 @@ class NumberTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNumberLocale')]
+    #[DataProvider('providerNumberLocale')]
     public function testNumberLocale(
         string $expectedResult,
         string $locale
