@@ -658,8 +658,9 @@ class Calculation extends CalculationLocale
             return self::wrapResult((string) $formula);
         }
 
+        // https://www.reddit.com/r/excel/comments/chr41y/cmd_formula_stopped_working_since_last_update/
         if (preg_match('/^=\s*cmd\s*\|/miu', $formula) !== 0) {
-            return self::wrapResult($formula);
+            return ExcelError::REF(); // returns #BLOCKED in newer versions
         }
 
         //    Basic validation that this is indeed a formula
