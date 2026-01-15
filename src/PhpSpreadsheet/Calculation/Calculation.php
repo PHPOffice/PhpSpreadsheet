@@ -2012,10 +2012,16 @@ class Calculation extends CalculationLocale
 
                 /* Phpstan says matches[8/9/10] is never set,
                    and code coverage report seems to confirm.
-                   Appease PhpStan for now;
-                   probably delete this block later.
+                   regex101.com confirms - only 7 capturing groups.
+                   My theory is that this code expected regexp to
+                   match cell *or* cellRange, but it does not
+                   match the latter. Retain the code for now in case
+                   we do want to add the range match later.
+                   Probably delete this block later.
+                   Until delete happens, turn code coverage off.
                 */
                 if (isset($matches[self::$matchIndex8])) {
+                    // @codeCoverageIgnoreStart
                     if ($cell === null) {
                         // We can't access the range, so return a REF error
                         $cellValue = ExcelError::REF();
@@ -2046,6 +2052,7 @@ class Calculation extends CalculationLocale
                             $this->debugLog->writeDebugLog('Evaluation Result for cells %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                         }
                     }
+                    // @codeCoverageIgnoreEnd
                 } else {
                     if ($cell === null) {
                         // We can't access the cell, so return a REF error
