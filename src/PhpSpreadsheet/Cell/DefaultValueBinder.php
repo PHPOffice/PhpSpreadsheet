@@ -86,8 +86,13 @@ class DefaultValueBinder implements IValueBinder
             throw new SpreadsheetException("unusable type $gettype");
         }
         if (strlen($value) > 1 && $value[0] === '=') {
-            $calculation = new Calculation();
-            $calculation->disableBranchPruning();
+            // Reuse the singleton Calculation instance for performance
+            // instead of creating a new instance for every formula check
+            $calculation = Calculation::getInstance();
+            $branchPruningWasEnabled = $calculation->getBranchPruningEnabled();
+            if ($branchPruningWasEnabled) {
+                $calculation->disableBranchPruning();
+            }
 
             try {
                 if (empty($calculation->parseFormula($value))) {
@@ -100,6 +105,11 @@ class DefaultValueBinder implements IValueBinder
                     || str_contains($message, 'has no operands')
                 ) {
                     return DataType::TYPE_STRING;
+                }
+            } finally {
+                // Restore original branch pruning state
+                if ($branchPruningWasEnabled) {
+                    $calculation->enableBranchPruning();
                 }
             }
 
