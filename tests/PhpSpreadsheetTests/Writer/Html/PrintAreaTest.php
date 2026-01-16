@@ -26,9 +26,10 @@ class PrintAreaTest extends TestCase
         $sheet->fromArray($inArray);
         $sheet->getPageSetup()->setPrintArea('B2:D4');
         $writer = new HtmlWriter($spreadsheet);
+        $eol = $writer->getLineEnding();
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString(
-            "<table border='0' cellpadding='0' cellspacing='0' data-printarea='B2:D4' id='sheet0' class='sheet0 gridlines'>",
+            "<table data-printarea='B2:D4' id='sheet0' class='sheet0 gridlines'>",
             $html
         );
         $expectedArray = [
@@ -40,7 +41,7 @@ class PrintAreaTest extends TestCase
             '    table.sheet0 td.column4 { display:none }',
             '}',
         ];
-        $expectedString = implode(PHP_EOL, $expectedArray);
+        $expectedString = implode($eol, $expectedArray);
         self::assertStringContainsString(
             $expectedString,
             $html

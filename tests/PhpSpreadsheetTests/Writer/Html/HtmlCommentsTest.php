@@ -91,6 +91,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
             ->getComment('A1')
             ->setText($richText);
         $writer = new Html($spreadsheet);
+        $writer->setLineEnding(PHP_EOL);
         $output = $writer->generateHtmlAll();
         self::assertStringContainsString($expected, $output);
 
