@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use DateTime;
-use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -98,9 +96,7 @@ class DefaultValueBinderTest extends TestCase
     }
 
     /**
-     * Test that DateTime objects are handled correctly.
-     * Note: DateTime values are converted to string format in bindValue(),
-     * so dataTypeForValue() would receive a string after conversion.
+     * Test that DateTime string format values are handled correctly.
      */
     #[DataProvider('dateTimeStringProvider')]
     public function testDateTimeStringReturnsTypeString(string $dateTimeString): void
@@ -126,7 +122,7 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testStringableReturnsTypeString(): void
     {
-        $stringable = new class implements Stringable {
+        $stringable = new class() implements Stringable {
             public function __toString(): string
             {
                 return 'Hello from Stringable';
@@ -142,7 +138,7 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testStringableFormulaReturnsTypeFormula(): void
     {
-        $stringable = new class implements Stringable {
+        $stringable = new class() implements Stringable {
             public function __toString(): string
             {
                 return '=SUM(A1:A10)';
