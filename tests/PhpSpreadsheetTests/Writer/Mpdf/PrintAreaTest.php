@@ -25,6 +25,7 @@ class PrintAreaTest extends TestCase
         $sheet->fromArray($inArray);
         $sheet->getPageSetup()->setPrintArea('B2:D4');
         $writer = new MpdfWriter($spreadsheet);
+        $eol = $writer->getLineEnding();
         $html = $writer->generateHtmlAll();
         $html = preg_replace('/^ +/m', '', $html) ?? $html;
         $expectedArray = [
@@ -46,7 +47,7 @@ class PrintAreaTest extends TestCase
             '</tr>',
             '</tbody>',
         ];
-        $expectedString = implode(PHP_EOL, $expectedArray);
+        $expectedString = implode($eol, $expectedArray);
         self::assertStringContainsString(
             $expectedString,
             $html
