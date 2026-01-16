@@ -20,7 +20,6 @@ function addCellspacing(string $html): string
 
 function writerCallback(HtmlWriter $writer): void
 {
-    $writer->setEditHtmlCallback(addCellSpacing(...));
     $writer->setLineEnding("\n")
         ->writeAllSheets()
         ->setEditHtmlCallback(addCellspacing(...));
