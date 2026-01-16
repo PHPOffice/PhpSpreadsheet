@@ -21,13 +21,14 @@ class NavigationBadTitleTest extends TestCase
 
         $writer = new HtmlWriter($spreadsheet);
         $writer->writeAllSheets();
+        $eol = $writer->getLineEnding();
         $html = $writer->generateHTMLAll();
         $expected = '<ul class="navigation">'
-            . PHP_EOL
+            . $eol
             . '  <li class="sheet0"><a href="#sheet0">Worksheet</a></li>'
-            . PHP_EOL
+            . $eol
             . '  <li class="sheet1"><a href="#sheet1">&lt;img src=x onerror=alert(1)&gt;</a></li>'
-            . PHP_EOL
+            . $eol
             . '</ul>';
         self::assertStringContainsString($expected, $html, 'appropriate characters are escaped');
         $spreadsheet->disconnectWorksheets();
