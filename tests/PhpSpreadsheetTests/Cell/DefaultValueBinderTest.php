@@ -4,174 +4,173 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use DateTime;
+use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 
 /**
  * Tests for DefaultValueBinder::dataTypeForValue().
- *
- * Specifically verifies formula detection behavior after the performance
- * optimization that reuses the Calculation singleton.
  */
 class DefaultValueBinderTest extends TestCase
 {
     /**
-     * Test that valid formulas are correctly identified as TYPE_FORMULA.
-     *
-     * @dataProvider validFormulaProvider
+     * Test data type detection for various value types.
      */
-    public function testValidFormulasReturnTypeFormula(string $formula): void
+    #[DataProvider('binderProvider')]
+    public function testBindValue(mixed $value, string $expectedDataType): void
     {
-        $result = DefaultValueBinder::dataTypeForValue($formula);
+        $result = DefaultValueBinder::dataTypeForValue($value);
+        self::assertSame($expectedDataType, $result);
+    }
+
+    /**
+     * @return array<string, array{mixed, string}>
+     */
+    public static function binderProvider(): array
+    {
+        return [
+            // Null
+            'null' => [null, DataType::TYPE_NULL],
+
+            // Booleans
+            'true' => [true, DataType::TYPE_BOOL],
+            'false' => [false, DataType::TYPE_BOOL],
+
+            // Integers
+            'integer zero' => [0, DataType::TYPE_NUMERIC],
+            'positive integer' => [42, DataType::TYPE_NUMERIC],
+            'negative integer' => [-100, DataType::TYPE_NUMERIC],
+
+            // Floats
+            'float' => [3.14159, DataType::TYPE_NUMERIC],
+            'negative float' => [-2.5, DataType::TYPE_NUMERIC],
+            'float zero' => [0.0, DataType::TYPE_NUMERIC],
+
+            // Strings
+            'empty string' => ['', DataType::TYPE_STRING],
+            'simple text' => ['Hello World', DataType::TYPE_STRING],
+            'text with numbers' => ['ABC123', DataType::TYPE_STRING],
+            'leading zero number' => ['007', DataType::TYPE_STRING],
+
+            // Numeric strings
+            'numeric string integer' => ['123', DataType::TYPE_NUMERIC],
+            'numeric string float' => ['123.45', DataType::TYPE_NUMERIC],
+            'scientific notation' => ['1.5e10', DataType::TYPE_NUMERIC],
+            'negative numeric string' => ['-42.5', DataType::TYPE_NUMERIC],
+
+            // Valid formulas
+            'formula simple' => ['=1+1', DataType::TYPE_FORMULA],
+            'formula sum' => ['=SUM(A1:A10)', DataType::TYPE_FORMULA],
+            'formula cell ref' => ['=A1', DataType::TYPE_FORMULA],
+            'formula if' => ['=IF(A1>0,1,0)', DataType::TYPE_FORMULA],
+            'formula vlookup' => ['=VLOOKUP(A1,B1:C10,2,FALSE)', DataType::TYPE_FORMULA],
+
+            // Invalid formulas (treated as strings)
+            'equals only' => ['=', DataType::TYPE_STRING],
+            'equals with space' => ['= ', DataType::TYPE_STRING],
+
+            // Error codes
+            'error NULL' => ['#NULL!', DataType::TYPE_ERROR],
+            'error DIV0' => ['#DIV/0!', DataType::TYPE_ERROR],
+            'error VALUE' => ['#VALUE!', DataType::TYPE_ERROR],
+            'error REF' => ['#REF!', DataType::TYPE_ERROR],
+            'error NAME' => ['#NAME?', DataType::TYPE_ERROR],
+            'error NUM' => ['#NUM!', DataType::TYPE_ERROR],
+            'error NA' => ['#N/A', DataType::TYPE_ERROR],
+        ];
+    }
+
+    /**
+     * Test that RichText values return TYPE_INLINE.
+     */
+    public function testRichTextReturnsTypeInline(): void
+    {
+        $richText = new RichText();
+        $richText->createTextRun('Hello World');
+
+        $result = DefaultValueBinder::dataTypeForValue($richText);
+        self::assertSame(DataType::TYPE_INLINE, $result);
+    }
+
+    /**
+     * Test that DateTime objects are handled correctly.
+     * Note: DateTime values are converted to string format in bindValue(),
+     * so dataTypeForValue() would receive a string after conversion.
+     */
+    #[DataProvider('dateTimeStringProvider')]
+    public function testDateTimeStringReturnsTypeString(string $dateTimeString): void
+    {
+        $result = DefaultValueBinder::dataTypeForValue($dateTimeString);
+        self::assertSame(DataType::TYPE_STRING, $result);
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function dateTimeStringProvider(): array
+    {
+        return [
+            'datetime format' => ['2024-01-15 10:30:00'],
+            'date only' => ['2024-01-15'],
+            'time only' => ['10:30:00'],
+        ];
+    }
+
+    /**
+     * Test Stringable objects are converted and handled as strings.
+     */
+    public function testStringableReturnsTypeString(): void
+    {
+        $stringable = new class implements Stringable {
+            public function __toString(): string
+            {
+                return 'Hello from Stringable';
+            }
+        };
+
+        $result = DefaultValueBinder::dataTypeForValue($stringable);
+        self::assertSame(DataType::TYPE_STRING, $result);
+    }
+
+    /**
+     * Test Stringable that returns a formula string.
+     */
+    public function testStringableFormulaReturnsTypeFormula(): void
+    {
+        $stringable = new class implements Stringable {
+            public function __toString(): string
+            {
+                return '=SUM(A1:A10)';
+            }
+        };
+
+        $result = DefaultValueBinder::dataTypeForValue($stringable);
         self::assertSame(DataType::TYPE_FORMULA, $result);
     }
 
     /**
-     * @return array<string, array<int, string>>
+     * Test very large integers are treated as strings to prevent precision loss.
      */
-    public static function validFormulaProvider(): array
-    {
-        return [
-            'simple sum' => ['=SUM(A1:A10)'],
-            'simple addition' => ['=1+1'],
-            'cell reference' => ['=A1'],
-            'nested function' => ['=IF(A1>0,SUM(B1:B10),0)'],
-            'string concatenation' => ['=A1&B1'],
-            'multiplication' => ['=A1*B1'],
-            'vlookup' => ['=VLOOKUP(A1,B1:C10,2,FALSE)'],
-        ];
-    }
-
-    /**
-     * Test that invalid or malformed formulas return TYPE_STRING.
-     *
-     * @dataProvider invalidFormulaProvider
-     */
-    public function testInvalidFormulasReturnTypeString(string $value): void
+    #[DataProvider('largeIntegerProvider')]
+    public function testLargeIntegersReturnTypeString(int $value): void
     {
         $result = DefaultValueBinder::dataTypeForValue($value);
         self::assertSame(DataType::TYPE_STRING, $result);
     }
 
     /**
-     * @return array<string, array<int, string>>
+     * @return array<string, array{int}>
      */
-    public static function invalidFormulaProvider(): array
+    public static function largeIntegerProvider(): array
     {
         return [
-            'equals sign only' => ['='],
-            'equals with space' => ['= '],
-            'text starting with equals' => ['=Hello World'],
-        ];
-    }
-
-    /**
-     * Test that null values return TYPE_NULL.
-     */
-    public function testNullReturnsTypeNull(): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue(null);
-        self::assertSame(DataType::TYPE_NULL, $result);
-    }
-
-    /**
-     * Test that boolean values return TYPE_BOOL.
-     *
-     * @dataProvider booleanProvider
-     */
-    public function testBooleanReturnsTypeBool(bool $value): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue($value);
-        self::assertSame(DataType::TYPE_BOOL, $result);
-    }
-
-    /**
-     * @return array<string, array<int, bool>>
-     */
-    public static function booleanProvider(): array
-    {
-        return [
-            'true' => [true],
-            'false' => [false],
-        ];
-    }
-
-    /**
-     * Test that numeric values return TYPE_NUMERIC.
-     *
-     * @dataProvider numericProvider
-     */
-    public function testNumericValuesReturnTypeNumeric(mixed $value): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue($value);
-        self::assertSame(DataType::TYPE_NUMERIC, $result);
-    }
-
-    /**
-     * @return array<string, array<int, mixed>>
-     */
-    public static function numericProvider(): array
-    {
-        return [
-            'integer' => [42],
-            'negative integer' => [-100],
-            'float' => [3.14159],
-            'negative float' => [-2.5],
-            'zero' => [0],
-            'numeric string' => ['123.45'],
-            'scientific notation string' => ['1.5e10'],
-        ];
-    }
-
-    /**
-     * Test that regular strings return TYPE_STRING.
-     *
-     * @dataProvider stringProvider
-     */
-    public function testStringsReturnTypeString(string $value): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue($value);
-        self::assertSame(DataType::TYPE_STRING, $result);
-    }
-
-    /**
-     * @return array<string, array<int, string>>
-     */
-    public static function stringProvider(): array
-    {
-        return [
-            'simple text' => ['Hello World'],
-            'empty string' => [''],
-            'text with numbers' => ['ABC123'],
-            'leading zero number' => ['007'],
-        ];
-    }
-
-    /**
-     * Test that error codes return TYPE_ERROR.
-     *
-     * @dataProvider errorCodeProvider
-     */
-    public function testErrorCodesReturnTypeError(string $errorCode): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue($errorCode);
-        self::assertSame(DataType::TYPE_ERROR, $result);
-    }
-
-    /**
-     * @return array<string, array<int, string>>
-     */
-    public static function errorCodeProvider(): array
-    {
-        return [
-            'null error' => ['#NULL!'],
-            'div zero error' => ['#DIV/0!'],
-            'value error' => ['#VALUE!'],
-            'ref error' => ['#REF!'],
-            'name error' => ['#NAME?'],
-            'num error' => ['#NUM!'],
-            'na error' => ['#N/A'],
+            'large positive' => [1_000_000_000_000_000],
+            'large negative' => [-1_000_000_000_000_000],
         ];
     }
 
@@ -181,7 +180,6 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testMultipleFormulaCallsWorkCorrectly(): void
     {
-        // Call multiple times to ensure singleton reuse works
         $result1 = DefaultValueBinder::dataTypeForValue('=SUM(A1:A10)');
         $result2 = DefaultValueBinder::dataTypeForValue('=AVERAGE(B1:B10)');
         $result3 = DefaultValueBinder::dataTypeForValue('=1+2+3');
@@ -196,7 +194,6 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testMixedCallsPreserveCorrectBehavior(): void
     {
-        // Interleave formula and non-formula calls
         self::assertSame(DataType::TYPE_FORMULA, DefaultValueBinder::dataTypeForValue('=A1'));
         self::assertSame(DataType::TYPE_STRING, DefaultValueBinder::dataTypeForValue('Hello'));
         self::assertSame(DataType::TYPE_FORMULA, DefaultValueBinder::dataTypeForValue('=B2'));

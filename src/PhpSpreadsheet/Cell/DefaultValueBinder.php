@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use Composer\Pcre\Preg;
 use DateTimeInterface;
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\CalculationParserOnly;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -86,13 +86,7 @@ class DefaultValueBinder implements IValueBinder
             throw new SpreadsheetException("unusable type $gettype");
         }
         if (strlen($value) > 1 && $value[0] === '=') {
-            // Reuse the singleton Calculation instance for performance
-            // instead of creating a new instance for every formula check
-            $calculation = Calculation::getInstance();
-            $branchPruningWasEnabled = $calculation->getBranchPruningEnabled();
-            if ($branchPruningWasEnabled) {
-                $calculation->disableBranchPruning();
-            }
+            $calculation = CalculationParserOnly::getParserInstance();
 
             try {
                 if (empty($calculation->parseFormula($value))) {
@@ -105,11 +99,6 @@ class DefaultValueBinder implements IValueBinder
                     || str_contains($message, 'has no operands')
                 ) {
                     return DataType::TYPE_STRING;
-                }
-            } finally {
-                // Restore original branch pruning state
-                if ($branchPruningWasEnabled) {
-                    $calculation->enableBranchPruning();
                 }
             }
 
