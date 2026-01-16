@@ -171,6 +171,10 @@ class Rels extends WriterPart
             $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_REL, 'richData/richValueRel.xml');
         }
 
+        if ($spreadsheet->getUsesCheckBoxStyle()) {
+            $this->writeRelationship($objWriter, 'Fpb', Namespaces::RELATIONSHIPS_FEATURE_PROPERTY_BAG, 'featurePropertyBag/featurePropertyBag.xml');
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();
