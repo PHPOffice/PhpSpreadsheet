@@ -34,4 +34,10 @@ final class CalculationParserOnly extends Calculation
 
         return self::$parserInstance;
     }
+
+    /** @param mixed $enabled Unused, property will always be false in this class */
+    public function setBranchPruningEnabled(mixed $enabled): self
+    {
+        return $this;
+    }
 }

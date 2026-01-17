@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\CalculationParserOnly;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
@@ -423,5 +424,28 @@ class CalculationTest extends TestCase
     public static function dataProviderBranchPruningFullExecution(): array
     {
         return require 'tests/data/Calculation/Calculation.php';
+    }
+
+    public function testBranchPruningFlag(): void
+    {
+        $calc1 = Calculation::getInstance();
+        $calc2 = CalculationParserOnly::getParserInstance();
+        self::assertNotSame($calc1, $calc2);
+        $calc1a = Calculation::getInstance();
+        $calc2a = CalculationParserOnly::getParserInstance();
+        self::assertSame($calc1, $calc1a);
+        self::assertSame($calc2, $calc2a);
+
+        self::assertFalse($calc2->getBranchPruningEnabled());
+        $calc2->enableBranchPruning();
+        self::assertFalse($calc2->getBranchPruningEnabled(), 'no change for ParserOnly');
+        $calc2->disableBranchPruning();
+        self::assertFalse($calc2->getBranchPruningEnabled());
+
+        self::assertTrue($calc1->getBranchPruningEnabled(), 'parserOnly did not affect Calculation singleton');
+        $calc1->disableBranchPruning();
+        self::assertFalse($calc1->getBranchPruningEnabled());
+        $calc1->enableBranchPruning();
+        self::assertTrue($calc1->getBranchPruningEnabled());
     }
 }
