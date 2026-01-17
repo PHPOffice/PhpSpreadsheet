@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Improve performance in value binders. [PR #4780](https://github.com/PHPOffice/PhpSpreadsheet/pull/4780)
 
 ## 2026-01-10 - 5.4.0
 
