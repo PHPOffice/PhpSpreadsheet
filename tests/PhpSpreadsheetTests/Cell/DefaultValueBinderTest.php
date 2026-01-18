@@ -38,7 +38,7 @@ class DefaultValueBinderTest extends TestCase
     }
 
     /**
-     * @return array<string, array{mixed, string}>
+     * @return array<string, array{0: mixed, 1:string, 2?: mixed}>
      */
     public static function binderProvider(): array
     {
@@ -58,11 +58,14 @@ class DefaultValueBinderTest extends TestCase
             // Booleans
             'true' => [true, DataType::TYPE_BOOL],
             'false' => [false, DataType::TYPE_BOOL],
+            'bool-like string' => ['false', DataType::TYPE_STRING],
 
             // Integers
             'integer zero' => [0, DataType::TYPE_NUMERIC],
             'positive integer' => [42, DataType::TYPE_NUMERIC],
             'negative integer' => [-100, DataType::TYPE_NUMERIC],
+            'trailing newline ignored, probably an error' => ["123456\n", DataType::TYPE_NUMERIC, 123456],
+            'trailing space' => ['123456 ', DataType::TYPE_STRING],
 
             // Very large integers treated as string to prevent precision loss
             'large positive' => [1_000_000_000_000_000, DataType::TYPE_STRING, '1000000000000000'],
@@ -82,7 +85,10 @@ class DefaultValueBinderTest extends TestCase
             // Numeric strings
             'numeric string integer' => ['123', DataType::TYPE_NUMERIC, 123],
             'numeric string float' => ['123.25', DataType::TYPE_NUMERIC, 123.25],
-            'scientific notation' => ['1.5e10', DataType::TYPE_NUMERIC, 1.5E10],
+            'scientific notation 1' => ['1.5e10', DataType::TYPE_NUMERIC, 1.5E10],
+            'issue 4766 very large positive exponent' => ['4E433', DataType::TYPE_STRING],
+            'issue 4766 scientific large negative exponent' => ['6E-444', DataType::TYPE_NUMERIC, 0.0],
+            'issue 4766 small exponent no decimal point numeric' => ['4E4', DataType::TYPE_NUMERIC, 4E4],
             'negative numeric string' => ['-42.5', DataType::TYPE_NUMERIC, -42.5],
 
             // Valid formulas
@@ -95,6 +101,9 @@ class DefaultValueBinderTest extends TestCase
             // Invalid formulas (treated as strings)
             'equals only' => ['=', DataType::TYPE_STRING],
             'equals with space' => ['= ', DataType::TYPE_STRING],
+            'Issue 1310 Multiple = at start' => ['======', DataType::TYPE_STRING],
+            'Issue 1310 Variant 1' => ['= =====', DataType::TYPE_STRING],
+            'Issue 1310 Variant 2' => ['=2*3=', DataType::TYPE_STRING],
 
             // Error codes
             'error NULL' => ['#NULL!', DataType::TYPE_ERROR],
@@ -150,18 +159,6 @@ class DefaultValueBinderTest extends TestCase
         }
 
         $spreadsheet->disconnectWorksheets();
-    }
-
-    #[DataProvider('providerDataTypeForValue')]
-    public function testDataTypeForValue(mixed $expectedResult, mixed $value): void
-    {
-        $result = DefaultValueBinder::dataTypeForValue($value);
-        self::assertEquals($expectedResult, $result);
-    }
-
-    public static function providerDataTypeForValue(): array
-    {
-        return require 'tests/data/Cell/DefaultValueBinder.php';
     }
 
     public function testCanOverrideStaticMethodWithoutOverridingBindValue(): void
