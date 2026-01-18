@@ -290,10 +290,11 @@ class Html extends BaseReader
      *
      * @param string[] $attributeArray
      *
-     * @param-out string $cellContent In one case, it can be bool
+     * @param-out string $cellContentx
      */
-    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContentx, array $attributeArray): void
     {
+        $cellContent = $cellContentx;
         if (is_string($cellContent)) {
             //    Simple String content
             if (trim($cellContent) > '') {
@@ -314,9 +315,19 @@ class Html extends BaseReader
                     }
                     if ($datatype === DataType::TYPE_BOOL) {
                         // This is the case where we can set cellContent to bool rather than string
-                        $cellContent = self::convertBoolean($cellContent); //* @phpstan-ignore-line
-                        if (!is_bool($cellContent)) {
-                            $attributeArray['data-type'] = DataType::TYPE_STRING;
+                        if ($cellContent === "\u{2611}") {
+                            $cellContent = true;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } elseif ($cellContent === "\u{2610}") {
+                            $cellContent = false;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } else {
+                            $cellContent = self::convertBoolean($cellContent);
+                            if (!is_bool($cellContent)) {
+                                $attributeArray['data-type'] = DataType::TYPE_STRING;
+                            }
                         }
                     }
 
@@ -346,7 +357,7 @@ class Html extends BaseReader
             // @phpstan-ignore-next-line
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
-        $cellContent = (string) '';
+        $cellContentx = '';
     }
 
     /** @var array<int, array<int, string>> */
