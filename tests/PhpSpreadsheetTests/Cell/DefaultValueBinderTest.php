@@ -169,6 +169,19 @@ class DefaultValueBinderTest extends TestCase
         return require 'tests/data/Cell/DefaultValueBinder.php';
     }
 
+    public function testCanOverrideStaticMethodWithoutOverridingBindValue(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $binder = new ValueBinderWithOverriddenDataTypeForValue();
+
+        self::assertFalse($binder::$called);
+        $binder->bindValue($cell, 123);
+        self::assertTrue($binder::$called);
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testDataTypeForValueExceptions(): void
     {
         try {
