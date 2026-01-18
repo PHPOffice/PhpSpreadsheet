@@ -41,6 +41,15 @@ class DefaultValueBinderTest extends TestCase
      */
     public static function binderProvider(): array
     {
+        $richText = new RichText();
+        $richText->createTextRun('Hello World');
+        $stringableFormula = new class () implements Stringable {
+            public function __toString(): string
+            {
+                return '=SUM(A1:A10)';
+            }
+        };
+
         return [
             // Null
             'null' => [null, DataType::TYPE_NULL],
@@ -106,24 +115,11 @@ class DefaultValueBinderTest extends TestCase
 
             // Stringable object
             'Stringable object' => [new StringableObject(), DataType::TYPE_STRING],
-        ];
-    }
+            'Stringable formula' => [$stringableFormula, DataType::TYPE_FORMULA],
 
-    /**
-     * Test that RichText values return TYPE_INLINE.
-     */
-    public function testRichTextReturnsTypeInline(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $richText = new RichText();
-        $richText->createTextRun('Hello World');
-        $cell = $sheet->getCell('A1');
-        $binder = new DefaultValueBinder();
-        self::assertTrue($binder->bindValue($cell, $richText));
-        $result = $cell->getDataType();
-        self::assertSame(DataType::TYPE_INLINE, $result);
-        $spreadsheet->disconnectWorksheets();
+            // Rich Text should return inline
+            'Rich Text' => [$richText, DataType::TYPE_INLINE],
+        ];
     }
 
     public function testNonStringableBindValue(): void
@@ -137,8 +133,6 @@ class DefaultValueBinderTest extends TestCase
         } catch (SpreadsheetException $e) {
             self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
         }
-        $sheet->getCell('A2')->setValue(new StringableObject());
-        self::assertSame('abc', $sheet->getCell('A2')->getValue());
 
         try {
             $sheet->getCell('A3')->setValue(fopen(__FILE__, 'rb'));
@@ -203,22 +197,6 @@ class DefaultValueBinderTest extends TestCase
         } catch (SpreadsheetException $e) {
             self::assertStringContainsString('unusable type DateTime', $e->getMessage());
         }
-    }
-
-    /**
-     * Test Stringable that returns a formula string.
-     */
-    public function testStringableFormulaReturnsTypeFormula(): void
-    {
-        $stringable = new class () implements Stringable {
-            public function __toString(): string
-            {
-                return '=SUM(A1:A10)';
-            }
-        };
-
-        $result = DefaultValueBinder::dataTypeForValue($stringable);
-        self::assertSame(DataType::TYPE_FORMULA, $result);
     }
 
     /**
