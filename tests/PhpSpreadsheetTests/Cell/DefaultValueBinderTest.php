@@ -24,7 +24,7 @@ class DefaultValueBinderTest extends TestCase
      * Test data type detection for various value types.
      */
     #[DataProvider('binderProvider')]
-    public function testBindValue(mixed $value, string $expectedDataType): void
+    public function testBindValue(mixed $value, string $expectedDataType, mixed $expectedValue = null): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -33,6 +33,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertTrue($binder->bindValue($cell, $value));
         $result = $cell->getDataType();
         self::assertSame($expectedDataType, $result);
+        self::assertSame($expectedValue ?? $value, $sheet->getCell('A1')->getValue());
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -64,8 +65,8 @@ class DefaultValueBinderTest extends TestCase
             'negative integer' => [-100, DataType::TYPE_NUMERIC],
 
             // Very large integers treated as string to prevent precision loss
-            'large positive' => [1_000_000_000_000_000, DataType::TYPE_STRING],
-            'large negative' => [-1_000_000_000_000_000, DataType::TYPE_STRING],
+            'large positive' => [1_000_000_000_000_000, DataType::TYPE_STRING, '1000000000000000'],
+            'large negative' => [-1_000_000_000_000_000, DataType::TYPE_STRING, '-1000000000000000'],
 
             // Floats
             'float' => [3.14159, DataType::TYPE_NUMERIC],
@@ -79,10 +80,10 @@ class DefaultValueBinderTest extends TestCase
             'leading zero number' => ['007', DataType::TYPE_STRING],
 
             // Numeric strings
-            'numeric string integer' => ['123', DataType::TYPE_NUMERIC],
-            'numeric string float' => ['123.45', DataType::TYPE_NUMERIC],
-            'scientific notation' => ['1.5e10', DataType::TYPE_NUMERIC],
-            'negative numeric string' => ['-42.5', DataType::TYPE_NUMERIC],
+            'numeric string integer' => ['123', DataType::TYPE_NUMERIC, 123],
+            'numeric string float' => ['123.25', DataType::TYPE_NUMERIC, 123.25],
+            'scientific notation' => ['1.5e10', DataType::TYPE_NUMERIC, 1.5E10],
+            'negative numeric string' => ['-42.5', DataType::TYPE_NUMERIC, -42.5],
 
             // Valid formulas
             'formula simple' => ['=1+1', DataType::TYPE_FORMULA],
@@ -110,12 +111,12 @@ class DefaultValueBinderTest extends TestCase
             'time only' => ['10:30:00', DataType::TYPE_STRING],
 
             // DateTime objects should be treated as string
-            'DateTime' => [new DateTime(), DataType::TYPE_STRING],
-            'DateTimeImmutable' => [new DateTimeImmutable(), DataType::TYPE_STRING],
+            'DateTime' => [new DateTime('Jan 1, 2000'), DataType::TYPE_STRING, '2000-01-01 00:00:00'],
+            'DateTimeImmutable' => [new DateTimeImmutable('Jan 2, 2000'), DataType::TYPE_STRING, '2000-01-02 00:00:00'],
 
             // Stringable object
-            'Stringable object' => [new StringableObject(), DataType::TYPE_STRING],
-            'Stringable formula' => [$stringableFormula, DataType::TYPE_FORMULA],
+            'Stringable object' => [new StringableObject(), DataType::TYPE_STRING, 'abc'],
+            'Stringable formula' => [$stringableFormula, DataType::TYPE_FORMULA, '=SUM(A1:A10)'],
 
             // Rich Text should return inline
             'Rich Text' => [$richText, DataType::TYPE_INLINE],
