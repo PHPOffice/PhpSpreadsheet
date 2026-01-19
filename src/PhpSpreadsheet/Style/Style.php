@@ -52,6 +52,8 @@ class Style extends Supervisor
      */
     protected bool $quotePrefix = false;
 
+    protected bool $checkBox = false;
+
     /**
      * Internal cache for styles
      * Used when applying style on range of cells (column or row) and cleared when
@@ -484,7 +486,11 @@ class Style extends Supervisor
              * borders?: mixed[][],
              * numberFormat?: string[],
              * protection?: array{locked?: string, hidden?: string},
+             * checkBox?: bool,
              * quotePrefix?: bool} $styleArray */
+            if (isset($styleArray['checkBox'])) {
+                $this->checkBox = (bool) $styleArray['checkBox'];
+            }
             if (isset($styleArray['fill'])) {
                 $this->getFill()
                     ->applyFromArray($styleArray['fill']);
@@ -700,6 +706,29 @@ class Style extends Supervisor
         return $this;
     }
 
+    public function getCheckBox(): bool
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getCheckBox();
+        }
+
+        return $this->checkBox;
+    }
+
+    public function setCheckBox(bool $checkBox): static
+    {
+        if ($this->isSupervisor) {
+            $styleArray = ['checkBox' => $checkBox];
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray($styleArray);
+        } else {
+            $this->checkBox = $checkBox;
+        }
+
+        return $this;
+    }
+
     /**
      * Get hash code.
      *
@@ -715,6 +744,7 @@ class Style extends Supervisor
             . $this->numberFormat->getHashCode()
             . $this->protection->getHashCode()
             . ($this->quotePrefix ? 't' : 'f')
+            . ($this->checkBox ? 't' : 'f')
             . __CLASS__
         );
     }

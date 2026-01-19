@@ -260,6 +260,10 @@ class ContentTypes extends WriterPart
             $this->writeOverrideContentType($objWriter, '/xl/metadata.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml');
         }
 
+        if ($spreadsheet->getUsesCheckboxStyle()) {
+            $this->writeOverrideContentType($objWriter, '/xl/featurePropertyBag/featurePropertyBag.xml', 'application/vnd.ms-excel.featurepropertybag+xml');
+        }
+
         $objWriter->endElement();
 
         // Return

@@ -690,6 +690,16 @@ class Xlsx extends BaseReader
                             $objStyle = new Style();
                             $this->styleReader
                                 ->readStyle($objStyle, $style);
+                            if (isset($xfTag->extLst)) {
+                                foreach ($xfTag->extLst->ext as $extTag) {
+                                    $attributes = $extTag->attributes();
+                                    if (isset($attributes['uri'])) {
+                                        if ((string) $attributes['uri'] === Namespaces::STYLE_CHECKBOX_URI) {
+                                            $objStyle->setCheckBox(true);
+                                        }
+                                    }
+                                }
+                            }
                             foreach ($this->styleReader->getFontCharsets() as $fontName => $charset) {
                                 $excel->addFontCharset($fontName, $charset);
                             }

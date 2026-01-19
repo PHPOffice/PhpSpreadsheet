@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
+- Add checkbox style (Xlsx and Html). [PR #4781](https://github.com/PHPOffice/PhpSpreadsheet/pull/4781)
 - Writer/Html add ability to set line ending. [PR #4779](https://github.com/PHPOffice/PhpSpreadsheet/pull/4779)
 
 ### Removed

@@ -1548,7 +1548,11 @@ class Html extends BaseWriter
                     $origData = '#ERROR'; // mark as error, rather than crash everything
                 }
                 if ($this->betterBoolean && is_bool($origData)) {
-                    $origData2 = $origData ? $this->getTrue : $this->getFalse;
+                    if ($cell->getStyle()->getCheckbox()) {
+                        $origData2 = $origData ? '☑' : '☐';
+                    } else {
+                        $origData2 = $origData ? $this->getTrue : $this->getFalse;
+                    }
                 } else {
                     try {
                         $origData2 = $cell->getCalculatedValueString();
@@ -1559,7 +1563,11 @@ class Html extends BaseWriter
             } else {
                 $origData = $cell->getValue();
                 if ($this->betterBoolean && is_bool($origData)) {
-                    $origData2 = $origData ? $this->getTrue : $this->getFalse;
+                    if ($cell->getStyle()->getCheckbox()) {
+                        $origData2 = $origData ? '☑' : '☐';
+                    } else {
+                        $origData2 = $origData ? $this->getTrue : $this->getFalse;
+                    }
                 } else {
                     $origData2 = $cell->getValueString();
                 }

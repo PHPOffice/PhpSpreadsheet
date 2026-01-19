@@ -156,6 +156,7 @@ class Xlsx extends BaseWriter
     {
         // Assign PhpSpreadsheet
         $this->setSpreadsheet($spreadsheet);
+        $spreadsheet->setUsesCheckboxStyle();
 
         $this->writerPartChart = new Chart($this);
         $this->writerPartComments = new Comments($this);
@@ -348,6 +349,10 @@ class Xlsx extends BaseWriter
         $metadataData = (new Xlsx\Metadata($this))->writeMetadata($richDataCount);
         if ($metadataData !== '') {
             $zipContent['xl/metadata.xml'] = $metadataData;
+        }
+        $propertyBagData = (new Xlsx\FeaturePropertyBag($this))->writeFeaturePropertyBag($this->spreadSheet);
+        if ($propertyBagData !== '') {
+            $zipContent['xl/featurePropertyBag/featurePropertyBag.xml'] = $propertyBagData;
         }
 
         //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
