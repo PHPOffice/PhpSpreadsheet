@@ -45,10 +45,11 @@ class Issue4773Test extends TestCase
         $sheet->setCellValue('B1', $richText);
 
         $writer = new HtmlWriter($spreadsheet);
+        $eol = $writer->getLineEnding();
         $content = $writer->generateHtmlAll();
-        $expected1 = '<td class="column0 style1 s">ABC<br />' . PHP_EOL . 'DEF<br />' . PHP_EOL . 'GHI</td>';
+        $expected1 = '<td class="column0 style1 s">ABC<br />' . $eol . 'DEF<br />' . $eol . 'GHI</td>';
         self::assertStringContainsString($expected1, $content, 'br tags without newline in normal text');
-        $expected2 = '<td class="column1 style2 inlineStr"><span style="font-weight:bold; text-decoration:normal; font-style:normal; color:#000000; font-family:\'Calibri\'; font-size:11pt">bold<br />' . PHP_EOL . '</span><span style="font-weight:normal; text-decoration:normal; font-style:italic; color:#000000; font-family:\'Calibri\'; font-size:11pt">italic</span></td>';
+        $expected2 = '<td class="column1 style2 inlineStr"><span style="font-weight:bold; text-decoration:normal; font-style:normal; color:#000000; font-family:\'Calibri\'; font-size:11pt">bold<br />' . $eol . '</span><span style="font-weight:normal; text-decoration:normal; font-style:italic; color:#000000; font-family:\'Calibri\'; font-size:11pt">italic</span></td>';
         self::assertStringContainsString($expected2, $content, 'only one br tag, plus newline, in rich text');
         $spreadsheet->disconnectWorksheets();
     }

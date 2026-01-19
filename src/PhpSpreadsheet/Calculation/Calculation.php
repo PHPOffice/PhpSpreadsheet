@@ -90,7 +90,7 @@ class Calculation extends CalculationLocale
 
     private BranchPruner $branchPruner;
 
-    private bool $branchPruningEnabled = true;
+    protected bool $branchPruningEnabled = true;
 
     /**
      * List of operators that can be used within formulae

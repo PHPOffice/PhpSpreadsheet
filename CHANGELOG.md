@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Added
 
 - Add checkbox style (Xlsx and Html). [PR #4781](https://github.com/PHPOffice/PhpSpreadsheet/pull/4781)
+- Writer/Html add ability to set line ending. [PR #4779](https://github.com/PHPOffice/PhpSpreadsheet/pull/4779)
 
 ### Removed
 
@@ -25,11 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Writer/Html constant BODY_LINE no longer makes sense with a configurable line ending. No replacement.
 
 ### Fixed
 
-- Nothing yet.
+- Improve performance in value binders. [PR #4780](https://github.com/PHPOffice/PhpSpreadsheet/pull/4780)
 
 ## 2026-01-10 - 5.4.0
 
