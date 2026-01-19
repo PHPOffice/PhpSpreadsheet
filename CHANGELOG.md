@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Add checkbox style (Xlsx and Html). [PR #4781](https://github.com/PHPOffice/PhpSpreadsheet/pull/4781)
 
 ### Removed
 
