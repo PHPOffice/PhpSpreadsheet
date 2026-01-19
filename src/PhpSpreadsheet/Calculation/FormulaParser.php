@@ -21,8 +21,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * whether in an action of contract, tort or otherwise, arising from, out of or in connection with the
  * software or the use or other dealings in the software.
  *
+ * The following links are no longer valid.
  * https://ewbi.blogs.com/develops/2007/03/excel_formula_p.html
  * https://ewbi.blogs.com/develops/2004/12/excel_formula_p.html
+ *
+ * @deprecated 5.5.0 No replacement.
  */
 class FormulaParser
 {
