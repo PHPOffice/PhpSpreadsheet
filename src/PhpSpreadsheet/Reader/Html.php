@@ -315,11 +315,11 @@ class Html extends BaseReader
                     }
                     if ($datatype === DataType::TYPE_BOOL) {
                         // This is the case where we can set cellContent to bool rather than string
-                        if ($cellContent === "\u{2611}") {
+                        if ($cellContent === '☑') {
                             $cellContent = true;
                             $sheet->getStyle($column . $row)
                                 ->setCheckBox(true);
-                        } elseif ($cellContent === "\u{2610}") {
+                        } elseif ($cellContent === '☐') {
                             $cellContent = false;
                             $sheet->getStyle($column . $row)
                                 ->setCheckBox(true);

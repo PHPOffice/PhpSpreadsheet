@@ -20,6 +20,12 @@ class StyleCheckBoxTest extends AbstractFunctional
         $sheetOld->getStyle('A1')->setCheckBox(true);
         $sheetOld->getStyle('A2')->setCheckBox(true);
 
+        $sheetOld->setCellValue('B1', '=AND(TRUE,TRUE)');
+        $sheetOld->setCellValue('B2', '=AND(FALSE,TRUE)');
+        $sheetOld->setCellValue('B3', '=AND(TRUE,FALSE)'); // no checkbox
+        $sheetOld->getStyle('B1')->setCheckBox(true);
+        $sheetOld->getStyle('B2')->setCheckBox(true);
+
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Html');
         $spreadsheetOld->disconnectWorksheets();
 
@@ -30,6 +36,13 @@ class StyleCheckBoxTest extends AbstractFunctional
         self::assertTrue($sheet->getStyle('A1')->getCheckBox());
         self::assertTrue($sheet->getStyle('A2')->getCheckBox());
         self::assertFalse($sheet->getStyle('A3')->getCheckBox());
+
+        self::assertTrue($sheet->getCell('B1')->getValue());
+        self::assertFalse($sheet->getCell('B2')->getValue());
+        self::assertFalse($sheet->getCell('B3')->getValue());
+        self::assertTrue($sheet->getStyle('B1')->getCheckBox());
+        self::assertTrue($sheet->getStyle('B2')->getCheckBox());
+        self::assertFalse($sheet->getStyle('B3')->getCheckBox());
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -49,6 +62,12 @@ class StyleCheckBoxTest extends AbstractFunctional
         $sheetOld->getStyle('A1')->setCheckBox(true);
         $sheetOld->getStyle('A2')->setCheckBox(true);
 
+        $sheetOld->setCellValue('B1', '=AND(TRUE,TRUE)');
+        $sheetOld->setCellValue('B2', '=AND(FALSE,TRUE)');
+        $sheetOld->setCellValue('B3', '=AND(TRUE,FALSE)'); // no checkbox
+        $sheetOld->getStyle('B1')->setCheckBox(true);
+        $sheetOld->getStyle('B2')->setCheckBox(true);
+
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Html', null, $this->writeNoPreCalc(...));
         $spreadsheetOld->disconnectWorksheets();
 
@@ -59,6 +78,14 @@ class StyleCheckBoxTest extends AbstractFunctional
         self::assertTrue($sheet->getStyle('A1')->getCheckBox());
         self::assertTrue($sheet->getStyle('A2')->getCheckBox());
         self::assertFalse($sheet->getStyle('A3')->getCheckBox());
+
+        self::assertSame('=AND(TRUE,TRUE)', $sheet->getCell('B1')->getValue());
+        self::assertSame('=AND(FALSE,TRUE)', $sheet->getCell('B2')->getValue());
+        self::assertSame('=AND(TRUE,FALSE)', $sheet->getCell('B3')->getValue());
+        // Formulas not evaluated, so no checkboxes.
+        self::assertFalse($sheet->getStyle('B1')->getCheckBox());
+        self::assertFalse($sheet->getStyle('B2')->getCheckBox());
+        self::assertFalse($sheet->getStyle('B3')->getCheckBox());
 
         $spreadsheet->disconnectWorksheets();
     }

@@ -1523,7 +1523,7 @@ class Html extends BaseWriter
                 }
                 if ($this->betterBoolean && is_bool($origData)) {
                     if ($cell->getStyle()->getCheckbox()) {
-                        $origData2 = $origData ? "\u{2611}" : "\u{2610}";
+                        $origData2 = $origData ? '☑' : '☐';
                     } else {
                         $origData2 = $origData ? $this->getTrue : $this->getFalse;
                     }
@@ -1538,7 +1538,7 @@ class Html extends BaseWriter
                 $origData = $cell->getValue();
                 if ($this->betterBoolean && is_bool($origData)) {
                     if ($cell->getStyle()->getCheckbox()) {
-                        $origData2 = $origData ? "\u{2611}" : "\u{2610}";
+                        $origData2 = $origData ? '☑' : '☐';
                     } else {
                         $origData2 = $origData ? $this->getTrue : $this->getFalse;
                     }
