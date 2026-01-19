@@ -88,8 +88,8 @@ class HideMergeTest extends TestCase
         self::assertStringContainsString(
             '<tbody><tr style="height:17pt">'
                 . '<td></td>'
-                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">B</td>'
-                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt">C</td>'
+                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt; border:0.1px solid black">B</td>'
+                . '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt; height:17pt; border:0.1px solid black">C</td>'
                 . '</tr>',
             $html
         );

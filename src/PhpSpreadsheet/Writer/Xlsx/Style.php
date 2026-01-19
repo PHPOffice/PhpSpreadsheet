@@ -511,6 +511,18 @@ class Style extends WriterPart
             $objWriter->endElement();
         }
 
+        if ($style->getCheckBox()) {
+            $objWriter->startElement('extLst');
+            $objWriter->startElement('ext');
+            $objWriter->writeAttribute('uri', Namespaces::STYLE_CHECKBOX_URI);
+            $objWriter->writeAttribute('xmlns:xfpb', Namespaces::FEATURE_PROPERTY_BAG);
+            $objWriter->startElement('xfpb:xfComplement');
+            $objWriter->writeAttribute('i', '0');
+            $objWriter->endElement(); //xfpb:xfComplement
+            $objWriter->endElement(); //ext
+            $objWriter->endElement(); //extLst
+        }
+
         $objWriter->endElement();
     }
 

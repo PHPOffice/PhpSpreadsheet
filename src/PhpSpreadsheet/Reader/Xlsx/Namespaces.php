@@ -129,4 +129,8 @@ class Namespaces
     const RELATIONSHIPS_RICH_VALUE = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValue';
 
     const RELATIONSHIPS_RICH_VALUE_REL = 'http://schemas.microsoft.com/office/2022/10/relationships/richValueRel';
+
+    const FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/spreadsheetml/2022/featurepropertybag';
+    const RELATIONSHIPS_FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/2022/11/relationships/FeaturePropertyBag';
+    const STYLE_CHECKBOX_URI = '{C7286773-470A-42A8-94C5-96B5CB345126}';
 }
