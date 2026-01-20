@@ -37,7 +37,7 @@ class Calculation extends CalculationLocale
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?((?:__xludf\.)?[\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
-    //    Cell reference (cell or range of cells, with or without a sheet reference)
+    //    Cell reference, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     // Used only to detect spill operator #
     const CALCULATION_REGEXP_CELLREF_SPILL = '/' . self::CALCULATION_REGEXP_CELLREF . '#/i';
@@ -1060,13 +1060,19 @@ class Calculation extends CalculationLocale
         return $matches[1] . str_replace(',', '∪', $matches[2]);
     }
 
-    private const UNIONABLE_COMMAS = '/((?:[,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
+    private const CELL_OR_CELLRANGE_OR_DEFINED_NAME
+        = '(?:'
+        . self::CALCULATION_REGEXP_CELLREF // cell address
+        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
+        . '|' . self::CALCULATION_REGEXP_DEFINEDNAME
+        . ')'
+        ;
+
+    public const UNIONABLE_COMMAS = '/((?:[,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
         . '([(]' // open paren
-        . self::CALCULATION_REGEXP_CELLREF // cell address
-        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
+        . self::CELL_OR_CELLRANGE_OR_DEFINED_NAME // cell address
         . '(?:\s*,\s*' // optioonal whitespace, comma, optional whitespace, non-capturing
-        . self::CALCULATION_REGEXP_CELLREF // cell address
-        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
+        . self::CELL_OR_CELLRANGE_OR_DEFINED_NAME // cell address
         . ')+' // one or more occurrences
         . '\s*[)])/i'; // optional whitespace, end paren
 
