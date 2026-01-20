@@ -96,6 +96,15 @@ class Html extends BaseWriter
         return $this;
     }
 
+    protected bool $dataFormula = false;
+
+    public function setDataFormula(bool $dataFormula): self
+    {
+        $this->dataFormula = $dataFormula;
+
+        return $this;
+    }
+
     /**
      * Use inline CSS?
      */
@@ -1701,26 +1710,40 @@ class Html extends BaseWriter
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start
         $html .= '            <' . $cellType;
+        $dataType = $worksheet->getCell($coordinate)->getDataType();
         if ($this->betterBoolean) {
-            $dataType = $worksheet->getCell($coordinate)->getDataType();
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
             } elseif ($dataType === DataType::TYPE_FORMULA && $this->preCalculateFormulas) {
                 try {
-                    if (
-                        is_bool(
-                            $worksheet
-                                ->getCell($coordinate)
-                                ->getCalculatedValue()
-                        )
-                    ) {
+                    $calculatedValue = $worksheet
+                        ->getCell($coordinate)
+                        ->getCalculatedValue();
+                    if (is_bool($calculatedValue)) {
                         $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
+                    } elseif ($this->dataFormula && is_string($calculatedValue)) {
+                        $html .= ' data-type="' . DataType::TYPE_STRING . '"';
+                    } elseif ($this->dataFormula && (is_int($calculatedValue) || is_float($calculatedValue))) {
+                        $html .= ' data-type="' . DataType::TYPE_NUMERIC . '"';
                     }
                 } catch (CalculationException) {
                     $html .= ' data-type="' . DataType::TYPE_ERROR . '"';
                 }
             } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
+            }
+        }
+        if ($dataType === DataType::TYPE_FORMULA && $this->dataFormula) {
+            if ($this->preCalculateFormulas) {
+                $html .= ' data-formula="'
+                . htmlspecialchars(
+                    $worksheet->getCell($coordinate)->getValueString()
+                )
+                . '"';
+            } else {
+                if ($worksheet->getStyle($coordinate)->getCheckbox()) {
+                    $html .= ' data-checkbox="1"';
+                }
             }
         }
         $holdCss = '';
