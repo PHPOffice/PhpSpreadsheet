@@ -20,16 +20,18 @@ class Issue3982Test extends TestCase
      * We can mitigate the problem by changing entirely-null rows
      * to empty rows in rangeToArrayYieldRows. (uses 455MB).
      * That's a breaking change, but might be worth considering.
+     *
+     * Aha! I have narrowed the problem to self::assertCount,
+     * which has a ready substitution. I will report the problem
+     * to Phpunit if I can come up with a simpler example.
      */
     public function testLoadAllRows(): void
     {
-        if (!method_exists(TestCase::class, 'setOutputCallback')) {
-            self::markTestSkipped('Memory loop in Phpunit 10');
-        }
         $spreadsheet = IOFactory::load(self::$testbook);
         $sheet = $spreadsheet->getActiveSheet();
         $data = $sheet->toArray(null, true, false, true);
-        self::assertCount(1048576, $data);
+        $count = count($data);
+        self::assertSame(1_048_576, $count);
         $spreadsheet->disconnectWorksheets();
     }
 

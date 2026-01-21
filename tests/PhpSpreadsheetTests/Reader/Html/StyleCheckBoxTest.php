@@ -82,9 +82,8 @@ class StyleCheckBoxTest extends AbstractFunctional
         self::assertSame('=AND(TRUE,TRUE)', $sheet->getCell('B1')->getValue());
         self::assertSame('=AND(FALSE,TRUE)', $sheet->getCell('B2')->getValue());
         self::assertSame('=AND(TRUE,FALSE)', $sheet->getCell('B3')->getValue());
-        // Formulas not evaluated, so no checkboxes.
-        self::assertFalse($sheet->getStyle('B1')->getCheckBox());
-        self::assertFalse($sheet->getStyle('B2')->getCheckBox());
+        self::assertTrue($sheet->getStyle('B1')->getCheckBox());
+        self::assertTrue($sheet->getStyle('B2')->getCheckBox());
         self::assertFalse($sheet->getStyle('B3')->getCheckBox());
 
         $spreadsheet->disconnectWorksheets();
