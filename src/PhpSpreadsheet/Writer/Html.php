@@ -1710,6 +1710,9 @@ class Html extends BaseWriter
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start
         $html .= '            <' . $cellType;
+        if ($worksheet->getStyle($coordinate)->getCheckbox()) {
+            $html .= ' data-checkbox="1"';
+        }
         $dataType = $worksheet->getCell($coordinate)->getDataType();
         if ($this->betterBoolean) {
             if ($dataType === DataType::TYPE_BOOL) {
@@ -1737,13 +1740,10 @@ class Html extends BaseWriter
             if ($this->preCalculateFormulas) {
                 $html .= ' data-formula="'
                 . htmlspecialchars(
-                    $worksheet->getCell($coordinate)->getValueString()
+                    $worksheet->getCell($coordinate)
+                        ->getValueString()
                 )
                 . '"';
-            } else {
-                if ($worksheet->getStyle($coordinate)->getCheckbox()) {
-                    $html .= ' data-checkbox="1"';
-                }
             }
         }
         $holdCss = '';

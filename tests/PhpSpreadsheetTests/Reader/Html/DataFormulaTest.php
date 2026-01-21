@@ -32,9 +32,9 @@ class DataFormulaTest extends AbstractFunctional
         $writer = new HtmlWriter($spreadsheet);
         $this->writeDataFormula($writer);
         $content = $writer->generateHtmlAll();
-        $expected = '<td data-type="b" class="column0 style1 b">☑</td>';
+        $expected = '<td data-checkbox="1" data-type="b" class="column0 style1 b">☑</td>';
         self::assertStringContainsString($expected, $content, 'bool non-formula');
-        $expected = '<td data-type="b" data-formula="=AND(TRUE,TRUE)" class="column1 style1 b">☑</td>';
+        $expected = '<td data-checkbox="1" data-type="b" data-formula="=AND(TRUE,TRUE)" class="column1 style1 b">☑</td>';
         self::assertStringContainsString($expected, $content, 'bool formula');
         $expected = '<td data-type="s" data-formula="=&quot;A&quot;&amp;&quot;B&quot;&amp;&quot;C&quot;" class="column2 style0 s">ABC</td>';
         self::assertStringContainsString($expected, $content, 'string formula requiring escaped characters');
@@ -140,7 +140,7 @@ class DataFormulaTest extends AbstractFunctional
         $this->writeDataFormula($writer);
         $writer->setPreCalculateFormulas(false);
         $content = $writer->generateHtmlAll();
-        $expected = '<td data-type="b" class="column0 style1 b">☑</td>';
+        $expected = '<td data-checkbox="1" data-type="b" class="column0 style1 b">☑</td>';
         self::assertStringContainsString($expected, $content, 'bool non-formula');
         $expected = '<td data-checkbox="1" class="column1 style1 f">=AND(TRUE,TRUE)</td>';
         self::assertStringContainsString($expected, $content, 'bool formula');
