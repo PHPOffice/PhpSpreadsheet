@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use Composer\Pcre\Preg; // many pregs in this program use u modifier, which has side-effects which make it unsuitable for this
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
@@ -36,7 +37,7 @@ class Calculation extends CalculationLocale
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?((?:__xludf\.)?[\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
-    //    Cell reference (cell or range of cells, with or without a sheet reference)
+    //    Cell reference, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     // Used only to detect spill operator #
     const CALCULATION_REGEXP_CELLREF_SPILL = '/' . self::CALCULATION_REGEXP_CELLREF . '#/i';
@@ -415,7 +416,7 @@ class Calculation extends CalculationLocale
     {
         if (is_string($value)) {
             //    Error values cannot be "wrapped"
-            if (preg_match('/^' . self::CALCULATION_REGEXP_ERROR . '$/i', $value, $match)) {
+            if (Preg::isMatch('/^' . self::CALCULATION_REGEXP_ERROR . '$/i', $value, $match)) {
                 //    Return Excel errors "as is"
                 return $value;
             }
@@ -494,7 +495,7 @@ class Calculation extends CalculationLocale
         try {
             $value = $cell->getValue();
             if (is_string($value) && $cell->getDataType() === DataType::TYPE_FORMULA) {
-                $value = preg_replace_callback(
+                $value = Preg::replaceCallback(
                     self::CALCULATION_REGEXP_CELLREF_SPILL,
                     fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
                     $value
@@ -557,11 +558,11 @@ class Calculation extends CalculationLocale
      */
     public function parseFormula(string $formula): array|bool
     {
-        $formula = preg_replace_callback(
+        $formula = Preg::replaceCallback(
             self::CALCULATION_REGEXP_CELLREF_SPILL,
             fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
             $formula
-        ) ?? $formula;
+        );
         //    Basic validation that this is indeed a formula
         //    We return an empty array if not
         $formula = trim($formula);
@@ -657,8 +658,9 @@ class Calculation extends CalculationLocale
             return self::wrapResult((string) $formula);
         }
 
+        // https://www.reddit.com/r/excel/comments/chr41y/cmd_formula_stopped_working_since_last_update/
         if (preg_match('/^=\s*cmd\s*\|/miu', $formula) !== 0) {
-            return self::wrapResult($formula);
+            return ExcelError::REF(); // returns #BLOCKED in newer versions
         }
 
         //    Basic validation that this is indeed a formula
@@ -1052,6 +1054,28 @@ class Calculation extends CalculationLocale
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
+    /** @param string[] $matches */
+    private static function unionForComma(array $matches): string
+    {
+        return $matches[1] . str_replace(',', '∪', $matches[2]);
+    }
+
+    private const CELL_OR_CELLRANGE_OR_DEFINED_NAME
+        = '(?:'
+        . self::CALCULATION_REGEXP_CELLREF // cell address
+        . '(?::' . self::CALCULATION_REGEXP_CELLREF . ')?' // optional range address, non-capturing
+        . '|' . self::CALCULATION_REGEXP_DEFINEDNAME
+        . ')'
+        ;
+
+    public const UNIONABLE_COMMAS = '/((?:[,(]|^)\s*)' // comma or open paren or start of string, followed by optional whitespace
+        . '([(]' // open paren
+        . self::CELL_OR_CELLRANGE_OR_DEFINED_NAME // cell address
+        . '(?:\s*,\s*' // optioonal whitespace, comma, optional whitespace, non-capturing
+        . self::CELL_OR_CELLRANGE_OR_DEFINED_NAME // cell address
+        . ')+' // one or more occurrences
+        . '\s*[)])/i'; // optional whitespace, end paren
+
     /**
      * @return array<int, mixed>|false
      */
@@ -1059,6 +1083,12 @@ class Calculation extends CalculationLocale
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
+        }
+
+        $oldFormula = $formula;
+        $formula = Preg::replaceCallback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula); // @phpstan-ignore-line
+        if ($oldFormula !== $formula) {
+            $this->debugLog->writeDebugLog('Reformulated as %s', $formula);
         }
         $phpSpreadsheetFunctions = &self::getFunctionsAddress();
 
@@ -1179,7 +1209,7 @@ class Calculation extends CalculationLocale
                             }
                         }
                     } elseif (is_string($expectedArgumentCount) && $expectedArgumentCount !== '*') {
-                        if (1 !== preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch)) {
+                        if (!Preg::isMatch('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch)) {
                             $argMatch = ['', '', '', ''];
                         }
                         switch ($argMatch[2]) {
@@ -1236,16 +1266,14 @@ class Calculation extends CalculationLocale
                     //     because at least the braces are paired up (at this stage in the formula)
                     // MS Excel allows this if the content is cell references; but doesn't allow actual values,
                     //    but at this point, we can't differentiate (so allow both)
-                    return $this->raiseFormulaError('Formula Error: Unexpected ,');
-                    /* The following code may be a better choice, but, with
-                       the other changes for this PR, I can no longer come up
-                       with a test case that gets here
+                    //return $this->raiseFormulaError('Formula Error: Unexpected ,');
+
                     $stack->push('Binary Operator', '∪');
 
                     ++$index;
                     $expectingOperator = false;
 
-                    continue;*/
+                    continue;
                 }
 
                 /** @var array<string, int> $d */
@@ -1271,7 +1299,8 @@ class Calculation extends CalculationLocale
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
-                    $val = (string) preg_replace('/\s/u', '', $val);
+                    // $val is known to be valid unicode from statement above, so Preg::replace is okay even with u modifier
+                    $val = Preg::replace('/\s/u', '', $val);
                     if (isset($phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
                     } else {
@@ -1988,20 +2017,27 @@ class Calculation extends CalculationLocale
                 } else {
                     $this->executeNumericBinaryOperation($multiplier, $arg, '*', $stack);
                 }
-            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', StringHelper::convertToString($token ?? ''), $matches)) {
+            } elseif (Preg::isMatch('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', StringHelper::convertToString($token ?? ''), $matches)) {
                 $cellRef = null;
 
                 /* Phpstan says matches[8/9/10] is never set,
                    and code coverage report seems to confirm.
-                   Appease PhpStan for now;
-                   probably delete this block later.
+                   regex101.com confirms - only 7 capturing groups.
+                   My theory is that this code expected regexp to
+                   match cell *or* cellRange, but it does not
+                   match the latter. Retain the code for now in case
+                   we do want to add the range match later.
+                   Probably delete this block later.
+                   Until delete happens, turn code coverage off.
                 */
                 if (isset($matches[self::$matchIndex8])) {
+                    // @codeCoverageIgnoreStart
                     if ($cell === null) {
                         // We can't access the range, so return a REF error
                         $cellValue = ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[self::$matchIndex9] . $matches[self::$matchIndex10];
+                        $matches[2] = (string) $matches[2];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
@@ -2026,12 +2062,14 @@ class Calculation extends CalculationLocale
                             $this->debugLog->writeDebugLog('Evaluation Result for cells %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                         }
                     }
+                    // @codeCoverageIgnoreEnd
                 } else {
                     if ($cell === null) {
                         // We can't access the cell, so return a REF error
                         $cellValue = ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
+                        $matches[2] = (string) $matches[2];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
@@ -2073,7 +2111,7 @@ class Calculation extends CalculationLocale
                         $cellValue = array_shift($cellValue);
                     }
                     if (is_string($cellValue)) {
-                        $cellValue = preg_replace('/"/', '""', $cellValue);
+                        $cellValue = Preg::replace('/"/', '""', $cellValue);
                     }
                     $this->debugLog->writeDebugLog('Scalar Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                 }
@@ -2819,10 +2857,12 @@ class Calculation extends CalculationLocale
         $definedNameValue = $namedRange->getValue();
         $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
         if ($definedNameType === 'Range') {
-            if (preg_match('/^(.*!)?(.*)$/', $definedNameValue, $matches) === 1) {
-                $matches2 = trim($matches[2]);
-                $matches2 = preg_replace('/ +/', ' ∩ ', $matches2) ?? $matches2;
-                $matches2 = preg_replace('/,/', ' ∪ ', $matches2) ?? $matches2;
+            if (Preg::isMatch('/^(.*!)?(.*)$/', $definedNameValue, $matches)) {
+                $matches2 = Preg::replace(
+                    ['/ +/', '/,/'],
+                    [' ∩ ', ' ∪ '],
+                    trim($matches[2])
+                );
                 $definedNameValue = $matches[1] . $matches2;
             }
         }

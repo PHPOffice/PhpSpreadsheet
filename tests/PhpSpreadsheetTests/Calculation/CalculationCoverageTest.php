@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\ExceptionHandler;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -120,6 +121,26 @@ class CalculationCoverageTest extends TestCase
         self::assertSame('$B$1:$C$2', $range);
         self::assertSame([1 => ['B' => 2, 'C' => null], 2 => ['B' => 4, 'C' => null]], $result);
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testBlockCmd(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $formula = "=cmd|'/C calc'!A0";
+        $sheet->setCellValueExplicit('A1', $formula, DataType::TYPE_FORMULA);
+        self::assertSame(
+            '#REF!',
+            $sheet->getCell('A1')->getCalculatedValue(),
+            'cmd, blocked by default in Excel, forced error result in Calculation Engine'
+        );
+        $sheet->setCellValue('A2', $formula);
+        self::assertSame(
+            $formula,
+            $sheet->getCell('A2')->getCalculatedValue(),
+            'cmd, blocked by default in Excel, treated as string not formula by DefaultValueBinder'
+        );
         $spreadsheet->disconnectWorksheets();
     }
 

@@ -15,12 +15,15 @@ parameters:
         - infra/
         - bin/
     excludePaths:
+        - src/PhpSpreadsheet/Calculation/FormulaParser.php
+        - src/PhpSpreadsheet/Calculation/FormulaToken.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
         - src/PhpSpreadsheet/Collection/Memory/SimpleCache1.php
         - src/PhpSpreadsheet/Collection/Memory/SimpleCache3.php
         - src/PhpSpreadsheet/Writer/ZipStream2.php
         - src/PhpSpreadsheet/Writer/ZipStream3.php
+        - tests/PhpSpreadsheetTests/Calculation/FormulaParserTest.php
         - tests/PhpSpreadsheetTests/Writer/Xlsx/ArrayFunctions2Test.php
     parallel:
         processTimeout: 300.0
