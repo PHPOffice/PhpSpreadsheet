@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
+- Option to use OldCalculatedValue in ToArray and Relatives. [Issue #1810](https://github.com/PHPOffice/PhpSpreadsheet/issues/1810) [PR #4787](https://github.com/PHPOffice/PhpSpreadsheet/pull/4787)
 - Add checkbox style (Xlsx and Html). [PR #4781](https://github.com/PHPOffice/PhpSpreadsheet/pull/4781)
 - Writer/Html add ability to set line ending. [PR #4779](https://github.com/PHPOffice/PhpSpreadsheet/pull/4779)
 - Writer/Html optionally save formulas as data attributes. [PR #4783](https://github.com/PHPOffice/PhpSpreadsheet/pull/4783)

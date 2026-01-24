@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ToArrayOldCalculatedValueTest extends AbstractFunctional
@@ -22,6 +23,26 @@ class ToArrayOldCalculatedValueTest extends AbstractFunctional
         self::assertSame([['A', 'B', 'C', 3]], $array1, 'uses value as read from spreadsheet');
         $array2 = $rsheet->toArray(formatData: false);
         self::assertSame([['A', 'B', 'C', 4]], $array2, 'uses newly calculated value');
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    private function noPreCalculation(XlsxWriter $writer): void
+    {
+        $writer->setPreCalculateFormulas(false);
+    }
+
+    public function testNoPreCalculate(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([['A', 'B', 'C', '=1+2']]);
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', null, $this->noPreCalculation(...));
+        $spreadsheet->disconnectWorksheets();
+        $rsheet = $reloadedSpreadsheet->getActiveSheet();
+        $rsheet->setCellValue('D1', '=1+3');
+        $array1 = $rsheet->toArray(formatData: false, calculateFormulas: false, oldCalculatedValue: true);
+        self::assertSame([['A', 'B', 'C', '=1+3']], $array1, 'uses value of cell if formula was not calculated');
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

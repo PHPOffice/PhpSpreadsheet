@@ -3000,7 +3000,7 @@ class Worksheet
             } elseif ($calculateFormulas) {
                 $returnValue = $cell->getCalculatedValue();
             } elseif ($oldCalculatedValue && ($cell->getDataType() === DataType::TYPE_FORMULA)) {
-                $returnValue = $cell->getOldCalculatedValue();
+                $returnValue = $cell->getOldCalculatedValue() ?? $cell->getValue();
             } else {
                 $returnValue = $cell->getValue();
             }
