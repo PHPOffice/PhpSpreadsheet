@@ -52,14 +52,14 @@ $helper->log('Populate spreadsheet');
 for ($row = 1; $row < 1001; ++$row) {
     $sheet->getCell("A$row")->setValue(++$counter);
     // Add many styles by using slight variations of font color for each.
-    $sheet->getCell("A$row")->getStyle()->getFont()->getColor()->setRgb(sprintf('%06x', $counter));
+    $sheet->getCell("A$row")->getStyle()->getFont()
+        ->getColor()->setRgb(sprintf('%06x', $counter));
     $sheet->getCell("B$row")->setValue(++$counter);
     $sheet->getCell("C$row")->setValue(++$counter);
 }
 
 $helper->log('Write to Mpdf');
 IOFactory::registerWriter('Pdf', Mpdf::class);
-$helper->write($spreadsheet, __FILE__, ['Pdf']);
 $helper->write(
     $spreadsheet,
     __FILE__,
