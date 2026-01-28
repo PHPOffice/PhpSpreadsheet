@@ -49,10 +49,15 @@ class Dompdf extends Pdf
 
         $pdf->loadHtml($this->generateHTMLAll());
         $pdf->render();
+        $this->callPageScript($pdf);
 
         //  Write to file
         fwrite($fileHandle, $pdf->output());
 
         parent::restoreStateAfterSave();
+    }
+
+    protected function callPageScript(\Dompdf\Dompdf $pdf): void
+    {
     }
 }
