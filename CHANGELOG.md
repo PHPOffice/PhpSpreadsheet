@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Add checkbox style (Xlsx and Html). [PR #4781](https://github.com/PHPOffice/PhpSpreadsheet/pull/4781)
 - Writer/Html add ability to set line ending. [PR #4779](https://github.com/PHPOffice/PhpSpreadsheet/pull/4779)
 - Writer/Html optionally save formulas as data attributes. [PR #4783](https://github.com/PHPOffice/PhpSpreadsheet/pull/4783)
+- User-supplied headers and footers in PDF. [Issue #3159](https://github.com/PHPOffice/PhpSpreadsheet/issues/3159) [PR #4789](https://github.com/PHPOffice/PhpSpreadsheet/pull/4789)
 
 ### Removed
 
