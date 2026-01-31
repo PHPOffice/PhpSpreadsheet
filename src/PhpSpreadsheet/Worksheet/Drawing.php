@@ -89,10 +89,11 @@ class Drawing extends BaseDrawing
      * @param string $path File path
      * @param bool $verifyFile Verify file
      * @param ?ZipArchive $zip Zip archive instance
+     * @param null|callable(string):bool $isWhitelisted
      *
      * @return $this
      */
-    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null, bool $allowExternal = true): static
+    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null, bool $allowExternal = true, ?callable $isWhitelisted = null): static
     {
         $this->isUrl = false;
         if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
@@ -108,6 +109,9 @@ class Drawing extends BaseDrawing
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }
             if (!$allowExternal) {
+                return $this;
+            }
+            if ($isWhitelisted !== null && !$isWhitelisted($path)) {
                 return $this;
             }
             // Implicit that it is a URL, rather store info than running check above on value in other places.

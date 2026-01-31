@@ -18,24 +18,73 @@ class HtmlImage2Test extends TestCase
         self::assertFalse($reader->getAllowExternalImages());
     }
 
-    public function testCanInsertImageGoodProtocolAllowed(): void
+    public function testCanInsertImageGoodProtocolAllowedNoWhitelist(): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
         }
-        $imagePath = 'https://phpspreadsheet.readthedocs.io/en/stable/topics/images/01-03-filter-icon-1.png';
+        $imagePath1 = 'https://phpspreadsheet.readthedocs.io/en/'
+            . 'latest/topics/images/01-03-filter-icon-1.png';
+        $imagePath2 = 'https://phpspreadsheet.readthedocs.io/en/'
+            . 'latest/topics/images/01-02-autofilter.png';
         $html = '<table>
                     <tr>
-                        <td><img src="' . $imagePath . '" alt="test image voilà"></td>
+                        <td><img src="' . $imagePath1 . '" alt="test image1 voilà"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="' . $imagePath2 . '" alt="test image2 voilà"></td>
                     </tr>
                 </table>';
-        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html, true);
+        $reader = new HtmlReader();
+        $reader->setAllowExternalImages(true);
+        $spreadsheet = $reader->loadFromString($html);
         $firstSheet = $spreadsheet->getSheet(0);
+        $drawings = $firstSheet->getDrawingCollection();
+        self::assertCount(2, $drawings);
+        $drawing1 = $drawings[0];
+        self::assertInstanceOf(Drawing::class, $drawing1);
+        self::assertSame($imagePath1, $drawing1->getPath());
+        self::assertSame('A1', $drawing1->getCoordinates());
+        $drawing2 = $drawings[1];
+        self::assertInstanceOf(Drawing::class, $drawing2);
+        self::assertSame($imagePath2, $drawing2->getPath());
+        self::assertSame('A2', $drawing2->getCoordinates());
+        $spreadsheet->disconnectWorksheets();
+    }
 
-        /** @var Drawing $drawing */
-        $drawing = $firstSheet->getDrawingCollection()[0];
-        self::assertEquals($imagePath, $drawing->getPath());
-        self::assertEquals('A1', $drawing->getCoordinates());
+    private function suppliedWhiteList(string $path): bool
+    {
+        return str_ends_with($path, 'autofilter.png');
+    }
+
+    public function testCanInsertImageGoodProtocolAllowedWhitelist(): void
+    {
+        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
+        }
+        $imagePath1 = 'https://phpspreadsheet.readthedocs.io/en/'
+            . 'latest/topics/images/01-03-filter-icon-1.png';
+        $imagePath2 = 'https://phpspreadsheet.readthedocs.io/en/'
+            . 'latest/topics/images/01-02-autofilter.png';
+        $html = '<table>
+                    <tr>
+                        <td><img src="' . $imagePath1 . '" alt="test image1 voilà"></td>
+                    </tr>
+                    <tr>
+                        <td><img src="' . $imagePath2 . '" alt="test image2 voilà"></td>
+                    </tr>
+                </table>';
+        $reader = new HtmlReader();
+        $reader->setAllowExternalImages(true)
+            ->setIsWhitelisted($this->suppliedWhiteList(...));
+        $spreadsheet = $reader->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+        $drawings = $firstSheet->getDrawingCollection();
+        self::assertCount(1, $drawings, 'one drawing whitelisted, one not');
+        $drawing2 = $drawings[0];
+        self::assertInstanceOf(Drawing::class, $drawing2);
+        self::assertSame($imagePath2, $drawing2->getPath());
+        self::assertSame('A2', $drawing2->getCoordinates());
         $spreadsheet->disconnectWorksheets();
     }
 
