@@ -150,6 +150,33 @@ class URLImageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testExternalImagesWhitelistOneCell(): void
+    {
+        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
+        }
+        $filename = realpath('tests/data/Reader/XLSX/urlImage2.onecell.xlsx');
+        self::assertNotFalse($filename);
+        $reader = new XlsxReader();
+        $reader->setAllowExternalImages(true)
+            ->setIsWhitelisted($this->suppliedWhiteList(...));
+        $spreadsheet = $reader->load($filename);
+        $sheet1 = $spreadsheet->getSheetByNameOrThrow('Sheet1');
+        $drawings1 = $sheet1->getDrawingCollection();
+        self::assertCount(0, $drawings1);
+        $sheet2 = $spreadsheet->getSheetByNameOrThrow('Sheet2');
+        $drawings2 = $sheet2->getDrawingCollection();
+        self::assertCount(1, $drawings2);
+        $drawing = $drawings2[0];
+        self::assertInstanceOf(Drawing::class, $drawing);
+        self::assertSame(
+            'https://phpspreadsheet.readthedocs.io/en/latest'
+                . '/topics/images/01-02-autofilter.png',
+            $drawing->getPath()
+        );
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testURLImageSourceNotAllowed(): void
     {
         $filename = realpath('tests/data/Reader/XLSX/urlImage.xlsx');
