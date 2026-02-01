@@ -38,6 +38,19 @@ class ConcatenateTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
+    public function testResultTooLong(): void
+    {
+        $sheet = $this->getSheet();
+        $string = str_repeat('x23456', 1000);
+        $sheet->getCell('A1')->setValue(
+            '=CONCATENATE('
+            . 'REPT("X", 30000)'
+            . ',REPT("X", 10000)'
+            . ')'
+        );
+        self::assertSame('#CALC!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
     public static function providerCONCATENATE(): array
     {
         return require 'tests/data/Calculation/TextData/CONCATENATE.php';

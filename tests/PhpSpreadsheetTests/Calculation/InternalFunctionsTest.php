@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -49,6 +50,28 @@ class InternalFunctionsTest extends TestCase
                 [[9, 8, 7], [6, 5, 4], [3, 2, 1]],
             ],
         ];
+    }
+
+    public function testAnchorArrayFormula2(): void
+    {
+        // add a smidgen of coverage
+        $reference = 'C3';
+        $range = 'A8:C10';
+        $expectedResult = [[-4, -3, -2], [-1, 0, 1], [2, 3, 4]];
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->returnArrayAsArray();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('SheetOne'); // no space in sheet title
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Sheet Two'); // space in sheet title
+
+        $sheet1->setCellValue('C3', '=SEQUENCE(3,3,-4)');
+        $sheet2->setCellValue('C3', '=SEQUENCE(3,3, 9, -1)');
+        $sheet1->calculateArrays();
+        $sheet2->calculateArrays();
+        $result = ExcelArrayPseudoFunctions::anchorArray($reference, $sheet1->getCell('A8'));
+        self::assertSame($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     #[DataProvider('singleDataProvider')]
