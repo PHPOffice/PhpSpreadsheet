@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -17,7 +16,7 @@ class InternalFunctionsTest extends TestCase
     public function testAnchorArrayFormula(string $reference, string $range, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet->returnArrayAsArray();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();
@@ -33,6 +32,8 @@ class InternalFunctionsTest extends TestCase
         self::assertSame($expectedResult, $result1);
         $attributes1 = $sheet1->getCell('A8')->getFormulaAttributes();
         self::assertSame(['t' => 'array', 'ref' => $range], $attributes1);
+        $result = ExcelArrayPseudoFunctions::anchorArray($reference, $sheet1->getCell('A10'));
+        self::assertSame($expectedResult, $result, 'direct call agrees with evaluation on spredsheet');
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -52,33 +53,11 @@ class InternalFunctionsTest extends TestCase
         ];
     }
 
-    public function testAnchorArrayFormula2(): void
-    {
-        // add a smidgen of coverage
-        $reference = 'C3';
-        $range = 'A8:C10';
-        $expectedResult = [[-4, -3, -2], [-1, 0, 1], [2, 3, 4]];
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->returnArrayAsArray();
-        $sheet1 = $spreadsheet->getActiveSheet();
-        $sheet1->setTitle('SheetOne'); // no space in sheet title
-        $sheet2 = $spreadsheet->createSheet();
-        $sheet2->setTitle('Sheet Two'); // space in sheet title
-
-        $sheet1->setCellValue('C3', '=SEQUENCE(3,3,-4)');
-        $sheet2->setCellValue('C3', '=SEQUENCE(3,3, 9, -1)');
-        $sheet1->calculateArrays();
-        $sheet2->calculateArrays();
-        $result = ExcelArrayPseudoFunctions::anchorArray($reference, $sheet1->getCell('A8'));
-        self::assertSame($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
-    }
-
     #[DataProvider('singleDataProvider')]
     public function testSingleArrayFormula(string $reference, mixed $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet->returnArrayAsArray();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();
