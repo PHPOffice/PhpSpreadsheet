@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheetTests\Reader\Utility\File;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class URLImageTest extends TestCase
@@ -83,12 +84,21 @@ class URLImageTest extends TestCase
         return str_ends_with($path, 'autofilter.png');
     }
 
-    public function testExternalImagesWhitelist(): void
+    public static function externalImagesWhitelistProvider(): array
+    {
+        return [
+            'twoCellAnchor' => ['tests/data/Reader/XLSX/urlImage2.xlsx', 'A1', 'D7'],
+            'oneCellAnchor' => ['tests/data/Reader/XLSX/urlImage2.onecell.xlsx', 'A1', ''],
+        ];
+    }
+
+    #[DataProvider('externalImagesWhitelistProvider')]
+    public function testExternalImagesWhitelist(string $path, string $coordinates, string $coordinates2): void
     {
         if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
             self::markTestSkipped('Skipped due to setting of environment variable');
         }
-        $filename = realpath('tests/data/Reader/XLSX/urlImage2.xlsx');
+        $filename = realpath($path);
         self::assertNotFalse($filename);
         $reader = new XlsxReader();
         $reader->setAllowExternalImages(true)
@@ -107,6 +117,8 @@ class URLImageTest extends TestCase
                 . '/topics/images/01-02-autofilter.png',
             $drawing->getPath()
         );
+        self::assertSame($coordinates, $drawing->getCoordinates());
+        self::assertSame($coordinates2, $drawing->getCoordinates2());
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -146,33 +158,6 @@ class URLImageTest extends TestCase
             'https://phpspreadsheet.readthedocs.io/en/latest'
                 . '/topics/images/01-03-filter-icon-1.png',
             $drawing2b->getPath()
-        );
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testExternalImagesWhitelistOneCell(): void
-    {
-        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
-            self::markTestSkipped('Skipped due to setting of environment variable');
-        }
-        $filename = realpath('tests/data/Reader/XLSX/urlImage2.onecell.xlsx');
-        self::assertNotFalse($filename);
-        $reader = new XlsxReader();
-        $reader->setAllowExternalImages(true)
-            ->setIsWhitelisted($this->suppliedWhiteList(...));
-        $spreadsheet = $reader->load($filename);
-        $sheet1 = $spreadsheet->getSheetByNameOrThrow('Sheet1');
-        $drawings1 = $sheet1->getDrawingCollection();
-        self::assertCount(0, $drawings1);
-        $sheet2 = $spreadsheet->getSheetByNameOrThrow('Sheet2');
-        $drawings2 = $sheet2->getDrawingCollection();
-        self::assertCount(1, $drawings2);
-        $drawing = $drawings2[0];
-        self::assertInstanceOf(Drawing::class, $drawing);
-        self::assertSame(
-            'https://phpspreadsheet.readthedocs.io/en/latest'
-                . '/topics/images/01-02-autofilter.png',
-            $drawing->getPath()
         );
         $spreadsheet->disconnectWorksheets();
     }
