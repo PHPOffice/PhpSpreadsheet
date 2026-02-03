@@ -33,7 +33,7 @@ class InternalFunctionsTest extends TestCase
         $attributes1 = $sheet1->getCell('A8')->getFormulaAttributes();
         self::assertSame(['t' => 'array', 'ref' => $range], $attributes1);
         $result = ExcelArrayPseudoFunctions::anchorArray($reference, $sheet1->getCell('A10'));
-        self::assertSame($expectedResult, $result, 'direct call agrees with evaluation on spredsheet');
+        self::assertSame($expectedResult, $result, 'direct call agrees with evaluation on spreadsheet');
         $spreadsheet->disconnectWorksheets();
     }
 

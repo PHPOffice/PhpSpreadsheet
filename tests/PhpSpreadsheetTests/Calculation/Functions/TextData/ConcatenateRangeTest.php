@@ -59,6 +59,9 @@ class ConcatenateRangeTest extends AllSetupTeardown
         self::assertSame('a-1', $sheet->getCell('B1')->getCalculatedValue());
         self::assertSame('b-2', $sheet->getCell('B2')->getCalculatedValue());
         self::assertSame('c-3', $sheet->getCell('B3')->getCalculatedValue());
+        $sheet->getCell('F1')
+            ->setValue('=CONCATENATE("X", C2:C3, "Y")');
+        self::assertSame('#VALUE!', $sheet->getCell('F1')->getCalculatedValue(), 'row does not match range');
     }
 
     public function testConvertCellRangeEdgeCases(): void
