@@ -2238,6 +2238,10 @@ class Xlsx extends BaseReader
                 $item[1] = str_replace('cm', '', $item[1]);
                 $item[1] = (string) Font::centimeterSizeToPixels((int) $item[1]);
             }
+            if (str_contains($item[1], 'mm')) {
+                $item[1] = str_replace('mm', '', $item[1]);
+                $item[1] = (string) Font::centimeterSizeToPixels((int) $item[1] / 10);
+            }
 
             $style[$item[0]] = $item[1];
         }
