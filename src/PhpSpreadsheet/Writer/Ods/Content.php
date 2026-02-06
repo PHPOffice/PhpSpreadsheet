@@ -307,12 +307,15 @@ class Content extends WriterPart
         }
     }
 
+    /** @var array<string, callable> */
+    public array $additionalNumberFormats = [];
+
     /**
      * Write XF cell styles.
      */
     private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet): void
     {
-        $styleWriter = new Style($writer);
+        $styleWriter = new Style($writer, $this->additionalNumberFormats);
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {

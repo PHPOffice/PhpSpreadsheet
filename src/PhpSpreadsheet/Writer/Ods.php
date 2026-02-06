@@ -51,6 +51,12 @@ class Ods extends BaseWriter
         $this->writerPartThumbnails = new Thumbnails($this);
     }
 
+    /** @param array<string, callable> $additionalNumberFormats */
+    public function useAdditionalNumberFormats(array $additionalNumberFormats): void
+    {
+        $this->writerPartContent->additionalNumberFormats = $additionalNumberFormats;
+    }
+
     public function getWriterPartContent(): Content
     {
         return $this->writerPartContent;

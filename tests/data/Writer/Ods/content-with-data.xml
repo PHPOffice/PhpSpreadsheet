@@ -13,7 +13,18 @@
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
-        <style:style style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
+    <number:date-style style:name="N200">
+      <number:day/>
+      <number:text>/</number:text>
+      <number:month/>
+      <number:text>/</number:text>
+      <number:year/>
+      <number:text> </number:text>
+      <number:hours/>
+      <number:text>:</number:text>
+      <number:minutes number:style="long"/>
+    </number:date-style>
+    <style:style style:data-style-name="N200" style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>

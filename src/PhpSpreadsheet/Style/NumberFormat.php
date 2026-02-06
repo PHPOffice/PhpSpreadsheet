@@ -23,7 +23,7 @@ class NumberFormat extends Supervisor
 
     const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
-    const FORMAT_DATE_DMYSLASH = 'd/m/yy';
+    const FORMAT_DATE_DMYSLASH = 'd"/"m"/"yy';
     const FORMAT_DATE_DMYMINUS = 'd-m-yy';
     const FORMAT_DATE_DMMINUS = 'd-m';
     const FORMAT_DATE_MYMINUS = 'm-yy';
@@ -35,6 +35,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_XLSX22 = 'm/d/yy h:mm';
     const FORMAT_DATE_XLSX22_ACTUAL = 'm/d/yyyy h:mm';
     const FORMAT_DATE_DATETIME = 'd/m/yy h:mm';
+    const FORMAT_DATE_DATETIME_BETTER = 'yyyy-mm-dd hh:mm';
     const FORMAT_DATE_TIME1 = 'h:mm AM/PM';
     const FORMAT_DATE_TIME2 = 'h:mm:ss AM/PM';
     const FORMAT_DATE_TIME3 = 'h:mm';
@@ -43,7 +44,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_TIME6 = 'h:mm:ss';
     const FORMAT_DATE_TIME7 = 'i:s.S';
     const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
-    const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy/mm/dd;@';
+    const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy"/"mm"/"dd;@';
     const FORMAT_DATE_LONG_DATE = 'dddd, mmmm d, yyyy';
 
     const DATE_TIME_OR_DATETIME_ARRAY = [
@@ -61,6 +62,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_XLSX22,
         self::FORMAT_DATE_XLSX22_ACTUAL,
         self::FORMAT_DATE_DATETIME,
+        self::FORMAT_DATE_DATETIME_BETTER,
         self::FORMAT_DATE_TIME1,
         self::FORMAT_DATE_TIME2,
         self::FORMAT_DATE_TIME3,
@@ -75,6 +77,7 @@ class NumberFormat extends Supervisor
     const TIME_OR_DATETIME_ARRAY = [
         self::FORMAT_DATE_XLSX22,
         self::FORMAT_DATE_DATETIME,
+        self::FORMAT_DATE_DATETIME_BETTER,
         self::FORMAT_DATE_TIME1,
         self::FORMAT_DATE_TIME2,
         self::FORMAT_DATE_TIME3,
