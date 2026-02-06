@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -17,7 +19,7 @@ class Concatenate
     /**
      * This implements the CONCAT function, *not* CONCATENATE.
      *
-     * @param mixed[] $args
+     * @param mixed $args data to be concatenated
      */
     public static function CONCATENATE(...$args): string
     {
@@ -47,17 +49,33 @@ class Concatenate
     /**
      * This implements the CONCATENATE function.
      *
-     * @param mixed[] $args data to be concatenated
+     * @param mixed $args data to be concatenated
      *
      * @return array<string>|string
      */
     public static function actualCONCATENATE(...$args): array|string
     {
+        $useSingle = false;
+        $cell = null;
+        $count = count($args);
+        if ($args[$count - 1] instanceof Cell) {
+            /** @var Cell */
+            $cell = array_pop($args);
+            $type = $cell->getWorksheet()->getParent()?->getCalculationEngine()->getInstanceArrayReturnType() ?? Calculation::getArrayReturnType();
+            $useSingle = $type === Calculation::RETURN_ARRAY_AS_VALUE;
+        }
         if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_GNUMERIC) {
             return self::CONCATENATE(...$args);
         }
         $result = '';
         foreach ($args as $operand2) {
+            if ($useSingle && $cell instanceof Cell && is_array($operand2)) {
+                $temp = Functions::convertArrayToCellRange($operand2);
+                if ($temp !== '') {
+                    $operand2 = ExcelArrayPseudoFunctions::single($temp, $cell);
+                }
+            }
+            /** @var null|array<mixed>|bool|float|int|string $operand2 */
             $result = self::concatenate2Args($result, $operand2);
             if (ErrorValue::isError($result, true) === true) {
                 break;
