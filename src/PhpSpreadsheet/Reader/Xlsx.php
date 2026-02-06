@@ -2226,19 +2226,19 @@ class Xlsx extends BaseReader
             if (str_contains($item[1], 'px')) {
                 $item[1] = str_replace('px', '', $item[1]);
             }
-            if (str_contains($item[1], 'pt')) {
+            elseif (str_contains($item[1], 'pt')) {
                 $item[1] = str_replace('pt', '', $item[1]);
                 $item[1] = Font::fontSizeToPixels((float) $item[1]);
             }
-            if (str_contains($item[1], 'in')) {
+            elseif (str_contains($item[1], 'in')) {
                 $item[1] = str_replace('in', '', $item[1]);
                 $item[1] = (int) Font::inchSizeToPixels((float) $item[1]);
             }
-            if (str_contains($item[1], 'cm')) {
+            elseif (str_contains($item[1], 'cm')) {
                 $item[1] = str_replace('cm', '', $item[1]);
                 $item[1] = (int) Font::centimeterSizeToPixels((float) $item[1]);
             }
-            if (str_contains($item[1], 'mm')) {
+            elseif (str_contains($item[1], 'mm')) {
                 $item[1] = str_replace('mm', '', $item[1]);
                 $item[1] = (int) Font::centimeterSizeToPixels((float) $item[1] / 10);
             }
