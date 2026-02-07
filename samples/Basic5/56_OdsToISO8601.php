@@ -61,9 +61,11 @@ function datesToIso8601(string $infile, Sample $helper): void
 }
 
 $sample = new Sample();
-$infile = realpath('../templates/56_MixedDateFormats.ods');
+$infileBase = '56_MixedDateFormats.ods';
+$infileBase1 = __DIR__ . '/../templates/' . $infileBase;
+$infile = realpath($infileBase1);
 if ($infile === false) {
-    throw new Exception("Unable to locate $infile");
+    throw new Exception("Unable to locate $infileBase1");
 }
 
 /** @var Sample $helper */
