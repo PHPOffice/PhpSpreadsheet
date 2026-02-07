@@ -42,7 +42,14 @@ function datesToIso8601(string $infile, Sample $helper): void
             . '<number:text>-</number:text>$2',
             $newData
         ) ?? $newData;
-        $newData = str_replace('number:automatic-order="true"', '', $newData);
+        $newData = preg_replace(
+            '~'
+            . '(<number:date-style [^>]*)'
+            . ' number:automatic-order="true"'
+            . '~',
+            '$1',
+            $newData
+        ) ?? $newData;
         if ($data === $newData) {
             $helper->log("no changes needed for $file");
         } else {
@@ -60,7 +67,6 @@ function datesToIso8601(string $infile, Sample $helper): void
     }
 }
 
-$sample = new Sample();
 $infileBase = '56_MixedDateFormats.ods';
 $infileBase1 = __DIR__ . '/../templates/' . $infileBase;
 $infile = realpath($infileBase1);
@@ -70,7 +76,7 @@ if ($infile === false) {
 
 /** @var Sample $helper */
 $helper->log("Infile is $infile");
-$outDirectory = $sample->getTemporaryFolder();
+$outDirectory = $helper->getTemporaryFolder();
 $helper->log("outDirectory is $outDirectory");
 $outfile = $outDirectory . '/56_OdsToISO8601.ods';
 $helper->log("Outfile is $outfile");
@@ -79,9 +85,7 @@ if (!copy($infile, $outfile)) {
     throw new Exception('Copy failed');
 }
 
-$helper->log('Copy succeeded');
+$helper->log('Update date formatting xml');
 datesToIso8601($outfile, $helper);
 
-if ($sample->isCli() === false) {
-    echo '<a href="/download.php?type=ods' . '&name=' . basename($outfile) . '">Download ' . basename($outfile) . '</a><br />';
-}
+$helper->addDownloadLink($outfile);
