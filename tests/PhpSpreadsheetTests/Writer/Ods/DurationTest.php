@@ -21,12 +21,28 @@ class DurationTest extends AbstractFunctional
         $sheet->getCell('F3')->setValue('=E3-E1');
         $sheet->getStyle('E1:F3')->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_TIME_INTERVAL);
+        $sheet->getCell('A1')->setValue(0.5);
+        $sheet->getStyle('A1')->getNumberFormat()
+            ->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_0);
+        $sheet->getCell('A2')->setValue(20);
+        $sheet->getStyle('A2')->getNumberFormat()
+            ->setFormatCode('$0.00');
+        $sheet->getCell('A3')->setValue(20);
+        $sheet->getStyle('A3')->getNumberFormat()
+            ->setFormatCode('#.0');
+        $sheet->getCell('A4')->setValue(46000);
+        $sheet->getStyle('A4')->getNumberFormat()
+            ->setFormatCode('yyyy-mm-dd');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Ods');
         $spreadsheet->disconnectWorksheets();
         $rsheet = $reloadedSpreadsheet->getActiveSheet();
         self::assertSame('1:02:34', $rsheet->getCell('F2')->getFormattedValue());
         self::assertSame('-00:12:38', $rsheet->getCell('F3')->getFormattedValue());
+        self::assertSame('50.0%', $rsheet->getCell('A1')->getFormattedValue());
+        self::assertSame('$20.00 ', $rsheet->getCell('A2')->getFormattedValue());
+        self::assertSame('20.0', $rsheet->getCell('A3')->getFormattedValue());
+        self::assertSame('2025-12-09', $rsheet->getCell('A4')->getFormattedValue());
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 }

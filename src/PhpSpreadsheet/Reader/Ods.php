@@ -725,7 +725,7 @@ class Ods extends BaseReader
                         if (str_starts_with($allCellDataText, '$')) {
                             $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
                         } else {
-                            if ($dataValue === floor($dataValue)) {
+                            if ($dataValue !== floor($dataValue)) {
                                 // do nothing
                             } elseif (substr($allCellDataText, -2, 1) === '.') {
                                 $formatting = NumberFormat::FORMAT_NUMBER_0;
