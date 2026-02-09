@@ -103,8 +103,8 @@
                     <table:table-cell office:value="1 1" office:value-type="string" table:formula="of:=IF([.A3]; CONCAT([.A1]; &quot; &quot;; [.A2]); CONCAT([.A2]; &quot; &quot;; [.A1]))" table:style-name="ce10">
                         <text:p>1 1</text:p>
                     </table:table-cell>
-                    <table:table-cell office:value="42798.572060185" office:value-type="float" table:style-name="ce1">
-                        <text:p>42798.572060185</text:p>
+                    <table:table-cell office:date-value="2017-03-04T13:43:46" office:value-type="date" table:style-name="ce1">
+                        <text:p>4/3/17 13:43</text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>

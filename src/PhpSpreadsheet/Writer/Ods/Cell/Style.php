@@ -418,6 +418,7 @@ class Style
         NumberFormat::FORMAT_DATE_XLSX14 => [self::class, 'formatDateXlsx14'],
         NumberFormat::FORMAT_DATE_XLSX14_ACTUAL => [self::class, 'formatDateXlsx14Actual'],
         NumberFormat::FORMAT_DATE_XLSX15 => [self::class, 'formatDateXlsx15'],
+        NumberFormat::FORMAT_DATE_XLSX15_YYYY => [self::class, 'formatDateXlsx15Yyyy'],
         NumberFormat::FORMAT_DATE_XLSX16 => [self::class, 'formatDateXlsx16'],
         NumberFormat::FORMAT_DATE_XLSX17 => [self::class, 'formatDateXlsx17'],
         NumberFormat::FORMAT_DATE_XLSX22 => [self::class, 'formatDateXlsx22'],
@@ -432,6 +433,7 @@ class Style
         //NumberFormat::FORMAT_DATE_TIME6 => [self::class, 'formatDateTime6'], // FORMAT_DATE_TIME6 is identical to TIME4
         NumberFormat::FORMAT_DATE_TIME7 => [self::class, 'formatDateTime7'], // constant is probably mis-coded
         NumberFormat::FORMAT_DATE_TIME8 => [self::class, 'formatDateTime8'],
+        NumberFormat::FORMAT_DATE_TIME_INTERVAL => [self::class, 'formatDateTimeInterval'],
         NumberFormat::FORMAT_DATE_YYYYMMDDSLASH => [self::class, 'formatDateYyyymmddslash'],
         NumberFormat::FORMAT_DATE_LONG_DATE => [self::class, 'formatDateLongDate'],
         NumberFormat::FORMAT_CURRENCY_USD_INTEGER => [self::class, 'formatCurrencyUsdInteger'],
@@ -671,6 +673,24 @@ class Style
         $obj->writer->endElement(); // number:date-style
     }
 
+    protected static function formatDateXlsx15Yyyy(self $obj, string $name): void
+    {
+        $obj->writer->startElement('number:date-style');
+        $obj->writer->writeAttribute('style:name', $name);
+        $obj->writer->startElement('number:day');
+        $obj->writer->writeAttribute('number:style', 'long');
+        $obj->writer->endElement(); // number:day
+        $obj->writer->writeElement('number:text', '-');
+        $obj->writer->startElement('number:month');
+        $obj->writer->writeAttribute('number:textual', 'true');
+        $obj->writer->endElement(); // number:month
+        $obj->writer->writeElement('number:text', '-');
+        $obj->writer->startElement('number:year');
+        $obj->writer->writeAttribute('number:style', 'long');
+        $obj->writer->endElement(); // number:year
+        $obj->writer->endElement(); // number:date-style
+    }
+
     protected static function formatDateXlsx16(self $obj, string $name): void
     {
         $obj->writer->startElement('number:date-style');
@@ -893,6 +913,28 @@ class Style
         $obj->writer->writeAttribute('style:apply-style-name', $name . 'P0');
         $obj->writer->endElement(); // number:style-map
         $obj->writer->endElement(); // number:text-style
+    }
+
+    protected static function formatDateTimeInterval(self $obj, string $name): void
+    {
+        $obj->writer->startElement('number:time-style');
+        $obj->writer->writeAttribute('style:name', $name);
+        $obj->writer->writeAttribute(
+            'number:truncate-on-overflow',
+            'false'
+        );
+        $obj->writer->startElement('number:hours');
+        $obj->writer->writeAttribute('number:style', 'long');
+        $obj->writer->endElement(); // number:hours
+        $obj->writer->writeElement('number:text', ':');
+        $obj->writer->startElement('number:minutes');
+        $obj->writer->writeAttribute('number:style', 'long');
+        $obj->writer->endElement(); // number:minutes
+        $obj->writer->writeElement('number:text', ':');
+        $obj->writer->startElement('number:seconds');
+        $obj->writer->writeAttribute('number:style', 'long');
+        $obj->writer->endElement(); // number:seconds
+        $obj->writer->endElement(); // number:time-style
     }
 
     protected static function formatDateYyyymmddslash(self $obj, string $name): void

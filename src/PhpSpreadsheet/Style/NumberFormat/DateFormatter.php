@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Throwable;
 
 class DateFormatter
@@ -121,6 +122,16 @@ class DateFormatter
     /** @param float|int $value value to be formatted */
     public static function format(mixed $value, string $format): string
     {
+        if ($value < 0 && $format === NumberFormat::FORMAT_DATE_TIME_INTERVAL) {
+            $absVal = fmod(abs($value), 1.0);
+            $hms = (int) round(86400 * $absVal);
+            $hours = intdiv($hms, 3600);
+            $hms -= $hours * 3600;
+            $minutes = intdiv($hms, 60);
+            $seconds = $hms % 60;
+
+            return sprintf('-%02d:%02d:%02d', $hours, $minutes, $seconds);
+        }
         // strip off first part containing e.g. [$-F800] or [$USD-409]
         // general syntax: [$<Currency string>-<language info>]
         // language info is in hexadecimal

@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Composer\Pcre\Preg;
+use DateTime;
+use DateTimeZone;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -657,6 +660,7 @@ class Ods extends BaseReader
             }
 
             if (count($paragraphs) > 0) {
+                $dataValue = null;
                 // Consolidate if there are multiple p records (maybe with spans as well)
                 $dataArray = [];
 
@@ -691,33 +695,47 @@ class Ods extends BaseReader
 
                         break;
                     case 'percentage':
+                        if (!str_contains($allCellDataText, '.')) {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE;
+                        } elseif (substr($allCellDataText, -3, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE_0;
+                        } else {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
+                        }
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                        // percentage should always be float
-                        //if (floor($dataValue) == $dataValue) {
-                        //    $dataValue = (int) $dataValue;
-                        //}
-                        $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
 
                         break;
                     case 'currency':
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                        if (floor($dataValue) == $dataValue) {
-                            $dataValue = (int) $dataValue;
+                        $currency = $cellData->getAttributeNS($officeNs, 'currency');
+                        if ($currency === 'USD') {
+                            $typeValue = 'currency';
+                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+                        } elseif ($currency === 'EUR' || str_contains($allCellDataText, '€')) {
+                            $typeValue = 'currency';
+                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_EUR : NumberFormat::FORMAT_CURRENCY_EUR_INTEGER;
                         }
-                        $formatting = NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
 
                         break;
                     case 'float':
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
-
-                        if (floor($dataValue) == $dataValue) {
-                            if ($dataValue == (int) $dataValue) {
-                                $dataValue = (int) $dataValue;
+                        if (str_starts_with($allCellDataText, '$')) {
+                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+                        } else {
+                            if ($dataValue === floor($dataValue)) {
+                                // do nothing
+                            } elseif (substr($allCellDataText, -2, 1) === '.') {
+                                $formatting = NumberFormat::FORMAT_NUMBER_0;
+                            } elseif (substr($allCellDataText, -3, 1) === '.') {
+                                $formatting = NumberFormat::FORMAT_NUMBER_00;
+                            }
+                            if (floor($dataValue) == $dataValue) {
+                                if ($dataValue == (int) $dataValue) {
+                                    $dataValue = (int) $dataValue;
+                                }
                             }
                         }
 
@@ -727,7 +745,11 @@ class Ods extends BaseReader
                         $value = $cellData->getAttributeNS($officeNs, 'date-value');
                         $dataValue = Date::convertIsoDate($value);
 
-                        if ($dataValue != floor($dataValue)) {
+                        if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
+                            $formatting = 'yyyy-mm-dd';
+                        } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
+                            $formatting = 'd-mmm-yyyy';
+                        } elseif ($dataValue != floor($dataValue)) {
                             $formatting = NumberFormat::FORMAT_DATE_XLSX15
                                 . ' '
                                 . NumberFormat::FORMAT_DATE_TIME4;
@@ -740,13 +762,26 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
 
                         $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
-
-                        $dataValue = Date::PHPToExcel(
-                            strtotime(
-                                '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
-                            )
-                        );
-                        $formatting = NumberFormat::FORMAT_DATE_TIME4;
+                        $minus = '';
+                        if (str_starts_with($timeValue, '-')) {
+                            $minus = '-';
+                            $timeValue = substr($timeValue, 1);
+                        }
+                        $timeArray = sscanf($timeValue, 'PT%dH%dM%dS');
+                        if (is_array($timeArray)) {
+                            /** @var array{int, int, int} $timeArray */
+                            $days = intdiv($timeArray[0], 24);
+                            $hours = $timeArray[0] % 24;
+                            $dt = new DateTime("1899-12-30 $hours:{$timeArray[1]}:{$timeArray[2]}", new DateTimeZone('UTC'));
+                            $dt->modify("+$days days");
+                            $dataValue = Date::PHPToExcel($dt);
+                            if ($minus === '-') {
+                                $dataValue *= -1;
+                                $formatting = '[hh]:mm:ss';
+                            } else {
+                                $formatting = NumberFormat::FORMAT_DATE_TIME4;
+                            }
+                        }
 
                         break;
                     default:

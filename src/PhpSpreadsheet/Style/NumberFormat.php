@@ -30,6 +30,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_XLSX14 = 'mm-dd-yy';
     const FORMAT_DATE_XLSX14_ACTUAL = 'm/d/yyyy';
     const FORMAT_DATE_XLSX15 = 'd-mmm-yy';
+    const FORMAT_DATE_XLSX15_YYYY = 'd-mmm-yyyy';
     const FORMAT_DATE_XLSX16 = 'd-mmm';
     const FORMAT_DATE_XLSX17 = 'mmm-yy';
     const FORMAT_DATE_XLSX22 = 'm/d/yy h:mm';
@@ -44,6 +45,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_TIME6 = 'h:mm:ss';
     const FORMAT_DATE_TIME7 = 'i:s.S';
     const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
+    const FORMAT_DATE_TIME_INTERVAL = '[hh]:mm:ss';
     const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy"/"mm"/"dd;@';
     const FORMAT_DATE_LONG_DATE = 'dddd, mmmm d, yyyy';
 
@@ -71,6 +73,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME6,
         self::FORMAT_DATE_TIME7,
         self::FORMAT_DATE_TIME8,
+        self::FORMAT_DATE_TIME_INTERVAL,
         self::FORMAT_DATE_YYYYMMDDSLASH,
         self::FORMAT_DATE_LONG_DATE,
     ];
@@ -86,6 +89,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME6,
         self::FORMAT_DATE_TIME7,
         self::FORMAT_DATE_TIME8,
+        self::FORMAT_DATE_TIME_INTERVAL,
     ];
 
     const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
