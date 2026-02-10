@@ -804,53 +804,51 @@ class Ods extends BaseReader
                 $colRepeats = 1;
             }
 
-            if ($type !== null) { // @phpstan-ignore-line
-                for ($i = 0; $i < $colRepeats; ++$i) {
-                    if ($i > 0) {
-                        StringHelper::stringIncrement($columnID);
-                    }
+            for ($i = 0; $i < $colRepeats; ++$i) {
+                if ($i > 0) {
+                    StringHelper::stringIncrement($columnID);
+                }
 
-                    if ($type !== DataType::TYPE_NULL) {
-                        for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
-                            $rID = $rowID + $rowAdjust;
+                if ($type !== DataType::TYPE_NULL) {
+                    for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
+                        $rID = $rowID + $rowAdjust;
 
-                            $cell = $spreadsheet->getActiveSheet()
-                                ->getCell($columnID . $rID);
+                        $cell = $spreadsheet->getActiveSheet()
+                            ->getCell($columnID . $rID);
 
-                            // Set value
-                            if ($hasCalculatedValue) {
-                                $cell->setValueExplicit($cellDataFormula, $type);
-                                if ($cellDataType === 'array') {
-                                    $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
-                                }
-                            } elseif ($type !== '' || $dataValue !== null) {
-                                $cell->setValueExplicit($dataValue, $type);
+                        // Set value
+                        if ($hasCalculatedValue) {
+                            $cell->setValueExplicit($cellDataFormula, $type);
+                            if ($cellDataType === 'array') {
+                                $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
                             }
+                        } elseif ($type !== '' || $dataValue !== null) {
+                            $cell->setValueExplicit($dataValue, $type);
+                        }
 
-                            if ($hasCalculatedValue) {
-                                $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
-                            }
+                        if ($hasCalculatedValue) {
+                            $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
+                        }
 
-                            // Set other properties
-                            if ($formatting !== null) {
-                                $spreadsheet->getActiveSheet()
-                                    ->getStyle($columnID . $rID)
-                                    ->getNumberFormat()
-                                    ->setFormatCode($formatting);
-                            } else {
-                                $spreadsheet->getActiveSheet()
-                                    ->getStyle($columnID . $rID)
-                                    ->getNumberFormat()
-                                    ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                            }
+                        // Set other properties
+                        if ($formatting !== null) {
+                            $spreadsheet->getActiveSheet()
+                                ->getStyle($columnID . $rID)
+                                ->getNumberFormat()
+                                ->setFormatCode($formatting);
+                        } else {
+                            $spreadsheet->getActiveSheet()
+                                ->getStyle($columnID . $rID)
+                                ->getNumberFormat()
+                                ->setFormatCode(NumberFormat::FORMAT_GENERAL);
+                        }
 
-                            if ($hyperlink !== null) {
-                                if ($hyperlink[0] === '#') {
-                                    $hyperlink = 'sheet://' . substr($hyperlink, 1);
-                                }
-                                $cell->getHyperlink()
-                                    ->setUrl($hyperlink);
+                        if ($hyperlink !== null) {
+                            if ($hyperlink[0] === '#') {
+                                $hyperlink = 'sheet://' . substr($hyperlink, 1);
                             }
+                            $cell->getHyperlink()
+                                ->setUrl($hyperlink);
                         }
                     }
                 }
