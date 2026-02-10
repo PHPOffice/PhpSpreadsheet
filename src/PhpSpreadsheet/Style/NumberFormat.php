@@ -45,7 +45,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_TIME6 = 'h:mm:ss';
     const FORMAT_DATE_TIME7 = 'i:s.S';
     const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
-    const FORMAT_DATE_TIME_INTERVAL = '[hh]:mm:ss';
+    const FORMAT_DATE_TIME_INTERVAL_HMS = '[hh]:mm:ss';
     const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy"/"mm"/"dd;@';
     const FORMAT_DATE_LONG_DATE = 'dddd, mmmm d, yyyy';
 
@@ -73,7 +73,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME6,
         self::FORMAT_DATE_TIME7,
         self::FORMAT_DATE_TIME8,
-        self::FORMAT_DATE_TIME_INTERVAL,
+        self::FORMAT_DATE_TIME_INTERVAL_HMS,
         self::FORMAT_DATE_YYYYMMDDSLASH,
         self::FORMAT_DATE_LONG_DATE,
     ];
@@ -89,7 +89,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME6,
         self::FORMAT_DATE_TIME7,
         self::FORMAT_DATE_TIME8,
-        self::FORMAT_DATE_TIME_INTERVAL,
+        self::FORMAT_DATE_TIME_INTERVAL_HMS,
     ];
 
     const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';

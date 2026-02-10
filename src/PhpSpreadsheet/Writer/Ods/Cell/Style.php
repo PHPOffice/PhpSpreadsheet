@@ -433,7 +433,7 @@ class Style
         //NumberFormat::FORMAT_DATE_TIME6 => [self::class, 'formatDateTime6'], // FORMAT_DATE_TIME6 is identical to TIME4
         NumberFormat::FORMAT_DATE_TIME7 => [self::class, 'formatDateTime7'], // constant is probably mis-coded
         NumberFormat::FORMAT_DATE_TIME8 => [self::class, 'formatDateTime8'],
-        NumberFormat::FORMAT_DATE_TIME_INTERVAL => [self::class, 'formatDateTimeInterval'],
+        NumberFormat::FORMAT_DATE_TIME_INTERVAL_HMS => [self::class, 'formatDateTimeIntervalHms'],
         NumberFormat::FORMAT_DATE_YYYYMMDDSLASH => [self::class, 'formatDateYyyymmddslash'],
         NumberFormat::FORMAT_DATE_LONG_DATE => [self::class, 'formatDateLongDate'],
         NumberFormat::FORMAT_CURRENCY_USD_INTEGER => [self::class, 'formatCurrencyUsdInteger'],
@@ -915,7 +915,7 @@ class Style
         $obj->writer->endElement(); // number:text-style
     }
 
-    protected static function formatDateTimeInterval(self $obj, string $name): void
+    protected static function formatDateTimeIntervalHms(self $obj, string $name): void
     {
         $obj->writer->startElement('number:time-style');
         $obj->writer->writeAttribute('style:name', $name);

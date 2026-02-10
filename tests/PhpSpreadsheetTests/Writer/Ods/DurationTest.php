@@ -20,7 +20,9 @@ class DurationTest extends AbstractFunctional
         $sheet->getCell('F2')->setValue('=E2-E1');
         $sheet->getCell('F3')->setValue('=E3-E1');
         $sheet->getStyle('E1:F3')->getNumberFormat()
-            ->setFormatCode(NumberFormat::FORMAT_DATE_TIME_INTERVAL);
+            ->setFormatCode(
+                NumberFormat::FORMAT_DATE_TIME_INTERVAL_HMS
+            );
         $sheet->getCell('A1')->setValue(0.5);
         $sheet->getStyle('A1')->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_0);

@@ -297,7 +297,7 @@ class Content extends WriterPart
                             } else {
                                 $hhmmss = NumberFormat::toFormattedString(
                                     $value,
-                                    NumberFormat::FORMAT_DATE_TIME_INTERVAL
+                                    NumberFormat::FORMAT_DATE_TIME_INTERVAL_HMS
                                 );
                                 $daysAndHours = 24 * (int) $valueCalc + (int) substr($hhmmss, 0, 2);
                                 $value = "PT$daysAndHours"
