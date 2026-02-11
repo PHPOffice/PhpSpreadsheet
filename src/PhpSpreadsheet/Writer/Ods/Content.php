@@ -8,8 +8,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
@@ -247,19 +249,99 @@ class Content extends WriterPart
                         }
                     }
                     $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
-                    if (is_numeric($formulaValue)) {
-                        $objWriter->writeAttribute('office:value-type', 'float');
-                    } else {
-                        $objWriter->writeAttribute('office:value-type', 'string');
-                    }
-                    $objWriter->writeAttribute('office:value', $formulaValue);
-                    $objWriter->writeElement('text:p', $formulaValue);
+                    if (!is_numeric($formulaValue)) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'string'
+                        );
+                        $objWriter->writeAttribute('office:value', $formulaValue);
+                        $objWriter->writeElement('text:p', $formulaValue);
 
-                    break;
+                        break;
+                    }
+                    // no break
                 case DataType::TYPE_NUMERIC:
-                    $objWriter->writeAttribute('office:value-type', 'float');
-                    $objWriter->writeAttribute('office:value', $cell->getValueString());
-                    $objWriter->writeElement('text:p', $cell->getValueString());
+                    $holdWorksheet = $cell->getWorksheet();
+                    $holdSelected = $holdWorksheet->getSelectedCells();
+                    $holdSpreadsheet = $holdWorksheet->getParent();
+                    $holdActiveSheetIndex = $holdSpreadsheet?->getActiveSheetIndex();
+                    $formatted = $cell->getFormattedValue();
+                    $type = 'float';
+                    $valueType = 'value';
+                    $value = $cell->getCalculatedValueString();
+                    $numFmt = $cell->getStyle()
+                        ->getNumberFormat()
+                        ->getFormatCode() ?? '';
+                    $holdWorksheet->setSelectedCells($holdSelected);
+                    if (isset($holdSpreadsheet, $holdActiveSheetIndex)) {
+                        $holdSpreadsheet->setActiveSheetIndex(
+                            $holdActiveSheetIndex
+                        );
+                    }
+                    if (Date::isDateTimeFormatCode($numFmt, true)) {
+                        $valueCalc = $cell->getCalculatedValueString();
+                        if (Preg::isMatch('/[HhSs]/', $numFmt) && !Preg::isMatch('/[YyDd]/', $numFmt)) {
+                            $minus = '';
+                            $type = 'time';
+                            $valueType = 'time-value';
+                            if (str_starts_with($valueCalc, '-')) {
+                                $minus = '-';
+                                $absVal = fmod(abs((float) $value), 1.0);
+                                $hms = (int) round(86400 * $absVal);
+                                $hours = intdiv($hms, 3600);
+                                $hms -= $hours * 3600;
+                                $minutes = intdiv($hms, 60);
+                                $seconds = $hms % 60;
+                                $value = sprintf('-PT%02dH%02dM%02dS', $hours, $minutes, $seconds);
+                                $formatted = sprintf('-%02d:%02d:%02d', $hours, $minutes, $seconds);
+                            } else {
+                                $hhmmss = NumberFormat::toFormattedString(
+                                    $value,
+                                    NumberFormat::FORMAT_DATE_TIME_INTERVAL_HMS
+                                );
+                                $daysAndHours = 24 * (int) $valueCalc + (int) substr($hhmmss, 0, 2);
+                                $value = "PT$daysAndHours"
+                                    . 'H'
+                                    . substr($hhmmss, 3, 2)
+                                    . 'M'
+                                    . substr($hhmmss, 6, 2)
+                                    . 'S';
+                            }
+                        } else {
+                            $type = 'date';
+                            $valueType = 'date-value';
+                            $value = NumberFormat::toFormattedString(
+                                $value,
+                                'yyyy-mm-dd"T"hh:mm:ss'
+                            );
+                        }
+                    } elseif (str_ends_with($numFmt, '%')) {
+                        $type = 'percentage';
+                    }
+                    if ($numFmt === NumberFormat::FORMAT_CURRENCY_EUR || $numFmt === NumberFormat::FORMAT_CURRENCY_EUR_INTEGER) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'currency'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:currency',
+                            'EUR'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:value',
+                            $value
+                        );
+                    } else {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            $type
+                        );
+                        $objWriter->writeAttribute(
+                            "office:$valueType",
+                            $value
+                        );
+                    }
+                    $objWriter->writeElement('text:p', $formatted);
 
                     break;
                 case DataType::TYPE_INLINE:
@@ -307,12 +389,15 @@ class Content extends WriterPart
         }
     }
 
+    /** @var array<string, callable> */
+    public array $additionalNumberFormats = [];
+
     /**
      * Write XF cell styles.
      */
     private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet): void
     {
-        $styleWriter = new Style($writer);
+        $styleWriter = new Style($writer, $this->additionalNumberFormats);
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {

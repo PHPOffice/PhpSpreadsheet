@@ -175,15 +175,30 @@ class OdsTest extends TestCase
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A1')->getDataType()); // Percentage (10%)
         self::assertEquals(0.1, $firstSheet->getCell('A1')->getValue());
+        self::assertSame('10%', $firstSheet->getCell('A1')->getFormattedValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A2')->getDataType()); // Percentage (10%)
+        self::assertEquals(0.1, $firstSheet->getCell('A2')->getValue());
+        self::assertSame('10.00%', $firstSheet->getCell('A2')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A2')->getDataType()); // Percentage (10.00%)
         self::assertEquals(0.1, $firstSheet->getCell('A2')->getValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A4')->getDataType()); // Currency (€10.00)
-        self::assertEquals(10, $firstSheet->getCell('A4')->getValue());
+        self::assertSame(10.00, $firstSheet->getCell('A4')->getValue());
+        self::assertSame('10.00 €', $firstSheet->getCell('A4')->getFormattedValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('B4')->getDataType()); // Currency ($10)
+        self::assertSame(10.00, $firstSheet->getCell('B4')->getValue());
+        self::assertSame('$10 ', $firstSheet->getCell('B4')->getFormattedValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('C4')->getDataType()); // Currency (€10.12)
+        self::assertEquals(10.12, $firstSheet->getCell('C4')->getValue());
+        self::assertSame('10.12 €', $firstSheet->getCell('C4')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A5')->getDataType()); // Currency ($20)
-        self::assertEquals(20, $firstSheet->getCell('A5')->getValue());
+        self::assertSame(20.00, $firstSheet->getCell('A5')->getValue());
+        self::assertSame('$20 ', $firstSheet->getCell('A5')->getFormattedValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('C5')->getDataType()); // Currency ($20.34)
+        self::assertEquals(20.34, $firstSheet->getCell('C5')->getValue());
+        self::assertSame('$20.34 ', $firstSheet->getCell('C5')->getFormattedValue());
         $spreadsheet->disconnectWorksheets();
     }
 
