@@ -35,9 +35,11 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Improve performance in value binders. [PR #4780](https://github.com/PHPOffice/PhpSpreadsheet/pull/4780)
+- Option to whitelist external images. [PR #4793](https://github.com/PHPOffice/PhpSpreadsheet/pull/4793)
 - Handle Unions as Function Arguments. [Issue #4656](https://github.com/PHPOffice/PhpSpreadsheet/issues/4656) [Issue #316](https://github.com/PHPOffice/PhpSpreadsheet/issues/316) [Issue #503](https://github.com/PHPOffice/PhpSpreadsheet/issues/503) [PR #4657](https://github.com/PHPOffice/PhpSpreadsheet/pull/4657)
 - Unexpected Behavior of CONCATENATE. [Issue #4061](https://github.com/PHPOffice/PhpSpreadsheet/issues/4061) [PR #4797](https://github.com/PHPOffice/PhpSpreadsheet/pull/4797)
 - Ods Reader column misalignment. [Issue #4802](https://github.com/PHPOffice/PhpSpreadsheet/issues/4802) [PR #4803](https://github.com/PHPOffice/PhpSpreadsheet/pull/4803)
+- Image Css size in millimeters. [Issue #4800](https://github.com/PHPOffice/PhpSpreadsheet/issues/4800) [PR #4801](https://github.com/PHPOffice/PhpSpreadsheet/pull/4801)
 
 ## 2026-01-10 - 5.4.0
 
