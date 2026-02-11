@@ -405,6 +405,7 @@ class FunctionArray extends CalculationBase
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'actualCONCATENATE'],
             'argumentCount' => '1+',
+            'passCellReference' => true,
         ],
         'CONFIDENCE' => [
             'category' => Category::CATEGORY_STATISTICAL,

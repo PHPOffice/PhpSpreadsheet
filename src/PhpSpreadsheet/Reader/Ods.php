@@ -576,18 +576,45 @@ class Ods extends BaseReader
             if ($cellData instanceof DOMText) {
                 continue; // should just be whitespace
             }
+            if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+            } else {
+                $colRepeats = 1;
+            }
+
+            // When a cell has number-columns-repeated, check if ANY column in the
+            // repeated range passes the read filter. If not, skip the entire group.
+            // If some columns pass, we need to fall through to the processing block
+            // which will handle per-column filtering.
             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-                if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-                    $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
-                } else {
-                    $colRepeats = 1;
-                }
-
-                for ($i = 0; $i < $colRepeats; ++$i) {
+                if ($colRepeats <= 1) {
                     StringHelper::stringIncrement($columnID);
+
+                    continue;
                 }
 
-                continue;
+                // Check if any column within this repeated group passes the filter
+                $anyColumnPasses = false;
+                $tempCol = $columnID;
+                for ($i = 0; $i < $colRepeats; ++$i) {
+                    if ($i > 0) {
+                        StringHelper::stringIncrement($tempCol);
+                    }
+                    if ($this->getReadFilter()->readCell($tempCol, $rowID, $worksheetName)) {
+                        $anyColumnPasses = true;
+
+                        break;
+                    }
+                }
+
+                if (!$anyColumnPasses) {
+                    for ($i = 0; $i < $colRepeats; ++$i) {
+                        StringHelper::stringIncrement($columnID);
+                    }
+
+                    continue;
+                }
+                // Fall through to process the cell, with per-column filter checks
             }
 
             // Initialize variables
@@ -796,12 +823,6 @@ class Ods extends BaseReader
                 $type = DataType::TYPE_FORMULA;
                 $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
                 $cellDataFormula = FormulaTranslator::convertToExcelFormulaValue($cellDataFormula);
-            }
-
-            if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-                $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
-            } else {
-                $colRepeats = 1;
             }
 
             for ($i = 0; $i < $colRepeats; ++$i) {
