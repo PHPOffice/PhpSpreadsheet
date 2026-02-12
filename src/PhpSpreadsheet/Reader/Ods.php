@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Closure;
 use Composer\Pcre\Preg;
 use DateTime;
 use DateTimeZone;
@@ -708,6 +709,13 @@ class Ods extends BaseReader
                     $type = str_replace('float', 'currency', $type);
                     $symbol = (string) $matches[0];
                 }
+                $customFormatting = '';
+                if ($this->formatCallback !== null) {
+                    $temp = ($this->formatCallback)($type, $allCellDataText);
+                    if ($temp !== '') {
+                        $customFormatting = $temp;
+                    }
+                }
 
                 switch ($type) {
                     case 'string':
@@ -820,6 +828,9 @@ class Ods extends BaseReader
                         break;
                     default:
                         $dataValue = null;
+                }
+                if ($customFormatting !== '') {
+                    $formatting = $customFormatting;
                 }
             } else {
                 $type = DataType::TYPE_NULL;
@@ -1163,5 +1174,14 @@ class Ods extends BaseReader
                 $spreadsheet->getActiveSheet()->mergeCells($cellRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
             }
         }
+    }
+
+    /** @var null|Closure(string, string):string */
+    private ?Closure $formatCallback = null;
+
+    /** @param Closure(string, string):string $formatCallback */
+    public function setFormatCallback(Closure $formatCallback): void
+    {
+        $this->formatCallback = $formatCallback;
     }
 }
