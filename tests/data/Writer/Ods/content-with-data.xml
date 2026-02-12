@@ -13,7 +13,18 @@
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
-        <style:style style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
+    <number:date-style style:name="N200">
+      <number:day/>
+      <number:text>/</number:text>
+      <number:month/>
+      <number:text>/</number:text>
+      <number:year/>
+      <number:text> </number:text>
+      <number:hours/>
+      <number:text>:</number:text>
+      <number:minutes number:style="long"/>
+    </number:date-style>
+    <style:style style:data-style-name="N200" style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
             <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
         </style:style>
@@ -92,8 +103,8 @@
                     <table:table-cell office:value="1 1" office:value-type="string" table:formula="of:=IF([.A3]; CONCAT([.A1]; &quot; &quot;; [.A2]); CONCAT([.A2]; &quot; &quot;; [.A1]))" table:style-name="ce10">
                         <text:p>1 1</text:p>
                     </table:table-cell>
-                    <table:table-cell office:value="42798.572060185" office:value-type="float" table:style-name="ce1">
-                        <text:p>42798.572060185</text:p>
+                    <table:table-cell office:date-value="2017-03-04T13:43:46" office:value-type="date" table:style-name="ce1">
+                        <text:p>4/3/17 13:43</text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>

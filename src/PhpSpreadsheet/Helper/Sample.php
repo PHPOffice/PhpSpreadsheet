@@ -131,14 +131,19 @@ class Sample
             $callStartTime = microtime(true);
             $writer->save($path);
             $this->logWrite($writer, $path, $callStartTime);
-            if ($this->isCli() === false) {
-                // @codeCoverageIgnoreStart
-                echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
-                // @codeCoverageIgnoreEnd
-            }
+            $this->addDownloadLink($path);
         }
 
         $this->logEndingNotes();
+    }
+
+    public function addDownloadLink(string $path): void
+    {
+        if ($this->isCli() === false) {
+            // @codeCoverageIgnoreStart
+            echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
+            // @codeCoverageIgnoreEnd
+        }
     }
 
     protected function isDirOrMkdir(string $folder): bool
