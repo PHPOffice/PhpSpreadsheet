@@ -702,6 +702,12 @@ class Ods extends BaseReader
                 $allCellDataText = implode("\n", $dataArray);
 
                 $type = $cellData->getAttributeNS($officeNs, 'value-type');
+                $symbol = '';
+                $leftHandCurrency = Preg::isMatch('/\$|£|￥/', $allCellDataText, $matches);
+                if ($leftHandCurrency) {
+                    $type = str_replace('float', 'currency', $type);
+                    $symbol = (string) $matches[0];
+                }
 
                 switch ($type) {
                     case 'string':
@@ -738,10 +744,13 @@ class Ods extends BaseReader
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
                         $currency = $cellData->getAttributeNS($officeNs, 'currency');
-                        if ($currency === 'USD') {
+                        if ($leftHandCurrency) {
                             $typeValue = 'currency';
                             $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
-                        } elseif ($currency === 'EUR' || str_contains($allCellDataText, '€')) {
+                            if ($symbol !== '$') {
+                                $formatting = str_replace('$', $symbol, $formatting);
+                            }
+                        } elseif (str_contains($allCellDataText, '€')) {
                             $typeValue = 'currency';
                             $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_EUR : NumberFormat::FORMAT_CURRENCY_EUR_INTEGER;
                         }
@@ -751,20 +760,16 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                        if (str_starts_with($allCellDataText, '$')) {
-                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
-                        } else {
-                            if ($dataValue !== floor($dataValue)) {
-                                // do nothing
-                            } elseif (substr($allCellDataText, -2, 1) === '.') {
-                                $formatting = NumberFormat::FORMAT_NUMBER_0;
-                            } elseif (substr($allCellDataText, -3, 1) === '.') {
-                                $formatting = NumberFormat::FORMAT_NUMBER_00;
-                            }
-                            if (floor($dataValue) == $dataValue) {
-                                if ($dataValue == (int) $dataValue) {
-                                    $dataValue = (int) $dataValue;
-                                }
+                        if ($dataValue !== floor($dataValue)) {
+                            // do nothing
+                        } elseif (substr($allCellDataText, -2, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_NUMBER_0;
+                        } elseif (substr($allCellDataText, -3, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_NUMBER_00;
+                        }
+                        if (floor($dataValue) == $dataValue) {
+                            if ($dataValue == (int) $dataValue) {
+                                $dataValue = (int) $dataValue;
                             }
                         }
 

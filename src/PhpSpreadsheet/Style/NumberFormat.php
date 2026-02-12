@@ -92,8 +92,14 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME_INTERVAL_HMS,
     ];
 
-    const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
-    const FORMAT_CURRENCY_USD = '$#,##0.00_-';
+    private const FORMAT_CURRENCY_AMOUNT_INTEGER = '#,##0_-';
+    private const FORMAT_CURRENCY_AMOUNT_FLOAT = '#,##0.00_-';
+    const FORMAT_CURRENCY_USD_INTEGER = '$' . self::FORMAT_CURRENCY_AMOUNT_INTEGER;
+    const FORMAT_CURRENCY_USD = '$' . self::FORMAT_CURRENCY_AMOUNT_FLOAT;
+    const FORMAT_CURRENCY_GBP_INTEGER = '£' . self::FORMAT_CURRENCY_AMOUNT_INTEGER;
+    const FORMAT_CURRENCY_GBP = '£' . self::FORMAT_CURRENCY_AMOUNT_FLOAT;
+    const FORMAT_CURRENCY_YEN_YUAN_INTEGER = '￥' . self::FORMAT_CURRENCY_AMOUNT_INTEGER;
+    const FORMAT_CURRENCY_YEN_YUAN = '￥' . self::FORMAT_CURRENCY_AMOUNT_FLOAT;
     const FORMAT_CURRENCY_EUR_INTEGER = '#,##0_-[$€]';
     const FORMAT_CURRENCY_EUR = '#,##0.00_-[$€]';
     const FORMAT_ACCOUNTING_USD = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';

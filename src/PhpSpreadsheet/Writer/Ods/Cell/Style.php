@@ -365,7 +365,7 @@ class Style
         if (array_key_exists($numFmt, $this->numFmtIndexes)) {
             return;
         }
-        $method = self::NUMBER_FORMAT_METHODS[$numFmt] ?? $this->additionalNumberFormats[$numFmt] ?? null;
+        $method = $this->additionalNumberFormats[$numFmt] ?? self::NUMBER_FORMAT_METHODS[$numFmt] ?? null;
         if ($method === null) {
             return;
         }
@@ -442,6 +442,10 @@ class Style
         NumberFormat::FORMAT_CURRENCY_EUR_INTEGER => [self::class, 'formatCurrencyEurInteger'],
         NumberFormat::FORMAT_CURRENCY_EUR => [self::class, 'formatCurrencyEur'],
         NumberFormat::FORMAT_ACCOUNTING_EUR => [self::class, 'formatCurrencyEur'], // ACCOUNTING and CURRENCY are same in Ods
+        NumberFormat::FORMAT_CURRENCY_GBP_INTEGER => [self::class, 'formatCurrencyGbpInteger'],
+        NumberFormat::FORMAT_CURRENCY_GBP => [self::class, 'formatCurrencyGbp'],
+        NumberFormat::FORMAT_CURRENCY_YEN_YUAN_INTEGER => [self::class, 'formatCurrencyYenYuanInteger'],
+        NumberFormat::FORMAT_CURRENCY_YEN_YUAN => [self::class, 'formatCurrencyYenYuan'],
     ];
 
     protected static function formatNumber(self $obj, string $name): void
@@ -984,11 +988,11 @@ class Style
         $obj->writer->endElement(); // number:date-style
     }
 
-    protected static function formatCurrencyUsdInteger(self $obj, string $name): void
+    protected static function formatCurrencyUsdInteger(self $obj, string $name, string $symbol = '$'): void
     {
         $obj->writer->startElement('number:number-style'); // not currency-style
         $obj->writer->writeAttribute('style:name', $name);
-        $obj->writer->WriteElement('number:text', '$');
+        $obj->writer->WriteElement('number:text', $symbol);
         $obj->writer->startElement('number:number');
         $decimals = '0';
         $obj->writer->writeAttribute('number:decimal-places', $decimals);
@@ -1003,12 +1007,22 @@ class Style
         $obj->writer->endElement(); // number:number-style
     }
 
-    protected static function formatCurrencyUsd(self $obj, string $name): void
+    protected static function formatCurrencyGbpInteger(self $obj, string $name): void
+    {
+        self::formatCurrencyUsdInteger($obj, $name, '£');
+    }
+
+    protected static function formatCurrencyYenYuanInteger(self $obj, string $name): void
+    {
+        self::formatCurrencyUsdInteger($obj, $name, '￥');
+    }
+
+    protected static function formatCurrencyUsd(self $obj, string $name, string $symbol = '$'): void
     {
         // Ods uses same format for Currency and Accounting
         $obj->writer->startElement('number:number-style'); // NOT currency-style
         $obj->writer->writeAttribute('style:name', $name);
-        $obj->writer->WriteElement('number:text', '$');
+        $obj->writer->WriteElement('number:text', $symbol);
         $obj->writer->startElement('number:number');
         $decimals = '2';
         $obj->writer->writeAttribute('number:decimal-places', $decimals);
@@ -1018,6 +1032,16 @@ class Style
         $obj->writer->endElement(); // number:number
         $obj->writer->writeElement('number:text', ' ');
         $obj->writer->endElement(); // number:currency-style
+    }
+
+    protected static function formatCurrencyGbp(self $obj, string $name): void
+    {
+        self::formatCurrencyUsd($obj, $name, '£');
+    }
+
+    protected static function formatCurrencyYenYuan(self $obj, string $name): void
+    {
+        self::formatCurrencyUsd($obj, $name, '￥');
     }
 
     protected static function formatCurrencyEurInteger(self $obj, string $name): void

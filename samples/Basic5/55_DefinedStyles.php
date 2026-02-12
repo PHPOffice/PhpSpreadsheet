@@ -50,6 +50,10 @@ $array = [
     ['CURRENCY_USD', 1234.56, NumberFormat::FORMAT_CURRENCY_USD],
     ['CURRENCY_EUR_INTEGER', 1234.56, NumberFormat::FORMAT_CURRENCY_EUR_INTEGER],
     ['CURRENCY_EUR', 1234.56, NumberFormat::FORMAT_CURRENCY_EUR],
+    ['CURRENCY_GBP_INTEGER', 1234.56, NumberFormat::FORMAT_CURRENCY_GBP_INTEGER],
+    ['CURRENCY_GBP', 1234.56, NumberFormat::FORMAT_CURRENCY_GBP],
+    ['CURRENCY_YEN_YUAN_INTEGER', 1234.56, NumberFormat::FORMAT_CURRENCY_YEN_YUAN_INTEGER],
+    ['CURRENCY_YEN_YUAN', 1234.56, NumberFormat::FORMAT_CURRENCY_YEN_YUAN],
     ['ACCOUNTING_USD', 1234.56, NumberFormat::FORMAT_CURRENCY_USD],
     ['ACCOUNTING_EUR', 1234.56, NumberFormat::FORMAT_CURRENCY_EUR],
     ['CUSTOM1', 1234.56, '0.000'],
@@ -106,7 +110,7 @@ function redBrackets(Style $obj, string $name): void
     $writer->startElement('style:text-properties');
     $writer->writeAttribute('fo:color', '#FF0000');
     $writer->endElement(); // style:text-properties
-    $writer->writeElement('number:text', '(');
+    $writer->writeElement('number:text', '($');
     $writer->startElement('number:number');
     $writer->writeAttribute('number:decimal-places', '2');
     $writer->writeAttribute('number:min-decimal-places', '2');
