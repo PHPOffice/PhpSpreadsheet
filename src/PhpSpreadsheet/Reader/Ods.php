@@ -1313,7 +1313,13 @@ class Ods extends BaseReader
         if ($temp === 'true') {
             $fonts['autoColor'] = true;
         }
-        $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-type') ?: (($textProperty->getAttributeNs($styleNs, 'text-underline-style') === '') ? '' : 'single');
+        $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-type');
+        if ($temp === '') {
+            $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-style');
+            if ($temp !== '' && $temp !== 'none') {
+                $temp = 'single';
+            }
+        }
         if ($temp === 'single' || $temp === 'double') {
             $fonts['underline'] = $temp;
         }
