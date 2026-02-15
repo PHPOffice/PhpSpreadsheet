@@ -211,8 +211,8 @@ class OdsTest extends TestCase
 
         $style = $firstSheet->getCell('K3')->getStyle();
 
-        self::assertEquals('none', $style->getFill()->getFillType());
-        self::assertEquals('FFFFFFFF', $style->getFill()->getStartColor()->getARGB());
+        self::assertEquals('solid', $style->getFill()->getFillType());
+        self::assertEquals('FFff0000', $style->getFill()->getStartColor()->getARGB());
         self::assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
         $spreadsheet->disconnectWorksheets();
     }

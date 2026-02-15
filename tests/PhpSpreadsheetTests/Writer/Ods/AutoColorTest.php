@@ -48,9 +48,9 @@ class AutoColorTest extends TestCase
         if ($contents === false) {
             self::fail('Unable to open file');
         } else {
-            self::assertStringContainsString('<style:text-properties style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11.0pt"/>', $contents);
-            self::assertStringContainsString('<style:text-properties fo:font-weight="bold" style:font-weight-complex="bold" style:font-weight-asian="bold" style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11.0pt"/>', $contents);
-            self::assertStringContainsString('<style:text-properties fo:font-style="italic" style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11.0pt"/>', $contents);
+            self::assertStringContainsString('<style:text-properties style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11pt"/>', $contents);
+            self::assertStringContainsString('<style:text-properties fo:font-weight="bold" style:font-weight-complex="bold" style:font-weight-asian="bold" style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11pt"/>', $contents);
+            self::assertStringContainsString('<style:text-properties fo:font-style="italic" style:use-window-font-color="true" fo:font-family="Calibri" fo:font-size="11pt"/>', $contents);
         }
     }
 }

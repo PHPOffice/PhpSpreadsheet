@@ -65,10 +65,14 @@ class Style
     {
         switch ($fill->getFillType()) {
             case Fill::FILL_SOLID:
-                $this->writer->writeAttribute('fo:background-color', sprintf(
-                    '#%s',
-                    strtolower($fill->getStartColor()->getRGB())
-                ));
+                $this->writer->writeAttribute(
+                    'fo:background-color',
+                    sprintf(
+                        '#%s',
+                        // no idea why strtolower, but it doesn't hurt
+                        strtolower($fill->getStartColor()->getRGB())
+                    )
+                );
 
                 break;
             case Fill::FILL_GRADIENT_LINEAR:
@@ -212,7 +216,7 @@ class Style
         };
     }
 
-    protected function writeTextProperties(CellStyle $style): void
+    public function writeTextProperties(CellStyle $style): void
     {
         // Font
         $this->writer->startElement('style:text-properties');
@@ -247,16 +251,27 @@ class Style
         }
 
         if ($size = $font->getSize()) {
-            $this->writer->writeAttribute('fo:font-size', sprintf('%.1Fpt', $size));
+            $this->writer->writeAttribute('fo:font-size', ($size == (int) $size) ? sprintf('%dpt', $size) : sprintf('%.1Fpt', $size));
         }
 
         if ($font->getUnderline() && $font->getUnderline() !== Font::UNDERLINE_NONE) {
-            $this->writer->writeAttribute('style:text-underline-style', 'solid');
-            $this->writer->writeAttribute('style:text-underline-width', 'auto');
-            $this->writer->writeAttribute('style:text-underline-color', 'font-color');
+            $this->writer
+                ->writeAttribute('style:text-underline-style', 'solid');
+            $this->writer
+                ->writeAttribute('style:text-underline-width', 'auto');
+            $this->writer
+                ->writeAttribute('style:text-underline-color', 'font-color');
 
             $underline = $this->mapUnderlineStyle($font);
-            $this->writer->writeAttribute('style:text-underline-type', $underline);
+            $this->writer
+                ->writeAttribute('style:text-underline-type', $underline);
+        }
+
+        if ($font->getStrikethrough()) {
+            $this->writer
+                ->writeAttribute('style:text-line-through-style', 'solid');
+            $this->writer
+                ->writeAttribute('style:text-line-through-type', 'single');
         }
 
         $this->writer->endElement(); // Close style:text-properties

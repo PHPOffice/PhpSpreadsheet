@@ -25,6 +25,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
@@ -246,6 +247,25 @@ class Ods extends BaseReader
         return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
+    /** @var array<string,
+     *  array{
+     *     font?:array{
+     *       autoColor?: true,
+     *       bold?: true,
+     *       color?: array{rgb: string},
+     *       italic?: true,
+     *       name?: non-empty-string,
+     *       size?: float|int,
+     *       strikethrough?: true,
+     *       underline?: 'double'|'single',
+     *    },
+     *    fill?:array{
+     *      fillType?: string,
+     *      startColor?: array{rgb: string},
+     *    }
+     *  }> */
+    private array $allStyles;
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
@@ -273,11 +293,59 @@ class Ods extends BaseReader
 
         // Styles
 
+        $this->allStyles = [];
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
             $this->getSecurityScannerOrThrow()
                 ->scan($zip->getFromName('styles.xml'))
         );
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
+        $styleNs = (string) $dom->lookupNamespaceUri('style');
+        $fontNs = (string) $dom->lookupNamespaceUri('fo');
+        $automaticStyle0 = $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-cell') {
+                $fills = $fonts = [];
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $fills = $this->getFillStyles($tableCellProperty, $styleNs, $fontNs);
+                }
+                if ($styleName !== '') {
+                    $allStyles = [];
+                    if (!empty($fonts)) {
+                        $this->allStyles[$styleName]['font'] = $fonts;
+                        $allStyles['font'] = $fonts;
+                    }
+                    if (!empty($fills)) {
+                        $this->allStyles[$styleName]['fill'] = $fills;
+                        $allStyles['fill'] = $fills;
+                    }
+                    /*if ($styleName === 'Default' && !empty($allStyles)) {
+                        $spreadsheet->getDefaultStyle()
+                            ->applyFromArray($allStyles);
+                    }*/
+                }
+            }
+        }
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-cell') {
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                if (!empty($fonts)) {
+                    $spreadsheet->getDefaultStyle()
+                        ->getFont()
+                        ->applyFromArray($fonts);
+                }
+            }
+        }
 
         $pageSettings = new PageSettings($dom);
 
@@ -289,11 +357,9 @@ class Ods extends BaseReader
                 ->scan($zip->getFromName(self::INITIAL_FILE))
         );
 
-        $officeNs = (string) $dom->lookupNamespaceUri('office');
         $tableNs = (string) $dom->lookupNamespaceUri('table');
         $textNs = (string) $dom->lookupNamespaceUri('text');
         $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
-        $styleNs = (string) $dom->lookupNamespaceUri('style');
 
         $pageSettings->readStyleCrossReferences($dom);
 
@@ -311,6 +377,23 @@ class Ods extends BaseReader
                 if ($tcprop !== null) {
                     $columnWidth = $tcprop->getAttributeNs($styleNs, 'column-width');
                     $columnWidths[$styleName] = $columnWidth;
+                }
+            }
+            if ($styleFamily === 'table-cell') {
+                $fonts = $fills = [];
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $fills = $this->getFillStyles($tableCellProperty, $styleNs, $fontNs);
+                }
+                if ($styleName !== '') {
+                    if (!empty($fonts)) {
+                        $this->allStyles[$styleName]['font'] = $fonts;
+                    }
+                    if (!empty($fills)) {
+                        $this->allStyles[$styleName]['fill'] = $fills;
+                    }
                 }
             }
         }
@@ -349,7 +432,8 @@ class Ods extends BaseReader
                     // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                     // formula cells... during the load, all formulae should be correct, and we're simply
                     // bringing the worksheet name in line with the formula, not the reverse
-                    $spreadsheet->getActiveSheet()->setTitle((string) $worksheetName, false, false);
+                    $spreadsheet->getActiveSheet()
+                        ->setTitle((string) $worksheetName, false, false);
                 }
 
                 // Go through every child of table element
@@ -570,6 +654,7 @@ class Ods extends BaseReader
         } else {
             $rowRepeats = 1;
         }
+        $worksheet = $spreadsheet->getSheetByName($worksheetName);
 
         $columnID = 'A';
         /** @var DOMElement|DOMText $cellData */
@@ -582,6 +667,7 @@ class Ods extends BaseReader
             } else {
                 $colRepeats = 1;
             }
+            $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
 
             // When a cell has number-columns-repeated, check if ANY column in the
             // repeated range passes the read filter. If not, skip the entire group.
@@ -616,6 +702,10 @@ class Ods extends BaseReader
                     continue;
                 }
                 // Fall through to process the cell, with per-column filter checks
+            }
+            if ($worksheet !== null && $cellData->hasChildNodes() && isset($this->allStyles[$styleName])) {
+                $worksheet->getStyle("$columnID$rowID")
+                    ->applyFromArray($this->allStyles[$styleName]);
             }
 
             // Initialize variables
@@ -1183,5 +1273,72 @@ class Ods extends BaseReader
     public function setFormatCallback(Closure $formatCallback): void
     {
         $this->formatCallback = $formatCallback;
+    }
+
+    /** @return array{
+     *   autoColor?: true,
+     *   bold?: true,
+     *   color?: array{rgb: string},
+     *   italic?: true,
+     *   name?: non-empty-string,
+     *   size?: float|int,
+     *   strikethrough?: true,
+     *   underline?: 'double'|'single',
+     * }
+     */
+    protected function getFontStyles(DOMElement $textProperty, string $styleNs, string $fontNs): array
+    {
+        $fonts = [];
+        $temp = $textProperty->getAttributeNs($styleNs, 'font-name') ?: $textProperty->getAttributeNs($fontNs, 'font-family');
+        if ($temp !== '') {
+            $fonts['name'] = $temp;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-size');
+        if ($temp !== '' && str_ends_with($temp, 'pt')) {
+            $fonts['size'] = (float) substr($temp, 0, -2);
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-style');
+        if ($temp === 'italic') {
+            $fonts['italic'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-weight');
+        if ($temp === 'bold') {
+            $fonts['bold'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'color');
+        if (Preg::isMatch('/^#[a-f0-9]{6}$/i', $temp)) {
+            $fonts['color'] = ['rgb' => substr($temp, 1)];
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'use-window-font-color');
+        if ($temp === 'true') {
+            $fonts['autoColor'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-type') ?: (($textProperty->getAttributeNs($styleNs, 'text-underline-style') === '') ? '' : 'single');
+        if ($temp === 'single' || $temp === 'double') {
+            $fonts['underline'] = $temp;
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'text-line-through-type');
+        if ($temp !== '') {
+            $fonts['strikethrough'] = true;
+        }
+
+        return $fonts;
+    }
+
+    /** @return array{
+     *   fillType?: string,
+     *   startColor?: array{rgb: string},
+     * }
+     */
+    protected function getFillStyles(DOMElement $tableCellProperties, string $styleNs, string $fontNs): array
+    {
+        $fills = [];
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'background-color');
+        if (Preg::isMatch('/^#[a-f0-9]{6}$/i', $temp)) {
+            $fills['fillType'] = Fill::FILL_SOLID;
+            $fills['startColor'] = ['rgb' => substr($temp, 1)];
+        }
+
+        return $fills;
     }
 }
