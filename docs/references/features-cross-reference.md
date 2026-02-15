@@ -564,7 +564,7 @@
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Wrapping</td>
+        <td style="padding-left: 2em;">Wrapping</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -575,7 +575,7 @@
         <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Shrink-to-Fit</td>
+        <td style="padding-left: 2em;">Shrink-to-Fit</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -586,7 +586,7 @@
         <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Indent</td>
+        <td style="padding-left: 2em;">Indent</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -612,7 +612,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -1326,7 +1326,7 @@
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Wrapping</td>
+        <td style="padding-left: 2em;">Wrapping</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -1335,7 +1335,7 @@
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Shrink-to-Fit</td>
+        <td style="padding-left: 2em;">Shrink-to-Fit</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -1344,7 +1344,7 @@
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Indent</td>
+        <td style="padding-left: 2em;">Indent</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -1365,10 +1365,10 @@
         <td style="padding-left: 2em;">Patterned</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
-        <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Font Attributes</td>
