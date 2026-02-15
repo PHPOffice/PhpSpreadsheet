@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
+use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -107,6 +108,17 @@ class FontStyleTest extends AbstractFunctional
                 ->getStartColor()
                 ->getRgb()
         );
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function testNoExplicitDefaultStyle(): void
+    {
+        $reader = new OdsReader();
+        $infile = 'tests/data/Reader/Ods/odsstyles5.ods';
+        $spreadsheet = $reader->load($infile);
+        self::assertSame('Times New Roman', $spreadsheet->getDefaultStyle()->getFont()->getName());
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Times New Roman', $sheet->getStyle('A1')->getFont()->getName());
         $spreadsheet->disconnectWorksheets();
     }
 }

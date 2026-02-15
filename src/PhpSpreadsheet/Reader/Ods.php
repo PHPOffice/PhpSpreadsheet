@@ -302,7 +302,24 @@ class Ods extends BaseReader
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $styleNs = (string) $dom->lookupNamespaceUri('style');
         $fontNs = (string) $dom->lookupNamespaceUri('fo');
+
+        $defaultStyleSet = false;
         $automaticStyle0 = $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-cell') {
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                if (!empty($fonts)) {
+                    $defaultStyleSet = true;
+                    $spreadsheet->getDefaultStyle()
+                        ->getFont()
+                        ->applyFromArray($fonts);
+                }
+            }
+        }
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
@@ -325,24 +342,11 @@ class Ods extends BaseReader
                         $this->allStyles[$styleName]['fill'] = $fills;
                         $allStyles['fill'] = $fills;
                     }
-                    /*if ($styleName === 'Default' && !empty($allStyles)) {
+                    if (!$defaultStyleSet && $styleName === 'Default' && isset($allStyles['font'])) {
                         $spreadsheet->getDefaultStyle()
-                            ->applyFromArray($allStyles);
-                    }*/
-                }
-            }
-        }
-        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
-        foreach ($automaticStyles as $automaticStyle) {
-            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
-            if ($styleFamily === 'table-cell') {
-                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
-                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
-                }
-                if (!empty($fonts)) {
-                    $spreadsheet->getDefaultStyle()
-                        ->getFont()
-                        ->applyFromArray($fonts);
+                            ->getFont()
+                            ->applyFromArray($allStyles['font']);
+                    }
                 }
             }
         }
