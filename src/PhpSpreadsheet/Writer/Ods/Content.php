@@ -225,9 +225,11 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_FORMULA:
                     $formulaValue = $cell->getValueString();
+                    $formulaValueCalc = $formulaValue;
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
                             $formulaValue = $cell->getCalculatedValueString();
+                            $formulaValueCalc = $cell->getCalculatedValue();
                         } catch (CalculationException $e) {
                             // don't do anything
                         }
@@ -249,12 +251,28 @@ class Content extends WriterPart
                         }
                     }
                     $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
+                    if (is_bool($formulaValueCalc)) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'boolean'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:boolean-value',
+                            $formulaValueCalc ? 'true' : 'false'
+                        );
+                        $objWriter->writeElement('text:p', $formulaValueCalc ? 'TRUE' : 'FALSE');
+
+                        break;
+                    }
                     if (!is_numeric($formulaValue)) {
                         $objWriter->writeAttribute(
                             'office:value-type',
                             'string'
                         );
-                        $objWriter->writeAttribute('office:value', $formulaValue);
+                        $objWriter->writeAttribute(
+                            'office:string-value',
+                            $formulaValue
+                        );
                         $objWriter->writeElement('text:p', $formulaValue);
 
                         break;

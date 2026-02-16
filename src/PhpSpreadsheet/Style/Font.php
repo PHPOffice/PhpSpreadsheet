@@ -177,7 +177,24 @@ class Font extends Supervisor
      * );
      * </code>
      *
-     * @param array{name?: string, latin?: string, eastAsian?: string, complexScript?: string, bold?: bool, italic?: bool, superscript?: bool, subscript?: bool, underline?: bool|string, strikethrough?: bool, color?: string[], size?: ?int, chartColor?: ChartColor, scheme?: string, cap?: string, autoColor?: bool} $styleArray Array containing style information
+     * @param array{
+     *   autoColor?: bool,
+     *   bold?: bool,
+     *   cap?: string,
+     *   chartColor?: ChartColor,
+     *   color?: string[],
+     *   complexScript?: string,
+     *   eastAsian?: string,
+     *   italic?: bool,
+     *   latin?: string,
+     *   name?: string,
+     *   scheme?: string,
+     *   size?: null|float|int,
+     *   strikethrough?: bool,
+     *   superscript?: bool,
+     *   subscript?: bool,
+     *   underline?: bool|string,
+     * } $styleArray Array containing style information
      *
      * @return $this
      */

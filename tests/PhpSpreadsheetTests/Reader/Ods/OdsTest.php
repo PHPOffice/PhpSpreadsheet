@@ -21,8 +21,6 @@ class OdsTest extends TestCase
 
     private const ODS_DATA_FILE = 'tests/data/Reader/Ods/data.ods';
 
-    private string $incompleteMessage = 'Features not implemented yet';
-
     private string $timeZone;
 
     protected function setUp(): void
@@ -211,8 +209,8 @@ class OdsTest extends TestCase
 
         $style = $firstSheet->getCell('K3')->getStyle();
 
-        self::assertEquals('none', $style->getFill()->getFillType());
-        self::assertEquals('FFFFFFFF', $style->getFill()->getStartColor()->getARGB());
+        self::assertEquals('solid', $style->getFill()->getFillType());
+        self::assertEquals('FFff0000', $style->getFill()->getStartColor()->getARGB());
         self::assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
         $spreadsheet->disconnectWorksheets();
     }
@@ -259,21 +257,23 @@ class OdsTest extends TestCase
 
     public function testReadBoldItalicUnderline(): void
     {
-        if ($this->incompleteMessage !== '') {
-            self::markTestIncomplete($this->incompleteMessage);
-        }
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Font styles
 
         $style = $firstSheet->getCell('A1')->getStyle();
-        self::assertEquals('FF000000', $style->getFont()->getColor()->getARGB());
+        self::assertEquals('FFff0000', $style->getFont()->getColor()->getARGB());
         self::assertEquals(11, $style->getFont()->getSize());
         self::assertEquals(Font::UNDERLINE_NONE, $style->getFont()->getUnderline());
 
-        $style = $firstSheet->getCell('E3')->getStyle();
+        $style = $firstSheet->getCell('A3')->getStyle();
         self::assertEquals(Font::UNDERLINE_SINGLE, $style->getFont()->getUnderline());
+        $style = $firstSheet->getCell('A7')->getStyle();
+        self::assertEquals(Font::UNDERLINE_DOUBLE, $style->getFont()->getUnderline());
+        self::assertFalse($style->getFont()->getStrikethrough());
+        $style = $firstSheet->getStyle('A8');
+        self::assertTrue($style->getFont()->getStrikethrough());
 
         $style = $firstSheet->getCell('E1')->getStyle();
         self::assertTrue($style->getFont()->getBold());
