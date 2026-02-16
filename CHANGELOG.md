@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Ods Reader column misalignment. [Issue #4802](https://github.com/PHPOffice/PhpSpreadsheet/issues/4802) [PR #4803](https://github.com/PHPOffice/PhpSpreadsheet/pull/4803)
 - Image Css size in millimeters. [Issue #4800](https://github.com/PHPOffice/PhpSpreadsheet/issues/4800) [PR #4801](https://github.com/PHPOffice/PhpSpreadsheet/pull/4801)
 - Ods improved handling of number formats. [Issue #3961](https://github.com/PHPOffice/PhpSpreadsheet/issues/3961) [Issue #4798](https://github.com/PHPOffice/PhpSpreadsheet/issues/4798) [PR #4806](https://github.com/PHPOffice/PhpSpreadsheet/pull/4806)
+- Ods Reader fonts and fills. [Issue #2622](https://github.com/PHPOffice/PhpSpreadsheet/issues/2622) [Issue #1191](https://github.com/PHPOffice/PhpSpreadsheet/issues/1191) [PR #4810](https://github.com/PHPOffice/PhpSpreadsheet/pull/4810)
 
 ## 2026-01-10 - 5.4.0
 

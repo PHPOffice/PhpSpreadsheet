@@ -1328,7 +1328,7 @@ class Ods extends BaseReader
             $fonts['underline'] = $temp;
         }
         $temp = $textProperty->getAttributeNs($styleNs, 'text-line-through-type');
-        if ($temp !== '') {
+        if ($temp !== '' && $temp !== 'none') {
             $fonts['strikethrough'] = true;
         }
 

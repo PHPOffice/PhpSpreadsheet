@@ -271,6 +271,9 @@ class OdsTest extends TestCase
         self::assertEquals(Font::UNDERLINE_SINGLE, $style->getFont()->getUnderline());
         $style = $firstSheet->getCell('A7')->getStyle();
         self::assertEquals(Font::UNDERLINE_DOUBLE, $style->getFont()->getUnderline());
+        self::assertFalse($style->getFont()->getStrikethrough());
+        $style = $firstSheet->getStyle('A8');
+        self::assertTrue($style->getFont()->getStrikethrough());
 
         $style = $firstSheet->getCell('E1')->getStyle();
         self::assertTrue($style->getFont()->getBold());

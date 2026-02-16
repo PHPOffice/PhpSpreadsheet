@@ -10,4 +10,4 @@ $spreadsheet = IOFactory::load($filename);
 $helper->logRead('Ods', $filename, $callStartTime);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Ods']);
