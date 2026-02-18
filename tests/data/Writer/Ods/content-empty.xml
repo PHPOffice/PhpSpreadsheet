@@ -7,7 +7,7 @@
             <style:table-properties table:display="true" />
         </style:style>
         <style:style style:name="ce0" style:family="table-cell" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt" />
         </style:style>
     </office:automatic-styles>

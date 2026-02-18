@@ -231,7 +231,7 @@ class Content extends WriterPart
                             $formulaValue = $cell->getCalculatedValueString();
                             $formulaValueCalc = $cell->getCalculatedValue();
                         } catch (CalculationException $e) {
-                            // don't do anything
+                            $formulaValue = $formulaValueCalc = '#CALC!';
                         }
                     }
                     if (isset($attributes['ref'])) {

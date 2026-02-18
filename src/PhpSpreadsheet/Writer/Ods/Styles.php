@@ -64,6 +64,11 @@ class Styles extends WriterPart
         $writer2 = new Cell\Style($objWriter);
         $writer2->writeTextProperties($defaultStyle);
         $objWriter->endElement(); // style:default-style
+        $objWriter->startElement('style:style');
+        $objWriter->writeAttribute('style:name', 'Default');
+        $objWriter->writeAttribute('style:family', 'table-cell');
+        $writer2->writeCellProperties($defaultStyle);
+        $objWriter->endElement(); // style:style 'Default' table-cell
         $objWriter->endElement(); // office:styles
         $objWriter->startElement('office:automatic-styles');
         $objWriter->startElement('style:page-layout');

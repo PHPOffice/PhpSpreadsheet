@@ -365,7 +365,7 @@ class Alignment extends Supervisor
                 $this->textRotation = $angleInDegrees;
             }
         } else {
-            throw new PhpSpreadsheetException('Text rotation should be a value between -90 and 90.');
+            throw new PhpSpreadsheetException("Text rotation $angleInDegrees should be a value between -90 and 90.");
         }
 
         return $this;
