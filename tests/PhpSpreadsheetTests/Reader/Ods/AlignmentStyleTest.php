@@ -55,6 +55,9 @@ class AlignmentStyleTest extends AbstractFunctional
         $sheet->getCell('A12')->setValue('readorder2');
         $sheet->getStyle('A12')->getAlignment()
             ->setReadOrder(Alignment::READORDER_LTR);
+        $sheet->getCell('A13')->setValue('vertjust');
+        $sheet->getStyle('A13')->getAlignment()
+            ->setVertical(Alignment::VERTICAL_JUSTIFY);
 
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
         $spreadsheetOld->disconnectWorksheets();
@@ -125,6 +128,11 @@ class AlignmentStyleTest extends AbstractFunctional
             Alignment::READORDER_LTR,
             $newSheet->getStyle('A12')->getAlignment()
                 ->getReadOrder()
+        );
+        self::assertSame(
+            Alignment::VERTICAL_JUSTIFY,
+            $newSheet->getStyle('A13')->getAlignment()
+                ->getVertical()
         );
 
         $spreadsheet->disconnectWorksheets();
