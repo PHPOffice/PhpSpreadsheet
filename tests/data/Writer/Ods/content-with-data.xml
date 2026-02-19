@@ -10,7 +10,7 @@
             <style:table-properties table:display="true" />
         </style:style>
         <style:style style:family="table-cell" style:name="ce0" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>
         </style:style>
     <number:date-style style:name="N200">
@@ -25,43 +25,43 @@
       <number:minutes number:style="long"/>
     </number:date-style>
     <style:style style:data-style-name="N200" style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce2" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties style:font-weight-asian="bold" style:font-weight-complex="bold" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt" fo:font-weight="bold"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce3" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt" fo:font-style="italic"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce4" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="11pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce5" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="14pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce6" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce7" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ffffff"/>
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="#ffffff"/>
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce8" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="#ff0000"/>
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce9" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="#ff0000"/>
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="single" style:text-underline-width="auto" fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14pt"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce10" style:parent-style-name="Default">
-            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:table-cell-properties style:rotation-align="none" style:rotation-angle="0" style:vertical-align="bottom" fo:background-color="transparent"/>
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="double" style:text-underline-width="auto" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>
         </style:style>
     </office:automatic-styles>

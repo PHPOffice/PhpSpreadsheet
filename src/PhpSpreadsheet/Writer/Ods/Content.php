@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -231,7 +232,7 @@ class Content extends WriterPart
                             $formulaValue = $cell->getCalculatedValueString();
                             $formulaValueCalc = $cell->getCalculatedValue();
                         } catch (CalculationException $e) {
-                            // don't do anything
+                            $formulaValue = $formulaValueCalc = ExcelError::CALC();
                         }
                     }
                     if (isset($attributes['ref'])) {

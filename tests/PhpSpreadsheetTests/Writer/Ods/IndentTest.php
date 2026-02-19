@@ -42,14 +42,14 @@ class IndentTest extends TestCase
         $xml = $content->write();
         self::assertStringContainsString(
             '<style:style style:name="ce0" style:family="table-cell" style:parent-style-name="Default">'
-                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-align="none"/>'
+                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-angle="0" style:rotation-align="none" fo:background-color="transparent"/>'
                 . '<style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>'
                 . '</style:style>',
             $xml
         );
         self::assertStringContainsString(
             '<style:style style:name="ce1" style:family="table-cell" style:parent-style-name="Default">'
-                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-align="none"/>'
+                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-angle="0" style:rotation-align="none" fo:background-color="transparent"/>'
                 . '<style:paragraph-properties fo:margin-left="0.2086in"/>' // fo:margin-left is what we're looking for
                 . '<style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>'
                 . '</style:style>',

@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
@@ -75,12 +76,18 @@ class Style
                 );
 
                 break;
-            case Fill::FILL_GRADIENT_LINEAR:
-            case Fill::FILL_GRADIENT_PATH:
-                /// TODO :: To be implemented
-                break;
             case Fill::FILL_NONE:
-            default:
+                $this->writer->writeAttribute(
+                    'fo:background-color',
+                    'transparent'
+                );
+
+                break;
+            //case Fill::FILL_GRADIENT_LINEAR:
+            //case Fill::FILL_GRADIENT_PATH:
+            // TODO :: To be implemented
+            //break;
+            //default:
         }
     }
 
@@ -158,7 +165,14 @@ class Style
         return 'solid';
     }
 
-    private function writeCellProperties(CellStyle $style): void
+    // 2d array, 1st index is locked, 2nd is hidden
+    private const PROTECTION_MAP = [
+        Protection::PROTECTION_PROTECTED => [Protection::PROTECTION_PROTECTED => 'protected formula-hidden', Protection::PROTECTION_UNPROTECTED => 'protected'],
+        Protection::PROTECTION_UNPROTECTED => [Protection::PROTECTION_PROTECTED => 'formula-hidden', Protection::PROTECTION_UNPROTECTED => 'none'],
+    ];
+
+    /** @internal */
+    public function writeCellProperties(CellStyle $style): void
     {
         // Align
         $hAlign = $style->getAlignment()->getHorizontal();
@@ -167,6 +181,8 @@ class Style
         $wrap = $style->getAlignment()->getWrapText();
         $indent = $style->getAlignment()->getIndent();
         $readOrder = $style->getAlignment()->getReadOrder();
+        $shrinkToFit = $style->getAlignment()->getShrinkToFit();
+        $textRotation = $style->getAlignment()->getTextRotation();
 
         $this->writer->startElement('style:table-cell-properties');
         if (!empty($vAlign) || $wrap) {
@@ -178,13 +194,28 @@ class Style
                 $this->writer->writeAttribute('fo:wrap-option', 'wrap');
             }
         }
+        if ($textRotation !== null) {
+            if ($textRotation < 0) {
+                $textRotation += 360;
+            }
+            $this->writer->writeAttribute('style:rotation-angle', (string) $textRotation);
+        }
         $this->writer->writeAttribute('style:rotation-align', 'none');
+        if ($shrinkToFit) {
+            $this->writer->writeAttribute('style:shrink-to-fit', 'true');
+        }
 
         // Fill
         $this->writeFillStyle($style->getFill());
 
         // Border
         $this->writeBordersStyle($style->getBorders());
+
+        // protection
+        $protection = self::PROTECTION_MAP[$style->getProtection()->getLocked()][$style->getProtection()->getHidden()] ?? '';
+        if ($protection !== '') {
+            $this->writer->writeAttribute('style:cell-protect', $protection);
+        }
 
         $this->writer->endElement();
 
@@ -216,6 +247,7 @@ class Style
         };
     }
 
+    /** @internal */
     public function writeTextProperties(CellStyle $style): void
     {
         // Font

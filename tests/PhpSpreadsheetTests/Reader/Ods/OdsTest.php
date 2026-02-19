@@ -121,7 +121,8 @@ class OdsTest extends TestCase
 
         $firstSheet = $spreadsheet->getSheet(0);
 
-        self::assertEquals(29, $firstSheet->getHighestDataRow());
+        // 5 rows added to test file with this PR
+        self::assertEquals(34, $firstSheet->getHighestDataRow());
         self::assertEquals('N', $firstSheet->getHighestDataColumn());
 
         // Simple cell value

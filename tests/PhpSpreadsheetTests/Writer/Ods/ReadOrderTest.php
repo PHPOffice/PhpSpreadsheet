@@ -28,22 +28,28 @@ class ReadOrderTest extends TestCase
         $content = new Content(new Ods($spreadsheet));
         $xml = $content->write();
         self::assertStringContainsString(
-            '<style:table-cell-properties style:vertical-align="bottom" style:rotation-align="none"/>'
+            '<style:style style:name="ce1" style:family="table-cell" style:parent-style-name="Default">'
+                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-angle="0" style:rotation-align="none" fo:background-color="transparent"/>'
                 . '<style:paragraph-properties style:writing-mode="rl-tb"/>'
-                . '<style:text-properties fo:color="#000000" fo:font-family="Calibri"',
+                . '<style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11pt"/>'
+                . '</style:style>',
             $xml,
             'explicit rtl direction in paragraph properties'
         );
         self::assertStringContainsString(
-            '<style:table-cell-properties style:vertical-align="bottom" style:rotation-align="none"/>'
+            '<style:style style:name="ce3" style:family="table-cell" style:parent-style-name="Default">'
+                . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-angle="0" style:rotation-align="none" fo:background-color="transparent"/>'
                 . '<style:paragraph-properties style:writing-mode="lr-tb"/>'
-                . '<style:text-properties fo:color="#000000" fo:font-family="Arial"',
+                . '<style:text-properties fo:color="#000000" fo:font-family="Arial" fo:font-size="11pt"/>'
+                . '</style:style>',
             $xml,
             'explicit ltr direction in paragraph properties'
         );
         self::assertStringContainsString(
-            '<style:table-cell-properties style:vertical-align="bottom" style:rotation-align="none"/>'
-                . '<style:text-properties fo:color="#000000" fo:font-family="Times New Roman"',
+            '<style:style style:name="ce4" style:family="table-cell" style:parent-style-name="Default">'
+            . '<style:table-cell-properties style:vertical-align="bottom" style:rotation-angle="0" style:rotation-align="none" fo:background-color="transparent"/>'
+            . '<style:text-properties fo:color="#000000" fo:font-family="Times New Roman" fo:font-size="11pt"/>'
+            . '</style:style>',
             $xml,
             'no paragraph properties'
         );

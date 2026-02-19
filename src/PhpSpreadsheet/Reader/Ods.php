@@ -25,8 +25,10 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
 use XMLReader;
@@ -146,7 +148,14 @@ class Ods extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
+     * @return array<int, array{
+     *   worksheetName: string,
+     *   lastColumnLetter: string,
+     *   lastColumnIndex: int,
+     *   totalRows: int,
+     *   totalColumns: int,
+     *   sheetState: string
+     * }>
      */
     public function listWorksheetInfo(string $filename): array
     {
@@ -262,8 +271,21 @@ class Ods extends BaseReader
      *    fill?:array{
      *      fillType?: string,
      *      startColor?: array{rgb: string},
-     *    }
-     *  }> */
+     *    },
+     *    alignment?:array{
+     *      horizontal?: string,
+     *      readOrder?: int,
+     *      shrinkToFit?: bool,
+     *      textRotation?: int,
+     *      vertical?: string,
+     *      wrapText?: bool,
+     *    },
+     *    protection?:array{
+     *      locked?: string,
+     *      hidden?: string,
+     *    },
+     *  }>
+     */
     private array $allStyles;
 
     /**
@@ -309,6 +331,7 @@ class Ods extends BaseReader
         foreach ($automaticStyles as $automaticStyle) {
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
             if ($styleFamily === 'table-cell') {
+                $fonts = [];
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
                     $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
                 }
@@ -330,22 +353,24 @@ class Ods extends BaseReader
                     $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
                 }
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
-                    $fills = $this->getFillStyles($tableCellProperty, $styleNs, $fontNs);
+                    $fills = $this->getFillStyles($tableCellProperty, $fontNs);
                 }
                 if ($styleName !== '') {
-                    $allStyles = [];
                     if (!empty($fonts)) {
                         $this->allStyles[$styleName]['font'] = $fonts;
-                        $allStyles['font'] = $fonts;
+                        if (!$defaultStyleSet && $styleName === 'Default') {
+                            $spreadsheet->getDefaultStyle()
+                                ->getFont()
+                                ->applyFromArray($fonts);
+                        }
                     }
                     if (!empty($fills)) {
                         $this->allStyles[$styleName]['fill'] = $fills;
-                        $allStyles['fill'] = $fills;
-                    }
-                    if (!$defaultStyleSet && $styleName === 'Default' && isset($allStyles['font'])) {
-                        $spreadsheet->getDefaultStyle()
-                            ->getFont()
-                            ->applyFromArray($allStyles['font']);
+                        if ($styleName === 'Default') {
+                            $spreadsheet->getDefaultStyle()
+                                ->getFill()
+                                ->applyFromArray($fills);
+                        }
                     }
                 }
             }
@@ -384,12 +409,19 @@ class Ods extends BaseReader
                 }
             }
             if ($styleFamily === 'table-cell') {
-                $fonts = $fills = [];
+                $fonts = $fills = $alignment1 = $alignment2 = $protection = [];
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
                     $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
                 }
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
-                    $fills = $this->getFillStyles($tableCellProperty, $styleNs, $fontNs);
+                    $fills = $this->getFillStyles($tableCellProperty, $fontNs);
+                    $protection = $this->getProtectionStyles($tableCellProperty, $styleNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $alignment1 = $this->getAlignment1Styles($tableCellProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'paragraph-properties') as $paragraphProperty) {
+                    $alignment2 = $this->getAlignment2Styles($paragraphProperty, $styleNs, $fontNs);
                 }
                 if ($styleName !== '') {
                     if (!empty($fonts)) {
@@ -397,6 +429,13 @@ class Ods extends BaseReader
                     }
                     if (!empty($fills)) {
                         $this->allStyles[$styleName]['fill'] = $fills;
+                    }
+                    $alignment = array_merge($alignment1, $alignment2);
+                    if (!empty($alignment)) {
+                        $this->allStyles[$styleName]['alignment'] = $alignment;
+                    }
+                    if (!empty($protection)) {
+                        $this->allStyles[$styleName]['protection'] = $protection;
                     }
                 }
             }
@@ -1340,15 +1379,133 @@ class Ods extends BaseReader
      *   startColor?: array{rgb: string},
      * }
      */
-    protected function getFillStyles(DOMElement $tableCellProperties, string $styleNs, string $fontNs): array
+    protected function getFillStyles(DOMElement $tableCellProperties, string $fontNs): array
     {
         $fills = [];
         $temp = $tableCellProperties->getAttributeNs($fontNs, 'background-color');
         if (Preg::isMatch('/^#[a-f0-9]{6}$/i', $temp)) {
             $fills['fillType'] = Fill::FILL_SOLID;
             $fills['startColor'] = ['rgb' => substr($temp, 1)];
+        } elseif ($temp === 'transparent') {
+            $fills['fillType'] = Fill::FILL_NONE;
         }
 
         return $fills;
+    }
+
+    private const MAP_VERTICAL = [
+        'top' => Alignment::VERTICAL_TOP,
+        'middle' => Alignment::VERTICAL_CENTER,
+        'automatic' => Alignment::VERTICAL_JUSTIFY,
+        'bottom' => Alignment::VERTICAL_BOTTOM,
+    ];
+    private const MAP_HORIZONTAL = [
+        'center' => Alignment::HORIZONTAL_CENTER,
+        'end' => Alignment::HORIZONTAL_RIGHT,
+        'justify' => Alignment::HORIZONTAL_FILL,
+        'start' => Alignment::HORIZONTAL_LEFT,
+    ];
+
+    /** @return array{
+     *   shrinkToFit?: bool,
+     *   textRotation?: int,
+     *   vertical?: string,
+     *   wrapText?: bool,
+     * }
+     */
+    protected function getAlignment1Styles(DOMElement $tableCellProperties, string $styleNs, string $fontNs): array
+    {
+        $alignment1 = [];
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'rotation-angle');
+        if (is_numeric($temp)) {
+            $temp2 = (int) $temp;
+            if ($temp2 > 90) {
+                $temp2 -= 360;
+            }
+            if ($temp2 >= -90 && $temp2 <= 90) {
+                $alignment1['textRotation'] = (int) $temp2;
+            }
+        }
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'vertical-align');
+        $temp2 = self::MAP_VERTICAL[$temp] ?? '';
+        if ($temp2 !== '') {
+            $alignment1['vertical'] = $temp2;
+        }
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'wrap-option');
+        if ($temp === 'wrap') {
+            $alignment1['wrapText'] = true;
+        } elseif ($temp === 'no-wrap') {
+            $alignment1['wrapText'] = false;
+        }
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'shrink-to-fit');
+        if ($temp === 'true' || $temp === 'false') {
+            $alignment1['shrinkToFit'] = $temp === 'true';
+        }
+
+        return $alignment1;
+    }
+
+    /** @return array{
+     *   horizontal?: string,
+     *   readOrder?: int,
+     * }
+     */
+    protected function getAlignment2Styles(DOMElement $paragraphProperties, string $styleNs, string $fontNs): array
+    {
+        $alignment2 = [];
+        $temp = $paragraphProperties->getAttributeNs($fontNs, 'text-align');
+        $temp2 = self::MAP_HORIZONTAL[$temp] ?? '';
+        if ($temp2 !== '') {
+            $alignment2['horizontal'] = $temp2;
+        }
+        $temp = $paragraphProperties->getAttributeNs($fontNs, 'margin-left') ?: $paragraphProperties->getAttributeNs($fontNs, 'margin-right');
+        if (Preg::isMatch('/^\d+([.]\d+)?(cm|in|mm|pt)$/', $temp)) {
+            $dimension = new HelperDimension($temp);
+            $alignment2['indent'] = (int) round($dimension->toUnit('px') / Alignment::INDENT_UNITS_TO_PIXELS);
+        }
+
+        $temp = $paragraphProperties->getAttributeNs($styleNs, 'writing-mode');
+        if ($temp === 'rl-tb') {
+            $alignment2['readOrder'] = Alignment::READORDER_RTL;
+        } elseif ($temp === 'lr-tb') {
+            $alignment2['readOrder'] = Alignment::READORDER_LTR;
+        }
+
+        return $alignment2;
+    }
+
+    /** @return array{
+     *   locked?: string,
+     *   hidden?: string,
+     * }
+     */
+    protected function getProtectionStyles(DOMElement $tableCellProperties, string $styleNs): array
+    {
+        $protection = [];
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'cell-protect');
+        switch ($temp) {
+            case 'protected formula-hidden':
+                $protection['locked'] = Protection::PROTECTION_PROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_PROTECTED;
+
+                break;
+            case 'formula-hidden':
+                $protection['locked'] = Protection::PROTECTION_UNPROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_PROTECTED;
+
+                break;
+            case 'protected':
+                $protection['locked'] = Protection::PROTECTION_PROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_UNPROTECTED;
+
+                break;
+            case 'none':
+                $protection['locked'] = Protection::PROTECTION_UNPROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_UNPROTECTED;
+
+                break;
+        }
+
+        return $protection;
     }
 }
