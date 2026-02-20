@@ -26,6 +26,8 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
@@ -284,6 +286,14 @@ class Ods extends BaseReader
      *      locked?: string,
      *      hidden?: string,
      *    },
+     *    borders?:array{
+     *      bottom?: array{borderStyle:string, color:array{rgb: string}},
+     *      left?: array{borderStyle:string, color:array{rgb: string}},
+     *      right?: array{borderStyle:string, color:array{rgb: string}},
+     *      top?: array{borderStyle:string, color:array{rgb: string}},
+     *      diagonal?: array{borderStyle:string, color:array{rgb: string}},
+     *      diagonalDirection?: int,
+     *    },
      *  }>
      */
     private array $allStyles;
@@ -409,12 +419,13 @@ class Ods extends BaseReader
                 }
             }
             if ($styleFamily === 'table-cell') {
-                $fonts = $fills = $alignment1 = $alignment2 = $protection = [];
+                $fonts = $fills = $alignment1 = $alignment2 = $protection = $borders = [];
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
                     $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
                 }
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
                     $fills = $this->getFillStyles($tableCellProperty, $fontNs);
+                    $borders = $this->getBorderStyles($tableCellProperty, $fontNs, $styleNs);
                     $protection = $this->getProtectionStyles($tableCellProperty, $styleNs);
                 }
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
@@ -436,6 +447,9 @@ class Ods extends BaseReader
                     }
                     if (!empty($protection)) {
                         $this->allStyles[$styleName]['protection'] = $protection;
+                    }
+                    if (!empty($borders)) {
+                        $this->allStyles[$styleName]['borders'] = $borders;
                     }
                 }
             }
@@ -746,9 +760,34 @@ class Ods extends BaseReader
                 }
                 // Fall through to process the cell, with per-column filter checks
             }
-            if ($worksheet !== null && $cellData->hasChildNodes() && isset($this->allStyles[$styleName])) {
-                $worksheet->getStyle("$columnID$rowID")
+            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
+                $spannedRange = "$columnID$rowID";
+                // the following is sufficient for ods,
+                // and does no harm for xlsx/xls.
+                $worksheet->getStyle($spannedRange)
                     ->applyFromArray($this->allStyles[$styleName]);
+                // the rest of this block is needed for xlsx/xls,
+                // and does no harm for ods.
+                if (isset($this->allStyles[$styleName]['borders'])) {
+                    $spannedRows = $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $spannedColumns = $cellData->getAttributeNS($tableNs, 'number-rows-spanned');
+                    $spannedRows = max((int) $spannedRows, 1);
+                    $spannedColumns = max((int) $spannedColumns, 1);
+                    if ($spannedRows > 1 || $spannedColumns > 1) {
+                        $endRow = $rowID + $spannedRows - 1;
+                        $endCol = $columnID;
+                        while ($spannedColumns > 1) {
+                            StringHelper::stringIncrement($endCol);
+                            --$spannedColumns;
+                        }
+                        $spannedRange .= ":$endCol$endRow";
+                        $worksheet->getStyle($spannedRange)
+                            ->getBorders()
+                            ->applyFromArray(
+                                $this->allStyles[$styleName]['borders']
+                            );
+                    }
+                }
             }
 
             // Initialize variables
@@ -1507,5 +1546,75 @@ class Ods extends BaseReader
         }
 
         return $protection;
+    }
+
+    private const MAP_BORDER_STYLE = [ // default BORDER_THIN
+        'none' => Border::BORDER_NONE,
+        'hidden' => Border::BORDER_NONE,
+        'dotted' => Border::BORDER_DOTTED,
+        'dash-dot' => Border::BORDER_DASHDOT,
+        'dash-dot-dot' => Border::BORDER_DASHDOTDOT,
+        'dashed' => Border::BORDER_DASHED,
+        'double' => Border::BORDER_DOUBLE,
+    ];
+
+    private const MAP_BORDER_MEDIUM = [
+        Border::BORDER_THIN => Border::BORDER_MEDIUM,
+        Border::BORDER_DASHDOT => Border::BORDER_MEDIUMDASHDOT,
+        Border::BORDER_DASHDOTDOT => Border::BORDER_MEDIUMDASHDOTDOT,
+        Border::BORDER_DASHED => Border::BORDER_MEDIUMDASHED,
+    ];
+
+    private const MAP_BORDER_THICK = [
+        Border::BORDER_THIN => Border::BORDER_THICK,
+        Border::BORDER_DASHDOT => Border::BORDER_MEDIUMDASHDOT,
+        Border::BORDER_DASHDOTDOT => Border::BORDER_MEDIUMDASHDOTDOT,
+        Border::BORDER_DASHED => Border::BORDER_MEDIUMDASHED,
+    ];
+
+    /** @return array{
+     *   bottom?: array{borderStyle:string, color:array{rgb: string}},
+     *   top?: array{borderStyle:string, color:array{rgb: string}},
+     *   left?: array{borderStyle:string, color:array{rgb: string}},
+     *   right?: array{borderStyle:string, color:array{rgb: string}},
+     *   diagonal?: array{borderStyle:string, color:array{rgb: string}},
+     *   diagonalDirection?: int,
+     * }
+     */
+    protected function getBorderStyles(DOMElement $tableCellProperties, string $fontNs, string $styleNs): array
+    {
+        $borders = [];
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
+        $diagonalIndex = Borders::DIAGONAL_NONE;
+        foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
+            if (str_starts_with($direction, 'diagonal')) {
+                $directionIndex = 'diagonal';
+                $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
+            } else {
+                $directionIndex = $direction;
+                $temp = $tableCellProperties->getAttributeNs($fontNs, "border-$direction");
+            }
+            if (Preg::isMatch('/^(\d+(?:[.]\d+)?)pt\s+([-\w]+)\s+#([0-9a-fA-F]{6})$/', $temp, $matches)) {
+                $style = self::MAP_BORDER_STYLE[$matches[2]] ?? Border::BORDER_THIN;
+                $width = (float) $matches[1];
+                if ($width >= 2.5) {
+                    $style = self::MAP_BORDER_THICK[$style] ?? $style;
+                } elseif ($width >= 1.75) {
+                    $style = self::MAP_BORDER_MEDIUM[$style] ?? $style;
+                }
+                $color = $matches[3];
+                $borders[$directionIndex] = ['borderStyle' => $style, 'color' => ['rgb' => $matches[3]]];
+                if ($direction === 'diagonal-tl-br') {
+                    $diagonalIndex = Borders::DIAGONAL_DOWN;
+                } elseif ($direction === 'diagonal-bl-tr') {
+                    $diagonalIndex = ($diagonalIndex === Borders::DIAGONAL_NONE) ? Borders::DIAGONAL_UP : Borders::DIAGONAL_BOTH;
+                }
+            }
+        }
+        if ($diagonalIndex !== Borders::DIAGONAL_NONE) {
+            $borders['diagonalDirection'] = $diagonalIndex;
+        }
+
+        return $borders; // @phpstan-ignore-line
     }
 }
