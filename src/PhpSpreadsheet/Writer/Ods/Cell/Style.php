@@ -97,6 +97,13 @@ class Style
         $this->writeBorderStyle('left', $borders->getLeft());
         $this->writeBorderStyle('right', $borders->getRight());
         $this->writeBorderStyle('top', $borders->getTop());
+        $diagonal = $borders->getDiagonalDirection();
+        if ($diagonal === Borders::DIAGONAL_DOWN || $diagonal === Borders::DIAGONAL_BOTH) {
+            $this->writeBorderStyle('style:diagonal-tl-br', $borders->getDiagonal());
+        }
+        if ($diagonal === Borders::DIAGONAL_UP || $diagonal === Borders::DIAGONAL_BOTH) {
+            $this->writeBorderStyle('style:diagonal-bl-tr', $borders->getDiagonal());
+        }
     }
 
     private function writeBorderStyle(string $direction, Border $border): void
@@ -105,7 +112,8 @@ class Style
             return;
         }
 
-        $this->writer->writeAttribute('fo:border-' . $direction, sprintf(
+        $attrName = str_starts_with($direction, 'style:') ? $direction : ('fo:border-' . $direction);
+        $this->writer->writeAttribute($attrName, sprintf(
             '%s %s #%s',
             $this->mapBorderWidth($border),
             $this->mapBorderStyle($border),
@@ -113,56 +121,46 @@ class Style
         ));
     }
 
+    private const MAP_BORDER_WIDTH = [
+        Border::BORDER_THIN => '0.75pt',
+        Border::BORDER_DASHED => '0.75pt',
+        Border::BORDER_DASHDOT => '0.75pt',
+        Border::BORDER_DASHDOTDOT => '0.75pt',
+        Border::BORDER_DOTTED => '0.75pt',
+        Border::BORDER_HAIR => '0.75pt',
+        // end of thin styles
+        Border::BORDER_MEDIUM => '1.75pt',
+        Border::BORDER_MEDIUMDASHED => '1.75pt',
+        Border::BORDER_MEDIUMDASHDOT => '1.75pt',
+        Border::BORDER_MEDIUMDASHDOTDOT => '1.75pt',
+        Border::BORDER_SLANTDASHDOT => '1.75pt',
+        // end of medium styles
+        Border::BORDER_DOUBLE => '2.5pt',
+        Border::BORDER_THICK => '2.5pt',
+    ];
+
     private function mapBorderWidth(Border $border): string
     {
-        switch ($border->getBorderStyle()) {
-            case Border::BORDER_THIN:
-            case Border::BORDER_DASHED:
-            case Border::BORDER_DASHDOT:
-            case Border::BORDER_DASHDOTDOT:
-            case Border::BORDER_DOTTED:
-            case Border::BORDER_HAIR:
-                return '0.75pt';
-            case Border::BORDER_MEDIUM:
-            case Border::BORDER_MEDIUMDASHED:
-            case Border::BORDER_MEDIUMDASHDOT:
-            case Border::BORDER_MEDIUMDASHDOTDOT:
-            case Border::BORDER_SLANTDASHDOT:
-                return '1.75pt';
-            case Border::BORDER_DOUBLE:
-            case Border::BORDER_THICK:
-                return '2.5pt';
-        }
-
-        return '1pt';
+        return self::MAP_BORDER_WIDTH[$border->getBorderStyle()] ?? '1pt';
     }
+
+    private const MAP_BORDER_STYLE = [
+        Border::BORDER_DOTTED => 'dotted',
+        Border::BORDER_DASHED => 'dashed',
+        Border::BORDER_MEDIUMDASHED => 'dashed',
+        Border::BORDER_DASHDOT => 'dash-dot',
+        Border::BORDER_MEDIUMDASHDOT => 'dash-dot',
+        Border::BORDER_DASHDOTDOT => 'dash-dot-dot',
+        Border::BORDER_MEDIUMDASHDOTDOT => 'dash-dot-dot',
+        Border::BORDER_SLANTDASHDOT => 'dashed',
+        Border::BORDER_DOUBLE => 'double',
+        Border::BORDER_NONE => 'none',
+        // HAIR, MEDIUM, THICK, THIN fall through to default solid
+    ];
 
     private function mapBorderStyle(Border $border): string
     {
-        switch ($border->getBorderStyle()) {
-            case Border::BORDER_DOTTED:
-            case Border::BORDER_MEDIUMDASHDOTDOT:
-                return Border::BORDER_DOTTED;
-
-            case Border::BORDER_DASHED:
-            case Border::BORDER_DASHDOT:
-            case Border::BORDER_DASHDOTDOT:
-            case Border::BORDER_MEDIUMDASHDOT:
-            case Border::BORDER_MEDIUMDASHED:
-            case Border::BORDER_SLANTDASHDOT:
-                return Border::BORDER_DASHED;
-
-            case Border::BORDER_DOUBLE:
-                return Border::BORDER_DOUBLE;
-
-            case Border::BORDER_HAIR:
-            case Border::BORDER_MEDIUM:
-            case Border::BORDER_THICK:
-            case Border::BORDER_THIN:
-                return 'solid';
-        }
-
-        return 'solid';
+        return self::MAP_BORDER_STYLE[$border->getBorderStyle()] ?? 'solid';
     }
 
     // 2d array, 1st index is locked, 2nd is hidden

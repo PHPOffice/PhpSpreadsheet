@@ -722,7 +722,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: orange;">●</td>
@@ -733,7 +733,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -744,7 +744,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -755,7 +755,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1480,9 +1480,9 @@
     </tr>
     <tr>
         <td style="padding-left: 3em;">Diagonal</td>
-        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
