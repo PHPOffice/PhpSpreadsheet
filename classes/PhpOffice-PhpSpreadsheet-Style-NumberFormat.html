@@ -162,7 +162,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_DATE_TIME_OR_DATETIME_ARRAY">DATE_TIME_OR_DATETIME_ARRAY</a>
     <span>
-        &nbsp;= [self::FORMAT_DATE_YYYYMMDD, self::FORMAT_DATE_DDMMYYYY, self::FORMAT_DATE_DMYSLASH, self::FORMAT_DATE_DMYMINUS, self::FORMAT_DATE_DMMINUS, self::FORMAT_DATE_MYMINUS, self::FORMAT_DATE_XLSX14, self::FORMAT_DATE_XLSX14_ACTUAL, self::FORMAT_DATE_XLSX15, self::FORMAT_DATE_XLSX16, self::FORMAT_DATE_XLSX17, self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_XLSX22_ACTUAL, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_YYYYMMDDSLASH, self::FORMAT_DATE_LONG_DATE]                            </span>
+        &nbsp;= [self::FORMAT_DATE_YYYYMMDD, self::FORMAT_DATE_DDMMYYYY, self::FORMAT_DATE_DMYSLASH, self::FORMAT_DATE_DMYMINUS, self::FORMAT_DATE_DMMINUS, self::FORMAT_DATE_MYMINUS, self::FORMAT_DATE_XLSX14, self::FORMAT_DATE_XLSX14_ACTUAL, self::FORMAT_DATE_XLSX15, self::FORMAT_DATE_XLSX16, self::FORMAT_DATE_XLSX17, self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_XLSX22_ACTUAL, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_DATETIME_BETTER, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_TIME_INTERVAL_HMS, self::FORMAT_DATE_YYYYMMDDSLASH, self::FORMAT_DATE_LONG_DATE]                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -190,21 +190,51 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP">FORMAT_CURRENCY_GBP</a>
+    <span>
+        &nbsp;= &#039;£&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP_INTEGER">FORMAT_CURRENCY_GBP_INTEGER</a>
+    <span>
+        &nbsp;= &#039;£&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_USD">FORMAT_CURRENCY_USD</a>
     <span>
-        &nbsp;= &#039;$#,##0.00_-&#039;                            </span>
+        &nbsp;= &#039;$&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_USD_INTEGER">FORMAT_CURRENCY_USD_INTEGER</a>
     <span>
-        &nbsp;= &#039;$#,##0_-&#039;                            </span>
+        &nbsp;= &#039;$&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN">FORMAT_CURRENCY_YEN_YUAN</a>
+    <span>
+        &nbsp;= &#039;￥&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN_INTEGER">FORMAT_CURRENCY_YEN_YUAN_INTEGER</a>
+    <span>
+        &nbsp;= &#039;￥&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DATETIME">FORMAT_DATE_DATETIME</a>
     <span>
         &nbsp;= &#039;d/m/yy h:mm&#039;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DATETIME_BETTER">FORMAT_DATE_DATETIME_BETTER</a>
+    <span>
+        &nbsp;= &#039;yyyy-mm-dd hh:mm&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -228,7 +258,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DMYSLASH">FORMAT_DATE_DMYSLASH</a>
     <span>
-        &nbsp;= &#039;d/m/yy&#039;                            </span>
+        &nbsp;= &#039;d&quot;/&quot;m&quot;/&quot;yy&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -292,6 +322,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME_INTERVAL_HMS">FORMAT_DATE_TIME_INTERVAL_HMS</a>
+    <span>
+        &nbsp;= &#039;[hh]:mm:ss&#039;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX14">FORMAT_DATE_XLSX14</a>
     <span>
         &nbsp;= &#039;mm-dd-yy&#039;                            </span>
@@ -307,6 +343,12 @@
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX15">FORMAT_DATE_XLSX15</a>
     <span>
         &nbsp;= &#039;d-mmm-yy&#039;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX15_YYYY">FORMAT_DATE_XLSX15_YYYY</a>
+    <span>
+        &nbsp;= &#039;d-mmm-yyyy&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -342,7 +384,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_YYYYMMDDSLASH">FORMAT_DATE_YYYYMMDDSLASH</a>
     <span>
-        &nbsp;= &#039;yyyy/mm/dd;@&#039;                            </span>
+        &nbsp;= &#039;yyyy&quot;/&quot;mm&quot;/&quot;dd;@&#039;                            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
@@ -438,7 +480,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_TIME_OR_DATETIME_ARRAY">TIME_OR_DATETIME_ARRAY</a>
     <span>
-        &nbsp;= [self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8]                            </span>
+        &nbsp;= [self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_DATETIME_BETTER, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_TIME_INTERVAL_HMS]                            </span>
 </dt>
 
     </dl>
@@ -754,7 +796,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -785,7 +827,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
@@ -795,7 +837,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DATE_TIME_OR_DATETIME_ARRAY</span>
-    = <span class="phpdocumentor-signature__default-value">[self::FORMAT_DATE_YYYYMMDD, self::FORMAT_DATE_DDMMYYYY, self::FORMAT_DATE_DMYSLASH, self::FORMAT_DATE_DMYMINUS, self::FORMAT_DATE_DMMINUS, self::FORMAT_DATE_MYMINUS, self::FORMAT_DATE_XLSX14, self::FORMAT_DATE_XLSX14_ACTUAL, self::FORMAT_DATE_XLSX15, self::FORMAT_DATE_XLSX16, self::FORMAT_DATE_XLSX17, self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_XLSX22_ACTUAL, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_YYYYMMDDSLASH, self::FORMAT_DATE_LONG_DATE]</span>
+    = <span class="phpdocumentor-signature__default-value">[self::FORMAT_DATE_YYYYMMDD, self::FORMAT_DATE_DDMMYYYY, self::FORMAT_DATE_DMYSLASH, self::FORMAT_DATE_DMYMINUS, self::FORMAT_DATE_DMMINUS, self::FORMAT_DATE_MYMINUS, self::FORMAT_DATE_XLSX14, self::FORMAT_DATE_XLSX14_ACTUAL, self::FORMAT_DATE_XLSX15, self::FORMAT_DATE_XLSX16, self::FORMAT_DATE_XLSX17, self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_XLSX22_ACTUAL, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_DATETIME_BETTER, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_TIME_INTERVAL_HMS, self::FORMAT_DATE_YYYYMMDDSLASH, self::FORMAT_DATE_LONG_DATE]</span>
 </code>
 
 
@@ -816,7 +858,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -847,7 +889,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
@@ -878,7 +920,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -909,7 +951,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -931,6 +973,68 @@ extends this class.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CURRENCY_GBP">
+        FORMAT_CURRENCY_GBP
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">100</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_GBP</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;£&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CURRENCY_GBP_INTEGER">
+        FORMAT_CURRENCY_GBP_INTEGER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP_INTEGER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">99</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_GBP_INTEGER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;£&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CURRENCY_USD">
         FORMAT_CURRENCY_USD
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_USD" class="headerlink"><i class="fas fa-link"></i></a>
@@ -940,7 +1044,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -950,7 +1054,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_USD</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;$#,##0.00_-&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;$&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT</span>
 </code>
 
 
@@ -971,7 +1075,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -981,7 +1085,69 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_USD_INTEGER</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;$#,##0_-&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;$&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CURRENCY_YEN_YUAN">
+        FORMAT_CURRENCY_YEN_YUAN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">102</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_YEN_YUAN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;￥&#039; . self::FORMAT_CURRENCY_AMOUNT_FLOAT</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_CURRENCY_YEN_YUAN_INTEGER">
+        FORMAT_CURRENCY_YEN_YUAN_INTEGER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN_INTEGER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">101</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_CURRENCY_YEN_YUAN_INTEGER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;￥&#039; . self::FORMAT_CURRENCY_AMOUNT_INTEGER</span>
 </code>
 
 
@@ -1002,7 +1168,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -1013,6 +1179,37 @@ extends this class.</dd>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_DATE_DATETIME</span>
     = <span class="phpdocumentor-signature__default-value">&#039;d/m/yy h:mm&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_DATE_DATETIME_BETTER">
+        FORMAT_DATE_DATETIME_BETTER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DATETIME_BETTER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_DATE_DATETIME_BETTER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;yyyy-mm-dd hh:mm&#039;</span>
 </code>
 
 
@@ -1136,7 +1333,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_DATE_DMYSLASH</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;d/m/yy&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;d&quot;/&quot;m&quot;/&quot;yy&#039;</span>
 </code>
 
 
@@ -1157,7 +1354,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -1219,7 +1416,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -1250,7 +1447,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -1281,7 +1478,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -1312,7 +1509,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -1343,7 +1540,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -1374,7 +1571,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -1405,7 +1602,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -1436,7 +1633,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -1447,6 +1644,37 @@ extends this class.</dd>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_DATE_TIME8</span>
     = <span class="phpdocumentor-signature__default-value">&#039;h:mm:ss;@&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_DATE_TIME_INTERVAL_HMS">
+        FORMAT_DATE_TIME_INTERVAL_HMS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME_INTERVAL_HMS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_DATE_TIME_INTERVAL_HMS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;[hh]:mm:ss&#039;</span>
 </code>
 
 
@@ -1551,6 +1779,37 @@ extends this class.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FORMAT_DATE_XLSX15_YYYY">
+        FORMAT_DATE_XLSX15_YYYY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX15_YYYY" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FORMAT_DATE_XLSX15_YYYY</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;d-mmm-yyyy&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FORMAT_DATE_XLSX16">
         FORMAT_DATE_XLSX16
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX16" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1560,7 +1819,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -1591,7 +1850,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -1622,7 +1881,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -1653,7 +1912,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -1715,7 +1974,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -1725,7 +1984,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">FORMAT_DATE_YYYYMMDDSLASH</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;yyyy/mm/dd;@&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;yyyy&quot;/&quot;mm&quot;/&quot;dd;@&#039;</span>
 </code>
 
 
@@ -2025,7 +2284,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -2056,7 +2315,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 
     </aside>
 
@@ -2087,7 +2346,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
@@ -2118,7 +2377,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -2180,7 +2439,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -2211,7 +2470,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -2221,7 +2480,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">TIME_OR_DATETIME_ARRAY</span>
-    = <span class="phpdocumentor-signature__default-value">[self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8]</span>
+    = <span class="phpdocumentor-signature__default-value">[self::FORMAT_DATE_XLSX22, self::FORMAT_DATE_DATETIME, self::FORMAT_DATE_DATETIME_BETTER, self::FORMAT_DATE_TIME1, self::FORMAT_DATE_TIME2, self::FORMAT_DATE_TIME3, self::FORMAT_DATE_TIME4, self::FORMAT_DATE_TIME5, self::FORMAT_DATE_TIME6, self::FORMAT_DATE_TIME7, self::FORMAT_DATE_TIME8, self::FORMAT_DATE_TIME_INTERVAL_HMS]</span>
 </code>
 
 
@@ -2258,7 +2517,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 
     </aside>
 
@@ -2297,7 +2556,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
@@ -2336,7 +2595,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
@@ -2374,7 +2633,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
@@ -2413,7 +2672,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -2491,7 +2750,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
@@ -2607,7 +2866,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -2645,7 +2904,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">108</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -2723,7 +2982,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 
     </aside>
 
@@ -2783,7 +3042,7 @@ its ramifications are</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">209</span>
 
     </aside>
 
@@ -2898,7 +3157,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArra
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">411</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 
     </aside>
 
@@ -2947,7 +3206,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArra
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">432</span>
+    <span class="phpdocumentor-element-found-in__line">445</span>
 
     </aside>
 
@@ -2996,7 +3255,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArra
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">247</span>
 
     </aside>
 
@@ -3171,7 +3430,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">276</span>
+    <span class="phpdocumentor-element-found-in__line">289</span>
 
     </aside>
 
@@ -3210,7 +3469,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">508</span>
+    <span class="phpdocumentor-element-found-in__line">521</span>
 
     </aside>
 
@@ -3248,7 +3507,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 
     </aside>
 
@@ -3297,7 +3556,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">450</span>
+    <span class="phpdocumentor-element-found-in__line">463</span>
 
     </aside>
 
@@ -3379,7 +3638,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">498</span>
+    <span class="phpdocumentor-element-found-in__line">511</span>
 
     </aside>
 
@@ -3462,7 +3721,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -3503,7 +3762,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">488</span>
+    <span class="phpdocumentor-element-found-in__line">501</span>
 
     </aside>
 
@@ -3541,7 +3800,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">176</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
@@ -3590,7 +3849,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 
     </aside>
 
@@ -3628,7 +3887,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">292</span>
+    <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 
@@ -3679,7 +3938,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">513</span>
+    <span class="phpdocumentor-element-found-in__line">526</span>
 
     </aside>
 
@@ -3723,7 +3982,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">255</span>
+    <span class="phpdocumentor-element-found-in__line">268</span>
 
     </aside>
 
@@ -3774,7 +4033,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">503</span>
+    <span class="phpdocumentor-element-found-in__line">516</span>
 
     </aside>
 
@@ -3818,7 +4077,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">493</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 
     </aside>
 
@@ -3862,7 +4121,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">523</span>
+    <span class="phpdocumentor-element-found-in__line">536</span>
 
     </aside>
 
@@ -3906,7 +4165,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">474</span>
+    <span class="phpdocumentor-element-found-in__line">487</span>
 
     </aside>
 
@@ -3989,7 +4248,7 @@ or can be any valid MS Excel custom format string</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">480</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 
     </aside>
 
@@ -4201,9 +4460,14 @@ or a Style object to be recursively added via exportArray.</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_ACCOUNTING_USD">FORMAT_ACCOUNTING_USD</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_EUR">FORMAT_CURRENCY_EUR</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_EUR_INTEGER">FORMAT_CURRENCY_EUR_INTEGER</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP">FORMAT_CURRENCY_GBP</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_GBP_INTEGER">FORMAT_CURRENCY_GBP_INTEGER</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_USD">FORMAT_CURRENCY_USD</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_USD_INTEGER">FORMAT_CURRENCY_USD_INTEGER</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN">FORMAT_CURRENCY_YEN_YUAN</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_CURRENCY_YEN_YUAN_INTEGER">FORMAT_CURRENCY_YEN_YUAN_INTEGER</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DATETIME">FORMAT_DATE_DATETIME</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DATETIME_BETTER">FORMAT_DATE_DATETIME_BETTER</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DDMMYYYY">FORMAT_DATE_DDMMYYYY</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DMMINUS">FORMAT_DATE_DMMINUS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_DMYMINUS">FORMAT_DATE_DMYMINUS</a></li>
@@ -4218,9 +4482,11 @@ or a Style object to be recursively added via exportArray.</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME6">FORMAT_DATE_TIME6</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME7">FORMAT_DATE_TIME7</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME8">FORMAT_DATE_TIME8</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_TIME_INTERVAL_HMS">FORMAT_DATE_TIME_INTERVAL_HMS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX14">FORMAT_DATE_XLSX14</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX14_ACTUAL">FORMAT_DATE_XLSX14_ACTUAL</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX15">FORMAT_DATE_XLSX15</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX15_YYYY">FORMAT_DATE_XLSX15_YYYY</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX16">FORMAT_DATE_XLSX16</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX17">FORMAT_DATE_XLSX17</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#constant_FORMAT_DATE_XLSX22">FORMAT_DATE_XLSX22</a></li>
