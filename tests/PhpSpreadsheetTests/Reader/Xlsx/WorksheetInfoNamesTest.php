@@ -104,6 +104,7 @@ class WorksheetInfoNamesTest extends TestCase
         self::assertSame(-1, $chartSheetInfo['lastColumnIndex']);
         self::assertSame(0, $chartSheetInfo['totalRows']);
         self::assertSame(0, $chartSheetInfo['totalColumns']);
+        self::assertSame('', $chartSheetInfo['lastColumnLetter']);
     }
 
     public function testListWorksheetMissingRows(): void

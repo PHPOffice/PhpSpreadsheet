@@ -30,7 +30,7 @@ class CoordinateTest extends TestCase
     public function testColumnIndexFromStringTooLong(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Column string index can not be longer than 3 characters');
+        $this->expectExceptionMessage('Column string index can not be beyond XFD');
 
         Coordinate::columnIndexFromString('ABCD');
     }
@@ -46,6 +46,10 @@ class CoordinateTest extends TestCase
     #[DataProvider('providerColumnIndex')]
     public function testStringFromColumnIndex(mixed $expectedResult, int $columnIndex): void
     {
+        if ($expectedResult === 'exception') {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Invalid column index');
+        }
         $string = Coordinate::stringFromColumnIndex($columnIndex);
         self::assertEquals($expectedResult, $string);
 

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
@@ -901,10 +902,10 @@ class Parser
     {
         $cell = strtoupper($cell);
         [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
-        if ($col >= 256) {
+        if ($col >= AddressRange::MAX_COLUMN_INT_XLS) {
             throw new WriterException("Column in: $cell greater than 255");
         }
-        if ($row >= 65536) {
+        if ($row >= AddressRange::MAX_ROW_XLS) {
             throw new WriterException("Row in: $cell greater than 65536 ");
         }
 
@@ -943,10 +944,10 @@ class Parser
         --$row2;
         // Trick poor inocent Excel
         $col1 = 0;
-        $col2 = 65535; // FIXME: maximum possible value for Excel 5 (change this!!!)
+        $col2 = AddressRange::MAX_ROW_XLS - 1; // FIXME: maximum possible value for Excel 5 (change this!!!)
 
         // FIXME: this changes for BIFF8
-        if (($row1 >= 65536) || ($row2 >= 65536)) {
+        if (($row1 >= AddressRange::MAX_ROW_XLS) || ($row2 >= AddressRange::MAX_ROW_XLS)) {
             throw new WriterException("Row in: $range greater than 65536 ");
         }
 

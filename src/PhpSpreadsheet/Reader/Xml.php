@@ -235,7 +235,7 @@ class Xml extends BaseReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1, true);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
             $tmpInfo['sheetState'] = Worksheet::SHEETSTATE_VISIBLE;
 

@@ -25,11 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Collection/Cells::MAX_COLUMN_ID - use Cell/AddressRange::MAX_COLUMN_INT.
+- Writer/Xls/Worksheet constants MAX_XLS_COLUMN, MAX_XLS_COLUMN_STRING, MAX_XLS_ROW - use Cell/AddressRange MAX_COLUMN_INT_XLS, MAX_COLUMN_XLS, MAX_ROW_XLS
 
 ### Fixed
 
-- Nothing yet.
+- Consistent handling of row and column limits. [PR #4820](https://github.com/PHPOffice/PhpSpreadsheet/pull/4820)
 
 ## 2026-02-28 - 5.5.0
 

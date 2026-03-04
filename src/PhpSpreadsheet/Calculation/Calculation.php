@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -1439,7 +1440,7 @@ class Calculation extends CalculationLocale
                                 $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
                             }
 
-                            if (ctype_digit($val) && $val <= 1048576) {
+                            if (ctype_digit($val) && $val <= AddressRange::MAX_ROW) {
                                 //    Row range
                                 $stackItemType = 'Row Reference';
                                 $valx = $val;
@@ -2080,7 +2081,11 @@ class Calculation extends CalculationLocale
                             if ($pCellParent !== null && $this->spreadsheet !== null) {
                                 $cellSheet = $this->spreadsheet->getSheetByName($matches[2]);
                                 if ($cellSheet && !$cellSheet->cellExists($cellRef)) {
-                                    $cellSheet->setCellValue($cellRef, null);
+                                    try {
+                                        $cellSheet->setCellValue($cellRef, null);
+                                    } catch (SpreadsheetException) {
+                                        // do nothing
+                                    }
                                 }
                                 if ($cellSheet && $cellSheet->cellExists($cellRef)) {
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);

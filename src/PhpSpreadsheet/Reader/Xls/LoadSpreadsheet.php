@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -654,7 +655,7 @@ class LoadSpreadsheet extends Xls
                                         if ($firstColumn == 'A' && $lastColumn == 'IV') {
                                             // then we have repeating rows
                                             $docSheet->getPageSetup()->setRowsToRepeatAtTop([$firstRow, $lastRow]);
-                                        } elseif ($firstRow == 1 && $lastRow == 65536) {
+                                        } elseif ($firstRow === 1 && $lastRow === AddressRange::MAX_ROW_XLS) {
                                             // then we have repeating columns
                                             $docSheet->getPageSetup()->setColumnsToRepeatAtLeft([$firstColumn, $lastColumn]);
                                         }

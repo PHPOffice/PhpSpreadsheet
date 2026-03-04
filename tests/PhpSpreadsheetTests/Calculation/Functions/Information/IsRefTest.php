@@ -28,6 +28,10 @@ class IsRefTest extends AllSetupTeardown
         return [
             'cell reference' => [true, 'B1'],
             'invalid cell reference' => [false, 'ZZZ1'],
+            'last valid column' => [true, 'XFD1'],
+            'beyond last valid column' => [false, 'XFE1'],
+            'last valid row' => [true, 'A1048576'],
+            'beyond last valid row' => [false, 'A1048577'],
             'cell range' => [true, 'B1:B2'],
             'complex cell range' => [true, 'B1:D4 C1:C5'],
             'text string' => [false, '"PHP"'],

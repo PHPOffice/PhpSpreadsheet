@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use Composer\Pcre\Preg;
 use GdImage;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -214,7 +215,7 @@ class Worksheet extends BIFFwriter
         // BIFF8 DIMENSIONS record requires 0-based indices for both rows and columns
         // Row methods return 1-based values (Excel UI), so subtract 1 to convert to 0-based
         $this->firstRowIndex = $minR - 1;
-        $this->lastRowIndex = ($maxR > 65536) ? 65535 : ($maxR - 1);
+        $this->lastRowIndex = ($maxR > AddressRange::MAX_ROW_XLS) ? (AddressRange::MAX_ROW_XLS - 1) : ($maxR - 1);
 
         // Column methods return 1-based values (columnIndexFromString('A') = 1), so subtract 1
         $this->firstColumnIndex = Coordinate::columnIndexFromString($minC) - 1;
@@ -516,9 +517,14 @@ class Worksheet extends BIFFwriter
         $this->storeEof();
     }
 
-    public const MAX_XLS_COLUMN = 256;
-    public const MAX_XLS_COLUMN_STRING = 'IV';
-    public const MAX_XLS_ROW = 65536;
+    /** @deprecated 5.6.0 Use AddressRange::MAX_COLUMN_INT_XLS */
+    public const MAX_XLS_COLUMN = AddressRange::MAX_COLUMN_INT_XLS;
+
+    /** @deprecated 5.6.0 Use AddressRange::MAX_COLUMN_XLS */
+    public const MAX_XLS_COLUMN_STRING = AddressRange::MAX_COLUMN_XLS;
+
+    /** @deprecated 5.6.0 Use AddressRange::MAX_ROW_XLS */
+    public const MAX_XLS_ROW = AddressRange::MAX_ROW_XLS;
 
     private static function limitRange(string $exploded): string
     {
@@ -526,13 +532,13 @@ class Worksheet extends BIFFwriter
         $ranges = Coordinate::getRangeBoundaries($exploded);
         $firstCol = Coordinate::columnIndexFromString($ranges[0][0]);
         $firstRow = (int) $ranges[0][1];
-        if ($firstCol <= self::MAX_XLS_COLUMN && $firstRow <= self::MAX_XLS_ROW) {
+        if ($firstCol <= AddressRange::MAX_COLUMN_INT_XLS && $firstRow <= AddressRange::MAX_ROW_XLS) {
             $retVal = $exploded;
             if (str_contains($exploded, ':')) {
                 $lastCol = Coordinate::columnIndexFromString($ranges[1][0]);
-                $ranges[1][1] = min(self::MAX_XLS_ROW, (int) $ranges[1][1]);
-                if ($lastCol > self::MAX_XLS_COLUMN) {
-                    $ranges[1][0] = self::MAX_XLS_COLUMN_STRING;
+                $ranges[1][1] = min(AddressRange::MAX_ROW_XLS, (int) $ranges[1][1]);
+                if ($lastCol > AddressRange::MAX_COLUMN_INT_XLS) {
+                    $ranges[1][0] = AddressRange::MAX_COLUMN_XLS;
                 }
                 $retVal = "{$ranges[0][0]}{$ranges[0][1]}:{$ranges[1][0]}{$ranges[1][1]}";
             }
@@ -607,9 +613,9 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
         if (ctype_alpha($lastCell)) {
-            $lastCell .= (string) self::MAX_XLS_ROW;
+            $lastCell .= (string) AddressRange::MAX_ROW_XLS;
         } elseif (ctype_digit($lastCell)) {
-            $lastCell = self::MAX_XLS_COLUMN_STRING . $lastCell;
+            $lastCell = AddressRange::MAX_COLUMN_XLS . $lastCell;
         }
 
         $firstCellCoordinates = Coordinate::indexesFromString($firstCell); // e.g. [0, 1]

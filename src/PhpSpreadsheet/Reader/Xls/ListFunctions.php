@@ -157,7 +157,7 @@ class ListFunctions extends Xls
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1, true);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -246,7 +246,7 @@ class ListFunctions extends Xls
                                 $tmpInfo['dimensionsMaxR'] = $data['rwMac'];
                                 $tmpInfo['dimensionsMinC'] = $data['colMic'];
                                 $tmpInfo['dimensionsMaxC'] = $data['colMac'];
-                                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['dimensionsMaxC']);
+                                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['dimensionsMaxC'], true);
                             }
                         }
                         $xls->readDefault();

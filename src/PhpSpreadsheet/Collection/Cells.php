@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -11,7 +12,8 @@ use Psr\SimpleCache\CacheInterface;
 
 class Cells
 {
-    protected const MAX_COLUMN_ID = 16384;
+    /** @deprecated 5.6.0 use AddressRange::MAX_COLUMN_INT */
+    protected const MAX_COLUMN_ID = AddressRange::MAX_COLUMN_INT;
 
     private CacheInterface $cache;
 
@@ -242,9 +244,9 @@ class Cells
         // Lookup highest column and highest row
         $maxRow = $maxColumn = 1;
         foreach ($this->index as $coordinate) {
-            $row = (int) floor(($coordinate - 1) / self::MAX_COLUMN_ID) + 1;
+            $row = (int) floor(($coordinate - 1) / AddressRange::MAX_COLUMN_INT) + 1;
             $maxRow = ($maxRow > $row) ? $maxRow : $row;
-            $column = ($coordinate % self::MAX_COLUMN_ID) ?: self::MAX_COLUMN_ID;
+            $column = ($coordinate % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
             $maxColumn = ($maxColumn > $column) ? $maxColumn : $column;
         }
 
@@ -274,13 +276,13 @@ class Cells
         }
 
         $maxColumn = 1;
-        $toRow = $row * self::MAX_COLUMN_ID;
-        $fromRow = --$row * self::MAX_COLUMN_ID;
+        $toRow = $row * AddressRange::MAX_COLUMN_INT;
+        $fromRow = --$row * AddressRange::MAX_COLUMN_INT;
         foreach ($this->index as $coordinate) {
             if ($coordinate < $fromRow || $coordinate >= $toRow) {
                 continue;
             }
-            $column = ($coordinate % self::MAX_COLUMN_ID) ?: self::MAX_COLUMN_ID;
+            $column = ($coordinate % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
             $maxColumn = max($column, $maxColumn);
         }
 
@@ -304,10 +306,10 @@ class Cells
         $maxRow = 1;
         $columnIndex = Coordinate::columnIndexFromString($column);
         foreach ($this->index as $coordinate) {
-            if ($coordinate % self::MAX_COLUMN_ID !== $columnIndex) {
+            if ($coordinate % AddressRange::MAX_COLUMN_INT !== $columnIndex) {
                 continue;
             }
-            $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+            $row = (int) floor($coordinate / AddressRange::MAX_COLUMN_INT) + 1;
             $maxRow = ($maxRow > $row) ? $maxRow : $row;
         }
 
@@ -371,12 +373,12 @@ class Cells
             throw new PhpSpreadsheetException('Row number must be a positive integer');
         }
 
-        $toRow = $row * self::MAX_COLUMN_ID;
-        $fromRow = --$row * self::MAX_COLUMN_ID;
+        $toRow = $row * AddressRange::MAX_COLUMN_INT;
+        $fromRow = --$row * AddressRange::MAX_COLUMN_INT;
         foreach ($this->index as $coordinate) {
             if ($coordinate >= $fromRow && $coordinate < $toRow) {
-                $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
-                $column = Coordinate::stringFromColumnIndex($coordinate % self::MAX_COLUMN_ID);
+                $row = (int) floor($coordinate / AddressRange::MAX_COLUMN_INT) + 1;
+                $column = Coordinate::stringFromColumnIndex($coordinate % AddressRange::MAX_COLUMN_INT);
                 $this->delete("{$column}{$row}");
             }
         }
@@ -393,9 +395,9 @@ class Cells
 
         $columnIndex = Coordinate::columnIndexFromString($column);
         foreach ($this->index as $coordinate) {
-            if ($coordinate % self::MAX_COLUMN_ID === $columnIndex) {
-                $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
-                $column = Coordinate::stringFromColumnIndex($coordinate % self::MAX_COLUMN_ID);
+            if ($coordinate % AddressRange::MAX_COLUMN_INT === $columnIndex) {
+                $row = (int) floor($coordinate / AddressRange::MAX_COLUMN_INT) + 1;
+                $column = Coordinate::stringFromColumnIndex($coordinate % AddressRange::MAX_COLUMN_INT);
                 $this->delete("{$column}{$row}");
             }
         }
@@ -443,7 +445,7 @@ class Cells
         $row = '';
         sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
         /** @var int $row */
-        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString((string) $column);
+        $this->index[$cellCoordinate] = (--$row * AddressRange::MAX_COLUMN_INT) + Coordinate::columnIndexFromString((string) $column);
 
         // Clear index sorted flag and index caches
         $this->indexSorted = false;
