@@ -151,4 +151,18 @@ class PageSetupTest extends TestCase
             ],
         ];
     }
+
+    public function testRepeats(): void
+    {
+        $filename = 'tests/data/Reader/XLS/repeats.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
+        $sheet1 = $spreadsheet->getSheetByNameOrThrow('Sheet1');
+        $setup1 = $sheet1->getPageSetup();
+        self::assertSame([1, 1], $setup1->getRowsToRepeatAtTop());
+        $sheet2 = $spreadsheet->getSheetByNameOrThrow('Sheet2');
+        $setup2 = $sheet2->getPageSetup();
+        self::assertSame(['A', 'A'], $setup2->getColumnsToRepeatAtLeft());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
