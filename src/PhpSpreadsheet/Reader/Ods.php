@@ -238,7 +238,7 @@ class Ods extends BaseReader
                 } while ($xml->name != 'table:table');
 
                 $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1, true);
                 $worksheetInfo[] = $tmpInfo;
             }
         }

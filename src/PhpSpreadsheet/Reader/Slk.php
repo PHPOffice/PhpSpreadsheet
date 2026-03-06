@@ -134,7 +134,7 @@ class Slk extends BaseReader
 
         $worksheetInfo[0]['lastColumnIndex'] = $columnIndex;
         $worksheetInfo[0]['totalRows'] = $rowIndex;
-        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
+        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1, true);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
         $worksheetInfo[0]['sheetState'] = Worksheet::SHEETSTATE_VISIBLE;
 

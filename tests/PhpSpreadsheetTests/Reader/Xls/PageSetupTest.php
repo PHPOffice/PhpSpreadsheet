@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
-class PageSetupTest extends TestCase
+class PageSetupTest extends AbstractFunctional
 {
     private const MARGIN_PRECISION = 0.00000001;
 
@@ -150,5 +152,62 @@ class PageSetupTest extends TestCase
                 'footer' => 0.3,
             ],
         ];
+    }
+
+    public function testRepeats2(): void
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('Sheet1');
+        $setup = $sheet1->getPageSetup();
+        $setup->setRowsToRepeatAtTop([1, 1]);
+        $data = 0;
+        for ($row = 2; $row < 100; ++$row) {
+            $colStr = 'A';
+            $sheet1->setCellValue("A$row", 'LEFT');
+            for ($col = 1; $col < 100; ++$col) {
+                StringHelper::stringIncrement($colStr);
+                if ($row === 2) {
+                    $sheet1->setCellValue("{$colStr}1", 'TOP');
+                }
+                ++$data;
+                $sheet1->setCellValue("$colStr$row", $data);
+            }
+        }
+        $cells = $sheet1->toArray();
+
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Sheet2');
+        $setup = $sheet2->getPageSetup();
+        $setup->setColumnsToRepeatAtLeft(['A', 'A']);
+        $sheet2->fromArray($cells);
+
+        $sheet3 = $spreadsheet->createSheet();
+        $sheet3->setTitle('Sheet3');
+        $setup = $sheet3->getPageSetup();
+        $setup->setRowsToRepeatAtTop([1, 1]);
+        $setup->setColumnsToRepeatAtLeft(['A', 'A']);
+        $sheet3->fromArray($cells);
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $spreadsheet->disconnectWorksheets();
+
+        $rsheet1 = $reloadedSpreadsheet->getSheetByNameOrThrow('Sheet1');
+        $rsetup1 = $rsheet1->getPageSetup();
+        self::assertSame([1, 1], $rsetup1->getRowsToRepeatAtTop());
+        self::assertSame(['', ''], $rsetup1->getColumnsToRepeatAtLeft());
+
+        $rsheet2 = $reloadedSpreadsheet->getSheetByNameOrThrow('Sheet2');
+        $rsetup2 = $rsheet2->getPageSetup();
+        self::assertSame([0, 0], $rsetup2->getRowsToRepeatAtTop());
+        self::assertSame(['A', 'A'], $rsetup2->getColumnsToRepeatAtLeft());
+
+        $rsheet3 = $reloadedSpreadsheet->getSheetByNameOrThrow('Sheet3');
+        $rsetup3 = $rsheet3->getPageSetup();
+        self::assertSame([1, 1], $rsetup3->getRowsToRepeatAtTop());
+        self::assertSame(['A', 'A'], $rsetup3->getColumnsToRepeatAtLeft());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 }

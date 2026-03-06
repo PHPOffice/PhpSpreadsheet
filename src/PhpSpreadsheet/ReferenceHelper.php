@@ -494,32 +494,56 @@ class ReferenceHelper
                 continue;
             }
 
-            // New coordinate
-            $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex + $numberOfColumns) . ($cell->getRow() + $numberOfRows);
-
             // Should the cell be updated? Move value and cellXf index from one cell to another.
             if (($cellIndex >= $beforeColumn) && ($cell->getRow() >= $beforeRow)) {
-                // Update cell styles
-                $worksheet->getCell($newCoordinate)->setXfIndex($cell->getXfIndex());
-
-                // Insert this cell at its new location
-                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
-                    // Formula should be adjusted
+                // New coordinate
+                $newColumn = $cellIndex + $numberOfColumns;
+                $newRow = $cell->getRow() + $numberOfRows;
+                if ($newColumn > 0 && $newRow > 0 && $newColumn <= AddressRange::MAX_COLUMN_INT && $newRow <= AddressRange::MAX_ROW) {
+                    $newCoordinate = Coordinate::stringFromColumnIndex($newColumn) . $newRow;
+                    // Update cell styles
                     $worksheet->getCell($newCoordinate)
-                        ->setValue($this->updateFormulaReferences($cell->getValueString(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true));
-                } else {
-                    // Cell value should not be adjusted
-                    $worksheet->getCell($newCoordinate)->setValueExplicit($cell->getValue(), $cell->getDataType());
+                        ->setXfIndex($cell->getXfIndex());
+
+                    // Insert this cell at its new location
+                    if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                        // Formula should be adjusted
+                        $worksheet->getCell($newCoordinate)
+                            ->setValue(
+                                $this->updateFormulaReferences(
+                                    $cell->getValueString(),
+                                    $beforeCellAddress,
+                                    $numberOfColumns,
+                                    $numberOfRows,
+                                    $worksheet->getTitle(),
+                                    true
+                                )
+                            );
+                    } else {
+                        // Cell value should not be adjusted
+                        $worksheet->getCell($newCoordinate)
+                            ->setValueExplicit($cell->getValue(), $cell->getDataType());
+                    }
                 }
 
                 // Clear the original cell
-                $worksheet->getCellCollection()->delete($coordinate);
+                $worksheet->getCellCollection()
+                    ->delete($coordinate);
             } else {
                 /*    We don't need to update styles for rows/columns before our insertion position,
                         but we do still need to adjust any formulae in those cells                    */
                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
-                    $cell->setValue($this->updateFormulaReferences($cell->getValueString(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true));
+                    $cell->setValue(
+                        $this->updateFormulaReferences(
+                            $cell->getValueString(),
+                            $beforeCellAddress,
+                            $numberOfColumns,
+                            $numberOfRows,
+                            $worksheet->getTitle(),
+                            true
+                        )
+                    );
                 }
             }
         }
