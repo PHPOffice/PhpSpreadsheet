@@ -347,6 +347,7 @@ class Ods extends BaseReader
         $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
 
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
         foreach ($automaticStyles as $automaticStyle) {
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
@@ -395,6 +396,9 @@ class Ods extends BaseReader
             }
         }
 
+        $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
+
         $pageSettings = new PageSettings($dom);
 
         // Main Content
@@ -411,17 +415,7 @@ class Ods extends BaseReader
         $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
         $columnWidths = [];
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
-        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($numberNs, 'number-style');
-        foreach ($automaticStyles as $automaticStyle) {
-            $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
-            foreach ($automaticStyle->getElementsByTagNameNS($numberNs, 'number') as $numberNumber) {
-                $decimalPlaces = $numberNumber->getAttributeNs($numberNs, 'decimal-places');
-                $minIntegerDigits = (int) $numberNumber->getAttributeNs($numberNs, 'min-integer-digits');
-                if ($decimalPlaces === '0' && $minIntegerDigits > 1) {
-                    $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
-                }
-            }
-        }
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
@@ -837,7 +831,21 @@ class Ods extends BaseReader
                 $colRepeats = 1;
             }
             $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
-            $assignedNumberFormat = $this->allStyles[$styleName]['numberFormat']['formatCode'] ?? '';
+            if ($styleName === '') {
+                if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
+                    $assignedNumberFormat = '';
+                } else {
+                    $colStyle = $worksheet->getColumnDimension($columnID)->getXfIndex() ?? 0;
+                    $assignedNumberFormat = $spreadsheet
+                        ->getCellXfByIndex($colStyle)
+                        ->getNumberFormat()->getFormatCode();
+                    if ($assignedNumberFormat === NumberFormat::FORMAT_GENERAL) {
+                        $assignedNumberFormat = '';
+                    }
+                }
+            } else {
+                $assignedNumberFormat = $this->allStyles[$styleName]['numberFormat']['formatCode'] ?? '';
+            }
 
             // When a cell has number-columns-repeated, check if ANY column in the
             // repeated range passes the read filter. If not, skip the entire group.
@@ -1771,5 +1779,25 @@ class Ods extends BaseReader
         }
 
         return $borders; // @phpstan-ignore-line
+    }
+
+    protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
+    {
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($numberNs, 'number-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $this->processNumberNumber($automaticStyle, $numberNs, $styleNs);
+        }
+    }
+
+    protected function processNumberNumber(DOMElement $automaticStyle, string $numberNs, string $styleNs): void
+    {
+        $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+        foreach ($automaticStyle->getElementsByTagNameNS($numberNs, 'number') as $numberNumber) {
+            $decimalPlaces = $numberNumber->getAttributeNs($numberNs, 'decimal-places');
+            $minIntegerDigits = (int) $numberNumber->getAttributeNs($numberNs, 'min-integer-digits');
+            if ($decimalPlaces === '0' && $minIntegerDigits > 1) {
+                $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
+            }
+        }
     }
 }

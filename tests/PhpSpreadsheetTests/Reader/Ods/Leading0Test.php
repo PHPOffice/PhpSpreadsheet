@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
+use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -50,6 +51,40 @@ class Leading0Test extends AbstractFunctional
         ];
         self::assertSame($expected2, $newSheet->toArray(formatData: false));
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testConstructed0(): void
+    {
+        // style in "upper" part of styles.xml, rather than content.xml
+        $infile = 'tests/data/Reader/Ods/leading0.N0.ods';
+        $reader = new OdsReader();
+        $reader->setReadEmptyCells(false);
+        $spreadsheet = $reader->load($infile);
+        $sheet = $spreadsheet->getActiveSheet();
+        $expected = [
+            ['1235'],
+            ['-012'],
+            ['-21235'],
+        ];
+        self::assertSame($expected, $sheet->toArray());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testConstructed2(): void
+    {
+        // style in "lower" part of styles.xml, rather than content.xml
+        $infile = 'tests/data/Reader/Ods/leading0.N2.ods';
+        $reader = new OdsReader();
+        $reader->setReadEmptyCells(false);
+        $spreadsheet = $reader->load($infile);
+        $sheet = $spreadsheet->getActiveSheet();
+        $expected = [
+            ['0001235'],
+            ['-000012'],
+            ['-021235'],
+        ];
+        self::assertSame($expected, $sheet->toArray());
         $spreadsheet->disconnectWorksheets();
     }
 }
