@@ -16,9 +16,8 @@ use PHPUnit\Framework\TestCase;
  * iterating over all cells in the worksheet.
  *
  * Run with: vendor/bin/phpunit --group benchmark
- *
- * @group benchmark
  */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class ReferenceHelperBenchmark extends TestCase
 {
     private const NUM_ROWS = 500;
@@ -56,9 +55,8 @@ class ReferenceHelperBenchmark extends TestCase
 
     /**
      * Benchmark inserting 10 rows in the middle of a large worksheet.
-     *
-     * @group benchmark
      */
+    #[\PHPUnit\Framework\Attributes\Group('benchmark')]
     public function testInsertRowsPerformance(): void
     {
         $spreadsheet = $this->buildLargeWorksheet();
@@ -66,7 +64,7 @@ class ReferenceHelperBenchmark extends TestCase
 
         $cellCount = count($sheet->getCellCollection()->getCoordinates());
         fwrite(STDERR, "\n--- Insert Rows Benchmark ---\n");
-        fwrite(STDERR, "Worksheet size: " . self::NUM_ROWS . ' rows x ' . self::NUM_COLS . " cols = {$cellCount} cells\n");
+        fwrite(STDERR, 'Worksheet size: ' . self::NUM_ROWS . ' rows x ' . self::NUM_COLS . " cols = {$cellCount} cells\n");
 
         $memBefore = memory_get_usage(true);
         $start = hrtime(true);
@@ -96,9 +94,8 @@ class ReferenceHelperBenchmark extends TestCase
 
     /**
      * Benchmark inserting 5 columns in the middle of a large worksheet.
-     *
-     * @group benchmark
      */
+    #[\PHPUnit\Framework\Attributes\Group('benchmark')]
     public function testInsertColumnsPerformance(): void
     {
         $spreadsheet = $this->buildLargeWorksheet();
@@ -106,7 +103,7 @@ class ReferenceHelperBenchmark extends TestCase
 
         $cellCount = count($sheet->getCellCollection()->getCoordinates());
         fwrite(STDERR, "\n--- Insert Columns Benchmark ---\n");
-        fwrite(STDERR, "Worksheet size: " . self::NUM_ROWS . ' rows x ' . self::NUM_COLS . " cols = {$cellCount} cells\n");
+        fwrite(STDERR, 'Worksheet size: ' . self::NUM_ROWS . ' rows x ' . self::NUM_COLS . " cols = {$cellCount} cells\n");
 
         // Insert 5 columns at column J (column 10)
         $memBefore = memory_get_usage(true);
@@ -139,9 +136,8 @@ class ReferenceHelperBenchmark extends TestCase
      *
      * This tests the indexed filtering directly, which is the core of the
      * performance optimization in ReferenceHelper::insertNewBefore().
-     *
-     * @group benchmark
      */
+    #[\PHPUnit\Framework\Attributes\Group('benchmark')]
     public function testGetCoordinatesInRangePerformance(): void
     {
         $spreadsheet = $this->buildLargeWorksheet();
@@ -188,7 +184,7 @@ class ReferenceHelperBenchmark extends TestCase
         $elapsedAll = (hrtime(true) - $start) / 1_000_000;
 
         fwrite(STDERR, sprintf("getCoordinatesInRange(1, 1) [all cells]: %.2f ms, returned %d cells\n", $elapsedAll, count($allCells)));
-        self::assertSame($totalCoords, count($allCells));
+        self::assertCount($totalCoords, $allCells);
 
         // Benchmark: get cells from last row (should return very few)
         $start = hrtime(true);
@@ -198,7 +194,7 @@ class ReferenceHelperBenchmark extends TestCase
         $elapsedLast = (hrtime(true) - $start) / 1_000_000;
 
         fwrite(STDERR, sprintf("getCoordinatesInRange(%d, 1) [last row]: %.2f ms, returned %d cells\n", self::NUM_ROWS, $elapsedLast, count($lastRowCells)));
-        self::assertSame(self::NUM_COLS, count($lastRowCells));
+        self::assertCount(self::NUM_COLS, $lastRowCells);
 
         fwrite(STDERR, "---\n");
 
@@ -207,9 +203,8 @@ class ReferenceHelperBenchmark extends TestCase
 
     /**
      * Benchmark: compare getCoordinates() (full iteration) vs getCoordinatesInRange() (indexed).
-     *
-     * @group benchmark
      */
+    #[\PHPUnit\Framework\Attributes\Group('benchmark')]
     public function testIndexedVsFullIterationComparison(): void
     {
         $spreadsheet = $this->buildLargeWorksheet();
