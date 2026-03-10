@@ -7,9 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Benchmark;
 use PhpOffice\PhpSpreadsheet\Collection\Memory\SimpleCache3;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group benchmark
- */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class SimpleCacheLruBenchmark extends TestCase
 {
     private const ENTRY_COUNT = 50_000;
@@ -20,6 +18,8 @@ class SimpleCacheLruBenchmark extends TestCase
 
     /**
      * Build a dummy cell value roughly similar to what PhpSpreadsheet stores.
+     *
+     * @return array<string, mixed>
      */
     private static function dummyValue(int $i): array
     {
