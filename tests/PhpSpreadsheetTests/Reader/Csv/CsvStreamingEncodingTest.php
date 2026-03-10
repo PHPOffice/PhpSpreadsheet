@@ -22,7 +22,7 @@ class CsvStreamingEncodingTest extends TestCase
     {
         $this->tempDir = sys_get_temp_dir() . '/phpspreadsheet_csv_streaming_test_' . getmypid();
         if (!is_dir($this->tempDir)) {
-            mkdir($this->tempDir, 0777, true);
+            mkdir($this->tempDir, 0o777, true);
         }
     }
 
@@ -76,7 +76,9 @@ class CsvStreamingEncodingTest extends TestCase
         $spreadsheet = $reader->load('tests/data/Reader/CSV/encoding.utf8.csv');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals("\u{00C5}", $sheet->getCell('A1')->getValue());
-        self::assertEquals(1, (int) $sheet->getCell('B1')->getValue());
+        $val = $sheet->getCell('B1')->getValue();
+        self::assertIsScalar($val);
+        self::assertEquals(1, (int) $val);
         $spreadsheet->disconnectWorksheets();
     }
 

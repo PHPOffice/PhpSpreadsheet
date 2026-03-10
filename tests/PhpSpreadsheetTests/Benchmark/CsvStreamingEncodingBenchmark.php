@@ -7,9 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Benchmark;
 use PhpOffice\PhpSpreadsheet\Reader\Csv as CsvReader;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group benchmark
- */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class CsvStreamingEncodingBenchmark extends TestCase
 {
     /** @var string[] */
@@ -39,9 +37,9 @@ class CsvStreamingEncodingBenchmark extends TestCase
         // Accented characters in ISO-8859-1: é(0xE9), ö(0xF6), ü(0xFC), ñ(0xF1), à(0xE0), ç(0xE7)
         $specialChars = ["\xE9", "\xF6", "\xFC", "\xF1", "\xE0", "\xE7"];
 
-        for ($r = 0; $r < $rows; $r++) {
+        for ($r = 0; $r < $rows; ++$r) {
             $fields = [];
-            for ($c = 0; $c < $cols; $c++) {
+            for ($c = 0; $c < $cols; ++$c) {
                 $accent = $specialChars[($r + $c) % count($specialChars)];
                 $fields[] = sprintf('Cell_%d_%d_%s_data_with_special_chars_%s', $r, $c, $accent, $accent);
             }
@@ -69,9 +67,9 @@ class CsvStreamingEncodingBenchmark extends TestCase
 
         $specialChars = ['é', 'ö', 'ü', 'ñ', 'à', 'ç'];
 
-        for ($r = 0; $r < $rows; $r++) {
+        for ($r = 0; $r < $rows; ++$r) {
             $fields = [];
-            for ($c = 0; $c < $cols; $c++) {
+            for ($c = 0; $c < $cols; ++$c) {
                 $accent = $specialChars[($r + $c) % count($specialChars)];
                 $fields[] = sprintf('Cell_%d_%d_%s_data_with_special_chars_%s', $r, $c, $accent, $accent);
             }

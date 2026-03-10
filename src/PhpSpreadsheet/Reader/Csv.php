@@ -337,7 +337,7 @@ class Csv extends BaseReader
 
         $leftover = '';
         while (!feof($sourceHandle)) {
-            $rawChunk = fread($sourceHandle, $chunkSize);
+            $rawChunk = fread($sourceHandle, max(1, $chunkSize));
             if ($rawChunk === false || $rawChunk === '') {
                 break;
             }
@@ -353,12 +353,11 @@ class Csv extends BaseReader
                     $leftover = substr($chunk, -$remainder);
                     $chunk = substr($chunk, 0, -$remainder);
                 }
-            } else {
+            }
                 // For variable-width encodings (e.g. UTF-8 source, though
                 // this path is for non-UTF-8), and single-byte encodings
                 // (ISO-8859-*, CP1252), no boundary adjustment needed.
                 // Single-byte encodings have 1:1 byte-to-character mapping.
-            }
 
             if ($chunk !== '') {
                 $converted = StringHelper::convertEncoding($chunk, 'UTF-8', $encoding);
