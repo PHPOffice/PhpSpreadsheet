@@ -156,7 +156,7 @@ class SpreadsheetCopyBenchmark extends TestCase
         $serializeEnd = hrtime(true);
         $serializeMemAfter = memory_get_usage(true);
         foreach ($serialized as $s) {
-            /** @var \PhpOffice\PhpSpreadsheet\Spreadsheet $s */
+            /** @var Spreadsheet $s */
             $s->disconnectWorksheets();
         }
         unset($serialized);
