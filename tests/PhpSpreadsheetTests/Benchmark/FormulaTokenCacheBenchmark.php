@@ -15,9 +15,8 @@ use PHPUnit\Framework\TestCase;
  * tokens so that identical formula strings are not re-parsed on every evaluation.
  *
  * Run with: vendor/bin/phpunit --group benchmark --stderr
- *
- * @group benchmark
  */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class FormulaTokenCacheBenchmark extends TestCase
 {
     /** Formula patterns used across benchmarks. */
