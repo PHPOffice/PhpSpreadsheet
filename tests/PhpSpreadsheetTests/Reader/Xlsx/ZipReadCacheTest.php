@@ -62,7 +62,7 @@ class ZipReadCacheTest extends TestCase
         self::assertGreaterThan(0, $sheetCount);
 
         // Values should NOT bleed between loads
-        self::assertNotNull($spreadsheet2->getActiveSheet()->getTitle());
+        self::assertNotEmpty($spreadsheet2->getActiveSheet()->getTitle());
 
         $spreadsheet1->disconnectWorksheets();
         $spreadsheet2->disconnectWorksheets();

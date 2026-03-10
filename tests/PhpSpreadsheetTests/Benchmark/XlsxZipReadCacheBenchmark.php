@@ -14,9 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group benchmark
- */
+#[\PHPUnit\Framework\Attributes\Group('benchmark')]
 class XlsxZipReadCacheBenchmark extends TestCase
 {
     private string $tempFile = '';
@@ -86,9 +84,9 @@ class XlsxZipReadCacheBenchmark extends TestCase
         $sumRow = 102;
         $sheet1->setCellValue("A{$sumRow}", 'TOTALS');
         $sheet1->getStyle("A{$sumRow}")->getFont()->setBold(true);
-        $sheet1->setCellValue("F{$sumRow}", "=SUM(F2:F101)");
-        $sheet1->setCellValue("G{$sumRow}", "=SUM(G2:G101)");
-        $sheet1->setCellValue("H{$sumRow}", "=SUM(H2:H101)");
+        $sheet1->setCellValue("F{$sumRow}", '=SUM(F2:F101)');
+        $sheet1->setCellValue("G{$sumRow}", '=SUM(G2:G101)');
+        $sheet1->setCellValue("H{$sumRow}", '=SUM(H2:H101)');
 
         // Add borders to the data range
         $sheet1->getStyle("A1:H{$sumRow}")->getBorders()->getAllBorders()
@@ -194,7 +192,7 @@ class XlsxZipReadCacheBenchmark extends TestCase
         // -- Output benchmark results --
         fwrite(STDERR, "\n");
         fwrite(STDERR, "=== XLSX Zip Read Cache Benchmark ===\n");
-        fwrite(STDERR, sprintf("Test file: 3 sheets, 100 data rows, formulas + styles\n"));
+        fwrite(STDERR, "Test file: 3 sheets, 100 data rows, formulas + styles\n");
         fwrite(STDERR, "\n");
         fwrite(STDERR, sprintf("First load:  %8.2f ms | Memory delta: %+.2f MB | Peak: %.2f MB\n", $elapsed1, $memDelta1, $peakMem1));
         fwrite(STDERR, sprintf("Second load: %8.2f ms | Memory delta: %+.2f MB | Peak: %.2f MB\n", $elapsed2, $memDelta2, $peakMem2));
