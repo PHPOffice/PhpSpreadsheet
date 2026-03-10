@@ -22,6 +22,16 @@ class SimpleCache1 implements CacheInterface
      */
     private array $cache = [];
 
+    /**
+     * Maximum number of entries (0 = unlimited).
+     */
+    private int $maxSize;
+
+    public function __construct(int $maxSize = 0)
+    {
+        $this->maxSize = $maxSize;
+    }
+
     public function clear(): bool
     {
         $this->cache = [];
@@ -48,7 +58,12 @@ class SimpleCache1 implements CacheInterface
     public function get($key, $default = null): mixed
     {
         if ($this->has($key)) {
-            return $this->cache[$key];
+            // Move to end to mark as recently used
+            $value = $this->cache[$key];
+            unset($this->cache[$key]);
+            $this->cache[$key] = $value;
+
+            return $value;
         }
 
         return $default;
@@ -71,6 +86,16 @@ class SimpleCache1 implements CacheInterface
 
     public function set($key, $value, $ttl = null): bool
     {
+        // If key already exists, remove it first so it moves to end
+        if (array_key_exists($key, $this->cache)) {
+            unset($this->cache[$key]);
+        } elseif ($this->maxSize > 0 && count($this->cache) >= $this->maxSize) {
+            // Evict the least recently used entry (first element)
+            reset($this->cache);
+            $lruKey = key($this->cache);
+            unset($this->cache[$lruKey]);
+        }
+
         $this->cache[$key] = $value;
 
         return true;
