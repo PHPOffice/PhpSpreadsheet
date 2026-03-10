@@ -1151,7 +1151,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        return unserialize(serialize($this)); //* @phpstan-ignore-line
+        return clone $this;
     }
 
     /**
