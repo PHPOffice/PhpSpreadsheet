@@ -65,6 +65,14 @@ class Xlsx extends BaseReader
     private bool $parseHuge = false;
 
     /**
+     * Use XMLReader-based streaming for cell data parsing.
+     * When enabled, worksheet cell data is parsed using XMLReader
+     * instead of SimpleXML, which significantly reduces memory usage
+     * for large worksheets.
+     */
+    private bool $useStreamingReader = false;
+
+    /**
      * Allow use of LIBXML_PARSEHUGE.
      * This option can lead to memory leaks and failures,
      * and is not recommended. But some very large spreadsheets
@@ -73,6 +81,18 @@ class Xlsx extends BaseReader
     public function setParseHuge(bool $parseHuge): void
     {
         $this->parseHuge = $parseHuge;
+    }
+
+    public function getUseStreamingReader(): bool
+    {
+        return $this->useStreamingReader;
+    }
+
+    public function setUseStreamingReader(bool $useStreamingReader): self
+    {
+        $this->useStreamingReader = $useStreamingReader;
+
+        return $this;
     }
 
     /**
@@ -894,7 +914,15 @@ class Xlsx extends BaseReader
                             }
 
                             $holdSelectedCells = $docSheet->getSelectedCells();
-                            if ($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row) {
+                            if ($this->useStreamingReader) {
+                                $this->loadSheetDataWithXmlReader(
+                                    $docSheet,
+                                    "$dir/$fileWorksheet",
+                                    $mainNS,
+                                    $sharedStrings,
+                                    $styles
+                                );
+                            } elseif ($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
                                 foreach ($xmlSheetNS->sheetData->row as $row) {
                                     $rowIndex = 1;
@@ -2663,6 +2691,333 @@ class Xlsx extends BaseReader
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Load sheet data using XMLReader for memory-efficient streaming.
+     *
+     * @param Worksheet $docSheet the worksheet to populate
+     * @param string $fileWorksheetPath path to worksheet XML within the zip
+     * @param string $mainNS the main spreadsheetml namespace
+     * @param array<int, mixed> $sharedStrings shared string table
+     * @param object[] $styles style objects array
+     */
+    private function loadSheetDataWithXmlReader(
+        Worksheet $docSheet,
+        string $fileWorksheetPath,
+        string $mainNS,
+        array $sharedStrings,
+        array $styles,
+    ): void {
+        $xmlContent = $this->getFromZipArchive($this->zip, $fileWorksheetPath);
+        if ($xmlContent === '') {
+            return;
+        }
+
+        $xml = new XMLReader();
+        $xml->xml(
+            $this->getSecurityScannerOrThrow()->scan($xmlContent),
+            null,
+            $this->parseHuge ? LIBXML_PARSEHUGE : 0
+        );
+        $xml->setParserProperty(XMLReader::SUBST_ENTITIES, true);
+
+        // Free the raw XML string now that XMLReader has consumed it
+        unset($xmlContent);
+
+        $inSheetData = false;
+        $cIndex = 1;
+
+        while ($xml->read()) {
+            // Look for the sheetData element to start processing
+            if ($xml->localName === 'sheetData' && $xml->namespaceURI === $mainNS) {
+                if ($xml->nodeType === XMLReader::ELEMENT) {
+                    $inSheetData = true;
+                    if ($xml->isEmptyElement) {
+                        break; // empty sheetData
+                    }
+                } elseif ($xml->nodeType === XMLReader::END_ELEMENT) {
+                    break; // end of sheetData
+                }
+
+                continue;
+            }
+
+            if (!$inSheetData) {
+                continue;
+            }
+
+            // Process row elements
+            if ($xml->localName === 'row' && $xml->nodeType === XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
+                $rowIndex = 1;
+
+                if ($xml->isEmptyElement) {
+                    ++$cIndex;
+
+                    continue;
+                }
+
+                // Read cell elements within this row
+                while ($xml->read()) {
+                    if ($xml->localName === 'row' && $xml->nodeType === XMLReader::END_ELEMENT) {
+                        break; // end of row
+                    }
+
+                    if ($xml->localName === 'c' && $xml->nodeType === XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
+                        $r = $xml->getAttribute('r') ?? '';
+                        if ($r === '') {
+                            $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
+                        }
+                        $cellDataType = $xml->getAttribute('t') ?? '';
+                        $originalCellDataTypeNumeric = $cellDataType === '';
+                        $styleIndex = (int) ($xml->getAttribute('s') ?? 0);
+                        $value = null;
+                        $calculatedValue = null;
+
+                        // Read cell?
+                        $coordinates = Coordinate::coordinateFromString($r);
+
+                        // Parse the cell's inner XML using SimpleXML for the <c> element subtree only.
+                        // This keeps memory-efficient row-by-row iteration while reusing
+                        // existing parsing logic for formulas, inline strings, etc.
+                        $cellXml = null;
+                        if (!$xml->isEmptyElement) {
+                            $outerXml = $xml->readOuterXml();
+                            if ($outerXml !== '') {
+                                // readOuterXml() typically includes inherited namespace declarations.
+                                // If the namespace is missing, wrap the element with it.
+                                if (!str_contains($outerXml, 'xmlns')) {
+                                    $outerXml = '<c xmlns="' . $mainNS . '"' . substr($outerXml, 2);
+                                }
+                                $cellXmlRoot = @simplexml_load_string($outerXml);
+                                if ($cellXmlRoot !== false) {
+                                    $cellXml = $cellXmlRoot->children($mainNS);
+                                }
+                            }
+                        }
+
+                        if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
+                            // Handle shared formulas for filtered cells
+                            if ($cellXml !== null && isset($cellXml->f)) {
+                                $fAttrs = $cellXml->f->attributes();
+                                if (isset($fAttrs['t']) && strtolower((string) $fAttrs['t']) === 'shared') {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue, false);
+                                }
+                            }
+                            ++$rowIndex;
+
+                            continue;
+                        }
+
+                        // Determine if cell contains a formula
+                        $useFormula = false;
+                        if ($cellXml !== null && isset($cellXml->f)) {
+                            $fStr = (string) $cellXml->f;
+                            $fAttrs = $cellXml->f->attributes();
+                            $useFormula = $fStr !== '' || (isset($fAttrs['t']) && strtolower((string) $fAttrs['t']) === 'shared');
+                        }
+
+                        // Get value element text
+                        $vValue = ($cellXml !== null && isset($cellXml->v)) ? (string) $cellXml->v : null;
+
+                        switch ($cellDataType) {
+                            case DataType::TYPE_STRING:
+                                // Shared string
+                                if ($vValue !== null && $vValue !== '') {
+                                    $ssIndex = (int) $vValue;
+                                    $value = $sharedStrings[$ssIndex] ?? '';
+                                    if ($value instanceof RichText) {
+                                        $value = clone $value;
+                                    }
+                                } else {
+                                    $value = '';
+                                }
+
+                                break;
+
+                            case DataType::TYPE_BOOL:
+                                if (!$useFormula) {
+                                    if ($vValue !== null) {
+                                        $value = ($vValue === '1');
+                                    } else {
+                                        $value = null;
+                                        $cellDataType = DataType::TYPE_NULL;
+                                    }
+                                } else {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
+                                    if ($cellXml !== null && isset($cellXml->f)) {
+                                        $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
+                                    }
+                                }
+
+                                break;
+
+                            case DataType::TYPE_STRING2:
+                                if ($useFormula) {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
+                                    if ($cellXml !== null && isset($cellXml->f)) {
+                                        $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
+                                    }
+                                } else {
+                                    $value = $vValue;
+                                }
+
+                                break;
+
+                            case DataType::TYPE_INLINE:
+                                if ($useFormula) {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
+                                    if ($cellXml !== null && isset($cellXml->f)) {
+                                        $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
+                                    }
+                                } elseif ($cellXml !== null && isset($cellXml->is)) {
+                                    $value = $this->parseRichText($cellXml->is);
+                                }
+
+                                break;
+
+                            case DataType::TYPE_ERROR:
+                                if (!$useFormula) {
+                                    $value = $vValue;
+                                } else {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
+                                }
+
+                                break;
+
+                            default:
+                                // Numeric or untyped
+                                if (!$useFormula) {
+                                    $value = $vValue;
+                                    if ($value !== null && is_numeric($value)) {
+                                        $value += 0;
+                                        $cellDataType = DataType::TYPE_NUMERIC;
+                                    }
+                                } else {
+                                    $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
+                                    if (is_numeric($calculatedValue)) {
+                                        $calculatedValue += 0;
+                                    }
+                                    if ($cellXml !== null && isset($cellXml->f)) {
+                                        $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
+                                    }
+                                }
+
+                                break;
+                        }
+
+                        // Read empty cells or cells that are not empty
+                        if ($this->readEmptyCells || ($value !== null && $value !== '')) {
+                            // Rich text?
+                            if ($value instanceof RichText && $this->readDataOnly) {
+                                $value = $value->getPlainText();
+                            }
+
+                            $cell = $docSheet->getCell($r);
+                            // Assign value
+                            if ($cellDataType !== '') {
+                                if ($cellDataType === DataType::TYPE_NUMERIC && ($value === '' || $value === null)) {
+                                    $cellDataType = DataType::TYPE_NULL;
+                                }
+                                if ($cellDataType !== DataType::TYPE_NULL) {
+                                    $cell->setValueExplicit($value, $cellDataType);
+                                }
+                            } else {
+                                $cell->setValue($value);
+                            }
+                            if ($calculatedValue !== null) {
+                                $cell->setCalculatedValue($calculatedValue, $originalCellDataTypeNumeric);
+                            }
+
+                            // Style information?
+                            if (!$this->readDataOnly) {
+                                $cAttrS = isset($styles[$styleIndex]) ? $styleIndex : 0;
+                                $cell->setXfIndex($cAttrS);
+                                if ($cellDataType === DataType::TYPE_FORMULA && isset($styles[$cAttrS]) && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
+                                    $holdSelected = $docSheet->getSelectedCells();
+                                    $cell->getStyle()->setQuotePrefix(false);
+                                    $docSheet->setSelectedCells($holdSelected);
+                                }
+                            }
+                        }
+
+                        ++$rowIndex;
+                    }
+                }
+
+                ++$cIndex;
+            }
+        }
+
+        $xml->close();
+    }
+
+    /**
+     * Process a formula from a streaming-parsed cell element.
+     */
+    private function processStreamingFormula(
+        ?SimpleXMLElement $cellXml,
+        string $r,
+        string &$cellDataType,
+        mixed &$value,
+        mixed &$calculatedValue,
+        bool $updateSharedCells = true,
+    ): void {
+        if ($cellXml === null || !isset($cellXml->f)) {
+            return;
+        }
+
+        $cellDataType = DataType::TYPE_FORMULA;
+        $formula = self::replacePrefixes((string) $cellXml->f);
+        $value = "=$formula";
+
+        // Calculated value from <v>
+        $calculatedValue = isset($cellXml->v) ? (string) $cellXml->v : null;
+        if ($calculatedValue !== null && is_numeric($calculatedValue)) {
+            $calculatedValue += 0;
+        }
+
+        // Shared formula?
+        $attr = $cellXml->f->attributes();
+        if (isset($attr['t']) && strtolower((string) $attr['t']) === 'shared') {
+            $instance = (string) $attr['si'];
+
+            if (!isset($this->sharedFormulae[$instance])) {
+                $this->sharedFormulae[$instance] = new SharedFormula($r, $value);
+            } elseif ($updateSharedCells) {
+                $master = Coordinate::indexesFromString($this->sharedFormulae[$instance]->master());
+                $current = Coordinate::indexesFromString($r);
+
+                $difference = [0, 0];
+                $difference[0] = $current[0] - $master[0];
+                $difference[1] = $current[1] - $master[1];
+
+                $value = $this->referenceHelper->updateFormulaReferences(
+                    $this->sharedFormulae[$instance]->formula(),
+                    'A1',
+                    $difference[0],
+                    $difference[1]
+                );
+            }
+        }
+    }
+
+    /**
+     * Store formula attributes from a streaming-parsed formula element.
+     */
+    private function storeStreamingFormulaAttributes(SimpleXMLElement $f, Worksheet $docSheet, string $r): void
+    {
+        $formulaAttributes = [];
+        $attributes = $f->attributes();
+        if (isset($attributes['t'])) {
+            $formulaAttributes['t'] = (string) $attributes['t'];
+        }
+        if (isset($attributes['ref'])) {
+            $formulaAttributes['ref'] = (string) $attributes['ref'];
+        }
+        if (!empty($formulaAttributes)) {
+            $docSheet->getCell($r)->setFormulaAttributes($formulaAttributes);
         }
     }
 
