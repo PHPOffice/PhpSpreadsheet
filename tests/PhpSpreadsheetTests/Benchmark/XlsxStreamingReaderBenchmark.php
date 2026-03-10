@@ -176,7 +176,7 @@ class XlsxStreamingReaderBenchmark extends TestCase
         fwrite(STDERR, "=======================================\n\n");
 
         // Assertions
-        self::assertSame(0, $mismatchCount, "All cell values must match between SimpleXML and streaming reader");
-        self::assertCount(self::ROW_COUNT * self::COL_COUNT, $simpleValues, "Expected all cells to be populated");
+        self::assertSame(0, $mismatchCount, 'All cell values must match between SimpleXML and streaming reader');
+        self::assertCount(self::ROW_COUNT * self::COL_COUNT, $simpleValues, 'Expected all cells to be populated');
     }
 }

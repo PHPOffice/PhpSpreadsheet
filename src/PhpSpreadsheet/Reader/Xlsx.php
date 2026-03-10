@@ -915,6 +915,7 @@ class Xlsx extends BaseReader
 
                             $holdSelectedCells = $docSheet->getSelectedCells();
                             if ($this->useStreamingReader) {
+                                /** @var array<object> $styles */
                                 $this->loadSheetDataWithXmlReader(
                                     $docSheet,
                                     "$dir/$fileWorksheet",

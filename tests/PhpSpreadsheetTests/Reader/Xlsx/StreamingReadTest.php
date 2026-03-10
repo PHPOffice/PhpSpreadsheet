@@ -97,7 +97,7 @@ class StreamingReadTest extends TestCase
                     $simpleValue,
                     $streamValue,
                     "Cell {$coord} value mismatch: SimpleXML=" . var_export($simpleValue, true)
-                    . " vs Streaming=" . var_export($streamValue, true)
+                    . ' vs Streaming=' . var_export($streamValue, true)
                 );
             }
         }
@@ -227,7 +227,7 @@ class StreamingReadTest extends TestCase
         // The value could be a RichText object or a string depending on writer output
         $plainValue = ($value instanceof \PhpOffice\PhpSpreadsheet\RichText\RichText)
             ? $value->getPlainText()
-            : (string) $value;
+            : (is_string($value) ? $value : '');
         self::assertSame('Inline text', $plainValue);
 
         $spreadsheet->disconnectWorksheets();
