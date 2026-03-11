@@ -344,7 +344,7 @@ class Csv extends BaseReader
         while (!feof($sourceHandle)) {
             $rawChunk = fread($sourceHandle, max(1, $chunkSize));
             if ($rawChunk === false || $rawChunk === '') {
-                break;
+                break; // @codeCoverageIgnore
             }
 
             $chunk = $leftover . $rawChunk;
