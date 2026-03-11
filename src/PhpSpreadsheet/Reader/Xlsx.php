@@ -106,6 +106,7 @@ class Xlsx extends BaseReader
             $result = !empty($workbookBasename);
 
             $zip->close();
+            $this->clearZipCache();
         }
 
         return $result;
@@ -212,6 +213,7 @@ class Xlsx extends BaseReader
         }
 
         $zip->close();
+        $this->clearZipCache();
 
         return $worksheetNames;
     }
@@ -321,6 +323,7 @@ class Xlsx extends BaseReader
         }
 
         $zip->close();
+        $this->clearZipCache();
 
         return $worksheetInfo;
     }
@@ -406,6 +409,8 @@ class Xlsx extends BaseReader
 
     private function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
     {
+        assert($archive === $this->zip, 'Cache assumes all reads use the same archive');
+
         // Root-relative paths
         if (str_contains($fileName, '//')) {
             $fileName = substr($fileName, strpos($fileName, '//') + 1);
@@ -2078,6 +2083,7 @@ class Xlsx extends BaseReader
         $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
+        $this->clearZipCache();
 
         return $excel;
     }
