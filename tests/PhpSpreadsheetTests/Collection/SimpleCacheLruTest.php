@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Collection;
 
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Collection\Memory\SimpleCache3;
 use PHPUnit\Framework\TestCase;
 
@@ -295,6 +296,14 @@ class SimpleCacheLruTest extends TestCase
         self::assertFalse($cache->has('a'), '"a" should be evicted with maxSize=1');
         self::assertTrue($cache->has('b'));
         self::assertSame(2, $cache->get('b'));
+    }
+
+    public function testNegativeMaxSizeThrowsException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('maxSize must be >= 0');
+
+        new SimpleCache3(-1);
     }
 
     public function testSequentialEvictionOrder(): void
