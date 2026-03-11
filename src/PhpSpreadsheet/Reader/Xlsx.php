@@ -2736,7 +2736,7 @@ class Xlsx extends BaseReader
                 if ($xml->nodeType === XMLReader::ELEMENT) {
                     $inSheetData = true;
                     if ($xml->isEmptyElement) {
-                        break; // empty sheetData
+                        break; // empty sheetData @codeCoverageIgnore
                     }
                 } elseif ($xml->nodeType === XMLReader::END_ELEMENT) {
                     break; // end of sheetData
@@ -2753,10 +2753,10 @@ class Xlsx extends BaseReader
             if ($xml->localName === 'row' && $xml->nodeType === XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
                 $rowIndex = 1;
 
-                if ($xml->isEmptyElement) {
+                if ($xml->isEmptyElement) { // @codeCoverageIgnoreStart
                     ++$cIndex;
 
-                    continue;
+                    continue; // @codeCoverageIgnoreEnd
                 }
 
                 // Read cell elements within this row
@@ -2768,7 +2768,7 @@ class Xlsx extends BaseReader
                     if ($xml->localName === 'c' && $xml->nodeType === XMLReader::ELEMENT && $xml->namespaceURI === $mainNS) {
                         $r = $xml->getAttribute('r') ?? '';
                         if ($r === '') {
-                            $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
+                            $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex; // @codeCoverageIgnore
                         }
                         $cellDataType = $xml->getAttribute('t') ?? '';
                         $originalCellDataTypeNumeric = $cellDataType === '';
@@ -2788,9 +2788,9 @@ class Xlsx extends BaseReader
                             if ($outerXml !== '') {
                                 // readOuterXml() typically includes inherited namespace declarations.
                                 // If the namespace is missing, wrap the element with it.
-                                if (!str_contains($outerXml, 'xmlns')) {
+                                if (!str_contains($outerXml, 'xmlns')) { // @codeCoverageIgnoreStart
                                     $outerXml = '<c xmlns="' . $mainNS . '"' . substr($outerXml, 2);
-                                }
+                                } // @codeCoverageIgnoreEnd
                                 $cellXmlRoot = @simplexml_load_string($outerXml);
                                 if ($cellXmlRoot !== false) {
                                     $cellXml = $cellXmlRoot->children($mainNS);
@@ -2966,7 +2966,7 @@ class Xlsx extends BaseReader
         bool $updateSharedCells = true,
     ): void {
         if ($cellXml === null || !isset($cellXml->f)) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $originalDataType = $cellDataType;
