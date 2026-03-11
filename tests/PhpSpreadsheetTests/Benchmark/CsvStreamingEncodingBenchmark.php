@@ -8,6 +8,9 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv as CsvReader;
 use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\Group('benchmark')]
+/**
+ * @codeCoverageIgnore
+ */
 class CsvStreamingEncodingBenchmark extends TestCase
 {
     /** @var string[] */
