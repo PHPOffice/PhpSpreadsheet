@@ -771,4 +771,18 @@ class StreamingReadTest extends TestCase
         $simple->disconnectWorksheets();
         $stream->disconnectWorksheets();
     }
+
+    public function testParseHugeOption(): void
+    {
+        $reader = new Xlsx();
+        $reader->setParseHuge(true);
+        $reader->setUseStreamingReader(true);
+
+        $spreadsheet = $reader->load($this->tempFile);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        self::assertSame(42, $sheet->getCell('A1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
 }
