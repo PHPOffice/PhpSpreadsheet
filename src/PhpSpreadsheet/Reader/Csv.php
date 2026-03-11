@@ -319,14 +319,19 @@ class Csv extends BaseReader
     private function convertEncodingStreaming(string $filename): void
     {
         $sourceHandle = fopen($filename, 'rb');
+        // Using php://temp instead of php://memory: spills to disk when data
+        // exceeds 2MB, reducing peak memory for large files.
         $outputHandle = fopen('php://temp', 'r+b');
         if ($sourceHandle === false || $outputHandle === false) {
             // @codeCoverageIgnoreStart
             if ($sourceHandle !== false) {
                 fclose($sourceHandle);
             }
+            if ($outputHandle !== false) {
+                fclose($outputHandle);
+            }
 
-            return;
+            throw new ReaderException("Failed to open file for encoding conversion: {$filename}");
             // @codeCoverageIgnoreEnd
         }
 
