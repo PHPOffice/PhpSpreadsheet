@@ -253,6 +253,7 @@ class Calculation extends CalculationLocale
     {
         $this->clearCalculationCache();
         $this->branchPruner->clearBranchStore();
+        self::$formulaTokenCache = [];
     }
 
     /**
@@ -616,6 +617,8 @@ class Calculation extends CalculationLocale
         if (count(self::$formulaTokenCache) >= self::$formulaTokenCacheMaxSize) {
             self::$formulaTokenCache = [];
         }
+        // Cache key is the original formula string (before ANCHORARRAY transformation)
+        // to ensure consistent lookup regardless of internal transformations.
         self::$formulaTokenCache[$originalFormula] = $result;
 
         return $result;
