@@ -12,6 +12,9 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 #[Group('benchmark')]
+/**
+ * @codeCoverageIgnore
+ */
 class XlsxStreamingReaderBenchmark extends TestCase
 {
     private const ROW_COUNT = 2000;

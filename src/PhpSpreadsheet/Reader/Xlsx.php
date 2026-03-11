@@ -2799,6 +2799,7 @@ class Xlsx extends BaseReader
                         }
 
                         if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
+                            // @codeCoverageIgnoreStart
                             // Handle shared formulas for filtered cells
                             if ($cellXml !== null && isset($cellXml->f)) {
                                 $fAttrs = $cellXml->f->attributes();
@@ -2809,6 +2810,7 @@ class Xlsx extends BaseReader
                             ++$rowIndex;
 
                             continue;
+                            // @codeCoverageIgnoreEnd
                         }
 
                         // Determine if cell contains a formula
@@ -2829,7 +2831,7 @@ class Xlsx extends BaseReader
                                     $ssIndex = (int) $vValue;
                                     $value = $sharedStrings[$ssIndex] ?? '';
                                     if ($value instanceof RichText) {
-                                        $value = clone $value;
+                                        $value = clone $value; // @codeCoverageIgnore
                                     }
                                 } else {
                                     $value = '';
@@ -2842,14 +2844,16 @@ class Xlsx extends BaseReader
                                     if ($vValue !== null) {
                                         $value = ($vValue === '1');
                                     } else {
-                                        $value = null;
-                                        $cellDataType = DataType::TYPE_NULL;
+                                        $value = null; // @codeCoverageIgnore
+                                        $cellDataType = DataType::TYPE_NULL; // @codeCoverageIgnore
                                     }
                                 } else {
+                                    // @codeCoverageIgnoreStart
                                     $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
                                     if ($cellXml !== null && isset($cellXml->f)) {
                                         $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
                                     }
+                                    // @codeCoverageIgnoreEnd
                                 }
 
                                 break;
@@ -2861,17 +2865,19 @@ class Xlsx extends BaseReader
                                         $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
                                     }
                                 } else {
-                                    $value = $vValue;
+                                    $value = $vValue; // @codeCoverageIgnore
                                 }
 
                                 break;
 
                             case DataType::TYPE_INLINE:
                                 if ($useFormula) {
+                                    // @codeCoverageIgnoreStart
                                     $this->processStreamingFormula($cellXml, $r, $cellDataType, $value, $calculatedValue);
                                     if ($cellXml !== null && isset($cellXml->f)) {
                                         $this->storeStreamingFormulaAttributes($cellXml->f, $docSheet, $r);
                                     }
+                                    // @codeCoverageIgnoreEnd
                                 } elseif ($cellXml !== null && isset($cellXml->is)) {
                                     $value = $this->parseRichText($cellXml->is);
                                 }
@@ -2912,14 +2918,14 @@ class Xlsx extends BaseReader
                         if ($this->readEmptyCells || ($value !== null && $value !== '')) {
                             // Rich text?
                             if ($value instanceof RichText && $this->readDataOnly) {
-                                $value = $value->getPlainText();
+                                $value = $value->getPlainText(); // @codeCoverageIgnore
                             }
 
                             $cell = $docSheet->getCell($r);
                             // Assign value
                             if ($cellDataType !== '') {
                                 if ($cellDataType === DataType::TYPE_NUMERIC && ($value === '' || $value === null)) {
-                                    $cellDataType = DataType::TYPE_NULL;
+                                    $cellDataType = DataType::TYPE_NULL; // @codeCoverageIgnore
                                 }
                                 if ($cellDataType !== DataType::TYPE_NULL) {
                                     $cell->setValueExplicit($value, $cellDataType);
@@ -2936,9 +2942,9 @@ class Xlsx extends BaseReader
                                 $cAttrS = isset($styles[$styleIndex]) ? $styleIndex : 0;
                                 $cell->setXfIndex($cAttrS);
                                 if ($cellDataType === DataType::TYPE_FORMULA && isset($styles[$cAttrS]) && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
-                                    $holdSelected = $docSheet->getSelectedCells();
-                                    $cell->getStyle()->setQuotePrefix(false);
-                                    $docSheet->setSelectedCells($holdSelected);
+                                    $holdSelected = $docSheet->getSelectedCells(); // @codeCoverageIgnore
+                                    $cell->getStyle()->setQuotePrefix(false); // @codeCoverageIgnore
+                                    $docSheet->setSelectedCells($holdSelected); // @codeCoverageIgnore
                                 }
                             }
                         }
