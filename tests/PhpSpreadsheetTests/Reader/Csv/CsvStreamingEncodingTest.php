@@ -305,6 +305,42 @@ class CsvStreamingEncodingTest extends TestCase
     }
 
     /**
+     * Test that listWorksheetNames works with non-UTF-8 streaming path.
+     */
+    public function testListWorksheetNamesWithNonUtf8(): void
+    {
+        $utf8Csv = "a,b,c\n1,2,3\n";
+        $isoCsv = mb_convert_encoding($utf8Csv, 'ISO-8859-1', 'UTF-8');
+        $filename = $this->tempDir . '/worksheetnames_iso.csv';
+        file_put_contents($filename, $isoCsv);
+
+        $reader = new Csv();
+        $reader->setInputEncoding('ISO-8859-1');
+        $names = $reader->listWorksheetNames($filename);
+
+        self::assertCount(1, $names);
+        self::assertSame('Worksheet', $names[0]);
+    }
+
+    /**
+     * Test that an empty non-UTF-8 file is handled gracefully.
+     */
+    public function testEmptyNonUtf8File(): void
+    {
+        $filename = $this->tempDir . '/empty_iso.csv';
+        file_put_contents($filename, '');
+
+        $reader = new Csv();
+        $reader->setInputEncoding('ISO-8859-1');
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        self::assertNull($sheet->getCell('A1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
      * Test guess encoding still works with the streaming path.
      */
     #[DataProvider('providerGuessEncodingStreaming')]
