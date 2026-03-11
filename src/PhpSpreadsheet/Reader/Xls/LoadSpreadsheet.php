@@ -175,6 +175,8 @@ class LoadSpreadsheet extends Xls
             //        name in line with the formula, not the reverse
             $xls->phpSheet->setTitle($sheet['name'], false, false);
             $xls->phpSheet->setSheetState($sheet['sheetState']);
+            $xls->phpSheetTitle = $sheet['name'];
+            $xls->cachedReadFilter = $xls->getReadFilter();
 
             $xls->pos = $sheet['offset'];
 
