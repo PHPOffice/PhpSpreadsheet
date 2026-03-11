@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -336,6 +337,114 @@ class CsvStreamingEncodingTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
 
         self::assertNull($sheet->getCell('A1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test the leftover flush path: a UTF-16LE file whose total byte
+     * count is odd triggers the leftover flush at lines 373-377 in Csv.php.
+     *
+     * The leftover contains an incomplete multi-byte character, so iconv
+     * raises a warning (converted to an exception by the test error handler).
+     */
+    public function testLeftoverFlushWithUnalignedUtf16le(): void
+    {
+        $utf8Csv = "a,b\n1,2\n";
+        $utf16leCsv = mb_convert_encoding($utf8Csv, 'UTF-16LE', 'UTF-8');
+        // Append a single extra byte to make total length odd (not aligned to charWidth=2)
+        $utf16leCsv .= "\x00";
+
+        $filename = $this->tempDir . '/unaligned_utf16le.csv';
+        file_put_contents($filename, $utf16leCsv);
+
+        self::assertSame(1, strlen($utf16leCsv) % 2, 'File byte count should be odd to trigger leftover path');
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Detected an incomplete multibyte character');
+
+        $reader = new Csv();
+        $reader->setInputEncoding('UTF-16LE');
+        $reader->load($filename);
+    }
+
+    /**
+     * Test the leftover flush path with UTF-32BE: file byte count not
+     * divisible by 4 triggers leftover handling with incomplete characters.
+     */
+    public function testLeftoverFlushWithUnalignedUtf32be(): void
+    {
+        $utf8Csv = "x,y\n3,4\n";
+        $utf32beCsv = mb_convert_encoding($utf8Csv, 'UTF-32BE', 'UTF-8');
+        // Append 2 extra bytes so length % 4 != 0
+        $utf32beCsv .= "\x00\x00";
+
+        $filename = $this->tempDir . '/unaligned_utf32be.csv';
+        file_put_contents($filename, $utf32beCsv);
+
+        self::assertNotSame(0, strlen($utf32beCsv) % 4, 'File byte count should not be aligned to 4 to trigger leftover path');
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Detected an incomplete multibyte character');
+
+        $reader = new Csv();
+        $reader->setInputEncoding('UTF-32BE');
+        $reader->load($filename);
+    }
+
+    /**
+     * Test encodingCharWidth returns 2 for UCS-2 variants by loading
+     * a file with UCS-2BE input encoding.
+     */
+    #[DataProvider('providerUcsEncodings')]
+    public function testUcsEncodingVariants(string $inputEncoding, string $mbEncoding, int $charWidth): void
+    {
+        $utf8Csv = "a,b\n1,2\n";
+        $encoded = mb_convert_encoding($utf8Csv, $mbEncoding, 'UTF-8');
+
+        $filename = $this->tempDir . '/ucs_' . strtolower(str_replace('-', '', $inputEncoding)) . '.csv';
+        file_put_contents($filename, $encoded);
+
+        // Verify encoding alignment: byte count should be divisible by char width
+        self::assertSame(0, strlen($encoded) % $charWidth);
+
+        $reader = new Csv();
+        $reader->setInputEncoding($inputEncoding);
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        self::assertSame('a', $sheet->getCell('A1')->getValue());
+        self::assertSame('b', $sheet->getCell('B1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUcsEncodings(): array
+    {
+        return [
+            'UCS-2BE' => ['UCS-2BE', 'UCS-2BE', 2],
+            'UCS-2LE' => ['UCS-2LE', 'UCS-2LE', 2],
+            'UCS-4BE' => ['UCS-4BE', 'UCS-4BE', 4],
+            'UCS-4LE' => ['UCS-4LE', 'UCS-4LE', 4],
+        ];
+    }
+
+    /**
+     * Test loadSpreadsheetFromString with non-UTF-8 content pre-converted
+     * to UTF-8. This verifies the string loading path works for content
+     * that was originally in a different encoding.
+     */
+    public function testLoadFromStringWithConvertedEncoding(): void
+    {
+        $utf8Csv = "Name,City\nMüller,Zürich\nCafé,Père\n";
+
+        $reader = new Csv();
+        $spreadsheet = $reader->loadSpreadsheetFromString($utf8Csv);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        self::assertSame('Müller', $sheet->getCell('A2')->getValue());
+        self::assertSame('Zürich', $sheet->getCell('B2')->getValue());
+        self::assertSame('Café', $sheet->getCell('A3')->getValue());
 
         $spreadsheet->disconnectWorksheets();
     }
