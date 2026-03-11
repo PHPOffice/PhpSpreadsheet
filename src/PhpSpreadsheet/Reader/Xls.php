@@ -2069,7 +2069,7 @@ class Xls extends XlsBase
                     } elseif (!$isCompressed && ($option == 0)) {
                         // 1st fragment uncompressed
                         // this fragment compressed
-                        $len = min($charsLeft, $limitpos - $pos);
+                        $len = (int) min($charsLeft, $limitpos - $pos);
                         // Pad each byte with a null byte to expand to UTF-16LE
                         $fragment = substr($recordData, $pos, $len);
                         $retstr .= implode("\x00", str_split($fragment, 1)) . "\x00";
@@ -2836,7 +2836,7 @@ class Xls extends XlsBase
                 }
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
                     $cell = $this->phpSheet->getCell($cellCoordinate);
-                    if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
+                    if (isset($this->mapCellXfIndex[$xfIndex])) {
                         $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
                     }
                     $cell->setValueExplicit($richText, DataType::TYPE_STRING);
