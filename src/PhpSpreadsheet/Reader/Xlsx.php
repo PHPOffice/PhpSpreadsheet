@@ -2969,6 +2969,7 @@ class Xlsx extends BaseReader
             return;
         }
 
+        $originalDataType = $cellDataType;
         $cellDataType = DataType::TYPE_FORMULA;
         $formula = self::replacePrefixes((string) $cellXml->f);
         $value = "=$formula";
@@ -2977,6 +2978,11 @@ class Xlsx extends BaseReader
         $calculatedValue = isset($cellXml->v) ? (string) $cellXml->v : null;
         if ($calculatedValue !== null && is_numeric($calculatedValue)) {
             $calculatedValue += 0;
+        }
+
+        // Handle TYPE_BOOL calculated values - match castToBoolean behavior
+        if ($originalDataType === DataType::TYPE_BOOL && $calculatedValue !== null) {
+            $calculatedValue = (bool) $calculatedValue;
         }
 
         // Shared formula?

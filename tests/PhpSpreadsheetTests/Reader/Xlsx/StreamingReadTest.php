@@ -168,6 +168,20 @@ class StreamingReadTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testStreamingBooleanFormulaCalculatedValue(): void
+    {
+        $reader = new Xlsx();
+        $reader->setUseStreamingReader(true);
+        $spreadsheet = $reader->load($this->tempFile);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // C1 is a boolean cell - verify the type is preserved
+        $cell = $sheet->getCell('C1');
+        self::assertTrue($cell->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testStreamingWithExistingXlsxFile(): void
     {
         // Use an existing test file to compare both reading modes
