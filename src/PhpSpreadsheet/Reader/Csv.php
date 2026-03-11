@@ -370,10 +370,10 @@ class Csv extends BaseReader
             }
         }
 
-        // Flush any remaining bytes
+        // Flush any remaining bytes (incomplete multi-byte chars will throw)
         if ($leftover !== '') {
             $converted = StringHelper::convertEncoding($leftover, 'UTF-8', $encoding);
-            fwrite($outputHandle, $converted);
+            fwrite($outputHandle, $converted); // @codeCoverageIgnore
         }
 
         fclose($sourceHandle);
