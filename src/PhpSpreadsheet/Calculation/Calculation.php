@@ -90,6 +90,18 @@ class Calculation extends CalculationLocale
      */
     private bool $calculationCacheEnabled = true;
 
+    /**
+     * Maximum number of entries in the formula token cache.
+     */
+    private static int $formulaTokenCacheMaxSize = 1000;
+
+    /**
+     * Cache of parsed formula tokens, keyed by the raw formula string.
+     *
+     * @var array<string, array<mixed>|bool>
+     */
+    private static array $formulaTokenCache = [];
+
     private BranchPruner $branchPruner;
 
     protected bool $branchPruningEnabled = true;
@@ -241,6 +253,7 @@ class Calculation extends CalculationLocale
     {
         $this->clearCalculationCache();
         $this->branchPruner->clearBranchStore();
+        self::$formulaTokenCache = [];
     }
 
     /**
@@ -364,6 +377,22 @@ class Calculation extends CalculationLocale
     public function clearCalculationCache(): void
     {
         $this->calculationCache = [];
+    }
+
+    /**
+     * Clear the static formula token cache.
+     */
+    public static function clearFormulaTokenCache(): void
+    {
+        self::$formulaTokenCache = [];
+    }
+
+    /**
+     * Get the current number of entries in the formula token cache.
+     */
+    public static function getFormulaTokenCacheSize(): int
+    {
+        return count(self::$formulaTokenCache);
     }
 
     /**
@@ -559,6 +588,12 @@ class Calculation extends CalculationLocale
      */
     public function parseFormula(string $formula): array|bool
     {
+        // Check the formula token cache first
+        if (isset(self::$formulaTokenCache[$formula])) {
+            return self::$formulaTokenCache[$formula];
+        }
+
+        $originalFormula = $formula;
         $formula = Preg::replaceCallback(
             self::CALCULATION_REGEXP_CELLREF_SPILL,
             fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
@@ -576,7 +611,17 @@ class Calculation extends CalculationLocale
         }
 
         //    Parse the formula and return the token stack
-        return $this->internalParseFormula($formula);
+        $result = $this->internalParseFormula($formula);
+
+        // Cache the result (clear cache if it exceeds the maximum size)
+        if (count(self::$formulaTokenCache) >= self::$formulaTokenCacheMaxSize) {
+            self::$formulaTokenCache = [];
+        }
+        // Cache key is the original formula string (before ANCHORARRAY transformation)
+        // to ensure consistent lookup regardless of internal transformations.
+        self::$formulaTokenCache[$originalFormula] = $result;
+
+        return $result;
     }
 
     /**
