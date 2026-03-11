@@ -653,6 +653,70 @@ class StreamingReadTest extends TestCase
         $stream->disconnectWorksheets();
     }
 
+    public function testStreamingRealSharedFormulae(): void
+    {
+        // Uses a real XLSX file with shared formulas (t="shared" attribute),
+        // including boolean formulas like =A1>3
+        $filename = 'tests/data/Reader/XLSX/sharedformulae.xlsx';
+
+        $readerSimple = new Xlsx();
+        $simple = $readerSimple->load($filename);
+        $sheetSimple = $simple->getActiveSheet();
+
+        $readerStream = new Xlsx();
+        $readerStream->setUseStreamingReader(true);
+        $stream = $readerStream->load($filename);
+        $sheetStream = $stream->getActiveSheet();
+
+        // Verify formulas match (raw values, not calculated)
+        $expectedFormulas = [
+            ['B1', '=A1+1'], ['B2', '=A2+1'], ['B3', '=A3+1'], ['B4', '=A4+1'], ['B5', '=A5+1'],
+            ['C1', '=A1>3'], ['C2', '=A2>3'], ['C3', '=A3>3'], ['C4', '=A4>3'], ['C5', '=A5>3'],
+            ['D1', '="x"&A1'], ['D2', '="x"&A2'], ['D3', '="x"&A3'], ['D4', '="x"&A4'], ['D5', '="x"&A5'],
+        ];
+        foreach ($expectedFormulas as [$coord, $formula]) {
+            self::assertSame(
+                $formula,
+                $sheetStream->getCell($coord)->getValue(),
+                "Shared formula mismatch at {$coord}"
+            );
+            self::assertSame(
+                $sheetSimple->getCell($coord)->getValue(),
+                $sheetStream->getCell($coord)->getValue(),
+                "Streaming vs SimpleXML formula mismatch at {$coord}"
+            );
+        }
+
+        // Verify formula attributes BEFORE toArray() (which triggers calculation and resets them)
+        // B2 (numeric shared formula) and D2 (string shared formula) are dependents with attributes
+        $b2Attrs = $sheetStream->getCell('B2')->getFormulaAttributes();
+        self::assertNotEmpty($b2Attrs, 'B2 should have formula attributes');
+        self::assertSame('shared', $b2Attrs['t'] ?? null);
+        self::assertArrayHasKey('ref', $b2Attrs);
+
+        $d2Attrs = $sheetStream->getCell('D2')->getFormulaAttributes();
+        self::assertNotEmpty($d2Attrs, 'D2 should have formula attributes');
+        self::assertSame('shared', $d2Attrs['t'] ?? null);
+        self::assertArrayHasKey('ref', $d2Attrs);
+
+        // Master cells (row 1) should NOT have formula attributes (matches SimpleXML behavior)
+        self::assertNull($sheetStream->getCell('B1')->getFormulaAttributes());
+        self::assertNull($sheetStream->getCell('D1')->getFormulaAttributes());
+
+        // Verify calculated values match
+        $expectedCalcValues = [
+            [1, 2, false, 'x1'],
+            [2, 3, false, 'x2'],
+            [3, 4, false, 'x3'],
+            [4, 5, true, 'x4'],
+            [5, 6, true, 'x5'],
+        ];
+        self::assertSame($expectedCalcValues, $sheetStream->toArray(null, true, false));
+
+        $simple->disconnectWorksheets();
+        $stream->disconnectWorksheets();
+    }
+
     public function testStreamingFullComparisonWithStyles(): void
     {
         // Comprehensive comparison of streaming vs SimpleXML with styles enabled

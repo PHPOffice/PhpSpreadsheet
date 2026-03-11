@@ -2713,7 +2713,7 @@ class Xlsx extends BaseReader
     ): void {
         $xmlContent = $this->getFromZipArchive($this->zip, $fileWorksheetPath);
         if ($xmlContent === '') {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $xml = new XMLReader();
@@ -2834,7 +2834,7 @@ class Xlsx extends BaseReader
                                         $value = clone $value; // @codeCoverageIgnore
                                     }
                                 } else {
-                                    $value = '';
+                                    $value = ''; // @codeCoverageIgnore
                                 }
 
                                 break;
