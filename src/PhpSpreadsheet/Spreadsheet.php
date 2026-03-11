@@ -1147,7 +1147,7 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
-     * Copy workbook (!= clone!).
+     * Copy the workbook by cloning.
      */
     public function copy(): self
     {
