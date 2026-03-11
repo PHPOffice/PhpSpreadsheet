@@ -493,10 +493,9 @@ class ReferenceHelper
             $cell = $worksheet->getCell($coordinate);
             $cellIndex = Coordinate::columnIndexFromString($cell->getColumn());
 
-            // Don't update cells that are being removed
-            if ($numberOfColumns < 0 && $cellIndex >= $beforeColumn + $numberOfColumns && $cellIndex < $beforeColumn) {
-                continue;
-            }
+            // Note: The "cells being removed" check (numberOfColumns < 0 && cellIndex < beforeColumn)
+            // is unnecessary here because getCoordinatesInRange() already guarantees col >= beforeColumn.
+            // Cells in the removal zone are handled by clearColumnStrips/clearRowStrips above.
 
             // New coordinate
             $newColumn = $cellIndex + $numberOfColumns;

@@ -87,7 +87,7 @@ class ReferenceHelperBenchmark extends TestCase
         $newCellCount = count($sheet->getCellCollection()->getCoordinates());
         fwrite(STDERR, "Cells after insert: {$newCellCount}\n");
 
-        self::assertTrue($elapsed < 30000, "Insert rows took too long: {$elapsed} ms");
+        self::assertLessThan(5000, $elapsed, "Insert rows took too long: {$elapsed} ms");
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -126,7 +126,7 @@ class ReferenceHelperBenchmark extends TestCase
         $newCellCount = count($sheet->getCellCollection()->getCoordinates());
         fwrite(STDERR, "Cells after insert: {$newCellCount}\n");
 
-        self::assertTrue($elapsed < 30000, "Insert columns took too long: {$elapsed} ms");
+        self::assertLessThan(5000, $elapsed, "Insert columns took too long: {$elapsed} ms");
 
         $spreadsheet->disconnectWorksheets();
     }
