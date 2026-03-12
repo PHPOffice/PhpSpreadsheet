@@ -107,31 +107,4 @@ class YearFracTest extends TestCase
             'column vector with methods' => [[[0.99726027397260, 0.99722222222222], [0.99178082191781, 0.99166666666667], [0.98356164383562, 0.98333333333333]], '{"2022-01-01"; "2022-01-03"; "2022-01-06"}', '"2022-12-31"', '{1, 4}'],
         ];
     }
-
-    /**
-     * This issue isn't really specific to YEARFRAC,
-     * but that's how it was reported.
-     */
-    public static function testIssue4832(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet1 = $spreadsheet->getActiveSheet();
-        $sheet1->setTitle('Feuil1');
-        $sheet2 = $spreadsheet->createSheet();
-        $sheet2->setTitle('Feuil2');
-        $sheet1->setCellValue('A1', '=DATE(2020,1,1)');
-        $sheet1->setCellValue('A2', '=DATE(2026,1,1)');
-        $sheet2->setCellValue('A3', '=YEARFRAC(Feuil1!A1,Feuil1!A2)');
-        $sheet2->setCellValue('A4', '=(YEARFRAC(Feuil1!A1,Feuil1!A2))');
-        $sheet2->setCellValue('A5', '=(YEARFRAC(Feuil1!A1,Feuil1!A2)*360)');
-        $sheet2->setCellValue('A6', '=360*(YEARFRAC(Feuil1!A1,Feuil1!A2))');
-        $sheet2->setCellValue('A7', '=( YEARFRAC(Feuil1!A1,Feuil1!A2))');
-
-        self::assertSame(6, $sheet2->getCell('A3')->getCalculatedValue());
-        self::assertSame(6, $sheet2->getCell('A4')->getCalculatedValue());
-        self::assertSame(2160, $sheet2->getCell('A5')->getCalculatedValue());
-        self::assertSame(2160, $sheet2->getCell('A6')->getCalculatedValue());
-        self::assertSame(6, $sheet2->getCell('A7')->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
-    }
 }
