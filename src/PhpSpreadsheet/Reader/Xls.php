@@ -2071,15 +2071,14 @@ class Xls extends XlsBase
                         // this fragment compressed
                         $len = (int) min($charsLeft, $limitpos - $pos);
                         // Pad each byte with a null byte to expand to UTF-16LE
-                        $fragment = substr($recordData, $pos, $len);
-                        $retstr .= implode("\x00", str_split($fragment, 1)) . "\x00";
+                        $retstr .= chunk_split(substr($recordData, $pos, $len), 1, "\x00");
                         $charsLeft -= $len;
                         $isCompressed = false;
                     } else {
                         // 1st fragment compressed
                         // this fragment uncompressed
                         // Pad existing compressed string bytes with null bytes
-                        $retstr = implode("\x00", str_split($retstr, 1)) . "\x00";
+                        $retstr = chunk_split($retstr, 1, "\x00");
                         /** @var int */
                         $len = min($charsLeft * 2, $limitpos - $pos);
                         $retstr .= substr($recordData, $pos, $len);
