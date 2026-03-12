@@ -310,7 +310,7 @@ class ParallelExecutorTest extends TestCase
     public static function memoryLimitProvider(): array
     {
         return [
-            'kilobytes' => ['524288K', 524288 * 1024],
+            'kilobytes' => ['2097152K', 2097152 * 1024],
             'megabytes' => ['2048M', 2048 * 1024 * 1024],
             'gigabytes' => ['4G', 4 * 1024 * 1024 * 1024],
         ];
