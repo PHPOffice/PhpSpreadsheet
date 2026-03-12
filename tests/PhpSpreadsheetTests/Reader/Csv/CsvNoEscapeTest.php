@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
-use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\CsvNoEscape as Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class CsvTest extends TestCase
+/**
+ * Essentially same as CsvTest, but using CsvNoEscape class.
+ */
+class CsvNoEscapeTest extends TestCase
 {
     #[DataProvider('providerDelimiterDetection')]
     public function testDelimiterDetection(string $filename, string $expectedDelimiter, string $cell, string|float|int|null $expectedValue): void
@@ -109,19 +112,9 @@ class CsvTest extends TestCase
         ];
     }
 
-    #[DataProvider('providerVersion')]
-    public function testEscapeCharacters(int $version): void
+    public function testEscapeCharacters(): void
     {
-        if ($version >= 90000) {
-            $this->expectException(ReaderException::class);
-            $this->expectExceptionMessage('Escape character must be null string');
-        }
         $reader = new Csv();
-        if ($version === PHP_VERSION_ID) {
-            $reader->setEscapeCharacter('"');
-        } else {
-            $reader->setEscapeCharacter('"', $version);
-        }
         $worksheet = $reader->load('tests/data/Reader/CSV/backslash.csv')
             ->getActiveSheet();
 
@@ -130,16 +123,8 @@ class CsvTest extends TestCase
             ['field 3\\', 'field 4'],
         ];
 
-        self::assertSame('"', $reader->getEscapeCharacter());
+        self::assertSame('', $reader->getEscapeCharacter());
         self::assertSame($expected, $worksheet->toArray());
-    }
-
-    public static function providerVersion(): array
-    {
-        return [
-            [PHP_VERSION_ID],
-            [90000],
-        ];
     }
 
     public function testInvalidWorkSheetInfo(): void
@@ -244,18 +229,14 @@ class CsvTest extends TestCase
     }
 
     #[DataProvider('providerEscapes')]
-    public function testInferSeparator(string $escape, string $delimiter, int $version = PHP_VERSION_ID): void
+    public function testInferSeparator(string $escape, string $delimiter): void
     {
-        if ($version >= 90000 && $escape !== '') {
+        if ($escape !== '') {
             $this->expectException(ReaderException::class);
             $this->expectExceptionMessage('Escape character must be null string');
         }
         $reader = new Csv();
-        if ($version === PHP_VERSION_ID) {
-            $reader->setEscapeCharacter($escape);
-        } else {
-            $reader->setEscapeCharacter($escape, $version);
-        }
+        $reader->setEscapeCharacter($escape);
         $filename = 'tests/data/Reader/CSV/escape.csv';
         $reader->listWorksheetInfo($filename);
         self::assertEquals($delimiter, $reader->getDelimiter());
@@ -267,7 +248,6 @@ class CsvTest extends TestCase
             ['\\', ';'],
             ["\x0", ','],
             ['', ','],
-            ['\\', ';', 90000],
         ];
     }
 
@@ -278,5 +258,14 @@ class CsvTest extends TestCase
         self::assertSame(',', $reader->getDelimiter());
         $reader->setDelimiter(null);
         self::assertNull($reader->getDelimiter());
+    }
+
+    public function testSetTestAutoDetect(): void
+    {
+        $reader = new Csv();
+        $reader->setTestAutoDetect(false);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('This class requires that testAutoDetect be false');
+        $reader->setTestAutoDetect(true);
     }
 }
