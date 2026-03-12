@@ -1059,6 +1059,13 @@ class Calculation extends CalculationLocale
     private function unionForComma(array $matches): string
     {
         $matches5 = (string) $matches[5];
+        // Weirdly, the regexp which get us here for issue 4832
+        // only gets us here for Php8.4+. 8.4 introduced
+        // major changes for PCRE, but I cannot identify
+        // the exact change which caused this discrepancy.
+        // I do plan to update coverage to 8.4 at some point,
+        // and I can remove the coverage annotations after that.
+        // @codeCoverageIgnoreStart
         if (str_contains($matches5, '(') && !str_contains($matches5, ')')) {
             if ($this->spreadsheet !== null) {
                 if ($this->spreadsheet->getSheetByName($matches5) === null) {
@@ -1069,6 +1076,7 @@ class Calculation extends CalculationLocale
                 }
             }
         }
+        // @codeCoverageIgnoreEnd
         $matches1 = (string) $matches[1];
         $matches2 = (string) $matches[2];
 
