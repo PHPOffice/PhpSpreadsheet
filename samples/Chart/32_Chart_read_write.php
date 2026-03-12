@@ -7,6 +7,7 @@ require __DIR__ . '/../Header.php';
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
 
+/** @var string[] $argv */
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
     for ($i = 1; $i < $argc; ++$i) {
