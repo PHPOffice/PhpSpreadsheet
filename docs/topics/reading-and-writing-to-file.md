@@ -573,6 +573,7 @@ Starting with release 5.6, the `IOFactory` methods `createReader`, `load`, `iden
 $spreadsheet = IOFactory::load(
     $inputFileName,
     mergeArray: [IOFactory::READER_CSV => Reader\CsvNoEscape::class]
+    /* or mergeArray: IOFactory::USE_CSV_NO_EXCAPE */
 );
 ```
 

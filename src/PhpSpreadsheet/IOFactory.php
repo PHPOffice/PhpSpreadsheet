@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Reader\CsvNoEscape;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -23,6 +24,8 @@ abstract class IOFactory
     public const READER_GNUMERIC = 'Gnumeric';
     public const READER_HTML = 'Html';
     public const READER_CSV = 'Csv';
+
+    public const USE_CSV_NO_ESCAPE = [self::READER_CSV => CsvNoEscape::class];
 
     public const WRITER_XLSX = 'Xlsx';
     public const WRITER_XLS = 'Xls';

@@ -109,8 +109,6 @@ class IOFactoryRegisterTest extends TestCase
         $objSpreadsheet->disconnectWorksheets();
     }
 
-    private const MERGE_ARRAY = [IOFactory::READER_CSV => Reader\CsvNoEscape::class];
-
     public static function testAlternateCsvNoEscape1(): void
     {
         $inputFileName = 'tests/data/Reader/CSV/backslash.csv';
@@ -119,7 +117,7 @@ class IOFactoryRegisterTest extends TestCase
         $objReader = IOFactory::createReader($inputFileType);
         self::assertInstanceOf(Reader\Csv::class, $objReader);
 
-        $spreadsheet = IOFactory::load($inputFileName, mergeArray: self::MERGE_ARRAY);
+        $spreadsheet = IOFactory::load($inputFileName, mergeArray: IOFactory::USE_CSV_NO_ESCAPE);
         $sheet = $spreadsheet->getActiveSheet();
         $expected = [
             ['field 1', 'field 2\\'],
@@ -137,9 +135,9 @@ class IOFactoryRegisterTest extends TestCase
         $objReader = IOFactory::createReader($inputFileType);
         self::assertInstanceOf(Reader\Csv::class, $objReader);
 
-        $inputFileType2 = IOFactory::identify($inputFileName, null, true, mergeArray: self::MERGE_ARRAY);
+        $inputFileType2 = IOFactory::identify($inputFileName, null, true, mergeArray: IOFactory::USE_CSV_NO_ESCAPE);
         self::assertSame(Reader\CsvNoEscape::class, $inputFileType2);
-        $objReader2 = IOFactory::createReaderForFile($inputFileName, mergeArray: self::MERGE_ARRAY);
+        $objReader2 = IOFactory::createReaderForFile($inputFileName, mergeArray: IOFactory::USE_CSV_NO_ESCAPE);
         self::assertInstanceOf(Reader\CsvNoEscape::class, $objReader2);
 
         $spreadsheet = $objReader2->load($inputFileName);
