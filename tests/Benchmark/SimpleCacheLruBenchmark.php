@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Benchmark;
+namespace PhpOffice\PhpSpreadsheetBenchmarks;
 
 use PhpOffice\PhpSpreadsheet\Collection\Memory\SimpleCache3;
 use PHPUnit\Framework\TestCase;
