@@ -120,7 +120,7 @@ class ConditionalColorScale
     public function setScaleArray(): self
     {
         if ($this->sqref !== null && $this->worksheet !== null) {
-            $values = $this->worksheet->rangesToArray($this->sqref, null, true, true, true);
+            $values = $this->worksheet->rangesToArray($this->sqref, null, true, false, true);
             $this->valueArray = [];
             foreach ($values as $key => $value) {
                 /** @var array<float|int|string> $value */
@@ -166,20 +166,23 @@ class ConditionalColorScale
             $green2 = hexdec(substr($midColor, 4, 2));
             $blue1 = hexdec(substr($minColor, 6, 2));
             $blue2 = hexdec(substr($midColor, 6, 2));
-
-            return strtoupper(dechex((int) ($alpha2 * $blend + $alpha1 * (1 - $blend))) . '' . dechex((int) ($red2 * $blend + $red1 * (1 - $blend))) . '' . dechex((int) ($green2 * $blend + $green1 * (1 - $blend))) . '' . dechex((int) ($blue2 * $blend + $blue1 * (1 - $blend))));
+        } else {
+            $blend = ($value - $this->midValue) / ($this->maxValue - $this->midValue);
+            $alpha1 = hexdec(substr($midColor, 0, 2));
+            $alpha2 = hexdec(substr($maxColor, 0, 2));
+            $red1 = hexdec(substr($midColor, 2, 2));
+            $red2 = hexdec(substr($maxColor, 2, 2));
+            $green1 = hexdec(substr($midColor, 4, 2));
+            $green2 = hexdec(substr($maxColor, 4, 2));
+            $blue1 = hexdec(substr($midColor, 6, 2));
+            $blue2 = hexdec(substr($maxColor, 6, 2));
         }
-        $blend = ($value - $this->midValue) / ($this->maxValue - $this->midValue);
-        $alpha1 = hexdec(substr($midColor, 0, 2));
-        $alpha2 = hexdec(substr($maxColor, 0, 2));
-        $red1 = hexdec(substr($midColor, 2, 2));
-        $red2 = hexdec(substr($maxColor, 2, 2));
-        $green1 = hexdec(substr($midColor, 4, 2));
-        $green2 = hexdec(substr($maxColor, 4, 2));
-        $blue1 = hexdec(substr($midColor, 6, 2));
-        $blue2 = hexdec(substr($maxColor, 6, 2));
+        $alpha = (int) ($alpha2 * $blend + $alpha1 * (1 - $blend));
+        $red = (int) ($red2 * $blend + $red1 * (1 - $blend));
+        $green = (int) ($green2 * $blend + $green1 * (1 - $blend));
+        $blue = (int) ($blue2 * $blend + $blue1 * (1 - $blend));
 
-        return strtoupper(dechex((int) ($alpha2 * $blend + $alpha1 * (1 - $blend))) . '' . dechex((int) ($red2 * $blend + $red1 * (1 - $blend))) . '' . dechex((int) ($green2 * $blend + $green1 * (1 - $blend))) . '' . dechex((int) ($blue2 * $blend + $blue1 * (1 - $blend))));
+        return sprintf('%02X%02X%02X%02X', $alpha, $red, $green, $blue);
     }
 
     private function getLimitValue(string $type, float $value = 0, float $formula = 0): float
