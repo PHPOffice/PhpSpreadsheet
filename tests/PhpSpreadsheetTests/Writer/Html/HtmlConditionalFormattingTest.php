@@ -160,4 +160,52 @@ class HtmlConditionalFormattingTest extends TestCase
         self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#00FF00;">0.42%</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testPercentagesNoMid(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [0.0014676309754806],
+            [0.0058290134726582],
+            [0.00031478256190473],
+            [0.0075923486102745],
+            [0.0041865730298472],
+        ]);
+        $sheet->getStyle('A1:A5')
+            ->getNumberFormat()
+            ->setFormatCode('0.00%');
+        $conditionals = [];
+        $conditional1 = new Conditional();
+        $colorscale = new ConditionalColorScale();
+        $min = new ConditionalFormatValueObject('min');
+        $max = new ConditionalFormatValueObject('max');
+        //$mid = new ConditionalFormatValueObject('percentile', 50);
+        self::assertFalse($colorscale->colorScaleReadyForUse());
+        self::assertSame('FF000000', $colorscale->getColorForValue(0.0));
+        $colorscale
+            ->setSqref('A1:A5', $sheet)
+            ->setMinimumColor(new Color('FF0000'))
+            //->setMidpointColor(new Color('00FF00'))
+            ->setMaximumColor(new Color('0000FF'))
+            ->setMinimumConditionalFormatValueObject($min)
+            //->setMidpointConditionalFormatValueObject($mid)
+            ->setMaximumConditionalFormatValueObject($max)
+            ->setScaleArray();
+        self::assertSame('A1:A5', $colorscale->getSqRef());
+        $conditional1->setColorScale($colorscale)
+            ->setConditionType(Conditional::CONDITION_COLORSCALE);
+        $conditionals = [$conditional1];
+        $sheet->getStyle('$A$1:$A$5')
+            ->setConditionalStyles($conditionals);
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setConditionalFormatting(true);
+        $html = $writer->generateHtmlAll();
+        self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#D60028;">0.15%</td>', $html);
+        self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#3D00C0;">0.58%</td>', $html);
+        self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#FF0000;">0.03%</td>', $html);
+        self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#0000FF;">0.76%</td>', $html);
+        self::assertStringContainsString('<td class="column0 style1 n" style="color:#000000;background-color:#760087;">0.42%</td>', $html);
+        $spreadsheet->disconnectWorksheets();
+    }
 }

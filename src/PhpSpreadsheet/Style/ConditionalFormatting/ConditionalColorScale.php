@@ -247,7 +247,12 @@ class ConditionalColorScale
                     $green2 = hexdec(substr($maxColor, 4, 2));
                     $blue1 = hexdec(substr($minColor, 6, 2));
                     $blue2 = hexdec(substr($maxColor, 6, 2));
-                    $this->midpointColor = new Color(strtoupper(dechex((int) ($alpha2 * $blend + $alpha1 * (1 - $blend))) . '' . dechex((int) ($red2 * $blend + $red1 * (1 - $blend))) . '' . dechex((int) ($green2 * $blend + $green1 * (1 - $blend))) . '' . dechex((int) ($blue2 * $blend + $blue1 * (1 - $blend)))));
+                    $alpha = (int) ($alpha2 * $blend + $alpha1 * (1 - $blend));
+                    $red = (int) ($red2 * $blend + $red1 * (1 - $blend));
+                    $green = (int) ($green2 * $blend + $green1 * (1 - $blend));
+                    $blue = (int) ($blue2 * $blend + $blue1 * (1 - $blend));
+
+                    $this->midpointColor = new Color(sprintf('%02X%02X%02X%02X', $alpha, $red, $green, $blue));
                 } else {
                     $this->midpointColor = null;
                 }
