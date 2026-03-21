@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Collection/Cells::MAX_COLUMN_ID - use Cell/AddressRange::MAX_COLUMN_INT.
 - Writer/Xls/Worksheet constants MAX_XLS_COLUMN, MAX_XLS_COLUMN_STRING, MAX_XLS_ROW - use Cell/AddressRange MAX_COLUMN_INT_XLS, MAX_COLUMN_XLS, MAX_ROW_XLS
+- Xlsx Writer Data URI for Images. [Issue #4823](https://github.com/PHPOffice/PhpSpreadsheet/issues/4823) [PR #4831](https://github.com/PHPOffice/PhpSpreadsheet/pull/4831)
 
 ### Fixed
 

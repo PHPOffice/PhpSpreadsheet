@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use ZipArchive;
 
@@ -58,6 +59,9 @@ class Drawing extends BaseDrawing
      */
     public function getExtension(): string
     {
+        if (Preg::isMatch('~^data:image/([^;]+);base64,~', $this->path, $matches)) {
+            return $matches[1];
+        }
         $exploded = explode('.', basename($this->path));
 
         return $exploded[count($exploded) - 1];
@@ -96,7 +100,7 @@ class Drawing extends BaseDrawing
     public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null, bool $allowExternal = true, ?callable $isWhitelisted = null): static
     {
         $this->isUrl = false;
-        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+        if (Preg::isMatch('~^data:image/[a-z]+;base64,~', $path)) {
             $this->path = $path;
 
             return $this;
@@ -114,7 +118,7 @@ class Drawing extends BaseDrawing
             }
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
         } elseif (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))) {
-            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+            if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }
             if (!$allowExternal) {
