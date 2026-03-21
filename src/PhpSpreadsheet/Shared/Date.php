@@ -585,6 +585,8 @@ class Date
      * @throws PhpSpreadsheetException If an error occurs during the date modification process.
      *
      * @return DateTime The modified DateTime object.
+     *
+     * @codeCoverageIgnore
      */
     protected static function safeModify(DateTime $dateTime, string $modifier): DateTime
     {
