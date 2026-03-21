@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Consistent handling of row and column limits. [PR #4820](https://github.com/PHPOffice/PhpSpreadsheet/pull/4820)
+- Ods Reader/Writer Integer Styles with Leading Zeros. [Issue #1606](https://github.com/PHPOffice/PhpSpreadsheet/issues/1606) [PR #4822](https://github.com/PHPOffice/PhpSpreadsheet/pull/4822)
 
 ## 2026-02-28 - 5.5.0
 
