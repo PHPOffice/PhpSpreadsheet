@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -281,6 +282,9 @@ class ContentTypes extends WriterPart
      */
     private function getImageMimeType(string $filename): string
     {
+        if (Preg::isMatch('~^data:(image/[^;]+);base64,~', $filename, $matches)) {
+            return $matches[1];
+        }
         if (File::fileExists($filename)) {
             $image = getimagesize($filename);
 
