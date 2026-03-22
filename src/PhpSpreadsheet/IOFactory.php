@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Reader\CsvNoEscape;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -23,6 +24,8 @@ abstract class IOFactory
     public const READER_GNUMERIC = 'Gnumeric';
     public const READER_HTML = 'Html';
     public const READER_CSV = 'Csv';
+
+    public const USE_CSV_NO_ESCAPE = [self::READER_CSV => CsvNoEscape::class];
 
     public const WRITER_XLSX = 'Xlsx';
     public const WRITER_XLS = 'Xls';
@@ -100,18 +103,22 @@ abstract class IOFactory
 
     /**
      * Create IReader.
+     *
+     * @param array<string, class-string<IReader>> $mergeArray
+     *        Array to use to find reader, self::$readers will be used if $readers is empty.
      */
-    public static function createReader(string $readerType): IReader
+    public static function createReader(string $readerType, array $mergeArray = []): IReader
     {
         /** @var class-string<IReader> */
         $className = $readerType;
-        if (!in_array($readerType, self::$readers, true)) {
-            if (!isset(self::$readers[$readerType])) {
+        $readers = empty($mergeArray) ? self::$readers : $mergeArray;
+        if (!in_array($readerType, $readers, true)) {
+            if (!isset($readers[$readerType])) {
                 throw new Reader\Exception("No reader found for type $readerType");
             }
 
             // Instantiate reader
-            $className = self::$readers[$readerType];
+            $className = $readers[$readerType];
         }
 
         return new $className();
@@ -131,10 +138,11 @@ abstract class IOFactory
      *                             list of Readers so it will only try the subset that you specify here.
      *                          Values in this list can be any of the constant values defined in the set
      *                                 IOFactory::READER_*.
+     * @param array<string, class-string<IReader>> $mergeArray
      */
-    public static function load(string $filename, int $flags = 0, ?array $readers = null): Spreadsheet
+    public static function load(string $filename, int $flags = 0, ?array $readers = null, array $mergeArray = []): Spreadsheet
     {
-        $reader = self::createReaderForFile($filename, $readers);
+        $reader = self::createReaderForFile($filename, $readers, $mergeArray);
 
         return $reader->load($filename, $flags);
     }
@@ -143,10 +151,11 @@ abstract class IOFactory
      * Identify file type using automatic IReader resolution.
      *
      * @param string[] $readers
+     * @param array<string, class-string<IReader>> $mergeArray
      */
-    public static function identify(string $filename, ?array $readers = null, bool $fullClassName = false): string
+    public static function identify(string $filename, ?array $readers = null, bool $fullClassName = false, array $mergeArray = []): string
     {
-        $reader = self::createReaderForFile($filename, $readers);
+        $reader = self::createReaderForFile($filename, $readers, $mergeArray);
         $className = $reader::class;
         if ($fullClassName) {
             return $className;
@@ -164,12 +173,14 @@ abstract class IOFactory
      *                             list of Readers so it will only try the subset that you specify here.
      *                          Values in this list can be any of the constant values defined in the set
      *                                 IOFactory::READER_*.
+     * @param array<string, class-string<IReader>> $mergeArray supplied readers will be merged with
+     *        default readers, allowing specification of a partial list.
      */
-    public static function createReaderForFile(string $filename, ?array $readers = null): IReader
+    public static function createReaderForFile(string $filename, ?array $readers = null, array $mergeArray = []): IReader
     {
         File::assertFile($filename);
 
-        $testReaders = self::$readers;
+        $testReaders = array_merge(self::$readers, $mergeArray);
         if ($readers !== null) {
             $readers = array_map('strtoupper', $readers);
             $testReaders = array_filter(
@@ -182,7 +193,7 @@ abstract class IOFactory
         // First, lucky guess by inspecting file extension
         $guessedReader = self::getReaderTypeFromExtension($filename);
         if (($guessedReader !== null) && array_key_exists($guessedReader, $testReaders)) {
-            $reader = self::createReader($guessedReader);
+            $reader = self::createReader($guessedReader, $testReaders);
 
             // Let's see if we are lucky
             if ($reader->canRead($filename)) {
@@ -195,7 +206,7 @@ abstract class IOFactory
         foreach ($testReaders as $readerType => $class) {
             //    Ignore our original guess, we know that won't work
             if ($readerType !== $guessedReader) {
-                $reader = self::createReader($readerType);
+                $reader = self::createReader($readerType, $testReaders);
                 if ($reader->canRead($filename)) {
                     return $reader;
                 }
