@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Consistent handling of row and column limits. [PR #4820](https://github.com/PHPOffice/PhpSpreadsheet/pull/4820)
+- Problems with Html Conditional Formatting Colorscale. [Issue #4838](https://github.com/PHPOffice/PhpSpreadsheet/issues/4838) [PR #4839](https://github.com/PHPOffice/PhpSpreadsheet/pull/4839)
 
 ## 2026-02-28 - 5.5.0
 
