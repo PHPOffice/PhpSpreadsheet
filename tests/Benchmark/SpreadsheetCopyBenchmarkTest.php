@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 #[Group('benchmark')]
-class SpreadsheetCopyBenchmark extends TestCase
+class SpreadsheetCopyBenchmarkTest extends TestCase
 {
     private ?Spreadsheet $spreadsheet = null;
 
