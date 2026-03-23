@@ -46,18 +46,17 @@ class Hyperlinks
             $cell = $worksheet->getCell($cellReference);
 
             $hyperlinkUrl = '';
-			if (isset($linkRel['id'])) {
-				$hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? '';
-			}
-			if (isset($attributes['location'])) {
-				if ($hyperlinkUrl === '') {
-					$hyperlinkUrl = 'sheet://' . (string) $attributes['location'];
-				} else {
-					$hyperlinkUrl .= '#' . (string) $attributes['location'];
-				}
-			}
-			$cell->getHyperlink()->setUrl($hyperlinkUrl);
-            
+            if (isset($linkRel['id'])) {
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? '';
+            }
+            if (isset($attributes['location'])) {
+                if ($hyperlinkUrl === '') {
+                    $hyperlinkUrl = 'sheet://' . (string) $attributes['location'];
+                } else {
+                    $hyperlinkUrl .= '#' . (string) $attributes['location'];
+                }
+            }
+            $cell->getHyperlink()->setUrl($hyperlinkUrl);
             // Tooltip
             if (isset($attributes['tooltip'])) {
                 $cell->getHyperlink()->setTooltip((string) $attributes['tooltip']);
