@@ -103,7 +103,15 @@ class SpreadsheetCopyBenchmarkTest extends TestCase
         return $spreadsheet;
     }
 
-    public function testCloneIsFasterThanSerialize(): void
+    /**
+     * Compare clone vs serialize/unserialize for copying a Spreadsheet.
+     *
+     * Performance varies across PHP versions and platforms — run this
+     * benchmark in your own environment to determine which is faster:
+     *
+     *   vendor/bin/phpunit --group benchmark --filter SpreadsheetCopyBenchmarkTest --stderr
+     */
+    public function testCloneVsSerializeBenchmark(): void
     {
         $this->spreadsheet = $this->createPopulatedSpreadsheet();
 
@@ -125,7 +133,7 @@ class SpreadsheetCopyBenchmarkTest extends TestCase
 
         $iterations = 5;
 
-        // Benchmark clone (new approach)
+        // Benchmark clone
         gc_collect_cycles();
         $cloneMemBefore = memory_get_usage(true);
         $cloneStart = hrtime(true);
@@ -145,7 +153,7 @@ class SpreadsheetCopyBenchmarkTest extends TestCase
         $cloneAvgMs = $cloneTimeMs / $iterations;
         $cloneMemDeltaMb = ($cloneMemAfter - $cloneMemBefore) / 1024 / 1024;
 
-        // Benchmark serialize/unserialize (old approach)
+        // Benchmark serialize/unserialize
         gc_collect_cycles();
         $serializeMemBefore = memory_get_usage(true);
         $serializeStart = hrtime(true);
@@ -166,29 +174,32 @@ class SpreadsheetCopyBenchmarkTest extends TestCase
         $serializeAvgMs = $serializeTimeMs / $iterations;
         $serializeMemDeltaMb = ($serializeMemAfter - $serializeMemBefore) / 1024 / 1024;
 
-        // Output results
-        $speedup = $serializeAvgMs / max($cloneAvgMs, 0.001);
+        // Output results for manual comparison
         fwrite(STDERR, "\n");
         fwrite(STDERR, "=== Spreadsheet Copy Benchmark ({$totalCells} cells, {$iterations} iterations) ===\n");
+        fwrite(STDERR, sprintf("  PHP version:           %s (%s)\n", PHP_VERSION, PHP_OS));
         fwrite(STDERR, sprintf("  clone:                 %.2f ms avg (%.2f ms total)\n", $cloneAvgMs, $cloneTimeMs));
         fwrite(STDERR, sprintf("  serialize/unserialize: %.2f ms avg (%.2f ms total)\n", $serializeAvgMs, $serializeTimeMs));
-        fwrite(STDERR, sprintf("  Speedup:               %.2fx faster with clone\n", $speedup));
         fwrite(STDERR, sprintf("  Clone memory delta:    %.2f MB\n", $cloneMemDeltaMb));
         fwrite(STDERR, sprintf("  Serialize memory delta: %.2f MB\n", $serializeMemDeltaMb));
         fwrite(STDERR, "\n");
 
-        // Assert clone is faster (generous threshold)
-        self::assertGreaterThan(
-            $cloneAvgMs,
-            $serializeAvgMs,
-            'Clone should be faster than serialize/unserialize'
-        );
+        // Assert both approaches produce spreadsheets with the expected cell count
+        $cloneCopy = clone $this->spreadsheet;
+        $cloneCells = 0;
+        foreach ($cloneCopy->getWorksheetIterator() as $sheet) {
+            $cloneCells += count($sheet->getCellCollection()->getCoordinates());
+        }
+        self::assertSame($totalCells, $cloneCells, 'Clone must preserve all cells');
+        $cloneCopy->disconnectWorksheets();
 
-        // Assert clone uses less memory (or equal)
-        self::assertLessThanOrEqual(
-            $serializeMemDeltaMb,
-            $cloneMemDeltaMb,
-            'Clone should not use more memory than serialize/unserialize'
-        );
+        /** @var Spreadsheet $serializeCopy */
+        $serializeCopy = unserialize(serialize($this->spreadsheet));
+        $serializeCells = 0;
+        foreach ($serializeCopy->getWorksheetIterator() as $sheet) {
+            $serializeCells += count($sheet->getCellCollection()->getCoordinates());
+        }
+        self::assertSame($totalCells, $serializeCells, 'Serialize copy must preserve all cells');
+        $serializeCopy->disconnectWorksheets();
     }
 }
