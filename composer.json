@@ -120,7 +120,8 @@
     "autoload-dev": {
         "psr-4": {
             "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
-            "PhpOffice\\PhpSpreadsheetInfra\\": "infra"
+            "PhpOffice\\PhpSpreadsheetInfra\\": "infra",
+            "PhpOffice\\PhpSpreadsheetBenchmarks\\": "tests/Benchmark"
         }
     }
 }

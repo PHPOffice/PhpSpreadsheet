@@ -100,6 +100,18 @@ class Xls extends XlsBase
     protected Worksheet $phpSheet;
 
     /**
+     * Cached sheet title for the current sheet being parsed.
+     * Avoids repeated getTitle() calls in per-cell read filter checks.
+     */
+    protected string $phpSheetTitle = '';
+
+    /**
+     * Cached read filter reference.
+     * Avoids repeated getReadFilter() calls in per-cell read filter checks.
+     */
+    protected IReadFilter $cachedReadFilter;
+
+    /**
      * BIFF version.
      */
     protected int $version = 0;
@@ -1944,12 +1956,11 @@ class Xls extends XlsBase
         $nm = self::getInt4d($recordData, 4);
         $pos += 4;
 
-        // look up limit position
-        foreach ($spliceOffsets as $spliceOffset) {
-            // it can happen that the string is empty, therefore we need
-            // <= and not just <
-            if ($pos <= $spliceOffset) {
-                $limitposSST = $spliceOffset;
+        // look up limit position (last splice offset where pos fits)
+        $spliceCount = count($spliceOffsets);
+        for ($si = 0; $si < $spliceCount; ++$si) {
+            if ($pos <= $spliceOffsets[$si]) {
+                $limitposSST = $spliceOffsets[$si];
             }
         }
 
@@ -1992,13 +2003,11 @@ class Xls extends XlsBase
             // expected byte length of character array if not split
             $len = ($isCompressed) ? $numChars : $numChars * 2;
 
-            // look up limit position - Check it again to be sure that no error occurs when parsing SST structure
+            // look up limit position - find the first splice offset at or beyond current pos
             $limitpos = null;
-            foreach ($spliceOffsets as $spliceOffset) {
-                // it can happen that the string is empty, therefore we need
-                // <= and not just <
-                if ($pos <= $spliceOffset) {
-                    $limitpos = $spliceOffset;
+            for ($si = 0; $si < $spliceCount; ++$si) {
+                if ($pos <= $spliceOffsets[$si]) {
+                    $limitpos = $spliceOffsets[$si];
 
                     break;
                 }
@@ -2025,10 +2034,10 @@ class Xls extends XlsBase
 
                 // keep reading the characters
                 while ($charsLeft > 0) {
-                    // look up next limit position, in case the string span more than one continue record
-                    foreach ($spliceOffsets as $spliceOffset) {
-                        if ($pos < $spliceOffset) {
-                            $limitpos = $spliceOffset;
+                    // look up next limit position, in case the string spans more than one continue record
+                    for ($si = 0; $si < $spliceCount; ++$si) {
+                        if ($pos < $spliceOffsets[$si]) {
+                            $limitpos = $spliceOffsets[$si];
 
                             break;
                         }
@@ -2060,22 +2069,16 @@ class Xls extends XlsBase
                     } elseif (!$isCompressed && ($option == 0)) {
                         // 1st fragment uncompressed
                         // this fragment compressed
-                        $len = min($charsLeft, $limitpos - $pos);
-                        for ($j = 0; $j < $len; ++$j) {
-                            $retstr .= $recordData[$pos + $j]
-                                . chr(0);
-                        }
+                        $len = (int) min($charsLeft, $limitpos - $pos);
+                        // Pad each byte with a null byte to expand to UTF-16LE
+                        $retstr .= chunk_split(substr($recordData, $pos, $len), 1, "\x00");
                         $charsLeft -= $len;
                         $isCompressed = false;
                     } else {
                         // 1st fragment compressed
                         // this fragment uncompressed
-                        $newstr = '';
-                        $jMax = strlen($retstr);
-                        for ($j = 0; $j < $jMax; ++$j) {
-                            $newstr .= $retstr[$j] . chr(0);
-                        }
-                        $retstr = $newstr;
+                        // Pad existing compressed string bytes with null bytes
+                        $retstr = chunk_split($retstr, 1, "\x00");
                         /** @var int */
                         $len = min($charsLeft * 2, $limitpos - $pos);
                         $retstr .= substr($recordData, $pos, $len);
@@ -2726,9 +2729,10 @@ class Xls extends XlsBase
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -2736,10 +2740,10 @@ class Xls extends XlsBase
             $rknum = self::getInt4d($recordData, 6);
             $numValue = self::getIEEE754($rknum);
 
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            $cell = $this->phpSheet->getCell($cellCoordinate);
             if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add style information
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
             }
 
             // add cell
@@ -2770,22 +2774,28 @@ class Xls extends XlsBase
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
-        $cell = null;
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
             // offset: 6; size: 4; index to SST record
             $index = self::getInt4d($recordData, 6);
 
+            // cache SST entry locally to avoid repeated array lookups
+            $sstValue = $this->sst[$index]['value'];
+            $fmtRuns = $this->sst[$index]['fmtRuns'];
+
             // add cell
-            if (($fmtRuns = $this->sst[$index]['fmtRuns']) && !$this->readDataOnly) {
+            if ($fmtRuns && !$this->readDataOnly) {
                 // then we should treat as rich text
                 $richText = new RichText();
                 $charPos = 0;
-                $sstCount = count($this->sst[$index]['fmtRuns']);
+                $sstCount = count($fmtRuns);
+                $sstValueLength = StringHelper::countCharacters($sstValue);
+                $lastFontIndex = count($this->objFonts) - 1;
                 for ($i = 0; $i <= $sstCount; ++$i) {
                     /** @var mixed[][] $fmtRuns */
                     if (isset($fmtRuns[$i])) {
@@ -2793,10 +2803,10 @@ class Xls extends XlsBase
                         $temp = $fmtRuns[$i];
                         $temp = $temp['charPos'];
                         /** @var int $charPos */
-                        $text = StringHelper::substring($this->sst[$index]['value'], $charPos, $temp - $charPos);
+                        $text = StringHelper::substring($sstValue, $charPos, $temp - $charPos);
                         $charPos = $temp;
                     } else {
-                        $text = StringHelper::substring($this->sst[$index]['value'], $charPos, StringHelper::countCharacters($this->sst[$index]['value']));
+                        $text = StringHelper::substring($sstValue, $charPos, $sstValueLength);
                     }
 
                     if (StringHelper::countCharacters($text) > 0) {
@@ -2815,8 +2825,8 @@ class Xls extends XlsBase
                                     $temp = $fmtRuns[$i - 1]['fontIndex'];
                                     $fontIndex = $temp - 1;
                                 }
-                                if (array_key_exists($fontIndex, $this->objFonts) === false) {
-                                    $fontIndex = count($this->objFonts) - 1;
+                                if ($fontIndex > $lastFontIndex) {
+                                    $fontIndex = $lastFontIndex;
                                 }
                                 $textRun->setFont(clone $this->objFonts[$fontIndex]);
                             }
@@ -2824,19 +2834,20 @@ class Xls extends XlsBase
                     }
                 }
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
-                    $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+                    $cell = $this->phpSheet->getCell($cellCoordinate);
+                    if (isset($this->mapCellXfIndex[$xfIndex])) {
+                        $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+                    }
                     $cell->setValueExplicit($richText, DataType::TYPE_STRING);
                 }
             } else {
-                if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
-                    $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                    $cell->setValueExplicit($this->sst[$index]['value'], DataType::TYPE_STRING);
+                if ($this->readEmptyCells || trim($sstValue) !== '') {
+                    $cell = $this->phpSheet->getCell($cellCoordinate);
+                    if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
+                        $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+                    }
+                    $cell->setValueExplicit($sstValue, DataType::TYPE_STRING);
                 }
-            }
-
-            if (!$this->readDataOnly && $cell !== null && isset($this->mapCellXfIndex[$xfIndex])) {
-                // add style information
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
     }
@@ -2870,20 +2881,21 @@ class Xls extends XlsBase
         // offset within record data
         $offset = 4;
 
+        $rowIndex = $row + 1;
         for ($i = 1; $i <= $columns; ++$i) {
             $columnString = Coordinate::stringFromColumnIndex($colFirst + $i);
 
             // Read cell?
-            if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+            if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
                 // offset: var; size: 2; index to XF record
                 $xfIndex = self::getUInt2d($recordData, $offset);
 
                 // offset: var; size: 4; RK value
                 $numValue = self::getIEEE754(self::getInt4d($recordData, $offset + 2));
-                $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+                $cell = $this->phpSheet->getCell($columnString . $rowIndex);
                 if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                     // add style
-                    $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                    $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
                 }
 
                 // add cell value
@@ -2916,18 +2928,19 @@ class Xls extends XlsBase
         // offset: 2; size 2; index to column
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
             $numValue = self::extractNumber(substr($recordData, 6, 8));
 
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            $cell = $this->phpSheet->getCell($cellCoordinate);
             if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add cell style
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
             }
 
             // add cell value
@@ -2957,6 +2970,7 @@ class Xls extends XlsBase
         // offset: 2; size: 2; col index
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
         // offset: 20: size: variable; formula structure
         $formulaStructure = substr($recordData, 20);
@@ -2984,10 +2998,10 @@ class Xls extends XlsBase
         }
 
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             if ($isPartOfSharedFormula) {
                 // formula is added to this cell after the sheet has been read
-                $this->sharedFormulaParts[$columnString . ($row + 1)] = $this->baseCell;
+                $this->sharedFormulaParts[$cellCoordinate] = $this->baseCell;
             }
 
             // offset: 16: size: 4; not used
@@ -2996,7 +3010,9 @@ class Xls extends XlsBase
             $xfIndex = self::getUInt2d($recordData, 4);
 
             // offset: 6; size: 8; result of the formula
-            if ((ord($recordData[6]) == 0) && (ord($recordData[12]) == 255) && (ord($recordData[13]) == 255)) {
+            $resultType = ord($recordData[6]);
+            $isSpecialResult = (ord($recordData[12]) == 255) && (ord($recordData[13]) == 255);
+            if (($resultType == 0) && $isSpecialResult) {
                 // String formula. Result follows in appended STRING record
                 $dataType = DataType::TYPE_STRING;
 
@@ -3008,27 +3024,15 @@ class Xls extends XlsBase
 
                 // read STRING record
                 $value = $this->readString();
-            } elseif (
-                (ord($recordData[6]) == 1)
-                && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)
-            ) {
+            } elseif (($resultType == 1) && $isSpecialResult) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
                 $dataType = DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData[8]);
-            } elseif (
-                (ord($recordData[6]) == 2)
-                && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)
-            ) {
+            } elseif (($resultType == 2) && $isSpecialResult) {
                 // Error formula. Error code is in +2
                 $dataType = DataType::TYPE_ERROR;
                 $value = Xls\ErrorCode::lookup(ord($recordData[8]));
-            } elseif (
-                (ord($recordData[6]) == 3)
-                && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)
-            ) {
+            } elseif (($resultType == 3) && $isSpecialResult) {
                 // Formula result is a null string
                 $dataType = DataType::TYPE_NULL;
                 $value = '';
@@ -3038,10 +3042,10 @@ class Xls extends XlsBase
                 $value = self::extractNumber(substr($recordData, 6, 8));
             }
 
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            $cell = $this->phpSheet->getCell($cellCoordinate);
             if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add cell style
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
             }
 
             // store the formula
@@ -3148,9 +3152,10 @@ class Xls extends XlsBase
         // offset: 2; size: 2; column index
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3160,7 +3165,11 @@ class Xls extends XlsBase
             // offset: 7; size: 1; 0=boolean; 1=error
             $isError = ord($recordData[7]);
 
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            $cell = $this->phpSheet->getCell($cellCoordinate);
+            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
+                // add cell style
+                $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+            }
             switch ($isError) {
                 case 0: // boolean
                     $value = (bool) $boolErr;
@@ -3176,11 +3185,6 @@ class Xls extends XlsBase
                     $cell->setValueExplicit($value, DataType::TYPE_ERROR);
 
                     break;
-            }
-
-            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
-                // add cell style
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
     }
@@ -3210,14 +3214,15 @@ class Xls extends XlsBase
         // offset: 4; size: 2 x nc; list of indexes to XF records
         // add style information
         if (!$this->readDataOnly && $this->readEmptyCells) {
+            $rowIndex = $row + 1;
             for ($i = 0; $i < $length / 2 - 3; ++$i) {
                 $columnString = Coordinate::stringFromColumnIndex($fc + $i + 1);
 
                 // Read cell?
-                if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+                if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
                     $xfIndex = self::getUInt2d($recordData, 4 + 2 * $i);
                     if (isset($this->mapCellXfIndex[$xfIndex])) {
-                        $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                        $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
                     }
                 }
             }
@@ -3250,9 +3255,10 @@ class Xls extends XlsBase
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
+        $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3267,13 +3273,12 @@ class Xls extends XlsBase
             }
             /** @var string $value */
             if ($this->readEmptyCells || trim($value) !== '') {
-                $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                $cell->setValueExplicit($value, DataType::TYPE_STRING);
-
+                $cell = $this->phpSheet->getCell($cellCoordinate);
                 if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                     // add cell style
-                    $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                    $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
                 }
+                $cell->setValueExplicit($value, DataType::TYPE_STRING);
             }
         }
     }
@@ -3296,14 +3301,16 @@ class Xls extends XlsBase
         $col = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($col + 1);
 
+        $rowIndex = $row + 1;
+
         // Read cell?
-        if ($this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
             // add style information
             if (!$this->readDataOnly && $this->readEmptyCells && isset($this->mapCellXfIndex[$xfIndex])) {
-                $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
             }
         }
     }
@@ -3605,7 +3612,7 @@ class Xls extends XlsBase
         StringHelper::stringIncrement($rangeBoundaries[1][0]);
         for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
             for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; StringHelper::stringIncrement($column)) {
-                if ($this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
+                if ($this->cachedReadFilter->readCell($column, $row, $this->phpSheetTitle)) {
                     $includeCellRange = true;
 
                     break 2;
