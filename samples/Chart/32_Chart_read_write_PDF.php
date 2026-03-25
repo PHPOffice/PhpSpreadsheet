@@ -13,8 +13,6 @@ Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRend
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/36write*.xlsx';
-
-/** @var string[] $argv */
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
     for ($i = 1; $i < $argc; ++$i) {

@@ -12,8 +12,6 @@ Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRend
 
 $inputFileType = 'Xlsx';
 $inputFileNamesString = $helper->getTemporaryFolder() . '/33_Chart_create_*.xlsx';
-
-/** @var string[] $argv */
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
     for ($i = 1; $i < $argc; ++$i) {
