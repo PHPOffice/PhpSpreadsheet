@@ -10,81 +10,71 @@ use PHPUnit\Framework\TestCase;
 
 class FormulaTokenCacheTest extends TestCase
 {
+    private Spreadsheet $spreadsheet;
+
+    private Calculation $calculation;
+
     protected function setUp(): void
     {
-        Calculation::clearFormulaTokenCache();
+        $this->spreadsheet = new Spreadsheet();
+        $this->calculation = Calculation::getInstance($this->spreadsheet);
+        $this->calculation->setFormulaTokenCacheMaxSize(1000);
     }
 
     protected function tearDown(): void
     {
-        Calculation::clearFormulaTokenCache();
+        $this->calculation->clearFormulaTokenCache();
+        $this->spreadsheet->disconnectWorksheets();
     }
 
     public function testCachedResultMatchesUncachedResult(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
-
         $formula = '=1+2';
 
         // First call: uncached (cold cache)
-        $firstResult = $calculation->parseFormula($formula);
+        $firstResult = $this->calculation->parseFormula($formula);
 
         // Second call: should come from cache
-        $secondResult = $calculation->parseFormula($formula);
+        $secondResult = $this->calculation->parseFormula($formula);
 
         self::assertSame($firstResult, $secondResult);
-        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIdenticalFormulasReuseCache(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
-
         $formula = '=SUM(A1:B2)';
 
-        self::assertSame(0, Calculation::getFormulaTokenCacheSize());
+        self::assertSame(0, $this->calculation->getFormulaTokenCacheSize());
 
-        $calculation->parseFormula($formula);
-        self::assertSame(1, Calculation::getFormulaTokenCacheSize());
+        $this->calculation->parseFormula($formula);
+        self::assertSame(1, $this->calculation->getFormulaTokenCacheSize());
 
         // Parsing the same formula again should not increase cache size
-        $calculation->parseFormula($formula);
-        self::assertSame(1, Calculation::getFormulaTokenCacheSize());
-
-        $spreadsheet->disconnectWorksheets();
+        $this->calculation->parseFormula($formula);
+        self::assertSame(1, $this->calculation->getFormulaTokenCacheSize());
     }
 
     public function testCacheCanBeCleared(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
+        $this->calculation->parseFormula('=1+2');
+        $this->calculation->parseFormula('=3*4');
+        self::assertSame(2, $this->calculation->getFormulaTokenCacheSize());
 
-        $calculation->parseFormula('=1+2');
-        $calculation->parseFormula('=3*4');
-        self::assertSame(2, Calculation::getFormulaTokenCacheSize());
-
-        Calculation::clearFormulaTokenCache();
-        self::assertSame(0, Calculation::getFormulaTokenCacheSize());
-
-        $spreadsheet->disconnectWorksheets();
+        $this->calculation->clearFormulaTokenCache();
+        self::assertSame(0, $this->calculation->getFormulaTokenCacheSize());
     }
 
     public function testDifferentFormulasGetSeparateCacheEntries(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
-
         $formula1 = '=1+2';
         $formula2 = '=3*4';
         $formula3 = '=SUM(A1:A10)';
 
-        $result1 = $calculation->parseFormula($formula1);
-        $result2 = $calculation->parseFormula($formula2);
-        $result3 = $calculation->parseFormula($formula3);
+        $result1 = $this->calculation->parseFormula($formula1);
+        $result2 = $this->calculation->parseFormula($formula2);
+        $result3 = $this->calculation->parseFormula($formula3);
 
-        self::assertSame(3, Calculation::getFormulaTokenCacheSize());
+        self::assertSame(3, $this->calculation->getFormulaTokenCacheSize());
 
         // Results should be different for different formulas
         self::assertNotEquals($result1, $result2);
@@ -92,33 +82,28 @@ class FormulaTokenCacheTest extends TestCase
         self::assertNotEquals($result2, $result3);
 
         // Each formula still returns correct cached result
-        self::assertSame($result1, $calculation->parseFormula($formula1));
-        self::assertSame($result2, $calculation->parseFormula($formula2));
-        self::assertSame($result3, $calculation->parseFormula($formula3));
+        self::assertSame($result1, $this->calculation->parseFormula($formula1));
+        self::assertSame($result2, $this->calculation->parseFormula($formula2));
+        self::assertSame($result3, $this->calculation->parseFormula($formula3));
 
         // Cache size should not have increased
-        self::assertSame(3, Calculation::getFormulaTokenCacheSize());
-
-        $spreadsheet->disconnectWorksheets();
+        self::assertSame(3, $this->calculation->getFormulaTokenCacheSize());
     }
 
     public function testCacheWorksAcrossMultipleCalculationCalls(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 10);
         $sheet->setCellValue('A2', 20);
         $sheet->setCellValue('B1', '=A1+A2');
         $sheet->setCellValue('B2', '=A1+A2');
 
-        $calculation = Calculation::getInstance($spreadsheet);
-
-        Calculation::clearFormulaTokenCache();
+        $this->calculation->clearFormulaTokenCache();
 
         // Parse the formula used in both cells
         $formula = '=A1+A2';
-        $firstResult = $calculation->parseFormula($formula);
-        self::assertSame(1, Calculation::getFormulaTokenCacheSize());
+        $firstResult = $this->calculation->parseFormula($formula);
+        self::assertSame(1, $this->calculation->getFormulaTokenCacheSize());
 
         // Calculating different cells with the same formula structure
         $valueB1 = $sheet->getCell('B1')->getCalculatedValue();
@@ -128,17 +113,12 @@ class FormulaTokenCacheTest extends TestCase
         self::assertSame(30, $valueB2);
 
         // Cache should still return the same parsed result for the formula
-        $cachedResult = $calculation->parseFormula($formula);
+        $cachedResult = $this->calculation->parseFormula($formula);
         self::assertSame($firstResult, $cachedResult);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCacheHandlesComplexFormulas(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
-
         $formulas = [
             '=IF(A1>0,A1*2,0)',
             '=VLOOKUP(A1,B1:C10,2,FALSE)',
@@ -148,55 +128,82 @@ class FormulaTokenCacheTest extends TestCase
         ];
 
         foreach ($formulas as $formula) {
-            $result = $calculation->parseFormula($formula);
+            $result = $this->calculation->parseFormula($formula);
             self::assertIsArray($result, "Formula {$formula} should parse to an array");
             self::assertNotEmpty($result, "Formula {$formula} should produce non-empty tokens");
         }
 
-        self::assertSame(count($formulas), Calculation::getFormulaTokenCacheSize());
+        self::assertSame(count($formulas), $this->calculation->getFormulaTokenCacheSize());
 
         // Verify each formula returns the same result on subsequent calls
         foreach ($formulas as $formula) {
-            $first = $calculation->parseFormula($formula);
-            $second = $calculation->parseFormula($formula);
+            $first = $this->calculation->parseFormula($formula);
+            $second = $this->calculation->parseFormula($formula);
             self::assertSame($first, $second, "Cached result should match for {$formula}");
         }
 
         // Cache size should remain unchanged
-        self::assertSame(count($formulas), Calculation::getFormulaTokenCacheSize());
-
-        $spreadsheet->disconnectWorksheets();
+        self::assertSame(count($formulas), $this->calculation->getFormulaTokenCacheSize());
     }
 
     public function testCacheEvictsWhenFull(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
+        $this->calculation->setFormulaTokenCacheMaxSize(100);
 
-        // Fill the cache beyond its max size by generating unique formulas
-        // The cache max is 1000, so generate 1001 unique formulas
-        for ($i = 0; $i < 1001; ++$i) {
-            $calculation->parseFormula("={$i}+1");
+        // Fill the cache beyond its max size
+        for ($i = 0; $i < 101; ++$i) {
+            $this->calculation->parseFormula("={$i}+1");
         }
 
         // The cache should have been cleared and then started re-filling
-        // After clearing at 1000, the 1001st entry was added, so size should be 1
-        self::assertSame(1, Calculation::getFormulaTokenCacheSize());
-
-        $spreadsheet->disconnectWorksheets();
+        // After clearing at 100, the 101st entry was added, so size should be 1
+        self::assertSame(1, $this->calculation->getFormulaTokenCacheSize());
     }
 
     public function testNonFormulaStringsReturnEmptyArrayAndAreNotCached(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
-
-        $result = $calculation->parseFormula('not a formula');
+        $result = $this->calculation->parseFormula('not a formula');
         self::assertSame([], $result);
 
         // Non-formulas (no = prefix) return early before caching
-        self::assertSame(0, Calculation::getFormulaTokenCacheSize());
+        self::assertSame(0, $this->calculation->getFormulaTokenCacheSize());
+    }
+
+    public function testCacheDisabledByDefault(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+
+        // Default max size is 0 (disabled)
+        self::assertSame(0, $calculation->getFormulaTokenCacheMaxSize());
+
+        $calculation->parseFormula('=1+2');
+        self::assertSame(0, $calculation->getFormulaTokenCacheSize());
 
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSetMaxSizeEnablesCache(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+
+        $calculation->setFormulaTokenCacheMaxSize(500);
+        self::assertSame(500, $calculation->getFormulaTokenCacheMaxSize());
+
+        $calculation->parseFormula('=1+2');
+        self::assertSame(1, $calculation->getFormulaTokenCacheSize());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSetMaxSizeToZeroClearsCache(): void
+    {
+        $this->calculation->parseFormula('=1+2');
+        self::assertSame(1, $this->calculation->getFormulaTokenCacheSize());
+
+        $this->calculation->setFormulaTokenCacheMaxSize(0);
+        self::assertSame(0, $this->calculation->getFormulaTokenCacheSize());
+        self::assertSame(0, $this->calculation->getFormulaTokenCacheMaxSize());
     }
 }

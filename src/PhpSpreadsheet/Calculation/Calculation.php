@@ -92,15 +92,16 @@ class Calculation extends CalculationLocale
 
     /**
      * Maximum number of entries in the formula token cache.
+     * Default 0 (disabled). Set via setFormulaTokenCacheMaxSize() to enable.
      */
-    private static int $formulaTokenCacheMaxSize = 1000;
+    private int $formulaTokenCacheMaxSize = 0;
 
     /**
      * Cache of parsed formula tokens, keyed by the raw formula string.
      *
      * @var array<string, array<mixed>|bool>
      */
-    private static array $formulaTokenCache = [];
+    private array $formulaTokenCache = [];
 
     private BranchPruner $branchPruner;
 
@@ -253,7 +254,7 @@ class Calculation extends CalculationLocale
     {
         $this->clearCalculationCache();
         $this->branchPruner->clearBranchStore();
-        self::$formulaTokenCache = [];
+        $this->formulaTokenCache = [];
     }
 
     /**
@@ -380,19 +381,41 @@ class Calculation extends CalculationLocale
     }
 
     /**
-     * Clear the static formula token cache.
+     * Clear the formula token cache.
      */
-    public static function clearFormulaTokenCache(): void
+    public function clearFormulaTokenCache(): void
     {
-        self::$formulaTokenCache = [];
+        $this->formulaTokenCache = [];
     }
 
     /**
      * Get the current number of entries in the formula token cache.
      */
-    public static function getFormulaTokenCacheSize(): int
+    public function getFormulaTokenCacheSize(): int
     {
-        return count(self::$formulaTokenCache);
+        return count($this->formulaTokenCache);
+    }
+
+    /**
+     * Set the maximum number of entries in the formula token cache.
+     * Set to 0 to disable caching (default), or a positive integer to enable.
+     */
+    public function setFormulaTokenCacheMaxSize(int $size): self
+    {
+        $this->formulaTokenCacheMaxSize = max(0, $size);
+        if ($this->formulaTokenCacheMaxSize === 0) {
+            $this->formulaTokenCache = [];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the maximum number of entries allowed in the formula token cache.
+     */
+    public function getFormulaTokenCacheMaxSize(): int
+    {
+        return $this->formulaTokenCacheMaxSize;
     }
 
     /**
@@ -588,9 +611,9 @@ class Calculation extends CalculationLocale
      */
     public function parseFormula(string $formula): array|bool
     {
-        // Check the formula token cache first
-        if (isset(self::$formulaTokenCache[$formula])) {
-            return self::$formulaTokenCache[$formula];
+        // Check the formula token cache first (only when caching is enabled)
+        if ($this->formulaTokenCacheMaxSize > 0 && isset($this->formulaTokenCache[$formula])) {
+            return $this->formulaTokenCache[$formula];
         }
 
         $originalFormula = $formula;
@@ -613,13 +636,15 @@ class Calculation extends CalculationLocale
         //    Parse the formula and return the token stack
         $result = $this->internalParseFormula($formula);
 
-        // Cache the result (clear cache if it exceeds the maximum size)
-        if (count(self::$formulaTokenCache) >= self::$formulaTokenCacheMaxSize) {
-            self::$formulaTokenCache = [];
+        // Cache the result when caching is enabled (clear cache if it exceeds the maximum size)
+        if ($this->formulaTokenCacheMaxSize > 0) {
+            if (count($this->formulaTokenCache) >= $this->formulaTokenCacheMaxSize) {
+                $this->formulaTokenCache = [];
+            }
+            // Cache key is the original formula string (before ANCHORARRAY transformation)
+            // to ensure consistent lookup regardless of internal transformations.
+            $this->formulaTokenCache[$originalFormula] = $result;
         }
-        // Cache key is the original formula string (before ANCHORARRAY transformation)
-        // to ensure consistent lookup regardless of internal transformations.
-        self::$formulaTokenCache[$originalFormula] = $result;
 
         return $result;
     }
