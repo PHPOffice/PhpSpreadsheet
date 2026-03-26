@@ -14,7 +14,7 @@ class XLookupTest extends AllSetupTeardown
     {
         $sheet = $this->getSheet();
         $sheet->fromArray([
-            ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'],
+            ['Apple', 'Ba~ana', 'Cherry', 'Date', 'Elderberry'],
             [1.20, 0.50, 3.00, 2.50, 5.00],
             ['A01', 'B02', 'C03', 'D04', 'E05'],
             [100, 250, 30, 80, 15],
@@ -57,10 +57,14 @@ class XLookupTest extends AllSetupTeardown
             'not found with default string' => ['#N/A!', '=XLOOKUP("Fig", A1:E1, A2:E2)'],
             'Wildcard match (case-insensitive)' => ['E05', '=XLOOKUP("EL*", A1:E1, A3:E3, "Not found", 2)'],
             'Wildcard with ?' => [80, '=XLOOKUP("?ate", A1:E1, A4:E4, "Not found", 2)'],
+            'Wildcard with ~' => [250, '=XLOOKUP("Ba~~ana", A1:E1, A4:E4, "Not found", 2)'],
             'Array sizes do not match' => ['#VALUE!', '=XLOOKUP("Apple", A1:E1, A2:D2)'],
+            'Non-integer match mode' => ['#VALUE!', '=XLOOKUP("Apple", A1:E1, A2:E2, "Not found", "Non-integer")'],
             'Invalid match mode' => ['#VALUE!', '=XLOOKUP("Apple", A1:E1, A2:E2, "Not found", 4)'],
+            'Non-integer search mode' => ['#VALUE!', '=XLOOKUP("Apple", A1:E1, A2:E2, "Not found", 0, "Non-integer")'],
             'Invalid search mode' => ['#VALUE!', '=XLOOKUP("Apple", A1:E1, A2:E2, "Not found", 0, 5)'],
-            'Arrays supplied as scalar' => [1.2, '=XLOOKUP("Apple", "Apple", A2)'],
+            'Lookup array supplied as scalar' => [1.2, '=XLOOKUP("Apple", "Apple", A2)'],
+            'Return array supplied as scalar' => [2.5, '=XLOOKUP("Cherry", Z98, 2.5)'],
             'Arrays supplied as scalar non-match' => ['#N/A!', '=XLOOKUP("Apple", "Banana", A2)'],
             'Reverse search with defined names' => [95, '=XLOOKUP("Alice", names1, values1, "Not found", 0, -1)'],
             'Next smaller approximate match' => [0.2, '=XLOOKUP(75000, H10:L10, H11:L11, "Not found", -1)'],
@@ -140,5 +144,17 @@ class XLookupTest extends AllSetupTeardown
             ['Raven', 'Marketing', 44000],
             $sheet->getCell('F6')->getCalculatedValue()
         );
+    }
+
+    public function testBool(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray([
+            [true, true, false, true, true],
+            [1, 2, 3, 4, 5],
+        ], strictNullComparison: true);
+        $sheet->setCellValue('D5', false);
+        $sheet->setCellValue('D6', '=XLOOKUP(D5, A1:E1, A2:E2)');
+        self::assertSame(3, $sheet->getCell('D6')->getCalculatedValue());
     }
 }
