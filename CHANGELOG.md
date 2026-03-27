@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837)
+- Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837) [PR #4845](https://github.com/PHPOffice/PhpSpreadsheet/pull/4845)
 
 ### Removed
 
