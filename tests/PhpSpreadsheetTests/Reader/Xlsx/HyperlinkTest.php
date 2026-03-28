@@ -134,7 +134,7 @@ class HyperlinkTest extends AbstractFunctional
 
     public function testExcelWrittenHyperlinkWithAnchor(): void
     {
-        $infil = 'tests/data/Reader/Xlsx/issue.4842.xlsx';
+        $infil = 'tests/data/Reader/XLSX/issue.4842.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($infil);
         $sheet = $spreadsheet->getActiveSheet();
