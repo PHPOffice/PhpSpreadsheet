@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -129,5 +130,22 @@ class HyperlinkTest extends AbstractFunctional
         self::assertSame('A2 display', $rhy2->getDisplay(), 'display is explicitly set');
 
         $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testExcelWrittenHyperlinkWithAnchor(): void
+    {
+        $infil = 'tests/data/Reader/Xlsx/issue.4842.xlsx';
+        $reader = new XlsxReader();
+        $spreadsheet = $reader->load($infil);
+        $sheet = $spreadsheet->getActiveSheet();
+        $link1 = $sheet->getCell('A1')->getHyperlink();
+        self::assertSame('sheet://Sheet2!H48', $link1->getUrl());
+        $link2 = $sheet->getCell('A2')->getHyperlink();
+        self::assertSame('http://example.com/', $link2->getUrl());
+        $link3 = $sheet->getCell('A3')->getHyperlink();
+        self::assertSame('http://example.com/#anchor', $link3->getUrl());
+        $link4 = $sheet->getCell('A4')->getHyperlink();
+        self::assertSame('http://example.com/x.html#link', $link4->getUrl());
+        $spreadsheet->disconnectWorksheets();
     }
 }
