@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Ods Reader/Writer Integer Styles with Leading Zeros. [Issue #1606](https://github.com/PHPOffice/PhpSpreadsheet/issues/1606) [PR #4822](https://github.com/PHPOffice/PhpSpreadsheet/pull/4822)
 - Xlsx Writer Data URI for Images. [Issue #4823](https://github.com/PHPOffice/PhpSpreadsheet/issues/4823) [PR #4831](https://github.com/PHPOffice/PhpSpreadsheet/pull/4831)
 - Confusion Checking for Union Arguments. [Issue #4832](https://github.com/PHPOffice/PhpSpreadsheet/issues/4832) [PR #4835](https://github.com/PHPOffice/PhpSpreadsheet/pull/4835)
+- Reader Xlsx Hyperlink with Anchor. [Issue #4842](https://github.com/PHPOffice/PhpSpreadsheet/issues/4842) [PR #4843](https://github.com/PHPOffice/PhpSpreadsheet/pull/4843)
 
 ## 2026-02-28 - 5.5.0
 
