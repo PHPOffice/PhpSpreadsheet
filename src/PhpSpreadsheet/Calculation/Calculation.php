@@ -917,13 +917,14 @@ class Calculation extends CalculationLocale
                 $pad = $rpad = ', ';
                 foreach ($value as $row) {
                     if (is_array($row)) {
-                        $returnMatrix[] = implode($pad, array_map([$this, 'showValue'], $row));
+                        $returnMatrix[] = implode($pad, array_map([$this, 'showValue'], $row)); // @phpstan-ignore-line
                         $rpad = '; ';
                     } else {
                         $returnMatrix[] = $this->showValue($row);
                     }
                 }
 
+                /** @var string[] $returnMatrix */
                 return '{ ' . implode($rpad, $returnMatrix) . ' }';
             } elseif (is_string($value) && (trim($value, self::FORMULA_STRING_QUOTE) == $value)) {
                 return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
@@ -2249,7 +2250,7 @@ class Calculation extends CalculationLocale
                     if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
-                            $this->debugLog->writeDebugLog('Evaluating %s ( %s )', self::localeFunc($functionName), implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)));
+                            $this->debugLog->writeDebugLog('Evaluating %s ( %s )', self::localeFunc($functionName), implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals))); // @phpstan-ignore-line
                         }
                     }
 
