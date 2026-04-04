@@ -155,7 +155,7 @@ class PrintArea2Test extends TestCase
         self::assertSame('W68:W69,V58:V59,A1:B2,X98:X99,Y88:Y89,I12:J13,Z78:Z79', $pageSetup->getPrintArea());
         $pageSetup->addPrintArea('U48:U49');
         self::assertSame('U48:U49,W68:W69,V58:V59,A1:B2,X98:X99,Y88:Y89,I12:J13,Z78:Z79', $pageSetup->getPrintArea());
-        $pageSetup->setPrintAreaByColumnAndRow(1,2,3,4);
+        $pageSetup->setPrintAreaByColumnAndRow(1, 2, 3, 4);
         self::assertSame('A2:C4', $pageSetup->getPrintArea());
     }
 
