@@ -285,4 +285,16 @@ abstract class IOFactory
 
         self::$readers[$readerType] = $readerClass;
     }
+
+    /**
+     * @return array<string, class-string<IReader>>
+     *
+     * @internal
+     *
+     * @codeCoverageIgnore
+     */
+    public static function getReaders(): array
+    {
+        return self::$readers;
+    }
 }
