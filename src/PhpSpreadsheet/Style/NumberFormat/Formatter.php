@@ -137,11 +137,16 @@ class Formatter extends BaseFormatter
                 ['\$', self::QUOTE_REPLACEMENT],
                 (string) $value
             );
+            $temp = preg_replace(self::SYMBOL_AT, $value, $formatx) ?? $value;
+            if (is_callable($callBack)) {
+                $temp = $callBack($temp, $formatx);
+            }
+            /** @var string $temp */
 
             return str_replace(
                 ['"', self::QUOTE_REPLACEMENT],
                 ['', '"'],
-                preg_replace(self::SYMBOL_AT, $value, $formatx) ?? $value
+                $temp
             );
         }
 
