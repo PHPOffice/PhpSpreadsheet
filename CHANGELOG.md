@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- XLOOKUP function. [Issue #1453](https://github.com/PHPOffice/PhpSpreadsheet/issues/1453) [PR #4844](https://github.com/PHPOffice/PhpSpreadsheet/pull/4844)
 
 ### Removed
 
