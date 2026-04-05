@@ -195,7 +195,7 @@ class ContentTypes extends WriterPart
             // Some additional objects in the ribbon ?
             // we need to write "Extension" but not already write for media content
             /** @var string[] */
-            $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types') ?? [], array_keys($aMediaContentTypes));
+            $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types') ?? [], array_keys($aMediaContentTypes)); // @phpstan-ignore-line
             foreach ($tabRibbonTypes as $aRibbonType) {
                 $mimeType = 'image/.' . $aRibbonType; //we wrote $mimeType like customUI Editor
                 $this->writeDefaultContentType($objWriter, $aRibbonType, $mimeType);
