@@ -141,10 +141,29 @@ class File
     }
 
     /**
+     * All filenames starting with protocol (e.g. phar://) are prohibited.
+     * Note that many protocols, including http and zip, will already
+     * return false for is_file.
+     * A whitelist of protocols may be added if needed in future.
+     */
+    public static function prohibitWrappers(string $filename): void
+    {
+        $scheme = parse_url($filename, PHP_URL_SCHEME);
+        // strlen check > 1 to avoid issues with Windows absolute paths (e.g. C:\...), Windows quirks :)
+        // since no built-in or commonly registered PHP stream wrapper uses a single-character scheme, this should be ok, to my knowledge
+        if (is_string($scheme) && strlen($scheme) > 1) {
+            throw new Exception(
+                "Stream wrappers are not permitted as file paths: {$filename}"
+            );
+        }
+    }
+
+    /**
      * Assert that given path is an existing file and is readable, otherwise throw exception.
      */
     public static function assertFile(string $filename, string $zipMember = ''): void
     {
+        self::prohibitWrappers($filename);
         if (!is_file($filename)) {
             throw new ReaderException('File "' . $filename . '" does not exist.');
         }
@@ -167,9 +186,11 @@ class File
 
     /**
      * Same as assertFile, except return true/false and don't throw Exception.
+     * Will nevertheless throw if filename uses invalid protocol, e.g. phar.
      */
     public static function testFileNoThrow(string $filename, ?string $zipMember = null): bool
     {
+        self::prohibitWrappers($filename);
         if (!is_file($filename)) {
             return false;
         }

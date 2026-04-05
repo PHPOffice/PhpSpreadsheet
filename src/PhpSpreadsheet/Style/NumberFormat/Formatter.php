@@ -14,6 +14,7 @@ class Formatter
      * Matches any @ symbol that isn't enclosed in quotes.
      */
     private const SYMBOL_AT = '/@(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
+    private const QUOTE_REPLACEMENT = "\u{fffe}"; // invalid Unicode character
 
     /**
      * Matches any ; symbol that isn't enclosed in quotes, for a "section" split.
@@ -137,8 +138,28 @@ class Formatter
         }
         // For now we do not treat strings in sections, although section 4 of a format code affects strings
         // Process a single block format code containing @ for text substitution
-        if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $format) === 1) {
-            return str_replace('"', '', preg_replace(self::SYMBOL_AT, (string) $value, $format) ?? '');
+        $formatx = str_replace('\"', self::QUOTE_REPLACEMENT, $format);
+        if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
+            if (strpos($format, '"') === false) {
+                return str_replace('@', "$value", $format);
+            }
+            //escape any dollar signs on the string, so they are not replaced with an empty value
+            $value = str_replace(
+                ['$', '"'],
+                ['\$', self::QUOTE_REPLACEMENT],
+                (string) $value
+            );
+            $temp = preg_replace(self::SYMBOL_AT, $value, $formatx) ?? $value;
+            if (is_callable($callBack)) {
+                $temp = $callBack($temp, $formatx);
+            }
+            /** @var string $temp */
+
+            return str_replace(
+                ['"', self::QUOTE_REPLACEMENT],
+                ['', '"'],
+                $temp
+            );
         }
 
         // If we have a text value, return it "as is"

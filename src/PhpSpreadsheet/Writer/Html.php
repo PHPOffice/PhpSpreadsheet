@@ -1724,7 +1724,7 @@ class Html extends BaseWriter
         }
 
         // convert to PCDATA
-        $result = htmlspecialchars($value, Settings::htmlEntityFlags());
+        $result = htmlspecialchars($value, ENT_NOQUOTES);
 
         // color span tag
         if ($color !== null) {
