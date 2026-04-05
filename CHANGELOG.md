@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
+- Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837) [PR #4845](https://github.com/PHPOffice/PhpSpreadsheet/pull/4845)
 - XLOOKUP function. [Issue #1453](https://github.com/PHPOffice/PhpSpreadsheet/issues/1453) [PR #4844](https://github.com/PHPOffice/PhpSpreadsheet/pull/4844)
 - Introduction of a benchmark test suite, independent of the default unit test suite. Users can use it as a template for experimenting and making decisions concerning performance. [PR #4824](https://github.com/PHPOffice/PhpSpreadsheet/pull/4824)
-- Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837)
 
 ### Removed
 

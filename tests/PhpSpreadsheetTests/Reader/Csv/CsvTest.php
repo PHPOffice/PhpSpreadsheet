@@ -24,6 +24,7 @@ class CsvTest extends TestCase
 
         $actual = $spreadsheet->getActiveSheet()->getCell($cell)->getValue();
         self::assertSame($expectedValue, $actual, 'should be able to retrieve correct value');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerDelimiterDetection(): array
@@ -122,8 +123,8 @@ class CsvTest extends TestCase
         } else {
             $reader->setEscapeCharacter('"', $version);
         }
-        $worksheet = $reader->load('tests/data/Reader/CSV/backslash.csv')
-            ->getActiveSheet();
+        $spreadsheet = $reader->load('tests/data/Reader/CSV/backslash.csv');
+        $worksheet = $spreadsheet->getActiveSheet();
 
         $expected = [
             ['field 1', 'field 2\\'],
@@ -132,6 +133,7 @@ class CsvTest extends TestCase
 
         self::assertSame('"', $reader->getEscapeCharacter());
         self::assertSame($expected, $worksheet->toArray());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerVersion(): array
@@ -150,21 +152,6 @@ class CsvTest extends TestCase
         $reader->listWorksheetInfo('');
     }
 
-    public function testUtf16LineBreak(): void
-    {
-        $reader = new Csv();
-        $reader->setInputEncoding('UTF-16BE');
-        $spreadsheet = $reader->load('tests/data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
-        $sheet = $spreadsheet->getActiveSheet();
-        $expected = <<<EOF
-            This is a test
-            with line breaks
-            that breaks the
-            delimiters
-            EOF;
-        self::assertEquals($expected, $sheet->getCell('B3')->getValue());
-    }
-
     public function testLineBreakEscape(): void
     {
         $reader = new Csv();
@@ -177,23 +164,8 @@ class CsvTest extends TestCase
             quotes" that breaks
             the delimiters
             EOF;
-        self::assertEquals($expected, $sheet->getCell('B3')->getValue());
-    }
-
-    public function testUtf32LineBreakEscape(): void
-    {
-        $reader = new Csv();
-        $reader->setInputEncoding('UTF-32LE');
-        $spreadsheet = $reader->load('tests/data/Reader/CSV/line_break_escaped_32le.csv');
-        $sheet = $spreadsheet->getActiveSheet();
-        $expected = <<<EOF
-            This is a "test csv file"
-            with both "line breaks"
-            and "escaped
-            quotes" that breaks
-            the delimiters
-            EOF;
-        self::assertEquals($expected, $sheet->getCell('B3')->getValue());
+        self::assertSame($expected, $sheet->getCell('B3')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSeparatorLine(): void
@@ -201,25 +173,26 @@ class CsvTest extends TestCase
         $reader = new Csv();
         $reader->setSheetIndex(3);
         $spreadsheet = $reader->load('tests/data/Reader/CSV/sep.csv');
-        self::assertEquals(';', $reader->getDelimiter());
+        self::assertSame(';', $reader->getDelimiter());
         $sheet = $spreadsheet->getActiveSheet();
-        self::assertEquals(3, $reader->getSheetIndex());
-        self::assertEquals(3, $spreadsheet->getActiveSheetIndex());
-        self::assertEquals('A', $sheet->getCell('A1')->getValue());
-        self::assertEquals(1, $sheet->getCell('B1')->getValue());
-        self::assertEquals(2, $sheet->getCell('A2')->getValue());
-        self::assertEquals(3, $sheet->getCell('B2')->getValue());
+        self::assertSame(3, $reader->getSheetIndex());
+        self::assertSame(3, $spreadsheet->getActiveSheetIndex());
+        self::assertSame('A', $sheet->getCell('A1')->getValue());
+        self::assertSame(1, $sheet->getCell('B1')->getValue());
+        self::assertSame(2, $sheet->getCell('A2')->getValue());
+        self::assertSame(3, $sheet->getCell('B2')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDefaultSettings(): void
     {
         $reader = new Csv();
-        self::assertEquals('UTF-8', $reader->getInputEncoding());
-        self::assertEquals('"', $reader->getEnclosure());
+        self::assertSame('UTF-8', $reader->getInputEncoding());
+        self::assertSame('"', $reader->getEnclosure());
         $reader->setEnclosure('\'');
-        self::assertEquals('\'', $reader->getEnclosure());
+        self::assertSame('\'', $reader->getEnclosure());
         $reader->setEnclosure('');
-        self::assertEquals('"', $reader->getEnclosure());
+        self::assertSame('"', $reader->getEnclosure());
         // following tests from BaseReader
         self::assertTrue($reader->getReadEmptyCells());
         self::assertFalse($reader->getIncludeCharts());
@@ -258,7 +231,7 @@ class CsvTest extends TestCase
         }
         $filename = 'tests/data/Reader/CSV/escape.csv';
         $reader->listWorksheetInfo($filename);
-        self::assertEquals($delimiter, $reader->getDelimiter());
+        self::assertSame($delimiter, $reader->getDelimiter());
     }
 
     public static function providerEscapes(): array

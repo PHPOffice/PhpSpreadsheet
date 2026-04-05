@@ -426,7 +426,7 @@ class Cell implements Stringable
             $value = array_shift($value);
         }
 
-        return StringHelper::convertToString($value, false);
+        return StringHelper::convertToString($value, false, convertBool: true);
     }
 
     /**
