@@ -1459,7 +1459,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -1552,7 +1552,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
