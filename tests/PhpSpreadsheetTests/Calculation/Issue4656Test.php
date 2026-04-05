@@ -37,6 +37,44 @@ class Issue4656Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public static function testIssue4832a(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('Feuil1');
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Feuil2');
+        $sheet1->setCellValue('A1', '=DATE(2020,1,1)');
+        $sheet1->setCellValue('A2', '=DATE(2026,1,1)');
+        $sheet2->setCellValue('A3', '=YEARFRAC(Feuil1!A1,Feuil1!A2)');
+        $sheet2->setCellValue('A4', '=(YEARFRAC(Feuil1!A1,Feuil1!A2))');
+        $sheet2->setCellValue('A5', '=(YEARFRAC(Feuil1!A1,Feuil1!A2)*360)');
+        $sheet2->setCellValue('A6', '=360*(YEARFRAC(Feuil1!A1,Feuil1!A2))');
+        $sheet2->setCellValue('A7', '=( YEARFRAC(Feuil1!A1,Feuil1!A2))');
+
+        self::assertSame(6, $sheet2->getCell('A3')->getCalculatedValue());
+        self::assertSame(6, $sheet2->getCell('A4')->getCalculatedValue());
+        self::assertSame(2160, $sheet2->getCell('A5')->getCalculatedValue());
+        self::assertSame(2160, $sheet2->getCell('A6')->getCalculatedValue());
+        self::assertSame(6, $sheet2->getCell('A7')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function testIssue4832b(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('SHEET1');
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Feuil2');
+        $sheet1->setCellValue('B1', 1);
+        $sheet1->setCellValue('C1', 1);
+        $sheet1->setCellValue('D1', 2);
+        $sheet2->setCellValue('A1', '=(RANK(SHEET1!B1,(SHEET1!C1,SHEET1!D1)))');
+        self::assertSame(2, $sheet2->getCell('A1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public static function testCellRanges(): void
     {
         $spreadsheet = new Spreadsheet();

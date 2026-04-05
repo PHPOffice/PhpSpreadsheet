@@ -34,47 +34,48 @@ class Csv extends BaseReader
     /**
      * Input encoding.
      */
-    private string $inputEncoding = 'UTF-8';
+    protected string $inputEncoding = 'UTF-8';
 
     /**
      * Fallback encoding if guess strikes out.
      */
-    private string $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
+    protected string $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
 
     /**
      * Delimiter.
      */
-    private ?string $delimiter = null;
+    protected ?string $delimiter = null;
 
     /**
      * Enclosure.
      */
-    private string $enclosure = '"';
+    protected string $enclosure = '"';
 
     /**
      * Sheet index to read.
      */
-    private int $sheetIndex = 0;
+    protected int $sheetIndex = 0;
 
     /**
      * Load rows contiguously.
      */
-    private bool $contiguous = false;
+    protected bool $contiguous = false;
 
     /**
      * The character that can escape the enclosure.
      * This will probably become unsupported in Php 9.
      * Not yet ready to mark deprecated in order to give users
      * a migration path.
+     * Strongly encourage that this value be set to null-string.
      */
-    private ?string $escapeCharacter = null;
+    protected ?string $escapeCharacter = null;
 
     /**
      * Callback for setting defaults in construction.
      *
      * @var ?callable
      */
-    private static $constructorCallback;
+    protected static $constructorCallback;
 
     /** Changed from true to false in release 4.0.0 */
     public const DEFAULT_TEST_AUTODETECT = false;
@@ -82,7 +83,7 @@ class Csv extends BaseReader
     /**
      * Attempt autodetect line endings (deprecated after PHP8.1)?
      */
-    private bool $testAutodetect = self::DEFAULT_TEST_AUTODETECT;
+    protected bool $testAutodetect = self::DEFAULT_TEST_AUTODETECT;
 
     protected bool $castFormattedNumberToNumeric = false;
 
@@ -106,7 +107,7 @@ class Csv extends BaseReader
     public function __construct()
     {
         parent::__construct();
-        $callback = self::$constructorCallback;
+        $callback = static::$constructorCallback;
         if ($callback !== null) {
             $callback($this);
         }
@@ -120,12 +121,12 @@ class Csv extends BaseReader
      */
     public static function setConstructorCallback(?callable $callback): void
     {
-        self::$constructorCallback = $callback;
+        static::$constructorCallback = $callback;
     }
 
     public static function getConstructorCallback(): ?callable
     {
-        return self::$constructorCallback;
+        return static::$constructorCallback;
     }
 
     public function setInputEncoding(string $encoding): self

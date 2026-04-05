@@ -1055,10 +1055,32 @@ class Calculation extends CalculationLocale
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
-    /** @param string[] $matches */
-    private static function unionForComma(array $matches): string
+    /** @param array<?string> $matches */
+    private function unionForComma(array $matches): string
     {
-        return $matches[1] . str_replace(',', '∪', $matches[2]);
+        $matches5 = (string) $matches[5];
+        // Weirdly, the regexp which get us here for issue 4832
+        // only gets us here for Php8.4+. 8.4 introduced
+        // major changes for PCRE, but I cannot identify
+        // the exact change which caused this discrepancy.
+        // I do plan to update coverage to 8.4 at some point,
+        // and I can remove the coverage annotations after that.
+        // @codeCoverageIgnoreStart
+        if (str_contains($matches5, '(') && !str_contains($matches5, ')')) {
+            if ($this->spreadsheet !== null) {
+                if ($this->spreadsheet->getSheetByName($matches5) === null) {
+                    $matches0 = (string) $matches[0];
+                    $this->debugLog->writeDebugLog('Not Reformulating %s', $matches0);
+
+                    return $matches0;
+                }
+            }
+        }
+        // @codeCoverageIgnoreEnd
+        $matches1 = (string) $matches[1];
+        $matches2 = (string) $matches[2];
+
+        return $matches1 . str_replace(',', '∪', $matches2);
     }
 
     private const CELL_OR_CELLRANGE_OR_DEFINED_NAME
@@ -1087,7 +1109,7 @@ class Calculation extends CalculationLocale
         }
 
         $oldFormula = $formula;
-        $formula = Preg::replaceCallback(self::UNIONABLE_COMMAS, self::unionForComma(...), $formula); // @phpstan-ignore-line
+        $formula = Preg::replaceCallback(self::UNIONABLE_COMMAS, $this->unionForComma(...), $formula);
         if ($oldFormula !== $formula) {
             $this->debugLog->writeDebugLog('Reformulated as %s', $formula);
         }

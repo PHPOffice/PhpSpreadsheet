@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use DateMalformedStringException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -199,7 +202,7 @@ class DateTest extends TestCase
         $timestamp2 = Date::stringToExcel('26.05.2025 14:28:00.00');
         self::assertNotFalse($timestamp1);
         self::assertNotFalse($timestamp2);
-        self::assertEqualsWithDelta($timestamp1, 45803.60277777778, 1.0E-10);
+        self::assertEqualsWithDelta(45803.60277777778, $timestamp1, 1.0E-10);
         self::assertSame($timestamp1, $timestamp2);
 
         $date = Date::PHPToExcel('2020-01-01');
@@ -211,7 +214,7 @@ class DateTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('B1', 'x');
-        /** @var float|int|string */
+        /** @var float|int|string $val */
         $val = $sheet->getCell('B1')->getValue();
         self::assertFalse(Date::timestampToExcel($val));
 
@@ -283,5 +286,48 @@ class DateTest extends TestCase
         $dti = new DateTime('2000-01-02 03:04:05.499999');
         Date::roundMicroseconds($dti);
         self::assertEquals(new DateTime('2000-01-02 03:04:05.000000'), $dti);
+    }
+
+    /**
+     * Verifies that the library's date detection functionality properly handles large numeric values.
+     *
+     * This test ensures that when the date detection facility encounters exceptionally large numbers
+     * within a cell, it correctly returns false rather than triggering PHP warnings. The method validates
+     * that the Date detection mechanism gracefully handles edge cases where numeric values are too large
+     * to represent valid dates.
+     *
+     * @throws \Exception
+     */
+    public function testInvalidDateModify(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $cell = $sheet->getCell('A1');
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode('@');
+        $cell->setValueExplicit(3172011706730017, DataType::TYPE_NUMERIC);
+        $value = $cell->getValue();
+
+        self::assertIsInt($value);
+        self::assertFalse(Date::isDateTime($cell));
+
+        // Calling instead directly Date::excelToDateTimeObject() against the value, we expect to get an exception.
+        try {
+            /**
+             * Starting with PHP 8.3, DateTime::modify() throws a DateMalformedStringException, and we are not wrapping
+             * the E_WARNING into a PhpSpreadsheetException.
+             */
+            if (PHP_VERSION_ID >= 80300) {
+                $this->expectException(DateMalformedStringException::class);
+            } else {
+                $this->expectException(PhpSpreadsheetException::class);
+            }
+
+            Date::excelToDateTimeObject($value);
+        } finally {
+            $spreadsheet->disconnectWorksheets();
+        }
     }
 }
