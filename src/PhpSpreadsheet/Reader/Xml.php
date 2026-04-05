@@ -93,6 +93,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
+        File::assertFile($filename);
         $data = (string) file_get_contents($filename);
         $data = $this->getSecurityScannerOrThrow()->scan($data);
 
