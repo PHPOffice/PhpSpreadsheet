@@ -48,7 +48,7 @@ class Formatter extends BaseFormatter
      * @param float|int|numeric-string $value value to be formatted
      * @param string[] $sections
      *
-     * @return mixed[]
+     * @return array{string, string, mixed}
      */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
@@ -118,12 +118,12 @@ class Formatter extends BaseFormatter
      * @param null|array<mixed>|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param null|array<mixed>|callable $callBack Callback function for additional formatting of string
+     * @param null|callable(string, string): string $callBack Callback function for additional formatting of string
      * @param bool $lessFloatPrecision If true, unstyled floats will be converted to a more human-friendly but less computationally accurate value
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, string $format, null|array|callable $callBack = null, bool $lessFloatPrecision = false): string
+    public static function toFormattedString($value, string $format, ?callable $callBack = null, bool $lessFloatPrecision = false): string
     {
         while (is_array($value)) {
             $value = array_shift($value);
@@ -148,7 +148,6 @@ class Formatter extends BaseFormatter
             if (is_callable($callBack)) {
                 $temp = $callBack($temp, $formatx);
             }
-            /** @var string $temp */
 
             return str_replace(
                 ['"', self::QUOTE_REPLACEMENT],
@@ -159,7 +158,13 @@ class Formatter extends BaseFormatter
 
         // If we have a text value, return it "as is"
         if (!is_numeric($value)) {
-            return StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision);
+            $temp = StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision);
+            if (is_callable($callBack)) {
+                $sections = preg_split(self::SECTION_SPLIT, $format) ?: [$format];
+                $temp = $callBack($temp, $sections[3] ?? $sections[0]);
+            }
+
+            return $temp;
         }
 
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
@@ -229,7 +234,6 @@ class Formatter extends BaseFormatter
         if (is_callable($callBack)) {
             $value = $callBack($value, $colors);
         }
-        /** @var string $value */
 
         return str_replace(chr(0x00), '.', $value);
     }
