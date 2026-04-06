@@ -138,4 +138,22 @@ class TextValueWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\TextValue::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Text Value CF Rule Wizard');
+        $ruleType = Wizard::TEXT_VALUE;
+        /** @var Wizard\TextValue $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
+
+    public function testCompareKeys(): void
+    {
+        self::assertTrue(Wizard\TextValue::compareKeys());
+    }
 }
