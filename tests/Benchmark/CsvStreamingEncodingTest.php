@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
+namespace PhpOffice\PhpSpreadsheetBenchmarks;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Shared\File;
-use PhpOffice\PhpSpreadsheetBenchmarks\CsvChunk as Csv;
+//use PhpOffice\PhpSpreadsheetBenchmarks\CsvChunk;
+use PhpOffice\PhpSpreadsheetTests\Reader\Csv\CsvIconv2;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +20,10 @@ use PHPUnit\Framework\TestCase;
  */
 class CsvStreamingEncodingTest extends TestCase
 {
+    private string $whichCsv = 'CsvChunk';
+    //private string $whichCsv = 'CsvIconv2';
+    //private string $whichCsv = 'Csv';
+
     private string $tempFile = '';
 
     protected function tearDown(): void
@@ -28,6 +34,19 @@ class CsvStreamingEncodingTest extends TestCase
         }
     }
 
+    private function newCsv(): Csv
+    {
+        if ($this->whichCsv === 'CsvChunk') {
+            return new CsvChunk();
+        }
+
+        if ($this->whichCsv === 'CsvIconv2') {
+            return new CsvIconv2();
+        }
+
+        return new Csv();
+    }
+
     /**
      * Test that existing non-UTF-8 CSV files are still read correctly
      * with the streaming approach.
@@ -35,7 +54,7 @@ class CsvStreamingEncodingTest extends TestCase
     #[DataProvider('providerExistingEncodings')]
     public function testExistingNonUtf8FilesReadCorrectly(string $filename, string $encoding): void
     {
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding($encoding);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -59,7 +78,7 @@ class CsvStreamingEncodingTest extends TestCase
      */
     public function testUtf8FileUnaffected(): void
     {
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-8');
         $spreadsheet = $reader->load('tests/data/Reader/CSV/encoding.utf8.csv');
         $sheet = $spreadsheet->getActiveSheet();
@@ -75,7 +94,7 @@ class CsvStreamingEncodingTest extends TestCase
      */
     public function testUtf8BomFileUnaffected(): void
     {
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-8');
         $spreadsheet = $reader->load('tests/data/Reader/CSV/encoding.utf8bom.csv');
         $sheet = $spreadsheet->getActiveSheet();
@@ -99,7 +118,7 @@ class CsvStreamingEncodingTest extends TestCase
         $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $win1252Csv);
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('CP1252');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -139,7 +158,7 @@ class CsvStreamingEncodingTest extends TestCase
         $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $iso88591Csv);
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('ISO-8859-1');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -179,7 +198,7 @@ class CsvStreamingEncodingTest extends TestCase
         // Verify file is large enough to trigger multiple chunks
         self::assertGreaterThan(65536, strlen($isoCsv), 'Test file should be larger than one chunk');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('ISO-8859-1');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -225,7 +244,7 @@ class CsvStreamingEncodingTest extends TestCase
 
         self::assertGreaterThan(65536, strlen($utf16leCsv), 'UTF-16LE file should be larger than one chunk');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-16LE');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -258,7 +277,7 @@ class CsvStreamingEncodingTest extends TestCase
 
         self::assertGreaterThan(65536, strlen($utf32beCsv), 'UTF-32BE file should be larger than one chunk');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-32BE');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -282,7 +301,7 @@ class CsvStreamingEncodingTest extends TestCase
         $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $isoCsv);
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('ISO-8859-1');
         $info = $reader->listWorksheetInfo($filename);
 
@@ -302,7 +321,7 @@ class CsvStreamingEncodingTest extends TestCase
         $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $isoCsv);
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('ISO-8859-1');
         $names = $reader->listWorksheetNames($filename);
 
@@ -318,7 +337,7 @@ class CsvStreamingEncodingTest extends TestCase
         $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, '');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('ISO-8859-1');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -337,6 +356,9 @@ class CsvStreamingEncodingTest extends TestCase
      */
     public function testLeftoverFlushWithUnalignedUtf16le(): void
     {
+        if ($this->whichCsv === 'CsvIconv2') {
+            self::markTestSkipped('This test will fail, correctly, for CsvIconv2');
+        }
         $utf8Csv = "a,b\n1,2\n";
         $utf16leCsv = mb_convert_encoding($utf8Csv, 'UTF-16LE', 'UTF-8');
         // Append a single extra byte to make total length odd (not aligned to charWidth=2)
@@ -350,7 +372,7 @@ class CsvStreamingEncodingTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Detected an incomplete multibyte character');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-16LE');
         $reader->load($filename);
     }
@@ -361,6 +383,9 @@ class CsvStreamingEncodingTest extends TestCase
      */
     public function testLeftoverFlushWithUnalignedUtf32be(): void
     {
+        if ($this->whichCsv === 'CsvIconv2') {
+            self::markTestSkipped('This test will fail, correctly, for CsvIconv2');
+        }
         $utf8Csv = "x,y\n3,4\n";
         $utf32beCsv = mb_convert_encoding($utf8Csv, 'UTF-32BE', 'UTF-8');
         // Append 2 extra bytes so length % 4 != 0
@@ -374,7 +399,7 @@ class CsvStreamingEncodingTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Detected an incomplete multibyte character');
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-32BE');
         $reader->load($filename);
     }
@@ -395,7 +420,7 @@ class CsvStreamingEncodingTest extends TestCase
         // Verify encoding alignment: byte count should be divisible by char width
         self::assertSame(0, strlen($encoded) % $charWidth);
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding($inputEncoding);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -425,7 +450,7 @@ class CsvStreamingEncodingTest extends TestCase
     {
         $utf8Csv = "Name,City\nMüller,Zürich\nCafé,Père\n";
 
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $spreadsheet = $reader->loadSpreadsheetFromString($utf8Csv);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -442,7 +467,7 @@ class CsvStreamingEncodingTest extends TestCase
     #[DataProvider('providerGuessEncodingStreaming')]
     public function testGuessEncodingWithStreaming(string $filename): void
     {
-        $reader = new Csv();
+        $reader = $this->newCsv();
         $reader->setInputEncoding(Csv::GUESS_ENCODING);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
