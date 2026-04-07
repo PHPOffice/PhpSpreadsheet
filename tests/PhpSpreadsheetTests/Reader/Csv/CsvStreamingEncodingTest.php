@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheetBenchmarks\CsvChunk as Csv;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 /**
  * Tests for the streaming/chunked encoding conversion in the CSV reader.
@@ -18,32 +18,13 @@ use Throwable;
  */
 class CsvStreamingEncodingTest extends TestCase
 {
-    private string $tempDir;
-
-    protected function setUp(): void
-    {
-        $this->tempDir = sys_get_temp_dir() . '/phpspreadsheet_csv_streaming_test_' . getmypid();
-        if (!is_dir($this->tempDir)) {
-            mkdir($this->tempDir, 0o777, true);
-        }
-    }
+    private string $tempFile = '';
 
     protected function tearDown(): void
     {
-        // Clean up temp files
-        if (is_dir($this->tempDir)) {
-            $files = glob($this->tempDir . '/*');
-            if ($files !== false) {
-                foreach ($files as $file) {
-                    unlink($file);
-                }
-            }
-
-            try {
-                rmdir($this->tempDir);
-            } catch (Throwable) {
-                // do nothing
-            }
+        if ($this->tempFile !== '') {
+            unlink($this->tempFile);
+            $this->tempFile = '';
         }
     }
 
@@ -115,7 +96,7 @@ class CsvStreamingEncodingTest extends TestCase
             . "Smörgås,Göteborg,©2024\n";
 
         $win1252Csv = mb_convert_encoding($utf8Csv, 'Windows-1252', 'UTF-8');
-        $filename = $this->tempDir . '/win1252_special.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $win1252Csv);
 
         $reader = new Csv();
@@ -155,7 +136,7 @@ class CsvStreamingEncodingTest extends TestCase
             . "quatrième,cinquième,sixième\n";
 
         $iso88591Csv = mb_convert_encoding($utf8Csv, 'ISO-8859-1', 'UTF-8');
-        $filename = $this->tempDir . '/iso88591_accented.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $iso88591Csv);
 
         $reader = new Csv();
@@ -192,7 +173,7 @@ class CsvStreamingEncodingTest extends TestCase
 
         // Convert to ISO-8859-1
         $isoCsv = mb_convert_encoding($utf8Csv, 'ISO-8859-1', 'UTF-8');
-        $filename = $this->tempDir . '/large_iso88591.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $isoCsv);
 
         // Verify file is large enough to trigger multiple chunks
@@ -239,7 +220,7 @@ class CsvStreamingEncodingTest extends TestCase
 
         // Convert to UTF-16LE (2 bytes per character)
         $utf16leCsv = mb_convert_encoding($utf8Csv, 'UTF-16LE', 'UTF-8');
-        $filename = $this->tempDir . '/large_utf16le.csv';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
         file_put_contents($filename, $utf16leCsv);
 
         self::assertGreaterThan(65536, strlen($utf16leCsv), 'UTF-16LE file should be larger than one chunk');
@@ -272,7 +253,7 @@ class CsvStreamingEncodingTest extends TestCase
         $utf8Csv = implode("\n", $utf8Rows) . "\n";
 
         $utf32beCsv = mb_convert_encoding($utf8Csv, 'UTF-32BE', 'UTF-8');
-        $filename = $this->tempDir . '/large_utf32be.csv';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
         file_put_contents($filename, $utf32beCsv);
 
         self::assertGreaterThan(65536, strlen($utf32beCsv), 'UTF-32BE file should be larger than one chunk');
@@ -298,7 +279,7 @@ class CsvStreamingEncodingTest extends TestCase
     {
         $utf8Csv = "a,b,c\n1,2,3\n4,5,6\n";
         $isoCsv = mb_convert_encoding($utf8Csv, 'ISO-8859-1', 'UTF-8');
-        $filename = $this->tempDir . '/worksheetinfo_iso.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $isoCsv);
 
         $reader = new Csv();
@@ -318,7 +299,7 @@ class CsvStreamingEncodingTest extends TestCase
     {
         $utf8Csv = "a,b,c\n1,2,3\n";
         $isoCsv = mb_convert_encoding($utf8Csv, 'ISO-8859-1', 'UTF-8');
-        $filename = $this->tempDir . '/worksheetnames_iso.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, $isoCsv);
 
         $reader = new Csv();
@@ -334,7 +315,7 @@ class CsvStreamingEncodingTest extends TestCase
      */
     public function testEmptyNonUtf8File(): void
     {
-        $filename = $this->tempDir . '/empty_iso.csv';
+        $filename = $this->tempFile = File::temporaryFileName();
         file_put_contents($filename, '');
 
         $reader = new Csv();
@@ -361,7 +342,7 @@ class CsvStreamingEncodingTest extends TestCase
         // Append a single extra byte to make total length odd (not aligned to charWidth=2)
         $utf16leCsv .= "\x00";
 
-        $filename = $this->tempDir . '/unaligned_utf16le.csv';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
         file_put_contents($filename, $utf16leCsv);
 
         self::assertSame(1, strlen($utf16leCsv) % 2, 'File byte count should be odd to trigger leftover path');
@@ -385,7 +366,7 @@ class CsvStreamingEncodingTest extends TestCase
         // Append 2 extra bytes so length % 4 != 0
         $utf32beCsv .= "\x00\x00";
 
-        $filename = $this->tempDir . '/unaligned_utf32be.csv';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
         file_put_contents($filename, $utf32beCsv);
 
         self::assertNotSame(0, strlen($utf32beCsv) % 4, 'File byte count should not be aligned to 4 to trigger leftover path');
@@ -408,7 +389,7 @@ class CsvStreamingEncodingTest extends TestCase
         $utf8Csv = "a,b\n1,2\n";
         $encoded = mb_convert_encoding($utf8Csv, $mbEncoding, 'UTF-8');
 
-        $filename = $this->tempDir . '/ucs_' . strtolower(str_replace('-', '', $inputEncoding)) . '.csv';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
         file_put_contents($filename, $encoded);
 
         // Verify encoding alignment: byte count should be divisible by char width
