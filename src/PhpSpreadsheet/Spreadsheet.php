@@ -1148,6 +1148,11 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Copy workbook (!= clone!).
+     *
+     * Uses serialize/unserialize which is broadly faster than clone across
+     * PHP versions and platforms, though clone uses less memory.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function copy(): self
     {
@@ -1156,6 +1161,11 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     *
+     * Clone uses less memory than serialize/unserialize but speed varies
+     * across PHP versions and platforms.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function __clone()
     {
