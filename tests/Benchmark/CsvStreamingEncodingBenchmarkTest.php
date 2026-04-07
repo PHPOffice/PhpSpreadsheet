@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetBenchmarks;
 
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheetTests\Reader\Csv\CsvIconv2;
 use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\Group('benchmark')]
@@ -12,6 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class CsvStreamingEncodingBenchmarkTest extends TestCase
 {
+    private string $whichCsv = 'CsvChunk';
+    //private string $whichCsv = 'CsvIconv2';
+    //private string $whichCsv = 'Csv';
+
     /** @var string[] */
     private array $tempFiles = [];
 
@@ -97,7 +103,21 @@ class CsvStreamingEncodingBenchmarkTest extends TestCase
         gc_collect_cycles();
         $memoryBefore = memory_get_usage(true);
 
-        $reader = new CsvChunk();
+        switch ($this->whichCsv) {
+            case 'CsvChunk':
+                fwrite(STDERR, "Using CsvChunk\n");
+                $reader = new CsvChunk();
+
+                break;
+            case 'CsvIconv2':
+                fwrite(STDERR, "Using CsvIconv2\n");
+                $reader = new CsvIconv2();
+
+                break;
+            default:
+                fwrite(STDERR, "Using Csv\n");
+                $reader = new Csv();
+        }
         $reader->setInputEncoding($encoding);
 
         $startTime = hrtime(true);
