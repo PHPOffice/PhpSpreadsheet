@@ -353,12 +353,13 @@ class CsvStreamingEncodingTest extends TestCase
      *
      * The leftover contains an incomplete multi-byte character, so iconv
      * raises a warning (converted to an exception by the test error handler).
+     *
+     * Note that, if iconv is not available for some reason,
+     * we will try mb_convert_encoding, which converts the leftover
+     * to a question mark with no message of any kind.
      */
     public function testLeftoverFlushWithUnalignedUtf16le(): void
     {
-        if ($this->whichCsv === 'CsvIconv2') {
-            self::markTestSkipped('This test will fail, correctly, for CsvIconv2');
-        }
         $utf8Csv = "a,b\n1,2\n";
         $utf16leCsv = mb_convert_encoding($utf8Csv, 'UTF-16LE', 'UTF-8');
         // Append a single extra byte to make total length odd (not aligned to charWidth=2)
@@ -370,7 +371,11 @@ class CsvStreamingEncodingTest extends TestCase
         self::assertSame(1, strlen($utf16leCsv) % 2, 'File byte count should be odd to trigger leftover path');
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Detected an incomplete multibyte character');
+        if ($this->whichCsv === 'CsvIconv2') {
+            $this->expectExceptionMessage('invalid multibyte sequence');
+        } else {
+            $this->expectExceptionMessage('Detected an incomplete multibyte character');
+        }
 
         $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-16LE');
@@ -380,12 +385,13 @@ class CsvStreamingEncodingTest extends TestCase
     /**
      * Test the leftover flush path with UTF-32BE: file byte count not
      * divisible by 4 triggers leftover handling with incomplete characters.
+     *
+     * Note that, if iconv is not available for some reason,
+     * we will try mb_convert_encoding, which converts the leftover
+     * to a question mark with no message of any kind.
      */
     public function testLeftoverFlushWithUnalignedUtf32be(): void
     {
-        if ($this->whichCsv === 'CsvIconv2') {
-            self::markTestSkipped('This test will fail, correctly, for CsvIconv2');
-        }
         $utf8Csv = "x,y\n3,4\n";
         $utf32beCsv = mb_convert_encoding($utf8Csv, 'UTF-32BE', 'UTF-8');
         // Append 2 extra bytes so length % 4 != 0
@@ -397,7 +403,11 @@ class CsvStreamingEncodingTest extends TestCase
         self::assertNotSame(0, strlen($utf32beCsv) % 4, 'File byte count should not be aligned to 4 to trigger leftover path');
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Detected an incomplete multibyte character');
+        if ($this->whichCsv === 'CsvIconv2') {
+            $this->expectExceptionMessage('invalid multibyte sequence');
+        } else {
+            $this->expectExceptionMessage('Detected an incomplete multibyte character');
+        }
 
         $reader = $this->newCsv();
         $reader->setInputEncoding('UTF-32BE');
