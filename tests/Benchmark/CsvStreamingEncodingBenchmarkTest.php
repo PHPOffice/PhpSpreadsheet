@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetBenchmarks;
 
-use PhpOffice\PhpSpreadsheet\Reader\Csv as CsvReader;
 use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\Group('benchmark')]
 /**
  * @codeCoverageIgnore
  */
-class CsvStreamingEncodingBenchmark extends TestCase
+class CsvStreamingEncodingBenchmarkTest extends TestCase
 {
     /** @var string[] */
     private array $tempFiles = [];
@@ -98,7 +97,7 @@ class CsvStreamingEncodingBenchmark extends TestCase
         gc_collect_cycles();
         $memoryBefore = memory_get_usage(true);
 
-        $reader = new CsvReader();
+        $reader = new CsvChunk();
         $reader->setInputEncoding($encoding);
 
         $startTime = hrtime(true);
@@ -166,7 +165,11 @@ class CsvStreamingEncodingBenchmark extends TestCase
         $largeResult = $this->benchmarkRead($largeFile, 'ISO-8859-1');
 
         $fileSizeRatio = $largeFileSize / $smallFileSize;
-        $memoryRatio = $largeResult['memory_used_mb'] / $smallResult['memory_used_mb'];
+        $smallMemory = $smallResult['memory_used_mb'];
+        $memoryRatio = 0;
+        if ($smallMemory > 0) {
+            $memoryRatio = $largeResult['memory_used_mb'] / $smallMemory;
+        }
 
         fwrite(STDERR, "\n");
         fwrite(STDERR, "=== Memory Scaling Comparison (ISO-8859-1) ===\n");
@@ -197,7 +200,11 @@ class CsvStreamingEncodingBenchmark extends TestCase
         $largeUtf16Result = $this->benchmarkRead($largeUtf16, 'UTF-16LE');
 
         $utf16FileSizeRatio = $largeUtf16Size / $smallUtf16Size;
-        $utf16MemoryRatio = $largeUtf16Result['memory_used_mb'] / $smallUtf16Result['memory_used_mb'];
+        $smallMemory = $smallUtf16Result['memory_used_mb'];
+        $utf16MemoryRatio = 0;
+        if ($smallMemory > 0) {
+            $utf16MemoryRatio = $largeUtf16Result['memory_used_mb'] / $smallMemory;
+        }
 
         fwrite(STDERR, "\n");
         fwrite(STDERR, "=== Memory Scaling Comparison (UTF-16LE) ===\n");

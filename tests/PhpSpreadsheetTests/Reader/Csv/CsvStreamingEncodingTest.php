@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use Exception;
-use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheetBenchmarks\CsvChunk as Csv;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 /**
  * Tests for the streaming/chunked encoding conversion in the CSV reader.
@@ -37,7 +38,12 @@ class CsvStreamingEncodingTest extends TestCase
                     unlink($file);
                 }
             }
-            rmdir($this->tempDir);
+
+            try {
+                rmdir($this->tempDir);
+            } catch (Throwable) {
+                // do nothing
+            }
         }
     }
 

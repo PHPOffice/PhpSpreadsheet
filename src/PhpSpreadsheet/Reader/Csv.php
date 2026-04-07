@@ -34,47 +34,48 @@ class Csv extends BaseReader
     /**
      * Input encoding.
      */
-    private string $inputEncoding = 'UTF-8';
+    protected string $inputEncoding = 'UTF-8';
 
     /**
      * Fallback encoding if guess strikes out.
      */
-    private string $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
+    protected string $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
 
     /**
      * Delimiter.
      */
-    private ?string $delimiter = null;
+    protected ?string $delimiter = null;
 
     /**
      * Enclosure.
      */
-    private string $enclosure = '"';
+    protected string $enclosure = '"';
 
     /**
      * Sheet index to read.
      */
-    private int $sheetIndex = 0;
+    protected int $sheetIndex = 0;
 
     /**
      * Load rows contiguously.
      */
-    private bool $contiguous = false;
+    protected bool $contiguous = false;
 
     /**
      * The character that can escape the enclosure.
      * This will probably become unsupported in Php 9.
      * Not yet ready to mark deprecated in order to give users
      * a migration path.
+     * Strongly encourage that this value be set to null-string.
      */
-    private ?string $escapeCharacter = null;
+    protected ?string $escapeCharacter = null;
 
     /**
      * Callback for setting defaults in construction.
      *
      * @var ?callable
      */
-    private static $constructorCallback;
+    protected static $constructorCallback;
 
     /** Changed from true to false in release 4.0.0 */
     public const DEFAULT_TEST_AUTODETECT = false;
@@ -82,23 +83,23 @@ class Csv extends BaseReader
     /**
      * Attempt autodetect line endings (deprecated after PHP8.1)?
      */
-    private bool $testAutodetect = self::DEFAULT_TEST_AUTODETECT;
+    protected bool $testAutodetect = self::DEFAULT_TEST_AUTODETECT;
 
     protected bool $castFormattedNumberToNumeric = false;
 
     protected bool $preserveNumericFormatting = false;
 
-    private bool $preserveNullString = false;
+    protected bool $preserveNullString = false;
 
-    private bool $sheetNameIsFileName = false;
+    protected bool $sheetNameIsFileName = false;
 
-    private string $getTrue = 'true';
+    protected ?string $getTrue = null;
 
-    private string $getFalse = 'false';
+    protected ?string $getFalse = null;
 
-    private string $thousandsSeparator = ',';
+    protected ?string $thousandsSeparator = null;
 
-    private string $decimalSeparator = '.';
+    protected ?string $decimalSeparator = null;
 
     /**
      * Create a new CSV Reader instance.
@@ -106,7 +107,7 @@ class Csv extends BaseReader
     public function __construct()
     {
         parent::__construct();
-        $callback = self::$constructorCallback;
+        $callback = static::$constructorCallback;
         if ($callback !== null) {
             $callback($this);
         }
@@ -120,12 +121,12 @@ class Csv extends BaseReader
      */
     public static function setConstructorCallback(?callable $callback): void
     {
-        self::$constructorCallback = $callback;
+        static::$constructorCallback = $callback;
     }
 
     public static function getConstructorCallback(): ?callable
     {
-        return self::$constructorCallback;
+        return static::$constructorCallback;
     }
 
     public function setInputEncoding(string $encoding): self
@@ -282,13 +283,6 @@ class Csv extends BaseReader
         return $this->loadStringOrFile('data://text/plain,' . urlencode($contents), $spreadsheet, true);
     }
 
-    /**
-     * Size of each chunk when streaming encoding conversion.
-     * Aligned to a multiple of 4 so UTF-16/UTF-32 character
-     * boundaries are never split.
-     */
-    private const CHUNK_SIZE = 65536;
-
     private function openFileOrMemory(string $filename): void
     {
         // Open file
@@ -307,91 +301,25 @@ class Csv extends BaseReader
         }
         $this->openFile($filename);
         if ($this->inputEncoding !== 'UTF-8') {
-            fclose($this->fileHandle);
-            $this->convertEncodingStreaming($filename);
+            $this->convertNonUtf8($filename);
         }
     }
 
-    /**
-     * Convert file encoding to UTF-8 using chunked streaming to avoid
-     * loading the entire file into memory at once.
-     */
-    private function convertEncodingStreaming(string $filename): void
+    protected function convertNonUtf8(string $filename): void
     {
-        $sourceHandle = fopen($filename, 'rb');
-        // Using php://temp instead of php://memory: spills to disk when data
-        // exceeds 2MB, reducing peak memory for large files.
-        $outputHandle = fopen('php://temp', 'r+b');
-        if ($sourceHandle === false || $outputHandle === false) {
-            // @codeCoverageIgnoreStart
-            if ($sourceHandle !== false) {
-                fclose($sourceHandle);
-            }
-            if ($outputHandle !== false) {
-                fclose($outputHandle);
-            }
-
-            throw new ReaderException("Failed to open file for encoding conversion: {$filename}");
-            // @codeCoverageIgnoreEnd
+        fclose($this->fileHandle);
+        $entireFile = file_get_contents($filename);
+        if ($entireFile === false) {
+            throw new ReaderException("Unable to get contents of $filename"); // @codeCoverageIgnore
         }
-
-        $encoding = $this->inputEncoding;
-        $charWidth = $this->encodingCharWidth($encoding);
-        // Ensure chunk size is aligned to character width
-        $chunkSize = self::CHUNK_SIZE - (self::CHUNK_SIZE % $charWidth);
-
-        $leftover = '';
-        while (!feof($sourceHandle)) {
-            $rawChunk = fread($sourceHandle, max(1, $chunkSize));
-            if ($rawChunk === false || $rawChunk === '') {
-                break; // @codeCoverageIgnore
-            }
-
-            $chunk = $leftover . $rawChunk;
-            $leftover = '';
-
-            if ($charWidth > 1) {
-                // For fixed-width multi-byte encodings (UTF-16, UTF-32),
-                // ensure we don't split in the middle of a character
-                $remainder = strlen($chunk) % $charWidth;
-                if ($remainder !== 0) {
-                    $leftover = substr($chunk, -$remainder);
-                    $chunk = substr($chunk, 0, -$remainder);
-                }
-            }
-                // For variable-width encodings (e.g. UTF-8 source, though
-                // this path is for non-UTF-8), and single-byte encodings
-                // (ISO-8859-*, CP1252), no boundary adjustment needed.
-                // Single-byte encodings have 1:1 byte-to-character mapping.
-
-            if ($chunk !== '') {
-                $converted = StringHelper::convertEncoding($chunk, 'UTF-8', $encoding);
-                fwrite($outputHandle, $converted);
-            }
+        $fileHandle = fopen('php://memory', 'r+b');
+        if ($fileHandle === false) {
+            throw new ReaderException('Unable to open php://memory'); // @codeCoverageIgnore
         }
-
-        // Flush any remaining bytes (incomplete multi-byte chars will throw)
-        if ($leftover !== '') {
-            $converted = StringHelper::convertEncoding($leftover, 'UTF-8', $encoding);
-            fwrite($outputHandle, $converted); // @codeCoverageIgnore
-        }
-
-        fclose($sourceHandle);
-        $this->fileHandle = $outputHandle;
+        $this->fileHandle = $fileHandle;
+        $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
+        fwrite($this->fileHandle, $data);
         $this->skipBOM();
-    }
-
-    /**
-     * Return the byte width of a single character in the given encoding.
-     * Returns 1 for variable-width or single-byte encodings.
-     */
-    private function encodingCharWidth(string $encoding): int
-    {
-        return match (strtoupper($encoding)) {
-            'UTF-32', 'UTF-32BE', 'UTF-32LE', 'UCS-4', 'UCS-4BE', 'UCS-4LE' => 4,
-            'UTF-16', 'UTF-16BE', 'UTF-16LE', 'UCS-2', 'UCS-2BE', 'UCS-2LE' => 2,
-            default => 1,
-        };
     }
 
     public function setTestAutoDetect(bool $value): self
@@ -499,10 +427,10 @@ class Csv extends BaseReader
         $rowData = self::getCsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
         $valueBinder = $this->valueBinder ?? Cell::getValueBinder();
         $preserveBooleanString = method_exists($valueBinder, 'getBooleanConversion') && $valueBinder->getBooleanConversion();
-        $this->getTrue = Calculation::getTRUE();
-        $this->getFalse = Calculation::getFALSE();
-        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
-        $this->decimalSeparator = StringHelper::getDecimalSeparator();
+        $this->getTrue ??= Calculation::getTRUE();
+        $this->getFalse ??= Calculation::getFALSE();
+        $this->thousandsSeparator ??= StringHelper::getThousandsSeparator();
+        $this->decimalSeparator ??= StringHelper::getDecimalSeparator();
         while (is_array($rowData)) {
             $noOutputYet = true;
             $columnLetter = 'A';
@@ -547,9 +475,9 @@ class Csv extends BaseReader
     private function convertBoolean(mixed &$rowDatum): void
     {
         if (is_string($rowDatum)) {
-            if (strcasecmp($this->getTrue, $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
+            if (strcasecmp((string) $this->getTrue, $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
                 $rowDatum = true;
-            } elseif (strcasecmp($this->getFalse, $rowDatum) === 0 || strcasecmp('false', $rowDatum) === 0) {
+            } elseif (strcasecmp((string) $this->getFalse, $rowDatum) === 0 || strcasecmp('false', $rowDatum) === 0) {
                 $rowDatum = false;
             }
         } else {
@@ -565,15 +493,15 @@ class Csv extends BaseReader
         $numberFormatMask = '';
         if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {
             $numeric = str_replace(
-                [$this->thousandsSeparator, $this->decimalSeparator],
+                [(string) $this->thousandsSeparator, (string) $this->decimalSeparator],
                 ['', '.'],
                 $rowDatum
             );
 
             if (is_numeric($numeric)) {
-                $decimalPos = strpos($rowDatum, $this->decimalSeparator);
+                $decimalPos = strpos($rowDatum, (string) $this->decimalSeparator);
                 if ($this->preserveNumericFormatting === true) {
-                    $numberFormatMask = (str_contains($rowDatum, $this->thousandsSeparator))
+                    $numberFormatMask = (str_contains($rowDatum, (string) $this->thousandsSeparator))
                         ? '#,##0' : '0';
                     if ($decimalPos !== false) {
                         $decimals = strlen($rowDatum) - $decimalPos - 1;
@@ -840,5 +768,33 @@ class Csv extends BaseReader
     private static function getDefaultEscapeCharacter(int $version = PHP_VERSION_ID): string
     {
         return $version < 90000 ? '\\' : '';
+    }
+
+    public function setGetTrue(?string $getTrue): self
+    {
+        $this->getTrue = $getTrue;
+
+        return $this;
+    }
+
+    public function setGetFalse(?string $getFalse): self
+    {
+        $this->getFalse = $getFalse;
+
+        return $this;
+    }
+
+    public function setDecimalSeparator(?string $decimalSeparator): self
+    {
+        $this->decimalSeparator = $decimalSeparator;
+
+        return $this;
+    }
+
+    public function setThousandsSeparator(?string $thousandsSeparator): self
+    {
+        $this->thousandsSeparator = $thousandsSeparator;
+
+        return $this;
     }
 }
