@@ -3691,6 +3691,16 @@ Search.appendIndex(
             "summary": "Excel\u0020function\u0020VSTACK.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-Vstack.html#method_vstack"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\XLookup",
+            "name": "XLookup",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-XLookup.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef\\XLookup\u003A\u003Alookup\u0028\u0029",
+            "name": "lookup",
+            "summary": "XLOOKUP\u0020\u2014\u0020PHP\u0020emulation\u0020of\u0020Excel\u0027s\u0020XLOOKUP\u0020function.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef-XLookup.html#method_lookup"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Absolute",
             "name": "Absolute",
             "summary": "",
@@ -5495,6 +5505,26 @@ Search.appendIndex(
             "name": "MAX_COLUMN_INT",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html#constant_MAX_COLUMN_INT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AddressRange\u003A\u003AMAX_ROW_XLS_OLD",
+            "name": "MAX_ROW_XLS_OLD",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html#constant_MAX_ROW_XLS_OLD"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AddressRange\u003A\u003AMAX_ROW_XLS",
+            "name": "MAX_ROW_XLS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html#constant_MAX_ROW_XLS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AddressRange\u003A\u003AMAX_COLUMN_XLS",
+            "name": "MAX_COLUMN_XLS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html#constant_MAX_COLUMN_XLS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AddressRange\u003A\u003AMAX_COLUMN_INT_XLS",
+            "name": "MAX_COLUMN_INT_XLS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-AddressRange.html#constant_MAX_COLUMN_INT_XLS"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder",
             "name": "AdvancedValueBinder",
@@ -11086,6 +11116,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-IOFactory.html#constant_READER_CSV"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\IOFactory\u003A\u003AUSE_CSV_NO_ESCAPE",
+            "name": "USE_CSV_NO_ESCAPE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-IOFactory.html#constant_USE_CSV_NO_ESCAPE"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\IOFactory\u003A\u003AWRITER_XLSX",
             "name": "WRITER_XLSX",
             "summary": "",
@@ -11526,6 +11561,11 @@ Search.appendIndex(
             "summary": "Loads\u0020Spreadsheet\u0020from\u0020string.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_loadSpreadsheetFromString"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AconvertNonUtf8\u0028\u0029",
+            "name": "convertNonUtf8",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_convertNonUtf8"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetTestAutoDetect\u0028\u0029",
             "name": "setTestAutoDetect",
             "summary": "",
@@ -11626,6 +11666,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_affectedByPhp9"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetGetTrue\u0028\u0029",
+            "name": "setGetTrue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setGetTrue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetGetFalse\u0028\u0029",
+            "name": "setGetFalse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setGetFalse"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetDecimalSeparator\u0028\u0029",
+            "name": "setDecimalSeparator",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setDecimalSeparator"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AsetThousandsSeparator\u0028\u0029",
+            "name": "setThousandsSeparator",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setThousandsSeparator"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003ADEFAULT_FALLBACK_ENCODING",
             "name": "DEFAULT_FALLBACK_ENCODING",
             "summary": "",
@@ -11711,10 +11771,115 @@ Search.appendIndex(
             "summary": "Changed\u0020from\u0020true\u0020to\u0020false\u0020in\u0020release\u00204.0.0",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_DEFAULT_TEST_AUTODETECT"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024inputEncoding",
+            "name": "inputEncoding",
+            "summary": "Input\u0020encoding.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_inputEncoding"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024fallbackEncoding",
+            "name": "fallbackEncoding",
+            "summary": "Fallback\u0020encoding\u0020if\u0020guess\u0020strikes\u0020out.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_fallbackEncoding"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024delimiter",
+            "name": "delimiter",
+            "summary": "Delimiter.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_delimiter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024enclosure",
+            "name": "enclosure",
+            "summary": "Enclosure.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_enclosure"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024sheetIndex",
+            "name": "sheetIndex",
+            "summary": "Sheet\u0020index\u0020to\u0020read.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_sheetIndex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024contiguous",
+            "name": "contiguous",
+            "summary": "Load\u0020rows\u0020contiguously.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_contiguous"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024escapeCharacter",
+            "name": "escapeCharacter",
+            "summary": "The\u0020character\u0020that\u0020can\u0020escape\u0020the\u0020enclosure.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024constructorCallback",
+            "name": "constructorCallback",
+            "summary": "Callback\u0020for\u0020setting\u0020defaults\u0020in\u0020construction.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_constructorCallback"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024testAutodetect",
+            "name": "testAutodetect",
+            "summary": "Attempt\u0020autodetect\u0020line\u0020endings\u0020\u0028deprecated\u0020after\u0020PHP8.1\u0029\u003F",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_testAutodetect"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024preserveNumericFormatting",
             "name": "preserveNumericFormatting",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_preserveNumericFormatting"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024preserveNullString",
+            "name": "preserveNullString",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_preserveNullString"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024sheetNameIsFileName",
+            "name": "sheetNameIsFileName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_sheetNameIsFileName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024getTrue",
+            "name": "getTrue",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_getTrue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024getFalse",
+            "name": "getFalse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_getFalse"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024thousandsSeparator",
+            "name": "thousandsSeparator",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_thousandsSeparator"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024decimalSeparator",
+            "name": "decimalSeparator",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_decimalSeparator"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape",
+            "name": "CsvNoEscape",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape\u003A\u003AsetEscapeCharacter\u0028\u0029",
+            "name": "setEscapeCharacter",
+            "summary": "Changing\u0020escape\u0020character\u0020not\u0020allowed\u0020in\u0020this\u0020class.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setEscapeCharacter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape\u003A\u003AsetTestAutoDetect\u0028\u0029",
+            "name": "setTestAutoDetect",
+            "summary": "Changing\u0020auto\u002Ddetect\u0020not\u0020allowed\u0020in\u0020this\u0020class.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setTestAutoDetect"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape\u003A\u003A\u0024escapeCharacter",
+            "name": "escapeCharacter",
+            "summary": "The\u0020character\u0020that\u0020can\u0020escape\u0020the\u0020enclosure.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_escapeCharacter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape\u003A\u003A\u0024constructorCallback",
+            "name": "constructorCallback",
+            "summary": "Should\u0020not\u0020be\u0020needed\u0020in\u0020this\u0020class,\u0020but\u0020we\u0020will\u0020permit\u0020it.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_constructorCallback"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\CsvNoEscape\u003A\u003A\u0024testAutodetect",
+            "name": "testAutodetect",
+            "summary": "Attempt\u0020autodetect\u0020line\u0020endings\u0020\u0028deprecated\u0020after\u0020PHP8.1\u0029\u003F",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_testAutodetect"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\DefaultReadFilter",
             "name": "DefaultReadFilter",
@@ -12360,6 +12525,16 @@ Search.appendIndex(
             "name": "getBorderStyles",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_getBorderStyles"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\u003A\u003AprocessSomeNumberFormats\u0028\u0029",
+            "name": "processSomeNumberFormats",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processSomeNumberFormats"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\u003A\u003AprocessNumberNumber\u0028\u0029",
+            "name": "processNumberNumber",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processNumberNumber"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\u003A\u003AINITIAL_FILE",
             "name": "INITIAL_FILE",
@@ -15521,6 +15696,11 @@ Search.appendIndex(
             "summary": "Round\u0020the\u0020given\u0020DateTime\u0020object\u0020to\u0020seconds.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Date.html#method_roundMicroseconds"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Date\u003A\u003AsafeModify\u0028\u0029",
+            "name": "safeModify",
+            "summary": "Safely\u0020modifies\u0020a\u0020DateTime\u0020object\u0020using\u0020a\u0020specified\u0020modification\u0020string.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Date.html#method_safeModify"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Date\u003A\u003ACALENDAR_WINDOWS_1900",
             "name": "CALENDAR_WINDOWS_1900",
             "summary": "constants",
@@ -16065,6 +16245,11 @@ Search.appendIndex(
             "name": "temporaryFilename",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-File.html#method_temporaryFilename"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\File\u003A\u003AprohibitWrappers\u0028\u0029",
+            "name": "prohibitWrappers",
+            "summary": "All\u0020filenames\u0020starting\u0020with\u0020protocol\u0020\u0028e.g.\u0020phar\u003A\/\/\u0029\u0020are\u0020prohibited.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-File.html#method_prohibitWrappers"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\File\u003A\u003AassertFile\u0028\u0029",
             "name": "assertFile",
@@ -28885,6 +29070,11 @@ Search.appendIndex(
             "name": "write",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_write"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AformatIntLeading0\u0028\u0029",
+            "name": "formatIntLeading0",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_formatIntLeading0"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AformatNumber\u0028\u0029",
             "name": "formatNumber",

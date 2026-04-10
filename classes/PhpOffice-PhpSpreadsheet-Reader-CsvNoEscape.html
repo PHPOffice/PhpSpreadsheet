@@ -98,10 +98,10 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Csv
+    CsvNoEscape
 
         <span class="phpdocumentor-element__extends">
-        extends <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\BaseReader">BaseReader</abbr></a>
+        extends <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Csv">Csv</abbr></a>
     </span>
     
             <div class="phpdocumentor-element__package">
@@ -120,9 +120,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">7</span>
 
     </aside>
 
@@ -137,7 +137,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -149,7 +149,7 @@
 
 <h4 id="toc-constants">
     Constants
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -261,7 +261,7 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -279,11 +279,11 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_constructorCallback">$constructorCallback</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_constructorCallback">$constructorCallback</a>
     <span>
                         &nbsp;: callable|null            </span>
 </dt>
-<dd>Callback for setting defaults in construction.</dd>
+<dd>Should not be needed in this class, but we will permit it.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_contiguous">$contiguous</a>
@@ -330,7 +330,7 @@ by storing the original XML for pass-through during write operations.</dd>
 <dd>Enclosure.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter">$escapeCharacter</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_escapeCharacter">$escapeCharacter</a>
     <span>
                         &nbsp;: string|null            </span>
 </dt>
@@ -455,7 +455,7 @@ Identifies whether the Reader should read data values for all cells, or should i
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_testAutodetect">$testAutodetect</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_testAutodetect">$testAutodetect</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
@@ -477,7 +477,7 @@ Identifies whether the Reader should read data values for all cells, or should i
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -742,11 +742,11 @@ possibly due to a typo when using LoadSheetsOnly.</dd>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEscapeCharacter">setEscapeCharacter()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setEscapeCharacter">setEscapeCharacter()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
-<dd>Php9 intends to drop support for this parameter in fgetcsv.</dd>
+<dd>Changing escape character not allowed in this class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setFallbackEncoding">setFallbackEncoding()</a>
@@ -855,10 +855,11 @@ can subject the caller to security exploits.</dd>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setTestAutoDetect">setTestAutoDetect()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setTestAutoDetect">setTestAutoDetect()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
+<dd>Changing auto-detect not allowed in this class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setThousandsSeparator">setThousandsSeparator()</a>
@@ -933,7 +934,7 @@ can subject the caller to security exploits.</dd>
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
@@ -1470,7 +1471,7 @@ can subject the caller to security exploits.</dd>
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -1562,19 +1563,19 @@ can subject the caller to security exploits.</p>
 >
     <h4 class="phpdocumentor-element__name" id="property_constructorCallback">
         $constructorCallback
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_constructorCallback" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_constructorCallback" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Callback for setting defaults in construction.</p>
+        <p class="phpdocumentor-summary">Should not be needed in this class, but we will permit it.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -1839,15 +1840,15 @@ by storing the original XML for pass-through during write operations.</p>
 >
     <h4 class="phpdocumentor-element__name" id="property_escapeCharacter">
         $escapeCharacter
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_escapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -1858,12 +1859,10 @@ by storing the original XML for pass-through during write operations.</p>
         <span class="phpdocumentor-signature__visibility">protected</span>
             <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$escapeCharacter</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"><p>This will probably become unsupported in Php 9.
-Not yet ready to mark deprecated in order to give users
-a migration path.
-Strongly encourage that this value be set to null-string.</p>
+        <section class="phpdocumentor-description"><p>Non-null-string will probably become unsupported in Php 9.
+It must always be null-string in this class.</p>
 </section>
 
     
@@ -2551,15 +2550,15 @@ Identifies whether the Reader should read data values for all cells, or should i
 >
     <h4 class="phpdocumentor-element__name" id="property_testAutodetect">
         $testAutodetect
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_testAutodetect" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_testAutodetect" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -2570,7 +2569,7 @@ Identifies whether the Reader should read data values for all cells, or should i
         <span class="phpdocumentor-signature__visibility">protected</span>
             <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$testAutodetect</span>
-     = <span class="phpdocumentor-signature__default-value">self::DEFAULT_TEST_AUTODETECT</span></code>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
     
@@ -2662,7 +2661,7 @@ Identifies whether the Reader should read data values for all cells, or should i
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -4448,17 +4447,17 @@ possibly due to a typo when using LoadSheetsOnly.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_setEscapeCharacter">
         setEscapeCharacter()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEscapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setEscapeCharacter" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">575</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Php9 intends to drop support for this parameter in fgetcsv.</p>
+        <p class="phpdocumentor-summary">Changing escape character not allowed in this class.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -4467,10 +4466,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
     <div class="phpdocumentor-label-line">
         </div>
     
-        <section class="phpdocumentor-description"><p>Not yet ready to mark deprecated in order to give users
-a migration path.</p>
-</section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -5240,17 +5236,18 @@ can subject the caller to security exploits.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method_setTestAutoDetect">
         setTestAutoDetect()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setTestAutoDetect" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setTestAutoDetect" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Csv.php"><a href="files/src-phpspreadsheet-reader-csv.html"><abbr title="src/PhpSpreadsheet/Reader/Csv.php">Csv.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/CsvNoEscape.php"><a href="files/src-phpspreadsheet-reader-csvnoescape.html"><abbr title="src/PhpSpreadsheet/Reader/CsvNoEscape.php">CsvNoEscape.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Changing auto-detect not allowed in this class.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setTestAutoDetect</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
@@ -5707,7 +5704,7 @@ can subject the caller to security exploits.</p>
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/Csv.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/CsvNoEscape.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -5808,9 +5805,9 @@ can subject the caller to security exploits.</p>
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-constants">Constants</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#toc-methods">Methods</a></li>
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
                             <li class="phpdocumentor-on-this-page-section__title">Constants</li>
@@ -5841,14 +5838,14 @@ can subject the caller to security exploits.</p>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_allowExternalImages">$allowExternalImages</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_castFormattedNumberToNumeric">$castFormattedNumberToNumeric</a></li>
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_constructorCallback">$constructorCallback</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_constructorCallback">$constructorCallback</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_contiguous">$contiguous</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_createBlankSheetIfNoneRead">$createBlankSheetIfNoneRead</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_decimalSeparator">$decimalSeparator</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_delimiter">$delimiter</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_enableDrawingPassThrough">$enableDrawingPassThrough</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_enclosure">$enclosure</a></li>
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_escapeCharacter">$escapeCharacter</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_escapeCharacter">$escapeCharacter</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_fallbackEncoding">$fallbackEncoding</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_getFalse">$getFalse</a></li>
@@ -5866,7 +5863,7 @@ can subject the caller to security exploits.</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_securityScanner">$securityScanner</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_sheetIndex">$sheetIndex</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_sheetNameIsFileName">$sheetNameIsFileName</a></li>
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_testAutodetect">$testAutodetect</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#property_testAutodetect">$testAutodetect</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#property_thousandsSeparator">$thousandsSeparator</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_valueBinder">$valueBinder</a></li>
                                             </ul>
@@ -5914,7 +5911,7 @@ can subject the caller to security exploits.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setDelimiter">setDelimiter()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setEnableDrawingPassThrough">setEnableDrawingPassThrough()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEnclosure">setEnclosure()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setEscapeCharacter">setEscapeCharacter()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setEscapeCharacter">setEscapeCharacter()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setFallbackEncoding">setFallbackEncoding()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setGetFalse">setGetFalse()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setGetTrue">setGetTrue()</a></li>
@@ -5930,7 +5927,7 @@ can subject the caller to security exploits.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadFilter">setReadFilter()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setSheetIndex">setSheetIndex()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setSheetNameIsFileName">setSheetNameIsFileName()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setTestAutoDetect">setTestAutoDetect()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#method_setTestAutoDetect">setTestAutoDetect()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_setThousandsSeparator">setThousandsSeparator()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setValueBinder">setValueBinder()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_checkSeparator">checkSeparator()</a></li>
@@ -5960,7 +5957,7 @@ can subject the caller to security exploits.</p>
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-CsvNoEscape.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

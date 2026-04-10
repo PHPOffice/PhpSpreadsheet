@@ -395,7 +395,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setAllowExternalImages">setAllowExternalImages()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 <dd>USE WITH CAUTION (and in conjunction with setIsWhiteListed)!
 Allow external images;
@@ -405,7 +405,7 @@ in a way that can subject the caller to security exploits.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setCreateBlankSheetIfNoneRead">setCreateBlankSheetIfNoneRead()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 <dd>Create a blank sheet if none are read,
 possibly due to a typo when using LoadSheetsOnly.</dd>
@@ -413,7 +413,7 @@ possibly due to a typo when using LoadSheetsOnly.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setEnableDrawingPassThrough">setEnableDrawingPassThrough()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -425,7 +425,7 @@ possibly due to a typo when using LoadSheetsOnly.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIgnoreRowsWithNoCells">setIgnoreRowsWithNoCells()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -439,7 +439,7 @@ possibly due to a typo when using LoadSheetsOnly.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIsWhitelisted">setIsWhitelisted()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 <dd>USE WITH CAUTION!
 Supply a callback to determine whether a path should be whitelisted,
@@ -489,7 +489,7 @@ can subject the caller to security exploits.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setValueBinder">setValueBinder()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: static    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
@@ -550,6 +550,18 @@ can subject the caller to security exploits.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_processFlags">processFlags()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processNumberNumber">processNumberNumber()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processSomeNumberFormats">processSomeNumberFormats()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -1838,7 +1850,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
@@ -1905,7 +1917,7 @@ in a way that can subject the caller to security exploits.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setAllowExternalImages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allowExternalImages</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setAllowExternalImages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allowExternalImages</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1928,7 +1940,7 @@ in a way that can subject the caller to security exploits.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -1955,7 +1967,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setCreateBlankSheetIfNoneRead</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$createBlankSheetIfNoneRead</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setCreateBlankSheetIfNoneRead</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$createBlankSheetIfNoneRead</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1978,7 +1990,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -2003,7 +2015,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setEnableDrawingPassThrough</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enableDrawingPassThrough</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setEnableDrawingPassThrough</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$enableDrawingPassThrough</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2026,7 +2038,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -2044,7 +2056,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1487</span>
+    <span class="phpdocumentor-element-found-in__line">1518</span>
 
     </aside>
 
@@ -2095,7 +2107,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setIgnoreRowsWithNoCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignoreRowsWithNoCells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setIgnoreRowsWithNoCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignoreRowsWithNoCells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2118,7 +2130,7 @@ possibly due to a typo when using LoadSheetsOnly.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -2201,7 +2213,7 @@ can subject the caller to security exploits.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setIsWhitelisted</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">callable(string): bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isWhitelisted</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setIsWhitelisted</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">callable(string): bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isWhitelisted</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2224,7 +2236,7 @@ can subject the caller to security exploits.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -2492,7 +2504,7 @@ can subject the caller to security exploits.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setValueBinder</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$valueBinder</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                    <span class="phpdocumentor-signature__name">setValueBinder</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$valueBinder</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2515,7 +2527,7 @@ can subject the caller to security exploits.</p>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type">static</span>
             </section>
 
 </article>
@@ -2533,7 +2545,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1587</span>
+    <span class="phpdocumentor-element-found-in__line">1618</span>
 
     </aside>
 
@@ -2595,7 +2607,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1624</span>
+    <span class="phpdocumentor-element-found-in__line">1655</span>
 
     </aside>
 
@@ -2657,7 +2669,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1716</span>
+    <span class="phpdocumentor-element-found-in__line">1747</span>
 
     </aside>
 
@@ -2719,7 +2731,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1553</span>
+    <span class="phpdocumentor-element-found-in__line">1584</span>
 
     </aside>
 
@@ -2774,7 +2786,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1503</span>
+    <span class="phpdocumentor-element-found-in__line">1534</span>
 
     </aside>
 
@@ -2836,7 +2848,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1653</span>
+    <span class="phpdocumentor-element-found-in__line">1684</span>
 
     </aside>
 
@@ -3059,6 +3071,122 @@ can subject the caller to security exploits.</p>
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_processNumberNumber">
+        processNumberNumber()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processNumberNumber" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1792</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">processNumberNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$automaticStyle</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberNs</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$styleNs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$automaticStyle</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$numberNs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$styleNs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_processSomeNumberFormats">
+        processSomeNumberFormats()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processSomeNumberFormats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1784</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">processSomeNumberFormats</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$automaticStyle0</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numberNs</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$styleNs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$automaticStyle0</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$numberNs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$styleNs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_scanElementForText">
         scanElementForText()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_scanElementForText" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3067,7 +3195,7 @@ can subject the caller to security exploits.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1401</span>
+    <span class="phpdocumentor-element-found-in__line">1432</span>
 
     </aside>
 
@@ -3283,6 +3411,8 @@ can subject the caller to security exploits.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_newSpreadsheet">newSpreadsheet()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_openFile">openFile()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_processFlags">processFlags()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processNumberNumber">processNumberNumber()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_processSomeNumberFormats">processSomeNumberFormats()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_scanElementForText">scanElementForText()</a></li>
                                     </ul>
             </li>
