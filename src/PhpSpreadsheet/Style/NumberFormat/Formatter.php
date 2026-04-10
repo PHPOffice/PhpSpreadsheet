@@ -48,7 +48,7 @@ class Formatter extends BaseFormatter
      * @param float|int|numeric-string $value value to be formatted
      * @param string[] $sections
      *
-     * @return array{string, string, mixed}
+     * @return array{string, string, float|int|numeric-string}
      */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
@@ -198,7 +198,6 @@ class Formatter extends BaseFormatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        /** @var string */
         $temp = $format;
         $format = (string) preg_replace('/_.?/ui', ' ', $temp);
 
@@ -220,11 +219,9 @@ class Formatter extends BaseFormatter
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format - avoid weird '-0' problem
-                /** @var float */
                 $temp = $value;
                 $value = PercentageFormatter::format(0 + (float) $temp, $format);
             } else {
-                /** @var float|int|numeric-string */
                 $temp = $value;
                 $value = NumberFormatter::format($temp, $format);
             }
