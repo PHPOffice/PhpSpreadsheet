@@ -340,13 +340,21 @@ class Html extends BaseReader
 
                     try {
                         if (isset($attributeArray['data-formula'])) {
-                            $sheet->setCellValueExplicit($column . $row, $attributeArray['data-formula'], DataType::TYPE_FORMULA);
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-formula'],
+                                DataType::TYPE_FORMULA
+                            );
                             $sheet->getCell($column . $row)
                                 ->setCalculatedValue(
                                     $cellContent
                                 );
                         } else {
-                            $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-value'] ?? $cellContent,
+                                $attributeArray['data-type']
+                            );
                         }
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
@@ -357,7 +365,7 @@ class Html extends BaseReader
                     if ($sheet->hyperlinkExists($column . $row)) {
                         $hyperlink = $sheet->getHyperlink($column . $row);
                     }
-                    $sheet->setCellValue($column . $row, $cellContent);
+                    $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
                     $sheet->setHyperlink($column . $row, $hyperlink);
                 }
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
