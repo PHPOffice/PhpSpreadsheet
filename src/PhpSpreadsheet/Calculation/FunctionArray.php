@@ -2628,7 +2628,7 @@ class FunctionArray extends CalculationBase
         ],
         'XLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\XLookup::class, 'lookup'],
             'argumentCount' => '3-6',
         ],
         'XNPV' => [
