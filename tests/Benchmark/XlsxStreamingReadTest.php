@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
+namespace PhpOffice\PhpSpreadsheetBenchmarks;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -10,9 +10,10 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PhpOffice\PhpSpreadsheetBenchmarks\XlsxStreamingReadClass as Xlsx2;
 use PHPUnit\Framework\TestCase;
 
-class StreamingReadTest extends TestCase
+class XlsxStreamingReadTest extends TestCase
 {
     private string $tempFile = '';
 
@@ -76,20 +77,6 @@ class StreamingReadTest extends TestCase
         return $path;
     }
 
-    public function testStreamingFlagDefaultsFalse(): void
-    {
-        $reader = new Xlsx();
-        self::assertFalse($reader->getUseStreamingReader());
-    }
-
-    public function testStreamingFlagSetterGetter(): void
-    {
-        $reader = new Xlsx();
-        $result = $reader->setUseStreamingReader(true);
-        self::assertTrue($reader->getUseStreamingReader());
-        self::assertSame($reader, $result); // fluent interface
-    }
-
     public function testStreamingLoadsIdenticalToSimpleXml(): void
     {
         // Load with SimpleXML (default)
@@ -99,9 +86,8 @@ class StreamingReadTest extends TestCase
         $sheetSimple = $spreadsheetSimple->getActiveSheet();
 
         // Load with streaming XMLReader
-        $readerStreaming = new Xlsx();
+        $readerStreaming = new Xlsx2();
         $readerStreaming->setReadDataOnly(true);
-        $readerStreaming->setUseStreamingReader(true);
         $spreadsheetStreaming = $readerStreaming->load($this->tempFile);
         $sheetStreaming = $spreadsheetStreaming->getActiveSheet();
 
@@ -126,8 +112,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingNumericCells(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -141,8 +126,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingSharedStrings(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -156,8 +140,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingBooleanCells(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -169,8 +152,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingFormulaCells(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -188,8 +170,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingBooleanFormulaCalculatedValue(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -209,9 +190,8 @@ class StreamingReadTest extends TestCase
         $readerSimple->setReadDataOnly(true);
         $spreadsheetSimple = $readerSimple->load($filename);
 
-        $readerStreaming = new Xlsx();
+        $readerStreaming = new Xlsx2();
         $readerStreaming->setReadDataOnly(true);
-        $readerStreaming->setUseStreamingReader(true);
         $spreadsheetStreaming = $readerStreaming->load($filename);
 
         foreach ($spreadsheetSimple->getActiveSheet()->getRowIterator() as $row) {
@@ -234,8 +214,7 @@ class StreamingReadTest extends TestCase
     public function testStreamingWithStyles(): void
     {
         // Verify streaming mode applies styles correctly
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -248,8 +227,7 @@ class StreamingReadTest extends TestCase
 
     public function testStreamingInlineString(): void
     {
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -286,12 +264,10 @@ class StreamingReadTest extends TestCase
 
         // Load with streaming and compare with SimpleXML
         $readerSimple = new Xlsx();
-        $readerSimple->setReadDataOnly(true);
         $simple = $readerSimple->load($file);
 
-        $readerStream = new Xlsx();
+        $readerStream = new Xlsx2();
         $readerStream->setReadDataOnly(true);
-        $readerStream->setUseStreamingReader(true);
         $stream = $readerStream->load($file);
 
         foreach (['A1', 'A2', 'A3', 'A4'] as $coord) {
@@ -337,8 +313,7 @@ class StreamingReadTest extends TestCase
         $writer->save($file);
         $spreadsheet->disconnectWorksheets();
 
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $result = $reader->load($file);
 
         self::assertSame(3, $result->getSheetCount());
@@ -369,8 +344,7 @@ class StreamingReadTest extends TestCase
         $writer->save($file);
         $spreadsheet->disconnectWorksheets();
 
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $reader->setReadDataOnly(true);
         $result = $reader->load($file);
         $sheet = $result->getActiveSheet();
@@ -407,8 +381,7 @@ class StreamingReadTest extends TestCase
         $readerSimple = new Xlsx();
         $simple = $readerSimple->load($file);
 
-        $readerStream = new Xlsx();
-        $readerStream->setUseStreamingReader(true);
+        $readerStream = new Xlsx2();
         $stream = $readerStream->load($file);
 
         foreach (['A1', 'A2', 'A3'] as $coord) {
@@ -443,8 +416,7 @@ class StreamingReadTest extends TestCase
         $spreadsheet->disconnectWorksheets();
 
         // Load with styles (readDataOnly=false) using streaming
-        $readerStream = new Xlsx();
-        $readerStream->setUseStreamingReader(true);
+        $readerStream = new Xlsx2();
         // readDataOnly defaults to false
         $stream = $readerStream->load($file);
         $sheetStream = $stream->getActiveSheet();
@@ -508,9 +480,8 @@ class StreamingReadTest extends TestCase
         $readerSimple->setReadDataOnly(true);
         $simple = $readerSimple->load($file);
 
-        $readerStream = new Xlsx();
+        $readerStream = new Xlsx2();
         $readerStream->setReadDataOnly(true);
-        $readerStream->setUseStreamingReader(true);
         $stream = $readerStream->load($file);
 
         for ($row = 1; $row <= 5; ++$row) {
@@ -535,8 +506,7 @@ class StreamingReadTest extends TestCase
     {
         // Test the readDataOnly=false path which applies style indices
         // and handles quotePrefix for formula cells
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         // readDataOnly defaults to false
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
@@ -585,9 +555,8 @@ class StreamingReadTest extends TestCase
         $readerSimple->setReadDataOnly(true);
         $simple = $readerSimple->load($file);
 
-        $readerStream = new Xlsx();
+        $readerStream = new Xlsx2();
         $readerStream->setReadDataOnly(true);
-        $readerStream->setUseStreamingReader(true);
         $stream = $readerStream->load($file);
 
         self::assertSame(
@@ -602,8 +571,7 @@ class StreamingReadTest extends TestCase
     public function testStreamingCalculatedValuePreserved(): void
     {
         // Test that calculated values are preserved for formula cells
-        $reader = new Xlsx();
-        $reader->setUseStreamingReader(true);
+        $reader = new Xlsx2();
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -633,8 +601,7 @@ class StreamingReadTest extends TestCase
         $readerSimple = new Xlsx();
         $simple = $readerSimple->load($this->tempFile);
 
-        $readerStream = new Xlsx();
-        $readerStream->setUseStreamingReader(true);
+        $readerStream = new Xlsx2();
         $stream = $readerStream->load($this->tempFile);
 
         // String formula should match
@@ -663,8 +630,7 @@ class StreamingReadTest extends TestCase
         $simple = $readerSimple->load($filename);
         $sheetSimple = $simple->getActiveSheet();
 
-        $readerStream = new Xlsx();
-        $readerStream->setUseStreamingReader(true);
+        $readerStream = new Xlsx2();
         $stream = $readerStream->load($filename);
         $sheetStream = $stream->getActiveSheet();
 
@@ -744,8 +710,7 @@ class StreamingReadTest extends TestCase
         $simple = $readerSimple->load($file);
         $sheetSimple = $simple->getActiveSheet();
 
-        $readerStream = new Xlsx();
-        $readerStream->setUseStreamingReader(true);
+        $readerStream = new Xlsx2();
         $stream = $readerStream->load($file);
         $sheetStream = $stream->getActiveSheet();
 
@@ -774,9 +739,8 @@ class StreamingReadTest extends TestCase
 
     public function testParseHugeOption(): void
     {
-        $reader = new Xlsx();
+        $reader = new Xlsx2();
         $reader->setParseHuge(true);
-        $reader->setUseStreamingReader(true);
 
         $spreadsheet = $reader->load($this->tempFile);
         $sheet = $spreadsheet->getActiveSheet();

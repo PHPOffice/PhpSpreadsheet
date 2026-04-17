@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PhpOffice\PhpSpreadsheetBenchmarks\XlsxStreamingReadClass as Xlsx2;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @codeCoverageIgnore
  */
-class XlsxStreamingReaderBenchmark extends TestCase
+class XlsxStreamingReaderBenchmarkTest extends TestCase
 {
     private const ROW_COUNT = 2000;
 
@@ -94,7 +95,6 @@ class XlsxStreamingReaderBenchmark extends TestCase
         $startSimple = hrtime(true);
         $readerSimple = new Xlsx();
         $readerSimple->setReadDataOnly(true);
-        $readerSimple->setUseStreamingReader(false);
         $spreadsheetSimple = $readerSimple->load($this->tempFile);
         $elapsedSimple = (hrtime(true) - $startSimple) / 1e6; // ms
         $peakSimple = memory_get_peak_usage(true);
@@ -117,9 +117,8 @@ class XlsxStreamingReaderBenchmark extends TestCase
         $peakBeforeStreaming = memory_get_peak_usage(true);
 
         $startStreaming = hrtime(true);
-        $readerStreaming = new Xlsx();
+        $readerStreaming = new Xlsx2();
         $readerStreaming->setReadDataOnly(true);
-        $readerStreaming->setUseStreamingReader(true);
         $spreadsheetStreaming = $readerStreaming->load($this->tempFile);
         $elapsedStreaming = (hrtime(true) - $startStreaming) / 1e6; // ms
         $peakStreaming = memory_get_peak_usage(true);
