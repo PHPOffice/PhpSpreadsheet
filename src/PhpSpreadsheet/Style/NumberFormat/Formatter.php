@@ -136,7 +136,12 @@ class Formatter extends BaseFormatter
         $formatx = str_replace('\"', self::QUOTE_REPLACEMENT, $format);
         if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
             if (!str_contains($format, '"')) {
-                return str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
+                $temp = str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
+                if (is_callable($callBack)) {
+                    $temp = $callBack($temp, $format);
+                }
+
+                return $temp;
             }
             //escape any dollar signs on the string, so they are not replaced with an empty value
             $value = str_replace(
