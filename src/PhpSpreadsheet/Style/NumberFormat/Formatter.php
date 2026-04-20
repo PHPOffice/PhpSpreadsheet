@@ -48,7 +48,7 @@ class Formatter extends BaseFormatter
      * @param float|int|numeric-string $value value to be formatted
      * @param string[] $sections
      *
-     * @return mixed[]
+     * @return array{string, string, float|int|numeric-string}
      */
     private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
@@ -118,12 +118,12 @@ class Formatter extends BaseFormatter
      * @param null|array<mixed>|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param null|array<mixed>|callable $callBack Callback function for additional formatting of string
+     * @param null|callable(string, string): string $callBack Callback function for additional formatting of string
      * @param bool $lessFloatPrecision If true, unstyled floats will be converted to a more human-friendly but less computationally accurate value
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, string $format, null|array|callable $callBack = null, bool $lessFloatPrecision = false): string
+    public static function toFormattedString($value, string $format, ?callable $callBack = null, bool $lessFloatPrecision = false): string
     {
         while (is_array($value)) {
             $value = array_shift($value);
@@ -136,7 +136,12 @@ class Formatter extends BaseFormatter
         $formatx = str_replace('\"', self::QUOTE_REPLACEMENT, $format);
         if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
             if (!str_contains($format, '"')) {
-                return str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
+                $temp = str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
+                if (is_callable($callBack)) {
+                    $temp = $callBack($temp, $format);
+                }
+
+                return $temp;
             }
             //escape any dollar signs on the string, so they are not replaced with an empty value
             $value = str_replace(
@@ -148,7 +153,6 @@ class Formatter extends BaseFormatter
             if (is_callable($callBack)) {
                 $temp = $callBack($temp, $formatx);
             }
-            /** @var string $temp */
 
             return str_replace(
                 ['"', self::QUOTE_REPLACEMENT],
@@ -193,7 +197,6 @@ class Formatter extends BaseFormatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        /** @var string */
         $temp = $format;
         $format = (string) preg_replace('/_.?/ui', ' ', $temp);
 
@@ -215,11 +218,9 @@ class Formatter extends BaseFormatter
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format - avoid weird '-0' problem
-                /** @var float */
                 $temp = $value;
                 $value = PercentageFormatter::format(0 + (float) $temp, $format);
             } else {
-                /** @var float|int|numeric-string */
                 $temp = $value;
                 $value = NumberFormatter::format($temp, $format);
             }
@@ -229,7 +230,6 @@ class Formatter extends BaseFormatter
         if (is_callable($callBack)) {
             $value = $callBack($value, $colors);
         }
-        /** @var string $value */
 
         return str_replace(chr(0x00), '.', $value);
     }
