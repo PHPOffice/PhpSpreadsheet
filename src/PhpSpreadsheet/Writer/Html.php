@@ -1586,7 +1586,7 @@ class Html extends BaseWriter
             $cellData = NumberFormat::toFormattedString(
                 $origData2,
                 $formatCode ?? NumberFormat::FORMAT_GENERAL,
-                [$this, 'formatColor']
+                $this->formatColor(...)
             );
 
             if ($cellData === $origData) {
