@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Optional method to increase Calculation Engine's parsing speed. [PR #4829](https://github.com/PHPOffice/PhpSpreadsheet/pull/4829)
 
 ### Removed
 
