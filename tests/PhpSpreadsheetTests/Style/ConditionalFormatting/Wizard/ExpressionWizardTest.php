@@ -78,4 +78,17 @@ class ExpressionWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\Expression::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Expression CF Rule Wizard');
+        $ruleType = Wizard::EXPRESSION;
+        /** @var Wizard\Expression $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
 }

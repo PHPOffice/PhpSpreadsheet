@@ -106,4 +106,28 @@ class BlankWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\Blanks::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Blanks CF Rule Wizard');
+        $ruleType = Wizard::BLANKS;
+        /** @var Wizard\Blanks $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
+
+    public function testStopIfTrue(): void
+    {
+        $ruleType = Wizard::BLANKS;
+        /** @var Wizard\Blanks $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $wizard->setStopIfTrue(false);
+        self::assertFalse($wizard->getStopIfTrue());
+        $wizard->setStopIfTrue(true);
+        self::assertTrue($wizard->getStopIfTrue());
+    }
 }
