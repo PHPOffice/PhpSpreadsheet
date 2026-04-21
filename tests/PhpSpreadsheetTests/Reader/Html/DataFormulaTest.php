@@ -144,7 +144,7 @@ class DataFormulaTest extends AbstractFunctional
         self::assertStringContainsString($expected, $content, 'bool non-formula');
         $expected = '<td data-checkbox="1" class="column1 style1 f">=AND(TRUE,TRUE)</td>';
         self::assertStringContainsString($expected, $content, 'bool formula');
-        $expected = '<td class="column2 style0 f">=&quot;A&quot;&amp;&quot;B&quot;&amp;&quot;C&quot;</td>';
+        $expected = '<td class="column2 style0 f">="A"&amp;"B"&amp;"C"</td>';
         self::assertStringContainsString($expected, $content, 'string formula requiring escaped characters');
 
         $spreadsheet->disconnectWorksheets();
