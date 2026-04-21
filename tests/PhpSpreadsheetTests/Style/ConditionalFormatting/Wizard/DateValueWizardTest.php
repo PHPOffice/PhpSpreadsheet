@@ -65,4 +65,17 @@ class DateValueWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\DateValue::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Date Value CF Rule Wizard');
+        $ruleType = Wizard::DATES_OCCURRING;
+        /** @var Wizard\DateValue $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
 }
