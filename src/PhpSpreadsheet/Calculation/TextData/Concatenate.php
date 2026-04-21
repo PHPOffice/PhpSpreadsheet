@@ -160,6 +160,7 @@ class Concatenate
         $aArgs = Functions::flattenArray($args);
         $returnValue = self::evaluateTextJoinArray($ignoreEmpty, $aArgs);
 
+        /** @var string[] $aArgs */
         $returnValue ??= implode($delimiter, $aArgs);
         if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
             $returnValue = ExcelError::CALC();

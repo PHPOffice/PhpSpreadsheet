@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use Closure;
 use Composer\Pcre\Preg;
 use DateTime;
 use DateTimeZone;
@@ -295,9 +294,13 @@ class Ods extends BaseReader
      *      diagonal?: array{borderStyle:string, color:array{rgb: string}},
      *      diagonalDirection?: int,
      *    },
+     *    numberFormat?:array{formatCode: string},
      *  }>
      */
     private array $allStyles;
+
+    /** @var string[] */
+    private array $numberFormats;
 
     private int $highestDataIndex;
 
@@ -328,7 +331,7 @@ class Ods extends BaseReader
 
         // Styles
 
-        $this->allStyles = [];
+        $this->allStyles = $this->numberFormats = [];
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
             $this->getSecurityScannerOrThrow()
@@ -337,8 +340,13 @@ class Ods extends BaseReader
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $styleNs = (string) $dom->lookupNamespaceUri('style');
         $fontNs = (string) $dom->lookupNamespaceUri('fo');
+        $numberNs = (string) $dom->lookupNamespaceUri('number');
+        $tableNs = (string) $dom->lookupNamespaceUri('table');
+        $textNs = (string) $dom->lookupNamespaceUri('text');
+        $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
 
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
         foreach ($automaticStyles as $automaticStyle) {
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
@@ -387,6 +395,9 @@ class Ods extends BaseReader
             }
         }
 
+        $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
+
         $pageSettings = new PageSettings($dom);
 
         // Main Content
@@ -397,16 +408,13 @@ class Ods extends BaseReader
                 ->scan($zip->getFromName(self::INITIAL_FILE))
         );
 
-        $tableNs = (string) $dom->lookupNamespaceUri('table');
-        $textNs = (string) $dom->lookupNamespaceUri('text');
-        $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
-
         $pageSettings->readStyleCrossReferences($dom);
 
         $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
         $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
         $columnWidths = [];
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
@@ -421,6 +429,8 @@ class Ods extends BaseReader
             }
             if ($styleFamily === 'table-cell') {
                 $fonts = $fills = $alignment1 = $alignment2 = $protection = $borders = [];
+                $numberFormatName = $automaticStyle->getAttributeNS($styleNs, 'data-style-name');
+                $numberFormat = $this->numberFormats[$numberFormatName] ?? '';
                 foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
                     $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
                 }
@@ -451,6 +461,9 @@ class Ods extends BaseReader
                     }
                     if (!empty($borders)) {
                         $this->allStyles[$styleName]['borders'] = $borders;
+                    }
+                    if ($numberFormat !== '') {
+                        $this->allStyles[$styleName]['numberFormat']['formatCode'] = $numberFormat;
                     }
                 }
             }
@@ -817,6 +830,21 @@ class Ods extends BaseReader
                 $colRepeats = 1;
             }
             $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
+            if ($styleName === '') {
+                if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
+                    $assignedNumberFormat = '';
+                } else {
+                    $colStyle = $worksheet->getColumnDimension($columnID)->getXfIndex() ?? 0;
+                    $assignedNumberFormat = $spreadsheet
+                        ->getCellXfByIndex($colStyle)
+                        ->getNumberFormat()->getFormatCode();
+                    if ($assignedNumberFormat === NumberFormat::FORMAT_GENERAL) {
+                        $assignedNumberFormat = '';
+                    }
+                }
+            } else {
+                $assignedNumberFormat = $this->allStyles[$styleName]['numberFormat']['formatCode'] ?? '';
+            }
 
             // When a cell has number-columns-repeated, check if ANY column in the
             // repeated range passes the read filter. If not, skip the entire group.
@@ -1032,7 +1060,9 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                        if ($dataValue !== floor($dataValue)) {
+                        if ($assignedNumberFormat !== '') {
+                            $formatting = $assignedNumberFormat;
+                        } elseif ($dataValue !== floor($dataValue)) {
                             // do nothing
                         } elseif (substr($allCellDataText, -2, 1) === '.') {
                             $formatting = NumberFormat::FORMAT_NUMBER_0;
@@ -1480,11 +1510,11 @@ class Ods extends BaseReader
         }
     }
 
-    /** @var null|Closure(string, string):string */
-    private ?Closure $formatCallback = null;
+    /** @var null|callable(string, string):string format callback routine */
+    private $formatCallback;
 
-    /** @param Closure(string, string):string $formatCallback */
-    public function setFormatCallback(Closure $formatCallback): void
+    /** @param callable(string, string):string $formatCallback format callback routine */
+    public function setFormatCallback(callable $formatCallback): void
     {
         $this->formatCallback = $formatCallback;
     }
@@ -1748,5 +1778,25 @@ class Ods extends BaseReader
         }
 
         return $borders; // @phpstan-ignore-line
+    }
+
+    protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
+    {
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($numberNs, 'number-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $this->processNumberNumber($automaticStyle, $numberNs, $styleNs);
+        }
+    }
+
+    protected function processNumberNumber(DOMElement $automaticStyle, string $numberNs, string $styleNs): void
+    {
+        $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+        foreach ($automaticStyle->getElementsByTagNameNS($numberNs, 'number') as $numberNumber) {
+            $decimalPlaces = $numberNumber->getAttributeNs($numberNs, 'decimal-places');
+            $minIntegerDigits = (int) $numberNumber->getAttributeNs($numberNs, 'min-integer-digits');
+            if ($decimalPlaces === '0' && $minIntegerDigits > 1) {
+                $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
+            }
+        }
     }
 }

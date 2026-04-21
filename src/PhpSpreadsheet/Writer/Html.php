@@ -1586,7 +1586,7 @@ class Html extends BaseWriter
             $cellData = NumberFormat::toFormattedString(
                 $origData2,
                 $formatCode ?? NumberFormat::FORMAT_GENERAL,
-                [$this, 'formatColor']
+                $this->formatColor(...)
             );
 
             if ($cellData === $origData) {
@@ -2102,7 +2102,7 @@ class Html extends BaseWriter
         }
 
         // convert to PCDATA
-        $result = htmlspecialchars($value, Settings::htmlEntityFlags());
+        $result = htmlspecialchars($value, ENT_NOQUOTES);
 
         // color span tag
         if ($color !== null) {

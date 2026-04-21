@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -93,6 +94,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
+        File::assertFile($filename);
         $data = (string) file_get_contents($filename);
         $data = $this->getSecurityScannerOrThrow()->scan($data);
 
@@ -351,7 +353,7 @@ class Xml extends BaseReader
                 }
             }
 
-            $columnID = 'A';
+            $columnIndex = $oldColumnIndex = 0;
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = self::getAttributes($columnData, self::NAMESPACES_SS);
@@ -363,8 +365,12 @@ class Xml extends BaseReader
                         }
                     }
                     if (isset($columnData_ss['Index'])) {
-                        $columnID = Coordinate::stringFromColumnIndex((int) $columnData_ss['Index']);
+                        $columnIndex = (int) $columnData_ss['Index'];
+                    } elseif ($columnIndex === $oldColumnIndex) {
+                        ++$columnIndex;
                     }
+                    $oldColumnIndex = $columnIndex;
+                    $columnID = Coordinate::stringFromColumnIndex($columnIndex);
                     $columnWidth = null;
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
@@ -374,49 +380,59 @@ class Xml extends BaseReader
                         $columnVisible = ((string) $columnData_ss['Hidden']) !== '1';
                     }
                     while ($colspan >= 0) {
-                        /** @var string $columnID */
                         if (isset($columnWidth)) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
+                            $spreadsheet->getActiveSheet()
+                                ->getColumnDimension($columnID)
+                                ->setWidth($columnWidth / 5.4);
                         }
                         if (isset($columnVisible)) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible($columnVisible);
+                            $spreadsheet->getActiveSheet()
+                                ->getColumnDimension($columnID)
+                                ->setVisible($columnVisible);
                         }
+                        ++$columnIndex;
                         StringHelper::stringIncrement($columnID);
                         --$colspan;
                     }
                 }
             }
 
-            $rowID = 1;
+            $rowID = 0;
             if (isset($worksheet->Table->Row)) {
                 $additionalMergedCells = 0;
                 foreach ($worksheet->Table->Row as $rowData) {
+                    ++$rowID;
                     $rowHasData = false;
                     $row_ss = self::getAttributes($rowData, self::NAMESPACES_SS);
                     if (isset($row_ss['Index'])) {
                         $rowID = (int) $row_ss['Index'];
+                    }
+                    if ($rowID < 1 || $rowID > AddressRange::MAX_ROW) {
+                        continue;
                     }
                     if (isset($row_ss['Hidden'])) {
                         $rowVisible = ((string) $row_ss['Hidden']) !== '1';
                         $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setVisible($rowVisible);
                     }
 
-                    $columnID = 'A';
+                    $columnIndex = $oldColumnIndex = 0;
                     foreach ($rowData->Cell as $cell) {
                         $arrayRef = '';
                         $cell_ss = self::getAttributes($cell, self::NAMESPACES_SS);
                         if (isset($cell_ss['Index'])) {
-                            $columnID = Coordinate::stringFromColumnIndex((int) $cell_ss['Index']);
+                            $columnIndex = (int) $cell_ss['Index'];
+                        } elseif ($columnIndex === $oldColumnIndex) {
+                            ++$columnIndex;
                         }
+                        $oldColumnIndex = $columnIndex;
+                        $columnID = Coordinate::stringFromColumnIndex($columnIndex);
                         $cellRange = $columnID . $rowID;
                         if (isset($cell_ss['ArrayRange'])) {
                             $arrayRange = (string) $cell_ss['ArrayRange'];
-                            $arrayRef = AddressHelper::convertFormulaToA1($arrayRange, $rowID, Coordinate::columnIndexFromString($columnID));
+                            $arrayRef = AddressHelper::convertFormulaToA1($arrayRange, $rowID, $columnIndex);
                         }
 
                         if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-                            StringHelper::stringIncrement($columnID);
-
                             continue;
                         }
 
@@ -428,7 +444,7 @@ class Xml extends BaseReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = Coordinate::stringFromColumnIndex((int) (Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross']));
+                                $columnTo = Coordinate::stringFromColumnIndex($columnIndex + (int) $cell_ss['MergeAcross']);
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {
@@ -506,8 +522,7 @@ class Xml extends BaseReader
                             $originalType = $type;
                             if ($hasCalculatedValue) {
                                 $type = DataType::TYPE_FORMULA;
-                                $columnNumber = Coordinate::columnIndexFromString($columnID);
-                                $cellDataFormula = AddressHelper::convertFormulaToA1($cellDataFormula, $rowID, $columnNumber);
+                                $cellDataFormula = AddressHelper::convertFormulaToA1($cellDataFormula, $rowID, $columnIndex);
                             }
 
                             $hyperlink = null;
@@ -539,9 +554,9 @@ class Xml extends BaseReader
                                     ->applyFromArray($this->styles[$style]);
                             }
                         }
-                        StringHelper::stringIncrement($columnID);
+                        ++$columnIndex;
                         while ($additionalMergedCells > 0) {
-                            StringHelper::stringIncrement($columnID);
+                            ++$columnIndex;
                             --$additionalMergedCells;
                         }
                     }
@@ -552,8 +567,6 @@ class Xml extends BaseReader
                             $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight((float) $rowHeight);
                         }
                     }
-
-                    ++$rowID;
                 }
             }
 

@@ -86,7 +86,7 @@ class DateValue
         return self::finalResults($PHPDateArray, $dti, $baseYear);
     }
 
-    /** @param mixed[] $t1 */
+    /** @param list<float|int|string> $t1 */
     private static function t1ToString(array $t1, DateTimeImmutable $dti, bool $yearFound): string
     {
         if (count($t1) == 2) {
