@@ -180,14 +180,18 @@ class Comments extends WriterPart
         // v:shape
         $objWriter->startElement('v:shape');
         $objWriter->writeAttribute('id', '_x0000_s' . $id);
-        $objWriter->writeAttribute('type', '#_x0000_t202');
+        $objWriter->writeAttribute('type', '#_x0000_t' . $comment->getShapeType());
         $objWriter->writeAttribute('style', 'position:absolute;margin-left:' . $comment->getMarginLeft() . ';margin-top:' . $comment->getMarginTop() . ';width:' . $comment->getWidth() . ';height:' . $comment->getHeight() . ';z-index:1;visibility:' . ($comment->getVisible() ? 'visible' : 'hidden'));
         $objWriter->writeAttribute('fillcolor', '#' . $comment->getFillColor()->getRGB());
+        $objWriter->writeAttribute('strokecolor', '#' . $comment->getBorderColor()->getRGB());
         $objWriter->writeAttribute('o:insetmode', 'auto');
 
         // v:fill
         $objWriter->startElement('v:fill');
         $objWriter->writeAttribute('color2', '#' . $comment->getFillColor()->getRGB());
+        if ($comment->getFillOpacity() < 1.0) {
+            $objWriter->writeAttribute('opacity', (string) $comment->getFillOpacity());
+        }
         if ($comment->hasBackgroundImage()) {
             $bgImage = $comment->getBackgroundImage();
             $objWriter->writeAttribute('o:relid', 'rId' . $bgImage->getImageIndex());
