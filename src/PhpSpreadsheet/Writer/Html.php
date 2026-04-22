@@ -67,12 +67,12 @@ class Html extends BaseWriter
     /**
      * Sheet index to write.
      */
-    private ?int $sheetIndex = 0;
+    protected ?int $sheetIndex = 0;
 
     /**
      * Images root.
      */
-    private string $imagesRoot = '';
+    protected string $imagesRoot = '';
 
     /**
      * embed images, or link to images.
@@ -101,6 +101,15 @@ class Html extends BaseWriter
     public function setDataFormula(bool $dataFormula): self
     {
         $this->dataFormula = $dataFormula;
+
+        return $this;
+    }
+
+    protected bool $preserveFormatAndValue = false;
+
+    public function setPreserveFormatAndValue(bool $preserveFormatAndValue): self
+    {
+        $this->preserveFormatAndValue = $preserveFormatAndValue;
 
         return $this;
     }
@@ -1714,6 +1723,9 @@ class Html extends BaseWriter
             $html .= ' data-checkbox="1"';
         }
         $dataType = $worksheet->getCell($coordinate)->getDataType();
+        $numberFormat = $worksheet->getStyle($coordinate)
+            ->getNumberFormat()
+            ->getFormatCode() ?? NumberFormat::FORMAT_GENERAL;
         if ($this->betterBoolean) {
             if ($dataType === DataType::TYPE_BOOL) {
                 $html .= ' data-type="' . DataType::TYPE_BOOL . '"';
@@ -1732,13 +1744,31 @@ class Html extends BaseWriter
                 } catch (CalculationException) {
                     $html .= ' data-type="' . DataType::TYPE_ERROR . '"';
                 }
-            } elseif (is_numeric($cellData) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
+            } elseif ((is_numeric($cellData) || $this->preserveFormatAndValue) && $worksheet->getCell($coordinate)->getDataType() === DataType::TYPE_STRING) {
                 $html .= ' data-type="' . DataType::TYPE_STRING . '"';
+            } elseif ($dataType === DataType::TYPE_NUMERIC && $this->preserveFormatAndValue && $numberFormat !== NumberFormat::FORMAT_GENERAL) {
+                $html .= ' data-type="' . DataType::TYPE_NUMERIC . '"';
             }
         }
-        if ($dataType === DataType::TYPE_FORMULA && $this->dataFormula) {
-            if ($this->preCalculateFormulas) {
-                $html .= ' data-formula="'
+        if ($this->preserveFormatAndValue) {
+            if ($numberFormat !== NumberFormat::FORMAT_GENERAL) {
+                $html .= ' data-format="' . htmlspecialchars($numberFormat) . '"';
+            }
+        }
+        if ($dataType === DataType::TYPE_FORMULA) {
+            if ($this->dataFormula) {
+                if ($this->preCalculateFormulas) {
+                    $html .= ' data-formula="'
+                    . htmlspecialchars(
+                        $worksheet->getCell($coordinate)
+                            ->getValueString()
+                    )
+                    . '"';
+                }
+            }
+        } elseif ($dataType === DataType::TYPE_NUMERIC || $dataType === DataType::TYPE_STRING) {
+            if ($this->preserveFormatAndValue && $numberFormat !== NumberFormat::FORMAT_GENERAL) {
+                $html .= ' data-value="'
                 . htmlspecialchars(
                     $worksheet->getCell($coordinate)
                         ->getValueString()
@@ -1746,6 +1776,7 @@ class Html extends BaseWriter
                 . '"';
             }
         }
+
         $holdCss = '';
         if (!$this->useInlineCss && !$this->isPdf && is_string($cssClass)) {
             $html .= ' class="' . $cssClass . '"';
