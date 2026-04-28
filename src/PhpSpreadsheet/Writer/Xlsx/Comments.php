@@ -88,7 +88,7 @@ class Comments extends WriterPart
 
         // text
         $objWriter->startElement('text');
-        $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $comment->getText());
+        $this->getParentWriter()->getWriterPartStringTable()->writeRichText($objWriter, $comment->getText());
         $objWriter->endElement();
 
         $objWriter->endElement();

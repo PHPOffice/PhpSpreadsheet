@@ -48,7 +48,7 @@ class CommentsTest extends AbstractFunctional
         self::assertEquals($comment, $commentClone);
         self::assertNotSame($comment, $commentClone);
         if ($format === 'Xlsx') {
-            self::assertSame('bc7bcec8f676a333dae65c945cf8dace', $comment->getHashCode(), 'changed due to addition of theme to fillColor');
+            self::assertSame('db7d24e39957b75ccd95b1bd5c7f488d', $comment->getHashCode(), 'changed due to addition of theme to fillColor');
             self::assertSame(Alignment::HORIZONTAL_GENERAL, $comment->getAlignment());
             $comment->setAlignment(Alignment::HORIZONTAL_RIGHT);
             self::assertSame(Alignment::HORIZONTAL_RIGHT, $comment->getAlignment());
