@@ -53,16 +53,16 @@ class Xlsx extends BaseReader
     /**
      * ReferenceHelper instance.
      */
-    private ReferenceHelper $referenceHelper;
+    protected ReferenceHelper $referenceHelper;
 
-    private ZipArchive $zip;
+    protected ZipArchive $zip;
 
     private Styles $styleReader;
 
     /** @var SharedFormula[] */
-    private array $sharedFormulae = [];
+    protected array $sharedFormulae = [];
 
-    private bool $parseHuge = false;
+    protected bool $parseHuge = false;
 
     /**
      * Allow use of LIBXML_PARSEHUGE.
@@ -319,7 +319,7 @@ class Xlsx extends BaseReader
         return $worksheetInfo;
     }
 
-    private static function castToBoolean(SimpleXMLElement $c): bool
+    protected static function castToBoolean(SimpleXMLElement $c): bool
     {
         $value = isset($c->v) ? (string) $c->v : null;
         if ($value == '0') {
@@ -331,12 +331,12 @@ class Xlsx extends BaseReader
         return (bool) $c->v;
     }
 
-    private static function castToError(?SimpleXMLElement $c): ?string
+    protected static function castToError(?SimpleXMLElement $c): ?string
     {
         return isset($c, $c->v) ? (string) $c->v : null;
     }
 
-    private static function castToString(?SimpleXMLElement $c): ?string
+    protected static function castToString(?SimpleXMLElement $c): ?string
     {
         return isset($c, $c->v) ? (string) $c->v : null;
     }
@@ -346,7 +346,7 @@ class Xlsx extends BaseReader
         return str_replace(['_xlfn.', '_xlws.'], '', $formula);
     }
 
-    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, mixed &$value, mixed &$calculatedValue, string $castBaseType, bool $updateSharedCells = true): void
+    protected function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, mixed &$value, mixed &$calculatedValue, string $castBaseType, bool $updateSharedCells = true): void
     {
         if ($c === null) {
             return;
@@ -398,7 +398,7 @@ class Xlsx extends BaseReader
         return $contents !== false;
     }
 
-    private function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
+    protected function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
     {
         // Root-relative paths
         if (str_contains($fileName, '//')) {
@@ -894,184 +894,19 @@ class Xlsx extends BaseReader
                             }
 
                             $holdSelectedCells = $docSheet->getSelectedCells();
-                            if ($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row) {
-                                $cIndex = 1; // Cell Start from 1
-                                foreach ($xmlSheetNS->sheetData->row as $row) {
-                                    $rowIndex = 1;
-                                    foreach ($row->c as $c) {
-                                        $cAttr = self::getAttributes($c);
-                                        $r = (string) $cAttr['r'];
-                                        if ($r == '') {
-                                            $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
-                                        }
-                                        $cellDataType = (string) $cAttr['t'];
-                                        $originalCellDataTypeNumeric = $cellDataType === '';
-                                        $value = null;
-                                        $calculatedValue = null;
+                            /** @var array<object> $styles */
+                            $this->loadSheetData(
+                                $xmlSheetNS,
+                                $filename,
+                                $dir,
+                                $richData,
+                                $docSheet,
+                                "$dir/$fileWorksheet",
+                                $mainNS,
+                                $sharedStrings,
+                                $styles
+                            );
 
-                                        // Read cell?
-                                        $coordinates = Coordinate::coordinateFromString($r);
-
-                                        if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
-                                            // Normally, just testing for the f attribute should identify this cell as containing a formula
-                                            // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
-                                            // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
-                                            // whether or not the cell has a child formula element that is shared.
-                                            if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared')) {
-                                                $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError', false);
-                                            }
-                                            ++$rowIndex;
-
-                                            continue;
-                                        }
-
-                                        // Read cell!
-                                        $useFormula = isset($c->f)
-                                            && ((string) $c->f !== '' || (isset($c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared'));
-                                        switch ($cellDataType) {
-                                            case DataType::TYPE_STRING:
-                                                if ((string) $c->v != '') {
-                                                    $value = $sharedStrings[(int) ($c->v)];
-
-                                                    if ($value instanceof RichText) {
-                                                        $value = clone $value;
-                                                    }
-                                                } else {
-                                                    $value = '';
-                                                }
-
-                                                break;
-                                            case DataType::TYPE_BOOL:
-                                                if (!$useFormula) {
-                                                    if (isset($c->v)) {
-                                                        $value = self::castToBoolean($c);
-                                                    } else {
-                                                        $value = null;
-                                                        $cellDataType = DataType::TYPE_NULL;
-                                                    }
-                                                } else {
-                                                    // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToBoolean');
-                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
-                                                }
-
-                                                break;
-                                            case DataType::TYPE_STRING2:
-                                                if ($useFormula) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
-                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
-                                                } else {
-                                                    $value = self::castToString($c);
-                                                }
-
-                                                break;
-                                            case DataType::TYPE_INLINE:
-                                                if ($useFormula) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
-                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
-                                                } else {
-                                                    $value = $this->parseRichText($c->is);
-                                                }
-
-                                                break;
-                                            case DataType::TYPE_ERROR:
-                                                if (isset($cAttr->vm, $richData['image']['rId' . $cAttr->vm]) && !$useFormula) {
-                                                    $imagePath = $dir . '/' . str_replace('../', '', $richData['image']['rId' . $cAttr->vm]);
-                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                                                    $objDrawing->setPath(
-                                                        'zip://' . File::realpath($filename) . '#' . $imagePath,
-                                                        false,
-                                                        $zip
-                                                    );
-
-                                                    $objDrawing->setCoordinates($r);
-                                                    $objDrawing->setResizeProportional(false);
-                                                    $objDrawing->setInCell(true);
-                                                    $objDrawing->setWorksheet($docSheet);
-
-                                                    $value = $objDrawing;
-                                                    $cellDataType = DataType::TYPE_DRAWING_IN_CELL;
-                                                    $c->t = DataType::TYPE_ERROR;
-
-                                                    break;
-                                                }
-
-                                                if (!$useFormula) {
-                                                    $value = self::castToError($c);
-                                                } else {
-                                                    // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
-                                                    $eattr = $c->attributes();
-                                                    if (isset($eattr['vm'])) {
-                                                        if ($calculatedValue === ExcelError::VALUE()) {
-                                                            $calculatedValue = ExcelError::SPILL();
-                                                        }
-                                                    }
-                                                }
-
-                                                break;
-                                            default:
-                                                if (!$useFormula) {
-                                                    $value = self::castToString($c);
-                                                    if (is_numeric($value)) {
-                                                        $value += 0;
-                                                        $cellDataType = DataType::TYPE_NUMERIC;
-                                                    }
-                                                } else {
-                                                    // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
-                                                    if (is_numeric($calculatedValue)) {
-                                                        $calculatedValue += 0;
-                                                    }
-                                                    self::storeFormulaAttributes($c->f, $docSheet, $r);
-                                                }
-
-                                                break;
-                                        }
-
-                                        // read empty cells or the cells are not empty
-                                        if ($this->readEmptyCells || ($value !== null && $value !== '')) {
-                                            // Rich text?
-                                            if ($value instanceof RichText && $this->readDataOnly) {
-                                                $value = $value->getPlainText();
-                                            }
-
-                                            $cell = $docSheet->getCell($r);
-                                            // Assign value
-                                            if ($cellDataType != '') {
-                                                // it is possible, that datatype is numeric but with an empty string, which result in an error
-                                                if ($cellDataType === DataType::TYPE_NUMERIC && ($value === '' || $value === null)) {
-                                                    $cellDataType = DataType::TYPE_NULL;
-                                                }
-                                                if ($cellDataType !== DataType::TYPE_NULL) {
-                                                    $cell->setValueExplicit($value, $cellDataType);
-                                                }
-                                            } else {
-                                                $cell->setValue($value);
-                                            }
-                                            if ($calculatedValue !== null) {
-                                                $cell->setCalculatedValue($calculatedValue, $originalCellDataTypeNumeric);
-                                            }
-
-                                            // Style information?
-                                            if (!$this->readDataOnly) {
-                                                $cAttrS = (int) ($cAttr['s'] ?? 0);
-                                                // no style index means 0, it seems
-                                                $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
-                                                $cell->setXfIndex($cAttrS);
-                                                // issue 3495
-                                                if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
-                                                    $holdSelected = $docSheet->getSelectedCells();
-                                                    $cell->getStyle()->setQuotePrefix(false);
-                                                    $docSheet->setSelectedCells($holdSelected);
-                                                }
-                                            }
-                                        }
-                                        ++$rowIndex;
-                                    }
-                                    ++$cIndex;
-                                }
-                            }
                             $docSheet->setSelectedCells($holdSelectedCells);
                             if (!$this->readDataOnly && $xmlSheetNS && $xmlSheetNS->ignoredErrors) {
                                 foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredError) {
@@ -2055,7 +1890,208 @@ class Xlsx extends BaseReader
         return $excel;
     }
 
-    private function parseRichText(?SimpleXMLElement $is): RichText
+    /**
+     * @param string[][] $richData
+     * @param Worksheet $docSheet the worksheet to populate
+     * @param string $fileWorksheetPath path to worksheet XML within the zip
+     * @param string $mainNS the main spreadsheetml namespace
+     * @param array<int, mixed> $sharedStrings shared string table
+     * @param object[] $styles style objects array
+     */
+    protected function loadSheetData(
+        ?SimpleXMLElement $xmlSheetNS,
+        string $filename,
+        string $dir,
+        array $richData,
+        Worksheet $docSheet,
+        string $fileWorksheetPath,
+        string $mainNS,
+        array $sharedStrings,
+        array $styles,
+    ): void {
+        if (!($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row)) {
+            return; // @codeCoverageIgnore
+        }
+
+        $cIndex = 1; // Cell Start from 1
+        foreach ($xmlSheetNS->sheetData->row as $row) {
+            $rowIndex = 1;
+            foreach ($row->c as $c) {
+                $cAttr = self::getAttributes($c);
+                $r = (string) $cAttr['r'];
+                if ($r == '') {
+                    $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
+                }
+                $cellDataType = (string) $cAttr['t'];
+                $originalCellDataTypeNumeric = $cellDataType === '';
+                $value = null;
+                $calculatedValue = null;
+
+                // Read cell?
+                $coordinates = Coordinate::coordinateFromString($r);
+
+                if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
+                    // Normally, just testing for the f attribute should identify this cell as containing a formula
+                    // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
+                    // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
+                    // whether or not the cell has a child formula element that is shared.
+                    if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared')) {
+                        $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError', false);
+                    }
+                    ++$rowIndex;
+
+                    continue;
+                }
+
+                // Read cell!
+                $useFormula = isset($c->f)
+                    && ((string) $c->f !== '' || (isset($c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared'));
+                switch ($cellDataType) {
+                    case DataType::TYPE_STRING:
+                        if ((string) $c->v != '') {
+                            $value = $sharedStrings[(int) ($c->v)];
+
+                            if ($value instanceof RichText) {
+                                $value = clone $value;
+                            }
+                        } else {
+                            $value = '';
+                        }
+
+                        break;
+                    case DataType::TYPE_BOOL:
+                        if (!$useFormula) {
+                            if (isset($c->v)) {
+                                $value = self::castToBoolean($c);
+                            } else {
+                                $value = null;
+                                $cellDataType = DataType::TYPE_NULL;
+                            }
+                        } else {
+                            // Formula
+                            $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToBoolean');
+                            self::storeFormulaAttributes($c->f, $docSheet, $r);
+                        }
+
+                        break;
+                    case DataType::TYPE_STRING2:
+                        if ($useFormula) {
+                            $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
+                            self::storeFormulaAttributes($c->f, $docSheet, $r);
+                        } else {
+                            $value = self::castToString($c);
+                        }
+
+                        break;
+                    case DataType::TYPE_INLINE:
+                        if ($useFormula) {
+                            $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
+                            self::storeFormulaAttributes($c->f, $docSheet, $r);
+                        } else {
+                            $value = $this->parseRichText($c->is);
+                        }
+
+                        break;
+                    case DataType::TYPE_ERROR:
+                        if (isset($cAttr->vm, $richData['image']['rId' . $cAttr->vm]) && !$useFormula) {
+                            $imagePath = $dir . '/' . str_replace('../', '', $richData['image']['rId' . $cAttr->vm]);
+                            $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                            $objDrawing->setPath(
+                                'zip://' . File::realpath($filename) . '#' . $imagePath,
+                                false,
+                                $this->zip
+                            );
+
+                            $objDrawing->setCoordinates($r);
+                            $objDrawing->setResizeProportional(false);
+                            $objDrawing->setInCell(true);
+                            $objDrawing->setWorksheet($docSheet);
+
+                            $value = $objDrawing;
+                            $cellDataType = DataType::TYPE_DRAWING_IN_CELL;
+                            $c->t = DataType::TYPE_ERROR;
+
+                            break;
+                        }
+
+                        if (!$useFormula) {
+                            $value = self::castToError($c);
+                        } else {
+                            // Formula
+                            $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
+                            $eattr = $c->attributes();
+                            if (isset($eattr['vm'])) {
+                                if ($calculatedValue === ExcelError::VALUE()) {
+                                    $calculatedValue = ExcelError::SPILL();
+                                }
+                            }
+                        }
+
+                        break;
+                    default:
+                        if (!$useFormula) {
+                            $value = self::castToString($c);
+                            if (is_numeric($value)) {
+                                $value += 0;
+                                $cellDataType = DataType::TYPE_NUMERIC;
+                            }
+                        } else {
+                            // Formula
+                            $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
+                            if (is_numeric($calculatedValue)) {
+                                $calculatedValue += 0;
+                            }
+                            self::storeFormulaAttributes($c->f, $docSheet, $r);
+                        }
+
+                        break;
+                }
+
+                // read empty cells or the cells are not empty
+                if ($this->readEmptyCells || ($value !== null && $value !== '')) {
+                    // Rich text?
+                    if ($value instanceof RichText && $this->readDataOnly) {
+                        $value = $value->getPlainText();
+                    }
+
+                    $cell = $docSheet->getCell($r);
+                    // Assign value
+                    if ($cellDataType != '') {
+                        // it is possible, that datatype is numeric but with an empty string, which result in an error
+                        if ($cellDataType === DataType::TYPE_NUMERIC && ($value === '' || $value === null)) {
+                            $cellDataType = DataType::TYPE_NULL;
+                        }
+                        if ($cellDataType !== DataType::TYPE_NULL) {
+                            $cell->setValueExplicit($value, $cellDataType);
+                        }
+                    } else {
+                        $cell->setValue($value);
+                    }
+                    if ($calculatedValue !== null) {
+                        $cell->setCalculatedValue($calculatedValue, $originalCellDataTypeNumeric);
+                    }
+
+                    // Style information?
+                    if (!$this->readDataOnly) {
+                        $cAttrS = (int) ($cAttr['s'] ?? 0);
+                        // no style index means 0, it seems
+                        $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
+                        $cell->setXfIndex($cAttrS);
+                        // issue 3495
+                        if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
+                            $holdSelected = $docSheet->getSelectedCells();
+                            $cell->getStyle()->setQuotePrefix(false);
+                            $docSheet->setSelectedCells($holdSelected);
+                        }
+                    }
+                }
+                ++$rowIndex;
+            }
+            ++$cIndex;
+        }
+    }
+
+    protected function parseRichText(?SimpleXMLElement $is): RichText
     {
         $value = new RichText();
 
@@ -2666,7 +2702,7 @@ class Xlsx extends BaseReader
         }
     }
 
-    private static function storeFormulaAttributes(SimpleXMLElement $f, Worksheet $docSheet, string $r): void
+    protected static function storeFormulaAttributes(SimpleXMLElement $f, Worksheet $docSheet, string $r): void
     {
         $formulaAttributes = [];
         $attributes = $f->attributes();
