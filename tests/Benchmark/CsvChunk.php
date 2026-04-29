@@ -35,18 +35,35 @@ class CsvChunk extends Csv
             if ($sourceHandle === false) {
                 $sourceHandle = null;
             } else {
-                $first2 = (string) fread($sourceHandle, 2);
-                if ($first2 === "\xfe\xff") {
+                $first2 = (string) fread($sourceHandle, self::UTF16BE_BOM_LEN);
+                if ($first2 === self::UTF16BE_BOM) {
                     $encoding .= 'BE';
-                } elseif ($first2 === "\xff\xfe") {
+                } elseif ($first2 === self::UTF16LE_BOM) {
                     $encoding .= 'LE';
                 } else {
+                    $encoding .= 'BE';
+                    fclose($sourceHandle);
+                    $sourceHandle = null;
+                }
+            }
+        } elseif ($encoding === 'UTF-32' || $encoding === 'UCS-4') {
+            $sourceHandle = fopen($filename, 'rb');
+            if ($sourceHandle === false) {
+                $sourceHandle = null;
+            } else {
+                $first2 = (string) fread($sourceHandle, self::UTF32BE_BOM_LEN);
+                if ($first2 === self::UTF32BE_BOM) {
+                    $encoding .= 'BE';
+                } elseif ($first2 === self::UTF32LE_BOM) {
+                    $encoding .= 'LE';
+                } else {
+                    $encoding .= 'BE';
                     fclose($sourceHandle);
                     $sourceHandle = null;
                 }
             }
         }
-        if (str_starts_with($encoding, 'UTF-7') || $encoding === 'UTF-16' || $encoding === 'UCS-2' || $encoding === 'UTF-32' || $encoding === 'UCS-4') {
+        if (str_starts_with($encoding, 'UTF-7')) {
             parent::convertNonUtf8($filename);
 
             return;
@@ -140,7 +157,7 @@ class CsvChunk extends Csv
     private function encodingCharWidth(string $encoding): int
     {
         return match ($encoding) {
-            'UTF-32BE', 'UTF-32LE', 'UCS-4BE', 'UCS-4LE' => 4, // UTF-32 and UCS-4 are processed in parent
+            'UTF-32BE', 'UTF-32LE', 'UCS-4BE', 'UCS-4LE' => 4, // UTF-32 and UCS-4 are given BE/LE suffix above
             'UTF-16BE', 'UTF-16LE', 'UCS-2BE', 'UCS-2LE' => 2, // UTF-16 and UCS-2 are given BE/LE suffix above
             default => 1,
         };
