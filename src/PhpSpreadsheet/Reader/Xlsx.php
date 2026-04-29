@@ -1229,61 +1229,64 @@ class Xlsx extends BaseReader
                                 $unparsedVmlDrawings = $vmlComments;
                                 $vmlDrawingContents = [];
 
-                                $zipFilePath = $this->zip->filename;
-
                                 foreach ($vmlComments as $relName => $relPath) {
                                     $fullPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
 
-                                    if ((bool) $fullPath === false) {
+                                    if (!$fullPath) {
                                         continue;
                                     }
 
                                     try {
-                                        $vmlCommentsFile = $this->loadZip($fullPath, '', true);
-                                        $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
+                                        $vmlCommentsFile = $this->loadZip((string) $fullPath, '', true);
                                     } catch (Throwable) {
                                         continue;
                                     }
 
                                     $vmlDrawingContents[$relName] = $this->getSecurityScannerOrThrow()
-                                        ->scan($this->getFromZipArchive($zip, $fullPath));
+                                        ->scan($this->getFromZipArchive($this->zip, (string) $fullPath));
 
                                     $drawingImages = [];
-                                    $relsPath = dirname($fullPath) . '/_rels/' . basename($fullPath) . '.rels';
+                                    $relsPath = dirname((string) $fullPath) . '/_rels/' . basename((string) $fullPath) . '.rels';
 
-                                    if ($zip->locateName($relsPath) !== false) {
+                                    if ($this->zip->locateName($relsPath) !== false) {
                                         $relsVML = $this->loadZip($relsPath, Namespaces::RELATIONSHIPS);
+
                                         foreach ($relsVML->Relationship as $rel) {
                                             $attr = self::getAttributes($rel);
-                                            if ((string) $attr['Type'] === Namespaces::IMAGE) {
-                                                $drawingImages[(string) $attr['Id']] = (string) $attr['Target'];
+
+                                            if ((string) ($attr['Type'] ?? '') === Namespaces::IMAGE) {
+                                                $drawingImages[(string) ($attr['Id'] ?? '')] = (string) ($attr['Target'] ?? '');
                                             }
                                         }
                                     }
 
+                                    $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
                                     $shapes = self::xpathNoFalse($vmlCommentsFile, '//v:shape');
 
                                     foreach ($shapes as $shape) {
-                                        $namespaces = $shape->getNamespaces();
-                                        $shape->registerXPathNamespace('x', $namespaces['x'] ?? Namespaces::URN_EXCEL);
-                                        $shape->registerXPathNamespace('o', $namespaces['o'] ?? Namespaces::URN_MSOFFICE);
-                                        $shape->registerXPathNamespace('v', $namespaces['v'] ?? Namespaces::URN_VML);
+                                        /** @var SimpleXMLElement $shape */
+                                        $shape->registerXPathNamespace('v', Namespaces::URN_VML);
+                                        $shape->registerXPathNamespace('x', Namespaces::URN_EXCEL);
+                                        $shape->registerXPathNamespace('o', Namespaces::URN_MSOFFICE);
 
-                                        $clientDataNodes = $shape->xpath('.//x:ClientData');
-                                        if (empty($clientDataNodes)) {
+                                        $clientDataNodes = $shape->xpath('x:ClientData');
+                                        $clientData = $clientDataNodes[0] ?? null;
+
+                                        if (!$clientData) {
                                             continue;
                                         }
 
-                                        $clientData = $clientDataNodes[0];
+                                        $clientData->registerXPathNamespace('x', Namespaces::URN_EXCEL);
+
                                         if ((string) ($clientData['ObjectType'] ?? '') !== 'Note') {
                                             continue;
                                         }
 
-                                        $rowNodes = $clientData->xpath('.//x:Row');
-                                        $colNodes = $clientData->xpath('.//x:Column');
+                                        $rowNodes = $clientData->xpath('x:Row');
+                                        $colNodes = $clientData->xpath('x:Column');
 
-                                        $row = isset($rowNodes[0]) ? (int) (string)$rowNodes[0] : -1;
-                                        $col = isset($colNodes[0]) ? (int) (string)$colNodes[0] : -1;
+                                        $row = isset($rowNodes[0]) ? (int) (string) $rowNodes[0] : -1;
+                                        $col = isset($colNodes[0]) ? (int) (string) $colNodes[0] : -1;
 
                                         if ($row < 0 || $col < 0) {
                                             continue;
@@ -1294,6 +1297,7 @@ class Xlsx extends BaseReader
 
                                         if (isset($shape['fillcolor'])) {
                                             $fillColor = strtoupper(ltrim((string) $shape['fillcolor'], '#'));
+
                                             if ($fillColor !== '' && ctype_xdigit($fillColor)) {
                                                 $comment->getFillColor()->setRGB($fillColor);
                                             }
@@ -1301,6 +1305,7 @@ class Xlsx extends BaseReader
 
                                         if (isset($shape['strokecolor'])) {
                                             $borderColor = strtoupper(ltrim((string) $shape['strokecolor'], '#'));
+
                                             if ($borderColor !== '' && ctype_xdigit($borderColor)) {
                                                 $comment->setBorderColor(new Color($borderColor));
                                             }
@@ -1308,56 +1313,49 @@ class Xlsx extends BaseReader
 
                                         if (isset($shape['style'])) {
                                             $styles = self::toCSSArray((string) $shape['style']);
-                                            if (isset($styles['width'])) $comment->setWidth($styles['width']);
-                                            if (isset($styles['height'])) $comment->setHeight($styles['height']);
-                                            if (isset($styles['margin-left'])) $comment->setMarginLeft($styles['margin-left']);
-                                            if (isset($styles['margin-top'])) $comment->setMarginTop($styles['margin-top']);
-                                            if (isset($styles['visibility'])) {
+
+                                            if (isset($styles['width']) && is_string($styles['width'])) {
+                                                $comment->setWidth($styles['width']);
+                                            }
+                                            if (isset($styles['height']) && is_string($styles['height'])) {
+                                                $comment->setHeight($styles['height']);
+                                            }
+                                            if (isset($styles['margin-left']) && is_string($styles['margin-left'])) {
+                                                $comment->setMarginLeft($styles['margin-left']);
+                                            }
+                                            if (isset($styles['margin-top']) && is_string($styles['margin-top'])) {
+                                                $comment->setMarginTop($styles['margin-top']);
+                                            }
+                                            if (isset($styles['visibility']) && is_string($styles['visibility'])) {
                                                 $comment->setVisible(strtolower($styles['visibility']) === 'visible');
                                             }
                                         }
 
-                                        $vNS = $namespaces['v'] ?? Namespaces::URN_VML;
-                                        $fillElement = $shape->children($vNS)->fill ?? null;
-                                        if ($fillElement && isset($fillElement['opacity'])) {
-                                            $comment->setFillOpacity((float) $fillElement['opacity']);
+                                        $vmlNS = $shape->children(Namespaces::URN_VML);
+
+                                        if (isset($vmlNS->fill, $vmlNS->fill['opacity'])) {
+                                            $comment->setFillOpacity((float) $vmlNS->fill['opacity']);
                                         }
 
-                                        $textAlignNodes = $clientData->xpath('.//x:TextHAlign');
+                                        $textAlignNodes = $clientData->xpath('x:TextHAlign');
+
                                         if (!empty($textAlignNodes)) {
-                                            $align = strtolower((string) $textAlignNodes[0]);
-                                            if (in_array($align, ['left', 'center', 'right'], true)) {
-                                                $comment->setAlignment($align);
-                                            }
+                                            $comment->setAlignment(strtolower((string) $textAlignNodes[0]));
                                         }
 
-                                        $textboxNodes = $shape->xpath('.//v:textbox');
-                                        if (!empty($textboxNodes)) {
-                                            $tbStyle = (string) ($textboxNodes[0]['style'] ?? '');
-                                            if (str_contains($tbStyle, 'rtl')) {
-                                                $comment->setTextboxDirection(Comment::TEXTBOX_DIRECTION_RTL);
-                                            } elseif (str_contains($tbStyle, 'ltr')) {
-                                                $comment->setTextboxDirection(Comment::TEXTBOX_DIRECTION_LTR);
-                                            }
-                                        }
+                                        $fillRelNodes = $shape->xpath('v:fill/@o:relid');
 
-                                        if (isset($shape['type'])) {
-                                            if (preg_match('/#_x0000_t(\d+)/', (string)$shape['type'], $m)) {
-                                                $comment->setShapeType((int) $m[1]);
-                                            }
-                                        }
-
-                                        $fillRelNodes = $shape->xpath('.//v:fill/@o:relid');
                                         if (!empty($fillRelNodes)) {
                                             $relId = (string) $fillRelNodes[0];
+
                                             if (isset($drawingImages[$relId])) {
                                                 $imagePath = str_replace(['../', '/xl/'], 'xl/', $drawingImages[$relId]);
+
                                                 try {
                                                     $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                                                    $drawing->setPath('zip://' . $zipFilePath . '#' . $imagePath, true);
+                                                    $drawing->setPath('zip://' . $this->zip->filename . '#' . $imagePath, true);
                                                     $comment->setBackgroundImage($drawing);
                                                 } catch (Throwable) {
-
                                                 }
                                             }
                                         }
