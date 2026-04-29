@@ -15,14 +15,46 @@ class CsvChunk extends Csv
      */
     private const CHUNK_SIZE = 65536;
 
+    protected int $chunkSize = self::CHUNK_SIZE;
+
+    public function setChunkSize(int $chunkSize): void
+    {
+        $this->chunkSize = $chunkSize;
+    }
+
     /**
      * Convert file encoding to UTF-8 using chunked streaming to avoid
      * loading the entire file into memory at once.
      */
     protected function convertNonUtf8(string $filename): void
     {
+        $sourceHandle = null;
+        $encoding = strtoupper($this->inputEncoding);
+        if ($encoding === 'UTF-16' || $encoding === 'UCS-2') {
+            $sourceHandle = fopen($filename, 'rb');
+            if ($sourceHandle === false) {
+                $sourceHandle = null;
+            } else {
+                $first2 = (string) fread($sourceHandle, 2);
+                if ($first2 === "\xfe\xff") {
+                    $encoding .= 'BE';
+                } elseif ($first2 === "\xff\xfe") {
+                    $encoding .= 'LE';
+                } else {
+                    fclose($sourceHandle);
+                    $sourceHandle = null;
+                }
+            }
+        }
+        if (str_starts_with($encoding, 'UTF-7') || $encoding === 'UTF-16' || $encoding === 'UCS-2' || $encoding === 'UTF-32' || $encoding === 'UCS-4') {
+            parent::convertNonUtf8($filename);
+
+            return;
+        }
         fclose($this->fileHandle);
-        $sourceHandle = fopen($filename, 'rb');
+        if ($sourceHandle === null) {
+            $sourceHandle = fopen($filename, 'rb');
+        }
         // Using php://temp instead of php://memory: spills to disk when data
         // exceeds 2MB, reducing peak memory for large files.
         $outputHandle = fopen('php://temp', 'r+b');
@@ -39,16 +71,32 @@ class CsvChunk extends Csv
             // @codeCoverageIgnoreEnd
         }
 
-        $encoding = $this->inputEncoding;
+        if ($encoding === 'UTF-16BE') {
+            $checkdigit = -2;
+        } elseif ($encoding === 'UTF-16LE') {
+            $checkdigit = -1;
+        } else {
+            $checkdigit = 0;
+        }
         $charWidth = $this->encodingCharWidth($encoding);
         // Ensure chunk size is aligned to character width
-        $chunkSize = self::CHUNK_SIZE - (self::CHUNK_SIZE % $charWidth);
+        $chunkSize = $this->chunkSize - ($this->chunkSize % $charWidth);
 
         $leftover = '';
         while (!feof($sourceHandle)) {
             $rawChunk = fread($sourceHandle, max(1, $chunkSize));
             if ($rawChunk === false || $rawChunk === '') {
                 break; // @codeCoverageIgnore
+            }
+            if ($checkdigit !== 0) {
+                $last1 = substr($rawChunk, $checkdigit, 1);
+                if (in_array($last1, ["\xd8", "\xd9", "\xda", "\xdb"], true)) {
+                    $newChunk = fread($sourceHandle, 2);
+                    if ($newChunk === false) {
+                        break; // @codeCoverageIgnore
+                    }
+                    $rawChunk .= $newChunk;
+                }
             }
 
             $chunk = $leftover . $rawChunk;
@@ -91,9 +139,9 @@ class CsvChunk extends Csv
      */
     private function encodingCharWidth(string $encoding): int
     {
-        return match (strtoupper($encoding)) {
-            'UTF-32', 'UTF-32BE', 'UTF-32LE', 'UCS-4', 'UCS-4BE', 'UCS-4LE' => 4,
-            'UTF-16', 'UTF-16BE', 'UTF-16LE', 'UCS-2', 'UCS-2BE', 'UCS-2LE' => 2,
+        return match ($encoding) {
+            'UTF-32BE', 'UTF-32LE', 'UCS-4BE', 'UCS-4LE' => 4, // UTF-32 and UCS-4 are processed in parent
+            'UTF-16BE', 'UTF-16LE', 'UCS-2BE', 'UCS-2LE' => 2, // UTF-16 and UCS-2 are given BE/LE suffix above
             default => 1,
         };
     }

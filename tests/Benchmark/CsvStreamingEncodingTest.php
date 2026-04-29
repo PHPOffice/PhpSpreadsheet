@@ -102,6 +102,119 @@ class CsvStreamingEncodingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testChunkBrokenUtf16BE(): void
+    {
+        $array = [
+            "\xfe\xff", // bom
+            "\xd8\x01\xdc\x00", // osmanya 𐐀
+            "\x00\x20", // blank
+            "\x00\x68", // h
+            "\x00\x65", // e
+            "\x00\x6c", // l
+            "\x00\x6c", // l
+            "\x00\x6f", // o
+            "\x00\x20", // blank
+            "\xd8\x01\xdc\x01", // osmanya 𐐁
+            "\x00\x0a", // newline
+        ];
+        $chars = implode('', $array);
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
+        $fho = fopen($filename, 'wb');
+        self::assertNotFalse($fho);
+        fwrite($fho, $chars);
+        fclose($fho);
+        $reader = $this->newCsv();
+        $reader->setInputEncoding('UTF-16');
+        $reader->setDelimiter(',');
+        if (method_exists($reader, 'setChunkSize')) {
+            $reader->setChunkSize(2);
+        }
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('𐐀 hello 𐐁', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testChunkBrokenUtf16LE(): void
+    {
+        $array = [
+            "\xff\xfe", // bom
+            "\x01\xd8\x00\xdc", // osmanya 𐐀
+            "\x20\x00", // blank
+            "\x68\x00", // h
+            "\x65\x00", // e
+            "\x6c\x00", // l
+            "\x6c\x00", // l
+            "\x6f\x00", // o
+            "\x20\x00", // blank
+            "\x01\xd8\x01\xdc", // osmanya 𐐁
+            "\x0a\x00", // newline
+        ];
+        $chars = implode('', $array);
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
+        $fho = fopen($filename, 'wb');
+        self::assertNotFalse($fho);
+        fwrite($fho, $chars);
+        fclose($fho);
+        $reader = $this->newCsv();
+        $reader->setInputEncoding('UTF-16');
+        $reader->setDelimiter(',');
+        if (method_exists($reader, 'setChunkSize')) {
+            $reader->setChunkSize(2);
+        }
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('𐐀 hello 𐐁', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnexpectedNoBom(): void
+    {
+        $reader = $this->newCsv();
+        $reader->setInputEncoding('UTF-16');
+        $reader->setDelimiter(',');
+        $array = [
+            "\xd8\x01\xdc\x00", // osmanya 𐐀
+            "\x00\x20", // blank
+            "\x00\x68", // h
+            "\x00\x65", // e
+            "\x00\x6c", // l
+            "\x00\x6c", // l
+            "\x00\x6f", // o
+            "\x00\x20", // blank
+            "\xd8\x01\xdc\x01", // osmanya 𐐁
+            "\x00\x0a", // newline
+        ];
+        $chars = implode('', $array);
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
+        $fho = fopen($filename, 'wb');
+        self::assertNotFalse($fho);
+        fwrite($fho, $chars);
+        fclose($fho);
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('𐐀 hello 𐐁', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNoChunkedUtf7(): void
+    {
+        $reader = $this->newCsv();
+        $reader->setInputEncoding('UTF-7');
+        $reader->setDelimiter(',');
+        $chars = 'Hello,World+ACE-';
+        $filename = $this->tempFile = File::temporaryFileName() . '.csv';
+        $fho = fopen($filename, 'wb');
+        self::assertNotFalse($fho);
+        fwrite($fho, $chars);
+        fclose($fho);
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Hello', $sheet->getCell('A1')->getValue());
+        self::assertSame('World!', $sheet->getCell('B1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * Test Windows-1252 encoded file with various special characters
      * is correctly converted via streaming.
