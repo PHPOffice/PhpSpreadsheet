@@ -181,6 +181,71 @@ class Cells
     }
 
     /**
+     * Get coordinates of cells at or after a given row and column boundary.
+     *
+     * Returns only those cell coordinates where row >= minRow AND column >= minCol.
+     * Uses the internal index to filter without loading each cell from cache.
+     *
+     * @param int $minRow Minimum row number (1-based)
+     * @param int $minCol Minimum column index (1-based)
+     *
+     * @return string[] Cell coordinates matching the criteria, sorted by row then column
+     */
+    public function getCoordinatesInRange(int $minRow, int $minCol): array
+    {
+        $result = [];
+        $minRowIndex = ($minRow - 1) * AddressRange::MAX_COLUMN_INT;
+
+        foreach ($this->index as $coordinate => $indexValue) {
+            if ($indexValue < $minRowIndex + $minCol) {
+                // Quick reject: index is below the minimum possible value for (minRow, minCol).
+                // But a cell in a later row with a smaller column could still be below this,
+                // so we must also check per-component.
+                continue;
+            }
+            $row = (int) floor(($indexValue - 1) / AddressRange::MAX_COLUMN_INT) + 1;
+            if ($row < $minRow) {
+                continue;
+            }
+            $col = ($indexValue % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
+            if ($col < $minCol) {
+                continue;
+            }
+            $result[$coordinate] = $indexValue;
+        }
+
+        asort($result);
+
+        return array_keys($result);
+    }
+
+    /**
+     * Get coordinates of cells outside a given row and column boundary.
+     *
+     * Returns only those cell coordinates where row < minRow OR column < minCol.
+     * This is the complement of getCoordinatesInRange().
+     *
+     * @param int $minRow Minimum row number (1-based)
+     * @param int $minCol Minimum column index (1-based)
+     *
+     * @return string[] Cell coordinates matching the criteria
+     */
+    public function getCoordinatesOutsideRange(int $minRow, int $minCol): array
+    {
+        $result = [];
+
+        foreach ($this->index as $coordinate => $indexValue) {
+            $row = (int) floor(($indexValue - 1) / AddressRange::MAX_COLUMN_INT) + 1;
+            $col = ($indexValue % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
+            if ($row < $minRow || $col < $minCol) {
+                $result[] = $coordinate;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Get a sorted list of all cell coordinates currently held in the collection by index (16384*row+column).
      *
      * @return int[]
