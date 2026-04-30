@@ -1226,141 +1226,189 @@ class Xlsx extends BaseReader
                                     }
                                 }
 
+                                // later we will remove from it real vmlComments
                                 $unparsedVmlDrawings = $vmlComments;
                                 $vmlDrawingContents = [];
 
+                                // Loop through VML comments
                                 foreach ($vmlComments as $relName => $relPath) {
-                                    $fullPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
-
-                                    if (!$fullPath) {
-                                        continue;
-                                    }
+                                    // Load VML comments file
+                                    $relPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
 
                                     try {
-                                        $vmlCommentsFile = $this->loadZip((string) $fullPath, '', true);
+                                        // no namespace okay - processed with Xpath
+                                        $vmlCommentsFile = $this->loadZip($relPath, '', true);
+                                        $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
                                     } catch (Throwable) {
+                                        //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
                                         continue;
                                     }
 
-                                    $vmlDrawingContents[$relName] = $this->getSecurityScannerOrThrow()
-                                        ->scan($this->getFromZipArchive($this->zip, (string) $fullPath));
-
-                                    $drawingImages = [];
-                                    $relsPath = dirname((string) $fullPath) . '/_rels/' . basename((string) $fullPath) . '.rels';
-
-                                    if ($this->zip->locateName($relsPath) !== false) {
-                                        $relsVML = $this->loadZip($relsPath, Namespaces::RELATIONSHIPS);
-
-                                        foreach ($relsVML->Relationship as $rel) {
-                                            $attr = self::getAttributes($rel);
-
-                                            if ((string) ($attr['Type'] ?? '') === Namespaces::IMAGE) {
-                                                $drawingImages[(string) ($attr['Id'] ?? '')] = (string) ($attr['Target'] ?? '');
+                                    // Locate VML drawings image relations
+                                    $drowingImages = [];
+                                    $VMLDrawingsRelations = dirname($relPath) . '/_rels/' . basename($relPath) . '.rels';
+                                    $vmlDrawingContents[$relName] = $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($zip, $relPath));
+                                    if ($zip->locateName($VMLDrawingsRelations) !== false) {
+                                        $relsVMLDrawing = $this->loadZip($VMLDrawingsRelations, Namespaces::RELATIONSHIPS);
+                                        foreach ($relsVMLDrawing->Relationship as $elex) {
+                                            $ele = self::getAttributes($elex);
+                                            if ($ele['Type'] == Namespaces::IMAGE) {
+                                                $drowingImages[(string) $ele['Id']] = (string) $ele['Target'];
                                             }
                                         }
                                     }
 
-                                    $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
                                     $shapes = self::xpathNoFalse($vmlCommentsFile, '//v:shape');
-
                                     foreach ($shapes as $shape) {
                                         /** @var SimpleXMLElement $shape */
-                                        $shape->registerXPathNamespace('v', Namespaces::URN_VML);
-                                        $shape->registerXPathNamespace('x', Namespaces::URN_EXCEL);
-                                        $shape->registerXPathNamespace('o', Namespaces::URN_MSOFFICE);
-
-                                        $clientDataNodes = $shape->xpath('x:ClientData');
-                                        $clientData = $clientDataNodes[0] ?? null;
-
-                                        if (!$clientData) {
-                                            continue;
-                                        }
-
-                                        $clientData->registerXPathNamespace('x', Namespaces::URN_EXCEL);
-
-                                        if ((string) ($clientData['ObjectType'] ?? '') !== 'Note') {
-                                            continue;
-                                        }
-
-                                        $rowNodes = $clientData->xpath('x:Row');
-                                        $colNodes = $clientData->xpath('x:Column');
-
-                                        $row = isset($rowNodes[0]) ? (int) (string) $rowNodes[0] : -1;
-                                        $col = isset($colNodes[0]) ? (int) (string) $colNodes[0] : -1;
-
-                                        if ($row < 0 || $col < 0) {
-                                            continue;
-                                        }
-
-                                        $coordinate = Coordinate::stringFromColumnIndex($col + 1) . ($row + 1);
-                                        $comment = $docSheet->getComment($coordinate);
-
-                                        if (isset($shape['fillcolor'])) {
-                                            $fillColor = strtoupper(ltrim((string) $shape['fillcolor'], '#'));
-
-                                            if ($fillColor !== '' && ctype_xdigit($fillColor)) {
-                                                $comment->getFillColor()->setRGB($fillColor);
-                                            }
-                                        }
-
-                                        if (isset($shape['strokecolor'])) {
-                                            $borderColor = strtoupper(ltrim((string) $shape['strokecolor'], '#'));
-
-                                            if ($borderColor !== '' && ctype_xdigit($borderColor)) {
-                                                $comment->setBorderColor(new Color($borderColor));
-                                            }
-                                        }
+                                        $vmlNamespaces = $shape->getNamespaces();
+                                        $shape->registerXPathNamespace('v', $vmlNamespaces['v'] ?? Namespaces::URN_VML);
+                                        $shape->registerXPathNamespace('x', $vmlNamespaces['x'] ?? Namespaces::URN_EXCEL);
+                                        $shape->registerXPathNamespace('o', $vmlNamespaces['o'] ?? Namespaces::URN_MSOFFICE);
 
                                         if (isset($shape['style'])) {
-                                            $styles = self::toCSSArray((string) $shape['style']);
+                                            $style = (string) $shape['style'];
+                                            $fillColor = strtoupper(substr((string) $shape['fillcolor'], 1));
+                                            $strokeColor = strtoupper(substr((string) $shape['strokecolor'], 1));
+                                            $column = null;
+                                            $row = null;
+                                            $textHAlign = null;
+                                            $fillImageRelId = null;
+                                            $fillImageTitle = '';
+                                            $fillOpacity = null;
+                                            $shapeType = null;
 
-                                            if (isset($styles['width']) && is_string($styles['width'])) {
-                                                $comment->setWidth($styles['width']);
+                                            // Extract shape type from type attribute (e.g., #_x0000_t203 -> 203)
+                                            $typeAttr = (string) $shape['type'];
+                                            if (Preg::isMatch('/#_x0000_t(\d+)$/', $typeAttr, $matches)) {
+                                                $shapeType = (int) $matches[1];
                                             }
-                                            if (isset($styles['height']) && is_string($styles['height'])) {
-                                                $comment->setHeight($styles['height']);
-                                            }
-                                            if (isset($styles['margin-left']) && is_string($styles['margin-left'])) {
-                                                $comment->setMarginLeft($styles['margin-left']);
-                                            }
-                                            if (isset($styles['margin-top']) && is_string($styles['margin-top'])) {
-                                                $comment->setMarginTop($styles['margin-top']);
-                                            }
-                                            if (isset($styles['visibility']) && is_string($styles['visibility'])) {
-                                                $comment->setVisible(strtolower($styles['visibility']) === 'visible');
-                                            }
-                                        }
 
-                                        $vmlNS = $shape->children(Namespaces::URN_VML);
-
-                                        if (isset($vmlNS->fill, $vmlNS->fill['opacity'])) {
-                                            $comment->setFillOpacity((float) $vmlNS->fill['opacity']);
-                                        }
-
-                                        $textAlignNodes = $clientData->xpath('x:TextHAlign');
-
-                                        if (!empty($textAlignNodes)) {
-                                            $comment->setAlignment(strtolower((string) $textAlignNodes[0]));
-                                        }
-
-                                        $fillRelNodes = $shape->xpath('v:fill/@o:relid');
-
-                                        if (!empty($fillRelNodes)) {
-                                            $relId = (string) $fillRelNodes[0];
-
-                                            if (isset($drawingImages[$relId])) {
-                                                $imagePath = str_replace(['../', '/xl/'], 'xl/', $drawingImages[$relId]);
-
-                                                try {
-                                                    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                                                    $drawing->setPath('zip://' . $this->zip->filename . '#' . $imagePath, true);
-                                                    $comment->setBackgroundImage($drawing);
-                                                } catch (Throwable) {
+                                            // Extract fill opacity from v:fill element
+                                            $fillNode = $shape->xpath('.//v:fill');
+                                            if (is_array($fillNode) && !empty($fillNode)) {
+                                                $fillAttributes = $fillNode[0]->attributes();
+                                                if (isset($fillAttributes['opacity'])) {
+                                                    $fillOpacity = (float) $fillAttributes['opacity'];
                                                 }
                                             }
-                                        }
 
-                                        unset($unparsedVmlDrawings[$relName]);
+                                            $clientData = $shape->xpath('.//x:ClientData');
+                                            $textboxDirection = '';
+                                            $textboxPath = $shape->xpath('.//v:textbox');
+                                            $textbox = (string) ($textboxPath[0]['style'] ?? '');
+                                            if (Preg::isMatch('/rtl/i', $textbox)) {
+                                                $textboxDirection = Comment::TEXTBOX_DIRECTION_RTL;
+                                            } elseif (Preg::isMatch('/ltr/i', $textbox)) {
+                                                $textboxDirection = Comment::TEXTBOX_DIRECTION_LTR;
+                                            }
+                                            if (is_array($clientData) && !empty($clientData)) {
+                                                /** @var SimpleXMLElement */
+                                                $clientData = $clientData[0];
+
+                                                if (isset($clientData['ObjectType']) && (string) $clientData['ObjectType'] == 'Note') {
+                                                    $clientData->registerXPathNamespace('x', $vmlNamespaces['x'] ?? Namespaces::URN_EXCEL);
+                                                    $temp = $clientData->xpath('.//x:Row');
+                                                    if (is_array($temp)) {
+                                                        $row = $temp[0];
+                                                    }
+
+                                                    $temp = $clientData->xpath('.//x:Column');
+                                                    if (is_array($temp)) {
+                                                        $column = $temp[0];
+                                                    }
+                                                    $temp = $clientData->xpath('.//x:TextHAlign');
+                                                    if (!empty($temp)) {
+                                                        $textHAlign = strtolower($temp[0]);
+                                                    }
+                                                }
+                                            }
+                                            $rowx = (string) $row;
+                                            $colx = (string) $column;
+                                            if (is_numeric($rowx) && is_numeric($colx) && $textHAlign !== null) {
+                                                $docSheet->getComment([1 + (int) $colx, 1 + (int) $rowx], false)->setAlignment((string) $textHAlign);
+                                            }
+                                            if (is_numeric($rowx) && is_numeric($colx) && $textboxDirection !== '') {
+                                                $docSheet->getComment([1 + (int) $colx, 1 + (int) $rowx], false)->setTextboxDirection($textboxDirection);
+                                            }
+
+                                            $fillImageRelNode = $shape->xpath('.//v:fill/@o:relid');
+                                            if (is_array($fillImageRelNode) && !empty($fillImageRelNode)) {
+                                                /** @var SimpleXMLElement */
+                                                $fillImageRelNode = $fillImageRelNode[0];
+
+                                                if (isset($fillImageRelNode['relid'])) {
+                                                    $fillImageRelId = (string) $fillImageRelNode['relid'];
+                                                }
+                                            }
+
+                                            $fillImageTitleNode = $shape->xpath('.//v:fill/@o:title');
+                                            if (is_array($fillImageTitleNode) && !empty($fillImageTitleNode)) {
+                                                /** @var SimpleXMLElement */
+                                                $fillImageTitleNode = $fillImageTitleNode[0];
+
+                                                if (isset($fillImageTitleNode['title'])) {
+                                                    $fillImageTitle = (string) $fillImageTitleNode['title'];
+                                                }
+                                            }
+
+                                            if (($column !== null) && ($row !== null)) {
+                                                // Set comment properties
+                                                $comment = $docSheet->getComment([(int) $column + 1, (int) $row + 1]);
+                                                $comment->getFillColor()->setRGB($fillColor);
+
+                                                // Set border color
+                                                if (!empty($strokeColor)) {
+                                                    $comment->getBorderColor()->setRGB($strokeColor);
+                                                }
+
+                                                // Set fill opacity
+                                                if ($fillOpacity !== null) {
+                                                    $comment->setFillOpacity($fillOpacity);
+                                                }
+
+                                                // Set shape type
+                                                if ($shapeType !== null) {
+                                                    $comment->setShapeType($shapeType);
+                                                }
+
+                                                if (isset($fillImageRelId, $drowingImages[$fillImageRelId])) {
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                                                    $objDrawing->setName($fillImageTitle);
+                                                    $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
+                                                    $objDrawing->setPath(
+                                                        'zip://' . File::realpath($filename) . '#' . $imagePath,
+                                                        true,
+                                                        $zip
+                                                    );
+                                                    $comment->setBackgroundImage($objDrawing);
+                                                }
+
+                                                // Parse style
+                                                $styleArray = explode(';', str_replace(' ', '', $style));
+                                                foreach ($styleArray as $stylePair) {
+                                                    $stylePair = explode(':', $stylePair);
+
+                                                    if ($stylePair[0] == 'margin-left') {
+                                                        $comment->setMarginLeft($stylePair[1]);
+                                                    }
+                                                    if ($stylePair[0] == 'margin-top') {
+                                                        $comment->setMarginTop($stylePair[1]);
+                                                    }
+                                                    if ($stylePair[0] == 'width') {
+                                                        $comment->setWidth($stylePair[1]);
+                                                    }
+                                                    if ($stylePair[0] == 'height') {
+                                                        $comment->setHeight($stylePair[1]);
+                                                    }
+                                                    if ($stylePair[0] == 'visibility') {
+                                                        $comment->setVisible($stylePair[1] == 'visible');
+                                                    }
+                                                }
+
+                                                unset($unparsedVmlDrawings[$relName]);
+                                            }
+                                        }
                                     }
                                 }
 
