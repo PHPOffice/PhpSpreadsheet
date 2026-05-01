@@ -1062,16 +1062,16 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.5.2",
+            "version": "10.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "8bb38880ef4c2e0cc0daa59c2bb722979d1b1bf0"
+                "reference": "62658af06f619bd65a40fb4a2b26df7bdc36818a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/8bb38880ef4c2e0cc0daa59c2bb722979d1b1bf0",
-                "reference": "8bb38880ef4c2e0cc0daa59c2bb722979d1b1bf0",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/62658af06f619bd65a40fb4a2b26df7bdc36818a",
+                "reference": "62658af06f619bd65a40fb4a2b26df7bdc36818a",
                 "shasum": ""
             },
             "require": {
@@ -1111,9 +1111,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.5.2"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.5.4"
             },
-            "time": "2025-12-08T10:10:34+00:00"
+            "time": "2026-04-06T04:38:38+00:00"
         },
         {
             "name": "mpdf/mpdf",
