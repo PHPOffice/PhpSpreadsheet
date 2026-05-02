@@ -796,7 +796,8 @@ class Worksheet
             $this->activePane = $holdActivePane;
         }
         if ($activeSheet !== null && $activeSheet >= 0) {
-            $this->getParent()?->setActiveSheetIndex($activeSheet);
+            // Not sure what PhpStan doesn't like about next stmt
+            $this->getParent()?->setActiveSheetIndex($activeSheet); // @phpstan-ignore-line
         }
         $this->setSelectedCells($selectedCells);
 

@@ -31,13 +31,13 @@ class RepeatedRowsTest extends Functional\AbstractFunctional
         $divs = $body->getElementsByTagName('div');
         $tbl = $divs->item(0)?->getElementsByTagName('table');
         self::assertSame('', $tbl?->item(0)?->getAttribute('style'));
-        $thd = $divs->item(0)?->getElementsByTagName('thead');
+        $thd = $divs->item(0)->getElementsByTagName('thead');
         self::assertCount(1, $thd);
-        $trw = $thd?->item(0)?->getElementsByTagName('tr');
+        $trw = $thd->item(0)?->getElementsByTagName('tr');
         self::assertCount(2, $trw);
-        $tbd = $divs->item(0)?->getElementsByTagName('tbody');
+        $tbd = $divs->item(0)->getElementsByTagName('tbody');
         self::assertCount(1, $tbd);
-        $trw = $tbd?->item(0)?->getElementsByTagName('tr');
+        $trw = $tbd->item(0)?->getElementsByTagName('tr');
         self::assertCount(98, $trw);
 
         $rls = $this->writeAndReload($spreadsheet, 'Html');
@@ -100,13 +100,13 @@ class RepeatedRowsTest extends Functional\AbstractFunctional
         $divs = $body->getElementsByTagName('div');
         $tbl = $divs->item(0)?->getElementsByTagName('table');
         self::assertSame('border-collapse:collapse', $tbl?->item(0)?->getAttribute('style'));
-        $thd = $divs->item(0)?->getElementsByTagName('thead');
+        $thd = $divs->item(0)->getElementsByTagName('thead');
         self::assertCount(1, $thd);
-        $trw = $thd?->item(0)?->getElementsByTagName('tr');
+        $trw = $thd->item(0)?->getElementsByTagName('tr');
         self::assertCount(2, $trw);
-        $tbd = $divs->item(0)?->getElementsByTagName('tbody');
+        $tbd = $divs->item(0)->getElementsByTagName('tbody');
         self::assertCount(1, $tbd);
-        $trw = $tbd?->item(0)?->getElementsByTagName('tr');
+        $trw = $tbd->item(0)?->getElementsByTagName('tr');
         self::assertCount(98, $trw);
 
         $rls = $this->writeAndReload($spreadsheet, 'Html');
