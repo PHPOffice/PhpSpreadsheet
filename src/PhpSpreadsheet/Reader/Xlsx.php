@@ -1269,11 +1269,29 @@ class Xlsx extends BaseReader
                                         if (isset($shape['style'])) {
                                             $style = (string) $shape['style'];
                                             $fillColor = strtoupper(substr((string) $shape['fillcolor'], 1));
+                                            $strokeColor = strtoupper(substr((string) $shape['strokecolor'], 1));
                                             $column = null;
                                             $row = null;
                                             $textHAlign = null;
                                             $fillImageRelId = null;
                                             $fillImageTitle = '';
+                                            $fillOpacity = null;
+                                            $shapeType = null;
+
+                                            // Extract shape type from type attribute (e.g., #_x0000_t203 -> 203)
+                                            $typeAttr = (string) $shape['type'];
+                                            if (Preg::isMatch('/#_x0000_t(\d+)$/', $typeAttr, $matches)) {
+                                                $shapeType = (int) $matches[1];
+                                            }
+
+                                            // Extract fill opacity from v:fill element
+                                            $fillNode = $shape->xpath('.//v:fill');
+                                            if (is_array($fillNode) && !empty($fillNode)) {
+                                                $fillAttributes = $fillNode[0]->attributes();
+                                                if (isset($fillAttributes['opacity'])) {
+                                                    $fillOpacity = (float) $fillAttributes['opacity'];
+                                                }
+                                            }
 
                                             $clientData = $shape->xpath('.//x:ClientData');
                                             $textboxDirection = '';
@@ -1338,6 +1356,22 @@ class Xlsx extends BaseReader
                                                 // Set comment properties
                                                 $comment = $docSheet->getComment([(int) $column + 1, (int) $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
+
+                                                // Set border color
+                                                if (!empty($strokeColor)) {
+                                                    $comment->getBorderColor()->setRGB($strokeColor);
+                                                }
+
+                                                // Set fill opacity
+                                                if ($fillOpacity !== null) {
+                                                    $comment->setFillOpacity($fillOpacity);
+                                                }
+
+                                                // Set shape type
+                                                if ($shapeType !== null) {
+                                                    $comment->setShapeType($shapeType);
+                                                }
+
                                                 if (isset($fillImageRelId, $drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
