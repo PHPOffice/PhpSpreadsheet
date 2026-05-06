@@ -1011,6 +1011,19 @@ class Cell implements Stringable
     }
 
     /**
+     * Set the XF index without triggering updateInCollection().
+     *
+     * This is intended for use by readers that will immediately follow with
+     * setValueExplicit(), avoiding a redundant cache write.
+     *
+     * @internal
+     */
+    public function setXfIndexNoUpdate(int $indexValue): void
+    {
+        $this->xfIndex = $indexValue;
+    }
+
+    /**
      * Set the formula attributes.
      *
      * @param null|array<string, string> $attributes
