@@ -815,8 +815,8 @@ class Worksheet
             }
             $this->activePane = $holdActivePane;
         }
-        if ($activeSheet !== null && $activeSheet >= 0) {
-            $spreadsheet?->setActiveSheetIndex($activeSheet);
+        if ($activeSheet !== null && $activeSheet >= 0) { // spreadsheet can't be null if activeSheet not null
+            $spreadsheet->setActiveSheetIndex($activeSheet);
         }
         $this->setSelectedCells($selectedCells);
 
