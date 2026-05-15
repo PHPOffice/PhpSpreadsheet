@@ -25,6 +25,18 @@ class NoPharTest extends TestCase
     }
 
     /**
+     * @param class-string<IReader> $reader
+     */
+    #[DataProvider('providerReaders')]
+    public function testPhar3Slashes(string $reader): void
+    {
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Stream wrappers are not permitted');
+        $reader = new $reader();
+        $reader->load('phar:///anyoldname');
+    }
+
+    /**
      * @return array<array<class-string<IReader>>>
      */
     public static function providerReaders(): array
