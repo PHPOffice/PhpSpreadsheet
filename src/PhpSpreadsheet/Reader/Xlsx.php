@@ -901,10 +901,13 @@ class Xlsx extends BaseReader
                                 $dir,
                                 $richData,
                                 $docSheet,
-                                "$dir/$fileWorksheet",
-                                $mainNS,
                                 $sharedStrings,
-                                $styles
+                                $styles,
+                                [
+                                    // this array can be expanded with additional entries to make it easier to extend
+                                    'mainNS' => $mainNS,
+                                    'fileWorksheetPath' => "$dir/$fileWorksheet",
+                                ],
                             );
 
                             $docSheet->setSelectedCells($holdSelectedCells);
@@ -1893,10 +1896,9 @@ class Xlsx extends BaseReader
     /**
      * @param string[][] $richData
      * @param Worksheet $docSheet the worksheet to populate
-     * @param string $fileWorksheetPath path to worksheet XML within the zip
-     * @param string $mainNS the main spreadsheetml namespace
      * @param array<int, mixed> $sharedStrings shared string table
      * @param object[] $styles style objects array
+     * @param mixed[] $extraParameters maybe make it a little easier to extend
      */
     protected function loadSheetData(
         ?SimpleXMLElement $xmlSheetNS,
@@ -1904,10 +1906,9 @@ class Xlsx extends BaseReader
         string $dir,
         array $richData,
         Worksheet $docSheet,
-        string $fileWorksheetPath,
-        string $mainNS,
         array $sharedStrings,
         array $styles,
+        array $extraParameters = [],
     ): void {
         if (!($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row)) {
             return; // @codeCoverageIgnore

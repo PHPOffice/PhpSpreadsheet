@@ -19,10 +19,9 @@ class XlsxStreamingReadClass extends Xlsx
      *
      * @param string[][] $richData
      * @param Worksheet $docSheet the worksheet to populate
-     * @param string $fileWorksheetPath path to worksheet XML within the zip
-     * @param string $mainNS the main spreadsheetml namespace
      * @param array<int, mixed> $sharedStrings shared string table
      * @param object[] $styles style objects array
+     * @param mixed[] $extraParameters maybe make it a little easier to extend
      */
     protected function loadSheetData(
         ?SimpleXMLElement $xmlSheetNS,
@@ -30,11 +29,19 @@ class XlsxStreamingReadClass extends Xlsx
         string $dir,
         array $richData,
         Worksheet $docSheet,
-        string $fileWorksheetPath,
-        string $mainNS,
         array $sharedStrings,
         array $styles,
+        array $extraParameters = [],
     ): void {
+        if (!isset($extraParameters['mainNS'], $extraParameters['fileWorksheetPath'])) {
+            parent::loadSheetData($xmlSheetNS, $filename, $dir, $richData, $docSheet, $sharedStrings, $styles); // @codeCoverageIgnore
+
+            return; // @codeCoverageIgnore
+        }
+        /** @var string */
+        $fileWorksheetPath = $extraParameters['fileWorksheetPath']; // path to worksheet Xml within zip
+        /** @var string */
+        $mainNS = $extraParameters['mainNS']; // main spreadsheet namespace
         $xmlContent = $this->getFromZipArchive($this->zip, $fileWorksheetPath);
         if ($xmlContent === '') {
             return; // @codeCoverageIgnore
