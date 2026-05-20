@@ -134,10 +134,12 @@ class File
     }
 
     /**
-     * All filenames starting with protocol (e.g. phar://) are prohibited.
+     * Blocks phar:// and similar RCE-bearing wrappers.
      * Note that many protocols, including http and zip, will already
      * return false for is_file.
      * A whitelist of protocols may be added if needed in future.
+     * data: is intentionally allowed (see #4823); callers needing strict
+     * on-disk-only semantics must validate $filename themselves.
      */
     public static function prohibitWrappers(string $filename): void
     {

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Security Note
 
-- A prior change had attempted to eliminate the ability to use input files using the phar protocol. Some filenames using that protocol were not caught by the earlier change. That is now fixed. The failure to detect these files *did not* lead to a security exposure in PhpSpreadsheet. However, if you relied on "PhpSpreadsheet can read the file" as a surrogate for "it is safe to read the file's metadata", you should not do so. [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
+- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes. [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
 
 ### Added
 
