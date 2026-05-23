@@ -51,6 +51,13 @@ interface IReader
     public function canRead(string $filename): bool;
 
     /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
+     */
+    public function listWorksheetInfo(string $filename): array;
+
+    /**
      * Read data only?
      *        If this is true, then the Reader will only read data values for cells, it will not read any formatting
      *           or structural information (like merges).
