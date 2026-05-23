@@ -134,17 +134,34 @@ class File
     }
 
     /**
-     * All filenames starting with protocol (e.g. phar://) are prohibited.
+     * @var list<string>
+     */
+    private static array $allowedWrappers = [];
+
+    /**
+     * Register stream wrappers that should be permitted by prohibitWrappers.
+     * By default, all stream wrappers with multi-character schemes (e.g. phar://) are blocked.
+     * Call this method to allow specific wrappers for your use case.
+     *
+     * @param list<string> $wrappers
+     */
+    public static function allowStreamWrappers(array $wrappers): void
+    {
+        self::$allowedWrappers = array_values(array_unique([...self::$allowedWrappers, ...$wrappers]));
+    }
+
+    /**
+     * All filenames starting with protocol (e.g. phar://) are prohibited,
+     * unless the wrapper has been explicitly allowed via allowStreamWrappers().
      * Note that many protocols, including http and zip, will already
      * return false for is_file.
-     * A whitelist of protocols may be added if needed in future.
      */
     public static function prohibitWrappers(string $filename): void
     {
         $scheme = parse_url($filename, PHP_URL_SCHEME);
         // strlen check > 1 to avoid issues with Windows absolute paths (e.g. C:\...), Windows quirks :)
         // since no built-in or commonly registered PHP stream wrapper uses a single-character scheme, this should be ok, to my knowledge
-        if (is_string($scheme) && strlen($scheme) > 1) {
+        if (is_string($scheme) && strlen($scheme) > 1 && !in_array($scheme, self::$allowedWrappers, true)) {
             throw new Exception(
                 "Stream wrappers are not permitted as file paths: {$filename}"
             );
