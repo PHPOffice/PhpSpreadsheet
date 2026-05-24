@@ -54,6 +54,14 @@ class IOFactoryRegisterTest extends TestCase
         IOFactory::registerReader('Custom', CustomReaderNot2::class); // @phpstan-ignore-line
     }
 
+    public function testRegisterReader2EmptyListWorksheet(): void
+    {
+        IOFactory::registerReader('Custom', CustomReader2::class);
+        $reader = new CustomReader2();
+        self::assertSame([], $reader->listWorksheetInfo('x'));
+        self::assertSame([], $reader->listWorksheetNames('x'));
+    }
+
     public static function testRegisterCustomReader(): void
     {
         IOFactory::registerReader(IOFactory::READER_XLSX, CustomReader::class);
