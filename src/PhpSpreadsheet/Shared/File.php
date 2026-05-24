@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use ZipArchive;
@@ -144,9 +145,9 @@ class File
     public static function prohibitWrappers(string $filename): void
     {
         if (
-            preg_match('~^phar://~i', $filename)
-            || (preg_match('/^([\w\s\x00-\x1f]+):/u', $filename) && !preg_match('/^([\w]+):/u', $filename))
-            || preg_match('~^php://.*phar:~i', $filename)
+            Preg::IsMatch('~^phar://~i', $filename)
+            || (Preg::isMatch('/^([\w\s\x00-\x1f]+):/', $filename) && !Preg::isMatch('/^([\w]+):/', $filename))
+            || Preg::isMatch('~^php://.*phar:~i', $filename)
         ) {
             throw new Exception(
                 "Disallowed stream wrapper used for {$filename}"
