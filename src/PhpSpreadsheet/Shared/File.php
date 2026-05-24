@@ -143,9 +143,13 @@ class File
      */
     public static function prohibitWrappers(string $filename): void
     {
-        if (str_contains($filename, '://')) {
+        if (
+            preg_match('~^phar://~i', $filename)
+            || (preg_match('/^([\w\s\x00-\x1f]+):/u', $filename) && !preg_match('/^([\w]+):/u', $filename))
+            || preg_match('~^php://.*phar:~i', $filename)
+        ) {
             throw new Exception(
-                "Stream wrappers are not permitted as file paths: {$filename}"
+                "Disallowed stream wrapper used for {$filename}"
             );
         }
     }

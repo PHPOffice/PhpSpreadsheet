@@ -117,7 +117,11 @@ class Drawing extends BaseDrawing
                 }
             }
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-        } elseif (filter_var($path, FILTER_VALIDATE_URL) || str_contains($path, '://') || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))) {
+        } elseif (
+            filter_var($path, FILTER_VALIDATE_URL)
+            || preg_match('~^phar://~i', $path)
+            || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))
+        ) {
             if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }

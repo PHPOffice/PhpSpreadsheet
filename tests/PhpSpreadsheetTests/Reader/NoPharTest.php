@@ -19,7 +19,7 @@ class NoPharTest extends TestCase
     public function testNoPhar(string $reader): void
     {
         $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('Stream wrappers are not permitted');
+        $this->expectExceptionMessage('Disallowed stream wrapper');
         $reader = new $reader();
         $reader->load('phar://anyoldname');
     }
@@ -30,10 +30,22 @@ class NoPharTest extends TestCase
     #[DataProvider('providerReaders')]
     public function testPhar3Slashes(string $reader): void
     {
-        $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('Stream wrappers are not permitted');
+        $invalidProtocol = [
+            '3 slashes' => 'phar:///anyoldname',
+            'mixed case' => 'Phar:///anyoldname',
+            'embedded space' => 'ph ar://anyoldname',
+            'embedded control character' => "ph\x04ar://anyoldname",
+            'filter with phar' => 'php://filter/read=convert.base64-encode/resource=phar:///tmp/x.Phar',
+        ];
         $reader = new $reader();
-        $reader->load('phar:///anyoldname');
+        foreach ($invalidProtocol as $key => $value) {
+            try {
+                $reader->load($value);
+                self::fail("Should have thrown exception - $key");
+            } catch (SpreadsheetException $e) {
+                self::assertStringContainsString('Disallowed stream wrapper', $e->getMessage(), $key);
+            }
+        }
     }
 
     /**

@@ -157,8 +157,10 @@ class HtmlImage2Test extends TestCase
             'mailto' => ['mailto:xyz@example.com'],
             'mailto whitespace' => ['mail to:xyz@example.com'],
             'phar' => ['phar://example.com/image.phar'],
+            'phar mixed case' => ['Phar://example.com/image.phar'],
             'phar with 3 slashes' => ['phar:///example.com/image.phar'],
             'phar control' => ["\x14phar://example.com/image.phar"],
+            'filter with phar' => ['php://filter/read=convert.base64-encode/resource=phar:///tmp/x.Phar'],
         ];
     }
 }
