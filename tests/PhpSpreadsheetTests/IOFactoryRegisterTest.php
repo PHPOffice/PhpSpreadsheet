@@ -47,6 +47,13 @@ class IOFactoryRegisterTest extends TestCase
         IOFactory::registerReader('foo', 'bar'); // @phpstan-ignore-line
     }
 
+    public function testRegisterReaderNotReader2(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('readers must implement');
+        IOFactory::registerReader('Custom', CustomReaderNot2::class); // @phpstan-ignore-line
+    }
+
     public static function testRegisterCustomReader(): void
     {
         IOFactory::registerReader(IOFactory::READER_XLSX, CustomReader::class);
