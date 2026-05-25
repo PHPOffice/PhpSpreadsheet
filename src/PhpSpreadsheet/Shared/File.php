@@ -147,7 +147,7 @@ class File
         if (
             Preg::IsMatch('~^phar://~i', $filename)
             || (Preg::isMatch('/^([\w\s\x00-\x1f]+):/', $filename) && !Preg::isMatch('/^([\w]+):/', $filename))
-            || Preg::isMatch('~^php://.*phar:~i', $filename)
+            || Preg::isMatch('~^php://.*phar:~is', $filename)
         ) {
             throw new Exception(
                 "Disallowed stream wrapper used for {$filename}"
