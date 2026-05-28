@@ -120,7 +120,7 @@ class Drawing extends BaseDrawing
         } elseif (
             filter_var($path, FILTER_VALIDATE_URL)
             || Preg::isMatch('~^phar://~i', $path)
-            || (Preg::isMatch('/^([\w\s\x00-\x1f]+):/', $path) && !Preg::isMatch('/^([\w]+):/', $path))
+            || (Preg::isMatch('/^([\w.\s\x00-\x1f]+):/', $path) && !Preg::isMatch('/^([\w.]+):/', $path))
         ) {
             if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');

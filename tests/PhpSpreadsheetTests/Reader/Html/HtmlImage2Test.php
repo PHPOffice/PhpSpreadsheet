@@ -161,6 +161,8 @@ class HtmlImage2Test extends TestCase
             'phar with 3 slashes' => ['phar:///example.com/image.phar'],
             'phar control' => ["\x14phar://example.com/image.phar"],
             'filter with phar' => ['php://filter/read=convert.base64-encode/resource=phar:///tmp/x.Phar'],
+            'protocol with period followed by phar' => ['compress.zlib://phar:///x.phar'],
+            'protocol with period and embedded space' => ['comp ress.zlib://anything'],
         ];
     }
 }

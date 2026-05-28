@@ -27,6 +27,8 @@ class NoPharTest extends TestCase
             'embedded control character' => "ph\x04ar://anyoldname",
             'filter with phar' => 'php://filter/read=convert.base64-encode/resource=phar:///tmp/x.Phar',
             'filter with phar and newline' => "php://filter/read=convert.base64-encode/\nresource=phar:///tmp/x.Phar",
+            'protocol with period followed by phar' => 'compress.bzip2://phar:///x.phar',
+            'protocol with period and embedded space' => 'comp ress.zlib://anything',
         ];
         $reader = new $reader();
         foreach ($invalidProtocol as $key => $value) {
