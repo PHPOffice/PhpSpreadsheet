@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Added
 
 - Optional method to increase Calculation Engine's parsing speed. [PR #4829](https://github.com/PHPOffice/PhpSpreadsheet/pull/4829)
-- Html Writer/Reader new data attributes. [PR #4858](https://github.com/PHPOffice/PhpSpreadsheet/pull/4858)
+- Html Writer/Reader new data attributes.  [PR #4858](https://github.com/PHPOffice/PhpSpreadsheet/pull/4858)
+- IReader2 interface extending IReader with listWorksheetInfo/Names. [Issue #4883](https://github.com/PHPOffice/PhpSpreadsheet/issues/4883) [PR #4886](https://github.com/PHPOffice/PhpSpreadsheet/pull/4886)
 
 ### Removed
 
