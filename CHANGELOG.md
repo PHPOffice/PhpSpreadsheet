@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ## 2026-04-19 - 2.1.16
 
+### Security Note
+
+- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes. Backport of [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
+
 ### Fixed
 
 - Security patches.
