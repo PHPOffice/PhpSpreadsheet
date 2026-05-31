@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ## TBD - 5.8.0
 
+### Security Note
+
+- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes. [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
+
 ### Added
 
 - Optional method to increase Calculation Engine's parsing speed. [PR #4829](https://github.com/PHPOffice/PhpSpreadsheet/pull/4829)
