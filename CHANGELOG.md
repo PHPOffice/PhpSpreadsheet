@@ -7,13 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 ## 2026-04-19 - 2.1.16
 
-### Security Note
-
-- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes.
-
 ### Fixed
 
-- Security patches, including backport PR #4876, and patches to 3rd party support software.
+- Security patches.
 
 ## 2026-04-09 - 2.1.15
 
