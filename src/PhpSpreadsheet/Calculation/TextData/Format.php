@@ -103,6 +103,13 @@ class Format
                 StringHelper::getDecimalSeparator(),
                 StringHelper::getThousandsSeparator()
             );
+        } else {
+            $valueResult = number_format(
+                $valueResult,
+                $decimals,
+                StringHelper::getDecimalSeparator(),
+                ''
+            );
         }
 
         return (string) $valueResult;
