@@ -96,17 +96,17 @@ class Mpdf extends Pdf
         parent::restoreStateAfterSave();
     }
 
-    protected static int $temporaryVersionCheck = 80500;
+    protected static int $temporaryVersionCheck = 80600;
 
     /**
-     * Temporary handler for Php8.5 waiting for Dompdf release.
+     * Temporary handler for Php8.6 mb_regex_encoding deprecation.
      *
      * @codeCoverageIgnore
      */
     public function specialErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
     {
         if ($errno === E_DEPRECATED) {
-            if (preg_match('/Providing an empty string is deprecated/', $errstr) === 1) {
+            if (preg_match('/Function mb_\w+[(][)] is deprecated since 8[.]6/', $errstr) === 1) {
                 return true;
             }
         }

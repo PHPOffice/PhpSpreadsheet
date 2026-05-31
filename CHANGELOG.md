@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). This is always true of the master branch. Some earlier branches, including the branch from which you are reading this file, remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## 2026-04-09 - 3.10.5
+## TBD - 3.10.6
 
 ### Security Note
 
@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 ### Fixed
 
 - Third-party security patches.
+- Php 8.6 deprecation in Mpdf. Backport of [PR #4878](https://github.com/PHPOffice/PhpSpreadsheet/pull/4878)
+- Ability to reuse disconnected spreadsheet. Backport of [PR #4880](https://github.com/PHPOffice/PhpSpreadsheet/pull/4880)
+
+## 2026-04-09 - 3.10.5
+
+### Fixed
+
+- Security patches.
 
 ## 2026-04-09 - 3.10.4
 
