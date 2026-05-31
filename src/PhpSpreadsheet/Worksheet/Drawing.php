@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use ZipArchive;
 
@@ -109,7 +110,7 @@ class Drawing extends BaseDrawing
     public function setPath($path, $verifyFile = true, $zip = null, $allowExternal = true, ?callable $isWhitelisted = null)
     {
         $this->isUrl = false;
-        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+        if (Preg::isMatch('~^data:image/[a-z]+;base64,~', $path)) {
             $this->path = $path;
 
             return $this;
@@ -126,8 +127,12 @@ class Drawing extends BaseDrawing
                 }
             }
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-        } elseif (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\w\s\x00-\x1f]+):/u', $path) && !preg_match('/^([\w]+):/u', $path))) {
-            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+        } elseif (
+            filter_var($path, FILTER_VALIDATE_URL)
+            || Preg::isMatch('~^phar://~i', $path)
+            || (Preg::isMatch('/^([\w.\s\x00-\x1f]+):/', $path) && !Preg::isMatch('/^([\w.]+):/', $path))
+        ) {
+            if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
             }
             if (!$allowExternal) {
@@ -141,7 +146,7 @@ class Drawing extends BaseDrawing
             $ctx = null;
             // https://github.com/php/php-src/issues/16023
             // https://github.com/php/php-src/issues/17121
-            if (preg_match('/^https?:/', $path) === 1) {
+            if (Preg::isMatch('/^https?:/', $path)) {
                 $ctxArray = [
                     'http' => [
                         'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -151,7 +156,7 @@ class Drawing extends BaseDrawing
                         ],
                     ],
                 ];
-                if (preg_match('/^https:/', $path) === 1) {
+                if (Preg::isMatch('/^https:/', $path)) {
                     $ctxArray['ssl'] = ['crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT];
                 }
                 $ctx = stream_context_create($ctxArray);
