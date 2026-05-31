@@ -35,6 +35,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Html Writer handle text colors a bit better. [PR #4855](https://github.com/PHPOffice/PhpSpreadsheet/pull/4855)
+- Html Writer apply rotation to images. [Issue #4875](https://github.com/PHPOffice/PhpSpreadsheet/issues/4875) [PR #4877](https://github.com/PHPOffice/PhpSpreadsheet/pull/4877)
+- Work around Php8.6 deprecation in mpdf/mpdf. [PR #4878](https://github.com/PHPOffice/PhpSpreadsheet/pull/4878)
+- Ability to reuse disconnected spreadsheet. [PR #4880](https://github.com/PHPOffice/PhpSpreadsheet/pull/4880)
 
 ## 2026-04-19 - 5.7.0
 

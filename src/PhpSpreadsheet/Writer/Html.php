@@ -758,6 +758,11 @@ class Html extends BaseWriter
                     $opacity = "opacity:$opacityValue; ";
                 }
             }
+            $rotationValue = $drawing->getRotation();
+            if ($rotationValue !== 0) {
+                $rotation = "transform: rotate({$rotationValue}deg); ";
+                $opacity .= $rotation;
+            }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
             if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
