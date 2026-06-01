@@ -56,7 +56,7 @@ class TextValueWizardTest extends TestCase
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSTEXT, $conditional->getConditionType());
-        self:self::assertSame(Conditional::OPERATOR_CONTAINSTEXT, $conditional->getOperatorType());
+        self::assertSame(Conditional::OPERATOR_CONTAINSTEXT, $conditional->getOperatorType());
         self::assertSame('$A3', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(SEARCH($A3,C3)))'], $conditions);
@@ -77,7 +77,7 @@ class TextValueWizardTest extends TestCase
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSTEXT, $conditional->getConditionType());
-        self:self::assertSame(Conditional::OPERATOR_NOTCONTAINS, $conditional->getOperatorType());
+        self::assertSame(Conditional::OPERATOR_NOTCONTAINS, $conditional->getOperatorType());
         self::assertSame('LL', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(SEARCH("LL",C3))'], $conditions);
@@ -98,7 +98,7 @@ class TextValueWizardTest extends TestCase
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_BEGINSWITH, $conditional->getConditionType());
-        self:self::assertSame(Conditional::OPERATOR_BEGINSWITH, $conditional->getOperatorType());
+        self::assertSame(Conditional::OPERATOR_BEGINSWITH, $conditional->getOperatorType());
         self::assertSame('LL', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEFT(C3,LEN("LL"))="LL"'], $conditions);
@@ -119,7 +119,7 @@ class TextValueWizardTest extends TestCase
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_ENDSWITH, $conditional->getConditionType());
-        self:self::assertSame(Conditional::OPERATOR_ENDSWITH, $conditional->getOperatorType());
+        self::assertSame(Conditional::OPERATOR_ENDSWITH, $conditional->getOperatorType());
         $conditions = $conditional->getConditions();
         self::assertSame(['RIGHT(C3,LEN("LL"))="LL"'], $conditions);
 
