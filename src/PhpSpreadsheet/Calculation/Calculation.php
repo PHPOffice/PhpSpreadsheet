@@ -1568,7 +1568,7 @@ class Calculation extends CalculationLocale
                         // unescape any apostrophes or double quotes in worksheet name
                         $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $column = 'A';
-                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore-line
                             $column = $pCellParent->getHighestDataColumn($val);
                         }
                         $val = "{$rowRangeReference[2]}{$column}{$rowRangeReference[7]}";
@@ -1582,7 +1582,7 @@ class Calculation extends CalculationLocale
                         // unescape any apostrophes or double quotes in worksheet name
                         $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $row = '1';
-                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore-line
                             $row = $pCellParent->getHighestDataRow($val);
                         }
                         $val = "{$val}{$row}";
@@ -2073,13 +2073,13 @@ class Calculation extends CalculationLocale
 
                         break;
                 }
-            } elseif (($token === '~') || ($token === '%')) {
+            } elseif (($token === '~') || ($token === '%')) { // @phpstan-ignore-line
                 // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
                 $arg = $arg['value'];
-                if ($token === '~') {
+                if ($token === '~') { // @phpstan-ignore-line
                     $this->debugLog->writeDebugLog('Evaluating Negation of %s', $this->showValue($arg));
                     $multiplier = -1;
                 } else {
@@ -2357,7 +2357,7 @@ class Calculation extends CalculationLocale
                 }
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
-                /** @var ?string $token */
+                /** @var null|numeric-string $token */
                 if (isset(self::EXCEL_CONSTANTS[strtoupper($token ?? '')])) {
                     $excelConstant = strtoupper("$token");
                     $stack->push('Constant Value', self::EXCEL_CONSTANTS[$excelConstant]);

@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ## TBD - 5.8.0
 
+### Security Note
+
+- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes. [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
+
 ### Added
 
 - Optional method to increase Calculation Engine's parsing speed. [PR #4829](https://github.com/PHPOffice/PhpSpreadsheet/pull/4829)
-- Html Writer/Reader new data attributes. [PR #4858](https://github.com/PHPOffice/PhpSpreadsheet/pull/4858)
+- Html Writer/Reader new data attributes.  [PR #4858](https://github.com/PHPOffice/PhpSpreadsheet/pull/4858)
+- IReader2 interface extending IReader with listWorksheetInfo/Names. [Issue #4883](https://github.com/PHPOffice/PhpSpreadsheet/issues/4883) [PR #4886](https://github.com/PHPOffice/PhpSpreadsheet/pull/4886)
 
 ### Removed
 
@@ -31,6 +36,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Html Writer handle text colors a bit better. [PR #4855](https://github.com/PHPOffice/PhpSpreadsheet/pull/4855)
+- Html Writer apply rotation to images. [Issue #4875](https://github.com/PHPOffice/PhpSpreadsheet/issues/4875) [PR #4877](https://github.com/PHPOffice/PhpSpreadsheet/pull/4877)
+- Work around Php8.6 deprecation in mpdf/mpdf. [PR #4878](https://github.com/PHPOffice/PhpSpreadsheet/pull/4878)
+- Ability to reuse disconnected spreadsheet. [PR #4880](https://github.com/PHPOffice/PhpSpreadsheet/pull/4880)
 
 ## 2026-04-19 - 5.7.0
 

@@ -53,7 +53,7 @@ class LoadSpreadsheet extends Xls
         $xls->sheets = [];
         $xls->externalBooks = [];
         $xls->ref = [];
-        $xls->definedname = []; //* @phpstan-ignore-line
+        $xls->definedname = [];
         $xls->sst = [];
         $xls->drawingGroupData = '';
         $xls->xfIndex = 0;
