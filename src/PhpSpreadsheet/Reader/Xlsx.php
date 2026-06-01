@@ -509,12 +509,12 @@ class Xlsx extends BaseReader
                     $majorFonts = [];
                     $minorFonts = [];
                     $fontScheme = $xmlTheme->themeElements->fontScheme->children($drawingNS);
-                    $majorLatin = self::getAttributes($fontScheme->majorFont->latin)['typeface'] ?? '';
-                    $majorEastAsian = self::getAttributes($fontScheme->majorFont->ea)['typeface'] ?? '';
-                    $majorComplexScript = self::getAttributes($fontScheme->majorFont->cs)['typeface'] ?? '';
-                    $minorLatin = self::getAttributes($fontScheme->minorFont->latin)['typeface'] ?? '';
-                    $minorEastAsian = self::getAttributes($fontScheme->minorFont->ea)['typeface'] ?? '';
-                    $minorComplexScript = self::getAttributes($fontScheme->minorFont->cs)['typeface'] ?? '';
+                    $majorLatin = (string) (self::getAttributes($fontScheme->majorFont->latin)['typeface'] ?? '');
+                    $majorEastAsian = (string) (self::getAttributes($fontScheme->majorFont->ea)['typeface'] ?? '');
+                    $majorComplexScript = (string) (self::getAttributes($fontScheme->majorFont->cs)['typeface'] ?? '');
+                    $minorLatin = (string) (self::getAttributes($fontScheme->minorFont->latin)['typeface'] ?? '');
+                    $minorEastAsian = (string) (self::getAttributes($fontScheme->minorFont->ea)['typeface'] ?? '');
+                    $minorComplexScript = (string) (self::getAttributes($fontScheme->minorFont->cs)['typeface'] ?? '');
 
                     foreach ($fontScheme->majorFont->font as $xmlFont) {
                         $fontAttributes = self::getAttributes($xmlFont);
@@ -1301,7 +1301,7 @@ class Xlsx extends BaseReader
                                                     }
                                                     $temp = $clientData->xpath('.//x:TextHAlign');
                                                     if (!empty($temp)) {
-                                                        $textHAlign = strtolower($temp[0]);
+                                                        $textHAlign = strtolower((string) $temp[0]);
                                                     }
                                                 }
                                             }
