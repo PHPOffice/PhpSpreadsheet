@@ -1627,7 +1627,10 @@ class Worksheet
      */
     public function setConditionalStyles(string $coordinate, array $styles): static
     {
-        $this->conditionalStylesCollection[strtoupper($coordinate)] = $styles; // @phpstan-ignore-line
+        $temp1 = strtoupper($coordinate);
+        /** @var non-decimal-int-string */
+        $temp2 = "$temp1";
+        $this->conditionalStylesCollection[$temp2] = $styles;
 
         return $this;
     }

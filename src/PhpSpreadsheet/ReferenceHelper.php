@@ -197,7 +197,9 @@ class ReferenceHelper
             } elseif ($cellAddress !== $newReference) {
                 $worksheet->setHyperlink($cellAddress, null);
                 if ($newReference) {
-                    $worksheet->setHyperlink($newReference, $value); // @phpstan-ignore-line
+                    /** @var non-decimal-int-string */
+                    $temp = $newReference;
+                    $worksheet->setHyperlink($temp, $value);
                 }
             }
         }
@@ -1173,8 +1175,9 @@ class ReferenceHelper
 
         for ($row = 1; $row <= $highestRow - 1; ++$row) {
             for ($column = $startColumnId; $column !== $endColumnId; StringHelper::stringIncrement($column)) {
-                $coordinate = $column . $row;
-                $this->clearStripCell($worksheet, $coordinate); // @phpstan-ignore-line
+                /** @var non-decimal-int-string */
+                $coordinate = "$column$row";
+                $this->clearStripCell($worksheet, $coordinate);
             }
         }
     }
@@ -1187,8 +1190,9 @@ class ReferenceHelper
 
         for ($column = $startColumnId; $column !== $highestColumn; StringHelper::stringIncrement($column)) {
             for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
-                $coordinate = $column . $row;
-                $this->clearStripCell($worksheet, $coordinate); // @phpstan-ignore-line
+                /** @var non-decimal-int-string */
+                $coordinate = "$column$row";
+                $this->clearStripCell($worksheet, $coordinate);
             }
         }
     }

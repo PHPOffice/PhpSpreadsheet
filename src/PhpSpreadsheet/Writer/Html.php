@@ -1519,8 +1519,10 @@ class Html extends BaseWriter
         } else {
             $cssClass = [];
         }
+        /** @var non-decimal-int-string */
+        $temp = "$coordinate";
 
-        return [$cell, $cssClass, $coordinate]; // @phpstan-ignore-line
+        return [$cell, $cssClass, $temp];
     }
 
     private function generateRowCellDataValueRich(RichText $richText, ?Font $defaultFont = null): string

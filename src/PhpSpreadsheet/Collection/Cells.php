@@ -43,7 +43,7 @@ class Cells
      * An index of existing cells. int pointer to the coordinate (0-base-indexed row * 16,384 + 1-base indexed column)
      *    indexed by their coordinate.
      *
-     * @var int[]
+     * @var array<non-decimal-int-string, int>
      */
     private array $index = [];
 
@@ -55,14 +55,14 @@ class Cells
     /**
      * Index keys cache to avoid recalculating on large arrays.
      *
-     * @var null|non-decimal-int-string[]
+     * @var null|array<int, non-decimal-int-string>
      */
     private ?array $indexKeysCache = null;
 
     /**
      * Index values cache to avoid recalculating on large arrays.
      *
-     * @var null|int[]
+     * @var null|array<int, int>
      */
     private ?array $indexValuesCache = null;
 
@@ -146,22 +146,22 @@ class Cells
     /**
      * Get a list of all cell coordinates currently held in the collection.
      *
-     * @return non-decimal-int-string[]
+     * @return array<int, non-decimal-int-string>
      */
     public function getCoordinates(): array
     {
         // Build or rebuild index keys cache
         if ($this->indexKeysCache === null) {
-            $this->indexKeysCache = array_keys($this->index); // @phpstan-ignore-line
+            $this->indexKeysCache = array_keys($this->index);
         }
 
-        return $this->indexKeysCache; // @phpstan-ignore-line
+        return $this->indexKeysCache;
     }
 
     /**
      * Get a sorted list of all cell coordinates currently held in the collection by row and column.
      *
-     * @return non-decimal-int-string[]
+     * @return array<int, non-decimal-int-string>
      */
     public function getSortedCoordinates(): array
     {
@@ -176,16 +176,16 @@ class Cells
 
         // Build or rebuild index keys cache
         if ($this->indexKeysCache === null) {
-            $this->indexKeysCache = array_keys($this->index); // @phpstan-ignore-line
+            $this->indexKeysCache = array_keys($this->index);
         }
 
-        return $this->indexKeysCache; // @phpstan-ignore-line
+        return $this->indexKeysCache;
     }
 
     /**
      * Get a sorted list of all cell coordinates currently held in the collection by index (16384*row+column).
      *
-     * @return int[]
+     * @return array<non-decimal-int-strint, int>
      */
     public function getSortedCoordinatesInt(): array
     {
