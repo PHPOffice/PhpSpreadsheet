@@ -701,7 +701,11 @@ class Xlsx extends BaseReader
                                 }
                             }
                             foreach ($this->styleReader->getFontCharsets() as $fontName => $charset) {
-                                $excel->addFontCharset($fontName, $charset);
+                                /** @var non-decimal-int-string $fontName */
+                                $excel->addFontCharset(
+                                    $fontName,
+                                    $charset
+                                );
                             }
                             if ($addingFirstCellXf) {
                                 $excel->removeCellXfByIndex(0); // remove the default style
@@ -1382,7 +1386,7 @@ class Xlsx extends BaseReader
                                 if ($unparsedVmlDrawings) {
                                     foreach ($unparsedVmlDrawings as $rId => $relPath) {
                                         /** @var mixed[][][] $unparsedLoadedData */
-                                        $rId = substr($rId, 3); // rIdXXX
+                                        $rId = substr("$rId", 3); // rIdXXX
                                         /** @var mixed[][] */
                                         $unparsedVmlDrawing = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['vmlDrawings'];
                                         $unparsedVmlDrawing[$rId] = [];
@@ -2394,7 +2398,7 @@ class Xlsx extends BaseReader
         /** @var mixed[][] */
         $unparsedCtrlProps = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['ctrlProps'];
         foreach ($ctrlProps as $rId => $ctrlProp) {
-            $rId = substr($rId, 3); // rIdXXX
+            $rId = substr("$rId", 3); // rIdXXX
             $unparsedCtrlProps[$rId] = [];
             $unparsedCtrlProps[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $ctrlProp['Target']);
             $unparsedCtrlProps[$rId]['relFilePath'] = (string) $ctrlProp['Target'];
@@ -2426,7 +2430,7 @@ class Xlsx extends BaseReader
         /** @var mixed[][] */
         $unparsedPrinterSettings = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['printerSettings'];
         foreach ($sheetPrinterSettings as $rId => $printerSettings) {
-            $rId = substr($rId, 3); // rIdXXX
+            $rId = substr("$rId", 3); // rIdXXX
             if (!str_ends_with($rId, 'ps')) {
                 $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
             }
@@ -2638,8 +2642,11 @@ class Xlsx extends BaseReader
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
                     }
+                    /** @var non-decimal-int-string */
+                    $lastCol = "$lastCol";
                     StringHelper::stringIncrement($lastCol);
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
+                        /** @var non-decimal-int-string $col */
                         for ($col = $firstCol; $col !== $lastCol; StringHelper::stringIncrement($col)) {
                             if (!$cellCollection->has2("$col$row")) {
                                 continue;

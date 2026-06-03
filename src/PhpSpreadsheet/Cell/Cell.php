@@ -126,6 +126,8 @@ class Cell implements Stringable
      * Get cell coordinate column.
      *
      * @throws SpreadsheetException
+     *
+     * @return non-decimal-int-string
      */
     public function getColumn(): string
     {
@@ -156,6 +158,8 @@ class Cell implements Stringable
      * Get cell coordinate.
      *
      * @throws SpreadsheetException
+     *
+     * @return non-decimal-int-string
      */
     public function getCoordinate(): string
     {
@@ -169,6 +173,7 @@ class Cell implements Stringable
             throw new SpreadsheetException('Coordinate no longer exists');
         }
 
+        /** @var non-decimal-int-string */
         return $coordinate;
     }
 
@@ -507,7 +512,7 @@ class Cell implements Stringable
                                         }
                                     }
                                 }
-                                /** @var string $newColumn */
+                                /** @var non-decimal-int-string $newColumn */
                                 StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;
@@ -539,14 +544,16 @@ class Cell implements Stringable
                             $ref = $oldAttributesRef;
                             if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) === 1) {
                                 if (isset($matches[5])) {
-                                    $minCol = $matches[1];
+                                    /** @var non-decimal-int-string */
+                                    $minCol = "{$matches[1]}";
                                     $minRow = (int) $matches[2];
+                                    /** @var non-decimal-int-string */
                                     $maxCol = $matches[4];
                                     StringHelper::stringIncrement($maxCol);
                                     $maxRow = (int) $matches[5];
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
                                         for ($col = $minCol; $col !== $maxCol; StringHelper::stringIncrement($col)) {
-                                            /** @var string $col */
+                                            /** @var non-decimal-int-string $col */
                                             if ("$col$row" !== $coordinate) {
                                                 $thisworksheet->getCell("$col$row")->setValue(null);
                                             }

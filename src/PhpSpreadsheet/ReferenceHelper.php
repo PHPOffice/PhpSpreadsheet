@@ -128,8 +128,8 @@ class ReferenceHelper
     {
         $aBreaks = $worksheet->getBreaks();
         ($numberOfColumns > 0 || $numberOfRows > 0)
-            ? uksort($aBreaks, [self::class, 'cellReverseSort'])
-            : uksort($aBreaks, [self::class, 'cellSort']);
+            ? uksort($aBreaks, self::cellReverseSort(...))
+            : uksort($aBreaks, self::cellSort(...));
 
         foreach ($aBreaks as $cellAddress => $value) {
             /** @var CellReferenceHelper */
@@ -185,8 +185,8 @@ class ReferenceHelper
     {
         $aHyperlinkCollection = $worksheet->getHyperlinkCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
-            ? uksort($aHyperlinkCollection, [self::class, 'cellReverseSort'])
-            : uksort($aHyperlinkCollection, [self::class, 'cellSort']);
+            ? uksort($aHyperlinkCollection, self::cellReverseSort(...))
+            : uksort($aHyperlinkCollection, self::cellSort(...));
 
         foreach ($aHyperlinkCollection as $cellAddress => $value) {
             $newReference = $this->updateCellReference($cellAddress);
@@ -197,7 +197,7 @@ class ReferenceHelper
             } elseif ($cellAddress !== $newReference) {
                 $worksheet->setHyperlink($cellAddress, null);
                 if ($newReference) {
-                    $worksheet->setHyperlink($newReference, $value);
+                    $worksheet->setHyperlink($newReference, $value); // @phpstan-ignore-line
                 }
             }
         }
@@ -214,8 +214,8 @@ class ReferenceHelper
     {
         $aStyles = $worksheet->getConditionalStylesCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
-            ? uksort($aStyles, [self::class, 'cellReverseSort'])
-            : uksort($aStyles, [self::class, 'cellSort']);
+            ? uksort($aStyles, self::cellReverseSort(...))
+            : uksort($aStyles, self::cellSort(...));
 
         foreach ($aStyles as $cellAddress => $cfRules) {
             $worksheet->removeConditionalStyles($cellAddress);
@@ -255,8 +255,8 @@ class ReferenceHelper
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
-            ? uksort($aDataValidationCollection, [self::class, 'cellReverseSort'])
-            : uksort($aDataValidationCollection, [self::class, 'cellSort']);
+            ? uksort($aDataValidationCollection, self::cellReverseSort(...))
+            : uksort($aDataValidationCollection, self::cellSort(...));
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
             $formula = $dataValidation->getFormula1();
@@ -292,6 +292,7 @@ class ReferenceHelper
                 $newReference .= $separator . $this->updateCellReference($addressPart);
                 $separator = ' ';
             }
+            /** @var non-decimal-int-string $newReference */
             if ($cellAddress !== $newReference) {
                 $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
@@ -353,7 +354,9 @@ class ReferenceHelper
                 $outArray = [];
                 foreach ($extracted as $cellAddress) {
                     if (!$cellReferenceHelper->cellAddressInDeleteRange($cellAddress)) {
-                        $outArray[$this->updateCellReference($cellAddress)] = 'x';
+                        /** @var non-decimal-int-string */
+                        $temp = $this->updateCellReference($cellAddress);
+                        $outArray[$temp] = 'x';
                     }
                 }
                 $outArray2 = Coordinate::mergeRangesInCollection($outArray);
@@ -1171,11 +1174,12 @@ class ReferenceHelper
         for ($row = 1; $row <= $highestRow - 1; ++$row) {
             for ($column = $startColumnId; $column !== $endColumnId; StringHelper::stringIncrement($column)) {
                 $coordinate = $column . $row;
-                $this->clearStripCell($worksheet, $coordinate);
+                $this->clearStripCell($worksheet, $coordinate); // @phpstan-ignore-line
             }
         }
     }
 
+    /** @param non-decimal-int-string $highestColumn */
     private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
     {
         $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
@@ -1184,11 +1188,12 @@ class ReferenceHelper
         for ($column = $startColumnId; $column !== $highestColumn; StringHelper::stringIncrement($column)) {
             for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
                 $coordinate = $column . $row;
-                $this->clearStripCell($worksheet, $coordinate);
+                $this->clearStripCell($worksheet, $coordinate); // @phpstan-ignore-line
             }
         }
     }
 
+    /** @param non-decimal-int-string $coordinate */
     private function clearStripCell(Worksheet $worksheet, string $coordinate): void
     {
         $worksheet->removeConditionalStyles($coordinate);

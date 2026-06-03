@@ -258,7 +258,7 @@ class Ods extends BaseReader
         return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
-    /** @var array<string,
+    /** @var array<
      *  array{
      *     font?:array{
      *       autoColor?: true,

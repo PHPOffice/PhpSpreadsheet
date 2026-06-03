@@ -113,7 +113,7 @@ class Worksheet extends BIFFwriter
     /**
      * Reference to the array containing all the unique strings in the workbook.
      *
-     * @var array<string, int>
+     * @var array<int>
      */
     private array $stringTable;
 
@@ -526,6 +526,7 @@ class Worksheet extends BIFFwriter
     /** @deprecated 5.6.0 Use AddressRange::MAX_ROW_XLS */
     public const MAX_XLS_ROW = AddressRange::MAX_ROW_XLS;
 
+    /** @param non-decimal-int-string $exploded */
     private static function limitRange(string $exploded): string
     {
         $retVal = '';
@@ -555,6 +556,7 @@ class Worksheet extends BIFFwriter
         foreach ($this->phpSheet->getConditionalStylesCollection() as $key => $value) {
             $keyExplode = explode(',', Coordinate::resolveUnionAndIntersection($key));
             foreach ($keyExplode as $exploded) {
+                /** @var non-decimal-int-string $exploded */
                 $range = self::limitRange($exploded);
                 if ($range !== '') {
                     $arrConditionalStyles[$range] = $value;
@@ -2785,7 +2787,7 @@ class Worksheet extends BIFFwriter
 
                 // cell range address list
                 $data .= pack('v', 0x0001);
-                $data .= $this->writeBIFF8CellRangeAddressFixed($cellCoordinate);
+                $data .= $this->writeBIFF8CellRangeAddressFixed("$cellCoordinate");
 
                 $length = strlen($data);
                 $header = pack('vv', $record, $length);

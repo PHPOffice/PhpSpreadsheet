@@ -10,6 +10,7 @@ class PageBreak
 {
     private int $breakType;
 
+    /** @var non-decimal-int-string */
     private string $coordinate;
 
     private int $maxColOrRow;
@@ -30,6 +31,7 @@ class PageBreak
         return $this->breakType;
     }
 
+    /** @return non-decimal-int-string */
     public function getCoordinate(): string
     {
         return $this->coordinate;
@@ -50,6 +52,7 @@ class PageBreak
         return Coordinate::indexesFromString($this->coordinate)[1];
     }
 
+    /** @return non-decimal-int-string */
     public function getColumnString(): string
     {
         return Coordinate::indexesFromString($this->coordinate)[2];

@@ -353,12 +353,16 @@ class Functions
         return (string) preg_replace('/:[\w\$]+$/', '', $coordinate);
     }
 
+    /**
+     * @return non-decimal-int-string
+     */
     public static function trimSheetFromCellReference(string $coordinate): string
     {
         if (str_contains($coordinate, '!')) {
             $coordinate = substr($coordinate, strrpos($coordinate, '!') + 1);
         }
 
+        /** @var non-decimal-int-string */
         return $coordinate;
     }
 

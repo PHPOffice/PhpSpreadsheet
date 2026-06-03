@@ -51,6 +51,7 @@ class VLookup extends LookupBase
         if (!$notExactMatch) {
             /** @var callable $callable */
             $callable = [self::class, 'vlookupSort'];
+            /** @var array<int, mixed> $lookupArray */
             uasort($lookupArray, $callable);
         }
 

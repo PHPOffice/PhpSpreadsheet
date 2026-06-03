@@ -3598,6 +3598,7 @@ class Xls extends XlsBase
         return $selectedCells;
     }
 
+    /** @param non-decimal-int-string $cellRangeAddress */
     private function includeCellRangeFiltered(string $cellRangeAddress): bool
     {
         $includeCellRange = false;
@@ -3636,7 +3637,7 @@ class Xls extends XlsBase
         if ($this->version == self::XLS_BIFF8 && !$this->readDataOnly) {
             $cellRangeAddressList = Xls\Biff8::readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-                /** @var string $cellRangeAddress */
+                /** @var non-decimal-int-string $cellRangeAddress */
                 if (
                     (str_contains($cellRangeAddress, ':'))
                     && ($this->includeCellRangeFiltered($cellRangeAddress))

@@ -526,17 +526,19 @@ class Xml extends BaseReader
                             }
 
                             $hyperlink = null;
-                            if ($spreadsheet->getActiveSheet()->hyperlinkExists($columnID . $rowID)) {
-                                $hyperlink = $spreadsheet->getActiveSheet()->getHyperlink($columnID . $rowID);
+                            /** @var non-decimal-int-string */
+                            $targetCell = "$columnID$rowID";
+                            if ($spreadsheet->getActiveSheet()->hyperlinkExists($targetCell)) {
+                                $hyperlink = $spreadsheet->getActiveSheet()->getHyperlink($targetCell);
                             }
                             $spreadsheet->getActiveSheet()
-                                ->getCell($columnID . $rowID)
+                                ->getCell($targetCell)
                                 ->setValueExplicit(
                                     $hasCalculatedValue ? $cellDataFormula : $cellValue,
                                     $type
                                 );
                             $spreadsheet->getActiveSheet()
-                                ->setHyperlink($columnID . $rowID, $hyperlink);
+                                ->setHyperlink($targetCell, $hyperlink);
                             if ($hasCalculatedValue) {
                                 $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setCalculatedValue($cellValue, $originalType === DataType::TYPE_NUMERIC);
                             }

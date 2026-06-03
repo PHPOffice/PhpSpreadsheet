@@ -349,6 +349,8 @@ class Slk extends BaseReader
         $this->addFormats($spreadsheet, $formatStyle, $row, $column);
         $this->addFonts($spreadsheet, $fontStyle, $row, $column);
         $this->addStyle($spreadsheet, $styleData, $row, $column);
+        /** @var non-decimal-int-string $startCol */
+        /** @var non-decimal-int-string $endCol */
         $this->addWidth($spreadsheet, $columnWidth, $startCol, $endCol);
     }
 
@@ -411,6 +413,10 @@ class Slk extends BaseReader
         }
     }
 
+    /**
+     * @param non-decimal-int-string $startCol
+     * @param non-decimal-int-string $endCol
+     */
     private function addWidth(Spreadsheet $spreadsheet, string $columnWidth, string $startCol, string $endCol): void
     {
         if ($columnWidth > '') {
@@ -422,7 +428,7 @@ class Slk extends BaseReader
                 $endCol = Coordinate::stringFromColumnIndex((int) $endCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
-                    /** @var string $startCol */
+                    /** @var non-decimal-int-string $startCol */
                     $spreadsheet->getActiveSheet()
                         ->getColumnDimension(
                             StringHelper::stringIncrement($startCol)

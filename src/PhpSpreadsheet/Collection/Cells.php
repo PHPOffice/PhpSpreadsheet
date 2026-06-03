@@ -29,6 +29,8 @@ class Cells
 
     /**
      * Coordinate of the currently active Cell.
+     *
+     * @var null|non-decimal-int-string
      */
     private ?string $currentCoordinate = null;
 
@@ -53,7 +55,7 @@ class Cells
     /**
      * Index keys cache to avoid recalculating on large arrays.
      *
-     * @var null|string[]
+     * @var null|non-decimal-int-string[]
      */
     private ?array $indexKeysCache = null;
 
@@ -144,22 +146,22 @@ class Cells
     /**
      * Get a list of all cell coordinates currently held in the collection.
      *
-     * @return string[]
+     * @return non-decimal-int-string[]
      */
     public function getCoordinates(): array
     {
         // Build or rebuild index keys cache
         if ($this->indexKeysCache === null) {
-            $this->indexKeysCache = array_keys($this->index);
+            $this->indexKeysCache = array_keys($this->index); // @phpstan-ignore-line
         }
 
-        return $this->indexKeysCache;
+        return $this->indexKeysCache; // @phpstan-ignore-line
     }
 
     /**
      * Get a sorted list of all cell coordinates currently held in the collection by row and column.
      *
-     * @return string[]
+     * @return non-decimal-int-string[]
      */
     public function getSortedCoordinates(): array
     {
@@ -174,10 +176,10 @@ class Cells
 
         // Build or rebuild index keys cache
         if ($this->indexKeysCache === null) {
-            $this->indexKeysCache = array_keys($this->index);
+            $this->indexKeysCache = array_keys($this->index); // @phpstan-ignore-line
         }
 
-        return $this->indexKeysCache;
+        return $this->indexKeysCache; // @phpstan-ignore-line
     }
 
     /**
@@ -204,6 +206,8 @@ class Cells
 
     /**
      * Return the cell coordinate of the currently active cell object.
+     *
+     * @return null|non-decimal-int-string
      */
     public function getCurrentCoordinate(): ?string
     {
@@ -212,14 +216,18 @@ class Cells
 
     /**
      * Return the column coordinate of the currently active cell object.
+     *
+     * @return non-decimal-int-string
      */
     public function getCurrentColumn(): string
     {
         $column = 0;
         $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
+        /** @var non-decimal-int-string */
+        $temp = "$column";
 
-        return (string) $column;
+        return $temp;
     }
 
     /**
@@ -237,7 +245,7 @@ class Cells
     /**
      * Get highest worksheet column and highest row that have cell records.
      *
-     * @return array{row: int, column: string} Highest column name and highest row number
+     * @return array{row: int, column: non-decimal-int-string} Highest column name and highest row number
      */
     public function getHighestRowAndColumn(): array
     {
@@ -262,7 +270,7 @@ class Cells
      * @param null|int|string $row Return the highest column for the specified row,
      *                    or the highest column of any row if no row number is passed
      *
-     * @return string Highest column name
+     * @return non-decimal-int-string Highest column name
      */
     public function getHighestColumn($row = null): string
     {
@@ -433,7 +441,7 @@ class Cells
     /**
      * Add or update a cell identified by its coordinate into the collection.
      *
-     * @param string $cellCoordinate Coordinate of the cell to update
+     * @param non-decimal-int-string $cellCoordinate Coordinate of the cell to update
      * @param Cell $cell Cell to update
      */
     public function add(string $cellCoordinate, Cell $cell): Cell
@@ -462,7 +470,7 @@ class Cells
     /**
      * Get cell at a specific coordinate.
      *
-     * @param string $cellCoordinate Coordinate of the cell
+     * @param non-decimal-int-string $cellCoordinate Coordinate of the cell
      *
      * @return null|Cell Cell that was found, or null if not found
      */

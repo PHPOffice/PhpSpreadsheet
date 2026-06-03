@@ -175,7 +175,7 @@ final class StructuredReference implements Operand, Stringable
     }
 
     /**
-     * @param array{array{string, int}, array{string, int}} $tableRange
+     * @param array{array{non-decimal-int-string, int}, array{non-decimal-int-string, int}} $tableRange
      *
      * @return mixed[]
      */
@@ -187,7 +187,7 @@ final class StructuredReference implements Operand, Stringable
         $columns = [];
         $lastColumn = StringHelper::stringIncrement($tableRange[1][0]);
         for ($column = $tableRange[0][0]; $column !== $lastColumn; StringHelper::stringIncrement($column)) {
-            /** @var string $column */
+            /** @var non-decimal-int-string $column */
             $columns[$column] = $worksheet
                 ->getCell($column . ($this->headersRow ?? ($this->firstDataRow - 1)))
                 ->getCalculatedValue();

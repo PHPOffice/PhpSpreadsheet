@@ -31,6 +31,8 @@ class Table implements Stringable
 
     /**
      * Table Range.
+     *
+     * @var non-decimal-int-string
      */
     private string $range = '';
 
@@ -259,6 +261,8 @@ class Table implements Stringable
 
     /**
      * Get Table Range.
+     *
+     * @return non-decimal-int-string
      */
     public function getRange(): string
     {
@@ -296,7 +300,9 @@ class Table implements Stringable
             throw new PhpSpreadsheetException('The table range must be at least 1 column and row');
         }
 
-        $this->range = $range;
+        /** @var non-decimal-int-string */
+        $rangetemp = "$range";
+        $this->range = $rangetemp;
         $this->autoFilter->setRange($range);
 
         //    Discard any column rules that are no longer valid within this range

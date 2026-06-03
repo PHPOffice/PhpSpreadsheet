@@ -30,15 +30,17 @@ abstract class Coordinate
      *
      * @param string $cellAddress eg: 'A1'
      *
-     * @return array{0: string, 1: string} Array containing column and row (indexes 0 and 1)
+     * @return array{0: non-decimal-int-string, 1: string} Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString(string $cellAddress): array
     {
         if (preg_match(self::A1_COORDINATE_REGEX, $cellAddress, $matches)) {
             $row = (int) ltrim($matches['row'], '$');
+            /** @var non-decimal-int-string */
+            $matchesCol = "{$matches['col']}";
             // reluctantly allow row 0 due to regression problems
             if (/*$row > 0 &&*/ $row <= AddressRange::MAX_ROW) {
-                return [$matches['col'], $matches['row']];
+                return [$matchesCol, $matches['row']];
             }
         } elseif (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -54,11 +56,12 @@ abstract class Coordinate
      *
      * @param string $coordinates eg: 'A1', '$B$12'
      *
-     * @return array{0: int, 1: int, 2: string} Array containing column and row index, and column string
+     * @return array{0: int, 1: int, 2: non-decimal-int-string} Array containing column and row index, and column string
      */
     public static function indexesFromString(string $coordinates): array
     {
         [$column, $row] = self::coordinateFromString($coordinates);
+        /** @var non-decimal-int-string */
         $column = ltrim($column, '$');
 
         return [
@@ -280,9 +283,9 @@ abstract class Coordinate
     /**
      * Calculate range boundaries.
      *
-     * @param string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
+     * @param non-decimal-int-string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
      *
-     * @return array{array{string, int}, array{string, int}} Range coordinates [Start Cell, End Cell]
+     * @return array{array{non-decimal-int-string, int}, array{non-decimal-int-string, int}} Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
     public static function getRangeBoundaries(string $range): array
@@ -456,10 +459,12 @@ abstract class Coordinate
      * String from column index.
      *
      * @param int|numeric-string $columnIndex Column index (A = 1)
+     *
+     * @return non-decimal-int-string
      */
     public static function stringFromColumnIndex(int|string $columnIndex, bool $tolerateZero = false): string
     {
-        /** @var string[] */
+        /** @var non-decimal-int-string[] */
         static $indexCache = [];
         $columnIndex2 = (int) $columnIndex;
         if ($columnIndex2 === 0 && $tolerateZero) {
@@ -481,6 +486,7 @@ abstract class Coordinate
             $indexCache[$columnIndex] = $base26;
         }
 
+        /** @var non-decimal-int-string[] $indexCache */
         return $indexCache[$columnIndex];
     }
 
@@ -489,7 +495,7 @@ abstract class Coordinate
      *
      * @param string $cellRange Range: e.g. 'A1' or 'A1:C10' or 'A1:E10,A20:E25' or 'A1:E5 C3:G7' or 'A1:C1,A3:C3 B1:C3'
      *
-     * @return string[] Array containing single cell references
+     * @return non-decimal-int-string[] Array containing single cell references
      */
     public static function extractAllCellReferencesInRange(string $cellRange): array
     {
@@ -525,6 +531,7 @@ abstract class Coordinate
         $cellList = array_merge(...$cells); //* @phpstan-ignore-line
         // Unsure how to satisfy phpstan in line above
 
+        /** @var non-decimal-int-string[] */
         $retVal = array_map(
             fn (string $cellAddress) => ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress,
             self::sortCellReferenceArray($cellList)
@@ -688,13 +695,14 @@ abstract class Coordinate
      *
      *    [ 'A1:A3' => 'x', 'A4' => 'y' ]
      *
-     * @param array<string, mixed> $coordinateCollection associative array mapping coordinates to values
+     * @param array<non-decimal-int-string, mixed> $coordinateCollection associative array mapping coordinates to values
      *
      * @return array<string, mixed> associative array mapping coordinate ranges to values
      */
     public static function mergeRangesInCollection(array $coordinateCollection): array
     {
         $hashedValues = [];
+        /** @var array<non-decimal-int-string, mixed> */
         $mergedCoordCollection = [];
 
         foreach ($coordinateCollection as $coord => $value) {
@@ -725,6 +733,7 @@ abstract class Coordinate
             sort($hashedValue->rows);
             $rowStart = null;
             $rowEnd = null;
+            /** @var array<int, non-decimal-int-string> */
             $ranges = [];
 
             foreach ($hashedValue->rows as $row) {
@@ -758,6 +767,7 @@ abstract class Coordinate
             }
         }
 
+        /** @var array<non-decimal-int-string, mixed>  $mergedCoordCollection */
         return $mergedCoordCollection;
     }
 

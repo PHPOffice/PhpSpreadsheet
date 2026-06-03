@@ -99,7 +99,7 @@ class Calculation extends CalculationLocale
     /**
      * Cache of parsed formula tokens, keyed by the raw formula string.
      *
-     * @var array<string, array<mixed>|bool>
+     * @var array<array<mixed>|bool>
      */
     private array $formulaTokenCache = [];
 
@@ -2849,6 +2849,7 @@ class Calculation extends CalculationLocale
         $returnValue = [];
         $phpSpreadsheetFunctions = &self::getFunctionsAddress();
         foreach ($phpSpreadsheetFunctions as $functionName => $function) {
+            $functionName = "$functionName";
             if ($this->isImplemented($functionName)) {
                 $returnValue[] = $functionName;
             }

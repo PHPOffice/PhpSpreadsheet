@@ -27,7 +27,7 @@ class Style
 
     private XMLWriter $writer;
 
-    /** @var array<string, callable> */
+    /** @var array<callable> */
     private array $additionalNumberFormats;
 
     /** @param array<string, callable> $additionalNumberFormats */
@@ -403,7 +403,7 @@ class Style
 
     private int $numFmtIndex = 199;
 
-    /** @var array<string, string> */
+    /** @var array<string> */
     private array $numFmtIndexes = [];
 
     private function writeNumFmt(string $numFmt): void

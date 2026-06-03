@@ -212,6 +212,7 @@ class DataValidationHelper extends Xls
             $objValidation->setPrompt($prompt);
             $objValidation->setFormula1($formula1);
             $objValidation->setFormula2($formula2);
+            /** @var non-decimal-int-string $cellRange */
             $xls->phpSheet->setDataValidation($cellRange, $objValidation);
         }
     }

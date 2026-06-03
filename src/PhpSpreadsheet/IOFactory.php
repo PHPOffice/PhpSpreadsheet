@@ -259,6 +259,7 @@ abstract class IOFactory
     /**
      * Register a writer with its type and class name.
      *
+     * @param non-decimal-int-string $writerType
      * @param class-string<IWriter> $writerClass
      */
     public static function registerWriter(string $writerType, string $writerClass): void
@@ -274,6 +275,7 @@ abstract class IOFactory
     /**
      * Register a reader with its type and class name.
      *
+     * @param non-decimal-int-string $readerType
      * @param class-string<IReader> $readerClass
      */
     public static function registerReader(string $readerType, string $readerClass): void

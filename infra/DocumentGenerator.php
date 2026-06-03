@@ -17,7 +17,16 @@ class DocumentGenerator
     ];
 
     /**
-     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
+     * @param array<
+     *     array{
+     *         category: string,
+     *         functionCall: string|string[],
+     *         argumentCount: string,
+     *         passCellReference?: bool,
+     *         passByReference?: bool[],
+     *         custom?: bool
+     *    }
+     * > $phpSpreadsheetFunctions
      */
     public static function generateFunctionListByCategory($phpSpreadsheetFunctions): string
     {
@@ -89,7 +98,16 @@ class DocumentGenerator
     }
 
     /**
-     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
+     * @param array<
+     *     array{
+     *         category: string,
+     *         functionCall: string|string[],
+     *         argumentCount: string,
+     *         passCellReference?: bool,
+     *         passByReference?: bool[],
+     *         custom?: bool
+     *    }
+     * > $phpSpreadsheetFunctions
      */
     public static function generateFunctionListByName(array $phpSpreadsheetFunctions, bool $compact = false): string
     {
@@ -112,6 +130,7 @@ class DocumentGenerator
         $lastAlphabet = null;
         $lengths = $compact ? [25, 22, 37] : [25, 31, 37];
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
+            $excelFunction = "$excelFunction";
             if (in_array($excelFunction, self::EXCLUDED_FUNCTIONS, true)) {
                 continue;
             }

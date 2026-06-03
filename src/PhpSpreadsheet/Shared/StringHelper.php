@@ -787,6 +787,12 @@ class StringHelper
      * Php introduced str_increment with Php8.3,
      * but didn't issue deprecation notices till 8.5.
      *
+     * @param non-decimal-int-string $str
+     *
+     * @param-out non-decimal-int-string $str
+     *
+     * @return non-decimal-int-string
+     *
      * @codeCoverageIgnore
      */
     public static function stringIncrement(string &$str): string

@@ -92,7 +92,7 @@ class Worksheet
     /**
      * Collection of column dimensions.
      *
-     * @var ColumnDimension[]
+     * @var array<non-decimal-int-string, ColumnDimension>
      */
     private array $columnDimensions = [];
 
@@ -167,21 +167,21 @@ class Worksheet
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
      *
-     * @var Conditional[][]
+     * @var array<non-decimal-int-string, Conditional[]>
      */
     private array $conditionalStylesCollection = [];
 
     /**
      * Collection of row breaks.
      *
-     * @var PageBreak[]
+     * @var array<non-decimal-int-string, PageBreak>
      */
     private array $rowBreaks = [];
 
     /**
      * Collection of column breaks.
      *
-     * @var PageBreak[]
+     * @var array<non-decimal-int-string, PageBreak>
      */
     private array $columnBreaks = [];
 
@@ -296,7 +296,7 @@ class Worksheet
     /**
      * Hyperlinks. Indexed by cell coordinate, e.g. 'A1'.
      *
-     * @var Hyperlink[]
+     * @var array<non-decimal-int-string, Hyperlink>
      */
     private array $hyperlinkCollection = [];
 
@@ -304,7 +304,7 @@ class Worksheet
      * Data validation objects. Indexed by cell coordinate, e.g. 'A1'.
      * Index can include ranges, and multiple cells/ranges.
      *
-     * @var DataValidation[]
+     * @var array<non-decimal-int-string, DataValidation>
      */
     private array $dataValidationCollection = [];
 
@@ -644,6 +644,7 @@ class Worksheet
             $newColumnDimensions[$objColumnDimension->getColumnIndex()] = $objColumnDimension;
         }
 
+        /** @var array<non-decimal-int-string, ColumnDimension> $newColumnDimensions */
         $this->columnDimensions = $newColumnDimensions;
 
         return $this;
@@ -720,6 +721,7 @@ class Worksheet
 
             // loop through all cells in the worksheet
             foreach ($this->getCoordinates(false) as $coordinate) {
+                /** @var non-decimal-int-string $coordinate */
                 $cell = $this->getCellOrNull($coordinate);
 
                 if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
@@ -791,7 +793,7 @@ class Worksheet
                 if ($width == -1) {
                     $width = $this->getDefaultColumnDimension()->getWidth();
                 }
-                $this->getColumnDimension($columnIndex)->setWidth($width);
+                $this->getColumnDimension("$columnIndex")->setWidth($width);
             }
             $this->activePane = $holdActivePane;
         }
@@ -1062,7 +1064,7 @@ class Worksheet
      * @param null|int|string $row Return the data highest column for the specified row,
      *                                     or the highest column of any row if no row number is passed
      *
-     * @return string Highest column name
+     * @return non-decimal-int-string Highest column name
      */
     public function getHighestColumn($row = null): string
     {
@@ -1079,7 +1081,7 @@ class Worksheet
      * @param null|int|string $row Return the highest data column for the specified row,
      *                                     or the highest data column of any row if no row number is passed
      *
-     * @return string Highest column name that contains data
+     * @return non-decimal-int-string Highest column name that contains data
      */
     public function getHighestDataColumn($row = null): string
     {
@@ -1196,6 +1198,7 @@ class Worksheet
 
         /** @var Worksheet $sheet */
         [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($cellAddress);
+        /** @var non-decimal-int-string $finalCoordinate */
         $cell = $sheet->getCellCollection()->get($finalCoordinate);
 
         return $cell ?? $sheet->createNewCell($finalCoordinate);
@@ -1256,7 +1259,7 @@ class Worksheet
     /**
      * Get an existing cell at a specific coordinate, or null.
      *
-     * @param string $coordinate Coordinate of the cell, eg: 'A1'
+     * @param non-decimal-int-string $coordinate Coordinate of the cell, eg: 'A1'
      *
      * @return null|Cell Cell that was found or null
      */
@@ -1273,7 +1276,7 @@ class Worksheet
     /**
      * Create a new cell at the specified coordinate.
      *
-     * @param string $coordinate Coordinate of the cell
+     * @param non-decimal-int-string $coordinate Coordinate of the cell
      *
      * @return Cell Cell that was created
      *              WARNING: Because the cell collection can be cached to reduce memory, it only allows one
@@ -1381,7 +1384,9 @@ class Worksheet
 
         // Fetch dimensions
         if (!isset($this->columnDimensions[$column])) {
-            $this->columnDimensions[$column] = new ColumnDimension($column);
+            /** @var non-decimal-int-string */
+            $temp = "$column";
+            $this->columnDimensions[$temp] = new ColumnDimension($temp);
 
             $columnIndex = Coordinate::columnIndexFromString($column);
             if ($this->cachedHighestColumn < $columnIndex) {
@@ -1605,7 +1610,7 @@ class Worksheet
     /**
      * Get collection of conditional styles.
      *
-     * @return Conditional[][]
+     * @return array<non-decimal-int-string, Conditional[]>
      */
     public function getConditionalStylesCollection(): array
     {
@@ -1622,7 +1627,7 @@ class Worksheet
      */
     public function setConditionalStyles(string $coordinate, array $styles): static
     {
-        $this->conditionalStylesCollection[strtoupper($coordinate)] = $styles;
+        $this->conditionalStylesCollection[strtoupper($coordinate)] = $styles; // @phpstan-ignore-line
 
         return $this;
     }
@@ -1735,7 +1740,7 @@ class Worksheet
     /**
      * Get breaks.
      *
-     * @return int[]
+     * @return array<non-decimal-int-string, int>
      */
     public function getBreaks(): array
     {
@@ -2584,6 +2589,7 @@ class Worksheet
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
 
+        /** @var array<non-decimal-int-string, ColumnDimension> $holdColumnDimensions */
         $this->columnDimensions = $holdColumnDimensions;
 
         if ($pColumnIndex > $highestColumnIndex) {
@@ -2957,7 +2963,6 @@ class Worksheet
         // Loop through $source
         if ($strictNullComparison) {
             foreach ($source as $rowData) {
-                /** @var string */
                 $currentColumn = $startColumn;
                 foreach ($rowData as $cellValue) {
                     if ($cellValue !== $nullValue) {
@@ -3143,7 +3148,7 @@ class Worksheet
         $maxColInt = $rangeEnd[0];
 
         StringHelper::stringIncrement($maxCol);
-        /** @var array<string, bool> */
+        /** @var array<non-decimal-int-string, bool> */
         $hiddenColumns = [];
         $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden, $hiddenColumns);
         $hideColumns = !empty($hiddenColumns);
@@ -3193,7 +3198,9 @@ class Worksheet
                     $col = Coordinate::stringFromColumnIndex($thisCol);
                     if ($hideColumns === false || !isset($hiddenColumns[$col])) {
                         $columnRef = $returnCellRef ? $col : ($thisCol - $minColInt);
-                        $cell = $this->cellCollection->get("{$col}{$thisRow}");
+                        /** @var non-decimal-int-string */
+                        $temp = "{$col}{$thisRow}";
+                        $cell = $this->cellCollection->get($temp);
                         if ($cell !== null) {
                             $value = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue, lessFloatPrecision: $lessFloatPrecision, oldCalculatedValue: $oldCalculatedValue);
                             if ($reduceArrays) {
@@ -3218,13 +3225,13 @@ class Worksheet
      * Prepare a row data filled with null values to deduplicate the memory areas for empty rows.
      *
      * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
-     * @param string $minCol Start column of the range
-     * @param string $maxCol End column of the range
+     * @param non-decimal-int-string $minCol Start column of the range
+     * @param non-decimal-int-string $maxCol End column of the range
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
      *                              True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                             True - Don't return values for rows/columns that are defined as hidden.
-     * @param array<string, bool> $hiddenColumns
+     * @param array<non-decimal-int-string, bool> $hiddenColumns
      *
      * @return mixed[]
      */
@@ -3482,7 +3489,7 @@ class Worksheet
     /**
      * Get hyperlink.
      *
-     * @param string $cellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
+     * @param non-decimal-int-string $cellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
      */
     public function getHyperlink(string $cellCoordinate): Hyperlink
     {
@@ -3501,7 +3508,7 @@ class Worksheet
     /**
      * Set hyperlink.
      *
-     * @param string $cellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
+     * @param non-decimal-int-string $cellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
      *
      * @return $this
      */
@@ -3524,7 +3531,7 @@ class Worksheet
     /**
      * Hyperlink at a specific coordinate exists?
      *
-     * @param string $coordinate eg: 'A1'
+     * @param non-decimal-int-string $coordinate eg: 'A1'
      */
     public function hyperlinkExists(string $coordinate): bool
     {
@@ -3534,7 +3541,7 @@ class Worksheet
     /**
      * Get collection of hyperlinks.
      *
-     * @return Hyperlink[]
+     * @return array<non-decimal-int-string, Hyperlink>
      */
     public function getHyperlinkCollection(): array
     {
@@ -3544,7 +3551,7 @@ class Worksheet
     /**
      * Get data validation.
      *
-     * @param string $cellCoordinate Cell coordinate to get data validation for, eg: 'A1'
+     * @param non-decimal-int-string $cellCoordinate Cell coordinate to get data validation for, eg: 'A1'
      */
     public function getDataValidation(string $cellCoordinate): DataValidation
     {
@@ -3579,7 +3586,7 @@ class Worksheet
     /**
      * Set data validation.
      *
-     * @param string $cellCoordinate Cell coordinate to insert data validation, eg: 'A1'
+     * @param non-decimal-int-string $cellCoordinate Cell coordinate to insert data validation, eg: 'A1'
      *
      * @return $this
      */
@@ -3625,7 +3632,7 @@ class Worksheet
     /**
      * Get collection of data validations.
      *
-     * @return DataValidation[]
+     * @return array<non-decimal-int-string, DataValidation>
      */
     public function getDataValidationCollection(): array
     {
@@ -3655,6 +3662,7 @@ class Worksheet
 
         $rangeBlocks = explode(' ', $range);
         foreach ($rangeBlocks as &$rangeSet) {
+            /** @var non-decimal-int-string $rangeSet */
             $rangeBoundaries = Coordinate::getRangeBoundaries($rangeSet);
 
             if (Coordinate::columnIndexFromString($rangeBoundaries[0][0]) > $maxCol) {

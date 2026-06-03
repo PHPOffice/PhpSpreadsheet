@@ -185,6 +185,7 @@ class Spreadsheet implements JsonSerializable
     ];
 
     /**
+     * @param non-decimal-int-string $fontName
      * @param int $charset uses any value from Shared\Font,
      *    but defaults to ARABIC because that is the only known
      *    charset for which this declaration might be needed

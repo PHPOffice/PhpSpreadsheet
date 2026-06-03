@@ -7,7 +7,16 @@ class FunctionArray extends CalculationBase
     /**
      * Array of functions usable on Spreadsheet.
      *
-     * @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}>
+     * @var array<
+     *     array{
+     *         category: string,
+     *         functionCall: string|string[],
+     *         argumentCount: string,
+     *         passCellReference?: bool,
+     *         passByReference?: bool[],
+     *         custom?: bool
+     *     }
+     * >
      */
     protected static array $phpSpreadsheetFunctions = [ // @phpstan-ignore-line
         'ABS' => [

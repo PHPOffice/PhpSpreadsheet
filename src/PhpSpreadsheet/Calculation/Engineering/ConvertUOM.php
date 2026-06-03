@@ -473,7 +473,7 @@ class ConvertUOM
      *
      * @param ?string $category The group whose units of measure you want to retrieve
      *
-     * @return array<string, list<array<string, string>>>
+     * @return array<list<array<string>>>
      */
     public static function getConversionCategoryUnitDetails(?string $category = null): array
     {

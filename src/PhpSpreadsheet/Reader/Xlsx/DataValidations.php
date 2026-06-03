@@ -36,7 +36,9 @@ class DataValidations
         }
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
-            $range = strtoupper((string) $dataValidation['sqref']);
+            $rangex = strtoupper((string) $dataValidation['sqref']);
+            /** @var non-decimal-int-string */
+            $range = "$rangex";
             $docValidation = new DataValidation();
             $docValidation->setType((string) $dataValidation['type']);
             $docValidation->setErrorStyle((string) $dataValidation['errorStyle']);

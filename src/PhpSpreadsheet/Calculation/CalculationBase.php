@@ -7,7 +7,16 @@ class CalculationBase
     /**
      * Get a list of all implemented functions as an array of function objects.
      *
-     * @return array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}>
+     * @return array<
+     *     array{
+     *         category: string,
+     *         functionCall: string|string[],
+     *         argumentCount: string,
+     *         passCellReference?: bool,
+     *         passByReference?: bool[],
+     *         custom?: bool
+     *     }
+     * >
      */
     public static function getFunctions(): array
     {
@@ -17,7 +26,7 @@ class CalculationBase
     /**
      * Get address of list of all implemented functions as an array of function objects.
      *
-     * @return array<string, array<string, mixed>>
+     * @return array<array<string, mixed>>
      */
     protected static function &getFunctionsAddress(): array
     {
@@ -25,7 +34,14 @@ class CalculationBase
     }
 
     /**
-     * @param array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool} $value
+     * @param array{
+     *     category: string,
+     *     functionCall: string|string[],
+     *     argumentCount: string,
+     *     passCellReference?: bool,
+     *     passByReference?: bool[],
+     *     custom?: bool
+     * } $value
      */
     public static function addFunction(string $key, array $value): bool
     {

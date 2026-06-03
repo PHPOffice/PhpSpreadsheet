@@ -98,7 +98,9 @@ class Styles extends BaseParserClass
                 $charsetAttr = $this->getStyleAttributes($fontStyleXml->charset);
                 if (isset($charsetAttr['val'])) {
                     $charsetVal = (int) $charsetAttr['val'];
-                    $this->fontCharsets[$fontStyle->getName()] = $charsetVal;
+                    /** @var non-decimal-int-string */
+                    $fontName = $fontStyle->getName();
+                    $this->fontCharsets[$fontName] = $charsetVal;
                 }
             }
         }

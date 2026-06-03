@@ -172,6 +172,7 @@ class DataValidations
                 }
             }
 
+            /** @var non-decimal-int-string $combinedCells */
             $sheet->setDataValidation($combinedCells, $validation);
         }
     }

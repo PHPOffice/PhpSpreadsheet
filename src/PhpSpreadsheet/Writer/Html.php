@@ -631,9 +631,10 @@ class Html extends BaseWriter
                             $rowData[$column] = ($sheet->getCellCollection()->has($cellAddress)) ? $cellAddress : '';
                         }
                         ++$column;
-                        /** @var string $colStr */
+                        /** @var non-decimal-int-string $colStr */
                         StringHelper::stringIncrement($colStr);
                     }
+                    /** @var array<int, non-decimal-int-string> $rowData */
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
 
@@ -1504,7 +1505,11 @@ class Html extends BaseWriter
         return $html;
     }
 
-    /** @return array{null|''|Cell, array{}|string, non-empty-string} */
+    /**
+     * @param non-decimal-int-string $cellAddress
+     *
+     * @return array{null|''|Cell, array{}|string, non-decimal-int-string}
+     */
     private function generateRowCellCss(Worksheet $worksheet, string $cellAddress, int $row, int $columnNumber): array
     {
         $cell = ($cellAddress > '') ? $worksheet->getCellCollection()->get($cellAddress) : '';
@@ -1515,7 +1520,7 @@ class Html extends BaseWriter
             $cssClass = [];
         }
 
-        return [$cell, $cssClass, $coordinate];
+        return [$cell, $cssClass, $coordinate]; // @phpstan-ignore-line
     }
 
     private function generateRowCellDataValueRich(RichText $richText, ?Font $defaultFont = null): string
@@ -1896,7 +1901,7 @@ class Html extends BaseWriter
     /**
      * Generate row.
      *
-     * @param array<int, string> $values Array containing cells in a row
+     * @param array<int, non-decimal-int-string> $values Array containing cells in a row
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */

@@ -11,7 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    /** @param mixed[] $expectedRule */
+    /**
+     * @param non-decimal-int-string $expectedRange
+     * @param mixed[] $expectedRule
+     */
     #[DataProvider('dataValidationProvider')]
     public function testDataValidation(string $expectedRange, array $expectedRule): void
     {

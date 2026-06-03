@@ -100,14 +100,14 @@ class Parser
     /**
      * Array of external sheets.
      *
-     * @var array<string, int>
+     * @var array<int>
      */
     private array $externalSheets;
 
     /**
      * Array of sheet references in the form of REF structures.
      *
-     * @var array<int|string, int|string>
+     * @var array<int|string>
      */
     public array $references;
 

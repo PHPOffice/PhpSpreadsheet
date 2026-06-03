@@ -116,7 +116,9 @@ class RowCellIterator extends CellIterator
      */
     public function current(): ?Cell
     {
-        $cellAddress = Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex;
+        $temp = Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex;
+        /** @var non-decimal-int-string */
+        $cellAddress = "$temp";
 
         return $this->cellCollection->has($cellAddress)
             ? $this->cellCollection->get($cellAddress)

@@ -81,9 +81,10 @@ class ConditionalStyles
         }
     }
 
-    /** @return array<string, array<int, Conditional>> */
+    /** @return array<non-decimal-int-string, array<int, Conditional>> */
     private function readConditionalsFromExt(SimpleXMLElement $extLst): array
     {
+        /** @var array<non-decimal-int-string, array<int, Conditional>> */
         $conditionals = [];
         if (!isset($extLst->ext)) {
             return $conditionals;
@@ -106,7 +107,9 @@ class ConditionalStyles
                     continue;
                 }
 
-                $sqref = (string) $extFormattingRangeXml->sqref;
+                $sqrefx = (string) $extFormattingRangeXml->sqref;
+                /** @var non-decimal-int-string */
+                $sqref = "$sqrefx";
                 $extCfRuleXml = $extFormattingXml->cfRule;
 
                 $attributes = $extCfRuleXml->attributes();

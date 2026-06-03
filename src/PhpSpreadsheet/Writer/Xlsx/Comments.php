@@ -55,7 +55,7 @@ class Comments extends WriterPart
         // Loop through authors
         $objWriter->startElement('authors');
         foreach ($authors as $author => $index) {
-            $objWriter->writeElement('author', $author);
+            $objWriter->writeElement('author', "$author");
         }
         $objWriter->endElement();
 
@@ -77,7 +77,7 @@ class Comments extends WriterPart
      *
      * @param string $cellReference Cell reference
      * @param Comment $comment Comment
-     * @param array<string, int> $authors Array of authors
+     * @param array<int> $authors Array of authors
      */
     private function writeComment(XMLWriter $objWriter, string $cellReference, Comment $comment, array $authors): void
     {

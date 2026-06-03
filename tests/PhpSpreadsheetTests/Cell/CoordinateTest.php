@@ -260,6 +260,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellRangeDimension.php';
     }
 
+    /** @param non-decimal-int-string $rangeSet */
     #[DataProvider('providerGetRangeBoundaries')]
     public function testGetRangeBoundaries(mixed $expectedResult, string $rangeSet): void
     {
@@ -330,7 +331,7 @@ class CoordinateTest extends TestCase
         return [['Z1:A1'], ['A4:A1'], ['B1:A1'], ['AA1:Z1']];
     }
 
-    /** @param array<string, mixed> $rangeSets */
+    /** @param array<non-decimal-int-string, mixed> $rangeSets */
     #[DataProvider('providerMergeRangesInCollection')]
     public function testMergeRangesInCollection(mixed $expectedResult, array $rangeSets): void
     {

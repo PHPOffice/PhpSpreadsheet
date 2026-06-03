@@ -10,7 +10,7 @@ class HashTable
     /**
      * HashTable elements.
      *
-     * @var array<string, T>
+     * @var array<T>
      */
     protected array $items = [];
 

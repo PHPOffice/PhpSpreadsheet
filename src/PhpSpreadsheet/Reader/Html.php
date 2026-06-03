@@ -260,9 +260,14 @@ class Html extends BaseReader
 
     protected int $tableLevel = 0;
 
-    /** @var string[] */
+    /** @var non-decimal-int-string[] */
     protected array $nestedColumn = ['A'];
 
+    /**
+     * @param non-decimal-int-string $column
+     *
+     * @return non-decimal-int-string
+     */
     protected function setTableStartColumn(string $column): string
     {
         if ($this->tableLevel == 0) {
@@ -274,11 +279,13 @@ class Html extends BaseReader
         return $this->nestedColumn[$this->tableLevel];
     }
 
+    /** @return non-decimal-int-string */
     protected function getTableStartColumn(): string
     {
         return $this->nestedColumn[$this->tableLevel];
     }
 
+    /** @return non-decimal-int-string */
     protected function releaseTableStartColumn(): string
     {
         --$this->tableLevel;
@@ -337,7 +344,9 @@ class Html extends BaseReader
                     }
 
                     //catching the Exception and ignoring the invalid data types
-                    $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
+                    /** @var non-decimal-int-string */
+                    $temp = "$column$row";
+                    $hyperlink = $sheet->hyperlinkExists($temp) ? $sheet->getHyperlink($temp) : null;
 
                     try {
                         if (isset($attributeArray['data-formula'])) {
@@ -360,14 +369,18 @@ class Html extends BaseReader
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
-                    $sheet->setHyperlink($column . $row, $hyperlink);
+                    /** @var non-decimal-int-string */
+                    $temp = "$column$row";
+                    $sheet->setHyperlink($temp, $hyperlink);
                 } else {
+                    /** @var non-decimal-int-string */
+                    $temp = "$column$row";
                     $hyperlink = null;
-                    if ($sheet->hyperlinkExists($column . $row)) {
-                        $hyperlink = $sheet->getHyperlink($column . $row);
+                    if ($sheet->hyperlinkExists($temp)) {
+                        $hyperlink = $sheet->getHyperlink($temp);
                     }
-                    $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
-                    $sheet->setHyperlink($column . $row, $hyperlink);
+                    $sheet->setCellValue($temp, $attributeArray['data-value'] ?? $cellContent);
+                    $sheet->setHyperlink($temp, $hyperlink);
                 }
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
             }
@@ -406,6 +419,11 @@ class Html extends BaseReader
         return $cellContent;
     }
 
+    /**
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
     {
         $attributeArray = [];
@@ -425,7 +443,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementTitle(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'title') {
@@ -445,7 +468,12 @@ class Html extends BaseReader
 
     private const SPAN_ETC = ['span', 'div', 'font', 'i', 'em', 'strong', 'b'];
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementSpanEtc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array((string) $child->nodeName, self::SPAN_ETC, true)) {
@@ -474,7 +502,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementHr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'hr') {
@@ -487,7 +520,12 @@ class Html extends BaseReader
         $this->processDomElementBr($sheet, $row, $column, $cellContent, $child, $attributeArray);
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementBr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'br' || $child->nodeName === 'hr') {
@@ -505,7 +543,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementA(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'a') {
@@ -532,7 +575,12 @@ class Html extends BaseReader
 
     private const H1_ETC = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'p'];
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementH1Etc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array((string) $child->nodeName, self::H1_ETC, true)) {
@@ -561,7 +609,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementLi(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'li') {
@@ -583,7 +636,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementImg(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'img') {
@@ -593,9 +651,15 @@ class Html extends BaseReader
         }
     }
 
+    /** @var non-decimal-int-string */
     private string $currentColumn = 'A';
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
@@ -629,7 +693,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementTr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'col') {
@@ -650,7 +719,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementThTdOther(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName !== 'td' && $child->nodeName !== 'th') {
@@ -660,7 +734,10 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     */
     private function processDomElementBgcolor(Worksheet $sheet, int $row, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['bgcolor'])) {
@@ -675,7 +752,10 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     */
     private function processDomElementWidth(Worksheet $sheet, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['width'])) {
@@ -691,7 +771,10 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     */
     private function processDomElementAlign(Worksheet $sheet, int $row, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['align'])) {
@@ -699,7 +782,10 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     */
     private function processDomElementVAlign(Worksheet $sheet, int $row, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['valign'])) {
@@ -707,7 +793,10 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     */
     private function processDomElementDataFormat(Worksheet $sheet, int $row, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['data-format'])) {
@@ -715,7 +804,12 @@ class Html extends BaseReader
         }
     }
 
-    /** @param string[] $attributeArray */
+    /**
+     * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
@@ -769,6 +863,11 @@ class Html extends BaseReader
         StringHelper::stringIncrement($column);
     }
 
+    /**
+     * @param non-decimal-int-string $column
+     *
+     * @param-out non-decimal-int-string $column
+     */
     protected function processDomElement(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent): void
     {
         foreach ($element->childNodes as $child) {
@@ -1015,6 +1114,7 @@ class Html extends BaseReader
      * - Implement to other properties, such as border
      *
      * @param string[] $attributeArray
+     * @param non-decimal-int-string $column
      */
     private function applyInlineStyle(Worksheet &$sheet, int $row, string $column, array $attributeArray): void
     {

@@ -54,7 +54,7 @@ class Axis extends Properties
     /**
      * Axis Options.
      *
-     * @var array<string, null|string>
+     * @var array<null|string>
      */
     private array $axisOptions = [
         'minimum' => null,
