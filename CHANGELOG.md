@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Changed
 
-- Nothing yet.
+- Helper/Handler is now internal and final. [PR #4896](https://github.com/PHPOffice/PhpSpreadsheet/pull/4896)
 
 ### Moved
 
