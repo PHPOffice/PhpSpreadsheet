@@ -24,7 +24,6 @@ class CloneTest extends TestCase
         } else {
             $sheet2 = clone $sheet1;
         }
-        $sheet2 = clone $sheet1;
         $sheet2->getCell('A1')->setValue(20);
         self::assertSame(0, $spreadsheet->getIndex($sheet1));
         $idx = $spreadsheet->getIndex($sheet2, true);
