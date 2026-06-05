@@ -469,7 +469,7 @@ Methods such as `toArray()` assume that all cells in a spreadsheet has been load
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define ReadFilter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+/**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private int $startRow = 0;
