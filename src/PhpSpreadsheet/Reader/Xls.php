@@ -2057,7 +2057,7 @@ class Xls extends XlsBase
                         $retstr .= substr($recordData, $pos, $len);
                         $charsLeft -= $len / 2;
                         $isCompressed = false;
-                    } elseif (!$isCompressed && ($option == 0)) {
+                    } elseif (!$isCompressed /*&& ($option == 0)*/) {
                         // 1st fragment uncompressed
                         // this fragment compressed
                         $len = min($charsLeft, $limitpos - $pos);

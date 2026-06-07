@@ -638,7 +638,9 @@ class Calculation extends CalculationLocale
 
         // Cache the result when caching is enabled (clear cache if it exceeds the maximum size)
         if ($this->formulaTokenCacheMaxSize > 0) {
-            if (count($this->formulaTokenCache) >= $this->formulaTokenCacheMaxSize) {
+            // Phpstan says if condition is always false,
+            // but coverage report says next statement is covered.
+            if (count($this->formulaTokenCache) >= $this->formulaTokenCacheMaxSize) { // @phpstan-ignore-line
                 $this->formulaTokenCache = [];
             }
             // Cache key is the original formula string (before ANCHORARRAY transformation)
@@ -2491,7 +2493,7 @@ class Calculation extends CalculationLocale
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
-        } elseif (is_array($operand2) && is_array($operand1)) {
+        } elseif (is_array($operand2) /*&& is_array($operand1)*/) {
             // Operand 1 and Operand 2 are both arrays
             if (!$recursingArrays) {
                 self::checkMatrixOperands($operand1, $operand2, 2);
@@ -2504,7 +2506,7 @@ class Calculation extends CalculationLocale
                 $result[$x] = $r['value'];
             }
         } else {
-            throw new Exception('Neither operand is an arra');
+            throw new Exception('Neither operand is an array');
         }
         //    Log the result details
         $this->debugLog->writeDebugLog('Comparison Evaluation Result is %s', $this->showTypeDetails($result));
