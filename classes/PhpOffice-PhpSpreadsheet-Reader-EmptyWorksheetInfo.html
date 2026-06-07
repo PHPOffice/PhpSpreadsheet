@@ -93,12 +93,12 @@
                                         <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-helper.html">Helper</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-reader.html">Reader</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Handler
+    EmptyWorksheetInfo
 
     
             <div class="phpdocumentor-element__package">
@@ -117,13 +117,15 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php"><a href="files/src-phpspreadsheet-reader-emptyworksheetinfo.html"><abbr title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php">EmptyWorksheetInfo.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Empty listWorksheetInfo and listWorksheetNames methods,
+facilitating migration from IReader to IReader2.</p>
+
 
 
 
@@ -134,7 +136,7 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -149,51 +151,24 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_deprecated">deprecated()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetInfo">listWorksheetInfo()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;    </span>
 </dt>
+<dd>Return empty array as worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_notice">notice()</a>
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetNames">listWorksheetNames()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_suppressed">suppressed()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userDeprecated">userDeprecated()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userNotice">userNotice()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userWarning">userWarning()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_warning">warning()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
+<dd>Return empty array as names of the worksheets from a file,
+possibly without parsing the whole file to a Spreadsheet object.</dd>
 
     </dl>
 
@@ -206,69 +181,32 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deprecated">
-        deprecated()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_deprecated" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_listWorksheetInfo">
+        listWorksheetInfo()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetInfo" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php"><a href="files/src-phpspreadsheet-reader-emptyworksheetinfo.html"><abbr title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php">EmptyWorksheetInfo.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Return empty array as worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">deprecated</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_notice">
-        notice()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_notice" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">21</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">notice</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">listWorksheetInfo</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -277,7 +215,7 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -289,43 +227,9 @@
 
     
 
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_suppressed">
-        suppressed()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_suppressed" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">11</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">suppressed</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}&gt;</span>
             </section>
 
 </article>
@@ -333,151 +237,49 @@
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_userDeprecated">
-        userDeprecated()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userDeprecated" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_listWorksheetNames">
+        listWorksheetNames()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetNames" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php"><a href="files/src-phpspreadsheet-reader-emptyworksheetinfo.html"><abbr title="src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php">EmptyWorksheetInfo.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Return empty array as names of the worksheets from a file,
+possibly without parsing the whole file to a Spreadsheet object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">userDeprecated</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">listWorksheetNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_userNotice">
-        userNotice()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userNotice" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">36</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">userNotice</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_userWarning">
-        userWarning()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userWarning" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">userWarning</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_warning">
-        warning()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_warning" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Helper/Handler.php"><a href="files/src-phpspreadsheet-helper-handler.html"><abbr title="src/PhpSpreadsheet/Helper/Handler.php">Handler.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">26</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">warning</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             </section>
 
 </article>
@@ -487,7 +289,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Helper/Handler.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/EmptyWorksheetInfo.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -588,7 +390,7 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#toc-methods">Methods</a></li>
+                                                                                <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
@@ -596,13 +398,8 @@
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_deprecated">deprecated()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_notice">notice()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_suppressed">suppressed()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userDeprecated">userDeprecated()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userNotice">userNotice()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_userWarning">userWarning()</a></li>
-                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#method_warning">warning()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetInfo">listWorksheetInfo()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#method_listWorksheetNames">listWorksheetNames()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -622,7 +419,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Helper-Handler.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-EmptyWorksheetInfo.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
