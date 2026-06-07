@@ -86,7 +86,7 @@ if (isset($post['quantity'], $post['fromUnit'], $post['toUnit'])) {
     $toUnit = $post['toUnit'];
     if (!is_numeric($quantity)) {
         $helper->log('Quantity is not numeric');
-    } elseif (isset($units[$post['category']][$fromUnit], $units[$post['category']][$toUnit])) {
+    } elseif (isset($post['category'], $units[$post['category']][$fromUnit], $units[$post['category']][$toUnit])) {
         /** @var float|string */
         $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
 

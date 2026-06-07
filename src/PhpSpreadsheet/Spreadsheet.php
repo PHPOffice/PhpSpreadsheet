@@ -510,6 +510,7 @@ class Spreadsheet implements JsonSerializable
             unset($worksheet);
         }
         $this->workSheetCollection = [];
+        $this->activeSheetIndex = -1;
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Reader\CsvNoEscape;
-use PhpOffice\PhpSpreadsheet\Reader\IReader;
+use PhpOffice\PhpSpreadsheet\Reader\IReader2 as IReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
@@ -175,6 +175,8 @@ abstract class IOFactory
      *                                 IOFactory::READER_*.
      * @param array<string, class-string<IReader>> $mergeArray supplied readers will be merged with
      *        default readers, allowing specification of a partial list.
+     *
+     * @throws Reader\Exception
      */
     public static function createReaderForFile(string $filename, ?array $readers = null, array $mergeArray = []): IReader
     {
