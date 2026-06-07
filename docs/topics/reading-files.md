@@ -469,21 +469,26 @@ Methods such as `toArray()` assume that all cells in a spreadsheet has been load
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+/**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    private $startRow = 0;
-    private $endRow   = 0;
+    private int $startRow = 0;
+    private int $endRow = 0;
 
     /**  Set the list of rows that we want to read  */
-    public function setRows($startRow, $chunkSize) {
+    public function setRows(int $startRow, int $chunkSize): void
+    {
         $this->startRow = $startRow;
-        $this->endRow   = $startRow + $chunkSize;
+        $this->endRow = $startRow + $chunkSize;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '') {
+    public function readCell(
+        string $columnAddress,
+        int $row,
+        string $worksheetName = ''
+    ): bool {
         //  Only read the heading row, and the configured rows
-        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
+        if (($row === 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
         }
         return false;

@@ -3,8 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use Exception;
-use PhpOffice\PhpSpreadsheet\Helper\Sample;
-use PhpOffice\PhpSpreadsheet\Helper\TextGridRightAlign;
 use Stringable;
 
 class SortExcel
@@ -16,10 +14,20 @@ class SortExcel
 
     private int $ascending;
 
+    private bool $libreSemantics = false;
+
     private function cmp(mixed $rowA, mixed $rowB): int
     {
         $a = is_array($rowA) ? $rowA[$this->arrayCol] : $rowA;
         $b = is_array($rowB) ? $rowB[$this->arrayCol] : $rowB;
+        if ($this->libreSemantics) {
+            if (is_bool($a)) {
+                $a = (int) $a;
+            }
+            if (is_bool($b)) {
+                $b = (int) $b;
+            }
+        }
         if ($a instanceof Stringable) {
             $a = (string) $a;
         }
@@ -67,10 +75,36 @@ class SortExcel
             return -$this->ascending;
         }
         // special handling for numeric strings starting with -
-        /** @var string $a */
-        $a2 = (string) preg_replace('/^-(\d)+$/', '$1', $a);
-        /** @var string $b */
-        $b2 = (string) preg_replace('/^-(\d)+$/', '$1', $b);
+        /** @var string */
+        $a2 = $a;
+        /** @var string */
+        $b2 = $b;
+        if ($this->libreSemantics) {
+            if (is_numeric($a2) && is_numeric($b2)) {
+                if (str_starts_with($a2, '+')) {
+                    if (str_starts_with($b2, '+')) {
+                    } elseif (str_starts_with($b2, '-')) {
+                        return $this->ascending;
+                    } else {
+                        return -$this->ascending;
+                    }
+                } elseif (str_starts_with($b2, '+')) {
+                    // $a2 can't start with + here
+                    if (str_starts_with($a2, '-')) {
+                        return -$this->ascending;
+                    }
+
+                    return $this->ascending;
+                }
+            }
+        } else {
+            if (is_numeric($a2) && str_starts_with($a2, '-')) {
+                $a2 = substr($a2, 1);
+            }
+            if (is_numeric($b2) && str_starts_with($b2, '-')) {
+                $b2 = substr($b2, 1);
+            }
+        }
 
         // strings sort case-insensitive
         return $this->ascending * strcasecmp($a2, $b2);
@@ -79,39 +113,14 @@ class SortExcel
     /**
      * @param mixed[] $array
      */
-    public function sortArray(array &$array, int $ascending = self::ASCENDING, int $arrayCol = 0): void
+    public function sortArray(array &$array, int $ascending = self::ASCENDING, int $arrayCol = 0, bool $libreSemantics = false): void
     {
         if ($ascending !== 1 && $ascending !== -1) {
             throw new Exception('ascending must be 1 or -1');
         }
         $this->ascending = $ascending;
         $this->arrayCol = $arrayCol;
+        $this->libreSemantics = $libreSemantics;
         usort($array, $this->cmp(...));
     }
 }
-
-require __DIR__ . '/../Header.php';
-/** @var Sample $helper */
-$helper->log('Emulating how Excel sorts different DataTypes');
-
-/** @param mixed[] $original */
-function displaySorted(array $original, Sample $helper): void
-{
-    $sorted = $original;
-    $sortExcel = new SortExcel();
-    $sortExcel->sortArray($sorted);
-    $outArray = [['Original', 'Sorted']];
-    $count = count($original);
-    for ($i = 0; $i < $count; ++$i) {
-        $outArray[] = [$original[$i], $sorted[$i]];
-    }
-    $helper->displayGrid($outArray, TextGridRightAlign::floatOrInt);
-}
-
-$helper->log('First example');
-$original = ['-3', '40', 'A', 'B', true, false, '+3', '1', '10', '2', '25', 1, 0, -1];
-displaySorted($original, $helper);
-
-$helper->log('Second example');
-$original = ['a', 'A', null, 'x', 'X', true, false, -3, 1];
-displaySorted($original, $helper);

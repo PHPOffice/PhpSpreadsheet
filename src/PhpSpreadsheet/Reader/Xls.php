@@ -156,7 +156,7 @@ class Xls extends XlsBase
     /**
      * Defined names.
      *
-     * @var array{isBuiltInName: int, name: string, formula: string, scope: int}
+     * @var array<int, array{isBuiltInName: int, name: string, formula: string, scope: int}>
      */
     protected array $definedname;
 
@@ -4641,7 +4641,7 @@ class Xls extends XlsBase
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used
                 /** @var string[] */
-                $data = $this->definedname[$definedNameIndex]['name'] ?? ''; //* @phpstan-ignore-line
+                $data = $this->definedname[$definedNameIndex]['name'] ?? '';
 
                 break;
             case 0x24:    //    single cell reference e.g. A5
