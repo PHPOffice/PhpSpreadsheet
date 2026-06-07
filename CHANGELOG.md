@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Changed
 
-- Nothing yet.
+- Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
 
 ### Moved
 
