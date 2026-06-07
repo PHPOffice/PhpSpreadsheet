@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-abstract class BaseReader implements IReader
+abstract class BaseReader implements IReader2
 {
     /**
      * Read data only?

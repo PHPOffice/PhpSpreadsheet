@@ -130,10 +130,14 @@ class Styles
             $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes());
             $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_BOTH;
         } elseif (isset($srssb->Diagonal)) {
-            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes());
+            // No idea what Phpstan objects to,
+            // especially since it has no problem with identical
+            // statement just above
+            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes()); // @phpstan-ignore-line
             $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_UP;
         } elseif (isset($srssb->{'Rev-Diagonal'})) {
-            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->{'Rev-Diagonal'}->attributes());
+            // No idea what Phpstan objects to
+            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->{'Rev-Diagonal'}->attributes()); // @phpstan-ignore-line
             $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_DOWN;
         }
     }

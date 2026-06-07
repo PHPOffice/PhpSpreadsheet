@@ -1576,7 +1576,13 @@ class Worksheet extends WriterPart
     {
         $attributes = $cell->getFormulaAttributes() ?? [];
         $coordinate = $cell->getCoordinate();
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $preCalc = $this->getParentWriter()->getPreCalculateFormulas();
+        // When pre-calc is off we have no calculated value to infer the cell type from. The
+        // previous fall-back of $cellValue (the formula source) made every formula cell write
+        // t="str" because the source is always a string — misleading for formulas that resolve
+        // to numbers/booleans. Leave $calculatedValue/$calculatedValueString null so the
+        // type-inference branches below are skipped and no t attribute is written.
+        $calculatedValue = $preCalc ? $cell->getCalculatedValue() : null;
         if ($calculatedValue === ExcelError::SPILL()) {
             $objWriter->writeAttribute('t', 'e');
             //$objWriter->writeAttribute('cm', '1'); // already added
@@ -1592,7 +1598,10 @@ class Worksheet extends WriterPart
 
             return;
         }
-        $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
+        // Empty string (not null) so str_starts_with($calculatedValueString, '#') below stays
+        // type-correct when pre-calc is off; the surrounding writeElementIf condition guards
+        // against actually emitting <v> when there is no calculated value.
+        $calculatedValueString = $preCalc ? $cell->getCalculatedValueString() : '';
         $result = $calculatedValue;
         while (is_array($result)) {
             $result = array_shift($result);

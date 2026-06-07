@@ -1204,7 +1204,10 @@ class Chart
         }
         $fontArray['bold'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
         $fontArray['italic'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
-        $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        $temp = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        if (is_string($temp) && $temp !== '') {
+            $fontArray['underline'] = $temp;
+        }
         $strikethrough = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
         if ($strikethrough !== null) {
             if ($strikethrough == 'noStrike') {

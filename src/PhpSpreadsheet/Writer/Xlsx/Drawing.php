@@ -60,15 +60,8 @@ class Drawing extends WriterPart
         }
 
         if ($includeCharts) {
-            $chartCount = $worksheet->getChartCount();
-            // Loop through charts and write the chart position
-            if ($chartCount > 0) {
-                for ($c = 0; $c < $chartCount; ++$c) {
-                    $chart = $worksheet->getChartByIndex((string) $c);
-                    if ($chart !== false) {
-                        $this->writeChart($objWriter, $chart, $c + $i);
-                    }
-                }
+            foreach ($worksheet->getChartCollection() as $c => $chart) {
+                $this->writeChart($objWriter, $chart, $c + $i);
             }
         }
 

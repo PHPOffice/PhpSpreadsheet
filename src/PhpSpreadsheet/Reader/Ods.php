@@ -281,6 +281,7 @@ class Ods extends BaseReader
      *      textRotation?: int,
      *      vertical?: string,
      *      wrapText?: bool,
+     *      indent?: int,
      *    },
      *    protection?:array{
      *      locked?: string,
@@ -1649,6 +1650,7 @@ class Ods extends BaseReader
     /** @return array{
      *   horizontal?: string,
      *   readOrder?: int,
+     *   indent?: int,
      * }
      */
     protected function getAlignment2Styles(DOMElement $paragraphProperties, string $styleNs, string $fontNs): array

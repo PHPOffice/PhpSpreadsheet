@@ -66,4 +66,6 @@ return [
     'null second argument' => ['123', 123, null],
     'false second argument' => ['123', 123, false],
     'true second argument' => ['123.0', 123, true],
+    'fixed decimals without thousands separator' => ['1507.50', 1507.5, 2, true],
+    'fixed decimals with thousands separator' => ['1,507.50', 1507.5, 2, false],
 ];
