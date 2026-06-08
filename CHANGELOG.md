@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Removed
 
-- Nothing yet.
+- Support is dropped for Php 8.1. [PR #4907](https://github.com/PHPOffice/PhpSpreadsheet/pull/4907)
 
 ### Changed
 
