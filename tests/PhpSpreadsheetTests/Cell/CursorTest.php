@@ -49,6 +49,19 @@ class CursorTest extends TestCase
         self::assertSame(15, $sheet->getCell('H5')->getValue());
         self::assertSame(16, $sheet->getCell('H6')->getValue());
         self::assertSame(17, $sheet->getCell('H7')->getValue());
+
+        $cell = $sheet->getCell('H5')->cursorXlsLimits();
+        self::assertSame('H5', $cell->getCoordinate());
+        $cell = $cell->cursorRow(2);
+        self::assertSame('H2', $cell->getCoordinate());
+        $cell = $cell->cursorRow(0);
+        self::assertSame('H1', $cell->getCoordinate());
+        $cell = $cell->cursorColumn('ABC');
+        self::assertSame('ABC1', $cell->getCoordinate());
+
+        $cell = $sheet->getCell('JK71234')->cursorXlsLimits();
+        self::assertSame('IV65536', $cell->getCoordinate());
+
         $spreadsheet->disconnectWorksheets();
     }
 }
