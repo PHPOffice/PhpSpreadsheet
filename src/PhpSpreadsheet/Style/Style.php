@@ -201,6 +201,18 @@ class Style extends Supervisor
     {
         if ($this->isSupervisor) {
             $pRange = $this->getSelectedCells();
+            if (str_contains($pRange, ',')) {
+                $ranges = explode(',', $pRange);
+                $sheet = $this->getActiveSheet();
+                foreach ($ranges as $range) {
+                    $sheet
+                        ->setSelectedCells(trim($range));
+                    $this->applyFromArray($styleArray, $advancedBorders);
+                }
+                $sheet->setSelectedCells($pRange);
+
+                return $this;
+            }
 
             // Uppercase coordinate and strip any Worksheet reference from the selected range
             $pRange = strtoupper($pRange);
