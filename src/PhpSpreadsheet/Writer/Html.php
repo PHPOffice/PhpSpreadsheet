@@ -1595,7 +1595,13 @@ class Html extends BaseWriter
                     $origData2 = $cell->getValueString();
                 }
             }
-            $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
+            $style = $worksheet->getParent()
+                ?->getCellXfByIndexOrNull(
+                    $cell->getXfIndex()
+                );
+            $formatCode = $style
+                ?->getNumberFormat()
+                ->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
                 $origData2,
@@ -1606,9 +1612,9 @@ class Html extends BaseWriter
             if ($cellData === $origData) {
                 $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
-            if ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
+            if (true === $style?->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
-            } elseif ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
+            } elseif (true === $style?->getFont()->getSubscript()) {
                 $cellData = '<sub>' . $cellData . '</sub>';
             }
         }
