@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Chart as SpreadsheetChart;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\DataTable;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
@@ -444,6 +445,10 @@ class Chart extends WriterPart
                 $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id2, $id1, $catIsMultiLevelSeries, $xAxis ?? new Axis());
             } else {
                 $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis ?? new Axis());
+                $dataTable = $plotArea->getDataTable();
+                if ($dataTable !== null) {
+                    $this->writeDataTable($objWriter, $dataTable);
+                }
             }
 
             $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis ?? new Axis());
@@ -480,6 +485,29 @@ class Chart extends WriterPart
         }
 
         $objWriter->endElement(); // c:plotArea
+    }
+
+    private function writeDataTable(XMLWriter $objWriter, DataTable $dataTable): void
+    {
+        $objWriter->startElement('c:dTable');
+
+        $objWriter->startElement('c:showHorzBorder');
+        $objWriter->writeAttribute('val', $dataTable->getShowHorizontalBorder() ? '1' : '0');
+        $objWriter->endElement();
+
+        $objWriter->startElement('c:showVertBorder');
+        $objWriter->writeAttribute('val', $dataTable->getShowVerticalBorder() ? '1' : '0');
+        $objWriter->endElement();
+
+        $objWriter->startElement('c:showOutline');
+        $objWriter->writeAttribute('val', $dataTable->getShowOutline() ? '1' : '0');
+        $objWriter->endElement();
+
+        $objWriter->startElement('c:showKeys');
+        $objWriter->writeAttribute('val', $dataTable->getShowKeys() ? '1' : '0');
+        $objWriter->endElement();
+
+        $objWriter->endElement(); // c:dTable
     }
 
     private function writeDataLabelsBool(XMLWriter $objWriter, string $name, ?bool $value): void
