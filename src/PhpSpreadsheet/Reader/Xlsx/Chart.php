@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Chart\AxisText;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\DataTable;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
@@ -137,7 +138,7 @@ class Chart
 
                                 break;
                             case 'plotArea':
-                                $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
+                                $plotAreaLayout = $XaxisLabel = $YaxisLabel = $dataTable = null;
                                 $plotSeries = $plotAttributes = [];
                                 $catAxRead = false;
                                 $plotNoFill = false;
@@ -359,12 +360,21 @@ class Chart
                                             $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
+                                        case 'dTable':
+                                            $dataTable = $this->readDataTable($chartDetail);
+
+                                            break;
                                     }
                                 }
                                 if ($plotAreaLayout == null) {
                                     $plotAreaLayout = new Layout();
                                 }
                                 $plotArea = new PlotArea($plotAreaLayout, $plotSeries);
+                                if ($dataTable !== null) {
+                                    $plotArea->setDataTable(
+                                        $dataTable
+                                    );
+                                }
                                 $this->setChartAttributes($plotAreaLayout, $plotAttributes);
                                 if ($plotNoFill) {
                                     $plotArea->setNoFill(true);
@@ -1293,6 +1303,29 @@ class Chart
         }
 
         return $plotAttributes;
+    }
+
+    private function readDataTable(SimpleXMLElement $chartDetail): DataTable
+    {
+        $dataTable = new DataTable();
+        $temp = self::getAttributeBoolean($chartDetail->showHorzBorder, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowHorizontalBorder($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showVertBorder, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowVerticalBorder($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showOutline, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowOutline($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showKeys, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowKeys($temp);
+        }
+
+        return $dataTable;
     }
 
     /** @param array<mixed> $plotAttributes */
