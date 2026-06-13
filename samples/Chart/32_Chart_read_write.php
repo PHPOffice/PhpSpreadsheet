@@ -6,7 +6,6 @@ require __DIR__ . '/../Header.php';
 /** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
-
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
     for ($i = 1; $i < $argc; ++$i) {
