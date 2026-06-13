@@ -1071,4 +1071,96 @@ class Cell implements Stringable
 
         return $hidden !== Protection::PROTECTION_UNPROTECTED;
     }
+
+    /**
+     * Return cell $right positions to the right of this one.
+     */
+    public function cursorRight(int $right = 1): self
+    {
+        $row = $this->getRow();
+        $col = $this->getColumn();
+        $colIndex = Coordinate::columnIndexFromString($col);
+        $newCol = max(
+            1,
+            min($colIndex + $right, AddressRange::MAX_COLUMN_INT)
+        );
+        $newColStr = Coordinate::stringFromColumnIndex($newCol);
+
+        return $this->getWorksheet()->getCell("$newColStr$row");
+    }
+
+    /**
+     * Return cell $left positions to the left of this one.
+     */
+    public function cursorLeft(int $left = 1): self
+    {
+        return $this->cursorRight(-$left);
+    }
+
+    /**
+     * Return cell $down positions below this one.
+     */
+    public function cursorDown(int $down = 1): self
+    {
+        $row = $this->getRow();
+        $col = $this->getColumn();
+        $newRow = max(
+            1,
+            min($row + $down, AddressRange::MAX_ROW)
+        );
+
+        return $this->getWorksheet()->getCell("$col$newRow");
+    }
+
+    /**
+     * Return cell $up positions above this one.
+     */
+    public function cursorUp(int $up = 1): self
+    {
+        return $this->cursorDown(-$up);
+    }
+
+    /**
+     * Return cell at row $row in current column.
+     */
+    public function cursorRow(int $row = 1): self
+    {
+        $col = $this->getColumn();
+        $newRow = max(
+            1,
+            min($row, AddressRange::MAX_ROW)
+        );
+
+        return $this->getWorksheet()->getCell("$col$newRow");
+    }
+
+    /**
+     * Return cell at column $column in current row.
+     */
+    public function cursorColumn(string $column = 'A'): self
+    {
+        $row = $this->getRow();
+        $colIndex = Coordinate::columnIndexFromString($column);
+        $newCol = max(
+            1,
+            min($colIndex, AddressRange::MAX_COLUMN_INT)
+        );
+        $newColStr = Coordinate::stringFromColumnIndex($newCol);
+
+        return $this->getWorksheet()->getCell("$newColStr$row");
+    }
+
+    /**
+     * Return cell adjusted for Xls limits if applicable.
+     */
+    public function cursorXlsLimits(): self
+    {
+        $row = min($this->getRow(), AddressRange::MAX_ROW_XLS);
+        $column = $this->getColumn();
+        $colIndex = Coordinate::columnIndexFromString($column);
+        $newCol = min($colIndex, AddressRange::MAX_COLUMN_INT_XLS);
+        $newColStr = Coordinate::stringFromColumnIndex($newCol);
+
+        return $this->getWorksheet()->getCell("$newColStr$row");
+    }
 }
