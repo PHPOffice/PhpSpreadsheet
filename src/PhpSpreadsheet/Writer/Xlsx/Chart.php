@@ -304,6 +304,8 @@ class Chart extends WriterPart
         $objWriter->endElement(); // c:legend
     }
 
+    private string $chartType = '';
+
     /**
      * Write Chart Plot Area.
      */
@@ -327,6 +329,7 @@ class Chart extends WriterPart
         $chartType = null;
         foreach ($chartTypes as $chartType) {
             $objWriter->startElement('c:' . $chartType);
+            $this->chartType = $chartType;
 
             $groupCount = $plotArea->getPlotGroupCount();
             $plotGroup = null;
@@ -1875,9 +1878,11 @@ class Chart extends WriterPart
                 $objWriter->startElement('a:lumMod');
                 $objWriter->writeAttribute('val', ChartColor::alphaToXml($brightness));
                 $objWriter->endElement(); // a:lumMod
-                $objWriter->startElement('a:lumOff');
-                $objWriter->writeAttribute('val', ChartColor::alphaToXml($lumOff));
-                $objWriter->endElement(); // a:lumOff
+                if ($this->chartType !== DataSeries::TYPE_RADARCHART) {
+                    $objWriter->startElement('a:lumOff');
+                    $objWriter->writeAttribute('val', ChartColor::alphaToXml($lumOff));
+                    $objWriter->endElement(); // a:lumOff
+                }
             }
             $objWriter->endElement(); //a:srgbClr/schemeClr/prstClr
             if ($solidFill) {
