@@ -20,18 +20,22 @@ abstract class AbstractFunctional extends TestCase
     protected function writeAndReload(Spreadsheet $spreadsheet, string $format, ?callable $readerCustomizer = null, ?callable $writerCustomizer = null): Spreadsheet
     {
         $filename = File::temporaryFilename();
-        $writer = IOFactory::createWriter($spreadsheet, $format);
-        if ($writerCustomizer) {
-            $writerCustomizer($writer);
-        }
-        $writer->save($filename);
 
-        $reader = IOFactory::createReader($format);
-        if ($readerCustomizer) {
-            $readerCustomizer($reader);
+        try {
+            $writer = IOFactory::createWriter($spreadsheet, $format);
+            if ($writerCustomizer) {
+                $writerCustomizer($writer);
+            }
+            $writer->save($filename);
+
+            $reader = IOFactory::createReader($format);
+            if ($readerCustomizer) {
+                $readerCustomizer($reader);
+            }
+            $reloadedSpreadsheet = $reader->load($filename);
+        } finally {
+            @unlink($filename);
         }
-        $reloadedSpreadsheet = $reader->load($filename);
-        unlink($filename);
 
         return $reloadedSpreadsheet;
     }

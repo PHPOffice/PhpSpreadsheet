@@ -55,7 +55,21 @@ class Styles extends WriterPart
         $objWriter->writeAttribute('office:version', '1.2');
 
         $objWriter->writeElement('office:font-face-decls');
-        $objWriter->writeElement('office:styles');
+        $objWriter->startElement('office:styles');
+        $defaultStyle = $this->getParentWriter()
+            ->getSpreadsheet()
+            ->getDefaultStyle();
+        $objWriter->startElement('style:default-style');
+        $objWriter->writeAttribute('style:family', 'table-cell');
+        $writer2 = new Cell\Style($objWriter);
+        $writer2->writeTextProperties($defaultStyle);
+        $objWriter->endElement(); // style:default-style
+        $objWriter->startElement('style:style');
+        $objWriter->writeAttribute('style:name', 'Default');
+        $objWriter->writeAttribute('style:family', 'table-cell');
+        $writer2->writeCellProperties($defaultStyle);
+        $objWriter->endElement(); // style:style 'Default' table-cell
+        $objWriter->endElement(); // office:styles
         $objWriter->startElement('office:automatic-styles');
         $objWriter->startElement('style:page-layout');
         $objWriter->writeAttribute('style:name', 'Mpm1');

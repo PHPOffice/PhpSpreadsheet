@@ -1,11 +1,13 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 mt_srand(1234567890);
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // List functions
 $helper->log('List implemented functions');
@@ -155,14 +157,14 @@ $spreadsheet->getActiveSheet()->setCellValue('E23', 'Mode of both ranges:')
 
 // Calculated data
 $helper->log('Calculated data');
-for ($col = 'B'; $col != 'G'; ++$col) {
+for ($col = 'B'; $col != 'G'; StringHelper::stringIncrement($col)) {
     for ($row = 14; $row <= 41; ++$row) {
         $formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue();
         if (
             is_string($formula)
             && ($formula[0] == '=')
         ) {
-            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());
+            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValueString());
         }
     }
 }

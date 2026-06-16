@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Hyperlink
 {
@@ -22,19 +23,30 @@ class Hyperlink
      */
     public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): string
     {
-        $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
+        $worksheet = null;
+        $coordinate = '';
+        if ($cell !== null) {
+            $coordinate = $cell->getCoordinate();
+            $worksheet = $cell->getWorksheetOrNull();
+        }
+
+        $linkURL = ($linkURL === null) ? '' : StringHelper::convertToString(Functions::flattenSingleValue($linkURL));
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
         if ((!is_object($cell)) || (trim($linkURL) == '')) {
             return ExcelError::REF();
         }
 
-        if ((is_object($displayName)) || trim($displayName) == '') {
+        $displayName = StringHelper::convertToString($displayName, false);
+        if (trim($displayName) === '') {
             $displayName = $linkURL;
         }
 
-        $cell->getHyperlink()->setUrl($linkURL);
-        $cell->getHyperlink()->setTooltip($displayName);
+        $worksheet?->getCell($coordinate)
+            ->getHyperlink()
+            ->setUrl($linkURL)
+            ->setTooltip($displayName)
+            ->setDisplay('');
 
         return $displayName;
     }

@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 Cell::setValueBinder(new AdvancedValueBinder());
 
 $inputFileName = __DIR__ . '/sampleData/example1.tsv';

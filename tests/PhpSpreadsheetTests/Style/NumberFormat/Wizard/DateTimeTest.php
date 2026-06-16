@@ -13,7 +13,7 @@ class DateTimeTest extends TestCase
 {
     /**
      * @param null|string|string[] $separators
-     * @param string[] $formatBlocks
+     * @param array<Date|string|Time> $formatBlocks
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('providerDateTime')]
     public function testDateTime(string $expectedResult, string|null|array $separators, array $formatBlocks): void

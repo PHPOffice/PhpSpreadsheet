@@ -32,8 +32,22 @@ class SampleCoverageTest extends TestCase
             ->getMock();
         $helper->expects(self::once())
             ->method('isDirOrMkdir')
-            ->with(self::isType('string'))
             ->willReturn(false);
-        self::assertSame('', $helper->getFilename('a.xlsx'));
+        $helper->getFilename('a.xlsx');
+    }
+
+    public function testTitles(): void
+    {
+        $helper = new Sample();
+        ob_start();
+        $helper->titles('Category', 'FunctionName');
+        $output = (string) ob_get_clean();
+        $output = str_replace("\r", '', $output);
+        self::assertStringContainsString("Function: FunctionName()\n", $output);
+        ob_start();
+        $helper->titles('Category', 'FunctionName', 'Description');
+        $output = (string) ob_get_clean();
+        $output = str_replace("\r", '', $output);
+        self::assertStringContainsString("Function: FunctionName() - Description.\n", $output);
     }
 }

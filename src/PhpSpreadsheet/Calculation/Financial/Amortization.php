@@ -54,9 +54,7 @@ class Amortization
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null)
-            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
-            : Functions::flattenSingleValue($basis);
+        $basis = Functions::flattenSingleValue($basis) ?? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD;
 
         try {
             $cost = FinancialValidations::validateFloat($cost);
@@ -141,9 +139,7 @@ class Amortization
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null)
-            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
-            : Functions::flattenSingleValue($basis);
+        $basis = Functions::flattenSingleValue($basis) ?? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD;
 
         try {
             $cost = FinancialValidations::validateFloat($cost);
@@ -171,9 +167,13 @@ class Amortization
         if (
             $basis == FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
             && $yearFrac < 1
-            && DateTimeExcel\Helpers::isLeapYear(Functions::scalar($purchasedYear))
         ) {
-            $yearFrac *= 365 / 366;
+            $temp = Functions::scalar($purchasedYear);
+            if (is_int($temp) || is_string($temp)) {
+                if (DateTimeExcel\Helpers::isLeapYear($temp)) {
+                    $yearFrac *= 365 / 366;
+                }
+            }
         }
 
         $f0Rate = $yearFrac * $rate * $cost;

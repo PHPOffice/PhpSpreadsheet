@@ -52,7 +52,7 @@ class Issue4179Test extends TestCase
             self::assertSame(1, $subCount);
             for ($i = 0; $i < $zip->numFiles; ++$i) {
                 $filename = (string) $zip->getNameIndex($i);
-                if (preg_match('~^xl/media/\\w+[.]png$~', $filename) === 1) {
+                if (preg_match('~^xl/media/\w+[.]png$~', $filename) === 1) {
                     ++$pngCount;
                 }
             }

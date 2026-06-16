@@ -24,7 +24,7 @@ if [ "$files" != "" ]; then
 fi
 
 # Check PHPDoc types
-./bin/check-phpdoc-types
+./bin/check-phpdoc-types.php
 if [ $? -ne 0 ]; then
     pass=false
 fi

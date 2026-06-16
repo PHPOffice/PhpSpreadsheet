@@ -24,9 +24,10 @@ class CsvLineEndingTest extends TestCase
     }
 
     #[DataProvider('providerEndings')]
-    public function testEndings(string $ending): void
+    #[DataProvider('providerEndings2')]
+    public function testEndings(string $ending, int $version = PHP_VERSION_ID): void
     {
-        if ($ending === "\r" && PHP_VERSION_ID >= 90000) {
+        if ($ending === "\r" && $version >= 90000) {
             self::markTestSkipped('Mac line endings not supported for Php9+');
         }
         $this->tempFile = $filename = File::temporaryFilename();
@@ -73,6 +74,13 @@ class CsvLineEndingTest extends TestCase
             'Unix endings' => ["\n"],
             'Mac endings' => ["\r"],
             'Windows endings' => ["\r\n"],
+        ];
+    }
+
+    public static function providerEndings2(): array
+    {
+        return [
+            'Mac endings Php9+' => ["\r", 90000],
         ];
     }
 }

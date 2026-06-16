@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Database';
 $functionName = 'DMAX';
 $description = 'Returns the maximum value from selected database entries';
@@ -36,11 +36,13 @@ $worksheet->setCellValue('B12', '=DMAX(A4:E10,"Height",A4:E10)');
 
 $worksheet->setCellValue('A13', 'The Oldest apple tree in the orchard');
 $worksheet->setCellValue('B13', '=DMAX(A4:E10,3,A1:A2)');
+$worksheet->getStyle('E5:E10')->getNumberFormat()
+    ->setFormatCode('0.00');
 
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');

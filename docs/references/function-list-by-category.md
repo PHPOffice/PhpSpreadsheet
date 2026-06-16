@@ -189,7 +189,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 CELL                     | **Not yet Implemented**
 ERROR.TYPE               | \PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError::type
-INFO                     | **Not yet Implemented**
+INFO                     | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 ISBLANK                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\Value::isBlank
 ISERR                    | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isErr
 ISERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue::isError
@@ -251,6 +251,7 @@ FORMULATEXT              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formu
 GETPIVOTDATA             | **Not yet Implemented**
 GROUPBY                  | **Not yet Implemented**
 HLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
+HSTACK                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hstack::hstack
 HYPERLINK                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 INDEX                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
 INDIRECT                 | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
@@ -263,10 +264,13 @@ RTD                      | **Not yet Implemented**
 SORT                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sort
 SORTBY                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Sort::sortBy
 TAKE                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::take
+TOCOL                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::tocol
+TOROW                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::torow
 TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 UNIQUE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
-XLOOKUP                  | **Not yet Implemented**
+VSTACK                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
+XLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\XLookup::lookup
 XMATCH                   | **Not yet Implemented**
 
 ## CATEGORY_MATH_AND_TRIG
@@ -308,7 +312,6 @@ FLOOR                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor:
 FLOOR.MATH               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::math
 FLOOR.PRECISE            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::precise
 GCD                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Gcd::evaluate
-HSTACK                   | **Not yet Implemented**
 INT                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
 ISO.CEILING              | **Not yet Implemented**
 LCM                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Lcm::evaluate
@@ -357,10 +360,7 @@ SUMX2PY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSqu
 SUMXMY2                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXMinusYSquared
 TAN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
 TANH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
-TOCOL                    | **Not yet Implemented**
-TOROW                    | **Not yet Implemented**
 TRUNC                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trunc::evaluate
-VSTACK                   | **Not yet Implemented**
 WRAPCOLS                 | **Not yet Implemented**
 WRAPROWS                 | **Not yet Implemented**
 
@@ -497,11 +497,11 @@ STDEVA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Sta
 STDEVP                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVP
 STDEVPA                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVPA
 STEYX                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::STEYX
-T.DIST                   | **Not yet Implemented**
-T.DIST.2T                | **Not yet Implemented**
-T.DIST.RT                | **Not yet Implemented**
-T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
-T.INV.2T                 | **Not yet Implemented**
+T.DIST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDist
+T.DIST.2T                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDot2T
+T.DIST.RT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDotRT
+T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotInv
+T.INV.2T                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
 T.TEST                   | **Not yet Implemented**
 TDIST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::distribution
 TINV                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
@@ -525,7 +525,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 ARRAYTOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::fromArray
 ASC                      | **Not yet Implemented**
-BAHTTEXT                 | **Not yet Implemented**
+BAHTTEXT                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
 CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
@@ -569,8 +569,8 @@ THAINUMSOUND             | **Not yet Implemented**
 THAINUMSTRING            | **Not yet Implemented**
 THAISTRINGLENGTH         | **Not yet Implemented**
 TRIM                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
-UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
-UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::characterUnicode
+UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::codeUnicode
 UPPER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 VALUE                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
 VALUETOTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::valueToText

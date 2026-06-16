@@ -21,8 +21,10 @@ class CyclicReferenceStack
 
     /**
      * Push a new entry onto the stack.
+     *
+     * @param int|string $value The value to test
      */
-    public function push(mixed $value): void
+    public function push($value): void
     {
         $this->stack[$value] = $value;
     }
@@ -38,9 +40,9 @@ class CyclicReferenceStack
     /**
      * Test to see if a specified entry exists on the stack.
      *
-     * @param mixed $value The value to test
+     * @param int|string $value The value to test
      */
-    public function onStack(mixed $value): bool
+    public function onStack($value): bool
     {
         return isset($this->stack[$value]);
     }

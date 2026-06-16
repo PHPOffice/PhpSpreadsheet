@@ -50,7 +50,7 @@ class Conditional
     {
         $condition = ($condition === null) ? true : Functions::flattenSingleValue($condition);
 
-        if (ErrorValue::isError($condition)) {
+        if (ErrorValue::isError($condition, true)) {
             return $condition;
         }
 

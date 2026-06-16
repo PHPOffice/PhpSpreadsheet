@@ -13,7 +13,7 @@ enum CurrencyNegative
     {
         return match ($this) {
             self::minus, self::redMinus => '-',
-            self::parentheses, self::redParentheses => '\\(',
+            self::parentheses, self::redParentheses => '\(',
         };
     }
 
@@ -21,7 +21,7 @@ enum CurrencyNegative
     {
         return match ($this) {
             self::minus, self::redMinus => '',
-            self::parentheses, self::redParentheses => '\\)',
+            self::parentheses, self::redParentheses => '\)',
         };
     }
 

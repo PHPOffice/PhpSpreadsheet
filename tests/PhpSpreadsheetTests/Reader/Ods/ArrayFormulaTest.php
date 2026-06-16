@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
+    /** @param float|mixed[] $expectedValue */
     #[DataProvider('arrayFormulaReaderProvider')]
     public function testArrayFormulaReader(
         string $cellAddress,

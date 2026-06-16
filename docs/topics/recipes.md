@@ -20,7 +20,7 @@ finding a specific document in a file repository or a document
 management system. For example Microsoft Sharepoint uses document
 metadata to search for a specific document in its document lists.
 
-<details>
+<details markdown>
   <summary>Click here for details of Spreadsheet Document Properties</summary>
 
 These are accessed in MS Excel from the "Info" option on the "File" menu:
@@ -67,7 +67,7 @@ $spreadsheet->getProperties()
 
 You can choose which properties to set or ignore.
 
-<details>
+<details markdown>
   <summary>Click here for details of Property Getters/Setters</summary>
 
 PhpSpreadsheet provides specific getters/setters for a number of pre-defined properties.
@@ -90,7 +90,7 @@ PhpSpreadsheet provides specific getters/setters for a number of pre-defined pro
 
 </details>
 
-<details>
+<details markdown>
   <summary>Click here for details of Custom Properties</summary>
 
 Additionally, PhpSpreadsheet supports the creation and reading of custom properties for those file formats that accept custom properties.
@@ -143,7 +143,7 @@ $spreadsheet->getProperties()
 
 A Spreadsheet consists of (very rarely) none, one or more Worksheets. If you have 1 or more Worksheets, then one (and only one) of those Worksheets can be "Active" (viewed or updated) at a time, but there will always be an "Active" Worksheet (unless you explicitly delete all of the Worksheets in the Spreadsheet).
 
-<details>
+<details markdown>
   <summary>Click here for details about Worksheets</summary>
 
 When you create a new Spreadsheet in MS Excel, it creates the Spreadsheet with a single Worksheet ("Sheet1")
@@ -278,7 +278,7 @@ define your own values as long as they are a valid MS Excel format.
 PhpSpreadsheet also provides a number of Wizards to help you create
 Date, Time and DateTime format masks.
 
-<details>
+<details markdown>
   <summary>Click here for an example of the Date/Time Wizards</summary>
 
 ```php
@@ -628,20 +628,41 @@ $spreadsheet->getActiveSheet()->getCell('A1')
 
 ## Change a cell into a clickable URL
 
-You can make a cell a clickable URL by setting its hyperlink property:
+You can make a cell (or, for Xlsx only, a drawing) a clickable URL by setting its hyperlink property:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
+$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
+$spreadsheet->getActiveSheet()->getCell('E26')
+    ->getHyperlink()
+    ->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
 following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://'Sheetname'!A1");
+$spreadsheet->getActiveSheet()
+    ->setCellValue('E27', 'go to another sheet');
+$spreadsheet->getActiveSheet()->getCell('E27')
+    ->getHyperlink()
+    ->setUrl("sheet://'Sheetname'!A1");
 ```
+Xlsx format uses `#` in place of `sheet://`.
+PhpSpreadsheet will automatically convert to that form when writing a spreadsheet,
+so you should continue to use `sheet://` for greater interoperability.
+
+Excel automatically supplies a special style when a hyperlink is
+entered into a cell. PhpSpreadsheet cannot do so. However,
+starting with release 4.3,
+you can mimic Excel's behavior with:
+```php
+$spreadsheet->getActiveSheet()
+    ->getStyle('E26')
+    ->getFont()
+    ->setHyperlinkTheme();
+```
+This will set underline (all formats) and text color (always
+for Xlsx, and usually for other formats).
 
 ## Setting Printer Options for Excel files
 
@@ -745,6 +766,17 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()
     ->setOddFooter('&L&B' . $spreadsheet->getProperties()->getTitle() . '&RPage &P of &N');
 ```
 
+<a id='setDifferent'></a>
+Notice the use of `oddHeader/Footer` above. This is, by default, the header used on all pages, not just the odd-numbered pages. You can specify a different header/footer for the first page and/or for even-numbered pages.
+```php
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentFirst(true);
+// then as above except setFirstHeader/Footer rather than Odd
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentOddEven(true);
+// then as above except setEvenHeader/Footer rather than Odd
+```
+
 Substitution and formatting codes (starting with &) can be used inside
 headers and footers. There is no required order in which these codes
 must appear.
@@ -774,7 +806,7 @@ Code                     | Meaning
 `&C`                     | Code for "center section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the center section.
 `&D`                     | Code for "date"
 `&T`                     | Code for "time"
-`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see Tip for picture)
+`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see [Tip for picture](#Tip-for-picture))
 `&U`                     | Code for "text single underline"
 `&E`                     | Code for "double underline"
 `&R`                     | Code for "right section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the right section.
@@ -817,6 +849,7 @@ users may find it easier to rename test.xlsx to test.zip, unzip it, and
 inspect directly the contents of the relevant xl/worksheets/sheetX.xml
 to find the codes for header/footer.
 
+<a id='Tip-for-picture'></a>
 **Tip for picture**
 
 ```php
@@ -824,8 +857,16 @@ $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$spreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->addImage(
+        $drawing,
+        \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT
+    );
 ```
+If you want your image to be used only on the first page or only on even pages, use, for example, `HeaderFooter::IMAGE_FOOTER_CENTER_EVEN`.
+You must still call [`setDifferentFirst/Even`](#setDifferent) for this to work.
+This will work only for Xlsx.
 
 ### Setting printing breaks on a row or column
 
@@ -833,22 +874,19 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
-```
-
-If your print break is inside a defined print area, it may be necessary to add an extra parameter to specify the max column (and this probably won't hurt if the break is not inside a defined print area):
-
-```php
-$spreadsheet->getActiveSheet()
-    ->setBreak('A10',
-        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW,
-        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW_MAX_COLUMN);
+$spreadsheet->getActiveSheet()->setBreak(
+    'A10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW
+);
 ```
 
 The following line of code sets a print break on column D:
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
+$spreadsheet->getActiveSheet()->setBreak(
+    'D10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN
+);
 ```
 
 ### Show/hide gridlines when printing
@@ -1088,6 +1126,21 @@ All cells bound to the theme fonts (via the `Font::setScheme` method) can be eas
 $spreadsheet->resetThemeFonts();
 ```
 
+### Charset for Arabic and Persian Fonts
+
+It is unknown why this should be needed. However, some Excel
+users have reported better results if the internal declaration for an
+Arabic/Persian font includes a `charset` declaration.
+This seems like a bug in Excel, but, starting with release 4.4,
+this can be accomplished at the spreadsheet level, via:
+```php
+$spreadsheet->addFontCharset('C Nazanin');
+```
+As many charsets as desired can be added in this manner.
+There is a second optional parameter specifying the charset id
+to this method, but, since this seems to be needed only for
+Arabic/Persian, that is its default value.
+
 ### Styling cell borders
 
 In PhpSpreadsheet it is easy to apply various borders on a rectangular
@@ -1188,15 +1241,16 @@ quotePrefix  | setQuotePrefix()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
-Array key   | Maps to property
-------------|-------------------
-horizontal  | setHorizontal()
-indent      | setIndent()
-readOrder   | setReadOrder()
-shrinkToFit | setShrinkToFit()
-textRotation| setTextRotation()
-vertical    | setVertical()
-wrapText    | setWrapText()
+Array key       | Maps to property
+----------------|-------------------
+horizontal      | setHorizontal()
+justifyLastLine | setJustifyLastLine()
+indent          | setIndent()
+readOrder       | setReadOrder()
+shrinkToFit     | setShrinkToFit()
+textRotation    | setTextRotation()
+vertical        | setVertical()
+wrapText        | setWrapText()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
@@ -2026,7 +2080,11 @@ $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
+$payable->getFont()->setColor(
+    new \PhpOffice\PhpSpreadsheet\Style\Color( 
+        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN
+    )
+);
 $richText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```

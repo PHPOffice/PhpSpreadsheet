@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+/** @return array<int, array<int, float|int|string>> */
 function orderGrid(): array
 {
     return [
@@ -11,6 +12,7 @@ function orderGrid(): array
     ];
 }
 
+/** @return array<int, array<int, int|string>> */
 function partsGrid(): array
 {
     return [

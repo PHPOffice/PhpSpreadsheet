@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AutoFilterAverageTop10Test extends SetupTeardown
 {
@@ -36,7 +37,8 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerAverage')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerAverage')]
     public function testAboveAverage(array $expectedVisible, string $rule): void
     {
         $sheet = $this->initSheet();
@@ -66,7 +68,8 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerTop10')]
     public function testTop10(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheet();
@@ -116,7 +119,8 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTop10Ties')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerTop10Ties')]
     public function testTop10Ties(array $expectedVisible, string $rule, string $ruleType, int $count): void
     {
         $sheet = $this->initSheetTies();

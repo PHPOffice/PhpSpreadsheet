@@ -18,8 +18,7 @@ class HtmlImageTest extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         /** @var Drawing $drawing */
@@ -40,8 +39,7 @@ class HtmlImageTest extends TestCase
                         <td><img src="' . $imagePath . '" alt="test image" width="50"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         /** @var Drawing $drawing */
@@ -59,8 +57,7 @@ class HtmlImageTest extends TestCase
                         <td><img src="' . $imagePath . '" height="75"></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         /** @var Drawing $drawing */
@@ -77,8 +74,7 @@ class HtmlImageTest extends TestCase
                         <td><img></td>
                     </tr>
                 </table>';
-        $filename = HtmlHelper::createHtml($html);
-        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
+        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
 
         self::assertCount(0, $firstSheet->getDrawingCollection());

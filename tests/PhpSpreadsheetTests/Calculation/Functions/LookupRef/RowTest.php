@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RowTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerROW')]
+    /** @param null|mixed[][]|string $cellReference */
+    #[DataProvider('providerROW')]
     public function testROW(mixed $expectedResult, null|array|string $cellReference = null): void
     {
         $result = LookupRef\RowColumnInformation::ROW($cellReference);

@@ -6,13 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Php9Test extends TestCase
 {
-    public function testAffectedByPhp9(): void
+    #[DataProvider('providerVersion')]
+    public function testAffectedByPhp9(int $version): void
     {
-        if (PHP_VERSION_ID >= 90000) {
+        if ($version >= 90000) {
             $this->expectException(ReaderException::class);
             $this->expectExceptionMessage('Php7.4 or Php8');
         }
@@ -26,12 +28,20 @@ class Php9Test extends TestCase
             if (str_contains($base, 'utf') && !str_contains($base, 'bom')) {
                 $encoding = 'guess';
             }
-            $result = Csv::affectedByPhp9($file, $encoding);
+            $result = Csv::affectedByPhp9($file, $encoding, version: $version);
             if ($result) {
                 $affected[] = $base;
             }
         }
         $expected = ['backslash.csv', 'escape.csv', 'linend.mac.csv'];
         self::assertSame($expected, $affected);
+    }
+
+    public static function providerVersion(): array
+    {
+        return [
+            [PHP_VERSION_ID],
+            [90000],
+        ];
     }
 }

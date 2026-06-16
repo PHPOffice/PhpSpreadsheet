@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class TextTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTEXT')]
+    #[DataProvider('providerTEXT')]
     public function testTEXT(mixed $expectedResult, mixed $value = 'omitted', mixed $format = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -32,14 +33,15 @@ class TextTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/TEXT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTextArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerTextArray')]
     public function testTextArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=TEXT({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerTextArray(): array

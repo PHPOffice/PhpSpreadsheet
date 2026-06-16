@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+/** @return array<int, array<int, float|string>> */
 function densityGrid(): array
 {
     return [

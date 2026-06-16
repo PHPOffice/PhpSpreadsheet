@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 
@@ -247,16 +248,18 @@ $spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Prote
 
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
+$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
 $spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('E26')->getFont()->setHyperlinkTheme();
 
 $helper->log('Add a hyperlink to another cell on a different worksheet within the workbook');
 $spreadsheet->getActiveSheet()->setCellValue('E27', 'Terms and conditions');
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setUrl("sheet://'Terms and conditions'!A1");
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Review terms and conditions');
 $spreadsheet->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('E27')->getFont()->setHyperlinkTheme();
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');

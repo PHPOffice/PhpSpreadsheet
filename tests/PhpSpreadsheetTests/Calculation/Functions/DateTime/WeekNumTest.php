@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class WeekNumTest extends TestCase
@@ -30,14 +31,14 @@ class WeekNumTest extends TestCase
         SharedDate::setExcelCalendar($this->excelCalendar);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
+    #[DataProvider('providerWEEKNUM')]
     public function testDirectCallToWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
         $result = Week::number(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
+    #[DataProvider('providerWEEKNUM')]
     public function testWEEKNUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -45,11 +46,11 @@ class WeekNumTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=WEEKNUM({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM')]
+    #[DataProvider('providerWEEKNUM')]
     public function testWEEKNUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -72,7 +73,7 @@ class WeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyWEEKNUM')]
+    #[DataProvider('providerUnhappyWEEKNUM')]
     public function testWEEKNUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -98,7 +99,7 @@ class WeekNumTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWEEKNUM1904')]
+    #[DataProvider('providerWEEKNUM1904')]
     public function testWEEKNUMWith1904Calendar(mixed $expectedResult, mixed ...$args): void
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
@@ -112,13 +113,14 @@ class WeekNumTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKNUM1904.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerWeekNumArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerWeekNumArray')]
     public function testWeekNumArray(array $expectedResult, string $dateValues, string $methods): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=WEEKNUM({$dateValues}, {$methods})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

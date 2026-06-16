@@ -53,6 +53,7 @@ class ConditionalFillTest extends TestCase
 
         $outfile = File::temporaryFilename();
         $writer = new XlsxWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($outfile);
         $spreadsheet->disconnectWorksheets();
 

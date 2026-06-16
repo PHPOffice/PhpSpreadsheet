@@ -6,7 +6,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as Except;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +42,6 @@ class RowIteratorTest extends TestCase
         foreach ($iterator as $key => $row) {
             ++$counter;
             self::assertEquals($rowIndexResult++, $key);
-            self::assertInstanceOf(Row::class, $row);
         }
         self::assertCount($counter, self::CELL_VALUES);
         $spreadsheet->disconnectWorksheets();
@@ -61,7 +59,6 @@ class RowIteratorTest extends TestCase
         foreach ($iterator as $key => $row) {
             ++$counter;
             self::assertEquals($rowIndexResult++, $key);
-            self::assertInstanceOf(Row::class, $row);
         }
         self::assertSame(3, $counter);
         $spreadsheet->disconnectWorksheets();

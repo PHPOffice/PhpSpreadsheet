@@ -26,12 +26,14 @@ class Issue4049Test extends AbstractFunctional
         $colorScale = $cond1[0]->getColorScale();
         self::assertNotNull($colorScale);
         $min = $colorScale->getMinimumConditionalFormatValueObject();
+        self::assertNotNull($min);
         self::assertSame('formula', $min->getType());
         self::assertSame('25', $min->getCellFormula());
 
         self::assertNull($colorScale->getMidpointConditionalFormatValueObject());
 
         $max = $colorScale->getMaximumConditionalFormatValueObject();
+        self::assertNotNull($max);
         self::assertSame('max', $max->getType());
         self::assertNull($max->getValue());
 

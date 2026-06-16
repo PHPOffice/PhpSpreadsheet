@@ -418,6 +418,7 @@ So the code must be adapted with something like:
 // Before
 $cell = $worksheet->getCellByColumnAndRow($column, $row);
 
+// Use StringHelper::stringIncrement($column) rather than ++$column if using Php8.5+.
 for ($column = 0; $column < $max; ++$column) {
     $worksheet->setCellValueByColumnAndRow($column, $row, 'value');
 }
@@ -425,6 +426,7 @@ for ($column = 0; $column < $max; ++$column) {
 // After
 $cell = $worksheet->getCell([$column + 1, $row]);
 
+// Use StringHelper::stringIncrement($column) rather than ++$column if using Php8.5+.
 for ($column = 1; $column <= $max; ++$column) {
     $worksheet->setCellValue([$column, $row], 'value');
 }

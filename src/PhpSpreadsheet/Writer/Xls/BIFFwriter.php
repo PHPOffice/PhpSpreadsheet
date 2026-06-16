@@ -42,7 +42,7 @@ class BIFFwriter
     /**
      * The byte order of this architecture. 0 => little endian, 1 => big endian.
      */
-    private static ?int $byteOrder;
+    private static ?int $byteOrder = null;
 
     /**
      * The string containing the data of the BIFF stream.

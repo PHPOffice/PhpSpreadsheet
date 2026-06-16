@@ -25,7 +25,7 @@ class NormDistTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=NORMDIST({$values}, {$mean}, {$stdDev}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

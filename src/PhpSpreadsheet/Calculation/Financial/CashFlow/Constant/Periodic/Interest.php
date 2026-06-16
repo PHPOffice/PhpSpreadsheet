@@ -43,7 +43,7 @@ class Interest
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);
@@ -83,7 +83,7 @@ class Interest
      *     =ISPMT(interest_rate, period, number_payments, pv)
      *
      * @param mixed $interestRate is the interest rate for the investment
-     * @param mixed $period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
+     * @param mixed $period is the period to calculate the interest rate.  It must be between 1 and number_payments.
      * @param mixed $numberOfPeriods is the number of payments for the annuity
      * @param mixed $principleRemaining is the loan amount or present value of the payments
      */
@@ -160,9 +160,9 @@ class Interest
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
-        $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
-        $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
+        $futureValue = Functions::flattenSingleValue($futureValue) ?? 0.0;
+        $type = Functions::flattenSingleValue($type) ?? FinancialConstants::PAYMENT_END_OF_PERIOD;
+        $guess = Functions::flattenSingleValue($guess) ?? 0.1;
 
         try {
             $numberOfPeriods = CashFlowValidations::validateFloat($numberOfPeriods);

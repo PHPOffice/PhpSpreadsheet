@@ -31,12 +31,14 @@ class ConditionalDataBarExtension
 
     private ?string $negativeBorderColor = null;
 
+    /** @var array{rgb: ?string, theme: ?string, tint: ?string} */
     private array $axisColor = [
         'rgb' => null,
         'theme' => null,
         'tint' => null,
     ];
 
+    /** @return mixed[] */
     public function getXmlAttributes(): array
     {
         $ret = [];
@@ -54,6 +56,7 @@ class ConditionalDataBarExtension
         return $ret;
     }
 
+    /** @return mixed[] */
     public function getXmlElements(): array
     {
         $ret = [];
@@ -217,12 +220,13 @@ class ConditionalDataBarExtension
         return $this;
     }
 
+    /** @return array{rgb: ?string, theme: ?string, tint: ?string} */
     public function getAxisColor(): array
     {
         return $this->axisColor;
     }
 
-    public function setAxisColor(mixed $rgb, mixed $theme = null, mixed $tint = null): self
+    public function setAxisColor(?string $rgb, ?string $theme = null, ?string $tint = null): self
     {
         $this->axisColor = [
             'rgb' => $rgb,

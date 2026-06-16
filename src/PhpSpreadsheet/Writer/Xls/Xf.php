@@ -219,9 +219,10 @@ class Xf
 
         $header = pack('vv', $record, $length);
 
-        //BIFF8 options: identation, shrinkToFit and  text direction
-        $biff8_options = $this->style->getAlignment()->getIndent();
+        //BIFF8 options: indentation, shrinkToFit and text direction
+        $biff8_options = $this->style->getAlignment()->getIndent() & 15;
         $biff8_options |= (int) $this->style->getAlignment()->getShrinkToFit() << 4;
+        $biff8_options |= $this->style->getAlignment()->getReadOrder() << 6;
 
         $data = pack('vvvC', $ifnt, $ifmt, $style, $align);
         $data .= pack('CCC', self::mapTextRotation((int) $this->style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);

@@ -95,6 +95,7 @@ $chart->setBottomRightPosition('H20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->renderChart($chart, __FILE__);
 
 return $spreadsheet;

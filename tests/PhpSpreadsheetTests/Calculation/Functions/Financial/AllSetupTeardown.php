@@ -98,6 +98,7 @@ class AllSetupTeardown extends TestCase
         }
     }
 
+    /** @param mixed[] $args */
     public function runTestCase(string $functionName, mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);

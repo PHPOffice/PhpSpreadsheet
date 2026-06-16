@@ -2,7 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use Throwable;
 
 class DateFormatter
 {
@@ -98,6 +101,7 @@ class DateFormatter
         '[ss]' => self::SECONDS_IN_DAY,
     ];
 
+    /** @param float|int|numeric-string $value */
     private static function tryInterval(bool &$seekingBracket, string &$block, mixed $value, string $format): void
     {
         if ($seekingBracket) {
@@ -118,17 +122,18 @@ class DateFormatter
     /** @param float|int $value value to be formatted */
     public static function format(mixed $value, string $format): string
     {
+        if ($value < 0 && Preg::isMatch('/^\[?[hms]/i', $format)) {
+            return '-' . self::format(-$value, $format);
+        }
         // strip off first part containing e.g. [$-F800] or [$USD-409]
         // general syntax: [$<Currency string>-<language info>]
         // language info is in hexadecimal
         // strip off chinese part like [DBNum1][$-804]
-        $format = (string) preg_replace('/^(\[DBNum\d\])*(\[\$[^\]]*\])/i', '', $format);
+        $format = Preg::replace('/^(\[DBNum\d\])*(\[\$[^\]]*\])/i', '', $format);
 
         // OpenOffice.org uses upper-case number formats, e.g. 'YYYY', convert to lower-case;
         //    but we don't want to change any quoted strings
-        /** @var callable $callable */
-        $callable = [self::class, 'setLowercaseCallback'];
-        $format = (string) preg_replace_callback('/(?:^|")([^"]*)(?:$|")/', $callable, $format);
+        $format = Preg::replaceCallback('/(?:^|")([^"]*)(?:$|")/', self::setLowerCaseCallback(...), $format);
 
         // Only process the non-quoted blocks for date format characters
 
@@ -156,15 +161,17 @@ class DateFormatter
         $format = implode('"', $blocks);
 
         // escape any quoted characters so that DateTime format() will render them correctly
-        /** @var callable $callback */
-        $callback = [self::class, 'escapeQuotesCallback'];
-        $format = (string) preg_replace_callback('/"(.*)"/U', $callback, $format);
+        $format = Preg::replaceCallback('/"(.*)"/U', self::escapeQuotesCallback(...), $format);
 
-        $dateObj = Date::excelToDateTimeObject($value);
+        try {
+            $dateObj = Date::excelToDateTimeObject($value);
+        } catch (Throwable) {
+            return StringHelper::convertToString($value);
+        }
         // If the colon preceding minute had been quoted, as happens in
         // Excel 2003 XML formats, m will not have been changed to i above.
         // Change it now.
-        $format = (string) \preg_replace('/\\\\:m/', ':i', $format);
+        $format = Preg::replace('/\\\:m/', ':i', $format);
         $microseconds = (int) $dateObj->format('u');
         if (str_contains($format, ':s.000')) {
             $milliseconds = (int) round($microseconds / 1000.0);
@@ -200,13 +207,17 @@ class DateFormatter
         return $dateObj->format($format);
     }
 
+    /** @param array<?string> $matches */
     private static function setLowercaseCallback(array $matches): string
     {
+        /** @var string[] $matches */
         return mb_strtolower($matches[0]);
     }
 
+    /** @param array<?string> $matches */
     private static function escapeQuotesCallback(array $matches): string
     {
-        return '\\' . implode('\\', str_split($matches[1]));
+        /** @var string[] $matches */
+        return '\\' . implode('\\', mb_str_split($matches[1], 1, 'UTF-8'));
     }
 }

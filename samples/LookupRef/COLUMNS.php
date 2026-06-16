@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the number of columns in an array or reference.');
 
 // Create new PhpSpreadsheet object
@@ -17,5 +17,5 @@ $worksheet->getCell('A4')->setValue('=COLUMNS(1:1)');
 
 for ($row = 1; $row <= 4; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
+    $helper->log("A{$row}: " . $cell->getValueString() . ' => ' . $cell->getCalculatedValueString());
 }

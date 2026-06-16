@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'WEEKNUM';
 $description = 'Returns the week number of a specific date';
@@ -47,6 +47,6 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('System 1 Week number is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
-    $helper->log('System 2 (ISO-8601) Week number is: ' . $worksheet->getCell('G' . $row)->getCalculatedValue());
+    $helper->log('System 1 Week number is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
+    $helper->log('System 2 (ISO-8601) Week number is: ' . $worksheet->getCell('G' . $row)->getCalculatedValueString());
 }

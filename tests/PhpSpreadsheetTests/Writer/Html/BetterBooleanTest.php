@@ -59,6 +59,18 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $sheet->getCell('G1')->setValue('=1+2');
 
         $reloaded = $this->writeAndReload($spreadsheet, 'Html');
+        $falseTrue = Calculation::getInstance($spreadsheet)->getFalseTrueArray();
+        $countPortTrue = 0;
+        $portTrue = 'VERDADEIRO';
+        $portFalse = 'FALSO';
+        $countArray = count($falseTrue[1]);
+        for ($i = 0; $i < $countArray; ++$i) {
+            if ($falseTrue[1][$i] === $portTrue) {
+                ++$countPortTrue;
+                self::assertSame($portFalse, $falseTrue[0][$i]);
+            }
+        }
+        self::assertSame(2, $countPortTrue, '1 for pt, 1 for pt-br');
         $spreadsheet->disconnectWorksheets();
 
         $rsheet = $reloaded->getActiveSheet();
@@ -90,8 +102,8 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $rsheet = $reloaded->getActiveSheet();
         self::assertSame(1, $rsheet->getCell('A1')->getValue());
         self::assertSame('Hello', $rsheet->getCell('B1')->getValue());
-        self::assertSame(1, $rsheet->getCell('C1')->getValue());
-        self::assertNull($rsheet->getCell('D1')->getValue());
+        self::assertSame('TRUE', $rsheet->getCell('C1')->getValue());
+        self::assertSame('FALSE', $rsheet->getCell('D1')->getValue());
         self::assertSame(1, $rsheet->getCell('E1')->getValue());
         self::assertSame('AB', $rsheet->getCell('F1')->getValue());
         self::assertSame(3, $rsheet->getCell('G1')->getValue());
@@ -139,6 +151,7 @@ class BetterBooleanTest extends Functional\AbstractFunctional
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setPrintGridlines(true);
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('B1')->setValue('Hello');
         $sheet->getCell('C1')->setValue(true);
@@ -153,15 +166,15 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
         $html = str_replace('vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; ', '', $html);
-        $html = str_replace(' width:42pt" class="gridlines gridlinesp"', '"', $html);
+        $html = str_replace(' width:42pt"', '"', $html);
         self::assertStringNotContainsString('TRUE', $html);
-        self::assertStringContainsString('<td style="text-align:right;">1</td>', $html);
-        self::assertStringContainsString('<td style="text-align:left;">Hello</td>', $html);
-        self::assertStringContainsString('<td data-type="b" style="text-align:center;">VRAI</td>', $html);
-        self::assertStringContainsString('<td data-type="b" style="text-align:center;">FAUX</td>', $html);
-        self::assertStringContainsString('<td data-type="s" style="text-align:left;">1</td>', $html);
-        self::assertStringContainsString('<td style="text-align:left;">AB</td>', $html);
-        self::assertStringContainsString('<td style="text-align:right;">3</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:right;">1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:left;">Hello</td>', $html);
+        self::assertStringContainsString('<td data-type="b" class="gridlines gridlinesp" style="text-align:center;">VRAI</td>', $html);
+        self::assertStringContainsString('<td data-type="b" class="gridlines gridlinesp" style="text-align:center;">FAUX</td>', $html);
+        self::assertStringContainsString('<td data-type="s" class="gridlines gridlinesp" style="text-align:left;">1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:left;">AB</td>', $html);
+        self::assertStringContainsString('<td class="gridlines gridlinesp" style="text-align:right;">3</td>', $html);
 
         $reloaded = $this->writeAndReload($spreadsheet, 'Html', null, $this->setBetter(...));
         $spreadsheet->disconnectWorksheets();
@@ -198,6 +211,19 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         self::assertSame('whatever', $sheet->getCell('E1')->getValue());
         self::assertTrue($sheet->getCell('F1')->getValue());
         self::assertSame('1', $sheet->getCell('G1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNoPreCalc(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', true);
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setPreCalculateFormulas(false);
+        $writer->setBetterBoolean(true);
+        $html = $writer->generateHtmlAll();
+        self::assertStringContainsString('<td data-type="b" class="column0 style0 b">TRUE</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
 }

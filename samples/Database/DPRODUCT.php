@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Database';
 $functionName = 'DPRODUCT';
 $description = 'Multiplies the values in a column of a list or database that match conditions that you specify';
@@ -40,7 +40,7 @@ $worksheet->setCellValue('B13', '=DPRODUCT(A4:E10,"Yield",A1:A2)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');

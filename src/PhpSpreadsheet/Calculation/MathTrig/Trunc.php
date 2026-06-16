@@ -18,10 +18,10 @@ class Trunc
      * (or possibly that value minus 1).
      * Excel is unlikely to do any better.
      *
-     * @param null|array|float|string $value Or can be an array of values
-     * @param array|float|int|string $digits Or can be an array of values
+     * @param null|array<mixed>|float|string $value Or can be an array of values
+     * @param array<mixed>|float|int|string $digits Or can be an array of values
      *
-     * @return array|float|string Truncated value, or a string containing an error
+     * @return array<mixed>|float|string Truncated value, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

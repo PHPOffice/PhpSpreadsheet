@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/sampleData/example1.xlsx';
 

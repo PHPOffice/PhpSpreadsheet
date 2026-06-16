@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:html="http://www.w3.org/TR/REC-html40" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom"/>
+      <Borders/>
+      <Font ss:FontName="Verdana"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="s22">
+      <NumberFormat ss:Format="General Date"/>
+    </Style>
+    <Style ss:ID="s66">
+      <NumberFormat ss:Format="Fixed"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="stats by transaction_notes">
+    <Table>
+      <Row>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Report Date</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Trx Date</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Merchant</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Terminal</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Report Type</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Transition</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Report Message</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Report Info</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Status</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Merchant Transaction ID</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Unique ID</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Reference Transaction ID</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Reference Transaction Type</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Currency</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Amount (in minor currency unit)</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Card Holder</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Card Brand</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Card Number</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Email</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Country</Data>
+        </Cell>
+        <Cell ss:StyleID="Default">
+          <Data ss:Type="String">Remote IP</Data>
+        </Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

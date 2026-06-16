@@ -4,9 +4,13 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf2;
 
 require __DIR__ . '/../Header.php';
-require_once __DIR__ . '/Mpdf2.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+require_once __DIR__ . '/../templates/Mpdf2.php';
 
 $spreadsheet = new Spreadsheet();
+$spreadsheet->getProperties()
+    ->setCreator('PhpSpreadsheet')
+    ->setTitle('Unusual Font');
 
 $helper->log('Show print grid lines');
 $sheet = $spreadsheet->getActiveSheet();

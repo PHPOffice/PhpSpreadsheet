@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstan
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the number of periods required to pay off a loan, for a constant periodic payment');
 $helper->log('and a constant interest rate.');
 

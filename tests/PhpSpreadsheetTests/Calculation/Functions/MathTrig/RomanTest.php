@@ -30,7 +30,7 @@ class RomanTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=ROMAN({$values}, {$styles})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -100,7 +100,9 @@ class CommentAlignmentTest extends AbstractFunctional
 
         $rsheet = $reloadedSpreadsheet->getActiveSheet();
         $comment1 = $rsheet->getComment('A1');
-        self::assertSame($text, $comment1->getText()->getPlainText());
+        $textSplit = preg_split('/\r?\n/', $text);
+        $resultSplit = preg_split('/\r?\n/', $comment1->getText()->getPlainText());
+        self::assertSame($textSplit, $resultSplit);
         $comment->setTextboxDirection(Comment::TEXTBOX_DIRECTION_RTL);
         self::assertSame('right', $comment1->getAlignment());
         self::assertSame('rtl', $comment1->getTextboxDirection());

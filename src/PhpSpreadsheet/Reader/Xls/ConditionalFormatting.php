@@ -48,6 +48,8 @@ class ConditionalFormatting extends Xls
      * Parse conditional formatting blocks.
      *
      * @see https://www.openoffice.org/sc/excelfileformat.pdf Search for CFHEADER followed by CFRULE
+     *
+     * @return mixed[]
      */
     protected function readCFHeader2(Xls $xls): array
     {
@@ -73,6 +75,7 @@ class ConditionalFormatting extends Xls
         return $cellRangeAddresses;
     }
 
+    /** @param string[] $cellRangeAddresses */
     protected function readCFRule2(array $cellRangeAddresses, Xls $xls): void
     {
         $length = self::getUInt2d($xls->data, $xls->pos + 2);
@@ -212,7 +215,9 @@ class ConditionalFormatting extends Xls
         $color = self::getInt4d($options, 80);
 
         if ($color !== -1) {
-            $style->getFont()->getColor()->setRGB(Color::map($color, $xls->palette, $xls->version)['rgb']);
+            $style->getFont()
+                ->getColor()
+                ->setRGB(Color::map($color, $xls->palette, $xls->version)['rgb']);
         }
     }
 
@@ -222,6 +227,7 @@ class ConditionalFormatting extends Xls
 
     private function getCFBorderStyle(string $options, Style $style, bool $hasBorderLeft, bool $hasBorderRight, bool $hasBorderTop, bool $hasBorderBottom, Xls $xls): void
     {
+        /** @var false|int[] */
         $valueArray = unpack('V', $options);
         $value = is_array($valueArray) ? $valueArray[1] : 0;
         $left = $value & 15;
@@ -230,6 +236,7 @@ class ConditionalFormatting extends Xls
         $bottom = ($value >> 12) & 15;
         $leftc = ($value >> 16) & 0x7F;
         $rightc = ($value >> 23) & 0x7F;
+        /** @var false|int[] */
         $valueArray = unpack('V', substr($options, 4));
         $value = is_array($valueArray) ? $valueArray[1] : 0;
         $topc = $value & 0x7F;
@@ -308,6 +315,7 @@ class ConditionalFormatting extends Xls
         }
     }
 
+    /** @param string[] $cellRanges */
     private function setCFRules(array $cellRanges, string $type, string $operator, null|float|int|string $formula1, null|float|int|string $formula2, Style $style, bool $noFormatSet, Xls $xls): void
     {
         foreach ($cellRanges as $cellRange) {
@@ -324,10 +332,14 @@ class ConditionalFormatting extends Xls
             }
             $conditional->setStyle($style);
 
-            $conditionalStyles = $xls->phpSheet->getStyle($cellRange)->getConditionalStyles();
+            $conditionalStyles = $xls->phpSheet
+                ->getStyle($cellRange)
+                ->getConditionalStyles();
             $conditionalStyles[] = $conditional;
 
-            $xls->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
+            $xls->phpSheet
+                ->getStyle($cellRange)
+                ->setConditionalStyles($conditionalStyles);
         }
     }
 }

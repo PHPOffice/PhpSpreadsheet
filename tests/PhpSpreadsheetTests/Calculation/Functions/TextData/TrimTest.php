@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class TrimTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTRIM')]
+    #[DataProvider('providerTRIM')]
     public function testTRIM(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -28,14 +29,15 @@ class TrimTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/TRIM.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTrimArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerTrimArray')]
     public function testTrimArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=TRIM({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerTrimArray(): array

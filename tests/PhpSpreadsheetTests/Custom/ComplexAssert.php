@@ -9,27 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComplexAssert extends TestCase
 {
-    private string $errorMessage = '';
-
-    private float $delta = 0.0;
-
-    public function __construct()
-    {
-        parent::__construct('complexAssert');
-    }
-
-    private function testExpectedExceptions(string|float $expected, string|float $actual): bool
-    {
-        //    Expecting an error, so we do a straight string comparison
-        if ($expected === $actual) {
-            return true;
-        } elseif ($expected === INF && $actual === 'INF') {
-            return true;
-        }
-        $this->errorMessage = 'Expected Error: ' . $actual . ' !== ' . $expected;
-
-        return false;
-    }
+    protected float $complexPrecision = 1E-12;
 
     private function adjustDelta(float $expected, float $actual, float $delta): float
     {
@@ -43,55 +23,55 @@ class ComplexAssert extends TestCase
         return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
     }
 
-    public function setDelta(float $delta): self
-    {
-        $this->delta = $delta;
-
-        return $this;
-    }
-
     public function assertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): bool
     {
-        if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
-            return $this->testExpectedExceptions($expected, (is_string($actual) || is_float($actual)) ? $actual : 'neither string nor float');
+        if ($expected === INF) {
+            self::assertSame('INF', $actual);
+
+            return true;
+        }
+        if (is_string($expected) && $expected[0] === '#') {
+            self::assertSame(
+                $expected,
+                $actual,
+                'Mismatched Error'
+            );
+
+            return true;
         }
 
         if ($delta === null) {
-            $delta = $this->delta;
+            $delta = $this->complexPrecision;
         }
         $expectedComplex = new Complex($expected);
         $actualComplex = new Complex($actual);
 
-        $adjustedDelta = $this->adjustDelta($expectedComplex->getReal(), $actualComplex->getReal(), $delta);
-        if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $adjustedDelta) {
-            $this->errorMessage = 'Mismatched Real part: ' . $actualComplex->getReal() . ' != ' . $expectedComplex->getReal();
+        $comparand1 = $expectedComplex->getReal();
+        $comparand2 = $actualComplex->getReal();
+        $adjustedDelta = $this->adjustDelta($comparand1, $comparand2, $delta);
+        self::assertEqualsWithDelta(
+            $comparand1,
+            $comparand2,
+            $adjustedDelta,
+            'Mismatched Real part'
+        );
 
-            return false;
-        }
+        $comparand1 = $expectedComplex->getImaginary();
+        $comparand2 = $actualComplex->getImaginary();
+        $adjustedDelta = $this->adjustDelta($comparand1, $comparand2, $delta);
+        self::assertEqualsWithDelta(
+            $comparand1,
+            $comparand2,
+            $adjustedDelta,
+            'Mismatched Imaginary part'
+        );
 
-        $adjustedDelta = $this->adjustDelta($expectedComplex->getImaginary(), $actualComplex->getImaginary(), $delta);
-        if (abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $adjustedDelta) {
-            $this->errorMessage = 'Mismatched Imaginary part: ' . $actualComplex->getImaginary() . ' != ' . $expectedComplex->getImaginary();
-
-            return false;
-        }
-
-        if ($actualComplex->getSuffix() !== $actualComplex->getSuffix()) {
-            $this->errorMessage = 'Mismatched Suffix: ' . $actualComplex->getSuffix() . ' != ' . $expectedComplex->getSuffix();
-
-            return false;
-        }
+        self::assertSame(
+            $expectedComplex->getSuffix(),
+            $actualComplex->getSuffix(),
+            'Mismatched Suffix'
+        );
 
         return true;
-    }
-
-    public function getErrorMessage(): string
-    {
-        return $this->errorMessage;
-    }
-
-    public function runAssertComplexEquals(string $expected, array|float|string $actual, ?float $delta = null): void
-    {
-        self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());
     }
 }

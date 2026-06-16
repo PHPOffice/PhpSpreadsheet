@@ -31,7 +31,6 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(6.7, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
@@ -71,7 +70,6 @@ class CalculationLoggingTest extends TestCase
 
         $log = $debugLog->getLog();
 
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
@@ -114,14 +112,12 @@ class CalculationLoggingTest extends TestCase
         self::assertEquals(-0.75, $cell->getCalculatedValue());
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
         $entries = count($log);
         self::assertGreaterThan(0, $entries);
 
         $debugLog->clearLog();
 
         $log = $debugLog->getLog();
-        self::assertIsArray($log);
-        self::assertEmpty($log);
+        self::assertSame([], $log);
     }
 }

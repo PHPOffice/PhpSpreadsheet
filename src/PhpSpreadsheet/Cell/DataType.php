@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use Stringable;
 
 class DataType
 {
@@ -18,6 +17,7 @@ class DataType
     const TYPE_INLINE = 'inlineStr';
     const TYPE_ERROR = 'e';
     const TYPE_ISO_DATE = 'd';
+    const TYPE_DRAWING_IN_CELL = 'drawingCell';
 
     /**
      * List of error codes.
@@ -54,7 +54,7 @@ class DataType
      *
      * @return RichText|string Sanitized value
      */
-    public static function checkString(null|RichText|string $textValue): RichText|string
+    public static function checkString(null|RichText|string $textValue, bool $preserveCr = false): RichText|string
     {
         if ($textValue instanceof RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
@@ -65,7 +65,9 @@ class DataType
         $textValue = StringHelper::substring((string) $textValue, 0, self::MAX_STRING_LENGTH);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
-        $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);
+        if (!$preserveCr) {
+            $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);
+        }
 
         return $textValue;
     }
@@ -79,10 +81,11 @@ class DataType
      */
     public static function checkErrorCode(mixed $value): string
     {
-        $value = (is_scalar($value) || $value instanceof Stringable) ? ((string) $value) : '#NULL!';
+        $default = '#NULL!';
+        $value = ($value === null) ? $default : StringHelper::convertToString($value, false, $default);
 
         if (!isset(self::$errorCodes[$value])) {
-            $value = '#NULL!';
+            $value = $default;
         }
 
         return $value;

@@ -105,9 +105,9 @@ class MultiplierTest extends TestCase
             'rotWithShape' => 0,
             'size' => [
                 'sx' => null,
-                'sy' => 254,
-                'kx' => -94,
-                'ky' => null,
+                'sy' => 2.54,
+                'kx' => -45,
+                'ky' => 90,
             ],
             'color' => [
                 'type' => ChartColor::EXCEL_COLOR_TYPE_RGB,
@@ -122,8 +122,8 @@ class MultiplierTest extends TestCase
             ' dir="18900000"',
             ' dist="38100"',
             ' rotWithShape="0"',
-            ' sy="25400000"',
-            ' kx="-5640000"',
+            ' sy="254000"',
+            ' kx="-2700000"',
             '<a:srgbClr val="FF0000">',
             '<a:alpha val="80000"/>',
         ];
@@ -150,6 +150,7 @@ class MultiplierTest extends TestCase
         foreach ($expectedXmlX as $expected) {
             self::assertSame(1, substr_count($data, $expected), $expected);
         }
+        self::assertSame(0, substr_count($data, 'ky'), 'ky value too high');
         foreach ($expectedXmlNoX as $expected) {
             self::assertSame(0, substr_count($data, $expected), $expected);
         }

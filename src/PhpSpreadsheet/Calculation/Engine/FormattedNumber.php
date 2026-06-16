@@ -16,40 +16,30 @@ class FormattedNumber
     // preg_quoted string for major currency symbols, with a %s for locale currency
     private const CURRENCY_CONVERSION_LIST = '\$€£¥%s';
 
-    private const STRING_CONVERSION_LIST = [
-        [self::class, 'convertToNumberIfNumeric'],
-        [self::class, 'convertToNumberIfFraction'],
-        [self::class, 'convertToNumberIfPercent'],
-        [self::class, 'convertToNumberIfCurrency'],
-    ];
-
     /**
      * Identify whether a string contains a formatted numeric value,
      * and convert it to a numeric if it is.
      *
-     * @param string $operand string value to test
+     * @param float|string $operand string value to test
      */
-    public static function convertToNumberIfFormatted(string &$operand): bool
+    public static function convertToNumberIfFormatted(float|string &$operand): bool
     {
-        foreach (self::STRING_CONVERSION_LIST as $conversionMethod) {
-            if ($conversionMethod($operand) === true) {
-                return true;
-            }
-        }
-
-        return false;
+        return self::convertToNumberIfNumeric($operand)
+            || self::convertToNumberIfFraction($operand)
+            || self::convertToNumberIfPercent($operand)
+            || self::convertToNumberIfCurrency($operand);
     }
 
     /**
      * Identify whether a string contains a numeric value,
      * and convert it to a numeric if it is.
      *
-     * @param string $operand string value to test
+     * @param float|string $operand string value to test
      */
-    public static function convertToNumberIfNumeric(string &$operand): bool
+    public static function convertToNumberIfNumeric(float|string &$operand): bool
     {
         $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
-        $value = preg_replace(['/(\d)' . $thousandsSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim($operand));
+        $value = preg_replace(['/(\d)' . $thousandsSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim("$operand"));
         $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
         $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
@@ -68,13 +58,15 @@ class FormattedNumber
      *
      * @param string $operand string value to test
      */
-    public static function convertToNumberIfFraction(string &$operand): bool
+    public static function convertToNumberIfFraction(float|string &$operand): bool
     {
-        if (preg_match(self::STRING_REGEXP_FRACTION, $operand, $match)) {
+        if (is_string($operand) && preg_match(self::STRING_REGEXP_FRACTION, $operand, $match)) {
             $sign = ($match[1] === '-') ? '-' : '+';
             $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
             $fractionFormula = '=' . $wholePart . $sign . $match[4];
-            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            /** @var string */
+            $operandx = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = $operandx;
 
             return true;
         }
@@ -86,12 +78,12 @@ class FormattedNumber
      * Identify whether a string contains a percentage, and if so,
      * convert it to a numeric.
      *
-     * @param string $operand string value to test
+     * @param float|string $operand string value to test
      */
-    public static function convertToNumberIfPercent(string &$operand): bool
+    public static function convertToNumberIfPercent(float|string &$operand): bool
     {
         $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
-        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', trim($operand));
+        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', trim("$operand"));
         $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
         $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
@@ -111,13 +103,13 @@ class FormattedNumber
      * Identify whether a string contains a currency value, and if so,
      * convert it to a numeric.
      *
-     * @param string $operand string value to test
+     * @param float|string $operand string value to test
      */
-    public static function convertToNumberIfCurrency(string &$operand): bool
+    public static function convertToNumberIfCurrency(float|string &$operand): bool
     {
         $currencyRegexp = self::currencyMatcherRegexp();
         $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
-        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $operand);
+        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', "$operand");
 
         $match = [];
         if ($value !== null && preg_match($currencyRegexp, $value, $match, PREG_UNMATCHED_AS_NULL)) {

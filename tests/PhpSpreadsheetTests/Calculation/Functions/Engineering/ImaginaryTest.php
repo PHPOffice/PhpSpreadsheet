@@ -7,28 +7,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ImaginaryTest extends TestCase
+class ImaginaryTest extends AllSetupTeardown
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testDirectCallToIMAGINARY(float|int|string $expectedResult, float|int|string $arg): void
     {
         $result = Complex::IMAGINARY((string) $arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testIMAGINARYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -36,17 +29,16 @@ class ImaginaryTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMAGINARY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMAGINARY')]
+    #[DataProvider('providerIMAGINARY')]
     public function testIMAGINARYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=IMAGINARY({$argumentCells})";
 
@@ -54,8 +46,6 @@ class ImaginaryTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerIMAGINARY(): array
@@ -63,13 +53,12 @@ class ImaginaryTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMAGINARY')]
+    #[DataProvider('providerUnhappyIMAGINARY')]
     public function testIMAGINARYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=IMAGINARY({$argumentCells})";
 
@@ -78,8 +67,6 @@ class ImaginaryTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyIMAGINARY(): array
@@ -89,13 +76,14 @@ class ImaginaryTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImaginaryArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerImaginaryArray')]
     public function testImaginaryArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IMAGINARY({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'IMSUB';
 $description = 'Returns the difference of two complex numbers in x + yi or x + yj text format';
@@ -34,10 +34,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): The Difference between "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' and '
-        . $worksheet->getCell('B' . $row)->getValue()
+        . $worksheet->getCell('B' . $row)->getValueString()
         . ' is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
     );
 }

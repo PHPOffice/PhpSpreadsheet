@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
@@ -12,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TimeTest extends TestCase
@@ -36,14 +38,14 @@ class TimeTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
+    #[DataProvider('providerTIME')]
     public function testDirectCallToTIME(float|string $expectedResult, int|string $hour, bool|int $minute, int $second): void
     {
         $result = Time::fromHMS($hour, $minute, $second);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTIME')]
+    #[DataProvider('providerTIME')]
     public function testTIMEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -51,7 +53,7 @@ class TimeTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=TIME({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
@@ -60,7 +62,7 @@ class TimeTest extends TestCase
         return require 'tests/data/Calculation/DateTime/TIME.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyTIME')]
+    #[DataProvider('providerUnhappyTIME')]
     public function testTIMEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -100,9 +102,8 @@ class TimeTest extends TestCase
 
         $result = Time::fromHMS(7, 30, 20);
         //    Must return an object...
-        self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertInstanceOf(DateTimeInterface::class, $result);
         //    ... with the correct value
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
@@ -121,13 +122,14 @@ class TimeTest extends TestCase
         self::assertEquals(0, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerTimeArray')]
     public function testTimeArray(array $expectedResult, string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=TIME({$hour}, {$minute}, {$second})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -185,7 +187,7 @@ class TimeTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerTimeArrayException')]
+    #[DataProvider('providerTimeArrayException')]
     public function testTimeArrayException(string $hour, string $minute, string $second): void
     {
         $calculation = Calculation::getInstance();
@@ -194,7 +196,7 @@ class TimeTest extends TestCase
         $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
 
         $formula = "=TIME({$hour}, {$minute}, {$second})";
-        $calculation->_calculateFormulaValue($formula);
+        $calculation->calculateFormula($formula);
     }
 
     public static function providerTimeArrayException(): array

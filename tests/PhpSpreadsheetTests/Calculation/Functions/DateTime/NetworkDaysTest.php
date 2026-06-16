@@ -8,18 +8,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\NetworkDays;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class NetworkDaysTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
+    #[DataProvider('providerNETWORKDAYS')]
     public function testDirectCallToNETWORKDAYS(mixed $expectedResult, mixed ...$args): void
     {
         $result = NetworkDays::count(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
+    #[DataProvider('providerNETWORKDAYS')]
     public function testNETWORKDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -27,11 +28,11 @@ class NetworkDaysTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=NETWORKDAYS({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNETWORKDAYS')]
+    #[DataProvider('providerNETWORKDAYS')]
     public function testNETWORKDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -54,7 +55,7 @@ class NetworkDaysTest extends TestCase
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyNETWORKDAYS')]
+    #[DataProvider('providerUnhappyNETWORKDAYS')]
     public function testNETWORKDAYSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,7 +82,8 @@ class NetworkDaysTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNetWorkDaysArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerNetWorkDaysArray')]
     public function testNetWorkDaysArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
     {
         $calculation = Calculation::getInstance();
@@ -91,7 +93,7 @@ class NetworkDaysTest extends TestCase
         } else {
             $formula = "=NETWORKDAYS({$startDate}, {$endDays}, {$holidays})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

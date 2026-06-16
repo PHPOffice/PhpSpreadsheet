@@ -23,7 +23,7 @@ class NoTitleTest extends TestCase
         $writer->setUseInlineCss(true);
         $html = $writer->generateHTMLAll();
         self::assertStringContainsString('<title>Sheet1</title>', $html);
-        self::assertStringContainsString('<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt" class="gridlines gridlinesp">C1</td>', $html);
+        self::assertStringContainsString('<td class="gridlines" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt">C1</td>', $html);
         $writer->setUseInlineCss(false);
         $html = $writer->generateHTMLAll();
         self::assertStringContainsString('<td class="column2 style0 s">C1</td>', $html);
@@ -55,8 +55,8 @@ class NoTitleTest extends TestCase
         $writer = new Html($spreadsheet);
         $writer->setUseInlineCss(true);
         $html = $writer->generateHTMLAll();
-        self::assertStringContainsString('<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt" class="gridlines gridlinesp">7</td>', $html);
-        self::assertStringContainsString('<td style="vertical-align:bottom; border-bottom:none #808080; border-top:none #808080; border-left:none #808080; border-right:none #808080; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt" class="gridlines gridlinesp">19</td>', $html);
+        self::assertStringContainsString('<td class="gridlines" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt">7</td>', $html);
+        self::assertStringContainsString('<td class="gridlines" style="vertical-align:bottom; border-bottom:none #808080; border-top:none #808080; border-left:none #808080; border-right:none #808080; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt">19</td>', $html);
         $spreadsheet->disconnectWorksheets();
     }
 }

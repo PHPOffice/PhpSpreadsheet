@@ -25,7 +25,7 @@ class GammaInvTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=GAMMA.INV({$values}, {$alpha}, {$beta})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

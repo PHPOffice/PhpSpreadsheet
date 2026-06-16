@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Info;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
 use PhpOffice\PhpSpreadsheet\Reader\Slk as ReaderSlk;
 use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
@@ -11,12 +12,24 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Xml as ReaderXml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class TypeAttributePreservationTest extends AbstractFunctional
 {
+    protected function setUp(): void
+    {
+        Info::$infoSupported = false;
+    }
+
+    protected function tearDown(): void
+    {
+        Info::$infoSupported = true;
+    }
+
     public static function providerFormulae(): array
     {
         $formats = ['Xlsx'];
+        /** @var mixed[][] */
         $data = require 'tests/data/Functional/TypeAttributePreservation/Formula.php';
 
         $result = [];
@@ -31,8 +44,10 @@ class TypeAttributePreservationTest extends AbstractFunctional
 
     /**
      * Ensure saved spreadsheets maintain the correct data type.
+     *
+     * @param mixed[] $values
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulae')]
+    #[DataProvider('providerFormulae')]
     public function testFormulae(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();
@@ -62,8 +77,10 @@ class TypeAttributePreservationTest extends AbstractFunctional
 
     /**
      * Ensure saved spreadsheets maintain the correct data type.
+     *
+     * @param mixed[] $values
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulae')]
+    #[DataProvider('providerFormulae')]
     public function testFormulaeNoPrecalc(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();

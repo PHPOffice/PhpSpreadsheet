@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BITOR';
 $description = "Returns a bitwise 'OR' of two numbers";
@@ -38,17 +38,17 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): Bitwise OR of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' ('
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
         . ') and '
-        . $worksheet->getCell('B' . $row)->getValue()
+        . $worksheet->getCell('B' . $row)->getValueString()
         . '('
-        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . $worksheet->getCell('D' . $row)->getCalculatedValueString()
         . ') is '
-        . $worksheet->getCell('E' . $row)->getCalculatedValue()
+        . $worksheet->getCell('E' . $row)->getCalculatedValueString()
         . ' ('
-        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . $worksheet->getCell('F' . $row)->getCalculatedValueString()
         . ')'
     );
 }

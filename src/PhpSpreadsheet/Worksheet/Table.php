@@ -117,10 +117,10 @@ class Table implements Stringable
             ) {
                 throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
             }
-            if (!preg_match('/^[\p{L}_\\\\]/iu', $name)) {
+            if (!preg_match('/^[\p{L}_\\\]/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name must begin a name with a letter, an underscore character (_), or a backslash (\)');
             }
-            if (!preg_match('/^[\p{L}_\\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
+            if (!preg_match('/^[\p{L}_\\\][\p{L}\p{M}0-9\._]*$/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name contains invalid characters');
             }
 
@@ -318,7 +318,7 @@ class Table implements Stringable
     {
         if ($this->workSheet !== null) {
             $thisrange = $this->range;
-            $range = (string) preg_replace('/\\d+$/', (string) $this->workSheet->getHighestRow(), $thisrange);
+            $range = (string) preg_replace('/\d+$/', (string) $this->workSheet->getHighestRow(), $thisrange);
             if ($range !== $thisrange) {
                 $this->setRange($range);
             }
@@ -420,7 +420,7 @@ class Table implements Stringable
     }
 
     /**
-     * Get a specified Table Column by it's offset.
+     * Get a specified Table Column by its offset.
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
@@ -442,7 +442,7 @@ class Table implements Stringable
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
-        } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof Table\Column)) {
+        } elseif ($columnObjectOrString instanceof Table\Column) {
             $column = $columnObjectOrString->getColumnIndex();
         } else {
             throw new PhpSpreadsheetException('Column is not within the table range.');
@@ -477,7 +477,7 @@ class Table implements Stringable
     }
 
     /**
-     * Shift an Table Column Rule to a different column.
+     * Shift a Table Column Rule to a different column.
      *
      * Note: This method bypasses validation of the destination column to ensure it is within this Table range.
      *        Nor does it verify whether any column rule already exists at $toColumn, but will simply override any existing value.
@@ -491,7 +491,7 @@ class Table implements Stringable
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);
 
-        if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
+        if (isset($this->columns[$fromColumn])) {
             $this->columns[$fromColumn]->setTable();
             $this->columns[$fromColumn]->setColumnIndex($toColumn);
             $this->columns[$toColumn] = $this->columns[$fromColumn];
@@ -541,6 +541,19 @@ class Table implements Stringable
     }
 
     /**
+     * Get the row number on this table for given coordinates.
+     */
+    public function getRowNumber(string $coordinate): int
+    {
+        $range = $this->getRange();
+        $coords = Coordinate::splitRange($range);
+        $firstCell = Coordinate::coordinateFromString($coords[0][0]);
+        $thisCell = Coordinate::coordinateFromString($coordinate);
+
+        return (int) $thisCell[1] - (int) $firstCell[1];
+    }
+
+    /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
     public function __clone()
@@ -558,6 +571,7 @@ class Table implements Stringable
                 //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table objects
                 $this->{$key} = [];
                 foreach ($value as $k => $v) {
+                    /** @var Table\Column $v */
                     $this->{$key}[$k] = clone $v;
                     // attach the new cloned Column to this new cloned Table object
                     $this->{$key}[$k]->setTable($this);

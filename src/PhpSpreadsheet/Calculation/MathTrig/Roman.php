@@ -821,7 +821,7 @@ class Roman
      * @param mixed $style Number indicating one of five possible forms
      *                      Or can be an array of styles
      *
-     * @return array|string Roman numeral, or a string containing an error
+     * @return array<mixed>|string Roman numeral, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

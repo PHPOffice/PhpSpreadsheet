@@ -181,14 +181,25 @@ Because of a bug in the Office2003 compatibility pack, there can be some
 small issues when opening Xlsx spreadsheets (mostly related to formula
 calculation). You can enable Office2003 compatibility with the following
 code:
-
+```php
     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
     $writer->setOffice2003Compatibility(true);
     $writer->save("05featuredemo.xlsx");
+```
 
 **Office2003 compatibility option should only be used when needed** because 
 it disables several Office2007 file format options, resulting in a
 lower-featured Office2007 spreadsheet.
+
+#### Maximum Column Width
+
+In the Xlsx User Interface, the user cannot set a column width > 255.
+Nevertheless, it will honor a higher value if supplied in the Xml.
+PhpSpreadsheet will, by default, allow values > 255 to be written.
+However, Excel's behavior, restricting the value to 255, can be emulated:
+```php
+    $writer->setRestrictMaxColumnWidth(true);
+```
 
 ### Form Control Fields
 
@@ -533,11 +544,10 @@ To load them:
 $reader->setPreserveNullString(true);
 ```
 
-Finally, you can set a callback to be invoked when the constructor is executed,
+You can set a callback to be invoked when the constructor is executed,
 either through `new Csv()` or `IOFactory::load`,
 and have that callback set the customizable attributes to whatever
 defaults are appropriate for your environment.
-
 ```php
 function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
 {
@@ -552,6 +562,23 @@ function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
 \PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
 $spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
 ```
+
+As a (probably better) alternative, you can extend the `Reader\Csv` class to have whatever default properties you want, and use the extended class with `new`.
+For use with `IOFactory`, you can register the extended class as the Csv Reader:
+```php
+IOFactory::registerReader(IOFactory::READER_CSV, Reader\CsvNoEscape::class);
+```
+Starting with release 5.6, the `IOFactory` methods `createReader`, `load`, `identify`, and `createReaderForFile` also allow you to specify the appropriate reader for a file type, without having to register the class or affecting the ability of IOFactory to find classes suitable for files in other formats.
+```php
+$spreadsheet = IOFactory::load(
+    $inputFileName,
+    mergeArray: [IOFactory::READER_CSV => Reader\CsvNoEscape::class]
+    /* or mergeArray: IOFactory::USE_CSV_NO_EXCAPE */
+);
+```
+
+Finally, note the use of `Reader\CsvNoEscape` above.
+That class, which extends `Reader\Csv`, is introduced in release 5.6. Php long ago defined its own escaping mechanism for Csv files; this is completely non-portable, and was deprecated in Php8.4 and will go away with Php9. Likewise, the ability to auto-detect Mac line endings will go away in Php9. `CsvNoEscape` sets the escape character to null-string (the only value supported for Php9), sets auto-detection of Mac endings to false, and will throw an exception if the user attempts to change either. `Reader\CsvNoEscape` is unquestionably a better choice for new applications than `Reader\Csv`.
 
 #### Read a specific worksheet
 
@@ -1088,7 +1115,7 @@ $secondHtmlString = '<table>
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
 $spreadsheet = $reader->loadFromString($firstHtmlString);
 $reader->setSheetIndex(1);
-$spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
+$spreadsheet = $reader->loadFromString($secondHtmlString, $spreadsheet);
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
@@ -1114,7 +1141,10 @@ $reader->load("spreadsheetWithCharts.xlsx", $reader::LOAD_WITH_CHARTS);
 If you wish to use the IOFactory `load()` method rather than instantiating a specific Reader, then you can still pass these flags.
 
 ```php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(
+    "spreadsheetWithCharts.xlsx",
+    \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS
+);
 ```
 
 Flags that are available that can be passed to the Reader in this way include:
@@ -1123,17 +1153,19 @@ Flags that are available that can be passed to the Reader in this way include:
  - $reader::READ_DATA_ONLY
  - $reader::IGNORE_EMPTY_CELLS
  - $reader::IGNORE_ROWS_WITH_NO_CELLS
+ - $reader::ALLOW_EXTERNAL_IMAGES (starting with release 4.5)
+ - $reader::DONT_ALLOW_EXTERNAL_IMAGES (starting with release 4.5)
 
-| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS | IGNORE_ROWS_WITH_NO_CELLS |
-|----------|------------------|----------------|--------------------|---------------------------|
-| Xlsx     | YES              | YES            | YES                | YES                       |
-| Xls      | NO               | YES            | YES                | NO                        |
-| Xml      | NO               | NO             | NO                 | NO                        |
-| Ods      | NO               | YES            | NO                 | NO                        |
-| Gnumeric | NO               | YES            | NO                 | NO                        |
-| Html     | N/A              | N/A            | N/A                | N/A                       |
-| Slk      | N/A              | NO             | NO                 | NO                        |
-| Csv      | N/A              | NO             | NO                 | NO                        |
+| Readers  | LOAD<br>CHARTS | DATA<br>ONLY | IGNORE<br>EMPTY | IGNORE<br>ROWS | EXTERNAL<br>IMAGES |
+|----------|--------|------|--------|--------|--------|
+| Xlsx     | YES | YES | YES | YES | YES |
+| Xls      | NO  | YES | YES | NO  | NO  |
+| Xml      | NO  | NO  | NO  | NO  | NO  |
+| Ods      | NO  | YES | NO  | NO  | NO  |
+| Gnumeric | NO  | YES | NO  | NO  | NO  |
+| Html     | N/A | N/A | N/A | N/A | YES |
+| Slk      | N/A | NO  | NO  | NO  | N/A |
+| Csv      | N/A | NO  | NO  | NO  | N/A |
 
 Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
@@ -1169,6 +1201,46 @@ One benefit of flags is that you can pass several flags in a single method call.
 Two or more flags can be passed together using PHP's `|` operator.
 
 ```php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("myExampleFile.xlsx");
-$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::IGNORE_EMPTY_CELLS);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile('myExampleFile.xlsx');
+$reader->load(
+    'spreadsheetWithCharts.xlsx',
+    $reader::READ_DATA_ONLY | $reader::IGNORE_EMPTY_CELLS
+);
 ```
+
+## Writing Data as a Plaintext Grid
+
+Although not really a spreadsheet format, it can be useful to write data in grid format to a plaintext file.
+Code like the following can be used:
+```php
+        $array = $sheet->toArray(null, true, true, true);
+        $textGrid = new \PhpOffice\PhpSpreadsheet\Shared\TextGrid(
+            $array,
+            true, // true for cli, false for html
+            // Starting with release 4.2,
+            // the output format can be tweaked by uncommenting
+            // any of the following 3 optional parameters.
+            // rowDividers: true,
+            // rowHeaders: false,
+            // columnHeaders: false,
+            // Starting with release 5.4:
+            // numbersRight: TextGridRightAlign::numeric,
+        );
+        $result = $textGrid->render();
+```
+You can then echo `$result` to a terminal, or write it to a file with `file_put_contents`. The result will resemble:
+```
+    +-----+------------------+---+----------+
+    | A   | B                | C | D        |
++---+-----+------------------+---+----------+
+| 1 | 6   | 1900-01-06 00:00 |   | 0.572917 |
+| 2 | 6   | TRUE             |   | 1<>2     |
+| 3 | xyz | xyz              |   |          |
++---+-----+------------------+---+----------+
+```
+Please note that this may produce sub-optimal results for situations such as:
+
+- use of accents as combining characters rather than using pre-composed characters (may be handled by extending the class to override the `getString` or `strlen` methods)
+- Fullwidth characters
+- right-to-left characters (better display in a browser than a terminal on a non-RTL system)
+- multi-line strings

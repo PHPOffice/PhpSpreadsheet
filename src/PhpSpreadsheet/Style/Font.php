@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
+use PhpOffice\PhpSpreadsheet\Theme;
 
 class Font extends Supervisor
 {
@@ -85,6 +86,8 @@ class Font extends Supervisor
      */
     protected Color $color;
 
+    protected bool $autoColor = false;
+
     public ?int $colorIndex = null;
 
     protected string $scheme = '';
@@ -124,6 +127,14 @@ class Font extends Supervisor
         }
     }
 
+    public function applyThemeFonts(Theme $theme): void
+    {
+        $this->setName($theme->getMinorFontLatin());
+        $this->setLatin($theme->getMinorFontLatin());
+        $this->setEastAsian($theme->getMinorFontEastAsian());
+        $this->setComplexScript($theme->getMinorFontComplexScript());
+    }
+
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
@@ -138,6 +149,10 @@ class Font extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return array{font: mixed[]}
      */
     public function getStyleArray(array $array): array
     {
@@ -162,7 +177,24 @@ class Font extends Supervisor
      * );
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param array{
+     *   autoColor?: bool,
+     *   bold?: bool,
+     *   cap?: string,
+     *   chartColor?: ChartColor,
+     *   color?: string[],
+     *   complexScript?: string,
+     *   eastAsian?: string,
+     *   italic?: bool,
+     *   latin?: string,
+     *   name?: string,
+     *   scheme?: string,
+     *   size?: null|float|int,
+     *   strikethrough?: bool,
+     *   superscript?: bool,
+     *   subscript?: bool,
+     *   underline?: bool|string,
+     * } $styleArray Array containing style information
      *
      * @return $this
      */
@@ -181,7 +213,9 @@ class Font extends Supervisor
                 $this->setEastAsian($styleArray['eastAsian']);
             }
             if (isset($styleArray['complexScript'])) {
-                $this->setComplexScript($styleArray['complexScript']);
+                $this->setComplexScript(
+                    $styleArray['complexScript']
+                );
             }
             if (isset($styleArray['bold'])) {
                 $this->setBold($styleArray['bold']);
@@ -199,10 +233,15 @@ class Font extends Supervisor
                 $this->setUnderline($styleArray['underline']);
             }
             if (isset($styleArray['strikethrough'])) {
-                $this->setStrikethrough($styleArray['strikethrough']);
+                $this->setStrikethrough(
+                    $styleArray['strikethrough']
+                );
             }
             if (isset($styleArray['color'])) {
-                $this->getColor()->applyFromArray($styleArray['color']);
+                /** @var array{rgb?: string, argb?: string, theme?: int} */
+                $temp = $styleArray['color'];
+                $this->getColor()
+                    ->applyFromArray($temp);
             }
             if (isset($styleArray['size'])) {
                 $this->setSize($styleArray['size']);
@@ -215,6 +254,9 @@ class Font extends Supervisor
             }
             if (isset($styleArray['cap'])) {
                 $this->setCap($styleArray['cap']);
+            }
+            if (isset($styleArray['autoColor'])) {
+                $this->setAutoColor($styleArray['autoColor']);
             }
         }
 
@@ -394,9 +436,6 @@ class Font extends Supervisor
      */
     public function setBold(bool $bold): static
     {
-        if ($bold == '') {
-            $bold = false;
-        }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['bold' => $bold]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -426,9 +465,6 @@ class Font extends Supervisor
      */
     public function setItalic(bool $italic): static
     {
-        if ($italic == '') {
-            $italic = false;
-        }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['italic' => $italic]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -560,6 +596,7 @@ class Font extends Supervisor
         return $this->underlineColor;
     }
 
+    /** @param array{value: null|string, alpha: null|int|string, brightness?: null|int|string, type: null|string} $colorArray */
     public function setUnderlineColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
@@ -584,6 +621,7 @@ class Font extends Supervisor
         return $this->chartColor;
     }
 
+    /** @param array{value: null|string, alpha: null|int|string, brightness?: null|int|string, type: null|string} $colorArray */
     public function setChartColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
@@ -663,10 +701,6 @@ class Font extends Supervisor
      */
     public function setStrikethrough(bool $strikethru): static
     {
-        if ($strikethru == '') {
-            $strikethru = false;
-        }
-
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['strikethrough' => $strikethru]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -737,6 +771,7 @@ class Font extends Supervisor
             . ($this->subscript ? 't' : 'f')
             . $this->underline
             . ($this->strikethrough ? 't' : 'f')
+            . ($this->autoColor ? 't' : 'f')
             . $this->color->getHashCode()
             . $this->scheme
             . implode(
@@ -756,6 +791,7 @@ class Font extends Supervisor
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];
@@ -777,6 +813,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
         $this->exportArray2($exportedArray, 'underlineColor', $this->getUnderlineColor());
+        $this->exportArray2($exportedArray, 'autoColor', $this->getAutoColor());
 
         return $exportedArray;
     }
@@ -821,6 +858,37 @@ class Font extends Supervisor
     public function getCap(): ?string
     {
         return $this->cap;
+    }
+
+    public function setHyperlinkTheme(): self
+    {
+        $this->color->setHyperlinkTheme();
+        $this->setUnderline(self::UNDERLINE_SINGLE);
+
+        return $this;
+    }
+
+    public function setAutoColor(bool $autoColor): self
+    {
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['autoColor' => $autoColor]);
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray($styleArray);
+        } else {
+            $this->autoColor = $autoColor;
+        }
+
+        return $this;
+    }
+
+    public function getAutoColor(): bool
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getAutoColor();
+        }
+
+        return $this->autoColor;
     }
 
     /**

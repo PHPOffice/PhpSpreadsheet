@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class AutoFilterEvaluateTest extends AbstractFunctional
 {
+    /** @return int[] */
     private function getVisibleSheet(Worksheet $sheet): array
     {
         $actualVisible = [];

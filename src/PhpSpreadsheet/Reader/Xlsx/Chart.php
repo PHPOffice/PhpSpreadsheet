@@ -313,7 +313,6 @@ class Chart
 
                                             break;
                                         case 'scatterChart':
-                                            /** @var string $scatterStyle */
                                             $scatterStyle = self::getAttributeString($chartDetail->scatterStyle, 'val');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle($scatterStyle);
@@ -330,7 +329,6 @@ class Chart
 
                                             break;
                                         case 'radarChart':
-                                            /** @var string $radarStyle */
                                             $radarStyle = self::getAttributeString($chartDetail->radarStyle, 'val');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle($radarStyle);
@@ -858,6 +856,7 @@ class Chart
             $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, 0, null, $marker, $fillColor, "$pointSize");
 
             if (isset($seriesDetail->strRef->strCache)) {
+                /** @var array{formatCode: string, dataValues: mixed[]} */
                 $seriesData = $this->chartDataSeriesValues($seriesDetail->strRef->strCache->children($this->cNamespace), 's');
                 $seriesValues
                     ->setFormatCode($seriesData['formatCode'])
@@ -869,6 +868,7 @@ class Chart
             $seriesSource = (string) $seriesDetail->numRef->f;
             $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, 0, null, $marker, $fillColor, "$pointSize");
             if (isset($seriesDetail->numRef->numCache)) {
+                /** @var array{formatCode: string, dataValues: mixed[]} */
                 $seriesData = $this->chartDataSeriesValues($seriesDetail->numRef->numCache->children($this->cNamespace));
                 $seriesValues
                     ->setFormatCode($seriesData['formatCode'])
@@ -881,6 +881,7 @@ class Chart
             $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, 0, null, $marker, $fillColor, "$pointSize");
 
             if (isset($seriesDetail->multiLvlStrRef->multiLvlStrCache)) {
+                /** @var array{formatCode: string, dataValues: mixed[]} */
                 $seriesData = $this->chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($this->cNamespace), 's');
                 $seriesValues
                     ->setFormatCode($seriesData['formatCode'])
@@ -893,6 +894,7 @@ class Chart
             $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, 0, null, $marker, $fillColor, "$pointSize");
 
             if (isset($seriesDetail->multiLvlNumRef->multiLvlNumCache)) {
+                /** @var array{formatCode: string, dataValues: mixed[]} */
                 $seriesData = $this->chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($this->cNamespace), 's');
                 $seriesValues
                     ->setFormatCode($seriesData['formatCode'])
@@ -915,6 +917,7 @@ class Chart
         return null;
     }
 
+    /** @return mixed[] */
     private function chartDataSeriesValues(SimpleXMLElement $seriesValueSet, string $dataType = 'n'): array
     {
         $seriesVal = [];
@@ -953,6 +956,7 @@ class Chart
         ];
     }
 
+    /** @return mixed[] */
     private function chartDataSeriesValuesMultiLevel(SimpleXMLElement $seriesValueSet, string $dataType = 'n'): array
     {
         $seriesVal = [];
@@ -1195,31 +1199,45 @@ class Chart
         if ($fontArray['size'] !== null && $fontArray['size'] >= 100) {
             $fontArray['size'] /= 100.0;
         }
-        $fontArray['bold'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
-        $fontArray['italic'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
-        $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
-        $fontArray['strikethrough'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
-        $fontArray['cap'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
+        if ($fontArray['size'] !== null) {
+            $fontArray['size'] = (int) ($fontArray['size']);
+        }
+        $fontArray['bold'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
+        $fontArray['italic'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
+        $temp = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        if (is_string($temp) && $temp !== '') {
+            $fontArray['underline'] = $temp;
+        }
+        $strikethrough = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
+        if ($strikethrough !== null) {
+            if ($strikethrough == 'noStrike') {
+                $fontArray['strikethrough'] = false;
+            } else {
+                $fontArray['strikethrough'] = true;
+            }
+        }
+        $fontArray['cap'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
 
         if (isset($titleDetailPart->pPr->defRPr->latin)) {
-            $fontArray['latin'] = self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');
+            $fontArray['latin'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->ea)) {
-            $fontArray['eastAsian'] = self::getAttributeString($titleDetailPart->pPr->defRPr->ea, 'typeface');
+            $fontArray['eastAsian'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->ea, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->cs)) {
-            $fontArray['complexScript'] = self::getAttributeString($titleDetailPart->pPr->defRPr->cs, 'typeface');
+            $fontArray['complexScript'] = (string) self::getAttributeString($titleDetailPart->pPr->defRPr->cs, 'typeface');
         }
         if (isset($titleDetailPart->pPr->defRPr->solidFill)) {
             $fontArray['chartColor'] = new ChartColor($this->readColor($titleDetailPart->pPr->defRPr->solidFill));
         }
         $font = new Font();
-        $font->setSize(null, true);
+        //$font->setSize(null, true);
         $font->applyFromArray($fontArray);
 
         return $font;
     }
 
+    /** @return mixed[] */
     private function readChartAttributes(?SimpleXMLElement $chartDetail): array
     {
         $plotAttributes = [];
@@ -1277,9 +1295,11 @@ class Chart
         return $plotAttributes;
     }
 
+    /** @param array<mixed> $plotAttributes */
     private function setChartAttributes(Layout $plotArea, array $plotAttributes): void
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
+            /** @var ?bool $plotAttributeValue */
             switch ($plotAttributeKey) {
                 case 'showLegendKey':
                     $plotArea->setShowLegendKey($plotAttributeValue);
@@ -1310,6 +1330,7 @@ class Chart
 
                     break;
                 case 'labelFont':
+                    /** @var ?Font $plotAttributeValue */
                     $plotArea->setLabelFont($plotAttributeValue);
 
                     break;
@@ -1397,6 +1418,7 @@ class Chart
         'innerShdw',
     ];
 
+    /** @return array{type: ?string, value: ?string, alpha: ?int, brightness: ?int} */
     private function readColor(SimpleXMLElement $colorXml): array
     {
         $result = [
@@ -1444,11 +1466,8 @@ class Chart
         if (is_numeric($lineWidthTemp)) {
             $lineWidth = ChartProperties::xmlToPoints($lineWidthTemp);
         }
-        /** @var string $compoundType */
         $compoundType = self::getAttributeString($sppr->ln, 'cmpd');
-        /** @var string $dashType */
         $dashType = self::getAttributeString($sppr->ln->prstDash, 'val');
-        /** @var string $capType */
         $capType = self::getAttributeString($sppr->ln, 'cap');
         if (isset($sppr->ln->miter)) {
             $joinType = ChartProperties::LINE_STYLE_JOIN_MITER;

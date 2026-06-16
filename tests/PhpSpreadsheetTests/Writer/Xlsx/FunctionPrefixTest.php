@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\FunctionPrefix;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FunctionPrefixTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('functionPrefixProvider')]
+    #[DataProvider('functionPrefixProvider')]
     public function testFunctionPrefix(string $expectedResult, string $functionString): void
     {
         $result = FunctionPrefix::addFunctionPrefix($functionString);
@@ -18,6 +19,7 @@ class FunctionPrefixTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
+    /** @return array<string, array<int, string>> */
     public static function functionPrefixProvider(): array
     {
         return [
@@ -36,6 +38,7 @@ class FunctionPrefixTest extends TestCase
             'DAYS/NETWORKDAYS 5' => ['NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)', 'NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)'],
             'COUNTIFS reclassified as Legacy' => ['COUNTIFS()', 'COUNTIFS()'],
             'SUMIFS reclassified as Legacy' => ['SUMIFS()', 'SUMIFS()'],
+            'BASE improperly classified by MS' => ['_xlfn.BASE()', 'BASE()'],
         ];
     }
 }

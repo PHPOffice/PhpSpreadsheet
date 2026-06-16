@@ -11,6 +11,8 @@ class SpgrContainer
 
     /**
      * Shape Container collection.
+     *
+     * @var mixed[]
      */
     private array $children = [];
 
@@ -43,6 +45,8 @@ class SpgrContainer
 
     /**
      * Get collection of Shape Containers.
+     *
+     * @return mixed[]
      */
     public function getChildren(): array
     {
@@ -65,6 +69,7 @@ class SpgrContainer
                 $allSpContainers[] = $child;
             }
         }
+        /** @var SpgrContainer\SpContainer[] $allSpContainers */
 
         return $allSpContainers;
     }

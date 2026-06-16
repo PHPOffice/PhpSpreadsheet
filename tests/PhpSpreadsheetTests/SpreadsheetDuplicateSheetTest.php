@@ -21,7 +21,7 @@ class SpreadsheetDuplicateSheetTest extends TestCase
 
     public function testDuplicate(): void
     {
-        $this->spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->setTitle('original');
         $sheet->getCell('A1')->setValue('text1');
@@ -50,7 +50,7 @@ class SpreadsheetDuplicateSheetTest extends TestCase
             $newSheet->getStyle('A2')->getFont()->getBold()
         );
         $sheetNames = [];
-        foreach ($this->spreadsheet->getWorksheetIterator() as $worksheet) {
+        foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
             $sheetNames[] = $worksheet->getTitle();
         }
         $expected = ['original', 'original 1', 'added', 'added 1'];

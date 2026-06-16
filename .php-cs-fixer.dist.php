@@ -1,9 +1,8 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('vendor')
+    ->exclude(['vendor', 'docs', '.git', '.github'])
     ->notPath('src/PhpSpreadsheet/Writer/ZipStream3.php')
-    ->name('/(\.php|^generate-document|^generate-locales|^check-phpdoc-types)$/')
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
@@ -85,6 +84,7 @@ $config
         'method_chaining_indentation' => true,
         'modernize_strpos' => true,
         'modernize_types_casting' => true,
+        'modifier_keywords' => ['elements' => ['property', 'method']], // not const
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => true,
         'native_constant_invocation' => false, // Micro optimization that look messy
@@ -167,7 +167,7 @@ $config
         'php_unit_test_class_requires_covers' => false, // We don't care as much as we should about coverage
         'phpdoc_add_missing_param_annotation' => false, // Don't add things that bring no value
         'phpdoc_align' => false, // Waste of time
-        'phpdoc_annotation_without_dot' => true,
+        'phpdoc_annotation_without_dot' => false,
         'phpdoc_indent' => true,
         'phpdoc_line_span' => false, // Unfortunately our old comments turn even uglier with this
         'phpdoc_no_access' => true,
@@ -221,7 +221,7 @@ $config
         'standardize_not_equals' => true,
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
-        'string_implicit_backslashes' => false, // was escape_implicit_backslashes, too confusing
+        'string_implicit_backslashes' => ['single_quoted' => 'unescape', 'double_quoted' => 'escape', 'heredoc' => 'escape'], // was escape_implicit_backslashes
         'strict_param' => false, // No, too dangerous to change that
         'string_length_to_empty' => true,
         'string_line_ending' => true,
@@ -237,7 +237,6 @@ $config
         'types_spaces' => true,
         'unary_operator_spaces' => true,
         'use_arrow_functions' => true,
-        'visibility_required' => ['elements' => ['property', 'method']], // not const
         'void_return' => true,
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => false,

@@ -33,7 +33,7 @@ class TruncTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=TRUNC({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -54,8 +54,9 @@ class TruncTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('E1')->setValue($value);
         $sheet->getCell('E2')->setValue("=TRUNC(E1,$digits)");
-        $result = $sheet->getCell('E2')->getCalculatedValueString();
-        self::assertSame($expectedResult, $result);
+        /** @var float|string */
+        $result = $sheet->getCell('E2')->getCalculatedValue();
+        self::assertSame($expectedResult, (string) $result);
     }
 
     public static function providerTooMuchPrecision(): array

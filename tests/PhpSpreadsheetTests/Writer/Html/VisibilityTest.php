@@ -28,13 +28,13 @@ class VisibilityTest extends Functional\AbstractFunctional
         $sheet->getRowDimension(2)->setVisible(false);
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $reg = '/^\\s*table[.]sheet0 tr { display:none; visibility:hidden }\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 tr { display:none; visibility:hidden }\s*$/m';
         $rowsrch = preg_match($reg, $html);
         self::assertEquals($rowsrch, 0);
-        $reg = '/^\\s*table[.]sheet0 tr[.]row1 { display:none; visibility:hidden }\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 tr[.]row1 { display:none; visibility:hidden }\s*$/m';
         $rowsrch = preg_match($reg, $html);
         self::assertEquals($rowsrch, 1);
-        $reg = '/^\\s*table[.]sheet0 [.]column1 [{] display:none [}]\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 [.]column1 [{] display:none [}]\s*$/m';
         $colsrch = preg_match($reg, $html);
         self::assertEquals($colsrch, 1);
 
@@ -61,13 +61,13 @@ class VisibilityTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $reg = '/^\\s*table[.]sheet0 tr { height:15pt; display:none; visibility:hidden }\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 tr { height:15pt; display:none; visibility:hidden }\s*$/m';
         $rowsrch = preg_match($reg, $html);
         self::assertEquals($rowsrch, 1);
-        $reg = '/^\\s*table[.]sheet0 tr[.]row1 { display:none; visibility:hidden }\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 tr[.]row1 { display:none; visibility:hidden }\s*$/m';
         $rowsrch = preg_match($reg, $html);
         self::assertEquals($rowsrch, 0);
-        $reg = '/^\\s*table[.]sheet0 [.]column1 [{] display:none [}]\\s*$/m';
+        $reg = '/^\s*table[.]sheet0 [.]column1 [{] display:none [}]\s*$/m';
         $colsrch = preg_match($reg, $html);
         self::assertEquals($colsrch, 1);
 
@@ -97,15 +97,15 @@ class VisibilityTest extends Functional\AbstractFunctional
         $html = $writer->generateHTMLAll();
         self::assertEquals(1, substr_count($html, 'height:20pt'));
         self::assertEquals(1, substr_count($html, 'height:25pt'));
-        $rowsrch = preg_match('/^\\s*table[.]sheet0 tr [{] height:20pt [}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\s*table[.]sheet0 tr [{] height:20pt [}]\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*table[.]sheet0 tr[.]row1 [{] height:25pt [}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\s*table[.]sheet0 tr[.]row1 [{] height:25pt [}]\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style1, th[.]style1 [{].*text-decoration:line-through;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\s*td[.]style1, th[.]style1 [{].*text-decoration:line-through;.*[}]\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style2, th[.]style2 [{].*text-decoration:underline line-through;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\s*td[.]style2, th[.]style2 [{].*text-decoration:underline line-through;.*[}]\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style3, th[.]style3 [{].*text-decoration:underline;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\s*td[.]style3, th[.]style3 [{].*text-decoration:underline;.*[}]\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
 
         $this->writeAndReload($spreadsheet, 'Html');

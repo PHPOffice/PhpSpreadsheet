@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the row index of a cell.');
 
 // Create new PhpSpreadsheet object
@@ -35,5 +35,5 @@ $worksheet->getCell('A16')->setValue('=SUM(INDEX(C1:D5, 5, 0))');
 
 for ($row = 11; $row <= 16; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
+    $helper->log("A{$row}: " . $cell->getValueString() . ' => ' . $cell->getCalculatedValueString());
 }

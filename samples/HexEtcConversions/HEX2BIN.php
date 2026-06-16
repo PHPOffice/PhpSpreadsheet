@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'HEX2BIN';
 $description = 'Converts a hexadecimal number to binary';
@@ -39,7 +39,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Hexadecimal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is binary ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Hexadecimal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is binary ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

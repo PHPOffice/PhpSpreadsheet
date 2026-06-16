@@ -24,7 +24,7 @@ class DateParts
      *                                    PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
      *
-     * @return array|int|string Day of the month
+     * @return array<mixed>|int|string Day of the month
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -65,7 +65,7 @@ class DateParts
      *                                    PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
      *
-     * @return array|int|string Month of the year
+     * @return array<mixed>|int|string Month of the year
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -104,7 +104,7 @@ class DateParts
      *                                    PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
      *
-     * @return array|int|string Year
+     * @return array<mixed>|int|string Year
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

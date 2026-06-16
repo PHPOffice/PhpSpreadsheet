@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Formula
 {
+    /** @var string[] */
     private array $definedNames = [];
 
     /**
@@ -25,6 +26,7 @@ class Formula
     {
         $formula = $this->convertCellReferences($formula, $worksheetName);
         $formula = $this->convertDefinedNames($formula);
+        $formula = $this->convertFunctionNames($formula);
 
         if (!str_starts_with($formula, '=')) {
             $formula = '=' . $formula;
@@ -74,7 +76,7 @@ class Formula
         $columns = $splitRanges[6];
         $rows = $splitRanges[7];
 
-        // Replace any commas in the formula with semi-colons for Ods
+        // Replace any commas in the formula with semicolons for Ods
         // If by chance there are commas in worksheet names, then they will be "fixed" again in the loop
         //    because we've already extracted worksheet names with our Preg::matchAllWithOffsets()
         $formula = str_replace(',', ';', $formula);
@@ -115,5 +117,23 @@ class Formula
         }
 
         return $formula;
+    }
+
+    private function convertFunctionNames(string $formula): string
+    {
+        return Preg::replace(
+            [
+                '/\b((CEILING|FLOOR)'
+                    . '([.](MATH|PRECISE))?)\s*[(]/ui',
+                '/\b(CEILING|FLOOR)[.]XCL\s*[(]/ui',
+                '/\b(CEILING|FLOOR)[.]ODS\s*[(]/ui',
+            ],
+            [
+                'COM.MICROSOFT.$1(',
+                'COM.MICROSOFT.$1(',
+                '$1(',
+            ],
+            $formula
+        );
     }
 }

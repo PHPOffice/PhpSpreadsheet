@@ -38,6 +38,7 @@ class HiddenWorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return string[][] */
     private function worksheetAssertions(): array
     {
         return [
@@ -48,5 +49,46 @@ class HiddenWorksheetTest extends TestCase
                 'sheetState' => Worksheet::SHEETSTATE_HIDDEN,
             ],
         ];
+    }
+
+    public function testListWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/XLS/visibility.xls';
+        $reader = new Xls();
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'hidden',
+            ],
+            [
+                'worksheetName' => 'Sheet3',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 1,
+                'totalColumns' => 1,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet4',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => 2,
+                'totalColumns' => 1,
+                'sheetState' => 'veryHidden',
+            ],
+        ];
+        self::assertSame($expected, $reader->listWorksheetInfo($filename));
     }
 }

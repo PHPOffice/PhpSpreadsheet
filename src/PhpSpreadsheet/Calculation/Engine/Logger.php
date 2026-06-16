@@ -78,8 +78,8 @@ class Logger
     {
         //    Only write the debug log if logging is enabled
         if ($this->writeDebugLog) {
-            $message = sprintf($message, ...$args);
-            $cellReference = implode(' -> ', $this->cellStack->showStack());
+            $message = sprintf($message, ...$args); //* @phpstan-ignore-line
+            $cellReference = implode(' -> ', $this->cellStack->showStack()); //* @phpstan-ignore-line
             if ($this->echoDebugLog) {
                 echo $cellReference,
                 ($this->cellStack->count() > 0 ? ' => ' : ''),

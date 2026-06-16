@@ -7,40 +7,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ImSechTest extends TestCase
+class ImSechTest extends ComplexAssert
 {
-    const COMPLEX_PRECISION = 1E-12;
-
-    private ComplexAssert $complexAssert;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $this->complexAssert = new ComplexAssert();
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
+    #[DataProvider('providerIMSECH')]
     public function testDirectCallToIMSECH(string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMSECH($arg);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->assertComplexEquals($expectedResult, $result);
     }
 
-    private function trimIfQuoted(string $value): string
-    {
-        return trim($value, '"');
-    }
-
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
+    #[DataProvider('providerIMSECH')]
     public function testIMSECHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -49,14 +30,11 @@ class ImSechTest extends TestCase
         $formula = "=IMSECH({$arguments})";
 
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $result = $calculation->calculateFormula($formula);
+        $this->assertComplexEquals($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIMSECH')]
+    #[DataProvider('providerIMSECH')]
     public function testIMSECHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -69,10 +47,7 @@ class ImSechTest extends TestCase
         $result = $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->assertComplexEquals($expectedResult, $result);
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -82,7 +57,7 @@ class ImSechTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMSECH.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyIMSECH')]
+    #[DataProvider('providerUnhappyIMSECH')]
     public function testIMSECHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -108,13 +83,13 @@ class ImSechTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerImSecHArray')]
+    #[DataProvider('providerImSecHArray')]
     public function testImSecHArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IMSECH({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

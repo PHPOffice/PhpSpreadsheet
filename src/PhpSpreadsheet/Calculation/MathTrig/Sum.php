@@ -28,6 +28,7 @@ class Sum
             if (is_numeric($arg)) {
                 $returnValue += $arg;
             } elseif (ErrorValue::isError($arg)) {
+                /** @var string $arg */
                 return $arg;
             }
         }
@@ -44,6 +45,8 @@ class Sum
      *        SUM(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
+     *
+     * @return array<mixed>|float|int|string
      */
     public static function sumErroringStrings(mixed ...$args): float|int|string|array
     {
@@ -56,7 +59,8 @@ class Sum
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
                 $returnValue += (int) $arg;
-            } elseif (ErrorValue::isError($arg)) {
+            } elseif (ErrorValue::isError($arg, true)) {
+                /** @var string $arg */
                 return $arg;
             } elseif ($arg !== null && !Functions::isCellValue($k)) {
                 // ignore non-numerics from cell, but fail as literals (except null)
@@ -101,10 +105,12 @@ class Sum
                 if ((!is_numeric($val)) || (is_string($val))) {
                     $val = 0;
                 }
+                /** @var array<float|int> $wrkArray */
                 $wrkArray[$i] *= $val;
             }
         }
 
+        /** @var array<float|int> $wrkArray */
         return array_sum($wrkArray);
     }
 }

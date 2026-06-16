@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BITRSHIFT';
 $description = 'Returns a number shifted right by the specified number of bits';
@@ -38,35 +38,35 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): Bitwise Right Shift of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' ('
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
         . ') by 1 bit is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
         . ' ('
-        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . $worksheet->getCell('D' . $row)->getCalculatedValueString()
         . ')'
     );
     $helper->log(
         "(E$row): Bitwise Right Shift of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' ('
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
         . ') by 2 bits is '
-        . $worksheet->getCell('E' . $row)->getCalculatedValue()
+        . $worksheet->getCell('E' . $row)->getCalculatedValueString()
         . ' ('
-        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . $worksheet->getCell('F' . $row)->getCalculatedValueString()
         . ')'
     );
     $helper->log(
         "(E$row): Bitwise Right Shift of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' ('
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
         . ') by 3 bits is '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' ('
-        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . $worksheet->getCell('H' . $row)->getCalculatedValueString()
         . ')'
     );
 }

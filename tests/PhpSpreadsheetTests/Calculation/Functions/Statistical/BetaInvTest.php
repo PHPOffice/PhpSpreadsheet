@@ -25,7 +25,7 @@ class BetaInvTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=BETAINV({$argument1}, {$argument2}, {$argument3})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

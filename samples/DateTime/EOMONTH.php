@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'EOMONTH';
 $description = 'Returns the serial number for the last day of the month that is the indicated number of months before or after start_date';
@@ -38,7 +38,7 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         . ' and '
         . $worksheet->getCell('C' . $row)->getFormattedValue()
         . ' months is '
-        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . $worksheet->getCell('D' . $row)->getCalculatedValueString()
         . ' ('
         . $worksheet->getCell('D' . $row)->getFormattedValue()
         . ')'

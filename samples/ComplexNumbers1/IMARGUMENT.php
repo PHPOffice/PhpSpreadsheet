@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'IMARGUMENT';
 $description = 'Returns the argument Theta, an angle expressed in radians';
@@ -41,9 +41,9 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): The Theta Argument of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' is '
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
         . ' radians'
     );
 }

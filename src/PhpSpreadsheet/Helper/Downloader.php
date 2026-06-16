@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 /**
@@ -29,18 +31,16 @@ class Downloader
 
     public function __construct(string $folder, string $filename, ?string $filetype = null)
     {
-        if ((is_dir($folder) === false) || (is_readable($folder) === false)) {
-            throw new Exception('Folder is not accessible');
-        }
-        $filepath = "{$folder}/{$filename}";
-        $this->filepath = (string) realpath($filepath);
-        $this->filename = basename($filepath);
-        if ((file_exists($this->filepath) === false) || (is_readable($this->filepath) === false)) {
+        clearstatcache();
+        $filepath = realpath("{$folder}/{$filename}");
+        if ($filepath === false || !is_file($filepath) || !is_readable($filepath)) {
             throw new Exception('File not found, or cannot be read');
         }
+        $this->filepath = $filepath;
+        $this->filename = basename($this->filepath);
 
-        $filetype ??= pathinfo($filename, PATHINFO_EXTENSION);
-        if (array_key_exists(strtolower($filetype), self::CONTENT_TYPES) === false) {
+        $filetype ??= pathinfo($this->filename, PATHINFO_EXTENSION);
+        if (!array_key_exists(strtolower($filetype), self::CONTENT_TYPES)) {
             throw new Exception('Invalid filetype: file cannot be downloaded');
         }
         $this->filetype = strtolower($filetype);
@@ -89,7 +89,8 @@ class Downloader
 
         // If you're serving to IE over SSL, then the following may be needed
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        $dt = new DateTimeImmutable(timezone: new DateTimeZone('UTC'));
+        header('Last-Modified: ' . $dt->format('D, d M Y H:i:s') . ' GMT'); // always modified
         header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
         header('Pragma: public'); // HTTP/1.0
     }

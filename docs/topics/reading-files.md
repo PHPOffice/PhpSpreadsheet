@@ -123,7 +123,10 @@ method to identify the reader that you need, before using the
 ```php
 $inputFileName = './sampleData/example1.xls';
 
-/**  Identify the type of $inputFileName  **/
+/**
+ * Identify the type of $inputFileName.
+ * See below for a possible improvement for release 4.1.0+.
+ */
 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
 /**  Create a new Reader of the type that has been identified  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -133,6 +136,13 @@ $spreadsheet = $reader->load($inputFileName);
 
 See `samples/Reader/04_Simple_file_reader_using_the_IOFactory_to_identify_a_reader_to_use.php`
 for a working example of this code.
+
+Prior to release 4.1.0, `identify` returns a file type.
+It may be more useful to return a fully-qualified class name,
+which can be accomplished using a parameter introduced in 4.1.0:
+```php
+$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName, null, true);
+```
 
 As with the IOFactory `load()` method, you can also pass an array of formats
 for  the `identify()` method to check against if you know that it will only
@@ -459,21 +469,26 @@ Methods such as `toArray()` assume that all cells in a spreadsheet has been load
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+/**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    private $startRow = 0;
-    private $endRow   = 0;
+    private int $startRow = 0;
+    private int $endRow = 0;
 
     /**  Set the list of rows that we want to read  */
-    public function setRows($startRow, $chunkSize) {
+    public function setRows(int $startRow, int $chunkSize): void
+    {
         $this->startRow = $startRow;
-        $this->endRow   = $startRow + $chunkSize;
+        $this->endRow = $startRow + $chunkSize;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '') {
+    public function readCell(
+        string $columnAddress,
+        int $row,
+        string $worksheetName = ''
+    ): bool {
         //  Only read the heading row, and the configured rows
-        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
+        if (($row === 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
         }
         return false;
@@ -841,7 +856,7 @@ for a working example of this code.
 ### listWorksheetInfo
 
 The `listWorksheetInfo()` method returns a nested array, with each entry
-listing the name and dimensions for a worksheet:
+listing the name, dimensions and state for a worksheet:
 
 ```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -855,7 +870,8 @@ foreach ($worksheetData as $worksheet) {
     echo 'Rows: ', $worksheet['totalRows'],
          ' Columns: ', $worksheet['totalColumns'], '<br />';
     echo 'Cell Range: A1:',
-    $worksheet['lastColumnLetter'], $worksheet['totalRows'];
+         $worksheet['lastColumnLetter'], $worksheet['totalRows'], '<br />';
+    echo 'Sheet state: ', $worksheet['sheetState'];
     echo '</li>';
 }
 echo '</ol>';

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'NOW';
 $description = 'Returns the serial number of the current date and time';
@@ -22,7 +22,7 @@ $worksheet->getStyle('A1')
 // Test the formulae
 $helper->log(
     'Today is '
-    . $worksheet->getCell('A1')->getCalculatedValue()
+    . $worksheet->getCell('A1')->getCalculatedValueString()
     . ' ('
     . $worksheet->getCell('A1')->getFormattedValue()
     . ')'

@@ -25,7 +25,7 @@ class ExponDistTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=EXPONDIST({$values}, {$lambdas}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

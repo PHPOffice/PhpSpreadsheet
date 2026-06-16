@@ -6,11 +6,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ChooseTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHOOSE')]
+    #[DataProvider('providerCHOOSE')]
     public function testCHOOSE(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Selection::choose(...$args);
@@ -22,15 +23,16 @@ class ChooseTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerChooseArray')]
+    /** @param string[] $selections */
+    #[DataProvider('providerChooseArray')]
     public function testChooseArray(array $expectedResult, string $values, array $selections): void
     {
         $calculation = Calculation::getInstance();
 
         $selections = implode(',', $selections);
         $formula = "=CHOOSE({$values}, {$selections})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerChooseArray(): array

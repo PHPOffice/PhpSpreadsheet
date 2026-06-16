@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');
@@ -338,6 +338,7 @@ $spreadsheet->setActiveSheetIndex(1);
 $helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);
 $spreadsheet->disconnectWorksheets();
 
+/** @return array{'min': float|int, 'max': float|int} */
 function dateRange(int $nrows, Spreadsheet $wrkbk): array
 {
     $dataSheet = $wrkbk->getSheetByNameOrThrow('Data');

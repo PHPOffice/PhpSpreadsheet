@@ -7,11 +7,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerINDEX')]
+    #[DataProvider('providerINDEX')]
     public function testINDEX(mixed $expectedResult, mixed $matrix, mixed $rowNum = null, mixed $colNum = null): void
     {
         if ($rowNum === null) {
@@ -29,14 +30,14 @@ class IndexTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIndexArray')]
+    #[DataProvider('providerIndexArray')]
     public function testIndexArray(array $expectedResult, string $matrix, string $rows, string $columns): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=INDEX({$matrix}, {$rows}, {$columns})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIndexArray(): array

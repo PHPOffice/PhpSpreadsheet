@@ -15,14 +15,14 @@ class Standardize extends StatisticalValidations
      *
      * Returns a normalized value from a distribution characterized by mean and standard_dev.
      *
-     * @param array|float $value Value to normalize
+     * @param array<mixed>|float $value Value to normalize
      *                      Or can be an array of values
-     * @param array|float $mean Mean Value
+     * @param array<mixed>|float $mean Mean Value
      *                      Or can be an array of values
-     * @param array|float $stdDev Standard Deviation
+     * @param array<mixed>|float $stdDev Standard Deviation
      *                      Or can be an array of values
      *
-     * @return array|float|string Standardized value, or a string containing an error
+     * @return array<mixed>|float|string Standardized value, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

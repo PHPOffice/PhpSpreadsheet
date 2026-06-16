@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
 
+/** @var Spreadsheet */
 $spreadsheet = new Spreadsheet();
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');
@@ -173,6 +174,7 @@ $chartSheet = $spreadsheet->getSheetByNameOrThrow('Scatter Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->renderChart($chart, __FILE__);
 
 // ------------ Demonstrate Trendlines for metric3 values in a new chart ------------

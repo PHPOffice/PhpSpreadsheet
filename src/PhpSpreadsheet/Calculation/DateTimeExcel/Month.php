@@ -24,12 +24,12 @@ class Month
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
-     * @param array|int $adjustmentMonths The number of months before or after start_date.
+     * @param array<mixed>|int $adjustmentMonths The number of months before or after start_date.
      *                                        A positive value for months yields a future date;
      *                                        a negative value yields a past date.
      *                         Or can be an array of adjustment values
      *
-     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
@@ -68,12 +68,12 @@ class Month
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
-     * @param array|int $adjustmentMonths The number of months before or after start_date.
+     * @param array<mixed>|int $adjustmentMonths The number of months before or after start_date.
      *                                        A positive value for months yields a future date;
      *                                        a negative value yields a past date.
      *                         Or can be an array of adjustment values
      *
-     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions

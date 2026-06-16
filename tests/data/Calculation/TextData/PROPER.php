@@ -27,5 +27,9 @@ return [
         'False',
         false,
     ],
+    'error code unchanged' => [
+        '#VALUE!',
+        '#VALUE!',
+    ],
     'no argument' => ['exception'],
 ];

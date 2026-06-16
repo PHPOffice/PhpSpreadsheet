@@ -7,11 +7,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class LookupTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOOKUP')]
+    #[DataProvider('providerLOOKUP')]
     public function testLOOKUP(mixed $expectedResult, mixed ...$args): void
     {
         $result = LookupRef\Lookup::lookup(...$args);
@@ -23,14 +24,14 @@ class LookupTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/LOOKUP.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerLookupArray')]
+    #[DataProvider('providerLookupArray')]
     public function testLookupArray(array $expectedResult, string $values, string $lookup, string $return): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=LOOKUP({$values}, {$lookup}, {$return})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerLookupArray(): array

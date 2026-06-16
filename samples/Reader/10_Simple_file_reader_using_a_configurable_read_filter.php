@@ -6,13 +6,14 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 require __DIR__ . '/../Header.php';
-
+/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
+    /** @param array<int, string> $columns */
     public function __construct(
         private int $startRow,
         private int $endRow,

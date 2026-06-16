@@ -30,6 +30,7 @@ class DataValidations
 
     private int $thisColumn = 0;
 
+    /** @param string[] $matches */
     private function replaceR1C1(array $matches): string
     {
         return AddressHelper::convertToA1($matches[0], $this->thisRow, $this->thisColumn, false);
@@ -83,7 +84,7 @@ class DataValidations
                                 $this->thisColumn = (int) $selectionMatches[2];
                                 $combinedCells .= "$separator$cell";
                                 $separator = ' ';
-                            } elseif (preg_match('/^C(\d+)(:C(]\\d+))?$/', (string) $range, $selectionMatches) === 1) {
+                            } elseif (preg_match('/^C(\d+)(:C(]\d+))?$/', (string) $range, $selectionMatches) === 1) {
                                 // column
                                 $firstCol = $selectionMatches[1];
                                 $firstColString = Coordinate::stringFromColumnIndex((int) $firstCol);
@@ -95,7 +96,7 @@ class DataValidations
                                 $sheet->getCell($firstCell);
                                 $combinedCells .= "$separator$cell";
                                 $separator = ' ';
-                            } elseif (preg_match('/^R(\\d+)(:R(]\\d+))?$/', (string) $range, $selectionMatches)) {
+                            } elseif (preg_match('/^R(\d+)(:R(]\d+))?$/', (string) $range, $selectionMatches)) {
                                 // row
                                 $firstRow = $selectionMatches[1];
                                 $lastRow = $selectionMatches[3] ?? $firstRow;

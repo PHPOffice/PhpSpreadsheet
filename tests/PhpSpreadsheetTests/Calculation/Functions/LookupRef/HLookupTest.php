@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class HLookupTest extends AllSetupTeardown
 {
+    /** @param mixed[] $values */
     #[DataProvider('providerHLOOKUP')]
     public function testHLOOKUP(mixed $expectedResult, mixed $lookup, array $values, mixed $rowIndex, ?bool $rangeLookup = null): void
     {
@@ -108,8 +109,8 @@ class HLookupTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=HLOOKUP({$values}, {$database}, {$index}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerHLookupArray(): array

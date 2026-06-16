@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'DATEDIF';
 $description = 'Calculates the number of days, months, or years between two dates';
@@ -52,10 +52,10 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         $worksheet->getCell('E' . $row)->getFormattedValue(),
         $worksheet->getCell('F' . $row)->getFormattedValue()
     ));
-    $helper->log('In years ("Y"): ' . $worksheet->getCell('G' . $row)->getCalculatedValue());
-    $helper->log('In months ("M"): ' . $worksheet->getCell('H' . $row)->getCalculatedValue());
-    $helper->log('In days ("D"): ' . $worksheet->getCell('I' . $row)->getCalculatedValue());
-    $helper->log('In days ignoring months and years ("MD"): ' . $worksheet->getCell('J' . $row)->getCalculatedValue());
-    $helper->log('In months ignoring days and years ("YM"): ' . $worksheet->getCell('K' . $row)->getCalculatedValue());
-    $helper->log('In days ignoring years ("YD"): ' . $worksheet->getCell('L' . $row)->getCalculatedValue());
+    $helper->log('In years ("Y"): ' . $worksheet->getCell('G' . $row)->getCalculatedValueString());
+    $helper->log('In months ("M"): ' . $worksheet->getCell('H' . $row)->getCalculatedValueString());
+    $helper->log('In days ("D"): ' . $worksheet->getCell('I' . $row)->getCalculatedValueString());
+    $helper->log('In days ignoring months and years ("MD"): ' . $worksheet->getCell('J' . $row)->getCalculatedValueString());
+    $helper->log('In months ignoring days and years ("YM"): ' . $worksheet->getCell('K' . $row)->getCalculatedValueString());
+    $helper->log('In days ignoring years ("YD"): ' . $worksheet->getCell('L' . $row)->getCalculatedValueString());
 }

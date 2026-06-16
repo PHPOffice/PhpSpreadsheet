@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class InternalFunctionsTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('anchorArrayDataProvider')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('anchorArrayDataProvider')]
     public function testAnchorArrayFormula(string $reference, string $range, array $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet->returnArrayAsArray();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();
@@ -30,6 +32,8 @@ class InternalFunctionsTest extends TestCase
         self::assertSame($expectedResult, $result1);
         $attributes1 = $sheet1->getCell('A8')->getFormulaAttributes();
         self::assertSame(['t' => 'array', 'ref' => $range], $attributes1);
+        $result = ExcelArrayPseudoFunctions::anchorArray($reference, $sheet1->getCell('A10'));
+        self::assertSame($expectedResult, $result, 'direct call agrees with evaluation on spreadsheet');
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -49,11 +53,11 @@ class InternalFunctionsTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('singleDataProvider')]
+    #[DataProvider('singleDataProvider')]
     public function testSingleArrayFormula(string $reference, mixed $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
-        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet->returnArrayAsArray();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();

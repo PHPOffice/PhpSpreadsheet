@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IfErrorTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIFERROR')]
+    #[DataProvider('providerIFERROR')]
     public function testIFERROR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFERROR', $expectedResult, ...$args);
@@ -19,14 +20,14 @@ class IfErrorTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfErrorArray')]
+    #[DataProvider('providerIfErrorArray')]
     public function testIfErrorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IFERROR({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIfErrorArray(): array

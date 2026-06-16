@@ -13,6 +13,7 @@ class AutoFilter2Test extends TestCase
 {
     private const TESTBOOK = 'tests/data/Reader/XLSX/autofilter2.xlsx';
 
+    /** @return int[] */
     public function getVisibleSheet(?Worksheet $sheet, int $maxRow): array
     {
         $actualVisible = [];

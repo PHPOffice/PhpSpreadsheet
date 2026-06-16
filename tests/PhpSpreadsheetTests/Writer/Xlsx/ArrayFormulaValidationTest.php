@@ -53,6 +53,7 @@ class ArrayFormulaValidationTest extends TestCase
 
         $this->outputFile = File::temporaryFilename();
         $writer = new XlsxWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($this->outputFile);
         $spreadsheet->disconnectWorksheets();
 

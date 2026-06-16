@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AutoFilterCustomTextTest extends SetupTeardown
 {
@@ -48,7 +49,8 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomText')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerCustomText')]
     public function testCustomTest(array $expectedVisible, string $pattern): void
     {
         $sheet = $this->initSheet();
@@ -189,7 +191,8 @@ class AutoFilterCustomTextTest extends SetupTeardown
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCustomRule')]
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerCustomRule')]
     public function testCustomRuleTest(array $expectedVisible, string $rule, string $comparand): void
     {
         $sheet = $this->initSheet();

@@ -39,7 +39,7 @@ class StructuredReferenceFormulaTest extends TestCase
         $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame('Region', $result);
 
-        $spreadsheet->getCalculationEngine()?->flushInstance();
+        $spreadsheet->getCalculationEngine()->flushInstance();
         $table->setShowHeaderRow(false);
 
         $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();

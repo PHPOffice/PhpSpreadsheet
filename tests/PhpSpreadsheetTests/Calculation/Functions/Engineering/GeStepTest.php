@@ -7,20 +7,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class GeStepTest extends TestCase
+class GeStepTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
+    #[DataProvider('providerGESTEP')]
     public function testDirectCallToGESTEP(int|string $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
         $result = ($arg2 === null) ? Compare::geStep($arg1) : Compare::geStep($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
+    #[DataProvider('providerGESTEP')]
     public function testGESTEPAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -28,17 +27,16 @@ class GeStepTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=GESTEP({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGESTEP')]
+    #[DataProvider('providerGESTEP')]
     public function testGESTEPInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=GESTEP({$argumentCells})";
 
@@ -46,8 +44,6 @@ class GeStepTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerGESTEP(): array
@@ -55,13 +51,12 @@ class GeStepTest extends TestCase
         return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyGESTEP')]
+    #[DataProvider('providerUnhappyGESTEP')]
     public function testGESTEPUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=GESTEP({$argumentCells})";
 
@@ -70,8 +65,6 @@ class GeStepTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyGESTEP(): array
@@ -81,13 +74,13 @@ class GeStepTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGeStepArray')]
+    #[DataProvider('providerGeStepArray')]
     public function testGeStepArray(array $expectedResult, string $a, string $b): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=GESTEP({$a}, {$b})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

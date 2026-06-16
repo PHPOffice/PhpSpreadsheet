@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use ZipArchive;
 
@@ -58,6 +59,9 @@ class Drawing extends BaseDrawing
      */
     public function getExtension(): string
     {
+        if (Preg::isMatch('~^data:image/([^;]+);base64,~', $this->path, $matches)) {
+            return $matches[1];
+        }
         $exploded = explode('.', basename($this->path));
 
         return $exploded[count($exploded) - 1];
@@ -89,23 +93,43 @@ class Drawing extends BaseDrawing
      * @param string $path File path
      * @param bool $verifyFile Verify file
      * @param ?ZipArchive $zip Zip archive instance
+     * @param null|callable(string):bool $isWhitelisted
      *
      * @return $this
      */
-    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
+    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null, bool $allowExternal = true, ?callable $isWhitelisted = null): static
     {
         $this->isUrl = false;
-        if (preg_match('~^data:image/[a-z]+;base64,~', $path) === 1) {
+        if (Preg::isMatch('~^data:image/[a-z]+;base64,~', $path)) {
             $this->path = $path;
 
             return $this;
         }
 
         $this->path = '';
+        if ($zip instanceof ZipArchive) {
+            $zipPath = explode('#', $path)[1];
+            $locate = @$zip->locateName($zipPath);
+            if ($locate !== false) {
+                if ($this->isImage($path)) {
+                    $this->path = $path;
+                    $this->setSizesAndType($path);
+                }
+            }
         // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-        if (filter_var($path, FILTER_VALIDATE_URL) || (preg_match('/^([\\w\\s\\x00-\\x1f]+):/u', $path) && !preg_match('/^([\\w]+):/u', $path))) {
-            if (!preg_match('/^(http|https|file|ftp|s3):/', $path)) {
+        } elseif (
+            filter_var($path, FILTER_VALIDATE_URL)
+            || Preg::isMatch('~^phar://~i', $path)
+            || (Preg::isMatch('/^([\w.\s\x00-\x1f]+):/', $path) && !Preg::isMatch('/^([\w.]+):/', $path))
+        ) {
+            if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+            }
+            if (!$allowExternal) {
+                return $this;
+            }
+            if ($isWhitelisted !== null && !$isWhitelisted($path)) {
+                return $this;
             }
             // Implicit that it is a URL, rather store info than running check above on value in other places.
             $this->isUrl = true;
@@ -139,15 +163,6 @@ class Drawing extends BaseDrawing
                         }
                         unlink($filePath);
                     }
-                }
-            }
-        } elseif ($zip instanceof ZipArchive) {
-            $zipPath = explode('#', $path)[1];
-            $locate = @$zip->locateName($zipPath);
-            if ($locate !== false) {
-                if ($this->isImage($path)) {
-                    $this->path = $path;
-                    $this->setSizesAndType($path);
                 }
             }
         } else {
@@ -219,7 +234,7 @@ class Drawing extends BaseDrawing
     }
 
     /**
-     * Get Image file extention for Save.
+     * Get Image file extension for Save.
      */
     public function getImageFileExtensionForSave(bool $includeDot = true): string
     {

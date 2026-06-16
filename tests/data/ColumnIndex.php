@@ -51,4 +51,8 @@ return [
         'BAA',
         1379,
     ],
+    'zero not allowed' => ['exception', 0],
+    'negative not allowed' => ['exception', -1],
+    'maximum possible' => ['XFD', 16384],
+    'beyond maximum possible' => ['exception', 16385],
 ];

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'COMPLEX';
 $description = 'Converts real and imaginary coefficients into a complex number of the form x + yi or x + yj';
@@ -34,8 +34,8 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(A$row): Formula "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' result is '
-        . $worksheet->getCell('A' . $row)->getCalculatedValue()
+        . $worksheet->getCell('A' . $row)->getCalculatedValueString()
     );
 }

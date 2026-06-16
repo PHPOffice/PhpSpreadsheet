@@ -31,9 +31,9 @@ class XmlScannerTest extends TestCase
             $expectedResult = (string) file_get_contents($file);
             if (preg_match('/UTF-16(LE|BE)?/', $file, $matches) == 1) {
                 $expectedResult = (string) mb_convert_encoding($expectedResult, 'UTF-8', $matches[0]);
-                $expectedResult = preg_replace('/encoding\\s*=\\s*[\'"]UTF-\\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
+                $expectedResult = preg_replace('/encoding\s*=\s*[\'"]UTF-\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
             }
-            $tests[basename($file)] = [$filename, $expectedResult];
+            $tests[basename($file)] = [(string) $filename, $expectedResult];
         }
 
         return $tests;
@@ -57,7 +57,7 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $tests[basename($file)] = [$filename];
+            $tests[basename($file)] = [(string) $filename];
         }
 
         return $tests;
@@ -69,7 +69,6 @@ class XmlScannerTest extends TestCase
         $scanner = $fileReader->getSecurityScanner();
 
         //    Must return an object...
-        self::assertIsObject($scanner);
         //    ... of the correct type
         self::assertInstanceOf(XmlScanner::class, $scanner);
     }
@@ -107,7 +106,7 @@ class XmlScannerTest extends TestCase
         $glob = glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml');
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
-            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
+            $tests[basename($file)] = [(string) realpath($file), (string) file_get_contents($file)];
         }
 
         return $tests;

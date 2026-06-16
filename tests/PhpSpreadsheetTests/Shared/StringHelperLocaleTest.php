@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
-// separate processes due to setLocale
-#[Attributes\RunTestsInSeparateProcesses]
 class StringHelperLocaleTest extends TestCase
 {
     /**
@@ -20,6 +17,7 @@ class StringHelperLocaleTest extends TestCase
     protected function setUp(): void
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
+        StringHelper::setCurrencyCode(null);
     }
 
     protected function tearDown(): void
@@ -32,12 +30,13 @@ class StringHelperLocaleTest extends TestCase
 
     public function testCurrency(): void
     {
+        $currentLocale = ($this->currentLocale === false) ? null : $this->currentLocale;
         if ($this->currentLocale === false || !setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu.utf8')) {
             self::markTestSkipped('Unable to set German UTF8 locale for testing.');
         }
         $result = StringHelper::getCurrencyCode();
         self::assertSame('€', $result);
-        if (!setlocale(LC_ALL, $this->currentLocale)) {
+        if (!setlocale(LC_ALL, $currentLocale)) {
             self::markTestSkipped('Unable to restore default locale.');
         }
         $result = StringHelper::getCurrencyCode();

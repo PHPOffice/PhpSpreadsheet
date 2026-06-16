@@ -52,8 +52,9 @@ class Issue2516Test extends TestCase
                 'worksheetName' => 'Sheet1',
                 'lastColumnLetter' => 'B',
                 'lastColumnIndex' => 1,
-                'totalRows' => '6',
+                'totalRows' => 6,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $infos);

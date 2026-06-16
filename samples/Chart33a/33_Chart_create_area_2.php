@@ -10,10 +10,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Theme as SpreadsheetTheme;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 // same as 33_Chart_create_area, but with 2013+ schemes
-$spreadsheet->getTheme()->setThemeColorName(SpreadsheetTheme::COLOR_SCHEME_2013_PLUS_NAME);
+$spreadsheet->getTheme()->setThemeColorName(SpreadsheetTheme::COLOR_SCHEME_2013_2022_NAME);
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [

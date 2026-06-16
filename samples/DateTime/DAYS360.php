@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'DAYS360';
 $description = 'Returns the number of days between two dates based on a 360-day year';
@@ -51,9 +51,9 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(
         'Days: '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' (US) '
-        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . $worksheet->getCell('H' . $row)->getCalculatedValueString()
         . ' (European)'
     );
 }

@@ -6,8 +6,8 @@ use PhpOffice\PhpSpreadsheet\Reader;
 
 class XmlScanner
 {
-    private const ENCODING_PATTERN = '/encoding\\s*=\\s*(["\'])(.+?)\\1/s';
-    private const ENCODING_UTF7 = '/encoding\\s*=\\s*(["\'])UTF-7\\1/si';
+    private const ENCODING_PATTERN = '/encoding\s*=\s*(["\'])(.+?)\1/s';
+    private const ENCODING_UTF7 = '/encoding\s*=\s*(["\'])UTF-7\1/si';
 
     private string $pattern;
 
@@ -41,7 +41,7 @@ class XmlScanner
         $charset = $this->findCharSet($xml);
         $foundUtf7 = $charset === 'UTF-7';
         if ($charset !== 'UTF-8') {
-            $testStart = '/^.{0,4}\\s*<?xml/s';
+            $testStart = '/^.{0,4}\s*<?xml/s';
             $startWithXml1 = preg_match($testStart, $xml);
             $xml = self::forceString(mb_convert_encoding($xml, 'UTF-8', $charset));
             if ($startWithXml1 === 1 && preg_match($testStart, $xml) !== 1) {
@@ -64,7 +64,7 @@ class XmlScanner
 
     private function findCharSet(string $xml): string
     {
-        if (substr($xml, 0, 4) === "\x4c\x6f\xa7\x94") {
+        if (str_starts_with($xml, "\x4c\x6f\xa7\x94")) {
             throw new Reader\Exception('EBCDIC encoding not permitted');
         }
         $encoding = Reader\Csv::guessEncodingBom('', $xml);
@@ -87,7 +87,7 @@ class XmlScanner
     public function scan($xml): string
     {
         // Don't rely purely on libxml_disable_entity_loader()
-        $pattern = '/\\0*' . implode('\\0*', str_split($this->pattern)) . '\\0*/';
+        $pattern = '/\0*' . implode('\0*', mb_str_split($this->pattern, 1, 'UTF-8')) . '\0*/';
 
         $xml = "$xml";
         if (preg_match($pattern, $xml)) {
@@ -102,6 +102,7 @@ class XmlScanner
         if ($this->callback !== null) {
             $xml = call_user_func($this->callback, $xml);
         }
+        /** @var string $xml */
 
         return $xml;
     }

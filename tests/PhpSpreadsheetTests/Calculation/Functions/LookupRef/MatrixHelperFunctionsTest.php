@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MatrixHelperFunctionsTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('columnVectorProvider')]
+    /** @param mixed[] $array */
+    #[DataProvider('columnVectorProvider')]
     public function testIsColumnVector(bool $expectedResult, array $array): void
     {
         $result = Matrix::isColumnVector($array);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('rowVectorProvider')]
+    /** @param mixed[] $array */
+    #[DataProvider('rowVectorProvider')]
     public function testIsRowVector(bool $expectedResult, array $array): void
     {
         $result = Matrix::isRowVector($array);

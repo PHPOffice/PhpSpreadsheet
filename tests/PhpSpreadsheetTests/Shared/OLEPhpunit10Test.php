@@ -9,10 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * There were problems running these tests in OLETest with PhpUnit 10.
- * These replacements seem to work. I want them run in separate
- * processes because I am nervous about set_error_handler.
+ * These replacements seem to work.
  */
-#[\PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses]
 class OLEPhpunit10Test extends TestCase
 {
     private static string $errorString;

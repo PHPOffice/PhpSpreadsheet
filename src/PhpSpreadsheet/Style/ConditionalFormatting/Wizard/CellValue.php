@@ -38,6 +38,7 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected string $operator = Conditional::OPERATOR_EQUAL;
 
+    /** @var array<int|string> */
     protected array $operand = [0];
 
     /**
@@ -53,7 +54,8 @@ class CellValue extends WizardAbstract implements WizardInterface
     protected function operator(string $operator): void
     {
         if ((!isset(self::SINGLE_OPERATORS[$operator])) && (!isset(self::RANGE_OPERATORS[$operator]))) {
-            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');
+            // should not happen - compareKeys confirms
+            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard 1'); // @codeCoverageIgnore
         }
 
         $this->operator = $operator;
@@ -65,7 +67,7 @@ class CellValue extends WizardAbstract implements WizardInterface
             $operand = $this->validateOperand($operand, $operandValueType);
         }
 
-        $this->operand[$index] = $operand;
+        $this->operand[$index] = $operand; //* @phpstan-ignore-line
         $this->operandValueType[$index] = $operandValueType;
     }
 
@@ -157,10 +159,6 @@ class CellValue extends WizardAbstract implements WizardInterface
      */
     public function __call(string $methodName, array $arguments): self
     {
-        if (!isset(self::MAGIC_OPERATIONS[$methodName]) && $methodName !== 'and') {
-            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');
-        }
-
         if ($methodName === 'and') {
             if (!isset(self::RANGE_OPERATORS[$this->operator])) {
                 throw new Exception('AND Value is only appropriate for range operators');
@@ -169,6 +167,10 @@ class CellValue extends WizardAbstract implements WizardInterface
             $this->operand(1, ...$arguments);
 
             return $this;
+        }
+
+        if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
+            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');
         }
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);
@@ -182,5 +184,18 @@ class CellValue extends WizardAbstract implements WizardInterface
         }
 
         return $this;
+    }
+
+    /** @internal */
+    public static function compareKeys(): bool
+    {
+        $retVal = true;
+        $array = array_merge(array_keys(self::SINGLE_OPERATORS), array_keys(self::RANGE_OPERATORS));
+        foreach ($array as $value) {
+            // PhpStan is correct about next statement, but we want to test anyhow
+            $retVal = $retVal && in_array($value, self::MAGIC_OPERATIONS, true); // @phpstan-ignore-line
+        }
+
+        return $retVal;
     }
 }

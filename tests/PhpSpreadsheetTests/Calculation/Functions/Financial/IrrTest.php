@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 class IrrTest extends AllSetupTeardown
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('providerIRR')]
-    public function testIRR(mixed $expectedResult, mixed $values = null): void
+    public function testIRR(mixed $expectedResult, mixed $values = null, mixed $guess = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -31,6 +33,9 @@ class IrrTest extends AllSetupTeardown
                 $sheet->getCell('A1')->setValue($values);
                 $formula .= 'A1';
             }
+        }
+        if ($guess !== null) {
+            $formula .= ',' . StringHelper::convertToString($guess);
         }
         $formula .= ')';
         $sheet->getCell('D1')->setValue($formula);

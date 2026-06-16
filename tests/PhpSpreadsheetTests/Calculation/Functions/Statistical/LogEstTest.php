@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 // TODO run test in spreadsheet context
 class LogEstTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGEST')]
+    /**
+     * @param mixed[] $yValues
+     * @param mixed[] $xValues
+     */
+    #[DataProvider('providerLOGEST')]
     public function testLOGEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LOGEST($yValues, $xValues, $const, $stats);

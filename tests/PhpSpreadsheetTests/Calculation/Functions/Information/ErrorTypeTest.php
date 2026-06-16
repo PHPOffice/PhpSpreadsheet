@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ErrorTypeTest extends TestCase
@@ -16,7 +17,7 @@ class ErrorTypeTest extends TestCase
         self::assertSame(ExcelError::NA(), $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerErrorType')]
+    #[DataProvider('providerErrorType')]
     public function testErrorType(int|string $expectedResult, mixed $value): void
     {
         $result = ExcelError::type($value);
@@ -28,14 +29,14 @@ class ErrorTypeTest extends TestCase
         return require 'tests/data/Calculation/Information/ERROR_TYPE.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerErrorTypeArray')]
+    #[DataProvider('providerErrorTypeArray')]
     public function testErrorTypeArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ERROR.TYPE({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerErrorTypeArray(): array

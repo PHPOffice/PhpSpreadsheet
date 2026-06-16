@@ -52,7 +52,7 @@ class RandBetweenTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=RandBetween({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertIsArray($result);
         self::assertCount($expectedRows, $result);
         self::assertIsArray($result[0]);

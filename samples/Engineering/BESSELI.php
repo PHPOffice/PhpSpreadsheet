@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BESSELI';
 $description = 'Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for purely imaginary arguments';
@@ -21,6 +21,6 @@ for ($n = 0; $n <= 5; ++$n) {
         $formula = "BESSELI({$x}, {$n})";
         $worksheet->setCellValue('A1', "=$formula");
 
-        $helper->log("$formula = " . $worksheet->getCell('A1')->getCalculatedValue());
+        $helper->log("$formula = " . $worksheet->getCell('A1')->getCalculatedValueString());
     }
 }

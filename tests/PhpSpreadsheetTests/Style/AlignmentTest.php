@@ -84,6 +84,17 @@ class AlignmentTest extends TestCase
         self::assertEquals(0, $cell3->getStyle()->getAlignment()->getIndent());
     }
 
+    public function testJustifyLastLine(): void
+    {
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $cell1 = $sheet->getCell('A1');
+        $cell1->setValue('ABC');
+        $cell1->getStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_DISTRIBUTED);
+        $cell1->getStyle()->getAlignment()->setJustifyLastLine(true);
+        self::assertTrue($cell1->getStyle()->getAlignment()->getJustifyLastLine());
+    }
+
     public function testReadOrder(): void
     {
         $this->spreadsheet = new Spreadsheet();

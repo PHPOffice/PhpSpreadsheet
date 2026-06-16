@@ -136,8 +136,8 @@ class AxisShadowTest extends AbstractFunctional
             'rotWithShape' => 0,
             'size' => [
                 'sx' => null,
-                'sy' => 254,
-                'kx' => -94,
+                'sy' => 1.50,
+                'kx' => -84,
                 'ky' => null,
             ],
             'color' => [

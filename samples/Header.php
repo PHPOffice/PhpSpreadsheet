@@ -45,6 +45,14 @@ if ($helper->isCli()) {
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/">PHPSpreadsheet</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/PHPOffice/PHPSpreadsheet">
+                            <i class="fa fa-github fa-lg" title="GitHub"></i>
+                            &nbsp;
+                          </a>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://phpspreadsheet.readthedocs.io">
+                            <i class="fa fa-book fa-lg" title="Docs"></i>
+                            &nbsp;
+                          </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav"><?php
@@ -71,20 +79,6 @@ if ($helper->isCli()) {
                         </li>
                         <?php
                     } ?>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                          <a href="https://github.com/PHPOffice/PHPSpreadsheet">
-                            <i class="fa fa-github fa-lg" title="GitHub"></i>
-                            &nbsp;
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://phpspreadsheet.readthedocs.io">
-                            <i class="fa fa-book fa-lg" title="Docs"></i>
-                            &nbsp;
-                          </a>
-                        </li>
                     </ul>
                 </div>
             </div>

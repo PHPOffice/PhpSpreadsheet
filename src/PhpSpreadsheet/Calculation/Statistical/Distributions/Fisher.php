@@ -20,7 +20,7 @@ class Fisher
      * @param mixed $value Float value for which we want the probability
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function distribution(mixed $value): array|string|float
@@ -30,7 +30,7 @@ class Fisher
         }
 
         try {
-            DistributionValidations::validateFloat($value);
+            $value = DistributionValidations::validateFloat($value);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -52,7 +52,7 @@ class Fisher
      * @param mixed $probability Float probability at which you want to evaluate the distribution
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function inverse(mixed $probability): array|string|float
@@ -62,7 +62,7 @@ class Fisher
         }
 
         try {
-            DistributionValidations::validateFloat($probability);
+            $probability = DistributionValidations::validateFloat($probability);
         } catch (Exception $e) {
             return $e->getMessage();
         }

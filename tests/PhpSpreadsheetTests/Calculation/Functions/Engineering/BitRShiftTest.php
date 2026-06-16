@@ -7,20 +7,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class BitRShiftTest extends TestCase
+class BitRShiftTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
+    #[DataProvider('providerBITRSHIFT')]
     public function testDirectCallToBITRSHIFT(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITRSHIFT($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
+    #[DataProvider('providerBITRSHIFT')]
     public function testBITRSHIFTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -28,17 +27,16 @@ class BitRShiftTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BITRSHIFT({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBITRSHIFT')]
+    #[DataProvider('providerBITRSHIFT')]
     public function testBITRSHIFTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITRSHIFT({$argumentCells})";
 
@@ -46,8 +44,6 @@ class BitRShiftTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerBITRSHIFT(): array
@@ -55,13 +51,12 @@ class BitRShiftTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITRSHIFT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerUnhappyBITRSHIFT')]
+    #[DataProvider('providerUnhappyBITRSHIFT')]
     public function testBITRSHIFTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITRSHIFT({$argumentCells})";
 
@@ -70,8 +65,6 @@ class BitRShiftTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyBITRSHIFT(): array
@@ -82,13 +75,14 @@ class BitRShiftTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerBitRShiftArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBitRShiftArray')]
     public function testBitRShiftArray(array $expectedResult, string $number, string $bits): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BITRSHIFT({$number}, {$bits})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

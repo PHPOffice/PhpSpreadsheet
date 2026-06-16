@@ -34,6 +34,7 @@ class VmlTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getComment('A1')->getText()->createText('top left cell');
         $writer = new XlsxWriter($spreadsheet);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $this->outfile1 = File::temporaryFileName();
         $writer->save($this->outfile1);
         $spreadsheet->disconnectWorksheets();
@@ -118,7 +119,6 @@ class VmlTest extends TestCase
         $reader = new XlsxReader();
         $reader->setLoadSheetsOnly('FormsComments');
         $spreadsheet = $reader->load($infile);
-        self::assertTrue(true);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('row1', $sheet->getCell('H1')->getValue());
         self::assertStringContainsString('Hello', $sheet->getComment('F1')->getText()->getPlainText());

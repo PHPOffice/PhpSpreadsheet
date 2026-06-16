@@ -33,6 +33,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Rendering function.
+     *
+     * @var callable-string
      */
     private string $renderingFunction;
 
@@ -62,10 +64,7 @@ class MemoryDrawing extends BaseDrawing
 
     public function __destruct()
     {
-        if ($this->imageResource) {
-            @imagedestroy($this->imageResource);
-            $this->imageResource = null;
-        }
+        $this->imageResource = null;
         $this->worksheet = null;
     }
 
@@ -128,9 +127,6 @@ class MemoryDrawing extends BaseDrawing
     public static function fromStream($imageStream): self
     {
         $streamValue = stream_get_contents($imageStream);
-        if ($streamValue === false) {
-            throw new Exception('Unable to read data from stream');
-        }
 
         return self::fromString($streamValue);
     }
@@ -161,6 +157,7 @@ class MemoryDrawing extends BaseDrawing
         return $drawing;
     }
 
+    /** @return callable-string */
     private static function identifyRenderingFunction(string $mimeType): string
     {
         return match ($mimeType) {
@@ -179,13 +176,6 @@ class MemoryDrawing extends BaseDrawing
         $temporaryFileName = File::temporaryFilename();
         file_put_contents($temporaryFileName, $imageString);
 
-        $mimeType = self::identifyMimeTypeUsingExif($temporaryFileName);
-        if ($mimeType !== null) {
-            unlink($temporaryFileName);
-
-            return $mimeType;
-        }
-
         $mimeType = self::identifyMimeTypeUsingGd($temporaryFileName);
         if ($mimeType !== null) {
             unlink($temporaryFileName);
@@ -198,21 +188,12 @@ class MemoryDrawing extends BaseDrawing
         return self::MIMETYPE_DEFAULT;
     }
 
-    private static function identifyMimeTypeUsingExif(string $temporaryFileName): ?string
-    {
-        if (function_exists('exif_imagetype')) {
-            $imageType = @exif_imagetype($temporaryFileName);
-            $mimeType = ($imageType) ? image_type_to_mime_type($imageType) : null;
-
-            return self::supportedMimeTypes($mimeType);
-        }
-
-        return null;
-    }
+    /** @internal */
+    protected static string $getImageSize = 'getImageSize';
 
     private static function identifyMimeTypeUsingGd(string $temporaryFileName): ?string
     {
-        if (function_exists('getimagesize')) {
+        if (function_exists(static::$getImageSize)) {
             $imageSize = @getimagesize($temporaryFileName);
             if (is_array($imageSize)) {
                 $mimeType = $imageSize['mime'];
@@ -261,6 +242,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get rendering function.
+     *
+     * @return callable-string
      */
     public function getRenderingFunction(): string
     {
@@ -270,7 +253,7 @@ class MemoryDrawing extends BaseDrawing
     /**
      * Set rendering function.
      *
-     * @param string $value see self::RENDERING_*
+     * @param callable-string $value see self::RENDERING_*
      *
      * @return $this
      */

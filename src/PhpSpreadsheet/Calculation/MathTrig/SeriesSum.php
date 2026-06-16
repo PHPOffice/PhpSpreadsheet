@@ -20,7 +20,7 @@ class SeriesSum
      * @param mixed $m Step
      * @param mixed[] $args An array of coefficients for the Data Series
      *
-     * @return array|float|int|string The result, or a string containing an error
+     * @return array<mixed>|float|int|string The result, or a string containing an error
      */
     public static function evaluate(mixed $x, mixed $n, mixed $m, ...$args): array|string|float|int
     {

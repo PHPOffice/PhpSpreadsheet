@@ -25,7 +25,7 @@ class LogNormDist2Test extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=LOGNORM.DIST({$values}, {$mean}, {$stdDev}, true)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

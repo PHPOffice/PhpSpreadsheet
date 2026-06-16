@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Helper\Handler;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 class HandlerTest extends TestCase
 {
@@ -17,61 +17,49 @@ class HandlerTest extends TestCase
 
     public function testDeprecated(): void
     {
-        try {
-            Handler::deprecated();
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('Invalid characters', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/Invalid characters/');
+
+        Handler::deprecated();
     }
 
     public function testNotice(): void
     {
-        try {
-            Handler::notice('invalidtz');
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('Timezone', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/Timezone/');
+
+        Handler::notice('invalidtz');
     }
 
     public function testWarning(): void
     {
-        try {
-            Handler::warning();
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('ailed to open stream', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/ailed to open stream/');
+
+        Handler::warning();
     }
 
     public function testUserDeprecated(): void
     {
-        try {
-            Handler::userDeprecated();
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('hello', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/hello/');
+
+        Handler::userDeprecated();
     }
 
     public function testUserNotice(): void
     {
-        try {
-            Handler::userNotice();
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('userNotice', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/userNotice/');
+
+        Handler::userNotice();
     }
 
     public function testUserWarning(): void
     {
-        try {
-            Handler::userWarning();
-            self::fail('Expected error/exception did not happen');
-        } catch (Throwable $e) {
-            self::assertStringContainsString('userWarning', $e->getMessage());
-        }
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/userWarning/');
+
+        Handler::userWarning();
     }
 }

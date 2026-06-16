@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'DATEVALUE';
 $description = 'Converts a date in the form of text to an Excel serial number';
@@ -36,8 +36,8 @@ $worksheet->getStyle('C1:C' . $testDateCount)
 $helper->log('<strong>Warning: </strong>The PhpSpreadsheet DATEVALUE() function accepts a wider range of date formats than MS Excel DATEFORMAT() function.');
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log("(A{$row}) Date String: " . $worksheet->getCell('A' . $row)->getFormattedValue());
-    $helper->log('Formula: ' . $worksheet->getCell('B' . $row)->getValue());
-    $helper->log('Excel DateStamp: ' . $worksheet->getCell('B' . $row)->getCalculatedValue());
+    $helper->log('Formula: ' . $worksheet->getCell('B' . $row)->getValueString());
+    $helper->log('Excel DateStamp: ' . $worksheet->getCell('B' . $row)->getCalculatedValueString());
     $helper->log('Formatted DateStamp: ' . $worksheet->getCell('C' . $row)->getFormattedValue());
     $helper->log('');
 }

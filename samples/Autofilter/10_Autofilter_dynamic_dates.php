@@ -67,6 +67,7 @@ function createSheet(Sample $helper, Spreadsheet $spreadsheet, string $rule, boo
 }
 
 // Create new Spreadsheet object
+/** @var Sample $helper */
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 

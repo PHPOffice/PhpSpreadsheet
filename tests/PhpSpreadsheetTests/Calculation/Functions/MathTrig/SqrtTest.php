@@ -34,7 +34,7 @@ class SqrtTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=SQRT({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

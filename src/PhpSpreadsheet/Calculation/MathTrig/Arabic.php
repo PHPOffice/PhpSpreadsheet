@@ -22,6 +22,8 @@ class Arabic
 
     /**
      * Recursively calculate the arabic value of a roman numeral.
+     *
+     * @param string[] $roman
      */
     private static function calculateArabic(array $roman, int &$sum = 0, int $subtract = 0): int
     {
@@ -55,7 +57,7 @@ class Arabic
      *
      * @param string|string[] $roman Should be a string, or can be an array of strings
      *
-     * @return array|int|string the arabic numberal contrived from the roman numeral
+     * @return array<mixed>|int|string the arabic numeral contrived from the roman numeral
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -74,11 +76,14 @@ class Arabic
         // Convert the roman numeral to an arabic number
         $negativeNumber = $roman[0] === '-';
         if ($negativeNumber) {
-            $roman = substr($roman, 1);
+            $roman = trim(substr($roman, 1));
+            if ($roman === '') {
+                return ExcelError::NAN();
+            }
         }
 
         try {
-            $arabic = self::calculateArabic(str_split($roman));
+            $arabic = self::calculateArabic(mb_str_split($roman, 1, 'UTF-8'));
         } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }

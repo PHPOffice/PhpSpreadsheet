@@ -121,4 +121,16 @@ class Namespaces
     const DYNAMIC_ARRAY = 'http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray';
 
     const DYNAMIC_ARRAY_RICHDATA = 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata';
+
+    const RELATIONSHIPS_RICH_VALUE_TYPES = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValueTypes';
+
+    const RELATIONSHIPS_RICH_VALUE_STRUCTURE = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValueStructure';
+
+    const RELATIONSHIPS_RICH_VALUE = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValue';
+
+    const RELATIONSHIPS_RICH_VALUE_REL = 'http://schemas.microsoft.com/office/2022/10/relationships/richValueRel';
+
+    const FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/spreadsheetml/2022/featurepropertybag';
+    const RELATIONSHIPS_FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/2022/11/relationships/FeaturePropertyBag';
+    const STYLE_CHECKBOX_URI = '{C7286773-470A-42A8-94C5-96B5CB345126}';
 }

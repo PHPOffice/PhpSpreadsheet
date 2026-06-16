@@ -67,6 +67,7 @@ class PageSetupTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<array{orientation: string, scale: int, horizontalCentered: bool, verticalCentered: bool, pageOrder: string}> */
     private function pageSetupAssertions(): array
     {
         return [
@@ -102,6 +103,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
+    /** @return array<array{top: float, header: float, left: float, right: float, bottom: float, footer: float}> */
     private function pageMarginAssertions(): array
     {
         return [

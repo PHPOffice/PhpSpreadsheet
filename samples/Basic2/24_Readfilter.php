@@ -9,8 +9,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 require __DIR__ . '/../Header.php';
 
 // Write temporary file
+/** @var Spreadsheet */
 $largeSpreadsheet = require __DIR__ . '/../templates/largeSpreadsheet.php';
 $writer = new Xlsx($largeSpreadsheet);
+/** @var Helper\Sample $helper */
 $filename = $helper->getTemporaryFilename();
 $callStartTime = microtime(true);
 $writer->save($filename);

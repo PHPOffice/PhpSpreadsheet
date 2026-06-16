@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class NotTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNOT')]
+    #[DataProvider('providerNOT')]
     public function testNOT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOT', $expectedResult, ...$args);
@@ -19,14 +20,14 @@ class NotTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/NOT.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerNotArray')]
+    #[DataProvider('providerNotArray')]
     public function testNotArray(array $expectedResult, string $argument1): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=NOT({$argument1})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerNotArray(): array

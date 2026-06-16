@@ -26,8 +26,10 @@ function replaceBody(string $html): string
 }
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Spreadsheet */
 $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Hide grid lines');
 $spreadsheet->getActiveSheet()->setShowGridLines(false);
 

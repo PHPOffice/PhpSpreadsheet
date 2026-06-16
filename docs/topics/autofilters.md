@@ -176,6 +176,7 @@ $columnFilter->createRule()
 In MS Excel, DateGroup filters provide a series of dropdown filter
 selectors for date values, so you can specify entire years, or months
 within a year, or individual days within each month.
+Note that cells covered by such a filter are expected to be in [Excel DateTime Format](./calculation-engine.md#excel-timestamps).
 
 ![04-02-dategroup-autofilter.png](./images/04-02-dategroup-autofilter.png)
 

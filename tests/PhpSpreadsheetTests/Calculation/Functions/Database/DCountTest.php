@@ -6,17 +6,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DCountTest extends SetupTeardownDatabases
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCount')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDCount')]
     public function testDirectCallToDCount(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DCount::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerDCount')]
+    /**
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
+     */
+    #[DataProvider('providerDCount')]
     public function testDCountAsWorksheetFormula(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNT', $database, $field, $criteria);
@@ -25,6 +34,7 @@ class DCountTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
+    /** @return array<array{mixed, mixed}> */
     private static function database4(): array
     {
         return [

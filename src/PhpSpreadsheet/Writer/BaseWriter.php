@@ -123,13 +123,18 @@ abstract class BaseWriter implements IWriter
         $this->shouldCloseFile = true;
     }
 
+    protected function tryClose(): bool
+    {
+        return fclose($this->fileHandle);
+    }
+
     /**
      * Close file handle only if we opened it ourselves.
      */
     protected function maybeCloseFileHandle(): void
     {
         if ($this->shouldCloseFile) {
-            if (!fclose($this->fileHandle)) {
+            if (!$this->tryClose()) {
                 throw new Exception('Could not close file after writing.');
             }
         }

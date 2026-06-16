@@ -36,7 +36,7 @@ class Log10Test extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=LOG10({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

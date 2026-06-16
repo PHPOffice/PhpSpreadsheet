@@ -26,7 +26,7 @@ class StandardNormal
      * @param mixed $value Float value for which we want the probability
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -51,7 +51,7 @@ class StandardNormal
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -72,7 +72,7 @@ class StandardNormal
      *       handled by the logic in Normal::inverse()
      *       All we need to do is pass the value through as scalar or as array
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -89,7 +89,7 @@ class StandardNormal
      *
      * @param mixed $value Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -123,7 +123,7 @@ class StandardNormal
      *                       if null, we use the standard deviation of the dataset
      *                      Or can be an array of values
      *
-     * @return array|float|string (string if result is an error)
+     * @return array<mixed>|float|string (string if result is an error)
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

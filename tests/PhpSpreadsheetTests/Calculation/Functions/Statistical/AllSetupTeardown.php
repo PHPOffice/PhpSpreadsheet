@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -128,6 +129,9 @@ class AllSetupTeardown extends TestCase
                 $arrayComma = '';
                 foreach ($arg as $arrayItem) {
                     $arrayArg .= $arrayComma;
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $arrayArg .= $this->convertToString($arrayItem);
                     $arrayComma = ';';
                 }
@@ -162,6 +166,9 @@ class AllSetupTeardown extends TestCase
                 foreach ($arg as $arrayItem) {
                     $formula .= $comma;
                     $comma = ',';
+                    if ($arrayItem !== null && !is_scalar($arrayItem) && !($arrayItem instanceof Stringable)) {
+                        self::fail('non-stringable item');
+                    }
                     $formula .= $this->convertToString($arrayItem);
                 }
             } else {
@@ -197,7 +204,7 @@ class AllSetupTeardown extends TestCase
                     $cellId = "$col$row";
                     $arrayRange = "A$row:$cellId";
                     $this->setCell($cellId, $arrayItem);
-                    ++$col;
+                    StringHelper::stringIncrement($col);
                 }
                 $formula .= "$comma$arrayRange";
                 $comma = ',';

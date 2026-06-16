@@ -51,7 +51,6 @@ class OdsPropertiesTest extends AbstractFunctional
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         self::assertArrayHasKey('TestDate', $customProperties);
 
@@ -97,7 +96,6 @@ class OdsPropertiesTest extends AbstractFunctional
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         self::assertArrayHasKey('TestDate', $customProperties);
 

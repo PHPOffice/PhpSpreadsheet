@@ -95,11 +95,10 @@ class Worksheet2Test extends TestCase
         self::assertSame('D3', $selected);
         self::assertSame('bottomLeft', $pane);
         $worksheet->unfreezePane();
-        self::assertNull($this->getPane($worksheet));
         $freeze = $this->getPane($worksheet);
+        self::assertNull($freeze);
         $pane = $worksheet->getActivePane();
         $selected = $worksheet->getSelectedCells();
-        self::assertEmpty($freeze);
         self::assertEquals('', $pane);
         self::assertSame('D3', $selected);
         $spreadsheet->disconnectWorksheets();

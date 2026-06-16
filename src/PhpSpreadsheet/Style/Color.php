@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Theme;
+
 class Color extends Supervisor
 {
     const NAMED_COLORS = [
@@ -111,6 +113,8 @@ class Color extends Supervisor
 
     private bool $hasChanged = false;
 
+    private int $theme = -1;
+
     /**
      * Create a new Color.
      *
@@ -156,6 +160,10 @@ class Color extends Supervisor
 
     /**
      * Build style array from subcomponents.
+     *
+     * @param mixed[] $array
+     *
+     * @return mixed[]
      */
     public function getStyleArray(array $array): array
     {
@@ -172,20 +180,27 @@ class Color extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
      * </code>
      *
-     * @param array $styleArray Array containing style information
+     * @param array{rgb?: string, argb?: string, theme?: int} $styleArray Array containing style information
      *
      * @return $this
      */
     public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray(
+                    $this->getStyleArray($styleArray)
+                );
         } else {
             if (isset($styleArray['rgb'])) {
                 $this->setRGB($styleArray['rgb']);
             }
             if (isset($styleArray['argb'])) {
                 $this->setARGB($styleArray['argb']);
+            }
+            if (isset($styleArray['theme'])) {
+                $this->setTheme($styleArray['theme']);
             }
         }
 
@@ -233,6 +248,7 @@ class Color extends Supervisor
     public function setARGB(?string $colorValue = self::COLOR_BLACK, bool $nullStringOkay = false): static
     {
         $this->hasChanged = true;
+        $this->setTheme(-1);
         if (!$nullStringOkay || $colorValue !== '') {
             $colorValue = $this->validateColor($colorValue);
             if ($colorValue === '') {
@@ -365,6 +381,7 @@ class Color extends Supervisor
      * @param int $colorIndex Index entry point into the colour array
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                                            should be returned if the indexed colour doesn't exist
+     * @param null|string[] $palette
      */
     public static function indexedColor(int $colorIndex, bool $background = false, ?array $palette = null): self
     {
@@ -397,14 +414,17 @@ class Color extends Supervisor
 
         return md5(
             $this->argb
+            . (string) $this->theme
             . __CLASS__
         );
     }
 
+    /** @return mixed[] */
     protected function exportArray1(): array
     {
         $exportedArray = [];
         $this->exportArray2($exportedArray, 'argb', $this->getARGB());
+        $this->exportArray2($exportedArray, 'theme', $this->getTheme());
 
         return $exportedArray;
     }
@@ -416,5 +436,43 @@ class Color extends Supervisor
         }
 
         return $this->hasChanged;
+    }
+
+    public function getTheme(): int
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getTheme();
+        }
+
+        return $this->theme;
+    }
+
+    public function setTheme(int $theme): self
+    {
+        $this->hasChanged = true;
+
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['theme' => $theme]);
+            $this->getActiveSheet()
+                ->getStyle($this->getSelectedCells())
+                ->applyFromArray($styleArray);
+        } else {
+            $this->theme = $theme;
+        }
+
+        return $this;
+    }
+
+    public function setHyperlinkTheme(): self
+    {
+        $rgb = $this->getActiveSheet()
+            ->getParent()
+            ?->getTheme()
+            ->getThemeColors();
+        if (is_array($rgb) && array_key_exists('hlink', $rgb)) {
+            $this->setRGB($rgb['hlink']);
+        }
+
+        return $this->setTheme(Theme::HYPERLINK_THEME);
     }
 }

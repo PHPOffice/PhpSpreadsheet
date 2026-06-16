@@ -95,4 +95,13 @@ class AllSetupTeardown extends TestCase
             Calculation::RETURN_ARRAY_AS_VALUE
         );
     }
+
+    protected function setArrayAsArray(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_ARRAY
+        );
+    }
 }

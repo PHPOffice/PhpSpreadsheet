@@ -14,6 +14,7 @@ $inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
 $sheetnames = getDesiredSheetNames();
 
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheets "' . implode('" and "', $sheetnames) . '" only');

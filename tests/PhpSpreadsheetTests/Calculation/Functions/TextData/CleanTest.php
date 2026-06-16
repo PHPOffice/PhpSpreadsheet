@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CleanTest extends AllSetupTeardown
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCLEAN')]
+    #[DataProvider('providerCLEAN')]
     public function testCLEAN(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -28,14 +29,15 @@ class CleanTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerCleanArray')]
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerCleanArray')]
     public function testCleanArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=CLEAN({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerCleanArray(): array

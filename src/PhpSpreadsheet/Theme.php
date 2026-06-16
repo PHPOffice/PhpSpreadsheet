@@ -8,8 +8,9 @@ class Theme
 
     private string $themeFontName = 'Office';
 
-    public const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
-    public const COLOR_SCHEME_2013_PLUS = [
+    public const HYPERLINK_THEME = 10;
+    public const COLOR_SCHEME_2013_2022_NAME = 'Office 2013-2022';
+    public const COLOR_SCHEME_2013_2022 = [
         'dk1' => '000000',
         'lt1' => 'FFFFFF',
         'dk2' => '44546A',
@@ -23,6 +24,7 @@ class Theme
         'hlink' => '0563C1',
         'folHlink' => '954F72',
     ];
+    private const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
 
     public const COLOR_SCHEME_2007_2010_NAME = 'Office 2007-2010';
     public const COLOR_SCHEME_2007_2010 = [
@@ -38,6 +40,22 @@ class Theme
         'accent6' => 'F79646',
         'hlink' => '0000FF',
         'folHlink' => '800080',
+    ];
+
+    public const COLOR_SCHEME_2023_PLUS_NAME = 'Office 2023+';
+    public const COLOR_SCHEME_2023_PLUS = [
+        'dk1' => '000000',
+        'lt1' => 'FFFFFF',
+        'dk2' => '0E2841',
+        'lt2' => 'E8E8E8',
+        'accent1' => '156082',
+        'accent2' => 'E97132',
+        'accent3' => '196B24',
+        'accent4' => '0F9ED5',
+        'accent5' => 'A02B93',
+        'accent6' => '4EA72E',
+        'hlink' => '467886',
+        'folHlink' => '96607D',
     ];
 
     /** @var string[] */
@@ -135,6 +153,7 @@ class Theme
         'Geor' => 'Sylfaen',
     ];
 
+    /** @return string[] */
     public function getThemeColors(): array
     {
         return $this->themeColors;
@@ -152,16 +171,34 @@ class Theme
         return $this->themeColorName;
     }
 
-    public function setThemeColorName(string $name, ?array $themeColors = null): self
+    /** @param null|string[] $themeColors */
+    public function setThemeColorName(string $name, ?array $themeColors = null, ?Spreadsheet $spreadsheet = null): self
     {
+        if ($name === self::COLOR_SCHEME_2013_PLUS_NAME) {
+            // Ensure against this value being found in
+            // spreadsheets created while constant was public.
+            $name = self::COLOR_SCHEME_2013_2022_NAME;
+        }
         $this->themeColorName = $name;
         if ($name === self::COLOR_SCHEME_2007_2010_NAME) {
             $themeColors = $themeColors ?? self::COLOR_SCHEME_2007_2010;
-        } elseif ($name === self::COLOR_SCHEME_2013_PLUS_NAME) {
-            $themeColors = $themeColors ?? self::COLOR_SCHEME_2013_PLUS;
+            $this->majorFontLatin = 'Cambria';
+            $this->minorFontLatin = 'Calibri';
+        } elseif ($name === self::COLOR_SCHEME_2013_2022_NAME) {
+            $themeColors = $themeColors ?? self::COLOR_SCHEME_2013_2022;
+            $this->majorFontLatin = 'Calibri Light';
+            $this->minorFontLatin = 'Calibri';
+        } elseif ($name === self::COLOR_SCHEME_2023_PLUS_NAME) {
+            $themeColors = $themeColors ?? self::COLOR_SCHEME_2023_PLUS;
+            $this->majorFontLatin = 'Aptos Display';
+            $this->minorFontLatin = 'Aptos Narrow';
         }
         if ($themeColors !== null) {
             $this->themeColors = $themeColors;
+        }
+        if ($spreadsheet !== null) {
+            $spreadsheet->getDefaultStyle()->getFont()
+                ->applyThemeFonts($this);
         }
 
         return $this;
@@ -182,11 +219,13 @@ class Theme
         return $this->majorFontComplexScript;
     }
 
+    /** @return string[] */
     public function getMajorFontSubstitutions(): array
     {
         return $this->majorFontSubstitutions;
     }
 
+    /** @param null|string[] $substitutions */
     public function setMajorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
     {
         if (!empty($latin)) {
@@ -220,11 +259,13 @@ class Theme
         return $this->minorFontComplexScript;
     }
 
+    /** @return string[] */
     public function getMinorFontSubstitutions(): array
     {
         return $this->minorFontSubstitutions;
     }
 
+    /** @param null|string[] $substitutions */
     public function setMinorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
     {
         if (!empty($latin)) {

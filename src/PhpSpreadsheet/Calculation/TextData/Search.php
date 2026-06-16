@@ -12,7 +12,7 @@ class Search
     use ArrayEnabled;
 
     /**
-     * FIND (case sensitive search).
+     * FIND (case-sensitive search).
      *
      * @param mixed $needle The string to look for
      *                         Or can be an array of values
@@ -21,7 +21,7 @@ class Search
      * @param mixed $offset Integer offset within $haystack to start searching from
      *                         Or can be an array of values
      *
-     * @return array|int|string The offset where the first occurrence of needle was found in the haystack
+     * @return array<mixed>|int|string The offset where the first occurrence of needle was found in the haystack
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
@@ -54,7 +54,7 @@ class Search
     }
 
     /**
-     * SEARCH (case insensitive search).
+     * SEARCH (case-insensitive search).
      *
      * @param mixed $needle The string to look for
      *                         Or can be an array of values
@@ -63,7 +63,7 @@ class Search
      * @param mixed $offset Integer offset within $haystack to start searching from
      *                         Or can be an array of values
      *
-     * @return array|int|string The offset where the first occurrence of needle was found in the haystack
+     * @return array<mixed>|int|string The offset where the first occurrence of needle was found in the haystack
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */

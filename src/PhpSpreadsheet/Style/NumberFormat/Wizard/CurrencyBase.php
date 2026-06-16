@@ -173,7 +173,7 @@ class CurrencyBase extends Number
             if ($symbolWithSpacing) {
                 $format .= '*' . $this->spaceOrNbsp;
             }
-            if ($negativeStart === '\\(' || ($symbolWithSpacing && $negativeStart === '-')) {
+            if ($negativeStart === '\(' || ($symbolWithSpacing && $negativeStart === '-')) {
                 $format .= $negativeStart;
             }
         } else {

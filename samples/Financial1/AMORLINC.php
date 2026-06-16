@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstan
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the prorated linear depreciation of an asset for a specified accounting period.');
 
 // Create new PhpSpreadsheet object

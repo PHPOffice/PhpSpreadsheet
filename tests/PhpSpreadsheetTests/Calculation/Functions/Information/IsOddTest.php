@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IsOddTest extends TestCase
@@ -17,7 +18,7 @@ class IsOddTest extends TestCase
         self::assertSame(ExcelError::NAME(), $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsOdd')]
+    #[DataProvider('providerIsOdd')]
     public function testIsOdd(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isOdd($value);
@@ -29,14 +30,14 @@ class IsOddTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_ODD.php';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerIsOddArray')]
+    #[DataProvider('providerIsOddArray')]
     public function testIsOddArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ISODD({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIsOddArray(): array

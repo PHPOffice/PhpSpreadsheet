@@ -30,9 +30,9 @@ class LoadSheetsOnlyTest extends TestCase
         //$reader->setLoadSheetsOnly(['Sheet1']);
         $names = $reader->listWorksheetNames($filename);
         $reader->setLoadSheetsOnly([$names[0]]);
-        $this->spreadsheet = $reader->load($filename);
-        self::assertSame(1, $this->spreadsheet->getSheetCount());
-        self::assertSame('Sheet1', $this->spreadsheet->getActiveSheet()->getTitle());
+        $spreadsheet = $this->spreadsheet = $reader->load($filename);
+        self::assertSame(1, $spreadsheet->getSheetCount());
+        self::assertSame('Sheet1', $spreadsheet->getActiveSheet()->getTitle());
     }
 
     public function testLoadSheet2Only(): void
@@ -40,9 +40,9 @@ class LoadSheetsOnlyTest extends TestCase
         $filename = self::$testbook;
         $reader = new Xlsx();
         $reader->setLoadSheetsOnly(['Sheet2']);
-        $this->spreadsheet = $reader->load($filename);
-        self::assertSame(1, $this->spreadsheet->getSheetCount());
-        self::assertSame('Sheet2', $this->spreadsheet->getActiveSheet()->getTitle());
+        $spreadsheet = $this->spreadsheet = $reader->load($filename);
+        self::assertSame(1, $spreadsheet->getSheetCount());
+        self::assertSame('Sheet2', $spreadsheet->getActiveSheet()->getTitle());
     }
 
     public function testLoadNoSheet(): void

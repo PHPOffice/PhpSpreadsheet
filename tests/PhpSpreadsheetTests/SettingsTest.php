@@ -23,17 +23,9 @@ class SettingsTest extends TestCase
         Settings::setChartRenderer(self::class);
     }
 
-    public function testInvalidRequestFactory(): void
-    {
-        $this->expectException(SpException::class);
-        $this->expectExceptionMessage('HTTP client must be configured');
-        Settings::getRequestFactory();
-    }
-
     public function testCache(): void
     {
         $cache1 = Settings::getCache();
-        self::assertNotNull($cache1);
         Settings::setCache(null);
         $cache2 = Settings::getCache();
         self::assertEquals($cache1, $cache2);

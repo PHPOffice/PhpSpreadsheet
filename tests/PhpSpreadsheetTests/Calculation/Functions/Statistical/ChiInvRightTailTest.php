@@ -27,10 +27,10 @@ class ChiInvRightTailTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
         $formula = "=CHISQ.INV.RT($probability, $degrees)";
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
         $formula = "=CHISQ.DIST.RT($result, $degrees)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
@@ -40,7 +40,7 @@ class ChiInvRightTailTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=CHISQ.INV.RT({$probabilities}, {$degrees})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -37,7 +37,6 @@ class Style extends WriterPart
 
         // styleSheet
         $objWriter->startElement('styleSheet');
-        $objWriter->writeAttribute('xml:space', 'preserve');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
 
         // numFmts
@@ -59,7 +58,7 @@ class Style extends WriterPart
         for ($i = 0; $i < $this->getParentWriter()->getFontHashTable()->count(); ++$i) {
             $thisfont = $this->getParentWriter()->getFontHashTable()->getByIndex($i);
             if ($thisfont !== null) {
-                $this->writeFont($objWriter, $thisfont);
+                $this->writeFont($objWriter, $thisfont, $spreadsheet);
             }
         }
 
@@ -145,7 +144,7 @@ class Style extends WriterPart
             /** @var ?Conditional */
             $thisstyle = $this->getParentWriter()->getStylesConditionalHashTable()->getByIndex($i);
             if ($thisstyle !== null) {
-                $this->writeCellStyleDxf($objWriter, $thisstyle->getStyle());
+                $this->writeCellStyleDxf($objWriter, $thisstyle->getStyle(), $spreadsheet);
             }
         }
 
@@ -273,6 +272,9 @@ class Style extends WriterPart
         $objWriter->endElement();
     }
 
+    /**
+     * @param-out true $fontStarted
+     */
     private function startFont(XMLWriter $objWriter, bool &$fontStarted): void
     {
         if (!$fontStarted) {
@@ -284,7 +286,7 @@ class Style extends WriterPart
     /**
      * Write Font.
      */
-    private function writeFont(XMLWriter $objWriter, Font $font): void
+    private function writeFont(XMLWriter $objWriter, Font $font, Spreadsheet $spreadsheet): void
     {
         $fontStarted = false;
         // font
@@ -347,7 +349,17 @@ class Style extends WriterPart
         }
 
         // Foreground color
-        if ($font->getColor()->getARGB() !== null) {
+        if ($font->getAutoColor()) {
+            $this->startFont($objWriter, $fontStarted);
+            $objWriter->startElement('auto');
+            $objWriter->writeAttribute('val', '1');
+            $objWriter->endElement();
+        } elseif ($font->getColor()->getTheme() >= 0) {
+            $this->startFont($objWriter, $fontStarted);
+            $objWriter->startElement('color');
+            $objWriter->writeAttribute('theme', (string) $font->getColor()->getTheme());
+            $objWriter->endElement();
+        } elseif ($font->getColor()->getARGB() !== null) {
             $this->startFont($objWriter, $fontStarted);
             $objWriter->startElement('color');
             $objWriter->writeAttribute('rgb', $font->getColor()->getARGB());
@@ -360,6 +372,12 @@ class Style extends WriterPart
             $objWriter->startElement('name');
             $objWriter->writeAttribute('val', $font->getName());
             $objWriter->endElement();
+            $charset = $spreadsheet->getFontCharset($font->getName());
+            if ($charset >= 0 && $charset <= 255) {
+                $objWriter->startElement('charset');
+                $objWriter->writeAttribute('val', "$charset");
+                $objWriter->endElement();
+            }
         }
 
         if (!empty($font->getScheme())) {
@@ -457,6 +475,10 @@ class Style extends WriterPart
             if ($vertical !== '') {
                 $objWriter->writeAttribute('vertical', $vertical);
             }
+            $justifyLastLine = $style->getAlignment()->getJustifyLastLine();
+            if (is_bool($justifyLastLine)) {
+                $objWriter->writeAttribute('justifyLastLine', (string) (int) $justifyLastLine);
+            }
 
             if ($style->getAlignment()->getTextRotation() >= 0) {
                 $textRotation = $style->getAlignment()->getTextRotation();
@@ -489,19 +511,31 @@ class Style extends WriterPart
             $objWriter->endElement();
         }
 
+        if ($style->getCheckBox()) {
+            $objWriter->startElement('extLst');
+            $objWriter->startElement('ext');
+            $objWriter->writeAttribute('uri', Namespaces::STYLE_CHECKBOX_URI);
+            $objWriter->writeAttribute('xmlns:xfpb', Namespaces::FEATURE_PROPERTY_BAG);
+            $objWriter->startElement('xfpb:xfComplement');
+            $objWriter->writeAttribute('i', '0');
+            $objWriter->endElement(); //xfpb:xfComplement
+            $objWriter->endElement(); //ext
+            $objWriter->endElement(); //extLst
+        }
+
         $objWriter->endElement();
     }
 
     /**
      * Write Cell Style Dxf.
      */
-    private function writeCellStyleDxf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style): void
+    private function writeCellStyleDxf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style, Spreadsheet $spreadsheet): void
     {
         // dxf
         $objWriter->startElement('dxf');
 
         // font
-        $this->writeFont($objWriter, $style->getFont());
+        $this->writeFont($objWriter, $style->getFont(), $spreadsheet);
 
         // numFmt
         $this->writeNumFmt($objWriter, $style->getNumberFormat());

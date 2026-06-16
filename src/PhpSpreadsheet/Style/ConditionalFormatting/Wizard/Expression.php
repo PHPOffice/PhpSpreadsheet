@@ -28,6 +28,7 @@ class Expression extends WizardAbstract implements WizardInterface
 
     public function getConditional(): Conditional
     {
+        /** @var string[] */
         $expression = $this->adjustConditionsForCellReferences([$this->expression]);
 
         $conditional = new Conditional();

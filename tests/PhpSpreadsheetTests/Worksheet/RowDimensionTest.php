@@ -14,7 +14,6 @@ class RowDimensionTest extends TestCase
     {
         $expected = 0;
         $rowDimension = new RowDimension();
-        self::assertInstanceOf(RowDimension::class, $rowDimension);
         $result = $rowDimension->getRowIndex();
         self::assertEquals($expected, $result);
     }

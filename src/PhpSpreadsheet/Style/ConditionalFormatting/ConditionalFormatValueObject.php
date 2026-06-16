@@ -10,6 +10,13 @@ class ConditionalFormatValueObject
 
     private ?string $cellFormula;
 
+    /**
+     * For icon sets, determines whether this threshold value uses the greater
+     * than or equal to operator. False indicates 'greater than' is used instead
+     * of 'greater than or equal to'.
+     */
+    private ?bool $greaterThanOrEqual = null;
+
     public function __construct(string $type, null|float|int|string $value = null, ?string $cellFormula = null)
     {
         $this->type = $type;
@@ -49,6 +56,18 @@ class ConditionalFormatValueObject
     public function setCellFormula(?string $cellFormula): self
     {
         $this->cellFormula = $cellFormula;
+
+        return $this;
+    }
+
+    public function getGreaterThanOrEqual(): ?bool
+    {
+        return $this->greaterThanOrEqual;
+    }
+
+    public function setGreaterThanOrEqual(?bool $greaterThanOrEqual): self
+    {
+        $this->greaterThanOrEqual = $greaterThanOrEqual;
 
         return $this;
     }

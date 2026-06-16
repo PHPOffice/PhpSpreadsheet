@@ -7,11 +7,12 @@ namespace PhpOffice\PhpSpreadsheetTests;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNameFormulaTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeOrFormula')]
+    #[DataProvider('providerRangeOrFormula')]
     public function testRangeOrFormula(string $value, bool $expectedResult): void
     {
         $actualResult = DefinedName::testIfFormula($value);
@@ -25,9 +26,13 @@ class DefinedNameFormulaTest extends TestCase
 
         $definedNamesForTest = $this->providerRangeOrFormula();
         foreach ($definedNamesForTest as $key => $definedNameData) {
+            /** @var array{string, bool} $definedNameData */
             [$value] = $definedNameData;
             $name = str_replace([' ', '-'], '_', $key);
-            $spreadSheet->addDefinedName(DefinedName::createInstance($name, $workSheet, $value));
+            $spreadSheet
+                ->addDefinedName(
+                    DefinedName::createInstance($name, $workSheet, $value)
+                );
         }
 
         $allDefinedNames = $spreadSheet->getDefinedNames();
@@ -42,6 +47,7 @@ class DefinedNameFormulaTest extends TestCase
         $rangeOrFormula = [];
         $definedNamesForTest = $this->providerRangeOrFormula();
         foreach ($definedNamesForTest as $key => $definedNameData) {
+            /** @var array{string, bool} $definedNameData */
             [$value, $isFormula] = $definedNameData;
             $rangeOrFormula[] = !$isFormula;
             $name = str_replace([' ', '-'], '_', $key);
@@ -96,6 +102,7 @@ class DefinedNameFormulaTest extends TestCase
         $rangeOrFormula = [];
         $definedNamesForTest = $this->providerRangeOrFormula();
         foreach ($definedNamesForTest as $key => $definedNameData) {
+            /** @var array{string, bool} $definedNameData */
             [$value, $isFormula] = $definedNameData;
             $rangeOrFormula[] = $isFormula;
             $name = str_replace([' ', '-'], '_', $key);

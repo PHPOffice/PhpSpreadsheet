@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+// Used to test both CODE and UNICODE.
+// If expected result is array, 1st entry is for CODE, 2nd for UNICODE,
+// and 3rd for CODE using MACROMAN.
+
 return [
     [
         '#VALUE!',
@@ -48,28 +52,44 @@ return [
         '£125.00',
     ],
     [
-        12103,
+        [63, 12103],
         '⽇',
     ],
     [
-        0x153,
+        [156, 0x153, 207],
         'œ',
     ],
     [
-        0x192,
+        [131, 0x192, 196],
         'ƒ',
     ],
     [
-        0x2105,
+        [63, 0x2105],
         '℅',
     ],
     [
-        0x2211,
+        [63, 0x2211, 183],
         '∑',
     ],
     [
-        0x2020,
+        [134, 0x2020, 160],
         '†',
+    ],
+    [
+        [128, 8364, 219],
+        '€',
+    ],
+    [
+        [220, 220, 134],
+        'Ü',
+    ],
+    'non-ascii but same win-1252 vs unicode' => [
+        [0xD0, 0xD0, 63],
+        'Ð',
+    ],
+    'ascii control character' => [
+        2,
+        "\x02",
     ],
     'omitted argument' => ['exception'],
 ];

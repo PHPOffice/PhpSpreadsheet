@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet as XlsWorksheet;
 
 class DataValidationHelper extends Xls
 {
@@ -176,11 +175,12 @@ class DataValidationHelper extends Xls
 
         // offset: var; size: var; cell range address list with
         $cellRangeAddressList = Biff8::readBIFF8CellRangeAddressList(substr($recordData, $offset));
+        /** @var string[] */
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
         $maxRow = (string) AddressRange::MAX_ROW;
         $maxCol = AddressRange::MAX_COLUMN;
-        $maxXlsRow = (string) XlsWorksheet::MAX_XLS_ROW;
-        $maxXlsColumnString = (string) XlsWorksheet::MAX_XLS_COLUMN_STRING;
+        $maxXlsRow = (string) AddressRange::MAX_ROW_XLS;
+        $maxXlsColumnString = AddressRange::MAX_COLUMN_XLS;
 
         foreach ($cellRangeAddresses as $cellRange) {
             $cellRange = preg_replace(

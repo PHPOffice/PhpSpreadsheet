@@ -1,9 +1,11 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -21,13 +23,13 @@ Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 15;
 // Calculated data
 $helper->log('Calculated data');
 for ($row = 1; $row <= 2; ++$row) {
-    for ($col = 'A'; $col != 'C'; ++$col) {
+    for ($col = 'A'; $col != 'C'; StringHelper::stringIncrement($col)) {
         $formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue();
         if (
             is_string($formula)
                 && ($formula[0] == '=')
         ) {
-            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());
+            $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValueString());
         }
     }
 }

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -174,7 +172,6 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
         $sheet->setAutoFilter([2, 2, 3, 3]);
         $autoFilter = $sheet->getAutoFilter();
-        self::assertInstanceOf(AutoFilter::class, $autoFilter);
         self::assertSame('B2:C3', $autoFilter->getRange());
     }
 
@@ -202,7 +199,6 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
             ->getText()->createTextRun('My Test Comment');
 
         $comment = $sheet->getComment([2, 2]);
-        self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
     }
 
@@ -212,6 +208,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $this->expectExceptionMessage('CellRange array length must be 2 or 4');
         $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->mergeCells([2, 2, 3]);
+        // Phpstan is correct that next statement is wrong, but we need run-time check anyhow.
+        $sheet->mergeCells([2, 2, 3]); // @phpstan-ignore-line
     }
 }

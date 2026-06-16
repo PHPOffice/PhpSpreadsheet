@@ -54,7 +54,6 @@ class RichTextTest extends TestCase
     {
         $richText = new RichText();
         $textRun = $richText->createTextRun('hello');
-        self::assertNotNull($textRun->getFontOrThrow());
         $textRun->setFont(null);
 
         try {

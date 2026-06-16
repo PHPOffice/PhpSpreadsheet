@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Read from Xls (.xls) template
 $helper->log('Load Xlsx template file');

@@ -62,11 +62,14 @@ return [
     [39844.0, 2008, 13, 31],
     [39813.0, 2009, 1, 0],
     [39812.0, 2009, 1, -1],
+    'month expressed as true' => [39812.0, 2009, true, -1],
     [39782.0, 2009, 0, 0],
     [39781.0, 2009, 0, -1],
     [39752.0, 2009, -1, 0],
     [39751.0, 2009, -1, -1],
     [40146.0, 2010, 0, -1],
+    'month expressed as false' => [40146.0, 2010, false, -1],
+    'month expressed as null' => [40146.0, 2010, null, -1],
     [40329.0, 2010, 5, 31],
     [40199.0, 2010, 1, '21st'], // Excel can't parse ordinal, PhpSpreadsheet can
     [40200.0, 2010, 1, '22nd'], // Excel can't parse ordinal, PhpSpreadsheet can
@@ -75,6 +78,8 @@ return [
     [40258.0, 2010, 'March', '21st'], // ordinal and month name
     // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [40258.0, 2010, 'March', 21], // Excel can't parse month name, PhpSpreadsheet can
+    'month expressed as string' => [40258.0, 2010, '03', 21],
+    'month expressed as invalid string' => [ExcelError::VALUE(), 2010, '03x', 21],
     [ExcelError::VALUE(), 'ABC', 1, 21],
     [ExcelError::VALUE(), 2010, 'DEF', 21],
     [ExcelError::VALUE(), 2010, 3, 'GHI'],

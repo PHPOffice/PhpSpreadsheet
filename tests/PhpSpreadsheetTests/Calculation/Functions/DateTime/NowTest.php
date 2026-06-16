@@ -47,7 +47,7 @@ class NowTest extends TestCase
         do {
             $dtStart = new DateTimeImmutable();
             $startSecond = $dtStart->format('s');
-            $result = $calculation->_calculateFormulaValue($formula);
+            $result = $calculation->calculateFormula($formula);
             $endSecond = (new DateTimeImmutable('now'))->format('s');
         } while ($startSecond !== $endSecond);
 

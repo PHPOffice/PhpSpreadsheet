@@ -6,11 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class UniqueTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('uniqueTestProvider')]
+    /** @param mixed[] $lookupRef */
+    #[DataProvider('uniqueTestProvider')]
     public function testUnique(array $expectedResult, array $lookupRef, bool $byColumn = false, bool $exactlyOnce = false): void
     {
         $result = LookupRef\Unique::unique($lookupRef, $byColumn, $exactlyOnce);

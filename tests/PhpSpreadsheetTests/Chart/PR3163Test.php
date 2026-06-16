@@ -143,12 +143,10 @@ class PR3163Test extends AbstractFunctional
         self::assertNotNull($chart2);
 
         $xAxis2 = $chart2->getChartAxisX();
-        self::assertNotNull($xAxis2);
         $lineColorX2 = $xAxis2->getLineColorProperty('value');
         self::assertSame($lineColorX2, 'FF0000');
 
         $yAxis2 = $chart2->getChartAxisY();
-        self::assertNotNull($yAxis2);
         $lineColorY2 = $yAxis2->getLineColorProperty('value');
         self::assertSame($lineColorY2, '00FF00');
 

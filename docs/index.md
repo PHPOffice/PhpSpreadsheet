@@ -51,7 +51,7 @@ Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your proj
 composer require phpoffice/phpspreadsheet
 ```
 
-Or also download the documentation and samples if you plan to use them:
+Or also download the documentation and samples if you plan to use them (note that `git` must be in your path for this to work):
 
 ```sh
 composer require phpoffice/phpspreadsheet --prefer-source

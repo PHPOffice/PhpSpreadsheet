@@ -34,7 +34,6 @@ class Table extends WriterPart
         $range = $table->getRange();
 
         $objWriter->startElement('table');
-        $objWriter->writeAttribute('xml:space', 'preserve');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
         $objWriter->writeAttribute('id', (string) $tableRef);
         $objWriter->writeAttribute('name', $name);
