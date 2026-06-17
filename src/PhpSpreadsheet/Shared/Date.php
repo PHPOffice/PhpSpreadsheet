@@ -488,16 +488,7 @@ class Date
             return false;
         }
 
-        $hold = self::$excelCalendar;
-
-        try {
-            if ($calendar !== null) {
-                self::$excelCalendar = $calendar;
-            }
-            $dateValueNew = DateTimeExcel\DateValue::fromString($dateValue);
-        } finally {
-            self::$excelCalendar = $hold;
-        }
+        $dateValueNew = DateTimeExcel\DateValue::fromString2($dateValue, $calendar);
 
         if (!is_float($dateValueNew)) {
             return false;
