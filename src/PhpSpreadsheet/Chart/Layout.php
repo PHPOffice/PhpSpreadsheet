@@ -99,6 +99,26 @@ class Layout
 
     private ?Properties $labelEffects = null;
 
+    /** @var array{
+     *     vertOverflow?: string,
+     *     horzOverflow?: string,
+     *     wrap?: string,
+     *     lIns?: numeric-string,
+     *     tIns?: numeric-string,
+     *     rIns?: numeric-string,
+     *     bIns?: numeric-string,
+     *     anchor?: string,
+     * }
+     */
+    private array $bodyPr = [
+        'wrap' => 'square',
+        'lIns' => '38100',
+        'tIns' => '19050',
+        'rIns' => '38100',
+        'bIns' => '19050',
+        'anchor' => 'ctr',
+    ];
+
     /**
      * Create a new Layout.
      *
@@ -106,7 +126,22 @@ class Layout
      */
     public function __construct(array $layout = [])
     {
-        /** @var array{layoutTarget?: string, xMode?: string, yMode?: string, x?: float, y?: float, w?:float, h?:float, dLblPos?: string, labelFont?: ?mixed, labelFontColor?: ?mixed, labelEffects?: ?mixed, numFmtCode?: string} $layout */
+        /** @var array{
+         *     layoutTarget?: string,
+         *     xMode?: string,
+         *     yMode?: string,
+         *     x?: float,
+         *     y?: float,
+         *     w?:float,
+         *     h?:float,
+         *     dLblPos?: string,
+         *     labelFont?: ?mixed,
+         *     labelFontColor?: ?mixed,
+         *     labelEffects?: ?mixed,
+         *     numFmtCode?: string,
+         *     bodyPr?: mixed,
+         * } $layout
+         */
         if (isset($layout['layoutTarget'])) {
             $this->layoutTarget = $layout['layoutTarget'];
         }
@@ -155,6 +190,10 @@ class Layout
         $labelEffects = $layout['labelEffects'] ?? null;
         if ($labelEffects instanceof Properties) {
             $this->labelEffects = $labelEffects;
+        }
+        $bodyPr = $layout['bodyPr'] ?? null;
+        if (is_array($bodyPr)) {
+            $this->setBodyPr($bodyPr);
         }
     }
 
@@ -519,6 +558,45 @@ class Layout
     public function setNumFmtLinked(bool $numFmtLinked): self
     {
         $this->numFmtLinked = $numFmtLinked;
+
+        return $this;
+    }
+
+    /** @return array{
+     *     vertOverflow?: string,
+     *     horzOverflow?: string,
+     *     wrap?: string,
+     *     lIns?: numeric-string,
+     *     tIns?: numeric-string,
+     *     rIns?: numeric-string,
+     *     bIns?: numeric-string,
+     *     anchor?: string,
+     * }
+     */
+    public function getBodyPr(): array
+    {
+        return $this->bodyPr;
+    }
+
+    /**
+     * @param mixed $bodyPr expect array matching $this->bodyPr
+     */
+    public function setBodyPr(mixed $bodyPr): self
+    {
+        if (is_array($bodyPr)) {
+            foreach (['vertOverflow', 'horzOverflow', 'wrap', 'anchor'] as $key) {
+                $value = $bodyPr[$key] ?? null;
+                if (is_string($value)) {
+                    $this->bodyPr[$key] = "$value";
+                }
+            }
+            foreach (['lIns', 'tIns', 'rIns', 'bIns'] as $key) {
+                $value = $bodyPr[$key] ?? null;
+                if (is_string($value) && is_numeric($value)) {
+                    $this->bodyPr[$key] = "$value";
+                }
+            }
+        }
 
         return $this;
     }

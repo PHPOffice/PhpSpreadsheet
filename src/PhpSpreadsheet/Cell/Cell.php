@@ -191,12 +191,22 @@ class Cell implements Stringable
     public function getFormattedValue(): string
     {
         $currentCalendar = SharedDate::getExcelCalendar();
-        SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
-        $formattedValue = (string) NumberFormat::toFormattedString(
-            $this->getCalculatedValueString(),
-            (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
+        SharedDate::setExcelCalendar(
+            $this->getWorksheet()
+                ->getParent()
+                ?->getExcelCalendar()
         );
-        SharedDate::setExcelCalendar($currentCalendar);
+
+        try {
+            $formattedValue = NumberFormat::toFormattedString(
+                $this->getCalculatedValueString(),
+                (string) $this->getStyle()
+                    ->getNumberFormat()
+                    ->getFormatCode(true)
+            );
+        } finally {
+            SharedDate::setExcelCalendar($currentCalendar);
+        }
 
         return $formattedValue;
     }
