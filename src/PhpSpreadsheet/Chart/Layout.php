@@ -508,11 +508,7 @@ class Layout
 
     public function getLabelFontColor(): ?ChartColor
     {
-        if ($this->labelFont === null) {
-            return null;
-        }
-
-        return $this->labelFont->getChartColor();
+        return $this->labelFont?->getChartColor();
     }
 
     public function setLabelFontColor(?ChartColor $chartColor): self
