@@ -432,7 +432,7 @@ class Xml extends BaseReader
                             $arrayRef = AddressHelper::convertFormulaToA1($arrayRange, $rowID, $columnIndex);
                         }
 
-                        if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                        if (!$this->readFilter->readCell($columnID, $rowID, $worksheetName)) {
                             continue;
                         }
 
