@@ -5,11 +5,75 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.6.0
+## TBD - 5.9.0
 
 ### Added
 
+- Navigate Cell as Cursor. [Issue #863](https://github.com/PHPOffice/PhpSpreadsheet/issues/863) [PR #4909](https://github.com/PHPOffice/PhpSpreadsheet/pull/4909)
+- Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
+- Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
+
+### Removed
+
 - Nothing yet.
+
+### Changed
+
+- Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Small improvement for Radar Charts. [Issue #661](https://github.com/PHPOffice/PhpSpreadsheet/issues/661) [PR #4908](https://github.com/PHPOffice/PhpSpreadsheet/pull/4908)
+- Allow Use of Multiple Ranges When Setting Styles. [Issue #411](https://github.com/PHPOffice/PhpSpreadsheet/issues/411) [PR #4910](https://github.com/PHPOffice/PhpSpreadsheet/pull/4910)
+- Small change to Writer Html. [Issue #434](https://github.com/PHPOffice/PhpSpreadsheet/issues/434) [PR #4912](https://github.com/PHPOffice/PhpSpreadsheet/pull/4912)
+- Avoid hard-coding some chart Xml attributes. [PR #4915](https://github.com/PHPOffice/PhpSpreadsheet/pull/4915)
+- Readers should directly access readFilter. [PR #4919](https://github.com/PHPOffice/PhpSpreadsheet/pull/4919)
+
+## 2026-06-06 - 5.8.0
+
+### Security Note
+
+- File::prohibitWrappers and Drawing::setPath now reject phar paths with extra leading slashes (e.g. phar:///…) that escaped the prior parse_url-based filter. No security exploit was possible even with the extra slashes. [PR #4876](https://github.com/PHPOffice/PhpSpreadsheet/pull/4876)
+
+### Added
+
+- Optional method to increase Calculation Engine's parsing speed. [PR #4829](https://github.com/PHPOffice/PhpSpreadsheet/pull/4829)
+- Html Writer/Reader new data attributes.  [PR #4858](https://github.com/PHPOffice/PhpSpreadsheet/pull/4858)
+- IReader2 interface extending IReader with listWorksheetInfo/Names. [Issue #4883](https://github.com/PHPOffice/PhpSpreadsheet/issues/4883) [PR #4886](https://github.com/PHPOffice/PhpSpreadsheet/pull/4886)
+
+### Changed
+
+- Helper/Handler is now internal and final. [PR #4896](https://github.com/PHPOffice/PhpSpreadsheet/pull/4896)
+
+### Fixed
+
+- Html Writer handle text colors a bit better. [PR #4855](https://github.com/PHPOffice/PhpSpreadsheet/pull/4855)
+- Html Writer apply rotation to images. [Issue #4875](https://github.com/PHPOffice/PhpSpreadsheet/issues/4875) [PR #4877](https://github.com/PHPOffice/PhpSpreadsheet/pull/4877)
+- Work around Php8.6 deprecation in mpdf/mpdf. [PR #4878](https://github.com/PHPOffice/PhpSpreadsheet/pull/4878)
+- Ability to reuse disconnected spreadsheet. [PR #4880](https://github.com/PHPOffice/PhpSpreadsheet/pull/4880)
+- Allow int parameter for getChartIndex. [PR #4896](https://github.com/PHPOffice/PhpSpreadsheet/pull/4896)
+
+## 2026-04-19 - 5.7.0
+
+### Fixed
+
+- Security patches.
+
+## 2026-04-09 - 5.6.0
+
+### Added
+
+- Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837) [PR #4845](https://github.com/PHPOffice/PhpSpreadsheet/pull/4845)
+- XLOOKUP function. [Issue #1453](https://github.com/PHPOffice/PhpSpreadsheet/issues/1453) [PR #4844](https://github.com/PHPOffice/PhpSpreadsheet/pull/4844)
+- Introduction of a benchmark test suite, independent of the default unit test suite. Users can use it as a template for experimenting and making decisions concerning performance. [PR #4824](https://github.com/PHPOffice/PhpSpreadsheet/pull/4824)
 
 ### Removed
 
@@ -31,6 +95,12 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Consistent handling of row and column limits. [PR #4820](https://github.com/PHPOffice/PhpSpreadsheet/pull/4820)
+- Problems with Html Conditional Formatting Colorscale. [Issue #4838](https://github.com/PHPOffice/PhpSpreadsheet/issues/4838) [PR #4839](https://github.com/PHPOffice/PhpSpreadsheet/pull/4839)
+- Fixed an issue where Date detection could misclassify invalid numeric values as dates. [PR #4841](https://github.com/PHPOffice/PhpSpreadsheet/pull/4841)
+- Ods Reader/Writer Integer Styles with Leading Zeros. [Issue #1606](https://github.com/PHPOffice/PhpSpreadsheet/issues/1606) [PR #4822](https://github.com/PHPOffice/PhpSpreadsheet/pull/4822)
+- Xlsx Writer Data URI for Images. [Issue #4823](https://github.com/PHPOffice/PhpSpreadsheet/issues/4823) [PR #4831](https://github.com/PHPOffice/PhpSpreadsheet/pull/4831)
+- Confusion Checking for Union Arguments. [Issue #4832](https://github.com/PHPOffice/PhpSpreadsheet/issues/4832) [PR #4835](https://github.com/PHPOffice/PhpSpreadsheet/pull/4835)
+- Reader Xlsx Hyperlink with Anchor. [Issue #4842](https://github.com/PHPOffice/PhpSpreadsheet/issues/4842) [PR #4843](https://github.com/PHPOffice/PhpSpreadsheet/pull/4843)
 
 ## 2026-02-28 - 5.5.0
 

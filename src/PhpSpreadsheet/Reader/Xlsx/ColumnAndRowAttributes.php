@@ -210,10 +210,17 @@ class ColumnAndRowAttributes extends BaseParserClass
     {
         $rowAttributes = [];
 
+        $rowIndex = 0;
         foreach ($worksheetRow as $rowx) {
             $row = $rowx->attributes();
+            ++$rowIndex;
             if ($row !== null && (!$ignoreRowsWithNoCells || isset($rowx->c))) {
-                $rowIndex = (int) $row['r'];
+                if (isset($row['r'])) {
+                    $rowIndex = (int) $row['r'];
+                }
+                if ($rowIndex < 1 || $rowIndex > AddressRange::MAX_ROW) {
+                    continue;
+                }
                 if (!$readDataOnly) {
                     if (isset($row['ht'])) {
                         $rowAttributes[$rowIndex]['rowHeight'] = (float) $row['ht'];

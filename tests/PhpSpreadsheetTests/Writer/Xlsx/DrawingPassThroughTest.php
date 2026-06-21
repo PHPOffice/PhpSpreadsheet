@@ -377,7 +377,6 @@ class DrawingPassThroughTest extends AbstractFunctional
 
         // Enable pass-through
         $result = $reader->setEnableDrawingPassThrough(true);
-        self::assertInstanceOf(XlsxReader::class, $result);
         self::assertTrue($reader->getEnableDrawingPassThrough());
 
         // Disable pass-through

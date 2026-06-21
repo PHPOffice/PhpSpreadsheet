@@ -640,7 +640,7 @@ WRAPROWS                 | MATH_AND_TRIG         | **Not yet Implemented**
 Excel Function           | Category              | PhpSpreadsheet Function
 -------------------------|-----------------------|--------------------------------------
 XIRR                     | FINANCIAL             | Financial\CashFlow\Variable\NonPeriodic::rate
-XLOOKUP                  | LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+XLOOKUP                  | LOOKUP_AND_REFERENCE  | LookupRef\XLookup::lookup
 XMATCH                   | LOOKUP_AND_REFERENCE  | **Not yet Implemented**
 XNPV                     | FINANCIAL             | Financial\CashFlow\Variable\NonPeriodic::presentValue
 XOR                      | LOGICAL               | Logical\Operations::logicalXor

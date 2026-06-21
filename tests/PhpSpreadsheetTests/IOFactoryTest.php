@@ -137,6 +137,14 @@ class IOFactoryTest extends TestCase
         self::assertSame('Xls', $actual);
     }
 
+    public function testFormatAsExpectedAfterMerge(): void
+    {
+        $fileName = 'samples/templates/30template.xls';
+
+        $actual = IOFactory::identify($fileName, mergeArray: ['Csv' => Reader\CsvNoEscape::class]);
+        self::assertSame('Xls', $actual);
+    }
+
     public function testFormatNotAsExpectedThrowsException(): void
     {
         $fileName = 'samples/templates/30template.xls';

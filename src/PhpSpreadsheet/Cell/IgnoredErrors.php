@@ -14,6 +14,8 @@ class IgnoredErrors
 
     private bool $evalError = false;
 
+    private bool $misleadingFormat = false;
+
     public function setNumberStoredAsText(bool $value): self
     {
         $this->numberStoredAsText = $value;
@@ -72,5 +74,17 @@ class IgnoredErrors
     public function getEvalError(): bool
     {
         return $this->evalError;
+    }
+
+    public function setMisleadingFormat(bool $value): self
+    {
+        $this->misleadingFormat = $value;
+
+        return $this;
+    }
+
+    public function getMisleadingFormat(): bool
+    {
+        return $this->misleadingFormat;
     }
 }

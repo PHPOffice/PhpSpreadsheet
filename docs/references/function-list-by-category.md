@@ -270,7 +270,7 @@ TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matri
 UNIQUE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
 VSTACK                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
-XLOOKUP                  | **Not yet Implemented**
+XLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\XLookup::lookup
 XMATCH                   | **Not yet Implemented**
 
 ## CATEGORY_MATH_AND_TRIG

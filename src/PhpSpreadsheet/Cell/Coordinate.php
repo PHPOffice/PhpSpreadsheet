@@ -190,7 +190,7 @@ abstract class Coordinate
     /**
      * Build range from coordinate strings.
      *
-     * @param mixed[] $range Array containing one or more arrays containing one or two coordinate strings
+     * @param array<array<string>> $range Array containing one or more arrays containing one or two coordinate strings
      *
      * @return string String representation of $pRange
      */
@@ -210,6 +210,7 @@ abstract class Coordinate
             $range[$i] = implode(':', $range[$i]);
         }
 
+        /** @var array<string> $range */
         return implode(',', $range);
     }
 
@@ -534,7 +535,7 @@ abstract class Coordinate
 
     /**
      * @param mixed[] $operators
-     * @param mixed[][] $cells
+     * @param string[][] $cells
      *
      * @return mixed[]
      */

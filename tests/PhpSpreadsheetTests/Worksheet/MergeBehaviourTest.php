@@ -169,4 +169,26 @@ class MergeBehaviourTest extends AbstractFunctional
         self::assertSame($expectedResult, $mergeResult);
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testMergeCellsMergeBehaviourFormatted2(): void
+    {
+        $expectedResult = [
+            ['1960-12-19 1960-12-19 1960-12-19 2022-09-15 2022-09-15 2022-09-15', null],
+            [null, null],
+            [null, null],
+        ];
+
+        $mergeRange = 'A1:B3';
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A1', true);
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A2', true);
+        $worksheet->fromArray(self::TEST_DATE_FORMATTED, null, 'A3', true);
+        $worksheet->getStyle($mergeRange)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
+        $worksheet->mergeCells($mergeRange, Worksheet::MERGE_CELL_CONTENT_MERGE);
+
+        $mergeResult = $worksheet->toArray(null, true, true, false);
+        self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
+    }
 }

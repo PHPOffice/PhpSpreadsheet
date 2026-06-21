@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -208,5 +210,158 @@ class SpreadsheetCopyCloneTest extends TestCase
         self::assertTrue($image->isInCell());
         self::assertSame($path, $image->getPath());
         self::assertNotSame($objDrawing, $image);
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopySheetCountMatches(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $spreadsheet->createSheet()->setTitle('Sheet2');
+        $spreadsheet->createSheet()->setTitle('Sheet3');
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+
+        self::assertSame($spreadsheet->getSheetCount(), $spreadsheet2->getSheetCount());
+        for ($i = 0; $i < $spreadsheet->getSheetCount(); ++$i) {
+            self::assertSame(
+                $spreadsheet->getSheet($i)->getTitle(),
+                $spreadsheet2->getSheet($i)->getTitle()
+            );
+        }
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyFormulasWork(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(10);
+        $sheet->getCell('A2')->setValue(20);
+        $sheet->getCell('A3')->setValue('=A1+A2');
+        $sheet->getCell('B1')->setValue('=SUM(A1:A2)');
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+
+        $copySheet = $spreadsheet2->getActiveSheet();
+        // Verify formula strings are preserved
+        self::assertSame('=A1+A2', $copySheet->getCell('A3')->getValue());
+        self::assertSame('=SUM(A1:A2)', $copySheet->getCell('B1')->getValue());
+        // Verify formulas calculate correctly in the copy
+        self::assertSame(30, $copySheet->getCell('A3')->getCalculatedValue());
+        self::assertSame(30, $copySheet->getCell('B1')->getCalculatedValue());
+
+        // Modify source values and verify copy is independent
+        $sheet->getCell('A1')->setValue(100);
+        self::assertSame(10, $copySheet->getCell('A1')->getValue());
+        self::assertSame(30, $copySheet->getCell('A3')->getCalculatedValue());
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyNamedRangesReferenceNewSpreadsheet(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Data');
+        $sheet->getCell('A1')->setValue(5);
+        $sheet->getCell('A2')->setValue(15);
+        $spreadsheet->addDefinedName(
+            DefinedName::createInstance('MyRange', $sheet, '$A$1:$A$2')
+        );
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+
+        $copySheet = $spreadsheet2->getSheetByNameOrThrow('Data');
+        $definedName = $spreadsheet2->getDefinedName('MyRange');
+        self::assertNotNull($definedName);
+        // The defined name worksheet must point to the copy, not the original
+        self::assertSame($copySheet, $definedName->getWorksheet());
+        self::assertNotSame($sheet, $definedName->getWorksheet());
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyCanBeSavedWithoutErrors(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('TestSheet');
+        $sheet->getCell('A1')->setValue('Hello');
+        $sheet->getCell('A2')->setValue(42);
+        $sheet->getCell('A3')->setValue('=A2*2');
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        $spreadsheet->createSheet()->setTitle('Sheet2');
+        $spreadsheet->getSheetByNameOrThrow('Sheet2')->getCell('B1')->setValue('World');
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+
+        $filename = File::temporaryFilename();
+
+        try {
+            $writer = new XlsxWriter($spreadsheet2);
+            $writer->save($filename);
+            self::assertFileExists($filename);
+            // Verify the saved file can be read back
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $reloaded = $reader->load($filename);
+            self::assertSame(2, $reloaded->getSheetCount());
+            self::assertSame('Hello', $reloaded->getSheetByNameOrThrow('TestSheet')->getCell('A1')->getValue());
+            self::assertSame('World', $reloaded->getSheetByNameOrThrow('Sheet2')->getCell('B1')->getValue());
+            $reloaded->disconnectWorksheets();
+        } finally {
+            if (file_exists($filename)) {
+                unlink($filename);
+            }
+        }
+    }
+
+    #[DataProvider('providerCopyClone')]
+    public function testCopyWorksheetsAreIndependent(string $type): void
+    {
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('original');
+        $sheet->getCell('B1')->setValue(100);
+
+        if ($type === 'copy') {
+            $spreadsheet2 = $this->spreadsheet2 = $spreadsheet->copy();
+        } else {
+            $spreadsheet2 = $this->spreadsheet2 = clone $spreadsheet;
+        }
+
+        $copySheet = $spreadsheet2->getActiveSheet();
+
+        // Modify the copy
+        $copySheet->getCell('A1')->setValue('modified');
+        $copySheet->getCell('B1')->setValue(999);
+        $copySheet->getCell('C1')->setValue('new cell');
+
+        // Original must be unaffected
+        self::assertSame('original', $sheet->getCell('A1')->getValue());
+        self::assertSame(100, $sheet->getCell('B1')->getValue());
+        self::assertNull($sheet->getCell('C1')->getValue());
+
+        // Copy must have the new values
+        self::assertSame('modified', $copySheet->getCell('A1')->getValue());
+        self::assertSame(999, $copySheet->getCell('B1')->getValue());
+        self::assertSame('new cell', $copySheet->getCell('C1')->getValue());
+
+        // Worksheet parent references must point to their respective spreadsheets
+        self::assertSame($spreadsheet, $sheet->getParent());
+        self::assertSame($spreadsheet2, $copySheet->getParent());
     }
 }

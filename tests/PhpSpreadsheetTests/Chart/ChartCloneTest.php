@@ -154,8 +154,7 @@ class ChartCloneTest extends AbstractFunctional
         self::assertCount(1, $oldLabels);
         self::assertCount(3, $oldLabels[0]->getTrendLines());
 
-        $plotGroup = $chart->getPlotArea()?->getPlotGroup();
-        self::assertNotNull($plotGroup);
+        $plotGroup = $chart->getPlotArea()->getPlotGroup();
         self::assertCount(1, $plotGroup);
         $plotLabels = $plotGroup[0]->getPlotLabels();
         self::assertCount(1, $plotLabels);

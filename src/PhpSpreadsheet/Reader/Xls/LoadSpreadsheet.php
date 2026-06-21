@@ -53,7 +53,7 @@ class LoadSpreadsheet extends Xls
         $xls->sheets = [];
         $xls->externalBooks = [];
         $xls->ref = [];
-        $xls->definedname = []; //* @phpstan-ignore-line
+        $xls->definedname = [];
         $xls->sst = [];
         $xls->drawingGroupData = '';
         $xls->xfIndex = 0;
@@ -553,7 +553,7 @@ class LoadSpreadsheet extends Xls
                     /** @var int $row */
                     [$column, $row] = Coordinate::coordinateFromString($cell);
                     /** @var string $baseCell */
-                    if ($xls->getReadFilter()->readCell($column, $row, $xls->phpSheet->getTitle())) {
+                    if ($xls->readFilter->readCell($column, $row, $xls->phpSheet->getTitle())) {
                         /** @var string */
                         $temp = $xls->sharedFormulas[$baseCell];
                         $formula = $xls->getFormulaFromStructure($temp, $cell);

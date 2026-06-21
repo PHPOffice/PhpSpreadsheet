@@ -106,12 +106,6 @@ class Xls extends XlsBase
     protected string $phpSheetTitle = '';
 
     /**
-     * Cached read filter reference.
-     * Avoids repeated getReadFilter() calls in per-cell read filter checks.
-     */
-    protected IReadFilter $cachedReadFilter;
-
-    /**
      * BIFF version.
      */
     protected int $version = 0;
@@ -168,7 +162,7 @@ class Xls extends XlsBase
     /**
      * Defined names.
      *
-     * @var array{isBuiltInName: int, name: string, formula: string, scope: int}
+     * @var array<int, array{isBuiltInName: int, name: string, formula: string, scope: int}>
      */
     protected array $definedname;
 
@@ -2066,7 +2060,7 @@ class Xls extends XlsBase
                         $retstr .= substr($recordData, $pos, $len);
                         $charsLeft -= $len / 2;
                         $isCompressed = false;
-                    } elseif (!$isCompressed && ($option == 0)) {
+                    } elseif (!$isCompressed /*&& ($option == 0)*/) {
                         // 1st fragment uncompressed
                         // this fragment compressed
                         $len = (int) min($charsLeft, $limitpos - $pos);
@@ -2732,7 +2726,7 @@ class Xls extends XlsBase
         $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -2777,7 +2771,7 @@ class Xls extends XlsBase
         $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -2886,7 +2880,7 @@ class Xls extends XlsBase
             $columnString = Coordinate::stringFromColumnIndex($colFirst + $i);
 
             // Read cell?
-            if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
+            if ($this->readFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
                 // offset: var; size: 2; index to XF record
                 $xfIndex = self::getUInt2d($recordData, $offset);
 
@@ -2931,7 +2925,7 @@ class Xls extends XlsBase
         $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -2998,7 +2992,7 @@ class Xls extends XlsBase
         }
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             if ($isPartOfSharedFormula) {
                 // formula is added to this cell after the sheet has been read
                 $this->sharedFormulaParts[$cellCoordinate] = $this->baseCell;
@@ -3155,7 +3149,7 @@ class Xls extends XlsBase
         $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3219,7 +3213,7 @@ class Xls extends XlsBase
                 $columnString = Coordinate::stringFromColumnIndex($fc + $i + 1);
 
                 // Read cell?
-                if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
+                if ($this->readFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
                     $xfIndex = self::getUInt2d($recordData, 4 + 2 * $i);
                     if (isset($this->mapCellXfIndex[$xfIndex])) {
                         $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
@@ -3258,7 +3252,7 @@ class Xls extends XlsBase
         $cellCoordinate = $columnString . ($row + 1);
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $row + 1, $this->phpSheetTitle)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3304,7 +3298,7 @@ class Xls extends XlsBase
         $rowIndex = $row + 1;
 
         // Read cell?
-        if ($this->cachedReadFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
+        if ($this->readFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3612,7 +3606,7 @@ class Xls extends XlsBase
         StringHelper::stringIncrement($rangeBoundaries[1][0]);
         for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
             for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; StringHelper::stringIncrement($column)) {
-                if ($this->cachedReadFilter->readCell($column, $row, $this->phpSheetTitle)) {
+                if ($this->readFilter->readCell($column, $row, $this->phpSheetTitle)) {
                     $includeCellRange = true;
 
                     break 2;
@@ -4648,7 +4642,7 @@ class Xls extends XlsBase
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used
                 /** @var string[] */
-                $data = $this->definedname[$definedNameIndex]['name'] ?? ''; //* @phpstan-ignore-line
+                $data = $this->definedname[$definedNameIndex]['name'] ?? '';
 
                 break;
             case 0x24:    //    single cell reference e.g. A5

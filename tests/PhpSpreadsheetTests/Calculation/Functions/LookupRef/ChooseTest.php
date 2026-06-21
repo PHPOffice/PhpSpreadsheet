@@ -23,7 +23,7 @@ class ChooseTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }
 
-    /** @param mixed[] $selections */
+    /** @param string[] $selections */
     #[DataProvider('providerChooseArray')]
     public function testChooseArray(array $expectedResult, string $values, array $selections): void
     {

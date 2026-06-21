@@ -35,6 +35,8 @@ class Worksheet extends WriterPart
 
     private string $evalError = '';
 
+    private string $misleadingFormat = '';
+
     private bool $explicitStyle0;
 
     private bool $useDynamicArrays = false;
@@ -59,6 +61,7 @@ class Worksheet extends WriterPart
         $this->formulaRange = '';
         $this->twoDigitTextYear = '';
         $this->evalError = '';
+        $this->misleadingFormat = '';
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -177,7 +180,13 @@ class Worksheet extends WriterPart
             }
             $objWriter->startElement('ignoredError');
             $objWriter->writeAttribute('sqref', substr($cells, 1));
-            $objWriter->writeAttribute($attr, '1');
+            if ($attr === 'misleadingFormat') {
+                $prefix = 'x16r3';
+                $objWriter->writeAttribute("xmlns:$prefix", Namespaces::MISLEADING_FORMAT);
+                $objWriter->writeAttribute("$prefix:$attr", '1');
+            } else {
+                $objWriter->writeAttribute($attr, '1');
+            }
             $objWriter->endElement();
         }
     }
@@ -190,6 +199,7 @@ class Worksheet extends WriterPart
         $this->writeIgnoredError($objWriter, $started, 'formulaRange', $this->formulaRange);
         $this->writeIgnoredError($objWriter, $started, 'twoDigitTextYear', $this->twoDigitTextYear);
         $this->writeIgnoredError($objWriter, $started, 'evalError', $this->evalError);
+        $this->writeIgnoredError($objWriter, $started, 'misleadingFormat', $this->misleadingFormat);
         if ($started) {
             $objWriter->endElement();
         }
@@ -1492,6 +1502,9 @@ class Worksheet extends WriterPart
                             if ($worksheet->getCell($coord)->getIgnoredErrors()->getEvalError()) {
                                 $this->evalError .= " $coord";
                             }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getMisleadingFormat()) {
+                                $this->misleadingFormat .= " $coord";
+                            }
                             $this->writeCell($objWriter, $worksheet, $coord, $aFlippedStringTable);
                         }
                     }
@@ -1576,7 +1589,13 @@ class Worksheet extends WriterPart
     {
         $attributes = $cell->getFormulaAttributes() ?? [];
         $coordinate = $cell->getCoordinate();
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $preCalc = $this->getParentWriter()->getPreCalculateFormulas();
+        // When pre-calc is off we have no calculated value to infer the cell type from. The
+        // previous fall-back of $cellValue (the formula source) made every formula cell write
+        // t="str" because the source is always a string — misleading for formulas that resolve
+        // to numbers/booleans. Leave $calculatedValue/$calculatedValueString null so the
+        // type-inference branches below are skipped and no t attribute is written.
+        $calculatedValue = $preCalc ? $cell->getCalculatedValue() : null;
         if ($calculatedValue === ExcelError::SPILL()) {
             $objWriter->writeAttribute('t', 'e');
             //$objWriter->writeAttribute('cm', '1'); // already added
@@ -1592,7 +1611,10 @@ class Worksheet extends WriterPart
 
             return;
         }
-        $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
+        // Empty string (not null) so str_starts_with($calculatedValueString, '#') below stays
+        // type-correct when pre-calc is off; the surrounding writeElementIf condition guards
+        // against actually emitting <v> when there is no calculated value.
+        $calculatedValueString = $preCalc ? $cell->getCalculatedValueString() : '';
         $result = $calculatedValue;
         while (is_array($result)) {
             $result = array_shift($result);

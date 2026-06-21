@@ -69,6 +69,7 @@ class CsvNumberFormatLocaleTest extends TestCase
 
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
         self::assertSame($expectedFormat, $cell->getFormattedValue(), 'Format mask check');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerNumberFormatNoConversionTest(): array
@@ -110,6 +111,7 @@ class CsvNumberFormatLocaleTest extends TestCase
 
         self::assertSame(DataType::TYPE_NUMERIC, $cell->getDataType(), 'Datatype check');
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerNumberValueConversionTest(): array

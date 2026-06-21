@@ -106,4 +106,17 @@ class ErrorWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\Errors::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Errors CF Rule Wizard');
+        $ruleType = Wizard::ERRORS;
+        /** @var Wizard\Errors $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
 }
