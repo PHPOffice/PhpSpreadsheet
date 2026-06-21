@@ -92,13 +92,26 @@ class Chart
         $chartFillColor = null;
         $gradientArray = [];
         $gradientLin = null;
-        $roundedCorners = false;
+        $roundedCorners = null;
+        $date1904 = null;
+        $lang = null;
         $gapWidth = null;
         $useUpBars = null;
         $useDownBars = null;
         $noBorder = false;
+        $pageMargins = [];
+        $pageSetup = [];
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
+                case 'printSettings':
+                    if (isset($chartElement->pageMargins)) {
+                        $pageMargins = current((array) $chartElement->pageMargins->attributes());
+                    }
+                    if (isset($chartElement->pageSetup)) {
+                        $pageSetup = current((array) $chartElement->pageSetup->attributes());
+                    }
+
+                    break;
                 case 'spPr':
                     $children = $chartElementsC->spPr->children($this->aNamespace);
                     if (isset($children->noFill)) {
@@ -117,8 +130,15 @@ class Chart
 
                     break;
                 case 'roundedCorners':
-                    /** @var bool $roundedCorners */
                     $roundedCorners = self::getAttributeBoolean($chartElementsC->roundedCorners, 'val');
+
+                    break;
+                case 'date1904':
+                    $date1904 = self::getAttributeBoolean($chartElementsC->date1904, 'val');
+
+                    break;
+                case 'lang':
+                    $lang = self::getAttributeString($chartElementsC->lang, 'val');
 
                     break;
                 case 'chart':
@@ -126,7 +146,6 @@ class Chart
                         $chartDetails = Xlsx::testSimpleXml($chartDetails);
                         switch ($chartDetailsKey) {
                             case 'autoTitleDeleted':
-                                /** @var bool $autoTitleDeleted */
                                 $autoTitleDeleted = self::getAttributeBoolean($chartElementsC->chart->autoTitleDeleted, 'val');
 
                                 break;
@@ -482,23 +501,18 @@ class Chart
         if ($chartBorderLines !== null) {
             $chart->setBorderLines($chartBorderLines);
         }
-        $chart->setNoBorder($noBorder);
-        $chart->setRoundedCorners($roundedCorners);
-        if (is_bool($autoTitleDeleted)) {
-            $chart->setAutoTitleDeleted($autoTitleDeleted);
-        }
-        if (is_int($rotX)) {
-            $chart->setRotX($rotX);
-        }
-        if (is_int($rotY)) {
-            $chart->setRotY($rotY);
-        }
-        if (is_int($rAngAx)) {
-            $chart->setRAngAx($rAngAx);
-        }
-        if (is_int($perspective)) {
-            $chart->setPerspective($perspective);
-        }
+        $chart
+            ->setNoBorder($noBorder)
+            ->setRoundedCorners($roundedCorners)
+            ->setDate1904($date1904)
+            ->setLang($lang)
+            ->setPageMargins($pageMargins)
+            ->setPageSetup($pageSetup)
+            ->setAutoTitleDeleted($autoTitleDeleted)
+            ->setRotX($rotX)
+            ->setRotY($rotY)
+            ->setRAngAx($rAngAx)
+            ->setPerspective($perspective);
 
         return $chart;
     }
@@ -1299,6 +1313,9 @@ class Chart
                         $plotAttributes['labelEffects'] = $labelEffects;
                     }
                 }
+                if (isset($txpr->bodyPr)) {
+                    $plotAttributes['bodyPr'] = current((array) $txpr->bodyPr->attributes());
+                }
             }
         }
 
@@ -1365,6 +1382,11 @@ class Chart
                 case 'labelFont':
                     /** @var ?Font $plotAttributeValue */
                     $plotArea->setLabelFont($plotAttributeValue);
+
+                    break;
+                case 'bodyPr':
+                    /** @var mixed $plotAttributeValue */
+                    $plotArea->setBodyPr($plotAttributeValue);
 
                     break;
             }
