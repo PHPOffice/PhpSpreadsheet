@@ -890,7 +890,7 @@ class Xlsx extends BaseReader
                                 $sheetViewOptions->load($this->readDataOnly, $this->styleReader);
 
                                 (new ColumnAndRowAttributes($docSheet, $xmlSheetNS))
-                                    ->load($this->getReadFilter(), $this->readDataOnly, $this->ignoreRowsWithNoCells);
+                                    ->load($this->readFilter, $this->readDataOnly, $this->ignoreRowsWithNoCells);
                             }
 
                             $holdSelectedCells = $docSheet->getSelectedCells();
@@ -1931,7 +1931,7 @@ class Xlsx extends BaseReader
                 // Read cell?
                 $coordinates = Coordinate::coordinateFromString($r);
 
-                if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
+                if (!$this->readFilter->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
                     // Normally, just testing for the f attribute should identify this cell as containing a formula
                     // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
                     // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
