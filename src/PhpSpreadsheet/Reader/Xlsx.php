@@ -2661,6 +2661,8 @@ class Xlsx extends BaseReader
         $formulaRange = (string) ($attributes['formulaRange'] ?? '');
         $twoDigitTextYear = (string) ($attributes['twoDigitTextYear'] ?? '');
         $evalError = (string) ($attributes['evalError'] ?? '');
+        $attributes2 = self::getAttributes($xml, Namespaces::MISLEADING_FORMAT);
+        $misleadingFormat = (string) ($attributes2['misleadingFormat'] ?? '');
         if (!empty($sqref)) {
             $explodedSqref = explode(' ', $sqref);
             $pattern1 = '/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/';
@@ -2682,19 +2684,34 @@ class Xlsx extends BaseReader
                                 continue;
                             }
                             if ($numberStoredAsText === '1') {
-                                $sheet->getCell("$col$row")->getIgnoredErrors()->setNumberStoredAsText(true);
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setNumberStoredAsText(true);
                             }
                             if ($formula === '1') {
-                                $sheet->getCell("$col$row")->getIgnoredErrors()->setFormula(true);
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setFormula(true);
                             }
                             if ($formulaRange === '1') {
-                                $sheet->getCell("$col$row")->getIgnoredErrors()->setFormulaRange(true);
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setFormulaRange(true);
                             }
                             if ($twoDigitTextYear === '1') {
-                                $sheet->getCell("$col$row")->getIgnoredErrors()->setTwoDigitTextYear(true);
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setTwoDigitTextYear(true);
                             }
                             if ($evalError === '1') {
-                                $sheet->getCell("$col$row")->getIgnoredErrors()->setEvalError(true);
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setEvalError(true);
+                            }
+                            if ($misleadingFormat === '1') {
+                                $sheet->getCell("$col$row")
+                                    ->getIgnoredErrors()
+                                    ->setMisleadingFormat(true);
                             }
                         }
                     }
