@@ -1951,10 +1951,11 @@ class Xls extends XlsBase
         $pos += 4;
 
         // look up limit position (last splice offset where pos fits)
-        $spliceCount = count($spliceOffsets);
-        for ($si = 0; $si < $spliceCount; ++$si) {
-            if ($pos <= $spliceOffsets[$si]) {
-                $limitposSST = $spliceOffsets[$si];
+        foreach ($spliceOffsets as $spliceOffset) {
+            // it can happen that the string is empty, therefore we need
+            // <= and not just <
+            if ($pos <= $spliceOffset) {
+                $limitposSST = $spliceOffset;
             }
         }
 
@@ -1999,9 +2000,11 @@ class Xls extends XlsBase
 
             // look up limit position - find the first splice offset at or beyond current pos
             $limitpos = null;
-            for ($si = 0; $si < $spliceCount; ++$si) {
-                if ($pos <= $spliceOffsets[$si]) {
-                    $limitpos = $spliceOffsets[$si];
+            foreach ($spliceOffsets as $spliceOffset) {
+                // it can happen that the string is empty, therefore we need
+                // <= and not just <
+                if ($pos <= $spliceOffset) {
+                    $limitpos = $spliceOffset;
 
                     break;
                 }
@@ -2029,9 +2032,9 @@ class Xls extends XlsBase
                 // keep reading the characters
                 while ($charsLeft > 0) {
                     // look up next limit position, in case the string spans more than one continue record
-                    for ($si = 0; $si < $spliceCount; ++$si) {
-                        if ($pos < $spliceOffsets[$si]) {
-                            $limitpos = $spliceOffsets[$si];
+                    foreach ($spliceOffsets as $spliceOffset) {
+                        if ($pos < $spliceOffset) {
+                            $limitpos = $spliceOffset;
 
                             break;
                         }
