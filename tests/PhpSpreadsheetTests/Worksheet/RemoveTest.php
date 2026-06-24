@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RemoveTest extends TestCase
@@ -85,5 +86,63 @@ class RemoveTest extends TestCase
         }
 
         $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * @param array<array<int, int>> $expectedArray
+     */
+    #[DataProvider('providerColumnEdgeCases')]
+    public function testColumnEdgeCases(string $start, int $num, array $expectedArray, string $expectedHighestColumn): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $sheet->removeColumn($start, $num);
+        self::assertSame($expectedArray, $sheet->toArray(formatData: false));
+        self::assertSame($expectedHighestColumn, $sheet->getHighestColumn());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * @return array<string, array{string, int, int[][], string}>
+     */
+    public static function providerColumnEdgeCases(): array
+    {
+        return [
+            'remove positive cols' => ['E', 2, [[1, 2, 3, 4, 7, 8, 9, 10]], 'H'],
+            'remove negative cols' => ['E', -2, [[1, 2, 3, 6, 7, 8, 9, 10]], 'H'],
+            'remove zero cols' => ['E', 0, [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]], 'J'],
+            'remove cols above highest' => ['T', 2, [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]], 'J'],
+        ];
+    }
+
+    /**
+     * @param array<int, list<int>> $expectedArray
+     */
+    #[DataProvider('providerRowEdgeCases')]
+    public function testRowEdgeCases(int $start, int $num, array $expectedArray, int $expectedHighestRow): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]]);
+        $sheet->removeRow($start, $num);
+        self::assertSame($expectedArray, $sheet->toArray(formatData: false));
+        self::assertSame($expectedHighestRow, $sheet->getHighestRow());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * @return array<string, array{int, int, array<int, list<int>>, int}>
+     */
+    public static function providerRowEdgeCases(): array
+    {
+        return [
+            'remove positive rows' => [5, 2, [[1], [2], [3], [4], [7], [8], [9], [10]], 8],
+            'remove negative rows' => [5, -2, [[1], [2], [3], [6], [7], [8], [9], [10]], 8],
+            'remove zero rows' => [5, 0, [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]], 10],
+            'remove rows above highest' => [20, 2, [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]], 10],
+        ];
     }
 }

@@ -28,12 +28,24 @@ class InsertTest extends TestCase
         $sheet->insertNewRowBefore($currentRow, 1);
         self::assertSame(1001, $sheet->getHighestRow());
         self::assertSame(6, $sheet->getHighestDataRow());
-        self::assertTrue($sheet->getStyle('C3')->getFont()->getBold());
+        self::assertTrue(
+            $sheet->getStyle('C3')->getFont()->getBold()
+        );
         self::assertSame(11, $sheet->getCell('C3')->getValue());
-        self::assertTrue($sheet->getStyle('C4')->getFont()->getBold());
+        self::assertTrue(
+            $sheet->getStyle('C4')->getFont()->getBold()
+        );
         self::assertNull($sheet->getCell('C4')->getValue());
-        self::assertFalse($sheet->getRowDimension(1001)->getVisible());
-        self::assertTrue($sheet->getRowDimension(1000)->getVisible());
+        self::assertFalse(
+            $sheet->getRowDimension(1001)->getVisible()
+        );
+        self::assertTrue(
+            $sheet->getRowDimension(1000)->getVisible()
+        );
+        $sheet->removeRow(15, 10);
+        self::assertSame(991, $sheet->getHighestRow(), 'highest row decreases by 10');
+        $sheet->removeRow(985, 10);
+        self::assertSame(984, $sheet->getHighestRow(), 'delete range overlaps highest row so highest is now row before delete');
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -56,12 +68,24 @@ class InsertTest extends TestCase
         $sheet->insertNewColumnBefore($currentColumn, 1);
         self::assertSame('ZZ', $sheet->getHighestColumn());
         self::assertSame('E', $sheet->getHighestDataColumn());
-        self::assertTrue($sheet->getStyle('C3')->getFont()->getBold());
+        self::assertTrue(
+            $sheet->getStyle('C3')->getFont()->getBold()
+        );
         self::assertSame(11, $sheet->getCell('C3')->getValue());
-        self::assertTrue($sheet->getStyle('D3')->getFont()->getBold());
+        self::assertTrue(
+            $sheet->getStyle('D3')->getFont()->getBold()
+        );
         self::assertNull($sheet->getCell('D3')->getValue());
-        self::assertFalse($sheet->getColumnDimension('ZZ')->getVisible());
-        self::assertTrue($sheet->getColumnDimension('ZY')->getVisible());
+        self::assertFalse(
+            $sheet->getColumnDimension('ZZ')->getVisible()
+        );
+        self::assertTrue(
+            $sheet->getColumnDimension('ZY')->getVisible()
+        );
+        $sheet->removeColumn('G', 5);
+        self::assertSame('ZU', $sheet->getHighestColumn(), 'ZZ moved over 5 columns');
+        $sheet->removeColumn('ZR', 5);
+        self::assertSame('ZQ', $sheet->getHighestColumn(), 'delete range overlaps highest column so new highest is one before deleted columns');
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -97,7 +121,9 @@ class InsertTest extends TestCase
         ]);
         $sheet->getCell('XFD1')->setValue('lastcol');
         $sheet->insertNewColumnBefore('D', 4);
-        self::assertFalse($sheet->getCellCollection()->has('XFH1'));
+        self::assertFalse(
+            $sheet->getCellCollection()->has('XFH1')
+        );
         $spreadsheet->disconnectWorksheets();
     }
 }
