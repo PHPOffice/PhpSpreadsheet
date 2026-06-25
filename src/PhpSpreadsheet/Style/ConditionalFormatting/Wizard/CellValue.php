@@ -192,8 +192,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $retVal = true;
         $array = array_merge(array_keys(self::SINGLE_OPERATORS), array_keys(self::RANGE_OPERATORS));
         foreach ($array as $value) {
-            // PhpStan is correct about next statement, but we want to test anyhow
-            $retVal = $retVal && in_array($value, self::MAGIC_OPERATIONS, true); // @phpstan-ignore-line
+            $retVal = $retVal && in_array($value, self::MAGIC_OPERATIONS, true);
         }
 
         return $retVal;

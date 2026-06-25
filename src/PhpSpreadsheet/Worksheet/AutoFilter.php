@@ -752,14 +752,11 @@ class AutoFilter implements Stringable
     private function dynamicFilterDateRange(string $dynamicRuleType, AutoFilter\Column &$filterColumn): array
     {
         $ruleValues = [];
-        $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?
+        $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType] ?? throw new Exception("invalid dynamic rule type $dynamicRuleType")];
         //    Calculate start/end dates for the required date range based on current date
         //    Val is lowest permitted value.
         //    Maxval is greater than highest permitted value
-        $val = $maxval = 0;
-        if (is_callable($callBack)) { //* @phpstan-ignore-line
-            [$val, $maxval] = $callBack();
-        }
+        [$val, $maxval] = $callBack();
         $val = Date::dateTimeToExcel($val);
         $maxval = Date::dateTimeToExcel($maxval);
 
