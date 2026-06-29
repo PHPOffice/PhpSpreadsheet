@@ -29,6 +29,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -699,7 +700,9 @@ class Worksheet
      */
     public function calculateColumnWidths(): static
     {
-        $activeSheet = $this->getParent()?->getActiveSheetIndex();
+        $spreadsheet = $this->getParent();
+        $defaultFont = $spreadsheet?->getDefaultStyle()->getFont() ?? new Font();
+        $activeSheet = $spreadsheet?->getActiveSheetIndex();
         $selectedCells = $this->selectedCells;
         // initialize $autoSizes array
         $autoSizes = [];
@@ -711,6 +714,9 @@ class Worksheet
 
         // There is only something to do if there are some auto-size columns
         if (!empty($autoSizes)) {
+            /** @var float[][][][][][] */
+            $knownWidths = [];
+            $defaultWidth = $this->getDefaultColumnDimension()->getWidth();
             $holdActivePane = $this->activePane;
             // build list of cells references that participate in a merge
             $isMergeCell = [];
@@ -726,65 +732,78 @@ class Worksheet
             foreach ($this->getCoordinates(false) as $coordinate) {
                 $cell = $this->getCellOrNull($coordinate);
 
-                if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
-                    //Determine if cell is in merge range
-                    $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
+                if ($cell === null || !isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
+                    continue;
+                }
+                //Determine if cell is in merge range
+                $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
 
-                    //By default merged cells should be ignored
-                    $isMergedButProceed = false;
+                //By default merged cells should be ignored
+                $isMergedButProceed = false;
 
-                    //The only exception is if it's a merge range value cell of a 'vertical' range (1 column wide)
-                    if ($isMerged && $cell->isMergeRangeValueCell()) {
-                        $range = (string) $cell->getMergeRange();
-                        $rangeBoundaries = Coordinate::rangeDimension($range);
-                        if ($rangeBoundaries[0] === 1) {
-                            $isMergedButProceed = true;
+                //The only exception is if it's a merge range value cell of a 'vertical' range (1 column wide)
+                if ($isMerged && $cell->isMergeRangeValueCell()) {
+                    $range = (string) $cell->getMergeRange();
+                    $rangeBoundaries = Coordinate::rangeDimension($range);
+                    if ($rangeBoundaries[0] === 1) {
+                        $isMergedButProceed = true;
+                    }
+                }
+
+                // Determine width if cell is not part of a merge or does and is a value cell of 1-column wide range
+                if (!$isMerged || $isMergedButProceed) {
+                    // Determine if we need to make an adjustment for the first row in an AutoFilter range that
+                    //    has a column filter dropdown
+                    $filterAdjustment = false;
+                    if (!empty($autoFilterIndentRanges)) {
+                        foreach ($autoFilterIndentRanges as $autoFilterFirstRowRange) {
+                            /** @var string $autoFilterFirstRowRange */
+                            if ($cell->isInRange($autoFilterFirstRowRange)) {
+                                $filterAdjustment = true;
+
+                                break;
+                            }
                         }
                     }
 
-                    // Determine width if cell is not part of a merge or does and is a value cell of 1-column wide range
-                    if (!$isMerged || $isMergedButProceed) {
-                        // Determine if we need to make an adjustment for the first row in an AutoFilter range that
-                        //    has a column filter dropdown
-                        $filterAdjustment = false;
-                        if (!empty($autoFilterIndentRanges)) {
-                            foreach ($autoFilterIndentRanges as $autoFilterFirstRowRange) {
-                                /** @var string $autoFilterFirstRowRange */
-                                if ($cell->isInRange($autoFilterFirstRowRange)) {
-                                    $filterAdjustment = true;
+                    $indentAdjustment = $cell->getStyle()->getAlignment()->getIndent();
+                    $indentAdjustment += (int) ($cell->getStyle()->getAlignment()->getHorizontal() === Alignment::HORIZONTAL_CENTER);
 
-                                    break;
-                                }
-                            }
-                        }
+                    // Calculated value
+                    // To formatted string
+                    $xfIndex = ($spreadsheet?->getCellXfByIndex($cell->getXfIndex())) ?? new Style();
+                    $cellValue = NumberFormat::toFormattedString(
+                        $cell->getCalculatedValueString(),
+                        ($xfIndex
+                            ->getNumberFormat()
+                            ->getFormatCode(true) ?? NumberFormat::FORMAT_GENERAL)
+                    );
 
-                        $indentAdjustment = $cell->getStyle()->getAlignment()->getIndent();
-                        $indentAdjustment += (int) ($cell->getStyle()->getAlignment()->getHorizontal() === Alignment::HORIZONTAL_CENTER);
-
-                        // Calculated value
-                        // To formatted string
-                        $cellValue = NumberFormat::toFormattedString(
-                            $cell->getCalculatedValueString(),
-                            (string) $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())
-                                ->getNumberFormat()->getFormatCode(true)
-                        );
-
-                        if ($cellValue !== '') {
-                            $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
-                                $autoSizes[$this->cellCollection->getCurrentColumn()],
-                                round(
-                                    Shared\Font::calculateColumnWidth(
-                                        $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont(),
-                                        $cellValue,
-                                        (int) $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())
-                                            ->getAlignment()->getTextRotation(),
-                                        $this->getParentOrThrow()->getDefaultStyle()->getFont(),
-                                        $filterAdjustment,
-                                        $indentAdjustment
-                                    ),
-                                    3
-                                )
+                    if ($cellValue !== '') {
+                        $curr = $this->cellCollection->getCurrentColumn();
+                        $font = $xfIndex->getFont();
+                        $fontName = $font->getName();
+                        $fontSize = (string) ($font->getSize());
+                        $intFilterAdjustment = (int) $filterAdjustment;
+                        $rotation = (int) $xfIndex
+                            ->getAlignment()->getTextRotation();
+                        $width = $knownWidths[$cellValue][$fontName][$fontSize][$indentAdjustment][$intFilterAdjustment][$rotation] ?? null;
+                        if ($width === null) {
+                            $width = round(
+                                Shared\Font::calculateColumnWidth(
+                                    $font,
+                                    $cellValue,
+                                    $rotation,
+                                    $defaultFont,
+                                    $filterAdjustment,
+                                    $indentAdjustment
+                                ),
+                                3
                             );
+                             $knownWidths[$cellValue][$fontName][$fontSize][$indentAdjustment][$intFilterAdjustment][$rotation] = $width;
+                        }
+                        if ($autoSizes[$curr] < $width) {
+                            $autoSizes[$curr] = $width;
                         }
                     }
                 }
@@ -793,16 +812,17 @@ class Worksheet
             // adjust column widths
             foreach ($autoSizes as $columnIndex => $width) {
                 if ($width == -1) {
-                    $width = $this->getDefaultColumnDimension()->getWidth();
+                    $width = $defaultWidth;
                 }
-                $this->getColumnDimension($columnIndex)->setWidth($width);
+                $this->getColumnDimension($columnIndex)
+                    ->setWidth($width);
             }
             $this->activePane = $holdActivePane;
         }
         if ($activeSheet !== null && $activeSheet >= 0) {
             // Okay, I get it now - if $activeSheet is not null,
-            // then $this->getParent() must also be non-null.
-            $this->getParent()->setActiveSheetIndex($activeSheet);
+            // then $spreadsheet must also be non-null.
+            $spreadsheet->setActiveSheetIndex($activeSheet);
         }
         $this->setSelectedCells($selectedCells);
 
