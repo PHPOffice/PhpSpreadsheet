@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Small change to Writer Html. [Issue #434](https://github.com/PHPOffice/PhpSpreadsheet/issues/434) [PR #4912](https://github.com/PHPOffice/PhpSpreadsheet/pull/4912)
 - Avoid hard-coding some chart Xml attributes. [PR #4915](https://github.com/PHPOffice/PhpSpreadsheet/pull/4915)
 - Readers should directly access readFilter. [PR #4919](https://github.com/PHPOffice/PhpSpreadsheet/pull/4919)
+- Very minor changes to Worksheet, Reader/Xlsx, and Worksheet/AutoFilter. [Issue #4917](https://github.com/PHPOffice/PhpSpreadsheet/issues/4917) [PR #4926](https://github.com/PHPOffice/PhpSpreadsheet/pull/4926)
+- Consistent HighestRow/Column after row/columnDelete. [Issue #943](https://github.com/PHPOffice/PhpSpreadsheet/issues/943) [PR #4925](https://github.com/PHPOffice/PhpSpreadsheet/pull/4925)
 
 ## 2026-06-06 - 5.8.0
 
