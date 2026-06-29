@@ -821,8 +821,8 @@ class Worksheet
         }
         if ($activeSheet !== null && $activeSheet >= 0) {
             // Okay, I get it now - if $activeSheet is not null,
-            // then $this->getParent() must also be non-null.
-            $this->getParent()->setActiveSheetIndex($activeSheet);
+            // then $spreadsheet must also be non-null.
+            $spreadsheet->setActiveSheetIndex($activeSheet);
         }
         $this->setSelectedCells($selectedCells);
 
