@@ -771,27 +771,27 @@ class Worksheet
 
                     // Calculated value
                     // To formatted string
+                    $xfIndex = ($spreadsheet?->getCellXfByIndex($cell->getXfIndex())) ?? new Style();
                     $cellValue = NumberFormat::toFormattedString(
                         $cell->getCalculatedValueString(),
-                        (string) ($spreadsheet?->getCellXfByIndex($cell->getXfIndex())
+                        ($xfIndex
                             ->getNumberFormat()
                             ->getFormatCode(true) ?? NumberFormat::FORMAT_GENERAL)
                     );
 
                     if ($cellValue !== '') {
                         $curr = $this->cellCollection->getCurrentColumn();
-                        $xfIndex = $spreadsheet?->getCellXfByIndex($cell->getXfIndex());
-                        $font = $xfIndex?->getFont();
-                        $fontName = $font?->getName() ?? Font::DEFAULT_FONT_NAME;
-                        $fontSize = (string) ($font?->getSize() ?? 11.0);
+                        $font = $xfIndex->getFont();
+                        $fontName = $font->getName();
+                        $fontSize = (string) ($font->getSize());
                         $intFilterAdjustment = (int) $filterAdjustment;
                         $rotation = (int) $xfIndex
-                            ?->getAlignment()->getTextRotation();
+                            ->getAlignment()->getTextRotation();
                         $width = $knownWidths[$cellValue][$fontName][$fontSize][$indentAdjustment][$intFilterAdjustment][$rotation] ?? null;
                         if ($width === null) {
                             $width = round(
                                 Shared\Font::calculateColumnWidth(
-                                    $font ?? new Font(),
+                                    $font,
                                     $cellValue,
                                     $rotation,
                                     $defaultFont,
