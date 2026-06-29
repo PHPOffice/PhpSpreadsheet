@@ -771,7 +771,7 @@ class Parser
         };
     }
 
-    private bool $tryDefinedName = false;
+    protected bool $tryDefinedName = false;
 
     private function convertDefinedName(string $name): string
     {

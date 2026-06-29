@@ -3,7 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com)
-and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
+and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch.
+Dropping support for EOL versions of PHP will not be considered
+a breaking change.
+
+Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
 ## TBD - 5.9.0
 
@@ -15,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Removed
 
-- Nothing yet.
+- **Drop support for PHP 8.1**, according to [our published guidelines](https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support). [PR #4907](https://github.com/PHPOffice/PhpSpreadsheet/pull/4907)
 
 ### Changed
 

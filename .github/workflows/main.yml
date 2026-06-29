@@ -10,7 +10,6 @@ jobs:
         experimental:
           - false
         php-version:
-          - '8.1'
           - '8.2'
           - '8.3'
           - '8.4'
@@ -99,7 +98,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.4
+          php-version: 8.2
           extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
@@ -181,7 +180,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code Version Compatibility check with PHP_CodeSniffer
-        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 8.1- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts
+        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 8.2- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts
 
   phpstan:
     runs-on: ubuntu-latest

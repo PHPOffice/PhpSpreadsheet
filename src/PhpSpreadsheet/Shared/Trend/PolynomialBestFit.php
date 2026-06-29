@@ -24,7 +24,7 @@ class PolynomialBestFit extends BestFit
      */
     protected int $order = 0;
 
-    private bool $implemented = false;
+    protected bool $implemented = false;
 
     /**
      * Return the order of this polynomial.
