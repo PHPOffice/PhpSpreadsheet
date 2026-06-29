@@ -640,7 +640,7 @@ class Calculation extends CalculationLocale
         if ($this->formulaTokenCacheMaxSize > 0) {
             // Phpstan says if condition is always false,
             // but coverage report says next statement is covered.
-            if (count($this->formulaTokenCache) >= $this->formulaTokenCacheMaxSize) { // @phpstan-ignore-line
+            if (count($this->formulaTokenCache) >= $this->formulaTokenCacheMaxSize) {
                 $this->formulaTokenCache = [];
             }
             // Cache key is the original formula string (before ANCHORARRAY transformation)
@@ -1391,7 +1391,7 @@ class Calculation extends CalculationLocale
                 // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
-                $val = $match[1] ?? ''; //* @phpstan-ignore-line
+                $val = $match[1] ?? '';
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {

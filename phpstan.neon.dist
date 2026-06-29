@@ -8,6 +8,7 @@ includes:
 
 parameters:
     level: 10
+    treatPhpDocTypesAsCertain: false
     paths:
         - samples/
         - src/

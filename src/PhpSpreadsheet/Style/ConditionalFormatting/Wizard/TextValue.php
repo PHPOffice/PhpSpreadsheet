@@ -169,8 +169,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         $retVal = true;
         $array = array_keys(self::OPERATORS);
         foreach ($array as $value) {
-            // PhpStan is correct about next statement, but we want to test anyhow
-            $retVal = $retVal && in_array($value, self::MAGIC_OPERATIONS, true); // @phpstan-ignore-line
+            $retVal = $retVal && in_array($value, self::MAGIC_OPERATIONS, true);
         }
 
         return $retVal;
