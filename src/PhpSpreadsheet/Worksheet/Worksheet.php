@@ -361,9 +361,12 @@ class Worksheet
     /**
      * Disconnect all cells from this Worksheet object,
      * typically so that the worksheet object can be unset.
+     * The worksheet will be in an unusable state after
+     * this method has completed.
      */
     public function disconnectCells(): void
     {
+        // isset needed to avoid problems at destruct time
         if (isset($this->cellCollection)) { //* @phpstan-ignore-line
             $this->cellCollection->unsetWorksheetCells();
             unset($this->cellCollection);
@@ -463,6 +466,7 @@ class Worksheet
      */
     public function getCoordinates(bool $sorted = true): array
     {
+        // isset needed to avoid problems at destruct time
         if (!isset($this->cellCollection)) { //* @phpstan-ignore-line
             return [];
         }
@@ -815,8 +819,10 @@ class Worksheet
             }
             $this->activePane = $holdActivePane;
         }
-        if ($activeSheet !== null && $activeSheet >= 0) { // spreadsheet can't be null if activeSheet not null
-            $spreadsheet->setActiveSheetIndex($activeSheet);
+        if ($activeSheet !== null && $activeSheet >= 0) {
+            // Okay, I get it now - if $activeSheet is not null,
+            // then $this->getParent() must also be non-null.
+            $this->getParent()->setActiveSheetIndex($activeSheet);
         }
         $this->setSelectedCells($selectedCells);
 
@@ -1253,8 +1259,7 @@ class Worksheet
                     throw new Exception('Sheet not found for named range: ' . $namedRange->getName());
                 }
 
-                /** @phpstan-ignore-next-line */
-                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), (int) strrpos($namedRange->getValue(), '!')), '!');
                 $finalCoordinate = str_replace('$', '', $cellCoordinate);
             }
         }
@@ -1702,7 +1707,7 @@ class Worksheet
     public function duplicateConditionalStyle(array $styles, string $range = ''): static
     {
         foreach ($styles as $cellStyle) {
-            if (!($cellStyle instanceof Conditional)) { // @phpstan-ignore-line
+            if (!($cellStyle instanceof Conditional)) {
                 throw new Exception('Style is not a conditional style');
             }
         }
@@ -2462,6 +2467,18 @@ class Worksheet
         if ($row < 1) {
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
+        if ($numberOfRows === 0) {
+            return $this;
+        }
+        if ($numberOfRows < 0) {
+            $newRow = max(1, $row + $numberOfRows + 1);
+            $numberOfRows = $row - $newRow + 1;
+            $row = $newRow;
+        }
+        $newHighestRow = $this->cachedHighestRow;
+        if ($newHighestRow >= $row) {
+            $newHighestRow = max($row - 1, $this->cachedHighestRow - $numberOfRows);
+        }
         $startRow = $row;
         $endRow = $startRow + $numberOfRows - 1;
         $removeKeys = [];
@@ -2518,6 +2535,7 @@ class Worksheet
         }
 
         $this->rowDimensions = $holdRowDimensions;
+        $this->cachedHighestRow = $newHighestRow;
 
         return $this;
     }
@@ -2556,6 +2574,19 @@ class Worksheet
             throw new Exception('Column references should not be numeric.');
         }
         $startColumnInt = Coordinate::columnIndexFromString($column);
+        if ($numberOfColumns === 0) {
+            return $this;
+        }
+        if ($numberOfColumns < 0) {
+            $newStartColumnInt = max(1, $startColumnInt + $numberOfColumns + 1);
+            $numberOfColumns = $startColumnInt - $newStartColumnInt + 1;
+            $startColumnInt = $newStartColumnInt;
+            $column = Coordinate::stringFromColumnIndex($startColumnInt);
+        }
+        $newHighestColumn = $this->cachedHighestColumn;
+        if ($newHighestColumn >= $startColumnInt) {
+            $newHighestColumn = max($startColumnInt - 1, $this->cachedHighestColumn - $numberOfColumns);
+        }
         $endColumnInt = $startColumnInt + $numberOfColumns - 1;
         $removeKeys = [];
         $addKeys = [];
@@ -2606,6 +2637,8 @@ class Worksheet
         $this->columnDimensions = $holdColumnDimensions;
 
         if ($pColumnIndex > $highestColumnIndex) {
+            $this->cachedHighestColumn = $newHighestColumn;
+
             return $this;
         }
 
@@ -2615,6 +2648,7 @@ class Worksheet
             $this->cellCollection->removeColumn($highestColumn);
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
+        $this->cachedHighestColumn = $newHighestColumn;
 
         $this->garbageCollect();
 

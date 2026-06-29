@@ -13,6 +13,8 @@ class IgnoredErrorTest extends AbstractFunctional
 {
     private const FILENAME = 'tests/data/Reader/XLSX/ignoreerror.xlsx';
 
+    private const FILENAME2 = 'tests/data/Reader/XLSX/misleading.xlsx';
+
     public function testIgnoredError(): void
     {
         $reader = new Xlsx();
@@ -67,6 +69,92 @@ class IgnoredErrorTest extends AbstractFunctional
         self::assertSame('1', $sheet->getCell('A2')->getValue());
         self::assertFalse($sheet->getCell('A1')->getIgnoredErrors()->getNumberStoredAsText());
         self::assertTrue($sheet->getCell('A2')->getIgnoredErrors()->getNumberStoredAsText());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testMisleading(): void
+    {
+        $reader = new Xlsx();
+        $originalSpreadsheet = $reader->load(self::FILENAME2);
+        $sheet = $originalSpreadsheet->getActiveSheet();
+        self::assertTrue(
+            $sheet->getCell('C1')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertFalse(
+            $sheet->getCell('C2')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertFalse(
+            $sheet->getCell('C3')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertTrue(
+            $sheet->getCell('D1')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+        self::assertFalse(
+            $sheet->getCell('D2')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+        self::assertFalse(
+            $sheet->getCell('D3')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+
+        $sheet->getCell('C1')
+            ->getIgnoredErrors()
+            ->setMisleadingFormat(false);
+        $sheet->getCell('D1')
+            ->getIgnoredErrors()
+            ->setNumberStoredAsText(false);
+        $sheet->getCell('C2')
+            ->getIgnoredErrors()
+            ->setMisleadingFormat(true);
+        $sheet->getCell('D2')
+            ->getIgnoredErrors()
+            ->setNumberStoredAsText(true);
+
+        $spreadsheet = $this->writeAndReload($originalSpreadsheet, 'Xlsx');
+        $originalSpreadsheet->disconnectWorksheets();
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertFalse(
+            $sheet->getCell('C1')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertTrue(
+            $sheet->getCell('C2')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertFalse(
+            $sheet->getCell('C3')
+                ->getIgnoredErrors()
+                ->getMisleadingFormat()
+        );
+        self::assertFalse(
+            $sheet->getCell('D1')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+        self::assertTrue(
+            $sheet->getCell('D2')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+        self::assertFalse(
+            $sheet->getCell('D3')
+                ->getIgnoredErrors()
+                ->getNumberStoredAsText()
+        );
+
         $spreadsheet->disconnectWorksheets();
     }
 }

@@ -38,6 +38,8 @@ class PlotArea
      */
     private array $plotSeries;
 
+    private ?DataTable $dataTable = null;
+
     /**
      * Create a new PlotArea.
      *
@@ -193,6 +195,18 @@ class PlotArea
         $this->useDownBars = $useDownBars;
 
         return $this;
+    }
+
+    public function setDataTable(DataTable $dataTable): self
+    {
+        $this->dataTable = $dataTable;
+
+        return $this;
+    }
+
+    public function getDataTable(): ?DataTable
+    {
+        return $this->dataTable;
     }
 
     /**

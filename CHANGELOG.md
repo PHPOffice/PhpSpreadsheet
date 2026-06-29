@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Nothing yet.
+- Navigate Cell as Cursor. [Issue #863](https://github.com/PHPOffice/PhpSpreadsheet/issues/863) [PR #4909](https://github.com/PHPOffice/PhpSpreadsheet/pull/4909)
+- Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
+- Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
 
 ### Removed
 
@@ -17,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Changed
 
-- Nothing yet.
+- Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
 
 ### Moved
 
@@ -29,7 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Fixed
 
-- Nothing yet.
+- Small improvement for Radar Charts. [Issue #661](https://github.com/PHPOffice/PhpSpreadsheet/issues/661) [PR #4908](https://github.com/PHPOffice/PhpSpreadsheet/pull/4908)
+- Allow Use of Multiple Ranges When Setting Styles. [Issue #411](https://github.com/PHPOffice/PhpSpreadsheet/issues/411) [PR #4910](https://github.com/PHPOffice/PhpSpreadsheet/pull/4910)
+- Small change to Writer Html. [Issue #434](https://github.com/PHPOffice/PhpSpreadsheet/issues/434) [PR #4912](https://github.com/PHPOffice/PhpSpreadsheet/pull/4912)
+- Avoid hard-coding some chart Xml attributes. [PR #4915](https://github.com/PHPOffice/PhpSpreadsheet/pull/4915)
+- Readers should directly access readFilter. [PR #4919](https://github.com/PHPOffice/PhpSpreadsheet/pull/4919)
+- Very minor changes to Worksheet, Reader/Xlsx, and Worksheet/AutoFilter. [Issue #4917](https://github.com/PHPOffice/PhpSpreadsheet/issues/4917) [PR #4926](https://github.com/PHPOffice/PhpSpreadsheet/pull/4926)
+- Consistent HighestRow/Column after row/columnDelete. [Issue #943](https://github.com/PHPOffice/PhpSpreadsheet/issues/943) [PR #4925](https://github.com/PHPOffice/PhpSpreadsheet/pull/4925)
 
 ## 2026-06-06 - 5.8.0
 

@@ -851,7 +851,7 @@ class Ods extends BaseReader
             // repeated range passes the read filter. If not, skip the entire group.
             // If some columns pass, we need to fall through to the processing block
             // which will handle per-column filtering.
-            if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+            if (!$this->readFilter->readCell($columnID, $rowID, $worksheetName)) {
                 if ($colRepeats <= 1) {
                     StringHelper::stringIncrement($columnID);
 
@@ -865,7 +865,7 @@ class Ods extends BaseReader
                     if ($i > 0) {
                         StringHelper::stringIncrement($tempCol);
                     }
-                    if ($this->getReadFilter()->readCell($tempCol, $rowID, $worksheetName)) {
+                    if ($this->readFilter->readCell($tempCol, $rowID, $worksheetName)) {
                         $anyColumnPasses = true;
 
                         break;
@@ -1143,7 +1143,7 @@ class Ods extends BaseReader
                     StringHelper::stringIncrement($columnID);
                 }
 
-                if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                if (!$this->readFilter->readCell($columnID, $rowID, $worksheetName)) {
                     continue;
                 }
 

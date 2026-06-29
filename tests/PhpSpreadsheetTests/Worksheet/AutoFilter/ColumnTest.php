@@ -51,6 +51,14 @@ class ColumnTest extends SetupTeardown
         $sheet->getAutoFilter()->getColumn('B');
     }
 
+    public function testSetBadColumnIndex(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('Column string index can not be empty');
+        $sheet = $this->initSheet();
+        $sheet->getAutoFilter()->setColumn('');
+    }
+
     public function testSetColumnIndex(): void
     {
         $sheet = $this->initSheet();

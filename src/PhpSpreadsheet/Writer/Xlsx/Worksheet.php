@@ -35,6 +35,8 @@ class Worksheet extends WriterPart
 
     private string $evalError = '';
 
+    private string $misleadingFormat = '';
+
     private bool $explicitStyle0;
 
     private bool $useDynamicArrays = false;
@@ -59,6 +61,7 @@ class Worksheet extends WriterPart
         $this->formulaRange = '';
         $this->twoDigitTextYear = '';
         $this->evalError = '';
+        $this->misleadingFormat = '';
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -177,7 +180,13 @@ class Worksheet extends WriterPart
             }
             $objWriter->startElement('ignoredError');
             $objWriter->writeAttribute('sqref', substr($cells, 1));
-            $objWriter->writeAttribute($attr, '1');
+            if ($attr === 'misleadingFormat') {
+                $prefix = 'x16r3';
+                $objWriter->writeAttribute("xmlns:$prefix", Namespaces::MISLEADING_FORMAT);
+                $objWriter->writeAttribute("$prefix:$attr", '1');
+            } else {
+                $objWriter->writeAttribute($attr, '1');
+            }
             $objWriter->endElement();
         }
     }
@@ -190,6 +199,7 @@ class Worksheet extends WriterPart
         $this->writeIgnoredError($objWriter, $started, 'formulaRange', $this->formulaRange);
         $this->writeIgnoredError($objWriter, $started, 'twoDigitTextYear', $this->twoDigitTextYear);
         $this->writeIgnoredError($objWriter, $started, 'evalError', $this->evalError);
+        $this->writeIgnoredError($objWriter, $started, 'misleadingFormat', $this->misleadingFormat);
         if ($started) {
             $objWriter->endElement();
         }
@@ -1491,6 +1501,9 @@ class Worksheet extends WriterPart
                             }
                             if ($worksheet->getCell($coord)->getIgnoredErrors()->getEvalError()) {
                                 $this->evalError .= " $coord";
+                            }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getMisleadingFormat()) {
+                                $this->misleadingFormat .= " $coord";
                             }
                             $this->writeCell($objWriter, $worksheet, $coord, $aFlippedStringTable);
                         }

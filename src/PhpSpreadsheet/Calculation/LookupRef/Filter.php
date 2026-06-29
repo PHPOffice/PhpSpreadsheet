@@ -58,7 +58,7 @@ class Filter
      */
     private static function filterByRow(array $lookupArray, array $matchArray): array
     {
-        $matchArray = array_values(array_column($matchArray, 0)); // @phpstan-ignore-line
+        $matchArray = array_values(array_column($matchArray, 0));
 
         return array_filter(
             array_values($lookupArray),
