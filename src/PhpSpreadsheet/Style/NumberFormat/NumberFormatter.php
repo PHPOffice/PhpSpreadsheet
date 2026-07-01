@@ -55,10 +55,8 @@ class NumberFormatter extends BaseFormatter
                 $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
-            /** @var string $numberString */
-            $numberString = $number;
             if ($number > 0) {
-                $mask = substr_replace($mask, $numberString, $offset, 0);
+                $mask = substr_replace($mask, "$number", $offset, 0);
             }
             $result = $mask;
         }
