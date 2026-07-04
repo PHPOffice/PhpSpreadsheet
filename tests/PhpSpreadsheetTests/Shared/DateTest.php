@@ -352,9 +352,10 @@ class DateTest extends TestCase
             /**
              * Starting with PHP 8.3, DateTime::modify() throws a DateMalformedStringException, and we are not wrapping
              * the E_WARNING into a PhpSpreadsheetException.
+             * Phpstan wants to flag the statement until < Php8.3 is no longer a possibility.
              */
             if (PHP_VERSION_ID >= 80300) {
-                $this->expectException(DateMalformedStringException::class);
+                $this->expectException(DateMalformedStringException::class); // @phpstan-ignore-line
             } else {
                 $this->expectException(PhpSpreadsheetException::class);
             }
