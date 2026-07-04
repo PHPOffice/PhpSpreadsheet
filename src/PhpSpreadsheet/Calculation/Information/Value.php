@@ -54,9 +54,7 @@ class Value
             }
 
             try {
-                // Phpstan claims cellValue can't be null.
-                // I don't see why.
-                [$column, $row] = Coordinate::indexesFromString($cellValue ?? ''); // @phpstan-ignore-line
+                [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
             } catch (SpreadsheetException) {
                 return false;
             }

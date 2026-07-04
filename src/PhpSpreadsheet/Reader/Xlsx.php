@@ -2403,7 +2403,7 @@ class Xlsx extends BaseReader
     {
         $returnValue = null;
         $protectKey = $protection[$key];
-        if (!empty($protectKey)) {
+        if (isset($protectKey)) {
             $protectKey = (string) $protectKey;
             $returnValue = $protectKey !== 'false' && (bool) $protectKey;
         }
