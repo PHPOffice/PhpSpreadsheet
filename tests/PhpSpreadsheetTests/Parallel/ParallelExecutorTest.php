@@ -237,6 +237,54 @@ class ParallelExecutorTest extends TestCase
         );
     }
 
+    public function testChildKilledMidTaskThrowsInsteadOfCorrupting(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl extension not available');
+        }
+        if (!function_exists('posix_kill')) {
+            self::markTestSkipped('posix extension not available');
+        }
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/did not return a result/');
+
+        $executor = new ParallelExecutor(new PcntlBackend(), 2);
+        $executor->map(
+            [1, 2],
+            function (int $x): int {
+                if ($x === 2) {
+                    // Simulate an OOM-killed child: die before writing a result
+                    posix_kill((int) getmypid(), 9);
+                }
+
+                return $x;
+            }
+        );
+    }
+
+    public function testChildErrorIncludesExceptionClass(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl extension not available');
+        }
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/RuntimeException.*Task failed intentionally/s');
+
+        $executor = new ParallelExecutor(new PcntlBackend(), 2);
+        $executor->map(
+            [1, 2],
+            function (int $x): int {
+                if ($x === 2) {
+                    throw new RuntimeException('Task failed intentionally');
+                }
+
+                return $x;
+            }
+        );
+    }
+
     public function testAutoDetectWorkerCountWithMemoryConstraint(): void
     {
         if (!PcntlBackend::isAvailable()) {

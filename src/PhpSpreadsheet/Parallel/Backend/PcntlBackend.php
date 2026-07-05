@@ -55,11 +55,9 @@ class PcntlBackend implements BackendInterface
 
                         try {
                             $result = $worker($tasks[$i]);
-                            file_put_contents($tempFile, serialize($result));
+                            self::writeChildResult($tempFile, ['ok' => true, 'result' => $result]);
                         } catch (Throwable $e) {
-                            file_put_contents($tempFile, serialize(
-                                new ParallelTaskError($e->getMessage(), (int) $e->getCode())
-                            ));
+                            self::writeChildResult($tempFile, ['ok' => false, 'error' => ParallelTaskError::fromThrowable($e)]);
                         }
                         exit(0);
                         // @codeCoverageIgnoreEnd
@@ -71,27 +69,14 @@ class PcntlBackend implements BackendInterface
                 }
 
                 // Wait for all children in this batch
+                $statuses = [];
                 foreach ($batchPids as $i => $pid) {
-                    $this->waitForChild($pid);
+                    $statuses[$i] = $this->waitForChild($pid);
                 }
 
                 // Collect results for this batch
                 foreach ($batchPids as $i => $pid) {
-                    if (!isset($tempFiles[$i]) || !is_file($tempFiles[$i])) {
-                        throw new Exception("Result file missing for task {$i}"); // @codeCoverageIgnore
-                    }
-
-                    $content = file_get_contents($tempFiles[$i]);
-                    if ($content === false) {
-                        throw new Exception("Failed to read result for task {$i}"); // @codeCoverageIgnore
-                    }
-
-                    $result = unserialize($content);
-                    if ($result instanceof ParallelTaskError) {
-                        throw new Exception("Parallel task {$i} failed: " . $result->getMessage());
-                    }
-
-                    $results[$i] = $result;
+                    $results[$i] = $this->collectResult($i, $tempFiles[$i], $statuses[$i]);
                 }
             }
         } finally {
@@ -114,19 +99,65 @@ class PcntlBackend implements BackendInterface
         return array_values($results);
     }
 
-    private function waitForChild(int $pid): void
+    /**
+     * Write the result envelope from the forked child. A missing or partial
+     * write is detected by the parent when it fails to unserialize a complete
+     * envelope from the file, so there is nothing useful to do on failure here.
+     *
+     * @codeCoverageIgnore Runs in the forked child only
+     *
+     * @param array{ok: bool, result?: mixed, error?: ParallelTaskError} $envelope
+     */
+    private static function writeChildResult(string $tempFile, array $envelope): void
+    {
+        @file_put_contents($tempFile, serialize($envelope));
+    }
+
+    private function collectResult(int $taskIndex, string $tempFile, int $status): mixed
+    {
+        $content = is_file($tempFile) ? file_get_contents($tempFile) : false;
+        $envelope = ($content === false || $content === '') ? false : @unserialize($content);
+
+        if (!is_array($envelope) || !array_key_exists('ok', $envelope)) {
+            throw new Exception("Parallel task {$taskIndex} did not return a result ({$this->describeChildStatus($status)})");
+        }
+
+        if ($envelope['ok'] !== true) {
+            $error = $envelope['error'] ?? null;
+            $detail = $error instanceof ParallelTaskError ? $error->getSummary() : 'unknown error';
+
+            throw new Exception("Parallel task {$taskIndex} failed: {$detail}");
+        }
+
+        return $envelope['result'] ?? null;
+    }
+
+    private function describeChildStatus(int $status): string
+    {
+        if (pcntl_wifsignaled($status)) {
+            return 'child killed by signal ' . pcntl_wtermsig($status);
+        }
+        if (pcntl_wifexited($status)) {
+            return 'child exited with code ' . pcntl_wexitstatus($status); // @codeCoverageIgnore
+        }
+
+        return 'child status unknown'; // @codeCoverageIgnore
+    }
+
+    private function waitForChild(int $pid): int
     {
         $startTime = time();
 
         while (true) {
+            $status = 0;
             $result = pcntl_waitpid($pid, $status, WNOHANG);
 
             if ($result === $pid) {
-                return;
+                return is_int($status) ? $status : 0;
             }
 
             if ($result === -1) {
-                return; // @codeCoverageIgnore
+                return 0; // @codeCoverageIgnore
             }
 
             if ((time() - $startTime) >= $this->timeout) {
