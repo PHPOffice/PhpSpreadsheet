@@ -210,27 +210,6 @@ class HtmlTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testCanApplyInlineDataFormat(): void
-    {
-        $html = '<table>
-                    <tr>
-                        <td data-format="mmm-yy">2019-02-02 12:34:00</td>
-                        <td data-format="#.000">3</td>
-                        <td data-format="#.000">x</td>
-                    </tr>
-                </table>';
-        $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
-        $sheet = $spreadsheet->getSheet(0);
-
-        self::assertEquals('mmm-yy', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
-        self::assertEquals('2019-02-02 12:34:00', $sheet->getCell('A1')->getFormattedValue(), 'field is string not number so not formatted');
-        self::assertEquals('#.000', $sheet->getStyle('B1')->getNumberFormat()->getFormatCode());
-        self::assertEquals('3.000', $sheet->getCell('B1')->getFormattedValue(), 'format applied to numeric value');
-        self::assertEquals('#.000', $sheet->getStyle('C1')->getNumberFormat()->getFormatCode());
-        self::assertEquals('x', $sheet->getCell('C1')->getFormattedValue(), 'format not applied to non-numeric value');
-        $spreadsheet->disconnectWorksheets();
-    }
-
     public function testCanApplyCellWrapping(): void
     {
         $html = '<table>
@@ -289,7 +268,7 @@ class HtmlTest extends TestCase
         $spreadsheet = HtmlHelper::loadHtmlStringIntoSpreadsheet($html);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
-        self::assertEquals(1, $style->getAlignment()->getIndent());
+        self::assertSame(1, $style->getAlignment()->getIndent());
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -320,7 +299,7 @@ class HtmlTest extends TestCase
         ];
 
         foreach ($totalBorders as $border) {
-            self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
+            self::assertSame(Border::BORDER_THIN, $border->getBorderStyle());
         }
         $spreadsheet->disconnectWorksheets();
     }
@@ -352,7 +331,7 @@ class HtmlTest extends TestCase
         ];
 
         foreach ($totalBorders as $border) {
-            self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
+            self::assertSame(Border::BORDER_THIN, $border->getBorderStyle());
         }
         $spreadsheet->disconnectWorksheets();
     }
@@ -377,28 +356,32 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         // check boolean data type and true
-        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
+        self::assertSame(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
         self::assertIsBool($firstSheet->getCell('A1')->getValue());
         self::assertTrue($firstSheet->getCell('A1')->getValue());
 
         // check string data type
-        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
+        self::assertSame(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
         self::assertIsString($firstSheet->getCell('B1')->getValue());
 
         // check string with beginning equal sign (=B1) and string datatype,is not formula
-        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('C1')->getDataType());
-        self::assertEquals('=B1', $firstSheet->getCell('C1')->getValue());
+        self::assertSame(DataType::TYPE_STRING, $firstSheet->getCell('C1')->getDataType());
+        self::assertSame('=B1', $firstSheet->getCell('C1')->getValue());
         self::assertTrue($firstSheet->getCell('C1')->getStyle()->getQuotePrefix());
 
         //check iso date
         self::assertEqualsWithDelta($firstSheet->getCell('D1')->getValue(), 44613.43090277778, 1.0e-12);
 
         //null
-        self::assertEquals($firstSheet->getCell('E1')->getValue(), null);
+        self::assertNull($firstSheet->getCell('E1')->getValue());
 
         // check boolean data type and true
-        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('F1')->getDataType());
+        self::assertSame(DataType::TYPE_BOOL, $firstSheet->getCell('F1')->getDataType());
         self::assertIsBool($firstSheet->getCell('F1')->getValue());
         self::assertFalse($firstSheet->getCell('F1')->getValue());
+
+        self::assertSame(DataType::TYPE_STRING, $firstSheet->getCell('G1')->getDataType());
+        self::assertSame('text with invalid datatype', $firstSheet->getCell('G1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }

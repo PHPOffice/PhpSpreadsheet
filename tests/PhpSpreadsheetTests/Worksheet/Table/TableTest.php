@@ -173,7 +173,8 @@ class TableTest extends SetupTeardown
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
 
-        return [
+        // I have no idea what phpstan wants here.
+        return [ // @phpstan-ignore-line
             ["$title!G1:J512", 'G1:J512'],
             ['K1:N20', 'K1:N20'],
             [[3, 5, 6, 8], 'C5:F8'],

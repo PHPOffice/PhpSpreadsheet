@@ -98,4 +98,17 @@ class DuplicatesWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\Duplicates::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Duplicates CF Rule Wizard');
+        $ruleType = Wizard::DUPLICATES;
+        /** @var Wizard\Duplicates $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
 }

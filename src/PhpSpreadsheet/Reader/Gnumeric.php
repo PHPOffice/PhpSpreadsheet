@@ -311,7 +311,7 @@ class Gnumeric extends BaseReader
                 $column = Coordinate::stringFromColumnIndex($column + 1);
 
                 // Read cell?
-                if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
+                if (!$this->readFilter->readCell($column, $row, $worksheetName)) {
                     continue;
                 }
 

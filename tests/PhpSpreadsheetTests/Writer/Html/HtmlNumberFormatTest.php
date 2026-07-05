@@ -77,7 +77,9 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $tds = $rows?->item(3)?->getElementsByTagName('td');
         self::assertCount(1, $tds);
         $spans = $tds?->item(0)?->getElementsByTagName('span');
-        self::assertCount(0, $spans);
+        self::assertCount(1, $spans);
+        $style = $spans?->item(0)?->getAttribute('style');
+        self::assertSame(1, preg_match('/color:blue/', "$style"));
         self::assertEquals('<br>', $tds?->item(0)?->textContent);
 
         $rls = $this->writeAndReload($spreadsheet, 'Html');

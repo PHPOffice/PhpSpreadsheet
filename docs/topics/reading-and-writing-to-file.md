@@ -544,11 +544,10 @@ To load them:
 $reader->setPreserveNullString(true);
 ```
 
-Finally, you can set a callback to be invoked when the constructor is executed,
+You can set a callback to be invoked when the constructor is executed,
 either through `new Csv()` or `IOFactory::load`,
 and have that callback set the customizable attributes to whatever
 defaults are appropriate for your environment.
-
 ```php
 function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
 {
@@ -563,6 +562,23 @@ function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
 \PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
 $spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
 ```
+
+As a (probably better) alternative, you can extend the `Reader\Csv` class to have whatever default properties you want, and use the extended class with `new`.
+For use with `IOFactory`, you can register the extended class as the Csv Reader:
+```php
+IOFactory::registerReader(IOFactory::READER_CSV, Reader\CsvNoEscape::class);
+```
+Starting with release 5.6, the `IOFactory` methods `createReader`, `load`, `identify`, and `createReaderForFile` also allow you to specify the appropriate reader for a file type, without having to register the class or affecting the ability of IOFactory to find classes suitable for files in other formats.
+```php
+$spreadsheet = IOFactory::load(
+    $inputFileName,
+    mergeArray: [IOFactory::READER_CSV => Reader\CsvNoEscape::class]
+    /* or mergeArray: IOFactory::USE_CSV_NO_EXCAPE */
+);
+```
+
+Finally, note the use of `Reader\CsvNoEscape` above.
+That class, which extends `Reader\Csv`, is introduced in release 5.6. Php long ago defined its own escaping mechanism for Csv files; this is completely non-portable, and was deprecated in Php8.4 and will go away with Php9. Likewise, the ability to auto-detect Mac line endings will go away in Php9. `CsvNoEscape` sets the escape character to null-string (the only value supported for Php9), sets auto-detection of Mac endings to false, and will throw an exception if the user attempts to change either. `Reader\CsvNoEscape` is unquestionably a better choice for new applications than `Reader\Csv`.
 
 #### Read a specific worksheet
 

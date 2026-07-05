@@ -13,7 +13,7 @@
     ],
     "config": {
         "platform": {
-            "php" : "8.1.99"
+            "php": "8.1.99"
         },
         "process-timeout": 600,
         "sort-packages": true,
@@ -120,7 +120,8 @@
     "autoload-dev": {
         "psr-4": {
             "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
-            "PhpOffice\\PhpSpreadsheetInfra\\": "infra"
+            "PhpOffice\\PhpSpreadsheetInfra\\": "infra",
+            "PhpOffice\\PhpSpreadsheetBenchmarks\\": "tests/Benchmark"
         }
     }
 }

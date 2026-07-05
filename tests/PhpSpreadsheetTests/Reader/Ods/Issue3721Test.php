@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class Issue3721Test extends TestCase
 {
-    public function xtestIssue2810ReadEmpty(): void
+    public function testIssue2810ReadEmpty(): void
     {
         // Problems with getHighestDataColumn
         $filename = 'tests/data/Reader/Ods/issue.3721.ods';
