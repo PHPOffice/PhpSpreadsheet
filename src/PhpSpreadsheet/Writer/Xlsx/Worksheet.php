@@ -1714,7 +1714,6 @@ class Worksheet extends WriterPart
         // Cell
         $xfi = $pCell->getXfIndex();
         $cellValue = $pCell->getValue();
-        $cellValueString = $pCell->getValueString();
         $writeValue = $cellValue !== '' && $cellValue !== null;
         if (empty($xfi) && !$writeValue) {
             return;
@@ -1731,7 +1730,7 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValueString) === 1) {
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $pCell->getValueString()) === 1) {
                     $tempCalc = [];
                 } else {
                     $tempCalc = $pCell->getCalculatedValue();
@@ -1760,11 +1759,11 @@ class Worksheet extends WriterPart
 
                     break;
                 case 's':            // String
-                    $this->writeCellString($objWriter, $mappedType, ($cellValue instanceof RichText) ? $cellValue : $cellValueString, $flippedStringTable);
+                    $this->writeCellString($objWriter, $mappedType, ($cellValue instanceof RichText) ? $cellValue : $pCell->getValueString(), $flippedStringTable);
 
                     break;
                 case 'f':            // Formula
-                    $this->writeCellFormula($objWriter, $cellValueString, $pCell);
+                    $this->writeCellFormula($objWriter, $pCell->getValueString(), $pCell);
 
                     break;
                 case 'n':            // Numeric
@@ -1784,7 +1783,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'e':            // Error
-                    $this->writeCellError($objWriter, $mappedType, $cellValueString);
+                    $this->writeCellError($objWriter, $mappedType, $pCell->getValueString());
             }
         }
 
