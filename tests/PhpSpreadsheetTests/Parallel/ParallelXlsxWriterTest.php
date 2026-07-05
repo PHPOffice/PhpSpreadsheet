@@ -138,6 +138,12 @@ class ParallelXlsxWriterTest extends TestCase
         self::assertSame($writer, $result);
         self::assertSame(4, $writer->getMaxWorkers());
 
+        self::assertSame(0, $writer->getParallelTimeout());
+        $result = $writer->setParallelTimeout(120);
+        self::assertSame($writer, $result);
+        self::assertSame(120, $writer->getParallelTimeout());
+        $writer->setParallelTimeout(0);
+
         // Reset
         $writer->setParallelEnabled(false);
         self::assertFalse($writer->isParallelEnabled());

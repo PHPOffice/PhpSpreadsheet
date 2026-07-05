@@ -8,7 +8,11 @@ use Throwable;
 
 class PcntlBackend implements BackendInterface
 {
-    private const DEFAULT_TIMEOUT = 60;
+    /** Seconds a child may run before being terminated; 0 means no time limit. */
+    private const DEFAULT_TIMEOUT = 0;
+
+    /** Seconds to wait after SIGTERM before escalating to SIGKILL. */
+    private const SIGTERM_GRACE_SECONDS = 2;
 
     private int $timeout;
 
@@ -27,6 +31,7 @@ class PcntlBackend implements BackendInterface
         $results = array_fill(0, $taskCount, null);
         $tempFiles = [];
         $pids = [];
+        $reaped = [];
 
         try {
             // Process tasks in batches of maxWorkers
@@ -69,6 +74,7 @@ class PcntlBackend implements BackendInterface
                 $statuses = [];
                 foreach ($batchPids as $i => $pid) {
                     $statuses[$i] = $this->waitForChild($pid);
+                    $reaped[$pid] = true;
                 }
 
                 // Collect results for this batch
@@ -78,9 +84,19 @@ class PcntlBackend implements BackendInterface
             }
         } finally {
             // Children never reach this block — exitChild() terminates them —
-            // so only the parent reaps and cleans up here
+            // so only the parent reaps and cleans up here. Children still
+            // running (e.g. siblings of a timed-out task) are killed so they
+            // are neither orphaned nor left as zombies.
             foreach ($pids as $pid) {
-                pcntl_waitpid($pid, $status, WNOHANG);
+                if (isset($reaped[$pid])) {
+                    continue;
+                }
+                if (function_exists('posix_kill')) {
+                    posix_kill($pid, 9); // SIGKILL
+                    pcntl_waitpid($pid, $status);
+                } else {
+                    pcntl_waitpid($pid, $status, WNOHANG); // @codeCoverageIgnore
+                }
             }
 
             // Clean up temp files
@@ -173,19 +189,39 @@ class PcntlBackend implements BackendInterface
                 return 0; // @codeCoverageIgnore
             }
 
-            if ((time() - $startTime) >= $this->timeout) {
-                // Attempt graceful termination
-                if (function_exists('posix_kill')) {
-                    posix_kill($pid, 15); // SIGTERM
-                    usleep(100000); // 100ms grace period
-                }
-                pcntl_waitpid($pid, $status, WNOHANG);
+            if ($this->timeout > 0 && (time() - $startTime) >= $this->timeout) {
+                $this->terminateChild($pid);
 
                 throw new Exception("Parallel task timed out after {$this->timeout} seconds");
             }
 
             usleep(10000); // 10ms poll interval
         }
+    }
+
+    /**
+     * Terminate a child with SIGTERM, escalating to SIGKILL if it has not
+     * exited within the grace period, then reap it so it cannot linger as
+     * an orphan or zombie.
+     */
+    private function terminateChild(int $pid): void
+    {
+        if (function_exists('posix_kill')) {
+            posix_kill($pid, 15); // SIGTERM
+            $deadline = microtime(true) + self::SIGTERM_GRACE_SECONDS;
+            while (microtime(true) < $deadline) {
+                if (pcntl_waitpid($pid, $status, WNOHANG) === $pid) {
+                    return;
+                }
+                usleep(10000);
+            }
+            posix_kill($pid, 9); // SIGKILL
+            pcntl_waitpid($pid, $status);
+
+            return;
+        }
+
+        pcntl_waitpid($pid, $status, WNOHANG); // @codeCoverageIgnore
     }
 
     public static function isAvailable(): bool

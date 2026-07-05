@@ -15,9 +15,13 @@ class ParallelExecutor
 
     private ?int $maxWorkers;
 
-    public function __construct(?BackendInterface $backend = null, ?int $maxWorkers = null)
+    /**
+     * @param int $timeout Seconds a parallel task may run before being terminated
+     *                     (0 = no time limit); ignored when $backend is given
+     */
+    public function __construct(?BackendInterface $backend = null, ?int $maxWorkers = null, int $timeout = 0)
     {
-        $this->backend = $backend ?? self::detectBackend();
+        $this->backend = $backend ?? self::detectBackend($timeout);
         $this->maxWorkers = $maxWorkers;
     }
 
@@ -128,10 +132,10 @@ class ParallelExecutor
         return $value;
     }
 
-    private static function detectBackend(): BackendInterface
+    private static function detectBackend(int $timeout): BackendInterface
     {
         if (PcntlBackend::isAvailable()) {
-            return new PcntlBackend();
+            return new PcntlBackend($timeout);
         }
 
         return new SequentialBackend(); // @codeCoverageIgnore

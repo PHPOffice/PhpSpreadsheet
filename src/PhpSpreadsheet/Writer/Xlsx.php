@@ -154,6 +154,8 @@ class Xlsx extends BaseWriter
 
     private ?int $maxWorkers = null;
 
+    private int $parallelTimeout = 0;
+
     /**
      * Create a new Xlsx Writer.
      */
@@ -420,7 +422,7 @@ class Xlsx extends BaseWriter
         $sheetCount = $this->spreadSheet->getSheetCount();
         // Add worksheets
         if ($this->parallelEnabled && $sheetCount > 1) {
-            $executor = new ParallelExecutor(null, $this->maxWorkers);
+            $executor = new ParallelExecutor(null, $this->maxWorkers, $this->parallelTimeout);
             /** @var list<string> $sheetXmls */
             $sheetXmls = $executor->map(
                 range(0, $sheetCount - 1),
@@ -921,6 +923,22 @@ class Xlsx extends BaseWriter
     public function getMaxWorkers(): ?int
     {
         return $this->maxWorkers;
+    }
+
+    /**
+     * Set the maximum number of seconds a parallel worker may run.
+     * Pass 0 (the default) for no time limit.
+     */
+    public function setParallelTimeout(int $seconds): self
+    {
+        $this->parallelTimeout = $seconds;
+
+        return $this;
+    }
+
+    public function getParallelTimeout(): int
+    {
+        return $this->parallelTimeout;
     }
 
     /**
