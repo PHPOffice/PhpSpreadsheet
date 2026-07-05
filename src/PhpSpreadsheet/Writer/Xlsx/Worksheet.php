@@ -1402,9 +1402,12 @@ class Worksheet extends WriterPart
         /** @var array<int, string> $cellsByRow */
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
-            [$column, $row] = Coordinate::coordinateFromString($coordinate);
+            $column = '';
+            $row = 0;
+            sscanf($coordinate, '%[A-Z]%d', $column, $row);
+            /** @var int $row */
             if (!isset($cellsByRow[$row])) {
-                $pCell = $worksheet->getCell("$column$row");
+                $pCell = $worksheet->getCell($coordinate);
                 $xfi = $pCell->getXfIndex();
                 $cellValue = $pCell->getValue();
                 $writeValue = $cellValue !== '' && $cellValue !== null;
