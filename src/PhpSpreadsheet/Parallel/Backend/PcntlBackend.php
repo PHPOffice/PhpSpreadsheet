@@ -27,7 +27,6 @@ class PcntlBackend implements BackendInterface
         $results = array_fill(0, $taskCount, null);
         $tempFiles = [];
         $pids = [];
-        $isChild = false;
 
         try {
             // Process tasks in batches of maxWorkers
@@ -51,15 +50,13 @@ class PcntlBackend implements BackendInterface
                     if ($pid === 0) {
                         // Child process — coverage cannot be collected from forked children
                         // @codeCoverageIgnoreStart
-                        $isChild = true;
-
                         try {
                             $result = $worker($tasks[$i]);
                             self::writeChildResult($tempFile, ['ok' => true, 'result' => $result]);
                         } catch (Throwable $e) {
                             self::writeChildResult($tempFile, ['ok' => false, 'error' => ParallelTaskError::fromThrowable($e)]);
                         }
-                        exit(0);
+                        self::exitChild();
                         // @codeCoverageIgnoreEnd
                     }
 
@@ -80,23 +77,39 @@ class PcntlBackend implements BackendInterface
                 }
             }
         } finally {
-            // Only parent cleans up — child must not touch shared state
-            if (!$isChild) {
-                // Reap any remaining children
-                foreach ($pids as $pid) {
-                    pcntl_waitpid($pid, $status, WNOHANG);
-                }
+            // Children never reach this block — exitChild() terminates them —
+            // so only the parent reaps and cleans up here
+            foreach ($pids as $pid) {
+                pcntl_waitpid($pid, $status, WNOHANG);
+            }
 
-                // Clean up temp files
-                foreach ($tempFiles as $file) {
-                    if (is_file($file)) {
-                        @unlink($file);
-                    }
+            // Clean up temp files
+            foreach ($tempFiles as $file) {
+                if (is_file($file)) {
+                    @unlink($file);
                 }
             }
         }
 
         return array_values($results);
+    }
+
+    /**
+     * Terminate the forked child immediately, without running destructors,
+     * shutdown functions, or flushing output buffers inherited from the parent
+     * process — the child's shutdown sequence must not tear down shared
+     * resources such as database connections, or emit the parent's buffered
+     * output a second time.
+     *
+     * @codeCoverageIgnore Runs in the forked child only
+     */
+    private static function exitChild(): never
+    {
+        if (function_exists('posix_kill') && function_exists('posix_getpid')) {
+            posix_kill(posix_getpid(), 9); // SIGKILL — bypasses PHP shutdown
+        }
+
+        exit(0);
     }
 
     /**
