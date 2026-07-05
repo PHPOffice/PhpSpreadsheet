@@ -226,7 +226,10 @@ class PcntlBackend implements BackendInterface
 
     public static function isAvailable(): bool
     {
-        return function_exists('pcntl_fork')
+        // Forking is only safe from the CLI: under FPM or an Apache handler a
+        // forked child would share the SAPI's sockets and process-pool state
+        return PHP_SAPI === 'cli'
+            && function_exists('pcntl_fork')
             && function_exists('pcntl_waitpid')
             && PHP_OS_FAMILY !== 'Windows';
     }
