@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Parallel;
 
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\ParallelTaskError;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class ParallelTaskErrorTest extends TestCase
 {
@@ -32,5 +33,29 @@ class ParallelTaskErrorTest extends TestCase
         self::assertInstanceOf(ParallelTaskError::class, $restored);
         self::assertSame('Serialized error', $restored->getMessage());
         self::assertSame(99, $restored->getCode());
+    }
+
+    public function testFromThrowable(): void
+    {
+        $error = ParallelTaskError::fromThrowable(new RuntimeException('Original failure', 7));
+
+        self::assertSame('Original failure', $error->getMessage());
+        self::assertSame(7, $error->getCode());
+        self::assertSame(RuntimeException::class, $error->getExceptionClass());
+        self::assertNotSame('', $error->getTraceAsString());
+    }
+
+    public function testGetSummaryWithClassAndTrace(): void
+    {
+        $error = new ParallelTaskError('Boom', 0, RuntimeException::class, '#0 {main}');
+
+        self::assertSame("[RuntimeException] Boom\n#0 {main}", $error->getSummary());
+    }
+
+    public function testGetSummaryWithoutClassAndTrace(): void
+    {
+        $error = new ParallelTaskError('Boom');
+
+        self::assertSame('Boom', $error->getSummary());
     }
 }

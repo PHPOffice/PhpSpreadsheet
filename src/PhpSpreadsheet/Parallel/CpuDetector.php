@@ -34,8 +34,10 @@ class CpuDetector
     {
         try {
             return (new CpuCoreCounter())->getCount();
+            // @codeCoverageIgnoreStart
         } catch (NumberOfCpuCoreNotFound) {
-            return self::FALLBACK_CPU_COUNT; // @codeCoverageIgnore
+            return self::FALLBACK_CPU_COUNT;
         }
+        // @codeCoverageIgnoreEnd
     }
 }

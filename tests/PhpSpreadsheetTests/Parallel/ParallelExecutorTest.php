@@ -237,6 +237,31 @@ class ParallelExecutorTest extends TestCase
         );
     }
 
+    public function testTimeoutEscalatesToSigkillForStubbornChild(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl extension not available');
+        }
+        if (!function_exists('posix_kill') || !function_exists('pcntl_signal')) {
+            self::markTestSkipped('posix extension not available');
+        }
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/timed out/');
+
+        // Children ignore SIGTERM, forcing the SIGTERM -> SIGKILL escalation
+        $executor = new ParallelExecutor(new PcntlBackend(1), 2);
+        $executor->map(
+            [1, 2],
+            function (int $x): int {
+                pcntl_signal(15, SIG_IGN); // SIGTERM
+                sleep(30);
+
+                return $x;
+            }
+        );
+    }
+
     public function testChildKilledMidTaskThrowsInsteadOfCorrupting(): void
     {
         if (!PcntlBackend::isAvailable()) {

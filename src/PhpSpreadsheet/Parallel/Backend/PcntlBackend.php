@@ -166,11 +166,13 @@ class PcntlBackend implements BackendInterface
         if (pcntl_wifsignaled($status)) {
             return 'child killed by signal ' . pcntl_wtermsig($status);
         }
+        // @codeCoverageIgnoreStart
         if (pcntl_wifexited($status)) {
-            return 'child exited with code ' . pcntl_wexitstatus($status); // @codeCoverageIgnore
+            return 'child exited with code ' . pcntl_wexitstatus($status);
         }
 
-        return 'child status unknown'; // @codeCoverageIgnore
+        return 'child status unknown';
+        // @codeCoverageIgnoreEnd
     }
 
     private function waitForChild(int $pid): int
