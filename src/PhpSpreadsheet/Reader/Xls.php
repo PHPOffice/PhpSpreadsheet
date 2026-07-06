@@ -3041,7 +3041,9 @@ class Xls extends XlsBase
 
             $cell = $this->phpSheet->getCell($cellCoordinate);
             if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
-                // add cell style
+                // add cell style; skipping the collection update is safe here
+                // because every path below ends in setCalculatedValue(), which
+                // performs the update
                 $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
             }
 
@@ -3164,8 +3166,9 @@ class Xls extends XlsBase
 
             $cell = $this->phpSheet->getCell($cellCoordinate);
             if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
-                // add cell style
-                $cell->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+                // add cell style; a value write does not follow on every path,
+                // so use the updating setter to guarantee persistence
+                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
             switch ($isError) {
                 case 0: // boolean
@@ -3219,7 +3222,9 @@ class Xls extends XlsBase
                 if ($this->readFilter->readCell($columnString, $rowIndex, $this->phpSheetTitle)) {
                     $xfIndex = self::getUInt2d($recordData, 4 + 2 * $i);
                     if (isset($this->mapCellXfIndex[$xfIndex])) {
-                        $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+                        // blank cells never receive a value write, so use the
+                        // updating setter to guarantee persistence
+                        $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndex($this->mapCellXfIndex[$xfIndex]);
                     }
                 }
             }
@@ -3305,9 +3310,10 @@ class Xls extends XlsBase
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
-            // add style information
+            // add style information; blank cells never receive a value write,
+            // so use the updating setter to guarantee persistence
             if (!$this->readDataOnly && $this->readEmptyCells && isset($this->mapCellXfIndex[$xfIndex])) {
-                $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndexNoUpdate($this->mapCellXfIndex[$xfIndex]);
+                $this->phpSheet->getCell($columnString . $rowIndex)->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
     }
