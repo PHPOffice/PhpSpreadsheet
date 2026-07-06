@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
+- Opt-in parallel worksheet generation for the Xlsx Writer (CLI only, requires pcntl). [PR #4834](https://github.com/PHPOffice/PhpSpreadsheet/pull/4834)
 - Navigate Cell as Cursor. [Issue #863](https://github.com/PHPOffice/PhpSpreadsheet/issues/863) [PR #4909](https://github.com/PHPOffice/PhpSpreadsheet/pull/4909)
 - Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
 - Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
