@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.9.0
+## 2026-07-12 - 5.8.1
+
+Last version with support for Php 8.1.
 
 ### Added
 
@@ -13,21 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
 - Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
 
-### Removed
-
-- Nothing yet.
-
 ### Changed
 
 - Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
-
-### Moved
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
 
 ### Fixed
 
