@@ -2,12 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class ServerTestx extends TestCase
+class ServerTest extends TestCase
 {
     private static Process $httpServer;
 
@@ -33,13 +34,22 @@ class ServerTestx extends TestCase
         self::$httpServer->stop();
     }
 
-    public function testServer(): void
+    public function xtestServer(): void
     {
-        self::assertSame(self::NEWVALUE, file_get_contents(self::DIRECT));
-        self::assertSame(self::NEWVALUE, file_get_contents(self::REDIRECT));
+        try {
+            self::assertSame(self::NEWVALUE, file_get_contents(self::DIRECT));
+            self::assertSame(self::NEWVALUE, file_get_contents(self::REDIRECT));
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            if (str_contains($message, 'Connection refused')) {
+                self::markTestSkipped('Unable to use web server');
+            }
+
+            throw $e;
+        }
     }
 
-    public function testReadFile(): void
+    public function xtestReadFile(): void
     {
         $reader = new XlsxReader();
         $spreadsheet = $reader->load(__DIR__ . '/redirect.xlsx');
@@ -51,7 +61,7 @@ class ServerTestx extends TestCase
         self::assertSame(self::OLDVALUE, $sheet->getCell('A2')->getCalculatedValue(), 'redirect so use old computed');
     }
 
-    public static function testNew(): void
+    public function xtestNew(): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setDomainWhiteList(['localhost']);
@@ -65,5 +75,12 @@ class ServerTestx extends TestCase
             $sheet->getCell('A2')->getCalculatedValue(),
             'redirect so not computed'
         );
+    }
+
+    public function testAll(): void
+    {
+        $this->xtestServer();
+        $this->xtestReadFile();
+        $this->xtestNew();
     }
 }
