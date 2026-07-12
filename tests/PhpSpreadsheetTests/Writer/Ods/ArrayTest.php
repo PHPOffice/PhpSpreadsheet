@@ -17,7 +17,7 @@ class ArrayTest extends AbstractFunctional
 
     private string $compatibilityMode;
 
-    private bool $skipInline = true;
+    protected bool $skipInline = true;
 
     protected function setUp(): void
     {
