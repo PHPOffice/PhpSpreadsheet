@@ -432,7 +432,7 @@ class Worksheet extends BIFFwriter
                             match ($calctype) {
                                 'integer', 'double' => $this->writeNumber($row, $column, is_numeric($calculatedValue) ? ((float) $calculatedValue) : 0.0, $xfIndex),
                                 'string' => $this->writeString($row, $column, $calculatedValueString, $xfIndex),
-                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValueString, 0, $xfIndex),
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex), // @phpstan-ignore-line
                                 default => $this->writeString($row, $column, $cell->getValueString(), $xfIndex),
                             };
                         }

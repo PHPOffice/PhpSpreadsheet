@@ -636,7 +636,7 @@ WRAPROWS                 | CATEGORY_MATH_AND_TRIG         | **Not yet Implemente
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 XIRR                     | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::rate
-XLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+XLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\XLookup::lookup
 XMATCH                   | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
 XNPV                     | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::presentValue
 XOR                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalXor

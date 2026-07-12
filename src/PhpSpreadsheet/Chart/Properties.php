@@ -521,7 +521,7 @@ abstract class Properties
         return $this->softEdges['size'];
     }
 
-    /** @param null|array{value?: ?string, alpha?: null|int|string, brightness?: null|int|string, type?: ?string}|float|string  $value */
+    /** @param null|array{value?: ?string, alpha?: null|int|string, brightness?: null|int|string, type?: ?string, sx?: ?float, sy?: ?float, ky?: ?float, kx?: ?float}|float|string  $value */
     public function setShadowProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();

@@ -30,10 +30,10 @@ class Helpers
      *
      * @return float Excel date/time serial value
      */
-    public static function getDateValue(mixed $dateValue, bool $allowBool = true): float
+    public static function getDateValue(mixed $dateValue, bool $allowBool = true, ?int $calendar = null): float
     {
         if (is_object($dateValue)) {
-            $retval = SharedDateHelper::PHPToExcel($dateValue);
+            $retval = SharedDateHelper::PHPToExcel($dateValue, calendar: $calendar);
             if (is_bool($retval)) {
                 throw new Exception(ExcelError::VALUE());
             }
@@ -41,7 +41,7 @@ class Helpers
             return $retval;
         }
 
-        self::nullFalseTrueToNumber($dateValue, $allowBool);
+        self::nullFalseTrueToNumber($dateValue, $allowBool, $calendar);
         if (!is_numeric($dateValue)) {
             $saveReturnDateType = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -58,7 +58,7 @@ class Helpers
         }
 
         try {
-            SharedDateHelper::excelToDateTimeObject((float) $dateValue);
+            SharedDateHelper::excelToDateTimeObject((float) $dateValue, calendar: $calendar);
         } catch (Throwable) {
             throw new Exception(ExcelError::NAN());
         }
@@ -87,10 +87,10 @@ class Helpers
      *
      * @param float|int $dateValue date to be adjusted
      */
-    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0): DateTime
+    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0, ?int $calendar = null): DateTime
     {
         // Execute function
-        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue, calendar: $calendar);
         $oMonth = (int) $PHPDateObject->format('m');
         $oYear = (int) $PHPDateObject->format('Y');
 
@@ -141,7 +141,7 @@ class Helpers
      *
      * @param array{year: int, month: int, day: int, hour: int, minute: int, second: int} $dateArray
      */
-    public static function returnIn3FormatsArray(array $dateArray, bool $noFrac = false): DateTime|float|int
+    public static function returnIn3FormatsArray(array $dateArray, bool $noFrac = false, ?int $calendar = null): DateTime|float|int
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_PHP_DATETIME_OBJECT) {
@@ -161,58 +161,60 @@ class Helpers
                 $dateArray['day'],
                 $dateArray['hour'],
                 $dateArray['minute'],
-                $dateArray['second']
+                $dateArray['second'],
+                calendar: $calendar
             );
         if ($retType === Functions::RETURNDATE_EXCEL) {
             return $noFrac ? floor($excelDateValue) : $excelDateValue;
         }
         // RETURNDATE_UNIX_TIMESTAMP)
 
-        return SharedDateHelper::excelToTimestamp($excelDateValue);
+        return SharedDateHelper::excelToTimestamp($excelDateValue, calendar: $calendar);
     }
 
     /**
      * Return result in one of three formats.
      */
-    public static function returnIn3FormatsFloat(float $excelDateValue): float|int|DateTime
+    public static function returnIn3FormatsFloat(float $excelDateValue, ?int $calendar = null): float|int|DateTime
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_EXCEL) {
             return $excelDateValue;
         }
         if ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-            return SharedDateHelper::excelToTimestamp($excelDateValue);
+            return SharedDateHelper::excelToTimestamp($excelDateValue, calendar: $calendar);
         }
         // RETURNDATE_PHP_DATETIME_OBJECT
 
-        return SharedDateHelper::excelToDateTimeObject($excelDateValue);
+        return SharedDateHelper::excelToDateTimeObject($excelDateValue, calendar: $calendar);
     }
 
     /**
      * Return result in one of three formats.
      */
-    public static function returnIn3FormatsObject(DateTime $PHPDateObject): DateTime|float|int
+    public static function returnIn3FormatsObject(DateTime $PHPDateObject, ?int $calendar = null): DateTime|float|int
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_PHP_DATETIME_OBJECT) {
             return $PHPDateObject;
         }
         if ($retType === Functions::RETURNDATE_EXCEL) {
-            return (float) SharedDateHelper::PHPToExcel($PHPDateObject);
+            return (float) SharedDateHelper::PHPToExcel($PHPDateObject, calendar: $calendar);
         }
         // RETURNDATE_UNIX_TIMESTAMP
-        $stamp = SharedDateHelper::PHPToExcel($PHPDateObject);
+        $stamp = SharedDateHelper::PHPToExcel($PHPDateObject, calendar: $calendar);
         $stamp = is_bool($stamp) ? ((int) $stamp) : $stamp;
 
-        return SharedDateHelper::excelToTimestamp($stamp);
+        return SharedDateHelper::excelToTimestamp($stamp, calendar: $calendar);
     }
 
-    private static function baseDate(): int
+    private static function baseDate(?int $calendar): int
     {
         if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
             return 0;
         }
-        if (SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_MAC_1904) {
+        $calendar ??= SharedDateHelper::getExcelCalendar();
+        if ($calendar === SharedDateHelper::CALENDAR_MAC_1904) {
             return 0;
         }
 
@@ -222,10 +224,10 @@ class Helpers
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
      */
-    public static function nullFalseTrueToNumber(mixed &$number, bool $allowBool = true): void
+    public static function nullFalseTrueToNumber(mixed &$number, bool $allowBool = true, ?int $calendar = null): void
     {
         $number = Functions::flattenSingleValue($number);
-        $nullVal = self::baseDate();
+        $nullVal = self::baseDate($calendar);
         if ($number === null) {
             $number = $nullVal;
         } elseif ($allowBool && is_bool($number)) {
