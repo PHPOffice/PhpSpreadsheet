@@ -124,7 +124,7 @@ class Fill extends Supervisor
      * );
      * </code>
      *
-     * @param array{fillType?: string, rotation?: float, startColor?: array{rgb?: string, argb?: string}, endColor?: array{rgb?: string, argb?: string}, color?: array{rgb?: string, argb?: string}} $styleArray Array containing style information
+     * @param array{fillType?: string, rotation?: float, startColor?: array{rgb?: string, argb?: string, theme?: int}, endColor?: array{rgb?: string, argb?: string, theme?: int}, color?: array{rgb?: string, argb?: string, theme?: int}} $styleArray Array containing style information
      *
      * @return $this
      */

@@ -13,7 +13,7 @@
     ],
     "config": {
         "platform": {
-            "php": "8.1.99"
+            "php": "8.2.99"
         },
         "process-timeout": 600,
         "sort-packages": true,
@@ -69,7 +69,7 @@
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
@@ -101,7 +101,7 @@
         "phpstan/phpstan": "^1.1 || ^2.0",
         "phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
         "phpstan/phpstan-phpunit": "^1.0 || ^2.0",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^10.5 || ^11.0",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },

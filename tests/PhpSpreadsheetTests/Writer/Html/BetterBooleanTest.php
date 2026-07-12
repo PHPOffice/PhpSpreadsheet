@@ -102,8 +102,8 @@ class BetterBooleanTest extends Functional\AbstractFunctional
         $rsheet = $reloaded->getActiveSheet();
         self::assertSame(1, $rsheet->getCell('A1')->getValue());
         self::assertSame('Hello', $rsheet->getCell('B1')->getValue());
-        self::assertSame(1, $rsheet->getCell('C1')->getValue());
-        self::assertNull($rsheet->getCell('D1')->getValue());
+        self::assertSame('TRUE', $rsheet->getCell('C1')->getValue());
+        self::assertSame('FALSE', $rsheet->getCell('D1')->getValue());
         self::assertSame(1, $rsheet->getCell('E1')->getValue());
         self::assertSame('AB', $rsheet->getCell('F1')->getValue());
         self::assertSame(3, $rsheet->getCell('G1')->getValue());

@@ -431,10 +431,8 @@ class PageSetup
      */
     public function isColumnsToRepeatAtLeftSet(): bool
     {
-        if (!empty($this->columnsToRepeatAtLeft)) {
-            if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
-                return true;
-            }
+        if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
+            return true;
         }
 
         return false;
@@ -453,13 +451,13 @@ class PageSetup
     /**
      * Set Columns to repeat at left.
      *
-     * @param array{string, string} $columnsToRepeatAtLeft Containing start column and end column, empty array if option unset
+     * @param array{string, string}|array{} $columnsToRepeatAtLeft Containing start column and end column, empty array if option unset
      *
      * @return $this
      */
     public function setColumnsToRepeatAtLeft(array $columnsToRepeatAtLeft): static
     {
-        $this->columnsToRepeatAtLeft = $columnsToRepeatAtLeft;
+        $this->columnsToRepeatAtLeft = empty($columnsToRepeatAtLeft) ? ['', ''] : $columnsToRepeatAtLeft;
 
         return $this;
     }

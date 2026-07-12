@@ -110,6 +110,37 @@ class Chart
 
     private bool $roundedCorners = false;
 
+    private bool $date1904 = false;
+
+    private string $lang = 'en-GB';
+
+    /** @var array{
+     *     b?: numeric-string,
+     *     l?: numeric-string,
+     *     r?: numeric-string,
+     *     t?: numeric-string,
+     *     header?: numeric-string,
+     *     footer?: numeric-string,
+     * }
+     */
+    private array $pageMargins = [
+        'b' => '0.75',
+        'l' => '0.7',
+        'r' => '0.7',
+        't' => '0.75',
+        'header' => '0.3',
+        'footer' => '0.3',
+    ];
+
+    /** @var array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    private array $pageSetup = [
+        'orientation' => 'portrait',
+    ];
+
     private GridLines $borderLines;
 
     private ChartColor $fillColor;
@@ -680,9 +711,11 @@ class Chart
         return $this->autoTitleDeleted;
     }
 
-    public function setAutoTitleDeleted(bool $autoTitleDeleted): self
+    public function setAutoTitleDeleted(?bool $autoTitleDeleted): self
     {
-        $this->autoTitleDeleted = $autoTitleDeleted;
+        if (is_bool($autoTitleDeleted)) {
+            $this->autoTitleDeleted = $autoTitleDeleted;
+        }
 
         return $this;
     }
@@ -720,6 +753,34 @@ class Chart
     {
         if ($roundedCorners !== null) {
             $this->roundedCorners = $roundedCorners;
+        }
+
+        return $this;
+    }
+
+    public function getDate1904(): bool
+    {
+        return $this->date1904;
+    }
+
+    public function setDate1904(?bool $date1904): self
+    {
+        if ($date1904 !== null) {
+            $this->date1904 = $date1904;
+        }
+
+        return $this;
+    }
+
+    public function getLang(): string
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?string $lang): self
+    {
+        if ($lang !== null && $lang !== '') {
+            $this->lang = $lang;
         }
 
         return $this;
@@ -781,5 +842,59 @@ class Chart
         $this->yAxis = clone $this->yAxis;
         $this->borderLines = clone $this->borderLines;
         $this->fillColor = clone $this->fillColor;
+    }
+
+    /** @return array{
+     * b?: numeric-string,
+     * l?: numeric-string,
+     * r?: numeric-string,
+     * t?: numeric-string,
+     * header?: numeric-string,
+     * footer?: numeric-string,
+     * }
+     */
+    public function getPageMargins(): array
+    {
+        return $this->pageMargins;
+    }
+
+    /** @param mixed $pageMargins expecting array matching $this->pageMargins */
+    public function setPageMargins(mixed $pageMargins): self
+    {
+        if (is_array($pageMargins)) {
+            foreach (['b', 'l', 'r', 't', 'header', 'footer'] as $key) {
+                $value = $pageMargins[$key] ?? null;
+                if (is_string($value) && is_numeric($value)) {
+                    $this->pageMargins[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /** @return array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    public function getPageSetup(): array
+    {
+        return $this->pageSetup;
+    }
+
+    /** @param mixed $pageSetup expecting array matching $this->pageSetup */
+    public function setPageSetup(mixed $pageSetup): self
+    {
+        if (is_array($pageSetup)) {
+            foreach (['paperSize', 'orientation'] as $key) {
+                $value = $pageSetup[$key] ?? null;
+                if (is_string($value)) {
+                    $this->pageSetup[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
     }
 }

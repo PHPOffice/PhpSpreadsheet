@@ -205,7 +205,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellSplitRange.php';
     }
 
-    /** @param mixed[] $rangeSets */
+    /** @param array<array<string>> $rangeSets */
     #[DataProvider('providerBuildRange')]
     public function testBuildRange(mixed $expectedResult, array $rangeSets): void
     {

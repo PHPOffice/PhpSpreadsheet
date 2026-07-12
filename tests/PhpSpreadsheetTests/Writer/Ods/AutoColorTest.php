@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\ODS;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

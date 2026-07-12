@@ -333,6 +333,9 @@ class ConditionalStyles
             $attr = $cfvoXml->attributes() ?? [];
             $type = (string) ($attr['type'] ?? '');
             $val = $attr['val'] ?? null;
+            if ($val instanceof SimpleXMLElement) {
+                $val = (string) $val;
+            }
             if ($idx === 0) {
                 $method = 'setMinimumConditionalFormatValueObject';
             } elseif ($idx === 1 && $count === 3) {

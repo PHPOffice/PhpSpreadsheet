@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Composer\Pcre\Preg;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -180,7 +181,7 @@ class Html extends BaseReader
             return false;
         }
 
-        $beginning = preg_replace(self::STARTS_WITH_BOM, '', $this->readBeginning()) ?? '';
+        $beginning = Preg::replace(self::STARTS_WITH_BOM, '', $this->readBeginning());
 
         $startWithTag = self::startsWithTag($beginning);
         $containsTags = self::containsTags($beginning);
@@ -340,13 +341,21 @@ class Html extends BaseReader
 
                     try {
                         if (isset($attributeArray['data-formula'])) {
-                            $sheet->setCellValueExplicit($column . $row, $attributeArray['data-formula'], DataType::TYPE_FORMULA);
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-formula'],
+                                DataType::TYPE_FORMULA
+                            );
                             $sheet->getCell($column . $row)
                                 ->setCalculatedValue(
                                     $cellContent
                                 );
                         } else {
-                            $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-value'] ?? $cellContent,
+                                $attributeArray['data-type']
+                            );
                         }
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
@@ -357,7 +366,7 @@ class Html extends BaseReader
                     if ($sheet->hyperlinkExists($column . $row)) {
                         $hyperlink = $sheet->getHyperlink($column . $row);
                     }
-                    $sheet->setCellValue($column . $row, $cellContent);
+                    $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
                     $sheet->setHyperlink($column . $row, $hyperlink);
                 }
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
@@ -449,7 +458,7 @@ class Html extends BaseReader
                 }
                 if (isset($attributeArray['style'])) {
                     $alignStyle = $attributeArray['style'];
-                    if (preg_match('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches) === 1) {
+                    if (Preg::isMatch('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches)) {
                         $sheet->getComment($column . $row)->setAlignment($matches[1]);
                     }
                 }
@@ -764,7 +773,7 @@ class Html extends BaseReader
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
-                $domText = (string) preg_replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
+                $domText = Preg::replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
                 if ($domText === "\u{a0}") {
                     $domText = '';
                 }
@@ -875,7 +884,7 @@ class Html extends BaseReader
 
                         break;
                     default:
-                        if (preg_match('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches) === 1) {
+                        if (Preg::isMatch('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches)) {
                             match ($matches[1]) {
                                 'bool' => $properties->setCustomProperty($matches[2], (bool) $metaContent, Properties::PROPERTY_TYPE_BOOLEAN),
                                 'float' => $properties->setCustomProperty($matches[2], (float) $metaContent, Properties::PROPERTY_TYPE_FLOAT),
@@ -902,13 +911,12 @@ class Html extends BaseReader
     /** @internal */
     protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
-        if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
+        if (!Preg::isMatch(self::STARTS_WITH_BOM, $convert) && !Preg::isMatch(self::DECLARES_CHARSET, $convert)) {
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable $callback */
-            $callback = [self::class, 'replaceNonAscii'];
-            $convert = preg_replace_callback($regexp, $callback, $convert);
+            // use native preg because of "u" modifier
+            $convert = preg_replace_callback($regexp, self::replaceNonAscii(...), $convert);
         }
 
         return $convert;
@@ -1265,6 +1273,11 @@ class Html extends BaseReader
             if (is_numeric($opacity)) {
                 $drawing->setOpacity((int) ($opacity * 100000));
             }
+        }
+        /** @var string */
+        $transform = $styleArray['transform'] ?? '';
+        if (Preg::isMatch('/rotate[(](-?\d{1,3})deg[)]$/', $transform, $matches)) {
+            $drawing->setRotation((int) $matches[1]);
         }
     }
 
