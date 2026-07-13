@@ -203,12 +203,10 @@ class Cells
                 // so we must also check per-component.
                 continue;
             }
+            // It is likely that setting and testing $row is superfluous
             $row = (int) floor(($indexValue - 1) / AddressRange::MAX_COLUMN_INT) + 1;
-            if ($row < $minRow) {
-                continue;
-            }
             $col = ($indexValue % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
-            if ($col < $minCol) {
+            if ($col < $minCol || $row < $minRow) {
                 continue;
             }
             $result[$coordinate] = $indexValue;
