@@ -51,7 +51,7 @@ class Dompdf extends Pdf
         $pdf->render();
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output() ?? '');
+        fwrite($fileHandle, $pdf->output());
 
         parent::restoreStateAfterSave();
     }
