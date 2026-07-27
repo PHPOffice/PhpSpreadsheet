@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
@@ -43,6 +44,109 @@ class PivotTableBuilderTest extends TestCase
         $pivotSheet->setTitle('Pivot');
 
         return $spreadsheet;
+    }
+
+    private function groupingSpreadsheet(): Spreadsheet
+    {
+        $spreadsheet = new Spreadsheet();
+        $data = $spreadsheet->getActiveSheet();
+        $data->setTitle('Data');
+        $data->fromArray([
+            ['Age', 'OrderDate', 'Region', 'Amount'],
+            [23, '2024-01-15', 'East', 100],
+            [37, '2024-06-20', 'West', 150],
+            [45, '2025-02-10', 'East', 200],
+            [51, '2025-11-05', 'West', 250],
+        ], null, 'A1');
+
+        $pivotSheet = $spreadsheet->createSheet();
+        $pivotSheet->setTitle('Pivot');
+
+        return $spreadsheet;
+    }
+
+    public function testAddPageFieldPlacesFieldOnPageAxis(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $pivotTable = $builder
+            ->addPageField('Region')
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByName('Pivot'), 'A4', 'Filtered');
+
+        self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<pageFields count="1">', $definition);
+        self::assertStringContainsString('<pageField fld="2" hier="-1"/>', $definition);
+        self::assertStringContainsString('axis="axisPage"', $definition);
+
+        $reloaded = (new XlsxReader())->load($outputFile);
+        $pivotTable = $reloaded->getSheetByName('Pivot')->getPivotTableByName('Filtered');
+        self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
+        $reloaded->disconnectWorksheets();
+    }
+
+    public function testNumericRangeGroupingIsEmitted(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByNumericRange('Age', 10.0, 20.0, 60.0)
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'AgeGroups');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<rangePr groupInterval="10" startNum="20" endNum="60"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="20-30"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="&lt;20"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="&gt;60"/>', $cacheDefinition);
+    }
+
+    public function testDateQuarterGroupingIsEmitted(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_QUARTERS)
+            ->addRowField('OrderDate')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'ByQuarter');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('containsDate="1"', $cacheDefinition);
+        self::assertStringContainsString('<rangePr groupBy="quarters"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="Qtr1"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="Qtr4"/>', $cacheDefinition);
+    }
+
+    public function testGroupingRejectsUnknownField(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+
+        $this->expectException(PhpSpreadsheetException::class);
+        $builder->groupFieldByNumericRange('Nonexistent', 10.0);
     }
 
     public function testBuildProducesGeneratedModel(): void

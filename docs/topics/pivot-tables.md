@@ -85,6 +85,34 @@ Supported aggregation functions are the `PivotField::SUBTOTAL_*` constants
 `SUBTOTAL_MIN`, and the statistical variants). At least one data field is
 required.
 
+### Page (report filter) fields
+
+Add a field to the page axis to turn it into a report filter:
+
+```php
+$builder->addPageField('Region');
+```
+
+### Grouping fields
+
+A numeric field can be grouped into fixed-width buckets, and a date field can
+be grouped by a calendar unit. Grouping is declared on the builder before
+`build()`:
+
+```php
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
+
+// Buckets of 10 between 20 and 60: <20, 20-30, ..., 50-60, >60
+$builder->groupFieldByNumericRange('Age', 10, 20, 60);
+
+// Group order dates by quarter (or years/months/...).
+$builder->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_QUARTERS);
+```
+
+The grouping is written into the pivot cache definition; the spreadsheet
+application materialises the grouped buckets when it refreshes the pivot on
+open. Date grouping uses a single calendar unit per field.
+
 ## Object model
 
 - `Worksheet\PivotTable\PivotTable` — a single pivot table: `getName()`,

@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable as WorksheetPivotTable;
 
 /**
@@ -62,6 +63,7 @@ class PivotTable
         self::writePivotFields($objWriter, $pivotTable);
         self::writeAxisFields($objWriter, 'rowFields', $pivotTable->getRowFields());
         self::writeAxisFields($objWriter, 'colFields', $pivotTable->getColumnFields());
+        self::writePageFields($objWriter, $pivotTable->getPageFields());
         self::writeDataFields($objWriter, $pivotTable);
 
         // Style
@@ -115,11 +117,14 @@ class PivotTable
         $objWriter->writeAttribute('count', (string) count($cacheFields));
         foreach ($pivotTable->getFields() as $field) {
             $fieldName = $field->getName();
+            $group = $cache?->getFieldGroup($fieldName);
             $objWriter->startElement('cacheField');
             $objWriter->writeAttribute('name', $fieldName);
             $objWriter->writeAttribute('numFmtId', '0');
 
-            if ($field->isDataField()) {
+            if ($group !== null) {
+                self::writeGroupedCacheField($objWriter, $group);
+            } elseif ($field->isDataField()) {
                 // Numeric value field: describe as containing numbers.
                 $objWriter->startElement('sharedItems');
                 $objWriter->writeAttribute('containsSemiMixedTypes', '0');
@@ -145,6 +150,144 @@ class PivotTable
         $objWriter->endElement(); // pivotCacheDefinition
 
         return $objWriter->getData();
+    }
+
+    /**
+     * Emit the <sharedItems> and <fieldGroup> for a grouped cache field.
+     */
+    private static function writeGroupedCacheField(XMLWriter $objWriter, PivotFieldGroup $group): void
+    {
+        if ($group->isDate()) {
+            self::writeDateGroup($objWriter, $group);
+        } else {
+            self::writeNumericGroup($objWriter, $group);
+        }
+    }
+
+    private static function writeNumericGroup(XMLWriter $objWriter, PivotFieldGroup $group): void
+    {
+        $start = $group->getStartNum() ?? 0.0;
+        $end = $group->getEndNum() ?? ($start + $group->getInterval());
+        $interval = $group->getInterval() > 0 ? $group->getInterval() : 1.0;
+
+        // Source values are numeric.
+        $objWriter->startElement('sharedItems');
+        $objWriter->writeAttribute('containsSemiMixedTypes', '0');
+        $objWriter->writeAttribute('containsString', '0');
+        $objWriter->writeAttribute('containsNumber', '1');
+        $objWriter->writeAttribute('minValue', self::num($start));
+        $objWriter->writeAttribute('maxValue', self::num($end));
+        $objWriter->endElement();
+
+        $objWriter->startElement('fieldGroup');
+        $objWriter->startElement('rangePr');
+        $objWriter->writeAttribute('groupInterval', self::num($interval));
+        $objWriter->writeAttribute('startNum', self::num($start));
+        $objWriter->writeAttribute('endNum', self::num($end));
+        $objWriter->endElement();
+
+        // Group items: "<lower>-<upper>" buckets plus the sentinel bounds Excel
+        // expects (values below the start and above the end).
+        $buckets = [];
+        for ($lower = $start; $lower < $end; $lower += $interval) {
+            $upper = min($lower + $interval, $end);
+            $buckets[] = self::num($lower) . '-' . self::num($upper);
+        }
+        $objWriter->startElement('groupItems');
+        $objWriter->writeAttribute('count', (string) (count($buckets) + 2));
+        self::writeGroupItem($objWriter, '<' . self::num($start));
+        foreach ($buckets as $bucket) {
+            self::writeGroupItem($objWriter, $bucket);
+        }
+        self::writeGroupItem($objWriter, '>' . self::num($end));
+        $objWriter->endElement(); // groupItems
+
+        $objWriter->endElement(); // fieldGroup
+    }
+
+    private static function writeDateGroup(XMLWriter $objWriter, PivotFieldGroup $group): void
+    {
+        $groupByUnits = $group->getGroupBy() === [] ? [PivotFieldGroup::GROUP_BY_MONTHS] : $group->getGroupBy();
+        // Excel groups by a single unit per field; use the first requested unit.
+        $groupBy = $groupByUnits[0];
+
+        $objWriter->startElement('sharedItems');
+        $objWriter->writeAttribute('containsSemiMixedTypes', '0');
+        $objWriter->writeAttribute('containsNonDate', '0');
+        $objWriter->writeAttribute('containsDate', '1');
+        $objWriter->writeAttribute('containsString', '0');
+        if ($group->getStartDate() !== null) {
+            $objWriter->writeAttribute('minDate', $group->getStartDate());
+        }
+        if ($group->getEndDate() !== null) {
+            $objWriter->writeAttribute('maxDate', $group->getEndDate());
+        }
+        $objWriter->endElement();
+
+        $objWriter->startElement('fieldGroup');
+        $objWriter->startElement('rangePr');
+        $objWriter->writeAttribute('groupBy', $groupBy);
+        if ($group->getStartDate() !== null) {
+            $objWriter->writeAttribute('startDate', $group->getStartDate());
+        }
+        if ($group->getEndDate() !== null) {
+            $objWriter->writeAttribute('endDate', $group->getEndDate());
+        }
+        $objWriter->endElement();
+
+        // Provide the standard group item labels for the chosen unit; the
+        // spreadsheet application rebuilds the exact set on refresh.
+        $items = self::dateGroupItems($groupBy);
+        $objWriter->startElement('groupItems');
+        $objWriter->writeAttribute('count', (string) count($items));
+        foreach ($items as $item) {
+            self::writeGroupItem($objWriter, $item);
+        }
+        $objWriter->endElement();
+
+        $objWriter->endElement(); // fieldGroup
+    }
+
+    private static function writeGroupItem(XMLWriter $objWriter, string $value): void
+    {
+        $objWriter->startElement('s');
+        $objWriter->writeAttribute('v', $value);
+        $objWriter->endElement();
+    }
+
+    /**
+     * The canonical group-item labels Excel uses for each date grouping unit.
+     *
+     * @return string[]
+     */
+    private static function dateGroupItems(string $groupBy): array
+    {
+        switch ($groupBy) {
+            case PivotFieldGroup::GROUP_BY_QUARTERS:
+                return ['<1/1/1900', 'Qtr1', 'Qtr2', 'Qtr3', 'Qtr4', '>12/31/9999'];
+            case PivotFieldGroup::GROUP_BY_MONTHS:
+                return [
+                    '<1/1/1900', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '>12/31/9999',
+                ];
+            case PivotFieldGroup::GROUP_BY_YEARS:
+                // Years are enumerated by the application on refresh.
+                return ['<1/1/1900', '>12/31/9999'];
+            default:
+                return ['<1/1/1900', '>12/31/9999'];
+        }
+    }
+
+    /**
+     * Format a float without a trailing ".0" for whole numbers.
+     */
+    private static function num(float $value): string
+    {
+        if ($value === floor($value) && abs($value) < 1.0e15) {
+            return (string) (int) $value;
+        }
+
+        return (string) $value;
     }
 
     /**
@@ -247,6 +390,27 @@ class PivotTable
         foreach ($fields as $field) {
             $objWriter->startElement('field');
             $objWriter->writeAttribute('x', (string) $field->getIndex());
+            $objWriter->endElement();
+        }
+        $objWriter->endElement();
+    }
+
+    /**
+     * @param PivotField[] $fields
+     */
+    private static function writePageFields(XMLWriter $objWriter, array $fields): void
+    {
+        if ($fields === []) {
+            return;
+        }
+
+        $objWriter->startElement('pageFields');
+        $objWriter->writeAttribute('count', (string) count($fields));
+        foreach ($fields as $field) {
+            $objWriter->startElement('pageField');
+            $objWriter->writeAttribute('fld', (string) $field->getIndex());
+            // No item selected -> "(All)"; the hierarchy attribute is required.
+            $objWriter->writeAttribute('hier', '-1');
             $objWriter->endElement();
         }
         $objWriter->endElement();

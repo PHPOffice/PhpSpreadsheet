@@ -44,6 +44,13 @@ class PivotCacheDefinition
      */
     private array $sharedItems = [];
 
+    /**
+     * Grouping configuration per field name, when a field is grouped.
+     *
+     * @var array<string, PivotFieldGroup>
+     */
+    private array $fieldGroups = [];
+
     public function __construct(?int $cacheId = null)
     {
         $this->cacheId = $cacheId;
@@ -137,5 +144,17 @@ class PivotCacheDefinition
     public function getSharedItems(string $fieldName): array
     {
         return $this->sharedItems[$fieldName] ?? [];
+    }
+
+    public function setFieldGroup(string $fieldName, PivotFieldGroup $group): self
+    {
+        $this->fieldGroups[$fieldName] = $group;
+
+        return $this;
+    }
+
+    public function getFieldGroup(string $fieldName): ?PivotFieldGroup
+    {
+        return $this->fieldGroups[$fieldName] ?? null;
     }
 }

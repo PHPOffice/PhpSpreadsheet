@@ -46,6 +46,13 @@ class PivotTableBuilder
     private array $placements = [];
 
     /**
+     * Requested field groupings, keyed by field name.
+     *
+     * @var array<string, PivotFieldGroup>
+     */
+    private array $groups = [];
+
+    /**
      * @param string $sourceRange the source data range including the header row, e.g. "A1:C100"
      */
     public function __construct(Worksheet $sourceWorksheet, string $sourceRange)
@@ -69,6 +76,44 @@ class PivotTableBuilder
     public function addColumnField(string $fieldName): self
     {
         return $this->place($fieldName, PivotField::AXIS_COLUMN, null, null);
+    }
+
+    /**
+     * Place a field on the page (report filter) axis.
+     */
+    public function addPageField(string $fieldName): self
+    {
+        return $this->place($fieldName, PivotField::AXIS_PAGE, null, null);
+    }
+
+    /**
+     * Group a numeric field into fixed-width buckets (e.g. 0-100, 100-200).
+     *
+     * @param float $interval bucket width
+     * @param ?float $startNum lower bound of the first bucket (auto when null)
+     * @param ?float $endNum upper bound of the last bucket (auto when null)
+     */
+    public function groupFieldByNumericRange(string $fieldName, float $interval, ?float $startNum = null, ?float $endNum = null): self
+    {
+        $this->assertFieldExists($fieldName);
+        $this->groups[$fieldName] = PivotFieldGroup::numeric($interval, $startNum, $endNum);
+
+        return $this;
+    }
+
+    /**
+     * Group a date/time field by one or more calendar units.
+     *
+     * @param string|string[] $groupBy one or more PivotFieldGroup::GROUP_BY_* constants
+     * @param ?string $startDate ISO-8601 start (auto when null)
+     * @param ?string $endDate ISO-8601 end (auto when null)
+     */
+    public function groupFieldByDate(string $fieldName, array|string $groupBy, ?string $startDate = null, ?string $endDate = null): self
+    {
+        $this->assertFieldExists($fieldName);
+        $this->groups[$fieldName] = PivotFieldGroup::date($groupBy, $startDate, $endDate);
+
+        return $this;
     }
 
     /**
@@ -97,6 +142,9 @@ class PivotTableBuilder
         $cacheDefinition->setCacheFields($this->fieldNames);
         foreach ($this->fieldNames as $fieldName) {
             $cacheDefinition->setSharedItems($fieldName, $this->distinctValues($fieldName));
+            if (isset($this->groups[$fieldName])) {
+                $cacheDefinition->setFieldGroup($fieldName, $this->groups[$fieldName]);
+            }
         }
 
         $pivotTable = new PivotTable($name);
@@ -126,12 +174,17 @@ class PivotTableBuilder
 
     private function place(string $fieldName, string $axis, ?string $subtotal, ?string $caption): self
     {
-        if (!in_array($fieldName, $this->fieldNames, true)) {
-            throw new PhpSpreadsheetException("Pivot source field '{$fieldName}' does not exist in range {$this->sourceRange}");
-        }
+        $this->assertFieldExists($fieldName);
         $this->placements[$fieldName] = ['axis' => $axis, 'subtotal' => $subtotal, 'caption' => $caption];
 
         return $this;
+    }
+
+    private function assertFieldExists(string $fieldName): void
+    {
+        if (!in_array($fieldName, $this->fieldNames, true)) {
+            throw new PhpSpreadsheetException("Pivot source field '{$fieldName}' does not exist in range {$this->sourceRange}");
+        }
     }
 
     private function assertHasDataField(): void
