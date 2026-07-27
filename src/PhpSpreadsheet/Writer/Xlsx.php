@@ -582,6 +582,9 @@ class Xlsx extends BaseWriter
         // Add pass-through media files (original media that may not be in the drawing collection)
         $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type
 
+        // Add preserved pivot table parts (pivot tables, caches and their rels)
+        $this->addPivotTableFiles($zipContent); // @phpstan-ignore argument.type
+
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
@@ -904,6 +907,45 @@ class Xlsx extends BaseWriter
             }
 
             $sourceZip->close();
+        }
+    }
+
+    /**
+     * Re-add the raw pivot table parts that were preserved on load, so pivot
+     * tables survive a load/save round-trip. Each part is keyed by its original
+     * path within the archive, keeping the relationships between the pivot
+     * table, its cache definition and cache records intact.
+     *
+     * @param array<string, string> $zipContent
+     */
+    private function addPivotTableFiles(array &$zipContent): void
+    {
+        $unparsedLoadedData = $this->spreadSheet->getUnparsedLoadedData();
+
+        // Pivot table parts, referenced from each worksheet's relationships.
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $unparsedLoadedData['sheets'] ?? [];
+        foreach ($sheets as $sheetData) {
+            /** @var array<array<string, string>> $pivotTables */
+            $pivotTables = $sheetData['pivotTables'] ?? [];
+            foreach ($pivotTables as $pivotTable) {
+                $zipContent[$pivotTable['path']] = $pivotTable['content'];
+            }
+        }
+
+        // Pivot cache definitions, referenced from the workbook relationships.
+        /** @var array<string, array<string, string>> $cacheDefinitions */
+        $cacheDefinitions = $unparsedLoadedData['pivotCacheDefinitions'] ?? [];
+        foreach ($cacheDefinitions as $cacheDefinition) {
+            $zipContent[$cacheDefinition['path']] = $cacheDefinition['content'];
+        }
+
+        // Remaining pivot parts (cache records, and the rels for the pivot
+        // table and cache definition parts).
+        /** @var array<string, string> $pivotParts */
+        $pivotParts = $unparsedLoadedData['pivotCacheParts'] ?? [];
+        foreach ($pivotParts as $path => $content) {
+            $zipContent[$path] = $content;
         }
     }
 }

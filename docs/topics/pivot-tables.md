@@ -13,8 +13,9 @@ pivot table's name, where it is placed on the sheet, the source data it draws
 from, and how its fields are laid out.
 
 It does not yet recalculate, render, create or modify pivot tables. When a
-loaded spreadsheet is saved, existing pivot tables are still handled by the
-writer's normal round-trip behaviour; the read model is purely for inspection.
+loaded spreadsheet is saved, existing pivot tables (their table, cache
+definition and cache records parts) are preserved unchanged, so a load/save
+round-trip no longer discards them; the read model is purely for inspection.
 
 ## Reading pivot tables
 

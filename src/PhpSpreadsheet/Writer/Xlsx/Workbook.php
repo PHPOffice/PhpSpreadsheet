@@ -59,10 +59,44 @@ class Workbook extends WriterPart
         // calcPr
         $this->writeCalcPr($objWriter, $preCalculateFormulas, $forceFullCalc);
 
+        // pivotCaches (preserved pivot cache registry)
+        $this->writePivotCaches($objWriter, $spreadsheet);
+
         $objWriter->endElement();
 
         // Return
         return $objWriter->getData();
+    }
+
+    /**
+     * Write the pivotCaches registry, mapping each preserved cache id to the
+     * workbook relationship that points at its cache definition part.
+     */
+    private function writePivotCaches(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    {
+        /** @var array<string, mixed> $unparsedLoadedData */
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
+        /** @var array<array<string, string>> $workbookPivotCaches */
+        $workbookPivotCaches = $unparsedLoadedData['workbookPivotCaches'] ?? [];
+        if ($workbookPivotCaches === []) {
+            return;
+        }
+
+        $relationships = Rels::pivotCacheRelationships($spreadsheet);
+
+        $objWriter->startElement('pivotCaches');
+        foreach ($workbookPivotCaches as $pivotCache) {
+            $rId = '_pivotCacheDef_' . $pivotCache['cacheId'];
+            if (!isset($relationships[$rId])) {
+                continue;
+            }
+            $objWriter->startElement('pivotCache');
+            $objWriter->writeAttribute('cacheId', $pivotCache['cacheId']);
+            // The relationship writer prefixes ids with "rId".
+            $objWriter->writeAttribute('r:id', 'rId' . $rId);
+            $objWriter->endElement();
+        }
+        $objWriter->endElement();
     }
 
     /**
