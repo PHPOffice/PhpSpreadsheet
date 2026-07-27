@@ -7,15 +7,19 @@ aggregate it by placing fields on rows, columns, filters and values.
 
 ## Support
 
-PhpSpreadsheet can currently **read the definition** of pivot tables that
-already exist in an Xlsx file into a read-only object model. It exposes the
-pivot table's name, where it is placed on the sheet, the source data it draws
-from, and how its fields are laid out.
+PhpSpreadsheet can:
 
-It does not yet recalculate, render, create or modify pivot tables. When a
-loaded spreadsheet is saved, existing pivot tables (their table, cache
-definition and cache records parts) are preserved unchanged, so a load/save
-round-trip no longer discards them; the read model is purely for inspection.
+- **read the definition** of pivot tables that already exist in an Xlsx file
+  into a read-only object model (name, location, source data, field layout);
+- **preserve** those pivot tables through a load/save round-trip (their table,
+  cache definition and cache records parts are written back unchanged);
+- **create** a new pivot table from a range of source data.
+
+Created pivot tables are written with *refresh on load* set, so the
+spreadsheet application computes and lays out the value cells when the file is
+opened. PhpSpreadsheet does not itself recalculate or render the pivot, and
+does not yet support page/report filters, grouping or modifying an existing
+(loaded) pivot table.
 
 ## Reading pivot tables
 
@@ -52,6 +56,34 @@ You can also look a pivot table up by name:
 ```php
 $pivotTable = $worksheet->getPivotTableByName('PivotTable1');
 ```
+
+## Creating a pivot table
+
+Use `PivotTableBuilder` to create a pivot table from a source range. The first
+row of the range is treated as the header row and provides the field names.
+
+```php
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder;
+
+$builder = new PivotTableBuilder($dataSheet, 'A1:C100');
+$builder
+    ->addRowField('Region')
+    ->addColumnField('Product')
+    ->addDataField('Amount', PivotField::SUBTOTAL_SUM);
+
+// Place the pivot table at A3 on $pivotSheet and register it.
+$pivotTable = $builder->build($pivotSheet, 'A3', 'SalesPivot');
+```
+
+When the workbook is saved as Xlsx, the cache definition, cache records and
+pivot table parts are generated with *refresh on load* set, so the value cells
+are filled in by the spreadsheet application when the file is opened.
+
+Supported aggregation functions are the `PivotField::SUBTOTAL_*` constants
+(`SUBTOTAL_SUM`, `SUBTOTAL_COUNT`, `SUBTOTAL_AVERAGE`, `SUBTOTAL_MAX`,
+`SUBTOTAL_MIN`, and the statistical variants). At least one data field is
+required.
 
 ## Object model
 

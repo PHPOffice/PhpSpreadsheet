@@ -47,9 +47,28 @@ class PivotTable implements Stringable
      */
     private array $fields = [];
 
+    /**
+     * True when this pivot table was built in memory (rather than loaded from a
+     * file) and therefore must have its OOXML parts generated on save. Loaded
+     * pivot tables keep their original XML and are written back verbatim.
+     */
+    private bool $generated = false;
+
     public function __construct(string $name = '')
     {
         $this->name = $name;
+    }
+
+    public function isGenerated(): bool
+    {
+        return $this->generated;
+    }
+
+    public function setGenerated(bool $generated): self
+    {
+        $this->generated = $generated;
+
+        return $this;
     }
 
     /**

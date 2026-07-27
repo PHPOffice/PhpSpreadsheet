@@ -21,6 +21,20 @@ class PivotField
     const AXIS_VALUES = 'axisValues';
     const AXIS_NONE = '';
 
+    // Aggregation functions for a data (value) field. These map directly to the
+    // dataField@subtotal attribute values defined by the OOXML spec.
+    const SUBTOTAL_SUM = 'sum';
+    const SUBTOTAL_COUNT = 'count';
+    const SUBTOTAL_AVERAGE = 'average';
+    const SUBTOTAL_MAX = 'max';
+    const SUBTOTAL_MIN = 'min';
+    const SUBTOTAL_PRODUCT = 'product';
+    const SUBTOTAL_COUNT_NUMS = 'countNums';
+    const SUBTOTAL_STD_DEV = 'stdDev';
+    const SUBTOTAL_STD_DEV_P = 'stdDevp';
+    const SUBTOTAL_VAR = 'var';
+    const SUBTOTAL_VAR_P = 'varp';
+
     /**
      * Name of the field, taken from the source cache field it maps to.
      */
@@ -46,6 +60,12 @@ class PivotField
      * Null when this is not a data field.
      */
     private ?string $subtotal = null;
+
+    /**
+     * Display caption for a data field (e.g. "Sum of Amount"). Null when this
+     * is not a data field.
+     */
+    private ?string $dataFieldCaption = null;
 
     public function __construct(int $index, string $name = '')
     {
@@ -102,6 +122,18 @@ class PivotField
     public function setSubtotal(?string $subtotal): self
     {
         $this->subtotal = $subtotal;
+
+        return $this;
+    }
+
+    public function getDataFieldCaption(): ?string
+    {
+        return $this->dataFieldCaption;
+    }
+
+    public function setDataFieldCaption(?string $dataFieldCaption): self
+    {
+        $this->dataFieldCaption = $dataFieldCaption;
 
         return $this;
     }

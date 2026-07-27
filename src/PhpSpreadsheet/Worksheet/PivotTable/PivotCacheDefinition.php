@@ -36,6 +36,14 @@ class PivotCacheDefinition
      */
     private array $cacheFields = [];
 
+    /**
+     * Distinct values ("shared items") per field name, used when generating a
+     * cache definition for a newly created pivot table.
+     *
+     * @var array<string, string[]>
+     */
+    private array $sharedItems = [];
+
     public function __construct(?int $cacheId = null)
     {
         $this->cacheId = $cacheId;
@@ -108,5 +116,26 @@ class PivotCacheDefinition
     public function getCacheFieldName(int $index): ?string
     {
         return $this->cacheFields[$index] ?? null;
+    }
+
+    /**
+     * Set the distinct values recorded for a field (used when generating a new
+     * cache definition).
+     *
+     * @param string[] $items
+     */
+    public function setSharedItems(string $fieldName, array $items): self
+    {
+        $this->sharedItems[$fieldName] = array_values($items);
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSharedItems(string $fieldName): array
+    {
+        return $this->sharedItems[$fieldName] ?? [];
     }
 }
