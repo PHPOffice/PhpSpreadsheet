@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PivotTableReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SharedFormula;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
@@ -936,6 +937,10 @@ class Xlsx extends BaseReader
                             }
 
                             $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS, $tableStyles, $dxfs);
+
+                            if ($this->readDataOnly === false) {
+                                $this->readPivotTables($docSheet, $dir, $fileWorksheet, $zip);
+                            }
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
@@ -2623,6 +2628,74 @@ class Xlsx extends BaseReader
                 }
             }
         }
+    }
+
+    /**
+     * Discover the pivot table parts referenced by a worksheet and parse them
+     * into the read-only PivotTable object model. The raw XML parts are still
+     * preserved verbatim for write-back; this only exposes their metadata.
+     */
+    private function readPivotTables(
+        Worksheet $docSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip
+    ): void {
+        $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+        if ($zip->locateName($relationsFileName) === false) {
+            return;
+        }
+
+        $relsWorksheet = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+        foreach ($relsWorksheet->Relationship as $relationship) {
+            $relAttributes = self::getAttributes($relationship, '');
+            if ((string) $relAttributes['Type'] !== Namespaces::RELATIONSHIPS_PIVOT_TABLE) {
+                continue;
+            }
+
+            $pivotTablePath = File::realpath(
+                dirname("$dir/$fileWorksheet") . '/' . (string) $relAttributes['Target']
+            );
+            if (!$this->fileExistsInArchive($this->zip, $pivotTablePath)) {
+                continue;
+            }
+
+            $pivotTableXml = $this->loadZip($pivotTablePath, Namespaces::MAIN);
+            $cacheDefinitionXml = $this->readPivotCacheDefinition($pivotTablePath, $zip);
+
+            (new PivotTableReader($docSheet, $pivotTableXml, $cacheDefinitionXml))->load();
+        }
+    }
+
+    /**
+     * Follow a pivot table part's relationships to load its cache definition
+     * part, if present. Returns null when the cache definition cannot be found.
+     */
+    private function readPivotCacheDefinition(string $pivotTablePath, ZipArchive $zip): ?SimpleXMLElement
+    {
+        $relsFileName = dirname($pivotTablePath) . '/_rels/' . basename($pivotTablePath) . '.rels';
+        if ($zip->locateName($relsFileName) === false) {
+            return null;
+        }
+
+        $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
+        foreach ($rels->Relationship as $relationship) {
+            $relAttributes = self::getAttributes($relationship, '');
+            if ((string) $relAttributes['Type'] !== Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION) {
+                continue;
+            }
+
+            $cachePath = File::realpath(
+                dirname($pivotTablePath) . '/' . (string) $relAttributes['Target']
+            );
+            if (!$this->fileExistsInArchive($this->zip, $cachePath)) {
+                return null;
+            }
+
+            return $this->loadZip($cachePath, Namespaces::MAIN);
+        }
+
+        return null;
     }
 
     /** @return mixed[] */
