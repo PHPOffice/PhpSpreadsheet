@@ -9,7 +9,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\PivotTable;
  * pivot table: which axis it is placed on (row, column, page/filter or data),
  * and, for value fields, which aggregation function is applied.
  *
- * @see \PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable
+ * @see PivotTable
  */
 class PivotField
 {

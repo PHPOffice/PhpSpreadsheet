@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder;
 
 require __DIR__ . '/../Header.php';
 /** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
-
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 $spreadsheet->getProperties()->setTitle('PhpSpreadsheet PivotTable Grouping Sample');

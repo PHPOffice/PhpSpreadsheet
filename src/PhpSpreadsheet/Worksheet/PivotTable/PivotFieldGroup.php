@@ -15,7 +15,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\PivotTable;
  * The grouping is emitted into the pivot cache definition; when the workbook is
  * opened, the spreadsheet application applies it while refreshing the pivot.
  *
- * @see \PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder
+ * @see PivotTableBuilder
  */
 class PivotFieldGroup
 {

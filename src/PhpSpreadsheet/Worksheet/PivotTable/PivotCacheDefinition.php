@@ -9,7 +9,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\PivotTable;
  * worksheet and range) and the list of fields available from that source. A
  * single cache can be shared by more than one pivot table.
  *
- * @see \PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable
+ * @see PivotTable
  */
 class PivotCacheDefinition
 {

@@ -14,8 +14,8 @@ use Stringable;
  * render the pivot, and it does not modify the underlying file - existing pivot
  * tables are still written back verbatim from the preserved source XML.
  *
- * @see \PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition
- * @see \PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField
+ * @see PivotCacheDefinition
+ * @see PivotField
  */
 class PivotTable implements Stringable
 {
