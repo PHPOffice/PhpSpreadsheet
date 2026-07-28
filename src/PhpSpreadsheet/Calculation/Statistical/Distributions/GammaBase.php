@@ -32,6 +32,24 @@ abstract class GammaBase
         $xLo = 0;
         $xHi = $alpha * $beta * 5;
 
+        // Extend the upper bound while it does not yet bracket the root, so a
+        // tail quantile beyond alpha*beta*5 is no longer clamped to it. Stop if
+        // the CDF stops increasing (series approximation past its usable range)
+        // and keep the original bound rather than expanding into that region.
+        $xHiBase = $xHi;
+        $cdfHi = self::calculateDistribution($xHi, $alpha, $beta, true);
+        while ($cdfHi < $probability) {
+            $xHiNext = $xHi * 2;
+            $cdfNext = self::calculateDistribution($xHiNext, $alpha, $beta, true);
+            if ($cdfNext <= $cdfHi) {
+                $xHi = $xHiBase;
+
+                break;
+            }
+            $xHi = $xHiNext;
+            $cdfHi = $cdfNext;
+        }
+
         $dx = 1024;
         $x = $xNew = 1;
         $i = 0;
