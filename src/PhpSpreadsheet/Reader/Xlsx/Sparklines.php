@@ -14,43 +14,34 @@ use SimpleXMLElement;
  */
 class Sparklines extends BaseParserClass
 {
-    /**
-     * The `uri` identifying the sparkline extension element.
-     */
-    public const SPARKLINE_URI = '{05C60535-1F16-4fd2-B633-F4F36F0B64E0}';
-
     private Worksheet $worksheet;
 
     private SimpleXMLElement $worksheetXml;
-
-    /** @var string[] */
-    private array $ns;
 
     public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
-        $this->ns = $worksheetXml->getNamespaces(true);
     }
 
     public function load(): void
     {
-        if (!isset($this->worksheetXml->extLst->ext) || !isset($this->ns['x14'])) {
+        if (!isset($this->worksheetXml->extLst->ext)) {
             return;
         }
 
         foreach ($this->worksheetXml->extLst->ext as $ext) {
             $extAttrs = $ext->attributes() ?? [];
-            if ((string) ($extAttrs['uri'] ?? '') !== self::SPARKLINE_URI) {
+            if ((string) ($extAttrs['uri'] ?? '') !== Namespaces::SPARKLINE_URI) {
                 continue;
             }
 
-            $groups = $ext->children($this->ns['x14'])->sparklineGroups;
+            $groups = $ext->children(Namespaces::DATA_VALIDATIONS1)->sparklineGroups;
             if (!isset($groups)) {
                 continue;
             }
 
-            $groupList = $groups->children($this->ns['x14'])->sparklineGroup ?? null;
+            $groupList = $groups->children(Namespaces::DATA_VALIDATIONS1)->sparklineGroup ?? null;
             if ($groupList === null) {
                 continue;
             }
@@ -110,7 +101,7 @@ class Sparklines extends BaseParserClass
 
     private function readColors(SparklineGroup $group, SimpleXMLElement $groupXml): void
     {
-        $children = $groupXml->children($this->ns['x14']);
+        $children = $groupXml->children(Namespaces::DATA_VALIDATIONS1);
         $group->setColorSeries(self::color($children->colorSeries));
         $group->setColorNegative(self::color($children->colorNegative));
         $group->setColorAxis(self::color($children->colorAxis));
@@ -123,18 +114,18 @@ class Sparklines extends BaseParserClass
 
     private function readSparklines(SparklineGroup $group, SimpleXMLElement $groupXml): void
     {
-        $sparklinesXml = $groupXml->children($this->ns['x14'])->sparklines;
+        $sparklinesXml = $groupXml->children(Namespaces::DATA_VALIDATIONS1)->sparklines;
         if (!isset($sparklinesXml)) {
             return;
         }
 
-        $sparklineList = $sparklinesXml->children($this->ns['x14'])->sparkline ?? null;
+        $sparklineList = $sparklinesXml->children(Namespaces::DATA_VALIDATIONS1)->sparkline ?? null;
         if ($sparklineList === null) {
             return;
         }
 
         foreach ($sparklineList as $sparklineXml) {
-            $xm = $sparklineXml->children($this->ns['xm'] ?? '');
+            $xm = $sparklineXml->children(Namespaces::DATA_VALIDATIONS2);
             $dataRange = isset($xm->f) ? (string) $xm->f : '';
             $location = isset($xm->sqref) ? (string) $xm->sqref : '';
             if ($location === '') {

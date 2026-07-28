@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Sparklines;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -1915,7 +1914,7 @@ class Worksheet extends WriterPart
     private function writeSparklineGroups(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         $objWriter->startElement('ext');
-        $objWriter->writeAttribute('uri', Sparklines::SPARKLINE_URI);
+        $objWriter->writeAttribute('uri', Namespaces::SPARKLINE_URI);
         $objWriter->startElementNs('x14', 'sparklineGroups', null);
         $objWriter->writeAttribute('xmlns:xm', Namespaces::DATA_VALIDATIONS2);
 
