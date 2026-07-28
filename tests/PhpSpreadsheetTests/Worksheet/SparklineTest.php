@@ -80,6 +80,60 @@ class SparklineTest extends TestCase
         self::assertSame('stacked', $group->getType()->value);
     }
 
+    public function testAxisAndDisplayOptions(): void
+    {
+        $group = new SparklineGroup();
+        $group->setMinAxisType(SparklineGroup::AXIS_CUSTOM)
+            ->setMaxAxisType(SparklineGroup::AXIS_GROUP)
+            ->setDisplayFirst(true)
+            ->setDisplayLast(true)
+            ->setDisplayXAxis(true)
+            ->setDisplayHidden(true)
+            ->setRightToLeft(true)
+            ->setDisplayEmptyCellsAs(SparklineGroup::EMPTY_AS_SPAN);
+
+        self::assertSame(SparklineGroup::AXIS_CUSTOM, $group->getMinAxisType());
+        self::assertSame(SparklineGroup::AXIS_GROUP, $group->getMaxAxisType());
+        self::assertTrue($group->getDisplayFirst());
+        self::assertTrue($group->getDisplayLast());
+        self::assertTrue($group->getDisplayXAxis());
+        self::assertTrue($group->getDisplayHidden());
+        self::assertTrue($group->getRightToLeft());
+        self::assertSame(SparklineGroup::EMPTY_AS_SPAN, $group->getDisplayEmptyCellsAs());
+    }
+
+    public function testSetSparklinesReplacesCollection(): void
+    {
+        $group = new SparklineGroup();
+        $group->createSparkline('G2', 'B2:F2');
+        $group->setSparklines([
+            new Sparkline('H2', 'B2:F2'),
+            new Sparkline('H3', 'B3:F3'),
+        ]);
+
+        self::assertCount(2, $group->getSparklines());
+        self::assertSame('H2', $group->getSparklines()[0]->getLocation());
+        self::assertSame('H3', $group->getSparklines()[1]->getLocation());
+    }
+
+    public function testColorGettersAndSetters(): void
+    {
+        $group = new SparklineGroup();
+        $group->setColorNegative('FF112233')
+            ->setColorAxis('FF445566')
+            ->setColorFirst('FF778899')
+            ->setColorLast('FFAABBCC')
+            ->setColorHigh('FFDDEEFF')
+            ->setColorLow('FF010203');
+
+        self::assertSame('FF112233', $group->getColorNegative());
+        self::assertSame('FF445566', $group->getColorAxis());
+        self::assertSame('FF778899', $group->getColorFirst());
+        self::assertSame('FFAABBCC', $group->getColorLast());
+        self::assertSame('FFDDEEFF', $group->getColorHigh());
+        self::assertSame('FF010203', $group->getColorLow());
+    }
+
     public function testWorksheetAddSparkline(): void
     {
         $spreadsheet = new Spreadsheet();

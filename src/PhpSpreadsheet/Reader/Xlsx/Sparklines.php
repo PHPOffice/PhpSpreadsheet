@@ -50,7 +50,12 @@ class Sparklines extends BaseParserClass
                 continue;
             }
 
-            foreach ($groups->children($this->ns['x14'])->sparklineGroup as $groupXml) {
+            $groupList = $groups->children($this->ns['x14'])->sparklineGroup ?? null;
+            if ($groupList === null) {
+                continue;
+            }
+
+            foreach ($groupList as $groupXml) {
                 $group = $this->readGroup($groupXml);
                 if ($group !== null) {
                     $this->worksheet->addSparklineGroup($group);
@@ -123,7 +128,12 @@ class Sparklines extends BaseParserClass
             return;
         }
 
-        foreach ($sparklinesXml->children($this->ns['x14'])->sparkline as $sparklineXml) {
+        $sparklineList = $sparklinesXml->children($this->ns['x14'])->sparkline ?? null;
+        if ($sparklineList === null) {
+            return;
+        }
+
+        foreach ($sparklineList as $sparklineXml) {
             $xm = $sparklineXml->children($this->ns['xm'] ?? '');
             $dataRange = isset($xm->f) ? (string) $xm->f : '';
             $location = isset($xm->sqref) ? (string) $xm->sqref : '';

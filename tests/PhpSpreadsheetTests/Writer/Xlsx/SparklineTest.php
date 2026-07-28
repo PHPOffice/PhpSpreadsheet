@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -109,5 +110,72 @@ class SparklineTest extends TestCase
         unlink($outfile);
 
         self::assertStringNotContainsString('sparklineGroups', $data);
+    }
+
+    public function testAxisAndManualLimitsRoundTrip(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4, 5]], null, 'B2');
+
+        $group = new SparklineGroup();
+        $group->setType(SparklineType::Line)
+            ->setMinAxisType(SparklineGroup::AXIS_CUSTOM)
+            ->setMaxAxisType(SparklineGroup::AXIS_CUSTOM)
+            ->setManualMin(-10.0)
+            ->setManualMax(25.5)
+            ->setLineWeight(2.25)
+            ->setDisplayEmptyCellsAs(SparklineGroup::EMPTY_AS_ZERO)
+            ->createSparkline('G2', 'Sheet1!B2:F2');
+        $sheet->addSparklineGroup($group);
+
+        $outfile = File::temporaryFilename();
+        (new XlsxWriter($spreadsheet))->save($outfile);
+        $spreadsheet->disconnectWorksheets();
+
+        $data = (string) file_get_contents('zip://' . $outfile . '#xl/worksheets/sheet1.xml');
+        self::assertStringContainsString('minAxisType="custom"', $data);
+        self::assertStringContainsString('maxAxisType="custom"', $data);
+        self::assertStringContainsString('manualMin="-10"', $data);
+        self::assertStringContainsString('manualMax="25.5"', $data);
+        // displayEmptyCellsAs="zero" is the writer default and must be omitted.
+        self::assertStringNotContainsString('displayEmptyCellsAs', $data);
+
+        $reloaded = (new XlsxReader())->load($outfile);
+        unlink($outfile);
+
+        $groups = $reloaded->getActiveSheet()->getSparklineGroupCollection()->getArrayCopy();
+        self::assertCount(1, $groups);
+        $reloadedGroup = $groups[0];
+        self::assertSame(SparklineGroup::AXIS_CUSTOM, $reloadedGroup->getMinAxisType());
+        self::assertSame(SparklineGroup::AXIS_CUSTOM, $reloadedGroup->getMaxAxisType());
+        self::assertSame(-10.0, $reloadedGroup->getManualMin());
+        self::assertSame(25.5, $reloadedGroup->getManualMax());
+        self::assertSame(2.25, $reloadedGroup->getLineWeight());
+
+        $reloaded->disconnectWorksheets();
+    }
+
+    public function testReaderIgnoresNonSparklineExt(): void
+    {
+        // A worksheet whose only extLst entry is a data-validation ext (a
+        // different uri) must yield no sparkline groups.
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(1);
+        $validation = $sheet->getCell('A1')->getDataValidation();
+        $validation->setType(DataValidation::TYPE_LIST)
+            ->setFormula1('"a,b,c"')
+            ->setShowDropDown(true);
+
+        $outfile = File::temporaryFilename();
+        (new XlsxWriter($spreadsheet))->save($outfile);
+        $spreadsheet->disconnectWorksheets();
+
+        $reloaded = (new XlsxReader())->load($outfile);
+        unlink($outfile);
+
+        self::assertCount(0, $reloaded->getActiveSheet()->getSparklineGroupCollection());
+        $reloaded->disconnectWorksheets();
     }
 }
