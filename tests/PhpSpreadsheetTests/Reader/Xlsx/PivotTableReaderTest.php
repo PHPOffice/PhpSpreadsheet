@@ -51,7 +51,7 @@ class PivotTableReaderTest extends TestCase
         $reader = new Xlsx();
         $spreadsheet = $reader->load(self::FILENAME);
 
-        $pivotTable = $spreadsheet->getSheetByName('Pivot')->getPivotTableByName('PivotTable1');
+        $pivotTable = $spreadsheet->getSheetByNameOrThrow('Pivot')->getPivotTableByName('PivotTable1');
         self::assertNotNull($pivotTable);
 
         $cache = $pivotTable->getCacheDefinition();
@@ -71,7 +71,7 @@ class PivotTableReaderTest extends TestCase
         $reader = new Xlsx();
         $spreadsheet = $reader->load(self::FILENAME);
 
-        $pivotTable = $spreadsheet->getSheetByName('Pivot')->getPivotTableByName('PivotTable1');
+        $pivotTable = $spreadsheet->getSheetByNameOrThrow('Pivot')->getPivotTableByName('PivotTable1');
         self::assertNotNull($pivotTable);
 
         $fields = $pivotTable->getFields();
@@ -101,20 +101,15 @@ class PivotTableReaderTest extends TestCase
         $reader = new Xlsx();
         $spreadsheet = $reader->load(self::FILENAME);
 
-        $pivotTable = $spreadsheet->getSheetByName('Pivot')->getPivotTableByName('PivotTable1');
+        $pivotTable = $spreadsheet->getSheetByNameOrThrow('Pivot')->getPivotTableByName('PivotTable1');
         self::assertNotNull($pivotTable);
 
-        $names = static fn (array $fields): array => array_map(
-            static fn (PivotField $field): string => $field->getName(),
-            $fields
-        );
+        self::assertSame(['Region'], self::fieldNames($pivotTable->getRowFields()));
+        self::assertSame(['Product'], self::fieldNames($pivotTable->getColumnFields()));
+        self::assertSame([], self::fieldNames($pivotTable->getPageFields()));
+        self::assertSame(['Amount'], self::fieldNames($pivotTable->getDataFields()));
 
-        self::assertSame(['Region'], $names($pivotTable->getRowFields()));
-        self::assertSame(['Product'], $names($pivotTable->getColumnFields()));
-        self::assertSame([], $names($pivotTable->getPageFields()));
-        self::assertSame(['Amount'], $names($pivotTable->getDataFields()));
-
-        self::assertSame(['PivotTable1'], $spreadsheet->getSheetByName('Pivot')->getPivotTableNames());
+        self::assertSame(['PivotTable1'], $spreadsheet->getSheetByNameOrThrow('Pivot')->getPivotTableNames());
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -196,15 +191,33 @@ class PivotTableReaderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
 
         $reloaded = (new Xlsx())->load($outputFile);
-        $pivotTable = $reloaded->getSheetByName('Pivot')->getPivotTableByName('PivotTable1');
+        $pivotTable = $reloaded->getSheetByNameOrThrow('Pivot')->getPivotTableByName('PivotTable1');
 
         self::assertNotNull($pivotTable);
         self::assertSame('A3:D9', $pivotTable->getLocation());
-        self::assertSame('Data', $pivotTable->getCacheDefinition()->getSourceWorksheet());
-        self::assertSame('A1:C5', $pivotTable->getCacheDefinition()->getSourceRange());
-        self::assertSame(['Region', 'Product', 'Amount'], $pivotTable->getCacheDefinition()->getCacheFields());
+
+        $cache = $pivotTable->getCacheDefinition();
+        self::assertNotNull($cache);
+        self::assertSame('Data', $cache->getSourceWorksheet());
+        self::assertSame('A1:C5', $cache->getSourceRange());
+        self::assertSame(['Region', 'Product', 'Amount'], $cache->getCacheFields());
 
         $reloaded->disconnectWorksheets();
+    }
+
+    /**
+     * @param PivotField[] $fields
+     *
+     * @return string[]
+     */
+    private static function fieldNames(array $fields): array
+    {
+        $names = [];
+        foreach ($fields as $field) {
+            $names[] = $field->getName();
+        }
+
+        return $names;
     }
 
     private function save(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet): string

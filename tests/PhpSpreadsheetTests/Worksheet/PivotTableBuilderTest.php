@@ -68,12 +68,12 @@ class PivotTableBuilderTest extends TestCase
     public function testAddPageFieldPlacesFieldOnPageAxis(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
         $pivotTable = $builder
             ->addPageField('Region')
             ->addRowField('Age')
             ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A4', 'Filtered');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A4', 'Filtered');
 
         self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
 
@@ -89,7 +89,8 @@ class PivotTableBuilderTest extends TestCase
         self::assertStringContainsString('axis="axisPage"', $definition);
 
         $reloaded = (new XlsxReader())->load($outputFile);
-        $pivotTable = $reloaded->getSheetByName('Pivot')->getPivotTableByName('Filtered');
+        $pivotTable = $reloaded->getSheetByNameOrThrow('Pivot')->getPivotTableByName('Filtered');
+        self::assertNotNull($pivotTable);
         self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
         $reloaded->disconnectWorksheets();
     }
@@ -97,12 +98,12 @@ class PivotTableBuilderTest extends TestCase
     public function testNumericRangeGroupingIsEmitted(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
         $builder
             ->groupFieldByNumericRange('Age', 10.0, 20.0, 60.0)
             ->addRowField('Age')
             ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'AgeGroups');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'AgeGroups');
 
         $outputFile = $this->save($spreadsheet);
 
@@ -120,12 +121,12 @@ class PivotTableBuilderTest extends TestCase
     public function testDateQuarterGroupingIsEmitted(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
         $builder
             ->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_QUARTERS)
             ->addRowField('OrderDate')
             ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'ByQuarter');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'ByQuarter');
 
         $outputFile = $this->save($spreadsheet);
 
@@ -143,7 +144,7 @@ class PivotTableBuilderTest extends TestCase
     public function testGroupingRejectsUnknownField(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:D5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
 
         $this->expectException(PhpSpreadsheetException::class);
         $builder->groupFieldByNumericRange('Nonexistent', 10.0);
@@ -152,8 +153,8 @@ class PivotTableBuilderTest extends TestCase
     public function testBuildProducesGeneratedModel(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $data = $spreadsheet->getSheetByName('Data');
-        $pivotSheet = $spreadsheet->getSheetByName('Pivot');
+        $data = $spreadsheet->getSheetByNameOrThrow('Data');
+        $pivotSheet = $spreadsheet->getSheetByNameOrThrow('Pivot');
 
         $builder = new PivotTableBuilder($data, 'A1:C5');
         $pivotTable = $builder
@@ -182,17 +183,17 @@ class PivotTableBuilderTest extends TestCase
     public function testBuildRequiresADataField(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:C5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
         $builder->addRowField('Region');
 
         $this->expectException(PhpSpreadsheetException::class);
-        $builder->build($spreadsheet->getSheetByName('Pivot'), 'A3');
+        $builder->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3');
     }
 
     public function testBuildRejectsUnknownField(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:C5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
 
         $this->expectException(PhpSpreadsheetException::class);
         $builder->addRowField('Nonexistent');
@@ -201,12 +202,12 @@ class PivotTableBuilderTest extends TestCase
     public function testGeneratedPivotIsWrittenAndReadableAgain(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:C5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
         $builder
             ->addRowField('Region')
             ->addColumnField('Product')
             ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'SalesPivot');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'SalesPivot');
 
         $outputFile = $this->save($spreadsheet);
 
@@ -216,10 +217,12 @@ class PivotTableBuilderTest extends TestCase
         self::assertContains('xl/pivotCache/pivotCacheRecords1.xml', $parts);
 
         $reloaded = (new XlsxReader())->load($outputFile);
-        $pivotTable = $reloaded->getSheetByName('Pivot')->getPivotTableByName('SalesPivot');
+        $pivotTable = $reloaded->getSheetByNameOrThrow('Pivot')->getPivotTableByName('SalesPivot');
         self::assertNotNull($pivotTable);
-        self::assertSame('Data', $pivotTable->getCacheDefinition()->getSourceWorksheet());
-        self::assertSame('A1:C5', $pivotTable->getCacheDefinition()->getSourceRange());
+        $cache = $pivotTable->getCacheDefinition();
+        self::assertNotNull($cache);
+        self::assertSame('Data', $cache->getSourceWorksheet());
+        self::assertSame('A1:C5', $cache->getSourceRange());
         self::assertSame(['Region'], $this->fieldNames($pivotTable->getRowFields()));
         self::assertSame(['Amount'], $this->fieldNames($pivotTable->getDataFields()));
 
@@ -229,11 +232,11 @@ class PivotTableBuilderTest extends TestCase
     public function testGeneratedPivotWiringIsConsistent(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:C5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
         $builder
             ->addRowField('Region')
             ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'SalesPivot');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'SalesPivot');
 
         $outputFile = $this->save($spreadsheet);
 
@@ -255,11 +258,11 @@ class PivotTableBuilderTest extends TestCase
     public function testAverageAggregationEmitsSubtotalAttribute(): void
     {
         $spreadsheet = $this->sampleSpreadsheet();
-        $builder = new PivotTableBuilder($spreadsheet->getSheetByName('Data'), 'A1:C5');
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
         $builder
             ->addRowField('Region')
             ->addDataField('Amount', PivotField::SUBTOTAL_AVERAGE)
-            ->build($spreadsheet->getSheetByName('Pivot'), 'A3', 'AvgPivot');
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'AvgPivot');
 
         $outputFile = $this->save($spreadsheet);
 
