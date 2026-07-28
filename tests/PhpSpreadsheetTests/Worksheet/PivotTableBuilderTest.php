@@ -141,6 +141,70 @@ class PivotTableBuilderTest extends TestCase
         self::assertStringContainsString('<s v="Qtr4"/>', $cacheDefinition);
     }
 
+    public function testDateMonthGroupingIsEmitted(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_MONTHS)
+            ->addRowField('OrderDate')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'ByMonth');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<rangePr groupBy="months"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="Jan"/>', $cacheDefinition);
+        self::assertStringContainsString('<s v="Dec"/>', $cacheDefinition);
+    }
+
+    public function testDateYearGroupingIsEmitted(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_YEARS)
+            ->addRowField('OrderDate')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'ByYear');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<rangePr groupBy="years"/>', $cacheDefinition);
+    }
+
+    public function testNumericGroupingWithFractionalIntervalIsEmitted(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByNumericRange('Amount', 2.5, 0.0, 5.0)
+            ->addRowField('Amount')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'FractionGroups');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        // Fractional interval must keep its decimal (num() non-integer path).
+        self::assertStringContainsString('groupInterval="2.5"', $cacheDefinition);
+        self::assertStringContainsString('<s v="0-2.5"/>', $cacheDefinition);
+    }
+
     public function testGroupingRejectsUnknownField(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();
@@ -273,6 +337,15 @@ class PivotTableBuilderTest extends TestCase
 
         self::assertStringContainsString('subtotal="average"', $definition);
         self::assertStringContainsString('name="Average of Amount"', $definition);
+
+        // Reading the file back must recover the explicit subtotal attribute.
+        $reloaded = (new XlsxReader())->load($outputFile);
+        $pivotTable = $reloaded->getSheetByNameOrThrow('Pivot')->getPivotTableByName('AvgPivot');
+        self::assertNotNull($pivotTable);
+        $dataFields = $pivotTable->getDataFields();
+        self::assertCount(1, $dataFields);
+        self::assertSame(PivotField::SUBTOTAL_AVERAGE, $dataFields[0]->getSubtotal());
+        $reloaded->disconnectWorksheets();
     }
 
     /**

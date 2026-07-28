@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
@@ -80,6 +81,34 @@ class PivotTableModelTest extends TestCase
 
         self::assertSame('MyPivot', (string) $pivotTable);
         self::assertSame('MyPivot', $pivotTable->__toString());
+    }
+
+    public function testWorksheetPivotTableCollection(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        self::assertCount(0, $worksheet->getPivotTableCollection());
+        self::assertSame([], $worksheet->getPivotTableNames());
+        self::assertNull($worksheet->getPivotTableByName('Missing'));
+
+        $pivotTable = new PivotTable('First');
+        self::assertSame($worksheet, $worksheet->addPivotTable($pivotTable));
+
+        // addPivotTable attaches the worksheet to the pivot table.
+        self::assertSame($worksheet, $pivotTable->getWorksheet());
+
+        // getPivotTables() is an alias of getPivotTableCollection().
+        self::assertCount(1, $worksheet->getPivotTables());
+        self::assertSame(['First'], $worksheet->getPivotTableNames());
+        self::assertSame($pivotTable, $worksheet->getPivotTableByName('First'));
+        // Name lookup is case-insensitive.
+        self::assertSame($pivotTable, $worksheet->getPivotTableByName('FIRST'));
+
+        self::assertSame($worksheet, $worksheet->removePivotTableCollection());
+        self::assertCount(0, $worksheet->getPivotTableCollection());
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testPivotFieldSetters(): void
