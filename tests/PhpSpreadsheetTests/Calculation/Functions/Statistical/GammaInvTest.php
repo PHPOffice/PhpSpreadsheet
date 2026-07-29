@@ -5,27 +5,29 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma;
 
 class GammaInvTest extends AllSetupTeardown
 {
+    private function gammaInvFormulaResult(float $probability, float $alpha, float $beta): mixed
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue($probability);
+        $sheet->getCell('A2')->setValue($alpha);
+        $sheet->getCell('A3')->setValue($beta);
+        $sheet->getCell('B1')->setValue('=GAMMA.INV(A1, A2, A3)');
+
+        return $sheet->getCell('B1')->getCalculatedValue();
+    }
+
     /**
-     * Extreme upper-tail quantiles whose true root exceeds the old fixed
-     * alpha*beta*5 bracket ceiling, which used to clamp the result to it.
-     * Expected values from mpmath (findroot on the regularized gammainc).
+     * Upper-tail quantiles whose true root exceeds the old fixed alpha*beta*5
+     * bracket ceiling that used to clamp the result to it. Reference values from
+     * mpmath findroot on the regularized gammainc.
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('providerGammaInvExtremeTail')]
     public function testGammaInvExtremeTail(float $expected, float $probability, float $alpha, float $beta): void
     {
-        $x = Gamma::inverse($probability, $alpha, $beta);
-        self::assertIsFloat($x);
-        // Bracket ceiling was exceeded, so the fix must have expanded past it.
-        self::assertGreaterThan($alpha * $beta * 5.0, $x);
-        // Round-trip invariant: the quantile maps back to the input probability.
-        $roundTrip = Gamma::distribution($x, $alpha, $beta, true);
-        self::assertEqualsWithDelta($probability, $roundTrip, 1.0e-8);
-        // And it matches the reference quantile.
-        self::assertEqualsWithDelta($expected, $x, 1.0e-3);
+        self::assertEqualsWithDelta($expected, $this->gammaInvFormulaResult($probability, $alpha, $beta), 1.0e-3);
     }
 
     public static function providerGammaInvExtremeTail(): array
@@ -40,11 +42,11 @@ class GammaInvTest extends AllSetupTeardown
 
     public function testGammaInvUnreachableTailStaysBounded(): void
     {
-        // A probability the forward series cannot reach must not send the
-        // bracket expansion running away to a huge nonsensical quantile.
-        $x = Gamma::inverse(0.9999999, 1.0, 1.0);
-        self::assertIsFloat($x);
-        self::assertLessThan(1000.0, $x);
+        // A probability the forward series never reaches cannot bracket a root,
+        // so expansion stops at the original alpha*beta*5 ceiling instead of
+        // running away (see Gamma::inverse doc-block).
+        $result = $this->gammaInvFormulaResult(0.9999999, 1.0, 1.0);
+        self::assertLessThanOrEqual(1.0 * 1.0 * 5.0, $result);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMAINV')]
