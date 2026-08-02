@@ -365,8 +365,7 @@ class Worksheet
      */
     public function disconnectCells(): void
     {
-        // isset needed to avoid problems at destruct time
-        if (isset($this->cellCollection)) { //* @phpstan-ignore-line
+        if (isset($this->cellCollection)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             $this->cellCollection->unsetWorksheetCells();
             unset($this->cellCollection);
         }
@@ -465,8 +464,7 @@ class Worksheet
      */
     public function getCoordinates(bool $sorted = true): array
     {
-        // isset needed to avoid problems at destruct time
-        if (!isset($this->cellCollection)) { //* @phpstan-ignore-line
+        if (!isset($this->cellCollection)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             return [];
         }
 

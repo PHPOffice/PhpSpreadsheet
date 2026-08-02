@@ -55,11 +55,15 @@ if (isset($_POST['submit'])) {
         try {
             $wizard = new Wizard\Number((int) $_POST['decimals'], isset($_POST['thousands']));
             $mask = $wizard->format();
-            $example = NumberFormat::toFormattedString((float) $_POST['number'], $mask);
+            /** @var string */
+            $postNumber = $_POST['number'];
+            /** @var float|int|string */
+            $postDecimals = $_POST['decimals'];
+            $example = NumberFormat::toFormattedString((float) $postNumber, $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$mask = Wizard\\Number({$_POST['decimals']}, Wizard\\Number::"
+                "\$mask = Wizard\\Number({$postDecimals}, Wizard\\Number::"
                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
                 . ');<br />'
             );

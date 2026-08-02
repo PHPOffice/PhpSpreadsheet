@@ -580,7 +580,7 @@ class Xlsx extends BaseWriter
         }
 
         // Add pass-through media files (original media that may not be in the drawing collection)
-        $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type
+        $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type (zipContent should be string[] but might be mised[])
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

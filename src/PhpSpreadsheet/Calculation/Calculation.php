@@ -554,7 +554,7 @@ class Calculation extends CalculationLocale
                     $value
                 );
             }
-            $result = self::unwrapResult($this->_calculateFormulaValue($value, $cell->getCoordinate(), $cell)); //* @phpstan-ignore-line
+            $result = self::unwrapResult($this->_calculateFormulaValue($value, $cell->getCoordinate(), $cell)); //* @phpstan-ignore argument.type ($value can be mixed not string)
             if ($this->spreadsheet === null) {
                 throw new Exception('null spreadsheet in calculateCellValue');
             }
@@ -574,7 +574,7 @@ class Calculation extends CalculationLocale
                 $cellAddress = array_pop($this->cellStack);
             }
             if ($this->spreadsheet !== null && is_array($cellAddress) && array_key_exists('sheet', $cellAddress)) {
-                $sheetName = $cellAddress['sheet'] ?? null;
+                $sheetName = $cellAddress['sheet'];
                 $testSheet = is_string($sheetName) ? $this->spreadsheet->getSheetByName($sheetName) : null;
                 if ($testSheet !== null && array_key_exists('cell', $cellAddress)) {
                     /** @var array{cell: string} $cellAddress */
@@ -989,7 +989,7 @@ class Calculation extends CalculationLocale
                 $pad = $rpad = ', ';
                 foreach ($value as $row) {
                     if (is_array($row)) {
-                        $returnMatrix[] = implode($pad, array_map([$this, 'showValue'], $row)); // @phpstan-ignore-line
+                        $returnMatrix[] = implode($pad, array_map([$this, 'showValue'], $row)); // @phpstan-ignore argument.type (array_map can theoretically return array<mixed> not array<string>)
                         $rpad = '; ';
                     } else {
                         $returnMatrix[] = $this->showValue($row);
@@ -1570,7 +1570,7 @@ class Calculation extends CalculationLocale
                         // unescape any apostrophes or double quotes in worksheet name
                         $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $column = 'A';
-                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore-line
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore booleanAnd.alwaysFalse (testPrevop must be non-null), booleanAnd.alwaysFalse (ditto), identical.alwaysFalse (ditto)
                             $column = $pCellParent->getHighestDataColumn($val);
                         }
                         $val = "{$rowRangeReference[2]}{$column}{$rowRangeReference[7]}";
@@ -1584,7 +1584,7 @@ class Calculation extends CalculationLocale
                         // unescape any apostrophes or double quotes in worksheet name
                         $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $row = '1';
-                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore-line
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) { // @phpstan-ignore booleanAnd.alwaysFalse (testPrevOp must be non-null?), booleanAnd.alwaysFalse (ditto), identical.alwaysFalse (ditto)
                             $row = $pCellParent->getHighestDataRow($val);
                         }
                         $val = "{$val}{$row}";
@@ -1735,7 +1735,7 @@ class Calculation extends CalculationLocale
         foreach ($tokens as $tokenIdx => $tokenData) {
             /** @var mixed[] $tokenData */
             $this->processingAnchorArray = false;
-            if ($tokenData['type'] === 'Cell Reference' && isset($tokens[$tokenIdx + 1]) && $tokens[$tokenIdx + 1]['type'] === 'Operand Count for Function ANCHORARRAY()') { //* @phpstan-ignore-line
+            if ($tokenData['type'] === 'Cell Reference' && isset($tokens[$tokenIdx + 1]) && $tokens[$tokenIdx + 1]['type'] === 'Operand Count for Function ANCHORARRAY()') { //* @phpstan-ignore offsetAccess.nonOffsetAccessible ($tokens might be mixed not array)
                 $this->processingAnchorArray = true;
             }
             $token = $tokenData['value'];
@@ -1837,7 +1837,7 @@ class Calculation extends CalculationLocale
                         return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                     }
                 }
-            } elseif (!is_numeric($token) && !is_object($token) && isset($token, self::BINARY_OPERATORS[$token])) { //* @phpstan-ignore-line
+            } elseif (!is_numeric($token) && !is_object($token) && isset($token, self::BINARY_OPERATORS[$token])) { //* @phpstan-ignore offsetAccess.invalidOffset ($token is mixed)
                 // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
                 //    We must have two operands, error if we don't
                 $operand2Data = $stack->pop();
@@ -2026,7 +2026,7 @@ class Calculation extends CalculationLocale
                             } elseif (Information\ErrorValue::isError($operand2)) {
                                 $result = $operand2;
                             } else {
-                                $result = str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)); //* @phpstan-ignore-line
+                                $result = str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)); //* @phpstan-ignore binaryOp.invalid (unwrapresult can return mixed rather than string)
                                 $result = StringHelper::substring(
                                     $result,
                                     0,
@@ -2059,8 +2059,8 @@ class Calculation extends CalculationLocale
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
                             $stack->push('Error', ExcelError::null(), null);
                         } else {
-                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' // @phpstan-ignore-line
-                                . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow); // @phpstan-ignore-line
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' // @phpstan-ignore argument.type ($oCol or $oRow might be empty), argument.type (ditto)
+                                . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow); // @phpstan-ignore argument.type ($oCol or $oRow might be empty), argument.type (ditto)
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
                             $stack->push('Value', $cellIntersect, $cellRef);
                         }
@@ -2075,13 +2075,13 @@ class Calculation extends CalculationLocale
 
                         break;
                 }
-            } elseif (($token === '~') || ($token === '%')) { // @phpstan-ignore-line
+            } elseif (($token === '~') || ($token === '%')) { // @phpstan-ignore booleanOr.alwaysFalse (phpstan says token can't be plain string), identical.alwaysFalse (ditto), identical.alwaysFalse (ditto)
                 // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
                 $arg = $arg['value'];
-                if ($token === '~') { // @phpstan-ignore-line
+                if ($token === '~') { // @phpstan-ignore identical.alwaysFalse (phpstan says token can't be plain string)
                     $this->debugLog->writeDebugLog('Evaluating Negation of %s', $this->showValue($arg));
                     $multiplier = -1;
                 } else {
@@ -2255,7 +2255,7 @@ class Calculation extends CalculationLocale
                         $a = $argCount - $i - 1;
                         if (
                             ($passByReference)
-                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) //* @phpstan-ignore-line
+                            && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) //* @phpstan-ignore offsetAccess.nonOffsetAccessible (possibly need to pass 2 arguments to isset)
                             && ($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
                         ) {
                             /** @var mixed[] $arg */
@@ -2322,7 +2322,7 @@ class Calculation extends CalculationLocale
                     if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
-                            $this->debugLog->writeDebugLog('Evaluating %s ( %s )', self::localeFunc($functionName), implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals))); // @phpstan-ignore-line
+                            $this->debugLog->writeDebugLog('Evaluating %s ( %s )', self::localeFunc($functionName), implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals))); // @phpstan-ignore argument.type (flattenArray returns array<mixed> rather than array<string>)
                         }
                     }
 
@@ -2367,7 +2367,7 @@ class Calculation extends CalculationLocale
                         $branchStore[$storeKey] = self::EXCEL_CONSTANTS[$excelConstant];
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::EXCEL_CONSTANTS[$excelConstant]));
-                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) { //* @phpstan-ignore-line
+                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) { //* @phpstan-ignore function.alreadyNarrowedType (phpstan says is_bool has argument of *NEVER*?)
                     /** @var array{type: string, reference: ?string} $tokenData */
                     $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {

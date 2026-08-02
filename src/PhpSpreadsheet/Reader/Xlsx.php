@@ -2079,7 +2079,7 @@ class Xlsx extends BaseReader
                         $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
                         $cell->setXfIndex($cAttrS);
                         // issue 3495
-                        if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
+                        if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore property.notFound (quotePrefix does exist)
                             $holdSelected = $docSheet->getSelectedCells();
                             $cell->getStyle()->setQuotePrefix(false);
                             $docSheet->setSelectedCells($holdSelected);

@@ -380,7 +380,7 @@ class Xls extends XlsBase
         // get excel data,
         $ole->read($filename);
         // Get workbook data: workbook stream + sheet streams
-        $this->data = $ole->getStream($ole->wrkbook); // @phpstan-ignore-line
+        $this->data = $ole->getStream($ole->wrkbook) ?? '';
         // Get summary information data
         $this->summaryInformation = $ole->getStream($ole->summaryInformation);
         // Get additional document summary information data

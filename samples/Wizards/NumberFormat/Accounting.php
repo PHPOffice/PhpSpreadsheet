@@ -82,11 +82,17 @@ if (isset($_POST['submit'])) {
         try {
             $wizard = new Wizard\Accounting($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $mask = $wizard->format();
-            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
+            /** @var string */
+            $postNumber = $_POST['number'];
+            /** @var float|int|string */
+            $postCurrency = $_POST['currency'];
+            /** @var float|int|string */
+            $postDecimals = $_POST['decimals'];
+            $example = (string) NumberFormat::toFormattedString((float) $postNumber, $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$wizard = new Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                "\$wizard = new Wizard\\Accounting('{$postCurrency}', {$postDecimals}, Wizard\\Number::"
                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
                 . ');'

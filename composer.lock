@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d95c700ec52d900d2d33286a69c5532",
+    "content-hash": "0435c8015d54739cb85a8f1579c57fc7",
     "packages": [
         {
             "name": "composer/pcre",
@@ -626,16 +626,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496"
+                "reference": "6d4b4eb8500f7a786da8868ba463a71b725a4005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496",
-                "reference": "f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/6d4b4eb8500f7a786da8868ba463a71b725a4005",
+                "reference": "6d4b4eb8500f7a786da8868ba463a71b725a4005",
                 "shasum": ""
             },
             "require": {
@@ -684,9 +684,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v3.1.5"
+                "source": "https://github.com/dompdf/dompdf/tree/v3.1.6"
             },
-            "time": "2026-03-03T13:54:37+00:00"
+            "time": "2026-07-20T12:29:38+00:00"
         },
         {
             "name": "dompdf/php-font-lib",
@@ -1707,11 +1707,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.3",
+            "version": "2.2.7",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4048833dd47b377287818841877fb3087289509c",
-                "reference": "4048833dd47b377287818841877fb3087289509c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/692db47b9dddb0487934e5236e77d48594aef921",
+                "reference": "692db47b9dddb0487934e5236e77d48594aef921",
                 "shasum": ""
             },
             "require": {
@@ -1767,20 +1767,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-30T21:15:26+00:00"
+            "time": "2026-07-29T17:39:32+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "6b5571001a7f04fa0422254c30a0017ec2f2cacc"
+                "reference": "67bedd65c24bc72840afc45aed48b1059dd44bec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/6b5571001a7f04fa0422254c30a0017ec2f2cacc",
-                "reference": "6b5571001a7f04fa0422254c30a0017ec2f2cacc",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/67bedd65c24bc72840afc45aed48b1059dd44bec",
+                "reference": "67bedd65c24bc72840afc45aed48b1059dd44bec",
                 "shasum": ""
             },
             "require": {
@@ -1790,7 +1790,8 @@
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
                 "phpstan/phpstan-phpunit": "^2.0",
-                "phpunit/phpunit": "^9.6"
+                "phpunit/phpunit": "^9.6",
+                "shipmonk/name-collision-detector": "^2.1"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -1815,22 +1816,22 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.4"
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/2.0.5"
             },
-            "time": "2026-02-09T13:21:14+00:00"
+            "time": "2026-07-22T06:50:43+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "2.0.17",
+            "version": "2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "c2f977551f0736d60467b3d754b2e0cf4e337b3f"
+                "reference": "f5dc20ff8082d02339b60cab68ec3eb0d859fb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/c2f977551f0736d60467b3d754b2e0cf4e337b3f",
-                "reference": "c2f977551f0736d60467b3d754b2e0cf4e337b3f",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/f5dc20ff8082d02339b60cab68ec3eb0d859fb30",
+                "reference": "f5dc20ff8082d02339b60cab68ec3eb0d859fb30",
                 "shasum": ""
             },
             "require": {
@@ -1873,9 +1874,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.17"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.18"
             },
-            "time": "2026-06-29T05:32:23+00:00"
+            "time": "2026-07-04T12:16:09+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

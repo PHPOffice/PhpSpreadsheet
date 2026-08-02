@@ -90,15 +90,13 @@ class Worksheet extends BIFFwriter
 
     /**
      * Whether to have outline summary below.
-     * Not currently used.
      */
-    private bool $outlineBelow; //* @phpstan-ignore-line
+    private bool $outlineBelow; //* @phpstan-ignore property.onlyWritten (not currently used)
 
     /**
      * Whether to have outline summary at the right.
-     * Not currently used.
      */
-    private bool $outlineRight; //* @phpstan-ignore-line
+    private bool $outlineRight; //* @phpstan-ignore property.onlyWritten (not currently used)
 
     /**
      * Reference to the total number of strings in the workbook.
@@ -432,7 +430,7 @@ class Worksheet extends BIFFwriter
                             match ($calctype) {
                                 'integer', 'double' => $this->writeNumber($row, $column, is_numeric($calculatedValue) ? ((float) $calculatedValue) : 0.0, $xfIndex),
                                 'string' => $this->writeString($row, $column, $calculatedValueString, $xfIndex),
-                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex), // @phpstan-ignore-line
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex), // @phpstan-ignore cast.int (calculatedValue should be bool but phpstan considers it mixed)
                                 default => $this->writeString($row, $column, $cell->getValueString(), $xfIndex),
                             };
                         }
@@ -1342,8 +1340,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeColinfo(array $col_array): void
     {
-        $colFirst = $col_array[0] ?? null;
-        $colLast = $col_array[1] ?? null;
+        $colFirst = $col_array[0] ?? null; //* @phpstan-ignore nullCoalesce.unnecessary (I think Phpstan is wrong)
+        $colLast = $col_array[1] ?? null; //* @phpstan-ignore nullCoalesce.unnecessary (I think Phpstan is wrong)
         $coldx = $col_array[2] ?? 8.43;
         $xfIndex = $col_array[3] ?? 15;
         $grbit = $col_array[4] ?? 0;

@@ -60,7 +60,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             // Check for currency
             if (preg_match(FormattedNumber::currencyMatcherRegexp(), (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $matches, PREG_UNMATCHED_AS_NULL)) {
                 // Convert value to number
-                $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null;
+                $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null; //* @phpstan-ignore nullCoalesce.unnecessary (Not sure whether Phpstan is correct)
                 $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'] ?? '';
                 /** @var string */
                 $temp = str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], (string) preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value));

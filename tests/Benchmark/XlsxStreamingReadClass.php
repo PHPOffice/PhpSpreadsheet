@@ -272,7 +272,7 @@ class XlsxStreamingReadClass extends Xlsx
                             if (!$this->readDataOnly) {
                                 $cAttrS = isset($styles[$styleIndex]) ? $styleIndex : 0;
                                 $cell->setXfIndex($cAttrS);
-                                if ($cellDataType === DataType::TYPE_FORMULA && isset($styles[$cAttrS]) && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
+                                if ($cellDataType === DataType::TYPE_FORMULA && isset($styles[$cAttrS]) && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore property.notFound (Phpstan thinks quotePrefix doesn't exist)
                                     $holdSelected = $docSheet->getSelectedCells(); // @codeCoverageIgnore
                                     $cell->getStyle()->setQuotePrefix(false); // @codeCoverageIgnore
                                     $docSheet->setSelectedCells($holdSelected); // @codeCoverageIgnore
