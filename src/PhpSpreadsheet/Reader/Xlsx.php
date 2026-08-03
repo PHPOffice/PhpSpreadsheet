@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SharedFormula;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Sparklines;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\TableReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
@@ -983,6 +984,10 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
                                 (new DataValidations($docSheet, $xmlSheet))->load();
+                            }
+
+                            if ($xmlSheet && !$this->readDataOnly) {
+                                (new Sparklines($docSheet, $xmlSheet))->load();
                             }
 
                             // unparsed sheet AlternateContent
