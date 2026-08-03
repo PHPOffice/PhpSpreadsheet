@@ -205,34 +205,41 @@ class PivotTable
         $objWriter->endElement(); // fieldGroup
     }
 
+    /**
+     * Excel sentinel bounds for an auto-ranged date grouping. These match the
+     * out-of-range group item labels ("<1/1/1900" and ">12/31/9999") that the
+     * spreadsheet application expects for every date field group.
+     */
+    private const DATE_GROUP_MIN = '1900-01-01T00:00:00';
+    private const DATE_GROUP_MAX = '9999-12-31T00:00:00';
+
     private static function writeDateGroup(XMLWriter $objWriter, PivotFieldGroup $group): void
     {
         $groupByUnits = $group->getGroupBy() === [] ? [PivotFieldGroup::GROUP_BY_MONTHS] : $group->getGroupBy();
         // Excel groups by a single unit per field; use the first requested unit.
         $groupBy = $groupByUnits[0];
 
+        // A date field group is only valid when its bounds are present: the
+        // sharedItems must carry minDate/maxDate and the rangePr must carry
+        // startDate/endDate. When the caller did not supply a range, fall back
+        // to Excel's sentinel bounds so the workbook is not reported as corrupt.
+        $startDate = $group->getStartDate() ?? self::DATE_GROUP_MIN;
+        $endDate = $group->getEndDate() ?? self::DATE_GROUP_MAX;
+
         $objWriter->startElement('sharedItems');
         $objWriter->writeAttribute('containsSemiMixedTypes', '0');
         $objWriter->writeAttribute('containsNonDate', '0');
         $objWriter->writeAttribute('containsDate', '1');
         $objWriter->writeAttribute('containsString', '0');
-        if ($group->getStartDate() !== null) {
-            $objWriter->writeAttribute('minDate', $group->getStartDate());
-        }
-        if ($group->getEndDate() !== null) {
-            $objWriter->writeAttribute('maxDate', $group->getEndDate());
-        }
+        $objWriter->writeAttribute('minDate', $startDate);
+        $objWriter->writeAttribute('maxDate', $endDate);
         $objWriter->endElement();
 
         $objWriter->startElement('fieldGroup');
         $objWriter->startElement('rangePr');
         $objWriter->writeAttribute('groupBy', $groupBy);
-        if ($group->getStartDate() !== null) {
-            $objWriter->writeAttribute('startDate', $group->getStartDate());
-        }
-        if ($group->getEndDate() !== null) {
-            $objWriter->writeAttribute('endDate', $group->getEndDate());
-        }
+        $objWriter->writeAttribute('startDate', $startDate);
+        $objWriter->writeAttribute('endDate', $endDate);
         $objWriter->endElement();
 
         // Provide the standard group item labels for the chosen unit; the

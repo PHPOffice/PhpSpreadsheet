@@ -32,10 +32,10 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
 use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\Sparkline;
 use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineGroup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineType;
-use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
 
 class Worksheet
 {

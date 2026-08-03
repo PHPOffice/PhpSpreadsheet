@@ -136,7 +136,13 @@ class PivotTableBuilderTest extends TestCase
         $zip->close();
 
         self::assertStringContainsString('containsDate="1"', $cacheDefinition);
-        self::assertStringContainsString('<rangePr groupBy="quarters"/>', $cacheDefinition);
+        // A date field group must carry its bounds, otherwise Excel reports the
+        // workbook as corrupt; fall back to the sentinel range when none given.
+        self::assertStringContainsString('minDate="1900-01-01T00:00:00"', $cacheDefinition);
+        self::assertStringContainsString('maxDate="9999-12-31T00:00:00"', $cacheDefinition);
+        self::assertStringContainsString('groupBy="quarters"', $cacheDefinition);
+        self::assertStringContainsString('startDate="1900-01-01T00:00:00"', $cacheDefinition);
+        self::assertStringContainsString('endDate="9999-12-31T00:00:00"', $cacheDefinition);
         self::assertStringContainsString('<s v="Qtr1"/>', $cacheDefinition);
         self::assertStringContainsString('<s v="Qtr4"/>', $cacheDefinition);
     }
@@ -158,7 +164,7 @@ class PivotTableBuilderTest extends TestCase
         $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
         $zip->close();
 
-        self::assertStringContainsString('<rangePr groupBy="months"/>', $cacheDefinition);
+        self::assertStringContainsString('groupBy="months"', $cacheDefinition);
         self::assertStringContainsString('<s v="Jan"/>', $cacheDefinition);
         self::assertStringContainsString('<s v="Dec"/>', $cacheDefinition);
     }
@@ -180,7 +186,7 @@ class PivotTableBuilderTest extends TestCase
         $cacheDefinition = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
         $zip->close();
 
-        self::assertStringContainsString('<rangePr groupBy="years"/>', $cacheDefinition);
+        self::assertStringContainsString('groupBy="years"', $cacheDefinition);
     }
 
     public function testNumericGroupingWithFractionalIntervalIsEmitted(): void
