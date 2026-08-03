@@ -32,6 +32,9 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\Sparkline;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineGroup;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineType;
 
 class Worksheet
 {
@@ -128,6 +131,13 @@ class Worksheet
      * @var ArrayObject<int, Table>
      */
     private ArrayObject $tableCollection;
+
+    /**
+     * Collection of SparklineGroup objects.
+     *
+     * @var ArrayObject<int, SparklineGroup>
+     */
+    private ArrayObject $sparklineGroupCollection;
 
     /**
      * Worksheet title.
@@ -355,6 +365,8 @@ class Worksheet
         $this->autoFilter = new AutoFilter('', $this);
         // Table collection
         $this->tableCollection = new ArrayObject();
+        // Sparkline group collection
+        $this->sparklineGroupCollection = new ArrayObject();
     }
 
     /**
@@ -382,7 +394,7 @@ class Worksheet
             ?->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter);
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->sparklineGroupCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
     /**
@@ -2169,6 +2181,59 @@ class Worksheet
     public function removeTableCollection(): self
     {
         $this->tableCollection = new ArrayObject();
+
+        return $this;
+    }
+
+    /**
+     * Get collection of SparklineGroups.
+     *
+     * @return ArrayObject<int, SparklineGroup>
+     */
+    public function getSparklineGroupCollection(): ArrayObject
+    {
+        return $this->sparklineGroupCollection;
+    }
+
+    /**
+     * Add a SparklineGroup.
+     *
+     * @return $this
+     */
+    public function addSparklineGroup(SparklineGroup $sparklineGroup): self
+    {
+        $this->sparklineGroupCollection[] = $sparklineGroup;
+
+        return $this;
+    }
+
+    /**
+     * Add a single Sparkline, wrapping it in its own SparklineGroup.
+     *
+     * This is a convenience method for the common case of adding one sparkline
+     * with default formatting; the created group is returned so its formatting
+     * can be adjusted.
+     *
+     * @param SparklineType $type the type of sparkline (defaults to line)
+     */
+    public function addSparkline(Sparkline $sparkline, SparklineType $type = SparklineType::Line): SparklineGroup
+    {
+        $group = new SparklineGroup();
+        $group->setType($type);
+        $group->addSparkline($sparkline);
+        $this->addSparklineGroup($group);
+
+        return $group;
+    }
+
+    /**
+     * Remove all SparklineGroups.
+     *
+     * @return $this
+     */
+    public function removeSparklineGroupCollection(): self
+    {
+        $this->sparklineGroupCollection = new ArrayObject();
 
         return $this;
     }

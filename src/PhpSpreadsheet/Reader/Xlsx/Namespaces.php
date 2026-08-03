@@ -134,5 +134,7 @@ class Namespaces
     const RELATIONSHIPS_FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/2022/11/relationships/FeaturePropertyBag';
     const STYLE_CHECKBOX_URI = '{C7286773-470A-42A8-94C5-96B5CB345126}';
 
+    const SPARKLINE_URI = '{05C60535-1F16-4fd2-B633-F4F36F0B64E0}';
+
     const MISLEADING_FORMAT = 'http://schemas.microsoft.com/office/spreadsheetml/2018/08/main';
 }
