@@ -37,16 +37,11 @@ class GammaInvTest extends AllSetupTeardown
             'p=0.99995 alpha=1 beta=1' => [9.903487552536, 0.99995, 1.0, 1.0],
             'p=0.9999 alpha=0.5 beta=2' => [15.136705226623, 0.9999, 0.5, 2.0],
             'p=0.9999 alpha=1 beta=2' => [18.420680743952, 0.9999, 1.0, 2.0],
+            // Past #4945, regularizedGammaP/Q are accurate at this depth, so the
+            // bracket now reaches the true root instead of the old alpha*beta*5
+            // ceiling; -ln(1e-7) is the closed-form check (alpha=1).
+            'p=0.9999999 alpha=1 beta=1' => [16.118095650958, 0.9999999, 1.0, 1.0],
         ];
-    }
-
-    public function testGammaInvUnreachableTailStaysBounded(): void
-    {
-        // A probability the forward series never reaches cannot bracket a root,
-        // so expansion stops at the original alpha*beta*5 ceiling instead of
-        // running away (see Gamma::inverse doc-block).
-        $result = $this->gammaInvFormulaResult(0.9999999, 1.0, 1.0);
-        self::assertLessThanOrEqual(1.0 * 1.0 * 5.0, $result);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMAINV')]
