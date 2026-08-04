@@ -11,7 +11,7 @@ abstract class GammaBase
 
     private const EPS = 2.22e-16;
 
-    private const MAX_VALUE = 1.2e308;
+    protected const MAX_VALUE = 1.2e308;
 
     private const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
@@ -23,7 +23,16 @@ abstract class GammaBase
             return self::regularizedGammaP($a, $value / $b);
         }
 
-        return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
+        if ($value == 0.0) {
+            if ($a == 1.0) {
+                return 1.0 / $b;
+            }
+
+            return ($a < 1.0) ? INF : 0.0;
+        }
+
+        // Log domain, so large shape parameters cannot overflow Gamma(a).
+        return exp(($a - 1.0) * log($value) - $value / $b - $a * log($b) - self::logGamma($a));
     }
 
     /** @return float|string */
@@ -132,14 +141,21 @@ abstract class GammaBase
         return self::gammaContinuedFraction($a, $x);
     }
 
+    // Near x ~ a both expansions need O(sqrt(a)) terms to reach EPS.
+    private static function incompleteGammaIterations(float $a): int
+    {
+        return max(self::MAX_ITERATIONS, (int) ceil(10.0 * sqrt($a)));
+    }
+
     // P(a,x) by its series representation (Numerical Recipes gser).
     private static function gammaSeries(float $a, float $x): float
     {
+        $maxIterations = self::incompleteGammaIterations($a);
         $gln = self::logGamma($a);
         $ap = $a;
         $sum = 1.0 / $a;
         $del = $sum;
-        for ($i = 1; $i <= self::MAX_ITERATIONS; ++$i) {
+        for ($i = 1; $i <= $maxIterations; ++$i) {
             ++$ap;
             $del *= $x / $ap;
             $sum += $del;
@@ -154,13 +170,14 @@ abstract class GammaBase
     // Q(a,x) by its continued fraction representation (Numerical Recipes gcf).
     private static function gammaContinuedFraction(float $a, float $x): float
     {
+        $maxIterations = self::incompleteGammaIterations($a);
         $fpMin = 1.0e-300;
         $gln = self::logGamma($a);
         $b = $x + 1.0 - $a;
         $c = 1.0 / $fpMin;
         $d = 1.0 / $b;
         $h = $d;
-        for ($i = 1; $i <= self::MAX_ITERATIONS; ++$i) {
+        for ($i = 1; $i <= $maxIterations; ++$i) {
             $an = -$i * ($i - $a);
             $b += 2.0;
             $d = $an * $d + $b;

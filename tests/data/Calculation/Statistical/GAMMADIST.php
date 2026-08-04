@@ -72,4 +72,45 @@ return [
         '#NUM!',
         6, 3, 0, true,
     ],
+    // Large shape parameters; pdf references from mpmath (50-digit)
+    'pdf alpha=143' => [
+        0.02692582722231332,
+        150, 143, 1, false,
+    ],
+    'pdf alpha=143 far tail' => [
+        5.5379345193197405E-39,
+        358, 143, 1, false,
+    ],
+    'pdf alpha=200' => [
+        0.028197727685924278,
+        200, 200, 1, false,
+    ],
+    'pdf alpha=150 beta=2' => [
+        8.515496113839707E-15,
+        150, 150, 2, false,
+    ],
+    'pdf alpha=1000' => [
+        0.012614611348719664,
+        1000, 1000, 1, false,
+    ],
+    'pdf alpha=100000' => [
+        0.0012011991167748322,
+        99900, 100000, 1, false,
+    ],
+    'cdf alpha=100000' => [
+        0.5004205221103651,
+        100000, 100000, 1, true,
+    ],
+    'pdf at 0, alpha below 1' => [
+        '#NUM!',
+        0, 0.5, 1, false,
+    ],
+    'pdf at 0, alpha 1' => [
+        0.5,
+        0, 1, 2, false,
+    ],
+    'pdf at 0, alpha above 1' => [
+        0.0,
+        0, 3, 1, false,
+    ],
 ];
