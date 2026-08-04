@@ -224,26 +224,24 @@ class PivotTableBuilder
     private function distinctValues(string $fieldName): array
     {
         $fieldIndex = array_search($fieldName, $this->fieldNames, true);
-        if ($fieldIndex === false) {
-            return [];
-        }
+        $result = [];
+        if ($fieldIndex !== false) {
+            [$start, $end] = Coordinate::rangeBoundaries($this->sourceRange);
+            $column = Coordinate::stringFromColumnIndex((int) $start[0] + (int) $fieldIndex);
+            $firstDataRow = (int) $start[1] + 1;
+            $lastRow = (int) $end[1];
 
-        [$start, $end] = Coordinate::rangeBoundaries($this->sourceRange);
-        $column = Coordinate::stringFromColumnIndex((int) $start[0] + (int) $fieldIndex);
-        $firstDataRow = (int) $start[1] + 1;
-        $lastRow = (int) $end[1];
-
-        $values = [];
-        for ($row = $firstDataRow; $row <= $lastRow; ++$row) {
-            $value = $this->sourceWorksheet->getCell($column . $row)->getValueString();
-            if ($value === '') {
-                continue;
+            $values = [];
+            for ($row = $firstDataRow; $row <= $lastRow; ++$row) {
+                $value = $this->sourceWorksheet->getCell($column . $row)->getValueString();
+                if ($value !== '') {
+                    $values[$value] = true;
+                }
             }
-            $values[$value] = true;
-        }
 
-        /** @var string[] $result */
-        $result = array_keys($values);
+            /** @var string[] $result */
+            $result = array_keys($values);
+        }
 
         return $result;
     }

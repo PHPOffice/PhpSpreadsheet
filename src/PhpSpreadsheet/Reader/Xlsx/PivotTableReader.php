@@ -53,7 +53,9 @@ class PivotTableReader
         );
         $pivotTable->setCacheDefinition($cacheDefinition);
 
-        $this->readFields($pivotTable, $cacheDefinition);
+        if (isset($this->pivotTableXml->pivotFields)) {
+            $this->readFields($pivotTable, $cacheDefinition);
+        }
 
         $this->worksheet->addPivotTable($pivotTable);
     }
@@ -65,25 +67,23 @@ class PivotTableReader
     {
         $cacheDefinition = new PivotCacheDefinition($cacheId);
 
-        if ($this->cacheDefinitionXml === null) {
-            return $cacheDefinition;
-        }
-
-        $source = $this->cacheDefinitionXml->cacheSource;
-        if (isset($source->worksheetSource)) {
-            $sourceAttributes = $source->worksheetSource->attributes();
-            if (isset($sourceAttributes['sheet'])) {
-                $cacheDefinition->setSourceWorksheet((string) $sourceAttributes['sheet']);
+        if ($this->cacheDefinitionXml !== null) {
+            $source = $this->cacheDefinitionXml->cacheSource;
+            if (isset($source->worksheetSource)) {
+                $sourceAttributes = $source->worksheetSource->attributes();
+                if (isset($sourceAttributes['sheet'])) {
+                    $cacheDefinition->setSourceWorksheet((string) $sourceAttributes['sheet']);
+                }
+                if (isset($sourceAttributes['ref'])) {
+                    $cacheDefinition->setSourceRange((string) $sourceAttributes['ref']);
+                }
             }
-            if (isset($sourceAttributes['ref'])) {
-                $cacheDefinition->setSourceRange((string) $sourceAttributes['ref']);
-            }
-        }
 
-        if (isset($this->cacheDefinitionXml->cacheFields)) {
-            foreach ($this->cacheDefinitionXml->cacheFields->cacheField as $cacheField) {
-                $fieldAttributes = $cacheField->attributes();
-                $cacheDefinition->addCacheField((string) ($fieldAttributes['name'] ?? ''));
+            if (isset($this->cacheDefinitionXml->cacheFields)) {
+                foreach ($this->cacheDefinitionXml->cacheFields->cacheField as $cacheField) {
+                    $fieldAttributes = $cacheField->attributes();
+                    $cacheDefinition->addCacheField((string) ($fieldAttributes['name'] ?? ''));
+                }
             }
         }
 
@@ -95,10 +95,6 @@ class PivotTableReader
      */
     private function readFields(PivotTable $pivotTable, PivotCacheDefinition $cacheDefinition): void
     {
-        if (!isset($this->pivotTableXml->pivotFields)) {
-            return;
-        }
-
         $index = 0;
         /** @var PivotField[] $fields */
         $fields = [];
@@ -126,24 +122,20 @@ class PivotTableReader
      */
     private function markDataFields(array $fields): void
     {
-        if (!isset($this->pivotTableXml->dataFields)) {
-            return;
-        }
-
-        foreach ($this->pivotTableXml->dataFields->dataField as $dataFieldXml) {
-            $dataAttributes = $dataFieldXml->attributes();
-            if (!isset($dataAttributes['fld'])) {
-                continue;
+        if (isset($this->pivotTableXml->dataFields)) {
+            foreach ($this->pivotTableXml->dataFields->dataField as $dataFieldXml) {
+                $dataAttributes = $dataFieldXml->attributes();
+                if (isset($dataAttributes['fld'])) {
+                    $fieldIndex = (int) $dataAttributes['fld'];
+                    if (isset($fields[$fieldIndex])) {
+                        $fields[$fieldIndex]->setDataField(true);
+                        // "sum" is the default subtotal when the attribute is absent.
+                        $fields[$fieldIndex]->setSubtotal(
+                            isset($dataAttributes['subtotal']) ? (string) $dataAttributes['subtotal'] : 'sum'
+                        );
+                    }
+                }
             }
-            $fieldIndex = (int) $dataAttributes['fld'];
-            if (!isset($fields[$fieldIndex])) {
-                continue;
-            }
-            $fields[$fieldIndex]->setDataField(true);
-            // "sum" is the default subtotal when the attribute is absent.
-            $fields[$fieldIndex]->setSubtotal(
-                isset($dataAttributes['subtotal']) ? (string) $dataAttributes['subtotal'] : 'sum'
-            );
         }
     }
 }

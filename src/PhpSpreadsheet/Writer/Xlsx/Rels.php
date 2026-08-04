@@ -221,11 +221,7 @@ class Rels extends WriterPart
      */
     private static function relativeToWorkbook(string $path): ?string
     {
-        if (!str_starts_with($path, 'xl/')) {
-            return null;
-        }
-
-        return substr($path, 3);
+        return str_starts_with($path, 'xl/') ? substr($path, 3) : null;
     }
 
     /**

@@ -95,6 +95,37 @@ class PivotTableBuilderTest extends TestCase
         $reloaded->disconnectWorksheets();
     }
 
+    public function testSetName(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $pivotTable = $builder
+            ->addPageField('Region')
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A4', 'Filtered');
+        $pivotTable->setName('FilteredRenamed');
+
+        self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<pageFields count="1">', $definition);
+        self::assertStringContainsString('<pageField fld="2" hier="-1"/>', $definition);
+        self::assertStringContainsString('axis="axisPage"', $definition);
+
+        $reloaded = (new XlsxReader())->load($outputFile);
+        $pivotTable = $reloaded->getSheetByNameOrThrow('Pivot')->getPivotTableByName('FilteredRenamed');
+        self::assertNotNull($pivotTable);
+        self::assertSame(['Region'], $this->fieldNames($pivotTable->getPageFields()));
+        $reloaded->disconnectWorksheets();
+    }
+
     public function testNumericRangeGroupingIsEmitted(): void
     {
         $spreadsheet = $this->groupingSpreadsheet();

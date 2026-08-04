@@ -1841,13 +1841,12 @@ class Xlsx extends BaseReader
                             foreach ($xmlWorkbook->pivotCaches->pivotCache as $pivotCache) {
                                 $pivotCacheAttributes = self::getAttributes($pivotCache);
                                 $relId = (string) self::getAttributes($pivotCache, Namespaces::SCHEMA_OFFICE_DOCUMENT)['id'];
-                                if (!isset($pivotCacheRels[$relId])) {
-                                    continue;
+                                if (isset($pivotCacheRels[$relId])) {
+                                    $unparsedLoadedData['workbookPivotCaches'][] = [
+                                        'cacheId' => (string) $pivotCacheAttributes['cacheId'],
+                                        'cacheDefinitionPath' => $pivotCacheRels[$relId],
+                                    ];
                                 }
-                                $unparsedLoadedData['workbookPivotCaches'][] = [
-                                    'cacheId' => (string) $pivotCacheAttributes['cacheId'],
-                                    'cacheDefinitionPath' => $pivotCacheRels[$relId],
-                                ];
                             }
                         }
                     }
@@ -2738,21 +2737,19 @@ class Xlsx extends BaseReader
         $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relationship) {
             $relAttributes = self::getAttributes($relationship, '');
-            if ((string) $relAttributes['Type'] !== Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION) {
-                continue;
+            if ((string) $relAttributes['Type'] === Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION) {
+                $cachePath = File::realpath(
+                    dirname($pivotTablePath) . '/' . (string) $relAttributes['Target']
+                );
+                if (!$this->fileExistsInArchive($this->zip, $cachePath)) {
+                    return null;
+                }
+
+                $cacheDefinitionXml = $this->loadZip($cachePath, Namespaces::MAIN);
+                $this->preservePivotCache($cachePath, $unparsedLoadedData);
+
+                return $cacheDefinitionXml;
             }
-
-            $cachePath = File::realpath(
-                dirname($pivotTablePath) . '/' . (string) $relAttributes['Target']
-            );
-            if (!$this->fileExistsInArchive($this->zip, $cachePath)) {
-                return null;
-            }
-
-            $cacheDefinitionXml = $this->loadZip($cachePath, Namespaces::MAIN);
-            $this->preservePivotCache($cachePath, $unparsedLoadedData);
-
-            return $cacheDefinitionXml;
         }
 
         return null;
@@ -2772,29 +2769,25 @@ class Xlsx extends BaseReader
         }
         /** @var array<string, array<string, string>> $cacheDefinitions */
         $cacheDefinitions = &$unparsedLoadedData['pivotCacheDefinitions'];
-        if (isset($cacheDefinitions[$cachePath])) {
-            return;
-        }
+        if (!isset($cacheDefinitions[$cachePath])) {
+            $cacheDefinitions[$cachePath] = [
+                'path' => $cachePath,
+                'content' => $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($this->zip, $cachePath)),
+            ];
+            unset($cacheDefinitions);
 
-        $cacheDefinitions[$cachePath] = [
-            'path' => $cachePath,
-            'content' => $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($this->zip, $cachePath)),
-        ];
-        unset($cacheDefinitions);
+            $relsFileName = dirname($cachePath) . '/_rels/' . basename($cachePath) . '.rels';
+            if ($this->zip->locateName($relsFileName) !== false) {
+                $this->preserveRawPart($relsFileName, $unparsedLoadedData);
 
-        $relsFileName = dirname($cachePath) . '/_rels/' . basename($cachePath) . '.rels';
-        if ($this->zip->locateName($relsFileName) === false) {
-            return;
-        }
-
-        $this->preserveRawPart($relsFileName, $unparsedLoadedData);
-
-        $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
-        foreach ($rels->Relationship as $relationship) {
-            $relAttributes = self::getAttributes($relationship, '');
-            $target = File::realpath(dirname($cachePath) . '/' . (string) $relAttributes['Target']);
-            if ($this->fileExistsInArchive($this->zip, $target)) {
-                $this->preserveRawPart($target, $unparsedLoadedData);
+                $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
+                foreach ($rels->Relationship as $relationship) {
+                    $relAttributes = self::getAttributes($relationship, '');
+                    $target = File::realpath(dirname($cachePath) . '/' . (string) $relAttributes['Target']);
+                    if ($this->fileExistsInArchive($this->zip, $target)) {
+                        $this->preserveRawPart($target, $unparsedLoadedData);
+                    }
+                }
             }
         }
     }

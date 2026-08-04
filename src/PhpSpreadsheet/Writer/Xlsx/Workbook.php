@@ -87,14 +87,13 @@ class Workbook extends WriterPart
         $objWriter->startElement('pivotCaches');
         foreach ($workbookPivotCaches as $pivotCache) {
             $rId = '_pivotCacheDef_' . $pivotCache['cacheId'];
-            if (!isset($relationships[$rId])) {
-                continue;
+            if (isset($relationships[$rId])) {
+                $objWriter->startElement('pivotCache');
+                $objWriter->writeAttribute('cacheId', $pivotCache['cacheId']);
+                // The relationship writer prefixes ids with "rId".
+                $objWriter->writeAttribute('r:id', 'rId' . $rId);
+                $objWriter->endElement();
             }
-            $objWriter->startElement('pivotCache');
-            $objWriter->writeAttribute('cacheId', $pivotCache['cacheId']);
-            // The relationship writer prefixes ids with "rId".
-            $objWriter->writeAttribute('r:id', 'rId' . $rId);
-            $objWriter->endElement();
         }
         $objWriter->endElement();
     }

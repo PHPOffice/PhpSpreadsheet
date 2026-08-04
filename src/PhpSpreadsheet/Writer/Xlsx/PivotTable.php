@@ -277,10 +277,9 @@ class PivotTable
                     '<1/1/1900', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '>12/31/9999',
                 ];
-            case PivotFieldGroup::GROUP_BY_YEARS:
-                // Years are enumerated by the application on refresh.
-                return ['<1/1/1900', '>12/31/9999'];
+            //case PivotFieldGroup::GROUP_BY_YEARS:
             default:
+                // Years are enumerated by the application on refresh.
                 return ['<1/1/1900', '>12/31/9999'];
         }
     }
@@ -407,20 +406,18 @@ class PivotTable
      */
     private static function writePageFields(XMLWriter $objWriter, array $fields): void
     {
-        if ($fields === []) {
-            return;
-        }
-
-        $objWriter->startElement('pageFields');
-        $objWriter->writeAttribute('count', (string) count($fields));
-        foreach ($fields as $field) {
-            $objWriter->startElement('pageField');
-            $objWriter->writeAttribute('fld', (string) $field->getIndex());
-            // No item selected -> "(All)"; the hierarchy attribute is required.
-            $objWriter->writeAttribute('hier', '-1');
+        if ($fields !== []) {
+            $objWriter->startElement('pageFields');
+            $objWriter->writeAttribute('count', (string) count($fields));
+            foreach ($fields as $field) {
+                $objWriter->startElement('pageField');
+                $objWriter->writeAttribute('fld', (string) $field->getIndex());
+                // No item selected -> "(All)"; the hierarchy attribute is required.
+                $objWriter->writeAttribute('hier', '-1');
+                $objWriter->endElement();
+            }
             $objWriter->endElement();
         }
-        $objWriter->endElement();
     }
 
     private static function writeDataFields(XMLWriter $objWriter, WorksheetPivotTable $pivotTable): void
