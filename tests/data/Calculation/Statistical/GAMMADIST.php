@@ -23,6 +23,19 @@ return [
         0.576809918873,
         6, 3, 2, 1,
     ],
+    // Large x/b: the old fixed 32-term series diverged badly here.
+    'Large x mid-range' => [
+        0.522481190430,
+        35, 35, 1, true,
+    ],
+    'Large x saturating' => [
+        1.0,
+        50, 2, 1, true,
+    ],
+    [
+        1.0,
+        80, 2, 1, true,
+    ],
     [
         '#VALUE!',
         'NAN', 3, 2, true,

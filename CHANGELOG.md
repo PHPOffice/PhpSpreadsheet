@@ -34,6 +34,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)
+- Correct incomplete gamma convergence for GAMMA.DIST/CHISQ.DIST family (wrong once the series argument reached ~32). [PR #4945](https://github.com/PHPOffice/PhpSpreadsheet/pull/4945)
 
 ## 2026-07-12 - 5.9.0
 

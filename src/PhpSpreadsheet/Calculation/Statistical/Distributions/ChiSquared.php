@@ -50,7 +50,7 @@ class ChiSquared
             return ExcelError::NAN();
         }
 
-        return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2) / Gamma::gammaValue($degrees / 2));
+        return Gamma::regularizedGammaQ($degrees / 2, $value / 2);
     }
 
     /**
@@ -133,8 +133,7 @@ class ChiSquared
             return ExcelError::NAN();
         }
 
-        $callback = fn (float $value): float => 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2)
-                    / Gamma::gammaValue($degrees / 2));
+        $callback = fn (float $value): float => Gamma::regularizedGammaQ($degrees / 2, $value / 2);
 
         $newtonRaphson = new NewtonRaphson($callback);
 
@@ -258,75 +257,6 @@ class ChiSquared
 
     private static function pchisq(float $chi2, int $degrees): float
     {
-        return self::gammp($degrees, 0.5 * $chi2);
-    }
-
-    private static function gammp(int $n, float $x): float
-    {
-        if ($x < 0.5 * $n + 1) {
-            return self::gser($n, $x);
-        }
-
-        return 1 - self::gcf($n, $x);
-    }
-
-    // Return the incomplete gamma function P(n/2,x) evaluated by
-    // series representation. Algorithm from numerical recipe.
-    // Assume that n is a positive integer and x>0, won't check arguments.
-    // Relative error controlled by the eps parameter
-    private static function gser(int $n, float $x): float
-    {
-        /** @var float $gln */
-        $gln = Gamma::ln($n / 2);
-        $a = 0.5 * $n;
-        $ap = $a;
-        $sum = 1.0 / $a;
-        $del = $sum;
-        for ($i = 1; $i < 101; ++$i) {
-            ++$ap;
-            $del = $del * $x / $ap;
-            $sum += $del;
-            if ($del < $sum * self::EPS) {
-                break;
-            }
-        }
-
-        return $sum * exp(-$x + $a * log($x) - $gln);
-    }
-
-    // Return the incomplete gamma function Q(n/2,x) evaluated by
-    // its continued fraction representation. Algorithm from numerical recipe.
-    // Assume that n is a postive integer and x>0, won't check arguments.
-    // Relative error controlled by the eps parameter
-    private static function gcf(int $n, float $x): float
-    {
-        /** @var float $gln */
-        $gln = Gamma::ln($n / 2);
-        $a = 0.5 * $n;
-        $b = $x + 1 - $a;
-        $fpmin = 1.e-300;
-        $c = 1 / $fpmin;
-        $d = 1 / $b;
-        $h = $d;
-        for ($i = 1; $i < 101; ++$i) {
-            $an = -$i * ($i - $a);
-            $b += 2;
-            $d = $an * $d + $b;
-            if (abs($d) < $fpmin) {
-                $d = $fpmin;
-            }
-            $c = $b + $an / $c;
-            if (abs($c) < $fpmin) {
-                $c = $fpmin;
-            }
-            $d = 1 / $d;
-            $del = $d * $c;
-            $h = $h * $del;
-            if (abs($del - 1) < self::EPS) {
-                break;
-            }
-        }
-
-        return $h * exp(-$x + $a * log($x) - $gln);
+        return Gamma::regularizedGammaP($degrees / 2, 0.5 * $chi2);
     }
 }
