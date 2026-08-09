@@ -147,6 +147,9 @@ class Gamma extends GammaBase
             return ExcelError::NAN();
         }
 
-        return log(self::gammaValue($value));
+        $result = self::logGamma($value);
+
+        // logGamma returns its MAX_VALUE sentinel when the result would overflow.
+        return ($result >= self::MAX_VALUE) ? ExcelError::NAN() : $result;
     }
 }
