@@ -71,7 +71,7 @@ $drawing->setCoordinates('C5');
 $helper->write(
     $spreadsheet,
     __FILE__,
-    ['Xlsx', 'Html'],
+    ['Xlsx', 'Html', 'Ods'],
     false,
     function (BaseWriter $writer): void {
         if (method_exists($writer, 'writeAllSheets')) {
