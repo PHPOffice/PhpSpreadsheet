@@ -99,8 +99,16 @@ class ChiSquared
             return 1 - (is_numeric($temp) ? $temp : 0);
         }
 
-        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2))
-            / ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
+        if ($value == 0.0) {
+            if ($degrees === 2) {
+                return 0.5;
+            }
+
+            return ($degrees === 1) ? INF : 0.0;
+        }
+
+        // Log domain, so large degrees of freedom cannot overflow Gamma(d/2).
+        return exp((($degrees / 2) - 1) * log($value) - $value / 2 - ($degrees / 2) * M_LN2 - Gamma::logGamma($degrees / 2));
     }
 
     /**
