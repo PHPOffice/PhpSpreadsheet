@@ -55,10 +55,8 @@ if (isset($_POST['submit'])) {
         try {
             $wizard = new Wizard\Number((int) $_POST['decimals'], isset($_POST['thousands']));
             $mask = $wizard->format();
-            /** @var string */
-            $postNumber = $_POST['number'];
-            /** @var float|int|string */
-            $postDecimals = $_POST['decimals'];
+            $postNumber = StringHelper::convertPostToString('number');
+            $postDecimals = StringHelper::convertPostToString('decimals');
             $example = NumberFormat::toFormattedString((float) $postNumber, $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');

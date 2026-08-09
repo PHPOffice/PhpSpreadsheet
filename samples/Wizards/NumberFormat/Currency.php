@@ -113,12 +113,9 @@ if (isset($_POST['submit'])) {
             $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $wizard->setNegative($negative);
             $mask = $wizard->format();
-            /** @var string */
-            $postNumber = $_POST['number'];
-            /** @var float|int|string */
-            $postCurrency = $_POST['currency'];
-            /** @var float|int|string */
-            $postDecimals = $_POST['decimals'];
+            $postNumber = StringHelper::convertPostToString('number');
+            $postCurrency = StringHelper::convertPostToString('currency');
+            $postDecimals = StringHelper::convertPostToString('decimals');
             $example = (string) NumberFormat::toFormattedString((float) $postNumber, $mask, [HtmlWriter::class, 'formatColorStatic']);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
