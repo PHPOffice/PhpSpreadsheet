@@ -2367,7 +2367,7 @@ class Calculation extends CalculationLocale
                         $branchStore[$storeKey] = self::EXCEL_CONSTANTS[$excelConstant];
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::EXCEL_CONSTANTS[$excelConstant]));
-                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) { //* @phpstan-ignore function.alreadyNarrowedType (phpstan says is_bool has argument of *NEVER*?)
+                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) { //* @phpstan-ignore function.alreadyNarrowedType (phpstan says is_bool has argument of *NEVER*?), equal.alwaysFalse (ditto)
                     /** @var array{type: string, reference: ?string} $tokenData */
                     $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
