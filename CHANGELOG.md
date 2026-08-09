@@ -14,6 +14,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Added
 
 - Opt-in parallel worksheet generation for the Xlsx Writer (CLI only, requires pcntl). [PR #4834](https://github.com/PHPOffice/PhpSpreadsheet/pull/4834)
+- Support for Excel sparklines (line, column, and win/loss) in Xlsx reader and writer. [Issue #4941](https://github.com/PHPOffice/PhpSpreadsheet/issues/4941)
+- Read-only object model for Pivot Tables. Existing pivot tables in an Xlsx file are now parsed into `Worksheet\PivotTable\PivotTable` objects (name, location, source cache definition, and row/column/page/data field layout), accessible via `Worksheet::getPivotTableCollection()` / `getPivotTableByName()`. Pivot tables (their tables, caches and records) are now also preserved through an Xlsx load/save round-trip instead of being silently dropped. [Issue #4534](https://github.com/PHPOffice/PhpSpreadsheet/issues/4534)
 
 ### Removed
 
@@ -33,7 +35,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- BETAINV/BETA.INV no longer abandons its search when the Beta CDF underflows to zero (wrong results for alpha above about 1080). [PR #4954](https://github.com/PHPOffice/PhpSpreadsheet/pull/4954)
+- GAMMA.INV, the GAMMA.DIST/CHISQ.DIST/F.DIST densities, and GAMMALN no longer fail or return wrong results for large shape parameters / degrees of freedom. [PR #4953](https://github.com/PHPOffice/PhpSpreadsheet/pull/4953)
+- GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)
+- Correct incomplete gamma convergence for GAMMA.DIST/CHISQ.DIST family (wrong once the series argument reached ~32). [PR #4945](https://github.com/PHPOffice/PhpSpreadsheet/pull/4945)
 
 ## 2026-07-12 - 5.9.0
 

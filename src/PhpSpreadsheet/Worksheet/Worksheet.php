@@ -32,6 +32,10 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\Sparkline;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineGroup;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineType;
 
 class Worksheet
 {
@@ -128,6 +132,20 @@ class Worksheet
      * @var ArrayObject<int, Table>
      */
     private ArrayObject $tableCollection;
+
+    /**
+     * Collection of SparklineGroup objects.
+     *
+     * @var ArrayObject<int, SparklineGroup>
+     */
+    private ArrayObject $sparklineGroupCollection;
+
+    /**
+     * Collection of PivotTable objects.
+     *
+     * @var ArrayObject<int, PivotTable>
+     */
+    private ArrayObject $pivotTableCollection;
 
     /**
      * Worksheet title.
@@ -355,6 +373,11 @@ class Worksheet
         $this->autoFilter = new AutoFilter('', $this);
         // Table collection
         $this->tableCollection = new ArrayObject();
+        // Sparkline group collection
+        $this->sparklineGroupCollection = new ArrayObject();
+
+        // Pivot table collection
+        $this->pivotTableCollection = new ArrayObject();
     }
 
     /**
@@ -383,7 +406,7 @@ class Worksheet
             ?->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter);
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->sparklineGroupCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter, $this->pivotTableCollection);
     }
 
     /**
@@ -2171,6 +2194,133 @@ class Worksheet
     public function removeTableCollection(): self
     {
         $this->tableCollection = new ArrayObject();
+
+        return $this;
+    }
+
+    /**
+     * Get collection of SparklineGroups.
+     *
+     * @return ArrayObject<int, SparklineGroup>
+     */
+    public function getSparklineGroupCollection(): ArrayObject
+    {
+        return $this->sparklineGroupCollection;
+    }
+
+    /**
+     * Add a SparklineGroup.
+     *
+     * @return $this
+     */
+    public function addSparklineGroup(SparklineGroup $sparklineGroup): self
+    {
+        $this->sparklineGroupCollection[] = $sparklineGroup;
+
+        return $this;
+    }
+
+    /**
+     * Add a single Sparkline, wrapping it in its own SparklineGroup.
+     *
+     * This is a convenience method for the common case of adding one sparkline
+     * with default formatting; the created group is returned so its formatting
+     * can be adjusted.
+     *
+     * @param SparklineType $type the type of sparkline (defaults to line)
+     */
+    public function addSparkline(Sparkline $sparkline, SparklineType $type = SparklineType::Line): SparklineGroup
+    {
+        $group = new SparklineGroup();
+        $group->setType($type);
+        $group->addSparkline($sparkline);
+        $this->addSparklineGroup($group);
+
+        return $group;
+    }
+
+    /**
+     * Remove all SparklineGroups.
+     *
+     * @return $this
+     */
+    public function removeSparklineGroupCollection(): self
+    {
+        $this->sparklineGroupCollection = new ArrayObject();
+
+        return $this;
+    }
+
+    /**
+     * Get collection of PivotTables.
+     *
+     * @return ArrayObject<int, PivotTable>
+     */
+    public function getPivotTableCollection(): ArrayObject
+    {
+        return $this->pivotTableCollection;
+    }
+
+    /**
+     * Get collection of PivotTables (alias of getPivotTableCollection()).
+     *
+     * @return ArrayObject<int, PivotTable>
+     */
+    public function getPivotTables(): ArrayObject
+    {
+        return $this->pivotTableCollection;
+    }
+
+    /**
+     * Add a PivotTable to this worksheet.
+     *
+     * @return $this
+     */
+    public function addPivotTable(PivotTable $pivotTable): self
+    {
+        $pivotTable->setWorksheet($this);
+        $this->pivotTableCollection[] = $pivotTable;
+
+        return $this;
+    }
+
+    /**
+     * @return string[] array of PivotTable names
+     */
+    public function getPivotTableNames(): array
+    {
+        $pivotTableNames = [];
+
+        foreach ($this->pivotTableCollection as $pivotTable) {
+            $pivotTableNames[] = $pivotTable->getName();
+        }
+
+        return $pivotTableNames;
+    }
+
+    /**
+     * @param string $name the pivot table name to search
+     *
+     * @return null|PivotTable The pivot table from the collection, or null if not found
+     */
+    public function getPivotTableByName(string $name): ?PivotTable
+    {
+        $name = StringHelper::strToUpper($name);
+        foreach ($this->pivotTableCollection as $pivotTable) {
+            if (StringHelper::strToUpper($pivotTable->getName()) === $name) {
+                return $pivotTable;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Remove collection of PivotTables.
+     */
+    public function removePivotTableCollection(): self
+    {
+        $this->pivotTableCollection = new ArrayObject();
 
         return $this;
     }
