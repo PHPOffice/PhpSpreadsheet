@@ -1404,9 +1404,12 @@ class Worksheet extends WriterPart
         /** @var array<int, string> $cellsByRow */
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
-            [$column, $row] = Coordinate::coordinateFromString($coordinate);
+            $column = '';
+            $row = 0;
+            sscanf($coordinate, '%[A-Z]%d', $column, $row);
+            /** @var int $row */
             if (!isset($cellsByRow[$row])) {
-                $pCell = $worksheet->getCell("$column$row");
+                $pCell = $worksheet->getCell($coordinate);
                 $xfi = $pCell->getXfIndex();
                 $cellValue = $pCell->getValue();
                 $writeValue = $cellValue !== '' && $cellValue !== null;
@@ -1489,25 +1492,27 @@ class Worksheet extends WriterPart
                         foreach ($columnsInRow as $column) {
                             // Write cell
                             $coord = "$column$currentRow";
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getNumberStoredAsText()) {
+                            $pCell = $worksheet->getCell($coord);
+                            $ignoredErrors = $pCell->getIgnoredErrors();
+                            if ($ignoredErrors->getNumberStoredAsText()) {
                                 $this->numberStoredAsText .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormula()) {
+                            if ($ignoredErrors->getFormula()) {
                                 $this->formula .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormulaRange()) {
+                            if ($ignoredErrors->getFormulaRange()) {
                                 $this->formulaRange .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getTwoDigitTextYear()) {
+                            if ($ignoredErrors->getTwoDigitTextYear()) {
                                 $this->twoDigitTextYear .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getEvalError()) {
+                            if ($ignoredErrors->getEvalError()) {
                                 $this->evalError .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getMisleadingFormat()) {
+                            if ($ignoredErrors->getMisleadingFormat()) {
                                 $this->misleadingFormat .= " $coord";
                             }
-                            $this->writeCell($objWriter, $worksheet, $coord, $aFlippedStringTable);
+                            $this->writeCell($objWriter, $pCell, $coord, $aFlippedStringTable);
                         }
                     }
 
@@ -1709,13 +1714,11 @@ class Worksheet extends WriterPart
      * @param string $cellAddress Cell Address
      * @param string[] $flippedStringTable String table (flipped), for faster index searching
      */
-    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, string $cellAddress, array $flippedStringTable): void
+    private function writeCell(XMLWriter $objWriter, Cell $pCell, string $cellAddress, array $flippedStringTable): void
     {
         // Cell
-        $pCell = $worksheet->getCell($cellAddress);
         $xfi = $pCell->getXfIndex();
         $cellValue = $pCell->getValue();
-        $cellValueString = $pCell->getValueString();
         $writeValue = $cellValue !== '' && $cellValue !== null;
         if (empty($xfi) && !$writeValue) {
             return;
@@ -1732,7 +1735,7 @@ class Worksheet extends WriterPart
         $mappedType = $pCell->getDataType();
         if ($mappedType === DataType::TYPE_FORMULA) {
             if ($this->useDynamicArrays) {
-                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $cellValueString) === 1) {
+                if (preg_match(PhpspreadsheetWorksheet::FUNCTION_LIKE_GROUPBY, $pCell->getValueString()) === 1) {
                     $tempCalc = [];
                 } else {
                     $tempCalc = $pCell->getCalculatedValue();
@@ -1761,11 +1764,11 @@ class Worksheet extends WriterPart
 
                     break;
                 case 's':            // String
-                    $this->writeCellString($objWriter, $mappedType, ($cellValue instanceof RichText) ? $cellValue : $cellValueString, $flippedStringTable);
+                    $this->writeCellString($objWriter, $mappedType, ($cellValue instanceof RichText) ? $cellValue : $pCell->getValueString(), $flippedStringTable);
 
                     break;
                 case 'f':            // Formula
-                    $this->writeCellFormula($objWriter, $cellValueString, $pCell);
+                    $this->writeCellFormula($objWriter, $pCell->getValueString(), $pCell);
 
                     break;
                 case 'n':            // Numeric
@@ -1785,7 +1788,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'e':            // Error
-                    $this->writeCellError($objWriter, $mappedType, $cellValueString);
+                    $this->writeCellError($objWriter, $mappedType, $pCell->getValueString());
             }
         }
 
