@@ -29,6 +29,8 @@ class Content extends WriterPart
 
     private Drawing $drawingWriter;
 
+    private int $drawingIndex = 0;
+
     /**
      * Set parent Ods writer.
      */
@@ -172,15 +174,14 @@ class Content extends WriterPart
         // Build a map of drawings by their row position
         /** @var array<int, array<int, array{drawing: BaseDrawing, index: int}>> */
         $drawingsByRow = [];
-        $drawingIndex = 0;
         foreach ($sheet->getDrawingCollection() as $drawing) {
-            ++$drawingIndex;
+            ++$this->drawingIndex;
             $coordinates = Coordinate::coordinateFromString($drawing->getCoordinates());
             $row = (int) $coordinates[1];
             if (!isset($drawingsByRow[$row])) {
                 $drawingsByRow[$row] = [];
             }
-            $drawingsByRow[$row][] = ['drawing' => $drawing, 'index' => $drawingIndex];
+            $drawingsByRow[$row][] = ['drawing' => $drawing, 'index' => $this->drawingIndex];
         }
 
         foreach ($rows as $row) {
@@ -446,7 +447,7 @@ class Content extends WriterPart
         //   and would prefer to eliminate the code and have
         //   someone raise an issue rather than have them
         //   execute unpredictable code.
-        /*
+
         foreach ($drawingsByColumn as $column => $drawingData) {
             if ($column > $prevColumn) {
                 $this->writeCellSpan($objWriter, $column, $prevColumn);
@@ -463,7 +464,6 @@ class Content extends WriterPart
                 $prevColumn = $column;
             }
         }
-        */
     }
 
     /**
