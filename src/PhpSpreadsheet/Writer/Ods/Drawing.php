@@ -18,7 +18,9 @@ class Drawing extends WriterPart
     private int $imageCounter = 0;
 
     /**
-     * Required by WriterPart abstract class.
+     * Required by WriterPart abstract class, but unused.
+     *
+     * @codeCoverageIgnore
      */
     public function write(): string
     {
@@ -62,46 +64,31 @@ class Drawing extends WriterPart
                     $this->imageFiles[$imagePath] = $imageContents;
                 }
             } elseif ($drawing instanceof MemoryDrawing) {
+                $renderingFunction = $drawing->getRenderingFunction();
                 $extension = 'png';
-                switch ($drawing->getRenderingFunction()) {
-                    case MemoryDrawing::RENDERING_JPEG:
-                        $extension = 'jpg';
-
-                        break;
-                    case MemoryDrawing::RENDERING_GIF:
-                        $extension = 'gif';
-
-                        break;
+                if ($renderingFunction === MemoryDrawing::RENDERING_JPEG) {
+                    $extension = 'jpg';
+                } elseif ($renderingFunction === MemoryDrawing::RENDERING_GIF) {
+                    $extension = 'gif';
                 }
 
-                ob_start();
                 $gdImage = $drawing->getImageResource();
                 if ($gdImage !== null) {
-                    switch ($drawing->getRenderingFunction()) {
-                        case MemoryDrawing::RENDERING_JPEG:
-                            imagejpeg($gdImage);
-
-                            break;
-                        case MemoryDrawing::RENDERING_GIF:
-                            imagegif($gdImage);
-
-                            break;
-                        //case MemoryDrawing::RENDERING_PNG:
-                        default:
-                            imagepng($gdImage);
-
-                            break;
+                    ob_start();
+                    if ($renderingFunction === MemoryDrawing::RENDERING_JPEG) {
+                        imagejpeg($gdImage);
+                    } elseif ($renderingFunction === MemoryDrawing::RENDERING_GIF) {
+                        imagegif($gdImage);
+                    } else {
+                        imagepng($gdImage);
                     }
-                    $imageContents = ob_get_contents();
-                    ob_end_clean();
+                    $imageContents = ob_get_clean();
 
                     if ($imageContents !== false && $imageContents !== '') {
                         $imagePath = "Pictures/image{$this->imageCounter}.{$extension}";
                         $drawings[$imagePath] = $imageContents;
                         $this->imageFiles[$imagePath] = $imageContents;
                     }
-                } else {
-                    ob_end_clean();
                 }
             }
         }
@@ -128,15 +115,11 @@ class Drawing extends WriterPart
         if ($drawing instanceof WorksheetDrawing) {
             $extension = $drawing->getExtension();
         } elseif ($drawing instanceof MemoryDrawing) {
-            switch ($drawing->getRenderingFunction()) {
-                case MemoryDrawing::RENDERING_JPEG:
-                    $extension = 'jpg';
-
-                    break;
-                case MemoryDrawing::RENDERING_GIF:
-                    $extension = 'gif';
-
-                    break;
+            $renderingFunction = $drawing->getRenderingFunction();
+            if ($renderingFunction === MemoryDrawing::RENDERING_JPEG) {
+                $extension = 'jpg';
+            } elseif ($renderingFunction === MemoryDrawing::RENDERING_GIF) {
+                $extension = 'gif';
             }
         }
 

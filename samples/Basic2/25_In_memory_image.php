@@ -28,7 +28,7 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 
 // Generate an image
 $helper->log('Generate an image');
-$gdImage = imagecreatetruecolor(120, 20);
+$gdImage = imagecreatetruecolor(150, 20);
 if (!$gdImage) {
     throw new Exception('Cannot Initialize new GD image stream');
 }

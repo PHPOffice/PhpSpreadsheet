@@ -441,7 +441,12 @@ class Content extends WriterPart
             $prevColumn = $column;
         }
 
-        // Write any remaining drawings that don't have cells
+        // Write any remaining drawings that don't have cells.
+        // I don't know how to trigger the if condition below,
+        //   and would prefer to eliminate the code and have
+        //   someone raise an issue rather than have them
+        //   execute unpredictable code.
+        /*
         foreach ($drawingsByColumn as $column => $drawingData) {
             if ($column > $prevColumn) {
                 $this->writeCellSpan($objWriter, $column, $prevColumn);
@@ -458,6 +463,7 @@ class Content extends WriterPart
                 $prevColumn = $column;
             }
         }
+        */
     }
 
     /**
