@@ -448,6 +448,7 @@ class Content extends WriterPart
         //   someone raise an issue rather than have them
         //   execute unpredictable code.
 
+        /*
         foreach ($drawingsByColumn as $column => $drawingData) {
             if ($column > $prevColumn) {
                 $this->writeCellSpan($objWriter, $column, $prevColumn);
@@ -464,6 +465,7 @@ class Content extends WriterPart
                 $prevColumn = $column;
             }
         }
+        */
     }
 
     /**
