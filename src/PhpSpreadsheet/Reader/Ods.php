@@ -887,6 +887,7 @@ class Ods extends BaseReader
                 }
                 // Fall through to process the cell, with per-column filter checks
             }
+            $tempSpannedRange = "$columnID$rowID";
             $spannedRange = '';
             if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
@@ -985,7 +986,7 @@ class Ods extends BaseReader
                 if ($item->nodeName == 'text:p') {
                     $paragraphs[] = $item;
                 } elseif ($item->nodeName === 'draw:frame' && $worksheet !== null) {
-                    $this->processDrawFrame($spannedRange, $item, $worksheet);
+                    $this->processDrawFrame($spannedRange ?: $tempSpannedRange, $item, $worksheet);
                 }
             }
 
@@ -1234,10 +1235,10 @@ class Ods extends BaseReader
         }
         if (
             $drawName !== ''
-            && Preg::isMatch('/(\d+([.]\d+)?)cm/', $svgWidth, $matchWidth)
-            && Preg::isMatch('/(\d+([.]\d+)?)cm/', $svgHeight, $matchHeight)
-            && $styleName === 'gr1'
-            && str_starts_with($xlinkHref, 'Pictures/')
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgWidth, $matchWidth)
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgHeight, $matchHeight)
+            //&& $styleName === 'gr1'
+            && (str_starts_with($xlinkHref, 'Pictures/') || str_starts_with($xlinkHref, 'media/'))
             && $xlinkType === 'simple'
             && $xlinkShow === 'embed'
         ) {
@@ -1248,8 +1249,12 @@ class Ods extends BaseReader
                 $this->zip,
                 false
             );
-            $width = ((float) $matchWidth[1]) * HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS];
-            $height = ((float) $matchHeight[1]) * HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS];
+            $unit = [
+                'cm' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS],
+                'in' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_INCHES],
+            ];
+            $width = ((float) $matchWidth[1]) * $unit[$matchWidth[3]];
+            $height = ((float) $matchHeight[1]) * $unit[$matchHeight[3]];
             if ($drawing->getPath()) {
                 $drawing->setCoordinates($spannedRange)
                     ->setWidth((int) $width)
