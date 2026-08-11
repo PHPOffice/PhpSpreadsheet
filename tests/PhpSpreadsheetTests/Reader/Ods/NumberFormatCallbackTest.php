@@ -75,4 +75,55 @@ class NumberFormatCallbackTest extends TestCase
 
         return $retVal;
     }
+
+    public function testMmmdyyyy(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->getCell('A1')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode('mmm d, yyyy');
+        $sheet->getCell('A2')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A2')
+            ->getNumberFormat()
+            ->setFormatCode(
+                NumberFormat::FORMAT_DATE_DATETIME_BETTER
+            );
+        $writer = new OdsWriter($spreadsheetOld);
+        $this->tempfile = File::temporaryFileName();
+        $writer = new OdsWriter($spreadsheetOld);
+        $writer->useAdditionalNumberFormats([
+            'mmm d, yyyy' => self::mmmdyyyy(...),
+        ]);
+        $writer->save($this->tempfile);
+        $spreadsheetOld->disconnectWorksheets();
+        $reader = new OdsReader();
+        $spreadsheet = $reader->load($this->tempfile);
+        $newSheet = $spreadsheet->getActiveSheet();
+        // no formatCallback used, so we can't duplicate custom format,
+        // but we will use a similar format,
+        // with same number of year digits as was written
+        self::assertSame('9-Dec-2025', $newSheet->getCell('A1')->getFormattedValue());
+        self::assertSame('9-Dec-2025 0:00:00', $newSheet->getCell('A2')->getFormattedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    private static function mmmdyyyy(Style $obj, string $name): void
+    {
+        $writer = $obj->getWriter();
+        $writer->startElement('number:date-style');
+        $writer->writeAttribute('style:name', $name);
+        $writer->startElement('number:month');
+        $writer->writeAttribute('number:textual', 'true');
+        $writer->endElement(); // number:month
+        $writer->writeElement('number:text', ' ');
+        $writer->startElement('number:day');
+        $writer->endElement(); // number:day
+        $writer->writeElement('number:text', ', ');
+        $writer->startElement('number:year');
+        $writer->writeAttribute('number:style', 'long');
+        $writer->endElement(); // number:year
+        $writer->endElement(); // number:date-style
+    }
 }
