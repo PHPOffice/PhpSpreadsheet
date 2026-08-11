@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class StructuredReferenceFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider structuredReferenceProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProvider')]
     public function testStructuredReferences(float $expectedValue, string $cellAddress): void
     {
         $inputFileType = 'Xlsx';
@@ -41,7 +39,7 @@ class StructuredReferenceFormulaTest extends TestCase
         $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame('Region', $result);
 
-        $spreadsheet->getCalculationEngine()?->flushInstance();
+        $spreadsheet->getCalculationEngine()->flushInstance();
         $table->setShowHeaderRow(false);
 
         $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();

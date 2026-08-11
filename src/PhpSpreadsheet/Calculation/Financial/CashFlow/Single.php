@@ -77,13 +77,13 @@ class Single
      *
      * Calculates the interest rate required for an investment to grow to a specified future value .
      *
-     * @param array|float $periods The number of periods over which the investment is made
-     * @param array|float $presentValue Present Value
-     * @param array|float $futureValue Future Value
+     * @param mixed $periods The number of periods over which the investment is made, expect array|float
+     * @param mixed $presentValue Present Value, expect array|float
+     * @param mixed $futureValue Future Value, expect array|float
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function interestRate(array|float $periods = 0.0, array|float $presentValue = 0.0, array|float $futureValue = 0.0): string|float
+    public static function interestRate(mixed $periods = 0.0, mixed $presentValue = 0.0, mixed $futureValue = 0.0): string|float
     {
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);

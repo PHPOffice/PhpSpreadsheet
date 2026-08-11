@@ -27,7 +27,6 @@ class DuplicatesWizardTest extends TestCase
     public function testDuplicateWizard(): void
     {
         $ruleType = Wizard::DUPLICATES;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);
@@ -43,7 +42,6 @@ class DuplicatesWizardTest extends TestCase
     public function testUniqueWizard(): void
     {
         $ruleType = Wizard::UNIQUE;
-        /** @var Wizard\Duplicates $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Duplicates::class, $wizard);
         $wizard->setStyle($this->style);
@@ -99,5 +97,18 @@ class DuplicatesWizardTest extends TestCase
         $conditional = new Conditional();
         $conditional->setConditionType($ruleType);
         Wizard\Duplicates::fromConditional($conditional);
+    }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operation for Duplicates CF Rule Wizard');
+        $ruleType = Wizard::DUPLICATES;
+        /** @var Wizard\Duplicates $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
     }
 }

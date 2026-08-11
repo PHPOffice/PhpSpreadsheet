@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class DdbTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDDB
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDDB')]
     public function testDDB(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DDB', $expectedResult, $args);

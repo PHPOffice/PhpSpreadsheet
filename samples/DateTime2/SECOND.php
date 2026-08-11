@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'SECOND';
 $description = 'Returns the second of a time value. The second is given as an integer, ranging from 0 to 59';
@@ -44,5 +44,5 @@ $worksheet->getStyle('E1:E' . $testTimeCount)
 // Test the formulae
 for ($row = 1; $row <= $testTimeCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Second is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Second is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

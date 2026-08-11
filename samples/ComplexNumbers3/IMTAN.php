@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'IMTAN';
 $description = 'Returns the tangent of a complex number in x + yi or x + yj text format';
@@ -41,8 +41,8 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): The Tangent of "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' is '
-        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . $worksheet->getCell('B' . $row)->getCalculatedValueString()
     );
 }

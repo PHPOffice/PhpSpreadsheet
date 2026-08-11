@@ -12,8 +12,9 @@ class SumProduct2Test extends AllSetupTeardown
     {
         $file = 'tests/data/Reader/XLSX/issue.3909b.xlsx';
         $reader = new XlsxReader();
-        $spreadsheet = $reader->load($file);
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = $reader->load($file);
+        $this->setArrayAsValue();
+        $sheet = $this->getSheet();
         self::assertSame('=SUMPRODUCT(((calNames=I3)*(calTiers=$K$2))*calHours)', $sheet->getCell('K3')->getValue());
         self::assertSame(40, $sheet->getCell('K3')->getCalculatedValue());
         self::assertSame(4, $sheet->getCell('L3')->getCalculatedValue());
@@ -29,6 +30,5 @@ class SumProduct2Test extends AllSetupTeardown
         self::assertSame(0, $sheet->getCell('N5')->getCalculatedValue());
         self::assertSame('=SUMPRODUCT(calHours*((calNames=I3)*(calTiers=$K$2)))', $sheet->getCell('I14')->getValue());
         self::assertSame(40, $sheet->getCell('I14')->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
     }
 }

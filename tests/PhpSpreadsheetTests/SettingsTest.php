@@ -15,40 +15,16 @@ class SettingsTest extends TestCase
         Settings::setCache(null);
     }
 
-    public function testGetXMLSettings(): void
-    {
-        $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
-    }
-
-    public function testSetXMLSettings(): void
-    {
-        $original = Settings::getLibXmlLoaderOptions();
-        Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
-        $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
-        Settings::setLibXmlLoaderOptions($original);
-    }
-
     public function testInvalidChartRenderer(): void
     {
         $this->expectException(SpException::class);
         $this->expectExceptionMessage('Chart renderer must implement');
-        // @phpstan-ignore-next-line
-        Settings::setChartRenderer(self::class);
-    }
-
-    public function testInvalidRequestFactory(): void
-    {
-        $this->expectException(SpException::class);
-        $this->expectExceptionMessage('HTTP client must be configured');
-        Settings::getRequestFactory();
+        Settings::setChartRenderer(self::class); // @phpstan-ignore argument.type (deliberate run-time test)
     }
 
     public function testCache(): void
     {
         $cache1 = Settings::getCache();
-        self::assertNotNull($cache1);
         Settings::setCache(null);
         $cache2 = Settings::getCache();
         self::assertEquals($cache1, $cache2);

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -148,12 +149,79 @@ class Rels extends WriterPart
                 Namespaces::VBA,
                 'vbaProject.bin'
             );
-            ++$i; //increment i if needed for an another relation
+            ++$i; //increment i if needed for another relation
+        }
+
+        // Metadata needed for Dynamic Arrays
+        if ($this->getParentWriter()->useDynamicArrays() || $spreadsheet->hasInCellDrawings()) {
+            $this->writeRelationShip(
+                $objWriter,
+                ($i + 1 + 3),
+                Namespaces::RELATIONSHIPS_METADATA,
+                'metadata.xml'
+            );
+            ++$i; //increment i if needed for another relation
+        }
+
+        if ($spreadsheet->getActiveSheet()->getInCellDrawingCollection()->count() > 0) {
+            $i = ($i + 1 + 3);
+            $this->writeRelationship($objWriter, $i, Namespaces::RELATIONSHIPS_RICH_VALUE, 'richData/rdrichvalue.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_STRUCTURE, 'richData/rdrichvaluestructure.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_TYPES, 'richData/rdRichValueTypes.xml');
+            $this->writeRelationship($objWriter, ++$i, Namespaces::RELATIONSHIPS_RICH_VALUE_REL, 'richData/richValueRel.xml');
+        }
+
+        if ($spreadsheet->getUsesCheckBoxStyle()) {
+            $this->writeRelationship($objWriter, 'Fpb', Namespaces::RELATIONSHIPS_FEATURE_PROPERTY_BAG, 'featurePropertyBag/featurePropertyBag.xml');
+        }
+
+        // Write preserved pivot cache definition relationships. The r:id used
+        // here is referenced from the <pivotCaches> element in workbook.xml.
+        foreach (self::pivotCacheRelationships($spreadsheet) as $rId => $target) {
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION,
+                $target
+            );
         }
 
         $objWriter->endElement();
 
         return $objWriter->getData();
+    }
+
+    /**
+     * Build the map of relationship-id => workbook-relative target for each
+     * preserved pivot cache definition. The relationship id is derived from the
+     * cache id so the workbook <pivotCaches> element can reference it.
+     *
+     * @return array<string, string>
+     */
+    public static function pivotCacheRelationships(Spreadsheet $spreadsheet): array
+    {
+        /** @var array<string, mixed> $unparsedLoadedData */
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
+        /** @var array<array<string, string>> $workbookPivotCaches */
+        $workbookPivotCaches = $unparsedLoadedData['workbookPivotCaches'] ?? [];
+
+        $relationships = [];
+        foreach ($workbookPivotCaches as $pivotCache) {
+            $target = self::relativeToWorkbook($pivotCache['cacheDefinitionPath']);
+            if ($target !== null) {
+                $relationships['_pivotCacheDef_' . $pivotCache['cacheId']] = $target;
+            }
+        }
+
+        return $relationships;
+    }
+
+    /**
+     * Convert an "xl/..." archive path to a target relative to workbook.xml.
+     */
+    private static function relativeToWorkbook(string $path): ?string
+    {
+        return str_starts_with($path, 'xl/') ? substr($path, 3) : null;
     }
 
     /**
@@ -165,6 +233,7 @@ class Rels extends WriterPart
      *
      * @param bool $includeCharts Flag indicating if we should write charts
      * @param int $tableRef Table ID
+     * @param string[] $zipContent
      *
      * @return string XML Output
      */
@@ -187,6 +256,7 @@ class Rels extends WriterPart
 
         // Write drawing relationships?
         $drawingOriginalIds = [];
+        /** @var string[][][][] */
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'])) {
             $drawingOriginalIds = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'];
@@ -206,7 +276,7 @@ class Rels extends WriterPart
             // (! synchronize with \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeDrawings)
             reset($drawingOriginalIds);
             $relPath = key($drawingOriginalIds);
-            if (isset($drawingOriginalIds[$relPath])) {
+            if (isset($relPath, $drawingOriginalIds[$relPath])) {
                 $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
             }
 
@@ -296,6 +366,19 @@ class Rels extends WriterPart
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'vmlDrawings', Namespaces::VML);
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'printerSettings', Namespaces::RELATIONSHIPS_PRINTER_SETTINGS);
 
+        // Write preserved pivot table relationships
+        $pivotTables = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pivotTables'] ?? [];
+        $pivotIndex = 1;
+        foreach ($pivotTables as $pivotTable) {
+            /** @var string[] $pivotTable */
+            $this->writeRelationship(
+                $objWriter,
+                '_pivotTable_' . $pivotIndex++,
+                Namespaces::RELATIONSHIPS_PIVOT_TABLE,
+                $pivotTable['relFilePath']
+            );
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();
@@ -303,6 +386,7 @@ class Rels extends WriterPart
 
     private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, XMLWriter $objWriter, string $relationship, string $type): void
     {
+        /** @var mixed[][][][] */
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (!isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship])) {
             return;
@@ -310,6 +394,7 @@ class Rels extends WriterPart
 
         foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship] as $rId => $value) {
             if (!str_starts_with($rId, '_headerfooter_vml')) {
+                /** @var string[] $value */
                 $this->writeRelationship(
                     $objWriter,
                     $rId,
@@ -330,6 +415,12 @@ class Rels extends WriterPart
      */
     public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, int &$chartRef, bool $includeCharts = false): string
     {
+        // Check if we should use pass-through relationships
+        $passThroughRels = $this->getPassThroughDrawingRelationships($worksheet);
+        if ($passThroughRels !== null) {
+            return $passThroughRels;
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -502,10 +593,30 @@ class Rels extends WriterPart
             $objWriter,
             $i,
             Namespaces::HYPERLINK,
-            $drawing->getHyperlink()->getUrl(),
+            Preg::replace('~^sheet://~', '#', $drawing->getHyperlink()->getUrl()),
             $drawing->getHyperlink()->getTypeHyperlink()
         );
 
         return $i;
+    }
+
+    /**
+     * Get pass-through drawing relationships XML if available.
+     *
+     * Note: When pass-through is used, the original relationships are returned as-is.
+     * This means any drawings (images, charts, shapes) added programmatically after
+     * loading will not be included in the relationships. This is a known limitation
+     * when combining pass-through with drawing modifications.
+     */
+    private function getPassThroughDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'] ?? [];
+        $sheetData = $sheets[$worksheet->getCodeName()] ?? [];
+        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || !is_string($sheetData['drawingRelationships'] ?? null)) {
+            return null;
+        }
+
+        return $sheetData['drawingRelationships'];
     }
 }

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'HOUR';
 $description = 'Returns the hour of a time value. The hour is given as an integer, ranging from 0 (12:00 AM) to 23 (11:00 PM)';
@@ -44,5 +44,5 @@ $worksheet->getStyle('E1:E' . $testTimeCount)
 // Test the formulae
 for ($row = 1; $row <= $testTimeCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Hour is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Hour is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

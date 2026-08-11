@@ -63,4 +63,37 @@ return [
         '#NUM!',
         8, 0, true,
     ],
+    // Large degrees of freedom; pdf references from mpmath (50-digit)
+    'pdf df=344' => [
+        0.015147109667695774,
+        345, 344, false,
+    ],
+    'pdf df=500' => [
+        0.012611458092262507,
+        500, 500, false,
+    ],
+    'pdf df=500 low tail' => [
+        0.00366869999431594,
+        450, 500, false,
+    ],
+    'pdf df=2000' => [
+        0.00630730567436233,
+        2000, 2000, false,
+    ],
+    'cdf df=200000' => [
+        0.5004205221103651,
+        200000, 200000, true,
+    ],
+    'pdf at 0, df=1' => [
+        '#NUM!',
+        0, 1, false,
+    ],
+    'pdf at 0, df=2' => [
+        0.5,
+        0, 2, false,
+    ],
+    'pdf at 0, df=3' => [
+        0.0,
+        0, 3, false,
+    ],
 ];

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FisherInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFISHERINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFISHERINV')]
     public function testFISHERINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHERINV', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class FisherInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/FISHERINV.php';
     }
 
-    /**
-     * @dataProvider providerFisherArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFisherArray')]
     public function testFisherArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=FISHERINV({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

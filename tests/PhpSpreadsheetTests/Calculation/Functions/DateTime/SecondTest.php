@@ -8,22 +8,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SecondTest extends TestCase
 {
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[DataProvider('providerSECOND')]
     public function testDirectCallToSECOND(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::second(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[DataProvider('providerSECOND')]
     public function testSECONDAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -31,13 +28,11 @@ class SecondTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=SECOND({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerSECOND
-     */
+    #[DataProvider('providerSECOND')]
     public function testSECONDInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -60,9 +55,7 @@ class SecondTest extends TestCase
         return require 'tests/data/Calculation/DateTime/SECOND.php';
     }
 
-    /**
-     * @dataProvider providerUnhappySECOND
-     */
+    #[DataProvider('providerUnhappySECOND')]
     public function testSECONDUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -88,15 +81,14 @@ class SecondTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerSecondArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerSecondArray')]
     public function testSecondArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=SECOND({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

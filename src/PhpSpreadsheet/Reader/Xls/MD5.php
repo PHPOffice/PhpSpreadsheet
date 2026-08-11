@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+
 class MD5
 {
     private int $a;
@@ -58,8 +60,9 @@ class MD5
      */
     public function add(string $data): void
     {
-        // @phpstan-ignore-next-line
-        $words = array_values(unpack('V16', $data));
+        $unpacked = unpack('V16', $data) ?: throw new ReaderException('unable to unpack data');
+        /** @var int[] */
+        $words = array_values($unpacked);
 
         $A = $this->a;
         $B = $this->b;
@@ -173,7 +176,9 @@ class MD5
     private static function step(callable $func, int &$A, int $B, int $C, int $D, int $M, int $s, $t): void
     {
         $t = self::signedInt($t);
-        $A = (int) ($A + call_user_func($func, $B, $C, $D) + $M + $t) & self::$allOneBits;
+        /** @var int */
+        $temp = call_user_func($func, $B, $C, $D);
+        $A = (int) ($A + $temp + $M + $t) & self::$allOneBits;
         $A = self::rotate($A, $s);
         $A = (int) ($B + $A) & self::$allOneBits;
     }

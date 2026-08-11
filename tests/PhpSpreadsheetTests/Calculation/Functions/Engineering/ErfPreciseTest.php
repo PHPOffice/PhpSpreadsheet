@@ -6,26 +6,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ErfPreciseTest extends TestCase
+class ErfPreciseTest extends AllSetupTeardown
 {
     const ERF_PRECISION = 1E-14;
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[DataProvider('providerERFPRECISE')]
     public function testDirectCallToERFPRECISE(mixed $expectedResult, mixed ...$args): void
     {
         $result = Erf::ERFPRECISE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[DataProvider('providerERFPRECISE')]
     public function testERFPRECISEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -33,19 +28,16 @@ class ErfPreciseTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=ERF.PRECISE({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    /**
-     * @dataProvider providerERFPRECISE
-     */
+    #[DataProvider('providerERFPRECISE')]
     public function testERFPRECISEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=ERF.PRECISE({$argumentCells})";
 
@@ -53,8 +45,6 @@ class ErfPreciseTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerERFPRECISE(): array
@@ -62,15 +52,13 @@ class ErfPreciseTest extends TestCase
         return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }
 
-    /**
-     * @dataProvider providerErfPreciseArray
-     */
+    #[DataProvider('providerErfPreciseArray')]
     public function testErfPreciseArray(array $expectedResult, string $limit): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ERF.PRECISE({$limit})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 

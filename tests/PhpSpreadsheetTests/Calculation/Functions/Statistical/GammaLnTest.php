@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GammaLnTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAMMALN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAMMALN')]
     public function testGAMMALN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMALN', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class GammaLnTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
 
-    /**
-     * @dataProvider providerGammaLnArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGammaLnArray')]
     public function testGammaLnArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=GAMMALN({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -37,7 +33,7 @@ class GammaLnTest extends AllSetupTeardown
     {
         return [
             'matrix' => [
-                [['#NUM!', 1.5240638224308496], [0.20328095143131059, 2.8813232759012433]],
+                [['#NUM!', 1.5240638224307844], [0.20328095143129537, 2.8813232759012449]],
                 '{-1.5, 0.2; 0.75, 4.8}',
             ],
         ];

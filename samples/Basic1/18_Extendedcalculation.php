@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // List functions
 $helper->log('List implemented functions');
@@ -64,6 +65,6 @@ $spreadsheet->getActiveSheet()->setCellValue('F14', '=COUNT(B2:C12)');
 
 // Calculated data
 $helper->log('Calculated data');
-$helper->log('Value of B14 [=COUNT(B2:B12)]: ' . $spreadsheet->getActiveSheet()->getCell('B14')->getCalculatedValue());
+$helper->log('Value of B14 [=COUNT(B2:B12)]: ' . $spreadsheet->getActiveSheet()->getCell('B14')->getCalculatedValueString());
 
 $helper->logEndingNotes();

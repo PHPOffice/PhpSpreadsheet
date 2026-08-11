@@ -28,10 +28,6 @@ class Border
 
     public static function lookup(int $index): string
     {
-        if (isset(self::$borderStyleMap[$index])) {
-            return self::$borderStyleMap[$index];
-        }
-
-        return StyleBorder::BORDER_NONE;
+        return self::$borderStyleMap[$index] ?? StyleBorder::BORDER_NONE;
     }
 }

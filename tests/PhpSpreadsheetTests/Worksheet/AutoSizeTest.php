@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
@@ -13,16 +14,14 @@ use PHPUnit\Framework\TestCase;
 
 class AutoSizeTest extends TestCase
 {
-    protected Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
-    protected Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
-        $spreadsheet = new Spreadsheet();
-        $this->worksheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $this->worksheet = $this->spreadsheet->getActiveSheet();
 
         $this->worksheet->setCellValue('A1', 'YEAR')
             ->setCellValue('B1', 'QUARTER')
@@ -38,13 +37,19 @@ class AutoSizeTest extends TestCase
         $this->worksheet->fromArray($dataArray, null, 'A2');
 
         $toColumn = $this->worksheet->getHighestColumn();
-        ++$toColumn;
-        for ($i = 'A'; $i !== $toColumn; ++$i) {
+        StringHelper::stringIncrement($toColumn);
+        for ($i = 'A'; $i !== $toColumn; StringHelper::stringIncrement($i)) {
             $this->worksheet->getColumnDimension($i)->setAutoSize(true);
         }
     }
 
-    protected function setTable(): Table
+    protected function tearDown(): void
+    {
+        $this->spreadsheet->disconnectWorksheets();
+        unset($this->spreadsheet, $this->worksheet);
+    }
+
+    private function setTable(): Table
     {
         $table = new Table('A1:D5', 'Sales_Data');
         $tableStyle = new TableStyle();
@@ -55,12 +60,13 @@ class AutoSizeTest extends TestCase
         return $table;
     }
 
-    protected function readColumnSizes(): array
+    /** @return float[] */
+    private function readColumnSizes(): array
     {
         $columnSizes = [];
         $toColumn = $this->worksheet->getHighestColumn();
-        ++$toColumn;
-        for ($column = 'A'; $column !== $toColumn; ++$column) {
+        StringHelper::stringIncrement($toColumn);
+        for ($column = 'A'; $column !== $toColumn; StringHelper::stringIncrement($column)) {
             $columnSizes[$column] = $this->worksheet->getColumnDimension($column)->getWidth();
         }
 

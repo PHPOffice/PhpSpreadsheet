@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 
 class ColumnDimension extends Dimension
 {
+    public const EXCEL_MAX_WIDTH = 255.0;
+
     /**
      * Column index.
      */
@@ -87,6 +89,11 @@ class ColumnDimension extends Dimension
         return ($unitOfMeasure === null || $this->width < 0)
             ? $this->width
             : (new CssDimension((string) $this->width))->toUnit($unitOfMeasure);
+    }
+
+    public function getWidthForOutput(bool $restrictMax): float
+    {
+        return ($restrictMax && $this->width > self::EXCEL_MAX_WIDTH) ? self::EXCEL_MAX_WIDTH : $this->width;
     }
 
     /**

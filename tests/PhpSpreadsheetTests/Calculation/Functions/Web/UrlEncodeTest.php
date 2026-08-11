@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class UrlEncodeTest extends TestCase
 {
-    /**
-     * @dataProvider providerURLENCODE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerURLENCODE')]
     public function testURLENCODE(string $expectedResult, mixed $text): void
     {
         $result = Service::urlEncode($text);

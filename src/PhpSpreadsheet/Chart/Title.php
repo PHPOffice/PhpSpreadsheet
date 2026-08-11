@@ -36,6 +36,8 @@ class Title
 
     /**
      * Create a new Title.
+     *
+     * @param array<RichText|string>|RichText|string $caption
      */
     public function __construct(array|RichText|string $caption = '', ?Layout $layout = null, bool $overlay = false)
     {
@@ -46,6 +48,8 @@ class Title
 
     /**
      * Get caption.
+     *
+     * @return array<RichText|string>|RichText|string
      */
     public function getCaption(): array|RichText|string
     {
@@ -83,6 +87,8 @@ class Title
 
     /**
      * Set caption.
+     *
+     * @param array<RichText|string>|RichText|string $caption
      *
      * @return $this
      */
@@ -159,11 +165,11 @@ class Title
         $this->layout = ($this->layout === null) ? null : clone $this->layout;
         $this->font = ($this->font === null) ? null : clone $this->font;
         if (is_array($this->caption)) {
-            $captions = $this->caption;
-            $this->caption = [];
-            foreach ($captions as $caption) {
-                $this->caption[] = is_object($caption) ? (clone $caption) : $caption;
+            $captions = [];
+            foreach ($this->caption as $caption) {
+                $captions[] = is_object($caption) ? (clone $caption) : $caption;
             }
+            $this->caption = $captions;
         } else {
             $this->caption = is_object($this->caption) ? (clone $this->caption) : $this->caption;
         }

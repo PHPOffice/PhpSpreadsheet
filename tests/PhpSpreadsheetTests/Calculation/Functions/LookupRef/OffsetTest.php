@@ -6,12 +6,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class OffsetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerOFFSET
-     */
+    #[DataProvider('providerOFFSET')]
     public function testOFFSET(mixed $expectedResult, null|string $cellReference = null): void
     {
         $result = LookupRef\Offset::OFFSET($cellReference);
@@ -59,5 +58,30 @@ class OffsetTest extends AllSetupTeardown
         $workSheet->setCellValue('B2', '=OFFSET(demo, 1, 0)');
 
         self::assertSame(2, $workSheet->getCell('B2')->getCalculatedValue());
+    }
+
+    public function testOffsetNamedRangeApostropheSheet(): void
+    {
+        $workSheet = $this->getSheet();
+        $workSheet->setTitle("apo'strophe");
+        $workSheet->setCellValue('A1', 1);
+        $workSheet->setCellValue('A2', 2);
+
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('demo', $workSheet, '=$A$1'));
+
+        $workSheet->setCellValue('B1', '=demo');
+        $workSheet->setCellValue('B2', '=OFFSET(demo, 1, 0)');
+
+        self::assertSame(2, $workSheet->getCell('B2')->getCalculatedValue());
+    }
+
+    public function testOffsetMultiCellNamedRange(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->setCellValue('D13', 'Hello');
+        $this->getSpreadsheet()
+            ->addNamedRange(new NamedRange('CELLAREA', $sheet, '$B$6:$F$22'));
+        $sheet->setCellValue('D1', '=OFFSET(CELLAREA,7,2,1,1)');
+        self::assertSame('Hello', $sheet->getCell('D1')->getCalculatedValue());
     }
 }

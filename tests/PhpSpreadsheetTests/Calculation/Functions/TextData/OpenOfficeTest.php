@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class OpenOfficeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerOpenOffice
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOpenOffice')]
     public function testOpenOffice(mixed $expectedResult, string $formula): void
     {
         $this->setOpenOffice();
@@ -16,7 +14,7 @@ class OpenOfficeTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $this->setCell('A1', $formula);
         $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerOpenOffice(): array

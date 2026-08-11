@@ -6,13 +6,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Font2Test extends TestCase
 {
-    /**
-     * @dataProvider providerCharsetFromFontName
-     */
+    #[DataProvider('providerCharsetFromFontName')]
     public function testCharsetFromFontName(string $fontName, int $expectedResult): void
     {
         $result = Font::getCharsetFromFontName($fontName);
@@ -29,6 +28,7 @@ class Font2Test extends TestCase
         $defaultCovered = false;
         $tests = $this->providerCharsetFromFontName();
         foreach ($tests as $test) {
+            /** @var string[] $test */
             $thisTest = $test[0];
             if (array_key_exists($thisTest, $covered)) {
                 $covered[$thisTest] = 1;

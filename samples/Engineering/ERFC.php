@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'ERFC';
 $description = 'Returns the complementary ERF function integrated between x and infinity';
@@ -33,10 +33,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): "
-        . $worksheet->getCell('C' . $row)->getValue()
+        . $worksheet->getCell('C' . $row)->getValueString()
         . ' The complementary error function integrated by '
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' and infinity is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
     );
 }

@@ -10,11 +10,10 @@ use PHPUnit\Framework\TestCase;
 class TimeTest extends TestCase
 {
     /**
-     * @dataProvider providerTime
-     *
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTime')]
     public function testTime(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Time($separators, ...$formatBlocks);

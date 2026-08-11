@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class AveDevTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAVEDEV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAVEDEV')]
     public function testAVEDEV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('AVEDEV', $expectedResult, ...$args);

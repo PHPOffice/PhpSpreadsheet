@@ -42,6 +42,19 @@ $spreadsheet->getActiveSheet()
 If you make a call to `getCell()`, and the cell doesn't already exist, then
 PhpSpreadsheet will create that cell for you.
 
+### Copying a Cell's Value And Style Adjusting Formulas
+
+If cell A1 contains `5`, cell A2 contains `10`, and cell `B1` contains `=A1`, the formula in B1 will be evaluated as `5`. In Excel, if you copy B1 to B2, B2 will wind up with the adjusted formula `=A2` and will be evaluated as 10. Until release 5.1.0, PhpSpreadsheet requires the program to perform its own formula adjustment. In 5.1.0, a new method is introduced to handle formula adjustments:
+```php
+$worksheet->copyformula($fromCell, $toCell);
+```
+This will behave as Excel does. If $fromCell does not contain a formula, its contents will be copied as-is.
+
+If you also want to copy $fromCell's style, as Excel does, you can use the following (available in all supported releases):
+```php
+$worksheet->duplicateStyle($fromCell->getStyle(), $toCell);
+```
+
 ### BEWARE: Cells and Styles assigned to variables as a Detached Reference
 
 As an "in-memory" model, PHPSpreadsheet can be very demanding of memory,
@@ -459,6 +472,7 @@ $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFrom
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
+    // Use StringHelper::stringIncrement($col) rather than ++$col if using Php8.5+.
     for ($col = 1; $col <= $highestColumnIndex; ++$col) {
         $value = $worksheet->getCell([$col, $row])->getValue();
         echo '<td>' . $value . '</td>' . PHP_EOL;
@@ -481,11 +495,12 @@ $worksheet = $spreadsheet->getActiveSheet();
 $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 // Increment the highest column letter
-++$highestColumn;
+++$highestColumn; // StringHelper::stringIncrement($highestColumn); if using Php8.5+.
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
+    // Use StringHelper::stringIncrement($col) rather than ++$col if using Php8.5+.
     for ($col = 'A'; $col != $highestColumn; ++$col) {
         echo '<td>' .
              $worksheet->getCell($col . $row)
@@ -518,14 +533,14 @@ style information. The following example demonstrates how to set the
 value binder in PhpSpreadsheet:
 
 ```php
-/** PhpSpreadsheet */
-require_once 'src/Boostrap.php';
-
-// Set value binder
+// Older method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
-
 // Create new Spreadsheet object
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 // ...
 // Add some data, resembling some different data types
@@ -551,16 +566,24 @@ By default, the StringValueBinder will cast any datatype passed to it into a str
 // Set value binder
 $stringValueBinder = new \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder();
 $stringValueBinder->setNumericConversion(false)
+    ->setSetIgnoredErrors(true) // suppresses "number stored as text" indicators
     ->setBooleanConversion(false)
     ->setNullConversion(false)
     ->setFormulaConversion(false);
+// Older method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet->setValueBinder( $stringValueBinder );
 ```
 
 You can override the current binder when setting individual cell values by specifying a different Binder to use in the Cell's `setValue()` or the Worksheet's `setCellValue()` methods.
 ```php
 $spreadsheet = new Spreadsheet();
+// Old method using static property
 Cell::setValueBinder(new AdvancedValueBinder());
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder(new AdvancedValueBinder());
 
 $value = '12.5%';
 

@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class IntRateTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINTRATE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerINTRATE')]
     public function testINTRATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('INTRATE', $expectedResult, $args);

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CombinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOMBIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOMBIN')]
     public function testCOMBIN(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
@@ -31,15 +29,13 @@ class CombinTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }
 
-    /**
-     * @dataProvider providerCombinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCombinArray')]
     public function testCombinArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=COMBIN({$argument1},{$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

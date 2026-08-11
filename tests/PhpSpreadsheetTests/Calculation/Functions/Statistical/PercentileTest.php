@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class PercentileTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPERCENTILE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPERCENTILE')]
     public function testPERCENTILE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('PERCENTILE', $expectedResult, ...$args);

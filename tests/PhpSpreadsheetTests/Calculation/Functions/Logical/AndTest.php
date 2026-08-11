@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class AndTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAND
-     */
+    #[DataProvider('providerAND')]
     public function testAND(mixed $expectedResult, mixed ...$args): void
     {
+        $this->setArrayAsValue();
         $this->runTestCase('AND', $expectedResult, ...$args);
     }
 
@@ -19,9 +20,7 @@ class AndTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/AND.php';
     }
 
-    /**
-     * @dataProvider providerANDLiteral
-     */
+    #[DataProvider('providerANDLiteral')]
     public function testANDLiteral(bool|string $expectedResult, float|int|string $formula): void
     {
         $sheet = $this->getSheet();

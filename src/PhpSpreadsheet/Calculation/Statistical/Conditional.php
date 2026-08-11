@@ -9,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Conditional
 {
@@ -24,16 +26,25 @@ class Conditional
      * Excel Function:
      *        AVERAGEIF(range,condition[, average_range])
      *
-     * @param mixed $range Data values
-     * @param null|array|string $condition the criteria that defines which cells will be checked
+     * @param mixed $range Data values, expect array
+     * @param mixed $condition the criteria that defines which cells will be checked, expect null|mixed[]|string
      * @param mixed $averageRange Data values
      */
-    public static function AVERAGEIF(mixed $range, null|array|string $condition, mixed $averageRange = []): null|int|float|string
+    public static function AVERAGEIF(mixed $range, mixed $condition, mixed $averageRange = []): null|int|float|string
     {
+        if ($condition !== null && !is_array($condition)) {
+            $condition = StringHelper::convertToString($condition);
+        }
         if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
+            $refError = ExcelError::REF();
+            if (in_array($refError, [$range, $averageRange], true)) {
+                return $refError;
+            }
+
             throw new CalcException('Must specify range of cells, not any kind of literal');
         }
         $database = self::databaseFromRangeAndValue($range, $averageRange);
+        $condition = Functions::flattenSingleValue($condition);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
@@ -53,7 +64,8 @@ class Conditional
     {
         if (empty($args)) {
             return 0.0;
-        } elseif (count($args) === 3) {
+        }
+        if (count($args) === 3) {
             return self::AVERAGEIF($args[1], $args[2], $args[0]);
         }
         foreach ($args as $arg) {
@@ -76,11 +88,21 @@ class Conditional
      * Excel Function:
      *        COUNTIF(range,condition)
      *
-     * @param mixed[] $range Data values
-     * @param null|array|string $condition the criteria that defines which cells will be counted
+     * @param mixed $range Data values, expect array
+     * @param null|mixed[]|string $condition the criteria that defines which cells will be counted
      */
-    public static function COUNTIF(array $range, null|array|string $condition): string|int
+    public static function COUNTIF(mixed $range, null|array|string $condition): string|int
     {
+        if (
+            !is_array($range)
+            || array_key_exists(0, $range)
+        ) {
+            if ($range === ExcelError::REF()) {
+                return $range;
+            }
+
+            throw new CalcException('Must specify range of cells, not any kind of literal');
+        }
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(
             Functions::flattenArray($range),
@@ -88,6 +110,7 @@ class Conditional
         );
 
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
+        $condition = Functions::flattenSingleValue($condition);
         $condition = array_merge([[self::CONDITION_COLUMN_NAME]], [[$condition]]);
 
         return DCount::evaluate($range, null, $condition, false);
@@ -169,11 +192,26 @@ class Conditional
      * Excel Function:
      *        SUMIF(range, criteria, [sum_range])
      *
-     * @param array $range Data values
+     * @param mixed $range Data values, expecting array
+     * @param mixed $sumRange Data values, expecting array
      */
-    public static function SUMIF(array $range, mixed $condition, array $sumRange = []): null|float|string
+    public static function SUMIF(mixed $range, mixed $condition, mixed $sumRange = []): null|float|string
     {
+        if (
+            !is_array($range)
+            || array_key_exists(0, $range)
+            || !is_array($sumRange)
+            || array_key_exists(0, $sumRange)
+        ) {
+            $refError = ExcelError::REF();
+            if (in_array($refError, [$range, $sumRange], true)) {
+                return $refError;
+            }
+
+            throw new CalcException('Must specify range of cells, not any kind of literal');
+        }
         $database = self::databaseFromRangeAndValue($range, $sumRange);
+        $condition = Functions::flattenSingleValue($condition);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
@@ -203,7 +241,11 @@ class Conditional
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditionSet(...$args): array
     {
         $conditions = self::buildConditions(1, ...$args);
@@ -211,7 +253,11 @@ class Conditional
         return array_map(null, ...$conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditionSetForValueRange(...$args): array
     {
         $conditions = self::buildConditions(2, ...$args);
@@ -226,7 +272,11 @@ class Conditional
         return array_map(null, ...$conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditions(int $startOffset, ...$args): array
     {
         $conditions = [];
@@ -241,7 +291,11 @@ class Conditional
         return $conditions;
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDatabase(...$args): array
     {
         $database = [];
@@ -249,7 +303,11 @@ class Conditional
         return self::buildDataSet(0, $database, ...$args);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDatabaseWithValueRange(...$args): array
     {
         $database = [];
@@ -261,7 +319,12 @@ class Conditional
         return self::buildDataSet(1, $database, ...$args);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[][] $database
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDataSet(int $startOffset, array $database, ...$args): array
     {
         $pairCount = 1;
@@ -277,6 +340,12 @@ class Conditional
         return array_map(null, ...$database);
     }
 
+    /**
+     * @param mixed[] $range
+     * @param mixed[] $valueRange
+     *
+     * @return mixed[]
+     */
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
     {
         $range = Functions::flattenArray($range);

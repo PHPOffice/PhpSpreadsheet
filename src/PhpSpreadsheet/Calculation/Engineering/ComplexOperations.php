@@ -20,12 +20,12 @@ class ComplexOperations
      * Excel Function:
      *        IMDIV(complexDividend,complexDivisor)
      *
-     * @param array|string $complexDividend the complex numerator or dividend
+     * @param array<mixed>|string $complexDividend the complex numerator or dividend
      *                      Or can be an array of values
-     * @param array|string $complexDivisor the complex denominator or divisor
+     * @param array<mixed>|string $complexDivisor the complex denominator or divisor
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMDIV(array|string $complexDividend, array|string $complexDivisor): array|string
@@ -49,12 +49,12 @@ class ComplexOperations
      * Excel Function:
      *        IMSUB(complexNumber1,complexNumber2)
      *
-     * @param array|string $complexNumber1 the complex number from which to subtract complexNumber2
+     * @param array<mixed>|string $complexNumber1 the complex number from which to subtract complexNumber2
      *                      Or can be an array of values
-     * @param array|string $complexNumber2 the complex number to subtract from complexNumber1
+     * @param array<mixed>|string $complexNumber2 the complex number to subtract from complexNumber1
      *                      Or can be an array of values
      *
-     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function IMSUB(array|string $complexNumber1, array|string $complexNumber2): array|string

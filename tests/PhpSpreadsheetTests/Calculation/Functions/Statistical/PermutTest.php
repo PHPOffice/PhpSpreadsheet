@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class PermutTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPERMUT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPERMUT')]
     public function testPERMUT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('PERMUT', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class PermutTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/PERMUT.php';
     }
 
-    /**
-     * @dataProvider providerPermutArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPermutArray')]
     public function testPermutArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=PERMUT({$argument1},{$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ZTestTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerZTEST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerZTEST')]
     public function testZTEST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('ZTEST', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class ZTestTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/ZTEST.php';
     }
 
-    /**
-     * @dataProvider providerZTestArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerZTestArray')]
     public function testZTestArray(array $expectedResult, string $dataSet, string $m0): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ZTEST({$dataSet}, {$m0})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

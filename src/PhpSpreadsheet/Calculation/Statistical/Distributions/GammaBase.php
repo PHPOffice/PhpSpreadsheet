@@ -11,7 +11,7 @@ abstract class GammaBase
 
     private const EPS = 2.22e-16;
 
-    private const MAX_VALUE = 1.2e308;
+    protected const MAX_VALUE = 1.2e308;
 
     private const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
@@ -20,10 +20,19 @@ abstract class GammaBase
     protected static function calculateDistribution(float $value, float $a, float $b, bool $cumulative): float
     {
         if ($cumulative) {
-            return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
+            return self::regularizedGammaP($a, $value / $b);
         }
 
-        return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
+        if ($value == 0.0) {
+            if ($a == 1.0) {
+                return 1.0 / $b;
+            }
+
+            return ($a < 1.0) ? INF : 0.0;
+        }
+
+        // Log domain, so large shape parameters cannot overflow Gamma(a).
+        return exp(($a - 1.0) * log($value) - $value / $b - $a * log($b) - self::logGamma($a));
     }
 
     /** @return float|string */
@@ -32,6 +41,24 @@ abstract class GammaBase
         $xLo = 0;
         $xHi = $alpha * $beta * 5;
 
+        // Extend the upper bound while it does not yet bracket the root, so a
+        // tail quantile beyond alpha*beta*5 is no longer clamped to it. Stop if
+        // the CDF stops increasing (series approximation past its usable range)
+        // and keep the original bound rather than expanding into that region.
+        $xHiBase = $xHi;
+        $cdfHi = self::calculateDistribution($xHi, $alpha, $beta, true);
+        while ($cdfHi < $probability) {
+            $xHiNext = $xHi * 2;
+            $cdfNext = self::calculateDistribution($xHiNext, $alpha, $beta, true);
+            if ($cdfNext <= $cdfHi) {
+                $xHi = $xHiBase;
+
+                break;
+            }
+            $xHi = $xHiNext;
+            $cdfHi = $cdfNext;
+        }
+
         $dx = 1024;
         $x = $xNew = 1;
         $i = 0;
@@ -39,9 +66,6 @@ abstract class GammaBase
         while ((abs($dx) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
             // Apply Newton-Raphson step
             $result = self::calculateDistribution($x, $alpha, $beta, true);
-            if (!is_float($result)) {
-                return ExcelError::NA();
-            }
             $error = $result - $probability;
 
             if ($error == 0.0) {
@@ -54,9 +78,6 @@ abstract class GammaBase
 
             $pdf = self::calculateDistribution($x, $alpha, $beta, false);
             // Avoid division by zero
-            if (!is_float($pdf)) {
-                return ExcelError::NA();
-            }
             if ($pdf !== 0.0) {
                 $dx = $error / $pdf;
                 $xNew = $x - $dx;
@@ -84,18 +105,109 @@ abstract class GammaBase
     //
     public static function incompleteGamma(float $a, float $x): float
     {
-        static $max = 32;
-        $summer = 0;
-        for ($n = 0; $n <= $max; ++$n) {
-            $divisor = $a;
-            for ($i = 1; $i <= $n; ++$i) {
-                $divisor *= ($a + $i);
-            }
-            $summer += ($x ** $n / $divisor);
+        // Unregularized lower incomplete gamma; kept for backward compatibility.
+        return self::regularizedGammaP($a, $x) * self::gammaValue($a);
+    }
+
+    /**
+     * Regularized lower incomplete gamma P(a,x) = gamma(a,x) / Gamma(a).
+     * Series for x < a+1, else the complement of the continued fraction.
+     */
+    public static function regularizedGammaP(float $a, float $x): float
+    {
+        if ($x <= 0.0 || $a <= 0.0) {
+            return 0.0;
+        }
+        if ($x < $a + 1.0) {
+            return self::gammaSeries($a, $x);
         }
 
-        return $x ** $a * exp(0 - $x) * $summer;
+        return 1.0 - self::gammaContinuedFraction($a, $x);
     }
+
+    /**
+     * Regularized upper incomplete gamma Q(a,x) = 1 - P(a,x).
+     * Continued fraction for x >= a+1 keeps the right tail free of cancellation.
+     */
+    public static function regularizedGammaQ(float $a, float $x): float
+    {
+        if ($x <= 0.0 || $a <= 0.0) {
+            return 1.0;
+        }
+        if ($x < $a + 1.0) {
+            return 1.0 - self::gammaSeries($a, $x);
+        }
+
+        return self::gammaContinuedFraction($a, $x);
+    }
+
+    // Near x ~ a both expansions need O(sqrt(a)) terms to reach EPS.
+    private static function incompleteGammaIterations(float $a): int
+    {
+        return max(self::MAX_ITERATIONS, (int) ceil(10.0 * sqrt($a)));
+    }
+
+    // P(a,x) by its series representation (Numerical Recipes gser).
+    private static function gammaSeries(float $a, float $x): float
+    {
+        $maxIterations = self::incompleteGammaIterations($a);
+        $gln = self::logGamma($a);
+        $ap = $a;
+        $sum = 1.0 / $a;
+        $del = $sum;
+        for ($i = 1; $i <= $maxIterations; ++$i) {
+            ++$ap;
+            $del *= $x / $ap;
+            $sum += $del;
+            if (abs($del) < abs($sum) * self::EPS) {
+                break;
+            }
+        }
+
+        return $sum * exp(-$x + $a * log($x) - $gln);
+    }
+
+    // Q(a,x) by its continued fraction representation (Numerical Recipes gcf).
+    private static function gammaContinuedFraction(float $a, float $x): float
+    {
+        $maxIterations = self::incompleteGammaIterations($a);
+        $fpMin = 1.0e-300;
+        $gln = self::logGamma($a);
+        $b = $x + 1.0 - $a;
+        $c = 1.0 / $fpMin;
+        $d = 1.0 / $b;
+        $h = $d;
+        for ($i = 1; $i <= $maxIterations; ++$i) {
+            $an = -$i * ($i - $a);
+            $b += 2.0;
+            $d = $an * $d + $b;
+            if (abs($d) < $fpMin) {
+                $d = $fpMin;
+            }
+            $c = $b + $an / $c;
+            if (abs($c) < $fpMin) {
+                $c = $fpMin;
+            }
+            $d = 1.0 / $d;
+            $del = $d * $c;
+            $h *= $del;
+            if (abs($del - 1.0) < self::EPS) {
+                break;
+            }
+        }
+
+        return $h * exp(-$x + $a * log($x) - $gln);
+    }
+
+    private const GAMMA_VALUE_P0 = 1.000000000190015;
+    private const GAMMA_VALUE_P = [
+        1 => 76.18009172947146,
+        2 => -86.50532032941677,
+        3 => 24.01409824083091,
+        4 => -1.231739572450155,
+        5 => 1.208650973866179e-3,
+        6 => -5.395239384953e-6,
+    ];
 
     //
     //    Implementation of the Gamma function
@@ -106,23 +218,13 @@ abstract class GammaBase
             return 0;
         }
 
-        static $p0 = 1.000000000190015;
-        static $p = [
-            1 => 76.18009172947146,
-            2 => -86.50532032941677,
-            3 => 24.01409824083091,
-            4 => -1.231739572450155,
-            5 => 1.208650973866179e-3,
-            6 => -5.395239384953e-6,
-        ];
-
         $y = $x = $value;
         $tmp = $x + 5.5;
         $tmp -= ($x + 0.5) * log($tmp);
 
-        $summer = $p0;
+        $summer = self::GAMMA_VALUE_P0;
         for ($j = 1; $j <= 6; ++$j) {
-            $summer += ($p[$j] / ++$y);
+            $summer += (self::GAMMA_VALUE_P[$j] / ++$y);
         }
 
         return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));

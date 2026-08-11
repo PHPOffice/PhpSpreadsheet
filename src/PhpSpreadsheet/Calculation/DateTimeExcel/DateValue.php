@@ -25,7 +25,7 @@ class DateValue
      * Excel Function:
      *        DATEVALUE(dateValue)
      *
-     * @param null|array|bool|float|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
+     * @param null|array<mixed>|bool|float|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
      *                                    quotation marks that represent dates. Using the default date
      *                                    system in Excel for Windows, date_text must represent a date from
@@ -35,7 +35,7 @@ class DateValue
      *                                    #VALUE! error value if date_text is out of this range.
      *                         Or can be an array of date values
      *
-     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
@@ -46,13 +46,22 @@ class DateValue
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
         }
 
+        return self::fromString2($dateValue, null);
+    }
+
+    /**
+     * @return array<mixed>|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *                        depending on the value of the ReturnDateType flag
+     */
+    public static function fromString2(null|string|int|bool|float $dateValue, ?int $calendar = null): array|string|float|int|DateTime
+    {
         // try to parse as date iff there is at least one digit
-        if (is_string($dateValue) && preg_match('/\\d/', $dateValue) !== 1) {
+        if (is_string($dateValue) && preg_match('/\d/', $dateValue) !== 1) {
             return ExcelError::VALUE();
         }
 
         $dti = new DateTimeImmutable();
-        $baseYear = SharedDateHelper::getExcelCalendar();
+        $baseYear = $calendar ?? SharedDateHelper::getExcelCalendar();
         $dateValue = trim((string) $dateValue, '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = (string) preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
@@ -86,6 +95,7 @@ class DateValue
         return self::finalResults($PHPDateArray, $dti, $baseYear);
     }
 
+    /** @param list<float|int|string> $t1 */
     private static function t1ToString(array $t1, DateTimeImmutable $dti, bool $yearFound): string
     {
         if (count($t1) == 2) {
@@ -108,6 +118,8 @@ class DateValue
 
     /**
      * Parse date.
+     *
+     * @return mixed[]
      */
     private static function setUpArray(string $dateValue, DateTimeImmutable $dti): array
     {
@@ -115,7 +127,7 @@ class DateValue
         if (!Helpers::dateParseSucceeded($PHPDateArray)) {
             // If original count was 1, we've already returned.
             // If it was 2, we added another.
-            // Therefore, neither of the first 2 stroks below can fail.
+            // Therefore, neither of the first 2 strtoks below can fail.
             $testVal1 = strtok($dateValue, '- ');
             $testVal2 = strtok('- ');
             $testVal3 = strtok('- ') ?: $dti->format('Y');
@@ -132,6 +144,8 @@ class DateValue
     /**
      * Final results.
      *
+     * @param mixed[] $PHPDateArray
+     *
      * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
@@ -139,6 +153,7 @@ class DateValue
     {
         $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
+            /** @var array{year: int, month: int, day: int, hour: int, minute: int, second: int} $PHPDateArray */
             // Execute function
             Helpers::replaceIfEmpty($PHPDateArray['year'], $dti->format('Y'));
             if ($PHPDateArray['year'] < $baseYear) {
@@ -146,18 +161,25 @@ class DateValue
             }
             Helpers::replaceIfEmpty($PHPDateArray['month'], $dti->format('m'));
             Helpers::replaceIfEmpty($PHPDateArray['day'], $dti->format('d'));
+            /** @var array{year: int, month: int, day: int, hour: int, minute: int, second: int} $PHPDateArray */
             $PHPDateArray['hour'] = 0;
             $PHPDateArray['minute'] = 0;
             $PHPDateArray['second'] = 0;
-            $month = (int) $PHPDateArray['month'];
-            $day = (int) $PHPDateArray['day'];
-            $year = (int) $PHPDateArray['year'];
+            $month = self::getInt($PHPDateArray, 'month');
+            $day = self::getInt($PHPDateArray, 'day');
+            $year = self::getInt($PHPDateArray, 'year');
             if (!checkdate($month, $day, $year)) {
-                return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0) : ExcelError::VALUE();
+                return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0, calendar: $baseYear) : ExcelError::VALUE();
             }
-            $retValue = Helpers::returnIn3FormatsArray($PHPDateArray, true);
+            $retValue = Helpers::returnIn3FormatsArray($PHPDateArray, true, calendar: $baseYear);
         }
 
         return $retValue;
+    }
+
+    /** @param mixed[] $array */
+    private static function getInt(array $array, string $index): int
+    {
+        return (array_key_exists($index, $array) && is_numeric($array[$index])) ? (int) $array[$index] : 0;
     }
 }

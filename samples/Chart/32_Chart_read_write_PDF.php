@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 IOFactory::registerWriter('Pdf', PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 // Change these values to select the Rendering library that you wish to use
@@ -36,6 +36,9 @@ foreach ($inputFileNames as $inputFileName) {
     $reader = IOFactory::createReader($inputFileType);
     $reader->setIncludeCharts(true);
     $spreadsheet = $reader->load($inputFileName);
+
+    $helper->log('Merge chart cells (needed only for Pdf)');
+    $spreadsheet->mergeChartCellsForPdf();
 
     $helper->log('Iterate worksheets looking at the charts');
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {

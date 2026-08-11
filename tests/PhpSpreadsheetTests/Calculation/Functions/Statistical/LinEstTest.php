@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 // TODO run test in spreadsheet context
 class LinEstTest extends TestCase
 {
     /**
-     * @dataProvider providerLINEST
+     * @param mixed[] $yValues
+     * @param mixed[] $xValues
      */
+    #[DataProvider('providerLINEST')]
     public function testLINEST(array $expectedResult, array $yValues, array $xValues, mixed $const, mixed $stats): void
     {
         $result = Statistical\Trends::LINEST($yValues, $xValues, $const, $stats);

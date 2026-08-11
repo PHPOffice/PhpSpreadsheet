@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 4,
                 'totalRows' => 19,
                 'totalColumns' => 5,
+                'sheetState' => 'visible',
             ],
             [
                 'worksheetName' => 'Terms and conditions',
@@ -38,6 +40,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 1,
                 'totalRows' => 3,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);
@@ -66,6 +69,7 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 1,
                 'totalRows' => 1,
                 'totalColumns' => 2,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);
@@ -106,11 +110,31 @@ class InfoNamesTest extends TestCase
                 'lastColumnIndex' => 15,
                 'totalRows' => 3,
                 'totalColumns' => 16,
+                'sheetState' => 'visible',
             ],
         ];
         self::assertSame($expected, $info);
         self::assertSame(Xls::XLS_BIFF7, $reader->getVersion());
         self::assertContains($reader->getCodepage(), self::MAC_CE);
+    }
+
+    public function testWorksheetNamesBiff5Special(): void
+    {
+        // Sadly, no unit test was added for PR #1484,
+        // so we have to invent a fake one now.
+        $reader = new XlsSpecialCodePage();
+        $reader->setCodePage('CP855'); // use Cyrillic rather than MACCENTRAL
+        $names = $reader->listWorksheetNames(self::MAC_FILE5);
+        $expected = ['ђrkusz1']; // first character interpreted as Cyrillic
+        self::assertSame($expected, $names);
+    }
+
+    public function testBadCodePage(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('Unknown codepage');
+        $reader = new Xls();
+        $reader->setCodePage('XXXCP855');
     }
 
     public function testLoadMacCentralEuropeBiff5(): void
@@ -140,5 +164,81 @@ class InfoNamesTest extends TestCase
         // the following is stored as MACCENTRALEUROPE, not UTF-16LE
         self::assertSame('Użytkownik Microsoft Office', $properties->getLastModifiedBy());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDimensions(): void
+    {
+        $filename = 'tests/data/Reader/XLS/pr.4687.excel.xls';
+        $reader = new Xls();
+        $info = $reader->listWorksheetInfo($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'D',
+                'lastColumnIndex' => 3,
+                'totalRows' => 2,
+                'totalColumns' => 4,
+                'sheetState' => 'visible',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'lastColumnLetter' => 'B',
+                'lastColumnIndex' => 1,
+                'totalRows' => 4,
+                'totalColumns' => 2,
+                'sheetState' => 'visible',
+            ],
+        ];
+        self::assertSame($expected, $info);
+        $info = $reader->listWorksheetDimensions($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 2,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 4,
+                'lastColumnLetter' => 'D',
+            ],
+            [
+                'worksheetName' => 'Sheet2',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 4,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 2,
+                'lastColumnLetter' => 'B',
+            ],
+        ];
+        self::assertSame($expected, $info);
+    }
+
+    public function testChartSheetIgnored(): void
+    {
+        $filename = 'tests/data/Reader/XLS/chartsheet.xls';
+        $reader = new Xls();
+        $info = $reader->listWorksheetInfo($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Data',
+                'lastColumnLetter' => 'M',
+                'lastColumnIndex' => 12,
+                'totalRows' => 7,
+                'totalColumns' => 13,
+                'sheetState' => 'visible',
+            ],
+        ];
+        self::assertSame($expected, $info);
+        $info = $reader->listWorksheetDimensions($filename);
+        $expected = [
+            [
+                'worksheetName' => 'Data',
+                'dimensionsMinR' => 0,
+                'dimensionsMaxR' => 7,
+                'dimensionsMinC' => 0,
+                'dimensionsMaxC' => 13,
+                'lastColumnLetter' => 'M',
+            ],
+        ];
+        self::assertSame($expected, $info);
     }
 }

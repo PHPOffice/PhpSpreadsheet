@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AutoFilterTodayTest extends SetupTeardown
 {
@@ -19,9 +20,8 @@ class AutoFilterTodayTest extends SetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerYesterdayTodayTomorrow
-     */
+    /** @param mixed[] $expectedVisible */
+    #[DataProvider('providerYesterdayTodayTomorrow')]
     public function testYesterdayTodayTomorrow(array $expectedVisible, string $rule): void
     {
         // Loop to avoid rare edge case where first calculation

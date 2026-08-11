@@ -6,12 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCountA;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DCountATest extends SetupTeardownDatabases
 {
     /**
-     * @dataProvider providerDCountA
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDCountA')]
     public function testDirectCallToDCountA(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $result = DCountA::evaluate($database, $field, $criteria);
@@ -19,8 +22,10 @@ class DCountATest extends SetupTeardownDatabases
     }
 
     /**
-     * @dataProvider providerDCountA
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDCountA')]
     public function testDCountAAsWorksheetFormula(int|string $expectedResult, array $database, string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNTA', $database, $field, $criteria);

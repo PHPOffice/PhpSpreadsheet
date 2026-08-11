@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 return [
-    [
-        'Cell Range' => [
+    'Cell Range' => [
+        [
             ['B', 4],
             ['E', 9],
         ],

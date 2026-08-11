@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileName = __DIR__ . '/sampleData/example2.csv';
 
 /**  Define a Read Filter class implementing IReadFilter  */
@@ -77,8 +77,11 @@ $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . '</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
+    $sheet = $spreadsheet->getActiveSheet();
 
-    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
-    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
-    $helper->displayGrid($sheetData);
+    $activeRange = $sheet->calculateWorksheetDataDimension();
+    $sheet->getStyle($activeRange)->getNumberFormat()
+        ->setFormatCode('0.000');
+    $sheetData = $sheet->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData, true);
 }

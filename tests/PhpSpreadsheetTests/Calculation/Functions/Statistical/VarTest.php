@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class VarTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerVAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVAR')]
     public function testVAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('VAR', $expectedResult, ...$args);
@@ -19,9 +17,7 @@ class VarTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/VAR.php';
     }
 
-    /**
-     * @dataProvider providerOdsVAR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOdsVAR')]
     public function testOdsVAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();

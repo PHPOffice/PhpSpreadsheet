@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CosTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCos
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCos')]
     public function testCos(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,15 +24,13 @@ class CosTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/COS.php';
     }
 
-    /**
-     * @dataProvider providerCosArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCosArray')]
     public function testCosArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=COS({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

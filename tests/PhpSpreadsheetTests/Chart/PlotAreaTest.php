@@ -35,7 +35,7 @@ class PlotAreaTest extends TestCase
             'chart1', // name
             plotArea: $plotArea,
         );
-        self::assertNotNull($chart->getPlotAreaOrThrow());
+        self::assertNotNull($chart->getPlotArea());
     }
 
     public function testNoPlotArea(): void

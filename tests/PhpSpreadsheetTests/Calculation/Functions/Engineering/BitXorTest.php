@@ -7,24 +7,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class BitXorTest extends TestCase
+class BitXorTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[DataProvider('providerBITXOR')]
     public function testDirectCallToBITXOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITXOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[DataProvider('providerBITXOR')]
     public function testBITXORAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,19 +27,16 @@ class BitXorTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BITXOR({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerBITXOR
-     */
+    #[DataProvider('providerBITXOR')]
     public function testBITXORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITXOR({$argumentCells})";
 
@@ -52,8 +44,6 @@ class BitXorTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerBITXOR(): array
@@ -61,15 +51,12 @@ class BitXorTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBITXOR
-     */
+    #[DataProvider('providerUnhappyBITXOR')]
     public function testBITXORUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=BITXOR({$argumentCells})";
 
@@ -78,8 +65,6 @@ class BitXorTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyBITXOR(): array
@@ -90,15 +75,14 @@ class BitXorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBitXorArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBitXorArray')]
     public function testBitXorArray(array $expectedResult, string $number1, string $number2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BITXOR({$number1}, {$number2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

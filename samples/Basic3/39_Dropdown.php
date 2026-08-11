@@ -2,9 +2,11 @@
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -21,6 +23,7 @@ $spreadsheet->getProperties()
     ->setKeywords('Office PhpSpreadsheet php')
     ->setCategory('Test result file');
 
+/** @return array<int, string> */
 function transpose(string $value): array
 {
     return [$value];
@@ -57,7 +60,7 @@ foreach ($continents as $key => $filename) {
     $spreadsheet->getActiveSheet()
         ->setCellValue($continentColumn . ($key + 1), $continent);
 
-    ++$column;
+    StringHelper::stringIncrement($column);
 }
 
 // Hide the dropdown data

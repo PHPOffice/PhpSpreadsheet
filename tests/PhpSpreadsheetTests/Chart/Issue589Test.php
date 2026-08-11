@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
@@ -72,13 +73,23 @@ class Issue589Test extends TestCase
         return $spreadsheet;
     }
 
+    public function testBadDirectory(): void
+    {
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('Directory does not exist');
+        $spreadsheet = new Spreadsheet();
+        $writer = new Writer($spreadsheet);
+        $writer->setUseDiskCaching(true, __FILE__);
+    }
+
     public function testLineChartFill(): void
     {
         $outputFilename = File::temporaryFilename();
         $spreadsheet = $this->buildChartSpreadsheet('98B954');
         $writer = new Writer($spreadsheet);
-        $writer->setIncludeCharts(true);
-        $writer->save($outputFilename);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
+        $writer->save($outputFilename, Writer::SAVE_WITH_CHARTS);
+        self::assertTrue($writer->getIncludeCharts());
 
         $zip = new ZipArchive();
         $zip->open($outputFilename);

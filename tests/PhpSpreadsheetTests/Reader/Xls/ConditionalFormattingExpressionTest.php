@@ -6,13 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingExpressionTest extends TestCase
 {
-    /**
-     * @dataProvider conditionalFormattingProvider
-     */
+    /** @param mixed[][] $expectedRule */
+    #[DataProvider('conditionalFormattingProvider')]
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/CF_Expression_Comparisons.xls';

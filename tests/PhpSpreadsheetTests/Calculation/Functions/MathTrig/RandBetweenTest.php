@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RandBetweenTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerRANDBETWEEN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRANDBETWEEN')]
     public function testRANDBETWEEN(int|string $expectedResult, null|bool|int|string $min = 'omitted', null|bool|int|string $max = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -44,9 +42,7 @@ class RandBetweenTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/RANDBETWEEN.php';
     }
 
-    /**
-     * @dataProvider providerRandBetweenArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRandBetweenArray')]
     public function testRandBetweenArray(
         int $expectedRows,
         int $expectedColumns,
@@ -56,7 +52,7 @@ class RandBetweenTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=RandBetween({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertIsArray($result);
         self::assertCount($expectedRows, $result);
         self::assertIsArray($result[0]);

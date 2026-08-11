@@ -20,7 +20,7 @@ finding a specific document in a file repository or a document
 management system. For example Microsoft Sharepoint uses document
 metadata to search for a specific document in its document lists.
 
-<details>
+<details markdown>
   <summary>Click here for details of Spreadsheet Document Properties</summary>
 
 These are accessed in MS Excel from the "Info" option on the "File" menu:
@@ -67,7 +67,7 @@ $spreadsheet->getProperties()
 
 You can choose which properties to set or ignore.
 
-<details>
+<details markdown>
   <summary>Click here for details of Property Getters/Setters</summary>
 
 PhpSpreadsheet provides specific getters/setters for a number of pre-defined properties.
@@ -90,7 +90,7 @@ PhpSpreadsheet provides specific getters/setters for a number of pre-defined pro
 
 </details>
 
-<details>
+<details markdown>
   <summary>Click here for details of Custom Properties</summary>
 
 Additionally, PhpSpreadsheet supports the creation and reading of custom properties for those file formats that accept custom properties.
@@ -143,7 +143,7 @@ $spreadsheet->getProperties()
 
 A Spreadsheet consists of (very rarely) none, one or more Worksheets. If you have 1 or more Worksheets, then one (and only one) of those Worksheets can be "Active" (viewed or updated) at a time, but there will always be an "Active" Worksheet (unless you explicitly delete all of the Worksheets in the Spreadsheet).
 
-<details>
+<details markdown>
   <summary>Click here for details about Worksheets</summary>
 
 When you create a new Spreadsheet in MS Excel, it creates the Spreadsheet with a single Worksheet ("Sheet1")
@@ -233,7 +233,10 @@ method that suits you the best. Here are some examples:
 
 ```php
 // MySQL-like timestamp '2008-12-31' or date string
+// Old method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
@@ -275,7 +278,7 @@ define your own values as long as they are a valid MS Excel format.
 PhpSpreadsheet also provides a number of Wizards to help you create
 Date, Time and DateTime format masks.
 
-<details>
+<details markdown>
   <summary>Click here for an example of the Date/Time Wizards</summary>
 
 ```php
@@ -324,7 +327,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')
 
 Inside the Excel file, formulas are always stored as they would appear
 in an English version of Microsoft Office Excel, and PhpSpreadsheet
-handles all formulae internally in this format. This means that the
+handles all formulas internally in this format. This means that the
 following rules hold:
 
 -   Decimal separator is `.` (period)
@@ -373,7 +376,147 @@ is further explained in [the calculation engine](./calculation-engine.md).
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 ```
 
-## Locale Settings for Formulae
+### Array Formulas
+
+With version 3.0.0 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
+**It is an opt-in feature.** You need to enable it with the following code:
+```php
+// preferred method
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance($spreadsheet)
+    ->setInstanceArrayReturnType(
+        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::RETURN_ARRAY_AS_ARRAY);
+// or less preferred
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::setArrayReturnType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Calculation::RETURN_ARRAY_AS_ARRAY);
+```
+This is not a new constant, and setArrayReturnType is also not new, but it has till now not had much effect.
+The instance variable set by the new setInstanceArrayReturnType
+will always be checked first, and the static variable used only if the instance variable is uninitialized.
+
+As a basic example, let's look at a receipt for buying some fruit:
+
+![12-CalculationEngine-Basic-Formula.png](./images/12-CalculationEngine-Basic-Formula.png)
+
+We can provide a "Cost" formula for each row of the receipt by multiplying the "Quantity" (column `B`) by the "Price" (column `C`); so for the "Apples" in row `2` we enter the formula `=$B2*$C2`. In PhpSpreadsheet, we would set this formula in cell `D2` using:
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D2','=$B2*$C2');
+```
+and then do the equivalent for rows `3` to `6`.
+
+To calculate the "Total", we would use a different formula, telling it to calculate the sum value of rows 2 to 6 in the "Cost" column:
+
+![12-CalculationEngine-Basic-Formula-2.png](./images/12-CalculationEngine-Basic-Formula-2.png)
+
+I'd imagine that most developers are familiar with this: we're setting a formula that uses an Excel function (the `SUM()` function) and specifying a range of cells to include in the sum (`$D$2:$D6`) 
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D7','=SUM($D$2:$D6');
+```
+However, we could have specified an alternative formula to calculate that result, using the arrays of the "Quantity" and "Cost" columns multiplied directly, and then summed together:
+
+![12-CalculationEngine-Array-Formula.png](./images/12-CalculationEngine-Array-Formula.png)
+
+Entering the formula `=SUM(B2:B6*C2:C6)` will calculate the same result; but because it's using arrays, we need to enter it as an "array formula". In MS Excel itself, we'd do this by using `Ctrl-Shift-Enter` rather than simply `Enter` when we define the formula in the formula edit box. MS Excel then shows that this is an array formula in the formula edit box by wrapping it in the `{}` braces (you don't enter these in the formula yourself; MS Excel does it).
+
+**In recent releases of Excel, Ctrl-Shift-Enter is not required, and Excel does not add the braces.
+PhpSpreadsheet will attempt to behave like the recent releases.**
+
+Or to identify the biggest increase in like-for-like sales from one month to the next:
+
+![12-CalculationEngine-Array-Formula-3.png](./images/12-CalculationEngine-Array-Formula-3.png)
+```php
+$spreadsheet->getActiveSheet()->setCellValue('F1','=MAX(B2:B6-C2:C6)');
+```
+Which tells us that the biggest increase in sales between December and January was 30 more (in this case, 30 more Lemons).
+
+---
+
+These are examples of array formula where the results are displayed in a single cell; but other array formulas might be displayed across several cells.
+As an example, consider transposing a grid of data: MS Excel provides the `TRANSPOSE()` function for that purpose. Let's transpose our shopping list for the fruit:
+
+![12-CalculationEngine-Array-Formula-2.png](./images/12-CalculationEngine-Array-Formula-2.png)
+
+When we do this in MS Excel, we used to need to indicate ___all___ the cells that will contain the transposed data from cells `A1` to `D7`. We do this by selecting the cells where we want to display our transposed data either by holding the left mouse button down while we move with the mouse, or pressing `Shift` and using the arrow keys.
+Once we've selected all the cells to hold our data, then we enter the formula `TRANSPOSE(A1:D7)` in the formula edit box, remembering to use `Ctrl-Shift-Enter` to tell MS Excel that this is an array formula. In recent Excel, you can just enter `=TRANSPOSE(A1:D7)` into cell A10.
+
+Note also that we still set this as the formula for the top-left cell of that range, cell `A10`.
+
+Simply setting an array formula in a cell and specifying the range won't populate the spillage area for that formula.
+```php
+$spreadsheet->getActiveSheet()
+    ->setCellValue(
+        'A10',
+        '=SEQUENCE(3,3)'
+    );
+// Will return a null, because the formula for A1 hasn't been calculated to populate the spillage area 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+To do that, we need to retrieve the calculated value for the cell.
+```php
+$spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+// Will return 9, because the formula for A1 has now been calculated, and the spillage area is populated 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+If returning arrays has been enabled, `getCalculatedValue` will return an array when appropriate, and will populate the spill range. If returning arrays has not been enabled, when we call `getCalculatedValue()` for a cell that contains an array formula, PhpSpreadsheet will return the single value from the topmost leftmost cell, and will leave other cells unchanged.
+```php
+// Will return integer 1, the value for that cell within the array
+$a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+```
+
+---
+
+Excel365 introduced a number of new functions that return arrays of results.
+These include the `UNIQUE()`, `SORT()`, `SORTBY()`, `FILTER()`, `SEQUENCE()` and `RANDARRAY()` functions.
+While not all of these have been implemented by the Calculation Engine in PhpSpreadsheet, so they cannot all be calculated within your PHP applications, they can still be read from and written to Xlsx files.
+
+The `SEQUENCE()` function generates a series of values (in this case, starting with `-10` and increasing in steps of `2.5`); and here we're telling the formula to populate a 3x3 grid with these values.
+
+![12-CalculationEngine-Spillage-Formula.png](./images/12-CalculationEngine-Spillage-Formula.png)
+
+Note that this is visually different from using `Ctrl-Shift-Enter` for the formula. When we are positioned in the "spill" range for the grid, MS Excel highlights the area with a blue border; and the formula displayed in the formula editing field isn't wrapped in braces (`{}`).
+
+And if we select any other cell inside the "spill" area other than the top-left cell, the formula in the formula edit field is greyed rather than displayed in black.
+
+![12-CalculationEngine-Spillage-Formula-2.png](./images/12-CalculationEngine-Spillage-Formula-2.png)
+
+When we enter this formula in MS Excel, we don't need to select the range of cells that it should occupy; nor do we need to enter it using `Ctrl-Shift-Enter`.
+
+### The Spill Operator
+
+If you want to reference the entire spillage range of an array formula within another formula, you could do so using the standard Excel range operator (`:`, e.g. `A1:C3`); but you may not always know the range, especially for array functions that spill across as many cells as they need, like `UNIQUE()` and `FILTER()`.
+To simplify this, MS Excel has introduced the "Spill" Operator (`#`).
+
+![12-CalculationEngine-Spillage-Operator.png](./images/12-CalculationEngine-Spillage-Operator.png)
+
+Using our `SEQUENCE()`example, where the formula cell is `A1` and the result spills across the range `A1:C3`, we can use the Spill operator `A1#` to reference all the cells in that spillage range.
+In this case, we're taking the absolute value of each cell in that range, and adding them together using the `SUM()` function to give us a result of 50. 
+
+PhpSpreadsheet supports entry of a formula like this using the Spill operator. Alternatively, MS Excel internally implements the Spill Operator as a function (`ANCHORARRAY()`). MS Excel itself doesn't allow you to use this function in a formula, you have to use the "Spill" operator; but PhpSpreadsheet does allow you to use this internal Excel function. PhpSpreadsheet will convert the spill operator to ANCHORARRAY on write (so it may appear that your formula has changed, but it hasn't really); it is not necessary to convert it back on read.
+
+To create this same function in PhpSpreadsheet, use:
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D1','=SUM(ABS(ANCHORARRAY(A1)))');
+```
+
+When the file is saved, and opened in MS Excel, it will be rendered correctly.
+
+### The At-sign Operator
+
+If you want to reference just the first cell of an array formula within another formula, you could do so by prefixing it with an at-sign. You can also select the entry in a range which matches the current row in this way; so, if you enter `=@A1:A5` in cell G3, the result will be the value from A3. MS Excel again implements this under the covers by converting to a function SINGLE. PhpSpreadsheet allows the use of the SINGLE function. It does not yet support the at-sign operator, which can have a different meaning in other contexts.
+
+### Updating Cell in Spill Area
+
+Excel prevents you from updating a cell in the spill area. PhpSpreadsheet does not - it seems like it might be quite expensive, needing to reevaluate the entire worksheet with each `setValue`. PhpSpreadsheet does provide a method to be used prior to calling `setValue` if desired.
+```php
+$sheet->setCellValue('A1', '=SORT{7;5;1}');
+$sheet->getCell('A1')->getCalculatedValue(); // populates A1-A3
+$sheet->isCellInSpillRange('A2'); // true
+$sheet->isCellInSpillRange('A3'); // true
+$sheet->isCellInSpillRange('A4'); // false
+$sheet->isCellInSpillRange('A1'); // false
+```
+The last result might be surprising. Excel allows you to alter the formula cell itself, so `isCellInSpillRange` treats the formula cell as not in range. It should also be noted that, if array returns are not enabled, `isCellInSpillRange` will always return `false`.
+
+## Locale Settings for Formulas
 
 Some localisation elements have been included in PhpSpreadsheet. You can
 set a locale by changing the settings. To set the locale to Russian you
@@ -409,7 +552,7 @@ $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
 Currently, formula translation only translates the function names, the
-constants TRUE and FALSE, and the function argument separators. Cell addressing using R1C1 formatting is not supported.
+constants TRUE and FALSE (and NULL), Excel error messages, and the function argument separators. Cell addressing using R1C1 formatting is not supported.
 
 At present, the following locale settings are supported:
 
@@ -432,6 +575,8 @@ Brazilian Portuguese | Português Brasileiro | pt_br
 Russian              | русский язык         | ru
 Swedish              | Svenska              | sv
 Turkish              | Türkçe               | tr
+
+If anybody can provide translations for additional languages, particularly Basque (Euskara), Catalan (Català), Croatian (Hrvatski jezik), Galician (Galego), Greek (Ελληνικά), Slovak (Slovenčina) or Slovenian (Slovenščina); please feel free to volunteer your services, and we'll happily show you what is needed to contribute a new language. 
 
 ## Write a newline character "\n" in a cell (ALT+"Enter")
 
@@ -457,7 +602,10 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ```php
+// Old method using static property
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+// Preferred method using dynamic property since 3.4.0
+$spreadsheet->setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
@@ -480,20 +628,41 @@ $spreadsheet->getActiveSheet()->getCell('A1')
 
 ## Change a cell into a clickable URL
 
-You can make a cell a clickable URL by setting its hyperlink property:
+You can make a cell (or, for Xlsx only, a drawing) a clickable URL by setting its hyperlink property:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
+$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.example.com');
+$spreadsheet->getActiveSheet()->getCell('E26')
+    ->getHyperlink()
+    ->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
 following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://'Sheetname'!A1");
+$spreadsheet->getActiveSheet()
+    ->setCellValue('E27', 'go to another sheet');
+$spreadsheet->getActiveSheet()->getCell('E27')
+    ->getHyperlink()
+    ->setUrl("sheet://'Sheetname'!A1");
 ```
+Xlsx format uses `#` in place of `sheet://`.
+PhpSpreadsheet will automatically convert to that form when writing a spreadsheet,
+so you should continue to use `sheet://` for greater interoperability.
+
+Excel automatically supplies a special style when a hyperlink is
+entered into a cell. PhpSpreadsheet cannot do so. However,
+starting with release 4.3,
+you can mimic Excel's behavior with:
+```php
+$spreadsheet->getActiveSheet()
+    ->getStyle('E26')
+    ->getFont()
+    ->setHyperlinkTheme();
+```
+This will set underline (all formats) and text color (always
+for Xlsx, and usually for other formats).
 
 ## Setting Printer Options for Excel files
 
@@ -597,6 +766,17 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()
     ->setOddFooter('&L&B' . $spreadsheet->getProperties()->getTitle() . '&RPage &P of &N');
 ```
 
+<a id='setDifferent'></a>
+Notice the use of `oddHeader/Footer` above. This is, by default, the header used on all pages, not just the odd-numbered pages. You can specify a different header/footer for the first page and/or for even-numbered pages.
+```php
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentFirst(true);
+// then as above except setFirstHeader/Footer rather than Odd
+$spreadsheet->getActiveSheet()->getHeaderFooter()
+    ->setDifferentOddEven(true);
+// then as above except setEvenHeader/Footer rather than Odd
+```
+
 Substitution and formatting codes (starting with &) can be used inside
 headers and footers. There is no required order in which these codes
 must appear.
@@ -626,7 +806,7 @@ Code                     | Meaning
 `&C`                     | Code for "center section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the center section.
 `&D`                     | Code for "date"
 `&T`                     | Code for "time"
-`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see Tip for picture)
+`&G`                     | Code for "picture as background" - Please make sure to add the image to the header/footer (see [Tip for picture](#Tip-for-picture))
 `&U`                     | Code for "text single underline"
 `&E`                     | Code for "double underline"
 `&R`                     | Code for "right section". When two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the order of appearance, and placed into the right section.
@@ -669,6 +849,7 @@ users may find it easier to rename test.xlsx to test.zip, unzip it, and
 inspect directly the contents of the relevant xl/worksheets/sheetX.xml
 to find the codes for header/footer.
 
+<a id='Tip-for-picture'></a>
 **Tip for picture**
 
 ```php
@@ -676,8 +857,16 @@ $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$spreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->addImage(
+        $drawing,
+        \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT
+    );
 ```
+If you want your image to be used only on the first page or only on even pages, use, for example, `HeaderFooter::IMAGE_FOOTER_CENTER_EVEN`.
+You must still call [`setDifferentFirst/Even`](#setDifferent) for this to work.
+This will work only for Xlsx.
 
 ### Setting printing breaks on a row or column
 
@@ -685,22 +874,19 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
-```
-
-If your print break is inside a defined print area, it may be necessary to add an extra parameter to specify the max column (and this probably won't hurt if the break is not inside a defined print area):
-
-```php
-$spreadsheet->getActiveSheet()
-    ->setBreak('A10',
-        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW,
-        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW_MAX_COLUMN);
+$spreadsheet->getActiveSheet()->setBreak(
+    'A10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW
+);
 ```
 
 The following line of code sets a print break on column D:
 
 ```php
-$spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
+$spreadsheet->getActiveSheet()->setBreak(
+    'D10',
+    \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN
+);
 ```
 
 ### Show/hide gridlines when printing
@@ -776,6 +962,9 @@ $spreadsheet->getActiveSheet()->getStyle('B3:B7')->getFill()
 getStyle('A1:M500'), rather than styling the cells individually in a
 loop. This is much faster compared to looping through cells and styling
 them individually.
+
+**Tip** If you are styling entire row(s) or column(s), e.g. getStyle('A:A'), it is recommended to use applyFromArray as described below rather than setting the styles individually as described above.
+Also, starting with release 3.9.0, you should use getRowStyle or getColumnStyle to get the style for an entire row or column.
 
 There is also an alternative manner to set styles. The following code
 sets a cell's style to font bold, alignment right, top border thin and a
@@ -937,6 +1126,21 @@ All cells bound to the theme fonts (via the `Font::setScheme` method) can be eas
 $spreadsheet->resetThemeFonts();
 ```
 
+### Charset for Arabic and Persian Fonts
+
+It is unknown why this should be needed. However, some Excel
+users have reported better results if the internal declaration for an
+Arabic/Persian font includes a `charset` declaration.
+This seems like a bug in Excel, but, starting with release 4.4,
+this can be accomplished at the spreadsheet level, via:
+```php
+$spreadsheet->addFontCharset('C Nazanin');
+```
+As many charsets as desired can be added in this manner.
+There is a second optional parameter specifying the charset id
+to this method, but, since this seems to be needed only for
+Arabic/Persian, that is its default value.
+
 ### Styling cell borders
 
 In PhpSpreadsheet it is easy to apply various borders on a rectangular
@@ -1037,15 +1241,16 @@ quotePrefix  | setQuotePrefix()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
-Array key   | Maps to property
-------------|-------------------
-horizontal  | setHorizontal()
-indent      | setIndent()
-readOrder   | setReadOrder()
-shrinkToFit | setShrinkToFit()
-textRotation| setTextRotation()
-vertical    | setVertical()
-wrapText    | setWrapText()
+Array key       | Maps to property
+----------------|-------------------
+horizontal      | setHorizontal()
+justifyLastLine | setJustifyLastLine()
+indent          | setIndent()
+readOrder       | setReadOrder()
+shrinkToFit     | setShrinkToFit()
+textRotation    | setTextRotation()
+vertical        | setVertical()
+wrapText        | setWrapText()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
@@ -1145,8 +1350,8 @@ style object:
 
 ```php
 $spreadsheet->getActiveSheet()
-    ->duplicateStyle(
-        $spreadsheet->getActiveSheet()->getStyle('B2'),
+    ->duplicateConditionalStyle(
+        $spreadsheet->getActiveSheet()->getConditionalStyles('B2'),
         'B3:B7'
     );
 ```
@@ -1412,6 +1617,8 @@ directly in some cell range, say A1:A3, and instead use, say,
 `$validation->setFormula1('\'Sheet title\'!$A$1:$A$3')`. Another benefit is that
 the item values themselves can contain the comma `,` character itself.
 
+### Setting Validation on Multiple Cells - Release 3 and Below
+
 If you need data validation on multiple cells, one can clone the
 ruleset:
 
@@ -1422,6 +1629,33 @@ $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validati
 Alternatively, one can apply the validation to a range of cells:
 ```php
 $validation->setSqref('B5:B1048576');
+```
+
+### Setting Validation on Multiple Cells - Release 4 and Above
+
+Starting with Release 4, Data Validation can be set simultaneously on several cells/cell ranges.
+
+```php
+$spreadsheet->getActiveSheet()->getDataValidation('A1:A4 D5 E6:E7')
+    ->set...(...);
+```
+
+In theory, this means that more than one Data Validation can apply to a cell.
+It appears that, when Excel reads a spreadsheet with more than one Data Validation applying to a cell,
+whichever appears first in the Xml is what Xml uses.
+PhpSpreadsheet will instead apply a DatValidation applying to a single cell first;
+then, if it doesn't find such a match, it will use the first applicable definition which is read (or created after or in lieu of reading).
+This allows you, for example, to set Data Validation on all but a few cells in a column:
+```php
+$dv = new DataValidation();
+$dv->setType(DataValidation::TYPE_NONE);
+$sheet->setDataValidation('A5:A7', $dv);
+$dv = new DataValidation();
+$dv->set...(...);
+$sheet->setDataValidation('A:A', $dv);
+$dv = new DataValidation();
+$dv->setType(DataValidation::TYPE_NONE);
+$sheet->setDataValidation('A9', $dv);
 ```
 
 ## Setting a column's width
@@ -1655,7 +1889,7 @@ The second alternative, available in both OpenOffice and LibreOffice is to merge
 $spreadsheet->getActiveSheet()->mergeCells('A1:C3', Worksheet::MERGE_CELL_CONTENT_MERGE);
 ```
 
-Particularly when the merged cells contain formulae, the logic for this merge seems strange:
+Particularly when the merged cells contain formulas, the logic for this merge seems strange:
 walking through the merge range, each cell is calculated in turn, and appended to the "master" cell, then it is emptied, so any subsequent calculations that reference the cell see an empty cell, not the pre-merge value. 
 For example, suppose our spreadsheet contains
 
@@ -1689,7 +1923,7 @@ Equivalent methods exist for inserting/removing columns:
 $spreadsheet->getActiveSheet()->removeColumn('C', 2);
 ```
 
-All subsequent rows (or columns) will be moved to allow the insertion (or removal) with all formulae referencing thise cells adjusted accordingly.
+All subsequent rows (or columns) will be moved to allow the insertion (or removal) with all formulas referencing thise cells adjusted accordingly.
 
 Note that this is a fairly intensive process, particularly with large worksheets, and especially if you are inserting/removing rows/columns from near beginning of the worksheet.
 
@@ -1846,7 +2080,11 @@ $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
+$payable->getFont()->setColor(
+    new \PhpOffice\PhpSpreadsheet\Style\Color( 
+        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN
+    )
+);
 $richText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```
@@ -1875,7 +2113,7 @@ global by default.
 
 ## Define a named formula
 
-In addition to named ranges, PhpSpreadsheet also supports the definition of named formulae. These can be
+In addition to named ranges, PhpSpreadsheet also supports the definition of named formulas. These can be
 defined using the following code:
 
 ```php
@@ -1929,7 +2167,7 @@ $spreadsheet->getActiveSheet()
 ```
 
 As with named ranges, an optional fourth parameter can be passed defining the named formula
-scope as local (i.e. only usable on the specified worksheet). Otherwise, named formulae are
+scope as local (i.e. only usable on the specified worksheet). Otherwise, named formulas are
 global by default.
 
 ## Redirect output to a client's web browser

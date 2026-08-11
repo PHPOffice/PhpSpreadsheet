@@ -7,12 +7,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class VisibilityTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider dataProviderRowVisibility
-     */
+    /** @param array<int, bool> $visibleRows */
+    #[DataProvider('dataProviderRowVisibility')]
     public function testRowVisibility(array $visibleRows): void
     {
         $spreadsheet = new Spreadsheet();
@@ -29,6 +29,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
+    /** @return array<int, array<int, array<int, bool>>> */
     public static function dataProviderRowVisibility(): array
     {
         return [
@@ -38,9 +39,8 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderColumnVisibility
-     */
+    /** @param array<string, bool> $visibleColumns */
+    #[DataProvider('dataProviderColumnVisibility')]
     public function testColumnVisibility(array $visibleColumns): void
     {
         $spreadsheet = new Spreadsheet();
@@ -57,6 +57,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
+    /** @return array<int, array<int, array<string, bool>>> */
     public static function dataProviderColumnVisibility(): array
     {
         return [
@@ -66,9 +67,8 @@ class VisibilityTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider dataProviderSheetVisibility
-     */
+    /** @param array<string, string> $visibleSheets */
+    #[DataProvider('dataProviderSheetVisibility')]
     public function testSheetVisibility(array $visibleSheets): void
     {
         $spreadsheet = new Spreadsheet();
@@ -86,6 +86,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
+    /** @return array<int, array<int, array<string, string>>> */
     public static function dataProviderSheetVisibility(): array
     {
         return [

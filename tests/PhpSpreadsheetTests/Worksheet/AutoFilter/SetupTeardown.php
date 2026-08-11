@@ -10,14 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class SetupTeardown extends TestCase
 {
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
     private ?Worksheet $sheet = null;
 
     protected int $maxRow = 4;
@@ -51,11 +45,13 @@ class SetupTeardown extends TestCase
         return $this->sheet;
     }
 
+    /** @return int[] */
     public function getVisible(): array
     {
         return $this->getVisibleSheet($this->getSheet());
     }
 
+    /** @return int[] */
     public function getVisibleSheet(Worksheet $sheet): array
     {
         $sheet->getAutoFilter()->showHideRows();

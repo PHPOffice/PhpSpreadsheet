@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\NumberFormatter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
+    private string $compatibilityMode;
+
     protected function setUp(): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(',');
+        $this->compatibilityMode = Functions::getCompatibilityMode();
     }
 
     protected function tearDown(): void
@@ -22,11 +27,13 @@ class NumberFormatTest extends TestCase
         StringHelper::setCurrencyCode(null);
         StringHelper::setDecimalSeparator(null);
         StringHelper::setThousandsSeparator(null);
+        Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
     /**
-     * @dataProvider providerNumberFormat
+     * @param null|bool|float|int|string $args string to be formatted
      */
+    #[DataProvider('providerNumberFormat')]
     public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -39,8 +46,9 @@ class NumberFormatTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNumberFormatFractions
+     * @param null|bool|float|int|string $args string to be formatted
      */
+    #[DataProvider('providerNumberFormatFractions')]
     public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -53,8 +61,9 @@ class NumberFormatTest extends TestCase
     }
 
     /**
-     * @dataProvider providerNumberFormatDates
+     * @param null|bool|float|int|string $args string to be formatted
      */
+    #[DataProvider('providerNumberFormatDates')]
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
@@ -64,6 +73,23 @@ class NumberFormatTest extends TestCase
     public static function providerNumberFormatDates(): array
     {
         return require 'tests/data/Style/NumberFormatDates.php';
+    }
+
+    public function testDatesOpenOfficeGnumericNonPositive(): void
+    {
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_OPENOFFICE
+        );
+        $fmt1 = 'yyyy-mm-dd';
+        $rslt = NumberFormat::toFormattedString(0, $fmt1);
+        self::assertSame('1899-12-30', $rslt);
+        $rslt = NumberFormat::toFormattedString(-2, $fmt1);
+        self::assertSame('1899-12-28', $rslt);
+        $rslt = NumberFormat::toFormattedString(-2.4, $fmt1);
+        self::assertSame('1899-12-27', $rslt);
+        $fmt2 = 'yyyy-mm-dd hh:mm:ss AM/PM';
+        $rslt = NumberFormat::toFormattedString(-2.4, $fmt2);
+        self::assertSame('1899-12-27 02:24:00 PM', $rslt);
     }
 
     public function testCurrencyCode(): void
@@ -80,9 +106,7 @@ class NumberFormatTest extends TestCase
         StringHelper::setCurrencyCode($cur);
     }
 
-    /**
-     * @dataProvider providerNoScientific
-     */
+    #[DataProvider('providerNoScientific')]
     public function testNoScientific(string $expectedResult, string $numericString): void
     {
         $result = NumberFormatter::floatStringConvertScientific($numericString);

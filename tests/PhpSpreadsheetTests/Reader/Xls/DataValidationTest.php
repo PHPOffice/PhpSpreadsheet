@@ -6,13 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    /**
-     * @dataProvider dataValidationProvider
-     */
+    /** @param mixed[] $expectedRule */
+    #[DataProvider('dataValidationProvider')]
     public function testDataValidation(string $expectedRange, array $expectedRule): void
     {
         $filename = 'tests/data/Reader/XLS/DataValidation.xls';

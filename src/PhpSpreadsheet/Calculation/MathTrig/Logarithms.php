@@ -22,7 +22,7 @@ class Logarithms
      * @param mixed $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *                      Or can be an array of values
      *
-     * @return array|float|string The result, or a string containing an error
+     * @return array<mixed>|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -52,7 +52,7 @@ class Logarithms
      * @param mixed $number Should be numeric
      *                      Or can be an array of values
      *
-     * @return array|float|string Rounded number
+     * @return array<mixed>|float|string Rounded number
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -80,7 +80,7 @@ class Logarithms
      * @param mixed $number Should be numeric
      *                      Or can be an array of values
      *
-     * @return array|float|string Rounded number
+     * @return array<mixed>|float|string Rounded number
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

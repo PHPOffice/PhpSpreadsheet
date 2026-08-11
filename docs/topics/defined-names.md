@@ -263,7 +263,7 @@ Even though `CHARGE_RATE` references a cell on a different worksheet, because is
 
 However, a Named Range can be locally scoped so that it is only available when referenced from a specific worksheet, or it can be globally scoped. This means that you can use the same Named Range name with different values on different worksheets.
 
-Building further on our timesheet, perhaps we use a different worksheet for each client, and we use the same hourly rate when billing most of our clients; but for one particular client (perhaps doing work for a a friend) we use a lower rate.
+Building further on our timesheet, perhaps we use a different worksheet for each client, and we use the same hourly rate when billing most of our clients; but for one particular client (perhaps doing work for a friend) we use a lower rate.
 
 ```php
 $clients = [
@@ -545,17 +545,18 @@ $this->spreadsheet->addDefinedName(
 ### Naming Names
 
 The names that you assign to Defined Name must follow the following set of rules:
+
  - The first character of a name must be one of the following characters:
-   - letter (including UTF-8 letters)
-   - underscore (`_`)
+     - letter (including UTF-8 letters)
+     - underscore (`_`)
  - Remaining characters in the name can be
-   - letters (including UTF-8 letters)
-   - numbers (including UTF-8 numbers)
-   - periods (`.`)
-   - underscore characters (`_`)
+     - letters (including UTF-8 letters)
+     - numbers (including UTF-8 numbers)
+     - periods (`.`)
+     - underscore characters (`_`)
  - The following are not allowed:
-   - Space characters are not allowed as part of a name.
-   - Names can't look like cell addresses, such as A35 or R2C2
+     - Space characters are not allowed as part of a name.
+     - Names can't look like cell addresses, such as A35 or R2C2
  - Names are not case sensitive. For example, `North` and `NORTH` are treated as the same name.
 
 ### Limitations

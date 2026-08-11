@@ -145,7 +145,6 @@ class DataSeriesValues2Test extends AbstractFunctional
         $plotArea2 = $chart2->getPlotArea();
         self::assertNotNull($plotArea2);
         $plotGroup2 = $plotArea2->getPlotGroup()[0];
-        self::assertNotNull($plotGroup2);
         $plotValues2 = $plotGroup2->getPlotValues();
         self::assertCount(3, $plotValues2);
         self::assertSame([15.0, 73.0, 61.0, 32.0], $plotValues2[1]->getDataValues());

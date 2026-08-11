@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DollarDeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDOLLARDE
-     */
+    #[DataProvider('providerDOLLARDE')]
     public function testDOLLARDE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DOLLARDE', $expectedResult, $args);
@@ -21,15 +20,14 @@ class DollarDeTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
 
-    /**
-     * @dataProvider providerDollarDeArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDollarDeArray')]
     public function testDollarDeArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=DollarDe({$argument1},{$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

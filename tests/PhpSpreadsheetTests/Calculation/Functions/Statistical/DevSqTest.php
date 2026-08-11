@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class DevSqTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerDEVSQ
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDEVSQ')]
     public function testDEVSQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('DEVSQ', $expectedResult, ...$args);

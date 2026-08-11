@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 class ConditionalHelper
@@ -30,12 +31,12 @@ class ConditionalHelper
         $this->condition = $condition;
         $this->cellRange = $cellRange;
 
-        if (is_int($condition) || is_float($condition)) {
-            $this->size = ($condition <= 65535 ? 3 : 0x0000);
+        if (is_int($condition) && $condition >= 0 && $condition <= 65535) {
+            $this->size = 3;
             $this->tokens = pack('Cv', 0x1E, $condition);
         } else {
             try {
-                $formula = Wizard\WizardAbstract::reverseAdjustCellRef((string) $condition, $cellRange);
+                $formula = Wizard\WizardAbstract::reverseAdjustCellRef(StringHelper::convertToString($condition), $cellRange);
                 $this->parser->parse($formula);
                 $this->tokens = $this->parser->toReversePolish();
                 $this->size = strlen($this->tokens ?? '');

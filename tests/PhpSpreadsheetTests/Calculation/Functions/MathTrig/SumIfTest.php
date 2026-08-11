@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class SumIfTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerSUMIF
+     * @param mixed[] $array1
+     * @param null|mixed[] $array2
      */
+    #[DataProvider('providerSUMIF')]
     public function testSUMIF2(mixed $expectedResult, array $array1, mixed $condition, ?array $array2 = null): void
     {
         $this->mightHaveException($expectedResult);
         if ($expectedResult === 'incomplete') {
             self::markTestIncomplete('Raises formula error - researching solution');
         }
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->fromArray($array1, null, 'A1', true);
         $maxARow = count($array1);
@@ -36,5 +42,23 @@ class SumIfTest extends AllSetupTeardown
     public static function providerSUMIF(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMIF.php';
+    }
+
+    public function testOutliers(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUMIF(5,"<32")');
+
+        try {
+            $sheet->getCell('A1')->getCalculatedValue();
+            self::fail('Should receive exception for non-array arg');
+        } catch (CalcException $e) {
+            self::assertStringContainsString('Must specify range of cells', $e->getMessage());
+        }
+
+        $sheet->getCell('A4')->setValue('=SUMIF(#REF!,"<32")');
+        self::assertSame('#REF!', $sheet->getCell('A4')->getCalculatedValue());
+        $sheet->getCell('A5')->setValue('=SUMIF(D1:D4, 1, #REF!)');
+        self::assertSame('#REF!', $sheet->getCell('A5')->getCalculatedValue());
     }
 }

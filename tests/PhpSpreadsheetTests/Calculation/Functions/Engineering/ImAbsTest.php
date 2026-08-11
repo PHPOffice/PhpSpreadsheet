@@ -7,26 +7,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class ImAbsTest extends TestCase
+class ImAbsTest extends AllSetupTeardown
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[DataProvider('providerIMABS')]
     public function testDirectCallToIMABS(float|int|string $expectedResult, string $arg): void
     {
         $result = ComplexFunctions::IMABS($arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[DataProvider('providerIMABS')]
     public function testIMABSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -34,19 +29,16 @@ class ImAbsTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMABS({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    /**
-     * @dataProvider providerIMABS
-     */
+    #[DataProvider('providerIMABS')]
     public function testIMABSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=IMABS({$argumentCells})";
 
@@ -54,8 +46,6 @@ class ImAbsTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerIMABS(): array
@@ -63,15 +53,12 @@ class ImAbsTest extends TestCase
         return require 'tests/data/Calculation/Engineering/IMABS.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyIMABS
-     */
+    #[DataProvider('providerUnhappyIMABS')]
     public function testIMABSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
-        $spreadsheet = new Spreadsheet();
-        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $this->getSheet();
         $argumentCells = $arguments->populateWorksheet($worksheet);
         $formula = "=IMABS({$argumentCells})";
 
@@ -80,8 +67,6 @@ class ImAbsTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerUnhappyIMABS(): array
@@ -91,15 +76,13 @@ class ImAbsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImAbsArray
-     */
+    #[DataProvider('providerImAbsArray')]
     public function testImAbsArray(array $expectedResult, string $complex): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=IMABS({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

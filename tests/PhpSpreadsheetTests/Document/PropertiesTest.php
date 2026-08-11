@@ -8,6 +8,7 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
@@ -16,7 +17,7 @@ class PropertiesTest extends TestCase
 
     private float $startTime;
 
-    protected function setup(): void
+    protected function setUp(): void
     {
         do {
             // loop to avoid rare situation where timestamp changes
@@ -44,14 +45,19 @@ class PropertiesTest extends TestCase
         self::assertSame($creator, $this->properties->getCreator());
     }
 
-    /**
-     * @dataProvider providerCreationTime
-     */
+    #[DataProvider('providerCreationTime')]
     public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
-        $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
-
-        $this->properties->setCreated($created);
+        if ($expectedCreationTime === null) {
+            do {
+                // loop to avoid rare situation where timestamp changes
+                $expectedCreationTime = (float) (new DateTime())->format('U');
+                $this->properties->setCreated($created);
+                $endTime = (float) (new DateTime())->format('U');
+            } while ($expectedCreationTime !== $endTime);
+        } else {
+            $this->properties->setCreated($created);
+        }
         self::assertEquals($expectedCreationTime, $this->properties->getCreated());
     }
 
@@ -73,14 +79,19 @@ class PropertiesTest extends TestCase
         self::assertSame($creator, $this->properties->getLastModifiedBy());
     }
 
-    /**
-     * @dataProvider providerModifiedTime
-     */
+    #[DataProvider('providerModifiedTime')]
     public function testSetModified(mixed $expectedModifiedTime, null|int|string $modified): void
     {
-        $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
-
-        $this->properties->setModified($modified);
+        if ($expectedModifiedTime === null) {
+            do {
+                // loop to avoid rare situation where timestamp changes
+                $expectedModifiedTime = (float) (new DateTime())->format('U');
+                $this->properties->setModified($modified);
+                $endTime = (float) (new DateTime())->format('U');
+            } while ($expectedModifiedTime !== $endTime);
+        } else {
+            $this->properties->setModified($modified);
+        }
         self::assertEquals($expectedModifiedTime, $this->properties->getModified());
     }
 
@@ -150,10 +161,8 @@ class PropertiesTest extends TestCase
         self::assertSame($manager, $this->properties->getManager());
     }
 
-    /**
-     * @dataProvider providerCustomProperties
-     */
-    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, mixed $propertyValue, ?string $propertyType = null): void
+    #[DataProvider('providerCustomProperties')]
+    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, null|bool|float|int|string $propertyValue, ?string $propertyType = null): void
     {
         if ($propertyType === null) {
             $this->properties->setCustomProperty($propertyName, $propertyValue);

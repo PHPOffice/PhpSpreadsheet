@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'BIN2DEC';
 $description = 'Converts a binary number to decimal';
@@ -39,7 +39,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Binary ' . $worksheet->getCell("A$row")->getValue()
-        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Binary ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

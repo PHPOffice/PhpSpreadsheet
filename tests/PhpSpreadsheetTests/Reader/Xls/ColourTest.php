@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ColourTest extends AbstractFunctional
@@ -24,7 +25,7 @@ class ColourTest extends AbstractFunctional
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 7; ++$row) {
-            for ($column = 'A'; $column !== 'J'; ++$column) {
+            for ($column = 'A'; $column !== 'J'; StringHelper::stringIncrement($column)) {
                 $cellAddress = "{$column}{$row}";
                 $colours[$cellAddress] = $worksheet->getStyle($cellAddress)->getFill()->getStartColor()->getRGB();
             }

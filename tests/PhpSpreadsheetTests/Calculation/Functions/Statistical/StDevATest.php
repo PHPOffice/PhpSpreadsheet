@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class StDevATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSTDEVA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSTDEVA')]
     public function testSTDEVA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('STDEVA', $expectedResult, ...$args);
@@ -19,9 +17,7 @@ class StDevATest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/STDEVA.php';
     }
 
-    /**
-     * @dataProvider providerOdsSTDEVA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOdsSTDEVA')]
     public function testOdsSTDEVA(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();

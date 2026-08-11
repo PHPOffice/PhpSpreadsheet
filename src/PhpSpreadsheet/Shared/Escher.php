@@ -2,19 +2,17 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+
 class Escher
 {
     /**
      * Drawing Group Container.
-     *
-     * @var ?Escher\DggContainer
      */
     private ?Escher\DggContainer $dggContainer = null;
 
     /**
      * Drawing Container.
-     *
-     * @var ?Escher\DgContainer
      */
     private ?Escher\DgContainer $dgContainer = null;
 
@@ -24,6 +22,14 @@ class Escher
     public function getDggContainer(): ?Escher\DggContainer
     {
         return $this->dggContainer;
+    }
+
+    /**
+     * Get Drawing Group Container.
+     */
+    public function getDggContainerOrThrow(): Escher\DggContainer
+    {
+        return $this->dggContainer ?? throw new SpreadsheetException('dggContainer is unexpectedly null');
     }
 
     /**
@@ -40,6 +46,14 @@ class Escher
     public function getDgContainer(): ?Escher\DgContainer
     {
         return $this->dgContainer;
+    }
+
+    /**
+     * Get Drawing Container.
+     */
+    public function getDgContainerOrThrow(): Escher\DgContainer
+    {
+        return $this->dgContainer ?? throw new SpreadsheetException('dgContainer is unexpectedly null');
     }
 
     /**

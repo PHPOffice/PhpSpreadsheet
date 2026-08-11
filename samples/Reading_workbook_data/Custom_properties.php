@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/sampleData/example1.xlsx';
 
@@ -38,7 +38,7 @@ foreach ($customPropertyList as $customPropertyName) {
 
             break;
         case 'd':    // date
-            $propertyValue = is_numeric($propertyValue) ? date('l, d<\s\u\p>S</\s\u\p> F Y g:i A', (int) $propertyValue) : '*****INVALID*****';
+            $propertyValue = is_numeric($propertyValue) ? date('l, j<\s\u\p>S</\s\u\p> F Y g:i A', (int) $propertyValue) : '*****INVALID*****';
             $propertyType = 'date';
 
             break;

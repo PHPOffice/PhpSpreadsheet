@@ -60,7 +60,7 @@ class DefinedNames extends BaseLoader
      */
     private function addDefinedName(string $baseAddress, string $definedName, string $value): void
     {
-        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
+        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true, true);
         $worksheet = $this->spreadsheet->getSheetByName($sheetReference);
         // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
         if ($worksheet !== null) {

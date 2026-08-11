@@ -7,15 +7,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RightTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerRIGHT
-     *
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
+    #[DataProvider('providerRIGHT')]
     public function testRIGHT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +39,7 @@ class RightTest extends AllSetupTeardown
         return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 
-    /**
-     * @dataProvider providerLocaleRIGHT
-     */
+    #[DataProvider('providerLocaleRIGHT')]
     public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
@@ -71,9 +69,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTTrue
-     */
+    #[DataProvider('providerCalculationTypeRIGHTTrue')]
     public function testCalculationTypeTrue(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -107,9 +103,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTFalse
-     */
+    #[DataProvider('providerCalculationTypeRIGHTFalse')]
     public function testCalculationTypeFalse(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -143,9 +137,7 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCalculationTypeRIGHTNull
-     */
+    #[DataProvider('providerCalculationTypeRIGHTNull')]
     public function testCalculationTypeNull(string $type, string $resultB1, string $resultB2): void
     {
         Functions::setCompatibilityMode($type);
@@ -178,16 +170,15 @@ class RightTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerRightArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerRightArray')]
     public function testRightArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=RIGHT({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerRightArray(): array

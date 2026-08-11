@@ -10,9 +10,9 @@ class Color
      * Read color.
      *
      * @param int $color Indexed color
-     * @param array $palette Color palette
+     * @param string[][] $palette Color palette
      *
-     * @return array RGB color value, example: ['rgb' => 'FF0000']
+     * @return string[] RGB color value, example: ['rgb' => 'FF0000']
      */
     public static function map(int $color, array $palette, int $version): array
     {
@@ -24,12 +24,6 @@ class Color
             return $palette[$color - 8];
         }
 
-        // default color table
-        if ($version == Xls::XLS_BIFF8) {
-            return Color\BIFF8::lookup($color);
-        }
-
-        // BIFF5
-        return Color\BIFF5::lookup($color);
+        return ($version === Xls::XLS_BIFF8) ? Color\BIFF8::lookup($color) : Color\BIFF5::lookup($color);
     }
 }

@@ -9,24 +9,21 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselK;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BesselKTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-12;
 
-    /**
-     * @dataProvider providerBESSELK
-     */
+    #[DataProvider('providerBESSELK')]
     public function testDirectCallToBESSELK(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselK::besselK(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELK
-     */
+    #[DataProvider('providerBESSELK')]
     public function testBESSELKAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -34,13 +31,11 @@ class BesselKTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BESSELK({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELK
-     */
+    #[DataProvider('providerBESSELK')]
     public function testBESSELKInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +58,7 @@ class BesselKTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BESSELK.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBESSELK
-     */
+    #[DataProvider('providerUnhappyBESSELK')]
     public function testBESSELKUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -92,15 +85,14 @@ class BesselKTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBesselKArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBesselKArray')]
     public function testBesselKArray(array $expectedResult, string $value, string $ord): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BESSELK({$value}, {$ord})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

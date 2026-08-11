@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class GaussTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerGAUSS
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGAUSS')]
     public function testGAUSS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAUSS', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class GaussTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/GAUSS.php';
     }
 
-    /**
-     * @dataProvider providerGaussArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerGaussArray')]
     public function testGaussArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=GAUSS({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

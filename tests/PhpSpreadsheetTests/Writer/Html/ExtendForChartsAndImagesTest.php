@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
@@ -59,7 +60,9 @@ class ExtendForChartsAndImagesTest extends Functional\AbstractFunctional
 
         // Add a drawing to the worksheet
         $drawing = new Drawing();
-        $drawing->setPath('foo.png', false);
+        $path = 'tests/data/Writer/XLSX/blue_square.png';
+        $drawing->setPath($path);
+        self::assertSame($path, $drawing->getPath());
         $drawing->setCoordinates('A5');
         $drawing->setWorksheet($sheet);
 
@@ -74,11 +77,49 @@ class ExtendForChartsAndImagesTest extends Functional\AbstractFunctional
 
         // Add a drawing to the worksheet
         $drawing = new Drawing();
-        $drawing->setPath('foo.png', false);
+        $path = 'tests/data/Writer/XLSX/blue_square.png';
+        $drawing->setPath($path);
+        self::assertSame($path, $drawing->getPath());
         $drawing->setCoordinates('E1');
         $drawing->setWorksheet($sheet);
 
         $this->assertMaxColumnAndMaxRow($spreadsheet, 5, 3);
+    }
+
+    public function testSheetWithBadImageRightOfData(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('B3', 'foo');
+
+        // Add a drawing to the worksheet
+        $drawing = new Drawing();
+        $path = 'tests/data/Writer/XLSX/xblue_square.png';
+        $drawing->setPath($path, false);
+        self::assertSame('', $drawing->getPath());
+        $drawing->setCoordinates('E1');
+        $drawing->setWorksheet($sheet);
+
+        $this->assertMaxColumnAndMaxRow($spreadsheet, 2, 3);
+    }
+
+    public function testSheetWithBadImageRightOfDataThrow(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('not found!');
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('B3', 'foo');
+
+        // Add a drawing to the worksheet
+        $drawing = new Drawing();
+        $path = 'tests/data/Writer/XLSX/xblue_square.png';
+        $drawing->setPath($path);
+        self::assertSame('', $drawing->getPath());
+        $drawing->setCoordinates('E1');
+        $drawing->setWorksheet($sheet);
+
+        $this->assertMaxColumnAndMaxRow($spreadsheet, 2, 3);
     }
 
     private function assertMaxColumnAndMaxRow(Spreadsheet $spreadsheet, int $expectedColumnCount, int $expectedRowCount): void

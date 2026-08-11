@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class MinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMIN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMIN')]
     public function testMIN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('MIN', $expectedResult, ...$args);

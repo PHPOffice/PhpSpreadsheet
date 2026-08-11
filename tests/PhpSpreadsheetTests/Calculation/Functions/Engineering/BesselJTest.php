@@ -9,24 +9,21 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BesselJTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-8;
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[DataProvider('providerBESSELJ')]
     public function testDirectCallToBESSELJ(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselJ::besselJ(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[DataProvider('providerBESSELJ')]
     public function testBESSELJAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -34,13 +31,11 @@ class BesselJTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=BESSELJ({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    /**
-     * @dataProvider providerBESSELJ
-     */
+    #[DataProvider('providerBESSELJ')]
     public function testBESSELJInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +58,7 @@ class BesselJTest extends TestCase
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyBESSELJ
-     */
+    #[DataProvider('providerUnhappyBESSELJ')]
     public function testBESSELJUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -92,15 +85,14 @@ class BesselJTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerBesselJArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerBesselJArray')]
     public function testBesselJArray(array $expectedResult, string $value, string $ord): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BESSELJ({$value}, {$ord})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

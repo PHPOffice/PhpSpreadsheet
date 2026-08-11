@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class Issue3951Test extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerType')]
     public function testIssue2266(string $type): void
     {
         $spreadsheet = new Spreadsheet();

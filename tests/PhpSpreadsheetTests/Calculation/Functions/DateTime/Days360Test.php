@@ -12,22 +12,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days360;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Days360Test extends TestCase
 {
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[DataProvider('providerDAYS360')]
     public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
         $result = Days360::between(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[DataProvider('providerDAYS360')]
     public function testDAYS360AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -35,13 +32,11 @@ class Days360Test extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DAYS360({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS360
-     */
+    #[DataProvider('providerDAYS360')]
     public function testDAYS360InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -64,9 +59,7 @@ class Days360Test extends TestCase
         return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDAYS360
-     */
+    #[DataProvider('providerUnhappyDAYS360')]
     public function testDAYS360UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -99,9 +92,8 @@ class Days360Test extends TestCase
         self::assertSame(31, Days::between($obj1, $obj2));
     }
 
-    /**
-     * @dataProvider providerDays360Array
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDays360Array')]
     public function testDays360Array(array $expectedResult, string $startDate, string $endDate, ?string $methods): void
     {
         $calculation = Calculation::getInstance();
@@ -111,7 +103,7 @@ class Days360Test extends TestCase
         } else {
             $formula = "=DAYS360({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

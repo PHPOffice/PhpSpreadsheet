@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FormattedNumberSlashTest extends TestCase
@@ -17,10 +18,8 @@ class FormattedNumberSlashTest extends TestCase
         StringHelper::setThousandsSeparator(null);
     }
 
-    /**
-     * @dataProvider providerNumbers
-     */
-    public function testNumber(float $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
+    #[DataProvider('providerNumbers')]
+    public function testNumber(mixed $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         StringHelper::setThousandsSeparator($thousandsSeparator);
         StringHelper::setDecimalSeparator($decimalSeparator);
@@ -38,9 +37,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentages
-     */
+    #[DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         $originalValue = $value;
@@ -61,9 +58,7 @@ class FormattedNumberSlashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCurrencies
-     */
+    #[DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.', ?string $currencyCode = null): void
     {
         $originalValue = $value;

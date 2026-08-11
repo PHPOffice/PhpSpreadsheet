@@ -16,7 +16,7 @@ $inputFileName = __DIR__ . '/../Financial Sample.xlsx';
 
 $reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
-
+$worksheet = $spreadsheet->getActiveSheet();
 
 $dataArray = $worksheet->toArray();
 
@@ -57,6 +57,9 @@ It can return the raw cell value (which isn't particularly useful if the cell co
 | $calculateFormulas | boolean  | false   | Flag to indicate if formula values should be calculated before returning.                                                                                                           |
 | $formatData        | boolean  | false   | Flag to request that values should be formatting before returning.                                                                                                                  |
 | $returnCellRef     | boolean  | false   | False - Return a simple enumerated array of rows and columns (indexed by number counting from zero)<br />True - Return rows and columns indexed by their actual row and column IDs. |
+| $ignoreHidden      | boolean  | false   | True - Ignore hidden rows and columns. |
+| $reduceArrays      | boolean  | false   | True - If calculated value is an array, reduce it to top leftmost value. |
+| $lessFloatPrecision | boolean  | false   | True - PhpSpreadsheet 5.2+ - Floats, if formatted, will display as a more human-friendly but possibly less accurate value. |
 
 ### Dealing with empty rows
 
@@ -307,6 +310,28 @@ But a peak memory usage of 49,152KB compared with the 57,344KB used by `toArray(
 
 Like `toArray()`, `rangeToArray()` is easy to use, but it has the same limitations for flexibility. It provides the same limited control over how the data from each cell is returned in the array as `toArray()`.
 The same additional arguments that can be provided for the `toArray()` method can also be provided to `rangeToArray()`.
+
+
+## Using `rangeToArrayYieldRows()`
+
+Since v2.1.0 the worksheet method `rangeToArrayYieldRows()` is available.
+It allows you to iterate over all sheet's rows with little memory consumption,
+while obtaining each row as an array:
+
+```php
+$rowGenerator = $sheet->rangeToArrayYieldRows(
+    'A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow(),
+    null,
+    false,
+    false
+);
+foreach ($rowGenerator as $row) {
+    echo $row[0] . ' | ' . $row[1] . "\n";
+}
+```
+
+See `samples/Reader2/23_iterateRowsYield.php`.
+
 
 ## Using Iterators
 

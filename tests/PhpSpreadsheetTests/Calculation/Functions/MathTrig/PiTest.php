@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class PiTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPI
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPI')]
     public function testPI(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);

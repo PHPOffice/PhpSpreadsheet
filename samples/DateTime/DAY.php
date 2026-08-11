@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'DAY';
 $description = 'Returns the day of a date, an integer ranging from 1 to 31';
@@ -46,5 +46,5 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Day is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Day is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

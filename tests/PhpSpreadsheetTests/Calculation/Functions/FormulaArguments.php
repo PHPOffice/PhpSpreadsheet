@@ -46,6 +46,7 @@ class FormulaArguments implements Stringable
         return implode(',', $cells);
     }
 
+    /** @param mixed[] $value */
     private function matrixRows(array $value): string
     {
         $columns = [];
@@ -56,6 +57,7 @@ class FormulaArguments implements Stringable
         return implode(',', $columns);
     }
 
+    /** @param mixed[] $value */
     private function makeMatrix(array $value): string
     {
         $matrix = [];
@@ -92,7 +94,7 @@ class FormulaArguments implements Stringable
     public function __toString(): string
     {
         $args = array_map(
-            [self::class, 'stringify'],
+            self::stringify(...),
             $this->args
         );
 

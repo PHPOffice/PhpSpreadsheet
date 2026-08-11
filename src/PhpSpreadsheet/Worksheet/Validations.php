@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
@@ -36,7 +37,7 @@ class Validations
     /**
      * Validate a cell address or cell range.
      *
-     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as a CellAddress or AddressRange object.
      */
@@ -45,7 +46,7 @@ class Validations
         if (is_string($cellRange) || is_numeric($cellRange)) {
             // Convert a single column reference like 'A' to 'A:A',
             //    a single row reference like '1' to '1:1'
-            $cellRange = (string) preg_replace('/^([A-Z]+|\d+)$/', '${1}:${1}', (string) $cellRange);
+            $cellRange = Preg::replace('/^([A-Z]+|\d+)$/', '${1}:${1}', (string) $cellRange);
         } elseif (is_object($cellRange) && $cellRange instanceof CellAddress) {
             $cellRange = new CellRange($cellRange, $cellRange);
         }
@@ -57,9 +58,22 @@ class Validations
     private const SETMAXCOL = 'A${1}:' . AddressRange::MAX_COLUMN . '${2}';
 
     /**
+     * Convert Column ranges like 'A:C' to 'A1:C1048576'
+     *     or Row ranges like '1:3' to 'A1:XFD3'.
+     */
+    public static function convertWholeRowColumn(?string $addressRange): string
+    {
+        return Preg::replace(
+            ['/^([A-Z]+):([A-Z]+)$/i', '/^(\d+):(\d+)$/'],
+            [self::SETMAXROW, self::SETMAXCOL],
+            $addressRange ?? ''
+        );
+    }
+
+    /**
      * Validate a cell range.
      *
-     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as an AddressRange object.
      */
@@ -70,11 +84,7 @@ class Validations
 
             // Convert Column ranges like 'A:C' to 'A1:C1048576'
             //      or Row ranges like '1:3' to 'A1:XFD3'
-            $addressRange = (string) preg_replace(
-                ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
-                [self::SETMAXROW, self::SETMAXCOL],
-                $addressRange ?? ''
-            );
+            $addressRange = self::convertWholeRowColumn($addressRange);
 
             return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);
         }
@@ -105,11 +115,11 @@ class Validations
         // Uppercase coordinate
         $coordinate = strtoupper($coordinate);
         // Eliminate leading equal sign
-        $testCoordinate = (string) preg_replace('/^=/', '', $coordinate);
+        $testCoordinate = Preg::replace('/^=/', '', $coordinate);
         $defined = $worksheet->getParentOrThrow()->getDefinedName($testCoordinate, $worksheet);
         if ($defined !== null) {
             if ($defined->getWorksheet() === $worksheet && !$defined->isFormula()) {
-                $coordinate = (string) preg_replace('/^=/', '', $defined->getValue());
+                $coordinate = Preg::replace('/^=/', '', $defined->getValue());
             }
         }
 

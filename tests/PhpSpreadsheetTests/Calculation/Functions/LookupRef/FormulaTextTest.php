@@ -11,9 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
  */
 class FormulaTextTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFormulaText
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulaText')]
     public function testFormulaText(string $expectedResult, mixed $value): void
     {
         $sheet = $this->getSheet();

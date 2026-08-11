@@ -149,8 +149,8 @@ class Properties
                 $timestamp = (float) $timestamp;
             } else {
                 $timestamp = (string) preg_replace('/[.][0-9]*$/', '', $timestamp);
-                $timestamp = (string) preg_replace('/^(\\d{4})- (\\d)/', '$1-0$2', $timestamp);
-                $timestamp = (string) preg_replace('/^(\\d{4}-\\d{2})- (\\d)/', '$1-0$2', $timestamp);
+                $timestamp = (string) preg_replace('/^(\d{4})- (\d)/', '$1-0$2', $timestamp);
+                $timestamp = (string) preg_replace('/^(\d{4}-\d{2})- (\d)/', '$1-0$2', $timestamp);
                 $timestamp = (float) (new DateTime($timestamp))->format('U');
             }
         }

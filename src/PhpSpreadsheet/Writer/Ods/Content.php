@@ -2,12 +2,17 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use Composer\Pcre\Preg;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
@@ -19,9 +24,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Style;
  */
 class Content extends WriterPart
 {
-    const NUMBER_COLS_REPEATED_MAX = 1024;
-    const NUMBER_ROWS_REPEATED_MAX = 1048576;
-
     private Formula $formulaConvertor;
 
     /**
@@ -120,6 +122,7 @@ class Content extends WriterPart
         $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         $sheetCount = $spreadsheet->getSheetCount();
         for ($sheetIndex = 0; $sheetIndex < $sheetCount; ++$sheetIndex) {
+            $spreadsheet->getSheet($sheetIndex)->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
             $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
@@ -139,8 +142,6 @@ class Content extends WriterPart
                     'table:style-name',
                     sprintf('%s_%d_%d', Style::COLUMN_STYLE_PREFIX, $sheetIndex, $columnDimension->getColumnNumeric())
                 );
-                $objWriter->writeAttribute('table:default-cell-style-name', 'ce0');
-//                $objWriter->writeAttribute('table:number-columns-repeated', self::NUMBER_COLS_REPEATED_MAX);
                 $objWriter->endElement();
             }
             $this->writeRows($objWriter, $spreadsheet->getSheet($sheetIndex), $sheetIndex);
@@ -153,34 +154,38 @@ class Content extends WriterPart
      */
     private function writeRows(XMLWriter $objWriter, Worksheet $sheet, int $sheetIndex): void
     {
-        $numberRowsRepeated = self::NUMBER_ROWS_REPEATED_MAX;
-        $span_row = 0;
+        $spanRow = 0;
         $rows = $sheet->getRowIterator();
         foreach ($rows as $row) {
-            $cellIterator = $row->getCellIterator();
-            --$numberRowsRepeated;
-            if ($cellIterator->valid()) {
-                $objWriter->startElement('table:table-row');
-                if ($span_row) {
-                    if ($span_row > 1) {
-                        $objWriter->writeAttribute('table:number-rows-repeated', (string) $span_row);
-                    }
-                    $objWriter->startElement('table:table-cell');
-                    $objWriter->writeAttribute('table:number-columns-repeated', (string) self::NUMBER_COLS_REPEATED_MAX);
+            $cellIterator = $row->getCellIterator(iterateOnlyExistingCells: true);
+            $cellIterator->rewind();
+            $rowStyleExists = $sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0;
+            if ($cellIterator->valid() || $rowStyleExists) {
+                if ($spanRow) {
+                    $objWriter->startElement('table:table-row');
+                    $objWriter->writeAttribute(
+                        'table:number-rows-repeated',
+                        (string) $spanRow
+                    );
                     $objWriter->endElement();
-                    $span_row = 0;
-                } else {
-                    if ($sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
-                        $objWriter->writeAttribute(
-                            'table:style-name',
-                            sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
-                        );
-                    }
-                    $this->writeCells($objWriter, $cellIterator);
+                    $spanRow = 0;
                 }
+                $objWriter->startElement('table:table-row');
+                if ($rowStyleExists) {
+                    $objWriter->writeAttribute(
+                        'table:style-name',
+                        sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
+                    );
+                } elseif ($sheet->getDefaultRowDimension()->getRowHeight() > 0.0 && !$sheet->getRowDimension($row->getRowIndex())->getCustomFormat()) {
+                    $objWriter->writeAttribute(
+                        'table:style-name',
+                        sprintf('%s%d', Style::ROW_STYLE_PREFIX, $sheetIndex)
+                    );
+                }
+                $this->writeCells($objWriter, $cellIterator);
                 $objWriter->endElement();
             } else {
-                ++$span_row;
+                ++$spanRow;
             }
         }
     }
@@ -190,11 +195,11 @@ class Content extends WriterPart
      */
     private function writeCells(XMLWriter $objWriter, RowCellIterator $cells): void
     {
-        $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
         foreach ($cells as $cell) {
             /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
+            $attributes = $cell->getFormulaAttributes() ?? [];
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
@@ -202,15 +207,13 @@ class Content extends WriterPart
 
             // Style XF
             $style = $cell->getXfIndex();
-            if ($style !== null) {
-                $objWriter->writeAttribute('table:style-name', Style::CELL_STYLE_PREFIX . $style);
-            }
+            $objWriter->writeAttribute('table:style-name', Style::CELL_STYLE_PREFIX . $style);
 
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $objWriter->writeAttribute('office:boolean-value', $cell->getValue() ? 'true' : 'false');
+                    $objWriter->writeElement('text:p', Calculation::getInstance()->getLocaleBoolean($cell->getValue() ? 'TRUE' : 'FALSE'));
 
                     break;
                 case DataType::TYPE_ERROR:
@@ -221,28 +224,142 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_FORMULA:
-                    $formulaValue = $cell->getValue();
+                    $formulaValue = $cell->getValueString();
+                    $formulaValueCalc = $formulaValue;
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
-                            $formulaValue = $cell->getCalculatedValue();
+                            $formulaValue = $cell->getCalculatedValueString();
+                            $formulaValueCalc = $cell->getCalculatedValue();
                         } catch (CalculationException $e) {
-                            // don't do anything
+                            $formulaValue = $formulaValueCalc = ExcelError::CALC();
                         }
                     }
-                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
-                    if (is_numeric($formulaValue)) {
-                        $objWriter->writeAttribute('office:value-type', 'float');
-                    } else {
-                        $objWriter->writeAttribute('office:value-type', 'string');
+                    if (isset($attributes['ref'])) {
+                        if (Preg::isMatch('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches)) {
+                            $matrixRowSpan = 1;
+                            $matrixColSpan = 1;
+                            if (isset($matches[3])) {
+                                $minRow = (int) $matches[2];
+                                $maxRow = (int) $matches[5];
+                                $matrixRowSpan = $maxRow - $minRow + 1;
+                                $minCol = Coordinate::columnIndexFromString($matches[1]);
+                                $maxCol = Coordinate::columnIndexFromString($matches[4]);
+                                $matrixColSpan = $maxCol - $minCol + 1;
+                            }
+                            $objWriter->writeAttribute('table:number-matrix-columns-spanned', "$matrixColSpan");
+                            $objWriter->writeAttribute('table:number-matrix-rows-spanned', "$matrixRowSpan");
+                        }
                     }
-                    $objWriter->writeAttribute('office:value', $formulaValue);
-                    $objWriter->writeElement('text:p', $formulaValue);
+                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
+                    if (is_bool($formulaValueCalc)) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'boolean'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:boolean-value',
+                            $formulaValueCalc ? 'true' : 'false'
+                        );
+                        $objWriter->writeElement('text:p', $formulaValueCalc ? 'TRUE' : 'FALSE');
 
-                    break;
+                        break;
+                    }
+                    if (!is_numeric($formulaValue)) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'string'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:string-value',
+                            $formulaValue
+                        );
+                        $objWriter->writeElement('text:p', $formulaValue);
+
+                        break;
+                    }
+                    // no break
                 case DataType::TYPE_NUMERIC:
-                    $objWriter->writeAttribute('office:value-type', 'float');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $holdWorksheet = $cell->getWorksheet();
+                    $holdSelected = $holdWorksheet->getSelectedCells();
+                    $holdSpreadsheet = $holdWorksheet->getParent();
+                    $holdActiveSheetIndex = $holdSpreadsheet?->getActiveSheetIndex();
+                    $formatted = $cell->getFormattedValue();
+                    $type = 'float';
+                    $valueType = 'value';
+                    $value = $cell->getCalculatedValueString();
+                    $numFmt = $cell->getStyle()
+                        ->getNumberFormat()
+                        ->getFormatCode() ?? '';
+                    $holdWorksheet->setSelectedCells($holdSelected);
+                    if (isset($holdSpreadsheet, $holdActiveSheetIndex)) {
+                        $holdSpreadsheet->setActiveSheetIndex(
+                            $holdActiveSheetIndex
+                        );
+                    }
+                    if (Date::isDateTimeFormatCode($numFmt, true)) {
+                        $valueCalc = $cell->getCalculatedValueString();
+                        if (Preg::isMatch('/[HhSs]/', $numFmt) && !Preg::isMatch('/[YyDd]/', $numFmt)) {
+                            $minus = '';
+                            $type = 'time';
+                            $valueType = 'time-value';
+                            if (str_starts_with($valueCalc, '-')) {
+                                $minus = '-';
+                                $absVal = fmod(abs((float) $value), 1.0);
+                                $hms = (int) round(86400 * $absVal);
+                                $hours = intdiv($hms, 3600);
+                                $hms -= $hours * 3600;
+                                $minutes = intdiv($hms, 60);
+                                $seconds = $hms % 60;
+                                $value = sprintf('-PT%02dH%02dM%02dS', $hours, $minutes, $seconds);
+                                $formatted = sprintf('-%02d:%02d:%02d', $hours, $minutes, $seconds);
+                            } else {
+                                $hhmmss = NumberFormat::toFormattedString(
+                                    $value,
+                                    NumberFormat::FORMAT_DATE_TIME_INTERVAL_HMS
+                                );
+                                $daysAndHours = 24 * (int) $valueCalc + (int) substr($hhmmss, 0, 2);
+                                $value = "PT$daysAndHours"
+                                    . 'H'
+                                    . substr($hhmmss, 3, 2)
+                                    . 'M'
+                                    . substr($hhmmss, 6, 2)
+                                    . 'S';
+                            }
+                        } else {
+                            $type = 'date';
+                            $valueType = 'date-value';
+                            $value = NumberFormat::toFormattedString(
+                                $value,
+                                'yyyy-mm-dd"T"hh:mm:ss'
+                            );
+                        }
+                    } elseif (str_ends_with($numFmt, '%')) {
+                        $type = 'percentage';
+                    }
+                    if ($numFmt === NumberFormat::FORMAT_CURRENCY_EUR || $numFmt === NumberFormat::FORMAT_CURRENCY_EUR_INTEGER) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'currency'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:currency',
+                            'EUR'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:value',
+                            $value
+                        );
+                    } else {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            $type
+                        );
+                        $objWriter->writeAttribute(
+                            "office:$valueType",
+                            $value
+                        );
+                    }
+                    $objWriter->writeElement('text:p', $formatted);
 
                     break;
                 case DataType::TYPE_INLINE:
@@ -251,7 +368,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $url = $cell->getHyperlink()->getUrl();
                     if (empty($url)) {
-                        $objWriter->writeElement('text:p', $cell->getValue());
+                        $objWriter->writeElement('text:p', $cell->getValueString());
                     } else {
                         $objWriter->startElement('text:p');
                         $objWriter->startElement('text:a');
@@ -262,7 +379,7 @@ class Content extends WriterPart
                         }
                         $objWriter->writeAttribute('xlink:href', $url);
                         $objWriter->writeAttribute('xlink:type', 'simple');
-                        $objWriter->text($cell->getValue());
+                        $objWriter->text($cell->getValueString());
                         $objWriter->endElement(); // text:a
                         $objWriter->endElement(); // text:p
                     }
@@ -272,17 +389,6 @@ class Content extends WriterPart
             Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prevColumn = $column;
-        }
-
-        $numberColsRepeated = $numberColsRepeated - $prevColumn - 1;
-        if ($numberColsRepeated > 0) {
-            if ($numberColsRepeated > 1) {
-                $objWriter->startElement('table:table-cell');
-                $objWriter->writeAttribute('table:number-columns-repeated', (string) $numberColsRepeated);
-                $objWriter->endElement();
-            } else {
-                $objWriter->writeElement('table:table-cell');
-            }
         }
     }
 
@@ -301,12 +407,15 @@ class Content extends WriterPart
         }
     }
 
+    /** @var array<string, callable> */
+    public array $additionalNumberFormats = [];
+
     /**
      * Write XF cell styles.
      */
     private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet): void
     {
-        $styleWriter = new Style($writer);
+        $styleWriter = new Style($writer, $this->additionalNumberFormats);
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -322,6 +431,10 @@ class Content extends WriterPart
         }
         for ($i = 0; $i < $sheetCount; ++$i) {
             $worksheet = $spreadsheet->getSheet($i);
+            $default = $worksheet->getDefaultRowDimension();
+            if ($default->getRowHeight() > 0.0) {
+                $styleWriter->writeDefaultRowStyle($default, $i);
+            }
             foreach ($worksheet->getRowDimensions() as $rowDimension) {
                 if ($rowDimension->getRowHeight() > 0.0) {
                     $styleWriter->writeRowStyles($rowDimension, $i);

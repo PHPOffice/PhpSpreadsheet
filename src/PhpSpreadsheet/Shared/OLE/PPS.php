@@ -88,6 +88,8 @@ class PPS
 
     /**
      * Array of child PPS's (only used by Root and Dir PPS's).
+     *
+     * @var mixed[]
      */
     public array $children = [];
 
@@ -108,7 +110,7 @@ class PPS
      * @param null|float|int $time_1st A timestamp
      * @param null|float|int $time_2nd A timestamp
      * @param ?string $data The (usually binary) source data of the PPS
-     * @param array $children Array containing children PPS for this PPS
+     * @param mixed[] $children Array containing children PPS for this PPS
      */
     public function __construct(?int $No, ?string $name, ?int $type, ?int $prev, ?int $next, ?int $dir, $time_1st, $time_2nd, ?string $data, array $children)
     {
@@ -172,7 +174,7 @@ class PPS
      * Updates index and pointers to previous, next and children PPS's for this
      * PPS. I don't think it'll work with Dir PPS's.
      *
-     * @param array $raList Reference to the array of PPS's for the whole OLE
+     * @param self[] $raList Reference to the array of PPS's for the whole OLE
      *                          container
      *
      * @return int The index for this PPS
@@ -181,7 +183,9 @@ class PPS
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return self::ALL_ONE_BITS;
-        } elseif (count($to_save) == 1) {
+        }
+        /** @var self[] $to_save */
+        if (count($to_save) == 1) {
             $cnt = count($raList);
             // If the first entry, it's the root... Don't clone it!
             $raList[$cnt] = ($depth == 0) ? $to_save[0] : clone $to_save[0];

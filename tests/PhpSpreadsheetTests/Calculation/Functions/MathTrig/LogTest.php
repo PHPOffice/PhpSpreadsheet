@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LogTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOG
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOG')]
     public function testLOG(mixed $expectedResult, mixed $number = 'omitted', mixed $base = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -37,15 +35,13 @@ class LogTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/LOG.php';
     }
 
-    /**
-     * @dataProvider providerLogArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLogArray')]
     public function testLogArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=LOG({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

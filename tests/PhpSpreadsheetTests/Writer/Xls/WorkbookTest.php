@@ -14,7 +14,6 @@ class WorkbookTest extends TestCase
 {
     private Workbook $workbook;
 
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
@@ -40,13 +39,15 @@ class WorkbookTest extends TestCase
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
+    /**
+     * @param string[] $testColors
+     * @param string[] $expectedResult
+     */
     public function xtestAddColor(array $testColors, array $expectedResult): void
     {
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $methodAddColor->setAccessible(true);
-        $propertyPalette->setAccessible(true);
 
         foreach ($testColors as $testColor) {
             $methodAddColor->invoke($this->workbook, $testColor);
@@ -62,19 +63,23 @@ class WorkbookTest extends TestCase
         $i = 0;
         $arrayEntries = $this->arrayAddColor();
         while ($i < count($arrayEntries)) {
-            $this->xtestAddColor($arrayEntries[$i][0], $arrayEntries[$i][1]);
+            /** @var string[] */
+            $entry0 = $arrayEntries[$i][0];
+            /** @var string[] */
+            $entry1 = $arrayEntries[$i][1];
+            $this->xtestAddColor($entry0, $entry1);
             ++$i;
             $arrayEntries = $this->arrayAddColor();
         }
     }
 
+    /** @return array<int, array<int, array<mixed>>> */
     public function arrayAddColor(): array
     {
         $this->setUpWorkbook();
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $propertyPalette->setAccessible(true);
 
         $palette = $propertyPalette->getValue($this->workbook);
         self::assertIsArray($palette);
@@ -118,6 +123,11 @@ class WorkbookTest extends TestCase
         // Add last existing color and add one new color
         $keyPalette = array_keys($palette);
         $last = end($keyPalette);
+        self::assertIsArray($palette[8]);
+        self::assertIsArray($palette[10]);
+        self::assertIsArray($palette[12]);
+        self::assertIsArray($palette[25]);
+        self::assertIsArray($palette[$last]);
         $lastColor = $this->paletteToColor($palette[$last]);
         $paletteTestNine = $palette;
 
@@ -136,12 +146,19 @@ class WorkbookTest extends TestCase
 
     /**
      * Change palette color to rgb string.
+     *
+     * @param array<mixed, mixed> $palette
      */
     private function paletteToColor(array $palette): string
     {
-        return $this->right('00' . dechex((int) ($palette[0])), 2)
-            . $this->right('00' . dechex((int) ($palette[1])), 2)
-            . $this->right('00' . dechex((int) ($palette[2])), 2);
+        return $this->right('00' . self::dec2hex($palette[0]), 2)
+            . $this->right('00' . self::dec2hex($palette[1]), 2)
+            . $this->right('00' . self::dec2hex($palette[2]), 2);
+    }
+
+    private static function dec2hex(mixed $value): string
+    {
+        return is_numeric($value) ? dechex((int) $value) : '0';
     }
 
     /**

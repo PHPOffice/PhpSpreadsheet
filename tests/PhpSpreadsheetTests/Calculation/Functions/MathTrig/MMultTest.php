@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class MMultTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMMULT
-     */
+    #[DataProvider('providerMMULT')]
     public function testMMULT(mixed $expectedResult, mixed ...$args): void
     {
         $result = MathTrig\MatrixFunctions::multiply(...$args);
@@ -25,6 +24,7 @@ class MMultTest extends AllSetupTeardown
     public function testOnSpreadsheet(): void
     {
         // very limited ability to test this in the absence of dynamic arrays
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=MMULT({1,2,3}, {1,2,3})'); // incompatible dimensions
         self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());

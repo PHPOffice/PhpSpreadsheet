@@ -14,9 +14,7 @@ class Charts32XmlTest extends TestCase
     // These tests can only be performed by examining xml.
     private const DIRECTORY = 'samples' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
 
-    /**
-     * @dataProvider providerScatterCharts
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerScatterCharts')]
     public function testBezierCount(int $expectedCount, string $inputFile): void
     {
         $file = self::DIRECTORY . $inputFile;
@@ -71,9 +69,7 @@ class Charts32XmlTest extends TestCase
         self::assertSame(0, substr_count($data, '<c:cat>'));
     }
 
-    /**
-     * @dataProvider providerCatAxValAx
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCatAxValAx')]
     public function testCatAxValAx(?bool $numeric): void
     {
         $file = self::DIRECTORY . '32readwriteScatterChart1.xlsx';

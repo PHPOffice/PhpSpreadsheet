@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use Exception;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
@@ -25,6 +24,7 @@ class UnparsedDataTest extends TestCase
         $excel->getSheet(1)->setCellValue('B1', '222');
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
+        $writer->setUseDiskCaching(true, sys_get_temp_dir());
         $writer->save($resultFilename);
         self::assertFileExists($resultFilename);
 
@@ -66,7 +66,7 @@ class UnparsedDataTest extends TestCase
         self::assertNotEmpty($resultVbaProjectRaw, 'vbaProject.bin not found!');
 
         // xl/workbook.xml
-        $xmlWorkbook = simplexml_load_string($resultWorkbookRaw ?: '', 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorkbook = simplexml_load_string($resultWorkbookRaw ?: '', 'SimpleXMLElement');
         self::assertNotFalse($xmlWorkbook);
         if (!$xmlWorkbook->workbookProtection) {
             self::fail('workbook.xml/workbookProtection not found!');
@@ -74,7 +74,8 @@ class UnparsedDataTest extends TestCase
             self::assertEquals($xmlWorkbook->workbookProtection['workbookPassword'], 'CBEB', 'workbook.xml/workbookProtection[workbookPassword] is wrong!');
             self::assertEquals($xmlWorkbook->workbookProtection['lockStructure'], 'true', 'workbook.xml/workbookProtection[lockStructure] is wrong!');
 
-            self::assertNotNull($xmlWorkbook->sheets->sheet[0]);
+            self::assertInstanceOf('SimpleXMLElement', $xmlWorkbook->sheets->sheet[0]);
+            self::assertInstanceOf('SimpleXMLElement', $xmlWorkbook->sheets->sheet[1]);
             self::assertEquals($xmlWorkbook->sheets->sheet[0]['state'], '', 'workbook.xml/sheets/sheet[0][state] is wrong!');
             self::assertNotNull($xmlWorkbook->sheets->sheet[1]);
             self::assertEquals($xmlWorkbook->sheets->sheet[1]['state'], 'hidden', 'workbook.xml/sheets/sheet[1][state] is wrong!');
@@ -88,7 +89,7 @@ class UnparsedDataTest extends TestCase
 
         // xl/worksheets/sheet1.xml
         self::assertStringContainsString('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
-        $xmlWorksheet = simplexml_load_string($resultSheet1Raw ?: '', 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorksheet = simplexml_load_string($resultSheet1Raw ?: '', 'SimpleXMLElement');
         self::assertNotFalse($xmlWorksheet);
         $pageSetupAttributes = $xmlWorksheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
         self::assertTrue(isset($pageSetupAttributes->id), 'sheet1.xml/pageSetup[r:id] not found!');

@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -8,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -96,7 +98,7 @@ $spreadsheet->getActiveSheet()
     ->fromArray($dateFunctionArray, null, 'B1', true);
 $spreadsheet->getActiveSheet()
     ->fromArray($dateTitleArray, null, 'A2', true);
-for ($column = 'B'; $column !== 'L'; ++$column) {
+for ($column = 'B'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     $spreadsheet->getActiveSheet()
         ->fromArray($dataArray, null, "{$column}2", true);
 }
@@ -111,12 +113,12 @@ $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
-for ($column = 'B'; $column !== 'L'; ++$column) {
+for ($column = 'B'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     $wizardFactory = new Wizard("{$column}2:{$column}19");
     /** @var Wizard\DateValue $dateWizard */
     $dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
@@ -125,8 +127,9 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
     /** @var string */
     $cellContents = $spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue();
     $methodName = trim($cellContents, '()');
-    $dateWizard->$methodName()
-        ->setStyle($yellowStyle);
+    /** @var Wizard\DateValue */
+    $targetStyle = $dateWizard->$methodName();
+    $targetStyle->setStyle($yellowStyle);
 
     $conditionalStyles[] = $dateWizard->getConditional();
 
@@ -139,7 +142,7 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
 $helper->log('Set some additional styling for date formats');
 
 $spreadsheet->getActiveSheet()->getStyle('B:B')->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');
-for ($column = 'A'; $column !== 'L'; ++$column) {
+for ($column = 'A'; $column !== 'L'; StringHelper::stringIncrement($column)) {
     if ($column !== 'A') {
         $spreadsheet->getActiveSheet()->getStyle("{$column}:{$column}")
             ->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');

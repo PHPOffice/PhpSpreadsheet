@@ -14,7 +14,6 @@ class ColumnDimensionTest extends TestCase
     {
         $expected = 'A';
         $columnDimension = new ColumnDimension();
-        self::assertInstanceOf(ColumnDimension::class, $columnDimension);
         $result = $columnDimension->getColumnIndex();
         self::assertEquals($expected, $result);
     }

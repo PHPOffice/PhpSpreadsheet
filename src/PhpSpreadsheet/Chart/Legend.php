@@ -66,7 +66,7 @@ class Legend
     }
 
     /**
-     * Get legend position as an excel string value.
+     * Get legend position as an Excel string value.
      */
     public function getPosition(): string
     {
@@ -74,7 +74,7 @@ class Legend
     }
 
     /**
-     * Get legend position using an excel string value.
+     * Get legend position using an Excel string value.
      *
      * @param string $position see self::POSITION_*
      */

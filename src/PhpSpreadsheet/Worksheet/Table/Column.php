@@ -216,7 +216,7 @@ class Column
         foreach ($worksheet->getCoordinates(false) as $coordinate) {
             $cell = $worksheet->getCell($coordinate);
             if ($cell->getDataType() === DataType::TYPE_FORMULA) {
-                $formula = $cell->getValue();
+                $formula = $cell->getValueString();
                 if (preg_match($pattern, $formula) === 1) {
                     $formula = preg_replace($pattern, "[$1{$newTitle}]", $formula);
                     $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);

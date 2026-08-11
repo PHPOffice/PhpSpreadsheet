@@ -6,9 +6,18 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class Comments extends WriterPart
 {
+    private const VALID_HORIZONTAL_ALIGNMENT = [
+        Alignment::HORIZONTAL_CENTER,
+        Alignment::HORIZONTAL_DISTRIBUTED,
+        Alignment::HORIZONTAL_JUSTIFY,
+        Alignment::HORIZONTAL_LEFT,
+        Alignment::HORIZONTAL_RIGHT,
+    ];
+
     /**
      * Write comments to XML format.
      *
@@ -68,14 +77,14 @@ class Comments extends WriterPart
      *
      * @param string $cellReference Cell reference
      * @param Comment $comment Comment
-     * @param array $authors Array of authors
+     * @param array<string, int> $authors Array of authors
      */
     private function writeComment(XMLWriter $objWriter, string $cellReference, Comment $comment, array $authors): void
     {
         // comment
         $objWriter->startElement('comment');
         $objWriter->writeAttribute('ref', $cellReference);
-        $objWriter->writeAttribute('authorId', $authors[$comment->getAuthor()]);
+        $objWriter->writeAttribute('authorId', (string) $authors[$comment->getAuthor()]);
 
         // text
         $objWriter->startElement('text');
@@ -200,12 +209,14 @@ class Comments extends WriterPart
         $objWriter->endElement();
 
         // v:textbox
+        $textBoxArray = [Comment::TEXTBOX_DIRECTION_RTL => 'rtl', Comment::TEXTBOX_DIRECTION_LTR => 'ltr'];
+        $textboxRtl = $textBoxArray[strtolower($comment->getTextBoxDirection())] ?? 'auto';
         $objWriter->startElement('v:textbox');
-        $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
+        $objWriter->writeAttribute('style', "mso-direction-alt:$textboxRtl");
 
         // div
         $objWriter->startElement('div');
-        $objWriter->writeAttribute('style', 'text-align:left');
+        $objWriter->writeAttribute('style', ($textboxRtl === 'rtl' ? 'text-align:right;direction:rtl' : 'text-align:left'));
         $objWriter->endElement();
 
         $objWriter->endElement();
@@ -222,6 +233,12 @@ class Comments extends WriterPart
 
         // x:AutoFill
         $objWriter->writeElement('x:AutoFill', 'False');
+
+        // x:TextHAlign horizontal alignment of text
+        $alignment = strtolower($comment->getAlignment());
+        if (in_array($alignment, self::VALID_HORIZONTAL_ALIGNMENT, true)) {
+            $objWriter->writeElement('x:TextHAlign', ucfirst($alignment));
+        }
 
         // x:Row
         $objWriter->writeElement('x:Row', (string) ($row - 1));

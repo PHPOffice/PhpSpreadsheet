@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IsNonTextTest extends TestCase
@@ -16,9 +17,7 @@ class IsNonTextTest extends TestCase
         self::assertTrue($result);
     }
 
-    /**
-     * @dataProvider providerIsNonText
-     */
+    #[DataProvider('providerIsNonText')]
     public function testIsNonText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isNonText($value);
@@ -30,16 +29,14 @@ class IsNonTextTest extends TestCase
         return require 'tests/data/Calculation/Information/IS_NONTEXT.php';
     }
 
-    /**
-     * @dataProvider providerIsNonTextArray
-     */
+    #[DataProvider('providerIsNonTextArray')]
     public function testIsNonTextArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ISNONTEXT({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
     public static function providerIsNonTextArray(): array

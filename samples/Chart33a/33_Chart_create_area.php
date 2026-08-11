@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
@@ -90,6 +90,8 @@ $chart = new Chart(
 // Set the position where the chart should appear in the worksheet
 $chart->setTopLeftPosition('A7');
 $chart->setBottomRightPosition('H20');
+
+$chart->setNoBorder(true);
 
 // Add the chart to the worksheet
 $worksheet->addChart($chart);

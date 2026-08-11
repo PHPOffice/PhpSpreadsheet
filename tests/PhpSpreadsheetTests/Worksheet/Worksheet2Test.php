@@ -16,9 +16,18 @@ class Worksheet2Test extends TestCase
         $invalid = Worksheet::getInvalidCharacters();
         self::assertSame(['*', ':', '/', '\\', '?', '[', ']'], $invalid);
         $worksheet = new Worksheet();
-        self::assertEmpty($worksheet->getStyles());
+        $coord1 = $worksheet->getCoordinates();
+        self::assertSame([], $coord1);
+        $worksheet->getCell('B3')->setValue(1);
+        $worksheet->getCell('G2')->setValue(2);
+        $coord2 = $worksheet->getCoordinates(false); // in order added
+        self::assertSame(['B3', 'G2'], $coord2);
+        $coord3 = $worksheet->getCoordinates(); // sorted by row then column
+        self::assertSame(['G2', 'B3'], $coord3);
+        $worksheet = new Worksheet();
         $worksheet->disconnectCells();
-        self::assertSame([], $worksheet->getCoordinates());
+        $coord4 = $worksheet->getCoordinates();
+        self::assertSame([], $coord4);
     }
 
     public function testHighestColumn(): void
@@ -86,11 +95,10 @@ class Worksheet2Test extends TestCase
         self::assertSame('D3', $selected);
         self::assertSame('bottomLeft', $pane);
         $worksheet->unfreezePane();
-        self::assertNull($this->getPane($worksheet));
         $freeze = $this->getPane($worksheet);
+        self::assertNull($freeze);
         $pane = $worksheet->getActivePane();
         $selected = $worksheet->getSelectedCells();
-        self::assertEmpty($freeze);
         self::assertEquals('', $pane);
         self::assertSame('D3', $selected);
         $spreadsheet->disconnectWorksheets();

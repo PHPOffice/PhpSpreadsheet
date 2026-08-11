@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'DAYS';
 $description = 'Returns the number of days between two dates';
@@ -49,5 +49,5 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         $worksheet->getCell('E' . $row)->getFormattedValue(),
         $worksheet->getCell('F' . $row)->getFormattedValue()
     ));
-    $helper->log('Days: ' . $worksheet->getCell('G' . $row)->getCalculatedValue());
+    $helper->log('Days: ' . $worksheet->getCell('G' . $row)->getCalculatedValueString());
 }

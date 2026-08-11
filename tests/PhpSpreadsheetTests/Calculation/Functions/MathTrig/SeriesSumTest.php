@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SeriesSumTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSERIESSUM
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSERIESSUM')]
     public function testSERIESSUM(mixed $expectedResult, mixed $arg1, mixed $arg2, mixed $arg3, mixed ...$args): void
     {
         $sheet = $this->getSheet();
@@ -42,15 +40,13 @@ class SeriesSumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SERIESSUM.php';
     }
 
-    /**
-     * @dataProvider providerSeriesSumArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSeriesSumArray')]
     public function testSeriesSumArray(array $expectedResult, string $x, string $n, string $m, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=SERIESSUM({$x}, {$n}, {$m}, {$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

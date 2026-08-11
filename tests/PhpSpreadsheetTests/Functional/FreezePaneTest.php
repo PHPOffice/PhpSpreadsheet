@@ -19,9 +19,7 @@ class FreezePaneTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testFreezePane(string $format): void
     {
         $cellSplit = 'B4';
@@ -43,9 +41,7 @@ class FreezePaneTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testFreezePaneWithInvalidSelectedCells(string $format): void
     {
         $cellSplit = 'A7';
@@ -71,9 +67,7 @@ class FreezePaneTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testFreezePaneUserSelectedCell(string $format): void
     {
         $spreadsheet = new Spreadsheet();
@@ -115,9 +109,7 @@ class FreezePaneTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testNoFreezePaneUserSelectedCell(string $format): void
     {
         $spreadsheet = new Spreadsheet();

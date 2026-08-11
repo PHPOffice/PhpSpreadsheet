@@ -6,15 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CodePageTest extends TestCase
 {
     /**
-     * @dataProvider providerCodePage
-     *
      * @param string|string[] $expectedResult
      */
+    #[DataProvider('providerCodePage')]
     public function testCodePageNumberToName(array|string $expectedResult, int $codePageIndex): void
     {
         if ($expectedResult === 'exception') {
@@ -42,6 +42,7 @@ class CodePageTest extends TestCase
         }
         $tests = $this->providerCodePage();
         foreach ($tests as $test) {
+            /** @var string[] $test */
             $covered[$test[1]] = 1;
         }
         foreach ($covered as $key => $val) {

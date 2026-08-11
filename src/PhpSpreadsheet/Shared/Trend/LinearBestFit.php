@@ -69,7 +69,7 @@ class LinearBestFit extends BestFit
         parent::__construct($yValues, $xValues);
 
         if (!$this->error) {
-            $this->linearRegression($yValues, $xValues, (bool) $const);
+            $this->linearRegression($this->yValues, $this->xValues, (bool) $const);
         }
     }
 }

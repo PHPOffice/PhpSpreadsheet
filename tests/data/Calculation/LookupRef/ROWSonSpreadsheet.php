@@ -17,5 +17,5 @@ return [
     'unknown name' => ['#NAME?', 'InvalidCellAddress'],
     'unknown name as first part of range' => ['#NAME?', 'Invalid:A2'],
     'unknown name as second part of range' => ['#NAME?', 'A2:Invalid'],
-    //'qualified out of scope $F$6:$H$6' => [1, 'OtherSheet!localname'], // needs investigation
+    'qualified out of scope $F$6:$H$6' => [1, 'OtherSheet!localname'],
 ];

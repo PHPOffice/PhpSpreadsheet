@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class MInverseTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMINVERSE
-     */
+    /** @param mixed[] $args */
+    #[DataProvider('providerMINVERSE')]
     public function testMINVERSE(mixed $expectedResult, array $args): void
     {
         $result = MathTrig\MatrixFunctions::inverse($args);

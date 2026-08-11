@@ -24,7 +24,7 @@ class AutoFilter extends WriterPart
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            [$ws, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
+            [, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
             $range = implode(':', $range);
 
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));

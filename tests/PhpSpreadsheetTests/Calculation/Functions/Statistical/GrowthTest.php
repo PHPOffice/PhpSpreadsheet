@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 // TODO Run test in spreadsheet context
 class GrowthTest extends TestCase
 {
     /**
-     * @dataProvider providerGROWTH
+     * @param mixed[] $yValues
+     * @param mixed[] $xValues
+     * @param null|mixed[] $newValues
      */
+    #[DataProvider('providerGROWTH')]
     public function testGROWTH(mixed $expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {

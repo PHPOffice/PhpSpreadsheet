@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'OCT2HEX';
 $description = 'Converts an octal number to hexadecimal';
@@ -42,7 +42,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Octal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is hexadecimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Octal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is hexadecimal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

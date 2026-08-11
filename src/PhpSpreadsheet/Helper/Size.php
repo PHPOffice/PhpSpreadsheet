@@ -8,7 +8,7 @@ class Size implements Stringable
 {
     const REGEXP_SIZE_VALIDATION = '/^(?P<size>\d*\.?\d+)(?P<unit>pt|px|em)?$/i';
 
-    protected bool $valid;
+    protected bool $valid = false;
 
     protected string $size = '';
 
@@ -16,8 +16,8 @@ class Size implements Stringable
 
     public function __construct(string $size)
     {
-        $this->valid = (bool) preg_match(self::REGEXP_SIZE_VALIDATION, $size, $matches);
-        if ($this->valid) {
+        if (1 === preg_match(self::REGEXP_SIZE_VALIDATION, $size, $matches)) {
+            $this->valid = true;
             $this->size = $matches['size'];
             $this->unit = $matches['unit'] ?? 'pt';
         }

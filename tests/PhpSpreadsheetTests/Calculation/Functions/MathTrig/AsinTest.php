@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AsinTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAsin
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsin')]
     public function testAsin(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,15 +24,13 @@ class AsinTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ASIN.php';
     }
 
-    /**
-     * @dataProvider providerAsinArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAsinArray')]
     public function testAsinArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ASIN({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

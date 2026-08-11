@@ -10,6 +10,8 @@ formula calculation capabilities. A cell can be of a value type
 which can be evaluated). For example, the formula `=SUM(A1:A10)`
 evaluates to the sum of values in A1, A2, ..., A10.
 
+Calling `getValue()` on a cell that contains a formula will return the formula itself.
+
 To calculate a formula, you can call the cell containing the formula’s
 method `getCalculatedValue()`, for example:
 
@@ -22,7 +24,18 @@ with PhpSpreadsheet, it evaluates to the value "64":
 
 ![09-command-line-calculation.png](./images/09-command-line-calculation.png)
 
-When writing a formula to a cell, formulae should always be set as they would appear in an English version of Microsoft Office Excel, and PhpSpreadsheet handles all formulae internally in this format. This means that the following rules hold:
+Calling `getCalculatedValue()` on a cell that doesn't contain a formula will simply return the value of that cell; but if the cell does contain a formula, then PhpSpreadsheet will evaluate that formula to calculate the result.
+
+There are a few useful mehods to help identify whether a cell contains a formula or a simple value; and if a formula, to provide further information about it:
+
+```php
+$spreadsheet->getActiveSheet()->getCell('E11')->isFormula();
+```
+will return a boolean true/false, telling you whether that cell contains a formula or not, so you can determine if a call to `getCalculatedVaue()` will need to perform an evaluation. 
+
+For more details on working with array formulas, see the [the recipes documentationn](./recipes.md/#array-formulas). 
+
+When writing a formula to a cell, formulas should always be set as they would appear in an English version of Microsoft Office Excel, and PhpSpreadsheet handles all formulas internally in this format. This means that the following rules hold:
 
  - Decimal separator is `.` (period)
  - Function argument separator is `,` (comma)
@@ -91,6 +104,11 @@ formula calculation is subject to PHP's language characteristics.
 Not all functions are supported, for a comprehensive list, read the
 [function list by name](../references/function-list-by-name.md).
 
+#### Array arguments for Function Calls in Formulas
+
+While most of the Excel function implementations now support array arguments, there are a few that should accept arrays as arguments but don't do so.
+In these cases, the result may be a single value rather than an array; or it may be a `#VALUE!` error.
+
 #### Operator precedence
 
 In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
@@ -117,6 +135,10 @@ content.
 This is normal behaviour of the compatibility pack, Xlsx displays this
 correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
+
+#### PAD (Precision As Displayed) Not Supported
+
+There are no plans to support Precision As Displayed.
 
 ## Handling Date and Time Values
 
@@ -161,7 +183,7 @@ number of seconds from the PHP/Unix base date. The PHP/Unix base date
 (0) is 00:00 UST on 1st January 1970. This value can be positive or
 negative: so a value of -3600 would be 23:00 hrs on 31st December 1969;
 while a value of +3600 would be 01:00 hrs on 1st January 1970. This
-gives PHP a date range of between 14th December 1901 and 19th January
+gives 32-bit PHP a date range of between 14th December 1901 and 19th January
 2038.
 
 #### PHP `DateTime` Objects
@@ -172,20 +194,22 @@ Time functions in Excel will be a PHP `DateTime` object.
 
 #### Excel Timestamps
 
-If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
-date value by any access to the Date and Time functions in Excel will be
-a floating point value that represents a number of days from the Excel
-base date. The Excel base date is determined by which calendar Excel
+Excel timestamps are stored as integer or floating point, where the integer portion represents the number of days since a base date,
+and the fraction portion represents the time of day (0 is midnight, 0.5 is noon, 0.999... is just before midnight the next day).
+The Excel base date is determined by which calendar Excel
 uses: the Windows 1900 or the Mac 1904 calendar. 1st January 1900 is the
 base date for the Windows 1900 calendar while 1st January 1904 is the
 base date for the Mac 1904 calendar.
 
-It is possible for scripts to change the calendar used for calculating
-Excel date values by calling the
-`\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar()` method:
+If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
+date value by any access to the Date and Time functions in Excel will be
+a floating point value in Excel timestamp format (previous paragraph).
 
+It is possible for scripts to change the calendar used for calculating
+Excel date values by calling:
 ```php
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
+\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate); // static property, less preferred
+$spreadsheet->setExcelCalendar($baseDate); // instance property, preferred
 ```
 
 where the following constants can be used for `$baseDate`:
@@ -196,11 +220,10 @@ where the following constants can be used for `$baseDate`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The `\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar()` method can
-be used to determine the current value of this setting:
-
+The current value of this setting can be determined via:
 ```php
-$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
+$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar(); // static
+$baseDate = $spreadsheet->getExcelCalendar(); // instance
 ```
 
 The default is `CALENDAR_WINDOWS_1900`.

@@ -6,7 +6,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Column;
-use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
 use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
@@ -16,7 +15,6 @@ class ColumnTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $column = new Column($sheet);
-        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('A', $columnIndex);
         $spreadsheet->disconnectWorksheets();
@@ -27,7 +25,6 @@ class ColumnTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $column = new Column($sheet, 'E');
-        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         self::assertEquals('E', $columnIndex);
         $spreadsheet->disconnectWorksheets();
@@ -39,7 +36,7 @@ class ColumnTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $column = new Column($sheet);
         $cellIterator = $column->getCellIterator();
-        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        self::assertSame(1, $cellIterator->key());
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -49,7 +46,7 @@ class ColumnTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $column = new Column($sheet);
         $cellIterator = $column->getRowIterator();
-        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        self::assertSame(1, $cellIterator->key());
         $spreadsheet->disconnectWorksheets();
     }
 }

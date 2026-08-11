@@ -7,15 +7,18 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 abstract class LookupBase
 {
-    protected static function validateLookupArray(mixed $lookup_array): void
+    protected static function validateLookupArray(mixed $lookupArray): void
     {
-        if (!is_array($lookup_array)) {
+        if (!is_array($lookupArray)) {
             throw new Exception(ExcelError::REF());
         }
     }
 
-    /** @param float|int|string $index_number */
-    protected static function validateIndexLookup(array $lookup_array, $index_number): int
+    /**
+     * @param mixed[] $lookupArray
+     * @param float|int|string $index_number number >= 1
+     */
+    protected static function validateIndexLookup(array $lookupArray, $index_number): int
     {
         // index_number must be a number greater than or equal to 1.
         // Excel results are inconsistent when index is non-numeric.
@@ -30,8 +33,8 @@ abstract class LookupBase
             throw new Exception(ExcelError::VALUE());
         }
 
-        // index_number must be less than or equal to the number of columns in lookup_array
-        if (empty($lookup_array)) {
+        // index_number must be less than or equal to the number of columns in lookupArray
+        if (empty($lookupArray)) {
             throw new Exception(ExcelError::REF());
         }
 

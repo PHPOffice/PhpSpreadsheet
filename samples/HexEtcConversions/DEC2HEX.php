@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'DEC2HEX';
 $description = 'Converts a decimal number to hexadecimal';
@@ -41,7 +41,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(B$row): "
-        . 'Decimal ' . $worksheet->getCell("A$row")->getValue()
-        . ' is hexadecimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+        . 'Decimal ' . $worksheet->getCell("A$row")->getValueString()
+        . ' is hexadecimal ' . $worksheet->getCell("B$row")->getCalculatedValueString()
     );
 }

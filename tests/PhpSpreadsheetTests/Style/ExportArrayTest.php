@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -32,6 +33,7 @@ class ExportArrayTest extends TestCase
         self::assertEquals(Font::UNDERLINE_SINGLE, $cell1style->getFont()->getUnderline());
         $cell1style->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
         $cell1style->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -73,6 +75,7 @@ class ExportArrayTest extends TestCase
         $cell1style->getFont()->setUnderline(true);
         self::assertEquals(Font::UNDERLINE_SINGLE, $cell1style->getFont()->getUnderline());
         $cell1style->getProtection()->applyFromArray(['hidden' => Protection::PROTECTION_UNPROTECTED, 'locked' => Protection::PROTECTION_UNPROTECTED]);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -106,6 +109,7 @@ class ExportArrayTest extends TestCase
         $cell1style->getFont()->setUnderline('');
         self::assertEquals(Font::UNDERLINE_NONE, $cell1style->getFont()->getUnderline());
         $cell1->setValue(2345.679);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         self::assertEquals('$ 2,345.679', $cell1->getFormattedValue());
 
@@ -131,6 +135,7 @@ class ExportArrayTest extends TestCase
         self::assertEquals(Font::UNDERLINE_NONE, $cell1style->getFont()->getUnderline());
         $cell1style->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
         $cell1->setValue(2345.679);
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         self::assertEquals('$ 2,345.679', $cell1->getFormattedValue());
 
@@ -156,6 +161,7 @@ class ExportArrayTest extends TestCase
         $cell1style = $cell1->getStyle();
         $cell1style->getAlignment()->setTextRotation(Alignment::TEXTROTATION_STACK_EXCEL);
         self::assertEquals(Alignment::TEXTROTATION_STACK_PHPSPREADSHEET, $cell1style->getAlignment()->getTextRotation());
+        /** @var mixed[][] */
         $styleArray = $cell1style->exportArray();
         $cell2 = $sheet->getCell('B1');
         $cell2->setValue('Cell B1');
@@ -173,15 +179,17 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A2');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
-        $cell1style->getFill()->getStartColor()->setArgb('FF112233');
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->getStartColor()
+            ->setArgb('FF112233');
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF000000'],
-                'startColor' => ['argb' => 'FF112233'],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
+                'startColor' => ['argb' => 'FF112233', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed start color with setArgb'
@@ -202,15 +210,16 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A3');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
         $cell1style->getFill()->getEndColor()->setArgb('FF112233');
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF112233'],
-                'startColor' => ['argb' => 'FFFFFFFF'],
+                'endColor' => ['argb' => 'FF112233', 'theme' => -1],
+                'startColor' => ['argb' => 'FFFFFFFF', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed end color with setArgb'
@@ -218,15 +227,16 @@ class ExportArrayTest extends TestCase
 
         $cell1 = $sheet->getCell('A4');
         $cell1style = $cell1->getStyle();
-        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()
+            ->setFillType(Fill::FILL_PATTERN_GRAY125);
         $cell1style->getFill()->setEndColor(new Color('FF0000FF'));
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'endColor' => ['argb' => 'FF0000FF'],
-                'startColor' => ['argb' => 'FFFFFFFF'],
+                'endColor' => ['argb' => 'FF0000FF', 'theme' => -1],
+                'startColor' => ['argb' => 'FFFFFFFF', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed end color with setEndColor'
@@ -235,14 +245,15 @@ class ExportArrayTest extends TestCase
         $cell1 = $sheet->getCell('A5');
         $cell1style = $cell1->getStyle();
         $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
-        $cell1style->getFill()->setStartColor(new Color('FF0000FF'));
+        $cell1style->getFill()
+            ->setStartColor(new Color('FF0000FF'));
         $styleArray = $cell1style->exportArray();
         self::assertEquals(
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 0.0,
-                'startColor' => ['argb' => 'FF0000FF'],
-                'endColor' => ['argb' => 'FF000000'],
+                'startColor' => ['argb' => 'FF0000FF', 'theme' => -1],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
             ],
             $styleArray['fill'],
             'changed start color with setStartColor'
@@ -253,7 +264,7 @@ class ExportArrayTest extends TestCase
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 45.0,
-                'startColor' => ['argb' => 'FF00FFFF'],
+                'startColor' => ['argb' => 'FF00FFFF', 'theme' => -1],
             ]
         );
         $cell1style = $cell1->getStyle();
@@ -262,8 +273,8 @@ class ExportArrayTest extends TestCase
             [
                 'fillType' => Fill::FILL_PATTERN_GRAY125,
                 'rotation' => 45.0,
-                'startColor' => ['argb' => 'FF00FFFF'],
-                'endColor' => ['argb' => 'FF000000'],
+                'startColor' => ['argb' => 'FF00FFFF', 'theme' => -1],
+                'endColor' => ['argb' => 'FF000000', 'theme' => -1],
             ],
             $styleArray['fill'],
             'applyFromArray with startColor'
@@ -285,6 +296,28 @@ class ExportArrayTest extends TestCase
             $styleArray['fill'],
             'applyFromArray without start/endColor'
         );
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testQuotePrefix(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')
+            ->setValueExplicit('=1+2', DataType::TYPE_STRING);
+        self::assertSame('=1+2', $sheet->getCell('A1')->getCalculatedValue());
+        self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        $sheet->getCell('A2')->setValue('=1+2');
+        self::assertSame(3, $sheet->getCell('A2')->getCalculatedValue());
+        self::assertFalse($sheet->getStyle('A2')->getQuotePrefix());
+        /** @var mixed[][] */
+        $styleArray1 = $sheet->getStyle('A1')->exportArray();
+        /** @var mixed[][] */
+        $styleArray2 = $sheet->getStyle('A2')->exportArray();
+        $sheet->getStyle('B1')->applyFromArray($styleArray1);
+        $sheet->getStyle('B2')->applyFromArray($styleArray2);
+        self::assertTrue($sheet->getStyle('B1')->getQuotePrefix());
+        self::assertFalse($sheet->getStyle('B2')->getQuotePrefix());
         $spreadsheet->disconnectWorksheets();
     }
 }

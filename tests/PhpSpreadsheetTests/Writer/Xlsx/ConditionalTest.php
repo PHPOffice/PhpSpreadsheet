@@ -94,9 +94,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider textConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('textConditionalsProvider')]
     public function testWriteTextConditionals(string $conditionType, string $operatorType, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -171,9 +169,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider dateConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dateConditionalsProvider')]
     public function testWriteDateConditionals(string $timePeriod, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -301,9 +297,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider blanksConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('blanksConditionalsProvider')]
     public function testWriteBlanksConditionals(string $conditionalType, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -381,9 +375,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider errorsConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('errorsConditionalsProvider')]
     public function testWriteErrorsConditionals(string $conditionalType, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -461,9 +453,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider duplicatesConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('duplicatesConditionalsProvider')]
     public function testWriteDuplicatesConditionals(string $conditionalType, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
@@ -520,9 +510,7 @@ class ConditionalTest extends AbstractFunctional
         self::assertStringContainsString($expected, $data);
     }
 
-    /**
-     * @dataProvider expressionsConditionalsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('expressionsConditionalsProvider')]
     public function testWriteExpressionConditionals(string $expression, string $expected): void
     {
         $spreadsheet = new Spreadsheet();

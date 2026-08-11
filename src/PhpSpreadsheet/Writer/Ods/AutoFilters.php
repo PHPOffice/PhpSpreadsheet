@@ -26,7 +26,7 @@ class AutoFilters
         for ($i = 0; $i < $sheetCount; ++$i) {
             $worksheet = $this->spreadsheet->getSheet($i);
             $autofilter = $worksheet->getAutoFilter();
-            if ($autofilter !== null && !empty($autofilter->getRange())) {
+            if (!empty($autofilter->getRange())) {
                 if ($wrapperWritten === false) {
                     $this->objWriter->startElement('table:database-ranges');
                     $wrapperWritten = true;

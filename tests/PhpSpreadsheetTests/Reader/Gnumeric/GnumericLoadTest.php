@@ -31,10 +31,10 @@ class GnumericLoadTest extends TestCase
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
         $creationDate = $props->getCreated();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2010-09-02T20:48:39Z', $result);
         $creationDate = $props->getModified();
-        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\TH:i:s\Z', new DateTimeZone('UTC'));
         self::assertEquals('2020-06-05T05:15:21Z', $result);
 
         $sheet = $spreadsheet->getSheet(0);

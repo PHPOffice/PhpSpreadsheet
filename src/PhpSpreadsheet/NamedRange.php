@@ -43,6 +43,7 @@ class NamedRange extends DefinedName
         return $this;
     }
 
+    /** @return string[] */
     public function getCellsInRange(): array
     {
         $range = $this->value;

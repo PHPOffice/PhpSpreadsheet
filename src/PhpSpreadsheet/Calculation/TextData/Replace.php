@@ -25,7 +25,7 @@ class Replace
      * @param mixed $newText String to replace in the defined position
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function replace(mixed $oldText, mixed $start, mixed $chars, mixed $newText): array|string
@@ -65,7 +65,7 @@ class Replace
      * @param mixed $instance Integer instance Number for the occurrence of frmText to change
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function substitute(mixed $text = '', mixed $fromText = '', mixed $toText = '', mixed $instance = null): array|string
@@ -111,6 +111,6 @@ class Replace
             --$instance;
         }
 
-        return Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText));
+        return StringHelper::convertToString(Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText)));
     }
 }

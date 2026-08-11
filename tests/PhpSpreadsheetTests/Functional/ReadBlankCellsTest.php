@@ -49,10 +49,23 @@ class ReadBlankCellsTest extends AbstractFunctional
     }
 
     /**
-     * Test generate file with some empty cells.
-     *
-     * @dataProvider providerSheetFormat
+     * Test load file ignoring empty cells.
      */
+    public function testLoadDontReadEmptyCellsFlag(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';
+        $reader = new Xlsx();
+        $reloadedSpreadsheet = $reader->load($filename, Xlsx::IGNORE_EMPTY_CELLS);
+        self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
+        self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
+        self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test generate file with some empty cells.
+     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetFormat')]
     public function testLoadAndSaveReadEmpty(string $format, bool $expected): void
     {
         $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';
@@ -72,11 +85,13 @@ class ReadBlankCellsTest extends AbstractFunctional
 
     /**
      * Test generate file with some empty cells.
-     *
-     * @dataProvider providerSheetFormat
      */
-    public function testLoadAndSaveDontReadEmpty(string $format): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSheetFormat')]
+    public function testLoadAndSaveDontReadEmpty(string $format, mixed $expected): void
     {
+        if (!is_bool($expected)) {
+            self::fail('unexpected unused arg');
+        }
         $filename = 'tests/data/Reader/XLSX/blankcell.xlsx';
         $reader = new Xlsx();
         $reader->setReadEmptyCells(false);

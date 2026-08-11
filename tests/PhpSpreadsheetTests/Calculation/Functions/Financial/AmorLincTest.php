@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class AmorLincTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerAMORLINC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAMORLINC')]
     public function testAMORLINC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('AMORLINC', $expectedResult, $args);

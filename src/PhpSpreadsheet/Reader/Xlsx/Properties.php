@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Document\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
-use PhpOffice\PhpSpreadsheet\Settings;
 use SimpleXMLElement;
 
 class Properties
@@ -23,9 +22,7 @@ class Properties
     {
         // okay to omit namespace because everything will be processed by xpath
         $obj = simplexml_load_string(
-            $this->securityScanner->scan($propertyData),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
+            $this->securityScanner->scan($propertyData)
         );
 
         return $obj === false ? null : $obj;
@@ -82,7 +79,9 @@ class Properties
                     $cellDataOfficeChildren = $xmlProperty->children('http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
 
                     $attributeType = $cellDataOfficeChildren->getName();
-                    $attributeValue = (string) $cellDataOfficeChildren->{$attributeType};
+                    /** @var SimpleXMLElement */
+                    $attributeValue = $cellDataOfficeChildren->{$attributeType};
+                    $attributeValue = (string) $attributeValue;
                     $attributeValue = DocumentProperties::convertProperty($attributeValue, $attributeType);
                     $attributeType = DocumentProperties::convertPropertyType($attributeType);
                     $this->docProps->setCustomProperty($propertyName, $attributeValue, $attributeType);
@@ -91,6 +90,7 @@ class Properties
         }
     }
 
+    /** @param null|false|scalar[] $array */
     private function getArrayItem(null|array|false $array): string
     {
         return is_array($array) ? (string) ($array[0] ?? '') : '';

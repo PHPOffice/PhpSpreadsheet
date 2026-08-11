@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class BetaDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerBETADIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBETADIST')]
     public function testBETADIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETADIST', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class BetaDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }
 
-    /**
-     * @dataProvider providerBetaDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerBetaDistArray')]
     public function testBetaDistArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=BETADIST({$argument1}, {$argument2}, {$argument3})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

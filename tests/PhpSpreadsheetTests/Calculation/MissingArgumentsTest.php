@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class MissingArgumentsTest extends TestCase
 {
-    /**
-     * @dataProvider providerMissingArguments
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMissingArguments')]
     public function testMissingArguments(mixed $expected, string $formula): void
     {
         $spreadsheet = new Spreadsheet();

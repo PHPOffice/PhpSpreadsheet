@@ -4,8 +4,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
-$helper->log('Returns the the Discount Rate for a security.');
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
+$helper->log('Returns the Discount Rate for a security.');
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();

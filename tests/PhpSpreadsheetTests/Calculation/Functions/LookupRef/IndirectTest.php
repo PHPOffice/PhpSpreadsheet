@@ -7,12 +7,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IndirectTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerINDIRECT
-     */
+    #[DataProvider('providerINDIRECT')]
     public function testINDIRECT(mixed $expectedResult, mixed $cellReference = 'omitted', mixed $a1 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
@@ -108,7 +107,7 @@ class IndirectTest extends AllSetupTeardown
     {
         $reader = new ReaderXlsx();
         $file = 'tests/data/Calculation/LookupRef/IndirectFormulaSelection.xlsx';
-        $spreadsheet = $reader->load($file);
+        $spreadsheet = $this->spreadsheet = $reader->load($file);
         $sheet = $spreadsheet->getActiveSheet();
         $result = $sheet->getCell('A5')->getCalculatedValue();
         self::assertSame(100, $result);
@@ -132,11 +131,10 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame('This is it', $result);
     }
 
-    /**
-     * @dataProvider providerRelative
-     */
+    #[DataProvider('providerRelative')]
     public function testR1C1Relative(string|int|null $expectedResult, string $address): void
     {
+        $this->setArrayAsValue();
         $sheet = $this->getSheet();
         $sheet->fromArray([
             ['a1', 'b1', 'c1'],
@@ -170,11 +168,11 @@ class IndirectTest extends AllSetupTeardown
             'absolute row absolute column' => ['c2', 'R2C3'],
             'absolute row relative column' => ['a2', 'R2C[-1]'],
             'relative row absolute column lowercase' => ['a2', 'rc1'],
-            'uninitialized cell' => [null, 'RC[+2]'], // Excel result is 0
+            'uninitialized cell' => [0, 'RC[+2]'], // Excel result is 0, PhpSpreadsheet was null
         ];
     }
 
-    private static bool $definedFormulaWorking = false;
+    protected static bool $definedFormulaWorking = false;
 
     public function testAboveCell(): void
     {

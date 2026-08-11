@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CoupDaysNcTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCOUPDAYSNC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCOUPDAYSNC')]
     public function testCOUPDAYSNC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPDAYSNC', $expectedResult, $args);

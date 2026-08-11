@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Oct2DecTest extends TestCase
@@ -27,23 +28,14 @@ class Oct2DecTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    /**
-     * @dataProvider providerOCT2DEC
-     */
+    #[DataProvider('providerOCT2DEC')]
     public function testDirectCallToOCT2DEC(mixed $expectedResult, bool|string $value): void
     {
         $result = ConvertOctal::toDecimal($value);
         self::assertSame($expectedResult, $result);
     }
 
-    private function trimIfQuoted(string $value): string
-    {
-        return trim($value, '"');
-    }
-
-    /**
-     * @dataProvider providerOCT2DEC
-     */
+    #[DataProvider('providerOCT2DEC')]
     public function testOCT2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -52,13 +44,11 @@ class Oct2DecTest extends TestCase
         $formula = "=OCT2DEC({$arguments})";
 
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerOCT2DEC
-     */
+    #[DataProvider('providerOCT2DEC')]
     public function testOCT2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -81,9 +71,7 @@ class Oct2DecTest extends TestCase
         return require 'tests/data/Calculation/Engineering/OCT2DEC.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyOCT2DEC
-     */
+    #[DataProvider('providerUnhappyOCT2DEC')]
     public function testOCT2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -109,12 +97,12 @@ class Oct2DecTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerOCT2DECOds
-     */
+    #[DataProvider('providerOCT2DECOds')]
     public function testOCT2DECOds(mixed $expectedResult, bool|string $value): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_OPENOFFICE
+        );
 
         $result = ConvertOctal::toDecimal($value);
         self::assertSame($expectedResult, $result);
@@ -130,31 +118,36 @@ class Oct2DecTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = '=OCT2DEC(10.1)';
 
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_GNUMERIC
+        );
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame('8', $this->trimIfQuoted((string) $result), 'Gnumeric');
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame(8, $result, 'Gnumeric');
 
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_OPENOFFICE
+        );
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame(ExcelError::NAN(), $result, 'OpenOffice');
 
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_EXCEL
+        );
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
+        $result = $calculation->calculateFormula($formula);
+        self::assertSame(ExcelError::NAN(), $result, 'Excel');
     }
 
-    /**
-     * @dataProvider providerOct2DecArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerOct2DecArray')]
     public function testOct2DecArray(array $expectedResult, string $value): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=OCT2DEC({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 

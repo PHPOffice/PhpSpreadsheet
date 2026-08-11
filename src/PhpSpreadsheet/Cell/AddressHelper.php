@@ -58,7 +58,7 @@ class AddressHelper
             $columnReference = (string) $currentColumnNumber;
         }
         //    Bracketed C references are relative to the current column
-        if (is_string($columnReference) && $columnReference[0] === '[') {
+        if ($columnReference[0] === '[') {
             $columnReference = $currentColumnNumber + (int) trim($columnReference, '[]');
         }
         $columnReference = (int) $columnReference;
@@ -136,9 +136,7 @@ class AddressHelper
         ?int $currentRowNumber = null,
         ?int $currentColumnNumber = null
     ): string {
-        $validityCheck = preg_match(Coordinate::A1_COORDINATE_REGEX, $address, $cellReference);
-
-        if ($validityCheck === 0) {
+        if (1 !== preg_match(Coordinate::A1_COORDINATE_REGEX, $address, $cellReference)) {
             throw new Exception('Invalid A1-format Cell Reference');
         }
 

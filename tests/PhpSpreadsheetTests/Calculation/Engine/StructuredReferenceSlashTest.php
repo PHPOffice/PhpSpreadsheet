@@ -19,7 +19,7 @@ class StructuredReferenceSlashTest extends TestCase
     // these still need to match.
     // As compared to StructuredReferenceTest, the last column
     //   "Commission/Amount" contains a slash. See PR #3513.
-    protected array $tableData = [
+    protected const TABLE_DATA = [
         ["Sales\u{a0}Person", 'Region', "Sales\u{a0}Amount", "%\u{a0}Commission", 'Commission/Amount'],
         ['Joe', 'North', 260, '10%', self::COLUMN_FORMULA],
         ['Robert', 'South', 660, '15%', self::COLUMN_FORMULA],
@@ -34,7 +34,7 @@ class StructuredReferenceSlashTest extends TestCase
     {
         $spreadsheet = $this->spreadSheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();
-        $workSheet->fromArray($this->tableData, null, 'A1');
+        $workSheet->fromArray(self::TABLE_DATA, null, 'A1');
 
         $table = new Table('A1:E8', 'DeptSales');
         $table->setShowTotalsRow(true);
@@ -54,9 +54,7 @@ class StructuredReferenceSlashTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderColumnData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderColumnData')]
     public function testStructuredReferenceColumns(string $expectedCellRange, string $structuredReference): void
     {
         $spreadsheet = $this->getSpreadsheet();
@@ -65,9 +63,7 @@ class StructuredReferenceSlashTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderRowData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderRowData')]
     public function testStructuredReferenceRows(string $expectedCellRange, string $structuredReference): void
     {
         $spreadsheet = $this->getSpreadsheet();

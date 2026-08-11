@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class TextBeforeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerTEXTBEFORE
-     */
+    /** @param array{0: string, 1: mixed[]|string, 2?: string, 3?: string, 4?: string} $arguments */
+    #[DataProvider('providerTEXTBEFORE')]
     public function testTextBefore(string $expectedResult, array $arguments): void
     {
         $text = $arguments[0];

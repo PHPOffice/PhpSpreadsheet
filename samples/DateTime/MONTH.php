@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'MONTH';
 $description = 'Returns the month of a date, an integer ranging from 1 to 12';
@@ -46,5 +46,5 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log('Month is: ' . $worksheet->getCell('F' . $row)->getCalculatedValue());
+    $helper->log('Month is: ' . $worksheet->getCell('F' . $row)->getCalculatedValueString());
 }

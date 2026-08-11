@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'DELTA';
 $description = 'Tests whether two values are equal. Returns 1 if number1 = number2; returns 0 otherwise. This function is also known as the Kronecker Delta function';
@@ -37,12 +37,12 @@ $comparison = [
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(E$row): Compare values "
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' and '
-        . $worksheet->getCell('B' . $row)->getValue()
+        . $worksheet->getCell('B' . $row)->getValueString()
         . ' - Result is '
-        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . $worksheet->getCell('C' . $row)->getCalculatedValueString()
         . ' - '
-        . $comparison[$worksheet->getCell('C' . $row)->getCalculatedValue()]
+        . $comparison[$worksheet->getCell('C' . $row)->getCalculatedValueString()]
     );
 }

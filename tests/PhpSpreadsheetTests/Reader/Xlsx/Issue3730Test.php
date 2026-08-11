@@ -14,7 +14,7 @@ class Issue3730Test extends \PHPUnit\Framework\TestCase
     {
         $file = 'zip://';
         $file .= self::$testbook;
-        $file .= '#xl\\_rels\\workbook.xml.rels'; // no idea why backslash
+        $file .= '#xl\_rels\workbook.xml.rels'; // no idea why backslash
         $data = file_get_contents($file);
         // confirm that file contains expected absolute reference
         if ($data === false) {

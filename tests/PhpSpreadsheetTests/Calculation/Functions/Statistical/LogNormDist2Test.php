@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LogNormDist2Test extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOGNORMDIST2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGNORMDIST2')]
     public function testLOGNORMDIST2(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGNORM.DIST', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class LogNormDist2Test extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/LOGNORMDIST2.php';
     }
 
-    /**
-     * @dataProvider providerLogNormDist2Array
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLogNormDist2Array')]
     public function testLogNormDist2Array(array $expectedResult, string $values, string $mean, string $stdDev): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=LOGNORM.DIST({$values}, {$mean}, {$stdDev}, true)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -17,9 +17,8 @@ class SelectedCellsTest extends AbstractFunctional
 
     /**
      * Test load file with correct selected cells.
-     *
-     * @dataProvider providerFormats
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testSelectedCells(string $format): void
     {
         $spreadsheet = new Spreadsheet();

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 
 class RowsOnSpreadsheetTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerROWSonSpreadsheet
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerROWSonSpreadsheet')]
     public function testRowsOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);

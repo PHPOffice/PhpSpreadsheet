@@ -6,6 +6,8 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CsvNumberFormatLocaleTest extends TestCase
@@ -35,20 +37,22 @@ class CsvNumberFormatLocaleTest extends TestCase
 
         $this->filename = 'tests/data/Reader/CSV/NumberFormatTest.de.csv';
         $this->csvReader = new Csv();
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setThousandsSeparator(null);
+        StringHelper::setDecimalSeparator(null);
     }
 
     protected function tearDown(): void
     {
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setThousandsSeparator(null);
+        StringHelper::setDecimalSeparator(null);
         if ($this->localeAdjusted && is_string($this->currentLocale)) {
             setlocale(LC_ALL, $this->currentLocale);
         }
     }
 
-    /**
-     * @dataProvider providerNumberFormatNoConversionTest
-     *
-     * @runInSeparateProcess
-     */
+    #[DataProvider('providerNumberFormatNoConversionTest')]
     public function testNumberFormatNoConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
@@ -65,6 +69,7 @@ class CsvNumberFormatLocaleTest extends TestCase
 
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
         self::assertSame($expectedFormat, $cell->getFormattedValue(), 'Format mask check');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerNumberFormatNoConversionTest(): array
@@ -88,11 +93,7 @@ class CsvNumberFormatLocaleTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerNumberValueConversionTest
-     *
-     * @runInSeparateProcess
-     */
+    #[DataProvider('providerNumberValueConversionTest')]
     public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
@@ -110,6 +111,7 @@ class CsvNumberFormatLocaleTest extends TestCase
 
         self::assertSame(DataType::TYPE_NUMERIC, $cell->getDataType(), 'Datatype check');
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerNumberValueConversionTest(): array

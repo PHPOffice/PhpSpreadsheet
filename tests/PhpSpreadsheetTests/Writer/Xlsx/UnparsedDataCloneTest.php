@@ -24,8 +24,9 @@ class UnparsedDataCloneTest extends TestCase
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
         $sheetCodeName = $sheet->getCodeName();
+        /** @var array<array<array<mixed>>> */
         $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
-        self::assertArrayHasKey('printerSettings', $unparsedLoadedData['sheets'][$sheetCodeName]);
+        self::assertArrayHasKey('printerSettings', $unparsedLoadedData['sheets']["$sheetCodeName"]);
         self::assertCount(1, $unparsedLoadedData['sheets'][$sheetCodeName]['printerSettings']);
 
         $clonedSheet = clone $spreadsheet->getActiveSheet();
@@ -37,7 +38,7 @@ class UnparsedDataCloneTest extends TestCase
         $dupname = 'Unable to open saved file';
 
         $zip = new ZipArchive();
-        if ($zip->open($resultFilename) !== false) {
+        if ($zip->open($resultFilename) === true) {
             $names = [];
             $dupname = '';
             for ($index = 0; $index < $zip->numFiles; ++$index) {

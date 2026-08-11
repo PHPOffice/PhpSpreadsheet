@@ -18,14 +18,8 @@ class AllSetupTeardown extends TestCase
 
     private string $locale;
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
     private ?Worksheet $sheet = null;
 
     protected function setUp(): void

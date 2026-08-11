@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns a cell range that is a specified number of rows and columns from a cell or range of cells.');
 
 // Create new PhpSpreadsheet object
@@ -29,5 +29,5 @@ $worksheet->getCell('H4')->setValue('=SUM(OFFSET(E3, 1, -3, 7))');
 
 for ($row = 1; $row <= 4; ++$row) {
     $cell = $worksheet->getCell("H{$row}");
-    $helper->log("H{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
+    $helper->log("H{$row}: " . $cell->getValueString() . ' => ' . $cell->getCalculatedValueString());
 }

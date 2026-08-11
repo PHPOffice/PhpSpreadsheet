@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -61,9 +62,9 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:')
 
 // Resolve range
 $helper->log('Resolve range');
-$helper->log('Cell B1 {=PersonFN}: ' . $spreadsheet->getActiveSheet()->getCell('B1')->getCalculatedValue());
-$helper->log('Cell B3 {=PersonFN & " " & PersonLN}: ' . $spreadsheet->getActiveSheet()->getCell('B3')->getCalculatedValue());
-$helper->log('Cell Person!B1: ' . $spreadsheet->getActiveSheet()->getCell('Person!B1')->getCalculatedValue());
+$helper->log('Cell B1 {=PersonFN}: ' . $spreadsheet->getActiveSheet()->getCell('B1')->getCalculatedValueString());
+$helper->log('Cell B3 {=PersonFN & " " & PersonLN}: ' . $spreadsheet->getActiveSheet()->getCell('B3')->getCalculatedValueString());
+$helper->log('Cell Person!B1: ' . $spreadsheet->getActiveSheet()->getCell('Person!B1')->getCalculatedValueString());
 
 // Rename worksheet
 $helper->log('Rename worksheet');

@@ -6,6 +6,7 @@ use SimpleXMLElement;
 
 class NumberFormat extends StyleBase
 {
+    /** @return mixed[] */
     public function parseStyle(SimpleXMLElement $styleAttributes): array
     {
         $style = [];
@@ -14,7 +15,7 @@ class NumberFormat extends StyleBase
         $toFormats = ['-', ' '];
 
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-            $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
+            $styleAttributeValue = str_replace($fromFormats, $toFormats, (string) $styleAttributeValue);
 
             switch ($styleAttributeValue) {
                 case 'Short Date':

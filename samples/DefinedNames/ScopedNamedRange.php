@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require_once __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
 $worksheet->setTitle('Base Data');
@@ -64,10 +64,12 @@ $range = $spreadsheet->getNamedRange('CHARGE_RATE');
 if ($range === null || $range->getWorksheet() === null) {
     throw new Exception('expected named range not found');
 }
+/** @var string */
+$cellsInRange0 = $range->getCellsInRange()[0];
 /** @var float */
 $chargeRateCellValue = $spreadsheet
     ->getSheetByNameOrThrow($range->getWorksheet()->getTitle())
-    ->getCell($range->getCellsInRange()[0])->getValue();
+    ->getCell($cellsInRange0)->getValue();
 
 /** @var float */
 $calc1 = $worksheet->getCell("B{$row}")->getCalculatedValue();

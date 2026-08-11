@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class MdeTermTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMDETERM
-     */
+    /** @param array<mixed>|float|int|string $matrix */
+    #[DataProvider('providerMDETERM')]
     public function testMDETERM2(float|int|string $expectedResult, array|int|float|string $matrix): void
     {
         $this->mightHaveException($expectedResult);

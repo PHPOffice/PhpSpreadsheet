@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
@@ -22,6 +23,11 @@ class Drawing extends WriterPart
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, bool $includeCharts = false): string
     {
+        // Try to use pass-through drawing XML if available
+        if ($passThroughXml = $this->getPassThroughDrawingXml($worksheet)) {
+            return $passThroughXml;
+        }
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -54,19 +60,13 @@ class Drawing extends WriterPart
         }
 
         if ($includeCharts) {
-            $chartCount = $worksheet->getChartCount();
-            // Loop through charts and write the chart position
-            if ($chartCount > 0) {
-                for ($c = 0; $c < $chartCount; ++$c) {
-                    $chart = $worksheet->getChartByIndex((string) $c);
-                    if ($chart !== false) {
-                        $this->writeChart($objWriter, $chart, $c + $i);
-                    }
-                }
+            foreach ($worksheet->getChartCollection() as $c => $chart) {
+                $this->writeChart($objWriter, $chart, $c + $i);
             }
         }
 
         // unparsed AlternateContent
+        /** @var string[][][][] */
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'])) {
             foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'] as $drawingAlternateContent) {
@@ -263,7 +263,13 @@ class Drawing extends WriterPart
             $objWriter->startElement('a:blip');
             $objWriter->writeAttribute('xmlns:r', Namespaces::SCHEMA_OFFICE_DOCUMENT);
             $objWriter->writeAttribute('r:embed', 'rId' . $relationId);
-            $objWriter->endElement();
+            $temp = $drawing->getOpacity();
+            if (is_int($temp) && $temp >= 0 && $temp <= 100000) {
+                $objWriter->startElement('a:alphaModFix');
+                $objWriter->writeAttribute('amt', "$temp");
+                $objWriter->endElement(); // a:alphaModFix
+            }
+            $objWriter->endElement(); // a:blip
 
             $srcRect = $drawing->getSrcRect();
             if (!empty($srcRect)) {
@@ -501,7 +507,11 @@ class Drawing extends WriterPart
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, string $reference, HeaderFooterDrawing $image): void
     {
         // Calculate object id
-        preg_match('{(\d+)}', md5($reference), $m);
+        if (!Preg::isMatch('{(\d+)}', md5($reference), $m)) {
+            // @codeCoverageIgnoreStart
+            throw new WriterException('Regexp failure in writeVMLHeaderFooterImage');
+            // @codeCoverageIgnoreEnd
+        }
         $id = 1500 + ((int) substr($m[1], 0, 2) * 1);
 
         // Calculate offset
@@ -552,6 +562,12 @@ class Drawing extends WriterPart
 
                 $iterator->next();
             }
+            $iterator = $spreadsheet->getSheet($i)->getInCellDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                $aDrawings[] = $iterator->current();
+
+                $iterator->next();
+            }
         }
 
         return $aDrawings;
@@ -579,5 +595,28 @@ class Drawing extends WriterPart
         if ($condition) {
             $objWriter->writeAttribute($attr, $val);
         }
+    }
+
+    /**
+     * Get pass-through drawing XML if available.
+     *
+     * Returns the original drawing XML stored during load (when Reader pass-through was enabled).
+     * This preserves unsupported drawing elements (shapes, textboxes) that PhpSpreadsheet cannot parse.
+     *
+     * @return ?string The pass-through XML, or null if not available or should not be used
+     */
+    private function getPassThroughDrawingXml(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): ?string
+    {
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'] ?? [];
+        $sheetData = $sheets[$worksheet->getCodeName()] ?? [];
+        // Only use pass-through XML if the Reader flag was explicitly enabled
+        /** @var string[] $drawings */
+        $drawings = $sheetData['Drawings'] ?? [];
+        if (($sheetData['drawingPassThroughEnabled'] ?? false) !== true || $drawings === []) {
+            return null;
+        }
+
+        return reset($drawings) ?: null;
     }
 }

@@ -5,9 +5,8 @@ namespace PhpOffice\PhpSpreadsheetInfra;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Column;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LocaleGenerator
@@ -32,6 +31,7 @@ class LocaleGenerator
 
     protected string $translationBaseFolder;
 
+    /** @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> */
     protected array $phpSpreadsheetFunctions;
 
     protected Spreadsheet $translationSpreadsheet;
@@ -40,16 +40,23 @@ class LocaleGenerator
 
     protected Worksheet $localeTranslations;
 
+    /** @var string[] */
     protected array $localeLanguageMap = [];
 
+    /** @var int[] */
     protected array $errorCodeMap = [];
 
     private Worksheet $functionNameTranslations;
 
+    /** @var string[] */
     protected array $functionNameLanguageMap = [];
 
+    /** @var array<int|string> */
     protected array $functionNameMap = [];
 
+    /**
+     * @param array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}> $phpSpreadsheetFunctions
+     */
     public function __construct(
         string $translationBaseFolder,
         string $translationSpreadsheetName,
@@ -270,24 +277,23 @@ class LocaleGenerator
         return $worksheet;
     }
 
+    /** @return string[] */
     protected function mapLanguageColumns(Worksheet $translationWorksheet): array
     {
         $sheetName = $translationWorksheet->getTitle();
         $this->log("Mapping Languages for {$sheetName}:");
 
         $baseColumn = self::ENGLISH_REFERENCE_COLUMN;
-        $languagesList = $translationWorksheet->getColumnIterator(++$baseColumn);
+        $languagesList = $translationWorksheet->getColumnIterator(StringHelper::stringIncrement($baseColumn));
 
         $languageNameMap = [];
         foreach ($languagesList as $languageColumn) {
-            /** @var Column $languageColumn */
             $cells = $languageColumn->getCellIterator(self::LOCALE_NAME_ROW, self::LOCALE_NAME_ROW);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
-                    $languageNameMap[$cell->getColumn()] = $cell->getValue();
-                    $this->log($cell->getColumn() . ' -> ' . $cell->getValue());
+                    $languageNameMap[$cell->getColumn()] = $cell->getValueString();
+                    $this->log($cell->getColumn() . ' -> ' . $cell->getValueString());
                 }
             }
         }
@@ -316,14 +322,12 @@ class LocaleGenerator
         $errorList = $this->localeTranslations->getRowIterator(self::ERROR_CODES_FIRST_ROW);
 
         foreach ($errorList as $errorRow) {
-            /** @var Row $errorList */
             $cells = $errorRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($cell->getValue() != '') {
-                    $this->log($cell->getRow() . ' -> ' . $cell->getValue());
-                    $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
+                    $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
+                    $this->errorCodeMap[$cell->getValueString()] = $cell->getRow();
                 }
             }
         }
@@ -335,26 +339,24 @@ class LocaleGenerator
         $functionList = $this->functionNameTranslations->getRowIterator(self::FUNCTION_NAME_LIST_FIRST_ROW);
 
         foreach ($functionList as $functionRow) {
-            /** @var Row $functionRow */
             $cells = $functionRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
-                /** @var Cell $cell */
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
-                        $this->log('CATEGORY: ' . $cell->getValue());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->log('CATEGORY: ' . $cell->getValueString());
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
 
                     continue;
                 }
-                if ($cell->getValue() != '') {
+                if ($cell->getValue() !== '' && $cell->getValue() !== null) {
                     if (is_bool($cell->getValue())) {
                         $this->log($cell->getRow() . ' -> ' . ($cell->getValue() ? 'TRUE' : 'FALSE'));
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
                     } else {
-                        $this->log($cell->getRow() . ' -> ' . $cell->getValue());
-                        $this->functionNameMap[$cell->getValue()] = $cell->getRow();
+                        $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
+                        $this->functionNameMap[$cell->getValueString()] = $cell->getRow();
                     }
                 }
             }

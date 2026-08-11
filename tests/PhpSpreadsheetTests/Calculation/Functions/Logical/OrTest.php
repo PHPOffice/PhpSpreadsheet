@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 class OrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOR')]
     public function testOR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('OR', $expectedResult, ...$args);
@@ -19,9 +17,7 @@ class OrTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/OR.php';
     }
 
-    /**
-     * @dataProvider providerORLiteral
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerORLiteral')]
     public function testORLiteral(bool|string $expectedResult, float|int|string $formula): void
     {
         $sheet = $this->getSheet();

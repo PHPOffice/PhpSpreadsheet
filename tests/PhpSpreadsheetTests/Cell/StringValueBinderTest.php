@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
@@ -28,9 +29,7 @@ class StringValueBinderTest extends TestCase
         Cell::setValueBinder($this->valueBinder);
     }
 
-    /**
-     * @dataProvider providerDataValuesDefault
-     */
+    #[DataProvider('providerDataValuesDefault')]
     public function testStringValueBinderDefaultBehaviour(
         mixed $value,
         mixed $expectedValue,
@@ -98,9 +97,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressNullConversion
-     */
+    #[DataProvider('providerDataValuesSuppressNullConversion')]
     public function testStringValueBinderSuppressNullConversion(
         mixed $value,
         mixed $expectedValue,
@@ -127,9 +124,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressBooleanConversion
-     */
+    #[DataProvider('providerDataValuesSuppressBooleanConversion')]
     public function testStringValueBinderSuppressBooleanConversion(
         mixed $value,
         mixed $expectedValue,
@@ -157,9 +152,7 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressNumericConversion
-     */
+    #[DataProvider('providerDataValuesSuppressNumericConversion')]
     public function testStringValueBinderSuppressNumericConversion(
         mixed $value,
         mixed $expectedValue,
@@ -191,12 +184,13 @@ class StringValueBinderTest extends TestCase
             [true, '1', DataType::TYPE_STRING],
             [false, '', DataType::TYPE_STRING],
             [null, '', DataType::TYPE_STRING],
+            'Issue 4766 very large positive exponent scientific notation ignored' => ['4E433', '4E433', DataType::TYPE_STRING],
+            'Issue 4766 very large negative exponent scientific notation ignored' => ['4E-433', '4E-433', DataType::TYPE_STRING],
+            'Issue 4766 small exponent scientific ignored' => ['4E4', '4E4', DataType::TYPE_STRING],
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressFormulaConversion
-     */
+    #[DataProvider('providerDataValuesSuppressFormulaConversion')]
     public function testStringValueBinderSuppressFormulaConversion(
         mixed $value,
         mixed $expectedValue,
@@ -211,19 +205,23 @@ class StringValueBinderTest extends TestCase
         $cell->setValue($value);
         self::assertSame($expectedValue, $cell->getValue());
         self::assertSame($expectedDataType, $cell->getDataType());
+        if ($expectedDataType === DataType::TYPE_FORMULA) {
+            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
+        } else {
+            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        }
         $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerDataValuesSuppressFormulaConversion(): array
     {
         return [
-            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
+            'normal formula' => ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA],
+            'issue 1310' => ['======', '======', DataType::TYPE_STRING],
         ];
     }
 
-    /**
-     * @dataProvider providerDataValuesSuppressAllConversion
-     */
+    #[DataProvider('providerDataValuesSuppressAllConversion')]
     public function testStringValueBinderSuppressAllConversion(
         mixed $value,
         mixed $expectedValue,
@@ -256,7 +254,7 @@ class StringValueBinderTest extends TestCase
             ['-.123', '-.123', DataType::TYPE_STRING],
             ['1.23e-4', '1.23e-4', DataType::TYPE_STRING],
             ['ABC', 'ABC', DataType::TYPE_STRING],
-            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
+            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA],
             [123, 123, DataType::TYPE_NUMERIC],
             [123.456, 123.456, DataType::TYPE_NUMERIC],
             [0.123, 0.123, DataType::TYPE_NUMERIC],

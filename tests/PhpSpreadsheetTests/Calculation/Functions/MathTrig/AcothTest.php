@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class AcothTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerACOTH
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerACOTH')]
     public function testACOTH(float|int|string $expectedResult, float|int|string $number): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,15 +27,13 @@ class AcothTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ACOTH.php';
     }
 
-    /**
-     * @dataProvider providerAcothArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerAcothArray')]
     public function testAcothArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ACOTH({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

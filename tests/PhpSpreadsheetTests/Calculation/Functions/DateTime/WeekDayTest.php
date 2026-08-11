@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class WeekDayTest extends TestCase
@@ -29,18 +30,14 @@ class WeekDayTest extends TestCase
         SharedDate::setExcelCalendar($this->excelCalendar);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[DataProvider('providerWEEKDAY')]
     public function testDirectCallToWEEKDAY(int|string $expectedResult, bool|int|string $dateValue, null|int|string $style = null): void
     {
         $result = ($style === null) ? Week::day($dateValue) : Week::day($dateValue, $style);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[DataProvider('providerWEEKDAY')]
     public function testWEEKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -48,13 +45,11 @@ class WeekDayTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=WEEKDAY({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerWEEKDAY
-     */
+    #[DataProvider('providerWEEKDAY')]
     public function testWEEKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -77,9 +72,7 @@ class WeekDayTest extends TestCase
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyWEEKDAY
-     */
+    #[DataProvider('providerUnhappyWEEKDAY')]
     public function testWEEKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -114,15 +107,14 @@ class WeekDayTest extends TestCase
         self::assertEquals(6, Week::day(null));
     }
 
-    /**
-     * @dataProvider providerWeekDayArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerWeekDayArray')]
     public function testWeekDayArray(array $expectedResult, string $dateValues, string $styles): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=WEEKDAY({$dateValues}, {$styles})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

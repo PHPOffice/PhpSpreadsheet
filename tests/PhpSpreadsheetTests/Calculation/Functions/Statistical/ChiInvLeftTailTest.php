@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ChiInvLeftTailTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCHIINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHIINV')]
     public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.INV', $expectedResult, ...$args);
@@ -21,6 +19,26 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/CHIINVLeftTail.php';
     }
 
+    /**
+     * Degrees of freedom whose cdf used to under-iterate near the median.
+     * References from scipy.stats.chi2.ppf.
+     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiInvLeftTailLargeDegrees')]
+    public function testChiInvLeftTailLargeDegrees(float $expected, float $probability, int $degrees): void
+    {
+        $calculation = Calculation::getInstance();
+        $result = $calculation->calculateFormula("=CHISQ.INV($probability, $degrees)");
+        self::assertEqualsWithDelta($expected, $result, 1.0e-6);
+    }
+
+    public static function providerChiInvLeftTailLargeDegrees(): array
+    {
+        return [
+            'df=10000' => [9999.333341235144, 0.5, 10000],
+            'df=200000' => [199999.3333337284, 0.5, 200000],
+        ];
+    }
+
     public function invVersusDistTest(): void
     {
         $expectedResult = 4.671330448981;
@@ -29,22 +47,20 @@ class ChiInvLeftTailTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
         $formula = "=CHISQ.INV($probability, $degrees)";
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
         $formula = "=CHISQ.DIST($result, $degrees)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerChiInvLeftTailArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiInvLeftTailArray')]
     public function testChiInvLeftTailArray(array $expectedResult, string $probabilities, string $degrees): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=CHISQ.INV({$probabilities}, {$degrees})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

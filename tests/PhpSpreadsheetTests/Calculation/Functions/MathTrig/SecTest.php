@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class SecTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerSEC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSEC')]
     public function testSEC(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,15 +27,13 @@ class SecTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SEC.php';
     }
 
-    /**
-     * @dataProvider providerSecArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSecArray')]
     public function testSecArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=SEC({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

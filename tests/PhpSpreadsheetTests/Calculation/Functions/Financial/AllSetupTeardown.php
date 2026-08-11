@@ -15,14 +15,8 @@ class AllSetupTeardown extends TestCase
 {
     private string $compatibilityMode;
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
     private ?Worksheet $sheet = null;
 
     protected function setUp(): void
@@ -104,6 +98,7 @@ class AllSetupTeardown extends TestCase
         }
     }
 
+    /** @param mixed[] $args */
     public function runTestCase(string $functionName, mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);

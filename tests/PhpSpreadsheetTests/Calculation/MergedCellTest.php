@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class MergedCellTest extends TestCase
 {
-    /**
-     * @dataProvider providerWorksheetFormulaeColumns
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWorksheetFormulaeColumns')]
     public function testMergedCellColumns(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();
@@ -52,9 +50,7 @@ class MergedCellTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerWorksheetFormulaeRows
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerWorksheetFormulaeRows')]
     public function testMergedCellRows(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();

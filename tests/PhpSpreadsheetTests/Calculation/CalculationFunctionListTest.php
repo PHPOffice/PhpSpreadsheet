@@ -7,40 +7,40 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CalculationFunctionListTest extends TestCase
 {
     private string $compatibilityMode;
 
-    private string $locale;
-
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
-        $calculation = Calculation::getInstance();
-        $this->locale = $calculation->getLocale();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function tearDown(): void
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
-        $calculation = Calculation::getInstance();
-        $calculation->setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerGetFunctions
-     */
-    public function testGetFunctions(string $category, array|string $functionCall): void
+    /** @param array<mixed>|string $functionCall */
+    #[DataProvider('providerGetFunctions')]
+    public function testGetFunctions(array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);
     }
 
     public static function providerGetFunctions(): array
     {
-        return Calculation::getInstance()->getFunctions();
+        $returnFunctions = [];
+        $functionList = Calculation::getInstance()->getFunctions();
+        foreach ($functionList as $functionName => $functionArray) {
+            $returnFunctions[$functionName]['functionCall'] = $functionArray['functionCall'];
+        }
+
+        return $returnFunctions;
     }
 
     public function testIsImplemented(): void

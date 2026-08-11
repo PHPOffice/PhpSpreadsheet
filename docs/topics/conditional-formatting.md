@@ -43,7 +43,7 @@ $conditional->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERA
 $conditional->addCondition(80);
 $conditional->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
 $conditional->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-$conditional->getStyle()->getFill()->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional->getStyle()->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1:A10')->getConditionalStyles();
 $conditionalStyles[] = $conditional;
@@ -63,7 +63,7 @@ $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFor
 $wizard->greaterThan(80);
 $wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
 $wizard->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-$wizard->getStyle()->getFill()->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$wizard->getStyle()->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditional = $wizard->getConditional();
 ```
@@ -71,7 +71,7 @@ The Wizards know which operator types match up with condition types, and provide
 
 ---
 
-Note that `$conditionalStyles` is an array: it is possible to apply several conditions to the same range of cells. If we also wanted to highlight values that were less than 10 in the the A1:A10 range, we can add a second style rule.
+Note that `$conditionalStyles` is an array: it is possible to apply several conditions to the same range of cells. If we also wanted to highlight values that were less than 10 in the A1:A10 range, we can add a second style rule.
 
 In Excel, we would do this by selecting the range again, and going through the same process, this time selecting the "Highlight Cells Rules", then "Less Than" from the "Conditional Styles" menu, entering the value "10" in the prompt box, and selecting the appropriate style.
 
@@ -84,7 +84,7 @@ $conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPER
 $conditional2->addCondition(10);
 $conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKRED);
 $conditional2->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-$conditional2->getStyle()->getFill()->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional2->getStyle()->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1:A10')->getConditionalStyles();
 $conditionalStyles[] = $conditional2;
@@ -98,7 +98,7 @@ $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFor
 $wizard->lessThan(10);
 $wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
 $wizard->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-$wizard->getStyle()->getFill()->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$wizard->getStyle()->getFill()->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditional = $wizard->getConditional();
 ```
@@ -143,20 +143,28 @@ Currently, the following Conditional Types are supported for the following Reade
 
 MS Excel | Conditional Type | Readers | Writers
 ---|---|---|---
-| Cell Value | Conditional::CONDITION_CELLIS | Xlsx | Xlsx, Xls
-Specific Text | Conditional::CONDITION_CONTAINSTEXT | Xlsx | Xlsx
- | Conditional::CONDITION_NOTCONTAINSTEXT | Xlsx | Xlsx
- | Conditional::CONDITION_BEGINSWITH | Xlsx | Xlsx
- | Conditional::CONDITION_ENDSWITH | Xlsx | Xlsx
-Dates Occurring | Conditional::CONDITION_TIMEPERIOD | Xlsx | Xlsx
-Blanks | Conditional::CONDITION_CONTAINSBLANKS | Xlsx | Xlsx
-No Blanks | Conditional::CONDITION_NOTCONTAINSBLANKS | Xlsx | Xlsx
-Errors | Conditional::CONDITION_CONTAINSERRORS | Xlsx | Xlsx
-No Errors | Conditional::CONDITION_NOTCONTAINSERRORS | Xlsx | Xlsx
-Duplicates/Unique | Conditional::CONDITION_DUPLICATES | Xlsx | Xlsx
- | Conditional::CONDITION_UNIQUE | Xlsx | Xlsx
-Use a formula | Conditional::CONDITION_EXPRESSION | Xlsx | Xlsx, Xls
-Data Bars | Conditional::CONDITION_DATABAR | Xlsx | Xlsx
+| Cell Value | Conditional::CONDITION_CELLIS | Xlsx | Xlsx, Xls, Html
+Specific Text | Conditional::CONDITION_CONTAINSTEXT | Xlsx | Xlsx, Html
+ | Conditional::CONDITION_NOTCONTAINSTEXT | Xlsx | Xlsx, Html
+ | Conditional::CONDITION_BEGINSWITH | Xlsx | Xlsx, Html
+ | Conditional::CONDITION_ENDSWITH | Xlsx | Xlsx, Html
+Dates Occurring | Conditional::CONDITION_TIMEPERIOD | Xlsx | Xlsx, Html
+Blanks | Conditional::CONDITION_CONTAINSBLANKS | Xlsx | Xlsx, Html
+No Blanks | Conditional::CONDITION_NOTCONTAINSBLANKS | Xlsx | Xlsx, Html
+Errors | Conditional::CONDITION_CONTAINSERRORS | Xlsx | Xlsx, Html
+No Errors | Conditional::CONDITION_NOTCONTAINSERRORS | Xlsx | Xlsx, Html
+Duplicates/Unique | Conditional::CONDITION_DUPLICATES | Xlsx | Xlsx, Html
+ | Conditional::CONDITION_UNIQUE | Xlsx | Xlsx, Html
+Use a formula | Conditional::CONDITION_EXPRESSION | Xlsx | Xlsx, Xls, Html
+Data Bars | Conditional::CONDITION_DATABAR | Xlsx | Xlsx, Html
+Colour Scales | Conditional::COLORSCALE | Xlsx | Html
+
+To enable conditional formatting for Html writer, use:
+
+```php
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setConditionalFormatting(true);
+```
 
 The following Conditional Types are currently not supported by any Readers or Writers:
 
@@ -165,7 +173,6 @@ MS Excel | Conditional Type
 Above/Below Average | ?
 Top/Bottom Items | ?
 Top/Bottom %age | ?
-Colour Scales |?
 Icon Sets | ?
 
 Unsupported types will by ignored by the Readers, and cannot be created through PHPSpreadsheet.

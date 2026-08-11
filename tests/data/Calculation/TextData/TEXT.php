@@ -73,6 +73,56 @@ return [
         '2014-02-15 16:17',
         'dd-mmm-yyyy HH:MM:SS AM/PM',
     ],
+    'datetime integer' => [
+        '1900-01-06 00:00',
+        6,
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime integer as string' => [
+        '1900-01-06 00:00',
+        '6',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime 2 integers without date delimiters' => [
+        '5 6',
+        '5 6',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime 2 integers separated by hyphen' => [
+        (new DateTimeImmutable())->format('Y') . '-05-13 00:00',
+        '5-13',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime string date only' => [
+        '1951-01-23 00:00',
+        'January 23, 1951',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime string time followed by date' => [
+        '1952-05-02 03:54',
+        '3:54 May 2, 1952',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime string date followed by time pm' => [
+        '1952-05-02 15:54',
+        'May 2, 1952 3:54 pm',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime string date followed by time p' => [
+        '1952-05-02 15:54',
+        'May 2, 1952 3:54 p',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime decimal string interpreted as time' => [
+        '1900-01-02 12:00',
+        '2.5',
+        'yyyy-mm-dd hh:mm',
+    ],
+    'datetime unparseable string' => [
+        'xyz',
+        'xyz',
+        'yyyy-mm-dd hh:mm',
+    ],
     [
         '1 3/4',
         1.75,

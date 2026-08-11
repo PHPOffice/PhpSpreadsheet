@@ -28,6 +28,7 @@ class Expression extends WizardAbstract implements WizardInterface
 
     public function getConditional(): Conditional
     {
+        /** @var string[] */
         $expression = $this->adjustConditionsForCellReferences([$this->expression]);
 
         $conditional = new Conditional();
@@ -54,7 +55,7 @@ class Expression extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param mixed[] $arguments
+     * @param string[] $arguments
      */
     public function __call(string $methodName, array $arguments): self
     {

@@ -15,5 +15,9 @@ return [
     'unknown name' => ['#NAME?', 'namedrange2'],
     'unknown name as first part of range' => ['#NAME?', 'Invalid:A2'],
     'unknown name as second part of range' => ['#NAME?', 'A2:Invalid'],
-    //'qualified name' => [6, 'OtherSheet!localname'], // Never reaches function
+    'qualified name' => [6, 'OtherSheet!localname'],
+    'last possible column' => [16384, 'XFD1'],
+    'beyond last possible column' => ['#NAME?', 'XFE1'],
+    'last possible column lowercase' => [16384, 'xfd1'],
+    'beyond last possible column lowercase' => ['#NAME?', 'xfe1'],
 ];

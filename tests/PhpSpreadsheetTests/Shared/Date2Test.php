@@ -8,11 +8,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Date2Test extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     private int $calculateDateTimeType;
@@ -38,26 +38,26 @@ class Date2Test extends TestCase
         Cell::setCalculateDateTimeType(-1);
     }
 
-    /**
-     * @dataProvider providerTimeOnly
-     */
+    #[DataProvider('providerTimeOnly')]
     public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_TIME_FLOAT);
-        $this->spreadsheet = new Spreadsheet();
-        self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $newSheet = $this->spreadsheet->createSheet();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        $sheet = $spreadsheet->getActiveSheet();
+        $newSheet = $spreadsheet->createSheet();
         $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
-            $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
+            $sheet->getStyle('A1')
+                ->getNumberFormat()
+                ->setFormatCode($format);
         }
         $sheet->setSelectedCells('B7');
-        $this->spreadsheet->setActiveSheetIndex(1);
+        $spreadsheet->setActiveSheetIndex(1);
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame('B7', $sheet->getSelectedCells());
-        self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
+        self::assertSame(1, $spreadsheet->getActiveSheetIndex());
     }
 
     public static function providerTimeOnly(): array
@@ -83,26 +83,28 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerDateAndTime
-     */
+    #[DataProvider('providerDateAndTime')]
     public function testDateAndTime(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
-        Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_FLOAT);
-        $this->spreadsheet = new Spreadsheet();
-        self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $newSheet = $this->spreadsheet->createSheet();
+        Cell::setCalculateDateTimeType(
+            Cell::CALCULATE_DATE_TIME_FLOAT
+        );
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        $sheet = $spreadsheet->getActiveSheet();
+        $newSheet = $spreadsheet->createSheet();
         $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
-            $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
+            $sheet->getStyle('A1')
+                ->getNumberFormat()
+                ->setFormatCode($format);
         }
         $sheet->setSelectedCells('B7');
-        $this->spreadsheet->setActiveSheetIndex(1);
+        $spreadsheet->setActiveSheetIndex(1);
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame('B7', $sheet->getSelectedCells());
-        self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
+        self::assertSame(1, $spreadsheet->getActiveSheetIndex());
     }
 
     public static function providerDateAndTime(): array
@@ -128,48 +130,49 @@ class Date2Test extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerAsis
-     */
+    #[DataProvider('providerAsis')]
     public function testDefault(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
-        //Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
-        $this->spreadsheet = new Spreadsheet();
-        self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $newSheet = $this->spreadsheet->createSheet();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        $sheet = $spreadsheet->getActiveSheet();
+        $newSheet = $spreadsheet->createSheet();
         $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
-            $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
+            $sheet->getStyle('A1')
+                ->getNumberFormat()
+                ->setFormatCode($format);
         }
         $sheet->setSelectedCells('B7');
-        $this->spreadsheet->setActiveSheetIndex(1);
+        $spreadsheet->setActiveSheetIndex(1);
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame('B7', $sheet->getSelectedCells());
-        self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
+        self::assertSame(1, $spreadsheet->getActiveSheetIndex());
     }
 
-    /**
-     * @dataProvider providerAsis
-     */
+    #[DataProvider('providerAsis')]
     public function testAsis(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
-        Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
-        $this->spreadsheet = new Spreadsheet();
-        self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $newSheet = $this->spreadsheet->createSheet();
+        Cell::setCalculateDateTimeType(
+            Cell::CALCULATE_DATE_TIME_ASIS
+        );
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        self::assertSame(0, $spreadsheet->getActiveSheetIndex());
+        $sheet = $spreadsheet->getActiveSheet();
+        $newSheet = $spreadsheet->createSheet();
         $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
-            $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
+            $sheet->getStyle('A1')
+                ->getNumberFormat()
+                ->setFormatCode($format);
         }
         $sheet->setSelectedCells('B7');
-        $this->spreadsheet->setActiveSheetIndex(1);
+        $spreadsheet->setActiveSheetIndex(1);
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame('B7', $sheet->getSelectedCells());
-        self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
+        self::assertSame(1, $spreadsheet->getActiveSheetIndex());
     }
 
     public static function providerAsis(): array

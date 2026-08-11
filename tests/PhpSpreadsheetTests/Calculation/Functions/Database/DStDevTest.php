@@ -6,12 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DStDevTest extends SetupTeardownDatabases
 {
     /**
-     * @dataProvider providerDStDev
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDStDev')]
     public function testDirectCallToDStDev(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DStDev::evaluate($database, $field, $criteria);
@@ -19,8 +22,10 @@ class DStDevTest extends SetupTeardownDatabases
     }
 
     /**
-     * @dataProvider providerDStDev
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDStDev')]
     public function testDStDevAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSTDEV', $database, $field, $criteria);

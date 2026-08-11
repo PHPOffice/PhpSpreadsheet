@@ -20,9 +20,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider fileProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fileProvider')]
     public function testPageSetup(string $filename): void
     {
         $reader = new Gnumeric();
@@ -51,9 +49,7 @@ class PageSetupTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider fileProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('fileProvider')]
     public function testPageMargins(string $filename): void
     {
         $reader = new Gnumeric();
@@ -83,6 +79,7 @@ class PageSetupTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<string, mixed[]> */
     private function pageSetupAssertions(): array
     {
         return [
@@ -118,6 +115,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
+    /** @return array<string, float[]> */
     private function pageMarginAssertions(): array
     {
         return [

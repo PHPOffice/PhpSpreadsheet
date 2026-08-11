@@ -33,9 +33,7 @@ class TranslationTest extends TestCase
         Settings::setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerTranslations
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTranslations')]
     public function testTranslation(string $expectedResult, string $locale, string $formula): void
     {
         $validLocale = Settings::setLocale($locale);
@@ -43,10 +41,10 @@ class TranslationTest extends TestCase
             self::markTestSkipped("Unable to set locale to {$locale}");
         }
 
-        $translatedFormula = Calculation::getInstance()->_translateFormulaToLocale($formula);
+        $translatedFormula = Calculation::getInstance()->translateFormulaToLocale($formula);
         self::assertSame($expectedResult, $translatedFormula);
 
-        $restoredFormula = Calculation::getInstance()->_translateFormulaToEnglish($translatedFormula);
+        $restoredFormula = Calculation::getInstance()->translateFormulaToEnglish($translatedFormula);
         self::assertSame(preg_replace(Calculation::CALCULATION_REGEXP_STRIP_XLFN_XLWS, '', $formula), $restoredFormula);
     }
 

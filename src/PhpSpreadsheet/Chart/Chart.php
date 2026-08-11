@@ -106,7 +106,40 @@ class Chart
 
     private bool $noFill = false;
 
+    private bool $noBorder = false;
+
     private bool $roundedCorners = false;
+
+    private bool $date1904 = false;
+
+    private string $lang = 'en-GB';
+
+    /** @var array{
+     *     b?: numeric-string,
+     *     l?: numeric-string,
+     *     r?: numeric-string,
+     *     t?: numeric-string,
+     *     header?: numeric-string,
+     *     footer?: numeric-string,
+     * }
+     */
+    private array $pageMargins = [
+        'b' => '0.75',
+        'l' => '0.7',
+        'r' => '0.7',
+        't' => '0.75',
+        'header' => '0.3',
+        'footer' => '0.3',
+    ];
+
+    /** @var array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    private array $pageSetup = [
+        'orientation' => 'portrait',
+    ];
 
     private GridLines $borderLines;
 
@@ -126,7 +159,7 @@ class Chart
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
      */
-    public function __construct(string $name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, bool $plotVisibleOnly = true, string $displayBlanksAs = DataSeries::EMPTY_AS_GAP, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
+    public function __construct(string $name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, bool $plotVisibleOnly = true, string $displayBlanksAs = DataSeries::DEFAULT_EMPTY_AS, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -135,7 +168,7 @@ class Chart
         $this->yAxisLabel = $yAxisLabel;
         $this->plotArea = $plotArea;
         $this->plotVisibleOnly = $plotVisibleOnly;
-        $this->displayBlanksAs = $displayBlanksAs;
+        $this->setDisplayBlanksAs($displayBlanksAs);
         $this->xAxis = $xAxis ?? new Axis();
         $this->yAxis = $yAxis ?? new Axis();
         if ($majorGridlines !== null) {
@@ -316,7 +349,8 @@ class Chart
      */
     public function setDisplayBlanksAs(string $displayBlanksAs): static
     {
-        $this->displayBlanksAs = $displayBlanksAs;
+        $displayBlanksAs = strtolower($displayBlanksAs);
+        $this->displayBlanksAs = in_array($displayBlanksAs, DataSeries::VALID_EMPTY_AS, true) ? $displayBlanksAs : DataSeries::DEFAULT_EMPTY_AS;
 
         return $this;
     }
@@ -487,7 +521,7 @@ class Chart
     /**
      * Get the bottom right position of the chart.
      *
-     * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
+     * @return array{cell: string, xOffset: int, yOffset:int} an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
     public function getBottomRightPosition(): array
     {
@@ -677,9 +711,11 @@ class Chart
         return $this->autoTitleDeleted;
     }
 
-    public function setAutoTitleDeleted(bool $autoTitleDeleted): self
+    public function setAutoTitleDeleted(?bool $autoTitleDeleted): self
     {
-        $this->autoTitleDeleted = $autoTitleDeleted;
+        if (is_bool($autoTitleDeleted)) {
+            $this->autoTitleDeleted = $autoTitleDeleted;
+        }
 
         return $this;
     }
@@ -696,6 +732,18 @@ class Chart
         return $this;
     }
 
+    public function getNoBorder(): bool
+    {
+        return $this->noBorder;
+    }
+
+    public function setNoBorder(bool $noBorder): self
+    {
+        $this->noBorder = $noBorder;
+
+        return $this;
+    }
+
     public function getRoundedCorners(): bool
     {
         return $this->roundedCorners;
@@ -705,6 +753,34 @@ class Chart
     {
         if ($roundedCorners !== null) {
             $this->roundedCorners = $roundedCorners;
+        }
+
+        return $this;
+    }
+
+    public function getDate1904(): bool
+    {
+        return $this->date1904;
+    }
+
+    public function setDate1904(?bool $date1904): self
+    {
+        if ($date1904 !== null) {
+            $this->date1904 = $date1904;
+        }
+
+        return $this;
+    }
+
+    public function getLang(): string
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?string $lang): self
+    {
+        if ($lang !== null && $lang !== '') {
+            $this->lang = $lang;
         }
 
         return $this;
@@ -766,5 +842,59 @@ class Chart
         $this->yAxis = clone $this->yAxis;
         $this->borderLines = clone $this->borderLines;
         $this->fillColor = clone $this->fillColor;
+    }
+
+    /** @return array{
+     * b?: numeric-string,
+     * l?: numeric-string,
+     * r?: numeric-string,
+     * t?: numeric-string,
+     * header?: numeric-string,
+     * footer?: numeric-string,
+     * }
+     */
+    public function getPageMargins(): array
+    {
+        return $this->pageMargins;
+    }
+
+    /** @param mixed $pageMargins expecting array matching $this->pageMargins */
+    public function setPageMargins(mixed $pageMargins): self
+    {
+        if (is_array($pageMargins)) {
+            foreach (['b', 'l', 'r', 't', 'header', 'footer'] as $key) {
+                $value = $pageMargins[$key] ?? null;
+                if (is_string($value) && is_numeric($value)) {
+                    $this->pageMargins[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /** @return array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    public function getPageSetup(): array
+    {
+        return $this->pageSetup;
+    }
+
+    /** @param mixed $pageSetup expecting array matching $this->pageSetup */
+    public function setPageSetup(mixed $pageSetup): self
+    {
+        if (is_array($pageSetup)) {
+            foreach (['paperSize', 'orientation'] as $key) {
+                $value = $pageSetup[$key] ?? null;
+                if (is_string($value)) {
+                    $this->pageSetup[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
     }
 }

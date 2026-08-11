@@ -25,7 +25,7 @@ class Dollar
      *                            If you omit precision, it is assumed to be 2
      *              Or can be an array of precision values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function format(mixed $number, mixed $precision = 2)
@@ -47,6 +47,8 @@ class Dollar
      *              Or can be an array of values
      * @param mixed $fraction Fraction
      *              Or can be an array of values
+     *
+     * @return array<mixed>|float|string
      */
     public static function decimal(mixed $fractionalDollar = null, mixed $fraction = 0): array|string|float
     {
@@ -93,6 +95,8 @@ class Dollar
      *              Or can be an array of values
      * @param mixed $fraction Fraction
      *              Or can be an array of values
+     *
+     * @return array<mixed>|float|string
      */
     public static function fractional(mixed $decimalDollar = null, mixed $fraction = 0): array|string|float
     {

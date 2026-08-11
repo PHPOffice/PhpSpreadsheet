@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CorrelTest extends TestCase
 {
-    /**
-     * @dataProvider providerCORREL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCORREL')]
     public function testCORREL(mixed $expectedResult, mixed $xargs, mixed $yargs): void
     {
         $result = Statistical\Trends::CORREL($xargs, $yargs);

@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -74,22 +75,16 @@ $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_YELLOW);
-$yellowStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 $greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_GREEN);
-$greenStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_GREEN);
 $greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 $redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_RED);
-$redStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_RED);
 $redStyle->getFont()->setColor(new Color(Color::COLOR_GREEN));
 
 // Set conditional formatting rules and styles
@@ -159,10 +154,12 @@ $spreadsheet->getActiveSheet()
 
 // Set rules for Value Comparison with Formula
 $cellRange = 'A24:E27';
+// accommodation for phpstan
+$absoluteCoordinate = fn (mixed $cell): string => is_string($cell) ? Coordinate::absoluteCoordinate($cell) : '';
 $formulaRange = implode(
     ':',
     array_map(
-        [Coordinate::class, 'absoluteCoordinate'],
+        $absoluteCoordinate,
         Coordinate::splitRange($cellRange)[0]
     )
 );
@@ -193,7 +190,7 @@ $cellRange = 'A31:A33';
 $formulaRange = implode(
     ':',
     array_map(
-        [Coordinate::class, 'absoluteCoordinate'],
+        $absoluteCoordinate,
         Coordinate::splitRange($cellRange)[0]
     )
 );

@@ -18,9 +18,7 @@ class MergedCellsTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testMergedCells(string $format): void
     {
         $spreadsheet = new Spreadsheet();

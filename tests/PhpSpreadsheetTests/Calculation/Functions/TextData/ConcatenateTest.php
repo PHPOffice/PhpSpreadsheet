@@ -4,27 +4,51 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ConcatenateTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCONCATENATE
-     */
+    #[DataProvider('providerCONCATENATE')]
     public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
         $finalArg = '';
-        $row = 0;
+        $comma = '';
         foreach ($args as $arg) {
-            ++$row;
-            $this->setCell("A$row", $arg);
-            $finalArg = "A1:A$row";
+            $finalArg .= $comma;
+            $comma = ',';
+            if (is_bool($arg)) {
+                $finalArg .= $arg ? 'true' : 'false';
+            } elseif ($arg === 'A2') {
+                $finalArg .= 'A2';
+                $sheet->getCell('A2')->setValue('=2/0');
+            } elseif ($arg === 'A3') {
+                $finalArg .= 'A3';
+                $sheet->getCell('A3')->setValue(str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5));
+            } else {
+                self::assertTrue($arg === null || is_scalar($arg));
+                $finalArg .= '"' . (string) $arg . '"';
+            }
         }
-        $this->setCell('B1', "=CONCAT($finalArg)");
+        $this->setCell('B1', "=CONCATENATE($finalArg)");
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+    }
+
+    public function testResultTooLong(): void
+    {
+        $sheet = $this->getSheet();
+        $string = str_repeat('x23456', 1000);
+        $sheet->getCell('A1')->setValue(
+            '=CONCATENATE('
+            . 'REPT("X", 30000)'
+            . ',REPT("X", 10000)'
+            . ')'
+        );
+        self::assertSame('#CALC!', $sheet->getCell('A1')->getCalculatedValue());
     }
 
     public static function providerCONCATENATE(): array
@@ -40,7 +64,7 @@ class ConcatenateTest extends AllSetupTeardown
         $sheet1->fromArray(
             [
                 ['Number', 'Formula'],
-                [52101293, '=CONCAT(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
+                [52101293, '=CONCATENATE(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
             ]
         );
         $sheet2 = $spreadsheet->createSheet();

@@ -43,7 +43,7 @@ class AutoFilterTest extends SetupTeardown
         $sheet2 = $spreadsheet->createSheet();
         //  Setters return the instance to implement the fluent interface
         $result = $autoFilter->setParent($sheet2);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        self::assertSame(self::INITIAL_RANGE, $result->getRange());
     }
 
     public function testGetRange(): void
@@ -72,11 +72,10 @@ class AutoFilterTest extends SetupTeardown
 
         foreach ($ranges as $actualRange => $fullRange) {
             //  Setters return the instance to implement the fluent interface
-            $result = $autoFilter->setRange($fullRange);
-            self::assertInstanceOf(AutoFilter::class, $result);
+            $temp = $autoFilter->setRange($fullRange);
 
             //  Result should be the new autofilter range
-            $result = $autoFilter->getRange();
+            $result = $temp->getRange();
             self::assertEquals($actualRange, $result);
         }
     }
@@ -89,11 +88,10 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange('');
-        self::assertInstanceOf(AutoFilter::class, $result);
+        $temp = $autoFilter->setRange('');
 
         //  Result should be a clear range
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -125,8 +123,7 @@ class AutoFilterTest extends SetupTeardown
         $sheet = $this->getSheet();
         $autoFilter = $sheet->getAutoFilter();
         $result = $autoFilter->getColumns();
-        self::assertIsArray($result);
-        self::assertCount(0, $result);
+        self::assertSame([], $result);
     }
 
     public function testGetColumnOffset(): void
@@ -226,16 +223,13 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setColumn($expectedResult);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        $temp = $autoFilter->setColumn($expectedResult);
 
-        $result = $autoFilter->getColumns();
+        $result = $temp->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithString(): void
@@ -259,16 +253,13 @@ class AutoFilterTest extends SetupTeardown
         $autoFilter->setRange(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setColumn($columnObject);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        $temp = $autoFilter->setColumn($columnObject);
 
-        $result = $autoFilter->getColumns();
+        $result = $temp->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
-        self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     public function testSetInvalidColumnWithObject(): void
@@ -297,11 +288,9 @@ class AutoFilterTest extends SetupTeardown
         $result = $autoFilter->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertIsArray($result);
         self::assertCount(count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             self::assertArrayHasKey($columnIndex, $result);
-            self::assertInstanceOf(Column::class, $result[$columnIndex]);
         }
 
         $autoFilter->setRange('');
@@ -325,7 +314,7 @@ class AutoFilterTest extends SetupTeardown
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $autoFilter->getColumn($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
+            self::assertSame($columnIndex, $result->getColumnIndex());
         }
     }
 
@@ -345,7 +334,6 @@ class AutoFilterTest extends SetupTeardown
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $autoFilter->getColumnByOffset($columnIndex);
-            self::assertInstanceOf(Column::class, $result);
             self::assertEquals($result->getColumnIndex(), $columnID);
         }
     }
@@ -358,7 +346,7 @@ class AutoFilterTest extends SetupTeardown
         //  If we request a specific column by its column ID, we should
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         $result = $autoFilter->getColumn('K');
-        self::assertInstanceOf(Column::class, $result);
+        self::assertSame('K', $result->getColumnIndex());
     }
 
     public function testGetColumnWithoutRangeSet(): void
@@ -386,17 +374,15 @@ class AutoFilterTest extends SetupTeardown
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange('');
-        self::assertInstanceOf(AutoFilter::class, $result);
+        $temp = $autoFilter->setRange('');
 
         //  Range should be cleared
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Column array should be cleared
         $result = $autoFilter->getColumns();
-        self::assertIsArray($result);
-        self::assertCount(0, $result);
+        self::assertSame([], $result);
     }
 
     public function testSetRangeWithExistingColumns(): void
@@ -418,17 +404,15 @@ class AutoFilterTest extends SetupTeardown
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $autoFilter->setRange($expectedResult);
-        self::assertInstanceOf(AutoFilter::class, $result);
+        $temp = $autoFilter->setRange($expectedResult);
 
         //  Range should be correctly set
-        $result = $autoFilter->getRange();
+        $result = $temp->getRange();
         self::assertEquals($expectedResult, $result);
 
         //  Only columns that existed in the original range and that
         //    still fall within the new range should be retained
         $result = $autoFilter->getColumns();
-        self::assertIsArray($result);
         self::assertCount(count($columnIndexes1), $result);
     }
 
@@ -444,25 +428,17 @@ class AutoFilterTest extends SetupTeardown
         }
 
         $result = clone $autoFilter;
-        self::assertInstanceOf(AutoFilter::class, $result);
         self::assertSame($autoFilter->getRange(), $result->getRange());
         self::assertNull($result->getParent());
-        self::assertNotNull($autoFilter->getParent());
         self::assertInstanceOf(Worksheet::class, $autoFilter->getParent());
         $autoColumns = $autoFilter->getColumns();
         $resultColumns = $result->getColumns();
-        self::assertIsArray($autoColumns);
-        self::assertIsArray($resultColumns);
         self::assertCount(2, $autoColumns);
         self::assertCount(2, $resultColumns);
         self::assertArrayHasKey('L', $autoColumns);
         self::assertArrayHasKey('L', $resultColumns);
         self::assertArrayHasKey('M', $autoColumns);
         self::assertArrayHasKey('M', $resultColumns);
-        self::assertInstanceOf(Column::class, $autoColumns['L']);
-        self::assertInstanceOf(Column::class, $resultColumns['L']);
-        self::assertInstanceOf(Column::class, $autoColumns['M']);
-        self::assertInstanceOf(Column::class, $resultColumns['M']);
     }
 
     public function testNoWorksheet(): void

@@ -6,26 +6,38 @@ namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Helper\Size;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DimensionTest extends TestCase
 {
-    /**
-     * @dataProvider providerCellWidth
-     */
+    #[DataProvider('providerCellWidth')]
     public function testCreateDimension(float $expectedResult, string $dimension): void
     {
         $result = (new Dimension($dimension))->width();
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerConvertUoM
-     */
+    #[DataProvider('providerConvertUoM')]
     public function testConvertDimension(float $expectedResult, string $dimension, string $unitOfMeasure): void
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    public function testSizeAndUnit(): void
+    {
+        $size = new Size('10px');
+        self::assertTrue($size->valid());
+        self::assertSame('10', $size->size());
+        self::assertSame('px', $size->unit());
+        $size = new Size('9.3');
+        self::assertTrue($size->valid());
+        self::assertSame('9.3', $size->size());
+        self::assertSame('pt', $size->unit());
+        $size = new Size('8whatever');
+        self::assertFalse($size->valid());
     }
 
     public function testConvertDimensionInvalidUoM(): void

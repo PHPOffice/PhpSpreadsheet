@@ -1,14 +1,12 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Helper\Sample;
-use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 
 require __DIR__ . '/../Header.php';
-
-$helper = new Sample();
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 if ($helper->isCli()) {
     $helper->log('This example should only be run from a Web Browser' . PHP_EOL);
 
@@ -29,7 +27,7 @@ $currencies = [
         <div class="mb-3 row">
             <label for="number" class="col-sm-2 col-form-label">Sample Number Value</label>
             <div class="col-sm-10">
-                <input name="number" type="text" size="8" value="<?php echo (isset($_POST['number'])) ? htmlentities($_POST['number'], Settings::htmlEntityFlags()) : '1234.5678'; ?>">
+                <input name="number" type="text" size="8" value="<?php echo StringHelper::convertPostToString('number', '1234.5678'); ?>">
             </div>
         </div>
         <div class="mb-3 row">
@@ -48,7 +46,7 @@ $currencies = [
         <div class="mb-3 row">
             <label for="decimals" class="col-sm-2 col-form-label">Decimal Places</label>
             <div class="col-sm-10">
-                <input name="decimals" type="number" size="2" min="0" max="14" value="<?php echo (isset($_POST['decimals'])) ? htmlentities($_POST['decimals'], Settings::htmlEntityFlags()) : '2'; ?>">
+                <input name="decimals" type="number" size="2" min="0" max="14" value="<?php echo StringHelper::convertPostToString('decimals', '2'); ?>">
             </div>
         </div>
         <div class="mb-3 row">
@@ -60,15 +58,8 @@ $currencies = [
         <div class="mb-3 row">
             <label for="position" class="col-sm-2 col-form-label">Currency Position</label>
             <div class="col-sm-10">
-                <input name="position" type="radio" value="1" <?php echo ((isset($_POST['position']) === false) || (isset($_POST['position']) && $_POST['position'] === '1')) ? 'checked' : ''; ?>>Leading
+                <input name="position" type="radio" value="1" <?php echo ((isset($_POST['position']) === false) || ($_POST['position'] === '1')) ? 'checked' : ''; ?>>Leading
                 <input name="position" type="radio" value="0" <?php echo (isset($_POST['position']) && $_POST['position'] === '0') ? 'checked' : ''; ?>>Trailing
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="spacing" class="col-sm-2 col-form-label">Currency Spacing</label>
-            <div class="col-sm-10">
-                <input name="spacing" type="radio" value="1" <?php echo (isset($_POST['spacing']) && $_POST['spacing'] === '1') ? 'checked' : ''; ?>>Yes
-                <input name="spacing" type="radio" value="0" <?php echo ((isset($_POST['spacing']) === false) || (isset($_POST['spacing']) && $_POST['spacing'] === '0')) ? 'checked' : ''; ?>>No
             </div>
         </div>
         <div class="mb-3 row">
@@ -85,21 +76,26 @@ if (isset($_POST['submit'])) {
         $helper->log('The Sample Number Value must be numeric');
     } elseif (!is_numeric($_POST['decimals']) || str_contains((string) $_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
         $helper->log('The Decimal Places value must be positive integer');
+    } elseif (!in_array($_POST['currency'], array_keys($currencies), true)) {
+        $helper->log('Unrecognized currency symbol');
     } else {
         try {
-            $wizard = new Wizard\Accounting($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position'], (bool) $_POST['spacing']);
+            $wizard = new Wizard\Accounting($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $mask = $wizard->format();
-            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
+            $postNumber = StringHelper::convertPostToString('number');
+            $postCurrency = StringHelper::convertPostToString('currency');
+            $postDecimals = StringHelper::convertPostToString('decimals');
+            $example = (string) NumberFormat::toFormattedString((float) $postNumber, $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$mask = Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                "\$wizard = new Wizard\\Accounting('{$postCurrency}', {$postDecimals}, Wizard\\Number::"
                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
-                . ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING')
-                . ');<br />'
+                . ');'
             );
-            $helper->log('echo (string) $mask;');
+            $helper->log('$mask = $wizard->format();');
+            $helper->log('<br />echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');
             $helper->log($mask . '<br />');
             $helper->log('<br /><b>Example:</b><br />');

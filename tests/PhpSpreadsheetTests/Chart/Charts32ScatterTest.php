@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
-use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -263,6 +262,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertNotNull($chartColor);
         self::assertSame('000000', $chartColor->getValue());
         self::assertSame('srgbClr', $chartColor->getType());
+        self::assertSame(50, $chartColor->getAlpha());
 
         $plotArea = $chart->getPlotArea();
         self::assertNotNull($plotArea);
@@ -484,19 +484,16 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertEquals(0, $stops[1][0]);
         self::assertEquals(0.91, $stops[2][0]);
         $color = $stops[0][1];
-        self::assertInstanceOf(ChartColor::class, $color);
         self::assertSame('srgbClr', $color->getType());
         self::assertSame('CDDBEC', $color->getValue());
         self::assertNull($color->getAlpha());
         self::assertSame(20, $color->getBrightness());
         $color = $stops[1][1];
-        self::assertInstanceOf(ChartColor::class, $color);
         self::assertSame('srgbClr', $color->getType());
         self::assertSame('FFC000', $color->getValue());
         self::assertNull($color->getAlpha());
         self::assertNull($color->getBrightness());
         $color = $stops[2][1];
-        self::assertInstanceOf(ChartColor::class, $color);
         self::assertSame('srgbClr', $color->getType());
         self::assertSame('00B050', $color->getValue());
         self::assertNull($color->getAlpha());

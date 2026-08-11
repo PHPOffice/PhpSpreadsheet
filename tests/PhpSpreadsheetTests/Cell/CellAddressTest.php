@@ -7,13 +7,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CellAddressTest extends TestCase
 {
-    /**
-     * @dataProvider providerCreateFromCellAddress
-     */
+    #[DataProvider('providerCreateFromCellAddress')]
     public function testCreateFromCellAddress(
         string $cellAddress,
         string $expectedColumnName,
@@ -38,9 +37,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromCellAddressException
-     */
+    #[DataProvider('providerCreateFromCellAddressException')]
     public function testCreateFromCellAddressException(string $cellAddress): void
     {
         $this->expectException(Exception::class);
@@ -63,9 +60,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnAndRow
-     */
+    #[DataProvider('providerCreateFromColumnAndRow')]
     public function testCreateFromColumnAndRow(
         int $columnId,
         int $rowId,
@@ -81,10 +76,8 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowException
-     */
-    public function testCreateFromColumnRowException(mixed $columnId, mixed $rowId): void
+    #[DataProvider('providerCreateFromColumnRowException')]
+    public function testCreateFromColumnRowException(int|string $columnId, int|string $rowId): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');
@@ -101,9 +94,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowArray
-     */
+    #[DataProvider('providerCreateFromColumnRowArray')]
     public function testCreateFromColumnRowArray(
         int $columnId,
         int $rowId,
@@ -129,16 +120,14 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromColumnRowException
-     */
+    #[DataProvider('providerCreateFromColumnRowException')]
     public function testCreateFromColumnRowArrayException(mixed $columnId, mixed $rowId): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');
 
         $columnRowArray = [$columnId, $rowId];
-        CellAddress::fromColumnRowArray($columnRowArray);
+        CellAddress::fromColumnRowArray($columnRowArray); //* @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public static function providerCreateFromColumnRowException(): array
@@ -149,9 +138,7 @@ class CellAddressTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreateFromCellAddressWithWorksheet
-     */
+    #[DataProvider('providerCreateFromCellAddressWithWorksheet')]
     public function testCreateFromCellAddressWithWorksheet(
         string $cellAddress,
         string $expectedCellAddress,

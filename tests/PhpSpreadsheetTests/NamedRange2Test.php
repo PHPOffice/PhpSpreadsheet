@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class NamedRange2Test extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function setUp(): void
@@ -91,9 +90,7 @@ class NamedRange2Test extends TestCase
         self::assertSame('lightDown', $sheet->getStyle('E3')->getFill()->getFillType());
     }
 
-    /**
-     * @dataProvider providerRangeOrFormula
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRangeOrFormula')]
     public function testNamedRangeSetStyleBad(string $exceptionMessage, string $name): void
     {
         $this->expectException(Except::class);

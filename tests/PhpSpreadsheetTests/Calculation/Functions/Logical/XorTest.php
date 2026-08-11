@@ -6,11 +6,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 class XorTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerXOR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerXOR')]
     public function testXOR(mixed $expectedResult, mixed ...$args): void
     {
+        $this->setArrayAsValue();
         $this->runTestCase('XOR', $expectedResult, ...$args);
     }
 
@@ -19,10 +18,8 @@ class XorTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Logical/XOR.php';
     }
 
-    /**
-     * @dataProvider providerXORLiteral
-     */
-    public function xtestXORLiteral(mixed $expectedResult, string $formula): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerXORLiteral')]
+    public function testXORLiteral(mixed $expectedResult, float|string $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=XOR($formula)");

@@ -26,7 +26,7 @@ class Permutations
      * @param mixed $numInSet Integer number of objects in each permutation
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Number of permutations, or a string containing an error
+     * @return array<mixed>|float|int|string Number of permutations, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -72,7 +72,7 @@ class Permutations
      * @param mixed $numInSet Integer number of objects in each permutation
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Number of permutations, or a string containing an error
+     * @return array<mixed>|float|int|string Number of permutations, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */

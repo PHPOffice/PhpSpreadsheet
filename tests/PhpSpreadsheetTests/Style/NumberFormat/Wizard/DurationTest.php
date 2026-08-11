@@ -6,15 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class DurationTest extends TestCase
 {
     /**
-     * @dataProvider providerTime
-     *
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTime')]
     public function testTime(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Duration($separators, ...$formatBlocks);
@@ -33,5 +33,13 @@ class DurationTest extends TestCase
             ['[h]:mm:ss', null, [Duration::HOURS_DURATION, Duration::MINUTES_LONG, Duration::SECONDS_LONG]],
             ['[h]:mm:ss'],
         ];
+    }
+
+    public function testOddCase(): void
+    {
+        $wizard = new Duration(null, Duration::HOURS_DURATION, Duration::MINUTES_LONG, Duration::SECONDS_LONG);
+        $reflectionMethod = new ReflectionMethod($wizard, 'mapFormatBlocks');
+        $result = $reflectionMethod->invokeArgs($wizard, ['%%%']);
+        self::assertSame('"%%%"', $result);
     }
 }

@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class LargeTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLARGE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLARGE')]
     public function testLARGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('LARGE', $expectedResult, ...$args);

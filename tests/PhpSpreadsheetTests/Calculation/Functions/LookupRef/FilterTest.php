@@ -54,6 +54,7 @@ class FilterTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
+    /** @return array<array{string, string, string, int}> */
     protected function sampleDataForRow(): array
     {
         return [
@@ -76,6 +77,7 @@ class FilterTest extends TestCase
         ];
     }
 
+    /** @return array<array<int|string>> */
     protected function sampleDataForColumn(): array
     {
         return [

@@ -3,7 +3,9 @@
 /.gitattributes export-ignore
 /.github export-ignore
 /.gitignore export-ignore
-/.php_cs.dist export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.phpcs.xml.dist export-ignore
+/.readthedocs.yaml export-ignore
 /.scrutinizer.yml export-ignore
 /CHANGELOG.PHPExcel.md export-ignore
 /bin export-ignore
@@ -11,6 +13,8 @@
 /docs export-ignore
 /infra export-ignore
 /mkdocs.yml export-ignore
+/phpstan-baseline.neon export-ignore
+/phpstan.neon.dist export-ignore
 /phpunit.xml.dist export-ignore
 /samples export-ignore
 /tests export-ignore

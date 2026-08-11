@@ -6,16 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ArrayFormulaTest extends TestCase
 {
-    /**
-     * @dataProvider providerArrayFormulae
-     */
+    #[DataProvider('providerArrayFormulae')]
     public function testArrayFormula(string $formula, mixed $expectedResult): void
     {
-        $result = Calculation::getInstance()->_calculateFormulaValue($formula);
+        $result = Calculation::getInstance()->calculateFormula($formula);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -64,6 +63,10 @@ class ArrayFormulaTest extends TestCase
     public function testArrayFormulaUsingCells(): void
     {
         $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A4')->setValue(-3);
         $sheet->getCell('B4')->setValue(4);

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'WEEKDAY';
 $description = 'Returns the day of the week corresponding to a date';
@@ -49,12 +49,12 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
     $helper->log(
         'Weekday is: '
-        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . $worksheet->getCell('F' . $row)->getCalculatedValueString()
         . ' (1-7 = Sun-Sat)'
     );
     $helper->log(
         'Weekday is: '
-        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . $worksheet->getCell('G' . $row)->getCalculatedValueString()
         . ' (1-7 = Mon-Sun)'
     );
 }

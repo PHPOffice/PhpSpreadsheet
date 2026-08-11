@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class PreCalcTest extends AbstractFunctional
 {
@@ -107,7 +108,10 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm that file contains B2 pre-calculated or not as appropriate
             if ($preCalc === false) {
-                self::assertStringContainsString('<c r="B2" t="str"><f>3+A3</f></c>', $data);
+                // No t="str" when pre-calc is off: with no calculated value to inspect, the
+                // writer can no longer infer the result type from the formula source string
+                // (which is always a string). Readers compute on open per fullCalcOnLoad.
+                self::assertStringContainsString('<c r="B2"><f>3+A3</f></c>', $data);
             } else {
                 self::assertStringContainsString('<c r="B2"><f>3+A3</f><v>14</v></c>', $data);
             }
@@ -117,7 +121,7 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm whether workbook is set to recalculate
             if ($preCalc === false) {
-                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="1"/>', $data);
+                self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="0" fullCalcOnLoad="1" forceFullCalc="0"/>', $data);
             } else {
                 self::assertStringContainsString('<calcPr calcId="999999" calcMode="auto" calcCompleted="1" fullCalcOnLoad="0" forceFullCalc="0"/>', $data);
             }
@@ -133,7 +137,10 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm that file contains B2 pre-calculated or not as appropriate
             if ($preCalc === false) {
-                self::assertStringContainsString('table:formula="of:=3+[.A3]" office:value-type="string" office:value="=3+A3"', $data);
+                self::assertStringContainsString(
+                    'table:formula="of:=3+[.A3]" office:value-type="string" office:string-value="=3+A3"',
+                    $data
+                );
             } else {
                 self::assertStringContainsString(' table:formula="of:=3+[.A3]" office:value-type="float" office:value="14"', $data);
             }
@@ -174,9 +181,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    /**
-     * @dataProvider providerPreCalc
-     */
+    #[DataProvider('providerPreCalc')]
     public function testPreCalc(?bool $preCalc, string $type): void
     {
         $spreadsheet = new Spreadsheet();
@@ -205,5 +210,6 @@ class PreCalcTest extends AbstractFunctional
         $this->verifyOds($preCalc, $type);
         $this->verifyHtml($preCalc, $type);
         $this->verifyCsv($preCalc, $type);
+        $spreadsheet->disconnectWorksheets();
     }
 }

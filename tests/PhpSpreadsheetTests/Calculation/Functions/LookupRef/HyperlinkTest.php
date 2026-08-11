@@ -9,11 +9,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class HyperlinkTest extends AllSetupTeardown
 {
-    private bool $issue2464 = true;
+    protected bool $issue2464 = false;
 
-    /**
-     * @dataProvider providerHYPERLINK
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPERLINK')]
     public function testHYPERLINK(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
@@ -39,9 +37,7 @@ class HyperlinkTest extends AllSetupTeardown
         }
     }
 
-    /**
-     * @dataProvider providerHYPERLINK
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPERLINK')]
     public function testHYPERLINKcellRef(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
@@ -81,8 +77,8 @@ class HyperlinkTest extends AllSetupTeardown
             self::markTestIncomplete('testLen and testHYPERLINKcellRef incomplete due to issue 2464');
         } else {
             $hyperlink = $sheet->getCell('A1')->getHyperlink();
-            self::assertSame('', $hyperlink->getUrl());
-            self::assertSame('', $hyperlink->getTooltip());
+            self::assertSame('http://www.example.com', $hyperlink->getUrl());
+            self::assertSame('Example', $hyperlink->getTooltip());
         }
     }
 

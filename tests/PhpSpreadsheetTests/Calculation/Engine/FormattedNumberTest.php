@@ -6,14 +6,13 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FormattedNumberTest extends TestCase
 {
-    /**
-     * @dataProvider providerNumbers
-     */
-    public function testNumber(float $expected, string $value): void
+    #[DataProvider('providerNumbers')]
+    public function testNumber(mixed $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
         self::assertSame($expected, $value);
@@ -31,9 +30,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerFractions
-     */
+    #[DataProvider('providerFractions')]
     public function testFraction(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -60,9 +57,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerPercentages
-     */
+    #[DataProvider('providerPercentages')]
     public function testPercentage(string $expected, string $value): void
     {
         $originalValue = $value;
@@ -189,9 +184,7 @@ class FormattedNumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCurrencies
-     */
+    #[DataProvider('providerCurrencies')]
     public function testCurrencies(string $expected, string $value): void
     {
         $originalValue = $value;

@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
 {
-    /**
-     * @dataProvider providerDaysPerYear
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerDaysPerYear')]
     public function testDaysPerYear(mixed $expectedResult, int $year, int|string $basis): void
     {
         $result = Helpers::daysPerYear($year, $basis);

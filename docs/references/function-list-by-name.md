@@ -1,5 +1,8 @@
 # Function list by name
 
+A more compact list can be found [here](./function-list-by-name-compact.md)
+
+
 ## A
 
 Excel Function           | Category                       | PhpSpreadsheet Function
@@ -15,7 +18,7 @@ ADDRESS                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpread
 AGGREGATE                | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
 AMORDEGRC                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORDEGRC
 AMORLINC                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORLINC
-ANCHORARRAY              | CATEGORY_UNCATEGORISED         | **Not yet Implemented**
+ANCHORARRAY              | CATEGORY_MICROSOFT_INTERNAL    | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::anchorArray
 AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 ARABIC                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Arabic::evaluate
 AREAS                    | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
@@ -36,7 +39,7 @@ AVERAGEIFS               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
-BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+BAHTTEXT                 | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Thai::getBahtText
 BASE                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base::evaluate
 BESSELI                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselI::BESSELI
 BESSELJ                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ::BESSELJ
@@ -79,8 +82,8 @@ CHISQ.INV.RT             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 CHISQ.TEST               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
 CHITEST                  | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
 CHOOSE                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection::CHOOSE
-CHOOSECOLS               | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
-CHOOSEROWS               | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+CHOOSECOLS               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseCols
+CHOOSEROWS               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::chooseRows
 CLEAN                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 COLUMN                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMN
@@ -89,7 +92,7 @@ COMBIN                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpread
 COMBINA                  | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withRepetition
 COMPLEX                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::COMPLEX
 CONCAT                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
-CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::actualCONCATENATE
 CONFIDENCE               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.NORM          | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.T             | CATEGORY_STATISTICAL           | **Not yet Implemented**
@@ -158,7 +161,7 @@ DOLLAR                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpread
 DOLLARDE                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::decimal
 DOLLARFR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::fractional
 DPRODUCT                 | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct::evaluate
-DROP                     | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+DROP                     | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::drop
 DSTDEV                   | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev::evaluate
 DSTDEVP                  | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDevP::evaluate
 DSUM                     | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DSum::evaluate
@@ -183,7 +186,7 @@ ERROR.TYPE               | CATEGORY_INFORMATION           | \PhpOffice\PhpSpread
 EVEN                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::even
 EXACT                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::exact
 EXP                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp::evaluate
-EXPAND                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+EXPAND                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::expand
 EXPON.DIST               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
 EXPONDIST                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
 
@@ -239,6 +242,7 @@ GCD                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpread
 GEOMEAN                  | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean::geometric
 GESTEP                   | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare::GESTEP
 GETPIVOTDATA             | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+GROUPBY                  | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
 GROWTH                   | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::GROWTH
 
 ## H
@@ -251,7 +255,7 @@ HEX2DEC                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 HEX2OCT                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toOctal
 HLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
 HOUR                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::hour
-HSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+HSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hstack::hstack
 HYPERLINK                | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
 HYPGEOM.DIST             | CATEGORY_STATISTICAL           | **Not yet Implemented**
 HYPGEOMDIST              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\HyperGeometric::distribution
@@ -291,7 +295,7 @@ IMSUM                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpread
 IMTAN                    | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMTAN
 INDEX                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
 INDIRECT                 | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
-INFO                     | CATEGORY_INFORMATION           | **Not yet Implemented**
+INFO                     | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Information\Info::getInfo
 INT                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
 INTERCEPT                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::INTERCEPT
 INTRATE                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates::interest
@@ -510,7 +514,7 @@ SHEET                    | CATEGORY_INFORMATION           | **Not yet Implemente
 SHEETS                   | CATEGORY_INFORMATION           | **Not yet Implemented**
 SIGN                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sign::evaluate
 SIN                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sin
-SINGLE                   | CATEGORY_UNCATEGORISED         | **Not yet Implemented**
+SINGLE                   | CATEGORY_MICROSOFT_INTERNAL    | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::single
 SINH                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sinh
 SKEW                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations::skew
 SKEW.P                   | CATEGORY_STATISTICAL           | **Not yet Implemented**
@@ -547,13 +551,13 @@ SYD                      | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpread
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 T                        | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::test
-T.DIST                   | CATEGORY_STATISTICAL           | **Not yet Implemented**
-T.DIST.2T                | CATEGORY_STATISTICAL           | **Not yet Implemented**
-T.DIST.RT                | CATEGORY_STATISTICAL           | **Not yet Implemented**
-T.INV                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
-T.INV.2T                 | CATEGORY_STATISTICAL           | **Not yet Implemented**
+T.DIST                   | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDist
+T.DIST.2T                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDot2T
+T.DIST.RT                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotDistDotRT
+T.INV                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::tDotInv
+T.INV.2T                 | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
 T.TEST                   | CATEGORY_STATISTICAL           | **Not yet Implemented**
-TAKE                     | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TAKE                     | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ChooseRowsEtc::take
 TAN                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
 TANH                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
 TBILLEQ                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill::bondEquivalentYield
@@ -575,9 +579,9 @@ THAIYEAR                 | CATEGORY_DATE_AND_TIME         | **Not yet Implemente
 TIME                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time::fromHMS
 TIMEVALUE                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue::fromString
 TINV                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
-TOCOL                    | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TOCOL                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::tocol
 TODAY                    | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::today
-TOROW                    | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+TOROW                    | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\TorowTocol::torow
 TRANSPOSE                | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
 TREND                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::TREND
 TRIM                     | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
@@ -591,8 +595,8 @@ TYPE                     | CATEGORY_INFORMATION           | \PhpOffice\PhpSpread
 
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
-UNICHAR                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
-UNICODE                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+UNICHAR                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::characterUnicode
+UNICODE                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::codeUnicode
 UNIQUE                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Unique::unique
 UPPER                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 USDOLLAR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::format
@@ -611,7 +615,7 @@ VARP                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpread
 VARPA                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARPA
 VDB                      | CATEGORY_FINANCIAL             | **Not yet Implemented**
 VLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
-VSTACK                   | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+VSTACK                   | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Vstack::vstack
 
 ## W
 
@@ -632,7 +636,7 @@ WRAPROWS                 | CATEGORY_MATH_AND_TRIG         | **Not yet Implemente
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 XIRR                     | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::rate
-XLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+XLOOKUP                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\XLookup::lookup
 XMATCH                   | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
 XNPV                     | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::presentValue
 XOR                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalXor

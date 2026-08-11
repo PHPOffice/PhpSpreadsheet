@@ -34,7 +34,6 @@ class Table extends WriterPart
         $range = $table->getRange();
 
         $objWriter->startElement('table');
-        $objWriter->writeAttribute('xml:space', 'preserve');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
         $objWriter->writeAttribute('id', (string) $tableRef);
         $objWriter->writeAttribute('name', $name);
@@ -50,7 +49,6 @@ class Table extends WriterPart
         if ($table->getShowHeaderRow() && $table->getAllowFilter() === true) {
             $objWriter->startElement('autoFilter');
             $objWriter->writeAttribute('ref', $range);
-            $objWriter->endElement();
             foreach (range($rangeStart[0], $rangeEnd[0]) as $offset => $columnIndex) {
                 $column = $table->getColumnByOffset($offset);
 
@@ -64,6 +62,7 @@ class Table extends WriterPart
                     AutoFilter::writeAutoFilterColumn($objWriter, $column, $offset);
                 }
             }
+            $objWriter->endElement(); // autoFilter
         }
 
         // Table Columns
@@ -80,7 +79,7 @@ class Table extends WriterPart
 
             $objWriter->startElement('tableColumn');
             $objWriter->writeAttribute('id', (string) ($offset + 1));
-            $objWriter->writeAttribute('name', $table->getShowHeaderRow() ? $cell->getValue() : 'Column' . ($offset + 1));
+            $objWriter->writeAttribute('name', $table->getShowHeaderRow() ? $cell->getValueString() : ('Column' . ($offset + 1)));
 
             if ($table->getShowTotalsRow()) {
                 if ($column->getTotalsRowLabel()) {

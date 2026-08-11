@@ -2,12 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
+use Composer\Pcre\Preg;
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -32,7 +34,7 @@ class Format
      *                            If you omit decimals, it is assumed to be 2
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function DOLLAR(mixed $value = 0, mixed $decimals = 2)
@@ -56,6 +58,7 @@ class Format
             if ($value < 0) {
                 $round = 0 - $round;
             }
+            /** @var float|int|string */
             $value = MathTrig\Round::multiple($value, $round);
         }
         $mask = "{$mask};-{$mask}";
@@ -73,7 +76,7 @@ class Format
      * @param mixed $noCommas Boolean value indicating whether the value should have thousands separators or not
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function FIXEDFORMAT(mixed $value, mixed $decimals = 2, mixed $noCommas = false): array|string
@@ -93,16 +96,13 @@ class Format
         if ($decimals < 0) {
             $decimals = 0;
         }
-        if ($noCommas === false) {
-            $valueResult = number_format(
-                $valueResult,
-                $decimals,
-                StringHelper::getDecimalSeparator(),
-                StringHelper::getThousandsSeparator()
-            );
-        }
 
-        return (string) $valueResult;
+        return number_format(
+            $valueResult,
+            $decimals,
+            StringHelper::getDecimalSeparator(),
+            $noCommas ? '' : StringHelper::getThousandsSeparator()
+        );
     }
 
     /**
@@ -113,7 +113,7 @@ class Format
      * @param mixed $format A string with the Format mask that should be used
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function TEXTFORMAT(mixed $value, mixed $format): array|string
@@ -122,14 +122,20 @@ class Format
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
         }
 
-        $value = Helpers::extractString($value);
-        $format = Helpers::extractString($format);
+        try {
+            $value = Helpers::extractString($value, true);
+            $format = Helpers::extractString($format, true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
+
         $format = (string) NumberFormat::convertSystemFormats($format);
 
-        if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
+        if (!is_numeric($value) && Date::isDateTimeFormatCode($format) && !Preg::isMatch('/^\s*\d+(\s+\d+)+\s*$/', $value)) {
             $value1 = DateTimeExcel\DateValue::fromString($value);
             $value2 = DateTimeExcel\TimeValue::fromString($value);
-            $value = (is_numeric($value1) && is_numeric($value2)) ? ($value1 + $value2) : (is_numeric($value1) ? $value2 : $value1);
+            /** @var float|int|string */
+            $value = (is_numeric($value1) && is_numeric($value2)) ? ($value1 + $value2) : (is_numeric($value1) ? $value1 : (is_numeric($value2) ? $value2 : $value));
         }
 
         return (string) NumberFormat::toFormattedString($value, $format);
@@ -150,6 +156,9 @@ class Format
         }
         if (is_string($value)) {
             $value = trim($value);
+            if (ErrorValue::isError($value, true)) {
+                throw new CalcExp($value);
+            }
             if ($spacesMeanZero && $value === '') {
                 $value = 0;
             }
@@ -164,7 +173,7 @@ class Format
      * @param mixed $value Value to check
      *                         Or can be an array of values
      *
-     * @return array|DateTimeInterface|float|int|string A string if arguments are invalid
+     * @return array<mixed>|DateTimeInterface|float|int|string A string if arguments are invalid
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
@@ -180,6 +189,7 @@ class Format
             return $e->getMessage();
         }
         if (!is_numeric($value)) {
+            $value = StringHelper::convertToString($value);
             $numberValue = str_replace(
                 StringHelper::getThousandsSeparator(),
                 '',
@@ -196,6 +206,7 @@ class Format
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             if (str_contains($value, ':')) {
+                /** @var DateTimeInterface|float|int|string */
                 $timeValue = Functions::scalar(DateTimeExcel\TimeValue::fromString($value));
                 if ($timeValue !== ExcelError::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
@@ -203,6 +214,7 @@ class Format
                     return $timeValue;
                 }
             }
+            /** @var DateTimeInterface|float|int|string */
             $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
             if ($dateValue !== ExcelError::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
@@ -218,12 +230,12 @@ class Format
     }
 
     /**
-     * TEXT.
+     * VALUETOTEXT.
      *
      * @param mixed $value The value to format
      *                         Or can be an array of values
      *
-     * @return array|string If an array of values is passed for either of the arguments, then the returned result
+     * @return array<mixed>|string If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function valueToText(mixed $value, mixed $format = false): array|string
@@ -238,23 +250,23 @@ class Format
             $value = $value->getPlainText();
         }
         if (is_string($value)) {
-            $value = ($format === true) ? Calculation::wrapResult($value) : $value;
+            $value = ($format === true) ? StringHelper::convertToString(Calculation::wrapResult($value)) : $value;
             $value = str_replace("\n", '', $value);
         } elseif (is_bool($value)) {
             $value = Calculation::getLocaleBoolean($value ? 'TRUE' : 'FALSE');
         }
 
-        return (string) $value;
+        return StringHelper::convertToString($value);
     }
 
     private static function getDecimalSeparator(mixed $decimalSeparator): string
     {
-        return empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : (string) $decimalSeparator;
+        return empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : StringHelper::convertToString($decimalSeparator);
     }
 
     private static function getGroupSeparator(mixed $groupSeparator): string
     {
-        return empty($groupSeparator) ? StringHelper::getThousandsSeparator() : (string) $groupSeparator;
+        return empty($groupSeparator) ? StringHelper::getThousandsSeparator() : StringHelper::convertToString($groupSeparator);
     }
 
     /**
@@ -266,6 +278,8 @@ class Format
      *                         Or can be an array of values
      * @param mixed $groupSeparator A string with the group/thousands separator to use, defaults to locale defined value
      *                         Or can be an array of values
+     *
+     * @return array<mixed>|float|string
      */
     public static function NUMBERVALUE(mixed $value = '', mixed $decimalSeparator = null, mixed $groupSeparator = null): array|string|float
     {
@@ -281,8 +295,10 @@ class Format
             return $e->getMessage();
         }
 
-        if (!is_numeric($value)) {
-            $decimalPositions = preg_match_all('/' . preg_quote($decimalSeparator, '/') . '/', $value, $matches, PREG_OFFSET_CAPTURE);
+        /** @var null|array<scalar>|scalar $value */
+        if (!is_array($value) && !is_numeric($value)) {
+            $value = StringHelper::convertToString($value);
+            $decimalPositions = Preg::matchAllWithOffsets('/' . preg_quote($decimalSeparator, '/') . '/', $value, $matches);
             if ($decimalPositions > 1) {
                 return ExcelError::VALUE();
             }

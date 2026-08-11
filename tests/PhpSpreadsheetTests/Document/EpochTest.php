@@ -25,9 +25,7 @@ class EpochTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testSetCreated(string $format, string $timestamp): void
     {
         $spreadsheet = new Spreadsheet();
@@ -77,9 +75,7 @@ class EpochTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats2
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats2')]
     public function testConsistentTimeStamp(string $format): void
     {
         $pgmstart = (float) (new DateTime())->format('U');

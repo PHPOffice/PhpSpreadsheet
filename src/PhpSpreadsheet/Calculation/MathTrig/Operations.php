@@ -19,7 +19,7 @@ class Operations
      * @param mixed $divisor Divisor
      *                      Or can be an array of values
      *
-     * @return array|float|string Remainder, or a string containing an error
+     * @return array<mixed>|float|string Remainder, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -52,14 +52,14 @@ class Operations
      *
      * Computes x raised to the power y.
      *
-     * @param array|float|int|string $x Or can be an array of values
-     * @param array|float|int|string $y Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $x Or can be an array of values
+     * @param null|array<mixed>|bool|float|int|string $y Or can be an array of values
      *
-     * @return array|float|int|string The result, or a string containing an error
+     * @return array<mixed>|float|int|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function power(array|float|int|string $x, array|float|int|string $y): array|float|int|string
+    public static function power(null|array|bool|float|int|string $x, null|array|bool|float|int|string $y): array|float|int|string
     {
         if (is_array($x) || is_array($y)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $x, $y);
@@ -133,7 +133,7 @@ class Operations
      * @param mixed $denominator Expect float|int
      *                      Or can be an array of values
      *
-     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function quotient(mixed $numerator, mixed $denominator): array|string|int

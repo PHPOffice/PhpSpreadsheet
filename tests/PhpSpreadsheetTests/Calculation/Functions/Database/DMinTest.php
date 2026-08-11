@@ -6,12 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DMinTest extends SetupTeardownDatabases
 {
     /**
-     * @dataProvider providerDMin
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDMin')]
     public function testDirectCallToDMin(int|float|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $result = DMin::evaluate($database, $field, $criteria);
@@ -19,8 +22,10 @@ class DMinTest extends SetupTeardownDatabases
     }
 
     /**
-     * @dataProvider providerDMin
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDMin')]
     public function testDMinAsWorksheetFormula(int|float|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DMIN', $database, $field, $criteria);

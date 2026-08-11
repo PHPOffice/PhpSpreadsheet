@@ -9,9 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class LongTitleTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider providerTitles
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerTitles')]
     public function testLongTitle(string $expected, string $title): void
     {
         $spreadsheet = new Spreadsheet();

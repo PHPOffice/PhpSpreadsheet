@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class VarPATest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerVARPA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerVARPA')]
     public function testVARPA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('VARPA', $expectedResult, ...$args);
@@ -19,9 +17,7 @@ class VarPATest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/VARPA.php';
     }
 
-    /**
-     * @dataProvider providerOdsVARPA
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerOdsVARPA')]
     public function testOdsVARPA(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();

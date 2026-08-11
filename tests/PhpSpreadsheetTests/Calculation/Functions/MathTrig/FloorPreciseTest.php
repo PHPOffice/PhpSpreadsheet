@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FloorPreciseTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerFLOORPRECISE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFLOORPRECISE')]
     public function testFLOORPRECISE(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -29,15 +27,13 @@ class FloorPreciseTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/FLOORPRECISE.php';
     }
 
-    /**
-     * @dataProvider providerFloorArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFloorArray')]
     public function testFloorArray(array $expectedResult, string $argument1, string $argument2): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=FLOOR.PRECISE({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

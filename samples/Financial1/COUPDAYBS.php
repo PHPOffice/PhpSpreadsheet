@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the number of days from the beginning of a coupon\'s period to the settlement date.');
 
 // Create new PhpSpreadsheet object

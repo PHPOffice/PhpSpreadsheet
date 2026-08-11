@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Engineering';
 $functionName = 'CONVERT';
 $description = 'Converts a number from one measurement system to another';
@@ -40,15 +40,15 @@ $worksheet->setCellValue('H1', '=CONVERT(CONVERT(100,"m","ft"),"m","ft")');
 for ($row = 1; $row <= $testDataCount; ++$row) {
     $helper->log(
         "(A$row): Unit of Measure Conversion Formula "
-        . $worksheet->getCell('D' . $row)->getValue()
+        . $worksheet->getCell('D' . $row)->getValueString()
         . ' - '
-        . $worksheet->getCell('A' . $row)->getValue()
+        . $worksheet->getCell('A' . $row)->getValueString()
         . ' '
-        . $worksheet->getCell('B' . $row)->getValue()
+        . $worksheet->getCell('B' . $row)->getValueString()
         . ' is '
-        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . $worksheet->getCell('D' . $row)->getCalculatedValueString()
         . ' '
-        . $worksheet->getCell('C' . $row)->getValue()
+        . $worksheet->getCell('C' . $row)->getValueString()
     );
 }
 
@@ -56,7 +56,7 @@ $helper->log('Old method for area conversions, before MS Excel introduced area U
 
 $helper->log(
     "(A$row): Unit of Measure Conversion Formula "
-    . $worksheet->getCell('H1')->getValue()
+    . $worksheet->getCell('H1')->getValueString()
     . ' result is '
-    . $worksheet->getCell('H1')->getCalculatedValue()
+    . $worksheet->getCell('H1')->getCalculatedValueString()
 );

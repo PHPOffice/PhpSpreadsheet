@@ -33,4 +33,7 @@ return [
     [0, 'B1, 0'],
     ['exception', ''],
     ['exception', '35.51'],
+    'negative number and precision ROUNDDOWN' => [-31400, '-31415.92654, -2'],
+    'issue 4213 #1' => [249.0, '249.9975, 0'],
+    'issue 4213 #2' => [-249.0, '-249.9975, 0'],
 ];

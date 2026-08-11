@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +37,15 @@ class Issue2942Test extends TestCase
         self::assertSame('กขฃ', $sheet->getCell('C3')->getValue());
         self::assertSame('✀✐✠', $sheet->getCell('D3')->getValue());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testLoadFromStringExtendFailure(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Failed to load content ');
+        $content = '<table><tbody><tr><td>éàâèî</td></tr></tbody></table>';
+        $reader = new HtmlExtend();
+        $reader->loadFromString($content);
     }
 
     public function testInfo(): void

@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PasswordHasherTest extends TestCase
 {
-    /**
-     * @dataProvider providerHashPassword
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHashPassword')]
     public function testHashPassword(
         string $expectedResult,
         string $password,

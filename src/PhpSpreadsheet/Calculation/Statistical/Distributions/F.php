@@ -27,7 +27,7 @@ class F
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array<mixed>|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function distribution(mixed $value, mixed $u, mixed $v, mixed $cumulative): array|string|float
@@ -55,9 +55,20 @@ class F
             return Beta::incompleteBeta($adjustedValue, $u / 2, $v / 2);
         }
 
-        return (Gamma::gammaValue(($v + $u) / 2)
-                / (Gamma::gammaValue($u / 2) * Gamma::gammaValue($v / 2)))
-            * (($u / $v) ** ($u / 2))
-            * (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
+        if ($value == 0.0) {
+            if ($u === 2) {
+                return 1.0;
+            }
+
+            return ($u === 1) ? INF : 0.0;
+        }
+
+        // Log domain, so large degrees of freedom cannot overflow the Gamma ratio.
+        return exp(
+            Gamma::logGamma(($v + $u) / 2) - Gamma::logGamma($u / 2) - Gamma::logGamma($v / 2)
+            + ($u / 2) * log($u / $v)
+            + (($u - 2) / 2) * log($value)
+            - (($u + $v) / 2) * log(1 + ($u / $v) * $value)
+        );
     }
 }

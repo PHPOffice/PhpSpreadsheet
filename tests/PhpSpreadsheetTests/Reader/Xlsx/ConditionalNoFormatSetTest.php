@@ -33,6 +33,31 @@ class ConditionalNoFormatSetTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($testfile);
+        $sheet = $spreadsheet->getactiveSheet();
+
+        $collection = $sheet->getConditionalStylesCollection();
+        self::assertCount(1, $collection);
+        $conditionalArray = $collection['A1:A5'];
+        self::assertCount(3, $conditionalArray);
+
+        $conditions = $conditionalArray[0]->getConditions();
+        self::assertCount(1, $conditions);
+        self::assertSame('$A1=3', $conditions[0]);
+        self::assertTrue($conditionalArray[0]->getNoFormatSet());
+        self::assertTrue($conditionalArray[0]->getStopIfTrue());
+
+        $conditions = $conditionalArray[1]->getConditions();
+        self::assertCount(1, $conditions);
+        self::assertSame('$A1>5', $conditions[0]);
+        self::assertFalse($conditionalArray[1]->getNoFormatSet());
+        self::assertTrue($conditionalArray[1]->getStopIfTrue());
+
+        $conditions = $conditionalArray[2]->getConditions();
+        self::assertCount(1, $conditions);
+        self::assertSame('$A1>1', $conditions[0]);
+        self::assertFalse($conditionalArray[2]->getNoFormatSet());
+        self::assertFalse($conditionalArray[2]->getStopIfTrue());
+
         $outfile = File::temporaryFilename();
         $writer = new XlsxWriter($spreadsheet);
         $writer->save($outfile);

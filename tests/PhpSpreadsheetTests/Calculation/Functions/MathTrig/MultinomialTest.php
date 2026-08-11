@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class MultinomialTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMULTINOMIAL
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMULTINOMIAL')]
     public function testMULTINOMIAL(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);

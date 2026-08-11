@@ -6,43 +6,56 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Formatter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\CurrencyNegative;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class AccountingTest extends TestCase
 {
-    /**
-     * @dataProvider providerAccounting
-     */
+    protected function tearDown(): void
+    {
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setThousandsSeparator(null);
+        StringHelper::setDecimalSeparator(null);
+    }
+
+    #[DataProvider('providerAccounting')]
     public function testAccounting(
-        string $expectedResult,
+        string $expectedResultPositive,
+        string $expectedResultNegative,
+        string $expectedResultZero,
         string $currencyCode,
         int $decimals,
         bool $thousandsSeparator,
         bool $currencySymbolPosition,
-        bool $currencySymbolSpacing
+        bool $currencySymbolSpacing,
+        CurrencyNegative $negative = CurrencyNegative::minus
     ): void {
-        $wizard = new Accounting($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing);
-        self::assertSame($expectedResult, (string) $wizard);
+        $wizard = new Accounting($currencyCode, $decimals, $thousandsSeparator, $currencySymbolPosition, $currencySymbolSpacing, negative: $negative);
+        self::assertSame($expectedResultPositive, Formatter::toFormattedString(1234.56, $wizard->format()));
+        self::assertSame($expectedResultNegative, Formatter::toFormattedString(-1234.56, $wizard->format()));
+        self::assertSame($expectedResultZero, Formatter::toFormattedString(0, $wizard->format()));
     }
 
     public static function providerAccounting(): array
     {
         return [
-            ["_-$*\u{a0}0_-", '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ["_-$*\u{a0}#,##0_-", '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ['_-$*#,##0_-', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
-            ["_-0.00\u{a0}€*_-", '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ["_-#,##0.00\u{a0}€*_-", '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
-            ['_-0.00€*_-', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
+            [' $ 1235 ', ' $ (1235)', ' $ - ', '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' $ 1,235 ', ' $ (1,235)', ' $ - ', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' $ 1,235 ', ' $ (1,235)', ' $ - ', '$', 0, Number::WITH_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
+            [' 1234.56 € ', ' (1234.56)€ ', ' - € ', '€', 2, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' 1,234.56 € ', ' (1,234.56)€ ', ' - € ', '€', 2, Number::WITH_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
+            [' 1234.560 € ', ' (1234.560)€ ', ' - € ', '€', 3, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::TRAILING_SYMBOL, Currency::SYMBOL_WITHOUT_SPACING],
         ];
     }
 
-    /**
-     * @dataProvider providerAccountingLocale
-     */
+    #[DataProvider('providerAccountingLocale')]
     public function testAccountingLocale(
         string $expectedResult,
         string $currencyCode,
@@ -102,9 +115,7 @@ class AccountingTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerAccountingLocaleNoDecimals
-     */
+    #[DataProvider('providerAccountingLocaleNoDecimals')]
     public function testAccountingLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,
@@ -168,5 +179,13 @@ class AccountingTest extends TestCase
 
         $wizard = new Accounting('€');
         $wizard->setLocale($locale);
+    }
+
+    public function testLocaleNull2(): void
+    {
+        $wizard = new Accounting('$', 2);
+        $reflectionMethod = new ReflectionMethod($wizard, 'formatCurrencyCode');
+        $result = $reflectionMethod->invokeArgs($wizard, []);
+        self::assertSame('$*', $result);
     }
 }

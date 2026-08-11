@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class QuartileTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerQUARTILE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerQUARTILE')]
     public function testQUARTILE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('QUARTILE', $expectedResult, ...$args);

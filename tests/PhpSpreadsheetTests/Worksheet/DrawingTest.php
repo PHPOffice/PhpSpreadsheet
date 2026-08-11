@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class DrawingTest extends TestCase
 {
@@ -117,5 +121,20 @@ class DrawingTest extends TestCase
         $drawing->setWidthAndHeight(175, 350);
         self::assertSame(175, $drawing->getWidth());
         self::assertSame(234, $drawing->getHeight());
+    }
+
+    public function testBadAddToXml(): void
+    {
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('Invalid parameters passed.');
+        $drawing = new Drawing();
+        $drawing->setName('Blue Square');
+        $drawing->setPath('tests/data/Writer/XLSX/blue_square.png');
+        $objWriter = new XMLWriter();
+        $spreadsheet = new Spreadsheet();
+        $writerXlsx = new XlsxWriter($spreadsheet);
+        $writerXlsxDrawing = new XlsxWriter\Drawing($writerXlsx);
+        $reflectionMethod = new ReflectionMethod($writerXlsxDrawing, 'writeDrawing');
+        $reflectionMethod->invokeArgs($writerXlsxDrawing, [$objWriter, $drawing]);
     }
 }

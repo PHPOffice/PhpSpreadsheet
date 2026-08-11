@@ -6,10 +6,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
@@ -83,9 +85,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider currencyProvider
-     */
+    #[DataProvider('currencyProvider')]
     public function testCurrency(string $value, float $valueBinded, string $thousandsSeparator, string $decimalSeparator, string $currencyCode): void
     {
         StringHelper::setCurrencyCode($currencyCode);
@@ -120,9 +120,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider fractionProvider
-     */
+    #[DataProvider('fractionProvider')]
     public function testFractions(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -159,9 +157,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider percentageProvider
-     */
+    #[DataProvider('percentageProvider')]
     public function testPercentages(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -186,9 +182,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider timeProvider
-     */
+    #[DataProvider('timeProvider')]
     public function testTimes(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
@@ -211,9 +205,7 @@ class AdvancedValueBinderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider stringProvider
-     */
+    #[DataProvider('stringProvider')]
     public function testStringWrapping(string $value): void
     {
         $spreadsheet = new Spreadsheet();
@@ -228,8 +220,58 @@ class AdvancedValueBinderTest extends TestCase
     public static function stringProvider(): array
     {
         return [
-            ['Hello World', false],
-            ["Hello\nWorld", true],
+            ['Hello World'],
+            ["Hello\nWorld"],
+        ];
+    }
+
+    #[DataProvider('formulaProvider')]
+    public function testFormula(string $value, string $dataType): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue($value);
+        self::assertSame($dataType, $sheet->getCell('A1')->getDataType());
+        if ($dataType === DataType::TYPE_FORMULA) {
+            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
+        } else {
+            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        }
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function formulaProvider(): array
+    {
+        return [
+            'normal formula' => ['=SUM(A1:C3)', DataType::TYPE_FORMULA],
+            'issue 1310' => ['======', DataType::TYPE_STRING],
+        ];
+    }
+
+    #[DataProvider('nativeProvider')]
+    public function testNative(mixed $value, mixed $expected = null): void
+    {
+        $expected ??= $value;
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue($value);
+        self::assertSame($expected, $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function nativeProvider(): array
+    {
+        return [
+            'int' => [2],
+            'float' => [3.0],
+            'numeric string' => ['15', 15],
+            'scientific notation' => ['2.5E1', 25.0],
+            'issue4766 large exponent' => ['4E433'],
+            'issue4766 large negative exponent' => ['4E-433', 0.0],
+            'boolean' => [false],
+            'string' => ['xyz'],
         ];
     }
 }

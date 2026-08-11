@@ -4,6 +4,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -75,7 +76,7 @@ $helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, 
 
 $helper->log('Calculate Structured References');
 
-$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true));
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true), true);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);

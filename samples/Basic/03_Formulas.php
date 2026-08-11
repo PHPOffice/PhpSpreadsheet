@@ -3,6 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -28,38 +29,38 @@ $spreadsheet->getActiveSheet()->setCellValue('B1', 'Range #1')
     ->setCellValue('B3', 7)
     ->setCellValue('B4', 13)
     ->setCellValue('B5', '=SUM(B2:B4)');
-$helper->log('Sum of Range #1 is ' . $spreadsheet->getActiveSheet()->getCell('B5')->getCalculatedValue());
+$helper->log('Sum of Range #1 is ' . $spreadsheet->getActiveSheet()->getCell('B5')->getCalculatedValueString());
 
 $spreadsheet->getActiveSheet()->setCellValue('C1', 'Range #2')
     ->setCellValue('C2', 5)
     ->setCellValue('C3', 11)
     ->setCellValue('C4', 17)
     ->setCellValue('C5', '=SUM(C2:C4)');
-$helper->log('Sum of Range #2 is ' . $spreadsheet->getActiveSheet()->getCell('C5')->getCalculatedValue());
+$helper->log('Sum of Range #2 is ' . $spreadsheet->getActiveSheet()->getCell('C5')->getCalculatedValueString());
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A7', 'Total of both ranges:');
 $spreadsheet->getActiveSheet()
     ->setCellValue('B7', '=SUM(B5:C5)');
-$helper->log('Sum of both Ranges is ' . $spreadsheet->getActiveSheet()->getCell('B7')->getCalculatedValue());
+$helper->log('Sum of both Ranges is ' . $spreadsheet->getActiveSheet()->getCell('B7')->getCalculatedValueString());
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A8', 'Minimum of both ranges:');
 $spreadsheet->getActiveSheet()
     ->setCellValue('B8', '=MIN(B2:C4)');
-$helper->log('Minimum value in either Range is ' . $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue());
+$helper->log('Minimum value in either Range is ' . $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValueString());
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A9', 'Maximum of both ranges:');
 $spreadsheet->getActiveSheet()
     ->setCellValue('B9', '=MAX(B2:C4)');
-$helper->log('Maximum value in either Range is ' . $spreadsheet->getActiveSheet()->getCell('B9')->getCalculatedValue());
+$helper->log('Maximum value in either Range is ' . $spreadsheet->getActiveSheet()->getCell('B9')->getCalculatedValueString());
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A10', 'Average of both ranges:');
 $spreadsheet->getActiveSheet()
     ->setCellValue('B10', '=AVERAGE(B2:C4)');
-$helper->log('Average value of both Ranges is ' . $spreadsheet->getActiveSheet()->getCell('B10')->getCalculatedValue());
+$helper->log('Average value of both Ranges is ' . $spreadsheet->getActiveSheet()->getCell('B10')->getCalculatedValueString());
 $spreadsheet->getActiveSheet()
     ->getColumnDimension('A')
     ->setAutoSize(true);

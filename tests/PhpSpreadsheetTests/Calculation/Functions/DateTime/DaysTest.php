@@ -11,22 +11,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DaysTest extends TestCase
 {
-    /**
-     * @dataProvider providerDAYS
-     */
+    #[DataProvider('providerDAYS')]
     public function testDirectCallToDAYS(int|string $expectedResult, int|string $date1, int|string $date2): void
     {
         $result = Days::between($date1, $date2);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS
-     */
+    #[DataProvider('providerDAYS')]
     public function testDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -34,13 +31,11 @@ class DaysTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=DAYS({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerDAYS
-     */
+    #[DataProvider('providerDAYS')]
     public function testDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -63,9 +58,7 @@ class DaysTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DAYS.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyDAYS
-     */
+    #[DataProvider('providerUnhappyDAYS')]
     public function testDAYSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -98,15 +91,14 @@ class DaysTest extends TestCase
         self::assertSame(31, Days::between($obj1, $obj2));
     }
 
-    /**
-     * @dataProvider providerDaysArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerDaysArray')]
     public function testDaysArray(array $expectedResult, string $startDate, string $endDate): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=DAYS({$startDate}, {$endDate})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

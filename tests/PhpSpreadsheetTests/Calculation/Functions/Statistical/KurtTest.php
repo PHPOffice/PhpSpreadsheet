@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class KurtTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerKURT
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerKURT')]
     public function testKURT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('KURT', $expectedResult, ...$args);

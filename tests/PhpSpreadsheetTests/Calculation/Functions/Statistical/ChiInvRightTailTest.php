@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class ChiInvRightTailTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCHIINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCHIINV')]
     public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('CHISQ.INV.RT', $expectedResult, ...$args);
@@ -29,22 +27,20 @@ class ChiInvRightTailTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
         $formula = "=CHISQ.INV.RT($probability, $degrees)";
         /** @var float|int|string */
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
         $formula = "=CHISQ.DIST.RT($result, $degrees)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
-    /**
-     * @dataProvider providerChiInvRightTailArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerChiInvRightTailArray')]
     public function testChiInvRightTailArray(array $expectedResult, string $probabilities, string $degrees): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=CHISQ.INV.RT({$probabilities}, {$degrees})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -53,8 +49,8 @@ class ChiInvRightTailTest extends AllSetupTeardown
         return [
             'row/column vectors' => [
                 [
-                    [7.8061229155968075, 6.345811195521517, 100.0],
-                    [13.266097125199911, 11.34032237742413, 24.388802783239434],
+                    [7.8061229155968075, 6.345811195521517, 16.907871682617596],
+                    [13.266097125199924, 11.340322377424133, 24.388802639997067],
                 ],
                 '{0.35, 0.5, 0.018}',
                 '{7; 12}',

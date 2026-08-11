@@ -15,6 +15,7 @@ class Properties
         $this->spreadsheet = $spreadsheet;
     }
 
+    /** @param string[] $namespaces */
     public function readProperties(SimpleXMLElement $xml, array $namespaces): void
     {
         $this->readStandardProperties($xml);
@@ -34,6 +35,7 @@ class Properties
         }
     }
 
+    /** @param string[] $namespaces */
     protected function readCustomProperties(SimpleXMLElement $xml, array $namespaces): void
     {
         if (isset($xml->CustomDocumentProperties) && is_iterable($xml->CustomDocumentProperties[0])) {
@@ -143,6 +145,7 @@ class Properties
         $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
     }
 
+    /** @param string[] $hex */
     protected function hex2str(array $hex): string
     {
         return mb_chr((int) hexdec($hex[1]), 'UTF-8');

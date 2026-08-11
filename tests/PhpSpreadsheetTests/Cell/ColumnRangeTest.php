@@ -43,6 +43,7 @@ class ColumnRangeTest extends TestCase
         self::assertSame('E', $columnRange->to());
         self::assertSame("'Mark''s Worksheet'!C:E", (string) $columnRange);
         self::assertSame("'Mark''s Worksheet'!C1:E1048576", (string) $columnRange->toCellRange());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCreateColumnRangeFromArray(): void
@@ -87,5 +88,24 @@ class ColumnRangeTest extends TestCase
 
         // Check that original Column Range isn't changed
         self::assertSame('C:E', (string) $columnRange);
+    }
+
+    public function testIssue4309(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $columnRange = new ColumnRange('A', 'A');
+        $columnStyle = $sheet->getStyle($columnRange);
+        $columnStyle->applyFromArray([
+            'font' => ['bold' => true],
+        ]);
+        $columnXf = $sheet->getColumnDimension('A')->getXfIndex();
+        self::assertNotNull($columnXf);
+        self::assertTrue(
+            $spreadsheet->getCellXfByIndex($columnXf)
+                ->getFont()->getBold()
+        );
+
+        $spreadsheet->disconnectWorksheets();
     }
 }

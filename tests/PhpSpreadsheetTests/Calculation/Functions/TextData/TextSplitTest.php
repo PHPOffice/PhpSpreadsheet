@@ -6,9 +6,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class TextSplitTest extends AllSetupTeardown
 {
+    /** @param mixed[] $argument */
     private function setDelimiterArgument(array $argument, string $column): string
     {
         return '{' . $column . implode(',' . $column, range(1, count($argument))) . '}';
@@ -27,10 +29,13 @@ class TextSplitTest extends AllSetupTeardown
     }
 
     /**
-     * @dataProvider providerTEXTSPLIT
+     * @param mixed[] $expectedResult
+     * @param array{0: string, 1: mixed[]|string, 2: mixed[]|string, 3?: string, 4?: string, 5?: string} $arguments
      */
+    #[DataProvider('providerTEXTSPLIT')]
     public function testTextSplit(array $expectedResult, array $arguments): void
     {
+        Calculation::getInstance($this->getSpreadsheet())->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $text = $arguments[0];
         $columnDelimiter = $arguments[1];
         $rowDelimiter = $arguments[2];

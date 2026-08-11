@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class EDateTest extends TestCase
@@ -30,18 +32,14 @@ class EDateTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    /**
-     * @dataProvider providerEDATE
-     */
+    #[DataProvider('providerEDATE')]
     public function testDirectCallToEDATE(mixed $expectedResult, mixed ...$args): void
     {
         $result = Month::adjust(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerEDATE
-     */
+    #[DataProvider('providerEDATE')]
     public function testEDATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -49,13 +47,11 @@ class EDateTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=EDATE({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerEDATE
-     */
+    #[DataProvider('providerEDATE')]
     public function testEDATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -78,9 +74,7 @@ class EDateTest extends TestCase
         return require 'tests/data/Calculation/DateTime/EDATE.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyEDATE
-     */
+    #[DataProvider('providerUnhappyEDATE')]
     public function testEDATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -122,22 +116,20 @@ class EDateTest extends TestCase
 
         $result = Month::adjust('2012-1-26', -1);
         //    Must return an object...
-        self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertInstanceOf(DateTimeInterface::class, $result);
         //    ... with the correct value
         self::assertEquals($result->format('d-M-Y'), '26-Dec-2011');
     }
 
-    /**
-     * @dataProvider providerEDateArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerEDateArray')]
     public function testEDateArray(array $expectedResult, string $dateValues, string $methods): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=EDATE({$dateValues}, {$methods})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

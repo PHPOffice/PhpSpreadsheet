@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $helper->log('Returns the dollar value expressed as a decimal number, into a dollar price, expressed as a fraction.');
 
 // Create new PhpSpreadsheet object

@@ -10,9 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class RowDimensionSaveTest extends AbstractFunctional
 {
-    /**
-     * @dataProvider typeProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('typeProvider')]
     public function testSaveNoAllocateRowDimension(string $type): void
     {
         $spreadsheet = new Spreadsheet();

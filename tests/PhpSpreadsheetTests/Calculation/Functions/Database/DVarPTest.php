@@ -6,12 +6,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DVarPTest extends SetupTeardownDatabases
 {
     /**
-     * @dataProvider providerDVarP
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDVarP')]
     public function testDirectCallToDVarP(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVarP::evaluate($database, $field, $criteria);
@@ -19,8 +22,10 @@ class DVarPTest extends SetupTeardownDatabases
     }
 
     /**
-     * @dataProvider providerDVarP
+     * @param mixed[] $database
+     * @param mixed[][] $criteria
      */
+    #[DataProvider('providerDVarP')]
     public function testDVarPAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVARP', $database, $field, $criteria);

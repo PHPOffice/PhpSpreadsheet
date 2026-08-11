@@ -34,9 +34,7 @@ class Charts32CatAxValAxTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerCatAxValAx
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCatAxValAx')]
     public function test1CatAx1ValAx(?bool $numeric): void
     {
         $spreadsheet = new Spreadsheet();

@@ -13,6 +13,21 @@ return [
         'pt_br',
         '=DAYS360(DATE(2010,2,5),DATE(2010,12,31),TRUE)',
     ],
+    'Portuguese No Country' => [
+        '=DIA.SEMANA(10000)',
+        'pt',
+        '=WEEKDAY(10000)',
+    ],
+    'Portuguese Unknown Country' => [
+        '=DIA.SEMANA(10000)',
+        'pt_xx',
+        '=WEEKDAY(10000)',
+    ],
+    'Portuguese Brazil' => [
+        '=DIA.DA.SEMANA(10000)',
+        'pt_br',
+        '=WEEKDAY(10000)',
+    ],
     [
         '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)',
         'ru',

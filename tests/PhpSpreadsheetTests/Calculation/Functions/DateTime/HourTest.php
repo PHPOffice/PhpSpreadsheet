@@ -9,22 +9,19 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class HourTest extends TestCase
 {
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[DataProvider('providerHOUR')]
     public function testDirectCallToHOUR(mixed $expectedResult, mixed ...$args): void
     {
         $result = TimeParts::hour(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[DataProvider('providerHOUR')]
     public function testHOURAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -32,13 +29,11 @@ class HourTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=HOUR({$arguments})";
 
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @dataProvider providerHOUR
-     */
+    #[DataProvider('providerHOUR')]
     public function testHOURInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -61,9 +56,7 @@ class HourTest extends TestCase
         return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
 
-    /**
-     * @dataProvider providerUnhappyHOUR
-     */
+    #[DataProvider('providerUnhappyHOUR')]
     public function testHOURUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
@@ -89,15 +82,14 @@ class HourTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerHourArray
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerHourArray')]
     public function testHourArray(array $expectedResult, string $array): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=HOUR({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class RuleCustomTest extends SetupTeardown
 {
@@ -28,9 +29,8 @@ class RuleCustomTest extends SetupTeardown
         return $sheet;
     }
 
-    /**
-     * @dataProvider providerCondition
-     */
+    /** @param mixed[] $expectedResult */
+    #[DataProvider('providerCondition')]
     public function testRuleCondition(array $expectedResult, string $condition): void
     {
         $sheet = $this->initSheet();

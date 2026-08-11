@@ -102,9 +102,7 @@ class ReferenceHelperTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider providerFormulaUpdates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormulaUpdates')]
     public function testUpdateFormula(string $formula, int $insertRows, int $insertColumns, string $worksheet, string $expectedResult): void
     {
         $referenceHelper = ReferenceHelper::getInstance();
@@ -119,9 +117,7 @@ class ReferenceHelperTest extends TestCase
         return require 'tests/data/ReferenceHelperFormulaUpdates.php';
     }
 
-    /**
-     * @dataProvider providerMultipleWorksheetFormulaUpdates
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMultipleWorksheetFormulaUpdates')]
     public function testUpdateFormulaForMultipleWorksheets(string $formula, int $insertRows, int $insertColumns, string $expectedResult): void
     {
         $referenceHelper = ReferenceHelper::getInstance();
@@ -296,91 +292,6 @@ class ReferenceHelperTest extends TestCase
 
         self::assertSame(['A3' => 'https://phpspreadsheet.readthedocs.io/en/latest/'], $hyperlinks);
         $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testInsertRowsWithDataValidation(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
-        $cellAddress = 'E5';
-        $this->setDataValidation($sheet, $cellAddress);
-
-        $sheet->insertNewRowBefore(2, 2);
-
-        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
-        self::assertTrue($sheet->getCell('E7')->hasDataValidation());
-        self::assertSame('E7', $sheet->getDataValidation('E7')->getSqref());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testDeleteRowsWithDataValidation(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
-        $cellAddress = 'E5';
-        $this->setDataValidation($sheet, $cellAddress);
-
-        $sheet->removeRow(2, 2);
-
-        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
-        self::assertTrue($sheet->getCell('E3')->hasDataValidation());
-        self::assertSame('E3', $sheet->getDataValidation('E3')->getSqref());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testDeleteColumnsWithDataValidation(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
-        $cellAddress = 'E5';
-        $this->setDataValidation($sheet, $cellAddress);
-
-        $sheet->removeColumn('B', 2);
-
-        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
-        self::assertTrue($sheet->getCell('C5')->hasDataValidation());
-        self::assertSame('C5', $sheet->getDataValidation('C5')->getSqref());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testInsertColumnsWithDataValidation(): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
-        $cellAddress = 'E5';
-        $this->setDataValidation($sheet, $cellAddress);
-
-        $sheet->insertNewColumnBefore('C', 2);
-
-        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
-        self::assertTrue($sheet->getCell('G5')->hasDataValidation());
-        self::assertSame('G5', $sheet->getDataValidation('G5')->getSqref());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    private function setDataValidation(Worksheet $sheet, string $cellAddress): void
-    {
-        $validation = $sheet->getCell($cellAddress)
-            ->getDataValidation();
-        $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
-        $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
-        $validation->setAllowBlank(false);
-        $validation->setShowInputMessage(true);
-        $validation->setShowErrorMessage(true);
-        $validation->setShowDropDown(true);
-        $validation->setErrorTitle('Input error');
-        $validation->setError('Value is not in list.');
-        $validation->setPromptTitle('Pick from list');
-        $validation->setPrompt('Please pick a value from the drop-down list.');
-        $validation->setFormula1('$A5:$A8');
     }
 
     public function testInsertRowsWithConditionalFormatting(): void

@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CumPrincTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerCUMPRINC
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCUMPRINC')]
     public function testCUMPRINC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('CUMPRINC', $expectedResult, $args);

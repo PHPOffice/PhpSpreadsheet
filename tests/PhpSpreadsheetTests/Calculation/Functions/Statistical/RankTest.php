@@ -7,10 +7,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 class RankTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerRANK
-     *
      * @param mixed[] $valueSet
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRANK')]
     public function testRANK(mixed $expectedResult, mixed $value, array $valueSet, mixed $order = null): void
     {
         if ($order === null) {

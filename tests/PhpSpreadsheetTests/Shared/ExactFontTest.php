@@ -82,7 +82,7 @@ class ExactFontTest extends TestCase
         $this->directoryName = '';
     }
 
-    /** @dataProvider providerFontData */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFontData')]
     public function testExact(string $fontName, float $excelWidth, float $xmlWidth, float $winWidth, float $ubuntuWidth): void
     {
         if ($this->incompleteMessage !== '') {
@@ -156,31 +156,28 @@ class ExactFontTest extends TestCase
         $font->setSize(20);
         $exactWidth = Font::calculateColumnWidth($font, 'Column2');
         $expectedWidth = 16.853;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
 
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Col3');
         $expectedWidth = 4.5703;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
 
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
         $expectedWidth = 26.2793;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
     }
 
     public function testIssue3626Pad(): void
@@ -199,30 +196,27 @@ class ExactFontTest extends TestCase
         $font->setSize(20);
         $exactWidth = Font::calculateColumnWidth($font, 'Column2');
         $expectedWidth = 18.8525;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
 
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Col3');
         $expectedWidth = 5.8557;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
 
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
         $expectedWidth = 27.5647;
-        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
-            self::assertTrue(true);
-        } else {
-            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
-        }
+        self::assertTrue(
+            $exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth,
+            "$exactWidth is not within 5% of expected $expectedWidth"
+        );
     }
 }

@@ -2,6 +2,8 @@
 /analysis
 /vendor/
 /phpunit.xml
+.phpunit.result.cache
+.DS_Store
 
 ## IDE support
 *.buildpath

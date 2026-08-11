@@ -34,7 +34,7 @@ class ConditionalFormattingRuleExtension
 
     private function generateUuid(): string
     {
-        $chars = str_split('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx');
+        $chars = mb_str_split('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx', 1, 'UTF-8');
 
         foreach ($chars as $i => $char) {
             if ($char === 'x') {
@@ -47,6 +47,7 @@ class ConditionalFormattingRuleExtension
         return implode('', $chars);
     }
 
+    /** @return mixed[] */
     public static function parseExtLstXml(?SimpleXMLElement $extLstXml): array
     {
         $conditionalFormattingRuleExtensions = [];
@@ -118,6 +119,7 @@ class ConditionalFormattingRuleExtension
         }
     }
 
+    /** @param string[] $ns */
     private static function parseExtDataBarElementChildrenFromXml(ConditionalDataBarExtension $extDataBarObj, SimpleXMLElement $dataBarXml, array $ns): void
     {
         if ($dataBarXml->borderColor) {

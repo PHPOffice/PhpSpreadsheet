@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NormSDistTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerNORMSDIST
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNORMSDIST')]
     public function testNORMSDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMSDIST', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class NormSDistTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/NORMSDIST.php';
     }
 
-    /**
-     * @dataProvider providerNormSDistArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerNormSDistArray')]
     public function testNormSDistArray(array $expectedResult, string $values): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=NORMSDIST({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

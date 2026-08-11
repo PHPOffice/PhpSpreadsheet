@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use stdClass;
 
 class PageSettings
 {
@@ -21,6 +22,7 @@ class PageSettings
      */
     private array $tableStylesCrossReference = [];
 
+    /** @var mixed[] */
     private array $pageLayoutStyles = [];
 
     /**
@@ -55,22 +57,22 @@ class PageSettings
 
         foreach ($styles as $styleSet) {
             $styleName = $styleSet->getAttributeNS($this->stylesNs, 'name');
-            $pageLayoutProperties = $styleSet->getElementsByTagNameNS($this->stylesNs, 'page-layout-properties')[0];
-            $styleOrientation = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-orientation');
-            $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
-            $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
-            $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
+            $pageLayoutProperties = $styleSet->getElementsByTagNameNS($this->stylesNs, 'page-layout-properties')->item(0);
+            $styleOrientation = $pageLayoutProperties?->getAttributeNS($this->stylesNs, 'print-orientation');
+            $styleScale = $pageLayoutProperties?->getAttributeNS($this->stylesNs, 'scale-to');
+            $stylePrintOrder = $pageLayoutProperties?->getAttributeNS($this->stylesNs, 'print-page-order');
+            $centered = $pageLayoutProperties?->getAttributeNS($this->stylesNs, 'table-centering');
 
-            $marginLeft = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-left');
-            $marginRight = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-right');
-            $marginTop = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-top');
-            $marginBottom = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-bottom');
-            $header = $styleSet->getElementsByTagNameNS($this->stylesNs, 'header-style')[0];
-            $headerProperties = $header->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
-            $marginHeader = isset($headerProperties) ? $headerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
-            $footer = $styleSet->getElementsByTagNameNS($this->stylesNs, 'footer-style')[0];
-            $footerProperties = $footer->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
-            $marginFooter = isset($footerProperties) ? $footerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
+            $marginLeft = $pageLayoutProperties?->getAttributeNS($this->stylesFo, 'margin-left');
+            $marginRight = $pageLayoutProperties?->getAttributeNS($this->stylesFo, 'margin-right');
+            $marginTop = $pageLayoutProperties?->getAttributeNS($this->stylesFo, 'margin-top');
+            $marginBottom = $pageLayoutProperties?->getAttributeNS($this->stylesFo, 'margin-bottom');
+            $header = $styleSet->getElementsByTagNameNS($this->stylesNs, 'header-style')->item(0);
+            $headerProperties = $header?->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')?->item(0);
+            $marginHeader = $headerProperties?->getAttributeNS($this->stylesFo, 'min-height');
+            $footer = $styleSet->getElementsByTagNameNS($this->stylesNs, 'footer-style')->item(0);
+            $footerProperties = $footer?->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')?->item(0);
+            $marginFooter = $footerProperties?->getAttributeNS($this->stylesFo, 'min-height');
 
             $this->pageLayoutStyles[$styleName] = (object) [
                 'orientation' => $styleOrientation ?: PageSetup::ORIENTATION_DEFAULT,
@@ -151,12 +153,15 @@ class PageSettings
         if (!array_key_exists($printSettingsIndex, $this->pageLayoutStyles)) {
             return;
         }
+        /** @var (object{orientation: string, scale: int|string, printOrder: ?string,
+         * horizontalCentered: bool, verticalCentered: bool, marginLeft: float, marginRight: float, marginTop: float,
+         * marginBottom: float, marginHeader: float, marginFooter: float}&stdClass) */
         $printSettings = $this->pageLayoutStyles[$printSettingsIndex];
 
         $worksheet->getPageSetup()
             ->setOrientation($printSettings->orientation ?? PageSetup::ORIENTATION_DEFAULT)
             ->setPageOrder($printSettings->printOrder === 'ltr' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
-            ->setScale((int) trim($printSettings->scale, '%'))
+            ->setScale((int) trim((string) $printSettings->scale, '%'))
             ->setHorizontalCentered($printSettings->horizontalCentered)
             ->setVerticalCentered($printSettings->verticalCentered);
 

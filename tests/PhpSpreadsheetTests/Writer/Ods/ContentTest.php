@@ -9,6 +9,7 @@ use DOMXPath;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -31,7 +32,9 @@ class ContentTest extends TestCase
         parent::setUp();
 
         $this->compatibilityMode = Functions::getCompatibilityMode();
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        Functions::setCompatibilityMode(
+            Functions::COMPATIBILITY_OPENOFFICE
+        );
     }
 
     protected function tearDown(): void
@@ -56,6 +59,8 @@ class ContentTest extends TestCase
         $worksheet1 = $workbook->getActiveSheet();
         $worksheet1->setCellValue('A1', 1); // Number
         $worksheet1->setCellValue('B1', 12345.6789); // Number
+        $b1SimpleCast = '12345.6789';
+        $b1AccurateCast = StringHelper::convertToString(12345.6789);
         $worksheet1->setCellValue('C1', '1'); // Number without cast
         $worksheet1->setCellValueExplicit('D1', '01234', DataType::TYPE_STRING); // Number casted to string
         $worksheet1->setCellValue('E1', 'Lorem ipsum'); // String
@@ -65,7 +70,7 @@ class ContentTest extends TestCase
 
         $worksheet1->setCellValueExplicit(
             'C2',
-            '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))',
+            '=IF(A3, CONCAT(A1, " ", A2), CONCAT(A2, " ", A1))',
             DataType::TYPE_FORMULA
         ); // Formula
 
@@ -73,6 +78,11 @@ class ContentTest extends TestCase
         $worksheet1->getStyle('D2')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
+        /** @var float */
+        $d2SimpleCast = $worksheet1->getCell('D2')->getValue();
+        $d2SimpleCast = (string) $d2SimpleCast;
+        $d2AccurateCast = $worksheet1
+            ->getCell('D2')->getValueString();
 
         $worksheet1->setCellValueExplicit('F1', null, DataType::TYPE_ERROR);
         $worksheet1->setCellValueExplicit('G1', 'Lorem ipsum', DataType::TYPE_INLINE);
@@ -84,12 +94,17 @@ class ContentTest extends TestCase
         $worksheet1->getStyle('C1')->getFont()->setSize(14);
         $worksheet1->getStyle('C1')->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
-        $worksheet1->getStyle('C1')->getFill()->setFillType(Fill::FILL_SOLID);
-        $worksheet1->getStyle('C1')->getFill()->setStartColor(new Color(Color::COLOR_RED));
+        $worksheet1->getStyle('C1')
+            ->getFill()->setFillType(Fill::FILL_SOLID);
+        $worksheet1->getStyle('C1')
+            ->getFill()->setStartColor(new Color(Color::COLOR_RED));
 
-        $worksheet1->getStyle('C1')->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
-        $worksheet1->getStyle('C2')->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
-        $worksheet1->getStyle('D2')->getFont()->setUnderline(Font::UNDERLINE_NONE);
+        $worksheet1->getStyle('C1')->getFont()
+            ->setUnderline(Font::UNDERLINE_SINGLE);
+        $worksheet1->getStyle('C2')->getFont()
+            ->setUnderline(Font::UNDERLINE_DOUBLE);
+        $worksheet1->getStyle('D2')->getFont()
+            ->setUnderline(Font::UNDERLINE_NONE);
 
         // Worksheet 2
         $worksheet2 = $workbook->createSheet();
@@ -100,7 +115,12 @@ class ContentTest extends TestCase
         $content = new Content(new Ods($workbook));
         $xml = $content->write();
 
-        self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-with-data.xml', $xml);
+        $xmlFile = $this->samplesPath . '/content-with-data.xml';
+        $xmlContents = (string) file_get_contents($xmlFile);
+        $xmlContents = str_replace($b1SimpleCast, $b1AccurateCast, $xmlContents);
+        $xmlContents = str_replace($d2SimpleCast, $d2AccurateCast, $xmlContents);
+        self::assertXmlStringEqualsXmlString($xmlContents, $xml);
+        $workbook->disconnectWorksheets();
     }
 
     public function testWriteWithHiddenWorksheet(): void
@@ -123,19 +143,21 @@ class ContentTest extends TestCase
         $xml = $content->write();
 
         self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-hidden-worksheet.xml', $xml);
+        $workbook->disconnectWorksheets();
     }
 
     public function testWriteBorderStyle(): void
     {
         $spreadsheet = new Spreadsheet();
-        $spreadsheet->getActiveSheet()->getStyle('A1:B2')->applyFromArray([
-            'borders' => [
-                'outline' => [
-                    'borderStyle' => Border::BORDER_THICK,
-                    'color' => ['argb' => 'AA22DD00'],
+        $spreadsheet->getActiveSheet()
+            ->getStyle('A1:B2')->applyFromArray([
+                'borders' => [
+                    'outline' => [
+                        'borderStyle' => Border::BORDER_THICK,
+                        'color' => ['argb' => 'AA22DD00'],
+                    ],
                 ],
-            ],
-        ]);
+            ]);
 
         $content = new Content(new Ods($spreadsheet));
         $xml = $content->write();
@@ -151,7 +173,7 @@ class ContentTest extends TestCase
                 $styles[$cell] = '2.5pt solid #22DD00';
 
                 $query = 'string(//office:document-content/office:body/office:spreadsheet/table:table/table:table-row[position()=' . ($keyRow + 1) . ']/table:table-cell[position()=' . ($keyCell + 1) . ']/@table:style-name)';
-                $idStyle = $xmlPath->evaluate($query);
+                $idStyle = StringHelper::convertToString($xmlPath->evaluate($query));
 
                 foreach ($styles as $direction => $value) {
                     $query = 'string(//office:document-content/office:automatic-styles/style:style[@style:name="' . $idStyle . '"]/style:table-cell-properties/@fo:border-' . $direction . ')';
@@ -160,5 +182,6 @@ class ContentTest extends TestCase
                 }
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }

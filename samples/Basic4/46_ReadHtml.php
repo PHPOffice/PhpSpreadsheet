@@ -6,7 +6,7 @@ error_reporting(0);
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $html = __DIR__ . '/../templates/46readHtml.html';
 $callStartTime = microtime(true);
 

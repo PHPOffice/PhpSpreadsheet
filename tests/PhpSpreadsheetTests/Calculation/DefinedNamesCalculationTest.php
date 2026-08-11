@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNamesCalculationTest extends TestCase
 {
-    /**
-     * @dataProvider namedRangeCalculationTest1
-     */
+    #[DataProvider('namedRangeCalculationProvider1')]
     public function testNamedRangeCalculations1(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -22,11 +21,27 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider namedRangeCalculationTest2
-     */
+    public function testNamedRangeCalculationsIfError(): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedRanges.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('E1')
+            ->setValue('=IFERROR(CHARGE_RATE, 999)');
+        $sheet->getCell('F1')
+            ->setValue('=IFERROR(CHARGE_RATX, 999)');
+        self::assertSame(7.5, $sheet->getCell('E1')->getCalculatedValue());
+        self::assertSame(999, $sheet->getCell('F1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    #[DataProvider('namedRangeCalculationProvider2')]
     public function testNamedRangeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -39,11 +54,10 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider namedRangeCalculationTest1
-     */
+    #[DataProvider('namedRangeCalculationProvider1')]
     public function testNamedFormulaCalculations1(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -54,11 +68,10 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
-    /**
-     * @dataProvider namedRangeCalculationTest2
-     */
+    #[DataProvider('namedRangeCalculationProvider2')]
     public function testNamedFormulaeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
@@ -71,9 +84,10 @@ class DefinedNamesCalculationTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public static function namedRangeCalculationTest1(): array
+    public static function namedRangeCalculationProvider1(): array
     {
         return [
             ['C4', 56.25],
@@ -86,7 +100,7 @@ class DefinedNamesCalculationTest extends TestCase
         ];
     }
 
-    public static function namedRangeCalculationTest2(): array
+    public static function namedRangeCalculationProvider2(): array
     {
         return [
             ['C4', 93.75],

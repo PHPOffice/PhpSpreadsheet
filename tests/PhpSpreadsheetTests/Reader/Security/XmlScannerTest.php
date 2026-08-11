@@ -13,9 +13,7 @@ use XMLReader;
 
 class XmlScannerTest extends TestCase
 {
-    /**
-     * @dataProvider providerValidXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXML')]
     public function testValidXML(string $filename, string $expectedResult): void
     {
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
@@ -30,16 +28,18 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $expectedResult = file_get_contents($file);
-            $tests[basename($file)] = [$filename, $expectedResult];
+            $expectedResult = (string) file_get_contents($file);
+            if (preg_match('/UTF-16(LE|BE)?/', $file, $matches) == 1) {
+                $expectedResult = (string) mb_convert_encoding($expectedResult, 'UTF-8', $matches[0]);
+                $expectedResult = preg_replace('/encoding\s*=\s*[\'"]UTF-\d+(LE|BE)?[\'"]/', '', $expectedResult) ?? $expectedResult;
+            }
+            $tests[basename($file)] = [(string) $filename, $expectedResult];
         }
 
         return $tests;
     }
 
-    /**
-     * @dataProvider providerInvalidXML
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXML')]
     public function testInvalidXML(string $filename): void
     {
         $this->expectException(ReaderException::class);
@@ -57,7 +57,7 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $tests[basename($file)] = [$filename];
+            $tests[basename($file)] = [(string) $filename];
         }
 
         return $tests;
@@ -69,7 +69,6 @@ class XmlScannerTest extends TestCase
         $scanner = $fileReader->getSecurityScanner();
 
         //    Must return an object...
-        self::assertIsObject($scanner);
         //    ... of the correct type
         self::assertInstanceOf(XmlScanner::class, $scanner);
     }
@@ -90,9 +89,7 @@ class XmlScannerTest extends TestCase
         $fileReader->getSecurityScannerOrThrow();
     }
 
-    /**
-     * @dataProvider providerValidXMLForCallback
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXMLForCallback')]
     public function testSecurityScanWithCallback(string $filename, string $expectedResult): void
     {
         $fileReader = new Xlsx();
@@ -109,7 +106,7 @@ class XmlScannerTest extends TestCase
         $glob = glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml');
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
-            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
+            $tests[basename($file)] = [(string) realpath($file), (string) file_get_contents($file)];
         }
 
         return $tests;
@@ -130,5 +127,45 @@ class XmlScannerTest extends TestCase
         $scanner = new XmlScanner();
         $output = $scanner->scan($input = '<?xml version="1.0" encoding="utf-8"?><foo>bar</foo>');
         self::assertSame($input, $output);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXlsx')]
+    public function testInvalidXlsx(string $filename, string $message): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage($message);
+        $reader = new Xlsx();
+        $reader->load("tests/data/Reader/XLSX/$filename");
+    }
+
+    public static function providerInvalidXlsx(): array
+    {
+        return [
+            ['utf7white.dontuse', 'UTF-7 encoding not permitted'],
+            ['utf7quoteorder.dontuse', 'UTF-7 encoding not permitted'],
+            ['utf8and16.dontuse', 'Double encoding not permitted'],
+            ['utf8and16.entity.dontuse', 'Detected use of ENTITY'],
+            ['utf8entity.dontuse', 'Detected use of ENTITY'],
+            ['utf16entity.dontuse', 'Detected use of ENTITY'],
+            ['ebcdic.dontuse', 'EBCDIC encoding not permitted'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidUtf16')]
+    public function testValidUtf16(string $filename): void
+    {
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load("tests/data/Reader/XLSX/$filename");
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1, $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerValidUtf16(): array
+    {
+        return [
+            ['utf16be.xlsx'],
+            ['utf16be.bom.xlsx'],
+        ];
     }
 }

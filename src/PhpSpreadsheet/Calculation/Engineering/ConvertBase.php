@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 abstract class ConvertBase
 {
@@ -26,7 +27,7 @@ abstract class ConvertBase
             }
         }
 
-        return strtoupper((string) $value);
+        return strtoupper(StringHelper::convertToString($value));
     }
 
     protected static function validatePlaces(mixed $places = null): ?int

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class RomanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerROMAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerROMAN')]
     public function testROMAN(string $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
@@ -26,15 +24,13 @@ class RomanTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }
 
-    /**
-     * @dataProvider providerRomanArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRomanArray')]
     public function testRomanArray(array $expectedResult, string $values, string $styles): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=ROMAN({$values}, {$styles})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -11,11 +11,6 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ArrayFormulaPrefixTest extends AbstractFunctional
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * Test to ensure that xlfn prefix is being added to functions
      * included in an array formula, if appropriate.

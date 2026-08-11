@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -15,14 +16,8 @@ class AllSetupTeardown extends TestCase
 {
     private string $compatibilityMode;
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
-    /**
-     * @var ?Worksheet
-     */
     private ?Worksheet $sheet = null;
 
     protected function setUp(): void
@@ -105,5 +100,14 @@ class AllSetupTeardown extends TestCase
         $formula .= ')';
         $this->setCell('B1', $formula);
         self::assertSame($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
+    }
+
+    protected function setArrayAsValue(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(
+            Calculation::RETURN_ARRAY_AS_VALUE
+        );
     }
 }

@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class HarMeanTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerHARMEAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerHARMEAN')]
     public function testHARMEAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HARMEAN', $expectedResult, ...$args);

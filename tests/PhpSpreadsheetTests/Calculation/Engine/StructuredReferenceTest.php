@@ -18,7 +18,7 @@ class StructuredReferenceTest extends TestCase
 
     // Note that column headings may contain a non-breaking space, while the formula may not;
     // these still need to match.
-    protected array $tableData = [
+    protected const TABLE_DATA = [
         ["Sales\u{a0}Person", 'Region', "Sales\u{a0}Amount", "%\u{a0}Commission", "Commission\u{a0}Amount"],
         ['Joe', 'North', 260, '10%', self::COLUMN_FORMULA],
         ['Robert', 'South', 660, '15%', self::COLUMN_FORMULA],
@@ -35,7 +35,7 @@ class StructuredReferenceTest extends TestCase
 
         $this->spreadSheet = new Spreadsheet();
         $workSheet = $this->spreadSheet->getActiveSheet();
-        $workSheet->fromArray($this->tableData, null, 'A1');
+        $workSheet->fromArray(self::TABLE_DATA, null, 'A1');
 
         $table = new Table('A1:E8', 'DeptSales');
         $table->setShowTotalsRow(true);
@@ -70,9 +70,7 @@ class StructuredReferenceTest extends TestCase
         $structuredReferenceObject->parse($cell);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderColumnData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderColumnData')]
     public function testStructuredReferenceColumns(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');
@@ -82,9 +80,7 @@ class StructuredReferenceTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
-    /**
-     * @dataProvider structuredReferenceProviderRowData
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('structuredReferenceProviderRowData')]
     public function testStructuredReferenceRows(string $expectedCellRange, string $structuredReference): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');

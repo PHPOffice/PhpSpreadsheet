@@ -52,7 +52,6 @@ class ColumnTest extends SetupTeardown
         $expectedResult = 'G';
 
         $result = $column->setColumnIndex($expectedResult);
-        self::assertInstanceOf(Column::class, $result);
 
         $result = $result->getColumnIndex();
         self::assertEquals($expectedResult, $result);
@@ -64,22 +63,18 @@ class ColumnTest extends SetupTeardown
         $column = $table->getColumn('H');
 
         $result = $column->setShowFilterButton(false);
-        self::assertInstanceOf(Column::class, $result);
-        self::assertFalse($column->getShowFilterButton());
+        self::assertFalse($result->getShowFilterButton());
 
         $label = 'Total';
         $result = $column->setTotalsRowLabel($label);
-        self::assertInstanceOf(Column::class, $result);
-        self::assertEquals($label, $column->getTotalsRowLabel());
+        self::assertEquals($label, $result->getTotalsRowLabel());
 
         $function = 'sum';
         $result = $column->setTotalsRowFunction($function);
-        self::assertInstanceOf(Column::class, $result);
-        self::assertEquals($function, $column->getTotalsRowFunction());
+        self::assertEquals($function, $result->getTotalsRowFunction());
 
         $formula = '=SUM(Sales_Data[[#This Row],[Q1]:[Q4]])';
-        $result = $column->setColumnFormula($formula);
-        self::assertInstanceOf(Column::class, $result);
+        $column->setColumnFormula($formula);
         self::assertEquals($formula, $column->getColumnFormula());
     }
 

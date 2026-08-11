@@ -35,6 +35,7 @@ class Size
                 return ExcelError::NAN();
             }
             rsort($mArgs);
+            /** @var float[] $mArgs */
 
             return $mArgs[$entry];
         }
@@ -71,6 +72,7 @@ class Size
                 return ExcelError::NAN();
             }
             sort($mArgs);
+            /** @var float[] $mArgs */
 
             return $mArgs[$entry];
         }
@@ -80,6 +82,8 @@ class Size
 
     /**
      * @param mixed[] $args Data values
+     *
+     * @return mixed[]
      */
     protected static function filter(array $args): array
     {

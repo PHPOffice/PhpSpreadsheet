@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PriceTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerPRICE
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPRICE')]
     public function testPRICE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('PRICE', $expectedResult, $args);
@@ -19,9 +17,7 @@ class PriceTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Financial/PRICE.php';
     }
 
-    /**
-     * @dataProvider providerPRICE3
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerPRICE3')]
     public function testPRICE3(mixed $expectedResult, mixed ...$args): void
     {
         // These results (PRICE function with basis codes 2 and 3)

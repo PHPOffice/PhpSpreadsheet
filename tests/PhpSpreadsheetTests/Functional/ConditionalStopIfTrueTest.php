@@ -18,9 +18,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         ];
     }
 
-    /**
-     * @dataProvider providerFormats
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerFormats')]
     public function testConditionalStopIfTrue(string $format): void
     {
         $pCoordinate = 'A1:A3';
@@ -38,7 +36,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         $condition1->addCondition(0.6);
         $condition1->getStyle()->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(self::COLOR_RED);
+            ->getStartColor()->setARGB(self::COLOR_RED);
 
         // if value above 0.6 -> green background
         $condition2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
@@ -47,7 +45,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
         $condition2->addCondition(0.6);
         $condition2->getStyle()->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(self::COLOR_GREEN);
+            ->getStartColor()->setARGB(self::COLOR_GREEN);
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue(0.7);

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Date/Time';
 $functionName = 'TIME';
 $description = 'Returns the Excel serial number of a particular time';
@@ -36,8 +36,8 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log("(A{$row}) Hour: " . $worksheet->getCell('A' . $row)->getFormattedValue());
     $helper->log("(B{$row}) Minute: " . $worksheet->getCell('B' . $row)->getFormattedValue());
     $helper->log("(C{$row}) Second: " . $worksheet->getCell('C' . $row)->getFormattedValue());
-    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValue());
-    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValue());
+    $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValueString());
+    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValueString());
     $helper->log('Formatted TimeStamp: ' . $worksheet->getCell('E' . $row)->getFormattedValue());
     $helper->log('');
 }

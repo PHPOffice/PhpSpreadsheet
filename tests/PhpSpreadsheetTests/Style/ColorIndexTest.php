@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColorIndexTest extends TestCase
 {
-    /**
-     * @dataProvider providerColorIndexes
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorIndexes')]
     public function testColorIndex(string $expectedResult, string $xml, bool $background = false): void
     {
         $sxml = simplexml_load_string($xml);

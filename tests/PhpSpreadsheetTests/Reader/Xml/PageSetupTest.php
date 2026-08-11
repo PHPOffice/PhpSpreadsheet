@@ -15,9 +15,6 @@ class PageSetupTest extends TestCase
 
     private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
-    /**
-     * @var ?Spreadsheet
-     */
     private ?Spreadsheet $spreadsheet = null;
 
     private string $filename = 'tests/data/Reader/Xml/PageSetup.xml';
@@ -85,6 +82,7 @@ class PageSetupTest extends TestCase
         self::assertCount($sheetCount, $assertions);
     }
 
+    /** @return array<string, array{orientation: string, scale: int, horizontalCentered: bool, verticalCentered: bool, pageOrder: string}> */
     private function pageSetupAssertions(): array
     {
         return [
@@ -120,6 +118,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
+    /** @return array<string, float[]> */
     private function pageMarginAssertions(): array
     {
         return [

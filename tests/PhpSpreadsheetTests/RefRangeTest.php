@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class RefRangeTest extends TestCase
 {
-    /**
-     * @dataProvider providerRefRange
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerRefRange')]
     public function testRefRange(int|string $expectedResult, string $rangeString): void
     {
         $spreadsheet = new Spreadsheet();

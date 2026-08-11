@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class XirrTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerXIRR
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerXIRR')]
     public function testXIRR(mixed $expectedResult, mixed $values = null, mixed $dates = null, mixed $guess = null): void
     {
         $this->mightHaveException($expectedResult);

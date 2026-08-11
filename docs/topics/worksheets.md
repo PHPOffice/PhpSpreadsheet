@@ -95,8 +95,12 @@ insert the clone into the workbook.
 
 ```php
 $clonedWorksheet = clone $spreadsheet->getSheetByName('Worksheet 1');
-$clonedWorksheet->setTitle('Copy of Worksheet 1');
+$clonedWorksheet->setTitle('Copy of Worksheet 1'); // must be unique
 $spreadsheet->addSheet($clonedWorksheet);
+```
+Starting with PhpSpreadsheet 3.9.0, this can be done more simply (copied sheet's title will be set to something unique):
+```php
+$copiedWorksheet = $spreadsheet->duplicateWorksheetByTitle('sheetname');
 ```
 
 You can also copy worksheets from one workbook to another, though this
@@ -104,10 +108,25 @@ is more complex as PhpSpreadsheet also has to replicate the styling
 between the two workbooks. The `addExternalSheet()` method is provided for
 this purpose.
 
-    $clonedWorksheet = clone $spreadsheet1->getSheetByName('Worksheet 1');
-    $spreadsheet->addExternalSheet($clonedWorksheet);
+```php
+$clonedWorksheet = clone $spreadsheet1->getSheetByName('Worksheet 1');
+$clonedWorksheet->setTitle('Copy of Worksheet 1'); // must be unique
+$spreadsheet1->addSheet($clonedWorksheet);
+$spreadsheet->addExternalSheet($clonedWorksheet);
+```
+Starting with PhpSpreadsheet 3.8.0, this can be simplified:
+```php
+$clonedWorksheet = clone $spreadsheet1->getSheetByName('Worksheet 1');
+$spreadsheet1->addSheet($clonedWorksheet, null, true);
+$spreadsheet->addExternalSheet($clonedWorksheet);
+```
+Starting with PhpSpreadsheet 3.9.0, this can be simplified even further:
+```php
+$clonedWorksheet = $spreadsheet1->duplicateWorksheetByTitle('sheetname');
+$spreadsheet->addExternalSheet($clonedWorksheet);
+```
 
-In both cases, it is the developer's responsibility to ensure that
+In the cases commented "must be unique", it is the developer's responsibility to ensure that
 worksheet names are not duplicated. PhpSpreadsheet will throw an
 exception if you attempt to copy worksheets that will result in a
 duplicate name.

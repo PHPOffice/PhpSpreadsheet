@@ -16,7 +16,7 @@ class Absolute
      *
      * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return array|float|int|string rounded number
+     * @return array<mixed>|float|int|string rounded number
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

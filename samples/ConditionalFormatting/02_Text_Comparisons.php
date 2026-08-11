@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 require __DIR__ . '/../Header.php';
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
@@ -73,17 +74,17 @@ $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 $greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_GREEN);
+    ->getStartColor()->setARGB(Color::COLOR_GREEN);
 $greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 $redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_RED);
+    ->getStartColor()->setARGB(Color::COLOR_RED);
 $redStyle->getFont()->setColor(new Color(Color::COLOR_GREEN));
 
 // Set conditional formatting rules and styles

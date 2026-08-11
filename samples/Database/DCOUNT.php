@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
-
+/** @var PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $category = 'Database';
 $functionName = 'DCOUNT';
 $description = 'Counts the cells that contain numbers in a set of database records that match criteria';
@@ -40,7 +40,7 @@ $worksheet->setCellValue('B13', '=DCOUNT(A4:E10,3,A1:A3)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-$helper->displayGrid($databaseData);
+$helper->displayGrid($databaseData, true);
 
 // Test the formulae
 $helper->log('Criteria');

@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class SpreadsheetTest extends TestCase
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
@@ -53,9 +52,7 @@ class SpreadsheetTest extends TestCase
         return $array;
     }
 
-    /**
-     * @dataProvider dataProviderForSheetNames
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProviderForSheetNames')]
     public function testGetSheetByName(?int $index, string $sheetName): void
     {
         $spreadsheet = $this->getSpreadsheet();
@@ -293,23 +290,5 @@ class SpreadsheetTest extends TestCase
         // Prove Xf index changed although style is same.
         self::assertEquals($countXfs + $index, $sheet3->getCell('A2')->getXfIndex());
         self::assertEquals($countXfs + $index, $sheet3->getRowDimension(2)->getXfIndex());
-    }
-
-    public function testNotSerializable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be serialized');
-        serialize($this->spreadsheet);
-    }
-
-    public function testNotJsonEncodable(): void
-    {
-        $this->spreadsheet = new Spreadsheet();
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Spreadsheet objects cannot be json encoded');
-        json_encode($this->spreadsheet);
     }
 }

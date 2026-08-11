@@ -24,9 +24,7 @@ class AddressInternationalTest extends AllSetupTeardown
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerInternational
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerInternational')]
     public function testR1C1International(string $locale, string $r, string $c): void
     {
         if ($locale !== '') {
@@ -55,9 +53,7 @@ class AddressInternationalTest extends AllSetupTeardown
         ];
     }
 
-    /**
-     * @dataProvider providerCompatibility
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerCompatibility')]
     public function testCompatibilityInternational(string $compatibilityMode, string $r, string $c): void
     {
         Functions::setCompatibilityMode($compatibilityMode);

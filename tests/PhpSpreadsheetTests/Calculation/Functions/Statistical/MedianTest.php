@@ -6,9 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class MedianTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerMEDIAN
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMEDIAN')]
     public function testMEDIAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('MEDIAN', $expectedResult, ...$args);

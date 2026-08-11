@@ -71,9 +71,7 @@ class FunctionsTest extends TestCase
         self::assertEquals('#Not Yet Implemented', $result);
     }
 
-    /**
-     * @dataProvider providerIfCondition
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerIfCondition')]
     public function testIfCondition(string $expectedResult, string $args): void
     {
         $result = Functions::ifCondition($args);

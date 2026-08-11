@@ -76,9 +76,7 @@ class ColorTest extends TestCase
         self::assertEquals('FF123456', $color->getARGB());
     }
 
-    /**
-     * @dataProvider providerColorGetRed
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorGetRed')]
     public function testGetRed(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
@@ -94,9 +92,7 @@ class ColorTest extends TestCase
         return require 'tests/data/Style/Color/ColorGetRed.php';
     }
 
-    /**
-     * @dataProvider providerColorGetGreen
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorGetGreen')]
     public function testGetGreen(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
@@ -112,9 +108,7 @@ class ColorTest extends TestCase
         return require 'tests/data/Style/Color/ColorGetGreen.php';
     }
 
-    /**
-     * @dataProvider providerColorGetBlue
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorGetBlue')]
     public function testGetBlue(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
@@ -130,9 +124,7 @@ class ColorTest extends TestCase
         return require 'tests/data/Style/Color/ColorGetBlue.php';
     }
 
-    /**
-     * @dataProvider providerColorChangeBrightness
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerColorChangeBrightness')]
     public function testChangeBrightness(string $expectedResult, string $hexColorValue, float $adjustPercentages): void
     {
         $result = Color::changeBrightness($hexColorValue, $adjustPercentages);

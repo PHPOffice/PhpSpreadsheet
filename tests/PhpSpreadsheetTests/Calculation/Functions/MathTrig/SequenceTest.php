@@ -9,11 +9,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions;
 class SequenceTest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerSEQUENCE
-     *
      * @param mixed[] $arguments
      * @param mixed[]|string $expectedResult
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerSEQUENCE')]
     public function testSEQUENCE(array $arguments, array|string $expectedResult): void
     {
         if (count($arguments) === 0) {

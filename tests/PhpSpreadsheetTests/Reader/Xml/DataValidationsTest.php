@@ -13,6 +13,8 @@ class DataValidationsTest extends AbstractFunctional
 {
     private string $filename = 'tests/data/Reader/Xml/datavalidations.xml';
 
+    private string $filename2 = 'tests/data/Reader/Xml/datavalidations.wholerow.xml';
+
     public function testValidation(): void
     {
         $reader = new Xml();
@@ -20,7 +22,7 @@ class DataValidationsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
         $validation = $sheet->getCell('A1')->getDataValidation();
-        self::assertSame('A1:A1048576', $validation->getSqref());
+        self::assertSame('A:A', $validation->getSqref());
         $validation = $sheet->getCell('B3')->getDataValidation();
         self::assertSame('B2:B1048576', $validation->getSqref());
 
@@ -34,6 +36,27 @@ class DataValidationsTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testValidationWholeRow(): void
+    {
+        $reader = new Xml();
+        $spreadsheet = $reader->load($this->filename2);
+        $sheet = $spreadsheet->getActiveSheet();
+        $collection = $sheet->getDataValidationCollection();
+        self::assertSame(['A1', '1:1'], array_keys($collection));
+        $dv = $collection['A1'];
+        self::assertSame('"Item A,Item B,Item D"', $dv->getFormula1());
+        self::assertSame('warn', $dv->getErrorStyle());
+        self::assertFalse($dv->getShowDropDown());
+        self::assertFalse($dv->getShowErrorMessage());
+
+        $dv = $collection['1:1'];
+        self::assertSame('"Item A,Item B,Item C"', $dv->getFormula1());
+        self::assertSame('stop', $dv->getErrorStyle());
+        self::assertTrue($dv->getShowDropDown());
+        self::assertTrue($dv->getShowErrorMessage());
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testValidationXlsx(): void
     {
         $reader = new Xml();
@@ -44,7 +67,7 @@ class DataValidationsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
         $validation = $sheet->getCell('A1')->getDataValidation();
-        self::assertSame('A1:A1048576', $validation->getSqref());
+        self::assertSame('A:A', $validation->getSqref());
         $validation = $sheet->getCell('B3')->getDataValidation();
         self::assertSame('B2:B1048576', $validation->getSqref());
 
@@ -64,10 +87,10 @@ class DataValidationsTest extends AbstractFunctional
 
         $sheet = $spreadsheet->getActiveSheet();
         $assertions = $this->validationAssertions();
-        //$validation = $sheet->getCell('A1')->getDataValidation();
-        //self::assertSame('A1:A1048576', $validation->getSqref());
-        //$validation = $sheet->getCell('B3')->getDataValidation();
-        //self::assertSame('B2:B1048576', $validation->getSqref());
+        $validation = $sheet->getCell('A1')->getDataValidation();
+        self::assertSame('A:A', $validation->getSqref(), 'limited number of rows in Xls');
+        $validation = $sheet->getCell('B3')->getDataValidation();
+        self::assertSame('B2:B1048576', $validation->getSqref());
 
         foreach ($assertions as $title => $assertion) {
             $sheet->getCell($assertion[1])->setValue($assertion[2]);
@@ -76,6 +99,7 @@ class DataValidationsTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
     }
 
+    /** @return array<string, array{bool, string, mixed}> */
     private function validationAssertions(): array
     {
         return [
@@ -92,7 +116,7 @@ class DataValidationsTest extends AbstractFunctional
             'Float between 2 and 5: 7' => [false, 'G1', 7],
             'Integer not between -5 and 5: 3' => [false, 'F2', 3],
             'Integer not between -5 and 5: -1' => [false, 'F2', -1],
-            'Integer not not between -5 and 5: 7' => [true, 'F2', 7],
+            'Integer not between -5 and 5: 7' => [true, 'F2', 7],
             'Any integer except 7: -1' => [true, 'F3', -1],
             'Any integer except 7: 7' => [false, 'F3', 7],
             'Only -3: -1' => [false, 'F4', -1],

@@ -8,9 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class LogInvTest extends AllSetupTeardown
 {
-    /**
-     * @dataProvider providerLOGINV
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLOGINV')]
     public function testLOGINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGINV', $expectedResult, ...$args);
@@ -21,15 +19,13 @@ class LogInvTest extends AllSetupTeardown
         return require 'tests/data/Calculation/Statistical/LOGINV.php';
     }
 
-    /**
-     * @dataProvider providerLogInvArray
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerLogInvArray')]
     public function testLogInvArray(array $expectedResult, string $probabilities, string $mean, string $stdDev): void
     {
         $calculation = Calculation::getInstance();
 
         $formula = "=LOGINV({$probabilities}, {$mean}, {$stdDev})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormula($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

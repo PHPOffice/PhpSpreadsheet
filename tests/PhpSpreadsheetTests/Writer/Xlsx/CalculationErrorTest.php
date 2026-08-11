@@ -11,10 +11,8 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class CalculationErrorTest extends AbstractFunctional
 {
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $spreadsheet = null;
 
-    /** @var ?Spreadsheet */
     private ?Spreadsheet $reloadedSpreadsheet = null;
 
     protected function tearDown(): void
@@ -31,18 +29,18 @@ class CalculationErrorTest extends AbstractFunctional
 
     public function testCalculationExceptionSuppressed(): void
     {
-        $this->spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
-        $calculation = Calculation::getInstance($this->spreadsheet);
+        $calculation = Calculation::getInstance($spreadsheet);
         self::assertFalse($calculation->getSuppressFormulaErrors());
         $calculation->setSuppressFormulaErrors(true);
         $sheet->getCell('A1')->setValue('=SUM(');
         $sheet->getCell('A2')->setValue('=2+3');
-        $this->reloadedSpreadsheet = $this->writeAndReload($this->spreadsheet, 'Xlsx');
+        $spreadsheet2 = $this->reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $rcalculation = Calculation::getInstance($this->reloadedSpreadsheet);
         self::assertFalse($rcalculation->getSuppressFormulaErrors());
         $rcalculation->setSuppressFormulaErrors(true);
-        $rsheet = $this->reloadedSpreadsheet->getActiveSheet();
+        $rsheet = $spreadsheet2->getActiveSheet();
         self::assertSame('=SUM(', $rsheet->getCell('A1')->getValue());
         self::assertFalse($rsheet->getCell('A1')->getCalculatedValue());
         self::assertSame('=2+3', $rsheet->getCell('A2')->getValue());
@@ -55,12 +53,12 @@ class CalculationErrorTest extends AbstractFunctional
     {
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage("Formula Error: Expecting ')'");
-        $this->spreadsheet = new Spreadsheet();
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $calculation = Calculation::getInstance($this->spreadsheet);
+        $spreadsheet = $this->spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $calculation = Calculation::getInstance($spreadsheet);
         self::assertFalse($calculation->getSuppressFormulaErrors());
         $sheet->getCell('A1')->setValue('=SUM(');
         $sheet->getCell('A2')->setValue('=2+3');
-        $this->reloadedSpreadsheet = $this->writeAndReload($this->spreadsheet, 'Xlsx');
+        $this->reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
     }
 }
