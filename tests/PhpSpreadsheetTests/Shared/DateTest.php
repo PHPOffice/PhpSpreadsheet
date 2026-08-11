@@ -124,7 +124,7 @@ class DateTest extends TestCase
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
-        $result = Date::formattedPHPToExcel(...$args); // @phpstan-ignore-line
+        $result = Date::formattedPHPToExcel(...$args); // @phpstan-ignore argument.type (don't know how to satisfy phpstan)
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
@@ -355,7 +355,7 @@ class DateTest extends TestCase
              * Phpstan wants to flag the statement until < Php8.3 is no longer a possibility.
              */
             if (PHP_VERSION_ID >= 80300) {
-                $this->expectException(DateMalformedStringException::class); // @phpstan-ignore-line
+                $this->expectException(DateMalformedStringException::class); // @phpstan-ignore class.notFound (will be flagged until Php < 8.2 is no longer accepted), argument.type (ditto)
             } else {
                 $this->expectException(PhpSpreadsheetException::class);
             }

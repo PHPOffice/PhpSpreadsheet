@@ -24,7 +24,7 @@ class Issue4451Test extends TestCase
         // Call the method using reflection
         $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 1]);
 
-        self::assertSame([[1], [3], [null]], $matrix1); //* @phpstan-ignore-line
+        self::assertSame([[1], [3], [null]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
 
     public static function testReflectExtend2(): void
@@ -40,7 +40,7 @@ class Issue4451Test extends TestCase
         // Call the method using reflection
         $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 2]);
 
-        self::assertSame([[1, 1], [3, 3], [null, null]], $matrix1); //* @phpstan-ignore-line
+        self::assertSame([[1, 1], [3, 3], [null, null]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
 
     public static function testReflectShrink1(): void
@@ -56,8 +56,8 @@ class Issue4451Test extends TestCase
         // Call the method using reflection
         $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
 
-        self::assertSame([[10, 20], [30, 40]], $matrix1); //* @phpstan-ignore-line
-        self::assertSame([[50, 60], [80, 90]], $matrix2); //* @phpstan-ignore-line
+        self::assertSame([[10, 20], [30, 40]], $matrix1); //* @phpstan-ignore staticMethod.alreadyNarrowedType (I think Phpstan is wrong)
+        self::assertSame([[50, 60], [80, 90]], $matrix2); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
 
     public static function testReflectShrink2(): void
@@ -73,8 +73,8 @@ class Issue4451Test extends TestCase
         // Call the method using reflection
         $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
 
-        self::assertSame([[10, 20], [30, 40]], $matrix2); //* @phpstan-ignore-line
-        self::assertSame([[50, 60], [80, 90]], $matrix1); //* @phpstan-ignore-line
+        self::assertSame([[10, 20], [30, 40]], $matrix2); //* @phpstan-ignore staticMethod.alreadyNarrowedType (I think Phpstan is wrong)
+        self::assertSame([[50, 60], [80, 90]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
 
     /**

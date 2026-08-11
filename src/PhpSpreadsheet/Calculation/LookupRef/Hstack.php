@@ -37,7 +37,7 @@ class Hstack
             }
         }
 
-        $transpose = array_map(null, ...$inputData); //* @phpstan-ignore-line
+        $transpose = array_map(null, ...$inputData); //* @phpstan-ignore argument.type (inputData is mixed not array)
         $returnMatrix = [];
         foreach ($transpose as $array) {
             $returnMatrix[] = Functions::flattenArray($array);
