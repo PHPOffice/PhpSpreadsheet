@@ -349,7 +349,7 @@ class Xlsx extends BaseWriter
         // Create drawing dictionary
         $this->drawingHashTable->addFromSource($this->getWriterPartDrawing()->allDrawings($this->spreadSheet));
 
-        /** @var string[] */
+        /** @var array<string, string> */
         $zipContent = [];
         $richDataCount = 0;
 
@@ -473,7 +473,7 @@ class Xlsx extends BaseWriter
         // Add worksheet relationships (drawings, ...)
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
             // Add relationships
-            /** @var string[] $zipContent */
+            /** @var array<string, string> $zipContent */
             $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1, $zipContent);
 
             // Add unparsedLoadedData
@@ -622,10 +622,12 @@ class Xlsx extends BaseWriter
         }
 
         // Add pass-through media files (original media that may not be in the drawing collection)
-        $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type
+        /** @var array<string, string> $zipContent */
+        $this->addPassThroughMediaFiles($zipContent);
 
         // Add preserved pivot table parts (pivot tables, caches and their rels)
-        $this->addPivotTableFiles($zipContent); // @phpstan-ignore argument.type
+        /** @var array<string, string> $zipContent */
+        $this->addPivotTableFiles($zipContent);
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

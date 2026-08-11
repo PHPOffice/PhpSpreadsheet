@@ -67,7 +67,7 @@ class CellValue extends WizardAbstract implements WizardInterface
             $operand = $this->validateOperand($operand, $operandValueType);
         }
 
-        $this->operand[$index] = $operand; //* @phpstan-ignore-line
+        $this->operand[$index] = $operand; //* @phpstan-ignore assign.propertyType (I don't know what is needed)
         $this->operandValueType[$index] = $operandValueType;
     }
 
