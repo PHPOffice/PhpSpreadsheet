@@ -18,11 +18,10 @@ class Issue4451Test extends TestCase
         $matrix2 = [[5], [8], [11]];
 
         // Use reflection to make the protected method accessible
-        $calculation = new Calculation();
         $reflectionMethod = new ReflectionMethod(Calculation::class, 'resizeMatricesExtend');
 
         // Call the method using reflection
-        $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 1]);
+        $reflectionMethod->invokeArgs(null, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 1]);
 
         self::assertSame([[1], [3], [null]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
@@ -34,11 +33,10 @@ class Issue4451Test extends TestCase
         $matrix2 = [[5, 6], [8, 9], [11, 12]];
 
         // Use reflection to make the protected method accessible
-        $calculation = new Calculation();
         $reflectionMethod = new ReflectionMethod(Calculation::class, 'resizeMatricesExtend');
 
         // Call the method using reflection
-        $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 2]);
+        $reflectionMethod->invokeArgs(null, [&$matrix1, &$matrix2, count($matrix1), 1, count($matrix2), 2]);
 
         self::assertSame([[1, 1], [3, 3], [null, null]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
     }
@@ -50,11 +48,10 @@ class Issue4451Test extends TestCase
         $matrix2 = [[50, 60, 70], [80, 90, 100], [110, 120, 130]];
 
         // Use reflection to make the protected method accessible
-        $calculation = new Calculation();
         $reflectionMethod = new ReflectionMethod(Calculation::class, 'resizeMatricesShrink');
 
         // Call the method using reflection
-        $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
+        $reflectionMethod->invokeArgs(null, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
 
         self::assertSame([[10, 20], [30, 40]], $matrix1); //* @phpstan-ignore staticMethod.alreadyNarrowedType (I think Phpstan is wrong)
         self::assertSame([[50, 60], [80, 90]], $matrix2); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
@@ -67,11 +64,10 @@ class Issue4451Test extends TestCase
         $matrix1 = [[50, 60, 70], [80, 90, 100], [110, 120, 130]];
 
         // Use reflection to make the protected method accessible
-        $calculation = new Calculation();
         $reflectionMethod = new ReflectionMethod(Calculation::class, 'resizeMatricesShrink');
 
         // Call the method using reflection
-        $reflectionMethod->invokeArgs($calculation, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
+        $reflectionMethod->invokeArgs(null, [&$matrix1, &$matrix2, count($matrix1), count($matrix1), count($matrix2), count($matrix2)]);
 
         self::assertSame([[10, 20], [30, 40]], $matrix2); //* @phpstan-ignore staticMethod.alreadyNarrowedType (I think Phpstan is wrong)
         self::assertSame([[50, 60], [80, 90]], $matrix1); //* @phpstan-ignore staticMethod.impossibleType (Phpstan is wrong)
