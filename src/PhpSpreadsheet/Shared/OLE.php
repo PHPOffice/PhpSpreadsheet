@@ -221,8 +221,8 @@ class OLE
         // Store current instance in global array, so that it can be accessed
         // in OLE_ChainedBlockStream::stream_open().
         // Object is removed from self::$instances in OLE_Stream::close().
-        $GLOBALS['_OLE_INSTANCES'][] = $this; //* @phpstan-ignore-line
-        $keys = array_keys($GLOBALS['_OLE_INSTANCES']); //* @phpstan-ignore-line
+        $GLOBALS['_OLE_INSTANCES'][] = $this; //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know how to fix this)
+        $keys = array_keys($GLOBALS['_OLE_INSTANCES']); //* @phpstan-ignore argument.type (I don't know how to fix this)
         $instanceId = end($keys);
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;

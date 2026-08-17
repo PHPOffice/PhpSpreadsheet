@@ -1754,7 +1754,7 @@ class Ods extends BaseReader
         $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
         $diagonalIndex = Borders::DIAGONAL_NONE;
         foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
-            if (str_starts_with($direction, 'diagonal')) {
+            if ($direction === 'diagonal-tl-br' || $direction === 'diagonal-bl-tr') {
                 $directionIndex = 'diagonal';
                 $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
             } else {
@@ -1782,7 +1782,7 @@ class Ods extends BaseReader
             $borders['diagonalDirection'] = $diagonalIndex;
         }
 
-        return $borders; // @phpstan-ignore-line
+        return $borders;
     }
 
     protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
