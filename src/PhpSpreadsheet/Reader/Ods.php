@@ -1085,6 +1085,8 @@ class Ods extends BaseReader
 
                         if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
                             $formatting = 'yyyy-mm-dd';
+                        } elseif (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d \d\d:\d\d(:\d\d)?$/', $allCellDataText)) {
+                            $formatting = NumberFormat::FORMAT_DATE_DATETIME_BETTER;
                         } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
                             $formatting = 'd-mmm-yyyy';
                         } elseif ($dataValue != floor($dataValue) || str_contains($allCellDataText, ':')) {
