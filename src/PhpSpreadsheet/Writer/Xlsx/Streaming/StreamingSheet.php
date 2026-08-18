@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use XMLWriter;
 
@@ -71,6 +74,94 @@ class StreamingSheet
     {
         if ($this->finished) {
             throw new WriterException('This sheet has been finished; use the sheet returned by the most recent startSheet().');
+        }
+    }
+
+    public function appendRow(array $cells, ?int $styleId = null): void
+    {
+        $this->assertUsable();
+        if ($styleId !== null) {
+            $this->assertStyleId($styleId);
+        }
+        if (!$this->headerWritten) {
+            $this->writeHeader();
+        }
+        ++$this->rowNumber;
+        $xmlWriter = $this->xmlWriter;
+        $xmlWriter->startElement('row');
+        $xmlWriter->writeAttribute('r', (string) $this->rowNumber);
+        $column = 0;
+        foreach ($cells as $value) {
+            ++$column;
+            if ($value === null) {
+                continue;
+            }
+            $this->writeCell($column, $value, $styleId);
+        }
+        $this->maxColumn = max($this->maxColumn, $column);
+        $xmlWriter->endElement(); // row
+        fwrite($this->stream, $xmlWriter->flush());
+    }
+
+    private function writeCell(int $column, mixed $value, ?int $rowStyleId): void
+    {
+        $cellStyleId = $rowStyleId;
+        $forcedType = null;
+        if ($value instanceof StreamedCell) {
+            if ($value->styleId !== null) {
+                $this->assertStyleId($value->styleId);
+                $cellStyleId = $value->styleId;
+            }
+            $forcedType = $value->dataType;
+            $value = $value->value;
+            if ($value === null) {
+                return;
+            }
+        }
+
+        $xmlWriter = $this->xmlWriter;
+        $xmlWriter->startElement('c');
+        $xmlWriter->writeAttribute('r', Coordinate::stringFromColumnIndex($column) . $this->rowNumber);
+        if ($cellStyleId !== null && $cellStyleId !== 0) {
+            $xmlWriter->writeAttribute('s', (string) $cellStyleId);
+        }
+
+        if ($forcedType === DataType::TYPE_STRING || $forcedType === DataType::TYPE_STRING2) {
+            $stringValue = is_scalar($value) ? (string) $value : $this->rejectValue($value);
+            $this->writeSharedString($stringValue);
+        } elseif (is_bool($value)) {
+            $xmlWriter->writeAttribute('t', 'b');
+            $xmlWriter->writeElement('v', $value ? '1' : '0');
+        } elseif (is_int($value) || is_float($value)) {
+            $xmlWriter->writeElement('v', (string) $value);
+        } elseif (is_string($value)) {
+            if (strlen($value) > 1 && $value[0] === '=') {
+                throw new WriterException('Formulas are not supported yet.');
+            }
+            $this->writeSharedString($value);
+        } else {
+            $this->rejectValue($value);
+        }
+        $xmlWriter->endElement(); // c
+    }
+
+    private function writeSharedString(string $value): void
+    {
+        $xmlWriter = $this->xmlWriter;
+        $xmlWriter->writeAttribute('t', 's');
+        $index = $this->writer->getStringIndex($value);
+        $xmlWriter->writeElement('v', (string) $index);
+    }
+
+    private function rejectValue(mixed $value): never
+    {
+        throw new WriterException('Unsupported cell value of type ' . get_debug_type($value) . '.');
+    }
+
+    private function assertStyleId(int $styleId): void
+    {
+        if (!$this->writer->isStyleIdRegistered($styleId)) {
+            throw new WriterException("Style id $styleId has not been registered with registerStyle().");
         }
     }
 }
