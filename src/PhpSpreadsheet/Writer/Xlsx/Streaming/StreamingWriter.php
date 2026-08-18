@@ -11,11 +11,14 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PhpOffice\PhpSpreadsheet\Writer\ZipStream0;
+use Throwable;
 
 class StreamingWriter
 {
     /** @var resource */
     private $fileHandle;
+
+    private string $filename;
 
     private Spreadsheet $shell;
 
@@ -37,16 +40,25 @@ class StreamingWriter
     public function __construct(string $filename)
     {
         try {
-            $fileHandle = fopen($filename, 'wb+');
+            $fileHandle = fopen($filename, 'wb');
         } catch (Exception) {
             throw new WriterException("Could not open file $filename for writing.");
         }
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $filename for writing.");
         }
+        $this->filename = $filename;
         $this->fileHandle = $fileHandle;
         $this->shell = new Spreadsheet();
         $this->partWriter = new XlsxWriter($this->shell);
+    }
+
+    public function __destruct()
+    {
+        if (!$this->closed) {
+            $this->closeSheetStreams();
+            $this->closeFileHandleAndUnlink();
+        }
     }
 
     public function startSheet(string $name): StreamingSheet
@@ -78,12 +90,15 @@ class StreamingWriter
     {
         $this->assertNotClosed();
         if ($this->sheetCount === 0) {
+            $this->closed = true;
+            $this->closeFileHandleAndUnlink();
+
             throw new WriterException('Cannot close a streaming writer with no sheets; call startSheet() first.');
         }
-        $this->finishActiveSheet();
         $this->closed = true;
 
         try {
+            $this->finishActiveSheet();
             $zip = ZipStream0::newZipStream($this->fileHandle);
             $partWriter = $this->partWriter;
             $partWriter->createStyleDictionaries();
@@ -95,19 +110,21 @@ class StreamingWriter
             $zip->addFile('xl/theme/theme1.xml', $partWriter->getWriterPartTheme()->writeTheme($this->shell));
             $zip->addFile('xl/sharedStrings.xml', $partWriter->getWriterPartStringTable()->writeStringTable([]));
             $zip->addFile('xl/styles.xml', $partWriter->getWriterPartStyle()->writeStyles($this->shell));
-            $zip->addFile('xl/workbook.xml', $partWriter->getWriterPartWorkbook()->writeWorkbook($this->shell, false, $this->hasFormulas ? true : null));
+            $zip->addFile('xl/workbook.xml', $partWriter->getWriterPartWorkbook()->writeWorkbook($this->shell, !$this->hasFormulas, $this->hasFormulas));
             foreach ($this->finishedSheets as $index => $finishedSheet) {
                 rewind($finishedSheet['stream']);
                 $zip->addFileFromStream('xl/worksheets/sheet' . ($index + 1) . '.xml', $finishedSheet['stream']);
             }
             $zip->finish();
-        } finally {
-            foreach ($this->finishedSheets as $finishedSheet) {
-                fclose($finishedSheet['stream']);
-            }
-            $this->finishedSheets = [];
-            fclose($this->fileHandle);
+        } catch (Throwable $e) {
+            $this->closeSheetStreams();
+            $this->closeFileHandleAndUnlink();
+
+            throw $e;
         }
+
+        $this->closeSheetStreams();
+        fclose($this->fileHandle);
     }
 
     public function isStyleIdRegistered(int $styleId): bool
@@ -143,6 +160,26 @@ class StreamingWriter
     {
         if ($this->closed) {
             throw new WriterException('This streaming writer has already been closed.');
+        }
+    }
+
+    private function closeSheetStreams(): void
+    {
+        foreach ($this->finishedSheets as $finishedSheet) {
+            if (is_resource($finishedSheet['stream'])) {
+                fclose($finishedSheet['stream']);
+            }
+        }
+        $this->finishedSheets = [];
+    }
+
+    private function closeFileHandleAndUnlink(): void
+    {
+        if (is_resource($this->fileHandle)) {
+            fclose($this->fileHandle);
+        }
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
         }
     }
 }
