@@ -55,9 +55,13 @@ $moneyStyle = $writer->registerStyle(['numberFormat' => ['formatCode' => '#,##0.
 
 $sheet = $writer->startSheet('Orders');
 
-// Layout must be set before the first appendRow() call.
+// Column widths and the freeze pane must be set before the first
+// appendRow() call.
 $sheet->setColumnWidths([1 => 30.0, 2 => 15.0, 3 => 12.0]);
 $sheet->freezePane('A2');
+
+// The autofilter can be requested at any time before the sheet is
+// finished; the actual range is only known once the sheet finishes.
 $sheet->setAutoFilterToWrittenRange();
 
 // A style id applies to every cell in the row unless overridden per cell.
@@ -70,6 +74,8 @@ $sheet->appendRow([
 ]);
 
 // A leading "=" writes a formula; it is stored without a cached value.
+// A string that is only "=" (length 1) is not long enough to be treated
+// as a formula and is written as a plain string instead.
 $sheet->appendRow(['Total', null, '=SUM(C2:C2)']);
 
 // Start a second sheet; the first sheet is finished and can no longer
@@ -83,10 +89,19 @@ $writer->close();
 Because the workbook contains a formula, `close()` marks the workbook for
 full calculation on load, so Excel (or another spreadsheet application)
 computes `=SUM(C2:C2)` when it opens the file. The written cell itself has
-no cached value.
+no cached value. If no sheet in the workbook contains a formula, `close()`
+does not force a recalculation on load.
 
 Any `DateTimeInterface` value that has no explicit style gets a default
 date number format automatically.
+
+`freezePane('A1')` is a no-op; freezing at the top-left cell freezes
+nothing.
+
+Each finished sheet keeps its buffered XML in memory (a `php://temp`
+stream) until `close()` runs, up to about 2MB per sheet before it spills
+to a real temporary file on disk. Memory use at `close()` therefore scales
+with the number of sheets, not with the number of rows in any one sheet.
 
 ## API
 
@@ -122,7 +137,10 @@ to give that cell its own style, overriding the row style, or to force its
 data type. `$styleId` and `$dataType` both default to `null`. The only
 supported `$dataType` values are `DataType::TYPE_STRING` and
 `DataType::TYPE_STRING2`, which force the value to be written as a string
-even if it looks like a formula (starts with `=`) or is a date.
+even if it looks like a formula (starts with `=`). Any other `$dataType`
+value throws a `Writer\Exception`. Forcing a non-scalar value, such as a
+`DateTimeInterface` date, to a string also throws; only scalar values can
+be forced to string.
 
 ### Supported cell values
 
