@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx\Streaming;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingSheet;
@@ -11,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use stdClass;
+use ZipArchive;
 
 class StreamingErrorsTest extends TestCase
 {
@@ -90,8 +92,65 @@ class StreamingErrorsTest extends TestCase
     public function testInvalidSheetNameThrows(): void
     {
         $writer = new StreamingWriter($this->tempFile());
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage("Invalid sheet name 'Bad[Name]'");
         $writer->startSheet('Bad[Name]');
+    }
+
+    public function testEmptySheetNameThrows(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('cannot be empty');
+        $writer->startSheet('');
+    }
+
+    public function testWriterStaysConsistentAfterInvalidSheetName(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $writer->startSheet('Good')->appendRow(['x']);
+
+        try {
+            $writer->startSheet('Bad[Name]');
+            self::fail('Expected a WriterException.');
+        } catch (WriterException) {
+            // expected; the failed sheet must leave no trace in the workbook
+        }
+
+        $writer->startSheet('Recovered')->appendRow(['y']);
+        $writer->close();
+
+        $spreadsheet = (new XlsxReader())->load($file);
+        self::assertSame(['Good', 'Recovered'], $spreadsheet->getSheetNames());
+        $spreadsheet->disconnectWorksheets();
+
+        $zip = new ZipArchive();
+        $zip->open($file);
+        self::assertIsString($zip->getFromName('xl/worksheets/sheet1.xml'));
+        self::assertIsString($zip->getFromName('xl/worksheets/sheet2.xml'));
+        self::assertFalse($zip->getFromName('xl/worksheets/sheet3.xml'));
+        $zip->close();
+    }
+
+    public function testInvalidFirstSheetNameLeavesWriterUsable(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+
+        try {
+            $writer->startSheet('Bad[Name]');
+            self::fail('Expected a WriterException.');
+        } catch (WriterException) {
+            // expected; the initial shell sheet is reused on retry
+        }
+
+        $writer->startSheet('Good')->appendRow(['x']);
+        $writer->close();
+
+        $spreadsheet = (new XlsxReader())->load($file);
+        self::assertSame(['Good'], $spreadsheet->getSheetNames());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testRegisterStyleAfterCloseThrows(): void

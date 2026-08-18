@@ -64,11 +64,24 @@ class StreamingWriter
     public function startSheet(string $name): StreamingSheet
     {
         $this->assertNotClosed();
+        if ($name === '') {
+            throw new WriterException('Sheet name cannot be empty.');
+        }
         $this->finishActiveSheet();
         $shellSheet = ($this->sheetCount === 0)
             ? $this->shell->getSheet(0)
             : $this->shell->createSheet();
-        $shellSheet->setTitle($name);
+
+        try {
+            $shellSheet->setTitle($name);
+        } catch (Throwable $e) {
+            if ($this->sheetCount > 0) {
+                // roll back createSheet() so the shell workbook only lists sheets that have a stream
+                $this->shell->removeSheetByIndex($this->shell->getIndex($shellSheet));
+            }
+
+            throw new WriterException("Invalid sheet name '$name': " . $e->getMessage(), 0, $e);
+        }
         ++$this->sheetCount;
         $this->activeSheet = new StreamingSheet($this);
 
