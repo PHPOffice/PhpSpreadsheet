@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -37,7 +38,7 @@ class StreamingWriter
     {
         try {
             $fileHandle = fopen($filename, 'wb+');
-        } catch (\Exception $e) {
+        } catch (Exception) {
             throw new WriterException("Could not open file $filename for writing.");
         }
         if ($fileHandle === false) {
