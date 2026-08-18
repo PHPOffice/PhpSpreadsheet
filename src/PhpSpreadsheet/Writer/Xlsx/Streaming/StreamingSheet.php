@@ -206,10 +206,10 @@ class StreamingSheet
             }
             $xmlWriter->writeElement('v', (string) $value);
         } elseif (is_string($value)) {
-            if (!StringHelper::isUTF8($value)) {
-                throw new WriterException('Cell value is not valid UTF-8; writing it would corrupt the sheet XML.');
-            }
             if (strlen($value) > 1 && $value[0] === '=') {
+                if (!StringHelper::isUTF8($value)) {
+                    throw new WriterException('Cell value is not valid UTF-8; writing it would corrupt the sheet XML.');
+                }
                 $this->writer->noteFormulaWritten();
                 $xmlWriter->startElement('f');
                 $xmlWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($value));

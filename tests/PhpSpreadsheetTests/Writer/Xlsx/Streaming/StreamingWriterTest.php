@@ -362,4 +362,39 @@ class StreamingWriterTest extends TestCase
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
         self::assertSame($value, (string) $worksheet->getCell('A1')->getValue());
     }
+
+    public function testInvalidUtf8ForcedStringThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('not valid UTF-8');
+        $sheet->appendRow([new StreamedCell("bad \xC3\x28 utf8", null, DataType::TYPE_STRING)]);
+    }
+
+    public function testStreamedCellWithNullValueLeavesCellEmpty(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $writer->startSheet('Data')->appendRow([new StreamedCell(null), 'b']);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertNull($worksheet->getCell('A1')->getValue());
+        self::assertSame('b', (string) $worksheet->getCell('B1')->getValue());
+    }
+
+    public function testFreezePaneA1IsANoOp(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->freezePane('A1');
+        $sheet->appendRow(['x']);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertNull($worksheet->getFreezePane());
+    }
 }
