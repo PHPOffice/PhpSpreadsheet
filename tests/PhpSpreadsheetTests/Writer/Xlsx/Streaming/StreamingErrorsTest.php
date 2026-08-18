@@ -239,6 +239,31 @@ class StreamingErrorsTest extends TestCase
         self::assertFileDoesNotExist($file);
     }
 
+    public function testInvalidFreezePaneCellThrowsImmediately(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $sheet = $writer->startSheet('Data');
+
+        try {
+            $sheet->freezePane('banana');
+            self::fail('Expected a WriterException.');
+        } catch (WriterException $e) {
+            self::assertStringContainsString("Invalid freeze pane cell 'banana'", $e->getMessage());
+        }
+
+        // the eager check must not poison the sheet
+        $sheet->appendRow(['x']);
+    }
+
+    public function testZeroRowFreezePaneCellThrows(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('row numbers are 1-based');
+        $sheet->freezePane('B0');
+    }
+
     public function testAppendRowWrapsUnderlyingWriteFailure(): void
     {
         $writer = new StreamingWriter($this->tempFile());

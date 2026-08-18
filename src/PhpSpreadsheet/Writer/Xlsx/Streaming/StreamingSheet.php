@@ -290,10 +290,20 @@ class StreamingSheet
     public function freezePane(string $cell): void
     {
         $this->assertBeforeFirstRow('freezePane');
-        if ($cell === 'A1') {
+
+        try {
+            [$column, $row] = Coordinate::indexesFromString($cell);
+        } catch (Throwable $e) {
+            throw new WriterException("Invalid freeze pane cell '$cell': " . $e->getMessage(), 0, $e);
+        }
+        if ($row < 1) {
+            throw new WriterException("Invalid freeze pane cell '$cell': row numbers are 1-based.");
+        }
+        $normalized = Coordinate::stringFromColumnIndex($column) . $row;
+        if ($normalized === 'A1') {
             return;
         }
-        $this->freezeCell = $cell;
+        $this->freezeCell = $normalized;
     }
 
     public function setAutoFilterToWrittenRange(): void

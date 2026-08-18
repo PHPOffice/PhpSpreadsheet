@@ -402,6 +402,19 @@ class StreamingWriterTest extends TestCase
         self::assertSame('b', self::stringValue($worksheet->getCell('B1')->getValue()));
     }
 
+    public function testFreezePaneNormalizesAbsoluteReference(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->freezePane('$B$2');
+        $sheet->appendRow(['a', 'b']);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertSame('B2', $worksheet->getFreezePane());
+    }
+
     public function testFreezePaneA1IsANoOp(): void
     {
         $file = $this->tempFile();
