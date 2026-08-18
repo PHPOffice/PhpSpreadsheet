@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx\Streaming;
 
+use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -12,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamedCell;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
+use stdClass;
+use Stringable;
 
 class StreamingWriterTest extends TestCase
 {
@@ -34,6 +38,16 @@ class StreamingWriterTest extends TestCase
         $this->tempFiles[] = $file;
 
         return $file;
+    }
+
+    /** Cell values read back as RichText or scalar; normalize to string for comparison. */
+    private static function stringValue(mixed $value): string
+    {
+        if (is_scalar($value) || $value instanceof Stringable) {
+            return (string) $value;
+        }
+
+        throw new RuntimeException('Expected a stringable cell value, got ' . get_debug_type($value) . '.');
     }
 
     public function testEmptySheetsRoundTrip(): void
@@ -61,14 +75,14 @@ class StreamingWriterTest extends TestCase
 
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
         // Note: inline strings are read as RichText by PhpSpreadsheet's reader; cast to string for comparison
-        self::assertSame('Name', (string) $worksheet->getCell('A1')->getValue());
-        self::assertSame('Ärger & <Freude>', (string) $worksheet->getCell('A2')->getValue());
+        self::assertSame('Name', self::stringValue($worksheet->getCell('A1')->getValue()));
+        self::assertSame('Ärger & <Freude>', self::stringValue($worksheet->getCell('A2')->getValue()));
         self::assertSame(42, $worksheet->getCell('B2')->getValue());
         self::assertSame(1.25, $worksheet->getCell('C2')->getValue());
         self::assertTrue($worksheet->getCell('D2')->getValue());
         self::assertFalse($worksheet->getCell('D3')->getValue());
         self::assertNull($worksheet->getCell('A3')->getValue());
-        self::assertSame('  padded  ', (string) $worksheet->getCell('C3')->getValue());
+        self::assertSame('  padded  ', self::stringValue($worksheet->getCell('C3')->getValue()));
     }
 
     public function testUnsupportedValueThrows(): void
@@ -77,7 +91,7 @@ class StreamingWriterTest extends TestCase
         $writer = new StreamingWriter($file);
         $sheet = $writer->startSheet('Data');
         $this->expectException(WriterException::class);
-        $sheet->appendRow([new \stdClass()]);
+        $sheet->appendRow([new stdClass()]);
     }
 
     public function testFormulaRoundTrip(): void
@@ -93,7 +107,7 @@ class StreamingWriterTest extends TestCase
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
         self::assertSame('=SUM(A1:B1)', $worksheet->getCell('A2')->getValue());
         self::assertSame(5, $worksheet->getCell('A2')->getCalculatedValue());
-        self::assertSame('=not a formula', (string) $worksheet->getCell('A3')->getValue());
+        self::assertSame('=not a formula', self::stringValue($worksheet->getCell('A3')->getValue()));
     }
 
     public function testDateTimeRoundTrip(): void
@@ -101,7 +115,7 @@ class StreamingWriterTest extends TestCase
         $file = $this->tempFile();
         $writer = new StreamingWriter($file);
         $sheet = $writer->startSheet('Data');
-        $sheet->appendRow([new \DateTimeImmutable('2026-01-02 03:04:05')]);
+        $sheet->appendRow([new DateTimeImmutable('2026-01-02 03:04:05')]);
         $writer->close();
 
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');

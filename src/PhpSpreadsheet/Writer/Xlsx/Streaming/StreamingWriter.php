@@ -63,6 +63,7 @@ class StreamingWriter
         return $this->activeSheet;
     }
 
+    /** @param mixed[] $styleArray */
     public function registerStyle(array $styleArray): int
     {
         $this->assertNotClosed();

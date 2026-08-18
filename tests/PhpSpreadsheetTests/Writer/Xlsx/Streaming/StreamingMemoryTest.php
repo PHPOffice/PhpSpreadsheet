@@ -31,7 +31,7 @@ class StreamingMemoryTest extends TestCase
         try {
             $writer = new StreamingWriter($file);
             $sheet = $writer->startSheet('Big');
-            memory_reset_peak_usage();
+            memory_reset_peak_usage(); // @phpstan-ignore-line function.notFound (requires PHP 8.2, guarded by caller)
             $before = memory_get_peak_usage(true);
             for ($row = 1; $row <= $rows; ++$row) {
                 $sheet->appendRow(['row ' . $row, $row, $row * 1.5, $row % 2 === 0]);

@@ -111,6 +111,7 @@ class StreamingSheet
         }
     }
 
+    /** @param mixed[] $cells */
     public function appendRow(array $cells, ?int $styleId = null): void
     {
         $this->assertUsable();
@@ -134,7 +135,13 @@ class StreamingSheet
         }
         $this->maxColumn = max($this->maxColumn, $column);
         $xmlWriter->endElement(); // row
-        fwrite($this->stream, $xmlWriter->flush());
+        $flushed = $xmlWriter->flush();
+        if (!is_string($flushed)) {
+            // @codeCoverageIgnoreStart
+            throw new WriterException('Unexpected non-string result from XMLWriter::flush().');
+            // @codeCoverageIgnoreEnd
+        }
+        fwrite($this->stream, $flushed);
     }
 
     private function writeCell(int $column, mixed $value, ?int $rowStyleId): void
