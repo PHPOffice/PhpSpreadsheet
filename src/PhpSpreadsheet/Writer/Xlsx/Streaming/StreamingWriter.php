@@ -33,11 +33,6 @@ class StreamingWriter
 
     private ?int $defaultDateStyleId = null;
 
-    /** @var array<string, int> */
-    private array $stringDictionary = [];
-
-    private int $nextStringIndex = 0;
-
     public function __construct(string $filename)
     {
         $fileHandle = fopen($filename, 'wb+');
@@ -92,12 +87,7 @@ class StreamingWriter
             $zip->addFile('docProps/app.xml', $partWriter->getWriterPartDocProps()->writeDocPropsApp($this->shell));
             $zip->addFile('docProps/core.xml', $partWriter->getWriterPartDocProps()->writeDocPropsCore($this->shell));
             $zip->addFile('xl/theme/theme1.xml', $partWriter->getWriterPartTheme()->writeTheme($this->shell));
-            // Build shared strings array ordered by index
-            $sharedStrings = array_fill(0, $this->nextStringIndex, '');
-            foreach ($this->stringDictionary as $string => $index) {
-                $sharedStrings[$index] = $string;
-            }
-            $zip->addFile('xl/sharedStrings.xml', $partWriter->getWriterPartStringTable()->writeStringTable($sharedStrings));
+            $zip->addFile('xl/sharedStrings.xml', $partWriter->getWriterPartStringTable()->writeStringTable([]));
             $zip->addFile('xl/styles.xml', $partWriter->getWriterPartStyle()->writeStyles($this->shell));
             $zip->addFile('xl/workbook.xml', $partWriter->getWriterPartWorkbook()->writeWorkbook($this->shell, false, $this->hasFormulas ? true : null));
             foreach ($this->finishedSheets as $index => $finishedSheet) {
@@ -133,15 +123,6 @@ class StreamingWriter
     public function noteFormulaWritten(): void
     {
         $this->hasFormulas = true;
-    }
-
-    public function getStringIndex(string $value): int
-    {
-        if (!isset($this->stringDictionary[$value])) {
-            $this->stringDictionary[$value] = $this->nextStringIndex++;
-        }
-
-        return $this->stringDictionary[$value];
     }
 
     private function finishActiveSheet(): void

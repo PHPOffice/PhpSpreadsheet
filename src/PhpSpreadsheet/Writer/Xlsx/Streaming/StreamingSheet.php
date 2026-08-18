@@ -127,8 +127,7 @@ class StreamingSheet
         }
 
         if ($forcedType === DataType::TYPE_STRING || $forcedType === DataType::TYPE_STRING2) {
-            $stringValue = is_scalar($value) ? (string) $value : $this->rejectValue($value);
-            $this->writeSharedString($stringValue);
+            $this->writeInlineString(is_scalar($value) ? (string) $value : $this->rejectValue($value));
         } elseif (is_bool($value)) {
             $xmlWriter->writeAttribute('t', 'b');
             $xmlWriter->writeElement('v', $value ? '1' : '0');
@@ -138,19 +137,25 @@ class StreamingSheet
             if (strlen($value) > 1 && $value[0] === '=') {
                 throw new WriterException('Formulas are not supported yet.');
             }
-            $this->writeSharedString($value);
+            $this->writeInlineString($value);
         } else {
             $this->rejectValue($value);
         }
         $xmlWriter->endElement(); // c
     }
 
-    private function writeSharedString(string $value): void
+    private function writeInlineString(string $value): void
     {
         $xmlWriter = $this->xmlWriter;
-        $xmlWriter->writeAttribute('t', 's');
-        $index = $this->writer->getStringIndex($value);
-        $xmlWriter->writeElement('v', (string) $index);
+        $xmlWriter->writeAttribute('t', 'inlineStr');
+        $xmlWriter->startElement('is');
+        $xmlWriter->startElement('t');
+        if (trim($value) !== $value) {
+            $xmlWriter->writeAttribute('xml:space', 'preserve');
+        }
+        $xmlWriter->text(StringHelper::controlCharacterPHP2OOXML($value));
+        $xmlWriter->endElement(); // t
+        $xmlWriter->endElement(); // is
     }
 
     private function rejectValue(mixed $value): never
