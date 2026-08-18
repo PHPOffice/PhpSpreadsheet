@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Added
 
-- Streaming Xlsx writer for large, append-only exports with memory use independent of row count. (PR pending)
+- Streaming Xlsx writer for large, append-only exports with memory use independent of row count. [PR #4966](https://github.com/PHPOffice/PhpSpreadsheet/pull/4966)
 
 ### Removed
 
