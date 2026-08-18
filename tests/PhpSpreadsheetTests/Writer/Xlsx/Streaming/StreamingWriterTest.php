@@ -360,7 +360,7 @@ class StreamingWriterTest extends TestCase
         $writer->close();
 
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
-        self::assertSame($value, (string) $worksheet->getCell('A1')->getValue());
+        self::assertSame($value, self::stringValue($worksheet->getCell('A1')->getValue()));
     }
 
     public function testInvalidUtf8ForcedStringThrows(): void
@@ -382,7 +382,7 @@ class StreamingWriterTest extends TestCase
 
         $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
         self::assertNull($worksheet->getCell('A1')->getValue());
-        self::assertSame('b', (string) $worksheet->getCell('B1')->getValue());
+        self::assertSame('b', self::stringValue($worksheet->getCell('B1')->getValue()));
     }
 
     public function testFreezePaneA1IsANoOp(): void
