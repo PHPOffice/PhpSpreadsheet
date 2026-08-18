@@ -230,10 +230,10 @@ class StreamingSheet
 
     public function freezePane(string $cell): void
     {
+        $this->assertBeforeFirstRow('freezePane');
         if ($cell === 'A1') {
             return;
         }
-        $this->assertBeforeFirstRow('freezePane');
         $this->freezeCell = $cell;
     }
 

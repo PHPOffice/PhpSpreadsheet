@@ -169,4 +169,14 @@ class StreamingWriterTest extends TestCase
         $this->expectException(WriterException::class);
         $sheet->setColumnWidths([1 => 10.0]);
     }
+
+    public function testFreezePaneAfterFirstRowThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow(['x']);
+        $this->expectException(WriterException::class);
+        $sheet->freezePane('A1');
+    }
 }
