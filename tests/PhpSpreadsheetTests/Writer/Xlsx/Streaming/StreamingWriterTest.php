@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use Stringable;
+use ZipArchive;
 
 class StreamingWriterTest extends TestCase
 {
@@ -174,6 +175,82 @@ class StreamingWriterTest extends TestCase
         self::assertSame('A1:C2', $worksheet->getAutoFilter()->getRange());
     }
 
+    public function testCalcPrReflectsFormulaPresence(): void
+    {
+        $noFormulaFile = $this->tempFile();
+        $writer = new StreamingWriter($noFormulaFile);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow([1, 2]);
+        $writer->close();
+
+        $formulaFile = $this->tempFile();
+        $writer = new StreamingWriter($formulaFile);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow([1, 2]);
+        $sheet->appendRow(['=SUM(A1:B1)']);
+        $writer->close();
+
+        $noFormulaCalcPr = $this->readCalcPr($noFormulaFile);
+        $formulaCalcPr = $this->readCalcPr($formulaFile);
+
+        self::assertSame('0', $noFormulaCalcPr['fullCalcOnLoad']);
+        self::assertSame('1', $noFormulaCalcPr['calcCompleted']);
+        self::assertSame('0', $noFormulaCalcPr['forceFullCalc']);
+
+        self::assertSame('1', $formulaCalcPr['fullCalcOnLoad']);
+        self::assertSame('0', $formulaCalcPr['calcCompleted']);
+        self::assertSame('1', $formulaCalcPr['forceFullCalc']);
+    }
+
+    /** @return array<string, string> */
+    private function readCalcPr(string $file): array
+    {
+        $zip = new ZipArchive();
+        $zip->open($file);
+        $workbookXml = $zip->getFromName('xl/workbook.xml');
+        $zip->close();
+        self::assertIsString($workbookXml);
+
+        self::assertMatchesRegularExpression('/<calcPr\b[^>]*\/>/', $workbookXml);
+        preg_match('/<calcPr\b([^>]*)\/>/', $workbookXml, $matches);
+        $attributesXml = $matches[1] ?? '';
+        preg_match_all('/(\w+)="([^"]*)"/', $attributesXml, $attributeMatches, \PREG_SET_ORDER);
+        $attributes = [];
+        foreach ($attributeMatches as $attributeMatch) {
+            $attributes[$attributeMatch[1]] = $attributeMatch[2];
+        }
+
+        return $attributes;
+    }
+
+    public function testMultipleSheetsWithDataRoundTrip(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $first = $writer->startSheet('First');
+        $first->appendRow(['first-a1', 'first-b1']);
+        $first->appendRow(['first-a2', 'first-b2']);
+        $second = $writer->startSheet('Second');
+        $second->appendRow(['second-a1', 'second-b1']);
+        $writer->close();
+
+        $spreadsheet = (new XlsxReader())->load($file);
+        self::assertSame(['First', 'Second'], $spreadsheet->getSheetNames());
+
+        $firstSheet = $spreadsheet->getSheetByNameOrThrow('First');
+        self::assertSame('first-a1', self::stringValue($firstSheet->getCell('A1')->getValue()));
+        self::assertSame('first-b1', self::stringValue($firstSheet->getCell('B1')->getValue()));
+        self::assertSame('first-a2', self::stringValue($firstSheet->getCell('A2')->getValue()));
+        self::assertSame('first-b2', self::stringValue($firstSheet->getCell('B2')->getValue()));
+
+        $secondSheet = $spreadsheet->getSheetByNameOrThrow('Second');
+        self::assertSame('second-a1', self::stringValue($secondSheet->getCell('A1')->getValue()));
+        self::assertSame('second-b1', self::stringValue($secondSheet->getCell('B1')->getValue()));
+        self::assertNull($secondSheet->getCell('A2')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testColumnWidthsAfterFirstRowThrows(): void
     {
         $file = $this->tempFile();
@@ -192,5 +269,35 @@ class StreamingWriterTest extends TestCase
         $sheet->appendRow(['x']);
         $this->expectException(WriterException::class);
         $sheet->freezePane('A1');
+    }
+
+    public function testColumnWidthsRejectsInvalidColumnNumber(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('is invalid; column numbers are 1-based');
+        $sheet->setColumnWidths([0 => 10.0]);
+    }
+
+    public function testColumnWidthsRejectsNonPositiveWidth(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('is invalid; width must be positive');
+        $sheet->setColumnWidths([1 => 0.0]);
+    }
+
+    public function testUnsupportedStreamedCellDataTypeThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('Unsupported StreamedCell data type');
+        $sheet->appendRow([new StreamedCell(42, null, DataType::TYPE_NUMERIC)]);
     }
 }

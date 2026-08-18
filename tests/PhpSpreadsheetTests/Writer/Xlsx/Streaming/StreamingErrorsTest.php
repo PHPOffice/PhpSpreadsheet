@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class StreamingErrorsTest extends TestCase
 {
@@ -98,5 +99,63 @@ class StreamingErrorsTest extends TestCase
         $writer->close();
         $this->expectException(WriterException::class);
         $writer->registerStyle(['font' => ['bold' => true]]);
+    }
+
+    public function testAppendRowAfterFailureThrowsBrokenState(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $sheet = $writer->startSheet('Data');
+
+        try {
+            $sheet->appendRow([new stdClass()]);
+            self::fail('Expected a WriterException from the failed appendRow().');
+        } catch (WriterException) {
+            // expected; the sheet is now broken
+        }
+
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('undefined state');
+        $sheet->appendRow(['x']);
+    }
+
+    public function testCloseAfterFailedAppendRowThrows(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $sheet = $writer->startSheet('Data');
+
+        try {
+            $sheet->appendRow([new stdClass()]);
+            self::fail('Expected a WriterException from the failed appendRow().');
+        } catch (WriterException) {
+            // expected; the sheet is now broken
+        }
+
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('undefined state');
+        $writer->close();
+    }
+
+    public function testDestructWithoutCloseRemovesFile(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        self::assertFileExists($file);
+        unset($writer);
+        self::assertFileDoesNotExist($file);
+    }
+
+    public function testCloseWithoutSheetsRemovesFile(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        self::assertFileExists($file);
+
+        try {
+            $writer->close();
+            self::fail('Expected a WriterException.');
+        } catch (WriterException) {
+            // expected
+        }
+        self::assertFileDoesNotExist($file);
     }
 }
