@@ -140,4 +140,33 @@ class StreamingWriterTest extends TestCase
         $this->expectExceptionMessage('has not been registered');
         $sheet->appendRow(['x'], 99);
     }
+
+    public function testSheetFeaturesRoundTrip(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->setColumnWidths([1 => 25.5, 3 => 8.0]);
+        $sheet->freezePane('A2');
+        $sheet->setAutoFilterToWrittenRange();
+        $sheet->appendRow(['H1', 'H2', 'H3']);
+        $sheet->appendRow(['a', 'b', 'c']);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertSame(25.5, $worksheet->getColumnDimension('A')->getWidth());
+        self::assertSame(8.0, $worksheet->getColumnDimension('C')->getWidth());
+        self::assertSame('A2', $worksheet->getFreezePane());
+        self::assertSame('A1:C2', $worksheet->getAutoFilter()->getRange());
+    }
+
+    public function testColumnWidthsAfterFirstRowThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow(['x']);
+        $this->expectException(WriterException::class);
+        $sheet->setColumnWidths([1 => 10.0]);
+    }
 }

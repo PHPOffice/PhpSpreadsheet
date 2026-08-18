@@ -31,6 +31,13 @@ class StreamingSheet
 
     private int $maxColumn = 0;
 
+    /** @var array<int, float> */
+    private array $columnWidths = [];
+
+    private ?string $freezeCell = null;
+
+    private bool $autoFilter = false;
+
     public function __construct(private StreamingWriter $writer)
     {
         $stream = fopen(self::TEMP_STREAM, 'wb+');
@@ -59,6 +66,10 @@ class StreamingSheet
         }
         $this->finished = true;
         fwrite($this->stream, '</sheetData>');
+        if ($this->autoFilter && $this->rowNumber > 0 && $this->maxColumn > 0) {
+            $range = 'A1:' . Coordinate::stringFromColumnIndex($this->maxColumn) . $this->rowNumber;
+            fwrite($this->stream, '<autoFilter ref="' . $range . '"/>');
+        }
         fwrite($this->stream, '</worksheet>');
 
         return $this->stream;
@@ -69,7 +80,27 @@ class StreamingSheet
         $this->headerWritten = true;
         fwrite($this->stream, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n");
         fwrite($this->stream, '<worksheet xmlns="' . Namespaces::MAIN . '" xmlns:r="' . Namespaces::SCHEMA_OFFICE_DOCUMENT . '">');
-        fwrite($this->stream, '<sheetViews><sheetView workbookViewId="0"/></sheetViews>');
+        $paneXml = '';
+        if ($this->freezeCell !== null) {
+            [$paneColumn, $paneRow] = Coordinate::indexesFromString($this->freezeCell);
+            $xSplit = $paneColumn - 1;
+            $ySplit = $paneRow - 1;
+            $activePane = ($xSplit > 0 && $ySplit > 0) ? 'bottomRight' : ($ySplit > 0 ? 'bottomLeft' : 'topRight');
+            $paneXml = '<pane'
+                . ($xSplit > 0 ? ' xSplit="' . $xSplit . '"' : '')
+                . ($ySplit > 0 ? ' ySplit="' . $ySplit . '"' : '')
+                . ' topLeftCell="' . $this->freezeCell . '" activePane="' . $activePane . '" state="frozen"/>';
+        }
+        fwrite($this->stream, '<sheetViews><sheetView workbookViewId="0">' . $paneXml . '</sheetView></sheetViews>');
+        if ($this->columnWidths !== []) {
+            $cols = '<cols>';
+            ksort($this->columnWidths);
+            foreach ($this->columnWidths as $columnNumber => $width) {
+                $cols .= '<col min="' . $columnNumber . '" max="' . $columnNumber . '" width="' . $width . '" customWidth="1"/>';
+            }
+            $cols .= '</cols>';
+            fwrite($this->stream, $cols);
+        }
         fwrite($this->stream, '<sheetData>');
     }
 
@@ -185,6 +216,38 @@ class StreamingSheet
     {
         if (!$this->writer->isStyleIdRegistered($styleId)) {
             throw new WriterException("Style id $styleId has not been registered with registerStyle().");
+        }
+    }
+
+    /** @param array<int, float> $widths 1-based column number => width */
+    public function setColumnWidths(array $widths): void
+    {
+        $this->assertBeforeFirstRow('setColumnWidths');
+        foreach ($widths as $columnNumber => $width) {
+            $this->columnWidths[$columnNumber] = $width;
+        }
+    }
+
+    public function freezePane(string $cell): void
+    {
+        if ($cell === 'A1') {
+            return;
+        }
+        $this->assertBeforeFirstRow('freezePane');
+        $this->freezeCell = $cell;
+    }
+
+    public function setAutoFilterToWrittenRange(): void
+    {
+        $this->assertUsable();
+        $this->autoFilter = true;
+    }
+
+    private function assertBeforeFirstRow(string $method): void
+    {
+        $this->assertUsable();
+        if ($this->headerWritten) {
+            throw new WriterException("$method() must be called before the first appendRow().");
         }
     }
 }
