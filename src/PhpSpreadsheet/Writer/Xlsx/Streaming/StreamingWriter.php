@@ -35,7 +35,11 @@ class StreamingWriter
 
     public function __construct(string $filename)
     {
-        $fileHandle = fopen($filename, 'wb+');
+        try {
+            $fileHandle = fopen($filename, 'wb+');
+        } catch (\Exception $e) {
+            throw new WriterException("Could not open file $filename for writing.");
+        }
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $filename for writing.");
         }
