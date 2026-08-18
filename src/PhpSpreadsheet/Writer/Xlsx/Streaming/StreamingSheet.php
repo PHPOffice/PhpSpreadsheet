@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\FunctionPrefix;
 use XMLWriter;
 
 class StreamingSheet
@@ -135,9 +136,13 @@ class StreamingSheet
             $xmlWriter->writeElement('v', (string) $value);
         } elseif (is_string($value)) {
             if (strlen($value) > 1 && $value[0] === '=') {
-                throw new WriterException('Formulas are not supported yet.');
+                $this->writer->noteFormulaWritten();
+                $xmlWriter->startElement('f');
+                $xmlWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($value));
+                $xmlWriter->endElement(); // f
+            } else {
+                $this->writeInlineString($value);
             }
-            $this->writeInlineString($value);
         } else {
             $this->rejectValue($value);
         }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx\Streaming;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamedCell;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
 use PHPUnit\Framework\TestCase;
 
@@ -75,5 +77,21 @@ class StreamingWriterTest extends TestCase
         $sheet = $writer->startSheet('Data');
         $this->expectException(WriterException::class);
         $sheet->appendRow([new \stdClass()]);
+    }
+
+    public function testFormulaRoundTrip(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow([2, 3]);
+        $sheet->appendRow(['=SUM(A1:B1)']);
+        $sheet->appendRow([new StreamedCell('=not a formula', null, DataType::TYPE_STRING)]);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertSame('=SUM(A1:B1)', $worksheet->getCell('A2')->getValue());
+        self::assertSame(5, $worksheet->getCell('A2')->getCalculatedValue());
+        self::assertSame('=not a formula', (string) $worksheet->getCell('A3')->getValue());
     }
 }
