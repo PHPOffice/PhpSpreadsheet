@@ -239,6 +239,25 @@ class StreamingErrorsTest extends TestCase
         self::assertFileDoesNotExist($file);
     }
 
+    public function testAppendRowWrapsUnderlyingWriteFailure(): void
+    {
+        $writer = new StreamingWriter($this->tempFile());
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow(['x']);
+        $streamProperty = new ReflectionProperty(StreamingSheet::class, 'stream');
+        $stream = $streamProperty->getValue($sheet);
+        self::assertIsResource($stream);
+        fclose($stream);
+
+        try {
+            $sheet->appendRow(['y']);
+            self::fail('Expected a WriterException.');
+        } catch (WriterException $e) {
+            self::assertStringContainsString('Failed to write the row', $e->getMessage());
+            self::assertNotNull($e->getPrevious());
+        }
+    }
+
     public function testCloseWrapsUnderlyingWriteFailure(): void
     {
         $file = $this->tempFile();

@@ -153,8 +153,11 @@ class StreamingSheet
         } catch (Throwable $e) {
             $this->broken = true;
             $this->xmlWriter->flush(); // discard the unclosed <row> left behind by the failure
+            if ($e instanceof WriterException) {
+                throw $e;
+            }
 
-            throw $e;
+            throw new WriterException('Failed to write the row: ' . $e->getMessage(), 0, $e);
         }
     }
 
