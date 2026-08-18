@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx\Streaming;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamedCell;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
@@ -93,5 +94,22 @@ class StreamingWriterTest extends TestCase
         self::assertSame('=SUM(A1:B1)', $worksheet->getCell('A2')->getValue());
         self::assertSame(5, $worksheet->getCell('A2')->getCalculatedValue());
         self::assertSame('=not a formula', (string) $worksheet->getCell('A3')->getValue());
+    }
+
+    public function testDateTimeRoundTrip(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow([new \DateTimeImmutable('2026-01-02 03:04:05')]);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        $cell = $worksheet->getCell('A1');
+        self::assertEqualsWithDelta(46024.12783564815, $cell->getValue(), 1E-8);
+        self::assertSame(
+            NumberFormat::FORMAT_DATE_DATETIME,
+            $worksheet->getStyle('A1')->getNumberFormat()->getFormatCode()
+        );
     }
 }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\FunctionPrefix;
@@ -120,6 +122,11 @@ class StreamingSheet
             }
         }
 
+        $isDate = $value instanceof DateTimeInterface;
+        if ($isDate && $cellStyleId === null) {
+            $cellStyleId = $this->writer->getDefaultDateStyleId();
+        }
+
         $xmlWriter = $this->xmlWriter;
         $xmlWriter->startElement('c');
         $xmlWriter->writeAttribute('r', Coordinate::stringFromColumnIndex($column) . $this->rowNumber);
@@ -129,6 +136,12 @@ class StreamingSheet
 
         if ($forcedType === DataType::TYPE_STRING || $forcedType === DataType::TYPE_STRING2) {
             $this->writeInlineString(is_scalar($value) ? (string) $value : $this->rejectValue($value));
+        } elseif ($isDate) {
+            $excelDate = Date::PHPToExcel($value);
+            if ($excelDate === false) {
+                $this->rejectValue($value); // @codeCoverageIgnore
+            }
+            $xmlWriter->writeElement('v', (string) $excelDate);
         } elseif (is_bool($value)) {
             $xmlWriter->writeAttribute('t', 'b');
             $xmlWriter->writeElement('v', $value ? '1' : '0');
