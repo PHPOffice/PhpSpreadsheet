@@ -86,6 +86,23 @@ class StreamingWriterTest extends TestCase
         self::assertSame('  padded  ', self::stringValue($worksheet->getCell('C3')->getValue()));
     }
 
+    public function testNumericFidelityMatchesStandardWriter(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow([2.0, 123456.78901234567, 1.0E+20, PHP_INT_MAX]);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        // an integral float must read back as float, not int, like the standard writer
+        self::assertSame(2.0, $worksheet->getCell('A1')->getValue());
+        // full double precision must survive; a plain (string) cast would truncate at 14 digits
+        self::assertSame(123456.78901234567, $worksheet->getCell('B1')->getValue());
+        self::assertSame(1.0E+20, $worksheet->getCell('C1')->getValue());
+        self::assertSame(PHP_INT_MAX, $worksheet->getCell('D1')->getValue());
+    }
+
     public function testUnsupportedValueThrows(): void
     {
         $file = $this->tempFile();

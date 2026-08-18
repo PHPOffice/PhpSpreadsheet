@@ -196,7 +196,7 @@ class StreamingSheet
             if ($excelDate === false) {
                 $this->rejectValue($value); // @codeCoverageIgnore
             }
-            $xmlWriter->writeElement('v', (string) $excelDate);
+            $xmlWriter->writeElement('v', self::formatNumber($excelDate));
         } elseif (is_bool($value)) {
             $xmlWriter->writeAttribute('t', 'b');
             $xmlWriter->writeElement('v', $value ? '1' : '0');
@@ -204,7 +204,7 @@ class StreamingSheet
             if (is_float($value) && !is_finite($value)) {
                 throw new WriterException('Cell value is not a finite number; NAN and INF cannot be stored in an Xlsx file.');
             }
-            $xmlWriter->writeElement('v', (string) $value);
+            $xmlWriter->writeElement('v', self::formatNumber($value));
         } elseif (is_string($value)) {
             if (strlen($value) > 1 && $value[0] === '=') {
                 if (!StringHelper::isUTF8($value)) {
@@ -241,6 +241,20 @@ class StreamingSheet
         $xmlWriter->text(StringHelper::controlCharacterPHP2OOXML($value));
         $xmlWriter->endElement(); // t
         $xmlWriter->endElement(); // is
+    }
+
+    /**
+     * Same serialization as Writer\Xlsx\Worksheet::writeCellNumeric(): full
+     * float precision, and a ".0" marker so integral floats read back as float.
+     */
+    private static function formatNumber(float|int $value): string
+    {
+        $result = StringHelper::convertToString($value);
+        if (is_float($value) && !str_contains($result, '.')) {
+            $result .= '.0';
+        }
+
+        return $result;
     }
 
     private function rejectValue(mixed $value): never
