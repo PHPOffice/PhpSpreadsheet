@@ -109,7 +109,11 @@ with the number of sheets, not with the number of rows in any one sheet.
 
 - `__construct(string $filename)` — opens `$filename` for writing.
 - `startSheet(string $name): StreamingSheet` — finishes the current sheet,
-  if any, and starts a new one.
+  if any, and starts a new one. The name must not be empty, must be at most
+  31 characters, and must not contain `* : / \ ? [ ]`; an invalid name
+  throws a `Writer\Exception` and leaves the writer usable. A name that is
+  already in use is silently given a numeric suffix (a second `Data` sheet
+  becomes `Data 1`), the same behavior as `Worksheet::setTitle()`.
 - `registerStyle(array $styleArray): int` — registers a style, in the same
   array format used by `Style::applyFromArray()`, and returns its style id.
 - `close(): void` — finishes the last sheet and writes the Xlsx file. The
@@ -125,7 +129,9 @@ with the number of sheets, not with the number of rows in any one sheet.
   called before the first `appendRow()`.
 - `freezePane(string $cell): void` — freezes rows and columns above and to
   the left of `$cell`, for example `'A2'` to freeze the header row. Must be
-  called before the first `appendRow()`.
+  called before the first `appendRow()`. The cell reference is validated
+  immediately; an invalid reference throws a `Writer\Exception` and leaves
+  the sheet usable.
 - `setAutoFilterToWrittenRange(): void` — adds an autofilter over the full
   range written to the sheet. Can be called at any time before the sheet is
   finished; the range is only known once the sheet is finished.
@@ -150,6 +156,10 @@ be forced to string.
 - `DateTimeInterface` instances
 - Formula strings (any string starting with `=`)
 - `null` (leaves the cell empty)
+
+Values are written by their PHP type; there is no value binder. A numeric
+string such as `'123'` is written as text, not as a number. Pass an `int`
+or a `float` to write a number.
 
 Any other value type throws a `Writer\Exception`. Invalid values of a
 supported type also throw instead of producing a broken file:
@@ -209,7 +219,15 @@ The streaming writer is append-only and forward-only. It does not support:
   becomes unusable, and any further method call on it throws a
   `Writer\Exception`.
 - Nothing on the writer or on any sheet is usable after `close()` has run.
-- A failed `appendRow()` call, for example one that throws because of an
-  unsupported value or an unregistered style id, invalidates the file
-  being written. Do not catch the exception and continue writing to the
-  same writer; discard it and start again.
+- Arguments are checked before any XML is written where possible: an
+  invalid sheet name, an unregistered row-level `$styleId`, an invalid
+  freeze pane cell, and invalid column widths all throw without harming
+  the writer, so those exceptions are safe to catch and correct.
+- A failed `appendRow()` call that throws while a row is being built, for
+  example because of an unsupported value or an unregistered
+  `StreamedCell` style id, invalidates the sheet. Every later call on that
+  sheet, including `close()`, throws. Discard the writer and start again.
+- If the writer is destroyed without a `close()` call, for example when an
+  exception ends the request, the destructor deletes the partial file. No
+  file exists on disk until `close()` returns; a forgotten `close()` means
+  no output and no error.
