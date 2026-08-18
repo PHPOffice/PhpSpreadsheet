@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\FunctionPrefix;
+use Throwable;
 use XMLWriter;
 
 class StreamingSheet
@@ -26,6 +27,8 @@ class StreamingSheet
     private bool $headerWritten = false;
 
     private bool $finished = false;
+
+    private bool $broken = false;
 
     private int $rowNumber = 0;
 
@@ -106,6 +109,9 @@ class StreamingSheet
 
     private function assertUsable(): void
     {
+        if ($this->broken) {
+            throw new WriterException('A failed appendRow() left this sheet in an undefined state; discard this writer.');
+        }
         if ($this->finished) {
             throw new WriterException('This sheet has been finished; use the sheet returned by the most recent startSheet().');
         }
@@ -118,30 +124,38 @@ class StreamingSheet
         if ($styleId !== null) {
             $this->assertStyleId($styleId);
         }
-        if (!$this->headerWritten) {
-            $this->writeHeader();
-        }
-        ++$this->rowNumber;
-        $xmlWriter = $this->xmlWriter;
-        $xmlWriter->startElement('row');
-        $xmlWriter->writeAttribute('r', (string) $this->rowNumber);
-        $column = 0;
-        foreach ($cells as $value) {
-            ++$column;
-            if ($value === null) {
-                continue;
+
+        try {
+            if (!$this->headerWritten) {
+                $this->writeHeader();
             }
-            $this->writeCell($column, $value, $styleId);
+            ++$this->rowNumber;
+            $xmlWriter = $this->xmlWriter;
+            $xmlWriter->startElement('row');
+            $xmlWriter->writeAttribute('r', (string) $this->rowNumber);
+            $column = 0;
+            foreach ($cells as $value) {
+                ++$column;
+                if ($value === null) {
+                    continue;
+                }
+                $this->writeCell($column, $value, $styleId);
+            }
+            $this->maxColumn = max($this->maxColumn, $column);
+            $xmlWriter->endElement(); // row
+            $flushed = $xmlWriter->flush();
+            if (!is_string($flushed)) {
+                // @codeCoverageIgnoreStart
+                throw new WriterException('Unexpected non-string result from XMLWriter::flush().');
+                // @codeCoverageIgnoreEnd
+            }
+            fwrite($this->stream, $flushed);
+        } catch (Throwable $e) {
+            $this->broken = true;
+            $this->xmlWriter->flush(); // discard the unclosed <row> left behind by the failure
+
+            throw $e;
         }
-        $this->maxColumn = max($this->maxColumn, $column);
-        $xmlWriter->endElement(); // row
-        $flushed = $xmlWriter->flush();
-        if (!is_string($flushed)) {
-            // @codeCoverageIgnoreStart
-            throw new WriterException('Unexpected non-string result from XMLWriter::flush().');
-            // @codeCoverageIgnoreEnd
-        }
-        fwrite($this->stream, $flushed);
     }
 
     private function writeCell(int $column, mixed $value, ?int $rowStyleId): void
@@ -154,6 +168,9 @@ class StreamingSheet
                 $cellStyleId = $value->styleId;
             }
             $forcedType = $value->dataType;
+            if ($forcedType !== null && $forcedType !== DataType::TYPE_STRING && $forcedType !== DataType::TYPE_STRING2) {
+                throw new WriterException("Unsupported StreamedCell data type '$forcedType'; only DataType::TYPE_STRING and DataType::TYPE_STRING2 are supported.");
+            }
             $value = $value->value;
             if ($value === null) {
                 return;
@@ -231,6 +248,12 @@ class StreamingSheet
     {
         $this->assertBeforeFirstRow('setColumnWidths');
         foreach ($widths as $columnNumber => $width) {
+            if ($columnNumber < 1) {
+                throw new WriterException("Column number $columnNumber is invalid; column numbers are 1-based.");
+            }
+            if ($width <= 0) {
+                throw new WriterException("Column width $width is invalid; width must be positive.");
+            }
             $this->columnWidths[$columnNumber] = $width;
         }
     }
