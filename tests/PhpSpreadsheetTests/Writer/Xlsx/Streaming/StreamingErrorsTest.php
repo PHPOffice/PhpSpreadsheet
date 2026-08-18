@@ -6,8 +6,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx\Streaming;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingSheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Streaming\StreamingWriter;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use stdClass;
 
 class StreamingErrorsTest extends TestCase
@@ -155,6 +157,46 @@ class StreamingErrorsTest extends TestCase
             self::fail('Expected a WriterException.');
         } catch (WriterException) {
             // expected
+        }
+        self::assertFileDoesNotExist($file);
+    }
+
+    public function testCloseWithInvalidFileHandleThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $writer->startSheet('Data')->appendRow(['x']);
+        $handleProperty = new ReflectionProperty(StreamingWriter::class, 'fileHandle');
+        $handle = $handleProperty->getValue($writer);
+        self::assertIsResource($handle);
+        fclose($handle);
+
+        try {
+            $writer->close();
+            self::fail('Expected a WriterException.');
+        } catch (WriterException $e) {
+            self::assertStringContainsString('no longer valid', $e->getMessage());
+        }
+        self::assertFileDoesNotExist($file);
+    }
+
+    public function testCloseWrapsUnderlyingWriteFailure(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow(['x']);
+        $streamProperty = new ReflectionProperty(StreamingSheet::class, 'stream');
+        $stream = $streamProperty->getValue($sheet);
+        self::assertIsResource($stream);
+        fclose($stream);
+
+        try {
+            $writer->close();
+            self::fail('Expected a WriterException.');
+        } catch (WriterException $e) {
+            self::assertStringContainsString('Failed to write the Xlsx file', $e->getMessage());
+            self::assertNotNull($e->getPrevious());
         }
         self::assertFileDoesNotExist($file);
     }

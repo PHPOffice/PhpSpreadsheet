@@ -98,6 +98,10 @@ class StreamingWriter
         $this->closed = true;
 
         try {
+            if (!is_resource($this->fileHandle)) {
+                // ZipStream silently falls back to php://output for a non-resource
+                throw new WriterException('The output file handle is no longer valid.');
+            }
             $this->finishActiveSheet();
             $zip = ZipStream0::newZipStream($this->fileHandle);
             $partWriter = $this->partWriter;
@@ -119,8 +123,11 @@ class StreamingWriter
         } catch (Throwable $e) {
             $this->closeSheetStreams();
             $this->closeFileHandleAndUnlink();
+            if ($e instanceof WriterException) {
+                throw $e;
+            }
 
-            throw $e;
+            throw new WriterException('Failed to write the Xlsx file: ' . $e->getMessage(), 0, $e);
         }
 
         $this->closeSheetStreams();
