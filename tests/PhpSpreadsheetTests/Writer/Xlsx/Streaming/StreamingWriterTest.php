@@ -112,4 +112,32 @@ class StreamingWriterTest extends TestCase
             $worksheet->getStyle('A1')->getNumberFormat()->getFormatCode()
         );
     }
+
+    public function testStylesRoundTrip(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $bold = $writer->registerStyle(['font' => ['bold' => true]]);
+        $money = $writer->registerStyle(['numberFormat' => ['formatCode' => '#,##0.00']]);
+        $sheet = $writer->startSheet('Data');
+        $sheet->appendRow(['Header A', 'Header B'], $bold);
+        $sheet->appendRow([new StreamedCell(1234.5, $money), 'plain']);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertTrue($worksheet->getStyle('A1')->getFont()->getBold());
+        self::assertTrue($worksheet->getStyle('B1')->getFont()->getBold());
+        self::assertSame('#,##0.00', $worksheet->getStyle('A2')->getNumberFormat()->getFormatCode());
+        self::assertFalse($worksheet->getStyle('B2')->getFont()->getBold());
+    }
+
+    public function testUnregisteredStyleIdThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('has not been registered');
+        $sheet->appendRow(['x'], 99);
+    }
 }
