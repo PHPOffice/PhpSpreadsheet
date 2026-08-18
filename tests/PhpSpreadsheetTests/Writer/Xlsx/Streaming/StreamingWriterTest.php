@@ -300,4 +300,66 @@ class StreamingWriterTest extends TestCase
         $this->expectExceptionMessage('Unsupported StreamedCell data type');
         $sheet->appendRow([new StreamedCell(42, null, DataType::TYPE_NUMERIC)]);
     }
+
+    public function testNanThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('not a finite number');
+        $sheet->appendRow([NAN]);
+    }
+
+    public function testInfinityThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('not a finite number');
+        $sheet->appendRow([INF]);
+    }
+
+    public function testInvalidUtf8StringThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('not valid UTF-8');
+        $sheet->appendRow(["bad \xC3\x28 utf8"]);
+    }
+
+    public function testInvalidUtf8FormulaThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('not valid UTF-8');
+        $sheet->appendRow(["=\"bad \xC3\x28\""]);
+    }
+
+    public function testStringOverExcelLimitThrows(): void
+    {
+        $file = $this->tempFile();
+        $writer = new StreamingWriter($file);
+        $sheet = $writer->startSheet('Data');
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('32767');
+        $sheet->appendRow([str_repeat('x', DataType::MAX_STRING_LENGTH + 1)]);
+    }
+
+    public function testStringAtExcelLimitRoundTrips(): void
+    {
+        $file = $this->tempFile();
+        $value = str_repeat('x', DataType::MAX_STRING_LENGTH);
+        $writer = new StreamingWriter($file);
+        $writer->startSheet('Data')->appendRow([$value]);
+        $writer->close();
+
+        $worksheet = (new XlsxReader())->load($file)->getSheetByNameOrThrow('Data');
+        self::assertSame($value, (string) $worksheet->getCell('A1')->getValue());
+    }
 }

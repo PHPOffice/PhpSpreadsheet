@@ -151,7 +151,12 @@ be forced to string.
 - Formula strings (any string starting with `=`)
 - `null` (leaves the cell empty)
 
-Any other value type throws a `Writer\Exception`.
+Any other value type throws a `Writer\Exception`. Invalid values of a
+supported type also throw instead of producing a broken file:
+
+- `NAN` and `INF` floats (Excel cannot store non-finite numbers)
+- Strings that are not valid UTF-8 (they would corrupt the sheet XML)
+- Strings longer than 32,767 characters (the Excel cell limit)
 
 ## Strings are written as inline strings
 

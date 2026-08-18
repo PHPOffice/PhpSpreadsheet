@@ -201,8 +201,14 @@ class StreamingSheet
             $xmlWriter->writeAttribute('t', 'b');
             $xmlWriter->writeElement('v', $value ? '1' : '0');
         } elseif (is_int($value) || is_float($value)) {
+            if (is_float($value) && !is_finite($value)) {
+                throw new WriterException('Cell value is not a finite number; NAN and INF cannot be stored in an Xlsx file.');
+            }
             $xmlWriter->writeElement('v', (string) $value);
         } elseif (is_string($value)) {
+            if (!StringHelper::isUTF8($value)) {
+                throw new WriterException('Cell value is not valid UTF-8; writing it would corrupt the sheet XML.');
+            }
             if (strlen($value) > 1 && $value[0] === '=') {
                 $this->writer->noteFormulaWritten();
                 $xmlWriter->startElement('f');
@@ -219,6 +225,12 @@ class StreamingSheet
 
     private function writeInlineString(string $value): void
     {
+        if (!StringHelper::isUTF8($value)) {
+            throw new WriterException('Cell value is not valid UTF-8; writing it would corrupt the sheet XML.');
+        }
+        if (mb_strlen($value, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+            throw new WriterException('Cell string value exceeds the Excel limit of ' . DataType::MAX_STRING_LENGTH . ' characters.');
+        }
         $xmlWriter = $this->xmlWriter;
         $xmlWriter->writeAttribute('t', 'inlineStr');
         $xmlWriter->startElement('is');
