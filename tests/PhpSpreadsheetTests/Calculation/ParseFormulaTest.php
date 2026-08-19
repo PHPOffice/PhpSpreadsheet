@@ -368,7 +368,7 @@ class ParseFormulaTest extends TestCase
             //            ],
         ];
     }
-    
+
     /**
      * VLOOKUP with a whole-column range where the end column contains no data.
      * getHighestDataRow() on the empty end column returned 1, producing an
@@ -376,7 +376,7 @@ class ParseFormulaTest extends TestCase
      *
      * @see https://github.com/PHPOffice/PhpSpreadsheet/pull/4967
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerVlookupWholeColumnRange')]
+    #[DataProvider('providerVlookupWholeColumnRange')]
     public function testVlookupWholeColumnRange(string $formula, string $expectedResult): void
     {
         $spreadsheet = new Spreadsheet();
