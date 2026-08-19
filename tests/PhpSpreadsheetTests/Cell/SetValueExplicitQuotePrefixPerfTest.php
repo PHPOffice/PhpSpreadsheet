@@ -56,10 +56,13 @@ class SetValueExplicitQuotePrefixPerfTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testNumericValueDoesNotTouchQuotePrefix(): void
+    public function testQuotePrefixClearedWhenReplacingWithNumericValue(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValueExplicit('=prefixed', DataType::TYPE_STRING);
+        self::assertTrue($spreadsheet->getCellXfByIndex($sheet->getCell('A1')->getXfIndex())->getQuotePrefix());
+
         $sheet->getCell('A1')->setValueExplicit(42, DataType::TYPE_NUMERIC);
 
         self::assertFalse($spreadsheet->getCellXfByIndex($sheet->getCell('A1')->getXfIndex())->getQuotePrefix());
