@@ -113,12 +113,15 @@ if (isset($_POST['submit'])) {
             $wizard = new Wizard\Currency($_POST['currency'], (int) $_POST['decimals'], isset($_POST['thousands']), (bool) $_POST['position']);
             $wizard->setNegative($negative);
             $mask = $wizard->format();
-            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask, [HtmlWriter::class, 'formatColorStatic']);
+            $postNumber = StringHelper::convertPostToString('number');
+            $postCurrency = StringHelper::convertPostToString('currency');
+            $postDecimals = StringHelper::convertPostToString('decimals');
+            $example = (string) NumberFormat::toFormattedString((float) $postNumber, $mask, [HtmlWriter::class, 'formatColorStatic']);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\CurrencyNegative;');
             $helper->log(
-                "\$wizard = new  Wizard\\Currency('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                "\$wizard = new  Wizard\\Currency('{$postCurrency}', {$postDecimals}, Wizard\\Number::"
                 . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
                 . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
                 . ');'

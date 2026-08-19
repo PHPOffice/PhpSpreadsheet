@@ -708,8 +708,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute($attrKey, $val);
         }
         $minCfvo = $dataBar->getMinimumConditionalFormatValueObject();
-        // Phpstan is wrong about the next statement.
-        if ($minCfvo !== null) { // @phpstan-ignore-line
+        if ($minCfvo !== null) { // @phpstan-ignore notIdentical.alwaysTrue (phpstan is wrong)
             $objWriter->startElementNs($prefix, 'cfvo', null);
             $objWriter->writeAttribute('type', $minCfvo->getType());
             if ($minCfvo->getCellFormula()) {
@@ -719,8 +718,7 @@ class Worksheet extends WriterPart
         }
 
         $maxCfvo = $dataBar->getMaximumConditionalFormatValueObject();
-        // Phpstan is wrong about the next statement.
-        if ($maxCfvo !== null) { // @phpstan-ignore-line
+        if ($maxCfvo !== null) { // @phpstan-ignore notIdentical.alwaysTrue (phpstan is wrong)
             $objWriter->startElementNs($prefix, 'cfvo', null);
             $objWriter->writeAttribute('type', $maxCfvo->getType());
             if ($maxCfvo->getCellFormula()) {

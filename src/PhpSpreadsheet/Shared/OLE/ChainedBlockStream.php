@@ -58,15 +58,15 @@ class ChainedBlockStream
 
         // 25 is length of "ole-chainedblockstream://"
         parse_str(substr($path, 25), $this->params);
-        if (!isset($this->params['oleInstanceId'], $this->params['blockId'], $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) { //* @phpstan-ignore-line
+        if (!isset($this->params['oleInstanceId'], $this->params['blockId'], $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) { //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know how to fix this)
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('OLE stream not found', E_USER_WARNING);
             }
 
             return false;
         }
-        $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']]; //* @phpstan-ignore-line
-        if (!($this->ole instanceof OLE)) { //* @phpstan-ignore-line
+        $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']]; //* @phpstan-ignore assign.propertyType (I don't know how to fix this)
+        if (!($this->ole instanceof OLE)) { //* @phpstan-ignore instanceof.alwaysTrue (I don't know how to fix this)
             throw new Exception('class is not OLE');
         }
 
@@ -93,7 +93,7 @@ class ChainedBlockStream
             }
         }
         if (isset($this->params['size'])) {
-            $this->data = substr($this->data, 0, $this->params['size']); //* @phpstan-ignore-line
+            $this->data = substr($this->data, 0, $this->params['size']); //* @phpstan-ignore argument.type (I don't know how params[size] is set)
         }
 
         if ($options & STREAM_USE_PATH) {
@@ -151,6 +151,10 @@ class ChainedBlockStream
 
     /**
      * Implements support for fseek().
+     * Note that the first condition is always true, at least in
+     * the unit test suite. One consequence is that Phpstan's
+     * correct flagging of count($this->data) below is never
+     * executed, and would fail should it be executed.
      *
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
@@ -161,7 +165,7 @@ class ChainedBlockStream
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore-line
+        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore argument.type (phpstan is correct - see docBlock above)
             $this->pos = strlen($this->data) + $offset;
         } else {
             return false;

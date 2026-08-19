@@ -127,8 +127,7 @@ class CellAddressTest extends TestCase
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');
 
         $columnRowArray = [$columnId, $rowId];
-        // Phpstan is right to complain about next line, but we need to test it anyhow
-        CellAddress::fromColumnRowArray($columnRowArray); //* @phpstan-ignore-line
+        CellAddress::fromColumnRowArray($columnRowArray); //* @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public static function providerCreateFromColumnRowException(): array

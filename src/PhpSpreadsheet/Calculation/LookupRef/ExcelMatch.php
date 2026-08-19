@@ -70,7 +70,7 @@ class ExcelMatch
         };
 
         if ($valueKey !== null) {
-            return ++$valueKey; //* @phpstan-ignore-line
+            return ++$valueKey; //* @phpstan-ignore preInc.type ($valueKey can be mixed not numeric)
         }
 
         // Unsuccessful in finding a match, return #N/A error value
