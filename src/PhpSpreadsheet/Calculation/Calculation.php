@@ -1544,7 +1544,12 @@ class Calculation extends CalculationLocale
                             } elseif (ctype_alpha($val) && strlen($val) <= 3) {
                                 //    Column range
                                 $stackItemType = 'Column Reference';
-                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
+                                // Use getHighestDataRow() without a column argument so that the overall
+                                // highest row (across all columns) is used for the end reference.
+                                // Using getHighestDataRow($val) for the specific end column is incorrect
+                                // when that column contains no data: it returns 1, producing an inverted
+                                // range such as A4:F1 for whole-column references like $A:$F.
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow() : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
                                 $val = "{$rangeWS2}{$val}{$endRowColRef}";
                             }
                             $stackItemReference = $val;
