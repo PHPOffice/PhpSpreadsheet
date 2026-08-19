@@ -42,6 +42,7 @@ class Service
         // Get results from the webservice
         $ctxArray = [
             'http' => [
+                'follow_location' => 0,
                 'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
             ],
         ];
@@ -54,7 +55,7 @@ class Service
             return ExcelError::VALUE(); // Output not a string or too long
         }
 
-        return $output;
+        return ($output === '') ? Functions::NOT_YET_IMPLEMENTED : $output;
     }
 
     /**

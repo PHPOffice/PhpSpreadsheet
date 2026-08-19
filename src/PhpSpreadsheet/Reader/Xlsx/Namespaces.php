@@ -88,6 +88,12 @@ class Namespaces
 
     const RELATIONSHIPS_TABLE = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/table';
 
+    const RELATIONSHIPS_PIVOT_TABLE = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotTable';
+
+    const RELATIONSHIPS_PIVOT_CACHE_DEFINITION = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheDefinition';
+
+    const RELATIONSHIPS_PIVOT_CACHE_RECORDS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheRecords';
+
     const SPREADSHEETML_AC = 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac';
 
     const DC_ELEMENTS = 'http://purl.org/dc/elements/1.1/';
@@ -133,4 +139,8 @@ class Namespaces
     const FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/spreadsheetml/2022/featurepropertybag';
     const RELATIONSHIPS_FEATURE_PROPERTY_BAG = 'http://schemas.microsoft.com/office/2022/11/relationships/FeaturePropertyBag';
     const STYLE_CHECKBOX_URI = '{C7286773-470A-42A8-94C5-96B5CB345126}';
+
+    const SPARKLINE_URI = '{05C60535-1F16-4fd2-B633-F4F36F0B64E0}';
+
+    const MISLEADING_FORMAT = 'http://schemas.microsoft.com/office/spreadsheetml/2018/08/main';
 }

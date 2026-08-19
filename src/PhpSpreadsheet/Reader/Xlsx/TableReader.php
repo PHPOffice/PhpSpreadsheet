@@ -34,7 +34,7 @@ class TableReader
     {
         $this->tableAttributes = $this->tableXml->attributes() ?? [];
         // Remove all "$" in the table range
-        $tableRange = (string) preg_replace('/\$/', '', $this->tableAttributes['ref'] ?? '');
+        $tableRange = (string) preg_replace('/\$/', '', (string) ($this->tableAttributes['ref'] ?? ''));
         if (str_contains($tableRange, ':')) {
             $this->readTable($tableRange, $tableStyles, $dxfs);
         }

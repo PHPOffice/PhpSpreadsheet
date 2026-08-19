@@ -792,12 +792,12 @@ class StringHelper
     public static function stringIncrement(string &$str): string
     {
         if (function_exists('str_increment')) {
-            $str = str_increment($str); // @phpstan-ignore-line
+            $str = str_increment($str); // @phpstan-ignore parameterByRef.type (fixable once Php < 8.3 is no longer possible)
         } else {
-            ++$str; // @phpstan-ignore-line
+            ++$str; // @phpstan-ignore parameterByRef.type (fixable once Php < 8.3 is no longer possible)
         }
 
-        return $str; // @phpstan-ignore-line
+        return $str; // @phpstan-ignore return.type (fixable once Php < 8.3 is no longer possible)
     }
 
     /** @internal */

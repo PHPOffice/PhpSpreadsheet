@@ -205,7 +205,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellSplitRange.php';
     }
 
-    /** @param mixed[] $rangeSets */
+    /** @param array<array<string>> $rangeSets */
     #[DataProvider('providerBuildRange')]
     public function testBuildRange(mixed $expectedResult, array $rangeSets): void
     {
@@ -223,8 +223,7 @@ class CoordinateTest extends TestCase
         $this->expectException(TypeError::class);
 
         $cellRange = null;
-        // @phpstan-ignore-next-line
-        Coordinate::buildRange($cellRange);
+        Coordinate::buildRange($cellRange); // @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public function testBuildRangeInvalid2(): void

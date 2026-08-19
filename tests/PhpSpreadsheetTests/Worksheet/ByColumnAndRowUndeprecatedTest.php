@@ -208,6 +208,6 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $this->expectExceptionMessage('CellRange array length must be 2 or 4');
         $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->mergeCells([2, 2, 3]);
+        $sheet->mergeCells([2, 2, 3]); // @phpstan-ignore argument.type (deliberate testing runtime)
     }
 }

@@ -20,7 +20,7 @@ class Vstack
             if (!is_array($matrix)) {
                 $count = 1;
             } else {
-                $count = count(reset($matrix)); //* @phpstan-ignore-line
+                $count = count(reset($matrix)); //* @phpstan-ignore argument.type (reset can theoretically return mixed not array)
             }
             $columns = max($columns, $count);
         }

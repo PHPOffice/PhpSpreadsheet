@@ -510,6 +510,7 @@ class Spreadsheet implements JsonSerializable
             unset($worksheet);
         }
         $this->workSheetCollection = [];
+        $this->activeSheetIndex = -1;
     }
 
     /**
@@ -527,7 +528,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function getCalculationEngineOrNull(): ?Calculation
     {
-        if (!isset($this->calculationEngine)) { //* @phpstan-ignore-line
+        if (!isset($this->calculationEngine)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             return null;
         }
 
@@ -1148,14 +1149,24 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Copy workbook (!= clone!).
+     *
+     * Uses serialize/unserialize which is broadly faster than clone across
+     * PHP versions and platforms, though clone uses less memory.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function copy(): self
     {
-        return unserialize(serialize($this)); //* @phpstan-ignore-line
+        return unserialize(serialize($this)); //* @phpstan-ignore return.type (phpstan is wrong)
     }
 
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     *
+     * Clone uses less memory than serialize/unserialize but speed varies
+     * across PHP versions and platforms.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function __clone()
     {

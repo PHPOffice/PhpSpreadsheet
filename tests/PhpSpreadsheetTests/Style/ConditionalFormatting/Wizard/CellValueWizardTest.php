@@ -234,4 +234,35 @@ class CellValueWizardTest extends TestCase
         $conditional->setConditionType($ruleType);
         Wizard\CellValue::fromConditional($conditional);
     }
+
+    protected string $unknown = 'UNKNOWN';
+
+    public function testInvalidOperator(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Operator for Cell Value CF Rule Wizard');
+        $ruleType = Wizard::CELL_VALUE;
+        /** @var Wizard\CellValue $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $ruleType = $this->unknown;
+        $wizard->$ruleType();
+    }
+
+    public function testBadAnd(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('AND Value is only appropriate for range operators');
+        $operands = [1, 5];
+        $ruleType = Wizard::CELL_VALUE;
+        /** @var Wizard\CellValue $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+        $wizard
+            ->equals($operands[0], Wizard::VALUE_TYPE_LITERAL)
+            ->and($operands[1], Wizard::VALUE_TYPE_LITERAL);
+    }
+
+    public function testCompareKeys(): void
+    {
+        self::assertTrue(Wizard\CellValue::compareKeys());
+    }
 }

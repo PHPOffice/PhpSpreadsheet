@@ -73,7 +73,7 @@ class Round
             return round(
                 (float) (string) $number,
                 $digits,
-                RoundingMode::AwayFromZero //* @phpstan-ignore-line
+                RoundingMode::AwayFromZero //* @phpstan-ignore argument.type (phpstan error till we no longer support Php < 8.4)
             );
         }
 
@@ -119,7 +119,7 @@ class Round
             return round(
                 (float) (string) $number,
                 $digits,
-                RoundingMode::TowardsZero //* @phpstan-ignore-line
+                RoundingMode::TowardsZero
             );
         }
 

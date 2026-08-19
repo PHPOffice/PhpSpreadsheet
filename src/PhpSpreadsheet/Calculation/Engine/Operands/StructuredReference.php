@@ -204,8 +204,9 @@ final class StructuredReference implements Operand, Stringable
         /** @var string $reference */
         $reference = str_replace('[' . self::ITEM_SPECIFIER_THIS_ROW . '],', '', $reference);
 
-        foreach ($this->columns as $columnId => $columnName) {
-            $columnName = str_replace("\u{a0}", ' ', $columnName); //* @phpstan-ignore-line
+        foreach ($this->columns as $columnId => $columnNamex) {
+            /** @var string $columnNamex */
+            $columnName = str_replace("\u{a0}", ' ', $columnNamex);
             $reference = $this->adjustRowReference($columnName, $reference, $cell, $columnId);
         }
 
@@ -338,8 +339,9 @@ final class StructuredReference implements Operand, Stringable
     private function getColumnsForColumnReference(string $reference, int $startRow, int $endRow): string
     {
         $columnsSelected = false;
-        foreach ($this->columns as $columnId => $columnName) {
-            $columnName = str_replace("\u{a0}", ' ', $columnName ?? ''); //* @phpstan-ignore-line
+        foreach ($this->columns as $columnId => $columnNamex) {
+            /** @var ?string $columnNamex */
+            $columnName = str_replace("\u{a0}", ' ', $columnNamex ?? '');
             $cellFrom = "{$columnId}{$startRow}";
             $cellTo = "{$columnId}{$endRow}";
             $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
