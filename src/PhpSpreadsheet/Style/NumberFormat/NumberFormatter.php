@@ -55,10 +55,8 @@ class NumberFormatter extends BaseFormatter
                 $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
-            /** @var string $numberString */
-            $numberString = $number;
             if ($number > 0) {
-                $mask = substr_replace($mask, $numberString, $offset, 0);
+                $mask = substr_replace($mask, "$number", $offset, 0);
             }
             $result = $mask;
         }
@@ -170,7 +168,7 @@ class NumberFormatter extends BaseFormatter
         }
         if (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
             if ($valueFloat == floor($valueFloat) && substr_count($format, '.') === 1) {
-                $value *= 10 ** strlen(explode('.', $format)[1]); //* @phpstan-ignore-line
+                $value *= 10 ** strlen(explode('.', $format)[1]); //* @phpstan-ignore assignOp.invalid ($value may be mixed)
             }
 
             $result = self::complexNumberFormatMask($value, $format);

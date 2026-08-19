@@ -771,7 +771,7 @@ class Parser
         };
     }
 
-    private bool $tryDefinedName = false;
+    protected bool $tryDefinedName = false;
 
     private function convertDefinedName(string $name): string
     {
@@ -1613,7 +1613,7 @@ class Parser
             $converted_tree = $this->toReversePolish($tree['left']);
             $polish .= $converted_tree;
         } elseif ($tree['left'] != '') { // It's a final node
-            $converted_tree = $this->convert($tree['left']); //* @phpstan-ignore-line
+            $converted_tree = $this->convert($tree['left']); //* @phpstan-ignore argument.type (tree[left] should be an array bug phpstan considers it mixed)
             $polish .= $converted_tree;
         }
         if (is_array($tree['right'])) {
@@ -1638,7 +1638,7 @@ class Parser
         ) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
-                $left_tree = $this->toReversePolish($tree['left']); //* @phpstan-ignore-line
+                $left_tree = $this->toReversePolish($tree['left']); //* @phpstan-ignore argument.type (tree[left] should be an array bug phpstan considers it mixed)
             } else {
                 $left_tree = '';
             }

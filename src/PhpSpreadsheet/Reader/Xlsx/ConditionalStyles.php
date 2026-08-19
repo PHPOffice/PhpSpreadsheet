@@ -302,7 +302,7 @@ class ConditionalStyles
         //conditionalFormatValueObjects
         $cfvoXml = $cfRule->dataBar->cfvo;
         $cfvoIndex = 0;
-        foreach ((count($cfvoXml) > 1 ? $cfvoXml : [$cfvoXml]) as $cfvo) { //* @phpstan-ignore-line
+        foreach ((count($cfvoXml) > 1 ? $cfvoXml : [$cfvoXml]) as $cfvo) { //* @phpstan-ignore foreach.nonIterable (I don't know how to fix this)
             /** @var SimpleXMLElement $cfvo */
             if ($cfvoIndex === 0) {
                 $dataBar->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject((string) $cfvo['type'], (string) $cfvo['val']));
@@ -333,6 +333,9 @@ class ConditionalStyles
             $attr = $cfvoXml->attributes() ?? [];
             $type = (string) ($attr['type'] ?? '');
             $val = $attr['val'] ?? null;
+            if ($val instanceof SimpleXMLElement) {
+                $val = (string) $val;
+            }
             if ($idx === 0) {
                 $method = 'setMinimumConditionalFormatValueObject';
             } elseif ($idx === 1 && $count === 3) {
@@ -402,7 +405,7 @@ class ConditionalStyles
     {
         if (isset($cfRule->extLst)) {
             $ns = $cfRule->extLst->getNamespaces(true);
-            foreach ((count($cfRule->extLst) > 0 ? $cfRule->extLst->ext : [$cfRule->extLst->ext]) as $ext) { //* @phpstan-ignore-line
+            foreach ((count($cfRule->extLst) > 0 ? $cfRule->extLst->ext : [$cfRule->extLst->ext]) as $ext) { //* @phpstan-ignore foreach.nonIterable (I don't know how to fix this)
                 /** @var SimpleXMLElement $ext */
                 $extId = (string) $ext->children($ns['x14'])->id;
                 if (isset($conditionalFormattingRuleExtensions[$extId]) && (string) $ext['uri'] === '{B025F937-C7B1-47D3-B67F-A62EFF666E3E}') {

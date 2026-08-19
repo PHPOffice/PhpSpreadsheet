@@ -190,7 +190,7 @@ abstract class Coordinate
     /**
      * Build range from coordinate strings.
      *
-     * @param mixed[] $range Array containing one or more arrays containing one or two coordinate strings
+     * @param array<array<string>> $range Array containing one or more arrays containing one or two coordinate strings
      *
      * @return string String representation of $pRange
      */
@@ -210,6 +210,7 @@ abstract class Coordinate
             $range[$i] = implode(':', $range[$i]);
         }
 
+        /** @var array<string> $range */
         return implode(',', $range);
     }
 
@@ -521,8 +522,7 @@ abstract class Coordinate
         }
 
         /** @var string[] */
-        $cellList = array_merge(...$cells); //* @phpstan-ignore-line
-        // Unsure how to satisfy phpstan in line above
+        $cellList = array_merge(...$cells); //* @phpstan-ignore argument.type (Unsure how to satisfy phpstan)
 
         $retVal = array_map(
             fn (string $cellAddress) => ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress,
@@ -534,7 +534,7 @@ abstract class Coordinate
 
     /**
      * @param mixed[] $operators
-     * @param mixed[][] $cells
+     * @param string[][] $cells
      *
      * @return mixed[]
      */
@@ -646,10 +646,8 @@ abstract class Coordinate
 
             // Range...
             [$rangeStart, $rangeEnd] = $range;
-            [$startColumn, $startRow] = self::coordinateFromString($rangeStart);
-            [$endColumn, $endRow] = self::coordinateFromString($rangeEnd);
-            $startColumnIndex = self::columnIndexFromString($startColumn);
-            $endColumnIndex = self::columnIndexFromString($endColumn);
+            [$startColumnIndex, $startRow, $startColumn] = self::indexesFromString($rangeStart);
+            [$endColumnIndex, $endRow, $endColumn] = self::indexesFromString($rangeEnd);
             ++$endColumnIndex;
 
             // Current data
@@ -660,8 +658,6 @@ abstract class Coordinate
 
             // Loop cells
             while ($currentColumnIndex < $endColumnIndex) {
-                /** @var int $currentRow */
-                /** @var int $endRow */
                 while ($currentRow <= $endRow) {
                     $returnValue[] = self::stringFromColumnIndex($currentColumnIndex) . $currentRow;
                     ++$currentRow;
@@ -744,7 +740,7 @@ abstract class Coordinate
                 }
             }
 
-            if ($rowStart !== null) { // @phpstan-ignore-line
+            if ($rowStart !== null) {
                 if ($rowStart == $rowEnd) {
                     $ranges[] = $hashedValue->col . $rowStart;
                 } else {

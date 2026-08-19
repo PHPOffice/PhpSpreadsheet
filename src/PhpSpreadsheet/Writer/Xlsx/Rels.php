@@ -175,9 +175,53 @@ class Rels extends WriterPart
             $this->writeRelationship($objWriter, 'Fpb', Namespaces::RELATIONSHIPS_FEATURE_PROPERTY_BAG, 'featurePropertyBag/featurePropertyBag.xml');
         }
 
+        // Write preserved pivot cache definition relationships. The r:id used
+        // here is referenced from the <pivotCaches> element in workbook.xml.
+        foreach (self::pivotCacheRelationships($spreadsheet) as $rId => $target) {
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION,
+                $target
+            );
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();
+    }
+
+    /**
+     * Build the map of relationship-id => workbook-relative target for each
+     * preserved pivot cache definition. The relationship id is derived from the
+     * cache id so the workbook <pivotCaches> element can reference it.
+     *
+     * @return array<string, string>
+     */
+    public static function pivotCacheRelationships(Spreadsheet $spreadsheet): array
+    {
+        /** @var array<string, mixed> $unparsedLoadedData */
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
+        /** @var array<array<string, string>> $workbookPivotCaches */
+        $workbookPivotCaches = $unparsedLoadedData['workbookPivotCaches'] ?? [];
+
+        $relationships = [];
+        foreach ($workbookPivotCaches as $pivotCache) {
+            $target = self::relativeToWorkbook($pivotCache['cacheDefinitionPath']);
+            if ($target !== null) {
+                $relationships['_pivotCacheDef_' . $pivotCache['cacheId']] = $target;
+            }
+        }
+
+        return $relationships;
+    }
+
+    /**
+     * Convert an "xl/..." archive path to a target relative to workbook.xml.
+     */
+    private static function relativeToWorkbook(string $path): ?string
+    {
+        return str_starts_with($path, 'xl/') ? substr($path, 3) : null;
     }
 
     /**
@@ -321,6 +365,19 @@ class Rels extends WriterPart
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'ctrlProps', Namespaces::RELATIONSHIPS_CTRLPROP);
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'vmlDrawings', Namespaces::VML);
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'printerSettings', Namespaces::RELATIONSHIPS_PRINTER_SETTINGS);
+
+        // Write preserved pivot table relationships
+        $pivotTables = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pivotTables'] ?? [];
+        $pivotIndex = 1;
+        foreach ($pivotTables as $pivotTable) {
+            /** @var string[] $pivotTable */
+            $this->writeRelationship(
+                $objWriter,
+                '_pivotTable_' . $pivotIndex++,
+                Namespaces::RELATIONSHIPS_PIVOT_TABLE,
+                $pivotTable['relFilePath']
+            );
+        }
 
         $objWriter->endElement();
 

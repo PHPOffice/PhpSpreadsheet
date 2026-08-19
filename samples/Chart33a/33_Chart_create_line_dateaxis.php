@@ -10,6 +10,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 require __DIR__ . '/../Header.php';
 /** @var \PhpOffice\PhpSpreadsheet\Helper\Sample $helper */
 $spreadsheet = new Spreadsheet();
+// following stmt can be commented in/out to test both calendars
+$spreadsheet->setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
+$calendar = $spreadsheet->getExcelCalendar();
+$use1904 = $calendar === SharedDate::CALENDAR_MAC_1904;
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');
 // changed data to simulate a trend chart - Xaxis are dates; Yaxis are 3 meausurements from each date
@@ -185,6 +189,9 @@ $chart = new Chart(
     $xAxis, // xAxis
     $yAxis, // yAxis
 );
+if ($use1904) {
+    $chart->setDate1904(true);
+}
 
 // Set the position of the chart in the chart sheet
 $chart->setTopLeftPosition('A1');
@@ -275,7 +282,7 @@ $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601);
 $xAxis->setAxisType('dateAx'); // dateAx available ONLY for LINECHART, not SCATTERCHART
 
 // measure the time span in Quarters, of data.
-$dateMinMax = dateRange(8, $spreadsheet); // array 'min'=>earliest date of first Q, 'max'=>latest date of final Q
+$dateMinMax = dateRange(8, $spreadsheet, $calendar); // array 'min'=>earliest date of first Q, 'max'=>latest date of final Q
 // change xAxis tick marks to match Qtr boundaries
 
 $nQtrs = sprintf('%3.2f', (($dateMinMax['max'] - $dateMinMax['min']) / 30.5) / 4);
@@ -321,6 +328,9 @@ $chart = new Chart(
     $xAxis, // xAxis
     $yAxis, // yAxis
 );
+if ($use1904) {
+    $chart->setDate1904(true);
+}
 
 // Set the position of the chart in the chart sheet below the first chart
 $chart->setTopLeftPosition('A13');
@@ -339,7 +349,7 @@ $helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);
 $spreadsheet->disconnectWorksheets();
 
 /** @return array{'min': float|int, 'max': float|int} */
-function dateRange(int $nrows, Spreadsheet $wrkbk): array
+function dateRange(int $nrows, Spreadsheet $wrkbk, int $calendar): array
 {
     $dataSheet = $wrkbk->getSheetByNameOrThrow('Data');
 
@@ -357,7 +367,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $qtr = intdiv($startMonth, 3) + (($startMonth % 3 > 0) ? 1 : 0);
     $qtrStartMonth = sprintf('%02d', 1 + (($qtr - 1) * 3));
     $qtrStartStr = "$startYr-$qtrStartMonth-01";
-    $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
+    $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr, $calendar);
 
     // end the xaxis at the end of the quarter of the last date
     /** @var string */
@@ -377,7 +387,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     }
     $lastDOM = $lastDOMDate->format('t');
     $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
-    $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
+    $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr, $calendar);
 
     $minMaxDates = ['min' => $ExcelQtrStartDateVal, 'max' => $ExcelQtrEndDateVal];
 

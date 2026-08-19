@@ -21,6 +21,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\PivotTable as PivotTableWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA;
@@ -53,6 +54,13 @@ class Xlsx extends BaseWriter
      * @var string[]
      */
     private array $stringTable = [];
+
+    /**
+     * Generated pivot table parts, keyed by their archive path.
+     *
+     * @var array<string, string>
+     */
+    private array $pivotTableContent = [];
 
     /**
      * Private unique Conditional HashTable.
@@ -326,10 +334,15 @@ class Xlsx extends BaseWriter
         // Create styles dictionaries
         $this->createStyleDictionaries();
 
+        // Generate OOXML parts for any in-memory pivot tables and register them
+        // in the unparsed loaded data, so the relationship, workbook and
+        // content-type writers emit the correct wiring for them.
+        $this->pivotTableContent = $this->prepareGeneratedPivotTables();
+
         // Create drawing dictionary
         $this->drawingHashTable->addFromSource($this->getWriterPartDrawing()->allDrawings($this->spreadSheet));
 
-        /** @var string[] */
+        /** @var array<string, string> */
         $zipContent = [];
         $richDataCount = 0;
 
@@ -431,7 +444,7 @@ class Xlsx extends BaseWriter
         // Add worksheet relationships (drawings, ...)
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
             // Add relationships
-            /** @var string[] $zipContent */
+            /** @var array<string, string> $zipContent */
             $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1, $zipContent);
 
             // Add unparsedLoadedData
@@ -580,7 +593,12 @@ class Xlsx extends BaseWriter
         }
 
         // Add pass-through media files (original media that may not be in the drawing collection)
-        $this->addPassThroughMediaFiles($zipContent); // @phpstan-ignore argument.type
+        /** @var array<string, string> $zipContent */
+        $this->addPassThroughMediaFiles($zipContent);
+
+        // Add preserved pivot table parts (pivot tables, caches and their rels)
+        /** @var array<string, string> $zipContent */
+        $this->addPivotTableFiles($zipContent);
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
@@ -905,5 +923,164 @@ class Xlsx extends BaseWriter
 
             $sourceZip->close();
         }
+    }
+
+    /**
+     * Re-add the raw pivot table parts that were preserved on load, so pivot
+     * tables survive a load/save round-trip. Each part is keyed by its original
+     * path within the archive, keeping the relationships between the pivot
+     * table, its cache definition and cache records intact.
+     *
+     * @param array<string, string> $zipContent
+     */
+    private function addPivotTableFiles(array &$zipContent): void
+    {
+        $unparsedLoadedData = $this->spreadSheet->getUnparsedLoadedData();
+
+        // Pivot table parts, referenced from each worksheet's relationships.
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $unparsedLoadedData['sheets'] ?? [];
+        foreach ($sheets as $sheetData) {
+            /** @var array<array<string, string>> $pivotTables */
+            $pivotTables = $sheetData['pivotTables'] ?? [];
+            foreach ($pivotTables as $pivotTable) {
+                $zipContent[$pivotTable['path']] = $pivotTable['content'];
+            }
+        }
+
+        // Pivot cache definitions, referenced from the workbook relationships.
+        /** @var array<string, array<string, string>> $cacheDefinitions */
+        $cacheDefinitions = $unparsedLoadedData['pivotCacheDefinitions'] ?? [];
+        foreach ($cacheDefinitions as $cacheDefinition) {
+            $zipContent[$cacheDefinition['path']] = $cacheDefinition['content'];
+        }
+
+        // Remaining pivot parts (cache records, and the rels for the pivot
+        // table and cache definition parts).
+        /** @var array<string, string> $pivotParts */
+        $pivotParts = $unparsedLoadedData['pivotCacheParts'] ?? [];
+        foreach ($pivotParts as $path => $content) {
+            $zipContent[$path] = $content;
+        }
+
+        // Parts for pivot tables that were generated in memory.
+        foreach ($this->pivotTableContent as $path => $content) {
+            $zipContent[$path] = $content;
+        }
+    }
+
+    /**
+     * Generate OOXML parts for every in-memory (built) pivot table, register
+     * the resulting wiring in the spreadsheet's unparsed loaded data so the
+     * existing relationship/workbook/content-type writers emit it, and return
+     * the generated part contents keyed by their archive path.
+     *
+     * @return array<string, string>
+     */
+    private function prepareGeneratedPivotTables(): array
+    {
+        /** @var array<string, mixed> $unparsedLoadedData */
+        $unparsedLoadedData = $this->spreadSheet->getUnparsedLoadedData();
+
+        // Continue indices after any pivot parts that were preserved on load,
+        // so generated file names never collide with preserved ones.
+        /** @var array<string, array<string, string>> $existingCaches */
+        $existingCaches = $unparsedLoadedData['pivotCacheDefinitions'] ?? [];
+        $tableIndex = $this->countPreservedPivotTables($unparsedLoadedData);
+        $cacheIndex = count($existingCaches);
+
+        $content = [];
+        /** @var array<int, array{cacheId: string, cacheDefinitionPath: string}> $workbookPivotCaches */
+        $workbookPivotCaches = $unparsedLoadedData['workbookPivotCaches'] ?? [];
+        /** @var array<string, string> $overrideContentTypes */
+        $overrideContentTypes = $unparsedLoadedData['override_content_types'] ?? [];
+        // Pivot table relationship data to merge into the per-sheet unparsed
+        // data, keyed by sheet code name.
+        /** @var array<string, array<int, array<string, string>>> $sheetPivotTables */
+        $sheetPivotTables = [];
+
+        foreach ($this->spreadSheet->getWorksheetIterator() as $worksheet) {
+            foreach ($worksheet->getPivotTableCollection() as $pivotTable) {
+                if (!$pivotTable->isGenerated()) {
+                    continue;
+                }
+
+                ++$tableIndex;
+                ++$cacheIndex;
+                $cacheId = $cacheIndex;
+                $pivotTable->getCacheDefinition()?->setCacheId($cacheId);
+
+                $tablePath = "xl/pivotTables/pivotTable{$tableIndex}.xml";
+                $tableRelsPath = "xl/pivotTables/_rels/pivotTable{$tableIndex}.xml.rels";
+                $cachePath = "xl/pivotCache/pivotCacheDefinition{$cacheIndex}.xml";
+                $cacheRelsPath = "xl/pivotCache/_rels/pivotCacheDefinition{$cacheIndex}.xml.rels";
+                $recordsPath = "xl/pivotCache/pivotCacheRecords{$cacheIndex}.xml";
+
+                $content[$tablePath] = PivotTableWriter::writeDefinition($pivotTable, $cacheId);
+                $content[$tableRelsPath] = PivotTableWriter::writeTableRelationships($cacheIndex);
+                $content[$cachePath] = PivotTableWriter::writeCacheDefinition($pivotTable);
+                $content[$cacheRelsPath] = PivotTableWriter::writeCacheRelationships($cacheIndex);
+                $content[$recordsPath] = PivotTableWriter::writeCacheRecords();
+
+                // Worksheet -> pivot table relationship data.
+                $sheetCode = $worksheet->getCodeName();
+                $sheetPivotTables[$sheetCode][] = [
+                    'relFilePath' => "../pivotTables/pivotTable{$tableIndex}.xml",
+                    'path' => $tablePath,
+                    'content' => $content[$tablePath],
+                ];
+
+                // Workbook <pivotCaches> registry + workbook relationship.
+                $workbookPivotCaches[] = [
+                    'cacheId' => (string) $cacheId,
+                    'cacheDefinitionPath' => $cachePath,
+                ];
+                $existingCaches[$cachePath] = ['path' => $cachePath, 'content' => $content[$cachePath]];
+
+                // Content types for the three new parts.
+                $overrideContentTypes['/' . $tablePath] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotTable+xml';
+                $overrideContentTypes['/' . $cachePath] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheDefinition+xml';
+                $overrideContentTypes['/' . $recordsPath] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheRecords+xml';
+            }
+        }
+
+        if ($content === []) {
+            return [];
+        }
+
+        // Merge the generated pivot table relationships into each sheet's data.
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $unparsedLoadedData['sheets'] ?? [];
+        foreach ($sheetPivotTables as $sheetCode => $pivotTables) {
+            /** @var array<int, array<string, string>> $existing */
+            $existing = $sheets[$sheetCode]['pivotTables'] ?? [];
+            $sheets[$sheetCode]['pivotTables'] = array_merge($existing, $pivotTables);
+        }
+
+        $unparsedLoadedData['sheets'] = $sheets;
+        $unparsedLoadedData['workbookPivotCaches'] = $workbookPivotCaches;
+        $unparsedLoadedData['pivotCacheDefinitions'] = $existingCaches;
+        $unparsedLoadedData['override_content_types'] = $overrideContentTypes;
+        /** @var array<array<array<array<string>|string>>> $unparsedLoadedData */
+        $this->spreadSheet->setUnparsedLoadedData($unparsedLoadedData);
+
+        return $content;
+    }
+
+    /**
+     * @param array<string, mixed> $unparsedLoadedData
+     */
+    private function countPreservedPivotTables(array $unparsedLoadedData): int
+    {
+        $count = 0;
+        /** @var array<string, array<string, mixed>> $sheets */
+        $sheets = $unparsedLoadedData['sheets'] ?? [];
+        foreach ($sheets as $sheetData) {
+            /** @var array<mixed> $pivotTables */
+            $pivotTables = $sheetData['pivotTables'] ?? [];
+            $count += count($pivotTables);
+        }
+
+        return $count;
     }
 }

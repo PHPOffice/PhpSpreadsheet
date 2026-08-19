@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -412,12 +413,16 @@ class Style
         }
         $method = $this->additionalNumberFormats[$numFmt] ?? self::NUMBER_FORMAT_METHODS[$numFmt] ?? null;
         if ($method === null) {
-            return;
+            if (Preg::isMatch('/^0[0#]+$/', $numFmt)) {
+                $this->additionalNumberFormats[$numFmt] = $method = [self::class, 'formatIntLeading0'];
+            } else {
+                return;
+            }
         }
         ++$this->numFmtIndex;
         $name = 'N' . $this->numFmtIndex;
         $this->numFmtIndexes[$numFmt] = $name;
-        $method($this, $name);
+        $method($this, $name, $numFmt);
     }
 
     public function write(CellStyle $style): void
@@ -492,6 +497,17 @@ class Style
         NumberFormat::FORMAT_CURRENCY_YEN_YUAN_INTEGER => [self::class, 'formatCurrencyYenYuanInteger'],
         NumberFormat::FORMAT_CURRENCY_YEN_YUAN => [self::class, 'formatCurrencyYenYuan'],
     ];
+
+    protected static function formatIntLeading0(self $obj, string $name, string $numFmt): void
+    {
+        $obj->writer->startElement('number:number-style');
+        $obj->writer->writeAttribute('style:name', $name);
+        $obj->writer->startElement('number:number');
+        $obj->writer->writeAttribute('number:decimal-places', '0');
+        $obj->writer->writeAttribute('number:min-integer-digits', (string) strlen($numFmt));
+        $obj->writer->endElement(); // number:number
+        $obj->writer->endElement(); // number:number-style
+    }
 
     protected static function formatNumber(self $obj, string $name): void
     {
