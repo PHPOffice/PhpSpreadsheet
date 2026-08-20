@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -415,6 +416,14 @@ class Style
         if ($method === null) {
             if (Preg::isMatch('/^0[0#]+$/', $numFmt)) {
                 $this->additionalNumberFormats[$numFmt] = $method = [self::class, 'formatIntLeading0'];
+            } elseif (Date::isDateTimeFormatCode($numFmt)) {
+                if (!Preg::isMatch('/[HhSs]/', $numFmt)) {
+                    $method = [self::class, 'formatDateYyyymmdd'];
+                } elseif (Preg::isMatch('/[YyDd]/', $numFmt)) {
+                    $method = [self::class, 'formatDateDatetimeBetter'];
+                } else {
+                    $method = [self::class, 'formatDateTime1'];
+                }
             } else {
                 return;
             }

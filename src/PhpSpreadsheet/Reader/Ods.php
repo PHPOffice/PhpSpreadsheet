@@ -1091,17 +1091,20 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $value = $cellData->getAttributeNS($officeNs, 'date-value');
                         $dataValue = Date::convertIsoDate($value);
+                        $format15 = Preg::isMatch('/\d\d\d\d/', $allCellDataText) ? NumberFormat::FORMAT_DATE_XLSX15_YYYY : NumberFormat::FORMAT_DATE_XLSX15;
 
                         if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
                             $formatting = 'yyyy-mm-dd';
+                        } elseif (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d \d\d:\d\d(:\d\d)?$/', $allCellDataText)) {
+                            $formatting = NumberFormat::FORMAT_DATE_DATETIME_BETTER;
                         } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
                             $formatting = 'd-mmm-yyyy';
-                        } elseif ($dataValue != floor($dataValue)) {
-                            $formatting = NumberFormat::FORMAT_DATE_XLSX15
+                        } elseif ($dataValue != floor($dataValue) || str_contains($allCellDataText, ':')) {
+                            $formatting = $format15
                                 . ' '
                                 . NumberFormat::FORMAT_DATE_TIME4;
                         } else {
-                            $formatting = NumberFormat::FORMAT_DATE_XLSX15;
+                            $formatting = $format15;
                         }
 
                         break;
