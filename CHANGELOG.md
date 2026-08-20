@@ -22,7 +22,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
-- Nothing yet.
+- Performance: avoid `Worksheet::getStyle()` on every `Cell::setValueExplicit()` unless quote-prefix must change. On a dense 40k-cell populate+save microbenchmark this cut wall time by ~5%.
 
 ### Moved
 
@@ -34,6 +34,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Ods Writer no longer converts cell references or commas inside string literals, so `="THIS IS E1"` is written unchanged instead of as `="THIS IS [.E1]"`. [Issue #4454](https://github.com/PHPOffice/PhpSpreadsheet/issues/4454)
 - BETAINV/BETA.INV no longer abandons its search when the Beta CDF underflows to zero (wrong results for alpha above about 1080). [PR #4954](https://github.com/PHPOffice/PhpSpreadsheet/pull/4954)
 - GAMMA.INV, the GAMMA.DIST/CHISQ.DIST/F.DIST densities, and GAMMALN no longer fail or return wrong results for large shape parameters / degrees of freedom. [PR #4953](https://github.com/PHPOffice/PhpSpreadsheet/pull/4953)
 - GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)

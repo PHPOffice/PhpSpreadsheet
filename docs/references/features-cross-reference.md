@@ -410,6 +410,30 @@
         <td></td>
     </tr>
     <tr>
+        <td style="padding-left: 1em;">Image Above Cell</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="padding-left: 1em;">Image In Cell</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td></td>
+    </tr>
+    <tr>
         <td style="padding-left: 0.5em;"><strong>Conditional Formatting</strong></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -1182,7 +1206,7 @@
         <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
-        <td style="padding-left: 0.5em;">Rich Text</td>
+        <td style="padding-left: 0.5em;"><strong>Rich Text</strong></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1191,13 +1215,33 @@
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
+        <td style="padding-left: 0.5em;"><strong>Image Above Cell</strong></td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td style="padding-left: 0.5em;"><strong>Image In Cell</strong></td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td></td>
+    </tr>
+    <tr>
         <td style="padding-left: 0.5em;"><strong>Conditional Formatting</strong></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 0.5em;"><strong>Array Formula<a href="#footnote8"><sup>8</sup></a></strong></td>

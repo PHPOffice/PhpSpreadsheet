@@ -482,6 +482,9 @@ class Worksheet extends BIFFwriter
             [$column, $row] = Coordinate::indexesFromString($coordinate);
 
             $url = $hyperlink->getUrl();
+            if ($url === '') {
+                continue;
+            }
             if ($url[0] === '#') {
                 $url = "internal:$url";
             } elseif (str_starts_with($url, 'sheet://')) {
