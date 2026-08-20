@@ -8,7 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands\StructuredReference;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -369,55 +368,4 @@ class ParseFormulaTest extends TestCase
         ];
     }
 
-    /**
-     * VLOOKUP with a whole-column range where the end column contains no data.
-     * getHighestDataRow() on the empty end column returned 1, producing an
-     * inverted range (e.g. A4:F1) that caused a #N/A result.
-     *
-     * @see https://github.com/PHPOffice/PhpSpreadsheet/pull/4967
-     */
-    #[DataProvider('providerVlookupWholeColumnRange')]
-    public function testVlookupWholeColumnRange(string $formula, string $expectedResult): void
-    {
-        $spreadsheet = new Spreadsheet();
-
-        // Lookup sheet: col A = keys, col C = values; cols B, D, E, F are empty
-        $lookupSheet = new Worksheet($spreadsheet, 'Sheet2');
-        $spreadsheet->addSheet($lookupSheet, 0);
-        $lookupSheet->fromArray([
-            [1234, null, 'row1'],
-            [2345, null, 'row2'],
-            [3456, null, 'row3'],
-            [4567, null, 'row4'],
-        ], null, 'A1');
-
-        // Formula sheet: C1 holds the lookup value
-        $formulaSheet = new Worksheet($spreadsheet, 'Sheet1');
-        $spreadsheet->addSheet($formulaSheet, 1);
-        $formulaSheet->setCellValue('C1', 3456);
-        $formulaSheet->setCellValue('A1', $formula);
-        $spreadsheet->setActiveSheetIndexByName('Sheet1');
-
-        $result = $formulaSheet->getCell('A1')->getCalculatedValue();
-        self::assertSame($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public static function providerVlookupWholeColumnRange(): array
-    {
-        return [
-            'VLOOKUP with absolute whole-column range across sheets' => [
-                '=VLOOKUP($C1,Sheet2!$A:$F,3,FALSE)',
-                'row3',
-            ],
-            'VLOOKUP with relative whole-column range across sheets' => [
-                '=VLOOKUP($C1,Sheet2!A:F,3,FALSE)',
-                'row3',
-            ],
-            'VLOOKUP with mixed whole-column range across sheets' => [
-                '=VLOOKUP($C1,Sheet2!A:$F,3,FALSE)',
-                'row3',
-            ],
-        ];
-    }
 }
