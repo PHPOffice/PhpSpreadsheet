@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
@@ -26,6 +27,10 @@ class Content extends WriterPart
 {
     private Formula $formulaConvertor;
 
+    private Drawing $drawingWriter;
+
+    private int $drawingIndex = 0;
+
     /**
      * Set parent Ods writer.
      */
@@ -34,6 +39,7 @@ class Content extends WriterPart
         parent::__construct($writer);
 
         $this->formulaConvertor = new Formula($this->getParentWriter()->getSpreadsheet()->getDefinedNames());
+        $this->drawingWriter = new Drawing($writer);
     }
 
     /**
@@ -115,6 +121,14 @@ class Content extends WriterPart
     }
 
     /**
+     * Get drawing writer instance.
+     */
+    public function getDrawingWriter(): Drawing
+    {
+        return $this->drawingWriter;
+    }
+
+    /**
      * Write sheets.
      */
     private function writeSheets(XMLWriter $objWriter): void
@@ -156,11 +170,26 @@ class Content extends WriterPart
     {
         $spanRow = 0;
         $rows = $sheet->getRowIterator();
+
+        // Build a map of drawings by their row position
+        /** @var array<int, array<int, array{drawing: BaseDrawing, index: int}>> */
+        $drawingsByRow = [];
+        foreach ($sheet->getDrawingCollection() as $drawing) {
+            ++$this->drawingIndex;
+            $coordinates = Coordinate::coordinateFromString($drawing->getCoordinates());
+            $row = (int) $coordinates[1];
+            if (!isset($drawingsByRow[$row])) {
+                $drawingsByRow[$row] = [];
+            }
+            $drawingsByRow[$row][] = ['drawing' => $drawing, 'index' => $this->drawingIndex];
+        }
+
         foreach ($rows as $row) {
             $cellIterator = $row->getCellIterator(iterateOnlyExistingCells: true);
             $cellIterator->rewind();
             $rowStyleExists = $sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0;
-            if ($cellIterator->valid() || $rowStyleExists) {
+            $rowIndex = $row->getRowIndex();
+            if ($cellIterator->valid() || $rowStyleExists || isset($drawingsByRow[$rowIndex])) {
                 if ($spanRow) {
                     $objWriter->startElement('table:table-row');
                     $objWriter->writeAttribute(
@@ -174,15 +203,15 @@ class Content extends WriterPart
                 if ($rowStyleExists) {
                     $objWriter->writeAttribute(
                         'table:style-name',
-                        sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
+                        sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $rowIndex)
                     );
-                } elseif ($sheet->getDefaultRowDimension()->getRowHeight() > 0.0 && !$sheet->getRowDimension($row->getRowIndex())->getCustomFormat()) {
+                } elseif ($sheet->getDefaultRowDimension()->getRowHeight() > 0.0 && !$sheet->getRowDimension($rowIndex)->getCustomFormat()) {
                     $objWriter->writeAttribute(
                         'table:style-name',
                         sprintf('%s%d', Style::ROW_STYLE_PREFIX, $sheetIndex)
                     );
                 }
-                $this->writeCells($objWriter, $cellIterator);
+                $this->writeCells($objWriter, $cellIterator, $drawingsByRow, $rowIndex, $sheet);
                 $objWriter->endElement();
             } else {
                 ++$spanRow;
@@ -192,10 +221,20 @@ class Content extends WriterPart
 
     /**
      * Write cells of the specified row.
+     *
+     * @param array<int, array<int, array{drawing: BaseDrawing, index: int}>> $drawingsByRow
      */
-    private function writeCells(XMLWriter $objWriter, RowCellIterator $cells): void
+    private function writeCells(XMLWriter $objWriter, RowCellIterator $cells, array $drawingsByRow, int $rowIndex, Worksheet $sheet): void
     {
         $prevColumn = -1;
+        // Get drawings for this row
+        $rowDrawings = $drawingsByRow[$rowIndex] ?? [];
+        $drawingsByColumn = [];
+        foreach ($rowDrawings as $drawingData) {
+            $coordinates = Coordinate::coordinateFromString($drawingData['drawing']->getCoordinates());
+            $column = Coordinate::columnIndexFromString($coordinates[0]) - 1;
+            $drawingsByColumn[$column] = $drawingData;
+        }
         foreach ($cells as $cell) {
             /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
@@ -386,10 +425,47 @@ class Content extends WriterPart
 
                     break;
             }
+
+            // Write drawing if it belongs to this cell
+            if (isset($drawingsByColumn[$column])) {
+                $drawingData = $drawingsByColumn[$column];
+                $this->drawingWriter->writeDrawingFrame(
+                    $objWriter,
+                    $drawingData['drawing'],
+                    $drawingData['index'],
+                    $sheet->getTitle()
+                );
+            }
+
             Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prevColumn = $column;
         }
+
+        // Write any remaining drawings that don't have cells.
+        // I don't know how to trigger the if condition below,
+        //   and would prefer to eliminate the code and have
+        //   someone raise an issue rather than have them
+        //   execute unpredictable code.
+
+        /*
+        foreach ($drawingsByColumn as $column => $drawingData) {
+            if ($column > $prevColumn) {
+                $this->writeCellSpan($objWriter, $column, $prevColumn);
+                $objWriter->startElement('table:table-cell');
+
+                $this->drawingWriter->writeDrawingFrame(
+                    $objWriter,
+                    $drawingData['drawing'],
+                    $drawingData['index'],
+                    $sheet->getTitle()
+                );
+
+                $objWriter->endElement();
+                $prevColumn = $column;
+            }
+        }
+        */
     }
 
     /**

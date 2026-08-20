@@ -31,6 +31,7 @@ use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
 use XMLReader;
@@ -39,6 +40,10 @@ use ZipArchive;
 class Ods extends BaseReader
 {
     const INITIAL_FILE = 'content.xml';
+
+    private ZipArchive $zip;
+
+    private string $filename;
 
     /**
      * Create a new Ods Reader instance.
@@ -312,7 +317,8 @@ class Ods extends BaseReader
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
-        $zip = new ZipArchive();
+        $this->zip = $zip = new ZipArchive();
+        $this->filename = $filename;
         $zip->open($filename);
 
         // Meta
@@ -881,6 +887,8 @@ class Ods extends BaseReader
                 }
                 // Fall through to process the cell, with per-column filter checks
             }
+            $tempSpannedRange = "$columnID$rowID";
+            $spannedRange = '';
             if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
@@ -977,6 +985,8 @@ class Ods extends BaseReader
                 // Filter text:p elements
                 if ($item->nodeName == 'text:p') {
                     $paragraphs[] = $item;
+                } elseif ($item->nodeName === 'draw:frame' && $worksheet !== null) {
+                    $this->processDrawFrame($spannedRange ?: $tempSpannedRange, $item, $worksheet);
                 }
             }
 
@@ -1198,6 +1208,61 @@ class Ods extends BaseReader
             StringHelper::stringIncrement($columnID);
         }
         $rowID += $rowRepeats;
+    }
+
+    private function processDrawFrame(string $spannedRange, DOMElement $item, Worksheet $worksheet): void
+    {
+        $drawName = $item->getAttribute('draw:name');
+        $svgWidth = $item->getAttribute('svg:width');
+        $svgHeight = $item->getAttribute('svg:height');
+        $styleName = $item->getAttribute('draw:style-name');
+        $drawImage = null;
+        foreach ($item->childNodes as $node) {
+            // Check if the node is a standard element tag
+            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image') {
+                /** @var DOMElement */
+                $drawImage = $node;
+
+                break;
+            }
+        }
+
+        $xlinkHref = $xlinkType = $xlinkShow = '';
+        if ($drawImage !== null) {
+            $xlinkHref = $drawImage->getAttribute('xlink:href');
+            $xlinkType = $drawImage->getAttribute('xlink:type');
+            $xlinkShow = $drawImage->getAttribute('xlink:show');
+        }
+        if (
+            $drawName !== ''
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgWidth, $matchWidth)
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgHeight, $matchHeight)
+            //&& $styleName === 'gr1'
+            && (str_starts_with($xlinkHref, 'Pictures/') || str_starts_with($xlinkHref, 'media/'))
+            && $xlinkType === 'simple'
+            && $xlinkShow === 'embed'
+        ) {
+            $drawing = new Drawing();
+            $drawing->setPath(
+                "zip://{$this->filename}#$xlinkHref",
+                true,
+                $this->zip,
+                false
+            );
+            $unit = [
+                'cm' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS],
+                'in' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_INCHES],
+            ];
+            $width = ((float) $matchWidth[1]) * $unit[$matchWidth[3]];
+            $height = ((float) $matchHeight[1]) * $unit[$matchHeight[3]];
+            if ($drawing->getPath()) {
+                $drawing->setCoordinates($spannedRange)
+                    ->setWidth((int) $width)
+                    ->setHeight((int) $height)
+                    ->setName($drawName)
+                    ->setWorksheet($worksheet);
+            }
+        }
     }
 
     private static function extractNodeName(string $key): string
