@@ -7,6 +7,15 @@ table.features-cross-reference {
     background-color: white;
 }
 
+/* Light mode alternating rows */
+.md-typeset table.docutils tbody tr:nth-child(2n) {
+  background-color: #c8c8c8;
+}
+/* Dark mode (slate scheme) alternating rows */
+[data-md-color-scheme="slate"] .md-typeset table.docutils tbody tr:nth-child(2n) {
+  background-color: #505050;
+}
+
 /* https://github.com/mkdocs/mkdocs/discussions/3035#discussioncomment-7237037 */
 .wy-table-responsive table td, .wy-table-responsive table th {
     white-space: normal !important;
