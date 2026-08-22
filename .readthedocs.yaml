@@ -8,7 +8,11 @@ build:
     tools:
         python: "3"
     jobs:
+        install:
+            - pip install zensical
         build:
             html:
-                - pip install zensical
                 - zensical build
+        post_build:
+            - mkdir -p $READTHEDOCS_OUTPUT/html/
+            - cp --recursive site/* $READTHEDOCS_OUTPUT/html/
