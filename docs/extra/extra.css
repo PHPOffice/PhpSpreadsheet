@@ -8,11 +8,11 @@ table.features-cross-reference {
 }
 
 /* Light mode alternating rows */
-.md-typeset table.docutils tbody tr:nth-child(2n) {
+table tbody tr:nth-child(2n) {
   background-color: #c8c8c8;
 }
 /* Dark mode (slate scheme) alternating rows */
-[data-md-color-scheme="slate"] .md-typeset table.docutils tbody tr:nth-child(2n) {
+[data-md-color-scheme="slate"] table tbody tr:nth-child(2n) {
   background-color: #505050;
 }
 
