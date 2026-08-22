@@ -8,12 +8,12 @@ table.features-cross-reference {
 }
 
 /* Light mode alternating rows */
-table tbody tr:nth-child(2n) {
-  background-color: #c8c8c8;
+[data-md-color-scheme="default"] table tbody tr:nth-child(2n) {
+  background-color: #f3f6f6;
 }
 /* Dark mode (slate scheme) alternating rows */
 [data-md-color-scheme="slate"] table tbody tr:nth-child(2n) {
-  background-color: #505050;
+  background-color: #404040;
 }
 
 /* https://github.com/mkdocs/mkdocs/discussions/3035#discussioncomment-7237037 */

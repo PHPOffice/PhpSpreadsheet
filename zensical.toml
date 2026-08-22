@@ -29,7 +29,7 @@ features = [
   # "content.action.view",
   "content.code.annotate",
   "content.code.copy",
-  "content.code.select",
+  # "content.code.select", # I'm not sure what this button does
   "content.footnote.tooltips",
   "content.tabs.link",
   "content.tooltips",
