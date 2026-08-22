@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    [
+        false,
+        null,
+    ],
+    [
+        false,
+        -1,
+    ],
+    [
+        false,
+        0,
+    ],
+    [
+        false,
+        9,
+    ],
+    [
+        false,
+        1.5,
+    ],
+    [
+        true,
+        '',
+    ],
+    [
+        true,
+        '-1',
+    ],
+    [
+        true,
+        '2',
+    ],
+    [
+        true,
+        '-1.5',
+    ],
+    [
+        true,
+        'ABC',
+    ],
+    [
+        false,
+        '#VALUE!',
+    ],
+    [
+        false,
+        '#N/A',
+    ],
+    [
+        true,
+        'TRUE',
+    ],
+    [
+        false,
+        true,
+    ],
+    [
+        false,
+        false,
+    ],
+];

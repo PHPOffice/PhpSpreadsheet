@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
+
+class KurtTest extends AllSetupTeardown
+{
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerKURT')]
+    public function testKURT(mixed $expectedResult, mixed ...$args): void
+    {
+        $this->runTestCases('KURT', $expectedResult, ...$args);
+    }
+
+    public static function providerKURT(): array
+    {
+        return require 'tests/data/Calculation/Statistical/KURT.php';
+    }
+}

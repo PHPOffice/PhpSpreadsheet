@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Español (Spanish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #¡NULO!
+DIV0 = #¡DIV/0!
+VALUE = #¡VALOR!
+REF = #¡REF!
+NAME = #¿NOMBRE?
+NUM = #¡NUM!
+NA

@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Magyar (Hungarian)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #NULLA!
+DIV0 = #ZÉRÓOSZTÓ!
+VALUE = #ÉRTÉK!
+REF = #HIV!
+NAME = #NÉV?
+NUM = #SZÁM!
+NA = #HIÁNYZIK

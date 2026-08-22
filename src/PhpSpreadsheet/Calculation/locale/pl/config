@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Jezyk polski (Polish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #ZERO!
+DIV0 = #DZIEL/0!
+VALUE = #ARG!
+REF = #ADR!
+NAME = #NAZWA?
+NUM = #LICZBA!
+NA = #N/D!

@@ -1,0 +1,15 @@
+# Label used to mark issues as support requests
+supportLabel: question
+# Comment to post on issues marked as support requests. Add a link
+# to a support page, or set to `false` to disable
+supportComment: >
+  This looks like a support question. Please ask your support questions on
+  [StackOverflow](https://stackoverflow.com/questions/tagged/phpspreadsheet),
+  or [Gitter](https://gitter.im/PHPOffice/PhpSpreadsheet).
+
+  Thank you for your contributions.
+
+# Whether to close issues marked as support requests
+close: true
+# Whether to lock issues marked as support requests
+lock: false

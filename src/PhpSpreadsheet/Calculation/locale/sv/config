@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Svenska (Swedish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #SKÄRNING!
+DIV0 = #DIVISION/0!
+VALUE = #VÄRDEFEL!
+REF = #REFERENS!
+NAME = #NAMN?
+NUM = #OGILTIGT!
+NA = #SAKNAS!

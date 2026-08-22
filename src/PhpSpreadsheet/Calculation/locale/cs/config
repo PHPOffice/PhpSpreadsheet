@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Ceština (Czech)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL
+DIV0 = #DĚLENÍ_NULOU!
+VALUE = #HODNOTA!
+REF = #ODKAZ!
+NAME = #NÁZEV?
+NUM = #ČÍSLO!
+NA = #NENÍ_K_DISPOZICI

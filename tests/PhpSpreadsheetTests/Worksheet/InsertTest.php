@@ -1,0 +1,129 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\TestCase;
+
+class InsertTest extends TestCase
+{
+    public function testInsertRow(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+            [13, 14, 15, 16],
+            [17, 18, 19, 20],
+        ]);
+        $sheet->getRowDimension(1000)->setVisible(false);
+        $sheet->getStyle('C3')->getFont()->setBold(true);
+        self::assertSame(1000, $sheet->getHighestRow());
+        self::assertSame(5, $sheet->getHighestDataRow());
+        $currentRow = 4;
+        $sheet->insertNewRowBefore($currentRow, 1);
+        self::assertSame(1001, $sheet->getHighestRow());
+        self::assertSame(6, $sheet->getHighestDataRow());
+        self::assertTrue(
+            $sheet->getStyle('C3')->getFont()->getBold()
+        );
+        self::assertSame(11, $sheet->getCell('C3')->getValue());
+        self::assertTrue(
+            $sheet->getStyle('C4')->getFont()->getBold()
+        );
+        self::assertNull($sheet->getCell('C4')->getValue());
+        self::assertFalse(
+            $sheet->getRowDimension(1001)->getVisible()
+        );
+        self::assertTrue(
+            $sheet->getRowDimension(1000)->getVisible()
+        );
+        $sheet->removeRow(15, 10);
+        self::assertSame(991, $sheet->getHighestRow(), 'highest row decreases by 10');
+        $sheet->removeRow(985, 10);
+        self::assertSame(984, $sheet->getHighestRow(), 'delete range overlaps highest row so highest is now row before delete');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testInsertColumn(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+            [13, 14, 15, 16],
+            [17, 18, 19, 20],
+        ]);
+        $sheet->getColumnDimension('ZY')->setVisible(false);
+        $sheet->getStyle('C3')->getFont()->setBold(true);
+        self::assertSame('ZY', $sheet->getHighestColumn());
+        self::assertSame('D', $sheet->getHighestDataColumn());
+        $currentColumn = 'D';
+        $sheet->insertNewColumnBefore($currentColumn, 1);
+        self::assertSame('ZZ', $sheet->getHighestColumn());
+        self::assertSame('E', $sheet->getHighestDataColumn());
+        self::assertTrue(
+            $sheet->getStyle('C3')->getFont()->getBold()
+        );
+        self::assertSame(11, $sheet->getCell('C3')->getValue());
+        self::assertTrue(
+            $sheet->getStyle('D3')->getFont()->getBold()
+        );
+        self::assertNull($sheet->getCell('D3')->getValue());
+        self::assertFalse(
+            $sheet->getColumnDimension('ZZ')->getVisible()
+        );
+        self::assertTrue(
+            $sheet->getColumnDimension('ZY')->getVisible()
+        );
+        $sheet->removeColumn('G', 5);
+        self::assertSame('ZU', $sheet->getHighestColumn(), 'ZZ moved over 5 columns');
+        $sheet->removeColumn('ZR', 5);
+        self::assertSame('ZQ', $sheet->getHighestColumn(), 'delete range overlaps highest column so new highest is one before deleted columns');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * A very strange case.
+     * Excel does not allow you to insert a column when
+     * the highest possible column has non-empty cells.
+     * PhpSpreadsheet does, but ...
+     *
+     * When neither XEY1 nor XEZ1 is set, current code creates a
+     * spreadsheet with cell XFH1, which is nominally illegal.
+     * Excel does not consider the result corrupt,
+     * but XFD1 has moved to I1! Xml has entries up to H1,
+     * but then skips to XFH1, which Excel seems to
+     * tolerate as "next available column".
+     *
+     * When XEZ1 is set, current code creates a spreadsheet
+     * which Excel opens with an error pop-up.
+     * with cells XFD1 and XFH1 both defined. Here Excel
+     * can't tolerate XFH1 because last possible column
+     * is in use.
+     *
+     * When XEY1 is set but not XEZ1, Xml defines cells
+     * XFC1 (result of shifting XEY1 4 columns) and XFH1,
+     * which Excel moves back to next available column (XFD1).
+     */
+    public function testOverEdge(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            [1, 2, 3, 4],
+        ]);
+        $sheet->getCell('XFD1')->setValue('lastcol');
+        $sheet->insertNewColumnBefore('D', 4);
+        self::assertFalse(
+            $sheet->getCellCollection()->has('XFH1')
+        );
+        $spreadsheet->disconnectWorksheets();
+    }
+}

@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Türkçe (Turkish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #BOŞ!
+DIV0 = #SAYI/0!
+VALUE = #DEĞER!
+REF = #BAŞV!
+NAME = #AD?
+NUM = #SAYI!
+NA = #YOK

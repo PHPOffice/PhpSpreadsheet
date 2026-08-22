@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Suomi (Finnish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #TYHJÄ!
+DIV0 = #JAKO/0!
+VALUE = #ARVO!
+REF = #VIITTAUS!
+NAME = #NIMI?
+NUM = #LUKU!
+NA = #PUUTTUU!

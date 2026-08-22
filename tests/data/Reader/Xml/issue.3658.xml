@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Owen Leibman</Author>
+  <LastAuthor>Owen Leibman</LastAuthor>
+  <Created>2023-08-24T01:04:23Z</Created>
+  <LastSaved>2023-08-24T04:12:25Z</LastSaved>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Enabled dt:dt="string">true</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Enabled>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SetDate dt:dt="string">2023-08-24T01:05:41Z</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SetDate>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Method dt:dt="string">Standard</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Method>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Name dt:dt="string">defa4170-0d19-0005-0004-bc88714345d2</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_Name>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SiteId dt:dt="string">f9465cb1-7889-4d9a-b552-fdd0addf0eb1</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_SiteId>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ActionId dt:dt="string">7c91c978-1f69-4a5e-869b-3571e812b58a</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ActionId>
+  <MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ContentBits dt:dt="string">0</MSIP_Label_b002e552-5bac-4e77-a8f2-1e8fdcadcedf_ContentBits>
+ </CustomDocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>6630</WindowHeight>
+  <WindowWidth>19200</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="4" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="14.5">
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">123</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Formula="=R[-1]C+1"><Data ss:Type="Number">124</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Formula="=&quot;00&quot;&amp;R[-2]C"><Data ss:Type="String">00123</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Formula="=INFO(&quot;SYSTEM&quot;)"><Data ss:Type="String">pcdos</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>4</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

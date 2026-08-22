@@ -1,0 +1,1872 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheet\Reader;
+
+use Composer\Pcre\Preg;
+use DateTime;
+use DateTimeZone;
+use DOMAttr;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMText;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\FormulaTranslator;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
+use XMLReader;
+use ZipArchive;
+
+class Ods extends BaseReader
+{
+    const INITIAL_FILE = 'content.xml';
+
+    private ZipArchive $zip;
+
+    private string $filename;
+
+    /**
+     * Create a new Ods Reader instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->securityScanner = XmlScanner::getInstance($this);
+    }
+
+    /**
+     * Can the current IReader read the file?
+     */
+    public function canRead(string $filename): bool
+    {
+        $mimeType = 'UNKNOWN';
+
+        // Load file
+
+        if (File::testFileNoThrow($filename, '')) {
+            $zip = new ZipArchive();
+            if ($zip->open($filename) === true) {
+                // check if it is an OOXML archive
+                $stat = $zip->statName('mimetype');
+                if (!empty($stat) && ($stat['size'] <= 255)) {
+                    $mimeType = $zip->getFromName($stat['name']);
+                } elseif ($zip->statName('META-INF/manifest.xml')) {
+                    $xml = simplexml_load_string(
+                        $this->getSecurityScannerOrThrow()
+                            ->scan(
+                                $zip->getFromName(
+                                    'META-INF/manifest.xml'
+                                )
+                            )
+                    );
+                    if ($xml !== false) {
+                        $namespacesContent = $xml->getNamespaces(true);
+                        if (isset($namespacesContent['manifest'])) {
+                            $manifest = $xml->children($namespacesContent['manifest']);
+                            foreach ($manifest as $manifestDataSet) {
+                                $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
+                                if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
+                                    $mimeType = (string) $manifestAttributes->{'media-type'};
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $zip->close();
+            }
+        }
+
+        return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
+    }
+
+    /**
+     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
+     *
+     * @return string[]
+     */
+    public function listWorksheetNames(string $filename): array
+    {
+        File::assertFile($filename, self::INITIAL_FILE);
+
+        $worksheetNames = [];
+
+        $xml = new XMLReader();
+        $xml->xml(
+            $this->getSecurityScannerOrThrow()
+                ->scanFile(
+                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
+                )
+        );
+        $xml->setParserProperty(2, true);
+
+        // Step into the first level of content of the XML
+        $xml->read();
+        while ($xml->read()) {
+            // Quickly jump through to the office:body node
+            while ($xml->name !== 'office:body') {
+                if ($xml->isEmptyElement) {
+                    $xml->read();
+                } else {
+                    $xml->next();
+                }
+            }
+            // Now read each node until we find our first table:table node
+            while ($xml->read()) {
+                $xmlName = $xml->name;
+                if ($xmlName == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                    // Loop through each table:table node reading the table:name attribute for each worksheet name
+                    do {
+                        $worksheetName = $xml->getAttribute('table:name');
+                        if (!empty($worksheetName)) {
+                            $worksheetNames[] = $worksheetName;
+                        }
+                        $xml->next();
+                    } while ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
+                }
+            }
+        }
+
+        return $worksheetNames;
+    }
+
+    /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @return array<int, array{
+     *   worksheetName: string,
+     *   lastColumnLetter: string,
+     *   lastColumnIndex: int,
+     *   totalRows: int,
+     *   totalColumns: int,
+     *   sheetState: string
+     * }>
+     */
+    public function listWorksheetInfo(string $filename): array
+    {
+        File::assertFile($filename, self::INITIAL_FILE);
+
+        $worksheetInfo = [];
+
+        $xml = new XMLReader();
+        $xml->xml(
+            $this->getSecurityScannerOrThrow()
+                ->scanFile(
+                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
+                )
+        );
+        $xml->setParserProperty(2, true);
+
+        // Step into the first level of content of the XML
+        $xml->read();
+        $tableVisibility = [];
+        $lastTableStyle = '';
+
+        while ($xml->read()) {
+            if ($xml->name === 'style:style') {
+                $styleType = $xml->getAttribute('style:family');
+                if ($styleType === 'table') {
+                    $lastTableStyle = $xml->getAttribute('style:name');
+                }
+            } elseif ($xml->name === 'style:table-properties') {
+                $visibility = $xml->getAttribute('table:display');
+                $tableVisibility[$lastTableStyle] = ($visibility === 'false') ? Worksheet::SHEETSTATE_HIDDEN : Worksheet::SHEETSTATE_VISIBLE;
+            } elseif ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                $worksheetNames[] = $xml->getAttribute('table:name');
+
+                $styleName = $xml->getAttribute('table:style-name') ?? '';
+                $visibility = $tableVisibility[$styleName] ?? '';
+                $tmpInfo = [
+                    'worksheetName' => (string) $xml->getAttribute('table:name'),
+                    'lastColumnLetter' => 'A',
+                    'lastColumnIndex' => 0,
+                    'totalRows' => 0,
+                    'totalColumns' => 0,
+                    'sheetState' => $visibility,
+                ];
+
+                // Loop through each child node of the table:table element reading
+                $currRow = 0;
+                do {
+                    $xml->read();
+                    if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        $rowspan = $xml->getAttribute('table:number-rows-repeated');
+                        $rowspan = empty($rowspan) ? 1 : (int) $rowspan;
+                        $currRow += $rowspan;
+                        $currCol = 0;
+                        // Step into the row
+                        $xml->read();
+                        do {
+                            $doread = true;
+                            if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
+                                $currCol += $mergeSize;
+                                if (!$xml->isEmptyElement) {
+                                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCol);
+                                    $tmpInfo['totalRows'] = $currRow;
+                                    $xml->next();
+                                    $doread = false;
+                                }
+                            } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $currCol += (int) $mergeSize;
+                            }
+                            if ($doread) {
+                                $xml->read();
+                            }
+                        } while ($xml->name != 'table:table-row');
+                    }
+                } while ($xml->name != 'table:table');
+
+                $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1, true);
+                $worksheetInfo[] = $tmpInfo;
+            }
+        }
+
+        return $worksheetInfo;
+    }
+
+    /**
+     * Loads PhpSpreadsheet from file.
+     */
+    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    {
+        $spreadsheet = $this->newSpreadsheet();
+        $spreadsheet->setValueBinder($this->valueBinder);
+        $spreadsheet->removeSheetByIndex(0);
+
+        // Load into this instance
+        return $this->loadIntoExisting($filename, $spreadsheet);
+    }
+
+    /** @var array<string,
+     *  array{
+     *     font?:array{
+     *       autoColor?: true,
+     *       bold?: true,
+     *       color?: array{rgb: string},
+     *       italic?: true,
+     *       name?: non-empty-string,
+     *       size?: float|int,
+     *       strikethrough?: true,
+     *       underline?: 'double'|'single',
+     *    },
+     *    fill?:array{
+     *      fillType?: string,
+     *      startColor?: array{rgb: string},
+     *    },
+     *    alignment?:array{
+     *      horizontal?: string,
+     *      readOrder?: int,
+     *      shrinkToFit?: bool,
+     *      textRotation?: int,
+     *      vertical?: string,
+     *      wrapText?: bool,
+     *      indent?: int,
+     *    },
+     *    protection?:array{
+     *      locked?: string,
+     *      hidden?: string,
+     *    },
+     *    borders?:array{
+     *      bottom?: array{borderStyle:string, color:array{rgb: string}},
+     *      left?: array{borderStyle:string, color:array{rgb: string}},
+     *      right?: array{borderStyle:string, color:array{rgb: string}},
+     *      top?: array{borderStyle:string, color:array{rgb: string}},
+     *      diagonal?: array{borderStyle:string, color:array{rgb: string}},
+     *      diagonalDirection?: int,
+     *    },
+     *    numberFormat?:array{formatCode: string},
+     *  }>
+     */
+    private array $allStyles;
+
+    /** @var string[] */
+    private array $numberFormats;
+
+    private int $highestDataIndex;
+
+    /**
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
+     */
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
+    {
+        File::assertFile($filename, self::INITIAL_FILE);
+
+        $this->zip = $zip = new ZipArchive();
+        $this->filename = $filename;
+        $zip->open($filename);
+
+        // Meta
+
+        $xml = @simplexml_load_string(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('meta.xml'))
+        );
+        if ($xml === false) {
+            throw new Exception('Unable to read data from {$pFilename}');
+        }
+
+        /** @var array{meta?: string, office?: string, dc?: string} */
+        $namespacesMeta = $xml->getNamespaces(true);
+
+        (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
+
+        // Styles
+
+        $this->allStyles = $this->numberFormats = [];
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('styles.xml'))
+        );
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
+        $styleNs = (string) $dom->lookupNamespaceUri('style');
+        $fontNs = (string) $dom->lookupNamespaceUri('fo');
+        $numberNs = (string) $dom->lookupNamespaceUri('number');
+        $tableNs = (string) $dom->lookupNamespaceUri('table');
+        $textNs = (string) $dom->lookupNamespaceUri('text');
+        $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
+
+        $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-cell') {
+                $fonts = [];
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                if (!empty($fonts)) {
+                    $spreadsheet->getDefaultStyle()
+                        ->getFont()
+                        ->applyFromArray($fonts);
+                }
+            }
+        }
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-cell') {
+                $fills = $fonts = [];
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $fills = $this->getFillStyles($tableCellProperty, $fontNs);
+                }
+                if ($styleName !== '') {
+                    if (!empty($fonts)) {
+                        $this->allStyles[$styleName]['font'] = $fonts;
+                        if ($styleName === 'Default') {
+                            $spreadsheet->getDefaultStyle()
+                                ->getFont()
+                                ->applyFromArray($fonts);
+                        }
+                    }
+                    if (!empty($fills)) {
+                        $this->allStyles[$styleName]['fill'] = $fills;
+                        if ($styleName === 'Default') {
+                            $spreadsheet->getDefaultStyle()
+                                ->getFill()
+                                ->applyFromArray($fills);
+                        }
+                    }
+                }
+            }
+        }
+
+        $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
+
+        $pageSettings = new PageSettings($dom);
+
+        // Main Content
+
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName(self::INITIAL_FILE))
+        );
+
+        $pageSettings->readStyleCrossReferences($dom);
+
+        $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
+        $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
+        $columnWidths = [];
+        $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-column') {
+                $tcprops = $automaticStyle->getElementsByTagNameNS($styleNs, 'table-column-properties');
+                $tcprop = $tcprops->item(0);
+                if ($tcprop !== null) {
+                    $columnWidth = $tcprop->getAttributeNs($styleNs, 'column-width');
+                    $columnWidths[$styleName] = $columnWidth;
+                }
+            }
+            if ($styleFamily === 'table-cell') {
+                $fonts = $fills = $alignment1 = $alignment2 = $protection = $borders = [];
+                $numberFormatName = $automaticStyle->getAttributeNS($styleNs, 'data-style-name');
+                $numberFormat = $this->numberFormats[$numberFormatName] ?? '';
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $fonts = $this->getFontStyles($textProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $fills = $this->getFillStyles($tableCellProperty, $fontNs);
+                    $borders = $this->getBorderStyles($tableCellProperty, $fontNs, $styleNs);
+                    $protection = $this->getProtectionStyles($tableCellProperty, $styleNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $tableCellProperty) {
+                    $alignment1 = $this->getAlignment1Styles($tableCellProperty, $styleNs, $fontNs);
+                }
+                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'paragraph-properties') as $paragraphProperty) {
+                    $alignment2 = $this->getAlignment2Styles($paragraphProperty, $styleNs, $fontNs);
+                }
+                if ($styleName !== '') {
+                    if (!empty($fonts)) {
+                        $this->allStyles[$styleName]['font'] = $fonts;
+                    }
+                    if (!empty($fills)) {
+                        $this->allStyles[$styleName]['fill'] = $fills;
+                    }
+                    $alignment = array_merge($alignment1, $alignment2);
+                    if (!empty($alignment)) {
+                        $this->allStyles[$styleName]['alignment'] = $alignment;
+                    }
+                    if (!empty($protection)) {
+                        $this->allStyles[$styleName]['protection'] = $protection;
+                    }
+                    if (!empty($borders)) {
+                        $this->allStyles[$styleName]['borders'] = $borders;
+                    }
+                    if ($numberFormat !== '') {
+                        $this->allStyles[$styleName]['numberFormat']['formatCode'] = $numberFormat;
+                    }
+                }
+            }
+        }
+
+        // Content
+        $item0 = $dom->getElementsByTagNameNS($officeNs, 'body')->item(0);
+        $spreadsheets = ($item0 === null) ? [] : $item0->getElementsByTagNameNS($officeNs, 'spreadsheet');
+
+        foreach ($spreadsheets as $workbookData) {
+            /** @var DOMElement $workbookData */
+            $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
+
+            $worksheetID = 0;
+            $sheetCreated = false;
+            foreach ($tables as $worksheetDataSet) {
+                /** @var DOMElement $worksheetDataSet */
+                $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
+
+                // Check loadSheetsOnly
+                if (
+                    $this->loadSheetsOnly !== null
+                    && $worksheetName
+                    && !in_array($worksheetName, $this->loadSheetsOnly)
+                ) {
+                    continue;
+                }
+
+                $worksheetStyleName = $worksheetDataSet->getAttributeNS($tableNs, 'style-name');
+
+                // Create sheet
+                $spreadsheet->createSheet();
+                $sheetCreated = true;
+                $spreadsheet->setActiveSheetIndex($worksheetID);
+
+                if ($worksheetName || is_numeric($worksheetName)) {
+                    // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
+                    // formula cells... during the load, all formulae should be correct, and we're simply
+                    // bringing the worksheet name in line with the formula, not the reverse
+                    $spreadsheet->getActiveSheet()
+                        ->setTitle((string) $worksheetName, false, false);
+                }
+
+                // Go through every child of table element
+                $rowID = 1;
+                $tableColumnIndex = 1;
+                $this->highestDataIndex = AddressRange::MAX_COLUMN_INT;
+                foreach ($worksheetDataSet->childNodes as $childNode) {
+                    /** @var DOMElement $childNode */
+
+                    // Filter elements which are not under the "table" ns
+                    if ($childNode->namespaceURI != $tableNs) {
+                        continue;
+                    }
+
+                    $key = self::extractNodeName($childNode->nodeName);
+
+                    switch ($key) {
+                        case 'table-header-rows':
+                        case 'table-rows':
+                            $this->processTableHeaderRows(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
+
+                            break;
+                        case 'table-row-group':
+                            $this->processTableRowGroup(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
+
+                            break;
+                        case 'table-row':
+                            $this->processTableRow(
+                                $childNode,
+                                $tableNs,
+                                $rowID,
+                                $worksheetName,
+                                $officeNs,
+                                $textNs,
+                                $xlinkNs,
+                                $spreadsheet
+                            );
+
+                            break;
+                        case 'table-header-columns':
+                        case 'table-columns':
+                            $this->processTableColumnHeader(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                $this->readEmptyCells,
+                                true
+                            );
+
+                            break;
+                        case 'table-column-group':
+                            $this->processTableColumnGroup(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                $this->readEmptyCells,
+                                true
+                            );
+
+                            break;
+                        case 'table-column':
+                            $this->processTableColumn(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                $this->readEmptyCells,
+                                true
+                            );
+
+                            break;
+                    }
+                }
+                $pageSettings->setVisibilityForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
+                $pageSettings->setPrintSettingsForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
+                ++$worksheetID;
+            }
+            if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+                $spreadsheet->createSheet();
+            }
+        }
+
+        foreach ($spreadsheets as $workbookData) {
+            /** @var DOMElement $workbookData */
+            $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
+
+            $worksheetID = 0;
+            foreach ($tables as $worksheetDataSet) {
+                /** @var DOMElement $worksheetDataSet */
+                $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
+
+                // Check loadSheetsOnly
+                if (
+                    $this->loadSheetsOnly !== null
+                    && $worksheetName
+                    && !in_array($worksheetName, $this->loadSheetsOnly)
+                ) {
+                    continue;
+                }
+
+                // Create sheet
+                $spreadsheet->setActiveSheetIndex($worksheetID);
+                $highestDataColumn = $spreadsheet->getActiveSheet()->getHighestDataColumn();
+                $this->highestDataIndex = Coordinate::columnIndexFromString($highestDataColumn);
+
+                // Go through every child of table element processing column widths
+                $rowID = 1;
+                $tableColumnIndex = 1;
+                foreach ($worksheetDataSet->childNodes as $childNode) {
+                    /** @var DOMElement $childNode */
+                    if (empty($columnWidths) || $this->readEmptyCells) {
+                        break;
+                    }
+
+                    // Filter elements which are not under the "table" ns
+                    if ($childNode->namespaceURI != $tableNs) {
+                        continue;
+                    }
+
+                    $key = self::extractNodeName($childNode->nodeName);
+
+                    switch ($key) {
+                        case 'table-header-columns':
+                        case 'table-columns':
+                            $this->processTableColumnHeader(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                true,
+                                false
+                            );
+
+                            break;
+                        case 'table-column-group':
+                            $this->processTableColumnGroup(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                true,
+                                false
+                            );
+
+                            break;
+                        case 'table-column':
+                            $this->processTableColumn(
+                                $childNode,
+                                $tableNs,
+                                $columnWidths,
+                                $tableColumnIndex,
+                                $spreadsheet,
+                                true,
+                                false
+                            );
+
+                            break;
+                    }
+                }
+                ++$worksheetID;
+            }
+
+            $autoFilterReader->read($workbookData);
+            $definedNameReader->read($workbookData);
+        }
+
+        $spreadsheet->setActiveSheetIndex(0);
+
+        if ($zip->locateName('settings.xml') !== false) {
+            $this->processSettings($zip, $spreadsheet);
+        }
+
+        // Return
+        return $spreadsheet;
+    }
+
+    private function processTableHeaderRows(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-row':
+                    $this->processTableRow(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    private function processTableRowGroup(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-row':
+                    $this->processTableRow(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-header-rows':
+                case 'table-rows':
+                    $this->processTableHeaderRows(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+                case 'table-row-group':
+                    $this->processTableRowGroup(
+                        $grandchildNode,
+                        $tableNs,
+                        $rowID,
+                        $worksheetName,
+                        $officeNs,
+                        $textNs,
+                        $xlinkNs,
+                        $spreadsheet
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    private function processTableRow(
+        DOMElement $childNode,
+        string $tableNs,
+        int &$rowID,
+        string $worksheetName,
+        string $officeNs,
+        string $textNs,
+        string $xlinkNs,
+        Spreadsheet $spreadsheet
+    ): void {
+        if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
+            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+        } else {
+            $rowRepeats = 1;
+        }
+        $worksheet = $spreadsheet->getSheetByName($worksheetName);
+
+        $columnID = 'A';
+        /** @var DOMElement|DOMText $cellData */
+        foreach ($childNode->childNodes as $cellData) {
+            if ($cellData instanceof DOMText) {
+                continue; // should just be whitespace
+            }
+            if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+            } else {
+                $colRepeats = 1;
+            }
+            $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
+            if ($styleName === '') {
+                if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
+                    $assignedNumberFormat = '';
+                } else {
+                    $colStyle = $worksheet->getColumnDimension($columnID)->getXfIndex() ?? 0;
+                    $assignedNumberFormat = $spreadsheet
+                        ->getCellXfByIndex($colStyle)
+                        ->getNumberFormat()->getFormatCode();
+                    if ($assignedNumberFormat === NumberFormat::FORMAT_GENERAL) {
+                        $assignedNumberFormat = '';
+                    }
+                }
+            } else {
+                $assignedNumberFormat = $this->allStyles[$styleName]['numberFormat']['formatCode'] ?? '';
+            }
+
+            // When a cell has number-columns-repeated, check if ANY column in the
+            // repeated range passes the read filter. If not, skip the entire group.
+            // If some columns pass, we need to fall through to the processing block
+            // which will handle per-column filtering.
+            if (!$this->readFilter->readCell($columnID, $rowID, $worksheetName)) {
+                if ($colRepeats <= 1) {
+                    StringHelper::stringIncrement($columnID);
+
+                    continue;
+                }
+
+                // Check if any column within this repeated group passes the filter
+                $anyColumnPasses = false;
+                $tempCol = $columnID;
+                for ($i = 0; $i < $colRepeats; ++$i) {
+                    if ($i > 0) {
+                        StringHelper::stringIncrement($tempCol);
+                    }
+                    if ($this->readFilter->readCell($tempCol, $rowID, $worksheetName)) {
+                        $anyColumnPasses = true;
+
+                        break;
+                    }
+                }
+
+                if (!$anyColumnPasses) {
+                    for ($i = 0; $i < $colRepeats; ++$i) {
+                        StringHelper::stringIncrement($columnID);
+                    }
+
+                    continue;
+                }
+                // Fall through to process the cell, with per-column filter checks
+            }
+            $tempSpannedRange = "$columnID$rowID";
+            $spannedRange = '';
+            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
+                $spannedRange = "$columnID$rowID";
+                // the following is sufficient for ods,
+                // and does no harm for xlsx/xls.
+                $worksheet->getStyle($spannedRange)
+                    ->applyFromArray($this->allStyles[$styleName]);
+                // the rest of this block is needed for xlsx/xls,
+                // and does no harm for ods.
+                if (isset($this->allStyles[$styleName]['borders'])) {
+                    $spannedRows = $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $spannedColumns = $cellData->getAttributeNS($tableNs, 'number-rows-spanned');
+                    $spannedRows = max((int) $spannedRows, 1);
+                    $spannedColumns = max((int) $spannedColumns, 1);
+                    if ($spannedRows > 1 || $spannedColumns > 1) {
+                        $endRow = $rowID + $spannedRows - 1;
+                        $endCol = $columnID;
+                        while ($spannedColumns > 1) {
+                            StringHelper::stringIncrement($endCol);
+                            --$spannedColumns;
+                        }
+                        $spannedRange .= ":$endCol$endRow";
+                        $worksheet->getStyle($spannedRange)
+                            ->getBorders()
+                            ->applyFromArray(
+                                $this->allStyles[$styleName]['borders']
+                            );
+                    }
+                }
+            }
+
+            // Initialize variables
+            $formatting = $hyperlink = null;
+            $hasCalculatedValue = false;
+            $cellDataFormula = '';
+            $cellDataType = '';
+            $cellDataRef = '';
+
+            if ($cellData->hasAttributeNS($tableNs, 'formula')) {
+                $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
+                $hasCalculatedValue = true;
+            }
+            if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
+                if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
+                    $cellDataType = 'array';
+                    $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                    $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
+                    $lastRow = $rowID + $arrayRow - 1;
+                    $lastCol = $columnID;
+                    while ($arrayCol > 1) {
+                        StringHelper::stringIncrement($lastCol);
+                        --$arrayCol;
+                    }
+                    $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
+                }
+            }
+
+            // Annotations
+            $annotation = $cellData->getElementsByTagNameNS($officeNs, 'annotation');
+
+            if ($annotation->length > 0 && $annotation->item(0) !== null) {
+                $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
+                $textNodeLength = $textNode->length;
+                $newLineOwed = false;
+                for ($textNodeIndex = 0; $textNodeIndex < $textNodeLength; ++$textNodeIndex) {
+                    $textNodeItem = $textNode->item($textNodeIndex);
+                    if ($textNodeItem !== null) {
+                        $text = $this->scanElementForText($textNodeItem);
+                        if ($newLineOwed) {
+                            $spreadsheet->getActiveSheet()
+                                ->getComment($columnID . $rowID)
+                                ->getText()
+                                ->createText("\n");
+                        }
+                        $newLineOwed = true;
+
+                        $spreadsheet->getActiveSheet()
+                            ->getComment($columnID . $rowID)
+                            ->getText()
+                            ->createText(
+                                $this->parseRichText($text)
+                            );
+                    }
+                }
+            }
+
+            // Content
+
+            /** @var DOMElement[] $paragraphs */
+            $paragraphs = [];
+
+            foreach ($cellData->childNodes as $item) {
+                /** @var DOMElement $item */
+
+                // Filter text:p elements
+                if ($item->nodeName == 'text:p') {
+                    $paragraphs[] = $item;
+                } elseif ($item->nodeName === 'draw:frame' && $worksheet !== null) {
+                    $this->processDrawFrame($spannedRange ?: $tempSpannedRange, $item, $worksheet);
+                }
+            }
+
+            if (count($paragraphs) > 0) {
+                $dataValue = null;
+                // Consolidate if there are multiple p records (maybe with spans as well)
+                $dataArray = [];
+
+                // Text can have multiple text:p and within those, multiple text:span.
+                // text:p newlines, but text:span does not.
+                // Also, here we assume there is no text data is span fields are specified, since
+                // we have no way of knowing proper positioning anyway.
+
+                foreach ($paragraphs as $pData) {
+                    $dataArray[] = $this->scanElementForText($pData);
+                }
+                $allCellDataText = implode("\n", $dataArray);
+
+                $type = $cellData->getAttributeNS($officeNs, 'value-type');
+                $symbol = '';
+                $leftHandCurrency = Preg::isMatch('/\$|£|￥/', $allCellDataText, $matches);
+                if ($leftHandCurrency) {
+                    $type = str_replace('float', 'currency', $type);
+                    $symbol = (string) $matches[0];
+                }
+                $customFormatting = '';
+                if ($this->formatCallback !== null) {
+                    $temp = ($this->formatCallback)($type, $allCellDataText);
+                    if ($temp !== '') {
+                        $customFormatting = $temp;
+                    }
+                }
+
+                switch ($type) {
+                    case 'string':
+                        $type = DataType::TYPE_STRING;
+                        $dataValue = $allCellDataText;
+
+                        foreach ($paragraphs as $paragraph) {
+                            $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                            if ($link->length > 0 && $link->item(0) !== null) {
+                                $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                            }
+                        }
+
+                        break;
+                    case 'boolean':
+                        $type = DataType::TYPE_BOOL;
+                        $dataValue = ($cellData->getAttributeNS($officeNs, 'boolean-value') === 'true') ? true : false;
+
+                        break;
+                    case 'percentage':
+                        if (!str_contains($allCellDataText, '.')) {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE;
+                        } elseif (substr($allCellDataText, -3, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE_0;
+                        } else {
+                            $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
+                        }
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        break;
+                    case 'currency':
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        $currency = $cellData->getAttributeNS($officeNs, 'currency');
+                        if ($leftHandCurrency) {
+                            $typeValue = 'currency';
+                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+                            if ($symbol !== '$') {
+                                $formatting = str_replace('$', $symbol, $formatting);
+                            }
+                        } elseif (str_contains($allCellDataText, '€')) {
+                            $typeValue = 'currency';
+                            $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_EUR : NumberFormat::FORMAT_CURRENCY_EUR_INTEGER;
+                        }
+
+                        break;
+                    case 'float':
+                        $type = DataType::TYPE_NUMERIC;
+                        $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
+                        if ($assignedNumberFormat !== '') {
+                            $formatting = $assignedNumberFormat;
+                        } elseif ($dataValue !== floor($dataValue)) {
+                            // do nothing
+                        } elseif (substr($allCellDataText, -2, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_NUMBER_0;
+                        } elseif (substr($allCellDataText, -3, 1) === '.') {
+                            $formatting = NumberFormat::FORMAT_NUMBER_00;
+                        }
+                        if (floor($dataValue) == $dataValue) {
+                            if ($dataValue == (int) $dataValue) {
+                                $dataValue = (int) $dataValue;
+                            }
+                        }
+
+                        break;
+                    case 'date':
+                        $type = DataType::TYPE_NUMERIC;
+                        $value = $cellData->getAttributeNS($officeNs, 'date-value');
+                        $dataValue = Date::convertIsoDate($value);
+                        $format15 = Preg::isMatch('/\d\d\d\d/', $allCellDataText) ? NumberFormat::FORMAT_DATE_XLSX15_YYYY : NumberFormat::FORMAT_DATE_XLSX15;
+
+                        if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
+                            $formatting = 'yyyy-mm-dd';
+                        } elseif (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d \d\d:\d\d(:\d\d)?$/', $allCellDataText)) {
+                            $formatting = NumberFormat::FORMAT_DATE_DATETIME_BETTER;
+                        } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
+                            $formatting = 'd-mmm-yyyy';
+                        } elseif ($dataValue != floor($dataValue) || str_contains($allCellDataText, ':')) {
+                            $formatting = $format15
+                                . ' '
+                                . NumberFormat::FORMAT_DATE_TIME4;
+                        } else {
+                            $formatting = $format15;
+                        }
+
+                        break;
+                    case 'time':
+                        $type = DataType::TYPE_NUMERIC;
+
+                        $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
+                        $minus = '';
+                        if (str_starts_with($timeValue, '-')) {
+                            $minus = '-';
+                            $timeValue = substr($timeValue, 1);
+                        }
+                        $timeArray = sscanf($timeValue, 'PT%dH%dM%dS');
+                        if (is_array($timeArray)) {
+                            /** @var array{int, int, int} $timeArray */
+                            $days = intdiv($timeArray[0], 24);
+                            $hours = $timeArray[0] % 24;
+                            $dt = new DateTime("1899-12-30 $hours:{$timeArray[1]}:{$timeArray[2]}", new DateTimeZone('UTC'));
+                            $dt->modify("+$days days");
+                            $dataValue = Date::PHPToExcel($dt);
+                            if ($minus === '-') {
+                                $dataValue *= -1;
+                                $formatting = '[hh]:mm:ss';
+                            } else {
+                                $formatting = NumberFormat::FORMAT_DATE_TIME4;
+                            }
+                        }
+
+                        break;
+                    default:
+                        $dataValue = null;
+                }
+                if ($customFormatting !== '') {
+                    $formatting = $customFormatting;
+                }
+            } else {
+                $type = DataType::TYPE_NULL;
+                $dataValue = null;
+            }
+
+            if ($hasCalculatedValue) {
+                $type = DataType::TYPE_FORMULA;
+                $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
+                $cellDataFormula = FormulaTranslator::convertToExcelFormulaValue($cellDataFormula);
+            }
+
+            for ($i = 0; $i < $colRepeats; ++$i) {
+                if ($i > 0) {
+                    StringHelper::stringIncrement($columnID);
+                }
+
+                if (!$this->readFilter->readCell($columnID, $rowID, $worksheetName)) {
+                    continue;
+                }
+
+                if ($type !== DataType::TYPE_NULL) {
+                    for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
+                        $rID = $rowID + $rowAdjust;
+
+                        $cell = $spreadsheet->getActiveSheet()
+                            ->getCell($columnID . $rID);
+
+                        // Set value
+                        if ($hasCalculatedValue) {
+                            $cell->setValueExplicit($cellDataFormula, $type);
+                            if ($cellDataType === 'array') {
+                                $cell->setFormulaAttributes(['t' => 'array', 'ref' => $cellDataRef]);
+                            }
+                        } elseif ($type !== '' || $dataValue !== null) {
+                            $cell->setValueExplicit($dataValue, $type);
+                        }
+
+                        if ($hasCalculatedValue) {
+                            $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
+                        }
+
+                        // Set other properties
+                        if ($formatting !== null) {
+                            $spreadsheet->getActiveSheet()
+                                ->getStyle($columnID . $rID)
+                                ->getNumberFormat()
+                                ->setFormatCode($formatting);
+                        } else {
+                            $spreadsheet->getActiveSheet()
+                                ->getStyle($columnID . $rID)
+                                ->getNumberFormat()
+                                ->setFormatCode(NumberFormat::FORMAT_GENERAL);
+                        }
+
+                        if ($hyperlink !== null) {
+                            if ($hyperlink[0] === '#') {
+                                $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                            }
+                            $cell->getHyperlink()
+                                ->setUrl($hyperlink);
+                        }
+                    }
+                }
+            }
+
+            // Merged cells
+            $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
+
+            StringHelper::stringIncrement($columnID);
+        }
+        $rowID += $rowRepeats;
+    }
+
+    private function processDrawFrame(string $spannedRange, DOMElement $item, Worksheet $worksheet): void
+    {
+        $drawName = $item->getAttribute('draw:name');
+        $svgWidth = $item->getAttribute('svg:width');
+        $svgHeight = $item->getAttribute('svg:height');
+        $styleName = $item->getAttribute('draw:style-name');
+        $drawImage = null;
+        foreach ($item->childNodes as $node) {
+            // Check if the node is a standard element tag
+            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image') {
+                /** @var DOMElement */
+                $drawImage = $node;
+
+                break;
+            }
+        }
+
+        $xlinkHref = $xlinkType = $xlinkShow = '';
+        if ($drawImage !== null) {
+            $xlinkHref = $drawImage->getAttribute('xlink:href');
+            $xlinkType = $drawImage->getAttribute('xlink:type');
+            $xlinkShow = $drawImage->getAttribute('xlink:show');
+        }
+        if (
+            $drawName !== ''
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgWidth, $matchWidth)
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgHeight, $matchHeight)
+            //&& $styleName === 'gr1'
+            && (str_starts_with($xlinkHref, 'Pictures/') || str_starts_with($xlinkHref, 'media/'))
+            && $xlinkType === 'simple'
+            && $xlinkShow === 'embed'
+        ) {
+            $drawing = new Drawing();
+            $drawing->setPath(
+                "zip://{$this->filename}#$xlinkHref",
+                true,
+                $this->zip,
+                false
+            );
+            $unit = [
+                'cm' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS],
+                'in' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_INCHES],
+            ];
+            $width = ((float) $matchWidth[1]) * $unit[$matchWidth[3]];
+            $height = ((float) $matchHeight[1]) * $unit[$matchHeight[3]];
+            if ($drawing->getPath()) {
+                $drawing->setCoordinates($spannedRange)
+                    ->setWidth((int) $width)
+                    ->setHeight((int) $height)
+                    ->setName($drawName)
+                    ->setWorksheet($worksheet);
+            }
+        }
+    }
+
+    private static function extractNodeName(string $key): string
+    {
+        // Remove ns from node name
+        if (str_contains($key, ':')) {
+            $keyChunks = explode(':', $key);
+            $key = array_pop($keyChunks);
+        }
+
+        return $key;
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableColumnHeader(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet,
+        bool $processWidths = true,
+        bool $processStyles = true
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-column':
+                    $this->processTableColumn(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet,
+                        $processWidths,
+                        $processStyles
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableColumnGroup(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet,
+        bool $processWidths = true,
+        bool $processStyles = true
+    ): void {
+        foreach ($childNode->childNodes as $grandchildNode) {
+            /** @var DOMElement $grandchildNode */
+            $grandkey = self::extractNodeName($grandchildNode->nodeName);
+            switch ($grandkey) {
+                case 'table-column':
+                    $this->processTableColumn(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet,
+                        $processWidths,
+                        $processStyles
+                    );
+
+                    break;
+                case 'table-header-columns':
+                case 'table-columns':
+                    $this->processTableColumnHeader(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet,
+                        $processWidths,
+                        $processStyles
+                    );
+
+                    break;
+                case 'table-column-group':
+                    $this->processTableColumnGroup(
+                        $grandchildNode,
+                        $tableNs,
+                        $columnWidths,
+                        $tableColumnIndex,
+                        $spreadsheet,
+                        $processWidths,
+                        $processStyles
+                    );
+
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param string[] $columnWidths
+     */
+    private function processTableColumn(
+        DOMElement $childNode,
+        string $tableNs,
+        array $columnWidths,
+        int &$tableColumnIndex,
+        Spreadsheet $spreadsheet,
+        bool $processWidths = true,
+        bool $processStyles = true
+    ): void {
+        if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+        } else {
+            $rowRepeats = 1;
+        }
+        $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
+        if ($processWidths) {
+            if (isset($columnWidths[$tableStyleName])) {
+                $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
+                $tableColumnIndex2 = $tableColumnIndex;
+                $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
+                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                    if (!$this->readEmptyCells && $tableColumnIndex2 > $this->highestDataIndex) {
+                        break;
+                    }
+                    $spreadsheet->getActiveSheet()
+                        ->getColumnDimension($tableColumnString)
+                        ->setWidth($columnWidth->toUnit('cm'), 'cm');
+                    StringHelper::stringIncrement(
+                        $tableColumnString
+                    );
+                    ++$tableColumnIndex2;
+                }
+            }
+        }
+        if ($processStyles) {
+            $defaultStyleName = $childNode->getAttributeNS($tableNs, 'default-cell-style-name');
+            if ($defaultStyleName !== 'Default' && isset($this->allStyles[$defaultStyleName])) {
+                $tableColumnIndex2 = $tableColumnIndex;
+                $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
+                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                    $spreadsheet->getActiveSheet()
+                        ->getStyle($tableColumnString)
+                        ->applyFromArray(
+                            $this->allStyles[$defaultStyleName]
+                        );
+                    StringHelper::stringIncrement(
+                        $tableColumnString
+                    );
+                    ++$tableColumnIndex2;
+                }
+            }
+        }
+        $tableColumnIndex += $rowRepeats;
+    }
+
+    private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
+    {
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->getSecurityScannerOrThrow()
+                ->scan($zip->getFromName('settings.xml'))
+        );
+        $configNs = (string) $dom->lookupNamespaceUri('config');
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
+        $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
+            ->item(0);
+        if ($settings !== null) {
+            $this->lookForActiveSheet($settings, $spreadsheet, $configNs);
+            $this->lookForSelectedCells($settings, $spreadsheet, $configNs);
+        }
+    }
+
+    private function lookForActiveSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    {
+        /** @var DOMElement $t */
+        foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
+            if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
+                try {
+                    $spreadsheet->setActiveSheetIndexByName($t->nodeValue ?? '');
+                } catch (Throwable) {
+                    // do nothing
+                }
+
+                break;
+            }
+        }
+    }
+
+    private function lookForSelectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    {
+        /** @var DOMElement $t */
+        foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {
+            if ($t->getAttributeNs($configNs, 'name') === 'Tables') {
+                foreach ($t->getElementsByTagNameNS($configNs, 'config-item-map-entry') as $ws) {
+                    $setRow = $setCol = '';
+                    $wsname = $ws->getAttributeNs($configNs, 'name');
+                    foreach ($ws->getElementsByTagNameNS($configNs, 'config-item') as $configItem) {
+                        $attrName = $configItem->getAttributeNs($configNs, 'name');
+                        if ($attrName === 'CursorPositionX') {
+                            $setCol = $configItem->nodeValue;
+                        }
+                        if ($attrName === 'CursorPositionY') {
+                            $setRow = $configItem->nodeValue;
+                        }
+                    }
+                    $this->setSelected($spreadsheet, $wsname, "$setCol", "$setRow");
+                }
+
+                break;
+            }
+        }
+    }
+
+    private function setSelected(Spreadsheet $spreadsheet, string $wsname, string $setCol, string $setRow): void
+    {
+        if (is_numeric($setCol) && is_numeric($setRow)) {
+            $sheet = $spreadsheet->getSheetByName($wsname);
+            if ($sheet !== null) {
+                $sheet->setSelectedCells([(int) $setCol + 1, (int) $setRow + 1]);
+            }
+        }
+    }
+
+    /**
+     * Recursively scan element.
+     */
+    protected function scanElementForText(DOMNode $element): string
+    {
+        $str = '';
+        foreach ($element->childNodes as $child) {
+            /** @var DOMNode $child */
+            if ($child->nodeType == XML_TEXT_NODE) {
+                $str .= $child->nodeValue;
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:line-break') {
+                $str .= "\n";
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
+                // It's a space
+
+                // Multiple spaces?
+                $attributes = $child->attributes;
+                /** @var ?DOMAttr $cAttr */
+                $cAttr = ($attributes === null) ? null : $attributes->getNamedItem('c');
+                $multiplier = self::getMultiplier($cAttr);
+                $str .= str_repeat(' ', $multiplier);
+            }
+
+            if ($child->hasChildNodes()) {
+                $str .= $this->scanElementForText($child);
+            }
+        }
+
+        return $str;
+    }
+
+    private static function getMultiplier(?DOMAttr $cAttr): int
+    {
+        if ($cAttr) {
+            $multiplier = (int) $cAttr->nodeValue;
+        } else {
+            $multiplier = 1;
+        }
+
+        return $multiplier;
+    }
+
+    private function parseRichText(string $is): RichText
+    {
+        $value = new RichText();
+        $value->createText($is);
+
+        return $value;
+    }
+
+    private function processMergedCells(
+        DOMElement $cellData,
+        string $tableNs,
+        string $type,
+        string $columnID,
+        int $rowID,
+        Spreadsheet $spreadsheet
+    ): void {
+        if (
+            $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+            || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
+        ) {
+            if (($type !== DataType::TYPE_NULL) || ($this->readDataOnly === false)) {
+                $columnTo = $columnID;
+
+                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
+                    $columnIndex = Coordinate::columnIndexFromString($columnID);
+                    $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $columnIndex -= 2;
+
+                    $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
+                }
+
+                $rowTo = $rowID;
+
+                if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
+                    $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
+                }
+
+                $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
+                $spreadsheet->getActiveSheet()->mergeCells($cellRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
+            }
+        }
+    }
+
+    /** @var null|callable(string, string):string format callback routine */
+    private $formatCallback;
+
+    /** @param callable(string, string):string $formatCallback format callback routine */
+    public function setFormatCallback(callable $formatCallback): void
+    {
+        $this->formatCallback = $formatCallback;
+    }
+
+    /** @return array{
+     *   autoColor?: true,
+     *   bold?: true,
+     *   color?: array{rgb: string},
+     *   italic?: true,
+     *   name?: non-empty-string,
+     *   size?: float|int,
+     *   strikethrough?: true,
+     *   underline?: 'double'|'single',
+     * }
+     */
+    protected function getFontStyles(DOMElement $textProperty, string $styleNs, string $fontNs): array
+    {
+        $fonts = [];
+        $temp = $textProperty->getAttributeNs($styleNs, 'font-name') ?: $textProperty->getAttributeNs($fontNs, 'font-family');
+        if ($temp !== '') {
+            $fonts['name'] = $temp;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-size');
+        if ($temp !== '' && str_ends_with($temp, 'pt')) {
+            $fonts['size'] = (float) substr($temp, 0, -2);
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-style');
+        if ($temp === 'italic') {
+            $fonts['italic'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'font-weight');
+        if ($temp === 'bold') {
+            $fonts['bold'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($fontNs, 'color');
+        if (Preg::isMatch('/^#[a-f0-9]{6}$/i', $temp)) {
+            $fonts['color'] = ['rgb' => substr($temp, 1)];
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'use-window-font-color');
+        if ($temp === 'true') {
+            $fonts['autoColor'] = true;
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-type');
+        if ($temp === '') {
+            $temp = $textProperty->getAttributeNs($styleNs, 'text-underline-style');
+            if ($temp !== '' && $temp !== 'none') {
+                $temp = 'single';
+            }
+        }
+        if ($temp === 'single' || $temp === 'double') {
+            $fonts['underline'] = $temp;
+        }
+        $temp = $textProperty->getAttributeNs($styleNs, 'text-line-through-type');
+        if ($temp !== '' && $temp !== 'none') {
+            $fonts['strikethrough'] = true;
+        }
+
+        return $fonts;
+    }
+
+    /** @return array{
+     *   fillType?: string,
+     *   startColor?: array{rgb: string},
+     * }
+     */
+    protected function getFillStyles(DOMElement $tableCellProperties, string $fontNs): array
+    {
+        $fills = [];
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'background-color');
+        if (Preg::isMatch('/^#[a-f0-9]{6}$/i', $temp)) {
+            $fills['fillType'] = Fill::FILL_SOLID;
+            $fills['startColor'] = ['rgb' => substr($temp, 1)];
+        } elseif ($temp === 'transparent') {
+            $fills['fillType'] = Fill::FILL_NONE;
+        }
+
+        return $fills;
+    }
+
+    private const MAP_VERTICAL = [
+        'top' => Alignment::VERTICAL_TOP,
+        'middle' => Alignment::VERTICAL_CENTER,
+        'automatic' => Alignment::VERTICAL_JUSTIFY,
+        'bottom' => Alignment::VERTICAL_BOTTOM,
+    ];
+    private const MAP_HORIZONTAL = [
+        'center' => Alignment::HORIZONTAL_CENTER,
+        'end' => Alignment::HORIZONTAL_RIGHT,
+        'justify' => Alignment::HORIZONTAL_FILL,
+        'start' => Alignment::HORIZONTAL_LEFT,
+    ];
+
+    /** @return array{
+     *   shrinkToFit?: bool,
+     *   textRotation?: int,
+     *   vertical?: string,
+     *   wrapText?: bool,
+     * }
+     */
+    protected function getAlignment1Styles(DOMElement $tableCellProperties, string $styleNs, string $fontNs): array
+    {
+        $alignment1 = [];
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'rotation-angle');
+        if (is_numeric($temp)) {
+            $temp2 = (int) $temp;
+            if ($temp2 > 90) {
+                $temp2 -= 360;
+            }
+            if ($temp2 >= -90 && $temp2 <= 90) {
+                $alignment1['textRotation'] = (int) $temp2;
+            }
+        }
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'vertical-align');
+        $temp2 = self::MAP_VERTICAL[$temp] ?? '';
+        if ($temp2 !== '') {
+            $alignment1['vertical'] = $temp2;
+        }
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'wrap-option');
+        if ($temp === 'wrap') {
+            $alignment1['wrapText'] = true;
+        } elseif ($temp === 'no-wrap') {
+            $alignment1['wrapText'] = false;
+        }
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'shrink-to-fit');
+        if ($temp === 'true' || $temp === 'false') {
+            $alignment1['shrinkToFit'] = $temp === 'true';
+        }
+
+        return $alignment1;
+    }
+
+    /** @return array{
+     *   horizontal?: string,
+     *   readOrder?: int,
+     *   indent?: int,
+     * }
+     */
+    protected function getAlignment2Styles(DOMElement $paragraphProperties, string $styleNs, string $fontNs): array
+    {
+        $alignment2 = [];
+        $temp = $paragraphProperties->getAttributeNs($fontNs, 'text-align');
+        $temp2 = self::MAP_HORIZONTAL[$temp] ?? '';
+        if ($temp2 !== '') {
+            $alignment2['horizontal'] = $temp2;
+        }
+        $temp = $paragraphProperties->getAttributeNs($fontNs, 'margin-left') ?: $paragraphProperties->getAttributeNs($fontNs, 'margin-right');
+        if (Preg::isMatch('/^\d+([.]\d+)?(cm|in|mm|pt)$/', $temp)) {
+            $dimension = new HelperDimension($temp);
+            $alignment2['indent'] = (int) round($dimension->toUnit('px') / Alignment::INDENT_UNITS_TO_PIXELS);
+        }
+
+        $temp = $paragraphProperties->getAttributeNs($styleNs, 'writing-mode');
+        if ($temp === 'rl-tb') {
+            $alignment2['readOrder'] = Alignment::READORDER_RTL;
+        } elseif ($temp === 'lr-tb') {
+            $alignment2['readOrder'] = Alignment::READORDER_LTR;
+        }
+
+        return $alignment2;
+    }
+
+    /** @return array{
+     *   locked?: string,
+     *   hidden?: string,
+     * }
+     */
+    protected function getProtectionStyles(DOMElement $tableCellProperties, string $styleNs): array
+    {
+        $protection = [];
+        $temp = $tableCellProperties->getAttributeNs($styleNs, 'cell-protect');
+        switch ($temp) {
+            case 'protected formula-hidden':
+                $protection['locked'] = Protection::PROTECTION_PROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_PROTECTED;
+
+                break;
+            case 'formula-hidden':
+                $protection['locked'] = Protection::PROTECTION_UNPROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_PROTECTED;
+
+                break;
+            case 'protected':
+                $protection['locked'] = Protection::PROTECTION_PROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_UNPROTECTED;
+
+                break;
+            case 'none':
+                $protection['locked'] = Protection::PROTECTION_UNPROTECTED;
+                $protection['hidden'] = Protection::PROTECTION_UNPROTECTED;
+
+                break;
+        }
+
+        return $protection;
+    }
+
+    private const MAP_BORDER_STYLE = [ // default BORDER_THIN
+        'none' => Border::BORDER_NONE,
+        'hidden' => Border::BORDER_NONE,
+        'dotted' => Border::BORDER_DOTTED,
+        'dash-dot' => Border::BORDER_DASHDOT,
+        'dash-dot-dot' => Border::BORDER_DASHDOTDOT,
+        'dashed' => Border::BORDER_DASHED,
+        'double' => Border::BORDER_DOUBLE,
+    ];
+
+    private const MAP_BORDER_MEDIUM = [
+        Border::BORDER_THIN => Border::BORDER_MEDIUM,
+        Border::BORDER_DASHDOT => Border::BORDER_MEDIUMDASHDOT,
+        Border::BORDER_DASHDOTDOT => Border::BORDER_MEDIUMDASHDOTDOT,
+        Border::BORDER_DASHED => Border::BORDER_MEDIUMDASHED,
+    ];
+
+    private const MAP_BORDER_THICK = [
+        Border::BORDER_THIN => Border::BORDER_THICK,
+        Border::BORDER_DASHDOT => Border::BORDER_MEDIUMDASHDOT,
+        Border::BORDER_DASHDOTDOT => Border::BORDER_MEDIUMDASHDOTDOT,
+        Border::BORDER_DASHED => Border::BORDER_MEDIUMDASHED,
+    ];
+
+    /** @return array{
+     *   bottom?: array{borderStyle:string, color:array{rgb: string}},
+     *   top?: array{borderStyle:string, color:array{rgb: string}},
+     *   left?: array{borderStyle:string, color:array{rgb: string}},
+     *   right?: array{borderStyle:string, color:array{rgb: string}},
+     *   diagonal?: array{borderStyle:string, color:array{rgb: string}},
+     *   diagonalDirection?: int,
+     * }
+     */
+    protected function getBorderStyles(DOMElement $tableCellProperties, string $fontNs, string $styleNs): array
+    {
+        $borders = [];
+        $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
+        $diagonalIndex = Borders::DIAGONAL_NONE;
+        foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
+            if ($direction === 'diagonal-tl-br' || $direction === 'diagonal-bl-tr') {
+                $directionIndex = 'diagonal';
+                $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
+            } else {
+                $directionIndex = $direction;
+                $temp = $tableCellProperties->getAttributeNs($fontNs, "border-$direction");
+            }
+            if (Preg::isMatch('/^(\d+(?:[.]\d+)?)pt\s+([-\w]+)\s+#([0-9a-fA-F]{6})$/', $temp, $matches)) {
+                $style = self::MAP_BORDER_STYLE[$matches[2]] ?? Border::BORDER_THIN;
+                $width = (float) $matches[1];
+                if ($width >= 2.5) {
+                    $style = self::MAP_BORDER_THICK[$style] ?? $style;
+                } elseif ($width >= 1.75) {
+                    $style = self::MAP_BORDER_MEDIUM[$style] ?? $style;
+                }
+                $color = $matches[3];
+                $borders[$directionIndex] = ['borderStyle' => $style, 'color' => ['rgb' => $matches[3]]];
+                if ($direction === 'diagonal-tl-br') {
+                    $diagonalIndex = Borders::DIAGONAL_DOWN;
+                } elseif ($direction === 'diagonal-bl-tr') {
+                    $diagonalIndex = ($diagonalIndex === Borders::DIAGONAL_NONE) ? Borders::DIAGONAL_UP : Borders::DIAGONAL_BOTH;
+                }
+            }
+        }
+        if ($diagonalIndex !== Borders::DIAGONAL_NONE) {
+            $borders['diagonalDirection'] = $diagonalIndex;
+        }
+
+        return $borders;
+    }
+
+    protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
+    {
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($numberNs, 'number-style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $this->processNumberNumber($automaticStyle, $numberNs, $styleNs);
+        }
+    }
+
+    protected function processNumberNumber(DOMElement $automaticStyle, string $numberNs, string $styleNs): void
+    {
+        $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+        foreach ($automaticStyle->getElementsByTagNameNS($numberNs, 'number') as $numberNumber) {
+            $decimalPlaces = $numberNumber->getAttributeNs($numberNs, 'decimal-places');
+            $minIntegerDigits = (int) $numberNumber->getAttributeNs($numberNs, 'min-integer-digits');
+            if ($decimalPlaces === '0' && $minIntegerDigits > 1) {
+                $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
+            }
+        }
+    }
+}

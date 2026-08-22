@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40"
+          xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel">
+    <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+        <Colors>
+            <Color>
+                <Index>3</Index>
+                <RGB>#000000</RGB>
+            </Color>
+        </Colors>
+    </OfficeDocumentSettings>
+    <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+        <WindowHeight>9000</WindowHeight>
+        <WindowWidth>13860</WindowWidth>
+        <WindowTopX>240</WindowTopX>
+        <WindowTopY>75</WindowTopY>
+        <ProtectStructure>False</ProtectStructure>
+        <ProtectWindows>False</ProtectWindows>
+    </ExcelWorkbook>
+    <Styles>
+        <Style ss:ID="ce9">
+            <Alignment ss:Vertical="Bottom" ss:Rotate="0"/>
+            <Borders/>
+            <Font ss:Color="#000000" ss:FontName="Arial1" ss:Size="11"/>
+            <NumberFormat ss:Format="Short Date"/>
+        </Style>
+        <Style ss:ID="ce32">
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1" ss:Rotate="0"/>
+            <Borders/>
+            <Font ss:Color="#000000" ss:FontName="Calibri" ss:Size="11"/>
+        </Style>
+    </Styles>
+    <ss:Worksheet ss:Name="Sample Data">
+        <Table>
+            <Column ss:Width="96.4913"/>
+            <Column ss:Span="1" ss:Width="48.3874"/>
+            <Column ss:Index="4" ss:Width="35.8866"/>
+            <Column ss:Span="6" ss:Width="48.3874"/>
+            <Column ss:Index="12" ss:Width="50.2583"/>
+            <Column ss:Span="1011" ss:Width="48.3874"/>
+            <Row ss:Index="8" ss:AutoFitHeight="0" ss:Height="14.9953">
+                <Cell>
+                    <ss:Data xmlns="http://www.w3.org/TR/REC-html40" ss:Type="String">Test String 1</ss:Data>
+                    <Comment>
+                        <ss:Data xmlns="http://www.w3.org/TR/REC-html40">
+                            <Font html:Face="Sans" html:Size="10">Test for a simple colour-formatted string</Font>
+                        </ss:Data>
+                    </Comment>
+                </Cell>
+                <Cell>
+                    <Data ss:StyleID="ce32" ss:Type="Number">1</Data>
+                </Cell>
+                <Cell ss:Formula="of:=12/1">
+                    <Data ss:Type="Number">12</Data>
+                </Cell>
+                <Cell ss:Formula="of:=[.C8]-[.B8]">
+                    <Data ss:Type="Number">11</Data>
+                </Cell>
+                <Cell ss:StyleID="ce9">
+                    <Data ss:Type="DateTime">1960-12-19T00:00:00.000</Data>
+                </Cell>
+            </Row>
+        </Table>
+        <x:WorksheetOptions/>
+    </ss:Worksheet>
+</Workbook>

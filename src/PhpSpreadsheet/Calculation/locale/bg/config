@@ -1,0 +1,24 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## български (Bulgarian)
+##
+############################################################
+
+ArgumentSeparator = ;
+##
+##  (For future use)
+##
+currencySymbol = лв
+
+##
+## Error Codes
+##
+NULL = #ПРАЗНО!
+DIV0 = #ДЕЛ/0!
+VALUE = #СТОЙНОСТ!
+REF = #РЕФ!
+NAME = #ИМЕ?
+NUM = #ЧИСЛО!
+NA = #Н/Д

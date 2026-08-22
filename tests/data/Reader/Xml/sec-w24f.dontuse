@@ -1,0 +1,65 @@
+<?xml version="1.0"?> 
+<?mso-application progid="Excel.Sheet"?> 
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" 
+ xmlns:o="urn:schemas-microsoft-com:office:office" 
+ xmlns:x="urn:schemas-microsoft-com:office:excel" 
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" 
+ xmlns:html="http://www.w3.org/TR/REC-html40"> 
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"> 
+  <Author>author</Author> 
+  <LastAuthor>author</LastAuthor> 
+  <Created>2015-06-05T18:19:34Z</Created> 
+  <LastSaved>2024-12-25T10:16:07Z</LastSaved> 
+  <Version>16.00</Version> 
+ </DocumentProperties> 
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office"> 
+  <AllowPNG/> 
+ </OfficeDocumentSettings> 
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel"> 
+  <WindowHeight>11020</WindowHeight> 
+  <WindowWidth>19420</WindowWidth> 
+  <WindowTopX>32767</WindowTopX> 
+  <WindowTopY>32767</WindowTopY> 
+  <ProtectStructure>False</ProtectStructure> 
+  <ProtectWindows>False</ProtectWindows> 
+ </ExcelWorkbook> 
+ <Styles> 
+  <Style ss:ID="Default" ss:Name="Normal"> 
+   <Alignment ss:Vertical="Bottom"/> 
+   <Borders/> 
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/> 
+   <Interior/> 
+   <NumberFormat/> 
+   <Protection/> 
+  </Style> 
+  <Style ss:ID="s16"> 
+   <NumberFormat ss:Format="General Date"/> 
+  </Style> 
+ </Styles> 
+ <Worksheet ss:Name="Лист1"> 
+  <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="6" x:FullColumns="1" 
+   x:FullRows="1" ss:DefaultRowHeight="14.5"> 
+   <Column ss:AutoFitWidth="0" ss:Width="194"/> 
+   <Row> 
+     <Cell ss:Formula="=HYPERLINK (CHAR(20) &amp; &quot;j&quot; &amp; CHAR(13) &amp; &quot;avascript:alert(1)&quot;)"><Data ss:Type="String"></Data></Cell> 
+   </Row> 
+  </Table> 
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel"> 
+   <PageSetup> 
+    <Header x:Margin="0.3"/> 
+    <Footer x:Margin="0.3"/> 
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/> 
+   </PageSetup> 
+   <Selected/> 
+   <TopRowVisible>1</TopRowVisible> 
+   <Panes> 
+    <Pane> 
+     <Number>3</Number> 
+     <ActiveRow>6</ActiveRow> 
+    </Pane> 
+   </Panes> 
+   <ProtectObjects>False</ProtectObjects> 
+   <ProtectScenarios>False</ProtectScenarios> 
+  </WorksheetOptions> 
+ </Worksheet>
+</Workbook>

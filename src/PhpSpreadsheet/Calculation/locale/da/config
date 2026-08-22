@@ -1,0 +1,20 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Dansk (Danish)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+NULL = #NUL!
+DIV0
+VALUE = #VÆRDI!
+REF = #REFERENCE!
+NAME = #NAVN?
+NUM
+NA = #I/T

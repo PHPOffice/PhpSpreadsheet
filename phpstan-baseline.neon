@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$array of function array_multisort expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Sort.php
+
+		-
+			message: '#^Cannot access offset 0 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: '#^Parameter \#1 \$string of function trim expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PhpSpreadsheet/ReferenceHelper.php

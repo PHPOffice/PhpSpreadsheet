@@ -1,0 +1,409 @@
+############################################################
+##
+## PhpSpreadsheet - function name translations
+##
+## български (Bulgarian)
+##
+############################################################
+
+
+##
+## Функции Куб (Cube Functions)
+##
+CUBEKPIMEMBER = КУБЭЛЕМЕНТКИП
+CUBEMEMBER = КУБЭЛЕМЕНТ
+CUBEMEMBERPROPERTY = КУБСВОЙСТВОЭЛЕМЕНТА
+CUBERANKEDMEMBER = КУБПОРЭЛЕМЕНТ
+CUBESET = КУБМНОЖ
+CUBESETCOUNT = КУБЧИСЛОЭЛМНОЖ
+CUBEVALUE = КУБЗНАЧЕНИЕ
+
+##
+## Функции для работы с базами данных (Database Functions)
+##
+DAVERAGE = ДСРЗНАЧ
+DCOUNT = БСЧЁТ
+DCOUNTA = БСЧЁТА
+DGET = БИЗВЛЕЧЬ
+DMAX = ДМАКС
+DMIN = ДМИН
+DPRODUCT = БДПРОИЗВЕД
+DSTDEV = ДСТАНДОТКЛ
+DSTDEVP = ДСТАНДОТКЛП
+DSUM = БДСУММ
+DVAR = БДДИСП
+DVARP = БДДИСПП
+
+##
+## Функции даты и времени (Date & Time Functions)
+##
+DATE = ДАТА
+DATEVALUE = ДАТАЗНАЧ
+DAY = ДЕНЬ
+DAYS360 = ДНЕЙ360
+EDATE = ДАТАМЕС
+EOMONTH = КОНМЕСЯЦА
+HOUR = ЧАС
+MINUTE = МИНУТЫ
+MONTH = МЕСЯЦ
+NETWORKDAYS = ЧИСТРАБДНИ
+NOW = ТДАТА
+SECOND = СЕКУНДЫ
+TIME = ВРЕМЯ
+TIMEVALUE = ВРЕМЗНАЧ
+TODAY = СЕГОДНЯ
+WEEKDAY = ДЕНЬНЕД
+WEEKNUM = НОМНЕДЕЛИ
+WORKDAY = РАБДЕНЬ
+YEAR = ГОД
+YEARFRAC = ДОЛЯГОДА
+
+##
+## Инженерные функции (Engineering Functions)
+##
+BESSELI = БЕССЕЛЬ.I
+BESSELJ = БЕССЕЛЬ.J
+BESSELK = БЕССЕЛЬ.K
+BESSELY = БЕССЕЛЬ.Y
+BIN2DEC = ДВ.В.ДЕС
+BIN2HEX = ДВ.В.ШЕСТН
+BIN2OCT = ДВ.В.ВОСЬМ
+COMPLEX = КОМПЛЕКСН
+CONVERT = ПРЕОБР
+DEC2BIN = ДЕС.В.ДВ
+DEC2HEX = ДЕС.В.ШЕСТН
+DEC2OCT = ДЕС.В.ВОСЬМ
+DELTA = ДЕЛЬТА
+ERF = ФОШ
+ERFC = ДФОШ
+GESTEP = ПОРОГ
+HEX2BIN = ШЕСТН.В.ДВ
+HEX2DEC = ШЕСТН.В.ДЕС
+HEX2OCT = ШЕСТН.В.ВОСЬМ
+IMABS = МНИМ.ABS
+IMAGINARY = МНИМ.ЧАСТЬ
+IMARGUMENT = МНИМ.АРГУМЕНТ
+IMCONJUGATE = МНИМ.СОПРЯЖ
+IMCOS = МНИМ.COS
+IMDIV = МНИМ.ДЕЛ
+IMEXP = МНИМ.EXP
+IMLN = МНИМ.LN
+IMLOG10 = МНИМ.LOG10
+IMLOG2 = МНИМ.LOG2
+IMPOWER = МНИМ.СТЕПЕНЬ
+IMPRODUCT = МНИМ.ПРОИЗВЕД
+IMREAL = МНИМ.ВЕЩ
+IMSIN = МНИМ.SIN
+IMSQRT = МНИМ.КОРЕНЬ
+IMSUB = МНИМ.РАЗН
+IMSUM = МНИМ.СУММ
+OCT2BIN = ВОСЬМ.В.ДВ
+OCT2DEC = ВОСЬМ.В.ДЕС
+OCT2HEX = ВОСЬМ.В.ШЕСТН
+
+##
+## Финансовые функции (Financial Functions)
+##
+ACCRINT = НАКОПДОХОД
+ACCRINTM = НАКОПДОХОДПОГАШ
+AMORDEGRC = АМОРУМ
+AMORLINC = АМОРУВ
+COUPDAYBS = ДНЕЙКУПОНДО
+COUPDAYS = ДНЕЙКУПОН
+COUPDAYSNC = ДНЕЙКУПОНПОСЛЕ
+COUPNCD = ДАТАКУПОНПОСЛЕ
+COUPNUM = ЧИСЛКУПОН
+COUPPCD = ДАТАКУПОНДО
+CUMIPMT = ОБЩПЛАТ
+CUMPRINC = ОБЩДОХОД
+DB = ФУО
+DDB = ДДОБ
+DISC = СКИДКА
+DOLLARDE = РУБЛЬ.ДЕС
+DOLLARFR = РУБЛЬ.ДРОБЬ
+DURATION = ДЛИТ
+EFFECT = ЭФФЕКТ
+FV = БС
+FVSCHEDULE = БЗРАСПИС
+INTRATE = ИНОРМА
+IPMT = ПРПЛТ
+IRR = ВСД
+ISPMT = ПРОЦПЛАТ
+MDURATION = МДЛИТ
+MIRR = МВСД
+NOMINAL = НОМИНАЛ
+NPER = КПЕР
+NPV = ЧПС
+ODDFPRICE = ЦЕНАПЕРВНЕРЕГ
+ODDFYIELD = ДОХОДПЕРВНЕРЕГ
+ODDLPRICE = ЦЕНАПОСЛНЕРЕГ
+ODDLYIELD = ДОХОДПОСЛНЕРЕГ
+PMT = ПЛТ
+PPMT = ОСПЛТ
+PRICE = ЦЕНА
+PRICEDISC = ЦЕНАСКИДКА
+PRICEMAT = ЦЕНАПОГАШ
+PV = ПС
+RATE = СТАВКА
+RECEIVED = ПОЛУЧЕНО
+SLN = АПЛ
+SYD = АСЧ
+TBILLEQ = РАВНОКЧЕК
+TBILLPRICE = ЦЕНАКЧЕК
+TBILLYIELD = ДОХОДКЧЕК
+VDB = ПУО
+XIRR = ЧИСТВНДОХ
+XNPV = ЧИСТНЗ
+YIELD = ДОХОД
+YIELDDISC = ДОХОДСКИДКА
+YIELDMAT = ДОХОДПОГАШ
+
+##
+## Информационные функции (Information Functions)
+##
+CELL = ЯЧЕЙКА
+ERROR.TYPE = ТИП.ОШИБКИ
+INFO = ИНФОРМ
+ISBLANK = ЕПУСТО
+ISERR = ЕОШ
+ISERROR = ЕОШИБКА
+ISEVEN = ЕЧЁТН
+ISLOGICAL = ЕЛОГИЧ
+ISNA = ЕНД
+ISNONTEXT = ЕНЕТЕКСТ
+ISNUMBER = ЕЧИСЛО
+ISODD = ЕНЕЧЁТ
+ISREF = ЕССЫЛКА
+ISTEXT = ЕТЕКСТ
+N = Ч
+NA = НД
+TYPE = ТИП
+
+##
+## Логические функции (Logical Functions)
+##
+AND = И
+FALSE = ЛОЖЬ
+IF = ЕСЛИ
+IFERROR = ЕСЛИОШИБКА
+NOT = НЕ
+OR = ИЛИ
+TRUE = ИСТИНА
+
+##
+## Функции ссылки и поиска (Lookup & Reference Functions)
+##
+ADDRESS = АДРЕС
+AREAS = ОБЛАСТИ
+CHOOSE = ВЫБОР
+COLUMN = СТОЛБЕЦ
+COLUMNS = ЧИСЛСТОЛБ
+GETPIVOTDATA = ПОЛУЧИТЬ.ДАННЫЕ.СВОДНОЙ.ТАБЛИЦЫ
+HLOOKUP = ГПР
+HYPERLINK = ГИПЕРССЫЛКА
+INDEX = ИНДЕКС
+INDIRECT = ДВССЫЛ
+LOOKUP = ПРОСМОТР
+MATCH = ПОИСКПОЗ
+OFFSET = СМЕЩ
+ROW = СТРОКА
+ROWS = ЧСТРОК
+RTD = ДРВ
+TRANSPOSE = ТРАНСП
+VLOOKUP = ВПР
+
+##
+## Математические и тригонометрические функции (Math & Trig Functions)
+##
+ABS = ABS
+ACOS = ACOS
+ACOSH = ACOSH
+ASIN = ASIN
+ASINH = ASINH
+ATAN = ATAN
+ATAN2 = ATAN2
+ATANH = ATANH
+COMBIN = ЧИСЛКОМБ
+COS = COS
+COSH = COSH
+DEGREES = ГРАДУСЫ
+EVEN = ЧЁТН
+EXP = EXP
+FACT = ФАКТР
+FACTDOUBLE = ДВФАКТР
+GCD = НОД
+INT = ЦЕЛОЕ
+LCM = НОК
+LN = LN
+LOG = LOG
+LOG10 = LOG10
+MDETERM = МОПРЕД
+MINVERSE = МОБР
+MMULT = МУМНОЖ
+MOD = ОСТАТ
+MROUND = ОКРУГЛТ
+MULTINOMIAL = МУЛЬТИНОМ
+ODD = НЕЧЁТ
+PI = ПИ
+POWER = СТЕПЕНЬ
+PRODUCT = ПРОИЗВЕД
+QUOTIENT = ЧАСТНОЕ
+RADIANS = РАДИАНЫ
+RAND = СЛЧИС
+RANDBETWEEN = СЛУЧМЕЖДУ
+ROMAN = РИМСКОЕ
+ROUND = ОКРУГЛ
+ROUNDDOWN = ОКРУГЛВНИЗ
+ROUNDUP = ОКРУГЛВВЕРХ
+SERIESSUM = РЯД.СУММ
+SIGN = ЗНАК
+SIN = SIN
+SINH = SINH
+SQRT = КОРЕНЬ
+SQRTPI = КОРЕНЬПИ
+SUBTOTAL = ПРОМЕЖУТОЧНЫЕ.ИТОГИ
+SUM = СУММ
+SUMIF = СУММЕСЛИ
+SUMIFS = СУММЕСЛИМН
+SUMPRODUCT = СУММПРОИЗВ
+SUMSQ = СУММКВ
+SUMX2MY2 = СУММРАЗНКВ
+SUMX2PY2 = СУММСУММКВ
+SUMXMY2 = СУММКВРАЗН
+TAN = TAN
+TANH = TANH
+TRUNC = ОТБР
+
+##
+## Статистические функции (Statistical Functions)
+##
+AVEDEV = СРОТКЛ
+AVERAGE = СРЗНАЧ
+AVERAGEA = СРЗНАЧА
+AVERAGEIF = СРЗНАЧЕСЛИ
+AVERAGEIFS = СРЗНАЧЕСЛИМН
+CORREL = КОРРЕЛ
+COUNT = СЧЁТ
+COUNTA = СЧЁТЗ
+COUNTBLANK = СЧИТАТЬПУСТОТЫ
+COUNTIF = СЧЁТЕСЛИ
+COUNTIFS = СЧЁТЕСЛИМН
+DEVSQ = КВАДРОТКЛ
+FISHER = ФИШЕР
+FISHERINV = ФИШЕРОБР
+FREQUENCY = ЧАСТОТА
+GAMMALN = ГАММАНЛОГ
+GEOMEAN = СРГЕОМ
+GROWTH = РОСТ
+HARMEAN = СРГАРМ
+INTERCEPT = ОТРЕЗОК
+KURT = ЭКСЦЕСС
+LARGE = НАИБОЛЬШИЙ
+LINEST = ЛИНЕЙН
+LOGEST = ЛГРФПРИБЛ
+MAX = МАКС
+MAXA = МАКСА
+MEDIAN = МЕДИАНА
+MIN = МИН
+MINA = МИНА
+PEARSON = ПИРСОН
+PERMUT = ПЕРЕСТ
+PROB = ВЕРОЯТНОСТЬ
+RSQ = КВПИРСОН
+SKEW = СКОС
+SLOPE = НАКЛОН
+SMALL = НАИМЕНЬШИЙ
+STANDARDIZE = НОРМАЛИЗАЦИЯ
+STDEVA = СТАНДОТКЛОНА
+STDEVPA = СТАНДОТКЛОНПА
+STEYX = СТОШYX
+TREND = ТЕНДЕНЦИЯ
+TRIMMEAN = УРЕЗСРЕДНЕЕ
+VARA = ДИСПА
+VARPA = ДИСПРА
+
+##
+## Текстовые функции (Text Functions)
+##
+ASC = ASC
+BAHTTEXT = БАТТЕКСТ
+CHAR = СИМВОЛ
+CLEAN = ПЕЧСИМВ
+CODE = КОДСИМВ
+DOLLAR = РУБЛЬ
+EXACT = СОВПАД
+FIND = НАЙТИ
+FINDB = НАЙТИБ
+FIXED = ФИКСИРОВАННЫЙ
+LEFT = ЛЕВСИМВ
+LEFTB = ЛЕВБ
+LEN = ДЛСТР
+LENB = ДЛИНБ
+LOWER = СТРОЧН
+MID = ПСТР
+MIDB = ПСТРБ
+PHONETIC = PHONETIC
+PROPER = ПРОПНАЧ
+REPLACE = ЗАМЕНИТЬ
+REPLACEB = ЗАМЕНИТЬБ
+REPT = ПОВТОР
+RIGHT = ПРАВСИМВ
+RIGHTB = ПРАВБ
+SEARCH = ПОИСК
+SEARCHB = ПОИСКБ
+SUBSTITUTE = ПОДСТАВИТЬ
+T = Т
+TEXT = ТЕКСТ
+TRIM = СЖПРОБЕЛЫ
+UPPER = ПРОПИСН
+VALUE = ЗНАЧЕН
+
+##
+##  (Web Functions)
+##
+
+##
+##  (Compatibility Functions)
+##
+BETADIST = БЕТАРАСП
+BETAINV = БЕТАОБР
+BINOMDIST = БИНОМРАСП
+CEILING = ОКРВВЕРХ
+CHIDIST = ХИ2РАСП
+CHIINV = ХИ2ОБР
+CHITEST = ХИ2ТЕСТ
+CONCATENATE = СЦЕПИТЬ
+CONFIDENCE = ДОВЕРИТ
+COVAR = КОВАР
+CRITBINOM = КРИТБИНОМ
+EXPONDIST = ЭКСПРАСП
+FDIST = FРАСП
+FINV = FРАСПОБР
+FLOOR = ОКРВНИЗ
+FORECAST = ПРЕДСКАЗ
+FTEST = ФТЕСТ
+GAMMADIST = ГАММАРАСП
+GAMMAINV = ГАММАОБР
+HYPGEOMDIST = ГИПЕРГЕОМЕТ
+LOGINV = ЛОГНОРМОБР
+LOGNORMDIST = ЛОГНОРМРАСП
+MODE = МОДА
+NEGBINOMDIST = ОТРБИНОМРАСП
+NORMDIST = НОРМРАСП
+NORMINV = НОРМОБР
+NORMSDIST = НОРМСТРАСП
+NORMSINV = НОРМСТОБР
+PERCENTILE = ПЕРСЕНТИЛЬ
+PERCENTRANK = ПРОЦЕНТРАНГ
+POISSON = ПУАССОН
+QUARTILE = КВАРТИЛЬ
+RANK = РАНГ
+STDEV = СТАНДОТКЛОН
+STDEVP = СТАНДОТКЛОНП
+TDIST = СТЬЮДРАСП
+TINV = СТЬЮДРАСПОБР
+TTEST = ТТЕСТ
+VAR = ДИСП
+VARP = ДИСПР
+WEIBULL = ВЕЙБУЛЛ
+ZTEST = ZТЕСТ

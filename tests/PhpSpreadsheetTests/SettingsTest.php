@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PhpOffice\PhpSpreadsheetTests;
+
+use PhpOffice\PhpSpreadsheet\Exception as SpException;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PHPUnit\Framework\TestCase;
+
+class SettingsTest extends TestCase
+{
+    protected function tearDown(): void
+    {
+        Settings::setCache(null);
+    }
+
+    public function testInvalidChartRenderer(): void
+    {
+        $this->expectException(SpException::class);
+        $this->expectExceptionMessage('Chart renderer must implement');
+        Settings::setChartRenderer(self::class); // @phpstan-ignore argument.type (deliberate run-time test)
+    }
+
+    public function testCache(): void
+    {
+        $cache1 = Settings::getCache();
+        Settings::setCache(null);
+        $cache2 = Settings::getCache();
+        self::assertEquals($cache1, $cache2);
+        self::assertNotSame($cache1, $cache2);
+        $array = ['A1' => 10, 'B2' => 20];
+        $cache2->setMultiple($array);
+        self::assertSame($array, $cache2->getMultiple(array_keys($array)));
+        self::assertNull($cache2->get('C3'));
+        $cache2->clear();
+        self::assertNull($cache2->get('A1'));
+        self::assertNull($cache2->get('B2'));
+    }
+}

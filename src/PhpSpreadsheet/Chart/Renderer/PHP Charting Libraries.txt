@@ -1,0 +1,23 @@
+ChartDirector
+	https://www.advsofteng.com/cdphp.html
+
+GraPHPite
+	http://graphpite.sourceforge.net/
+
+JpGraph
+	https://jpgraph.net/
+	Used composer packages:
+        https://packagist.org/packages/jpgraph/jpgraph (\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph)
+        https://packagist.org/packages/mitoteam/jpgraph (\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer)
+
+LibChart
+	https://naku.dohcrew.com/libchart/pages/introduction/
+
+pChart
+	http://pchart.sourceforge.net/
+
+TeeChart
+	https://www.steema.com/
+
+PHPGraphLib
+    http://www.ebrueggeman.com/phpgraphlib

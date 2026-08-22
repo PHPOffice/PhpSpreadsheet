@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    [
+        '/',
+        'directory',
+    ],
+    [
+        1,
+        'numfile',
+    ],
+    [
+        '$A:$A$1',
+        'origin',
+    ],
+    [
+        'PHP ' . PHP_VERSION,
+        'osversion',
+    ],
+    [
+        'Automatic',
+        'recalc',
+    ],
+    [
+        'Automatic',
+        'RECALC',
+    ],
+    [
+        PHP_VERSION,
+        'release',
+    ],
+    [
+        'PHP',
+        'system',
+    ],
+    [
+        '#N/A',
+        'memavail',
+    ],
+    [
+        '#N/A',
+        'memused',
+    ],
+    [
+        '#N/A',
+        'totmem',
+    ],
+    [
+        '#VALUE!',
+        '1',
+    ],
+    [
+        '#VALUE!',
+        'A',
+    ],
+    [
+        '#VALUE!',
+        '#VALUE!',
+    ],
+];
