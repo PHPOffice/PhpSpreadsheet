@@ -1544,7 +1544,7 @@ class Calculation extends CalculationLocale
                             } elseif (ctype_alpha($val) && strlen($val) <= 3) {
                                 //    Column range
                                 $stackItemType = 'Column Reference';
-                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow() : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
                                 $val = "{$rangeWS2}{$val}{$endRowColRef}";
                             }
                             $stackItemReference = $val;
