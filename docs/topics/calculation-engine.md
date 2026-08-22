@@ -33,7 +33,7 @@ $spreadsheet->getActiveSheet()->getCell('E11')->isFormula();
 ```
 will return a boolean true/false, telling you whether that cell contains a formula or not, so you can determine if a call to `getCalculatedVaue()` will need to perform an evaluation. 
 
-For more details on working with array formulas, see the [the recipes documentationn](./recipes.md/#array-formulas). 
+For more details on working with array formulas, see the [the recipes documentation](./recipes.md#array-formulas).
 
 When writing a formula to a cell, formulas should always be set as they would appear in an English version of Microsoft Office Excel, and PhpSpreadsheet handles all formulas internally in this format. This means that the following rules hold:
 
