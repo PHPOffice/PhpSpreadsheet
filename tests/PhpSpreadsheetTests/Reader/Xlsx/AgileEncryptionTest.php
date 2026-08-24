@@ -60,7 +60,8 @@ class AgileEncryptionTest extends TestCase
     public function testRejectsTamperedEncryptedPackage(): void
     {
         $package = AgileEncryption::encrypt("PK\x03\x04test", 'password');
-        $package['encryptedPackage'][strlen($package['encryptedPackage']) - 1] = "\x00";
+        $lastByte = strlen($package['encryptedPackage']) - 1;
+        $package['encryptedPackage'][$lastByte] = chr(ord($package['encryptedPackage'][$lastByte]) ^ 1);
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('integrity check failed');
