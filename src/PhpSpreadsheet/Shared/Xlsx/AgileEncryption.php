@@ -43,7 +43,7 @@ final class AgileEncryption
             throw new Exception('Unsupported XLSX encryption profile.');
         }
 
-        $xml = simplexml_load_string(substr($encryptionInfo, 8));
+        $xml = @simplexml_load_string(substr($encryptionInfo, 8));
         if (!$xml instanceof SimpleXMLElement) {
             throw new Exception('Malformed XLSX encryption information.');
         }

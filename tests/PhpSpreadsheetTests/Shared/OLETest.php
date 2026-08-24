@@ -90,4 +90,14 @@ class OLETest extends TestCase
         self::assertSame('0400040040000000', bin2hex(substr($ole->getDataByName('EncryptionInfo'), 0, 8)));
         self::assertSame(8952, strlen($ole->getDataByName('EncryptedPackage')));
     }
+
+    public function testNamedStreamMustExist(): void
+    {
+        $ole = new OLE();
+        $ole->read('tests/data/Reader/XLSX/agile-encrypted-excel.xlsx');
+
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage("OLE stream 'Missing' was not found.");
+        $ole->getDataByName('Missing');
+    }
 }

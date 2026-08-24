@@ -25,6 +25,12 @@ class AgileEncryptionTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
+    public function testCanReadEncryptedWorkbook(): void
+    {
+        self::assertTrue((new Xlsx())->canRead(self::FIXTURE));
+        self::assertFalse((new Xlsx())->canRead('tests/data/Reader/XLS/sample.xls'));
+    }
+
     public function testListWorksheetMetadataForEncryptedWorkbook(): void
     {
         $reader = (new Xlsx())->setEncryptionPassword('open');
@@ -68,6 +74,36 @@ class AgileEncryptionTest extends TestCase
         AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), $package['encryptedPackage'], 'password');
     }
 
+    public function testRejectsMalformedEncryptedPackage(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA-1', 10);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed encrypted XLSX package');
+        AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), substr($package['encryptedPackage'], 0, 7), 'password');
+    }
+
+    public function testRejectsMalformedEncryptionInfo(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed XLSX encryption information');
+        AgileEncryption::parse("\x04\x00\x04\x00\x40\x00\x00\x00not XML");
+    }
+
+    public function testEncryptRequiresSupportedProfileAndPassword(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('XLSX encryption password required');
+        AgileEncryption::encrypt('package', '');
+    }
+
+    public function testEncryptRejectsUnsupportedProfile(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::encrypt('package', 'password', 64, 'SHA512', 10);
+    }
+
     public function testRejectsUnsupportedEncryptionInfo(): void
     {
         $this->expectException(Exception::class);
@@ -93,5 +129,13 @@ class AgileEncryptionTest extends TestCase
             self::assertSame($hashAlgorithm, $info['hashAlgorithm']);
             self::assertSame('profile test', AgileEncryption::decrypt($info, $package['encryptedPackage'], 'password'));
         }
+    }
+
+    public function testDecryptsMultipleEncryptedSegments(): void
+    {
+        $plain = str_repeat('x', 4097);
+        $package = AgileEncryption::encrypt($plain, 'password', 128, 'SHA-1', 10);
+
+        self::assertSame($plain, AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), $package['encryptedPackage'], 'password'));
     }
 }
