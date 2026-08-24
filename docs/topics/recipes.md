@@ -1470,7 +1470,14 @@ $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 
 > Note that "protection" is not the same as "encryption".
 > Protection is about preventing parts of a spreadsheet from being changed, not about preventing the spreadsheet from being looked at.<br /><br />
-PhpSpreadsheet does not support encrypting a spreadsheet; nor can it read encrypted spreadsheets.
+To open an `.xlsx` file encrypted with a password to open, set the password
+on the reader before loading it.
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+$reader->setEncryptionPassword('open-password');
+$spreadsheet = $reader->load('protected.xlsx');
+```
 
 ### Document
 

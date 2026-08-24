@@ -473,6 +473,22 @@ class OLE
     }
 
     /**
+     * Get the complete contents of a named file stream.
+     *
+     * @throws ReaderException if no file stream has the requested name
+     */
+    public function getDataByName(string $name): string
+    {
+        foreach ($this->_list as $index => $pps) {
+            if ($pps->Type === self::OLE_PPS_TYPE_FILE && $pps->Name === $name) {
+                return $this->getData($index, 0, $pps->Size);
+            }
+        }
+
+        throw new ReaderException("OLE stream '$name' was not found.");
+    }
+
+    /**
      * Utility function to transform ASCII text to Unicode.
      *
      * @param string $ascii The ASCII string to transform

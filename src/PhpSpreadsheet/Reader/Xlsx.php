@@ -34,7 +34,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
+use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
@@ -66,6 +68,15 @@ class Xlsx extends BaseReader
 
     protected bool $parseHuge = false;
 
+    private string $encryptionPassword = '';
+
+    public function setEncryptionPassword(string $encryptionPassword): self
+    {
+        $this->encryptionPassword = $encryptionPassword;
+
+        return $this;
+    }
+
     /**
      * Allow use of LIBXML_PARSEHUGE.
      * This option can lead to memory leaks and failures,
@@ -93,7 +104,7 @@ class Xlsx extends BaseReader
     public function canRead(string $filename): bool
     {
         if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
-            return false;
+            return $this->hasEncryptedPackage($filename);
         }
 
         $result = false;
@@ -107,6 +118,60 @@ class Xlsx extends BaseReader
         }
 
         return $result;
+    }
+
+    public function load(string $filename, int $flags = 0): Spreadsheet
+    {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return parent::load($filename, $flags);
+        }
+
+        try {
+            return parent::load($temporaryFilename, $flags);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    private function hasEncryptedPackage(string $filename): bool
+    {
+        try {
+            $ole = new OLE();
+            $ole->read($filename);
+            $ole->getDataByName('EncryptionInfo');
+            $ole->getDataByName('EncryptedPackage');
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
+    private function decryptToTemporaryFile(string $filename): ?string
+    {
+        if (File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+            return null;
+        }
+
+        try {
+            $ole = new OLE();
+            $ole->read($filename);
+            $encryptionInfo = $ole->getDataByName('EncryptionInfo');
+            $encryptedPackage = $ole->getDataByName('EncryptedPackage');
+        } catch (Throwable) {
+            return null;
+        }
+
+        $plaintext = AgileEncryption::decrypt(AgileEncryption::parse($encryptionInfo), $encryptedPackage, $this->encryptionPassword);
+        $temporaryFilename = File::temporaryFilename();
+        if (file_put_contents($temporaryFilename, $plaintext) === false) {
+            @unlink($temporaryFilename);
+
+            throw new Exception('Could not create decrypted XLSX package.');
+        }
+
+        return $temporaryFilename;
     }
 
     public static function testSimpleXml(mixed $value): SimpleXMLElement
@@ -183,6 +248,21 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetNames(string $filename): array
     {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return $this->listWorksheetNamesFromFile($filename);
+        }
+
+        try {
+            return $this->listWorksheetNamesFromFile($temporaryFilename);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    /** @return string[] */
+    private function listWorksheetNamesFromFile(string $filename): array
+    {
         File::assertFile($filename, self::INITIAL_FILE);
 
         $worksheetNames = [];
@@ -219,6 +299,23 @@ class Xlsx extends BaseReader
      * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
      */
     public function listWorksheetInfo(string $filename): array
+    {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return $this->listWorksheetInfoFromFile($filename);
+        }
+
+        try {
+            return $this->listWorksheetInfoFromFile($temporaryFilename);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    /**
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
+     */
+    private function listWorksheetInfoFromFile(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 

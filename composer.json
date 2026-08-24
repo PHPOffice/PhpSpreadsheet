@@ -78,6 +78,7 @@
         "ext-iconv": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
+        "ext-openssl": "*",
         "ext-simplexml": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
