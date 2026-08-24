@@ -1019,7 +1019,7 @@
     <tr>
         <td style="padding-left: 2em;">Encryption (prevent viewing)</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote10"><sup>10</sup></a></td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1053,6 +1053,7 @@
 7. <span id="footnote7">In most cases, Html reader processes only inline styles; styles provided by Css classes may be ignored.</span>
 8. <span id="footnote8">Code must [opt in](../topics/recipes.md#array-formulas) to array output.</span>
 9. <span id="footnote9">Use with caution - allowing external images may can subject the caller to security exploits. Starting with release 4.5.0 (also earlier releases 3.9.3, 2.3.10, 2.1.11, and 1.29.12), code can allow or not external images. In those starting releases, and in earlier releases which do not offer an option, default is to allow it. In release 5+ (and earlier supported versions 1.30+, 2.1.12+, 2.4+, and 3.10+), the default is to not allow it.</span>
+10. <span id="footnote10">XLSX only: password-to-open Agile encryption. Other formats, password-to-modify, certificate-only encryption, custom providers, and obsolete cipher/hash profiles are not supported. See <a href="../topics/encryption.md">file encryption</a>.</span>
 
 ## Writers
 
@@ -1724,7 +1725,7 @@
     <tr>
         <td style="padding-left: 2em;">Encryption (prevent viewing)</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote10"><sup>10</sup></a></td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
