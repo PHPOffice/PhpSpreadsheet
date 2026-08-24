@@ -31,6 +31,12 @@ class AgileEncryptionTest extends TestCase
         self::assertFalse((new Xlsx())->canRead('tests/data/Reader/XLS/sample.xls'));
     }
 
+    public function testNonEncryptedOleFallsBackToNormalXlsxLoading(): void
+    {
+        $this->expectException(Exception::class);
+        (new Xlsx())->load('tests/data/Reader/XLS/sample.xls');
+    }
+
     public function testListWorksheetMetadataForEncryptedWorkbook(): void
     {
         $reader = (new Xlsx())->setEncryptionPassword('open');
