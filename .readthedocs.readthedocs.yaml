@@ -9,4 +9,4 @@ build:
         python: "3"
 
 mkdocs:
-    configuration: mkdocs.yml
+    configuration: mkdocs.readthedocs.yml

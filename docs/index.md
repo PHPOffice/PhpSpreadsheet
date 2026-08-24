@@ -2,7 +2,7 @@
 
 ![Logo](./assets/logo.svg)
 
-PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
+[PhpSpreadsheet](https://www.github.com/PhpOffice/PhpSpreadsheet)  is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
 
 ## File formats supported
@@ -27,7 +27,7 @@ Note - reading or writing certain aspects of a spreadsheet may not be supported 
 
 ## Software requirements
 
-PHP version 8.1 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
+PHP version 8.2 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
 composer. See the `require` section of [the composer.json file](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/composer.json)
 for details.
 
@@ -36,7 +36,7 @@ for details.
 LTS: Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life of that PHP version](https://www.php.net/eol.php).
 
-Currently, the required PHP minimum version is __PHP 8.1__, and we [will support that version](https://www.php.net/eol.php) until June 2026.
+Currently, the required PHP minimum version is __PHP 8.2__, and we [will support that version](https://www.php.net/eol.php) until June 2027.
 
 Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life](https://www.php.net/supported-versions) of that PHP version.
@@ -88,7 +88,7 @@ or the appropriate PDF Writer wrapper for the library that you have chosen to in
 
 #### Chart Export
 
-For Chart export, we support following packages, which you will also need to install yourself using `composer require`
+For Chart export, we support following packages, which you will also need to install yourself using `composer require`:
 - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0.
   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
 - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) - up to date fork with modern PHP versions support and some bugs fixed.
@@ -137,7 +137,9 @@ php -S localhost:8000 -t vendor/phpoffice/phpspreadsheet/samples
 
 Then point your browser to:
 
-> http://localhost:8000/
+```
+http://localhost:8000/
+```
 
 The samples may also be run directly from the command line, for example:
 
