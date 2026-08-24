@@ -15,7 +15,7 @@ repo_url = "https://github.com/PHPOffice/phpspreadsheet"
 #  { "Markdown in 5min" = "markdown.md" },
 #]
 
-extra_css = ["extra/extra.css", "extra/highlights.css"]
+extra_css = ["extra/extra.css", "extra/tablestripes.css"]
 extra_javascript = ["extra/extrajs.js"]
 
 [project.theme]
