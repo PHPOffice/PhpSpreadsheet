@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -25,7 +27,7 @@ class AgileEncryptionTest extends TestCase
             $spreadsheet->getActiveSheet()->setCellValue('A1', 'configured profile');
             (new Xlsx($spreadsheet))
                 ->setEncryptionPassword('writer-password')
-                ->setEncryptionProfile(128, 'SHA-1', 10)
+                ->setEncryptionProfile(128, 'SHA1', 10)
                 ->save($filename);
 
             // CFB child entries are red-black trees; their left/right links
@@ -40,10 +42,13 @@ class AgileEncryptionTest extends TestCase
 
             $ole = new OLE();
             $ole->read($filename);
-            $info = AgileEncryption::parse($ole->getDataByName('EncryptionInfo'));
+            $encryptionInfo = $ole->getDataByName('EncryptionInfo');
+            $info = AgileEncryption::parse($encryptionInfo);
             self::assertSame(128, $info['keyBits']);
-            self::assertSame('SHA-1', $info['hashAlgorithm']);
+            self::assertSame('SHA1', $info['hashAlgorithm']);
             self::assertSame(10, $info['spinCount']);
+            self::assertStringContainsString('hashAlgorithm="SHA1"', $encryptionInfo);
+            self::assertDataSpacesStreams($ole);
 
             $loaded = (new XlsxReader())->setEncryptionPassword('writer-password')->load($filename);
             self::assertSame('configured profile', $loaded->getActiveSheet()->getCell('A1')->getValue());
@@ -86,6 +91,31 @@ class AgileEncryptionTest extends TestCase
         return ['color' => ord($container[$offset + 67]), 'left' => $left, 'right' => $right, 'child' => $child];
     }
 
+    private static function assertDataSpacesStreams(OLE $ole): void
+    {
+        $version = $ole->getDataByName('Version');
+        self::assertSame(pack('V', 60), substr($version, 0, 4));
+        self::assertSame(self::utf16le('Microsoft.Container.DataSpaces'), substr($version, 4, 60));
+        self::assertSame(pack('V3', 1, 1, 1), substr($version, 64));
+
+        $dataSpaceMap = $ole->getDataByName('DataSpaceMap');
+        self::assertStringContainsString(self::utf16le('EncryptedPackage'), $dataSpaceMap);
+        self::assertStringContainsString(self::utf16le('StrongEncryptionDataSpace'), $dataSpaceMap);
+
+        $dataSpace = $ole->getDataByName('StrongEncryptionDataSpace');
+        self::assertSame(pack('V3', 8, 1, 50), substr($dataSpace, 0, 12));
+        self::assertStringContainsString(self::utf16le('StrongEncryptionTransform'), $dataSpace);
+
+        $transform = $ole->getDataByName("\x06Primary");
+        self::assertSame(pack('V3', 88, 1, 76) . self::utf16le('{FF9A3F03-56EF-4613-BDD5-5A41C1D07246}'), substr($transform, 0, 88));
+        self::assertStringContainsString(self::utf16le('Microsoft.Container.EncryptionTransform'), $transform);
+    }
+
+    private static function utf16le(string $value): string
+    {
+        return mb_convert_encoding($value, 'UTF-16LE', 'UTF-8');
+    }
+
     public function testContainerSupportsFatAndDifatSectors(): void
     {
         $encryptedPackageFilename = File::temporaryFilename();
@@ -124,6 +154,106 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testContainerRejectsLargeEncryptionInfoMiniStream(): void
+    {
+        $encryptedPackageFilename = File::temporaryFilename();
+        $containerFilename = File::temporaryFilename();
+
+        try {
+            $package = AgileEncryption::encrypt(str_repeat('x', 4096), 'writer-password');
+            file_put_contents($encryptedPackageFilename, $package['encryptedPackage']);
+            $container = fopen($containerFilename, 'w+b');
+            self::assertNotFalse($container);
+
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage('Malformed XLSX encryption information');
+            AgileEncryption::writeContainerFromFile($container, str_repeat('x', 4096), $encryptedPackageFilename);
+        } finally {
+            if (isset($container) && is_resource($container)) {
+                fclose($container);
+            }
+            if (file_exists($encryptedPackageFilename)) {
+                unlink($encryptedPackageFilename);
+            }
+            if (file_exists($containerFilename)) {
+                unlink($containerFilename);
+            }
+        }
+    }
+
+    public function testContainerRejectsSmallEncryptedPackage(): void
+    {
+        $encryptedPackageFilename = File::temporaryFilename();
+        $containerFilename = File::temporaryFilename();
+
+        try {
+            $package = AgileEncryption::encrypt('package', 'writer-password');
+            file_put_contents($encryptedPackageFilename, $package['encryptedPackage']);
+            $container = fopen($containerFilename, 'w+b');
+            self::assertNotFalse($container);
+
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage('Malformed encrypted XLSX package');
+            AgileEncryption::writeContainerFromFile($container, $package['encryptionInfo'], $encryptedPackageFilename);
+        } finally {
+            if (isset($container) && is_resource($container)) {
+                fclose($container);
+            }
+            if (file_exists($encryptedPackageFilename)) {
+                unlink($encryptedPackageFilename);
+            }
+            if (file_exists($containerFilename)) {
+                unlink($containerFilename);
+            }
+        }
+    }
+
+    public function testEncryptFileRequiresPassword(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('XLSX encryption password required');
+        AgileEncryption::encryptFile('unused.xlsx', '');
+    }
+
+    public function testEncryptFileRejectsUnsupportedProfile(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::encryptFile('unused.xlsx', 'writer-password', 64);
+    }
+
+    public function testEncryptFileRejectsMissingInput(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Could not determine XLSX package size');
+        AgileEncryption::encryptFile('does-not-exist.xlsx', 'writer-password');
+    }
+
+    public function testWriterCleansEncryptedTemporaryPackageWhenOutputCannotOpen(): void
+    {
+        $temporaryFiles = self::spreadsheetTemporaryFiles();
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setCellValue('A1', 'temporary package cleanup');
+
+        try {
+            $this->expectException(WriterException::class);
+            $this->expectExceptionMessage('Could not open file "" for writing');
+            (new Xlsx($spreadsheet))->setEncryptionPassword('writer-password')->save('');
+        } finally {
+            self::assertSame($temporaryFiles, self::spreadsheetTemporaryFiles());
+            $spreadsheet->disconnectWorksheets();
+        }
+    }
+
+    /** @return string[] */
+    private static function spreadsheetTemporaryFiles(): array
+    {
+        $temporaryFiles = glob(File::sysGetTempDir() . '/phpspreadsheet*') ?: [];
+        sort($temporaryFiles);
+
+        return $temporaryFiles;
+    }
+
     public function testWriteAgileEncryptedWorkbook(): void
     {
         $filename = File::temporaryFilename();
@@ -146,6 +276,7 @@ class AgileEncryptionTest extends TestCase
             $ole->read($filename);
             $encryptionInfo = $ole->getDataByName('EncryptionInfo');
             $encryptedPackage = $ole->getDataByName('EncryptedPackage');
+            self::assertDataSpacesStreams($ole);
             self::assertSame('0400040040000000', bin2hex(substr($encryptionInfo, 0, 8)));
             self::assertGreaterThan(8, strlen($encryptedPackage));
             self::assertSame(1, substr_count($encryptionInfo, 'spinCount="100000"'));

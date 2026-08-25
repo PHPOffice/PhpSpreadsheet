@@ -72,8 +72,9 @@ class ChainedBlockStream
 
         $blockId = (int) $this->params['blockId'];
         $size = isset($this->params['size']) ? (int) $this->params['size'] : null;
+        $isRoot = isset($this->params['isRoot']) && $this->params['isRoot'] === '1';
         $this->data = '';
-        if ($size !== null && $size < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->startBlock) {
+        if ($size !== null && $size < $this->ole->bigBlockThreshold && !$isRoot) {
             // Block id refers to small blocks
             $rootData = '';
             if ($this->ole->root->startBlock === null) {

@@ -82,11 +82,22 @@ class AgileEncryptionTest extends TestCase
 
     public function testRejectsMalformedEncryptedPackage(): void
     {
-        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA-1', 10);
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Malformed encrypted XLSX package');
         AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), substr($package['encryptedPackage'], 0, 7), 'password');
+    }
+
+    public function testRejectsMalformedDecryptedSecretKey(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $info = AgileEncryption::parse($package['encryptionInfo']);
+        $info['encryptedKey'] = '';
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed XLSX encryption information');
+        AgileEncryption::decrypt($info, $package['encryptedPackage'], 'password');
     }
 
     public function testRejectsMalformedEncryptionInfo(): void
@@ -94,6 +105,76 @@ class AgileEncryptionTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Malformed XLSX encryption information');
         AgileEncryption::parse("\x04\x00\x04\x00\x40\x00\x00\x00not XML");
+    }
+
+    public function testRejectsEncryptionInfoWithUnexpectedNamespace(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('xmlns="http://schemas.microsoft.com/office/2006/encryption"', 'xmlns="urn:unexpected"', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testAcceptsEncryptionInfoWithPrefixedEncryptionNamespace(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('<encryption ', '<e:encryption xmlns:e="http://schemas.microsoft.com/office/2006/encryption" ', $package['encryptionInfo']);
+        $encryptionInfo = str_replace('</encryption>', '</e:encryption>', $encryptionInfo);
+
+        self::assertSame('package', AgileEncryption::decrypt(AgileEncryption::parse($encryptionInfo), $package['encryptedPackage'], 'password'));
+    }
+
+    public function testRejectsEncryptionInfoWithUnsupportedCipherChaining(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('cipherChaining="ChainingModeCBC"', 'cipherChaining="ChainingModeCFB"', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testRejectsEncryptionInfoWithInvalidBase64Data(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('saltValue="', 'saltValue="!', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed XLSX encryption information');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testRejectsEncryptionInfoWithDuplicateRequiredElement(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('</keyEncryptors>', '</keyEncryptors><dataIntegrity/>', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testRejectsEncryptionInfoWithIncorrectDecodedValueLength(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = preg_replace('/saltValue="[^"]+"/', 'saltValue=""', $package['encryptionInfo'], 1);
+        self::assertIsString($encryptionInfo);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed XLSX encryption information');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testRejectsEncryptionInfoWithNonDecimalNumericAttribute(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password');
+        $encryptionInfo = str_replace('keyBits="256"', 'keyBits="256bits"', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Malformed XLSX encryption information');
+        AgileEncryption::parse($encryptionInfo);
     }
 
     public function testEncryptRequiresSupportedProfileAndPassword(): void
@@ -128,7 +209,7 @@ class AgileEncryptionTest extends TestCase
 
     public function testSupportsApprovedAgileProfiles(): void
     {
-        foreach ([[128, 'SHA-1'], [192, 'SHA256'], [256, 'SHA384'], [256, 'SHA512']] as [$keyBits, $hashAlgorithm]) {
+        foreach ([[128, 'SHA1'], [192, 'SHA256'], [256, 'SHA384'], [256, 'SHA512']] as [$keyBits, $hashAlgorithm]) {
             $package = AgileEncryption::encrypt('profile test', 'password', $keyBits, $hashAlgorithm, 10);
             $info = AgileEncryption::parse($package['encryptionInfo']);
             self::assertSame($keyBits, $info['keyBits']);
@@ -140,7 +221,7 @@ class AgileEncryptionTest extends TestCase
     public function testDecryptsMultipleEncryptedSegments(): void
     {
         $plain = str_repeat('x', 4097);
-        $package = AgileEncryption::encrypt($plain, 'password', 128, 'SHA-1', 10);
+        $package = AgileEncryption::encrypt($plain, 'password', 128, 'SHA1', 10);
 
         self::assertSame($plain, AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), $package['encryptedPackage'], 'password'));
     }
