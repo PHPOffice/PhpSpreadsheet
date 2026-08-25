@@ -26,9 +26,73 @@ final class AgileEncryption
 
     private const SEGMENT_SIZE = 4096;
 
+    private const ENCRYPTION_NAMESPACE = 'http://schemas.microsoft.com/office/2006/encryption';
+
+    private const PASSWORD_NAMESPACE = 'http://schemas.microsoft.com/office/2006/keyEncryptor/password';
+
+    private const PASSWORD_KEY_ENCRYPTOR_URI = 'http://schemas.microsoft.com/office/2006/keyEncryptor/password';
+
+    private const CFB_SECTOR_SIZE = 512;
+
+    private const CFB_MINI_SECTOR_SIZE = 64;
+
+    private const CFB_MINI_STREAM_CUTOFF = 4096;
+
+    private const CFB_FAT_ENTRIES_PER_SECTOR = self::CFB_SECTOR_SIZE >> 2;
+
+    private const CFB_DIFAT_ENTRIES_IN_HEADER = 109;
+
+    private const CFB_DIFAT_ENTRIES_PER_SECTOR = self::CFB_FAT_ENTRIES_PER_SECTOR - 1;
+
+    private const CFB_DIRECTORY_ENTRIES_PER_SECTOR = self::CFB_SECTOR_SIZE >> 7;
+
+    private const CFB_MINI_SECTORS_PER_SECTOR = self::CFB_SECTOR_SIZE >> 6;
+
+    private const DIRECTORY_ENCRYPTED_PACKAGE = 1;
+
+    private const DIRECTORY_DATA_SPACES = 2;
+
+    private const DIRECTORY_VERSION = 3;
+
+    private const DIRECTORY_DATA_SPACE_MAP = 4;
+
+    private const DIRECTORY_DATA_SPACE_INFO = 5;
+
+    private const DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE = 6;
+
+    private const DIRECTORY_TRANSFORM_INFO = 7;
+
+    private const DIRECTORY_STRONG_ENCRYPTION_TRANSFORM = 8;
+
+    private const DIRECTORY_PRIMARY = 9;
+
+    private const DIRECTORY_ENCRYPTION_INFO = 10;
+
+    private const CFB_DIRECTORY_ENTRY_COUNT = self::DIRECTORY_ENCRYPTION_INFO + 1;
+
+    private const STREAM_ENCRYPTED_PACKAGE = 'EncryptedPackage';
+
+    private const STORAGE_DATA_SPACES = "\x06DataSpaces";
+
+    private const STREAM_VERSION = 'Version';
+
+    private const STREAM_DATA_SPACE_MAP = 'DataSpaceMap';
+
+    private const STORAGE_DATA_SPACE_INFO = 'DataSpaceInfo';
+
+    private const STREAM_STRONG_ENCRYPTION_DATA_SPACE = 'StrongEncryptionDataSpace';
+
+    private const STORAGE_TRANSFORM_INFO = 'TransformInfo';
+
+    private const STORAGE_STRONG_ENCRYPTION_TRANSFORM = 'StrongEncryptionTransform';
+
+    private const STREAM_PRIMARY = "\x06Primary";
+
+    private const STREAM_ENCRYPTION_INFO = 'EncryptionInfo';
+
     /** @var array<string, array{string, int}> */
     private const HASH_ALGORITHMS = [
-        'SHA-1' => ['sha1', 20],
+        'SHA1' => ['sha1', 20],
         'SHA256' => ['sha256', 32],
         'SHA384' => ['sha384', 48],
         'SHA512' => ['sha512', 64],
@@ -47,28 +111,41 @@ final class AgileEncryption
         if (!$xml instanceof SimpleXMLElement) {
             throw new Exception('Malformed XLSX encryption information.');
         }
-        $keyData = $xml->keyData;
-        $integrity = $xml->dataIntegrity;
-        $encryptedKeys = $xml->xpath('//*[local-name()="encryptedKey"]') ?: [];
-        $encryptedKey = $encryptedKeys[0] ?? null;
-        $keyEncryptors = $xml->xpath('//*[local-name()="keyEncryptor"]') ?: [];
-        $keyEncryptor = $keyEncryptors[0] ?? null;
-        if (!$encryptedKey instanceof SimpleXMLElement) {
+        $namespaces = $xml->getDocNamespaces(true) ?: [];
+        if ($xml->getName() !== 'encryption' || !in_array(self::ENCRYPTION_NAMESPACE, $namespaces, true) || !in_array(self::PASSWORD_NAMESPACE, $namespaces, true)) {
             throw new Exception('Unsupported XLSX encryption profile.');
         }
-        $keyBits = (int) $keyData['keyBits'];
+        $xml->registerXPathNamespace('e', self::ENCRYPTION_NAMESPACE);
+        $xml->registerXPathNamespace('p', self::PASSWORD_NAMESPACE);
+        $keyDataNodes = $xml->xpath('/e:encryption/e:keyData') ?: [];
+        $integrityNodes = $xml->xpath('/e:encryption/e:dataIntegrity') ?: [];
+        $keyEncryptorNodes = $xml->xpath('/e:encryption/e:keyEncryptors/e:keyEncryptor') ?: [];
+        $encryptedKeyNodes = $xml->xpath('/e:encryption/e:keyEncryptors/e:keyEncryptor/p:encryptedKey') ?: [];
+        $keyData = $keyDataNodes[0] ?? null;
+        $integrity = $integrityNodes[0] ?? null;
+        $keyEncryptor = $keyEncryptorNodes[0] ?? null;
+        $encryptedKey = $encryptedKeyNodes[0] ?? null;
+        if (!$keyData instanceof SimpleXMLElement || !$integrity instanceof SimpleXMLElement || !$keyEncryptor instanceof SimpleXMLElement || !$encryptedKey instanceof SimpleXMLElement || count($keyDataNodes) !== 1 || count($integrityNodes) !== 1 || count($keyEncryptorNodes) !== 1 || count($encryptedKeyNodes) !== 1) {
+            throw new Exception('Unsupported XLSX encryption profile.');
+        }
+        $keyBits = self::decimalAttribute($keyData, 'keyBits');
         $hashAlgorithm = (string) $keyData['hashAlgorithm'];
-        $hashSize = (int) $keyData['hashSize'];
-        $spinCount = (int) $encryptedKey['spinCount'];
+        $hashSize = self::decimalAttribute($keyData, 'hashSize');
+        $spinCount = self::decimalAttribute($encryptedKey, 'spinCount');
+        $keyDataSaltSize = self::decimalAttribute($keyData, 'saltSize');
+        $keyDataBlockSize = self::decimalAttribute($keyData, 'blockSize');
+        $encryptedKeySaltSize = self::decimalAttribute($encryptedKey, 'saltSize');
+        $encryptedKeyBlockSize = self::decimalAttribute($encryptedKey, 'blockSize');
+        $encryptedKeyBits = self::decimalAttribute($encryptedKey, 'keyBits');
+        $encryptedKeyHashSize = self::decimalAttribute($encryptedKey, 'hashSize');
         if (
-            count($encryptedKeys) !== 1 || count($keyEncryptors) !== 1 || !$keyData instanceof SimpleXMLElement || !$integrity instanceof SimpleXMLElement || !$keyEncryptor instanceof SimpleXMLElement
-            || (string) $keyData['cipherAlgorithm'] !== 'AES' || (string) $keyData['cipherChaining'] !== 'ChainingModeCBC'
-            || !self::isSupportedProfile($keyBits, $hashAlgorithm, $hashSize) || (int) $keyData['saltSize'] !== 16 || (int) $keyData['blockSize'] !== 16
+            (string) $keyData['cipherAlgorithm'] !== 'AES' || (string) $keyData['cipherChaining'] !== 'ChainingModeCBC'
+            || !self::isSupportedProfile($keyBits, $hashAlgorithm, $hashSize) || $keyDataSaltSize !== 16 || $keyDataBlockSize !== 16
             || (string) $encryptedKey['cipherAlgorithm'] !== 'AES'
             || (string) $encryptedKey['cipherChaining'] !== 'ChainingModeCBC'
-            || (string) $encryptedKey['hashAlgorithm'] !== $hashAlgorithm || (int) $encryptedKey['saltSize'] !== 16 || (int) $encryptedKey['blockSize'] !== 16 || (int) $encryptedKey['keyBits'] !== $keyBits
-            || (int) $encryptedKey['hashSize'] !== $hashSize || $spinCount < 0 || $spinCount > 10000000
-            || (string) $keyEncryptor['uri'] !== 'http://schemas.microsoft.com/office/2006/keyEncryptor/password'
+            || (string) $encryptedKey['hashAlgorithm'] !== $hashAlgorithm || $encryptedKeySaltSize !== 16 || $encryptedKeyBlockSize !== 16 || $encryptedKeyBits !== $keyBits
+            || $encryptedKeyHashSize !== $hashSize || $spinCount > 10000000
+            || (string) $keyEncryptor['uri'] !== self::PASSWORD_KEY_ENCRYPTOR_URI
         ) {
             throw new Exception('Unsupported XLSX encryption profile.');
         }
@@ -210,7 +287,7 @@ final class AgileEncryption
         if (!self::isSupportedProfile($keyBits, $hashAlgorithm, self::HASH_ALGORITHMS[$hashAlgorithm][1] ?? 0) || $spinCount < 0 || $spinCount > 10000000) {
             throw new Exception('Unsupported XLSX encryption profile.');
         }
-        $size = filesize($plainPackageFilename);
+        $size = @filesize($plainPackageFilename);
         if ($size === false) {
             throw new Exception('Could not determine XLSX package size.');
         }
@@ -242,18 +319,22 @@ final class AgileEncryption
             $header = self::packSize($size);
             self::write($output, $header);
             hash_update($hmac, $header);
-            for ($block = 0; !feof($input); ++$block) {
-                $segment = fread($input, self::SEGMENT_SIZE);
-                if ($segment === false) {
+            $remaining = $size;
+            for ($block = 0; $remaining > 0; ++$block) {
+                $length = min(self::SEGMENT_SIZE, $remaining);
+                $segment = fread($input, $length);
+                if ($segment === false || strlen($segment) !== $length) {
                     throw new Exception('Could not read XLSX package for encryption.');
-                }
-                if ($segment === '') {
-                    break;
                 }
                 $iv = self::iv($keyDataSalt, pack('V', $block), $hashAlgorithm);
                 $cipher = self::aesEncrypt(str_pad($segment, self::paddedLength(strlen($segment)), "\x00"), $secretKey, $iv, $keyBits);
                 self::write($output, $cipher);
                 hash_update($hmac, $cipher);
+                $remaining -= $length;
+            }
+            $extra = fread($input, 1);
+            if ($extra === false || $extra !== '') {
+                throw new Exception('XLSX package changed while being encrypted.');
             }
             $hmacKeyIv = self::iv($keyDataSalt, self::BLOCK_KEY_HMAC_KEY, $hashAlgorithm);
             $hmacValueIv = self::iv($keyDataSalt, self::BLOCK_KEY_HMAC_VALUE, $hashAlgorithm);
@@ -315,21 +396,24 @@ final class AgileEncryption
     private static function writeEcma376Container($fileHandle, string $encryptionInfo, string $encryptedPackageFilename): void
     {
         $packageSize = filesize($encryptedPackageFilename);
-        if ($packageSize === false || $packageSize < 4096 || $packageSize > 0xFFFFFFFF) {
+        if ($packageSize === false || $packageSize < self::CFB_MINI_STREAM_CUTOFF || $packageSize > 0xFFFFFFFF) {
             throw new Exception('Malformed encrypted XLSX package.');
         }
         $smallStreams = [
-            3 => ['Version', self::dataSpacesVersion()],
-            4 => ['DataSpaceMap', self::dataSpaceMap()],
-            6 => ['StrongEncryptionDataSpace', self::strongEncryptionDataSpace()],
-            9 => ["\x06Primary", self::primaryTransform()],
-            10 => ['EncryptionInfo', $encryptionInfo],
+            self::DIRECTORY_VERSION => [self::STREAM_VERSION, self::dataSpacesVersion()],
+            self::DIRECTORY_DATA_SPACE_MAP => [self::STREAM_DATA_SPACE_MAP, self::dataSpaceMap()],
+            self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE => [self::STREAM_STRONG_ENCRYPTION_DATA_SPACE, self::strongEncryptionDataSpace()],
+            self::DIRECTORY_PRIMARY => [self::STREAM_PRIMARY, self::primaryTransform()],
+            self::DIRECTORY_ENCRYPTION_INFO => [self::STREAM_ENCRYPTION_INFO, $encryptionInfo],
         ];
-        $miniStarts = [3 => 0, 4 => 0, 6 => 0, 9 => 0, 10 => 0];
-        $miniFat = array_fill(0, 128, 0xFFFFFFFF);
+        $miniStarts = array_fill_keys(array_keys($smallStreams), 0);
+        $miniFat = [];
         $miniCount = 0;
         foreach ($smallStreams as $id => [, $content]) {
-            $count = (int) ceil(strlen($content) / 64);
+            if (strlen($content) >= self::CFB_MINI_STREAM_CUTOFF) {
+                throw new Exception('Malformed XLSX encryption information.');
+            }
+            $count = (int) ceil(strlen($content) / self::CFB_MINI_SECTOR_SIZE);
             $miniStarts[$id] = $miniCount;
             for ($i = 0; $i < $count - 1; ++$i) {
                 $miniFat[$miniCount + $i] = $miniCount + $i + 1;
@@ -337,31 +421,33 @@ final class AgileEncryption
             $miniFat[$miniCount + $count - 1] = 0xFFFFFFFE;
             $miniCount += $count;
         }
-        $miniDataSectors = (int) ceil($miniCount / 8);
-        $directorySectors = 3;
-        $packageSectors = (int) ceil($packageSize / 512);
-        $contentSectors = 1 + $directorySectors + $miniDataSectors + $packageSectors;
+        $miniFatSectors = (int) ceil($miniCount / self::CFB_FAT_ENTRIES_PER_SECTOR);
+        $miniFat = array_pad($miniFat, $miniFatSectors * self::CFB_FAT_ENTRIES_PER_SECTOR, 0xFFFFFFFF);
+        $miniDataSectors = (int) ceil($miniCount / self::CFB_MINI_SECTORS_PER_SECTOR);
+        $directorySectors = (int) ceil(self::CFB_DIRECTORY_ENTRY_COUNT / self::CFB_DIRECTORY_ENTRIES_PER_SECTOR);
+        $packageSectors = (int) ceil($packageSize / self::CFB_SECTOR_SIZE);
+        $contentSectors = $miniFatSectors + $directorySectors + $miniDataSectors + $packageSectors;
         $fatSectors = 1;
         $difatSectors = 0;
         do {
-            $requiredFatSectors = (int) ceil(($contentSectors + $fatSectors + $difatSectors) / 128);
-            $requiredDifatSectors = $requiredFatSectors <= 109 ? 0 : (int) ceil(($requiredFatSectors - 109) / 127);
+            $requiredFatSectors = (int) ceil(($contentSectors + $fatSectors + $difatSectors) / self::CFB_FAT_ENTRIES_PER_SECTOR);
+            $requiredDifatSectors = $requiredFatSectors <= self::CFB_DIFAT_ENTRIES_IN_HEADER ? 0 : (int) ceil(($requiredFatSectors - self::CFB_DIFAT_ENTRIES_IN_HEADER) / self::CFB_DIFAT_ENTRIES_PER_SECTOR);
             $changed = $requiredFatSectors !== $fatSectors || $requiredDifatSectors !== $difatSectors;
             $fatSectors = $requiredFatSectors;
             $difatSectors = $requiredDifatSectors;
         } while ($changed);
         $miniFatSector = $fatSectors;
-        $directorySector = $miniFatSector + 1;
+        $directorySector = $miniFatSector + $miniFatSectors;
         $miniDataSector = $directorySector + $directorySectors;
         $packageSector = $miniDataSector + $miniDataSectors;
         $difatSector = $packageSector + $packageSectors;
 
-        self::write($fileHandle, self::cfbHeader($fatSectors, $directorySector, $miniFatSector, $difatSector, $difatSectors));
-        $fat = array_fill(0, $fatSectors * 128, 0xFFFFFFFF);
+        self::write($fileHandle, self::cfbHeader($fatSectors, $directorySector, $miniFatSector, $miniFatSectors, $difatSector, $difatSectors));
+        $fat = array_fill(0, $fatSectors * self::CFB_FAT_ENTRIES_PER_SECTOR, 0xFFFFFFFF);
         for ($sector = 0; $sector < $fatSectors; ++$sector) {
             $fat[$sector] = 0xFFFFFFFD;
         }
-        self::chainFat($fat, $miniFatSector, 1);
+        self::chainFat($fat, $miniFatSector, $miniFatSectors);
         self::chainFat($fat, $directorySector, $directorySectors);
         self::chainFat($fat, $miniDataSector, $miniDataSectors);
         self::chainFat($fat, $packageSector, $packageSectors);
@@ -372,22 +458,22 @@ final class AgileEncryption
         self::write($fileHandle, self::packSectors($miniFat));
 
         $entries = [
-            self::directoryEntry('Root Entry', 5, 1, 0xFFFFFFFF, 0xFFFFFFFF, 1, $miniDataSector, $miniCount * 64),
-            self::directoryEntry('EncryptedPackage', 2, 1, 2, 10, 0xFFFFFFFF, $packageSector, $packageSize),
-            self::directoryEntry("\x06DataSpaces", 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, 4, 0, 0),
-            self::directoryEntry('Version', 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[3], strlen($smallStreams[3][1])),
-            self::directoryEntry('DataSpaceMap', 2, 1, 5, 3, 0xFFFFFFFF, $miniStarts[4], strlen($smallStreams[4][1])),
-            self::directoryEntry('DataSpaceInfo', 1, 0, 0xFFFFFFFF, 7, 6, 0, 0),
-            self::directoryEntry('StrongEncryptionDataSpace', 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[6], strlen($smallStreams[6][1])),
-            self::directoryEntry('TransformInfo', 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, 8, 0, 0),
-            self::directoryEntry('StrongEncryptionTransform', 1, 1, 0xFFFFFFFF, 0xFFFFFFFF, 9, 0, 0),
-            self::directoryEntry("\x06Primary", 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[9], strlen($smallStreams[9][1])),
-            self::directoryEntry('EncryptionInfo', 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[10], strlen($smallStreams[10][1])),
+            self::directoryEntry('Root Entry', 5, 1, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_ENCRYPTED_PACKAGE, $miniDataSector, $miniCount * self::CFB_MINI_SECTOR_SIZE),
+            self::directoryEntry(self::STREAM_ENCRYPTED_PACKAGE, 2, 1, self::DIRECTORY_DATA_SPACES, self::DIRECTORY_ENCRYPTION_INFO, 0xFFFFFFFF, $packageSector, $packageSize),
+            self::directoryEntry(self::STORAGE_DATA_SPACES, 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_DATA_SPACE_MAP, 0, 0),
+            self::directoryEntry(self::STREAM_VERSION, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_VERSION], strlen($smallStreams[self::DIRECTORY_VERSION][1])),
+            self::directoryEntry(self::STREAM_DATA_SPACE_MAP, 2, 1, self::DIRECTORY_DATA_SPACE_INFO, self::DIRECTORY_VERSION, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_DATA_SPACE_MAP], strlen($smallStreams[self::DIRECTORY_DATA_SPACE_MAP][1])),
+            self::directoryEntry(self::STORAGE_DATA_SPACE_INFO, 1, 0, 0xFFFFFFFF, self::DIRECTORY_TRANSFORM_INFO, self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE, 0, 0),
+            self::directoryEntry(self::STREAM_STRONG_ENCRYPTION_DATA_SPACE, 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE], strlen($smallStreams[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE][1])),
+            self::directoryEntry(self::STORAGE_TRANSFORM_INFO, 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_STRONG_ENCRYPTION_TRANSFORM, 0, 0),
+            self::directoryEntry(self::STORAGE_STRONG_ENCRYPTION_TRANSFORM, 1, 1, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_PRIMARY, 0, 0),
+            self::directoryEntry(self::STREAM_PRIMARY, 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_PRIMARY], strlen($smallStreams[self::DIRECTORY_PRIMARY][1])),
+            self::directoryEntry(self::STREAM_ENCRYPTION_INFO, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_ENCRYPTION_INFO], strlen($smallStreams[self::DIRECTORY_ENCRYPTION_INFO][1])),
         ];
-        self::write($fileHandle, str_pad(implode('', $entries), $directorySectors * 512, "\x00"));
-        $miniData = str_repeat("\x00", $miniDataSectors * 512);
+        self::write($fileHandle, str_pad(implode('', $entries), $directorySectors * self::CFB_SECTOR_SIZE, "\x00"));
+        $miniData = str_repeat("\x00", $miniDataSectors * self::CFB_SECTOR_SIZE);
         foreach ($smallStreams as $id => [, $content]) {
-            $miniData = substr_replace($miniData, $content, $miniStarts[$id] * 64, strlen($content));
+            $miniData = substr_replace($miniData, $content, $miniStarts[$id] * self::CFB_MINI_SECTOR_SIZE, strlen($content));
         }
         self::write($fileHandle, $miniData);
         $package = fopen($encryptedPackageFilename, 'rb');
@@ -408,14 +494,14 @@ final class AgileEncryption
         } finally {
             fclose($package);
         }
-        $padding = $packageSectors * 512 - $packageSize;
+        $padding = $packageSectors * self::CFB_SECTOR_SIZE - $packageSize;
         if ($padding > 0) {
             self::write($fileHandle, str_repeat("\x00", $padding));
         }
         for ($sector = 0; $sector < $difatSectors; ++$sector) {
-            $firstFatSector = 109 + $sector * 127;
+            $firstFatSector = self::CFB_DIFAT_ENTRIES_IN_HEADER + $sector * self::CFB_DIFAT_ENTRIES_PER_SECTOR;
             $fatReferences = [];
-            for ($i = 0; $i < 127; ++$i) {
+            for ($i = 0; $i < self::CFB_DIFAT_ENTRIES_PER_SECTOR; ++$i) {
                 $fatReferences[] = $firstFatSector + $i < $fatSectors ? $firstFatSector + $i : 0xFFFFFFFF;
             }
             $fatReferences[] = $sector + 1 < $difatSectors ? $difatSector + $sector + 1 : 0xFFFFFFFE;
@@ -438,16 +524,16 @@ final class AgileEncryption
         return pack('V*', ...$sectors);
     }
 
-    private static function cfbHeader(int $fatSectors, int $directorySector, int $miniFatSector, int $difatSector, int $difatSectors): string
+    private static function cfbHeader(int $fatSectors, int $directorySector, int $miniFatSector, int $miniFatSectors, int $difatSector, int $difatSectors): string
     {
         $headerDifat = [];
-        for ($sector = 0; $sector < 109; ++$sector) {
+        for ($sector = 0; $sector < self::CFB_DIFAT_ENTRIES_IN_HEADER; ++$sector) {
             $headerDifat[] = $sector < $fatSectors ? $sector : 0xFFFFFFFF;
         }
 
         return "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" . str_repeat("\x00", 16)
             . pack('v8', 0x3E, 3, 0xFFFE, 9, 6, 0, 0, 0)
-            . pack('V8', 0, $fatSectors, $directorySector, 0, 0x1000, $miniFatSector, 1, $difatSectors === 0 ? 0xFFFFFFFE : $difatSector)
+            . pack('V8', 0, $fatSectors, $directorySector, 0, self::CFB_MINI_STREAM_CUTOFF, $miniFatSector, $miniFatSectors, $difatSectors === 0 ? 0xFFFFFFFE : $difatSector)
             . pack('V', $difatSectors) . self::packSectors($headerDifat);
     }
 
@@ -471,6 +557,17 @@ final class AgileEncryption
         }
 
         return $result;
+    }
+
+    private static function decimalAttribute(SimpleXMLElement $element, string $name): int
+    {
+        $value = (string) $element[$name];
+        $maximum = (string) PHP_INT_MAX;
+        if ($value === '' || !ctype_digit($value) || strlen($value) > strlen($maximum) || (strlen($value) === strlen($maximum) && $value > $maximum)) {
+            throw new Exception('Malformed XLSX encryption information.');
+        }
+
+        return (int) $value;
     }
 
     private static function passwordHash(string $password, string $salt, int $spinCount, string $algorithm = 'SHA512'): string
@@ -526,7 +623,7 @@ final class AgileEncryption
     private static function hashSize(string $algorithm): int
     {
         return match ($algorithm) {
-            'SHA-1' => 20,
+            'SHA1' => 20,
             'SHA256' => 32,
             'SHA384' => 48,
             'SHA512' => 64,

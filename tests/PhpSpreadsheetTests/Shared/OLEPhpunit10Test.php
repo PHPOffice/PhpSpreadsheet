@@ -92,6 +92,31 @@ class OLEPhpunit10Test extends TestCase
         }
     }
 
+    public function testChainedSmallStreamRejectsMissingRootMiniStreamChain(): void
+    {
+        $fileHandle = tmpfile();
+        self::assertNotFalse($fileHandle);
+        $ole = new OLE();
+        $ole->_file_handle = $fileHandle;
+        $ole->bbat = [];
+        $ole->sbat = [];
+        $ole->bigBlockSize = 512;
+        $ole->smallBlockSize = 64;
+        $ole->bigBlockThreshold = 4096;
+        $ole->root = new Root(null, null, []);
+        $ole->root->startBlock = null;
+        $GLOBALS['_OLE_INSTANCES'] = [$ole];
+
+        try {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Invalid OLE root mini-stream chain.');
+            (new OLE\ChainedBlockStream())->stream_open('ole-chainedblockstream://oleInstanceId=0&blockId=0&size=1', 'r', 0, $openedPath);
+        } finally {
+            fclose($fileHandle);
+            $GLOBALS['_OLE_INSTANCES'] = [];
+        }
+    }
+
     /** @return array<string, array{array<mixed>, array<mixed>, int, ?int, string}> */
     public static function invalidChainProvider(): array
     {

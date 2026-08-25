@@ -229,6 +229,9 @@ class OLE
         if ($blockIdOrPps instanceof OLE\PPS) {
             $path .= '&blockId=' . $blockIdOrPps->startBlock;
             $path .= '&size=' . $blockIdOrPps->Size;
+            if ($blockIdOrPps instanceof Root) {
+                $path .= '&isRoot=1';
+            }
         } else {
             $path .= '&blockId=' . $blockIdOrPps;
         }

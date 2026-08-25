@@ -670,12 +670,16 @@ class Xlsx extends BaseWriter
         try {
             $this->save($temporaryFilename, $flags);
             $package = AgileEncryption::encryptFile($temporaryFilename, $password, $this->encryptionKeyBits, $this->encryptionHashAlgorithm, $this->encryptionSpinCount);
-            $this->openFileHandle($filename);
 
             try {
-                AgileEncryption::writeContainerFromFile($this->fileHandle, $package['encryptionInfo'], $package['encryptedPackageFilename']);
+                $this->openFileHandle($filename);
+
+                try {
+                    AgileEncryption::writeContainerFromFile($this->fileHandle, $package['encryptionInfo'], $package['encryptedPackageFilename']);
+                } finally {
+                    $this->maybeCloseFileHandle();
+                }
             } finally {
-                $this->maybeCloseFileHandle();
                 @unlink($package['encryptedPackageFilename']);
             }
         } finally {

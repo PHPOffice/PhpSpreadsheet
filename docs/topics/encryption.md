@@ -30,7 +30,7 @@ To write a compatible AES/CBC profile explicitly, configure it before saving:
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 $writer->setEncryptionPassword('open-password');
-$writer->setEncryptionProfile(128, 'SHA-1', 100000);
+$writer->setEncryptionProfile(128, 'SHA1', 100000);
 $writer->save('protected.xlsx');
 ```
 
@@ -41,7 +41,7 @@ application supports it.
 
 The writer defaults to AES-256/CBC with SHA-512 and 100,000 password-hash
 iterations. This is the recommended profile. It can also write AES-128 or
-AES-192 with SHA-1, SHA-256, SHA-384, or SHA-512 when compatibility requires a
+AES-192 with SHA1, SHA256, SHA384, or SHA512 when compatibility requires a
 different profile. The reader accepts those AES/CBC and SHA profiles when the
 file is protected with a password.
 
