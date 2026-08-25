@@ -458,17 +458,18 @@ final class AgileEncryption
         self::write($fileHandle, self::packSectors($miniFat));
 
         $entries = [
-            self::directoryEntry('Root Entry', 5, 1, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_ENCRYPTED_PACKAGE, $miniDataSector, $miniCount * self::CFB_MINI_SECTOR_SIZE),
-            self::directoryEntry(self::STREAM_ENCRYPTED_PACKAGE, 2, 1, self::DIRECTORY_DATA_SPACES, self::DIRECTORY_ENCRYPTION_INFO, 0xFFFFFFFF, $packageSector, $packageSize),
+            // CFB sibling trees sort by name length, then case-folded UTF-16 code points.
+            self::directoryEntry('Root Entry', 5, 1, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_ENCRYPTION_INFO, $miniDataSector, $miniCount * self::CFB_MINI_SECTOR_SIZE),
+            self::directoryEntry(self::STREAM_ENCRYPTED_PACKAGE, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $packageSector, $packageSize),
             self::directoryEntry(self::STORAGE_DATA_SPACES, 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_DATA_SPACE_MAP, 0, 0),
             self::directoryEntry(self::STREAM_VERSION, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_VERSION], strlen($smallStreams[self::DIRECTORY_VERSION][1])),
-            self::directoryEntry(self::STREAM_DATA_SPACE_MAP, 2, 1, self::DIRECTORY_DATA_SPACE_INFO, self::DIRECTORY_VERSION, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_DATA_SPACE_MAP], strlen($smallStreams[self::DIRECTORY_DATA_SPACE_MAP][1])),
-            self::directoryEntry(self::STORAGE_DATA_SPACE_INFO, 1, 0, 0xFFFFFFFF, self::DIRECTORY_TRANSFORM_INFO, self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE, 0, 0),
-            self::directoryEntry(self::STREAM_STRONG_ENCRYPTION_DATA_SPACE, 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE], strlen($smallStreams[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE][1])),
-            self::directoryEntry(self::STORAGE_TRANSFORM_INFO, 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_STRONG_ENCRYPTION_TRANSFORM, 0, 0),
+            self::directoryEntry(self::STREAM_DATA_SPACE_MAP, 2, 1, self::DIRECTORY_VERSION, self::DIRECTORY_DATA_SPACE_INFO, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_DATA_SPACE_MAP], strlen($smallStreams[self::DIRECTORY_DATA_SPACE_MAP][1])),
+            self::directoryEntry(self::STORAGE_DATA_SPACE_INFO, 1, 0, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_TRANSFORM_INFO, 0, 0),
+            self::directoryEntry(self::STREAM_STRONG_ENCRYPTION_DATA_SPACE, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE], strlen($smallStreams[self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE][1])),
+            self::directoryEntry(self::STORAGE_TRANSFORM_INFO, 1, 1, self::DIRECTORY_STRONG_ENCRYPTION_DATA_SPACE, 0xFFFFFFFF, self::DIRECTORY_STRONG_ENCRYPTION_TRANSFORM, 0, 0),
             self::directoryEntry(self::STORAGE_STRONG_ENCRYPTION_TRANSFORM, 1, 1, 0xFFFFFFFF, 0xFFFFFFFF, self::DIRECTORY_PRIMARY, 0, 0),
             self::directoryEntry(self::STREAM_PRIMARY, 2, 1, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_PRIMARY], strlen($smallStreams[self::DIRECTORY_PRIMARY][1])),
-            self::directoryEntry(self::STREAM_ENCRYPTION_INFO, 2, 0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_ENCRYPTION_INFO], strlen($smallStreams[self::DIRECTORY_ENCRYPTION_INFO][1])),
+            self::directoryEntry(self::STREAM_ENCRYPTION_INFO, 2, 1, self::DIRECTORY_DATA_SPACES, self::DIRECTORY_ENCRYPTED_PACKAGE, 0xFFFFFFFF, $miniStarts[self::DIRECTORY_ENCRYPTION_INFO], strlen($smallStreams[self::DIRECTORY_ENCRYPTION_INFO][1])),
         ];
         self::write($fileHandle, str_pad(implode('', $entries), $directorySectors * self::CFB_SECTOR_SIZE, "\x00"));
         $miniData = str_repeat("\x00", $miniDataSectors * self::CFB_SECTOR_SIZE);
@@ -703,21 +704,25 @@ final class AgileEncryption
 
     private static function dataSpacesVersion(): string
     {
+        // Fixed Version stream required by the ECMA-376 Data Spaces construct.
         return hex2bin('3c0000004d006900630072006f0073006f00660074002e0043006f006e007400610069006e00650072002e004400610074006100530070006100630065007300010000000100000001000000') ?: throw new Exception('Could not generate XLSX encryption DataSpaces stream.');
     }
 
     private static function primaryTransform(): string
     {
+        // Fixed Primary transform descriptor for Microsoft.Container.EncryptionTransform.
         return hex2bin('58000000010000004c0000007b00460046003900410033004600300033002d0035003600450046002d0034003600310033002d0042004400440035002d003500410034003100430031004400300037003200340036007d004e0000004d006900630072006f0073006f00660074002e0043006f006e007400610069006e00650072002e0045006e006300720079007000740069006f006e005400720061006e00730066006f0072006d00000001000000010000000100000000000000000000000000000004000000') ?: throw new Exception('Could not generate XLSX encryption DataSpaces stream.');
     }
 
     private static function dataSpaceMap(): string
     {
+        // Fixed map binding EncryptedPackage to StrongEncryptionDataSpace.
         return hex2bin('08000000010000006800000001000000000000002000000045006e0063007200790070007400650064005000610063006b00610067006500320000005300740072006f006e00670045006e006300720079007000740069006f006e004400610074006100530070006100630065000000') ?: throw new Exception('Could not generate XLSX encryption DataSpaces stream.');
     }
 
     private static function strongEncryptionDataSpace(): string
     {
+        // Fixed definition binding StrongEncryptionDataSpace to its transform.
         return hex2bin('0800000001000000320000005300740072006f006e00670045006e006300720079007000740069006f006e005400720061006e00730066006f0072006d000000') ?: throw new Exception('Could not generate XLSX encryption DataSpaces stream.');
     }
 

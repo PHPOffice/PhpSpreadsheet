@@ -32,13 +32,14 @@ class AgileEncryptionTest extends TestCase
 
             // CFB child entries are red-black trees; their left/right links
             // must preserve name order for readers which do name lookup.
-            self::assertSame(1, self::directoryLinks($filename, 0)['child']);
-            self::assertSame(['color' => 1, 'left' => 2, 'right' => 10, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 1));
+            self::assertSame(10, self::directoryLinks($filename, 0)['child']);
+            self::assertSame(['color' => 1, 'left' => 2, 'right' => 1, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 10));
             self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 0xFFFFFFFF, 'child' => 4], self::directoryLinks($filename, 2));
-            self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 0xFFFFFFFF, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 10));
-            self::assertSame(['color' => 1, 'left' => 5, 'right' => 3, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 4));
+            self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 0xFFFFFFFF, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 1));
+            self::assertSame(['color' => 1, 'left' => 3, 'right' => 5, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 4));
             self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 0xFFFFFFFF, 'child' => 0xFFFFFFFF], self::directoryLinks($filename, 3));
-            self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 7, 'child' => 6], self::directoryLinks($filename, 5));
+            self::assertSame(['color' => 0, 'left' => 0xFFFFFFFF, 'right' => 0xFFFFFFFF, 'child' => 7], self::directoryLinks($filename, 5));
+            self::assertSame(['color' => 1, 'left' => 6, 'right' => 0xFFFFFFFF, 'child' => 8], self::directoryLinks($filename, 7));
 
             $ole = new OLE();
             $ole->read($filename);
