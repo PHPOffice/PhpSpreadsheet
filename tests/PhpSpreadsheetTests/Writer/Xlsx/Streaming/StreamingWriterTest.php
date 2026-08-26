@@ -140,7 +140,7 @@ class StreamingWriterTest extends TestCase
         $cell = $worksheet->getCell('A1');
         self::assertEqualsWithDelta(46024.12783564815, $cell->getValue(), 1E-8);
         self::assertSame(
-            NumberFormat::FORMAT_DATE_DATETIME,
+            NumberFormat::FORMAT_DATE_DATETIME_BETTER,
             $worksheet->getStyle('A1')->getNumberFormat()->getFormatCode()
         );
     }

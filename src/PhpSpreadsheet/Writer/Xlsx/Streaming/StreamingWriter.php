@@ -156,7 +156,7 @@ class StreamingWriter
     {
         if ($this->defaultDateStyleId === null) {
             $this->defaultDateStyleId = $this->registerStyle([
-                'numberFormat' => ['formatCode' => NumberFormat::FORMAT_DATE_DATETIME],
+                'numberFormat' => ['formatCode' => NumberFormat::FORMAT_DATE_DATETIME_BETTER],
             ]);
         }
 
