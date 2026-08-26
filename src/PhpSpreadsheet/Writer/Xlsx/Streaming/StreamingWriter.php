@@ -42,7 +42,7 @@ class StreamingWriter
         try {
             $fileHandle = fopen($filename, 'wb');
         } catch (Exception) {
-            throw new WriterException("Could not open file $filename for writing.");
+            $fileHandle = false;
         }
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $filename for writing.");
