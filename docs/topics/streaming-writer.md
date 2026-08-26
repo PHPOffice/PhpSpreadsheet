@@ -95,8 +95,11 @@ does not force a recalculation on load.
 Any `DateTimeInterface` value that has no explicit style gets a default
 date number format automatically.
 
-`freezePane('A1')` is a no-op; freezing at the top-left cell freezes
-nothing.
+`freezePane('A1')` is accepted and writes no frozen pane. A pane frozen
+at the top-left cell freezes zero rows and columns, so the writer skips
+it. This makes computed freeze cells safe: code that derives the freeze
+cell from a header-row count does not need a special case when that cell
+turns out to be A1.
 
 Each finished sheet keeps its buffered XML in memory (a `php://temp`
 stream) until `close()` runs, up to about 2MB per sheet before it spills
