@@ -23,8 +23,6 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 Note - reading or writing certain aspects of a spreadsheet may not be supported in all formats. For more details, please consult
 [Features Cross-reference](./references/features-cross-reference.md).
 
-# Getting started
-
 ## Software requirements
 
 PHP version 8.2 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
@@ -89,6 +87,7 @@ or the appropriate PDF Writer wrapper for the library that you have chosen to in
 #### Chart Export
 
 For Chart export, we support following packages, which you will also need to install yourself using `composer require`:
+
 - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0.
   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
 - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) - up to date fork with modern PHP versions support and some bugs fixed.
@@ -158,7 +157,41 @@ architecture](./topics/architecture.md),
 
 Or browse the [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
-# Credits
+## Dark Mode
+
+<div class='wehavedarktoggle'>
+We are experimenting with different software and themes for our documentation.
+We try to honor your browser's dark/light mode settings, which
+may defer to your system's settings.
+A button is available at the top of each page to toggle the display without having to change your browser settings.
+</div>
+<div class='wedonthavedarktoggle'>
+We are experimenting with different software and themes for our documentation.
+We try to honor your browser's dark/light mode settings, which
+may defer to your system's settings.
+This particular theme does not come with a toggle to switch back and forth.
+If you want to switch and it is inconvenient for you to change the browser setting:
+<br><br>
+If your setting is dark mode, the following javascript code can be used as a toggle. For convenience, you can generate a bookmarklet from it:
+```javascript
+Array.from(document.styleSheets).forEach((sheet) => {
+    if (sheet.href?.includes('darkmode.css') ?? false) {
+        sheet.disabled = !sheet.disabled;
+    }
+});
+```
+
+If your setting is light mode, you can make a bookmarklet of the following and use it to turn to dark mode, but just reload the page to restore light mode:
+```javascript
+(function(){
+    document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {  img.style.filter = 'invert(100%) hue-rotate(180deg)';});
+})();
+```
+</div>
+
+## Credits
 
 Please refer to the [contributor
 list](https://github.com/PHPOffice/PhpSpreadsheet/graphs/contributors)

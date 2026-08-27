@@ -1,0 +1,46 @@
+site_name: PhpSpreadsheet Documentation
+repo_url: https://github.com/PHPOffice/phpspreadsheet
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  features:
+      - content.code.copy
+  palette:
+    # Light mode configuration
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Dark mode configuration
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+    - extra/extra.css
+    - extra/tablestripes.css
+extra_javascript:
+    - extra/extrajs.js
+markdown_extensions:
+    - md_in_html
+    - pymdownx.highlight:
+        anchor_linenums: true
+        line_spans: __span
+        pygments_lang_class: true
+        extend_pygments_lang:
+          - name: php
+            lang: php
+            options:
+              startinline: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
