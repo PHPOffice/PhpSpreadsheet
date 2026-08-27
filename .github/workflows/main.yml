@@ -109,6 +109,47 @@ jobs:
       - name: Run Parallel test suite without pcntl_fork
         run: vendor/bin/phpunit tests/PhpSpreadsheetTests/Parallel --display-skipped
 
+  test-without-fidry:
+    runs-on: ubuntu-latest
+
+    name: Parallel fallback without fidry/cpu-core-counter
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+        env:
+          fail-fast: true
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Remove the optional fidry/cpu-core-counter package
+        run: composer remove --dev fidry/cpu-core-counter --no-interaction --no-progress
+
+      # With fidry/cpu-core-counter absent, PcntlBackend::isAvailable() is
+      # false even though pcntl works: the writer must fall back to the
+      # sequential backend and pcntl-only tests must skip themselves
+      - name: Run Parallel test suite without fidry/cpu-core-counter
+        run: vendor/bin/phpunit tests/PhpSpreadsheetTests/Parallel --display-skipped
+
   phpdoc-types:
     runs-on: ubuntu-latest
     steps:
