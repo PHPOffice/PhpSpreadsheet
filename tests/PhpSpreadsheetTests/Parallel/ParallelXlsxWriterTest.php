@@ -15,7 +15,7 @@ class ParallelXlsxWriterTest extends TestCase
     public function testParallelWriteProducesValidXlsx(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $spreadsheet = $this->createMultiSheetSpreadsheet();
@@ -66,7 +66,7 @@ class ParallelXlsxWriterTest extends TestCase
     public function testSequentialAndParallelProduceSameData(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $spreadsheet = $this->createMultiSheetSpreadsheet();

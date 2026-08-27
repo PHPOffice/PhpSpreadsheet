@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Parallel\Backend;
 
 use Closure;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Parallel\CpuDetector;
 use Throwable;
 
 class PcntlBackend implements BackendInterface
@@ -24,7 +25,7 @@ class PcntlBackend implements BackendInterface
     public function execute(array $tasks, Closure $worker, int $maxWorkers): array
     {
         if (!self::isAvailable()) {
-            throw new Exception('pcntl extension is not available'); // @codeCoverageIgnore
+            throw new Exception('Forking is not available (requires the CLI SAPI, the pcntl extension, and the fidry/cpu-core-counter package)'); // @codeCoverageIgnore
         }
 
         $taskCount = count($tasks);
@@ -233,6 +234,7 @@ class PcntlBackend implements BackendInterface
         return PHP_SAPI === 'cli'
             && function_exists('pcntl_fork')
             && function_exists('pcntl_waitpid')
-            && PHP_OS_FAMILY !== 'Windows';
+            && PHP_OS_FAMILY !== 'Windows'
+            && CpuDetector::isAvailable();
     }
 }

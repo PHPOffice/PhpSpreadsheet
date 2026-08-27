@@ -30,8 +30,20 @@ class CpuDetector
         self::$cachedCount = null;
     }
 
+    /**
+     * Whether the optional fidry/cpu-core-counter package is installed.
+     */
+    public static function isAvailable(): bool
+    {
+        return class_exists(CpuCoreCounter::class);
+    }
+
     protected static function detect(): int
     {
+        if (!self::isAvailable()) {
+            return self::FALLBACK_CPU_COUNT; // @codeCoverageIgnore
+        }
+
         try {
             return (new CpuCoreCounter())->getCount();
             // @codeCoverageIgnoreStart

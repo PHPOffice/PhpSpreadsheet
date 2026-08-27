@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Parallel;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\PcntlBackend;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\SequentialBackend;
+use PhpOffice\PhpSpreadsheet\Parallel\CpuDetector;
 use PhpOffice\PhpSpreadsheet\Parallel\ParallelExecutor;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -60,7 +61,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendAvailability(): void
     {
         $available = PcntlBackend::isAvailable();
-        if (function_exists('pcntl_fork') && PHP_OS_FAMILY !== 'Windows') {
+        if (function_exists('pcntl_fork') && PHP_OS_FAMILY !== 'Windows' && CpuDetector::isAvailable()) {
             self::assertTrue($available);
         } else {
             self::assertFalse($available);
@@ -70,7 +71,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendParallelExecution(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 2);
@@ -84,7 +85,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendWithStringResults(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 3);
@@ -98,7 +99,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendWithArrayResults(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 2);
@@ -118,7 +119,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendWithMoreTasksThanWorkers(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 2);
@@ -133,7 +134,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendChildErrorPropagation(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $this->expectException(Exception::class);
@@ -164,7 +165,7 @@ class ParallelExecutorTest extends TestCase
     public function testConstructorWithExplicitMaxWorkers(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 3);
@@ -178,7 +179,7 @@ class ParallelExecutorTest extends TestCase
     public function testAutoDetectWorkerCountWithNullMaxWorkers(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend());
@@ -200,7 +201,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendWithLargePayload(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $executor = new ParallelExecutor(new PcntlBackend(), 2);
@@ -219,7 +220,7 @@ class ParallelExecutorTest extends TestCase
     public function testPcntlBackendTimeout(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $this->expectException(Exception::class);
@@ -240,7 +241,7 @@ class ParallelExecutorTest extends TestCase
     public function testTimeoutEscalatesToSigkillForStubbornChild(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
         if (!function_exists('posix_kill') || !function_exists('pcntl_signal')) {
             self::markTestSkipped('posix extension not available');
@@ -265,7 +266,7 @@ class ParallelExecutorTest extends TestCase
     public function testChildKilledMidTaskThrowsInsteadOfCorrupting(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
         if (!function_exists('posix_kill')) {
             self::markTestSkipped('posix extension not available');
@@ -291,7 +292,7 @@ class ParallelExecutorTest extends TestCase
     public function testChildErrorIncludesExceptionClass(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $this->expectException(Exception::class);
@@ -313,7 +314,7 @@ class ParallelExecutorTest extends TestCase
     public function testAutoDetectWorkerCountWithMemoryConstraint(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         // With auto-detect (null maxWorkers), the memory limiter should still work
@@ -392,7 +393,7 @@ class ParallelExecutorTest extends TestCase
     public function testApplyMemoryLimitWithNoLimitSet(): void
     {
         if (!PcntlBackend::isAvailable()) {
-            self::markTestSkipped('pcntl extension not available');
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
         }
 
         $oldLimit = ini_get('memory_limit');

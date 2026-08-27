@@ -213,10 +213,12 @@ $writer->save('file.xlsx');
 ```
 
 Parallel writing is opt-in and off by default. It requires the `pcntl`
-extension, only runs from the PHP CLI (never under a web SAPI such as
-php-fpm), and is not available on Windows. When these requirements are
-not met, or the workbook has only one worksheet, the writer silently
-falls back to sequential writing, so it is always safe to enable.
+extension and the suggested `fidry/cpu-core-counter` package
+(`composer require fidry/cpu-core-counter`), only runs from the PHP CLI
+(never under a web SAPI such as php-fpm), and is not available on
+Windows. When these requirements are not met, or the workbook has only
+one worksheet, the writer silently falls back to sequential writing, so
+it is always safe to enable.
 
 The number of workers defaults to the machine's CPU count (capped at 8,
 and reduced when `memory_limit` leaves too little headroom for forked
