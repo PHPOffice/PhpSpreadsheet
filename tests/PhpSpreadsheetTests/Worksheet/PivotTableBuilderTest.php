@@ -385,6 +385,56 @@ class PivotTableBuilderTest extends TestCase
         $reloaded->disconnectWorksheets();
     }
 
+    public function testPivotFieldItemsIncludeSharedItemIndices(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'SalesPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        // Region has 2 distinct items (East, West): items count="3", item x="0", item x="1", item t="default"
+        self::assertStringContainsString('<pivotField axis="axisRow" showAll="0"><items count="3"><item x="0"/><item x="1"/><item t="default"/></items></pivotField>', $definition);
+        // Product has 2 distinct items (Widget, Gadget): items count="3", item x="0", item x="1", item t="default"
+        self::assertStringContainsString('<pivotField axis="axisCol" showAll="0"><items count="3"><item x="0"/><item x="1"/><item t="default"/></items></pivotField>', $definition);
+        // Amount is a data field: no items collection
+        self::assertStringContainsString('<pivotField dataField="1" showAll="0"/>', $definition);
+    }
+
+    public function testPivotFieldItemsForGroupedFields(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByNumericRange('Age', 10.0, 20.0, 60.0)
+            ->addRowField('Age')
+            ->groupFieldByDate('OrderDate', PivotFieldGroup::GROUP_BY_QUARTERS)
+            ->addColumnField('OrderDate')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'GroupedPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        // Age numeric group: 4 buckets (20-30, 30-40, 40-50, 50-60) + 2 bounds (<20, >60) = 6 group items -> items count="7" (x="0".."x="5" + t="default")
+        self::assertStringContainsString('<pivotField axis="axisRow" showAll="0"><items count="7"><item x="0"/><item x="1"/><item x="2"/><item x="3"/><item x="4"/><item x="5"/><item t="default"/></items></pivotField>', $definition);
+        // OrderDate quarters group: 6 items (<1/1/1900, Qtr1, Qtr2, Qtr3, Qtr4, >12/31/9999) -> items count="7" (x="0".."x="5" + t="default")
+        self::assertStringContainsString('<pivotField axis="axisCol" showAll="0"><items count="7"><item x="0"/><item x="1"/><item x="2"/><item x="3"/><item x="4"/><item x="5"/><item t="default"/></items></pivotField>', $definition);
+    }
+
     /**
      * @param PivotField[] $fields
      *

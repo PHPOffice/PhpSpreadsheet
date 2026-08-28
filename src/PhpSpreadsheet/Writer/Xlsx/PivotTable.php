@@ -355,6 +355,7 @@ class PivotTable
     private static function writePivotFields(XMLWriter $objWriter, WorksheetPivotTable $pivotTable): void
     {
         $fields = $pivotTable->getFields();
+        $cache = $pivotTable->getCacheDefinition();
         $objWriter->startElement('pivotFields');
         $objWriter->writeAttribute('count', (string) count($fields));
 
@@ -366,9 +367,15 @@ class PivotTable
             } elseif ($field->getAxis() !== PivotField::AXIS_NONE) {
                 $objWriter->writeAttribute('axis', $field->getAxis());
                 $objWriter->writeAttribute('showAll', '0');
-                // items are rebuilt on refresh; emit the default placeholder.
+
+                $itemCount = self::getFieldItemCount($cache, $field->getName());
                 $objWriter->startElement('items');
-                $objWriter->writeAttribute('count', '1');
+                $objWriter->writeAttribute('count', (string) ($itemCount + 1));
+                for ($i = 0; $i < $itemCount; ++$i) {
+                    $objWriter->startElement('item');
+                    $objWriter->writeAttribute('x', (string) $i);
+                    $objWriter->endElement();
+                }
                 $objWriter->startElement('item');
                 $objWriter->writeAttribute('t', 'default');
                 $objWriter->endElement();
@@ -380,6 +387,35 @@ class PivotTable
         }
 
         $objWriter->endElement();
+    }
+
+    private static function getFieldItemCount(?PivotCacheDefinition $cache, string $fieldName): int
+    {
+        if ($cache === null) {
+            return 0;
+        }
+
+        $group = $cache->getFieldGroup($fieldName);
+        if ($group !== null) {
+            if ($group->isDate()) {
+                $groupByUnits = $group->getGroupBy() === [] ? [PivotFieldGroup::GROUP_BY_MONTHS] : $group->getGroupBy();
+                $groupBy = $groupByUnits[0];
+
+                return count(self::dateGroupItems($groupBy));
+            }
+
+            $start = $group->getStartNum() ?? 0.0;
+            $end = $group->getEndNum() ?? ($start + $group->getInterval());
+            $interval = $group->getInterval() > 0 ? $group->getInterval() : 1.0;
+            $bucketCount = 0;
+            for ($lower = $start; $lower < $end; $lower += $interval) {
+                ++$bucketCount;
+            }
+
+            return $bucketCount + 2;
+        }
+
+        return count($cache->getSharedItems($fieldName));
     }
 
     /**
