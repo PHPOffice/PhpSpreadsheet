@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
 
@@ -433,6 +434,133 @@ class PivotTableBuilderTest extends TestCase
         self::assertStringContainsString('<pivotField axis="axisRow" showAll="0"><items count="7"><item x="0"/><item x="1"/><item x="2"/><item x="3"/><item x="4"/><item x="5"/><item t="default"/></items></pivotField>', $definition);
         // OrderDate quarters group: 6 items (<1/1/1900, Qtr1, Qtr2, Qtr3, Qtr4, >12/31/9999) -> items count="7" (x="0".."x="5" + t="default")
         self::assertStringContainsString('<pivotField axis="axisCol" showAll="0"><items count="7"><item x="0"/><item x="1"/><item x="2"/><item x="3"/><item x="4"/><item x="5"/><item t="default"/></items></pivotField>', $definition);
+    }
+
+    /**
+     * The <items> in a pivot field and the <groupItems> in the cache definition
+     * describe the same set of values. If the two counts drift apart, Excel
+     * reports the workbook as corrupt, so assert the invariant directly rather
+     * than hard-coding a count that could be updated in only one place.
+     */
+    #[DataProvider('numericGroupProvider')]
+    public function testGroupItemCountsAgreeBetweenParts(float $interval, ?float $startNum, ?float $endNum): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByNumericRange('Age', $interval, $startNum, $endNum)
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'GroupedPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $cache = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertSame(1, preg_match('#<groupItems count="(\d+)"#', $cache, $groupMatch));
+        self::assertSame(1, preg_match('#<items count="(\d+)"#', $definition, $itemMatch));
+
+        $groupItemCount = (int) $groupMatch[1];
+        $pivotItemCount = (int) $itemMatch[1];
+
+        // The pivot field carries one extra <item t="default"/>.
+        self::assertSame(
+            $groupItemCount + 1,
+            $pivotItemCount,
+            'pivotField items must match groupItems plus the default item'
+        );
+
+        // Every emitted index must be addressable in the cache's group items.
+        self::assertSame(
+            $groupItemCount,
+            substr_count($definition, '<item x='),
+            'each <item x="N"/> must reference a real group item'
+        );
+    }
+
+    /**
+     * @return array<string, array{0: float, 1: ?float, 2: ?float}>
+     */
+    public static function numericGroupProvider(): array
+    {
+        return [
+            'whole multiples' => [10.0, 20.0, 60.0],
+            'range not a multiple of interval' => [10.0, 20.0, 65.0],
+            'fractional interval' => [0.1, 0.0, 1.0],
+            'fractional interval, uneven' => [0.3, 0.0, 1.0],
+            'negative start' => [5.0, -20.0, 20.0],
+            'null bounds' => [10.0, null, null],
+            'zero interval' => [0.0, 0.0, 100.0],
+            'negative interval' => [-5.0, 0.0, 100.0],
+            'inverted bounds' => [10.0, 60.0, 20.0],
+        ];
+    }
+
+    /**
+     * A fractional interval must not gain a spurious zero-width trailing bucket
+     * from repeated floating-point addition: 0..1 by 0.1 is exactly 10 buckets.
+     */
+    public function testFractionalIntervalDoesNotDriftAnExtraBucket(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $builder
+            ->groupFieldByNumericRange('Age', 0.1, 0.0, 1.0)
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'GroupedPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $cache = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        // 10 buckets + the "<0" and ">1" sentinel bounds.
+        self::assertStringContainsString('<groupItems count="12">', $cache);
+        self::assertStringContainsString('<items count="13">', $definition);
+        // A degenerate "1-1" bucket is the signature of the accumulation bug.
+        self::assertStringNotContainsString('<s v="1-1"/>', $cache);
+    }
+
+    /**
+     * A field with no distinct values must still emit a well-formed, minimal
+     * items collection rather than dangling indices.
+     */
+    public function testFieldWithNoSharedItemsEmitsOnlyDefaultItem(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $data = $spreadsheet->getActiveSheet();
+        $data->setTitle('Data');
+        $data->fromArray(['Region', 'Amount'], null, 'A1');
+        $data->fromArray([['', 1]], null, 'A2');
+        $pivot = $spreadsheet->createSheet();
+        $pivot->setTitle('Pivot');
+
+        $builder = new PivotTableBuilder($data, 'A1:B2');
+        $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($pivot, 'A3', 'EmptyPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString(
+            '<pivotField axis="axisRow" showAll="0"><items count="1"><item t="default"/></items></pivotField>',
+            $definition
+        );
+        self::assertStringNotContainsString('<item x=', $definition);
     }
 
     /**

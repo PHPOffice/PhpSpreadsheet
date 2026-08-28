@@ -20,6 +20,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable as WorksheetPivotTa
 class PivotTable
 {
     /**
+     * Excel's own ceiling on the number of items in a single pivot field.
+     * Emitting more than this produces a file Excel refuses to open, so a
+     * grouping that would exceed it is clamped rather than written out.
+     */
+    private const MAX_GROUP_ITEMS = 1048576;
+
+    /**
      * Build the pivotTableDefinition part.
      *
      * @param int $cacheId the workbook-level cache id referenced by this table
@@ -188,11 +195,7 @@ class PivotTable
 
         // Group items: "<lower>-<upper>" buckets plus the sentinel bounds Excel
         // expects (values below the start and above the end).
-        $buckets = [];
-        for ($lower = $start; $lower < $end; $lower += $interval) {
-            $upper = min($lower + $interval, $end);
-            $buckets[] = self::num($lower) . '-' . self::num($upper);
-        }
+        $buckets = self::numericGroupBuckets($start, $end, $interval);
         $objWriter->startElement('groupItems');
         $objWriter->writeAttribute('count', (string) (count($buckets) + 2));
         self::writeGroupItem($objWriter, '<' . self::num($start));
@@ -282,6 +285,40 @@ class PivotTable
                 // Years are enumerated by the application on refresh.
                 return ['<1/1/1900', '>12/31/9999'];
         }
+    }
+
+    /**
+     * Build the "<lower>-<upper>" bucket labels for a numeric field group.
+     *
+     * This is the single source of truth for how a numeric grouping is
+     * enumerated: both the <groupItems> in the cache definition and the
+     * <items> in the pivot field are derived from it, so the two counts
+     * cannot drift apart.
+     *
+     * The bucket index is computed from $start rather than accumulated, so a
+     * fractional interval cannot drift through repeated addition.
+     *
+     * @return string[]
+     */
+    private static function numericGroupBuckets(float $start, float $end, float $interval): array
+    {
+        if ($interval <= 0.0 || $end <= $start) {
+            return [];
+        }
+
+        $count = (int) ceil(($end - $start) / $interval);
+        if ($count > self::MAX_GROUP_ITEMS) {
+            $count = self::MAX_GROUP_ITEMS;
+        }
+
+        $buckets = [];
+        for ($i = 0; $i < $count; ++$i) {
+            $lower = $start + ($i * $interval);
+            $upper = min($start + (($i + 1) * $interval), $end);
+            $buckets[] = self::num($lower) . '-' . self::num($upper);
+        }
+
+        return $buckets;
     }
 
     /**
@@ -407,15 +444,13 @@ class PivotTable
             $start = $group->getStartNum() ?? 0.0;
             $end = $group->getEndNum() ?? ($start + $group->getInterval());
             $interval = $group->getInterval() > 0 ? $group->getInterval() : 1.0;
-            $bucketCount = 0;
-            for ($lower = $start; $lower < $end; $lower += $interval) {
-                ++$bucketCount;
-            }
 
-            return $bucketCount + 2;
+            // +2 for the "<start" and ">end" sentinel bounds that
+            // writeNumericGroup always emits alongside the buckets.
+            return count(self::numericGroupBuckets($start, $end, $interval)) + 2;
         }
 
-        return count($cache->getSharedItems($fieldName));
+        return min(count($cache->getSharedItems($fieldName)), self::MAX_GROUP_ITEMS);
     }
 
     /**
