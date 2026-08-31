@@ -141,8 +141,11 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
+      # php-cs-fixer also depends on fidry/cpu-core-counter, so it has to be
+      # removed as well or the package stays installed (it is not needed to
+      # run the test suite)
       - name: Remove the optional fidry/cpu-core-counter package
-        run: composer remove --dev fidry/cpu-core-counter --no-interaction --no-progress
+        run: composer remove --dev fidry/cpu-core-counter friendsofphp/php-cs-fixer --no-interaction --no-progress
 
       # With fidry/cpu-core-counter absent, PcntlBackend::isAvailable() is
       # false even though pcntl works: the writer must fall back to the
