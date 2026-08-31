@@ -139,6 +139,19 @@ class ParallelExecutorTest extends TestCase
         self::assertSame([1, 4, 9, 16, 25, 36], $results);
     }
 
+    public function testPcntlBackendRejectsObjectResults(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
+        }
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessageMatches('/must serialize to scalars or arrays/');
+
+        $executor = new ParallelExecutor(new PcntlBackend(), 2);
+        $executor->map([1, 2], fn (int $x): object => (object) ['x' => $x]);
+    }
+
     public function testPcntlBackendChildErrorPropagation(): void
     {
         if (!PcntlBackend::isAvailable()) {

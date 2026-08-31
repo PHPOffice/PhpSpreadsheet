@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Parallel\Backend;
 
+use __PHP_Incomplete_Class;
 use Closure;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Parallel\CpuDetector;
@@ -150,7 +151,17 @@ class PcntlBackend implements BackendInterface
     private function collectResult(int $taskIndex, string $tempFile, int $status): mixed
     {
         $content = is_file($tempFile) ? file_get_contents($tempFile) : false;
-        $envelope = ($content === false || $content === '') ? false : @unserialize($content);
+        $envelope = false;
+        if ($content !== false && $content !== '') {
+            try {
+                // The temp file sits in the shared system temp directory, so
+                // it must not be an object-injection vector: only the one
+                // class the envelope legitimately carries may be instantiated
+                $envelope = @unserialize($content, ['allowed_classes' => [ParallelTaskError::class]]);
+            } catch (Throwable) {
+                $envelope = false;
+            }
+        }
 
         if (!is_array($envelope) || !array_key_exists('ok', $envelope)) {
             throw new Exception("Parallel task {$taskIndex} did not return a result ({$this->describeChildStatus($status)})");
@@ -163,7 +174,12 @@ class PcntlBackend implements BackendInterface
             throw new Exception("Parallel task {$taskIndex} failed: {$detail}");
         }
 
-        return $envelope['result'] ?? null;
+        $result = $envelope['result'] ?? null;
+        if ($result instanceof __PHP_Incomplete_Class) {
+            throw new Exception("Parallel task {$taskIndex} returned an object; task results must serialize to scalars or arrays");
+        }
+
+        return $result;
     }
 
     private function describeChildStatus(int $status): string
