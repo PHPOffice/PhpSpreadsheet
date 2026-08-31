@@ -122,7 +122,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, pcntl, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
         env:
           fail-fast: true
@@ -146,6 +146,12 @@ jobs:
       # run the test suite)
       - name: Remove the optional fidry/cpu-core-counter package
         run: composer remove --dev fidry/cpu-core-counter friendsofphp/php-cs-fixer --no-interaction --no-progress
+
+      # Guard the job's premise: pcntl present, fidry really gone. Without
+      # this, a future dev dependency that pulls fidry back in would silently
+      # turn this job into a copy of the normal test run.
+      - name: Assert pcntl is loaded and fidry/cpu-core-counter is absent
+        run: php -r "require 'vendor/autoload.php'; exit(extension_loaded('pcntl') && !class_exists('Fidry\\\\CpuCoreCounter\\\\CpuCoreCounter') ? 0 : 1);"
 
       # With fidry/cpu-core-counter absent, PcntlBackend::isAvailable() is
       # false even though pcntl works: the writer must fall back to the
