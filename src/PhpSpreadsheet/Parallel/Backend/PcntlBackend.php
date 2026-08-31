@@ -36,8 +36,7 @@ class PcntlBackend implements BackendInterface
         $taskCount = count($tasks);
         $results = array_fill(0, $taskCount, null);
         $tempFiles = [];
-        $pids = [];
-        $reaped = [];
+        $running = [];
 
         try {
             // Process tasks in batches of maxWorkers
@@ -72,15 +71,20 @@ class PcntlBackend implements BackendInterface
                     }
 
                     // Parent process
-                    $pids[$i] = $pid;
+                    $running[$pid] = true;
                     $batchPids[$i] = $pid;
                 }
 
                 // Wait for all children in this batch
                 $statuses = [];
                 foreach ($batchPids as $i => $pid) {
-                    $statuses[$i] = $this->waitForChild($pid);
-                    $reaped[$pid] = true;
+                    try {
+                        $statuses[$i] = $this->waitForChild($pid);
+                    } finally {
+                        // Reaped — either normally, or by terminateChild()
+                        // before a timeout exception
+                        unset($running[$pid]);
+                    }
                 }
 
                 // Collect results for this batch
@@ -90,13 +94,12 @@ class PcntlBackend implements BackendInterface
             }
         } finally {
             // Children never reach this block — exitChild() terminates them —
-            // so only the parent reaps and cleans up here. Children still
-            // running (e.g. siblings of a timed-out task) are killed so they
-            // are neither orphaned nor left as zombies.
-            foreach ($pids as $pid) {
-                if (isset($reaped[$pid])) {
-                    continue;
-                }
+            // so only the parent cleans up here. $running holds only pids
+            // that were never waited on (e.g. siblings of a timed-out task):
+            // kill and reap them so they are neither orphaned nor left as
+            // zombies. Pids already reaped must not be signalled again — the
+            // OS may have recycled them for an unrelated process.
+            foreach (array_keys($running) as $pid) {
                 if (function_exists('posix_kill')) {
                     posix_kill($pid, 9); // SIGKILL
                     pcntl_waitpid($pid, $status);
