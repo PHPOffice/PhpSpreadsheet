@@ -151,7 +151,8 @@ jobs:
       # this, a future dev dependency that pulls fidry back in would silently
       # turn this job into a copy of the normal test run.
       - name: Assert pcntl is loaded and fidry/cpu-core-counter is absent
-        run: php -r "require 'vendor/autoload.php'; exit(extension_loaded('pcntl') && !class_exists('Fidry\\\\CpuCoreCounter\\\\CpuCoreCounter') ? 0 : 1);"
+        run: |
+          php -r "require 'vendor/autoload.php'; exit(extension_loaded('pcntl') && !class_exists('Fidry\\\\CpuCoreCounter\\\\CpuCoreCounter') ? 0 : 1);"
 
       # With fidry/cpu-core-counter absent, PcntlBackend::isAvailable() is
       # false even though pcntl works: the writer must fall back to the
