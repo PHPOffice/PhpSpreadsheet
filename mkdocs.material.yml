@@ -28,6 +28,13 @@ theme:
 extra_css:
     - extra/extra.css
     - extra/tablestripes.css
+    # emacs is a reasonable style name in both light and dark.
+    # default is good only for light, lightbulb for dark.
+    # Use either emacs or (both default.light lightbulb.dark).
+    # More details available in docs/extra/pygments.customization.txt.
+    # - extra/pygments.emacs.css
+    - extra/pygments.default.light.css
+    - extra/pygments.lightbulb.dark.css
 extra_javascript:
     - extra/extrajs.js
 markdown_extensions:
