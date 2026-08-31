@@ -7,12 +7,8 @@ build:
     os: ubuntu-24.04
     tools:
         python: "3"
-    jobs:
-        install:
-            - pip install zensical
-        build:
-            html:
-                - zensical build
-        post_build:
-            - mkdir -p $READTHEDOCS_OUTPUT/html/
-            - cp --recursive site/* $READTHEDOCS_OUTPUT/html/
+    commands:
+        # 1. Install ProperDocs and any required themes/plugins
+        - pip install properdocs properdocs_theme_readthedocs properdocs_theme_mkdocs
+        # 2. Build the static site using the properdocs executable
+        - properdocs build --clean --site-dir $READTHEDOCS_OUTPUT/html
