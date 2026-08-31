@@ -170,8 +170,27 @@ class PcntlBackend implements BackendInterface
         if ($envelope['ok'] !== true) {
             $error = $envelope['error'] ?? null;
             $detail = $error instanceof ParallelTaskError ? $error->getSummary() : 'unknown error';
+            $message = "Parallel task {$taskIndex} failed: {$detail}";
 
-            throw new Exception("Parallel task {$taskIndex} failed: {$detail}");
+            // Rethrow with the child's own exception class when it belongs to
+            // the PhpSpreadsheet exception hierarchy, so a caller catching a
+            // narrower class (e.g. Calculation\Exception) behaves the same as
+            // in sequential mode
+            if ($error instanceof ParallelTaskError) {
+                $class = $error->getExceptionClass();
+                if ($class !== '' && $class !== Exception::class && is_a($class, Exception::class, true)) {
+                    try {
+                        $exception = new $class($message);
+                    } catch (Throwable) {
+                        $exception = null; // @codeCoverageIgnore
+                    }
+                    if ($exception instanceof Exception) {
+                        throw $exception;
+                    }
+                }
+            }
+
+            throw new Exception($message);
         }
 
         $result = $envelope['result'] ?? null;

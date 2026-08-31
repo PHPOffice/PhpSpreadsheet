@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Parallel;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\PcntlBackend;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\SequentialBackend;
@@ -167,6 +168,30 @@ class ParallelExecutorTest extends TestCase
             function (int $x): int {
                 if ($x === 2) {
                     throw new RuntimeException('Task failed intentionally');
+                }
+
+                return $x;
+            }
+        );
+    }
+
+    public function testPcntlBackendPreservesSpreadsheetExceptionClass(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
+        }
+
+        // A caller catching the narrower class must behave the same in
+        // sequential and parallel mode
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessageMatches('/Parallel task .* failed: .*division by zero/');
+
+        $executor = new ParallelExecutor(new PcntlBackend(), 2);
+        $executor->map(
+            [1, 2],
+            function (int $x): int {
+                if ($x === 2) {
+                    throw new CalculationException('division by zero');
                 }
 
                 return $x;
