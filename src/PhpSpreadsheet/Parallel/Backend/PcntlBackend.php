@@ -24,6 +24,10 @@ class PcntlBackend implements BackendInterface
 
     public function execute(array $tasks, Closure $worker, int $maxWorkers): array
     {
+        if ($maxWorkers < 1) {
+            throw new Exception('maxWorkers must be at least 1');
+        }
+
         if (!self::isAvailable()) {
             throw new Exception('Forking is not available (requires the CLI SAPI, the pcntl extension, and the fidry/cpu-core-counter package)'); // @codeCoverageIgnore
         }

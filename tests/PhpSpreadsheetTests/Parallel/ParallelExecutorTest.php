@@ -58,6 +58,14 @@ class ParallelExecutorTest extends TestCase
         self::assertSame(['val_3', 'val_1', 'val_4', 'val_1', 'val_5', 'val_9'], $results);
     }
 
+    public function testPcntlBackendRejectsNonPositiveMaxWorkers(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('maxWorkers must be at least 1');
+
+        (new PcntlBackend())->execute([1, 2], fn (int $x): int => $x, 0);
+    }
+
     public function testPcntlBackendAvailability(): void
     {
         $available = PcntlBackend::isAvailable();
