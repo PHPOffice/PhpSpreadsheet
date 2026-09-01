@@ -564,6 +564,122 @@ class PivotTableBuilderTest extends TestCase
     }
 
     /**
+     * An axis that declares fields must be accompanied by its item list.
+     * Excel discards the whole pivot table when rowFields appears without
+     * rowItems, even though the schema marks the element as optional.
+     */
+    public function testAxisFieldsAreAccompaniedByAxisItems(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'SalesPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<rowItems count="1"><i t="grand"><x/></i></rowItems>', $definition);
+        self::assertStringContainsString('<colItems count="1"><i t="grand"><x/></i></colItems>', $definition);
+
+        // Schema order: rowFields, rowItems, colFields, colItems.
+        $order = [];
+        foreach (['rowFields', 'rowItems', 'colFields', 'colItems'] as $element) {
+            $position = strpos($definition, '<' . $element . ' ');
+            self::assertNotFalse($position, "$element is missing");
+            $order[] = $position;
+        }
+        $sorted = $order;
+        sort($sorted);
+        self::assertSame($sorted, $order, 'axis elements must appear in schema order');
+    }
+
+    /**
+     * An axis with no fields must not emit an empty item list.
+     */
+    public function testAxisItemsOmittedWhenAxisHasNoFields(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'SalesPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<rowItems', $definition);
+        self::assertStringNotContainsString('<colFields', $definition);
+        self::assertStringNotContainsString('<colItems', $definition);
+    }
+
+    /**
+     * The declared location has to be able to hold the layout the rest of the
+     * definition describes. A single-cell ref is not expanded on load: Excel
+     * treats it as inconsistent and drops the pivot table.
+     *
+     * @param array<string, string> $placements
+     */
+    #[DataProvider('locationProvider')]
+    public function testLocationSpansTheRenderedPivot(string $targetCell, array $placements, string $expected): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        foreach ($placements as $fieldName => $axis) {
+            if ($axis === 'row') {
+                $builder->addRowField($fieldName);
+            } else {
+                $builder->addColumnField($fieldName);
+            }
+        }
+        $builder
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), $targetCell, 'SalesPivot');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<location ref="' . $expected . '"', $definition);
+        // A degenerate single-cell range is what Excel rejects.
+        self::assertStringNotContainsString(
+            '<location ref="' . $targetCell . ':' . $targetCell . '"',
+            $definition
+        );
+    }
+
+    /**
+     * @return array<string, array{0: string, 1: array<string, string>, 2: string}>
+     */
+    public static function locationProvider(): array
+    {
+        // Region and Product each have 2 distinct values in the sample data.
+        return [
+            // header + col header, 2 row values, grand total = 5 rows;
+            // row label + 2 product columns + grand total = 4 columns.
+            'row and column fields' => ['A3', ['Region' => 'row', 'Product' => 'col'], 'A3:D7'],
+            // header, 2 row values, grand total = 4 rows; label + 1 data = 2 columns.
+            'row field only' => ['A3', ['Region' => 'row'], 'A3:B6'],
+            'column field only' => ['A3', ['Product' => 'col'], 'A3:D5'],
+            'offset target cell' => ['E10', ['Region' => 'row', 'Product' => 'col'], 'E10:H14'],
+        ];
+    }
+
+    /**
      * @param PivotField[] $fields
      *
      * @return string[]

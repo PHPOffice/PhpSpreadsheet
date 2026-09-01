@@ -69,7 +69,12 @@ class PivotTable
 
         self::writePivotFields($objWriter, $pivotTable);
         self::writeAxisFields($objWriter, 'rowFields', $pivotTable->getRowFields());
+        // rowItems must accompany rowFields: the schema makes the item list
+        // mandatory whenever an axis declares fields, and Excel discards the
+        // whole pivot table when it is missing.
+        self::writeAxisItems($objWriter, 'rowItems', $pivotTable->getRowFields());
         self::writeAxisFields($objWriter, 'colFields', $pivotTable->getColumnFields());
+        self::writeAxisItems($objWriter, 'colItems', $pivotTable->getColumnFields());
         self::writePageFields($objWriter, $pivotTable->getPageFields());
         self::writeDataFields($objWriter, $pivotTable);
 
@@ -470,6 +475,38 @@ class PivotTable
             $objWriter->endElement();
         }
         $objWriter->endElement();
+    }
+
+    /**
+     * Emit the <rowItems>/<colItems> list that accompanies an axis.
+     *
+     * The real item rows are rebuilt when the application refreshes the pivot
+     * table, so only the grand-total entry is written here. That is the
+     * minimum the schema accepts: a single <i> carrying one <x/> per axis
+     * field, marked as the grand total.
+     *
+     * @param PivotField[] $fields
+     */
+    private static function writeAxisItems(XMLWriter $objWriter, string $element, array $fields): void
+    {
+        if ($fields === []) {
+            return;
+        }
+
+        $objWriter->startElement($element);
+        $objWriter->writeAttribute('count', '1');
+
+        $objWriter->startElement('i');
+        $objWriter->writeAttribute('t', 'grand');
+        // One <x/> per field on the axis; the grand-total row has no
+        // meaningful item index, so the default (0) is written.
+        foreach ($fields as $ignored) {
+            $objWriter->startElement('x');
+            $objWriter->endElement();
+        }
+        $objWriter->endElement(); // i
+
+        $objWriter->endElement(); // rowItems/colItems
     }
 
     /**
