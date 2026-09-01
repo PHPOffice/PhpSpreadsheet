@@ -4,6 +4,7 @@ edit_uri: edit/master/docs/
 
 theme:
   name: materialx
+  topbar_style: primary
   features:
       - content.code.copy
   palette:
