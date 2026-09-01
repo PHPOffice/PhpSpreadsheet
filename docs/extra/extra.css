@@ -20,3 +20,6 @@ table.features-cross-reference {
 
 .wehavedarktoggle {display: block;}
 .wedonthavedarktoggle {display: none;}
+
+[data-bs-theme="dark"] img[alt="Logo"] {filter: invert(100%)}
+[data-md-color-scheme="slate"] img[alt="Logo"] {filter: invert(100%)}

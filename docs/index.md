@@ -186,7 +186,7 @@ If your setting is light mode, you can make a bookmarklet of the following and u
 (function(){
     document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
     const images = document.querySelectorAll('img');
-    images.forEach(img => {  img.style.filter = 'invert(100%) hue-rotate(180deg)';});
+    images.forEach(img => {  if (img.alt != 'Logo') img.style.filter = 'invert(100%) hue-rotate(180deg)';});
 })();
 ```
 </div>
