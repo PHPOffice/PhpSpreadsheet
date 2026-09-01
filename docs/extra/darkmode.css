@@ -17,3 +17,8 @@ Retrieved 2026-08-24, License - CC BY-SA 4.0
 /* Dark mode (slate scheme) alternating rows */
 table tr:nth-child(2n) {background-color: #c0c0c0;}
 }
+
+@media (prefers-color-scheme: light) {
+/* Dark mode (slate scheme) alternating rows */
+[data-md-color-scheme="slate"] table tr:nth-child(2n) {background-color: #c0c0c0;}
+}

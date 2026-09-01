@@ -1,6 +1,6 @@
 # Welcome to PhpSpreadsheet's documentation
 
-![Logo](./assets/logo.svg)
+![Logo on White Background](./assets/logowithbackground.png)
 
 [PhpSpreadsheet](https://www.github.com/PhpOffice/PhpSpreadsheet) is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
@@ -172,7 +172,9 @@ may defer to your system's settings.
 This particular theme does not come with a toggle to switch back and forth.
 If you want to switch and it is inconvenient for you to change the browser setting:
 <br><br>
-If your setting is dark mode, the following javascript code can be used as a toggle. For convenience, you can generate a bookmarklet from it:
+If your setting is dark mode, this
+<a href="javascript:(function()%7BArray.from(document.styleSheets).forEach((sheet)%20%3D%3E%20%7Bif%20(sheet.href%3F.includes('darkmode.css')%20%3F%3F%20false)%20%7Bsheet.disabled%20%3D%20!sheet.disabled%3B%7D%7D)%7D)()">Dark/Light Toggle</a>
+can be used as a bookmarklet. It executes:
 ```javascript
 Array.from(document.styleSheets).forEach((sheet) => {
     if (sheet.href?.includes('darkmode.css') ?? false) {
@@ -181,12 +183,19 @@ Array.from(document.styleSheets).forEach((sheet) => {
 });
 ```
 
-If your setting is light mode, you can make a bookmarklet of the following and use it to turn to dark mode, but just reload the page to restore light mode:
+If your setting is light mode, this
+<a href="javascript:(function()%7B(function()%7Bdocument.documentElement.style.filter%20%3D%20document.documentElement.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3Bconst%20images%20%3D%20document.querySelectorAll('img')%3Bimages.forEach(img%20%3D%3E%20%7B%20if%20(img.alt%20!%3D%20'Logo')%20img.style.filter%20%3D%20'invert(100%25)%20hue-rotate(180deg)'%3B%7D)%3Bif%20(document.body.getAttribute('data-md-color-scheme')%20%3D%3D%20'slate')%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'default')%3B%7D%20else%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'slate')%3B%7D%7D)()%7D)()">Emulate Dark Mode</a>
+bookmarklet can be used to emulate dark mode, but just reload the page to restore light mode:
 ```javascript
 (function(){
     document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
     const images = document.querySelectorAll('img');
-    images.forEach(img => {  if (img.alt != 'Logo') img.style.filter = 'invert(100%) hue-rotate(180deg)';});
+    images.forEach(img => { if (img.alt != 'Logo') img.style.filter = 'invert(100%) hue-rotate(180deg)';});
+    if (document.body.getAttribute('data-md-color-scheme') == 'slate') {
+        document.body.setAttribute('data-md-color-scheme', 'default');
+    } else {
+        document.body.setAttribute('data-md-color-scheme', 'slate');
+    }
 })();
 ```
 </div>
