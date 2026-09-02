@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use DateMalformedStringException;
+//use DateMalformedStringException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class DateTest extends TestCase
 {
@@ -322,6 +323,8 @@ class DateTest extends TestCase
         self::assertEquals(new DateTime('2000-01-02 03:04:05.000000'), $dti);
     }
 
+    protected string $dateMalformedStringException = 'DateMalformedStringException';
+
     /**
      * Verifies that the library's date detection functionality properly handles large numeric values.
      *
@@ -352,12 +355,17 @@ class DateTest extends TestCase
             /**
              * Starting with PHP 8.3, DateTime::modify() throws a DateMalformedStringException, and we are not wrapping
              * the E_WARNING into a PhpSpreadsheetException.
-             * Phpstan wants to flag the statement until < Php8.3 is no longer a possibility.
+             * Phpstan wants to flag references to DateMalformedStringException
+             *     until < Php8.3 is no longer a possibility, so we add a little kludge.
              */
-            if (PHP_VERSION_ID >= 80300) {
-                $this->expectException(DateMalformedStringException::class); // @phpstan-ignore class.notFound (will be flagged until Php < 8.2 is no longer accepted), argument.type (ditto)
+            /** @var class-string<Throwable> */
+            $exception = $this->dateMalformedStringException;
+            if (class_exists($exception, false)) {
+                $this->expectException($exception);
             } else {
-                $this->expectException(PhpSpreadsheetException::class);
+                $this->expectException(
+                    PhpSpreadsheetException::class
+                );
             }
 
             Date::excelToDateTimeObject($value);
