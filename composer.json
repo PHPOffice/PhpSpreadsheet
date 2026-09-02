@@ -94,6 +94,7 @@
         "ext-intl": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^2.0 || ^3.0",
+        "fidry/cpu-core-counter": "^1.3",
         "friendsofphp/php-cs-fixer": "^3.2",
         "mitoteam/jpgraph": "^10.5",
         "mpdf/mpdf": "^8.1.1",
@@ -107,6 +108,7 @@
     },
     "suggest": {
         "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard and StringHelper::setLocale()",
+        "fidry/cpu-core-counter": "Accurate CPU core detection for parallel Xlsx writing; without it parallel writing is disabled",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",

@@ -201,6 +201,49 @@ However, Excel's behavior, restricting the value to 255, can be emulated:
     $writer->setRestrictMaxColumnWidth(true);
 ```
 
+#### Parallel worksheet generation
+
+When writing a workbook with multiple worksheets, the Xlsx Writer can
+generate the worksheet XML in parallel worker processes:
+
+```php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+$writer->setParallelEnabled(true);
+$writer->save('file.xlsx');
+```
+
+Parallel writing is opt-in and off by default. It requires the `pcntl`
+extension and the suggested `fidry/cpu-core-counter` package
+(`composer require fidry/cpu-core-counter`), only runs from the PHP CLI
+(never under a web SAPI such as php-fpm), and is not available on
+Windows. When these requirements are not met, or the workbook has only
+one worksheet, the writer silently falls back to sequential writing, so
+it is always safe to enable.
+
+The number of workers defaults to the machine's CPU count (capped at 8,
+and reduced when `memory_limit` leaves too little headroom for forked
+children); it can be set explicitly:
+
+```php
+$writer->setMaxWorkers(4);
+```
+
+Note that the memory-headroom guard only applies to the automatic worker
+count — an explicit `setMaxWorkers()` value is used as-is.
+
+By default a worker may run for as long as it needs. To bound the time a
+single worksheet may take, set a timeout in seconds (workers exceeding it
+are terminated and the save fails with an exception):
+
+```php
+$writer->setParallelTimeout(300);
+```
+
+Parallelizing only pays off when worksheet generation dominates the save
+time — typically several sheets with tens of thousands of cells each.
+For small files the fork overhead outweighs the gain. Benchmark with
+your own workload (see `samples/ParallelBenchmark.php`).
+
 ### Form Control Fields
 
 PhpSpreadsheet offers limited support for Forms Controls (buttons,
