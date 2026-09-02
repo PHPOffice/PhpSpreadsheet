@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\ExceptionHandler;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
 class CalculationCoverageTest extends TestCase
@@ -150,15 +151,9 @@ class CalculationCoverageTest extends TestCase
 
     protected static string $winIndicator = 'WIN';
 
+    #[Attributes\RunInSeparateProcess]
     public function testExceptionHandler(): void
     {
-        if (
-            strtoupper(substr(PHP_OS, 0, 3)) === self::$winIndicator
-            && PHP_VERSION_ID >= self::$winMinPhpToSkip
-            && PHP_VERSION_ID <= self::$winMaxPhpToSkip
-        ) {
-            self::markTestSkipped('Mysterious problem on Windows with Php8.3/4 only');
-        }
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage('hello');
         $handler = new ExceptionHandler();
