@@ -220,6 +220,53 @@ final class AgileEncryption
         return $plain;
     }
 
+    /** @param array{keyDataSalt: string, passwordSalt: string, encryptedVerifier: string, encryptedVerifierHash: string, encryptedKey: string, encryptedHmacKey: string, encryptedHmacValue: string, spinCount: int, keyBits: int, hashAlgorithm: string, hashSize: int} $info */
+    public static function decryptFile(array $info, string $inputFilename, string $outputFilename, string $password): void
+    {
+        if ($password === '') {
+            throw new Exception('XLSX encryption password required.');
+        }
+        $input = @fopen($inputFilename, 'rb');
+        if ($input === false) {
+            throw new Exception('Could not open XLSX package for decryption.');
+        }
+        $output = @fopen($outputFilename, 'wb');
+        if ($output === false) {
+            fclose($input);
+
+            throw new Exception('Could not open XLSX package for decryption.');
+        }
+
+        try {
+            $hash = self::passwordHash($password, $info['passwordSalt'], $info['spinCount'], $info['hashAlgorithm']);
+            $verifier = self::aesDecrypt($info['encryptedVerifier'], self::deriveKey($hash, self::BLOCK_KEY_VERIFIER, $info['hashAlgorithm'], $info['keyBits']), $info['passwordSalt'], $info['keyBits']);
+            $expected = self::aesDecrypt($info['encryptedVerifierHash'], self::deriveKey($hash, self::BLOCK_KEY_VERIFIER_HASH, $info['hashAlgorithm'], $info['keyBits']), $info['passwordSalt'], $info['keyBits']);
+            if (!hash_equals(self::hash($info['hashAlgorithm'], $verifier), substr($expected, 0, $info['hashSize']))) {
+                throw new Exception('XLSX encryption password is incorrect.');
+            }
+            $secretKey = substr(self::aesDecrypt($info['encryptedKey'], self::deriveKey($hash, self::BLOCK_KEY_ENCRYPTED_KEY, $info['hashAlgorithm'], $info['keyBits']), $info['passwordSalt'], $info['keyBits']), 0, intdiv($info['keyBits'], 8));
+            if (strlen($secretKey) !== intdiv($info['keyBits'], 8)) {
+                throw new Exception('Malformed XLSX encryption information.');
+            }
+            self::verifyIntegrityFile($info, $secretKey, $input);
+            rewind($input);
+            $size = self::unpackSize(self::read($input, 8));
+            for ($block = 0; $size > 0; ++$block) {
+                $length = min(self::SEGMENT_SIZE, $size);
+                $cipher = self::read($input, self::paddedLength($length));
+                $iv = self::iv($info['keyDataSalt'], pack('V', $block), $info['hashAlgorithm']);
+                self::write($output, substr(self::aesDecrypt($cipher, $secretKey, $iv, $info['keyBits']), 0, $length));
+                $size -= $length;
+            }
+            if (fread($input, 1) !== '') {
+                throw new Exception('Malformed encrypted XLSX package.');
+            }
+        } finally {
+            fclose($input);
+            fclose($output);
+        }
+    }
+
     /**
      * Create the EncryptionInfo and EncryptedPackage streams for an Agile-encrypted XLSX.
      *
@@ -675,12 +722,24 @@ final class AgileEncryption
         if ($unpackedSize === false || !isset($unpackedSize['low'], $unpackedSize['high']) || !is_int($unpackedSize['low']) || !is_int($unpackedSize['high'])) {
             throw new Exception('Malformed encrypted XLSX package.');
         }
-        $size = $unpackedSize['low'] + $unpackedSize['high'] * 4294967296;
-        if ($size > PHP_INT_MAX) {
+
+        return self::sizeFromWords($unpackedSize['low'], $unpackedSize['high'], PHP_INT_SIZE, PHP_INT_MAX);
+    }
+
+    private static function sizeFromWords(int $low, int $high, int $integerSize, int $integerMax): int
+    {
+        if ($integerSize < 8) {
+            if ($high !== 0 || $low > $integerMax) {
+                throw new Exception('Encrypted XLSX package is too large for this platform.');
+            }
+
+            return $low;
+        }
+        if ($high > 0x7FFFFFFF) {
             throw new Exception('Encrypted XLSX package is too large for this platform.');
         }
 
-        return $size;
+        return $low + $high * 4294967296;
     }
 
     /** @param resource $fileHandle */
@@ -689,6 +748,20 @@ final class AgileEncryption
         if (fwrite($fileHandle, $data) !== strlen($data)) {
             throw new Exception('Could not write encrypted XLSX package.');
         }
+    }
+
+    /** @param resource $fileHandle */
+    private static function read($fileHandle, int $length): string
+    {
+        if ($length < 1) {
+            throw new Exception('Malformed encrypted XLSX package.');
+        }
+        $data = fread($fileHandle, $length);
+        if ($data === false || strlen($data) !== $length) {
+            throw new Exception('Malformed encrypted XLSX package.');
+        }
+
+        return $data;
     }
 
     private static function encryptionInfoXml(string $keyDataSalt, string $passwordSalt, string $encryptedVerifier, string $encryptedVerifierHash, string $encryptedKey, string $encryptedHmacKey, string $encryptedHmacValue, int $keyBits = 256, string $hashAlgorithm = 'SHA512', int $hashSize = 64, int $spinCount = 100000): string
@@ -734,6 +807,31 @@ final class AgileEncryption
         $hmacKey = substr(self::aesDecrypt($info['encryptedHmacKey'], $secretKey, $hmacKeyIv, $info['keyBits']), 0, $info['hashSize']);
         $expected = self::aesDecrypt($info['encryptedHmacValue'], $secretKey, $hmacValueIv, $info['keyBits']);
         if (!hash_equals(hash_hmac(self::HASH_ALGORITHMS[$info['hashAlgorithm']][0], $encryptedPackage, $hmacKey, true), substr($expected, 0, $info['hashSize']))) {
+            throw new Exception('Encrypted XLSX package integrity check failed.');
+        }
+    }
+
+    /**
+     * @param array{keyDataSalt: string, passwordSalt: string, encryptedVerifier: string, encryptedVerifierHash: string, encryptedKey: string, encryptedHmacKey: string, encryptedHmacValue: string, spinCount: int, keyBits: int, hashAlgorithm: string, hashSize: int} $info
+     * @param resource $input
+     */
+    private static function verifyIntegrityFile(array $info, string $secretKey, $input): void
+    {
+        $hmacKeyIv = self::iv($info['keyDataSalt'], self::BLOCK_KEY_HMAC_KEY, $info['hashAlgorithm']);
+        $hmacValueIv = self::iv($info['keyDataSalt'], self::BLOCK_KEY_HMAC_VALUE, $info['hashAlgorithm']);
+        $hmacKey = substr(self::aesDecrypt($info['encryptedHmacKey'], $secretKey, $hmacKeyIv, $info['keyBits']), 0, $info['hashSize']);
+        $expected = self::aesDecrypt($info['encryptedHmacValue'], $secretKey, $hmacValueIv, $info['keyBits']);
+        $hmac = hash_init(self::HASH_ALGORITHMS[$info['hashAlgorithm']][0], HASH_HMAC, $hmacKey);
+        while (!feof($input)) {
+            $data = fread($input, 8192);
+            if ($data === false) {
+                throw new Exception('Could not read encrypted XLSX package.');
+            }
+            if ($data !== '') {
+                hash_update($hmac, $data);
+            }
+        }
+        if (!hash_equals(hash_final($hmac, true), substr($expected, 0, $info['hashSize']))) {
             throw new Exception('Encrypted XLSX package integrity check failed.');
         }
     }

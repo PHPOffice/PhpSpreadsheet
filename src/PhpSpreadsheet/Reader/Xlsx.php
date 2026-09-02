@@ -158,17 +158,34 @@ class Xlsx extends BaseReader
             $ole = new OLE();
             $ole->read($filename);
             $encryptionInfo = $ole->getDataByName('EncryptionInfo');
-            $encryptedPackage = $ole->getDataByName('EncryptedPackage');
         } catch (Throwable) {
             return null;
         }
 
-        $plaintext = AgileEncryption::decrypt(AgileEncryption::parse($encryptionInfo), $encryptedPackage, $this->encryptionPassword);
         $temporaryFilename = File::temporaryFilename();
-        if (file_put_contents($temporaryFilename, $plaintext) === false) {
+        $encryptedPackageFilename = File::temporaryFilename();
+        $encryptedPackage = fopen($encryptedPackageFilename, 'wb');
+        if ($encryptedPackage === false) {
             @unlink($temporaryFilename);
+            @unlink($encryptedPackageFilename);
 
             throw new Exception('Could not create decrypted XLSX package.');
+        }
+
+        try {
+            $ole->copyDataByName('EncryptedPackage', $encryptedPackage);
+            fclose($encryptedPackage);
+            $encryptedPackage = null;
+            AgileEncryption::decryptFile(AgileEncryption::parse($encryptionInfo), $encryptedPackageFilename, $temporaryFilename, $this->encryptionPassword);
+        } catch (Throwable $e) {
+            if ($encryptedPackage !== null) {
+                fclose($encryptedPackage);
+            }
+            @unlink($temporaryFilename);
+
+            throw $e;
+        } finally {
+            @unlink($encryptedPackageFilename);
         }
 
         return $temporaryFilename;

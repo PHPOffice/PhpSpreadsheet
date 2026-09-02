@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class AgileEncryptionTest extends TestCase
 {
@@ -224,5 +225,58 @@ class AgileEncryptionTest extends TestCase
         $package = AgileEncryption::encrypt($plain, 'password', 128, 'SHA1', 10);
 
         self::assertSame($plain, AgileEncryption::decrypt(AgileEncryption::parse($package['encryptionInfo']), $package['encryptedPackage'], 'password'));
+    }
+
+    public function testDecryptFileStreamsMultipleEncryptedSegments(): void
+    {
+        $plain = str_repeat('x', 4097);
+        $package = AgileEncryption::encrypt($plain, 'password', 128, 'SHA1', 10);
+        $encryptedFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-encrypted-');
+        $plainFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-plain-');
+        self::assertNotFalse($encryptedFilename);
+        self::assertNotFalse($plainFilename);
+
+        try {
+            file_put_contents($encryptedFilename, $package['encryptedPackage']);
+            AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), $encryptedFilename, $plainFilename, 'password');
+            self::assertSame($plain, file_get_contents($plainFilename));
+        } finally {
+            unlink($encryptedFilename);
+            unlink($plainFilename);
+        }
+    }
+
+    public function testDecryptFileDoesNotTruncateOutputWhenInputCannotBeOpened(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $outputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-output-');
+        self::assertNotFalse($outputFilename);
+        file_put_contents($outputFilename, 'preserve this content');
+
+        try {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Could not open XLSX package for decryption');
+            AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), 'does-not-exist.xlsx', $outputFilename, 'password');
+        } finally {
+            self::assertSame('preserve this content', file_get_contents($outputFilename));
+            unlink($outputFilename);
+        }
+    }
+
+    public function testRejectsUnrepresentableEncryptedPackageSize(): void
+    {
+        $method = new ReflectionMethod(AgileEncryption::class, 'unpackSize');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('too large for this platform');
+        $high = PHP_INT_SIZE < 8 ? 1 : 0x80000000;
+        $method->invoke(null, pack('V2', 0, $high));
+    }
+
+    public function testRejectsUnrepresentableEncryptedPackageSizeOn32BitPlatform(): void
+    {
+        $method = new ReflectionMethod(AgileEncryption::class, 'sizeFromWords');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('too large for this platform');
+        $method->invoke(null, 0, 1, 4, 2147483647);
     }
 }
