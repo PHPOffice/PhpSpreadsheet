@@ -282,6 +282,27 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testDecryptFileRejectsTamperedEncryptedPackage(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $lastByte = strlen($package['encryptedPackage']) - 1;
+        $package['encryptedPackage'][$lastByte] = chr(ord($package['encryptedPackage'][$lastByte]) ^ 1);
+        $inputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-input-');
+        $outputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-output-');
+        self::assertNotFalse($inputFilename);
+        self::assertNotFalse($outputFilename);
+        file_put_contents($inputFilename, $package['encryptedPackage']);
+
+        try {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('integrity check failed');
+            AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), $inputFilename, $outputFilename, 'password');
+        } finally {
+            unlink($inputFilename);
+            unlink($outputFilename);
+        }
+    }
+
     public function testRejectsUnrepresentableEncryptedPackageSize(): void
     {
         $method = new ReflectionMethod(AgileEncryption::class, 'unpackSize');
@@ -297,5 +318,11 @@ class AgileEncryptionTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('too large for this platform');
         $method->invoke(null, 0, 1, 4, 2147483647);
+    }
+
+    public function testAcceptsRepresentableEncryptedPackageSizeOn32BitPlatform(): void
+    {
+        $method = new ReflectionMethod(AgileEncryption::class, 'sizeFromWords');
+        self::assertSame(123, $method->invoke(null, 123, 0, 4, 2147483647));
     }
 }
