@@ -50,6 +50,7 @@ In fact, because we were required to specify a worksheet when we defined the nam
 In the above example, when I define the Named Range values (e.g. `'=$B$1'`), I used a `$` before both the row and the column. This made the Named Range an Absolute Reference.
 
 Another example:
+
 ```php
 // Set up some basic data for a timesheet
 $worksheet
@@ -168,6 +169,7 @@ When it is used in the formula in row 4, then it references cell `B4`, when it a
 Named Ranges aren't limited to a single cell, but can point to a range of cells. A common use case might be to provide a series of column totals at the bottom of a dataset. Let's take our timesheet, and modify it just slightly to use a Relative column range for that purpose.
 
 I won't replicate the entire code from the previous example, because I'm only changing a few lines; but we just replace the block:
+
 ```php
 ++$row;
 $worksheet
@@ -175,6 +177,7 @@ $worksheet
     ->setCellValue("C{$row}", "=SUM(C{$startRow}:C{$endRow})");
 ```
 with:
+
 ```php
 // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
 $spreadsheet->addNamedRange( new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}") );
@@ -530,12 +533,14 @@ It also doesn't matter what order we define our Named Ranges and Formulae, even 
 ### Helper
 
 In all the examples so far, we have explicitly used the `NamedRange` and `NamedFormula` classes, and the Spreadsheet's `addNamedRange()` and `addNamedFormula()` methods, e.g.
+
 ```php
 $spreadsheet->addNamedRange(new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
 ```
 However, this can lead to errors if we accidentally set a formula value for a Named Range, or a range value for a Named Formula.
 
 As a helper, the DefinedName class provides a static method that can identify whether the value expression is a Range or a Formula, and instantiate the appropriate class.
+
 ```php
 $this->spreadsheet->addDefinedName(
     DefinedName::createInstance('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=16%', true)
@@ -567,6 +572,7 @@ So please be sensible when creating names, and follow the rules listed above.
 ---
 
 There is nothing to stop you creating a Defined Name that matches an existing Function name
+
 ```php
 $spreadsheet->addNamedFormula(new NamedFormula('SUM', $worksheet, '=SUM(A1:E5)'));
 ```
@@ -580,11 +586,13 @@ You cannot have a Named Range and a Named Formula with the same name, unless the
 
 MS Excel uses some "special tricks" to simulate Relative Named Ranges where the row or column comes before the current row or column, useful if you want to get column totals that don't include the current cell. These "tricks" aren't supported by PHPSpreadsheet, but can be simulated using the `OFFSET()` function in a Named Formula.
 In our `RelativeNamedRange2.php` example, we explicitly created the `COLUMN_DATA_VALUES` Named Range using only the rows that we knew should be included, so that we weren't including the current row (where we were displaying the total) and creating a cyclic reference:
+
 ```php
 // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
 $spreadsheet->addNamedRange(new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}"));
 ```
 We could instead have created a Named Function using `OFFSET()` to specify just the start row, and offset the end row by -1 row:
+
 ```php
 // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
 // To avoid including the current row,or having to hard-code the range itself (as we did in the previous example)

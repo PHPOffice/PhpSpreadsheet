@@ -181,6 +181,7 @@ Because of a bug in the Office2003 compatibility pack, there can be some
 small issues when opening Xlsx spreadsheets (mostly related to formula
 calculation). You can enable Office2003 compatibility with the following
 code:
+
 ```php
     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
     $writer->setOffice2003Compatibility(true);
@@ -197,6 +198,7 @@ In the Xlsx User Interface, the user cannot set a column width > 255.
 Nevertheless, it will honor a higher value if supplied in the Xml.
 PhpSpreadsheet will, by default, allow values > 255 to be written.
 However, Excel's behavior, restricting the value to 255, can be emulated:
+
 ```php
     $writer->setRestrictMaxColumnWidth(true);
 ```
@@ -540,6 +542,7 @@ $spreadsheet = $reader->load('sample.csv');
 
 The CSV reader will normally not load null strings into the spreadsheet.
 To load them:
+
 ```php
 $reader->setPreserveNullString(true);
 ```
@@ -548,6 +551,7 @@ You can set a callback to be invoked when the constructor is executed,
 either through `new Csv()` or `IOFactory::load`,
 and have that callback set the customizable attributes to whatever
 defaults are appropriate for your environment.
+
 ```php
 function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
 {
@@ -565,10 +569,12 @@ $spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
 
 As a (probably better) alternative, you can extend the `Reader\Csv` class to have whatever default properties you want, and use the extended class with `new`.
 For use with `IOFactory`, you can register the extended class as the Csv Reader:
+
 ```php
 IOFactory::registerReader(IOFactory::READER_CSV, Reader\CsvNoEscape::class);
 ```
 Starting with release 5.6, the `IOFactory` methods `createReader`, `load`, `identify`, and `createReaderForFile` also allow you to specify the appropriate reader for a file type, without having to register the class or affecting the ability of IOFactory to find classes suitable for files in other formats.
+
 ```php
 $spreadsheet = IOFactory::load(
     $inputFileName,
@@ -617,6 +623,7 @@ PhpSpreadsheet will then no longer handle CSV files
 with Mac line endings correctly.
 
 You can suppress testing for Mac line endings as follows:
+
 ```php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setTestAutoDetect(false);
@@ -658,7 +665,7 @@ By default, all CSV fields are wrapped in the enclosure character,
 which defaults to double-quote.
 You can change to use the enclosure character only when required:
 
-``` php
+```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setEnclosureRequired(false);
 
@@ -720,7 +727,7 @@ A CSV file can have a different number of columns in each row. This
 differs from the default behavior when saving as a .csv in Excel, but
 can be enabled in PhpSpreadsheet by using the following code:
 
-``` php
+```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setVariableColumns(true);
 $writer->save("05featuredemo.csv");
@@ -888,7 +895,7 @@ You can also add a callback function to edit the generated html
 before saving. For example, you could change the gridlines
 from a thin solid black line:
 
-``` php
+```php
 function changeGridlines(string $html): string
 {
     return str_replace('{border: 1px solid black;}',
@@ -1212,6 +1219,7 @@ $reader->load(
 
 Although not really a spreadsheet format, it can be useful to write data in grid format to a plaintext file.
 Code like the following can be used:
+
 ```php
         $array = $sheet->toArray(null, true, true, true);
         $textGrid = new \PhpOffice\PhpSpreadsheet\Shared\TextGrid(
@@ -1229,6 +1237,7 @@ Code like the following can be used:
         $result = $textGrid->render();
 ```
 You can then echo `$result` to a terminal, or write it to a file with `file_put_contents`. The result will resemble:
+
 ```
     +-----+------------------+---+----------+
     | A   | B                | C | D        |

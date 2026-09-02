@@ -86,13 +86,14 @@ or the appropriate PDF Writer wrapper for the library that you have chosen to in
 
 #### Chart Export
 
-For Chart export, we support following packages, which you will also need to install yourself using `composer require`:
+For Chart export, we support the following packages, which you will also need to install yourself using `composer require`:
 
-- [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0.
+- [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned in composer at version 4.0.
   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
 - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) - up to date fork with modern PHP versions support and some bugs fixed.
 
 and then configure PhpSpreadsheet using:
+
 ```php
 // to use jpgraph/jpgraph
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
@@ -175,6 +176,7 @@ If you want to switch and it is inconvenient for you to change the browser setti
 If your setting is dark mode, and your browser supports ES11, this
 <a href="javascript:(function()%7BArray.from(document.styleSheets).forEach((sheet)%20%3D%3E%20%7Bif%20(sheet.href%3F.includes('darkmode.css')%20%3F%3F%20false)%20%7Bsheet.disabled%20%3D%20!sheet.disabled%3B%7D%7D)%7D)()">Dark/Light Toggle</a>
 can be used as a bookmarklet. It executes:
+
 ```javascript
 Array.from(document.styleSheets).forEach((sheet) => {
     if (sheet.href?.includes('darkmode.css') ?? false) {
@@ -186,6 +188,7 @@ Array.from(document.styleSheets).forEach((sheet) => {
 If your setting is light mode, and your browser supports ES6, this
 <a href="javascript:(function()%7B(function()%7Bdocument.documentElement.style.filter%20%3D%20document.documentElement.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3Bconst%20images%20%3D%20document.querySelectorAll('img')%3Bimages.forEach(img%20%3D%3E%20%7Bif%20(img.alt%20!%3D%20'Logo')%20%7Bimg.style.filter%20%3D%20img.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%7D%7D)%3Bif%20(document.body.getAttribute('data-md-color-scheme')%20%3D%3D%20'slate')%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'default')%3B%7D%20else%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'slate')%3B%7D%7D)()%7D)()">Emulate Dark Mode</a>
 bookmarklet can be used to emulate dark mode, but just reload the page to restore light mode:
+
 ```javascript
 (function(){
     document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';

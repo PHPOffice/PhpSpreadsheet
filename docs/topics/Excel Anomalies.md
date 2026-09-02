@@ -12,6 +12,7 @@ I used Excel to create a spreadsheet, and included some dates, specifying `yyyy-
 Note that this is not a problem when using PhpSpreadsheet to set the style, only when you let Excel do it. And, in that case, after a little experimentation, I figured out a format that Excel doesn't sabotage `[Black]yyyy-mm-dd`.
 
 If you have a spreadsheet that has been altered in this way, it can be fixed with the following PhpSpreadsheet code:
+
 ```php
         foreach ($spreadsheet->getCellXfCollection() as $style) {
             $numberFormat = $style->getNumberFormat();
@@ -22,6 +23,7 @@ If you have a spreadsheet that has been altered in this way, it can be fixed wit
         }
 ```
 Starting with PhpSpreadsheet 4.5.0, this can be simplified to:
+
 ```php
         $spreadsheet->replaceBuiltinNumberFormat(
             \PhpOffice\PhpSpreadsheet\Style\NumberFormat::SHORT_DATE_INDEX,
