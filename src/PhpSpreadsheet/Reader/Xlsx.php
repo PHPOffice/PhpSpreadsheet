@@ -66,6 +66,9 @@ class Xlsx extends BaseReader
 
     protected bool $parseHuge = false;
 
+    /** @var array<string, string> Cache for zip archive entry contents, keyed by normalized file name */
+    private array $zipCache = [];
+
     /**
      * Allow use of LIBXML_PARSEHUGE.
      * This option can lead to memory leaks and failures,
@@ -96,6 +99,7 @@ class Xlsx extends BaseReader
             return false;
         }
 
+        $this->clearZipCache();
         $result = false;
         $this->zip = $zip = new ZipArchive();
 
@@ -104,6 +108,7 @@ class Xlsx extends BaseReader
             $result = !empty($workbookBasename);
 
             $zip->close();
+            $this->clearZipCache();
         }
 
         return $result;
@@ -184,6 +189,7 @@ class Xlsx extends BaseReader
     public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
+        $this->clearZipCache();
 
         $worksheetNames = [];
 
@@ -209,6 +215,7 @@ class Xlsx extends BaseReader
         }
 
         $zip->close();
+        $this->clearZipCache();
 
         return $worksheetNames;
     }
@@ -221,6 +228,7 @@ class Xlsx extends BaseReader
     public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
+        $this->clearZipCache();
 
         $worksheetInfo = [];
 
@@ -317,6 +325,7 @@ class Xlsx extends BaseReader
         }
 
         $zip->close();
+        $this->clearZipCache();
 
         return $worksheetInfo;
     }
@@ -402,6 +411,8 @@ class Xlsx extends BaseReader
 
     protected function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
     {
+        assert($archive === $this->zip, 'Cache assumes all reads use the same archive');
+
         // Root-relative paths
         if (str_contains($fileName, '//')) {
             $fileName = substr($fileName, strpos($fileName, '//') + 1);
@@ -410,6 +421,11 @@ class Xlsx extends BaseReader
         // has no path (i.e.files in root of the zip archive)
         $fileName = Preg::replace('/^\.\//', '', $fileName);
         $fileName = File::realpath($fileName);
+
+        // Return from cache if available
+        if (isset($this->zipCache[$fileName])) {
+            return $this->zipCache[$fileName];
+        }
 
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
@@ -426,7 +442,22 @@ class Xlsx extends BaseReader
             $contents = $archive->getFromName(str_replace('/', '\\', $fileName), 0, ZipArchive::FL_NOCASE);
         }
 
-        return ($contents === false) ? '' : $contents;
+        $result = ($contents === false) ? '' : $contents;
+
+        // Cache the result for subsequent reads of the same entry
+        $this->zipCache[$fileName] = $result;
+
+        return $result;
+    }
+
+    /**
+     * Clear the zip archive read cache.
+     * Called at the start of each load operation to ensure
+     * stale data from a previous load does not persist.
+     */
+    private function clearZipCache(): void
+    {
+        $this->zipCache = [];
     }
 
     /**
@@ -435,6 +466,7 @@ class Xlsx extends BaseReader
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
         File::assertFile($filename, self::INITIAL_FILE);
+        $this->clearZipCache();
 
         // Initialisations
         $excel = $this->newSpreadsheet();
@@ -1923,6 +1955,7 @@ class Xlsx extends BaseReader
         $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
+        $this->clearZipCache();
 
         return $excel;
     }
