@@ -263,6 +263,25 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testDecryptFileClosesInputWhenOutputCannotBeOpened(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $inputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-input-');
+        $outputDirectory = sys_get_temp_dir() . '/phpspreadsheet-output-' . uniqid();
+        self::assertNotFalse($inputFilename);
+        mkdir($outputDirectory);
+        file_put_contents($inputFilename, $package['encryptedPackage']);
+
+        try {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Could not open XLSX package for decryption');
+            AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), $inputFilename, $outputDirectory, 'password');
+        } finally {
+            unlink($inputFilename);
+            rmdir($outputDirectory);
+        }
+    }
+
     public function testRejectsUnrepresentableEncryptedPackageSize(): void
     {
         $method = new ReflectionMethod(AgileEncryption::class, 'unpackSize');
