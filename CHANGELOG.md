@@ -16,10 +16,6 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Support for Excel sparklines (line, column, and win/loss) in Xlsx reader and writer. [Issue #4941](https://github.com/PHPOffice/PhpSpreadsheet/issues/4941)
 - Read-only object model for Pivot Tables. Existing pivot tables in an Xlsx file are now parsed into `Worksheet\PivotTable\PivotTable` objects (name, location, source cache definition, and row/column/page/data field layout), accessible via `Worksheet::getPivotTableCollection()` / `getPivotTableByName()`. Pivot tables (their tables, caches and records) are now also preserved through an Xlsx load/save round-trip instead of being silently dropped. [Issue #4534](https://github.com/PHPOffice/PhpSpreadsheet/issues/4534)
 
-### Fixed
-
-- Xlsx writer: a table showing a header row is written over the row below it when its range covers the header row alone. Excel reports such a workbook as unreadable and repairs it by dropping the table; Excel itself writes the extra row, leaving it without a cell, and the writer now does the same. The row is taken only when it is empty — a table that would swallow a row holding something else throws instead.
-
 ### Removed
 
 - Nothing yet.
@@ -46,6 +42,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - GAMMA.INV, the GAMMA.DIST/CHISQ.DIST/F.DIST densities, and GAMMALN no longer fail or return wrong results for large shape parameters / degrees of freedom. [PR #4953](https://github.com/PHPOffice/PhpSpreadsheet/pull/4953)
 - GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)
 - Correct incomplete gamma convergence for GAMMA.DIST/CHISQ.DIST family (wrong once the series argument reached ~32). [PR #4945](https://github.com/PHPOffice/PhpSpreadsheet/pull/4945)
+- Fix problem with VLOOKUP and whole-column ranges. [Issue #4969](https://github.com/PHPOffice/PhpSpreadsheet/issues/4969) [PR #4967](https://github.com/PHPOffice/PhpSpreadsheet/pull/4967)
+- Problem with Xlsx Writer and header-row table. [PR #4968](https://github.com/PHPOffice/PhpSpreadsheet/pull/4968)
 
 ## 2026-07-12 - 5.9.0
 
