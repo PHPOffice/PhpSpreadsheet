@@ -122,4 +122,72 @@ class OLETest extends TestCase
         $this->expectExceptionMessage("OLE stream 'Missing' was not found.");
         $ole->getDataByName('Missing');
     }
+
+    public function testCopyNamedStreamMustExist(): void
+    {
+        $ole = new OLE();
+        $ole->read('tests/data/Reader/XLSX/agile-encrypted-excel.xlsx');
+        $output = tmpfile();
+        self::assertNotFalse($output);
+
+        try {
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage("OLE stream 'Missing' was not found.");
+            $ole->copyDataByName('Missing', $output);
+        } finally {
+            fclose($output);
+        }
+    }
+
+    public function testCopyNamedStreamRejectsCyclicBigBlockChain(): void
+    {
+        $ole = new OLE();
+        $ole->read('tests/data/Reader/XLSX/agile-encrypted-excel.xlsx');
+        $encryptedPackage = null;
+        foreach ($ole->_list as $pps) {
+            if ($pps->Name === 'EncryptedPackage') {
+                $encryptedPackage = $pps;
+
+                break;
+            }
+        }
+        self::assertNotNull($encryptedPackage);
+        $ole->bbat[$encryptedPackage->startBlock] = $encryptedPackage->startBlock;
+        $output = tmpfile();
+        self::assertNotFalse($output);
+
+        try {
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage("Invalid OLE stream 'EncryptedPackage'.");
+            $ole->copyDataByName('EncryptedPackage', $output);
+        } finally {
+            fclose($output);
+        }
+    }
+
+    public function testCopyNamedStreamRejectsDanglingBigBlockChain(): void
+    {
+        $ole = new OLE();
+        $ole->read('tests/data/Reader/XLSX/agile-encrypted-excel.xlsx');
+        $encryptedPackage = null;
+        foreach ($ole->_list as $pps) {
+            if ($pps->Name === 'EncryptedPackage') {
+                $encryptedPackage = $pps;
+
+                break;
+            }
+        }
+        self::assertNotNull($encryptedPackage);
+        unset($ole->bbat[$encryptedPackage->startBlock]);
+        $output = tmpfile();
+        self::assertNotFalse($output);
+
+        try {
+            $this->expectException(ReaderException::class);
+            $this->expectExceptionMessage("Invalid OLE stream 'EncryptedPackage'.");
+            $ole->copyDataByName('EncryptedPackage', $output);
+        } finally {
+            fclose($output);
+        }
+    }
 }

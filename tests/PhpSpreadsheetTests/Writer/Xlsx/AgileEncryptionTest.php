@@ -246,6 +246,73 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testWriterRetainsEncryptionSettingsAfterFailedSave(): void
+    {
+        $filename = File::temporaryFilename();
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->setCellValue('A1', 'retry encrypted save');
+        $writer = (new Xlsx($spreadsheet))
+            ->setEncryptionPassword('writer-password')
+            ->setEncryptionProfile(128, 'SHA1', 10);
+
+        try {
+            try {
+                $writer->save('');
+                self::fail('Saving to an empty filename should fail.');
+            } catch (WriterException $e) {
+                self::assertSame('Could not open file "" for writing.', $e->getMessage());
+            }
+
+            $writer->save($filename);
+            $ole = new OLE();
+            $ole->read($filename);
+            $info = AgileEncryption::parse($ole->getDataByName('EncryptionInfo'));
+            self::assertSame(128, $info['keyBits']);
+            self::assertSame('SHA1', $info['hashAlgorithm']);
+            self::assertSame(10, $info['spinCount']);
+
+            $loaded = (new XlsxReader())->setEncryptionPassword('writer-password')->load($filename);
+            self::assertSame('retry encrypted save', $loaded->getActiveSheet()->getCell('A1')->getValue());
+            $loaded->disconnectWorksheets();
+        } finally {
+            if (file_exists($filename)) {
+                unlink($filename);
+            }
+            $spreadsheet->disconnectWorksheets();
+        }
+    }
+
+    public function testWriterSupportsRemainingEncryptionProfiles(): void
+    {
+        foreach ([[192, 'SHA256'], [256, 'SHA384']] as [$keyBits, $hashAlgorithm]) {
+            $filename = File::temporaryFilename();
+            $spreadsheet = new Spreadsheet();
+            $spreadsheet->getActiveSheet()->setCellValue('A1', "$keyBits $hashAlgorithm profile");
+
+            try {
+                (new Xlsx($spreadsheet))
+                    ->setEncryptionPassword('writer-password')
+                    ->setEncryptionProfile($keyBits, $hashAlgorithm, 10)
+                    ->save($filename);
+
+                $ole = new OLE();
+                $ole->read($filename);
+                $info = AgileEncryption::parse($ole->getDataByName('EncryptionInfo'));
+                self::assertSame($keyBits, $info['keyBits']);
+                self::assertSame($hashAlgorithm, $info['hashAlgorithm']);
+
+                $loaded = (new XlsxReader())->setEncryptionPassword('writer-password')->load($filename);
+                self::assertSame("$keyBits $hashAlgorithm profile", $loaded->getActiveSheet()->getCell('A1')->getValue());
+                $loaded->disconnectWorksheets();
+            } finally {
+                if (file_exists($filename)) {
+                    unlink($filename);
+                }
+                $spreadsheet->disconnectWorksheets();
+            }
+        }
+    }
+
     /** @return string[] */
     private static function spreadsheetTemporaryFiles(): array
     {
