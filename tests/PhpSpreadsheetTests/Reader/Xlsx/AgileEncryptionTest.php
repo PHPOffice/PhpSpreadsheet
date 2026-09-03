@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -79,6 +80,39 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testEncryptedWorkbookRejectsSpinCountAboveConfiguredMaximum(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        (new Xlsx())
+            ->setEncryptionPassword('open')
+            ->setMaxEncryptionSpinCount(99999)
+            ->load(self::FIXTURE);
+    }
+
+    public function testEncryptedWorkbookAcceptsSpinCountAtConfiguredMaximum(): void
+    {
+        $spreadsheet = (new Xlsx())
+            ->setEncryptionPassword('open')
+            ->setMaxEncryptionSpinCount(100000)
+            ->load(self::FIXTURE);
+
+        self::assertSame('agile encryption fixture', $spreadsheet->getActiveSheet()->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testRejectsInvalidMaximumEncryptionSpinCount(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        (new Xlsx())->setMaxEncryptionSpinCount(AgileEncryption::MAX_SPIN_COUNT + 1);
+    }
+
+    public function testRejectsNegativeMaximumEncryptionSpinCount(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        (new Xlsx())->setMaxEncryptionSpinCount(-1);
+    }
+
     public function testRejectsTamperedEncryptedPackage(): void
     {
         $package = AgileEncryption::encrypt("PK\x03\x04test", 'password');
@@ -115,6 +149,16 @@ class AgileEncryptionTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Malformed XLSX encryption information');
         AgileEncryption::parse("\x04\x00\x04\x00\x40\x00\x00\x00not XML");
+    }
+
+    public function testParserMaximumCannotExceedAbsoluteSpinCountCeiling(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $encryptionInfo = str_replace('spinCount="10"', 'spinCount="10000001"', $package['encryptionInfo']);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unsupported XLSX encryption profile');
+        AgileEncryption::parse($encryptionInfo, PHP_INT_MAX);
     }
 
     public function testRejectsEncryptionInfoWithUnexpectedNamespace(): void

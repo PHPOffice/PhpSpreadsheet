@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use Composer\Pcre\Preg;
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -70,9 +71,21 @@ class Xlsx extends BaseReader
 
     private string $encryptionPassword = '';
 
+    private int $maxEncryptionSpinCount = AgileEncryption::MAX_SPIN_COUNT;
+
     public function setEncryptionPassword(string $encryptionPassword): self
     {
         $this->encryptionPassword = $encryptionPassword;
+
+        return $this;
+    }
+
+    public function setMaxEncryptionSpinCount(int $maxEncryptionSpinCount): self
+    {
+        if ($maxEncryptionSpinCount < 0 || $maxEncryptionSpinCount > AgileEncryption::MAX_SPIN_COUNT) {
+            throw new InvalidArgumentException('Maximum encryption spin count must be between 0 and ' . AgileEncryption::MAX_SPIN_COUNT . '.');
+        }
+        $this->maxEncryptionSpinCount = $maxEncryptionSpinCount;
 
         return $this;
     }
@@ -174,7 +187,7 @@ class Xlsx extends BaseReader
             $ole->copyDataByName('EncryptedPackage', $encryptedPackage);
             fclose($encryptedPackage);
             $encryptedPackage = null;
-            AgileEncryption::decryptFile(AgileEncryption::parse($encryptionInfo), $encryptedPackageFilename, $temporaryFilename, $this->encryptionPassword);
+            AgileEncryption::decryptFile(AgileEncryption::parse($encryptionInfo, $this->maxEncryptionSpinCount), $encryptedPackageFilename, $temporaryFilename, $this->encryptionPassword);
         } catch (Throwable $e) {
             if ($encryptedPackage !== null) {
                 fclose($encryptedPackage);

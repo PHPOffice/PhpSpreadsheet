@@ -12,6 +12,8 @@ use Throwable;
 /** ECMA-376 Agile Encryption (AES-256/SHA-512 profile). */
 final class AgileEncryption
 {
+    public const MAX_SPIN_COUNT = 10000000;
+
     private const BLOCK_KEY_VERIFIER = "\xFE\xA7\xD2\x76\x3B\x4B\x9E\x79";
 
     private const BLOCK_KEY_VERIFIER_HASH = "\xD7\xAA\x0F\x6D\x30\x61\x34\x4E";
@@ -101,7 +103,7 @@ final class AgileEncryption
     /**
      * @return array{keyDataSalt: string, passwordSalt: string, encryptedVerifier: string, encryptedVerifierHash: string, encryptedKey: string, encryptedHmacKey: string, encryptedHmacValue: string, spinCount: int, keyBits: int, hashAlgorithm: string, hashSize: int}
      */
-    public static function parse(string $encryptionInfo): array
+    public static function parse(string $encryptionInfo, int $maxSpinCount = self::MAX_SPIN_COUNT): array
     {
         if (substr($encryptionInfo, 0, 8) !== "\x04\x00\x04\x00\x40\x00\x00\x00") {
             throw new Exception('Unsupported XLSX encryption profile.');
@@ -144,7 +146,7 @@ final class AgileEncryption
             || (string) $encryptedKey['cipherAlgorithm'] !== 'AES'
             || (string) $encryptedKey['cipherChaining'] !== 'ChainingModeCBC'
             || (string) $encryptedKey['hashAlgorithm'] !== $hashAlgorithm || $encryptedKeySaltSize !== 16 || $encryptedKeyBlockSize !== 16 || $encryptedKeyBits !== $keyBits
-            || $encryptedKeyHashSize !== $hashSize || $spinCount > 10000000
+            || $encryptedKeyHashSize !== $hashSize || $spinCount > min($maxSpinCount, self::MAX_SPIN_COUNT)
             || (string) $keyEncryptor['uri'] !== self::PASSWORD_KEY_ENCRYPTOR_URI
         ) {
             throw new Exception('Unsupported XLSX encryption profile.');
@@ -279,7 +281,7 @@ final class AgileEncryption
         if ($password === '') {
             throw new Exception('XLSX encryption password required.');
         }
-        if (!self::isSupportedProfile($keyBits, $hashAlgorithm, self::HASH_ALGORITHMS[$hashAlgorithm][1] ?? 0) || $spinCount < 0 || $spinCount > 10000000) {
+        if (!self::isSupportedProfile($keyBits, $hashAlgorithm, self::HASH_ALGORITHMS[$hashAlgorithm][1] ?? 0) || $spinCount < 0 || $spinCount > self::MAX_SPIN_COUNT) {
             throw new Exception('Unsupported XLSX encryption profile.');
         }
 
@@ -333,7 +335,7 @@ final class AgileEncryption
         if ($password === '') {
             throw new Exception('XLSX encryption password required.');
         }
-        if (!self::isSupportedProfile($keyBits, $hashAlgorithm, self::HASH_ALGORITHMS[$hashAlgorithm][1] ?? 0) || $spinCount < 0 || $spinCount > 10000000) {
+        if (!self::isSupportedProfile($keyBits, $hashAlgorithm, self::HASH_ALGORITHMS[$hashAlgorithm][1] ?? 0) || $spinCount < 0 || $spinCount > self::MAX_SPIN_COUNT) {
             throw new Exception('Unsupported XLSX encryption profile.');
         }
         $size = @filesize($plainPackageFilename);
