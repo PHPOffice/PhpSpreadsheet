@@ -134,12 +134,7 @@ flag. And then serve them via PHP built-in webserver:
 ```sh
 php -S localhost:8000 -t vendor/phpoffice/phpspreadsheet/samples
 ```
-
-Then point your browser to:
-
-```
-http://localhost:8000/
-```
+Then point your browser to <http://localhost:8000/>
 
 The samples may also be run directly from the command line, for example:
 
