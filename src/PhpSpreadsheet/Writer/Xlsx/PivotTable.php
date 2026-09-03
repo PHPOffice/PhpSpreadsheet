@@ -20,6 +20,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable as WorksheetPivotTa
 class PivotTable
 {
     /**
+     * Excel's own ceiling on the number of items in a single pivot field.
+     * Emitting more than this produces a file Excel refuses to open, so a
+     * grouping that would exceed it is clamped rather than written out.
+     */
+    private const MAX_GROUP_ITEMS = 1048576;
+
+    /**
      * Build the pivotTableDefinition part.
      *
      * @param int $cacheId the workbook-level cache id referenced by this table
@@ -62,7 +69,12 @@ class PivotTable
 
         self::writePivotFields($objWriter, $pivotTable);
         self::writeAxisFields($objWriter, 'rowFields', $pivotTable->getRowFields());
+        // rowItems must accompany rowFields: the schema makes the item list
+        // mandatory whenever an axis declares fields, and Excel discards the
+        // whole pivot table when it is missing.
+        self::writeAxisItems($objWriter, 'rowItems', $pivotTable->getRowFields());
         self::writeAxisFields($objWriter, 'colFields', $pivotTable->getColumnFields());
+        self::writeAxisItems($objWriter, 'colItems', $pivotTable->getColumnFields());
         self::writePageFields($objWriter, $pivotTable->getPageFields());
         self::writeDataFields($objWriter, $pivotTable);
 
@@ -188,11 +200,7 @@ class PivotTable
 
         // Group items: "<lower>-<upper>" buckets plus the sentinel bounds Excel
         // expects (values below the start and above the end).
-        $buckets = [];
-        for ($lower = $start; $lower < $end; $lower += $interval) {
-            $upper = min($lower + $interval, $end);
-            $buckets[] = self::num($lower) . '-' . self::num($upper);
-        }
+        $buckets = self::numericGroupBuckets($start, $end, $interval);
         $objWriter->startElement('groupItems');
         $objWriter->writeAttribute('count', (string) (count($buckets) + 2));
         self::writeGroupItem($objWriter, '<' . self::num($start));
@@ -285,6 +293,40 @@ class PivotTable
     }
 
     /**
+     * Build the "<lower>-<upper>" bucket labels for a numeric field group.
+     *
+     * This is the single source of truth for how a numeric grouping is
+     * enumerated: both the <groupItems> in the cache definition and the
+     * <items> in the pivot field are derived from it, so the two counts
+     * cannot drift apart.
+     *
+     * The bucket index is computed from $start rather than accumulated, so a
+     * fractional interval cannot drift through repeated addition.
+     *
+     * @return string[]
+     */
+    private static function numericGroupBuckets(float $start, float $end, float $interval): array
+    {
+        if ($interval <= 0.0 || $end <= $start) {
+            return [];
+        }
+
+        $count = (int) ceil(($end - $start) / $interval);
+        if ($count > self::MAX_GROUP_ITEMS) {
+            $count = self::MAX_GROUP_ITEMS;
+        }
+
+        $buckets = [];
+        for ($i = 0; $i < $count; ++$i) {
+            $lower = $start + ($i * $interval);
+            $upper = min($start + (($i + 1) * $interval), $end);
+            $buckets[] = self::num($lower) . '-' . self::num($upper);
+        }
+
+        return $buckets;
+    }
+
+    /**
      * Format a float without a trailing ".0" for whole numbers.
      */
     private static function num(float $value): string
@@ -355,6 +397,7 @@ class PivotTable
     private static function writePivotFields(XMLWriter $objWriter, WorksheetPivotTable $pivotTable): void
     {
         $fields = $pivotTable->getFields();
+        $cache = $pivotTable->getCacheDefinition();
         $objWriter->startElement('pivotFields');
         $objWriter->writeAttribute('count', (string) count($fields));
 
@@ -366,9 +409,15 @@ class PivotTable
             } elseif ($field->getAxis() !== PivotField::AXIS_NONE) {
                 $objWriter->writeAttribute('axis', $field->getAxis());
                 $objWriter->writeAttribute('showAll', '0');
-                // items are rebuilt on refresh; emit the default placeholder.
+
+                $itemCount = self::getFieldItemCount($cache, $field->getName());
                 $objWriter->startElement('items');
-                $objWriter->writeAttribute('count', '1');
+                $objWriter->writeAttribute('count', (string) ($itemCount + 1));
+                for ($i = 0; $i < $itemCount; ++$i) {
+                    $objWriter->startElement('item');
+                    $objWriter->writeAttribute('x', (string) $i);
+                    $objWriter->endElement();
+                }
                 $objWriter->startElement('item');
                 $objWriter->writeAttribute('t', 'default');
                 $objWriter->endElement();
@@ -380,6 +429,33 @@ class PivotTable
         }
 
         $objWriter->endElement();
+    }
+
+    private static function getFieldItemCount(?PivotCacheDefinition $cache, string $fieldName): int
+    {
+        if ($cache === null) {
+            return 0;
+        }
+
+        $group = $cache->getFieldGroup($fieldName);
+        if ($group !== null) {
+            if ($group->isDate()) {
+                $groupByUnits = $group->getGroupBy() === [] ? [PivotFieldGroup::GROUP_BY_MONTHS] : $group->getGroupBy();
+                $groupBy = $groupByUnits[0];
+
+                return count(self::dateGroupItems($groupBy));
+            }
+
+            $start = $group->getStartNum() ?? 0.0;
+            $end = $group->getEndNum() ?? ($start + $group->getInterval());
+            $interval = $group->getInterval() > 0 ? $group->getInterval() : 1.0;
+
+            // +2 for the "<start" and ">end" sentinel bounds that
+            // writeNumericGroup always emits alongside the buckets.
+            return count(self::numericGroupBuckets($start, $end, $interval)) + 2;
+        }
+
+        return min(count($cache->getSharedItems($fieldName)), self::MAX_GROUP_ITEMS);
     }
 
     /**
@@ -399,6 +475,38 @@ class PivotTable
             $objWriter->endElement();
         }
         $objWriter->endElement();
+    }
+
+    /**
+     * Emit the <rowItems>/<colItems> list that accompanies an axis.
+     *
+     * The real item rows are rebuilt when the application refreshes the pivot
+     * table, so only the grand-total entry is written here. That is the
+     * minimum the schema accepts: a single <i> carrying one <x/> per axis
+     * field, marked as the grand total.
+     *
+     * @param PivotField[] $fields
+     */
+    private static function writeAxisItems(XMLWriter $objWriter, string $element, array $fields): void
+    {
+        if ($fields === []) {
+            return;
+        }
+
+        $objWriter->startElement($element);
+        $objWriter->writeAttribute('count', '1');
+
+        $objWriter->startElement('i');
+        $objWriter->writeAttribute('t', 'grand');
+        // One <x/> per field on the axis; the grand-total row has no
+        // meaningful item index, so the default (0) is written.
+        foreach ($fields as $ignored) {
+            $objWriter->startElement('x');
+            $objWriter->endElement();
+        }
+        $objWriter->endElement(); // i
+
+        $objWriter->endElement(); // rowItems/colItems
     }
 
     /**
