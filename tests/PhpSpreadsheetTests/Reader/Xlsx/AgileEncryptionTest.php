@@ -298,6 +298,27 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testDecryptFileDoesNotTruncateOutputWhenPasswordIsIncorrect(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
+        $inputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-input-');
+        $outputFilename = tempnam(sys_get_temp_dir(), 'phpspreadsheet-output-');
+        self::assertNotFalse($inputFilename);
+        self::assertNotFalse($outputFilename);
+        file_put_contents($inputFilename, $package['encryptedPackage']);
+        file_put_contents($outputFilename, 'preserve this content');
+
+        try {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('XLSX encryption password is incorrect');
+            AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), $inputFilename, $outputFilename, 'wrong');
+        } finally {
+            self::assertSame('preserve this content', file_get_contents($outputFilename));
+            unlink($inputFilename);
+            unlink($outputFilename);
+        }
+    }
+
     public function testDecryptFileClosesInputWhenOutputCannotBeOpened(): void
     {
         $package = AgileEncryption::encrypt('package', 'password', 128, 'SHA1', 10);
@@ -327,12 +348,14 @@ class AgileEncryptionTest extends TestCase
         self::assertNotFalse($inputFilename);
         self::assertNotFalse($outputFilename);
         file_put_contents($inputFilename, $package['encryptedPackage']);
+        file_put_contents($outputFilename, 'preserve this content');
 
         try {
             $this->expectException(Exception::class);
             $this->expectExceptionMessage('integrity check failed');
             AgileEncryption::decryptFile(AgileEncryption::parse($package['encryptionInfo']), $inputFilename, $outputFilename, 'password');
         } finally {
+            self::assertSame('preserve this content', file_get_contents($outputFilename));
             unlink($inputFilename);
             unlink($outputFilename);
         }

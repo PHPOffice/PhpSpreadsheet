@@ -230,12 +230,6 @@ final class AgileEncryption
         if ($input === false) {
             throw new Exception('Could not open XLSX package for decryption.');
         }
-        $output = @fopen($outputFilename, 'wb');
-        if ($output === false) {
-            fclose($input);
-
-            throw new Exception('Could not open XLSX package for decryption.');
-        }
 
         try {
             $hash = self::passwordHash($password, $info['passwordSalt'], $info['spinCount'], $info['hashAlgorithm']);
@@ -249,21 +243,29 @@ final class AgileEncryption
                 throw new Exception('Malformed XLSX encryption information.');
             }
             self::verifyIntegrityFile($info, $secretKey, $input);
-            rewind($input);
-            $size = self::unpackSize(self::read($input, 8));
-            for ($block = 0; $size > 0; ++$block) {
-                $length = min(self::SEGMENT_SIZE, $size);
-                $cipher = self::read($input, self::paddedLength($length));
-                $iv = self::iv($info['keyDataSalt'], pack('V', $block), $info['hashAlgorithm']);
-                self::write($output, substr(self::aesDecrypt($cipher, $secretKey, $iv, $info['keyBits']), 0, $length));
-                $size -= $length;
+            $output = @fopen($outputFilename, 'wb');
+            if ($output === false) {
+                throw new Exception('Could not open XLSX package for decryption.');
             }
-            if (fread($input, 1) !== '') {
-                throw new Exception('Malformed encrypted XLSX package.');
+            rewind($input);
+
+            try {
+                $size = self::unpackSize(self::read($input, 8));
+                for ($block = 0; $size > 0; ++$block) {
+                    $length = min(self::SEGMENT_SIZE, $size);
+                    $cipher = self::read($input, self::paddedLength($length));
+                    $iv = self::iv($info['keyDataSalt'], pack('V', $block), $info['hashAlgorithm']);
+                    self::write($output, substr(self::aesDecrypt($cipher, $secretKey, $iv, $info['keyBits']), 0, $length));
+                    $size -= $length;
+                }
+                if (fread($input, 1) !== '') {
+                    throw new Exception('Malformed encrypted XLSX package.');
+                }
+            } finally {
+                fclose($output);
             }
         } finally {
             fclose($input);
-            fclose($output);
         }
     }
 
