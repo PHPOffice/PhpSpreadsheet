@@ -1,0 +1,17 @@
+pygments css files are generated via command line (from root):
+pygmentize -S themename -f html -a .highlight >docs/extra/themename.css
+
+Theme names "emacs" and "friendly" are okay in both light/dark modes.
+They can be added to material.mkdocs.yaml as a single file.
+
+However, per https://pygments.org/styles/,
+"those styles might be "difficult to read for people with suboptimal vision".
+
+As an alternative,
+we can generate a light format with sufficient contrast using "default" style,
+and a dark format with sufficient contrast using "lightbulb" format.
+I then need to wrap the default css with:
+[data-md-color-scheme="default"] {...rest of member...}
+Likewise for the lightbulb css:
+[data-md-color-scheme="slate"] {...rest of member...}
+You can then add both files to material.mkdocs.yaml.

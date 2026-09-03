@@ -207,6 +207,7 @@ a floating point value in Excel timestamp format (previous paragraph).
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling:
+
 ```php
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate); // static property, less preferred
 $spreadsheet->setExcelCalendar($baseDate); // instance property, preferred
@@ -221,6 +222,7 @@ The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
 The current value of this setting can be determined via:
+
 ```php
 $baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar(); // static
 $baseDate = $spreadsheet->getExcelCalendar(); // instance
@@ -1893,14 +1895,6 @@ objects, or dates represented as strings.
 
 The number of working days between startDate and endDate.
 
-##### Examples
-
-```php
-```
-
-```php
-```
-
 ##### Notes
 
 There are no additional notes on this function
@@ -1925,14 +1919,6 @@ time.
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 `\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
-
-##### Examples
-
-```php
-```
-
-```php
-```
 
 ##### Notes
 

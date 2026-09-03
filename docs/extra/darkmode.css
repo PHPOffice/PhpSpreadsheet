@@ -1,0 +1,24 @@
+/*
+Source - https://stackoverflow.com/a/64257055
+Posted by hackape
+Retrieved 2026-08-24, License - CC BY-SA 4.0
+*/
+
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(100%);
+  }
+
+  /* double apply invert filter to cancel out effect on images */
+  img:not([alt="Logo"]) {
+    filter: invert(100%);
+  }
+  
+/* Dark mode (slate scheme) alternating rows */
+table tr:nth-child(2n) {background-color: #c0c0c0;}
+}
+
+@media (prefers-color-scheme: light) {
+/* Dark mode (slate scheme) alternating rows */
+[data-md-color-scheme="slate"] table tr:nth-child(2n) {background-color: #c0c0c0;}
+}

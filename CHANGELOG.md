@@ -23,6 +23,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Changed
 
 - Performance: avoid `Worksheet::getStyle()` on every `Cell::setValueExplicit()` unless quote-prefix must change. On a dense 40k-cell populate+save microbenchmark this cut wall time by ~5%. [PR #4958](https://github.com/PHPOffice/PhpSpreadsheet/pull/4958)
+- Infrastructure changes for documentation. [PR #4973](https://github.com/PHPOffice/PhpSpreadsheet/pull/4973)
 
 ### Moved
 

@@ -1,0 +1,23 @@
+/* Style the injected copy button inside code wrappers */
+
+.copy-code-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #333;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 10;
+}
+
+.copy-code-button:hover {
+    opacity: 1;
+    background-color: #e0e0e0;
+}
+

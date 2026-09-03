@@ -4,7 +4,7 @@ repo_url: https://github.com/PHPOffice/phpspreadsheet
 #repo_name: PhpSpreadsheet
 #edit_uri: edit/master/docs/
 
-theme:
+theme: 
   name: readthedocs
 extra_css:
     - extra/extra.css

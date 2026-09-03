@@ -155,6 +155,7 @@ and that is the "Active" Worksheet.
 ![101-Active-Worksheet-1.png](images%2F101-Active-Worksheet-1.png)
 
 This is the same as
+
 ```php
 $spreadsheet = new Spreadsheet();
 $activeWorksheet = $spreadsheet->getActiveSheet();
@@ -170,6 +171,7 @@ To create a new Worksheet in MS Excel, you click on the "+" button in the Worksh
 Excel always shows the "Active" Worksheet in the Grid, and you can see which Worksheet is "Active" because it is highlighted in the Worksheet Tab Bar at the bottom of the Worksheet Grid.
 
 This is the same as
+
 ```php
 $activeWorksheet = $spreadsheet->createSheet();
 ```
@@ -192,6 +194,7 @@ $activeWorksheet = $spreadsheet->setActiveSheetIndexByName('Sheet1')
 using the name/title of the Worksheet that you want as the "Active" Worksheet.
 
 Or:
+
 ```php
 $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
 ```
@@ -202,6 +205,7 @@ And you can then write values to Cells in `$activeWorksheet` (`Sheet1`) again.
 
 You don't have to assign the return value from calls to `createSheet()` and `setActiveSheetIndex()` to a variable, but it means that you can call Worksheet methods directly against `$activeWorksheet`, rather than having to call `$spreadsheet->getActiveSheet()` all the time.
 And, unlike MS Excel where you can only update Cells in the "Active" Worksheet; PhpSpreadsheet allows you to update Cells in any Worksheet:
+
 ```php
 // Create a Spreadsheet, with Worksheet Sheet1, which is the Active Worksheet
 $spreadsheet = new Spreadsheet();
@@ -380,6 +384,7 @@ $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 
 With version 3.0.0 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
 **It is an opt-in feature.** You need to enable it with the following code:
+
 ```php
 // preferred method
 \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance($spreadsheet)
@@ -398,6 +403,7 @@ As a basic example, let's look at a receipt for buying some fruit:
 ![12-CalculationEngine-Basic-Formula.png](./images/12-CalculationEngine-Basic-Formula.png)
 
 We can provide a "Cost" formula for each row of the receipt by multiplying the "Quantity" (column `B`) by the "Price" (column `C`); so for the "Apples" in row `2` we enter the formula `=$B2*$C2`. In PhpSpreadsheet, we would set this formula in cell `D2` using:
+
 ```php
 $spreadsheet->getActiveSheet()->setCellValue('D2','=$B2*$C2');
 ```
@@ -407,7 +413,8 @@ To calculate the "Total", we would use a different formula, telling it to calcul
 
 ![12-CalculationEngine-Basic-Formula-2.png](./images/12-CalculationEngine-Basic-Formula-2.png)
 
-I'd imagine that most developers are familiar with this: we're setting a formula that uses an Excel function (the `SUM()` function) and specifying a range of cells to include in the sum (`$D$2:$D6`) 
+I'd imagine that most developers are familiar with this: we're setting a formula that uses an Excel function (the `SUM()` function) and specifying a range of cells to include in the sum (`$D$2:$D6`)
+
 ```php
 $spreadsheet->getActiveSheet()->setCellValue('D7','=SUM($D$2:$D6');
 ```
@@ -423,6 +430,7 @@ PhpSpreadsheet will attempt to behave like the recent releases.**
 Or to identify the biggest increase in like-for-like sales from one month to the next:
 
 ![12-CalculationEngine-Array-Formula-3.png](./images/12-CalculationEngine-Array-Formula-3.png)
+
 ```php
 $spreadsheet->getActiveSheet()->setCellValue('F1','=MAX(B2:B6-C2:C6)');
 ```
@@ -441,6 +449,7 @@ Once we've selected all the cells to hold our data, then we enter the formula `T
 Note also that we still set this as the formula for the top-left cell of that range, cell `A10`.
 
 Simply setting an array formula in a cell and specifying the range won't populate the spillage area for that formula.
+
 ```php
 $spreadsheet->getActiveSheet()
     ->setCellValue(
@@ -451,12 +460,14 @@ $spreadsheet->getActiveSheet()
 $result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
 ```
 To do that, we need to retrieve the calculated value for the cell.
+
 ```php
 $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
 // Will return 9, because the formula for A1 has now been calculated, and the spillage area is populated 
 $result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
 ```
 If returning arrays has been enabled, `getCalculatedValue` will return an array when appropriate, and will populate the spill range. If returning arrays has not been enabled, when we call `getCalculatedValue()` for a cell that contains an array formula, PhpSpreadsheet will return the single value from the topmost leftmost cell, and will leave other cells unchanged.
+
 ```php
 // Will return integer 1, the value for that cell within the array
 $a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
@@ -493,6 +504,7 @@ In this case, we're taking the absolute value of each cell in that range, and ad
 PhpSpreadsheet supports entry of a formula like this using the Spill operator. Alternatively, MS Excel internally implements the Spill Operator as a function (`ANCHORARRAY()`). MS Excel itself doesn't allow you to use this function in a formula, you have to use the "Spill" operator; but PhpSpreadsheet does allow you to use this internal Excel function. PhpSpreadsheet will convert the spill operator to ANCHORARRAY on write (so it may appear that your formula has changed, but it hasn't really); it is not necessary to convert it back on read.
 
 To create this same function in PhpSpreadsheet, use:
+
 ```php
 $spreadsheet->getActiveSheet()->setCellValue('D1','=SUM(ABS(ANCHORARRAY(A1)))');
 ```
@@ -506,6 +518,7 @@ If you want to reference just the first cell of an array formula within another 
 ### Updating Cell in Spill Area
 
 Excel prevents you from updating a cell in the spill area. PhpSpreadsheet does not - it seems like it might be quite expensive, needing to reevaluate the entire worksheet with each `setValue`. PhpSpreadsheet does provide a method to be used prior to calling `setValue` if desired.
+
 ```php
 $sheet->setCellValue('A1', '=SORT{7;5;1}');
 $sheet->getCell('A1')->getCalculatedValue(); // populates A1-A3
@@ -655,6 +668,7 @@ Excel automatically supplies a special style when a hyperlink is
 entered into a cell. PhpSpreadsheet cannot do so. However,
 starting with release 4.3,
 you can mimic Excel's behavior with:
+
 ```php
 $spreadsheet->getActiveSheet()
     ->getStyle('E26')
@@ -683,6 +697,7 @@ the [API documentation](https://phpoffice.github.io/PhpSpreadsheet) for all poss
 
 The default papersize is initially PAPERSIZE_LETTER. However, this default
 can be changed for new sheets with the following call:
+
 ```php
 \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setPaperSizeDefault(
     \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4
@@ -690,6 +705,7 @@ can be changed for new sheets with the following call:
 ```
 
 The default orientation is ORIENTATION_DEFAULT, which will be treated as Portrait in Excel. However, this default can be changed for new sheets with the following call:
+
 ```php
 \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setOrientationDefault(
     \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE
@@ -768,6 +784,7 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()
 
 <a id='setDifferent'></a>
 Notice the use of `oddHeader/Footer` above. This is, by default, the header used on all pages, not just the odd-numbered pages. You can specify a different header/footer for the first page and/or for even-numbered pages.
+
 ```php
 $spreadsheet->getActiveSheet()->getHeaderFooter()
     ->setDifferentFirst(true);
@@ -1012,7 +1029,7 @@ styles in your workbook.
 You can perform the opposite function, exporting a Style as an array,
 as follows:
 
-``` php
+```php
 $styleArray = $spreadsheet->getActiveSheet()->getStyle('A3')->exportArray();
 ```
 
@@ -1122,6 +1139,7 @@ $spreadsheet->getDefaultStyle()->getFont()->setScheme('minor');
 ```
 
 All cells bound to the theme fonts (via the `Font::setScheme` method) can be easily changed to a different font in Excel. To do this in PhpSpreadsheet, an additional method call is needed:
+
 ```php
 $spreadsheet->resetThemeFonts();
 ```
@@ -1363,6 +1381,7 @@ The basics are the same as conditional formatting.
 Additional DataBar object to conditional formatting.
 
 For example, the following code will result in the conditional formatting shown in the image.
+
 ```php
 $conditional = new Conditional();
 $conditional->setConditionType(Conditional::CONDITION_DATABAR);
@@ -1504,6 +1523,7 @@ Note that allowing sort without providing the sheet password
 (similarly with autoFilter) requires that you explicitly
 enable the cell ranges for which sort is permitted,
 with or without a range password:
+
 ```php
 $sheet->protectCells('A:A'); // column A can be sorted without password
 $sheet->protectCells('B:B', 'sortpw'); // column B can be sorted if the range password sortpw is supplied
@@ -1545,7 +1565,6 @@ order to read a protected file.
 
 However if you need to implement a password verification mechanism, you can use the
 following helper method:
-
 
 ```php
 $protection = $spreadsheet->getActiveSheet()->getProtection();
@@ -1627,6 +1646,7 @@ $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validati
 ```
 
 Alternatively, one can apply the validation to a range of cells:
+
 ```php
 $validation->setSqref('B5:B1048576');
 ```
@@ -1646,6 +1666,7 @@ whichever appears first in the Xml is what Xml uses.
 PhpSpreadsheet will instead apply a DatValidation applying to a single cell first;
 then, if it doesn't find such a match, it will use the first applicable definition which is read (or created after or in lieu of reading).
 This allows you, for example, to set Data Validation on all but a few cells in a column:
+
 ```php
 $dv = new DataValidation();
 $dv->setType(DataValidation::TYPE_NONE);
@@ -1778,6 +1799,7 @@ Setting the row height to `-1` tells MS Excel to display the column using its de
 If you have wrapped text in a cell, then the `-1` default will only set the row height to display a single line of that wrapped text.
 If you need to calculate the actual height for the row, then count the lines that should be displayed (count the `\n` and add 1); then adjust for the font.
 The adjustment for Calibri 11 is approximately 14.5; for Calibri 12 15.9, etc.
+
 ```php
 $spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(
     14.5 * (substr_count($sheet->getCell('A1')->getValue(), "\n") + 1)
@@ -1912,6 +1934,7 @@ code inserts 2 new rows, right before row 7:
 $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
 while
+
 ```php
 $spreadsheet->getActiveSheet()->removeRow(7, 2);
 ```

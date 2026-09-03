@@ -64,6 +64,7 @@ However, this function maintains its information at the process level, not the t
 and its use is therefore discouraged.
 
 A less-troublesome replacement is available starting with PhpSpreadsheet 5.4.
+
 ```php
 $result = StringHelper::setLocale('pt_br'); // will restore defaults if argument is null
 ```

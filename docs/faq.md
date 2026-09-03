@@ -58,5 +58,4 @@ for more details.
 
 ## I cannot json_encode my Spreadsheet
 
-No, you can't. No use case has been proposed for it. However,
-standard Php serialization is now permitted.
+No, you can't. No use case has been presented for allowing it. You are allowed to use Php serialize on the spreadsheet.

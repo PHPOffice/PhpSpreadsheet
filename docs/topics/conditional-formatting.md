@@ -92,6 +92,7 @@ $conditionalStyles[] = $conditional2;
 $spreadsheet->getActiveSheet()->getStyle('A1:A10')->setConditionalStyles($conditionalStyles);
 ```
 or again, using the Wizard:
+
 ```php
 $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('A1:A10');
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
@@ -218,6 +219,7 @@ $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizar
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
 ```
 You can, of course, instantiate the Wizard that you want directly, rather than using the factory; but still remember to pass in the cell range.
+
 ```php
 $wizard = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\CellValue('C3:E5');
 ```
@@ -248,26 +250,31 @@ A single operator call is required for every rule (except `between()` and `notBe
 The values that we need to provide for each operator can be numeric, boolean or string literals (even NULL); cell references; or formulae.
 
 So to set the rule using an operator, we would make a call like:
+
 ```php
 $wizard->lessThan(10);
 ```
 or when setting a `between()` or `notBetween()` rule, we can make use of the fluent interface with the `and()` method to set the range of values:
+
 ```php
 $wizard->between(-10)->and(10);
 ```
 Providing a second value using `and()` is mandatory for a `between()` or `notBetween()` range.
 
 To retrieve the Conditional, to add it to our `$conditionalStyles` array, we call the Wizard's `getConditional()` method.
+
 ```php
 $conditional = $wizard->getConditional();
 $conditionalStyles = [$conditional];
 ```
 or simply
+
 ```php
 $conditionalStyles[] = $wizard->getConditional();
 ```
 
 Putting it all together, we can use a block of code like (using pre-defined Style objects):
+
 ```php
 $cellRange = 'A2:E5';
 $conditionalStyles = [];
@@ -387,6 +394,7 @@ Conditional::CONDITION_ENDSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_END
 The Conditional actually uses a separate "Condition Type" for each option, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these conditional rules.
 
 To create a Conditional rule manually, you would need to do something like:
+
 ```php
 $cellRange = 'A14:B16';
 $conditionalStyles = [];
@@ -479,6 +487,7 @@ The Conditional has no actual "Operator Type", and the condition/value should be
 The above image shows a grid that demonstrate each of the possible Date Occurring rules, and was generated using [the code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/05_Date_Comparisons.php#L118 "Conditional Formatting - Dates Occurring Comparisons")
 
 Typical sample code wod look something like:
+
 ```php
 $wizardFactory = new Wizard("E2:E19");
 /** @var Wizard\DateValue $dateWizard */
@@ -531,7 +540,8 @@ Conditional::CONDITION_NOTCONTAINSBLANKS | Wizard::NOT_BLANKS | - | notBlank()| 
 | | | isEmpty() | Synonym for `isBlank()`
 | | | notEmpty() | Synonym for `notBlank()`
 
-The following code shows the same Blanks Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.  
+The following code shows the same Blanks Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
+ 
 ```php
 $cellRange = 'A2:B3';
 $conditionalStyles = [];
@@ -579,6 +589,7 @@ Conditional::CONDITION_NOTCONTAINSERRORS | Wizard::NOT_ERRORS | - | notError()| 
 | | | isError()
 
 The following code shows the same Errors Wizard being used to create both Error and Non-Error Conditionals, using a pre-defined `$redStyle` Style object for Errors, and a pre-defined `$greenStyle` Style object for Non-Errors.
+
 ```php
 $cellRange = 'C2:C6';
 $conditionalStyles = [];
@@ -628,6 +639,7 @@ Conditional::CONDITION_UNIQUE | Wizard::UNIQUE | - | unique()| Default state
 | | | duplicates()
 
 The following code shows the same Duplicates Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
+
 ```php
 $cellRange = 'A2:E6';
 $conditionalStyles = [];
@@ -663,6 +675,7 @@ Conditional::CONDITION_EXPRESSION | Wizard::EXPRESSION or Wizard::FORMULA | - | 
  | | | | formula() | Synonym for `expression()`
 
 Just as a simple example, here's a code snippet demonstrating expressions to determine if a cell contains an odd or an even number value:
+
 ```php
 $cellRange = 'A2:C11';
 $conditionalStyles = [];
@@ -711,6 +724,7 @@ This example can also be found in the [code samples](https://github.com/PHPOffic
 ![11-15-CF-Expression-Sales-Grid-1.png](./images/11-15-CF-Expression-Sales-Grid-1.png)
 
 Or we could apply multiple comparisons in the same expression, so to check for all sales for the "USA" region in "Q4", combining them using an Excel `AND()`:
+
 ```php
 $expressionWizard->expression('AND($C1="USA",$D1="Q4")')
     ->setStyle($greenStyleMoney);
@@ -724,11 +738,13 @@ This example can also be found in the [code samples](https://github.com/PHPOffic
 ### Stop If True, and No Format Set
 
 Normally, Excel continues to check even after it finds a match. To tell it to stop once a match is found, 'stop if true' should be specified:
+
 ```php
 $conditional->setStopIfTrue(true);
 ```
 
 Sometimes you want a matched cell to just show its unconditional format. This is most useful in conjunction with 'stop if true'.
+
 ```php
 $conditional->setNoFormatSet(true);
 ```
@@ -780,7 +796,8 @@ $newConditional = $wizard->getConditional();
 ```
 This is ok if you know what type of Conditional you want to convert; but it will throw an Exception if the Conditional is not of an appropriate type (ie. not a `cellIs`).
 
-If you don't know what type of Conditional it is, then it's better to use the Wizard Factory `fromConditional()` method instead; and then test what type of Wizard object is returned: 
+If you don't know what type of Conditional it is, then it's better to use the Wizard Factory `fromConditional()` method instead; and then test what type of Wizard object is returned:
+ 
 ```php
 $wizard = Wizard::fromConditional($conditional, '$A$3:$E$8');
 if ($wizard instanceof Wizard\CellValue) {
