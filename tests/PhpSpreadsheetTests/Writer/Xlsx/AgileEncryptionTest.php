@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 class AgileEncryptionTest extends TestCase
 {
@@ -66,28 +65,20 @@ class AgileEncryptionTest extends TestCase
     private static function directoryLinks(string $filename, int $entryId): array
     {
         $container = file_get_contents($filename);
-        if ($container === false) {
-            throw new RuntimeException('Could not read CFB container.');
-        }
+        self::assertNotFalse($container);
         $directorySector = unpack('Vsector', substr($container, 48, 4));
-        if ($directorySector === false) {
-            throw new RuntimeException('Could not read CFB directory location.');
-        }
+        self::assertNotFalse($directorySector);
         $sector = $directorySector['sector'] ?? null;
-        if (!is_int($sector)) {
-            throw new RuntimeException('Invalid CFB directory location.');
-        }
+        self::assertIsInt($sector);
         $offset = ($sector + 1) * 512 + $entryId * 128;
         $links = unpack('Vleft/Vright/Vchild', substr($container, $offset + 68, 12));
-        if ($links === false) {
-            throw new RuntimeException('Could not read CFB directory entry.');
-        }
+        self::assertNotFalse($links);
         $left = $links['left'] ?? null;
         $right = $links['right'] ?? null;
         $child = $links['child'] ?? null;
-        if (!is_int($left) || !is_int($right) || !is_int($child)) {
-            throw new RuntimeException('Invalid CFB directory entry.');
-        }
+        self::assertIsInt($left);
+        self::assertIsInt($right);
+        self::assertIsInt($child);
 
         return ['color' => ord($container[$offset + 67]), 'left' => $left, 'right' => $right, 'child' => $child];
     }
