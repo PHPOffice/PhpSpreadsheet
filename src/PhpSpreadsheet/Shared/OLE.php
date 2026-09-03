@@ -492,6 +492,20 @@ class OLE
     }
 
     /**
+     * Check whether a named file stream exists without reading its contents.
+     */
+    public function hasDataByName(string $name): bool
+    {
+        foreach ($this->_list as $pps) {
+            if ($pps->Type === self::OLE_PPS_TYPE_FILE && $pps->Name === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Copy a named file stream to an open output handle without loading a
      * large stream into memory.
      *

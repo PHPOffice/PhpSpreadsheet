@@ -139,10 +139,8 @@ class Xlsx extends BaseReader
         try {
             $ole = new OLE();
             $ole->read($filename);
-            $ole->getDataByName('EncryptionInfo');
-            $ole->getDataByName('EncryptedPackage');
 
-            return true;
+            return $ole->hasDataByName('EncryptionInfo') && $ole->hasDataByName('EncryptedPackage');
         } catch (Throwable) {
             return false;
         }

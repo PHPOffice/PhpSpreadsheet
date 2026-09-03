@@ -69,6 +69,8 @@ class OLETest extends TestCase
         self::assertSame('', $ole->getData(2, 5000, 4), 'position > length');
         self::assertSame('feff0000', bin2hex($ole->getData(2, 0, 4)));
         self::assertSame('', $ole->getData(4, 0, 4), 'no such index');
+        self::assertTrue($ole->hasDataByName('Workbook'));
+        self::assertFalse($ole->hasDataByName('Missing'));
     }
 
     public function testBadEndian(): void
