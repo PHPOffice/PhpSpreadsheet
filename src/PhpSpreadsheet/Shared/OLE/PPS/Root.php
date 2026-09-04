@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
@@ -30,14 +31,22 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  */
 class Root extends PPS
 {
+    private const BIG_BLOCK_SIZE = 512;
+
+    private const SMALL_BLOCK_SIZE = 64;
+
+    private const MAX_VERSION_3_STREAM_SIZE = 0x80000000;
+
+    private const MAX_REGULAR_SECTOR_COUNT = 0xFFFFFFFB;
+
     /**
      * @var resource
      */
     private $fileHandle;
 
-    private ?int $smallBlockSize = null;
+    private int $smallBlockSize = self::SMALL_BLOCK_SIZE;
 
-    private ?int $bigBlockSize = null;
+    private int $bigBlockSize = self::BIG_BLOCK_SIZE;
 
     /**
      * @param null|float|int $time_1st A timestamp
@@ -64,13 +73,9 @@ class Root extends PPS
     {
         $this->fileHandle = $fileHandle;
 
-        // Initial Setting for saving
-        $this->bigBlockSize = (int) (2 ** (
-            (isset($this->bigBlockSize)) ? self::adjust2($this->bigBlockSize) : 9
-        ));
-        $this->smallBlockSize = (int) (2 ** (
-            (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
-        ));
+        // This writer implements the version-3 CFB profile only.
+        $this->bigBlockSize = self::BIG_BLOCK_SIZE;
+        $this->smallBlockSize = self::SMALL_BLOCK_SIZE;
 
         // Make an array of PPS's (for Save)
         $aList = [];
@@ -82,6 +87,7 @@ class Root extends PPS
 
         // Make Small Data string (write SBD)
         $this->_data = $this->makeSmallData($aList);
+        $this->assertVersion3StreamSize(strlen($this->_data));
 
         // Write BB
         $this->saveBigData((int) $iSBDcnt, $aList);
@@ -109,6 +115,7 @@ class Root extends PPS
         for ($i = 0; $i < $iCount; ++$i) {
             if ($raList[$i]->Type == OLE::OLE_PPS_TYPE_FILE) {
                 $raList[$i]->Size = $raList[$i]->getDataLen();
+                $this->assertVersion3StreamSize($raList[$i]->Size);
                 if ($raList[$i]->Size < OLE::OLE_DATA_SIZE_SMALL) {
                     $iSBcnt += floor($raList[$i]->Size / $this->smallBlockSize)
                         + (($raList[$i]->Size % $this->smallBlockSize) ? 1 : 0);
@@ -118,6 +125,7 @@ class Root extends PPS
                 }
             }
         }
+        $this->assertVersion3MiniStreamSize((int) $iSBcnt);
         $iSmallLen = $iSBcnt * $this->smallBlockSize;
         $iSlCnt = floor($this->bigBlockSize / OLE::OLE_LONG_INT_SIZE);
         $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt) ? 1 : 0);
@@ -130,18 +138,16 @@ class Root extends PPS
         return [$iSBDcnt, $iBBcnt, $iPPScnt];
     }
 
-    /**
-     * Helper function for calculating a magic value for block sizes.
-     *
-     * @param int $i2 The argument
-     *
-     * @see save()
-     */
-    private static function adjust2(int $i2): float
+    private function assertVersion3StreamSize(int $size): void
     {
-        $iWk = log($i2) / log(2);
+        if ($size > self::MAX_VERSION_3_STREAM_SIZE) {
+            throw new Exception('OLE version-3 streams cannot exceed 2 GiB.');
+        }
+    }
 
-        return ($iWk > floor($iWk)) ? floor($iWk) + 1 : $iWk;
+    private function assertVersion3MiniStreamSize(int $smallBlockCount): void
+    {
+        $this->assertVersion3StreamSize($smallBlockCount * self::SMALL_BLOCK_SIZE);
     }
 
     /**
@@ -168,10 +174,14 @@ class Root extends PPS
                 ++$iAllW;
                 $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
                 $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
-                if ($iBdCnt <= ($iBdExL * $iBlCnt + $i1stBdL)) {
+                if ($iBdCnt <= ($iBdExL * ($iBlCnt - 1) + $i1stBdL)) {
                     break;
                 }
             }
+        }
+
+        if ($iAllW + $iBdCnt > self::MAX_REGULAR_SECTOR_COUNT) {
+            throw new Exception('OLE version-3 output exceeds the maximum sector count.');
         }
 
         // Save Header
@@ -182,7 +192,7 @@ class Root extends PPS
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
-            . pack('v', 0x3B)
+            . pack('v', 0x3E)
             . pack('v', 0x03)
             . pack('v', -2)
             . pack('v', 9)
@@ -198,7 +208,7 @@ class Root extends PPS
             . pack('V', $iSBDcnt)
         );
         // Extra BDList Start, Count
-        if ($iBdCnt < $i1stBdL) {
+        if ($iBdCnt <= $i1stBdL) {
             fwrite(
                 $FILE,
                 pack('V', -2) // Extra BDList Start
@@ -342,7 +352,7 @@ class Root extends PPS
                 ++$iAllW;
                 $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
                 $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
-                if ($iBdCnt <= ($iBdExL * $iBbCnt + $i1stBdL)) {
+                if ($iBdCnt <= ($iBdExL * ($iBbCnt - 1) + $i1stBdL)) {
                     break;
                 }
             }

@@ -35,6 +35,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Xls Writer now creates conformant CFB/DIFAT metadata at FAT-sector boundaries. [Issue #4811](https://github.com/PHPOffice/PhpSpreadsheet/issues/4811) [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983)
 - Ods Reader/Writer Drawings. [Issue #4809](https://github.com/PHPOffice/PhpSpreadsheet/issues/4809) [PR #4956](https://github.com/PHPOffice/PhpSpreadsheet/pull/4956)
 - Ods Writer no longer converts cell references or commas inside string literals, so `="THIS IS E1"` is written unchanged instead of as `="THIS IS [.E1]"`. [Issue #4454](https://github.com/PHPOffice/PhpSpreadsheet/issues/4454) [PR #4962](https://github.com/PHPOffice/PhpSpreadsheet/pull/4962)
 - Ods Reader/Writer slight improvement for Date styles. [PR #4960](https://github.com/PHPOffice/PhpSpreadsheet/pull/4960)
