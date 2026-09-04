@@ -336,7 +336,7 @@ class Axis extends Properties
     {
         parent::__clone();
         $this->majorGridlines = ($this->majorGridlines === null) ? null : clone $this->majorGridlines;
-        $this->majorGridlines = ($this->minorGridlines === null) ? null : clone $this->minorGridlines;
+        $this->minorGridlines = ($this->minorGridlines === null) ? null : clone $this->minorGridlines;
         $this->axisText = ($this->axisText === null) ? null : clone $this->axisText;
         $this->dispUnitsTitle = ($this->dispUnitsTitle === null) ? null : clone $this->dispUnitsTitle;
         $this->fillColor = clone $this->fillColor;
