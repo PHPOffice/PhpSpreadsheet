@@ -387,7 +387,7 @@ class DataSeries
         $plotLabels = $this->plotLabel;
         $this->plotLabel = [];
         foreach ($plotLabels as $plotLabel) {
-            $this->plotLabel[] = $plotLabel;
+            $this->plotLabel[] = clone $plotLabel;
         }
         $plotCategories = $this->plotCategory;
         $this->plotCategory = [];
