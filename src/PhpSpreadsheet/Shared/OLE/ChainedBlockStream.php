@@ -70,30 +70,54 @@ class ChainedBlockStream
             throw new Exception('class is not OLE');
         }
 
-        $blockId = $this->params['blockId'];
+        $blockId = (int) $this->params['blockId'];
+        $size = isset($this->params['size']) ? (int) $this->params['size'] : null;
+        $isRoot = isset($this->params['isRoot']) && $this->params['isRoot'] === '1';
         $this->data = '';
-        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->startBlock) {
+        if ($size !== null && $size < $this->ole->bigBlockThreshold && !$isRoot) {
             // Block id refers to small blocks
-            $rootPos = $this->ole->getBlockOffset((int) $this->ole->root->startBlock);
+            $rootData = '';
+            if ($this->ole->root->startBlock === null) {
+                throw new Exception('Invalid OLE root mini-stream chain.');
+            }
+            $rootBlockId = (int) $this->ole->root->startBlock;
+            $rootBlocks = [];
+            while ($rootBlockId !== -2) {
+                if (isset($rootBlocks[$rootBlockId], $this->ole->bbat[$rootBlockId])) {
+                    throw new Exception('Invalid OLE root mini-stream chain.');
+                }
+                $rootBlocks[$rootBlockId] = true;
+                fseek($this->ole->_file_handle, $this->ole->getBlockOffset($rootBlockId));
+                $rootData .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
+                $rootBlockId = self::nextBlock($this->ole->bbat, $rootBlockId, 'Invalid OLE root mini-stream chain.');
+            }
+
+            $smallBlocks = [];
             while ($blockId != -2) {
-                /** @var int $blockId */
-                $pos = $rootPos + $blockId * $this->ole->bigBlockSize;
-                $blockId = $this->ole->sbat[$blockId];
-                fseek($this->ole->_file_handle, $pos);
-                $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
+                if (isset($smallBlocks[$blockId], $this->ole->sbat[$blockId])) {
+                    throw new Exception('Invalid OLE mini-stream chain.');
+                }
+                $smallBlocks[$blockId] = true;
+                $pos = $blockId * $this->ole->smallBlockSize;
+                $this->data .= substr($rootData, $pos, $this->ole->smallBlockSize);
+                $blockId = self::nextBlock($this->ole->sbat, $blockId, 'Invalid OLE mini-stream chain.');
             }
         } else {
             // Block id refers to big blocks
+            $bigBlocks = [];
             while ($blockId != -2) {
-                /** @var int $blockId */
+                if (isset($bigBlocks[$blockId], $this->ole->bbat[$blockId])) {
+                    throw new Exception('Invalid OLE stream chain.');
+                }
+                $bigBlocks[$blockId] = true;
                 $pos = $this->ole->getBlockOffset($blockId);
                 fseek($this->ole->_file_handle, $pos);
                 $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
-                $blockId = $this->ole->bbat[$blockId];
+                $blockId = self::nextBlock($this->ole->bbat, $blockId, 'Invalid OLE stream chain.');
             }
         }
-        if (isset($this->params['size'])) {
-            $this->data = substr($this->data, 0, $this->params['size']); //* @phpstan-ignore argument.type (I don't know how params[size] is set)
+        if ($size !== null) {
+            $this->data = substr($this->data, 0, $size);
         }
 
         if ($options & STREAM_USE_PATH) {
@@ -101,6 +125,17 @@ class ChainedBlockStream
         }
 
         return true;
+    }
+
+    /** @param mixed[] $allocationTable */
+    private static function nextBlock(array $allocationTable, int $blockId, string $message): int
+    {
+        $nextBlockId = $allocationTable[$blockId] ?? null;
+        if (!is_int($nextBlockId)) {
+            throw new Exception($message);
+        }
+
+        return $nextBlockId;
     }
 
     /**

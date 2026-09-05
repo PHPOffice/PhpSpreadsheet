@@ -13,6 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
+- XLSX password-to-open encryption and decryption using Office Agile encryption. [Issue #3878](https://github.com/PHPOffice/PhpSpreadsheet/issues/3878) [PR #4975](https://github.com/PHPOffice/PhpSpreadsheet/pull/4975)
 - Support for Excel sparklines (line, column, and win/loss) in Xlsx reader and writer. [Issue #4941](https://github.com/PHPOffice/PhpSpreadsheet/issues/4941)
 - Read-only object model for Pivot Tables. Existing pivot tables in an Xlsx file are now parsed into `Worksheet\PivotTable\PivotTable` objects (name, location, source cache definition, and row/column/page/data field layout), accessible via `Worksheet::getPivotTableCollection()` / `getPivotTableByName()`. Pivot tables (their tables, caches and records) are now also preserved through an Xlsx load/save round-trip instead of being silently dropped. [Issue #4534](https://github.com/PHPOffice/PhpSpreadsheet/issues/4534)
 

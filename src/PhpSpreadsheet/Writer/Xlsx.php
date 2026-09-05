@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -38,6 +40,15 @@ use ZipStream\ZipStream;
 
 class Xlsx extends BaseWriter
 {
+    /** Password used to encrypt the written XLSX package; an empty password disables encryption. */
+    private string $encryptionPassword = '';
+
+    private int $encryptionKeyBits = 256;
+
+    private string $encryptionHashAlgorithm = 'SHA512';
+
+    private int $encryptionSpinCount = 100000;
+
     /**
      * Office2003 compatibility.
      */
@@ -316,6 +327,11 @@ class Xlsx extends BaseWriter
      */
     public function save($filename, int $flags = 0): void
     {
+        if ($this->encryptionPassword !== '') {
+            $this->saveEncrypted($filename, $flags);
+
+            return;
+        }
         $this->processFlags($flags);
         $this->determineUseDynamicArrays();
 
@@ -618,6 +634,60 @@ class Xlsx extends BaseWriter
         }
 
         $this->maybeCloseFileHandle();
+    }
+
+    /**
+     * Set the password required to open a written XLSX file.
+     */
+    public function setEncryptionPassword(string $encryptionPassword): self
+    {
+        $this->encryptionPassword = $encryptionPassword;
+
+        return $this;
+    }
+
+    public function setEncryptionProfile(int $keyBits, string $hashAlgorithm, int $spinCount = 100000): self
+    {
+        $this->encryptionKeyBits = $keyBits;
+        $this->encryptionHashAlgorithm = $hashAlgorithm;
+        $this->encryptionSpinCount = $spinCount;
+
+        return $this;
+    }
+
+    /**
+     * Write the normal OOXML ZIP to a temporary file, then wrap it in an
+     * Agile-encrypted CFB container.
+     *
+     * @param resource|string $filename
+     */
+    private function saveEncrypted($filename, int $flags): void
+    {
+        $temporaryFilename = File::temporaryFilename();
+        $password = $this->encryptionPassword;
+        $this->encryptionPassword = '';
+
+        try {
+            $this->save($temporaryFilename, $flags);
+            $package = AgileEncryption::encryptFile($temporaryFilename, $password, $this->encryptionKeyBits, $this->encryptionHashAlgorithm, $this->encryptionSpinCount);
+
+            try {
+                $this->openFileHandle($filename);
+
+                try {
+                    AgileEncryption::writeContainerFromFile($this->fileHandle, $package['encryptionInfo'], $package['encryptedPackageFilename']);
+                } finally {
+                    $this->maybeCloseFileHandle();
+                }
+            } finally {
+                @unlink($package['encryptedPackageFilename']);
+            }
+        } finally {
+            $this->encryptionPassword = $password;
+            if (file_exists($temporaryFilename)) {
+                unlink($temporaryFilename);
+            }
+        }
     }
 
     /**
