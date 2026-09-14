@@ -39,6 +39,9 @@ class Xml extends BaseReader
      */
     protected array $styles = [];
 
+    /** @var string[] */
+    private array $numberFormatMappings = Style\NumberFormat::FORMAT_MAPPINGS;
+
     /**
      * Create a new Excel2003XML Reader instance.
      */
@@ -301,7 +304,7 @@ class Xml extends BaseReader
 
         (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
-        $this->styles = (new Style())->parseStyles($xml, $namespaces);
+        $this->styles = (new Style())->parseStyles($xml, $namespaces, $this->numberFormatMappings);
         if (isset($this->styles['Default']) && is_array($this->styles['Default'])) {
             $spreadsheet->getCellXfCollection()[0]->applyFromArray($this->styles['Default']);
         }
@@ -507,8 +510,13 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $dateTime = new DateTime($cellValue, new DateTimeZone('UTC'));
-                                        $cellValue = Date::PHPToExcel($dateTime);
+
+                                        try {
+                                            $dateTime = new DateTime($cellValue, new DateTimeZone('UTC'));
+                                            $cellValue = Date::PHPToExcel($dateTime);
+                                        } catch (Throwable) {
+                                            $type = DataType::TYPE_STRING;
+                                        }
 
                                         break;
                                     case 'Error':
@@ -754,5 +762,12 @@ class Xml extends BaseReader
         return ($simple === null)
             ? new SimpleXMLElement('<xml></xml>')
             : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+    }
+
+    public function setNumberFormatMapping(string $key, string $value): self
+    {
+        $this->numberFormatMappings[$key] = $value;
+
+        return $this;
     }
 }
