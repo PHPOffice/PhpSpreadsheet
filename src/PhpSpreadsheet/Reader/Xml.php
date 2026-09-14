@@ -125,27 +125,23 @@ class Xml extends BaseReader
         $this->xmlFailMessage = "Cannot load invalid XML $fileOrString: " . $filename;
         $xml = false;
 
-        try {
-            $data = $this->fileContents;
-            $continue = true;
-            if ($data === '' && $fileOrString === 'file') {
-                if ($filename === '') {
-                    $this->xmlFailMessage = 'Cannot load empty path';
-                    $continue = false;
-                } else {
-                    $datax = @file_get_contents($filename);
-                    $data = $datax ?: '';
-                    $continue = $datax !== false;
-                }
+        $data = $this->fileContents;
+        $continue = true;
+        if ($data === '' && $fileOrString === 'file') {
+            if ($filename === '') {
+                $this->xmlFailMessage = 'Cannot load empty path';
+                $continue = false;
+            } else {
+                $datax = @file_get_contents($filename);
+                $data = $datax ?: '';
+                $continue = $datax !== false;
             }
-            if ($continue) {
-                $xml = @simplexml_load_string(
-                    $this->getSecurityScannerOrThrow()
-                        ->scan($data)
-                );
-            }
-        } catch (Throwable $e) {
-            throw new Exception($this->xmlFailMessage, 0, $e);
+        }
+        if ($continue) {
+            $xml = @simplexml_load_string(
+                $this->getSecurityScannerOrThrow()
+                    ->scan($data)
+            );
         }
         $this->fileContents = '';
 
@@ -611,12 +607,18 @@ class Xml extends BaseReader
                     }
                     $leftTopRow = (string) $xmlX->WorksheetOptions->TopRowBottomPane;
                     $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnRightPane;
+                    $leftTopCoordinateParm = null;
                     if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
-                        $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
-                        $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow, $leftTopCoordinate, !isset($xmlX->WorksheetOptions->FrozenNoSplit));
-                    } else {
-                        $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow, null, !isset($xmlX->WorksheetOptions->FrozenNoSplit));
+                        $leftTopCoordinateParm = $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
                     }
+                    $spreadsheet->getActiveSheet()->freezePane(
+                        Coordinate::stringFromColumnIndex(
+                            $freezeColumn
+                        )
+                            . (string) $freezeRow,
+                        $leftTopCoordinateParm,
+                        !isset($xmlX->WorksheetOptions->FrozenNoSplit)
+                    );
                 } elseif (isset($xmlX->WorksheetOptions->SplitVertical) || isset($xmlX->WorksheetOptions->SplitHorizontal)) {
                     if (isset($xmlX->WorksheetOptions->SplitHorizontal)) {
                         $ySplit = (int) $xmlX->WorksheetOptions->SplitHorizontal;
@@ -759,9 +761,7 @@ class Xml extends BaseReader
 
     private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null)
-            ? new SimpleXMLElement('<xml></xml>')
-            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+        return ($simple === null) ? new SimpleXMLElement('<xml></xml>') : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
     }
 
     public function setNumberFormatMapping(string $key, string $value): self
