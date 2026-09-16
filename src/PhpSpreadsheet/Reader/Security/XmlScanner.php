@@ -134,6 +134,11 @@ class XmlScanner
             throw new Reader\Exception('UTF-7 encoding not permitted');
         }
         if (substr($xml, 0, Reader\Csv::UTF8_BOM_LEN) === Reader\Csv::UTF8_BOM) {
+            if (preg_match(self::ENCODING_PATTERN, $xml, $matches) === 1) {
+                if (strtolower($matches[2]) !== 'utf-8') {
+                    throw new Reader\Exception("BOM says UTF-8 but encoding says {$matches[2]}");
+                }
+            }
             $xml = substr($xml, Reader\Csv::UTF8_BOM_LEN);
         }
 

@@ -71,10 +71,10 @@ class OdsInfoTest extends TestCase
             ],
             [
                 'worksheetName' => 'Second Sheet',
-                'lastColumnLetter' => 'A',
-                'lastColumnIndex' => 0,
+                'lastColumnLetter' => 'B',
+                'lastColumnIndex' => 1,
                 'totalRows' => 2,
-                'totalColumns' => 1,
+                'totalColumns' => 2,
             ],
         ], $wsinfo);
     }
