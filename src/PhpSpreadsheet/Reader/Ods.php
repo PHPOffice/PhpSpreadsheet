@@ -214,6 +214,7 @@ class Ods extends BaseReader
                     if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                         $rowspan = $xml->getAttribute('table:number-rows-repeated');
                         $rowspan = empty($rowspan) ? 1 : (int) $rowspan;
+                        self::checkRowsRepeated($currRow, $rowspan);
                         $currRow += $rowspan;
                         $currCol = 0;
                         // Step into the row
@@ -223,6 +224,10 @@ class Ods extends BaseReader
                             if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                 $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
+                                self::checkColumnsRepeatedInt(
+                                    $currCol,
+                                    $mergeSize
+                                );
                                 $currCol += $mergeSize;
                                 if (!$xml->isEmptyElement) {
                                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCol);
@@ -232,6 +237,11 @@ class Ods extends BaseReader
                                 }
                             } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
+                                self::checkColumnsRepeatedInt(
+                                    $currCol,
+                                    $mergeSize
+                                );
                                 $currCol += (int) $mergeSize;
                             }
                             if ($doread) {
@@ -328,7 +338,7 @@ class Ods extends BaseReader
                 ->scan($zip->getFromName('meta.xml'))
         );
         if ($xml === false) {
-            throw new Exception('Unable to read data from {$pFilename}');
+            throw new Exception("Unable to read data from {$filename}");
         }
 
         /** @var array{meta?: string, office?: string, dc?: string} */
@@ -823,6 +833,7 @@ class Ods extends BaseReader
         } else {
             $rowRepeats = 1;
         }
+        self::checkRowsRepeated($rowID, $rowRepeats);
         $worksheet = $spreadsheet->getSheetByName($worksheetName);
 
         $columnID = 'A';
@@ -836,6 +847,8 @@ class Ods extends BaseReader
             } else {
                 $colRepeats = 1;
             }
+            $columnIndex = Coordinate::columnIndexFromString($columnID);
+            self::checkColumnsRepeated($columnID, $colRepeats);
             $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
             if ($styleName === '') {
                 if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
@@ -1381,17 +1394,19 @@ class Ods extends BaseReader
         bool $processStyles = true
     ): void {
         if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+            $colRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
         } else {
-            $rowRepeats = 1;
+            $colRepeats = 1;
         }
+        // called routine expects index to be 1 less than it is
+        self::checkColumnsRepeatedInt($tableColumnIndex - 1, $colRepeats);
         $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
         if ($processWidths) {
             if (isset($columnWidths[$tableStyleName])) {
                 $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
                     if (!$this->readEmptyCells && $tableColumnIndex2 > $this->highestDataIndex) {
                         break;
                     }
@@ -1410,7 +1425,7 @@ class Ods extends BaseReader
             if ($defaultStyleName !== 'Default' && isset($this->allStyles[$defaultStyleName])) {
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
                     $spreadsheet->getActiveSheet()
                         ->getStyle($tableColumnString)
                         ->applyFromArray(
@@ -1423,7 +1438,7 @@ class Ods extends BaseReader
                 }
             }
         }
-        $tableColumnIndex += $rowRepeats;
+        $tableColumnIndex += $colRepeats;
     }
 
     private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
@@ -1867,6 +1882,30 @@ class Ods extends BaseReader
             if ($decimalPlaces === '0' && $minIntegerDigits > 1) {
                 $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
             }
+        }
+    }
+
+    private static function checkRowsRepeated(int $rowID, int $rowRepeats): void
+    {
+        if ($rowRepeats < 1 || $rowID + $rowRepeats - 1 > AddressRange::MAX_ROW) {
+            throw new Exception("Invalid number-rows-repeated $rowRepeats following row $rowID");
+        }
+    }
+
+    private static function checkColumnsRepeated(string $colID, int $colRepeats): void
+    {
+        $colIndex = Coordinate::columnIndexFromString($colID);
+        if ($colRepeats < 1 || $colIndex + $colRepeats - 1 > AddressRange::MAX_COLUMN_INT) {
+            throw new Exception("Invalid number-columns-repeated $colRepeats following column $colID");
+        }
+    }
+
+    private static function checkColumnsRepeatedInt(int $colIndex, int $colRepeats): void
+    {
+        // We don't have column string at this point,
+        //    and colIndex is actually 1 less than it should be.
+        if ($colRepeats < 1 || $colIndex + $colRepeats > AddressRange::MAX_COLUMN_INT) {
+            throw new Exception("Invalid number-columns-repeated $colRepeats following column index $colIndex");
         }
     }
 }
