@@ -26,4 +26,12 @@ class HtmlEntitiesLoadTest extends TestCase
         self::assertStringContainsString('</br>', $g2);
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testUnknownEntities(): void
+    {
+        $string = '&amp; &Amp; &Tau; &#30; &#x3f12; &#x3g12; & &*3 &lt;';
+        $expected = '&amp; &amp;Amp; Τ &#30; &#x3f12; &amp;#x3g12; &amp; &amp;*3 &lt;';
+        $result = XmlReader::unentity($string);
+        self::assertSame($expected, $result);
+    }
 }
