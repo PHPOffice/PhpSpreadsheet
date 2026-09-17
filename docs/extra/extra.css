@@ -2,10 +2,12 @@
 table.features-cross-reference {
     overflow: visible !important;
 }
+/*
 .rst-content table.features-cross-reference.docutils th,
 .rst-content table.features-cross-reference.docutils td {
     background-color: white;
 }
+*/
 
 /* https://github.com/mkdocs/mkdocs/discussions/3035#discussioncomment-7237037 */
 .wy-table-responsive table td, .wy-table-responsive table th {
