@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table as WorksheetTable;
@@ -31,7 +32,7 @@ class Table extends WriterPart
 
         // Table
         $name = 'Table' . $tableRef;
-        $range = $table->getRange();
+        $range = $this->rangeWithRoomForData($table);
 
         $objWriter->startElement('table');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
@@ -110,5 +111,48 @@ class Table extends WriterPart
 
         // Return
         return $objWriter->getData();
+    }
+
+    /**
+     * The range to write, given that a table showing a header row needs a row of data under it.
+     *
+     * Excel reports a workbook whose table covers its header row alone as unreadable, and repairs
+     * it by dropping the table — the markup is lost without a word. Excel itself never writes such
+     * a table: asked to make one over a single row of headings, it writes the table over the row
+     * below as well, and leaves that row empty (its `sheetData` holds no cell for it). This does
+     * the same, so what is written is what Excel would have written.
+     *
+     * The row below is taken only when it holds nothing: a table silently swallowing a row that
+     * belongs to something else would change what the sheet says, so that case is refused instead.
+     *
+     * @throws PhpSpreadsheetException
+     */
+    private function rangeWithRoomForData(WorksheetTable $table): string
+    {
+        $range = $table->getRange();
+
+        if (!$table->getShowHeaderRow()) {
+            return $range;
+        }
+
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range);
+
+        if ($rangeEnd[1] > $rangeStart[1]) {
+            return $range;
+        }
+
+        $worksheet = $table->getWorksheet();
+        $rowBelow = $rangeEnd[1] + 1;
+
+        if ($worksheet !== null && $worksheet->getHighestDataRow() >= $rowBelow) {
+            throw new PhpSpreadsheetException(
+                'Table ' . $table->getName() . ' shows a header row over ' . $range
+                . ', which leaves no row for its data, and row ' . $rowBelow
+                . ' below it is not empty; a table with a header row needs at least 2 rows'
+            );
+        }
+
+        return Coordinate::stringFromColumnIndex($rangeStart[0]) . $rangeStart[1]
+            . ':' . Coordinate::stringFromColumnIndex($rangeEnd[0]) . $rowBelow;
     }
 }

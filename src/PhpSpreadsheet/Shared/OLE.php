@@ -229,6 +229,9 @@ class OLE
         if ($blockIdOrPps instanceof OLE\PPS) {
             $path .= '&blockId=' . $blockIdOrPps->startBlock;
             $path .= '&size=' . $blockIdOrPps->Size;
+            if ($blockIdOrPps instanceof Root) {
+                $path .= '&isRoot=1';
+            }
         } else {
             $path .= '&blockId=' . $blockIdOrPps;
         }
@@ -470,6 +473,86 @@ class OLE
         }
 
         return 0;
+    }
+
+    /**
+     * Get the complete contents of a named file stream.
+     *
+     * @throws ReaderException if no file stream has the requested name
+     */
+    public function getDataByName(string $name): string
+    {
+        foreach ($this->_list as $index => $pps) {
+            if ($pps->Type === self::OLE_PPS_TYPE_FILE && $pps->Name === $name) {
+                return $this->getData($index, 0, $pps->Size);
+            }
+        }
+
+        throw new ReaderException("OLE stream '$name' was not found.");
+    }
+
+    /**
+     * Check whether a named file stream exists without reading its contents.
+     */
+    public function hasDataByName(string $name): bool
+    {
+        foreach ($this->_list as $pps) {
+            if ($pps->Type === self::OLE_PPS_TYPE_FILE && $pps->Name === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Copy a named file stream to an open output handle without loading a
+     * large stream into memory.
+     *
+     * @param resource $output
+     *
+     * @throws ReaderException if no file stream has the requested name
+     */
+    public function copyDataByName(string $name, $output): void
+    {
+        foreach ($this->_list as $pps) {
+            if ($pps->Type !== self::OLE_PPS_TYPE_FILE || $pps->Name !== $name) {
+                continue;
+            }
+            if ($pps->Size < $this->bigBlockThreshold) {
+                $data = $this->getData($pps->No, 0, $pps->Size);
+                if (fwrite($output, $data) !== strlen($data)) {
+                    throw new ReaderException("Could not write OLE stream '$name'.");
+                }
+
+                return;
+            }
+
+            $remaining = $pps->Size;
+            $blockId = $pps->startBlock;
+            $blocks = [];
+            while ($remaining > 0) {
+                if (!is_int($blockId) || $blockId === -2 || isset($blocks[$blockId], $this->bbat[$blockId])) {
+                    throw new ReaderException("Invalid OLE stream '$name'.");
+                }
+                $blocks[$blockId] = true;
+                fseek($this->_file_handle, $this->getBlockOffset($blockId));
+                $length = min($remaining, $this->bigBlockSize);
+                $data = fread($this->_file_handle, $length);
+                if ($data === false || strlen($data) !== $length || fwrite($output, $data) !== $length) {
+                    throw new ReaderException("Could not copy OLE stream '$name'.");
+                }
+                $remaining -= $length;
+                $blockId = $this->bbat[$blockId] ?? null;
+                if (!is_int($blockId)) {
+                    throw new ReaderException("Invalid OLE stream '$name'.");
+                }
+            }
+
+            return;
+        }
+
+        throw new ReaderException("OLE stream '$name' was not found.");
     }
 
     /**

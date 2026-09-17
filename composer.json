@@ -92,6 +92,7 @@
     },
     "require-dev": {
         "ext-intl": "*",
+        "ext-openssl": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.2",
@@ -107,6 +108,7 @@
     },
     "suggest": {
         "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard and StringHelper::setLocale()",
+        "ext-openssl": "Handline Agile-encrypted Xlsx spreadsheets",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",

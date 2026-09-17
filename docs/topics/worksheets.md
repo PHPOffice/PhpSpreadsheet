@@ -99,6 +99,7 @@ $clonedWorksheet->setTitle('Copy of Worksheet 1'); // must be unique
 $spreadsheet->addSheet($clonedWorksheet);
 ```
 Starting with PhpSpreadsheet 3.9.0, this can be done more simply (copied sheet's title will be set to something unique):
+
 ```php
 $copiedWorksheet = $spreadsheet->duplicateWorksheetByTitle('sheetname');
 ```
@@ -115,12 +116,14 @@ $spreadsheet1->addSheet($clonedWorksheet);
 $spreadsheet->addExternalSheet($clonedWorksheet);
 ```
 Starting with PhpSpreadsheet 3.8.0, this can be simplified:
+
 ```php
 $clonedWorksheet = clone $spreadsheet1->getSheetByName('Worksheet 1');
 $spreadsheet1->addSheet($clonedWorksheet, null, true);
 $spreadsheet->addExternalSheet($clonedWorksheet);
 ```
 Starting with PhpSpreadsheet 3.9.0, this can be simplified even further:
+
 ```php
 $clonedWorksheet = $spreadsheet1->duplicateWorksheetByTitle('sheetname');
 $spreadsheet->addExternalSheet($clonedWorksheet);
