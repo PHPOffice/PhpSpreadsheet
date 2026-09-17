@@ -392,7 +392,7 @@ class XlsBase extends BaseReader
     {
         self::confirmPos($data, $pos + 1);
 
-        return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore-line
+        return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know how this statement works), return.type (ditto)
     }
 
     /**

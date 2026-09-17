@@ -21,40 +21,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-// Original file header of PEAR::Spreadsheet_Excel_Writer_Worksheet (used as the base for this class):
-// -----------------------------------------------------------------------------------------
-// /*
-// *  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
-// *
-// *  The majority of this is _NOT_ my code.  I simply ported it from the
-// *  PERL Spreadsheet::WriteExcel module.
-// *
-// *  The author of the Spreadsheet::WriteExcel module is John McNamara
-// *  <jmcnamara@cpan.org>
-// *
-// *  I _DO_ maintain this code, and John McNamara has nothing to do with the
-// *  porting of this code to PHP.  Any questions directly related to this
-// *  class library should be directed to me.
-// *
-// *  License Information:
-// *
-// *    Spreadsheet_Excel_Writer:  A library for generating Excel Spreadsheets
-// *    Copyright (c) 2002-2003 Xavier Noguer xnoguer@rezebra.com
-// *
-// *    This library is free software; you can redistribute it and/or
-// *    modify it under the terms of the GNU Lesser General Public
-// *    License as published by the Free Software Foundation; either
-// *    version 2.1 of the License, or (at your option) any later version.
-// *
-// *    This library is distributed in the hope that it will be useful,
-// *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// *    Lesser General Public License for more details.
-// *
-// *    You should have received a copy of the GNU Lesser General Public
-// *    License along with this library; if not, write to the Free Software
-// *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-// */
+/**
+ * Based on PERL Spreadsheet::WriteExcel module (by John McNamara)
+ * Ported to PHP for PEAR::Spreadsheet_Excel_Writer_Worksheet (by Xavier Noguer)
+ * Relicensed under the MIT License by both authors.
+ */
 class Worksheet extends BIFFwriter
 {
     private static int $always0 = 0;
@@ -90,15 +61,13 @@ class Worksheet extends BIFFwriter
 
     /**
      * Whether to have outline summary below.
-     * Not currently used.
      */
-    private bool $outlineBelow; //* @phpstan-ignore-line
+    private bool $outlineBelow; //* @phpstan-ignore property.onlyWritten (not currently used)
 
     /**
      * Whether to have outline summary at the right.
-     * Not currently used.
      */
-    private bool $outlineRight; //* @phpstan-ignore-line
+    private bool $outlineRight; //* @phpstan-ignore property.onlyWritten (not currently used)
 
     /**
      * Reference to the total number of strings in the workbook.
@@ -432,7 +401,7 @@ class Worksheet extends BIFFwriter
                             match ($calctype) {
                                 'integer', 'double' => $this->writeNumber($row, $column, is_numeric($calculatedValue) ? ((float) $calculatedValue) : 0.0, $xfIndex),
                                 'string' => $this->writeString($row, $column, $calculatedValueString, $xfIndex),
-                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex), // @phpstan-ignore-line
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex), // @phpstan-ignore cast.int (calculatedValue should be bool but phpstan considers it mixed)
                                 default => $this->writeString($row, $column, $cell->getValueString(), $xfIndex),
                             };
                         }
@@ -484,6 +453,9 @@ class Worksheet extends BIFFwriter
             [$column, $row] = Coordinate::indexesFromString($coordinate);
 
             $url = $hyperlink->getUrl();
+            if ($url === '') {
+                continue;
+            }
             if ($url[0] === '#') {
                 $url = "internal:$url";
             } elseif (str_starts_with($url, 'sheet://')) {
@@ -1342,8 +1314,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeColinfo(array $col_array): void
     {
-        $colFirst = $col_array[0] ?? null;
-        $colLast = $col_array[1] ?? null;
+        $colFirst = $col_array[0] ?? null; //* @phpstan-ignore nullCoalesce.unnecessary (I think Phpstan is wrong)
+        $colLast = $col_array[1] ?? null; //* @phpstan-ignore nullCoalesce.unnecessary (I think Phpstan is wrong)
         $coldx = $col_array[2] ?? 8.43;
         $xfIndex = $col_array[3] ?? 15;
         $grbit = $col_array[4] ?? 0;

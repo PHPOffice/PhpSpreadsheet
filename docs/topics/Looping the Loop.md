@@ -31,6 +31,7 @@ The Financial Sample spreadsheet is fairly small, 701 rows (including a heading 
 To simulate a larger worksheet, I've duplicated that data to give 7001 rows; but this is still a small worksheet as MS Excel xlsx files can contain 1 million rows in each of several worksheets.
 
 If we look at the timings and memory usage for this process with my extended MS Financial Sample spreadsheet:
+
 ```
 Current memory usage: 47104 KB
 
@@ -273,8 +274,8 @@ And if there is a row or two of column headers that we want to ignore, we can mo
 
 Because we're only building the array for a specified range of rows and columns, the array that the method builds will often be smaller than the array created by `toArray()`, using less memory; and it will often be faster iterating just the subset of rows that we've requested.
 
-
 A combination of these approaches - batching and using the 'getHighestDataRow()' value, will be more memory-efficient, and possibly faster, than using 'toArray()'.
+
 ```php
 $startRow = 1;
 $batchSize = 100;
@@ -298,6 +299,7 @@ while ($startRow <= $maxDataRow) {
 }
 ```
 How does this approach compare with using 'toArray()' in terms of memory and speed? Here are the details for using `rangeToArray()` with a batched approach:
+
 ```
 Current memory usage: 47104 KB
 
@@ -386,6 +388,7 @@ If we also want to skip any Cell that contains a null value, then we can pass an
 If we also want to skip any Cell that contains an empty string, then we can pass an argument using the pre-defined constant `CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL`.
 
 And we can combine those rules:
+
 ```php
 if ($row->isEmpty(
     CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL | 
@@ -434,6 +437,7 @@ foreach ($rowIterator as $row) {
 ```
 
 and if we have heading rows at the top of the worksheet that we want to ignore:
+
 ```php
 $rowIterator = $worksheet->getRowIterator(3, $maxDataRow);
 ```

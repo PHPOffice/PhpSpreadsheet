@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use Composer\Pcre\Preg;
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -18,10 +19,12 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PivotTableReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SharedFormula;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Sparklines;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\TableReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
@@ -32,7 +35,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
+use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
@@ -67,6 +72,27 @@ class Xlsx extends BaseReader
     /** @var array<string, string> Cache for zip archive entry contents, keyed by normalized file name */
     private array $zipCache = [];
 
+    private string $encryptionPassword = '';
+
+    private int $maxEncryptionSpinCount = AgileEncryption::MAX_SPIN_COUNT;
+
+    public function setEncryptionPassword(string $encryptionPassword): self
+    {
+        $this->encryptionPassword = $encryptionPassword;
+
+        return $this;
+    }
+
+    public function setMaxEncryptionSpinCount(int $maxEncryptionSpinCount): self
+    {
+        if ($maxEncryptionSpinCount < 0 || $maxEncryptionSpinCount > AgileEncryption::MAX_SPIN_COUNT) {
+            throw new InvalidArgumentException('Maximum encryption spin count must be between 0 and ' . AgileEncryption::MAX_SPIN_COUNT . '.');
+        }
+        $this->maxEncryptionSpinCount = $maxEncryptionSpinCount;
+
+        return $this;
+    }
+
     /**
      * Allow use of LIBXML_PARSEHUGE.
      * This option can lead to memory leaks and failures,
@@ -94,7 +120,7 @@ class Xlsx extends BaseReader
     public function canRead(string $filename): bool
     {
         if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
-            return false;
+            return $this->hasEncryptedPackage($filename);
         }
 
         $this->clearZipCache();
@@ -110,6 +136,75 @@ class Xlsx extends BaseReader
         }
 
         return $result;
+    }
+
+    public function load(string $filename, int $flags = 0): Spreadsheet
+    {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return parent::load($filename, $flags);
+        }
+
+        try {
+            return parent::load($temporaryFilename, $flags);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    private function hasEncryptedPackage(string $filename): bool
+    {
+        try {
+            $ole = new OLE();
+            $ole->read($filename);
+
+            return $ole->hasDataByName('EncryptionInfo') && $ole->hasDataByName('EncryptedPackage');
+        } catch (Throwable) {
+            return false;
+        }
+    }
+
+    private function decryptToTemporaryFile(string $filename): ?string
+    {
+        if (File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+            return null;
+        }
+
+        try {
+            $ole = new OLE();
+            $ole->read($filename);
+            $encryptionInfo = $ole->getDataByName('EncryptionInfo');
+        } catch (Throwable) {
+            return null;
+        }
+
+        $temporaryFilename = File::temporaryFilename();
+        $encryptedPackageFilename = File::temporaryFilename();
+        $encryptedPackage = fopen($encryptedPackageFilename, 'wb');
+        if ($encryptedPackage === false) {
+            @unlink($temporaryFilename);
+            @unlink($encryptedPackageFilename);
+
+            throw new Exception('Could not create decrypted XLSX package.');
+        }
+
+        try {
+            $ole->copyDataByName('EncryptedPackage', $encryptedPackage);
+            fclose($encryptedPackage);
+            $encryptedPackage = null;
+            AgileEncryption::decryptFile(AgileEncryption::parse($encryptionInfo, $this->maxEncryptionSpinCount), $encryptedPackageFilename, $temporaryFilename, $this->encryptionPassword);
+        } catch (Throwable $e) {
+            if ($encryptedPackage !== null) {
+                fclose($encryptedPackage);
+            }
+            @unlink($temporaryFilename);
+
+            throw $e;
+        } finally {
+            @unlink($encryptedPackageFilename);
+        }
+
+        return $temporaryFilename;
     }
 
     public static function testSimpleXml(mixed $value): SimpleXMLElement
@@ -186,6 +281,21 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetNames(string $filename): array
     {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return $this->listWorksheetNamesFromFile($filename);
+        }
+
+        try {
+            return $this->listWorksheetNamesFromFile($temporaryFilename);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    /** @return string[] */
+    private function listWorksheetNamesFromFile(string $filename): array
+    {
         File::assertFile($filename, self::INITIAL_FILE);
         $this->clearZipCache();
 
@@ -224,6 +334,23 @@ class Xlsx extends BaseReader
      * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
      */
     public function listWorksheetInfo(string $filename): array
+    {
+        $temporaryFilename = $this->decryptToTemporaryFile($filename);
+        if ($temporaryFilename === null) {
+            return $this->listWorksheetInfoFromFile($filename);
+        }
+
+        try {
+            return $this->listWorksheetInfoFromFile($temporaryFilename);
+        } finally {
+            @unlink($temporaryFilename);
+        }
+    }
+
+    /**
+     * @return array<int, array{worksheetName: string, lastColumnLetter: string, lastColumnIndex: int, totalRows: int, totalColumns: int, sheetState: string}>
+     */
+    private function listWorksheetInfoFromFile(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
         $this->clearZipCache();
@@ -611,6 +738,7 @@ class Xlsx extends BaseReader
                     $relsWorkbook->registerXPathNamespace('rel', Namespaces::RELATIONSHIPS);
 
                     $worksheets = [];
+                    $pivotCacheRels = [];
                     $macros = $customUI = null;
                     foreach ($relsWorkbook->Relationship as $elex) {
                         $ele = self::getAttributes($elex);
@@ -624,6 +752,10 @@ class Xlsx extends BaseReader
                                 if ($this->includeCharts === true) {
                                     $worksheets[(string) $ele['Id']] = $ele['Target'];
                                 }
+
+                                break;
+                            case Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION:
+                                $pivotCacheRels[(string) $ele['Id']] = File::realpath("$dir/" . (string) $ele['Target']);
 
                                 break;
                                 // a vbaProject ? (: some macros)
@@ -968,6 +1100,10 @@ class Xlsx extends BaseReader
 
                             $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS, $tableStyles, $dxfs);
 
+                            if ($this->readDataOnly === false) {
+                                $this->readPivotTables($docSheet, $dir, $fileWorksheet, $zip, $unparsedLoadedData);
+                            }
+
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
                                     $mergeCell = $mergeCellx->attributes();
@@ -1015,6 +1151,10 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
                                 (new DataValidations($docSheet, $xmlSheet))->load();
+                            }
+
+                            if ($xmlSheet && !$this->readDataOnly) {
+                                (new Sparklines($docSheet, $xmlSheet))->load();
                             }
 
                             // unparsed sheet AlternateContent
@@ -1850,6 +1990,22 @@ class Xlsx extends BaseReader
                                 }
                             }
                         }
+
+                        // Preserve the workbook <pivotCaches> registry (cacheId
+                        // -> cache definition part) so pivot tables survive a
+                        // load/save round-trip.
+                        if (!$this->readDataOnly && $xmlWorkbook->pivotCaches && $xmlWorkbook->pivotCaches->pivotCache) {
+                            foreach ($xmlWorkbook->pivotCaches->pivotCache as $pivotCache) {
+                                $pivotCacheAttributes = self::getAttributes($pivotCache);
+                                $relId = (string) self::getAttributes($pivotCache, Namespaces::SCHEMA_OFFICE_DOCUMENT)['id'];
+                                if (isset($pivotCacheRels[$relId])) {
+                                    $unparsedLoadedData['workbookPivotCaches'][] = [
+                                        'cacheId' => (string) $pivotCacheAttributes['cacheId'],
+                                        'cacheDefinitionPath' => $pivotCacheRels[$relId],
+                                    ];
+                                }
+                            }
+                        }
                     }
                     if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
                         $excel->createSheet();
@@ -1910,6 +2066,9 @@ class Xlsx extends BaseReader
 
                         // unparsed
                     case 'application/vnd.ms-excel.controlproperties+xml':
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotTable+xml':
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheDefinition+xml':
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.pivotCacheRecords+xml':
                         $unparsedLoadedData['override_content_types'][(string) $contentType['PartName']] = (string) $contentType['ContentType'];
 
                         break;
@@ -2112,7 +2271,7 @@ class Xlsx extends BaseReader
                         $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
                         $cell->setXfIndex($cAttrS);
                         // issue 3495
-                        if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore-line
+                        if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) { //* @phpstan-ignore property.notFound (quotePrefix does exist)
                             $holdSelected = $docSheet->getSelectedCells();
                             $cell->getStyle()->setQuotePrefix(false);
                             $docSheet->setSelectedCells($holdSelected);
@@ -2651,6 +2810,166 @@ class Xlsx extends BaseReader
                 }
             }
         }
+    }
+
+    /**
+     * Discover the pivot table parts referenced by a worksheet, parse them into
+     * the read-only PivotTable object model, and preserve every associated raw
+     * XML part (pivot table, cache definition, cache records and their rels) in
+     * the unparsed loaded data so they can be written back unchanged.
+     *
+     * @param mixed[] $unparsedLoadedData
+     */
+    private function readPivotTables(
+        Worksheet $docSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip,
+        array &$unparsedLoadedData
+    ): void {
+        $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+        if ($zip->locateName($relationsFileName) === false) {
+            return;
+        }
+
+        $relsWorksheet = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+        foreach ($relsWorksheet->Relationship as $relationship) {
+            $relAttributes = self::getAttributes($relationship, '');
+            if ((string) $relAttributes['Type'] !== Namespaces::RELATIONSHIPS_PIVOT_TABLE) {
+                continue;
+            }
+
+            $relTarget = (string) $relAttributes['Target'];
+            $pivotTablePath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relTarget);
+            if (!$this->fileExistsInArchive($this->zip, $pivotTablePath)) {
+                continue;
+            }
+
+            $pivotTableXml = $this->loadZip($pivotTablePath, Namespaces::MAIN);
+            $cacheDefinitionXml = $this->readPivotCacheDefinition($pivotTablePath, $zip, $unparsedLoadedData);
+
+            (new PivotTableReader($docSheet, $pivotTableXml, $cacheDefinitionXml))->load();
+
+            // Preserve the raw pivot table part (and its rels) for write-back.
+            $sheetCodeName = $docSheet->getCodeName();
+            if (!isset($unparsedLoadedData['sheets']) || !is_array($unparsedLoadedData['sheets'])) {
+                $unparsedLoadedData['sheets'] = [];
+            }
+            if (!isset($unparsedLoadedData['sheets'][$sheetCodeName]) || !is_array($unparsedLoadedData['sheets'][$sheetCodeName])) {
+                $unparsedLoadedData['sheets'][$sheetCodeName] = [];
+            }
+            /** @var array<string, mixed> $sheetUnparsedData */
+            $sheetUnparsedData = &$unparsedLoadedData['sheets'][$sheetCodeName];
+            if (!isset($sheetUnparsedData['pivotTables']) || !is_array($sheetUnparsedData['pivotTables'])) {
+                $sheetUnparsedData['pivotTables'] = [];
+            }
+            /** @var array<int, array<string, string>> $sheetPivotTables */
+            $sheetPivotTables = &$sheetUnparsedData['pivotTables'];
+            $sheetPivotTables[] = [
+                'relFilePath' => $relTarget,
+                'path' => $pivotTablePath,
+                'content' => $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($this->zip, $pivotTablePath)),
+            ];
+            unset($sheetPivotTables, $sheetUnparsedData);
+            $this->preserveRawPart(
+                dirname($pivotTablePath) . '/_rels/' . basename($pivotTablePath) . '.rels',
+                $unparsedLoadedData
+            );
+        }
+    }
+
+    /**
+     * Follow a pivot table part's relationships to load its cache definition
+     * part, preserving the cache definition, its records and all of their rels
+     * as raw parts. Returns the parsed cache definition XML, or null.
+     *
+     * @param mixed[] $unparsedLoadedData
+     */
+    private function readPivotCacheDefinition(string $pivotTablePath, ZipArchive $zip, array &$unparsedLoadedData): ?SimpleXMLElement
+    {
+        $relsFileName = dirname($pivotTablePath) . '/_rels/' . basename($pivotTablePath) . '.rels';
+        if ($zip->locateName($relsFileName) === false) {
+            return null;
+        }
+
+        $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
+        foreach ($rels->Relationship as $relationship) {
+            $relAttributes = self::getAttributes($relationship, '');
+            if ((string) $relAttributes['Type'] === Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION) {
+                $cachePath = File::realpath(
+                    dirname($pivotTablePath) . '/' . (string) $relAttributes['Target']
+                );
+                if (!$this->fileExistsInArchive($this->zip, $cachePath)) {
+                    return null;
+                }
+
+                $cacheDefinitionXml = $this->loadZip($cachePath, Namespaces::MAIN);
+                $this->preservePivotCache($cachePath, $unparsedLoadedData);
+
+                return $cacheDefinitionXml;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Preserve a pivot cache definition (keyed by its zip path so a workbook
+     * relationship can be recreated), along with its rels and any parts they
+     * reference (typically the cache records).
+     *
+     * @param mixed[] $unparsedLoadedData
+     */
+    private function preservePivotCache(string $cachePath, array &$unparsedLoadedData): void
+    {
+        if (!isset($unparsedLoadedData['pivotCacheDefinitions']) || !is_array($unparsedLoadedData['pivotCacheDefinitions'])) {
+            $unparsedLoadedData['pivotCacheDefinitions'] = [];
+        }
+        /** @var array<string, array<string, string>> $cacheDefinitions */
+        $cacheDefinitions = &$unparsedLoadedData['pivotCacheDefinitions'];
+        if (!isset($cacheDefinitions[$cachePath])) {
+            $cacheDefinitions[$cachePath] = [
+                'path' => $cachePath,
+                'content' => $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($this->zip, $cachePath)),
+            ];
+            unset($cacheDefinitions);
+
+            $relsFileName = dirname($cachePath) . '/_rels/' . basename($cachePath) . '.rels';
+            if ($this->zip->locateName($relsFileName) !== false) {
+                $this->preserveRawPart($relsFileName, $unparsedLoadedData);
+
+                $rels = $this->loadZip($relsFileName, Namespaces::RELATIONSHIPS);
+                foreach ($rels->Relationship as $relationship) {
+                    $relAttributes = self::getAttributes($relationship, '');
+                    $target = File::realpath(dirname($cachePath) . '/' . (string) $relAttributes['Target']);
+                    if ($this->fileExistsInArchive($this->zip, $target)) {
+                        $this->preserveRawPart($target, $unparsedLoadedData);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Store a single part verbatim (keyed by its zip path) so the writer can
+     * re-add it to the archive without modification.
+     *
+     * @param mixed[] $unparsedLoadedData
+     */
+    private function preserveRawPart(string $path, array &$unparsedLoadedData): void
+    {
+        if ($this->zip->locateName($path) === false) {
+            return;
+        }
+        if (!isset($unparsedLoadedData['pivotCacheParts']) || !is_array($unparsedLoadedData['pivotCacheParts'])) {
+            $unparsedLoadedData['pivotCacheParts'] = [];
+        }
+        /** @var array<string, string> $pivotCacheParts */
+        $pivotCacheParts = &$unparsedLoadedData['pivotCacheParts'];
+        $pivotCacheParts[$path] = $this->getSecurityScannerOrThrow()->scan(
+            $this->getFromZipArchive($this->zip, $path)
+        );
+        unset($pivotCacheParts);
     }
 
     /** @return mixed[] */

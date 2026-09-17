@@ -522,6 +522,7 @@ Also note that changing the data in the columns being filtered
 does not result in reevaluation in either Excel or PhpSpreadsheet.
 If you wish to re-apply all filters in the spreadsheet
 (possibly just before save):
+
 ```php
 $spreadsheet->reevaluateAutoFilters(false);
 ```

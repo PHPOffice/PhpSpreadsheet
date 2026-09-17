@@ -55,9 +55,20 @@ class F
             return Beta::incompleteBeta($adjustedValue, $u / 2, $v / 2);
         }
 
-        return (Gamma::gammaValue(($v + $u) / 2)
-                / (Gamma::gammaValue($u / 2) * Gamma::gammaValue($v / 2)))
-            * (($u / $v) ** ($u / 2))
-            * (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
+        if ($value == 0.0) {
+            if ($u === 2) {
+                return 1.0;
+            }
+
+            return ($u === 1) ? INF : 0.0;
+        }
+
+        // Log domain, so large degrees of freedom cannot overflow the Gamma ratio.
+        return exp(
+            Gamma::logGamma(($v + $u) / 2) - Gamma::logGamma($u / 2) - Gamma::logGamma($v / 2)
+            + ($u / 2) * log($u / $v)
+            + (($u - 2) / 2) * log($value)
+            - (($u + $v) / 2) * log(1 + ($u / $v) * $value)
+        );
     }
 }

@@ -9,6 +9,7 @@ includes:
 parameters:
     level: 10
     treatPhpDocTypesAsCertain: false
+    reportIgnoresWithoutComments: true
     paths:
         - samples/
         - src/
@@ -34,4 +35,5 @@ parameters:
         - '~Method .*rovider.* return type has no value type specified in iterable type array\.$~'
         - '~Method .*rovider.* should return array but returns mixed\.$~'
         - '~.* has parameter \$expectedResult with no value type specified in iterable type array\.$~'
+        - '~^Parameter \#1 \$source of method DOMDocument::load(XML|HTML)\(\) expects non-empty-string, string given\.$~'
         #- identifier: missingType.iterableValue

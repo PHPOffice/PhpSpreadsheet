@@ -9,7 +9,7 @@ a breaking change.
 
 Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.10.0
+## TBD - 5.11.0
 
 ### Added
 
@@ -34,6 +34,35 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - Nothing yet.
+
+## 2026-09-15 - 5.10.0
+
+### Added
+
+- XLSX password-to-open encryption and decryption using Office Agile encryption. [Issue #3878](https://github.com/PHPOffice/PhpSpreadsheet/issues/3878) [PR #4975](https://github.com/PHPOffice/PhpSpreadsheet/pull/4975) [PR #4988](https://github.com/PHPOffice/PhpSpreadsheet/pull/4988)
+- Support for Excel sparklines (line, column, and win/loss) in Xlsx reader and writer. [Issue #4941](https://github.com/PHPOffice/PhpSpreadsheet/issues/4941)
+- Read-only object model for Pivot Tables. Existing pivot tables in an Xlsx file are now parsed into `Worksheet\PivotTable\PivotTable` objects (name, location, source cache definition, and row/column/page/data field layout), accessible via `Worksheet::getPivotTableCollection()` / `getPivotTableByName()`. Pivot tables (their tables, caches and records) are now also preserved through an Xlsx load/save round-trip instead of being silently dropped. [Issue #4534](https://github.com/PHPOffice/PhpSpreadsheet/issues/4534)
+
+### Changed
+
+- Performance: avoid `Worksheet::getStyle()` on every `Cell::setValueExplicit()` unless quote-prefix must change. On a dense 40k-cell populate+save microbenchmark this cut wall time by ~5%. [PR #4958](https://github.com/PHPOffice/PhpSpreadsheet/pull/4958)
+- Infrastructure changes for documentation. [PR #4973](https://github.com/PHPOffice/PhpSpreadsheet/pull/4973)
+
+### Fixed
+
+- Security patches.
+- Xls Writer now creates conformant CFB/DIFAT metadata at FAT-sector boundaries. [Issue #4811](https://github.com/PHPOffice/PhpSpreadsheet/issues/4811) [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983)
+- Ods Reader/Writer Drawings. [Issue #4809](https://github.com/PHPOffice/PhpSpreadsheet/issues/4809) [PR #4956](https://github.com/PHPOffice/PhpSpreadsheet/pull/4956)
+- Ods Writer no longer converts cell references or commas inside string literals, so `="THIS IS E1"` is written unchanged instead of as `="THIS IS [.E1]"`. [Issue #4454](https://github.com/PHPOffice/PhpSpreadsheet/issues/4454) [PR #4962](https://github.com/PHPOffice/PhpSpreadsheet/pull/4962)
+- Ods Reader/Writer slight improvement for Date styles. [PR #4960](https://github.com/PHPOffice/PhpSpreadsheet/pull/4960)
+- BETAINV/BETA.INV no longer abandons its search when the Beta CDF underflows to zero (wrong results for alpha above about 1080). [PR #4954](https://github.com/PHPOffice/PhpSpreadsheet/pull/4954)
+- GAMMA.INV, the GAMMA.DIST/CHISQ.DIST/F.DIST densities, and GAMMALN no longer fail or return wrong results for large shape parameters / degrees of freedom. [PR #4953](https://github.com/PHPOffice/PhpSpreadsheet/pull/4953)
+- GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)
+- Correct incomplete gamma convergence for GAMMA.DIST/CHISQ.DIST family (wrong once the series argument reached ~32). [PR #4945](https://github.com/PHPOffice/PhpSpreadsheet/pull/4945)
+- Fix problem with VLOOKUP and whole-column ranges. [Issue #4969](https://github.com/PHPOffice/PhpSpreadsheet/issues/4969) [PR #4967](https://github.com/PHPOffice/PhpSpreadsheet/pull/4967)
+- Problem with Xlsx Writer and header-row table. [PR #4968](https://github.com/PHPOffice/PhpSpreadsheet/pull/4968)
+- Throw when Ods Reader encounters invalid Xml. [PR #4986](https://github.com/PHPOffice/PhpSpreadsheet/pull/4986)
+- Update Sheetname in Charts when Sheetname changes. [Issue #744](https://github.com/PHPOffice/PhpSpreadsheet/issues/744) [PR #4984](https://github.com/PHPOffice/PhpSpreadsheet/pull/4984)
 
 ## 2026-07-12 - 5.9.0
 

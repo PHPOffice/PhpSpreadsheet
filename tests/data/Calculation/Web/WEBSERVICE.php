@@ -26,7 +26,7 @@ return [
     ],
     'reply too long' => [
         '#VALUE!',
-        'https://www.google.com/search?q=hello',
+        'https://github.com/PHPOffice/PhpSpreadsheet',
     ],
     [
         'Example Domain',

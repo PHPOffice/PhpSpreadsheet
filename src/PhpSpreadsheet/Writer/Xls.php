@@ -416,7 +416,7 @@ class Xls extends BaseWriter
         }
 
         ob_start();
-        call_user_func($renderingFunction, $drawing->getImageResource()); // @phpstan-ignore-line
+        call_user_func($renderingFunction, $drawing->getImageResource()); // @phpstan-ignore argument.type (getImageResource may theoretically be null)
         $blipData = ob_get_contents();
         ob_end_clean();
 
@@ -794,7 +794,7 @@ class Xls extends BaseWriter
     private function writeSummaryProp(string $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
-            $dataSection[] = [ // @phpstan-ignore-line
+            $dataSection[] = [ // @phpstan-ignore parameterByRef.type (I don't know what phpstan wants here)
                 'summary' => ['pack' => 'V', 'data' => $sumdata],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => $typdata], // null-terminated string prepended by dword string length
@@ -868,7 +868,7 @@ class Xls extends BaseWriter
         foreach ($dataSection as $dataProp) {
             /** @var array{data: array{data: string, length: int}, summary: array{pack: string, data: string}, offset: array{pack: string}, type: array{data: int, pack: string}} $dataProp */
             // Summary
-            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']); // @phpstan-ignore-line
+            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']); // @phpstan-ignore varTag.nativeType (I don't know what phpstan wants)
             // Offset
             $dataSection_Summary .= pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
             // DataType

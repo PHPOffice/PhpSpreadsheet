@@ -49,10 +49,12 @@ if (isset($_POST['submit'])) {
         try {
             $wizard = new Wizard\Percentage((int) $_POST['decimals']);
             $mask = $wizard->format();
-            $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
+            $postNumber = StringHelper::convertPostToString('number');
+            $postDecimals = StringHelper::convertPostToString('decimals');
+            $example = (string) NumberFormat::toFormattedString((float) $postNumber, $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
-            $helper->log("\$mask = Wizard\\Percentage({$_POST['decimals']});<br />");
+            $helper->log("\$mask = Wizard\\Percentage({$postDecimals});<br />");
             $helper->log('echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');
             $helper->log($mask . '<br />');

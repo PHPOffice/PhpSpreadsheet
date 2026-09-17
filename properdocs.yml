@@ -1,0 +1,18 @@
+site_name: PhpSpreadsheet Documentation
+#site_url: https://github.com/PHPOffice/phpspreadsheet
+repo_url: https://github.com/PHPOffice/phpspreadsheet
+#repo_name: PhpSpreadsheet
+#edit_uri: edit/master/docs/
+
+theme: 
+  name: readthedocs
+extra_css:
+    - extra/extra.css
+    - extra/copyclipboard.css
+    - extra/nodarktoggle.css
+    - extra/darkmode.css
+extra_javascript:
+    - extra/extrajs.js
+    - extra/copyclipboard.js
+markdown_extensions:
+    - md_in_html

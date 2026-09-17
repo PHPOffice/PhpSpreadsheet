@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Conditional
 {
@@ -26,11 +27,14 @@ class Conditional
      *        AVERAGEIF(range,condition[, average_range])
      *
      * @param mixed $range Data values, expect array
-     * @param null|mixed[]|string $condition the criteria that defines which cells will be checked
+     * @param mixed $condition the criteria that defines which cells will be checked, expect null|mixed[]|string
      * @param mixed $averageRange Data values
      */
-    public static function AVERAGEIF(mixed $range, null|array|string $condition, mixed $averageRange = []): null|int|float|string
+    public static function AVERAGEIF(mixed $range, mixed $condition, mixed $averageRange = []): null|int|float|string
     {
+        if ($condition !== null && !is_array($condition)) {
+            $condition = StringHelper::convertToString($condition);
+        }
         if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
             $refError = ExcelError::REF();
             if (in_array($refError, [$range, $averageRange], true)) {
@@ -62,7 +66,7 @@ class Conditional
             return 0.0;
         }
         if (count($args) === 3) {
-            return self::AVERAGEIF($args[1], $args[2], $args[0]); //* @phpstan-ignore-line
+            return self::AVERAGEIF($args[1], $args[2], $args[0]);
         }
         foreach ($args as $arg) {
             if (is_array($arg) && array_key_exists(0, $arg)) {

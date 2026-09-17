@@ -184,8 +184,8 @@ class Styles extends BaseParserClass
             }
             $fillStyle->setRotation((float) ($attr['degree']));
             $gradientFill->registerXPathNamespace('sml', Namespaces::MAIN);
-            $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color)); //* @phpstan-ignore-line
-            $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)); //* @phpstan-ignore-line
+            $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color)); //* @phpstan-ignore property.nonObject (xpath may return null)
+            $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)); //* @phpstan-ignore property.nonObject (xpath may return null)
         } elseif ($fillStyleXml->patternFill) {
             $defaultFillStyle = ($fillStyle->getFillType() !== null) ? Fill::FILL_NONE : '';
             $fgFound = false;
@@ -549,10 +549,10 @@ class Styles extends BaseParserClass
     /**
      * Get array item.
      *
-     * @param false|mixed[] $array (usually array, in theory can be false)
+     * @param null|false|SimpleXMLElement[] $array (usually array, in theory can be false)
      */
     private static function getArrayItem(mixed $array): ?SimpleXMLElement
     {
-        return is_array($array) ? ($array[0] ?? null) : null; // @phpstan-ignore-line
+        return is_array($array) ? ($array[0] ?? null) : null;
     }
 }

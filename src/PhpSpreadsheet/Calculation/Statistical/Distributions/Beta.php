@@ -116,6 +116,11 @@ class Beta
         if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0.0)) {
             return ExcelError::NAN();
         }
+        if (($alpha + $beta) > self::LOG_GAMMA_X_MAX_VALUE) {
+            // incompleteBeta declines to evaluate here and returns 0 for every x,
+            // so there is no quantile to search for.
+            return ExcelError::NAN();
+        }
 
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
     }
@@ -130,7 +135,7 @@ class Beta
         while ((($b - $a) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
             $guess = ($a + $b) / 2;
             $result = self::distribution($guess, $alpha, $beta);
-            if (($result === $probability) || ($result === 0.0)) {
+            if ($result === $probability) {
                 $b = $a;
             } elseif ($result > $probability) {
                 $b = $guess;

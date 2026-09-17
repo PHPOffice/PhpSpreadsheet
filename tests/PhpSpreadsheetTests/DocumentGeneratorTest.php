@@ -166,10 +166,8 @@ class DocumentGeneratorTest extends TestCase
         $phpSpreadsheetFunctions = [
             'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 1],
         ];
-        // Phpstan is right to complain about next line,
-        // but we still need to make sure it is handled correctly at run time.
         DocumentGenerator::generateFunctionListByName(
-            $phpSpreadsheetFunctions //* @phpstan-ignore-line
+            $phpSpreadsheetFunctions //* @phpstan-ignore argument.type (deliberate run-time test)
         );
     }
 

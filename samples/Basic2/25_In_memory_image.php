@@ -11,10 +11,6 @@ require __DIR__ . '/../Header.php';
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 $sheet1 = $spreadsheet->getActiveSheet();
-$sheet1->setTitle('SheetWithData');
-$sheet1->getCell('G1')->setValue('X');
-$sheet1->getCell('E5')->setValue('Y');
-$sheet1->getCell('A8')->setValue('Z');
 
 // Set document properties
 $helper->log('Set document properties');
@@ -26,24 +22,24 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
     ->setKeywords('office 2007 openxml php')
     ->setCategory('Test result file');
 
-// Generate an image
-$helper->log('Generate an image');
-$gdImage = imagecreatetruecolor(120, 20);
+$sheet1->setTitle('JpegWithData');
+$sheet1->getCell('G1')->setValue('X');
+$sheet1->getCell('E5')->setValue('Y');
+$sheet1->getCell('A8')->setValue('Z');
+$helper->log('Generate an image as jpg');
+$gdImage = imagecreatetruecolor(150, 20);
 if (!$gdImage) {
     throw new Exception('Cannot Initialize new GD image stream');
 }
-
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 if ($textColor === false) {
     throw new Exception('imagecolorallocate failed');
 }
-imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
-
-// Add a drawing to the worksheet
-$helper->log('Add a drawing to the worksheet');
+imagestring($gdImage, 1, 5, 5, 'Jpeg made with PhpSpreadsheet', $textColor);
+$helper->log('Add image to the worksheet');
 $drawing = new MemoryDrawing();
-$drawing->setName('Sample image');
-$drawing->setDescription('Sample image');
+$drawing->setName('Sample JPEG image');
+$drawing->setDescription('Sample JPEG image');
 $drawing->setImageResource($gdImage);
 $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
 $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
@@ -53,25 +49,59 @@ $drawing->setCoordinates('C5');
 
 $helper->log('Create new sheet');
 $sheet2 = $spreadsheet->createSheet();
-$sheet2->setTitle('SheetWithoutData');
-
+$sheet2->setTitle('Gif');
+$helper->log('Generate a second image as gif');
+$gdImage2 = imagecreatetruecolor(150, 20);
+if (!$gdImage2) {
+    throw new Exception('Cannot Initialize new GD image stream');
+}
+$textColor = imagecolorallocate($gdImage, 255, 255, 255);
+if ($textColor === false) {
+    throw new Exception('imagecolorallocate failed');
+}
+imagestring($gdImage2, 1, 5, 5, 'Gif made with PhpSpreadsheet', $textColor);
 // Add a drawing to the new worksheet
-$helper->log('Add a drawing to the new worksheet');
+$helper->log('Add image to the new worksheet');
 $drawing = new MemoryDrawing();
-$drawing->setName('Sample image');
-$drawing->setDescription('Sample image');
-$drawing->setImageResource($gdImage);
-$drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+$drawing->setName('Sample GIF image');
+$drawing->setDescription('Sample GIF image');
+$drawing->setImageResource($gdImage2);
+$drawing->setRenderingFunction(MemoryDrawing::RENDERING_GIF);
 $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($sheet2);
+$drawing->setCoordinates('C5');
+
+$helper->log('Create a third sheet');
+$sheet3 = $spreadsheet->createSheet();
+$sheet3->setTitle('Png');
+$helper->log('Generate a third image as png');
+$gdImage3 = imagecreatetruecolor(150, 20);
+if (!$gdImage3) {
+    throw new Exception('Cannot Initialize new GD image stream');
+}
+$textColor = imagecolorallocate($gdImage3, 255, 255, 255);
+if ($textColor === false) {
+    throw new Exception('imagecolorallocate failed');
+}
+imagestring($gdImage3, 1, 5, 5, 'Png made with PhpSpreadsheet', $textColor);
+// Add a drawing to the new worksheet
+$helper->log('Add image to the new worksheet');
+$drawing = new MemoryDrawing();
+$drawing->setName('Sample PNG image');
+$drawing->setDescription('Sample PNG image');
+$drawing->setImageResource($gdImage3);
+$drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setHeight(36);
+$drawing->setWorksheet($sheet3);
 $drawing->setCoordinates('C5');
 
 // Save
 $helper->write(
     $spreadsheet,
     __FILE__,
-    ['Xlsx', 'Html'],
+    ['Xlsx', 'Html', 'Ods', 'Xls'],
     false,
     function (BaseWriter $writer): void {
         if (method_exists($writer, 'writeAllSheets')) {

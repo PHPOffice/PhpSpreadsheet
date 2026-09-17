@@ -1,0 +1,8 @@
+/* Light mode alternating rows */
+[data-md-color-scheme="default"] table tbody tr:nth-child(2n) {
+  background-color: #f3f6f6;
+}
+/* Dark mode (slate scheme) alternating rows */
+[data-md-color-scheme="slate"] table tbody tr:nth-child(2n) {
+  background-color: #404040;
+}
