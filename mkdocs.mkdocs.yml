@@ -14,5 +14,12 @@ extra_css:
 extra_javascript:
     - extra/extrajs.js
     - extra/copyclipboard.js
+    # Mkdocs theme does not honor green and red color for ✔ and ✖.
+    # I am at a loss to explain why, or even how; no other theme has this problem.
+    # These are used on features-cross-reference page.
+    # The following script converts to thinner versions of those
+    # symbols; I'm not sure it's worth it, especially since the
+    # thin checkmark is a little difficult to see in dark mode.
+    # - extra/nothickcheck.js
 markdown_extensions:
     - md_in_html
