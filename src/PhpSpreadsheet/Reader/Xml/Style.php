@@ -16,10 +16,11 @@ class Style
 
     /**
      * @param string[] $namespaces
+     * @param string[] $numberFormatMappings
      *
      * @return mixed[]
      */
-    public function parseStyles(SimpleXMLElement $xml, array $namespaces): array
+    public function parseStyles(SimpleXMLElement $xml, array $namespaces, array $numberFormatMappings = Style\NumberFormat::FORMAT_MAPPINGS): array
     {
         $children = $xml->children('urn:schemas-microsoft-com:office:spreadsheet');
         $stylesXml = $children->Styles[0];
@@ -70,7 +71,7 @@ class Style
                         break;
                     case 'NumberFormat':
                         if ($styleAttributes) {
-                            $numberFormat = $numberFormatStyleParser->parseStyle($styleAttributes);
+                            $numberFormat = $numberFormatStyleParser->parseStyle($styleAttributes, $numberFormatMappings);
                         }
 
                         break;
