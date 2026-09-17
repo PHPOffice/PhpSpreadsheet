@@ -172,6 +172,15 @@
 <dd>Get parent Xlsx object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_pivotCacheRelationships">pivotCacheRelationships()</a>
+    <span>
+                                &nbsp;: array&lt;string, string&gt;    </span>
+</dt>
+<dd>Build the map of relationship-id =&gt; workbook-relative target for each
+preserved pivot cache definition. The relationship id is derived from the
+cache id so the workbook &lt;pivotCaches&gt; element can reference it.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_writeDrawingRelationships">writeDrawingRelationships()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -314,6 +323,57 @@
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_pivotCacheRelationships">
+        pivotCacheRelationships()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_pivotCacheRelationships" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php"><a href="files/src-phpspreadsheet-writer-xlsx-rels.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php">Rels.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">201</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Build the map of relationship-id =&gt; workbook-relative target for each
+preserved pivot cache definition. The relationship id is derived from the
+cache id so the workbook &lt;pivotCaches&gt; element can reference it.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">pivotCacheRelationships</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_writeDrawingRelationships">
@@ -324,7 +384,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php"><a href="files/src-phpspreadsheet-writer-xlsx-rels.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php">Rels.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">359</span>
+    <span class="phpdocumentor-element-found-in__line">416</span>
 
     </aside>
 
@@ -395,7 +455,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php"><a href="files/src-phpspreadsheet-writer-xlsx-rels.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php">Rels.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">431</span>
+    <span class="phpdocumentor-element-found-in__line">488</span>
 
     </aside>
 
@@ -501,7 +561,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php"><a href="files/src-phpspreadsheet-writer-xlsx-rels.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php">Rels.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">464</span>
+    <span class="phpdocumentor-element-found-in__line">521</span>
 
     </aside>
 
@@ -602,7 +662,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php"><a href="files/src-phpspreadsheet-writer-xlsx-rels.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Rels.php">Rels.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 
     </aside>
 
@@ -794,6 +854,7 @@ rId_hyperlink_x     - Hyperlinks</p>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_pivotCacheRelationships">pivotCacheRelationships()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_writeDrawingRelationships">writeDrawingRelationships()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_writeHeaderFooterDrawingRelationships">writeHeaderFooterDrawingRelationships()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_writeRelationships">writeRelationships()</a></li>

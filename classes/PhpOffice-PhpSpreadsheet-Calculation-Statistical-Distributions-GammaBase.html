@@ -148,6 +148,19 @@
 
 
 
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#constant_MAX_VALUE">MAX_VALUE</a>
+    <span>
+        &nbsp;= 1.2E+308                            </span>
+</dt>
+
+    </dl>
 
 
 
@@ -175,6 +188,20 @@
                                 &nbsp;: float    </span>
 </dt>
 <dd>logGamma function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaP">regularizedGammaP()</a>
+    <span>
+                                &nbsp;: float    </span>
+</dt>
+<dd>Regularized lower incomplete gamma P(a,x) = gamma(a,x) / Gamma(a).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaQ">regularizedGammaQ()</a>
+    <span>
+                                &nbsp;: float    </span>
+</dt>
+<dd>Regularized upper incomplete gamma Q(a,x) = 1 - P(a,x).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_calculateDistribution">calculateDistribution()</a>
@@ -205,6 +232,44 @@
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_MAX_VALUE">
+        MAX_VALUE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#constant_MAX_VALUE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MAX_VALUE</span>
+    = <span class="phpdocumentor-signature__default-value">1.2E+308</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+            </section>
 
         
 
@@ -228,7 +293,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">215</span>
 
     </aside>
 
@@ -276,7 +341,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -331,7 +396,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">262</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 
     </aside>
 
@@ -431,6 +496,122 @@ The computation is believed to be free of underflow and overflow.
                     <article
         class="phpdocumentor-element
             -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_regularizedGammaP">
+        regularizedGammaP()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaP" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">116</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Regularized lower incomplete gamma P(a,x) = gamma(a,x) / Gamma(a).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">regularizedGammaP</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$x</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Series for x &lt; a+1, else the complement of the continued fraction.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$a</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$x</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_regularizedGammaQ">
+        regularizedGammaQ()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaQ" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">132</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Regularized upper incomplete gamma Q(a,x) = 1 - P(a,x).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">regularizedGammaQ</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$x</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Continued fraction for x &gt;= a+1 keeps the right tail free of cancellation.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$a</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$x</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -protected
                                     -static                    "
 >
@@ -511,7 +692,7 @@ The computation is believed to be free of underflow and overflow.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -573,7 +754,7 @@ The computation is believed to be free of underflow and overflow.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">346</span>
+    <span class="phpdocumentor-element-found-in__line">454</span>
 
     </aside>
 
@@ -621,7 +802,7 @@ The computation is believed to be free of underflow and overflow.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-distributions-gammabase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php">GammaBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">362</span>
+    <span class="phpdocumentor-element-found-in__line">470</span>
 
     </aside>
 
@@ -762,9 +943,16 @@ The computation is believed to be free of underflow and overflow.
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#toc-constants">Constants</a></li>
                                                                                 <li><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#constant_MAX_VALUE">MAX_VALUE</a></li>
+                                            </ul>
+                </li>
             
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
@@ -773,6 +961,8 @@ The computation is believed to be free of underflow and overflow.
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_gammaValue">gammaValue()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_incompleteGamma">incompleteGamma()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_logGamma">logGamma()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaP">regularizedGammaP()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaQ">regularizedGammaQ()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_calculateDistribution">calculateDistribution()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_calculateInverse">calculateInverse()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_logGamma3">logGamma3()</a></li>

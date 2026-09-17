@@ -293,6 +293,14 @@
 <dd>Utility function to transform ASCII text to Unicode.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_copyDataByName">copyDataByName()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Copy a named file stream to an open output handle without loading a
+large stream into memory.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getBlockOffset">getBlockOffset()</a>
     <span>
                                 &nbsp;: int    </span>
@@ -305,6 +313,13 @@
 </dt>
 <dd>Gets data from a PPS
 If there is no PPS for the index given, it will return an empty string.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataByName">getDataByName()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get the complete contents of a named file stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataLength">getDataLength()</a>
@@ -321,6 +336,13 @@ If there is no PPS for the index given, it will return 0.</dd>
 </dt>
 <dd>Returns a stream for use with fread() etc. External callers should
 use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_hasDataByName">hasDataByName()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check whether a named file stream exists without reading its contents.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isFile">isFile()</a>
@@ -921,7 +943,7 @@ creates an OLE_PPS object for each one.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">482</span>
+    <span class="phpdocumentor-element-found-in__line">565</span>
 
     </aside>
 
@@ -961,6 +983,76 @@ creates an OLE_PPS object for each one.</dd>
 
             </section>
 
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_copyDataByName">
+        copyDataByName()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_copyDataByName" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">516</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Copy a named file stream to an open output handle without loading a
+large stream into memory.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">copyDataByName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">resource&nbsp;</span><span class="phpdocumentor-signature__argument__name">$output</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$output</span>
+                : <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_copyDataByName#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>if no file stream has the requested name</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1026,7 +1118,7 @@ creates an OLE_PPS object for each one.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">445</span>
+    <span class="phpdocumentor-element-found-in__line">448</span>
 
     </aside>
 
@@ -1108,6 +1200,72 @@ If there is no PPS for the index given, it will return an empty string.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getDataByName">
+        getDataByName()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataByName" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">483</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the complete contents of a named file stream.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getDataByName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataByName#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>if no file stream has the requested name</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getDataLength">
         getDataLength()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataLength" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1116,7 +1274,7 @@ If there is no PPS for the index given, it will return an empty string.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">466</span>
+    <span class="phpdocumentor-element-found-in__line">469</span>
 
     </aside>
 
@@ -1220,6 +1378,55 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_hasDataByName">
+        hasDataByName()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_hasDataByName" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">497</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check whether a named file stream exists without reading its contents.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasDataByName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_isFile">
         isFile()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isFile" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1228,7 +1435,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">396</span>
+    <span class="phpdocumentor-element-found-in__line">399</span>
 
     </aside>
 
@@ -1285,7 +1492,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">413</span>
+    <span class="phpdocumentor-element-found-in__line">416</span>
 
     </aside>
 
@@ -1342,7 +1549,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">502</span>
+    <span class="phpdocumentor-element-found-in__line">585</span>
 
     </aside>
 
@@ -1398,7 +1605,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">537</span>
+    <span class="phpdocumentor-element-found-in__line">620</span>
 
     </aside>
 
@@ -1453,7 +1660,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">427</span>
+    <span class="phpdocumentor-element-found-in__line">430</span>
 
     </aside>
 
@@ -1565,7 +1772,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">295</span>
+    <span class="phpdocumentor-element-found-in__line">298</span>
 
     </aside>
 
@@ -1749,10 +1956,13 @@ creates an OLE_PPS object for each one.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_ascToUcs">ascToUcs()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_copyDataByName">copyDataByName()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getBlockOffset">getBlockOffset()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getData">getData()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataByName">getDataByName()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataLength">getDataLength()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getStream">getStream()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_hasDataByName">hasDataByName()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isFile">isFile()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isRoot">isRoot()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_localDateToOLE">localDateToOLE()</a></li>

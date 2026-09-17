@@ -4686,6 +4686,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_incompleteGamma"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Distributions\\GammaBase\u003A\u003AregularizedGammaP\u0028\u0029",
+            "name": "regularizedGammaP",
+            "summary": "Regularized\u0020lower\u0020incomplete\u0020gamma\u0020P\u0028a,x\u0029\u0020\u003D\u0020gamma\u0028a,x\u0029\u0020\/\u0020Gamma\u0028a\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Distributions\\GammaBase\u003A\u003AregularizedGammaQ\u0028\u0029",
+            "name": "regularizedGammaQ",
+            "summary": "Regularized\u0020upper\u0020incomplete\u0020gamma\u0020Q\u0028a,x\u0029\u0020\u003D\u00201\u0020\u002D\u0020P\u0028a,x\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_regularizedGammaQ"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Distributions\\GammaBase\u003A\u003AgammaValue\u0028\u0029",
             "name": "gammaValue",
             "summary": "",
@@ -4705,6 +4715,11 @@ Search.appendIndex(
             "name": "logGamma4",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#method_logGamma4"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Distributions\\GammaBase\u003A\u003AMAX_VALUE",
+            "name": "MAX_VALUE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Distributions-GammaBase.html#constant_MAX_VALUE"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Distributions\\HyperGeometric",
             "name": "HyperGeometric",
@@ -12141,11 +12156,6 @@ Search.appendIndex(
             "summary": "Return\u0020worksheet\u0020info\u0020\u0028Name,\u0020Last\u0020Column\u0020Letter,\u0020Last\u0020Column\u0020Index,\u0020Total\u0020Rows,\u0020Total\u0020Columns\u0029.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Gnumeric.html#method_listWorksheetInfo"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Gnumeric\u003A\u003AgnumericMappings\u0028\u0029",
-            "name": "gnumericMappings",
-            "summary": "",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Gnumeric.html#method_gnumericMappings"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Gnumeric\u003A\u003AloadSpreadsheetFromFile\u0028\u0029",
             "name": "loadSpreadsheetFromFile",
             "summary": "Loads\u0020Spreadsheet\u0020from\u0020file.",
@@ -13691,6 +13701,11 @@ Search.appendIndex(
             "summary": "Worksheet\u0020that\u0020is\u0020currently\u0020being\u0020built\u0020by\u0020the\u0020reader.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_phpSheet"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xls\u003A\u003A\u0024phpSheetTitle",
+            "name": "phpSheetTitle",
+            "summary": "Cached\u0020sheet\u0020title\u0020for\u0020the\u0020current\u0020sheet\u0020being\u0020parsed.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#property_phpSheetTitle"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xls\u003A\u003A\u0024version",
             "name": "version",
             "summary": "BIFF\u0020version.",
@@ -14696,6 +14711,21 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_RELATIONSHIPS_TABLE"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003ARELATIONSHIPS_PIVOT_TABLE",
+            "name": "RELATIONSHIPS_PIVOT_TABLE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_RELATIONSHIPS_PIVOT_TABLE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003ARELATIONSHIPS_PIVOT_CACHE_DEFINITION",
+            "name": "RELATIONSHIPS_PIVOT_CACHE_DEFINITION",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_RELATIONSHIPS_PIVOT_CACHE_DEFINITION"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003ARELATIONSHIPS_PIVOT_CACHE_RECORDS",
+            "name": "RELATIONSHIPS_PIVOT_CACHE_RECORDS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_RELATIONSHIPS_PIVOT_CACHE_RECORDS"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003ASPREADSHEETML_AC",
             "name": "SPREADSHEETML_AC",
             "summary": "",
@@ -14816,6 +14846,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_STYLE_CHECKBOX_URI"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003ASPARKLINE_URI",
+            "name": "SPARKLINE_URI",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Namespaces.html#constant_SPARKLINE_URI"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Namespaces\u003A\u003AMISLEADING_FORMAT",
             "name": "MISLEADING_FORMAT",
             "summary": "",
@@ -14835,6 +14870,21 @@ Search.appendIndex(
             "name": "load",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-PageSetup.html#method_load"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\PivotTableReader",
+            "name": "PivotTableReader",
+            "summary": "Reads\u0020a\u0020pivot\u0020table\u0020definition\u0020\u0028and\u0020its\u0020associated\u0020cache\u0020definition\u0029\u0020from\nthe\u0020Xlsx\u0020parts\u0020into\u0020the\u0020read\u002Donly\u0020PivotTable\u0020object\u0020model.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-PivotTableReader.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\PivotTableReader\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-PivotTableReader.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\PivotTableReader\u003A\u003Aload\u0028\u0029",
+            "name": "load",
+            "summary": "Parse\u0020the\u0020pivot\u0020table\u0020definition\u0020and\u0020add\u0020it\u0020to\u0020the\u0020worksheet.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-PivotTableReader.html#method_load"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Properties",
             "name": "Properties",
@@ -14910,6 +14960,21 @@ Search.appendIndex(
             "name": "load",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-SheetViews.html#method_load"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Sparklines",
+            "name": "Sparklines",
+            "summary": "Reads\u0020the\u0020\u0060x14\u003AsparklineGroups\u0060\u0020extension\u0020from\u0020a\u0020worksheet\u0027s\u0020\u0060extLst\u0060\u0020and\npopulates\u0020the\u0020worksheet\u0027s\u0020sparkline\u0020group\u0020collection.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Sparklines.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Sparklines\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Sparklines.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Sparklines\u003A\u003Aload\u0028\u0029",
+            "name": "load",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Sparklines.html#method_load"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\Styles",
             "name": "Styles",
@@ -15076,6 +15141,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\u003A\u003AsetEncryptionPassword\u0028\u0029",
+            "name": "setEncryptionPassword",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_setEncryptionPassword"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\u003A\u003AsetMaxEncryptionSpinCount\u0028\u0029",
+            "name": "setMaxEncryptionSpinCount",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_setMaxEncryptionSpinCount"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\u003A\u003AsetParseHuge\u0028\u0029",
             "name": "setParseHuge",
             "summary": "Allow\u0020use\u0020of\u0020LIBXML_PARSEHUGE.",
@@ -15090,6 +15165,11 @@ Search.appendIndex(
             "name": "canRead",
             "summary": "Can\u0020the\u0020current\u0020IReader\u0020read\u0020the\u0020file\u003F",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_canRead"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\u003A\u003Aload\u0028\u0029",
+            "name": "load",
+            "summary": "Loads\u0020Spreadsheet\u0020from\u0020file.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_load"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\u003A\u003AtestSimpleXml\u0028\u0029",
             "name": "testSimpleXml",
@@ -17196,6 +17276,21 @@ Search.appendIndex(
             "summary": "Gets\u0020the\u0020data\u0020length\u0020from\u0020a\u0020PPS\nIf\u0020there\u0020is\u0020no\u0020PPS\u0020for\u0020the\u0020index\u0020given,\u0020it\u0020will\u0020return\u00200.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataLength"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\u003A\u003AgetDataByName\u0028\u0029",
+            "name": "getDataByName",
+            "summary": "Get\u0020the\u0020complete\u0020contents\u0020of\u0020a\u0020named\u0020file\u0020stream.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataByName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\u003A\u003AhasDataByName\u0028\u0029",
+            "name": "hasDataByName",
+            "summary": "Check\u0020whether\u0020a\u0020named\u0020file\u0020stream\u0020exists\u0020without\u0020reading\u0020its\u0020contents.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_hasDataByName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\u003A\u003AcopyDataByName\u0028\u0029",
+            "name": "copyDataByName",
+            "summary": "Copy\u0020a\u0020named\u0020file\u0020stream\u0020to\u0020an\u0020open\u0020output\u0020handle\u0020without\u0020loading\u0020a\nlarge\u0020stream\u0020into\u0020memory.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_copyDataByName"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\u003A\u003AascToUcs\u0028\u0029",
             "name": "ascToUcs",
             "summary": "Utility\u0020function\u0020to\u0020transform\u0020ASCII\u0020text\u0020to\u0020Unicode.",
@@ -18126,6 +18221,46 @@ Search.appendIndex(
             "summary": "Convert\u00201\u002Dcell\u0020anchor\u0020coordinates\u0020to\u00202\u002Dcell\u0020anchor\u0020coordinates\nThis\u0020function\u0020is\u0020ported\u0020from\u0020PEAR\u0020Spreadsheet_Writer_Excel\u0020with\u0020small\u0020modifications.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xls.html#method_oneAnchor2twoAnchor"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption",
+            "name": "AgileEncryption",
+            "summary": "ECMA\u002D376\u0020Agile\u0020Encryption\u0020\u0028AES\u002D256\/SHA\u002D512\u0020profile\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003Aparse\u0028\u0029",
+            "name": "parse",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_parse"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003Adecrypt\u0028\u0029",
+            "name": "decrypt",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_decrypt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003AdecryptFile\u0028\u0029",
+            "name": "decryptFile",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_decryptFile"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003Aencrypt\u0028\u0029",
+            "name": "encrypt",
+            "summary": "Create\u0020the\u0020EncryptionInfo\u0020and\u0020EncryptedPackage\u0020streams\u0020for\u0020an\u0020Agile\u002Dencrypted\u0020XLSX.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_encrypt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003AencryptFile\u0028\u0029",
+            "name": "encryptFile",
+            "summary": "Encrypt\u0020a\u0020ZIP\u0020package\u0020without\u0020loading\u0020either\u0020package\u0020into\u0020memory.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_encryptFile"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003AwriteContainerFromFile\u0028\u0029",
+            "name": "writeContainerFromFile",
+            "summary": "Write\u0020an\u0020Office\u0020encrypted\u0020package\u0020CFB\u0020container\u0020using\u0020a\u0020file\u002Dbacked\u0020EncryptedPackage\u0020stream.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#method_writeContainerFromFile"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx\\AgileEncryption\u003A\u003AMAX_SPIN_COUNT",
+            "name": "MAX_SPIN_COUNT",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Shared-Xlsx-AgileEncryption.html#constant_MAX_SPIN_COUNT"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\XMLWriter",
             "name": "XMLWriter",
             "summary": "",
@@ -18143,7 +18278,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\XMLWriter\u003A\u003A__unserialize\u0028\u0029",
             "name": "__unserialize",
-            "summary": "",
+            "summary": "Unserialization\u0020is\u0020not\u0020allowed.\u0020This\u0020needs\u0020to\u0020be\u0020enforced\nin\u0020the\u0020class\u0020before\u0020Php8.6,\u0020but,\u0020with\u0020that\u0020release,\nthis\u0020method\u0020is\u0020no\u0020longer\u0020needed\u0020and\u0020will\u0020not\u0020be\u0020executed.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html#method___unserialize"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\XMLWriter\u003A\u003AgetData\u0028\u0029",
@@ -26346,6 +26481,481 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Pane.html#method_setActiveCell"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition",
+            "name": "PivotCacheDefinition",
+            "summary": "Read\u002Donly\u0020representation\u0020of\u0020a\u0020pivot\u0020cache\u0020definition.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetCacheId\u0028\u0029",
+            "name": "getCacheId",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getCacheId"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetCacheId\u0028\u0029",
+            "name": "setCacheId",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setCacheId"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetSourceWorksheet\u0028\u0029",
+            "name": "getSourceWorksheet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getSourceWorksheet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetSourceWorksheet\u0028\u0029",
+            "name": "setSourceWorksheet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setSourceWorksheet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetSourceRange\u0028\u0029",
+            "name": "getSourceRange",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getSourceRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetSourceRange\u0028\u0029",
+            "name": "setSourceRange",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setSourceRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetCacheFields\u0028\u0029",
+            "name": "getCacheFields",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getCacheFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AaddCacheField\u0028\u0029",
+            "name": "addCacheField",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_addCacheField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetCacheFields\u0028\u0029",
+            "name": "setCacheFields",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setCacheFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetCacheFieldName\u0028\u0029",
+            "name": "getCacheFieldName",
+            "summary": "Return\u0020the\u0020name\u0020of\u0020the\u0020cache\u0020field\u0020at\u0020the\u0020given\u0020zero\u002Dbased\u0020index,\u0020or\u0020null.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getCacheFieldName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetSharedItems\u0028\u0029",
+            "name": "setSharedItems",
+            "summary": "Set\u0020the\u0020distinct\u0020values\u0020recorded\u0020for\u0020a\u0020field\u0020\u0028used\u0020when\u0020generating\u0020a\u0020new\ncache\u0020definition\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setSharedItems"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetSharedItems\u0028\u0029",
+            "name": "getSharedItems",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getSharedItems"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AsetFieldGroup\u0028\u0029",
+            "name": "setFieldGroup",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_setFieldGroup"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotCacheDefinition\u003A\u003AgetFieldGroup\u0028\u0029",
+            "name": "getFieldGroup",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getFieldGroup"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField",
+            "name": "PivotField",
+            "summary": "Read\u002Donly\u0020representation\u0020of\u0020a\u0020single\u0020field\u0020within\u0020a\u0020pivot\u0020table.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AgetIndex\u0028\u0029",
+            "name": "getIndex",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_getIndex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_getName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AsetName\u0028\u0029",
+            "name": "setName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_setName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AgetAxis\u0028\u0029",
+            "name": "getAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_getAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AsetAxis\u0028\u0029",
+            "name": "setAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_setAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AisDataField\u0028\u0029",
+            "name": "isDataField",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_isDataField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AsetDataField\u0028\u0029",
+            "name": "setDataField",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_setDataField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AgetSubtotal\u0028\u0029",
+            "name": "getSubtotal",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_getSubtotal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AsetSubtotal\u0028\u0029",
+            "name": "setSubtotal",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_setSubtotal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AgetDataFieldCaption\u0028\u0029",
+            "name": "getDataFieldCaption",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_getDataFieldCaption"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AsetDataFieldCaption\u0028\u0029",
+            "name": "setDataFieldCaption",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#method_setDataFieldCaption"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AAXIS_ROW",
+            "name": "AXIS_ROW",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_AXIS_ROW"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AAXIS_COLUMN",
+            "name": "AXIS_COLUMN",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_AXIS_COLUMN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AAXIS_PAGE",
+            "name": "AXIS_PAGE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_AXIS_PAGE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AAXIS_VALUES",
+            "name": "AXIS_VALUES",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_AXIS_VALUES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003AAXIS_NONE",
+            "name": "AXIS_NONE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_AXIS_NONE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_SUM",
+            "name": "SUBTOTAL_SUM",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_SUM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_COUNT",
+            "name": "SUBTOTAL_COUNT",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_COUNT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_AVERAGE",
+            "name": "SUBTOTAL_AVERAGE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_AVERAGE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_MAX",
+            "name": "SUBTOTAL_MAX",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_MAX"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_MIN",
+            "name": "SUBTOTAL_MIN",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_MIN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_PRODUCT",
+            "name": "SUBTOTAL_PRODUCT",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_PRODUCT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_COUNT_NUMS",
+            "name": "SUBTOTAL_COUNT_NUMS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_COUNT_NUMS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_STD_DEV",
+            "name": "SUBTOTAL_STD_DEV",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_STD_DEV"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_STD_DEV_P",
+            "name": "SUBTOTAL_STD_DEV_P",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_STD_DEV_P"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_VAR",
+            "name": "SUBTOTAL_VAR",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_VAR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField\u003A\u003ASUBTOTAL_VAR_P",
+            "name": "SUBTOTAL_VAR_P",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotField.html#constant_SUBTOTAL_VAR_P"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup",
+            "name": "PivotFieldGroup",
+            "summary": "Describes\u0020how\u0020a\u0020single\u0020source\u0020\u0028cache\u0029\u0020field\u0020is\u0020grouped\u0020in\u0020a\u0020pivot\u0020table.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003Anumeric\u0028\u0029",
+            "name": "numeric",
+            "summary": "Create\u0020a\u0020numeric\u0020range\u0020grouping\u0020\u0028buckets\u0020of\u0020\u0024interval\u0020width\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numeric"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003Adate\u0028\u0029",
+            "name": "date",
+            "summary": "Create\u0020a\u0020date\u0020grouping\u0020by\u0020one\u0020or\u0020more\u0020calendar\u0020units.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_date"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetType\u0028\u0029",
+            "name": "getType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AisNumeric\u0028\u0029",
+            "name": "isNumeric",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_isNumeric"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AisDate\u0028\u0029",
+            "name": "isDate",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_isDate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetInterval\u0028\u0029",
+            "name": "getInterval",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getInterval"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetStartNum\u0028\u0029",
+            "name": "getStartNum",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getStartNum"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetEndNum\u0028\u0029",
+            "name": "getEndNum",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndNum"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetGroupBy\u0028\u0029",
+            "name": "getGroupBy",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getGroupBy"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetStartDate\u0028\u0029",
+            "name": "getStartDate",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getStartDate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AgetEndDate\u0028\u0029",
+            "name": "getEndDate",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndDate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003ATYPE_NUMERIC",
+            "name": "TYPE_NUMERIC",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_NUMERIC"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003ATYPE_DATE",
+            "name": "TYPE_DATE",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_DATE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_SECONDS",
+            "name": "GROUP_BY_SECONDS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_SECONDS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_MINUTES",
+            "name": "GROUP_BY_MINUTES",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_MINUTES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_HOURS",
+            "name": "GROUP_BY_HOURS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_HOURS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_DAYS",
+            "name": "GROUP_BY_DAYS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_DAYS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_MONTHS",
+            "name": "GROUP_BY_MONTHS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_MONTHS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_QUARTERS",
+            "name": "GROUP_BY_QUARTERS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_QUARTERS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AGROUP_BY_YEARS",
+            "name": "GROUP_BY_YEARS",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_YEARS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable",
+            "name": "PivotTable",
+            "summary": "Read\u002Donly\u0020representation\u0020of\u0020a\u0020pivot\u0020table.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AisGenerated\u0028\u0029",
+            "name": "isGenerated",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_isGenerated"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AsetGenerated\u0028\u0029",
+            "name": "setGenerated",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_setGenerated"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003A__destruct\u0028\u0029",
+            "name": "__destruct",
+            "summary": "Code\u0020to\u0020execute\u0020when\u0020this\u0020pivot\u0020table\u0020is\u0020unset\u0028\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method___destruct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AsetName\u0028\u0029",
+            "name": "setName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_setName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetWorksheet\u0028\u0029",
+            "name": "getWorksheet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getWorksheet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AsetWorksheet\u0028\u0029",
+            "name": "setWorksheet",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_setWorksheet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetLocation\u0028\u0029",
+            "name": "getLocation",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getLocation"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AsetLocation\u0028\u0029",
+            "name": "setLocation",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_setLocation"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetCacheDefinition\u0028\u0029",
+            "name": "getCacheDefinition",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getCacheDefinition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AsetCacheDefinition\u0028\u0029",
+            "name": "setCacheDefinition",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_setCacheDefinition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetFields\u0028\u0029",
+            "name": "getFields",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AaddField\u0028\u0029",
+            "name": "addField",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_addField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetRowFields\u0028\u0029",
+            "name": "getRowFields",
+            "summary": "Return\u0020only\u0020the\u0020fields\u0020placed\u0020on\u0020the\u0020row\u0020axis,\u0020in\u0020order.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getRowFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetColumnFields\u0028\u0029",
+            "name": "getColumnFields",
+            "summary": "Return\u0020only\u0020the\u0020fields\u0020placed\u0020on\u0020the\u0020column\u0020axis,\u0020in\u0020order.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getColumnFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetPageFields\u0028\u0029",
+            "name": "getPageFields",
+            "summary": "Return\u0020only\u0020the\u0020fields\u0020placed\u0020on\u0020the\u0020page\/filter\u0020axis,\u0020in\u0020order.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getPageFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetDataFields\u0028\u0029",
+            "name": "getDataFields",
+            "summary": "Return\u0020only\u0020the\u0020value\/data\u0020fields,\u0020in\u0020order.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getDataFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method___toString"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder",
+            "name": "PivotTableBuilder",
+            "summary": "Fluent\u0020builder\u0020for\u0020creating\u0020a\u0020new\u0020pivot\u0020table\u0020from\u0020a\u0020range\u0020of\u0020source\u0020data.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AaddRowField\u0028\u0029",
+            "name": "addRowField",
+            "summary": "Place\u0020a\u0020field\u0020on\u0020the\u0020row\u0020axis.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_addRowField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AaddColumnField\u0028\u0029",
+            "name": "addColumnField",
+            "summary": "Place\u0020a\u0020field\u0020on\u0020the\u0020column\u0020axis.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_addColumnField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AaddPageField\u0028\u0029",
+            "name": "addPageField",
+            "summary": "Place\u0020a\u0020field\u0020on\u0020the\u0020page\u0020\u0028report\u0020filter\u0029\u0020axis.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_addPageField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AgroupFieldByNumericRange\u0028\u0029",
+            "name": "groupFieldByNumericRange",
+            "summary": "Group\u0020a\u0020numeric\u0020field\u0020into\u0020fixed\u002Dwidth\u0020buckets\u0020\u0028e.g.\u00200\u002D100,\u0020100\u002D200\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_groupFieldByNumericRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AgroupFieldByDate\u0028\u0029",
+            "name": "groupFieldByDate",
+            "summary": "Group\u0020a\u0020date\/time\u0020field\u0020by\u0020one\u0020or\u0020more\u0020calendar\u0020units.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_groupFieldByDate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003AaddDataField\u0028\u0029",
+            "name": "addDataField",
+            "summary": "Add\u0020a\u0020value\u0020\u0028data\u0029\u0020field\u0020with\u0020the\u0020given\u0020aggregation\u0020function.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_addDataField"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTableBuilder\u003A\u003Abuild\u0028\u0029",
+            "name": "build",
+            "summary": "Build\u0020the\u0020PivotTable\u0020model\u0020and\u0020register\u0020it\u0020on\u0020the\u0020target\u0020worksheet.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTableBuilder.html#method_build"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\ProtectedRange",
             "name": "ProtectedRange",
             "summary": "",
@@ -26980,6 +27590,356 @@ Search.appendIndex(
             "name": "SHEETVIEW_PAGE_BREAK_PREVIEW",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#constant_SHEETVIEW_PAGE_BREAK_PREVIEW"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline",
+            "name": "Sparkline",
+            "summary": "A\u0020single\u0020sparkline\u003A\u0020a\u0020miniature\u0020chart\u0020drawn\u0020inside\u0020one\u0020cell.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003AgetLocation\u0028\u0029",
+            "name": "getLocation",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method_getLocation"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003AsetLocation\u0028\u0029",
+            "name": "setLocation",
+            "summary": "Set\u0020the\u0020cell\u0020the\u0020sparkline\u0020is\u0020drawn\u0020in.\u0020Must\u0020be\u0020a\u0020single\u0020cell,\u0020not\u0020a\u0020range.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method_setLocation"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003AgetDataRange\u0028\u0029",
+            "name": "getDataRange",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method_getDataRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003AsetDataRange\u0028\u0029",
+            "name": "setDataRange",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method_setDataRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\Sparkline\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-Sparkline.html#method___toString"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup",
+            "name": "SparklineGroup",
+            "summary": "A\u0020group\u0020of\u0020sparklines\u0020that\u0020share\u0020formatting\u0020\u0028type,\u0020colours,\u0020markers,\u0020axis\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetType\u0028\u0029",
+            "name": "getType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetType\u0028\u0029",
+            "name": "setType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetSparklines\u0028\u0029",
+            "name": "getSparklines",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getSparklines"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AaddSparkline\u0028\u0029",
+            "name": "addSparkline",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_addSparkline"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AcreateSparkline\u0028\u0029",
+            "name": "createSparkline",
+            "summary": "Convenience\u0020helper\u003A\u0020create\u0020and\u0020add\u0020a\u0020sparkline\u0020from\u0020a\u0020location\u0020cell\u0020and\ndata\u0020range,\u0020returning\u0020this\u0020group\u0020for\u0020chaining.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_createSparkline"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetSparklines\u0028\u0029",
+            "name": "setSparklines",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setSparklines"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetLineWeight\u0028\u0029",
+            "name": "getLineWeight",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getLineWeight"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetLineWeight\u0028\u0029",
+            "name": "setLineWeight",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setLineWeight"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayMarkers\u0028\u0029",
+            "name": "getDisplayMarkers",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayMarkers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayMarkers\u0028\u0029",
+            "name": "setDisplayMarkers",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayMarkers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayHigh\u0028\u0029",
+            "name": "getDisplayHigh",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayHigh"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayHigh\u0028\u0029",
+            "name": "setDisplayHigh",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayHigh"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayLow\u0028\u0029",
+            "name": "getDisplayLow",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayLow"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayLow\u0028\u0029",
+            "name": "setDisplayLow",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayLow"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayFirst\u0028\u0029",
+            "name": "getDisplayFirst",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayFirst"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayFirst\u0028\u0029",
+            "name": "setDisplayFirst",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayFirst"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayLast\u0028\u0029",
+            "name": "getDisplayLast",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayLast"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayLast\u0028\u0029",
+            "name": "setDisplayLast",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayLast"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayNegative\u0028\u0029",
+            "name": "getDisplayNegative",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayNegative"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayNegative\u0028\u0029",
+            "name": "setDisplayNegative",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayNegative"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayXAxis\u0028\u0029",
+            "name": "getDisplayXAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayXAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayXAxis\u0028\u0029",
+            "name": "setDisplayXAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayXAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayHidden\u0028\u0029",
+            "name": "getDisplayHidden",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayHidden"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayHidden\u0028\u0029",
+            "name": "setDisplayHidden",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayHidden"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetRightToLeft\u0028\u0029",
+            "name": "getRightToLeft",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getRightToLeft"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetRightToLeft\u0028\u0029",
+            "name": "setRightToLeft",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setRightToLeft"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetDisplayEmptyCellsAs\u0028\u0029",
+            "name": "getDisplayEmptyCellsAs",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getDisplayEmptyCellsAs"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetDisplayEmptyCellsAs\u0028\u0029",
+            "name": "setDisplayEmptyCellsAs",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setDisplayEmptyCellsAs"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetMinAxisType\u0028\u0029",
+            "name": "getMinAxisType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getMinAxisType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetMinAxisType\u0028\u0029",
+            "name": "setMinAxisType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setMinAxisType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetMaxAxisType\u0028\u0029",
+            "name": "getMaxAxisType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getMaxAxisType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetMaxAxisType\u0028\u0029",
+            "name": "setMaxAxisType",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setMaxAxisType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetManualMin\u0028\u0029",
+            "name": "getManualMin",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getManualMin"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetManualMin\u0028\u0029",
+            "name": "setManualMin",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setManualMin"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetManualMax\u0028\u0029",
+            "name": "getManualMax",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getManualMax"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetManualMax\u0028\u0029",
+            "name": "setManualMax",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setManualMax"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorSeries\u0028\u0029",
+            "name": "getColorSeries",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorSeries"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorSeries\u0028\u0029",
+            "name": "setColorSeries",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorSeries"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorNegative\u0028\u0029",
+            "name": "getColorNegative",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorNegative"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorNegative\u0028\u0029",
+            "name": "setColorNegative",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorNegative"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorAxis\u0028\u0029",
+            "name": "getColorAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorAxis\u0028\u0029",
+            "name": "setColorAxis",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorAxis"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorMarkers\u0028\u0029",
+            "name": "getColorMarkers",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorMarkers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorMarkers\u0028\u0029",
+            "name": "setColorMarkers",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorMarkers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorFirst\u0028\u0029",
+            "name": "getColorFirst",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorFirst"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorFirst\u0028\u0029",
+            "name": "setColorFirst",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorFirst"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorLast\u0028\u0029",
+            "name": "getColorLast",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorLast"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorLast\u0028\u0029",
+            "name": "setColorLast",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorLast"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorHigh\u0028\u0029",
+            "name": "getColorHigh",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorHigh"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorHigh\u0028\u0029",
+            "name": "setColorHigh",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorHigh"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AgetColorLow\u0028\u0029",
+            "name": "getColorLow",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_getColorLow"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AsetColorLow\u0028\u0029",
+            "name": "setColorLow",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#method_setColorLow"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AEMPTY_AS_GAP",
+            "name": "EMPTY_AS_GAP",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_EMPTY_AS_GAP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AEMPTY_AS_ZERO",
+            "name": "EMPTY_AS_ZERO",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_EMPTY_AS_ZERO"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AEMPTY_AS_SPAN",
+            "name": "EMPTY_AS_SPAN",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_EMPTY_AS_SPAN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AAXIS_INDIVIDUAL",
+            "name": "AXIS_INDIVIDUAL",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_AXIS_INDIVIDUAL"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AAXIS_GROUP",
+            "name": "AXIS_GROUP",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_AXIS_GROUP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineGroup\u003A\u003AAXIS_CUSTOM",
+            "name": "AXIS_CUSTOM",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineGroup.html#constant_AXIS_CUSTOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineType",
+            "name": "SparklineType",
+            "summary": "The\u0020type\u0020of\u0020a\u0020sparkline\u0020group,\u0020as\u0020stored\u0020in\u0020the\u0020\u0060type\u0060\u0020attribute\u0020of\u0020the\n\u0060x14\u003AsparklineGroup\u0060\u0020element.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineType.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineType\u003A\u003ALine",
+            "name": "Line",
+            "summary": "A\u0020line\u0020sparkline.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineType.html#enumcase_Line"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineType\u003A\u003AColumn",
+            "name": "Column",
+            "summary": "A\u0020column\u0020\u0028bar\u0029\u0020sparkline.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineType.html#enumcase_Column"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline\\SparklineType\u003A\u003AWinLoss",
+            "name": "WinLoss",
+            "summary": "A\u0020win\/loss\u0020sparkline.\u0020Excel\u0020labels\u0020this\u0020\u0022Win\/Loss\u0022\u0020in\u0020its\u0020UI,\u0020but\u0020the\nunderlying\u0020OOXML\u0020value\u0020is\u0020\u0060stacked\u0060.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Sparkline-SparklineType.html#enumcase_WinLoss"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table\\Column",
             "name": "Column",
@@ -28185,6 +29145,56 @@ Search.appendIndex(
             "name": "removeTableCollection",
             "summary": "Remove\u0020collection\u0020of\u0020Tables.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_removeTableCollection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetSparklineGroupCollection\u0028\u0029",
+            "name": "getSparklineGroupCollection",
+            "summary": "Get\u0020collection\u0020of\u0020SparklineGroups.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getSparklineGroupCollection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AaddSparklineGroup\u0028\u0029",
+            "name": "addSparklineGroup",
+            "summary": "Add\u0020a\u0020SparklineGroup.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_addSparklineGroup"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AaddSparkline\u0028\u0029",
+            "name": "addSparkline",
+            "summary": "Add\u0020a\u0020single\u0020Sparkline,\u0020wrapping\u0020it\u0020in\u0020its\u0020own\u0020SparklineGroup.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_addSparkline"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AremoveSparklineGroupCollection\u0028\u0029",
+            "name": "removeSparklineGroupCollection",
+            "summary": "Remove\u0020all\u0020SparklineGroups.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_removeSparklineGroupCollection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetPivotTableCollection\u0028\u0029",
+            "name": "getPivotTableCollection",
+            "summary": "Get\u0020collection\u0020of\u0020PivotTables.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getPivotTableCollection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetPivotTables\u0028\u0029",
+            "name": "getPivotTables",
+            "summary": "Get\u0020collection\u0020of\u0020PivotTables\u0020\u0028alias\u0020of\u0020getPivotTableCollection\u0028\u0029\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getPivotTables"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AaddPivotTable\u0028\u0029",
+            "name": "addPivotTable",
+            "summary": "Add\u0020a\u0020PivotTable\u0020to\u0020this\u0020worksheet.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_addPivotTable"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetPivotTableNames\u0028\u0029",
+            "name": "getPivotTableNames",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getPivotTableNames"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetPivotTableByName\u0028\u0029",
+            "name": "getPivotTableByName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getPivotTableByName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AremovePivotTableCollection\u0028\u0029",
+            "name": "removePivotTableCollection",
+            "summary": "Remove\u0020collection\u0020of\u0020PivotTables.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_removePivotTableCollection"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AgetFreezePane\u0028\u0029",
             "name": "getFreezePane",
@@ -29591,10 +30601,45 @@ Search.appendIndex(
             "summary": "Write\u0020content.xml\u0020to\u0020XML\u0020format.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#method_write"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003AgetDrawingWriter\u0028\u0029",
+            "name": "getDrawingWriter",
+            "summary": "Get\u0020drawing\u0020writer\u0020instance.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#method_getDrawingWriter"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003A\u0024additionalNumberFormats",
             "name": "additionalNumberFormats",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#property_additionalNumberFormats"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing",
+            "name": "Drawing",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing\u003A\u003Awrite\u0028\u0029",
+            "name": "write",
+            "summary": "Required\u0020by\u0020WriterPart\u0020abstract\u0020class,\u0020but\u0020unused.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html#method_write"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing\u003A\u003Areset\u0028\u0029",
+            "name": "reset",
+            "summary": "Reset\u0020the\u0020drawing\u0020writer\u0020state.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html#method_reset"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing\u003A\u003AcollectDrawings\u0028\u0029",
+            "name": "collectDrawings",
+            "summary": "Collect\u0020all\u0020drawings\u0020from\u0020a\u0020worksheet\u0020and\u0020prepare\u0020image\u0020files.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html#method_collectDrawings"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing\u003A\u003AgetAllImageFiles\u0028\u0029",
+            "name": "getAllImageFiles",
+            "summary": "Get\u0020all\u0020collected\u0020image\u0020files.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html#method_getAllImageFiles"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Drawing\u003A\u003AwriteDrawingFrame\u0028\u0029",
+            "name": "writeDrawingFrame",
+            "summary": "Write\u0020drawing\u0020frames\u0020in\u0020content.xml\u0020within\u0020a\u0020table\u0020cell.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Drawing.html#method_writeDrawingFrame"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Formula",
             "name": "Formula",
@@ -29625,6 +30670,11 @@ Search.appendIndex(
             "name": "MetaInf",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-MetaInf.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\MetaInf\u003A\u003AsetImageFiles\u0028\u0029",
+            "name": "setImageFiles",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Ods-MetaInf.html#method_setImageFiles"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\MetaInf\u003A\u003Awrite\u0028\u0029",
             "name": "write",
@@ -29968,7 +31018,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\BIFFwriter",
             "name": "BIFFwriter",
-            "summary": "",
+            "summary": "Based\u0020on\u0020PERL\u0020Spreadsheet\u003A\u003AWriteExcel\u0020module\u0020\u0028by\u0020John\u0020McNamara\u0029\nPorted\u0020to\u0020PHP\u0020for\u0020PEAR\u003A\u003ASpreadsheet_Excel_Writer_BIFFwriter\u0020\u0028by\u0020Xavier\u0020Noguer\u0029\nRelicensed\u0020under\u0020the\u0020MIT\u0020License\u0020by\u0020both\u0020authors.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\BIFFwriter\u003A\u003A__construct\u0028\u0029",
@@ -30153,7 +31203,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser",
             "name": "Parser",
-            "summary": "",
+            "summary": "Based\u0020on\u0020PEAR\u003A\u003ASpreadsheet_Excel_Writer_Parser\u0020\u0028by\u0020Xavier\u0020Noguer\u0029\nRelicensed\u0020under\u0020the\u0020MIT\u0020License\u0020by\u0020the\u0020author.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Parser\u003A\u003A__construct\u0028\u0029",
@@ -30288,7 +31338,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Workbook",
             "name": "Workbook",
-            "summary": "",
+            "summary": "Based\u0020on\u0020PERL\u0020Spreadsheet\u003A\u003AWriteExcel\u0020module\u0020\u0028by\u0020John\u0020McNamara\u0029\nPorted\u0020to\u0020PHP\u0020for\u0020PEAR\u003A\u003ASpreadsheet_Excel_Writer_Workbook\u0020\u0028by\u0020Xavier\u0020Noguer\u0029\nRelicensed\u0020under\u0020the\u0020MIT\u0020License\u0020by\u0020both\u0020authors.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Workbook\u003A\u003A__construct\u0028\u0029",
@@ -30328,7 +31378,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Worksheet",
             "name": "Worksheet",
-            "summary": "",
+            "summary": "Based\u0020on\u0020PERL\u0020Spreadsheet\u003A\u003AWriteExcel\u0020module\u0020\u0028by\u0020John\u0020McNamara\u0029\nPorted\u0020to\u0020PHP\u0020for\u0020PEAR\u003A\u003ASpreadsheet_Excel_Writer_Worksheet\u0020\u0028by\u0020Xavier\u0020Noguer\u0029\nRelicensed\u0020under\u0020the\u0020MIT\u0020License\u0020by\u0020both\u0020authors.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Worksheet\u003A\u003A__construct\u0028\u0029",
@@ -30453,7 +31503,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf",
             "name": "Xf",
-            "summary": "",
+            "summary": "Based\u0020on\u0020PERL\u0020PERL\u0020Spreadsheet\u003A\u003AWriteExcel\u0020module\u0020\u0028by\u0020John\u0020McNamara\u0029\nPorted\u0020to\u0020PHP\u0020for\u0020PEAR\u003A\u003ASpreadsheet_Excel_Writer_Format\u0020\u0028by\u0020Xavier\u0020Noguer\u0029\nRelicensed\u0020under\u0020the\u0020MIT\u0020License\u0020by\u0020both\u0020authors.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Xf.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003A__construct\u0028\u0029",
@@ -30701,6 +31751,36 @@ Search.appendIndex(
             "summary": "Write\u0020content\u0020types\u0020to\u0020XML\u0020format.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Metadata.html#method_writeMetadata"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable",
+            "name": "PivotTable",
+            "summary": "Generates\u0020the\u0020OOXML\u0020parts\u0020for\u0020a\u0020pivot\u0020table\u0020that\u0020was\u0020built\u0020in\u0020memory.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable\u003A\u003AwriteDefinition\u0028\u0029",
+            "name": "writeDefinition",
+            "summary": "Build\u0020the\u0020pivotTableDefinition\u0020part.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html#method_writeDefinition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable\u003A\u003AwriteCacheDefinition\u0028\u0029",
+            "name": "writeCacheDefinition",
+            "summary": "Build\u0020the\u0020pivotCacheDefinition\u0020part,\u0020referencing\u0020its\u0020records\u0020by\u0020rel\u0020id.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html#method_writeCacheDefinition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable\u003A\u003AwriteCacheRecords\u0028\u0029",
+            "name": "writeCacheRecords",
+            "summary": "Build\u0020the\u0020\u0028empty\u0029\u0020pivotCacheRecords\u0020part.\u0020Records\u0020are\u0020regenerated\u0020by\u0020the\nspreadsheet\u0020application\u0020on\u0020refresh.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html#method_writeCacheRecords"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable\u003A\u003AwriteTableRelationships\u0028\u0029",
+            "name": "writeTableRelationships",
+            "summary": "Rels\u0020for\u0020the\u0020pivot\u0020table\u0020part\u0020\u002D\u003E\u0020its\u0020cache\u0020definition.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html#method_writeTableRelationships"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\PivotTable\u003A\u003AwriteCacheRelationships\u0028\u0029",
+            "name": "writeCacheRelationships",
+            "summary": "Rels\u0020for\u0020the\u0020cache\u0020definition\u0020part\u0020\u002D\u003E\u0020its\u0020records.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-PivotTable.html#method_writeCacheRelationships"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Rels",
             "name": "Rels",
             "summary": "",
@@ -30715,6 +31795,11 @@ Search.appendIndex(
             "name": "writeWorkbookRelationships",
             "summary": "Write\u0020workbook\u0020relationships\u0020to\u0020XML\u0020format.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_writeWorkbookRelationships"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Rels\u003A\u003ApivotCacheRelationships\u0028\u0029",
+            "name": "pivotCacheRelationships",
+            "summary": "Build\u0020the\u0020map\u0020of\u0020relationship\u002Did\u0020\u003D\u003E\u0020workbook\u002Drelative\u0020target\u0020for\u0020each\npreserved\u0020pivot\u0020cache\u0020definition.\u0020The\u0020relationship\u0020id\u0020is\u0020derived\u0020from\u0020the\ncache\u0020id\u0020so\u0020the\u0020workbook\u0020\u003CpivotCaches\u003E\u0020element\u0020can\u0020reference\u0020it.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html#method_pivotCacheRelationships"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Rels\u003A\u003AwriteWorksheetRelationships\u0028\u0029",
             "name": "writeWorksheetRelationships",
@@ -30990,6 +32075,16 @@ Search.appendIndex(
             "name": "save",
             "summary": "Save\u0020PhpSpreadsheet\u0020to\u0020file.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_save"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AsetEncryptionPassword\u0028\u0029",
+            "name": "setEncryptionPassword",
+            "summary": "Set\u0020the\u0020password\u0020required\u0020to\u0020open\u0020a\u0020written\u0020XLSX\u0020file.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setEncryptionPassword"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AsetEncryptionProfile\u0028\u0029",
+            "name": "setEncryptionProfile",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setEncryptionProfile"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\u003A\u003AgetSpreadsheet\u0028\u0029",
             "name": "getSpreadsheet",
@@ -31406,6 +32501,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/phpoffice-phpspreadsheet-shared-trend.html"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Shared\\Xlsx",
+            "name": "Xlsx",
+            "summary": "",
+            "url": "namespaces/phpoffice-phpspreadsheet-shared-xlsx.html"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style",
             "name": "Style",
             "summary": "",
@@ -31450,6 +32550,16 @@ Search.appendIndex(
             "name": "Drawing",
             "summary": "",
             "url": "namespaces/phpoffice-phpspreadsheet-worksheet-drawing.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable",
+            "name": "PivotTable",
+            "summary": "",
+            "url": "namespaces/phpoffice-phpspreadsheet-worksheet-pivottable.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Sparkline",
+            "name": "Sparkline",
+            "summary": "",
+            "url": "namespaces/phpoffice-phpspreadsheet-worksheet-sparkline.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Table",
             "name": "Table",
