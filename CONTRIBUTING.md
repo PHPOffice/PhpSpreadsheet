@@ -45,5 +45,5 @@ This makes it easier to see exactly what is being tested when reviewing the PR. 
 > **Note:** Tagged releases are made from the `master` branch. Only in an emergency should a tagged release be made from the `release` branch. (i.e. cherry-picked hot-fixes.) However, there are 4 branches which have been updated to apply security patches, and those may be tagged if future security updates are needed.
 - 1.30.x (no further updates aside from security patches, including code changes needed for Php 8.5 compatibility)
 - 2.1.x (no further updates aside from security patches, including code changes needed for Php 8.5 compatibility)
-- 2.4.x
+- 2.4.x (no further updates aside from security patches)
 - 3.10.x
