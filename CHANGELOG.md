@@ -29,7 +29,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Deprecated
 
-- Nothing yet.
+- Deprecate `_calculateFormulaValue` for `calculateFormulaValue`. [PR #4992](https://github.com/PHPOffice/PhpSpreadsheet/pull/4992)
 
 ### Fixed
 
