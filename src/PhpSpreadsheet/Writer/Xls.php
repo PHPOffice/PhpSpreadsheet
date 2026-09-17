@@ -190,7 +190,7 @@ class Xls extends BaseWriter
         $worksheetSizes = [];
         for ($i = 0; $i < $countSheets; ++$i) {
             $this->writerWorksheets[$i]->close();
-            $worksheetSizes[] = $this->writerWorksheets[$i]->_datasize;
+            $worksheetSizes[] = $this->writerWorksheets[$i]->getBiffDataSize();
         }
 
         // add binary data for global workbook stream
