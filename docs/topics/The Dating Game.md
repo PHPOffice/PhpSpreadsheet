@@ -30,6 +30,7 @@ To write a date in a cell using PhpSpreadsheet, we need to calculate the seriali
      - The use of Unix timestamps, and therefore this function, is discouraged: they are not Y2038-safe on a 32-bit system, and have no timezone info.
 
 We probably also want to set the number format mask for the cell so that it will be displayed as a human-readable date.
+
 ```php
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
@@ -66,6 +67,7 @@ Dates are always the integer part of the value (1, 2, 44943): the fractional par
 A float value greater than 1, like 44943.5 is considered as a datetime value: 12:00 (midday) on the 17th of January 2023.
 
 As with dates, to write a time value to a cell in PhpSpreadsheet, we write the numeric value for that time (or date/time) to the cell, and then apply a number format mask to the cell so that it will be displayed in a human-readable format.
+
 ```php
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
@@ -227,6 +229,7 @@ If you need this, then you can find a list of Windows LCID values [here](https:/
 Let's summarise some of this information with a script that will build a project timesheet for a week of work on that project.
 
 I'll keep the basic data in arrays for simplicity.
+
 ```php
 // In a real application, we might read this data from a database to build a project timesheet
 $projectHeading = [['Project', 'PhpSpreadsheet - The Dating Game']];
@@ -246,6 +249,7 @@ $timesheetData = [
 ```
 Because I've used string values for the dates and times, I'm going to use the Advanced Value Binder to populate the worksheet.
 The Binder will also format the time values in columns B and C; but I want to override the Binder formatting for date values in column A; and I'm using an Excel formula for the "start date" value in cell D3, so I have to set the format manually for that.
+
 ```php
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;

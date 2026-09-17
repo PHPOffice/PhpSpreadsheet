@@ -93,7 +93,7 @@ Before:
 
 #### Worksheet::duplicateStyleArray()
 
-``` php
+```php
 // Before
 $worksheet->duplicateStyleArray($styles, $range, $advanced);
 
@@ -103,7 +103,7 @@ $worksheet->getStyle($range)->applyFromArray($styles, $advanced);
 
 #### DataType::dataTypeForValue()
 
-``` php
+```php
 // Before
 DataType::dataTypeForValue($value);
 
@@ -113,7 +113,7 @@ DefaultValueBinder::dataTypeForValue($value);
 
 #### Conditional::getCondition()
 
-``` php
+```php
 // Before
 $conditional->getCondition();
 
@@ -123,7 +123,7 @@ $conditional->getConditions()[0];
 
 #### Conditional::setCondition()
 
-``` php
+```php
 // Before
 $conditional->setCondition($value);
 
@@ -133,7 +133,7 @@ $conditional->setConditions($value);
 
 #### Worksheet::getDefaultStyle()
 
-``` php
+```php
 // Before
 $worksheet->getDefaultStyle();
 
@@ -143,7 +143,7 @@ $worksheet->getParent()->getDefaultStyle();
 
 #### Worksheet::setDefaultStyle()
 
-``` php
+```php
 // Before
 $worksheet->setDefaultStyle($value);
 
@@ -159,7 +159,7 @@ $worksheet->getParent()->getDefaultStyle()->applyFromArray([
 
 #### Worksheet::setSharedStyle()
 
-``` php
+```php
 // Before
 $worksheet->setSharedStyle($sharedStyle, $range);
 
@@ -169,7 +169,7 @@ $worksheet->duplicateStyle($sharedStyle, $range);
 
 #### Worksheet::getSelectedCell()
 
-``` php
+```php
 // Before
 $worksheet->getSelectedCell();
 
@@ -179,7 +179,7 @@ $worksheet->getSelectedCells();
 
 #### Writer\Xls::setTempDir()
 
-``` php
+```php
 // Before
 $writer->setTempDir();
 
@@ -311,7 +311,7 @@ returned value. They will always return the Worksheet and never the Cell or Rule
 
 Migration would be similar to:
 
-``` php
+```php
 // Before
 $cell = $worksheet->setCellValue('A1', 'value', true);
 

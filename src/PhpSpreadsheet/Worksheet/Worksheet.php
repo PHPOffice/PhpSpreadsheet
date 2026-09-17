@@ -343,7 +343,9 @@ class Worksheet
     {
         // Set parent and title
         $this->parent = $parent;
-        $this->setTitle($title, false);
+        // Chart collection must be set before title
+        $this->chartCollection = new ArrayObject();
+        $this->setTitle($title, false, changeChartSheetNames: false);
         // setTitle can change $pTitle
         $this->setCodeName($this->getTitle());
         $this->setSheetState(self::SHEETSTATE_VISIBLE);
@@ -361,8 +363,6 @@ class Worksheet
         $this->drawingCollection = new ArrayObject();
         // In Cell Drawing collection
         $this->inCellDrawingCollection = new ArrayObject();
-        // Chart collection
-        $this->chartCollection = new ArrayObject();
         // Protection
         $this->protection = new Protection();
         // Default row dimension
@@ -901,7 +901,7 @@ class Worksheet
      *
      * @return $this
      */
-    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true): static
+    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true, bool $changeChartSheetNames = true): static
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $title) {
@@ -954,8 +954,59 @@ class Worksheet
                 ReferenceHelper::getInstance()->updateNamedFormulae($this->parent, $oldTitle, $newTitle);
             }
         }
+        if ($changeChartSheetNames) {
+            $this->changeChartSheetNames($oldTitle, $title);
+        }
 
         return $this;
+    }
+
+    private function changeChartSheetNames(string $oldTitle, string $title): void
+    {
+        $worksheets = [$this];
+        if ($this->parent !== null) {
+            $sheets = $this->parent->getAllSheets();
+            if (in_array($this, $sheets, true)) {
+                $worksheets = $sheets;
+            }
+        }
+        $titleq = "'$title'!";
+        $oldTitleq1 = preg_quote("'$oldTitle'!");
+        $oldTitleq2 = preg_quote("$oldTitle!");
+        $preg1 = "/$oldTitleq1|\\b$oldTitleq2/";
+        foreach ($worksheets as $sheet) {
+            foreach ($sheet->getChartCollection() as $chart) {
+                foreach (($chart->getPlotArea()?->getPlotGroup() ?? []) as $plotGroup) {
+                    foreach ($plotGroup->getPlotCategories() as $plotCategory) {
+                        $dataSource = (string) $plotCategory->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotCategory->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                    foreach ($plotGroup->getPlotLabels() as $plotLabel) {
+                        $dataSource = (string) $plotLabel->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotLabel->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                    foreach ($plotGroup->getPlotValues() as $plotValue) {
+                        $dataSource = (string) $plotValue->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotValue->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

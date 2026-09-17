@@ -1,0 +1,54 @@
+site_name: PhpSpreadsheet Documentation
+repo_url: https://github.com/PHPOffice/phpspreadsheet
+edit_uri: edit/master/docs/
+
+theme:
+  name: materialx
+  topbar_style: primary
+  features:
+      - content.code.copy
+  palette:
+    # Light mode configuration
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Dark mode configuration
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+    - extra/extra.css
+    - extra/tablestripes.css
+    # emacs is a reasonable style name in both light and dark.
+    # default is good only for light, lightbulb for dark.
+    # Use either emacs or (both default.light lightbulb.dark).
+    # More details available in docs/extra/pygments.customization.txt.
+    # - extra/pygments.emacs.css
+    - extra/pygments.default.light.css
+    - extra/pygments.lightbulb.dark.css
+extra_javascript:
+    - extra/extrajs.js
+markdown_extensions:
+    - md_in_html
+    - pymdownx.highlight:
+        anchor_linenums: true
+        line_spans: __span
+        pygments_lang_class: true
+        extend_pygments_lang:
+          - name: php
+            lang: php
+            options:
+              startinline: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
