@@ -12,6 +12,15 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 
 This branch (2.4.x) is maintained (for security and some bug fixes), but it is *not* the latest version of PhpSpreadsheet, and may therefore lack features and bug fixes found in the latest version.
 
+## End Of Support Notice
+
+No further changes, aside from security patches, will be applied to this branch.
+Security patches will continue to be applied to this branch
+until 2027-02-28. At that date, no further changes,
+including security patches, will be applied.
+You are encouraged to upgrade to the master branch (release 5)
+before that date.
+
 ## PHP Version Support
 
 This branch runs with Php 8.1, 8.2, 8.3, 8.4, or 8.5. 8.5 is the last version of Php which can be used with this branch.
