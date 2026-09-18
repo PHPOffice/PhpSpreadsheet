@@ -238,9 +238,9 @@ class Format
      * True when $value only contains date/time tokens (digits, separators, English month/weekday, am/pm).
      * Product descriptions such as "5V 2.1A - EU Wall Adaptor" leave leftover letters and are rejected.
      */
-    private static function isDateTimeString(mixed $value): bool
+    private static function isDateTimeString(string $value): bool
     {
-        $text = strtolower(trim((string) $value, "\" \t\n\r\0\x0B"));
+        $text = strtolower(trim($value, "\" \t\n\r\0\x0B"));
         if ($text === '' || strpbrk($text, '0123456789') === false) {
             return false;
         }
