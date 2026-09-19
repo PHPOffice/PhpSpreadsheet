@@ -50,4 +50,9 @@ return [
     'issue 3574 blank string invalid' => ['#VALUE!', '  '],
     'issue 3574 non-blank numeric string okay' => [2, ' 2 '],
     'issue 3574 non-blank non-numeric string invalid' => ['#VALUE!', ' x '],
+    'issue 4996 product spec with decimal must not become a date' => ['#VALUE!', '5V 2.1A - EU Wall Adaptor'],
+    'issue 4996 product spec without decimal already invalid' => ['#VALUE!', '5V 1A - EU Wall Adaptor'],
+    'issue 4996 named date still valid' => ['46283', '18 Sep 2026'],
+    'issue 4996 us named date still valid' => ['46283', 'Sep 18, 2026'],
+    'issue 4996 ordinal named date still valid' => ['46283', '18th Sep 2026'],
 ];

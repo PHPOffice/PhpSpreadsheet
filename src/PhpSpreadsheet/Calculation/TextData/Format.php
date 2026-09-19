@@ -202,6 +202,11 @@ class Format
                 return (float) $numberValue;
             }
 
+            // Reject text that is not a date/time before DateValue's permissive parser.
+            if (!self::isDateTimeString($value)) {
+                return ExcelError::VALUE();
+            }
+
             $dateSetting = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
@@ -227,6 +232,33 @@ class Format
         }
 
         return (float) $value;
+    }
+
+    /**
+     * True when $value only contains date/time tokens (digits, separators, English month/weekday, am/pm).
+     * Product descriptions such as "5V 2.1A - EU Wall Adaptor" leave leftover letters and are rejected.
+     */
+    private static function isDateTimeString(string $value): bool
+    {
+        $text = strtolower(trim($value, "\" \t\n\r\0\x0B"));
+        if ($text === '' || strpbrk($text, '0123456789') === false) {
+            return false;
+        }
+
+        // Longer names first so "september" is not reduced to "ember".
+        $text = str_replace([
+            'september', 'october', 'november', 'december', 'january', 'february',
+            'wednesday', 'thursday', 'saturday', 'tuesday',
+            'august', 'monday', 'friday', 'sunday', 'march', 'april', 'june', 'july',
+            'sept', 'thurs', 'thur', 'tues',
+            'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep',
+            'oct', 'nov', 'dec', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',
+            'utc', 'gmt', 'am', 'pm',
+        ], '', $text);
+
+        $text = Preg::replace('/\d(?:st|nd|rd|th)?|[\/.,:+\-tz\s]/', '', $text);
+
+        return $text === '';
     }
 
     /**
