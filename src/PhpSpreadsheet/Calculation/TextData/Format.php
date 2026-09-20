@@ -221,14 +221,9 @@ class Format
             }
             /** @var DateTimeInterface|float|int|string */
             $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
-            if ($dateValue !== ExcelError::VALUE()) {
-                Functions::setReturnDateType($dateSetting);
-
-                return $dateValue;
-            }
             Functions::setReturnDateType($dateSetting);
 
-            return ExcelError::VALUE();
+            return $dateValue;
         }
 
         return (float) $value;
@@ -245,14 +240,14 @@ class Format
             return false;
         }
 
-        // Longer names first so "september" is not reduced to "ember".
+        // Full month names, then full day names, then leftover abbreviations (longer first).
         $text = str_replace([
-            'september', 'october', 'november', 'december', 'january', 'february',
-            'wednesday', 'thursday', 'saturday', 'tuesday',
-            'august', 'monday', 'friday', 'sunday', 'march', 'april', 'june', 'july',
-            'sept', 'thurs', 'thur', 'tues',
-            'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep',
-            'oct', 'nov', 'dec', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',
+            'january', 'february', 'march', 'april', 'may', 'june',
+            'july', 'august', 'september', 'october', 'november', 'december',
+            'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+            'jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'sep',
+            'oct', 'nov', 'dec',
+            'sun', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'thu', 'fri', 'sat',
             'utc', 'gmt', 'am', 'pm',
         ], '', $text);
 
