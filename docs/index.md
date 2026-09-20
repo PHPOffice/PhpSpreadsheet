@@ -208,13 +208,14 @@ bookmarklet (changed 2026-09-18) can be used to toggle dark/light mode (or just 
 <div>
 <h3>Displaying Images in Dark Mode</h3>
 Images are not normally adjusted for Dark/Light mode.
-If you also want images to display in dark mode, try <a href="javascript:(function()%7B%7Bconst%20images%20%3D%20document.querySelectorAll('img')%3Bimages.forEach(img%20%3D%3E%20%7Bconst%20temp%20%3D%20img.style.filter%3Bif%20(temp%20%3D%3D%20''%20%7C%7C%20temp%20%3D%3D%20'none')%20%7Bimg.style.filter%20%3D%20'invert(1)%20hue-rotate(180deg)'%3B%7D%20else%20%7Bimg.style.filter%20%3D%20'none'%3B%7D%7D)%3B%7D%7D)()">DarkImages3</a> as a bookmarklet. (You may have to execute it twice the first time on a page.) It executes:
+If you also want images to display in dark mode, try <a href="javascript:(function()%7B%7B%0A%20%20%20%20const%20images%20%3D%20document.querySelectorAll('img')%3B%0A%20%20%20%20images.forEach(img%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20style%20%3D%20getComputedStyle(img)%3B%0A%20%20%20%20%20%20%20%20const%20temp%20%3D%20style.filter%3B%0A%20%20%20%20%20%20%20%20if%20(temp%20%3D%3D%20''%20%7C%7C%20temp%20%3D%3D%20'none')%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'invert(1)%20hue-rotate(180deg)'%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'none'%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%7D%7D)()%3B">DarkImages4</a> as a bookmarklet. It executes:
 
 ```javascript
 {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        const temp = img.style.filter;
+        const style = getComputedStyle(img);
+        const temp = style.filter;
         if (temp == '' || temp == 'none') {
             img.style.filter = 'invert(1) hue-rotate(180deg)';
         } else {

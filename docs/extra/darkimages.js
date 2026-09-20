@@ -14,7 +14,8 @@
 {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        const temp = img.style.filter;
+        const style = getComputedStyle(img);
+        const temp = style.filter;
         if (temp == '' || temp == 'none') {
             img.style.filter = 'invert(1) hue-rotate(180deg)';
         } else {
