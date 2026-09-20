@@ -1,5 +1,5 @@
 site_name: PhpSpreadsheet Documentation
-#site_url: https://github.com/PHPOffice/phpspreadsheet
+site_url: https://github.com/PHPOffice/PhpSpreadsheet/
 repo_url: https://github.com/PHPOffice/phpspreadsheet
 #repo_name: PhpSpreadsheet
 #edit_uri: edit/master/docs/
@@ -14,5 +14,6 @@ extra_css:
 extra_javascript:
     - extra/extrajs.js
     - extra/copyclipboard.js
+    - extra/sitelink2.js
 markdown_extensions:
     - md_in_html

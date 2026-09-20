@@ -6,12 +6,12 @@ Retrieved 2026-08-24, License - CC BY-SA 4.0
 
 @media (prefers-color-scheme: dark) {
   html {
-    filter: invert(100%);
+    filter: invert(100%) hue-rotate(180deg);
   }
 
   /* double apply invert filter to cancel out effect on images */
-  img:not([alt="Logo"]) {
-    filter: invert(100%);
+  img:not([alt^="Logo"]) {
+    filter: invert(100%) hue-rotate(180deg);
   }
   
 /* Dark mode (slate scheme) alternating rows */

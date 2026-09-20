@@ -14,5 +14,6 @@ extra_css:
 extra_javascript:
     - extra/extrajs.js
     - extra/copyclipboard.js
+    - extra/sitelink2.js
 markdown_extensions:
     - md_in_html

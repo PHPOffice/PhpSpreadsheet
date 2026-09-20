@@ -1,0 +1,1 @@
+[data-bs-theme="dark"] [alt^="Logo"] {filter: invert(100%) hue-rotate(180deg);}

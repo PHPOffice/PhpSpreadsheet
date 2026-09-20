@@ -1,6 +1,6 @@
 site_name: PhpSpreadsheet Documentation
-#site_url: https://github.com/PHPOffice/phpspreadsheet
-repo_url: https://github.com/PHPOffice/phpspreadsheet
+site_url: https://github.com/PHPOffice/PhpSpreadsheet
+repo_url: https://github.com/PHPOffice/PhpSpreadsheet
 #repo_name: PhpSpreadsheet
 #edit_uri: edit/master/docs/
 
@@ -11,9 +11,11 @@ theme:
 extra_css:
     - extra/extra.css
     - extra/copyclipboard.css
+    - extra/mkdocs.css
 extra_javascript:
     - extra/extrajs.js
     - extra/copyclipboard.js
+    - extra/sitelink2.js
     # Mkdocs theme does not honor green and red color for ✔ and ✖.
     # I am at a loss to explain why, or even how; no other theme has this problem.
     # These are used on features-cross-reference page.

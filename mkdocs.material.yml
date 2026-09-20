@@ -35,6 +35,7 @@ extra_css:
     # - extra/pygments.emacs.css
     - extra/pygments.default.light.css
     - extra/pygments.lightbulb.dark.css
+    - extra/zensical.topbar.css
 extra_javascript:
     - extra/extrajs.js
 markdown_extensions:
