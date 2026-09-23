@@ -1,10 +1,11 @@
 site_name: PhpSpreadsheet Documentation
-repo_url: https://github.com/PHPOffice/phpspreadsheet
+repo_url: https://github.com/PHPOffice/PhpSpreadsheet
 edit_uri: edit/master/docs/
 
 theme:
   name: material
   features:
+      - content.action.edit
       - content.code.copy
   palette:
     # Light mode configuration

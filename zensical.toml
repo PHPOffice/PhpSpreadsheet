@@ -1,14 +1,14 @@
 [project]
-site_url = "https://github.com/PHPOffice/phpspreadsheet"
+site_url = "https://github.com/PHPOffice/PhpSpreadsheet"
 site_name = "PhpSpreadsheet Documentation"
 # site_description = "Your project description"
 # site_author = "Your name"
 
 # copyright = "Copyright &copy; 2026 Your name"
 
-repo_url = "https://github.com/PHPOffice/phpspreadsheet"
+repo_url = "https://github.com/PHPOffice/PhpSpreadsheet"
 # repo_name = "user/repo"
-# edit_uri = "edit/main/docs/"
+edit_uri = "edit/master/docs/"
 
 #nav = [
 #  { "Get started" = "index.md" },
@@ -33,7 +33,7 @@ extra_javascript = ["extra/extrajs.js"]
 language = "en"
 features = [
   "announce.dismiss",
-  # "content.action.edit",
+  "content.action.edit",
   # "content.action.view",
   "content.code.annotate",
   "content.code.copy",
