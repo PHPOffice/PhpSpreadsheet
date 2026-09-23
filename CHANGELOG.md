@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Support for Box and Whisker charts in Xlsx writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
 
 ### Removed
 

@@ -38,6 +38,11 @@ class Chart
     private ?Title $yAxisLabel;
 
     /**
+     * Chart Ex Area.
+     */
+    private ?ChartEx $chartEx = null;
+
+    /**
      * Chart Plot Area.
      */
     private ?PlotArea $plotArea;
@@ -304,11 +309,34 @@ class Chart
         throw new Exception('Chart has no PlotArea');
     }
 
+    public function getChartEx(): ?ChartEx
+    {
+        return $this->chartEx;
+    }
+
+    /**
+     * Set ChartEx.
+     */
+    public function setChartEx(ChartEx $chartEx): static
+    {
+        if ($this->plotArea !== null) {
+            throw new Exception('A chart cannot contain both a PlotArea and ChartEx data.');
+        }
+
+        $this->chartEx = $chartEx;
+
+        return $this;
+    }
+
     /**
      * Set Plot Area.
      */
     public function setPlotArea(PlotArea $plotArea): self
     {
+        if ($this->chartEx !== null) {
+            throw new Exception('A chart cannot contain both ChartEx and a PlotArea.');
+        }
+
         $this->plotArea = $plotArea;
 
         return $this;
@@ -615,8 +643,14 @@ class Chart
 
     public function refresh(): void
     {
-        if ($this->worksheet !== null && $this->plotArea !== null) {
+        if ($this->worksheet === null) {
+            return;
+        }
+
+        if ($this->plotArea !== null) {
             $this->plotArea->refresh($this->worksheet);
+        } elseif ($this->chartEx !== null) {
+            $this->chartEx->refresh($this->worksheet);
         }
     }
 
@@ -842,6 +876,7 @@ class Chart
         $this->yAxis = clone $this->yAxis;
         $this->borderLines = clone $this->borderLines;
         $this->fillColor = clone $this->fillColor;
+        $this->chartEx = $this->chartEx === null ? null : clone $this->chartEx;
     }
 
     /** @return array{
