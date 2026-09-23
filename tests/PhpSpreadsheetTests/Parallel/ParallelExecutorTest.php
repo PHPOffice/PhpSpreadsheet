@@ -6,10 +6,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Parallel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Parallel\Backend\BackendInterface;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\PcntlBackend;
 use PhpOffice\PhpSpreadsheet\Parallel\Backend\SequentialBackend;
 use PhpOffice\PhpSpreadsheet\Parallel\CpuDetector;
 use PhpOffice\PhpSpreadsheet\Parallel\ParallelExecutor;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -57,6 +59,58 @@ class ParallelExecutorTest extends TestCase
             fn (int $x): string => "val_{$x}"
         );
         self::assertSame(['val_3', 'val_1', 'val_4', 'val_1', 'val_5', 'val_9'], $results);
+    }
+
+    public function testBeforeParallelRunsOnceInParentBeforeFork(): void
+    {
+        if (!PcntlBackend::isAvailable()) {
+            self::markTestSkipped('pcntl backend not available (needs pcntl and fidry/cpu-core-counter)');
+        }
+
+        $offset = 0;
+        $calls = 0;
+        $executor = new ParallelExecutor(new PcntlBackend(), 2);
+        $results = $executor->map(
+            [1, 2, 3],
+            function (int $x) use (&$offset): int {
+                return $x + $offset;
+            },
+            function () use (&$offset, &$calls): void {
+                $offset = 10;
+                ++$calls;
+            }
+        );
+
+        // The children see the value that the callback set before the fork
+        self::assertSame([11, 12, 13], $results);
+        self::assertSame(1, $calls);
+    }
+
+    #[DataProvider('providerSequentialMap')]
+    public function testBeforeParallelNotCalledWhenTasksRunSequentially(BackendInterface $backend, ?int $maxWorkers, int $taskCount): void
+    {
+        $calls = 0;
+        $executor = new ParallelExecutor($backend, $maxWorkers);
+        $results = $executor->map(
+            range(1, $taskCount),
+            fn (int $x): int => $x * 2,
+            function () use (&$calls): void {
+                ++$calls;
+            }
+        );
+
+        self::assertCount($taskCount, $results);
+        self::assertSame(0, $calls);
+    }
+
+    /** @return array<string, array{BackendInterface, ?int, int}> */
+    public static function providerSequentialMap(): array
+    {
+        return [
+            'sequential backend' => [new SequentialBackend(), 4, 3],
+            'one worker' => [new PcntlBackend(), 1, 3],
+            'one task' => [new PcntlBackend(), 4, 1],
+        ];
     }
 
     public function testPcntlBackendRejectsNonPositiveMaxWorkers(): void
@@ -414,7 +468,7 @@ class ParallelExecutorTest extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('memoryLimitProvider')]
+    #[DataProvider('memoryLimitProvider')]
     public function testGetMemoryLimitBytesFormats(string $iniValue, int $expected): void
     {
         $oldLimit = ini_get('memory_limit');

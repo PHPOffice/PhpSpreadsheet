@@ -241,6 +241,19 @@ are terminated and the save fails with an exception):
 $writer->setParallelTimeout(300);
 ```
 
+Writing a worksheet also changes the spreadsheet: array formulas spill,
+autofilters hide rows, and auto-size columns get their widths. The
+writer makes these changes in the main process before the workers
+start, so every worksheet sees them and the spreadsheet keeps them
+after the save, as with a sequential save. Each worker calculates the
+remaining formulas of its own worksheet. A volatile function such as
+`RAND()` or `NOW()` can thus be cached with a different value in each
+worksheet that refers to it; Excel recalculates volatile functions when
+it opens the file. When formulas return arrays
+(`$spreadsheet->returnArrayAsArray()`), the main process calculates the
+formulas (except `GROUPBY` and `LET`) before the workers start, so
+their cached values agree.
+
 Parallelizing only pays off when worksheet generation dominates the save
 time — typically several sheets with tens of thousands of cells each.
 For small files the fork overhead outweighs the gain. Benchmark with

@@ -30,14 +30,17 @@ class ParallelExecutor
      *
      * @param list<mixed> $tasks
      * @param Closure $worker Function receiving a single task, returning a result
+     * @param ?Closure $beforeParallel Called once in the parent just before the
+     *                                 tasks start in parallel; not called when
+     *                                 they run sequentially
      *
      * @return list<mixed>
      */
-    public function map(array $tasks, Closure $worker): array
+    public function map(array $tasks, Closure $worker, ?Closure $beforeParallel = null): array
     {
         $taskCount = count($tasks);
 
-        if ($taskCount <= 1) {
+        if ($taskCount <= 1 || $this->backend instanceof SequentialBackend) {
             return $this->executeSequential($tasks, $worker);
         }
 
@@ -45,6 +48,10 @@ class ParallelExecutor
 
         if ($workerCount < 2) {
             return $this->executeSequential($tasks, $worker);
+        }
+
+        if ($beforeParallel !== null) {
+            $beforeParallel();
         }
 
         return $this->backend->execute($tasks, $worker, $workerCount);

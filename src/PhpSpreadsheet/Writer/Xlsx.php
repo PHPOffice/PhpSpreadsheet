@@ -459,7 +459,14 @@ class Xlsx extends BaseWriter
                     $this->spreadSheet->getSheet($i),
                     $this->stringTable,
                     $this->includeCharts
-                )
+                ),
+                // Changes that writing a worksheet makes to the model would
+                // stay in the child, so make them first, in sheet order
+                function () use ($sheetCount): void {
+                    for ($i = 0; $i < $sheetCount; ++$i) {
+                        $this->getWriterPartWorksheet()->prepareWorksheet($this->spreadSheet->getSheet($i));
+                    }
+                }
             );
         } else {
             $sheetXmls = [];
