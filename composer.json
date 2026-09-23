@@ -18,6 +18,7 @@
         "process-timeout": 600,
         "sort-packages": true,
         "allow-plugins": {
+            "cyclonedx/cyclonedx-php-composer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
@@ -64,6 +65,9 @@
             "phpcbf samples/ src/ tests/ --report=checkstyle",
             "php-cs-fixer fix"
         ],
+        "sbom": [
+            "composer CycloneDX:make-sbom --output-file=./sbom.xml"
+        ],
         "versions": [
             "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
         ]
@@ -93,6 +97,7 @@
     "require-dev": {
         "ext-intl": "*",
         "ext-openssl": "*",
+        "cyclonedx/cyclonedx-php-composer": "^6.2",
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.2",
