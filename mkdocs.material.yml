@@ -1,10 +1,11 @@
 site_name: PhpSpreadsheet Documentation
-repo_url: https://github.com/PHPOffice/phpspreadsheet
+repo_url: https://github.com/PHPOffice/PhpSpreadsheet
 edit_uri: edit/master/docs/
 
 theme:
   name: material
   features:
+      - content.action.edit
       - content.code.copy
   palette:
     # Light mode configuration
@@ -35,6 +36,7 @@ extra_css:
     # - extra/pygments.emacs.css
     - extra/pygments.default.light.css
     - extra/pygments.lightbulb.dark.css
+    - extra/zensical.topbar.css
 extra_javascript:
     - extra/extrajs.js
 markdown_extensions:

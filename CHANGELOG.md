@@ -33,7 +33,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. Excel returns `#VALUE!` for that input; PhpSpreadsheet previously returned `37381`. [#4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996)
+- `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
+- Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
+- Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
+- Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
 
 ## 2026-09-15 - 5.10.0
 

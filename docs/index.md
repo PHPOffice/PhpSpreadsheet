@@ -168,8 +168,10 @@ may defer to your system's settings.
 This particular theme does not come with a toggle to switch back and forth.
 If you want to switch and it is inconvenient for you to change the browser setting:
 <br><br>
+<h3>Toggles If Your Browser Setting Is Dark Mode</h3>
+
 If your setting is dark mode, and your browser supports ES11, this
-<a href="javascript:(function()%7BArray.from(document.styleSheets).forEach((sheet)%20%3D%3E%20%7Bif%20(sheet.href%3F.includes('darkmode.css')%20%3F%3F%20false)%20%7Bsheet.disabled%20%3D%20!sheet.disabled%3B%7D%7D)%7D)()">Dark/Light Toggle</a>
+<a href="javascript:(function()%7BArray.from(document.styleSheets).forEach((sheet)%20%3D%3E%20%7Bif%20(sheet.href%3F.includes('darkmode.css')%20%3F%3F%20false)%20%7Bsheet.disabled%20%3D%20!sheet.disabled%3B%7D%7D)%7D)()">DarkModeToggle</a>
 can be used as a bookmarklet. It executes:
 
 ```javascript
@@ -180,28 +182,50 @@ Array.from(document.styleSheets).forEach((sheet) => {
 });
 ```
 
+<h3>Toggles If Your Browser Setting Is Light Mode</h3>
+
 If your setting is light mode, and your browser supports ES6, this
-<a href="javascript:(function()%7B(function()%7Bdocument.documentElement.style.filter%20%3D%20document.documentElement.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3Bconst%20images%20%3D%20document.querySelectorAll('img')%3Bimages.forEach(img%20%3D%3E%20%7Bif%20(img.alt%20!%3D%20'Logo')%20%7Bimg.style.filter%20%3D%20img.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%7D%7D)%3Bif%20(document.body.getAttribute('data-md-color-scheme')%20%3D%3D%20'slate')%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'default')%3B%7D%20else%20%7Bdocument.body.setAttribute('data-md-color-scheme'%2C%20'slate')%3B%7D%7D)()%7D)()">Emulate Dark Mode</a>
-bookmarklet can be used to emulate dark mode, but just reload the page to restore light mode:
+<a href="javascript:(function()%7B(function()%7B%0A%20%20%20%20document.documentElement.style.filter%20%3D%20document.documentElement.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%0A%20%20%20%20const%20images%20%3D%20document.querySelectorAll('img')%3B%0A%20%20%20%20images.forEach(img%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(img.alt%20!%3D%20'Logo%20on%20White%20Background')%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20img.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20if%20(document.body.getAttribute('data-md-color-scheme')%20%3D%3D%20'slate')%20%7B%0A%20%20%20%20%20%20%20%20document.body.setAttribute('data-md-color-scheme'%2C%20'default')%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20document.body.setAttribute('data-md-color-scheme'%2C%20'slate')%3B%0A%20%20%20%20%7D%0A%7D)()%3B%7D)()%3B">LightModeToggle</a>
+bookmarklet (changed 2026-09-18) can be used to toggle dark/light mode (or just reload the page to restore light mode):
 
 ```javascript
 (function(){
     document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        if (img.alt != 'Logo') {
+        if (!img.alt.startsWith('Logo')) {
             img.style.filter = img.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
-            }
-        });
+        }
+    });
     if (document.body.getAttribute('data-md-color-scheme') == 'slate') {
         document.body.setAttribute('data-md-color-scheme', 'default');
     } else {
         document.body.setAttribute('data-md-color-scheme', 'slate');
     }
 })();
-
 ```
 </div>
+<div>
+<h3>Displaying Images in Dark Mode</h3>
+Images are not normally adjusted for Dark/Light mode.
+If you also want images to display in dark mode, try <a href="javascript:(function()%7B%7B%0A%20%20%20%20const%20images%20%3D%20document.querySelectorAll('img')%3B%0A%20%20%20%20images.forEach(img%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20style%20%3D%20getComputedStyle(img)%3B%0A%20%20%20%20%20%20%20%20const%20temp%20%3D%20style.filter%3B%0A%20%20%20%20%20%20%20%20if%20(temp%20%3D%3D%20''%20%7C%7C%20temp%20%3D%3D%20'none')%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'invert(1)%20hue-rotate(180deg)'%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'none'%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%7D%7D)()%3B">DarkImages4</a> as a bookmarklet. It executes:
+
+```javascript
+{
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        const style = getComputedStyle(img);
+        const temp = style.filter;
+        if (temp == '' || temp == 'none') {
+            img.style.filter = 'invert(1) hue-rotate(180deg)';
+        } else {
+            img.style.filter = 'none';
+        }
+    });
+}
+```
+</div>
+
 
 ## Credits
 

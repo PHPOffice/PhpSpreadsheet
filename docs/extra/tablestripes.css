@@ -6,3 +6,4 @@
 [data-md-color-scheme="slate"] table tbody tr:nth-child(2n) {
   background-color: #404040;
 }
+[data-md-color-scheme="slate"] [alt^="Logo"] {filter: invert(100%) hue-rotate(180deg);}
