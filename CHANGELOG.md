@@ -29,11 +29,11 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Deprecated
 
-- Nothing yet.
+- Deprecate `_calculateFormulaValue` for `calculateFormulaValue`. [PR #4992](https://github.com/PHPOffice/PhpSpreadsheet/pull/4992)
 
 ### Fixed
 
-- Nothing yet.
+- `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. Excel returns `#VALUE!` for that input; PhpSpreadsheet previously returned `37381`. [#4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996)
 
 ## 2026-09-15 - 5.10.0
 

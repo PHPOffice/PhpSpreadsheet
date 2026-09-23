@@ -202,6 +202,11 @@ class Format
                 return (float) $numberValue;
             }
 
+            // Reject text that is not a date/time before DateValue's permissive parser.
+            if (!self::isDateTimeString($value)) {
+                return ExcelError::VALUE();
+            }
+
             $dateSetting = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
@@ -216,17 +221,39 @@ class Format
             }
             /** @var DateTimeInterface|float|int|string */
             $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
-            if ($dateValue !== ExcelError::VALUE()) {
-                Functions::setReturnDateType($dateSetting);
-
-                return $dateValue;
-            }
             Functions::setReturnDateType($dateSetting);
 
-            return ExcelError::VALUE();
+            return $dateValue;
         }
 
         return (float) $value;
+    }
+
+    /**
+     * True when $value only contains date/time tokens (digits, separators, English month/weekday, am/pm).
+     * Product descriptions such as "5V 2.1A - EU Wall Adaptor" leave leftover letters and are rejected.
+     */
+    private static function isDateTimeString(string $value): bool
+    {
+        $text = strtolower(trim($value, "\" \t\n\r\0\x0B"));
+        if ($text === '' || strpbrk($text, '0123456789') === false) {
+            return false;
+        }
+
+        // Full month names, then full day names, then leftover abbreviations (longer first).
+        $text = str_replace([
+            'january', 'february', 'march', 'april', 'may', 'june',
+            'july', 'august', 'september', 'october', 'november', 'december',
+            'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+            'jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'sep',
+            'oct', 'nov', 'dec',
+            'sun', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'thu', 'fri', 'sat',
+            'utc', 'gmt', 'am', 'pm',
+        ], '', $text);
+
+        $text = Preg::replace('/\d(?:st|nd|rd|th)?|[\/.,:+\-tz\s]/', '', $text);
+
+        return $text === '';
     }
 
     /**
