@@ -16,6 +16,46 @@ is raised.
 
 Read more [about of XXE injection](https://websec.io/2012/08/27/Preventing-XXE-in-PHP.html).
 
+### Untrusted File Names
+
+Never pass a file name taken from user input to `IOFactory::load()`, or
+to the `load()` method of an individual Reader. The Reader uses that
+value as the argument to PHP's `is_file()`, which honours whichever
+stream wrappers are registered for the PHP process.
+
+Readers call `File::assertFile()` before touching the file, and that
+method rejects the `phar://` wrapper in all of its forms. This is what
+stops a crafted archive from being opened as a PHAR and having its
+metadata deserialized; see
+[CVE-2026-34084](https://github.com/PHPOffice/PhpSpreadsheet/security/advisories/GHSA-q4q6-r8wh-5cgh)
+and its patch bypass
+[CVE-2026-45034](https://github.com/PHPOffice/PhpSpreadsheet/security/advisories/GHSA-87m4-826x-3crx).
+
+That guard is deliberately limited to `phar://`. Other wrappers are not
+rejected, and several of them perform network I/O while their `stat()`
+implementation is being consulted, so the same `is_file()` check can be
+used as a server-side request forgery primitive:
+
+-   `ftp://host:port/path` (and `ssh2.sftp://host/path`) cause an
+    outbound connection to a host and port chosen by whoever supplied
+    the file name;
+-   a URL such as `http://127.0.0.1:8080/` is resolved as well, even
+    though `is_file()` then reports that no file exists.
+
+If the file name can be influenced by a user, resolve it first with
+`realpath()`, which returns `false` for every stream wrapper, and reject
+anything that still carries a scheme:
+
+```php
+$real = realpath($inputFileName);
+if ($real === false) {
+    throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid file path');
+}
+```
+
+Keeping uploaded files out of the path handed to the Reader is safer
+still: store uploads under a generated name and pass only that name.
+
 ## Loading a Spreadsheet File
 
 The simplest way to load a workbook file is to let PhpSpreadsheet's IO
