@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
+use PhpOffice\PhpSpreadsheet\Parallel\ParallelExecutor;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
@@ -167,6 +168,12 @@ class Xlsx extends BaseWriter
     private ?bool $forceFullCalc = self::DEFAULT_FORCE_FULL_CALC;
 
     protected bool $restrictMaxColumnWidth = false;
+
+    private bool $parallelEnabled = false;
+
+    private ?int $maxWorkers = null;
+
+    private int $parallelTimeout = 0;
 
     /**
      * Create a new Xlsx Writer.
@@ -441,9 +448,38 @@ class Xlsx extends BaseWriter
         $zipContent['xl/workbook.xml'] = $this->getWriterPartWorkbook()->writeWorkbook($this->spreadSheet, $this->preCalculateFormulas, $this->forceFullCalc);
 
         $chartCount = 0;
+        $sheetCount = $this->spreadSheet->getSheetCount();
         // Add worksheets
-        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts);
+        if ($this->parallelEnabled && $sheetCount > 1) {
+            $executor = new ParallelExecutor(null, $this->maxWorkers, $this->parallelTimeout);
+            /** @var list<string> $sheetXmls */
+            $sheetXmls = $executor->map(
+                range(0, $sheetCount - 1),
+                fn (int $i): string => $this->getWriterPartWorksheet()->writeWorksheet(
+                    $this->spreadSheet->getSheet($i),
+                    $this->stringTable,
+                    $this->includeCharts
+                ),
+                // Changes that writing a worksheet makes to the model would
+                // stay in the child, so make them first, in sheet order
+                function () use ($sheetCount): void {
+                    for ($i = 0; $i < $sheetCount; ++$i) {
+                        $this->getWriterPartWorksheet()->prepareWorksheet($this->spreadSheet->getSheet($i));
+                    }
+                }
+            );
+        } else {
+            $sheetXmls = [];
+            for ($i = 0; $i < $sheetCount; ++$i) {
+                $sheetXmls[] = $this->getWriterPartWorksheet()->writeWorksheet(
+                    $this->spreadSheet->getSheet($i),
+                    $this->stringTable,
+                    $this->includeCharts
+                );
+            }
+        }
+        for ($i = 0; $i < $sheetCount; ++$i) {
+            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $sheetXmls[$i];
             if ($this->includeCharts) {
                 $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
                 if (count($charts) > 0) {
@@ -954,6 +990,50 @@ class Xlsx extends BaseWriter
     public function getRestrictMaxColumnWidth(): bool
     {
         return $this->restrictMaxColumnWidth;
+    }
+
+    public function setParallelEnabled(bool $enabled): self
+    {
+        $this->parallelEnabled = $enabled;
+
+        return $this;
+    }
+
+    public function isParallelEnabled(): bool
+    {
+        return $this->parallelEnabled;
+    }
+
+    /**
+     * Set the maximum number of parallel workers.
+     * Pass null to auto-detect based on CPU count.
+     */
+    public function setMaxWorkers(?int $maxWorkers): self
+    {
+        $this->maxWorkers = $maxWorkers;
+
+        return $this;
+    }
+
+    public function getMaxWorkers(): ?int
+    {
+        return $this->maxWorkers;
+    }
+
+    /**
+     * Set the maximum number of seconds a parallel worker may run.
+     * Pass 0 (the default) for no time limit.
+     */
+    public function setParallelTimeout(int $seconds): self
+    {
+        $this->parallelTimeout = $seconds;
+
+        return $this;
+    }
+
+    public function getParallelTimeout(): int
+    {
+        return $this->parallelTimeout;
     }
 
     /**
