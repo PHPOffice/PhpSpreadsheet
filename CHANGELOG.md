@@ -33,6 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
 - `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
