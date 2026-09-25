@@ -290,6 +290,58 @@ return [
         true,
         false,
     ],
+    // Values of different types are ordered by type: numbers < text < FALSE < TRUE.
+    // LibreOffice treats logical values as numbers.
+    [
+        '=""<75',
+        false,
+        false,
+    ],
+    [
+        '="">0',
+        true,
+        true,
+    ],
+    [
+        '="a">1E+100',
+        true,
+        true,
+    ],
+    [
+        '=1<"a"',
+        true,
+        true,
+    ],
+    [
+        '=1="a"',
+        false,
+        false,
+    ],
+    [
+        '=FALSE>"zzz"',
+        true,
+        false,
+    ],
+    [
+        '="a"<TRUE',
+        true,
+        false,
+    ],
+    [
+        '=TRUE=1',
+        false,
+        true,
+    ],
+    [
+        '=TRUE>1',
+        true,
+        false,
+    ],
+    [
+        '=FALSE<1',
+        false,
+        true,
+    ],
     // Test natural sorting is not used
     [
         '="a2" > "a10"',
