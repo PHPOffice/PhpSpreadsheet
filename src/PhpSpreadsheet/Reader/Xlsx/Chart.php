@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\AxisText;
+use PhpOffice\PhpSpreadsheet\Chart\BoxWhisker;
+use PhpOffice\PhpSpreadsheet\Chart\BoxWhiskerSeries;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
@@ -18,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
 
@@ -515,6 +518,120 @@ class Chart
             ->setPerspective($perspective);
 
         return $chart;
+    }
+
+    /**
+     * Read a ChartEx chart.
+     */
+    public function readChartEx(SimpleXMLElement $chartElements, string $chartName, Spreadsheet $spreadsheet): \PhpOffice\PhpSpreadsheet\Chart\Chart
+    {
+        $chartSpace = $chartElements->children(Namespaces::CHART_EX);
+
+        $dataSources = [];
+        foreach ($chartSpace->chartData->data as $data) {
+            $dataId = self::getAttributeInteger($data, 'id');
+            if ($dataId === null || !isset($data->numDim->f)) {
+                continue;
+            }
+
+            $dataSources[$dataId] = (string) $data->numDim->f;
+        }
+
+        $series = [];
+
+        foreach ($chartSpace->chart->plotArea->plotAreaRegion->series as $seriesElement) {
+            if (self::getAttributeString($seriesElement, 'layoutId') !== BoxWhisker::TYPE) {
+                continue;
+            }
+
+            $txData = $seriesElement->tx->txData;
+            $dataSource = (string) $txData->f;
+
+            if ($dataSource === '') {
+                $categories = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_STRING,
+                    null,
+                    null,
+                    1,
+                    [(string) $txData->v]
+                );
+
+                $label = null;
+            } else {
+                $definedName = $spreadsheet->getDefinedName($dataSource);
+                $dataSource = $definedName === null ? $dataSource : $definedName->getValue();
+
+                $categories = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_STRING,
+                    $dataSource
+                );
+
+                $label = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_STRING,
+                    $dataSource
+                );
+            }
+
+            $dataId = self::getAttributeInteger($seriesElement->dataId, 'val');
+            $valuesSource = $dataId === null ? null : ($dataSources[$dataId] ?? null);
+
+            if ($valuesSource === null) {
+                continue;
+            }
+
+            $definedName = $spreadsheet->getDefinedName($valuesSource);
+            if ($definedName !== null) {
+                $valuesSource = $definedName->getValue();
+            }
+
+            $values = new DataSeriesValues(
+                DataSeriesValues::DATASERIES_TYPE_NUMBER,
+                $valuesSource
+            );
+
+            $series[] = new BoxWhiskerSeries($categories, $values, $label);
+        }
+
+        $boxWhisker = new BoxWhisker($series);
+
+        $visibility = null;
+        $statistics = null;
+
+        foreach ($chartSpace->chart->plotArea->plotAreaRegion->series as $seriesElement) {
+            if (self::getAttributeString($seriesElement, 'layoutId') !== BoxWhisker::TYPE) {
+                continue;
+            }
+
+            $visibility = $seriesElement->layoutPr->visibility ?? null;
+            $statistics = $seriesElement->layoutPr->statistics ?? null;
+
+            break;
+        }
+
+        if ($visibility !== null) {
+            $boxWhisker->setShowMeanLine(self::getAttributeBoolean($visibility, 'meanLine') ?? false)
+                ->setShowMeanMarker(self::getAttributeBoolean($visibility, 'meanMarker') ?? true)
+                ->setShowInnerPoints(self::getAttributeBoolean($visibility, 'nonoutliers') ?? false)
+                ->setShowOutliers(self::getAttributeBoolean($visibility, 'outliers') ?? true);
+        }
+
+        if ($statistics !== null) {
+            $quartileMethod = self::getAttributeString($statistics, 'quartileMethod');
+            if ($quartileMethod !== null) {
+                $boxWhisker->setQuartileMethod($quartileMethod);
+            }
+        }
+
+        $objChart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName);
+        $objChart->setChartEx($boxWhisker);
+
+        if (isset($chartSpace->chart->title->tx->txData->v)) {
+            $objChart->setTitle(
+                new Title((string) $chartSpace->chart->title->tx->txData->v)
+            );
+        }
+
+        return $objChart;
     }
 
     private function chartTitle(SimpleXMLElement $titleDetails): Title

@@ -1500,7 +1500,7 @@ class Xlsx extends BaseReader
                                                     } else {
                                                         $images[(string) $ele['Id']] = self::dirAdd($fileDrawing, $eleTarget);
                                                     }
-                                                } elseif ($eleType === "$xmlNamespaceBase/chart") {
+                                                } elseif ($eleType === "$xmlNamespaceBase/chart" || $eleType === Namespaces::RELATIONSHIPS_CHART_EX) {
                                                     if ($this->includeCharts) {
                                                         $eleTarget = (string) $ele['Target'];
                                                         if (str_starts_with($eleTarget, '/xl/')) {
@@ -1626,8 +1626,15 @@ class Xlsx extends BaseReader
                                                     $height = Drawing::EMUToPixels(self::getArrayItemIntOrSxml(self::getAttributes($oneCellAnchor->ext), 'cy'));
 
                                                     $graphic = $oneCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
+
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
-                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    $chartRefEx = $graphic->graphicData->children(Namespaces::CHART_EX)->chart;
+
+                                                    if ($chartRef->count() > 0) {
+                                                        $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    } else {
+                                                        $thisChart = (string) self::getAttributes($chartRefEx, $xmlNamespaceBase);
+                                                    }
 
                                                     $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
                                                         'fromCoordinate' => $coordinates,
@@ -1736,8 +1743,15 @@ class Xlsx extends BaseReader
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
+
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
-                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    $chartRefEx = $graphic->graphicData->children(Namespaces::CHART_EX)->chart;
+
+                                                    if ($chartRef->count() > 0) {
+                                                        $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    } else {
+                                                        $thisChart = (string) self::getAttributes($chartRefEx, $xmlNamespaceBase);
+                                                    }
 
                                                     $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
                                                         'fromCoordinate' => $fromCoordinate,
@@ -1755,8 +1769,16 @@ class Xlsx extends BaseReader
                                             foreach ($xmlDrawingChildren->absoluteAnchor as $absoluteAnchor) {
                                                 if (($this->includeCharts) && ($absoluteAnchor->graphicFrame)) {
                                                     $graphic = $absoluteAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
+
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
-                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    $chartRefEx = $graphic->graphicData->children(Namespaces::CHART_EX)->chart;
+
+                                                    if ($chartRef->count() > 0) {
+                                                        $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    } else {
+                                                        $thisChart = (string) self::getAttributes($chartRefEx, $xmlNamespaceBase);
+                                                    }
+
                                                     $width = Drawing::EMUToPixels((int) self::getArrayItemString(self::getAttributes($absoluteAnchor->ext), 'cx')[0]);
                                                     $height = Drawing::EMUToPixels((int) self::getArrayItemString(self::getAttributes($absoluteAnchor->ext), 'cy')[0]);
 
@@ -2001,12 +2023,15 @@ class Xlsx extends BaseReader
             // Override content types
             foreach ($contentTypes->Override as $contentType) {
                 switch ($contentType['ContentType']) {
+                    case 'application/vnd.ms-office.chartex+xml':
                     case 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml':
                         if ($this->includeCharts) {
                             $chartEntryRef = ltrim((string) $contentType['PartName'], '/');
                             $chartElements = $this->loadZip($chartEntryRef);
                             $chartReader = new Chart($chartNS, $drawingNS);
-                            $objChart = $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
+                            $objChart = (string) $contentType['ContentType'] === 'application/vnd.ms-office.chartex+xml'
+                                ? $chartReader->readChartEx($chartElements, basename($chartEntryRef, '.xml'), $excel)
+                                : $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef]) && $excel->getSheetByName($charts[$chartEntryRef]['sheet']) !== null) {
