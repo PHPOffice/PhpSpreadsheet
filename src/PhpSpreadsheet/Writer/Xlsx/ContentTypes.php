@@ -116,7 +116,35 @@ class ContentTypes extends WriterPart
             //    If we have charts, then we need a chart relationship for every individual chart
             if ($chartCount > 0) {
                 for ($c = 0; $c < $chartCount; ++$c) {
-                    $this->writeOverrideContentType($objWriter, '/xl/charts/chart' . $chart++ . '.xml', 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml');
+                    $chartObject = $spreadsheet->getSheet($i)->getChartCollection()[$c];
+
+                    if ($chartObject === null || $chartObject->getChartEx() === null) {
+                        $this->writeOverrideContentType(
+                            $objWriter,
+                            '/xl/charts/chart' . $chart++ . '.xml',
+                            'application/vnd.openxmlformats-officedocument.drawingml.chart+xml'
+                        );
+                    } else {
+                        $chartExIndex = $chart++;
+
+                        $this->writeOverrideContentType(
+                            $objWriter,
+                            '/xl/charts/chartEx' . $chartExIndex . '.xml',
+                            'application/vnd.ms-office.chartex+xml'
+                        );
+
+                        $this->writeOverrideContentType(
+                            $objWriter,
+                            '/xl/charts/style' . $chartExIndex . '.xml',
+                            'application/vnd.ms-office.chartstyle+xml'
+                        );
+
+                        $this->writeOverrideContentType(
+                            $objWriter,
+                            '/xl/charts/colors' . $chartExIndex . '.xml',
+                            'application/vnd.ms-office.chartcolorstyle+xml'
+                        );
+                    }
                 }
             }
         }
