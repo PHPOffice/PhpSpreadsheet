@@ -16,4 +16,15 @@ class MaxTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/Statistical/MAX.php';
     }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMAXLiteralArguments')]
+    public function testMAXLiteralArguments(mixed $expectedResult, mixed ...$args): void
+    {
+        $this->runTestCaseDirect('MAX', $expectedResult, ...$args);
+    }
+
+    public static function providerMAXLiteralArguments(): array
+    {
+        return require 'tests/data/Calculation/Statistical/MAXLiteralArguments.php';
+    }
 }
