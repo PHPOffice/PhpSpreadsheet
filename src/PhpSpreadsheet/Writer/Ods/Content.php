@@ -414,7 +414,8 @@ class Content extends WriterPart
                         $sheets = 'sheet://';
                         $lensheets = strlen($sheets);
                         if (substr($url, 0, $lensheets) === $sheets) {
-                            $url = '#' . substr($url, $lensheets);
+                            // ODF separates the sheet from the cell with a dot: #'My Sheet'.A1
+                            $url = '#' . Preg::replace("/^('(?:[^']|'')*'|[^'!]+)!/", '$1.', substr($url, $lensheets));
                         }
                         $objWriter->writeAttribute('xlink:href', $url);
                         $objWriter->writeAttribute('xlink:type', 'simple');
