@@ -1025,17 +1025,17 @@ class Ods extends BaseReader
                     }
                 }
 
+                foreach ($paragraphs as $paragraph) {
+                    $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                    if ($link->length > 0 && $link->item(0) !== null) {
+                        $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                    }
+                }
+
                 switch ($type) {
                     case 'string':
                         $type = DataType::TYPE_STRING;
                         $dataValue = $allCellDataText;
-
-                        foreach ($paragraphs as $paragraph) {
-                            $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
-                            if ($link->length > 0 && $link->item(0) !== null) {
-                                $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
-                            }
-                        }
 
                         break;
                     case 'boolean':
