@@ -37,7 +37,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
 - Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
-- Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure.
+- Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
 
 ## 2026-09-15 - 5.10.0
 
