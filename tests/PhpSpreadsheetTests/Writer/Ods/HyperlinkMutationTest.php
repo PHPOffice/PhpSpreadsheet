@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
+use ZipArchive;
 
 class HyperlinkMutationTest extends TestCase
 {
@@ -26,11 +27,16 @@ class HyperlinkMutationTest extends TestCase
         self::assertStringContainsString('xlink:href="https://example.org"', $data);
         self::assertSame(['A3'], array_keys($sheet->getHyperlinkCollection()));
 
-        // An empty hyperlink on every string cell made the Xlsx writer throw "Invalid parameters passed."
+        // The Xlsx writer, saving the same spreadsheet next, writes the hyperlink of A3 and no other
         $file = File::temporaryFilename();
         (new XlsxWriter($spreadsheet))->save($file);
-        self::assertFileExists($file);
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($file));
+        $sheetXml = (string) $zip->getFromName('xl/worksheets/sheet1.xml');
+        $zip->close();
         unlink($file);
+        self::assertSame(1, preg_match_all('/<hyperlink /', $sheetXml));
+        self::assertStringContainsString('<hyperlink ref="A3"', $sheetXml);
         $spreadsheet->disconnectWorksheets();
     }
 }
