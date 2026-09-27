@@ -37,7 +37,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
 - Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
-- Ods Writer writes a right-to-left sheet as `style:writing-mode="rl-tb"`, and Ods Reader reads it back; the direction was lost both ways.
+- Ods Writer writes a right-to-left sheet as `style:writing-mode="rl-tb"`, and Ods Reader reads it back; the direction was lost both ways. [Issue #5015](https://github.com/PHPOffice/PhpSpreadsheet/issues/5015) [PR #5016](https://github.com/PHPOffice/PhpSpreadsheet/pull/5016)
 
 ## 2026-09-15 - 5.10.0
 
