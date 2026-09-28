@@ -364,6 +364,15 @@ class Ods extends BaseReader
         $textNs = (string) $dom->lookupNamespaceUri('text');
         $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
 
+        // LibreOffice keeps the language of a spreadsheet there, not in dc:language; read even with readDataOnly
+        foreach ($dom->getElementsByTagNameNS($styleNs, 'default-style') as $defaultStyle) {
+            if ($spreadsheet->getProperties()->getLanguage() === '' && $defaultStyle->getAttributeNS($styleNs, 'family') === 'table-cell') {
+                foreach ($defaultStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $spreadsheet->getProperties()->setLanguage(self::languageTag($textProperty, $styleNs, $fontNs));
+                }
+            }
+        }
+
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'default-style');
@@ -1298,6 +1307,26 @@ class Ods extends BaseReader
                     ->setWorksheet($worksheet);
             }
         }
+    }
+
+    /**
+     * The language of text properties as a BCP 47 tag, or '' for none.
+     */
+    private static function languageTag(DOMElement $textProperties, string $styleNs, string $fontNs): string
+    {
+        $tag = $textProperties->getAttributeNS($styleNs, 'rfc-language-tag');
+        $language = strtolower($textProperties->getAttributeNS($fontNs, 'language'));
+        // zxx: no linguistic content
+        if ($tag !== '' || !Preg::isMatch('/^[a-z]{2,3}$/', $language) || $language === 'zxx') {
+            return $tag;
+        }
+        $script = $textProperties->getAttributeNS($fontNs, 'script');
+        $country = $textProperties->getAttributeNS($fontNs, 'country');
+
+        // ponytail: the Western slot only, where LibreOffice always writes one; an Asian or complex document language needs dc:language
+        return $language
+            . (Preg::isMatch('/^[a-z]{4}$/i', $script) ? '-' . ucfirst(strtolower($script)) : '')
+            . (Preg::isMatch('/^([a-z]{2}|\d{3})$/i', $country) ? '-' . strtoupper($country) : '');
     }
 
     private static function extractNodeName(string $key): string
