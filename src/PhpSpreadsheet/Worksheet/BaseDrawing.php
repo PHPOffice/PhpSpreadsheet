@@ -45,6 +45,11 @@ class BaseDrawing implements IComparable
     protected string $description = '';
 
     /**
+     * A decorative drawing adds nothing to the content: assistive technology skips it.
+     */
+    protected bool $decorative = false;
+
+    /**
      * Worksheet.
      */
     protected ?Worksheet $worksheet = null;
@@ -184,6 +189,18 @@ class BaseDrawing implements IComparable
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function isDecorative(): bool
+    {
+        return $this->decorative;
+    }
+
+    public function setDecorative(bool $decorative): self
+    {
+        $this->decorative = $decorative;
 
         return $this;
     }

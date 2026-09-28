@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -107,6 +108,38 @@ class Drawing extends WriterPart
     }
 
     /**
+     * Write the graphic styles of the frames. LibreOffice keeps the decorative flag of a
+     * frame in its style, and leaves a decorative image out of a tagged PDF as an artifact.
+     */
+    public function writeGraphicStyles(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    {
+        $decorative = null;
+        foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
+            foreach ($worksheet->getDrawingCollection() as $drawing) {
+                $decorative = $decorative || $drawing->isDecorative();
+            }
+        }
+        if ($decorative === null) {
+            return;
+        }
+
+        $objWriter->startElement('style:style');
+        $objWriter->writeAttribute('style:name', 'gr1');
+        $objWriter->writeAttribute('style:family', 'graphic');
+        $objWriter->endElement();
+        if ($decorative) {
+            $objWriter->startElement('style:style');
+            $objWriter->writeAttribute('style:name', 'gr2');
+            $objWriter->writeAttribute('style:family', 'graphic');
+            $objWriter->startElement('style:graphic-properties');
+            $objWriter->writeAttribute('xmlns:loext', 'urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0');
+            $objWriter->writeAttribute('loext:decorative', 'true');
+            $objWriter->endElement();
+            $objWriter->endElement();
+        }
+    }
+
+    /**
      * Write drawing frames in content.xml within a table cell.
      */
     public function writeDrawingFrame(XMLWriter $objWriter, BaseDrawing $drawing, int $imageIndex, string $sheetTitle): void
@@ -134,7 +167,7 @@ class Drawing extends WriterPart
         $objWriter->writeAttribute('draw:z-index', (string) $imageIndex);
         $objWriter->writeAttribute('svg:width', "{$widthCm}cm");
         $objWriter->writeAttribute('svg:height', "{$heightCm}cm");
-        $objWriter->writeAttribute('draw:style-name', 'gr1');
+        $objWriter->writeAttribute('draw:style-name', $drawing->isDecorative() ? 'gr2' : 'gr1');
 
         // Write draw:image
         $objWriter->startElement('draw:image');
