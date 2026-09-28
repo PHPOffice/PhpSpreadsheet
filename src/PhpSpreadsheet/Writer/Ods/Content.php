@@ -405,7 +405,8 @@ class Content extends WriterPart
                     // break intentionally omitted
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
-                    $url = $cell->getHyperlink()->getUrl();
+                    // getHyperlink() would add an empty hyperlink to a cell that has none
+                    $url = $cell->hasHyperlink() ? $cell->getHyperlink()->getUrl() : '';
                     if (empty($url)) {
                         $objWriter->writeElement('text:p', $cell->getValueString());
                     } else {

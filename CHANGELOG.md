@@ -38,6 +38,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
 - Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
 - Ods Writer writes a link to another sheet as `#Sheet.A1`, as ODF and LibreOffice do, and Ods Reader reads that form back as `sheet://Sheet!A1`, so a Xlsx saved from it no longer gets a broken location. [Issue #5011](https://github.com/PHPOffice/PhpSpreadsheet/issues/5011) [PR #5012](https://github.com/PHPOffice/PhpSpreadsheet/pull/5012)
+- Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
+- Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008)
 
 ## 2026-09-15 - 5.10.0
 

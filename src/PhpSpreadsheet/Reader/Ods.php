@@ -1226,13 +1226,14 @@ class Ods extends BaseReader
         $svgHeight = $item->getAttribute('svg:height');
         $styleName = $item->getAttribute('draw:style-name');
         $drawImage = null;
+        $description = '';
         foreach ($item->childNodes as $node) {
             // Check if the node is a standard element tag
-            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image') {
+            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image' && $drawImage === null) {
                 /** @var DOMElement */
                 $drawImage = $node;
-
-                break;
+            } elseif ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'svg:desc') {
+                $description = $node->textContent;
             }
         }
 
@@ -1269,6 +1270,7 @@ class Ods extends BaseReader
                     ->setWidth((int) $width)
                     ->setHeight((int) $height)
                     ->setName($drawName)
+                    ->setDescription($description)
                     ->setWorksheet($worksheet);
             }
         }
