@@ -101,6 +101,7 @@ class Content extends WriterPart
         // Styles XF
         $objWriter->startElement('office:automatic-styles');
         $this->writeXfStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
+        $this->drawingWriter->writeGraphicStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
         $objWriter->endElement();
 
         $objWriter->startElement('office:body');
