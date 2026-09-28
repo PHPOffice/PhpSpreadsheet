@@ -252,14 +252,14 @@ class Content extends WriterPart
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:boolean-value', $cell->getValue() ? 'true' : 'false');
-                    $objWriter->writeElement('text:p', Calculation::getInstance()->getLocaleBoolean($cell->getValue() ? 'TRUE' : 'FALSE'));
+                    $this->writeCellText($objWriter, $cell, Calculation::getInstance()->getLocaleBoolean($cell->getValue() ? 'TRUE' : 'FALSE'));
 
                     break;
                 case DataType::TYPE_ERROR:
                     $objWriter->writeAttribute('table:formula', 'of:=#NULL!');
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeAttribute('office:string-value', '');
-                    $objWriter->writeElement('text:p', '#NULL!');
+                    $this->writeCellText($objWriter, $cell, '#NULL!');
 
                     break;
                 case DataType::TYPE_FORMULA:
@@ -299,7 +299,7 @@ class Content extends WriterPart
                             'office:boolean-value',
                             $formulaValueCalc ? 'true' : 'false'
                         );
-                        $objWriter->writeElement('text:p', $formulaValueCalc ? 'TRUE' : 'FALSE');
+                        $this->writeCellText($objWriter, $cell, $formulaValueCalc ? 'TRUE' : 'FALSE');
 
                         break;
                     }
@@ -312,7 +312,7 @@ class Content extends WriterPart
                             'office:string-value',
                             $formulaValue
                         );
-                        $objWriter->writeElement('text:p', $formulaValue);
+                        $this->writeCellText($objWriter, $cell, $formulaValue);
 
                         break;
                     }
@@ -398,32 +398,14 @@ class Content extends WriterPart
                             $value
                         );
                     }
-                    $objWriter->writeElement('text:p', $formatted);
+                    $this->writeCellText($objWriter, $cell, $formatted);
 
                     break;
                 case DataType::TYPE_INLINE:
                     // break intentionally omitted
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
-                    // getHyperlink() would add an empty hyperlink to a cell that has none
-                    $url = $cell->hasHyperlink() ? $cell->getHyperlink()->getUrl() : '';
-                    if (empty($url)) {
-                        $objWriter->writeElement('text:p', $cell->getValueString());
-                    } else {
-                        $objWriter->startElement('text:p');
-                        $objWriter->startElement('text:a');
-                        $sheets = 'sheet://';
-                        $lensheets = strlen($sheets);
-                        if (substr($url, 0, $lensheets) === $sheets) {
-                            // ODF separates the sheet from the cell with a dot: #'My Sheet'.A1
-                            $url = '#' . Preg::replace("/^('(?:[^']|'')*'|[^'!]+)!/", '$1.', substr($url, $lensheets));
-                        }
-                        $objWriter->writeAttribute('xlink:href', $url);
-                        $objWriter->writeAttribute('xlink:type', 'simple');
-                        $objWriter->text($cell->getValueString());
-                        $objWriter->endElement(); // text:a
-                        $objWriter->endElement(); // text:p
-                    }
+                    $this->writeCellText($objWriter, $cell, $cell->getValueString());
 
                     break;
             }
@@ -468,6 +450,33 @@ class Content extends WriterPart
             }
         }
         */
+    }
+
+    /**
+     * Write the text of a cell, as a link when the cell has one.
+     */
+    private function writeCellText(XMLWriter $objWriter, Cell $cell, string $text): void
+    {
+        // getHyperlink() would add an empty hyperlink to a cell that has none
+        $url = $cell->hasHyperlink() ? $cell->getHyperlink()->getUrl() : '';
+        if ($url === '') {
+            $objWriter->writeElement('text:p', $text);
+
+            return;
+        }
+        $objWriter->startElement('text:p');
+        $objWriter->startElement('text:a');
+        $sheets = 'sheet://';
+        $lensheets = strlen($sheets);
+        if (substr($url, 0, $lensheets) === $sheets) {
+            // ODF separates the sheet from the cell with a dot: #'My Sheet'.A1
+            $url = '#' . Preg::replace("/^('(?:[^']|'')*'|[^'!]+)!/", '$1.', substr($url, $lensheets));
+        }
+        $objWriter->writeAttribute('xlink:href', $url);
+        $objWriter->writeAttribute('xlink:type', 'simple');
+        $objWriter->text($text);
+        $objWriter->endElement(); // text:a
+        $objWriter->endElement(); // text:p
     }
 
     /**

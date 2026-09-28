@@ -99,4 +99,31 @@ class HyperlinkTest extends AbstractFunctional
         }
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testHyperlinkOnNonStringCells(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->setCellValue('A1', 42);
+        $sheet->setCellValue('A2', true);
+        $sheet->setCellValue('A3', '=1+1');
+        $sheet->setCellValue('A4', '="t"&"x"');
+        $sheet->setCellValue('A5', 'plain');
+        foreach (range(1, 4) as $row) {
+            $sheet->getCell("A$row")->getHyperlink()->setUrl("https://example.org/$row");
+        }
+
+        $content = (new Ods($spreadsheetOld))->getWriterPartContent()->write();
+        self::assertStringContainsString('office:value="42"><text:p><text:a xlink:href="https://example.org/1" xlink:type="simple">42</text:a></text:p>', $content);
+
+        $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
+        $newSheet = $spreadsheet->getActiveSheet();
+        self::assertSame(42, $newSheet->getCell('A1')->getValue());
+        foreach (range(1, 4) as $row) {
+            self::assertSame("https://example.org/$row", $newSheet->getCell("A$row")->getHyperlink()->getUrl(), "A$row");
+        }
+        self::assertFalse($newSheet->getCell('A5')->hasHyperlink());
+        $spreadsheet->disconnectWorksheets();
+    }
 }
