@@ -136,8 +136,11 @@ class Drawing extends WriterPart
         $objWriter->writeAttribute('macro', '');
         $objWriter->startElement('xdr:nvGraphicFramePr');
         $objWriter->startElement('xdr:cNvPr');
-        $objWriter->writeAttribute('name', 'Chart ' . $relationId);
+        $objWriter->writeAttribute('name', $chart->getName() === '' ? 'Chart ' . $relationId : $chart->getName());
         $objWriter->writeAttribute('id', (string) (1025 * $relationId));
+        if ($chart->getDescription() !== '') {
+            $objWriter->writeAttribute('descr', $chart->getDescription());
+        }
         $objWriter->endElement();
         $objWriter->startElement('xdr:cNvGraphicFramePr');
         $objWriter->startElement('a:graphicFrameLocks');
