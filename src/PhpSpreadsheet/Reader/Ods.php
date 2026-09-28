@@ -41,6 +41,8 @@ class Ods extends BaseReader
 {
     const INITIAL_FILE = 'content.xml';
 
+    private const DRAW_NS = 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0';
+
     private const LOEXT_NS = 'urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0';
 
     private ZipArchive $zip;
@@ -447,18 +449,23 @@ class Ods extends BaseReader
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        // Even with readDataOnly, which still reads the drawings
         $this->decorativeStyles = [];
+        $graphicProperties = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0)?->getElementsByTagNameNS($styleNs, 'graphic-properties') ?? [];
+        foreach ($graphicProperties as $graphicProperty) {
+            $style = $graphicProperty->parentNode;
+            // loext as LibreOffice writes it, draw as ODF 1.4 does
+            if (
+                $style instanceof DOMElement
+                && $style->getAttributeNS($styleNs, 'family') === 'graphic'
+                && ($graphicProperty->getAttributeNS(self::LOEXT_NS, 'decorative') === 'true' || $graphicProperty->getAttributeNS(self::DRAW_NS, 'decorative') === 'true')
+            ) {
+                $this->decorativeStyles[$style->getAttributeNS($styleNs, 'name')] = true;
+            }
+        }
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
-            if ($styleFamily === 'graphic') {
-                // As LibreOffice writes it
-                foreach ($automaticStyle->getElementsByTagNameNS($styleNs, 'graphic-properties') as $graphicProperties) {
-                    if ($graphicProperties->getAttributeNS(self::LOEXT_NS, 'decorative') === 'true') {
-                        $this->decorativeStyles[$styleName] = true;
-                    }
-                }
-            }
             if ($styleFamily === 'table-column') {
                 $tcprops = $automaticStyle->getElementsByTagNameNS($styleNs, 'table-column-properties');
                 $tcprop = $tcprops->item(0);
