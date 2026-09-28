@@ -62,7 +62,8 @@ class Styles extends WriterPart
         $objWriter->startElement('style:default-style');
         $objWriter->writeAttribute('style:family', 'table-cell');
         $writer2 = new Cell\Style($objWriter);
-        $writer2->writeTextProperties($defaultStyle);
+        // The document's language is the language of its text in LibreOffice
+        $writer2->writeTextProperties($defaultStyle, $this->getParentWriter()->getSpreadsheet()->getProperties()->getLanguage());
         $objWriter->endElement(); // style:default-style
         $objWriter->startElement('style:style');
         $objWriter->writeAttribute('style:name', 'Default');

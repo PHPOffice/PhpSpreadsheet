@@ -46,6 +46,7 @@ class Properties
             $this->docProps->setSubject($this->getArrayItem($xmlCore->xpath('dc:subject')));
             $this->docProps->setKeywords($this->getArrayItem($xmlCore->xpath('cp:keywords')));
             $this->docProps->setCategory($this->getArrayItem($xmlCore->xpath('cp:category')));
+            $this->docProps->setLanguage($this->getArrayItem($xmlCore->xpath('dc:language')));
         }
     }
 
