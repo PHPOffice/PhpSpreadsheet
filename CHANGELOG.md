@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names.
 
 ### Removed
 
