@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
@@ -46,9 +48,55 @@ class HyperlinkTest extends AbstractFunctional
         $content = $writer->getWriterPartContent()->write();
         self::assertStringContainsString('xlink:href="http://example.org/"', $content);
         self::assertStringContainsString('xlink:href="http://example.org/page1.html"', $content);
-        self::assertStringContainsString('xlink:href="#TargetSheet!B4"', $content);
+        self::assertStringContainsString('xlink:href="#TargetSheet.B4"', $content);
         self::assertStringNotContainsString('sheet:', $content);
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    private const INTERNAL_LINKS = [
+        'A1' => ['sheet://Sheet2!A1', '#Sheet2.A1'],
+        'A2' => ['sheet://Sheet2!A1:B3', '#Sheet2.A1:B3'],
+        'A3' => ["sheet://'My Sheet'!C3", "#'My Sheet'.C3"],
+        'A4' => ["sheet://'a.b'!D4", "#'a.b'.D4"],
+        'A5' => ['sheet://MyName', '#MyName'],
+    ];
+
+    public function testReadInternalLinks(): void
+    {
+        // Written by LibreOffice, which keeps the '!' of 'My Sheet'!C3 from the Xlsx it was converted from
+        $spreadsheet = (new OdsReader())->load('tests/data/Reader/Ods/InternalLinks.ods');
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Main');
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            self::assertSame($url, $sheet->getCell($coordinate)->getHyperlink()->getUrl(), $coordinate);
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testWriteInternalLinks(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        foreach (['Sheet2', 'My Sheet', 'a.b'] as $title) {
+            $spreadsheetOld->createSheet()->setTitle($title);
+        }
+        $spreadsheetOld->addNamedRange(new NamedRange('MyName', $spreadsheetOld->getSheetByNameOrThrow('Sheet2'), '$B$2'));
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            $sheet->setCellValue($coordinate, 'link');
+            $sheet->getCell($coordinate)->getHyperlink()->setUrl($url);
+        }
+
+        $content = (new Ods($spreadsheetOld))->getWriterPartContent()->write();
+        foreach (self::INTERNAL_LINKS as [, $href]) {
+            self::assertStringContainsString('xlink:href="' . $href . '"', $content);
+        }
+
+        $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
+        $newSheet = $spreadsheet->getActiveSheet();
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            self::assertSame($url, $newSheet->getCell($coordinate)->getHyperlink()->getUrl(), $coordinate);
+        }
         $spreadsheet->disconnectWorksheets();
     }
 }
