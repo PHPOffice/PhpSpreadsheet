@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
@@ -46,9 +48,82 @@ class HyperlinkTest extends AbstractFunctional
         $content = $writer->getWriterPartContent()->write();
         self::assertStringContainsString('xlink:href="http://example.org/"', $content);
         self::assertStringContainsString('xlink:href="http://example.org/page1.html"', $content);
-        self::assertStringContainsString('xlink:href="#TargetSheet!B4"', $content);
+        self::assertStringContainsString('xlink:href="#TargetSheet.B4"', $content);
         self::assertStringNotContainsString('sheet:', $content);
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    private const INTERNAL_LINKS = [
+        'A1' => ['sheet://Sheet2!A1', '#Sheet2.A1'],
+        'A2' => ['sheet://Sheet2!A1:B3', '#Sheet2.A1:B3'],
+        'A3' => ["sheet://'My Sheet'!C3", "#'My Sheet'.C3"],
+        'A4' => ["sheet://'a.b'!D4", "#'a.b'.D4"],
+        'A5' => ['sheet://MyName', '#MyName'],
+    ];
+
+    public function testReadInternalLinks(): void
+    {
+        // Written by LibreOffice, which keeps the '!' of 'My Sheet'!C3 from the Xlsx it was converted from
+        $spreadsheet = (new OdsReader())->load('tests/data/Reader/Ods/InternalLinks.ods');
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Main');
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            self::assertSame($url, $sheet->getCell($coordinate)->getHyperlink()->getUrl(), $coordinate);
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testWriteInternalLinks(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        foreach (['Sheet2', 'My Sheet', 'a.b'] as $title) {
+            $spreadsheetOld->createSheet()->setTitle($title);
+        }
+        $spreadsheetOld->addNamedRange(new NamedRange('MyName', $spreadsheetOld->getSheetByNameOrThrow('Sheet2'), '$B$2'));
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            $sheet->setCellValue($coordinate, 'link');
+            $sheet->getCell($coordinate)->getHyperlink()->setUrl($url);
+        }
+
+        $content = (new Ods($spreadsheetOld))->getWriterPartContent()->write();
+        foreach (self::INTERNAL_LINKS as [, $href]) {
+            self::assertStringContainsString('xlink:href="' . $href . '"', $content);
+        }
+
+        $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
+        $newSheet = $spreadsheet->getActiveSheet();
+        foreach (self::INTERNAL_LINKS as $coordinate => [$url]) {
+            self::assertSame($url, $newSheet->getCell($coordinate)->getHyperlink()->getUrl(), $coordinate);
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testHyperlinkOnNonStringCells(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->setCellValue('A1', 42);
+        $sheet->setCellValue('A2', true);
+        $sheet->setCellValue('A3', '=1+1');
+        $sheet->setCellValue('A4', '="t"&"x"');
+        $sheet->setCellValue('A5', 'plain');
+        foreach (range(1, 4) as $row) {
+            $sheet->getCell("A$row")->getHyperlink()->setUrl("https://example.org/$row");
+        }
+
+        $content = (new Ods($spreadsheetOld))->getWriterPartContent()->write();
+        self::assertStringContainsString('office:value="42"><text:p><text:a xlink:href="https://example.org/1" xlink:type="simple">42</text:a></text:p>', $content);
+
+        $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
+        $newSheet = $spreadsheet->getActiveSheet();
+        self::assertSame(42, $newSheet->getCell('A1')->getValue());
+        foreach (range(1, 4) as $row) {
+            self::assertSame("https://example.org/$row", $newSheet->getCell("A$row")->getHyperlink()->getUrl(), "A$row");
+        }
+        self::assertFalse($newSheet->getCell('A5')->hasHyperlink());
         $spreadsheet->disconnectWorksheets();
     }
 }

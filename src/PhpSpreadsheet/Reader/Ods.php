@@ -1029,17 +1029,17 @@ class Ods extends BaseReader
                     }
                 }
 
+                foreach ($paragraphs as $paragraph) {
+                    $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                    if ($link->length > 0 && $link->item(0) !== null) {
+                        $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                    }
+                }
+
                 switch ($type) {
                     case 'string':
                         $type = DataType::TYPE_STRING;
                         $dataValue = $allCellDataText;
-
-                        foreach ($paragraphs as $paragraph) {
-                            $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
-                            if ($link->length > 0 && $link->item(0) !== null) {
-                                $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
-                            }
-                        }
 
                         break;
                     case 'boolean':
@@ -1205,7 +1205,8 @@ class Ods extends BaseReader
 
                         if ($hyperlink !== null) {
                             if ($hyperlink[0] === '#') {
-                                $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                                // #Sheet.A1 as ODF writes it, #Sheet!A1 as older releases wrote it; a named range has no sheet
+                                $hyperlink = 'sheet://' . Preg::replace("/^('(?:[^']|'')*'|[^'.!]+)\\.(?=\\$?[A-Z]{1,3}\\$?\\d)/i", '$1!', substr($hyperlink, 1));
                             }
                             $cell->getHyperlink()
                                 ->setUrl($hyperlink);
@@ -1229,13 +1230,14 @@ class Ods extends BaseReader
         $svgHeight = $item->getAttribute('svg:height');
         $styleName = $item->getAttribute('draw:style-name');
         $drawImage = null;
+        $description = '';
         foreach ($item->childNodes as $node) {
             // Check if the node is a standard element tag
-            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image') {
+            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image' && $drawImage === null) {
                 /** @var DOMElement */
                 $drawImage = $node;
-
-                break;
+            } elseif ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'svg:desc') {
+                $description = $node->textContent;
             }
         }
 
@@ -1272,6 +1274,7 @@ class Ods extends BaseReader
                     ->setWidth((int) $width)
                     ->setHeight((int) $height)
                     ->setName($drawName)
+                    ->setDescription($description)
                     ->setWorksheet($worksheet);
             }
         }
