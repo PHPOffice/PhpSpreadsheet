@@ -54,7 +54,7 @@ class Value
             }
 
             try {
-                [$column, $row] = Coordinate::indexesFromString($cellValue ?? ''); //* @phpstan-ignore nullCoalesce.variable (Not sure whether Phpstan is correct)
+                [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
             } catch (SpreadsheetException) {
                 return false;
             }
