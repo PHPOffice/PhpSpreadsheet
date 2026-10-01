@@ -101,7 +101,9 @@ class Tcpdf extends Pdf
         );
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output('', 'S'));
+        /** @var string */
+        $str = $pdf->output('', 'S');
+        fwrite($fileHandle, $str);
 
         parent::restoreStateAfterSave();
     }
