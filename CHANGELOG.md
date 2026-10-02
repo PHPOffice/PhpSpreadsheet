@@ -30,6 +30,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Deprecated
 
 - Deprecate `_calculateFormulaValue` for `calculateFormulaValue`. [PR #4992](https://github.com/PHPOffice/PhpSpreadsheet/pull/4992)
+- Tcpdf V6 is now officially deprecated. We will continue to support it for now, but are considering dropping support with the next major PhpSpreadsheet release.
 
 ### Fixed
 
