@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 /**
@@ -184,8 +185,8 @@ class PPS
     }
 
     /**
-     * Updates index and pointers to previous, next and children PPS's for this
-     * PPS. I don't think it'll work with Dir PPS's.
+     * Assigns directory IDs and sibling/child pointers using CFB name order
+     * and valid red-black trees, recursively including nested storages.
      *
      * @param self[] $raList Reference to the array of PPS's for the whole OLE
      *                          container
@@ -198,7 +199,6 @@ class PPS
             return self::ALL_ONE_BITS;
         }
         /** @var self[] $to_save */
-
         $tree = self::buildSiblingTree($to_save);
 
         return self::saveSiblingTree($raList, $tree, $depth);
@@ -213,7 +213,7 @@ class PPS
         usort($ppsEntries, [self::class, 'comparePpsNames']);
         for ($index = 1, $count = count($ppsEntries); $index < $count; ++$index) {
             if (self::comparePpsNames($ppsEntries[$index - 1], $ppsEntries[$index]) === 0) {
-                throw new \InvalidArgumentException('OLE PPS sibling names must be unique.');
+                throw new InvalidArgumentException('OLE PPS sibling names must be unique.');
             }
         }
 
@@ -311,24 +311,24 @@ class PPS
     private static function validateName(string $name): string
     {
         if ((strlen($name) % 2) !== 0 || strlen($name) > 62) {
-            throw new \InvalidArgumentException('OLE PPS names must contain at most 31 UTF-16LE code units.');
+            throw new InvalidArgumentException('OLE PPS names must contain at most 31 UTF-16LE code units.');
         }
         for ($offset = 0, $length = strlen($name); $offset < $length; $offset += 2) {
             $codeUnit = ord($name[$offset]) | (ord($name[$offset + 1]) << 8);
             if ($codeUnit === 0 || in_array($codeUnit, [0x2F, 0x5C, 0x3A, 0x21], true)) {
-                throw new \InvalidArgumentException('OLE PPS names contain an invalid character.');
+                throw new InvalidArgumentException('OLE PPS names contain an invalid character.');
             }
             if ($codeUnit >= 0xD800 && $codeUnit <= 0xDBFF) {
                 $offset += 2;
                 if ($offset >= $length) {
-                    throw new \InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
+                    throw new InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
                 }
                 $followingCodeUnit = ord($name[$offset]) | (ord($name[$offset + 1]) << 8);
                 if ($followingCodeUnit < 0xDC00 || $followingCodeUnit > 0xDFFF) {
-                    throw new \InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
+                    throw new InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
                 }
             } elseif ($codeUnit >= 0xDC00 && $codeUnit <= 0xDFFF) {
-                throw new \InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
+                throw new InvalidArgumentException('OLE PPS names must be well-formed UTF-16LE.');
             }
         }
 
