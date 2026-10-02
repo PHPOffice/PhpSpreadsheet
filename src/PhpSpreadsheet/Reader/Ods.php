@@ -320,6 +320,12 @@ class Ods extends BaseReader
 
     private int $highestDataIndex;
 
+    /** @var array<string, string> links LibreOffice keeps in a cell style, by style name */
+    private array $styleHyperlinks = [];
+
+    /** @var array<int, string> default cell style of a column of the current sheet, only where it has a link */
+    private array $columnHyperlinkStyles = [];
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
@@ -418,6 +424,17 @@ class Ods extends BaseReader
         $dom = $this->loadDom(self::INITIAL_FILE, $zip);
 
         $pageSettings->readStyleCrossReferences($dom);
+
+        // LibreOffice writes the link of a non-text cell into its style, as
+        // <style:table-cell-properties><style:hyperlink xlink:href="..."/>, and loext:hyperlink next to it
+        $this->styleHyperlinks = [];
+        foreach ($dom->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $cellProperties) {
+            foreach ($cellProperties->childNodes as $child) {
+                if ($child instanceof DOMElement && $child->localName === 'hyperlink' && $child->getAttributeNS($xlinkNs, 'href') !== '' && $cellProperties->parentNode instanceof DOMElement) {
+                    $this->styleHyperlinks[$cellProperties->parentNode->getAttributeNS($styleNs, 'name')] = $child->getAttributeNS($xlinkNs, 'href');
+                }
+            }
+        }
 
         $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
         $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
@@ -520,6 +537,7 @@ class Ods extends BaseReader
                 $rowID = 1;
                 $tableColumnIndex = 1;
                 $this->highestDataIndex = AddressRange::MAX_COLUMN_INT;
+                $this->columnHyperlinkStyles = [];
                 foreach ($worksheetDataSet->childNodes as $childNode) {
                     /** @var DOMElement $childNode */
 
@@ -1031,6 +1049,8 @@ class Ods extends BaseReader
                         $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
                     }
                 }
+                // A cell without a style takes the default cell style of its column
+                $hyperlink ??= $this->styleHyperlinks[$styleName === '' ? ($this->columnHyperlinkStyles[$columnIndex] ?? '') : $styleName] ?? null;
 
                 switch ($type) {
                     case 'string':
@@ -1417,6 +1437,11 @@ class Ods extends BaseReader
         }
         if ($processStyles) {
             $defaultStyleName = $childNode->getAttributeNS($tableNs, 'default-cell-style-name');
+            if (isset($this->styleHyperlinks[$defaultStyleName])) {
+                for ($column = $tableColumnIndex; $column < $tableColumnIndex + $colRepeats && $column <= AddressRange::MAX_COLUMN_INT; ++$column) {
+                    $this->columnHyperlinkStyles[$column] = $defaultStyleName;
+                }
+            }
             if ($defaultStyleName !== 'Default' && isset($this->allStyles[$defaultStyleName])) {
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
