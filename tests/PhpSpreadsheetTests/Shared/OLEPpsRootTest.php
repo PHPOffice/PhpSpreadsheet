@@ -37,7 +37,7 @@ class OLEPpsRootTest extends TestCase
 
     public function testKeeps109FatSectorsInTheHeaderDifat(): void
     {
-        $stream = new File('LargeStream');
+        $stream = new File(OLE::ascToUcs('LargeStream'));
         $stream->append(str_repeat('x', 13716 * 512));
         $file = tmpfile();
         self::assertNotFalse($file);
@@ -57,7 +57,7 @@ class OLEPpsRootTest extends TestCase
 
     public function testCreatesDifatSectorFor110FatSectors(): void
     {
-        $stream = new File('LargeStream');
+        $stream = new File(OLE::ascToUcs('LargeStream'));
         $stream->append(str_repeat('x', 13843 * 512));
         $file = tmpfile();
         self::assertNotFalse($file);
@@ -81,7 +81,7 @@ class OLEPpsRootTest extends TestCase
 
     public function testCreatesTwoDifatSectorsFor237FatSectors(): void
     {
-        $stream = new File('LargeStream');
+        $stream = new File(OLE::ascToUcs('LargeStream'));
         $stream->append(str_repeat('x', 30096 * 512));
         $file = tmpfile();
         self::assertNotFalse($file);
@@ -110,7 +110,7 @@ class OLEPpsRootTest extends TestCase
 
     public function testRejectsStreamsLargerThanTheVersion3Limit(): void
     {
-        $stream = new class ('TooLarge') extends File {
+        $stream = new class (OLE::ascToUcs('TooLarge')) extends File {
             public function getDataLen(): int
             {
                 return 0x80000001;
@@ -182,7 +182,7 @@ class OLEPpsRootTest extends TestCase
     private function assertStreamStorage(int $length, int $firstMiniFatSector, int $miniFatSectorCount): void
     {
         $data = str_repeat('x', $length);
-        $stream = new File('BoundaryStream');
+        $stream = new File(OLE::ascToUcs('BoundaryStream'));
         $stream->append($data);
         $file = tmpfile();
         self::assertNotFalse($file);
