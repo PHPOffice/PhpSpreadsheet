@@ -530,11 +530,9 @@ class Chart
         $dataSources = [];
         foreach ($chartSpace->chartData->data as $data) {
             $dataId = self::getAttributeInteger($data, 'id');
-            if ($dataId === null || !isset($data->numDim->f)) {
-                continue;
+            if ($dataId !== null && isset($data->numDim->f)) {
+                $dataSources[$dataId] = (string) $data->numDim->f;
             }
-
-            $dataSources[$dataId] = (string) $data->numDim->f;
         }
 
         $series = [];
@@ -547,16 +545,9 @@ class Chart
             $txData = $seriesElement->tx->txData;
             $dataSource = (string) $txData->f;
 
+            $label = null;
             if ($dataSource === '') {
-                $categories = new DataSeriesValues(
-                    DataSeriesValues::DATASERIES_TYPE_STRING,
-                    null,
-                    null,
-                    1,
-                    [(string) $txData->v]
-                );
-
-                $label = null;
+                $categories = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, pointCount: 1, dataValues: [(string) $txData->v]);
             } else {
                 $definedName = $spreadsheet->getDefinedName($dataSource);
                 $dataSource = $definedName === null ? $dataSource : $definedName->getValue();
@@ -575,21 +566,19 @@ class Chart
             $dataId = self::getAttributeInteger($seriesElement->dataId, 'val');
             $valuesSource = $dataId === null ? null : ($dataSources[$dataId] ?? null);
 
-            if ($valuesSource === null) {
-                continue;
+            if ($valuesSource !== null) {
+                $definedName = $spreadsheet->getDefinedName($valuesSource);
+                if ($definedName !== null) {
+                    $valuesSource = $definedName->getValue();
+                }
+
+                $values = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_NUMBER,
+                    $valuesSource
+                );
+
+                $series[] = new BoxWhiskerSeries($categories, $values, $label);
             }
-
-            $definedName = $spreadsheet->getDefinedName($valuesSource);
-            if ($definedName !== null) {
-                $valuesSource = $definedName->getValue();
-            }
-
-            $values = new DataSeriesValues(
-                DataSeriesValues::DATASERIES_TYPE_NUMBER,
-                $valuesSource
-            );
-
-            $series[] = new BoxWhiskerSeries($categories, $values, $label);
         }
 
         $boxWhisker = new BoxWhisker($series);
@@ -598,14 +587,12 @@ class Chart
         $statistics = null;
 
         foreach ($chartSpace->chart->plotArea->plotAreaRegion->series as $seriesElement) {
-            if (self::getAttributeString($seriesElement, 'layoutId') !== BoxWhisker::TYPE) {
-                continue;
+            if (self::getAttributeString($seriesElement, 'layoutId') === BoxWhisker::TYPE) {
+                $visibility = $seriesElement->layoutPr->visibility ?? null;
+                $statistics = $seriesElement->layoutPr->statistics ?? null;
+
+                break;
             }
-
-            $visibility = $seriesElement->layoutPr->visibility ?? null;
-            $statistics = $seriesElement->layoutPr->statistics ?? null;
-
-            break;
         }
 
         if ($visibility !== null) {

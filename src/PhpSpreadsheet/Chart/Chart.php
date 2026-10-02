@@ -643,14 +643,12 @@ class Chart
 
     public function refresh(): void
     {
-        if ($this->worksheet === null) {
-            return;
-        }
-
-        if ($this->plotArea !== null) {
-            $this->plotArea->refresh($this->worksheet);
-        } elseif ($this->chartEx !== null) {
-            $this->chartEx->refresh($this->worksheet);
+        if ($this->worksheet !== null) {
+            if ($this->plotArea !== null) {
+                $this->plotArea->refresh($this->worksheet);
+            } elseif ($this->chartEx !== null) {
+                $this->chartEx->refresh($this->worksheet);
+            }
         }
     }
 

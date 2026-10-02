@@ -90,17 +90,18 @@ class ChartEx extends WriterPart
 
     private function getDefinedName(DataSeriesValues $values): ?string
     {
+        $retVal = null;
         $dataSource = $values->getDataSource();
 
         if ($dataSource !== null) {
             $definedName = array_search($dataSource, $this->definedNames, true);
 
             if ($definedName !== false) {
-                return (string) $definedName;
+                $retVal = (string) $definedName;
             }
         }
 
-        return null;
+        return $retVal;
     }
 
     private function writeChartContents(XMLWriter $objWriter, SpreadsheetChart $chart, BoxWhisker $chartEx): void
