@@ -614,6 +614,10 @@ class Ods extends BaseReader
                     $spreadsheet->getActiveSheet(),
                     $worksheetStyleName
                 );
+                $pageSettings->setRightToLeftForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
                 $pageSettings->setPrintSettingsForWorksheet(
                     $spreadsheet->getActiveSheet(),
                     $worksheetStyleName
