@@ -89,9 +89,9 @@ class Conditional
      *        COUNTIF(range,condition)
      *
      * @param mixed $range Data values, expect array
-     * @param null|mixed[]|string $condition the criteria that defines which cells will be counted
+     * @param null|bool|float|int|mixed[]|string $condition the criteria that defines which cells will be counted
      */
-    public static function COUNTIF(mixed $range, null|array|string $condition): string|int
+    public static function COUNTIF(mixed $range, null|array|bool|float|int|string $condition): string|int
     {
         if (
             !is_array($range)
