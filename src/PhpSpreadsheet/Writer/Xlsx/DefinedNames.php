@@ -35,6 +35,9 @@ class DefinedNames
             $this->writeNamedRangesAndFormulae();
         }
 
+        // ChartEx defined names
+        $this->writeChartExDefinedNames();
+
         // Other defined names
         $sheetCount = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -60,6 +63,17 @@ class DefinedNames
         $definedNames = $this->spreadsheet->getDefinedNames();
         foreach ($definedNames as $definedName) {
             $this->writeDefinedName($definedName);
+        }
+    }
+
+    private function writeChartExDefinedNames(): void
+    {
+        foreach (ChartExDefinedNames::getDefinedNames($this->spreadsheet) as $name => $value) {
+            $this->objWriter->startElement('definedName');
+            $this->objWriter->writeAttribute('name', $name);
+            $this->objWriter->writeAttribute('hidden', '1');
+            $this->objWriter->writeRawData($value);
+            $this->objWriter->endElement();
         }
     }
 
