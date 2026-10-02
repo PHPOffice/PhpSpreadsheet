@@ -307,7 +307,7 @@ class Rels extends WriterPart
         // Write hyperlink relationships?
         $i = 1;
         foreach ($worksheet->getHyperlinkCollection() as $hyperlink) {
-            if (!$hyperlink->isInternal()) {
+            if ($hyperlink->getUrl() !== '' && !$hyperlink->isInternal()) {
                 $this->writeRelationship(
                     $objWriter,
                     '_hyperlink_' . $i,
