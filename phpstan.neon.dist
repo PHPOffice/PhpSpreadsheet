@@ -36,5 +36,5 @@ parameters:
         - '~Method .*rovider.* should return array but returns mixed\.$~'
         - '~.* has parameter \$expectedResult with no value type specified in iterable type array\.$~'
         - '~^Parameter \#1 \$source of method DOMDocument::load(XML|HTML)\(\) expects non-empty-string, string given\.$~'
-        - '~TCPDF is deprecated~'
+        #- '~TCPDF is deprecated~'
         #- identifier: missingType.iterableValue
