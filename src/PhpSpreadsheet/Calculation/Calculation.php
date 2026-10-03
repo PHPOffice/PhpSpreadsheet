@@ -1539,8 +1539,10 @@ class Calculation extends CalculationLocale
                             }
 
                             $refSheet = $pCellParent;
+                            $returnRef = false;
                             if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
                                 $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
+                                $returnRef = $refSheet === null;
                             }
 
                             if (ctype_digit($val) && $val <= AddressRange::MAX_ROW) {
@@ -1554,6 +1556,9 @@ class Calculation extends CalculationLocale
                                 $stackItemType = 'Column Reference';
                                 $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow() : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
                                 $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            }
+                            if ($returnRef) {
+                                $val = ExcelError::REF();
                             }
                             $stackItemReference = $val;
                         }
