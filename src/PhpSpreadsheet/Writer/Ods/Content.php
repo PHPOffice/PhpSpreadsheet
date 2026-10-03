@@ -109,9 +109,9 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
-        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
-        // Defined names (ranges and formulae)
+        // Defined names (ranges and formulae), then the database ranges, in the order of the schema
         (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
+        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
 
         $objWriter->endElement();
         $objWriter->endElement();
