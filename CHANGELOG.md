@@ -13,6 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
+- Streaming Xlsx writer for large, append-only exports with memory use independent of row count. [PR #4966](https://github.com/PHPOffice/PhpSpreadsheet/pull/4966)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
 
 ### Removed
