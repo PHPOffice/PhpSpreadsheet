@@ -832,7 +832,7 @@ images root. For example, instead of:
 You might want to see:
 
 ```html
-<img src="http://www.domain.com/images/logo.jpg">
+<img src="http://www.example.com/images/logo.jpg">
 ```
 
 You can use the following code to achieve this result:

@@ -1241,6 +1241,9 @@ class Html extends BaseWriter
         $css['color'] = '#' . $font->getColor()->getRGB();
         if (!$conditional) {
             $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+            if ($this instanceof Pdf\Tcpdf) {
+                $css['font-family'] .= ', serif';
+            }
             $css['font-size'] = $font->getSize() . 'pt';
         }
 

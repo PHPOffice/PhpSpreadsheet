@@ -247,15 +247,71 @@ class PivotTableBuilder
     }
 
     /**
-     * Resolve the pivot table's rendered range. The exact extent is recomputed
-     * by the spreadsheet application on refresh; a single-cell ref is a valid
-     * starting point that Excel expands.
+     * Resolve the pivot table's rendered range.
+     *
+     * The exact extent is recomputed when the application refreshes the pivot
+     * table, but the declared range still has to be large enough to hold the
+     * layout described by the rest of the definition. A single-cell ref is not
+     * expanded on load: Excel treats a range that cannot contain the header,
+     * body and grand total as inconsistent and drops the pivot table.
      */
     private function targetLocation(string $targetCell): string
     {
         $targetCell = str_replace('$', '', $targetCell);
+        [$column, $row] = Coordinate::coordinateFromString($targetCell);
+        $firstColumn = Coordinate::columnIndexFromString($column);
+        $firstRow = (int) $row;
 
-        return "$targetCell:$targetCell";
+        // Columns: the row-field header column, then one column per distinct
+        // value of each column field, then one for the grand total. Without
+        // column fields the data fields are laid out across instead.
+        $width = 1;
+        foreach ($this->placements as $fieldName => $placement) {
+            if ($placement['axis'] === PivotField::AXIS_COLUMN) {
+                $width += max(count($this->distinctValues($fieldName)), 1);
+            }
+        }
+        $hasColumnFields = $width > 1;
+        $dataFieldCount = $this->countPlacements(PivotField::AXIS_VALUES);
+        if ($hasColumnFields) {
+            ++$width; // grand total column
+        } else {
+            // No column fields: each data field occupies its own column
+            // alongside the row-label column.
+            $width += max($dataFieldCount, 1);
+        }
+
+        // Rows: the header row (plus a second one when column fields add their
+        // own header), one per distinct value of each row field, and the grand
+        // total row.
+        $height = $hasColumnFields ? 2 : 1;
+        $rowValueCount = 0;
+        foreach ($this->placements as $fieldName => $placement) {
+            if ($placement['axis'] === PivotField::AXIS_ROW) {
+                $rowValueCount += max(count($this->distinctValues($fieldName)), 1);
+            }
+        }
+        $height += $rowValueCount + 1;
+
+        $lastColumn = Coordinate::stringFromColumnIndex($firstColumn + $width - 1);
+        $lastRow = $firstRow + $height - 1;
+
+        return $targetCell . ':' . $lastColumn . $lastRow;
+    }
+
+    /**
+     * Count the fields placed on a given axis.
+     */
+    private function countPlacements(string $axis): int
+    {
+        $count = 0;
+        foreach ($this->placements as $placement) {
+            if ($placement['axis'] === $axis) {
+                ++$count;
+            }
+        }
+
+        return $count;
     }
 
     private function defaultCaption(?string $subtotal, string $fieldName): string

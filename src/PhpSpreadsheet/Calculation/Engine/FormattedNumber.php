@@ -65,7 +65,7 @@ class FormattedNumber
             $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
             $fractionFormula = '=' . $wholePart . $sign . $match[4];
             /** @var string */
-            $operandx = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operandx = Calculation::getInstance()->calculateFormulaValue($fractionFormula);
             $operand = $operandx;
 
             return true;
