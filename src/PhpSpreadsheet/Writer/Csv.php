@@ -127,9 +127,13 @@ class Csv extends BaseWriter
             }
             if ($this->preferHyperlinkToLabel) {
                 foreach ($cellsArray as $key => $value) {
-                    $url = $sheet->getCell([$key + 1, $row])->getHyperlink()->getUrl();
-                    if ($url !== '') {
-                        $cellsArray[$key] = $url;
+                    // getCell() and getHyperlink() would add an empty cell and an empty hyperlink
+                    $coordinate = Coordinate::stringFromColumnIndex($key + 1) . $row;
+                    if ($sheet->hyperlinkExists($coordinate)) {
+                        $url = $sheet->getHyperlink($coordinate)->getUrl();
+                        if ($url !== '') {
+                            $cellsArray[$key] = $url;
+                        }
                     }
                 }
             }

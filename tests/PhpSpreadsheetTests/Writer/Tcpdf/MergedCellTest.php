@@ -26,7 +26,7 @@ class MergedCellTest extends TestCase
         $html = (string) preg_replace('/^\s+/m', '', $html);
         $expectedArray = [
             '<tr>',
-            '<td rowspan="2" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt">Planning</td>', // row 1 has cell
+            '<td rowspan="2" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:left; width:42pt">Planning</td>', // row 1 has cell
             '</tr>',
             '<tr>',
             '<td>&nbsp;</td>', // row 2 with only merged cell
@@ -35,7 +35,7 @@ class MergedCellTest extends TestCase
             '<td style="width:42pt">&nbsp;</td>', // row 3 no cell
             '</tr>',
             '<tr>',
-            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:left; width:42pt">Edge</td>', // row 4 has cell
+            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:left; width:42pt">Edge</td>', // row 4 has cell
             '</tr>',
         ];
         $expectedString = implode("\n", $expectedArray);

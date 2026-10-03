@@ -19,12 +19,12 @@ class BIFFwriter
     /**
      * The string containing the data of the BIFF stream.
      */
-    public ?string $_data;
+    protected ?string $biffData;
 
     /**
-     * The size of the data in bytes. Should be the same as strlen($this->_data).
+     * The size of the data in bytes. Should be the same as strlen($this->biffData).
      */
-    public int $_datasize;
+    protected int $biffDataSize;
 
     /**
      * The maximum length for a BIFF record (excluding record header and length field). See addContinue().
@@ -38,8 +38,8 @@ class BIFFwriter
      */
     public function __construct()
     {
-        $this->_data = '';
-        $this->_datasize = 0;
+        $this->biffData = '';
+        $this->biffDataSize = 0;
     }
 
     /**
@@ -76,12 +76,12 @@ class BIFFwriter
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
         }
-        $this->_data .= $data;
-        $this->_datasize += strlen($data);
+        $this->biffData .= $data;
+        $this->biffDataSize += strlen($data);
     }
 
     /**
-     * General storage function like append, but returns string instead of modifying $this->_data.
+     * General storage function like append, but returns string instead of modifying $this->biffData.
      *
      * @param string $data binary data to write
      */
@@ -90,7 +90,7 @@ class BIFFwriter
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
         }
-        $this->_datasize += strlen($data);
+        $this->biffDataSize += strlen($data);
 
         return $data;
     }
@@ -180,5 +180,10 @@ class BIFFwriter
         $tmp .= substr($data, $i);
 
         return $tmp;
+    }
+
+    public function getBiffDataSize(): int
+    {
+        return $this->biffDataSize;
     }
 }

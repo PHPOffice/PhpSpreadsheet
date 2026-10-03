@@ -1115,6 +1115,9 @@ class Worksheet extends WriterPart
             $objWriter->startElement('hyperlinks');
 
             foreach ($hyperlinkCollection as $coordinate => $hyperlink) {
+                if ($hyperlink->getUrl() === '') {
+                    continue;
+                }
                 $objWriter->startElement('hyperlink');
 
                 $objWriter->writeAttribute('ref', $coordinate);

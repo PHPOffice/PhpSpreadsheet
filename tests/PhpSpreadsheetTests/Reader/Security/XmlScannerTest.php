@@ -8,15 +8,17 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xml;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use XMLReader;
 
 class XmlScannerTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXML')]
+    #[DataProvider('providerValidXML')]
     public function testValidXML(string $filename, string $expectedResult): void
     {
-        $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
+        $reader = XmlScanner::getInstance(new Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
     }
@@ -39,15 +41,26 @@ class XmlScannerTest extends TestCase
         return $tests;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXML')]
+    #[DataProvider('providerInvalidXML')]
     public function testInvalidXML(string $filename): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessageMatches('/Detected use of ENTITY|UTF-7 encoding not permitted/');
 
-        $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
-        $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
-        $result = $reader->scanFile($filename);
-        self::assertEquals($expectedResult, $result);
+        $reader = new Xml();
+        $reader->load($filename);
+    }
+
+    #[DataProvider('providerInvalidXML')]
+    public function testInvalidXMLString(string $filename): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessageMatches('/Detected use of ENTITY|UTF-7 encoding not permitted/');
+
+        $reader = new Xml();
+        $contents = file_get_contents($filename);
+        self::assertNotFalse($contents);
+        $reader->loadSpreadsheetFromString($contents);
     }
 
     public static function providerInvalidXML(): array
@@ -89,7 +102,7 @@ class XmlScannerTest extends TestCase
         $fileReader->getSecurityScannerOrThrow();
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidXMLForCallback')]
+    #[DataProvider('providerValidXMLForCallback')]
     public function testSecurityScanWithCallback(string $filename, string $expectedResult): void
     {
         $fileReader = new Xlsx();
@@ -129,7 +142,7 @@ class XmlScannerTest extends TestCase
         self::assertSame($input, $output);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerInvalidXlsx')]
+    #[DataProvider('providerInvalidXlsx')]
     public function testInvalidXlsx(string $filename, string $message): void
     {
         $this->expectException(ReaderException::class);
@@ -151,7 +164,7 @@ class XmlScannerTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerValidUtf16')]
+    #[DataProvider('providerValidUtf16')]
     public function testValidUtf16(string $filename): void
     {
         $reader = new Xlsx();
