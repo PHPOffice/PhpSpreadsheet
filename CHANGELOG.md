@@ -14,6 +14,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Added
 
 - Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
+- Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
 
 ### Removed
 
@@ -30,6 +31,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Deprecated
 
 - Deprecate `_calculateFormulaValue` for `calculateFormulaValue`. [PR #4992](https://github.com/PHPOffice/PhpSpreadsheet/pull/4992)
+- Tcpdf V6 is now officially deprecated. We will continue to support it for now, but are considering dropping support with the next major PhpSpreadsheet release.
 
 ### Fixed
 
@@ -645,7 +647,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Changed
 
 - On read, Xlsx Reader had been breaking up union ranges into separate individual ranges. It will now try to preserve range as it was read in. [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
-- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071) 
+- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071)
 
 ### Deprecated
 
@@ -714,7 +716,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### BREAKING CHANGE
 
 - Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
-  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis 
+  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis
   tools such as PHPStan or Psalm, new errors might be found. If you find actual bugs because of the new typing, please
   open a PR that fixes it with a **detailed** explanation of the reason. We'll try to merge and release typing-related
   fixes quickly in the coming days. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
@@ -865,7 +867,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - Improved handling for @ placeholder in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
 - Improved handling for ? placeholder in Number Format Masks [PR #3394](https://github.com/PHPOffice/PhpSpreadsheet/pull/3394)
-- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374) 
+- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374)
 - Improved support for locale settings and matching in the Advanced Value Binder [PR #3376](https://github.com/PHPOffice/PhpSpreadsheet/pull/3376)
 - `toFormattedString` will now always return a string. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 - Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD is changed. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577) [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
