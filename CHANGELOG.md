@@ -13,6 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
+- Opt-in parallel worksheet generation for the Xlsx Writer (CLI only, requires pcntl and the suggested fidry/cpu-core-counter package). [PR #4834](https://github.com/PHPOffice/PhpSpreadsheet/pull/4834)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
 
 ### Removed
