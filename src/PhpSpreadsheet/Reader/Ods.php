@@ -916,7 +916,7 @@ class Ods extends BaseReader
             }
             $tempSpannedRange = "$columnID$rowID";
             $spannedRange = '';
-            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
+            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null) || $cellData->hasAttributeNS($tableNs, 'formula')) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
                 // and does no harm for xlsx/xls.
