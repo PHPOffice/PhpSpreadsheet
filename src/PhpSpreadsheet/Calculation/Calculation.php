@@ -1970,7 +1970,11 @@ class Calculation extends CalculationLocale
                             }
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                             if ($pCellParent !== null && $this->spreadsheet !== null) {
-                                $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
+                                if ($operand1Data['value'] === ExcelError::REF()) {
+                                    $cellValue = ExcelError::REF();
+                                } else {
+                                    $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
+                                }
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
