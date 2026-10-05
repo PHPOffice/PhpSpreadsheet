@@ -42,6 +42,16 @@ return [
         'ABCDEFGHI',
         0,
     ],
+    'length greater than text returns all of text' => [
+        'ABCDEFGHI',
+        'ABCDEFGHI',
+        12,
+    ],
+    'length one more than text returns all of text' => [
+        'πέντε',
+        'πέντε',
+        6,
+    ],
     [
         'πέντε',
         'Ενα δύο τρία τέσσερα πέντε',
