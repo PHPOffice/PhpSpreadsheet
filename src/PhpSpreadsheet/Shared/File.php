@@ -82,32 +82,19 @@ class File
      */
     public static function realpath(string $filename): string
     {
-        // Returnvalue
-        $returnValue = '';
+        $pathArray = Preg::split('~[/\\\]~', $filename);
+        while (in_array('..', $pathArray, true) && $pathArray[0] !== '..') {
+            $iMax = count($pathArray);
+            for ($i = 1; $i < $iMax; ++$i) {
+                if ($pathArray[$i] === '..') {
+                    array_splice($pathArray, $i - 1, 2);
 
-        // Try using realpath()
-        if (file_exists($filename)) {
-            $returnValue = realpath($filename) ?: '';
-        }
-
-        // Found something?
-        if ($returnValue === '') {
-            $pathArray = explode('/', $filename);
-            while (in_array('..', $pathArray) && $pathArray[0] != '..') {
-                $iMax = count($pathArray);
-                for ($i = 0; $i < $iMax; ++$i) {
-                    if ($pathArray[$i] == '..' && $i > 0) {
-                        unset($pathArray[$i], $pathArray[$i - 1]);
-
-                        break;
-                    }
+                    break;
                 }
             }
-            $returnValue = implode('/', $pathArray);
         }
 
-        // Return
-        return $returnValue;
+        return implode('/', $pathArray);
     }
 
     /**
