@@ -5,10 +5,18 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PHPUnit\Framework\Attributes;
+use PHPUnit\Framework\TestCase;
 
-class Issue3553Test extends \PHPUnit\Framework\TestCase
+class Issue3553Test extends TestCase
 {
-    private static string $testbook = 'tests/data/Reader/XLSX/issue.3553.xlsx';
+    private const DIR1 = 'tests/data/Reader/XLSX';
+
+    private const FILENAME = 'issue.3553.xlsx';
+
+    private static string $testbook = self::DIR1 . '/' . self::FILENAME;
+
+    private const DIR2 = self::DIR1 . '/5042temp';
 
     public function testPreliminaries(): void
     {
@@ -27,7 +35,38 @@ class Issue3553Test extends \PHPUnit\Framework\TestCase
     public function testIssue3553(): void
     {
         $reader = new Xlsx();
+        $expected = [[
+            'worksheetName' => 'LinkTest',
+            'lastColumnLetter' => 'B',
+            'lastColumnIndex' => 1,
+            'totalRows' => '3',
+            'totalColumns' => 2,
+        ]];
+        self::assertSame($expected, $reader->listWorksheetInfo(self::$testbook));
+        self::assertSame(['LinkTest'], $reader->listWorksheetNames(self::$testbook));
         $spreadsheet = $reader->load(self::$testbook);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('https://microsoft.com/', $sheet->getCell('B2')->getHyperlink()->getUrl());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    // Must run in separate process because of chdir
+    #[Attributes\RunInSeparateProcess]
+    public static function testUnexpectedDirectory(): void
+    {
+        $reader = new Xlsx();
+        self::assertTrue(chdir(self::DIR2));
+        $expected = [[
+            'worksheetName' => 'LinkTest',
+            'lastColumnLetter' => 'B',
+            'lastColumnIndex' => 1,
+            'totalRows' => '3',
+            'totalColumns' => 2,
+        ]];
+        self::assertSame($expected, $reader->listWorksheetInfo(self::FILENAME));
+        self::assertSame(['LinkTest'], $reader->listWorksheetNames(self::FILENAME));
+        $spreadsheet = $reader->load(self::FILENAME);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('https://microsoft.com/', $sheet->getCell('B2')->getHyperlink()->getUrl());
 
