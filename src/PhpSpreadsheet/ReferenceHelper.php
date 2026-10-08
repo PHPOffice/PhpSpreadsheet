@@ -257,6 +257,7 @@ class ReferenceHelper
         ($numberOfColumns > 0 || $numberOfRows > 0)
             ? uksort($aDataValidationCollection, [self::class, 'cellReverseSort'])
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
+        $remove = $numberOfColumns < 0 || $numberOfRows < 0;
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
             $formula = $dataValidation->getFormula1();
@@ -285,21 +286,65 @@ class ReferenceHelper
                     )
                 );
             }
-            $addressParts = explode(' ', $cellAddress);
-            $newReference = '';
-            $separator = '';
-            foreach ($addressParts as $addressPart) {
-                $newReference .= $separator . $this->updateCellReference($addressPart);
-                $separator = ' ';
+            $newReferences = [];
+            foreach (explode(' ', $cellAddress) as $addressPart) {
+                $newReference = $remove
+                    ? $this->updateDataValidationReferenceForRemove($addressPart)
+                    : $this->updateCellReference($addressPart);
+                if ($newReference !== '') {
+                    $newReferences[] = $newReference;
+                }
             }
+            $newReference = implode(' ', $newReferences);
             if ($cellAddress !== $newReference) {
-                $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
-                if ($newReference) {
+                if ($newReference !== '') {
                     $worksheet->setDataValidation($newReference, $dataValidation);
                 }
             }
         }
+    }
+
+    /**
+     * Update a data validation cell or range when removing rows/columns.
+     * Removed rows/columns are taken out of the range,
+     * and an empty string is returned when nothing of the range is left.
+     */
+    private function updateDataValidationReferenceForRemove(string $reference): string
+    {
+        /** @var CellReferenceHelper */
+        $cellReferenceHelper = $this->cellReferenceHelper;
+        if (!Coordinate::coordinateIsRange($reference)) {
+            return $cellReferenceHelper->cellAddressInDeleteRange($reference)
+                ? ''
+                : $cellReferenceHelper->updateCellReference($reference);
+        }
+
+        [$rangeStart] = Coordinate::splitRange($reference)[0];
+        [[$startColumn, $startRow], [$endColumn, $endRow]] = Coordinate::rangeBoundaries($reference);
+        $startColumn = $cellReferenceHelper->computeNewColumnIndex($startColumn, true);
+        $endColumn = $cellReferenceHelper->computeNewColumnIndex($endColumn, false);
+        $startRow = $cellReferenceHelper->computeNewRowIndex($startRow, true);
+        $endRow = $cellReferenceHelper->computeNewRowIndex($endRow, false);
+
+        if (ctype_digit($rangeStart)) {
+            // Whole row(s), e.g. 2:3
+            return ($endRow < $startRow) ? '' : "$startRow:$endRow";
+        }
+        if ($endColumn < $startColumn) {
+            return '';
+        }
+        $startColumnString = Coordinate::stringFromColumnIndex($startColumn);
+        $endColumnString = Coordinate::stringFromColumnIndex($endColumn);
+        if (ctype_alpha($rangeStart)) {
+            // Whole column(s), e.g. B:C
+            return "$startColumnString:$endColumnString";
+        }
+        if ($endRow < $startRow) {
+            return '';
+        }
+
+        return "$startColumnString$startRow:$endColumnString$endRow";
     }
 
     /**
