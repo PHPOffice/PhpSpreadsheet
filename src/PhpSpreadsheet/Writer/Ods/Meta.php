@@ -55,6 +55,9 @@ class Meta extends WriterPart
         $objWriter->writeElement('dc:description', $spreadsheet->getProperties()->getDescription());
         $objWriter->writeElement('dc:subject', $spreadsheet->getProperties()->getSubject());
         $objWriter->writeElement('meta:keyword', $spreadsheet->getProperties()->getKeywords());
+        if ($spreadsheet->getProperties()->getLanguage() !== '') {
+            $objWriter->writeElement('dc:language', $spreadsheet->getProperties()->getLanguage());
+        }
         // Don't know if this changed over time, but the keywords are all
         //  in a single declaration now.
         //$keywords = explode(' ', $spreadsheet->getProperties()->getKeywords());

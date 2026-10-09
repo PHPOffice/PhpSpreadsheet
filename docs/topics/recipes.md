@@ -85,6 +85,7 @@ PhpSpreadsheet provides specific getters/setters for a number of pre-defined pro
 | Category         | string                  | getCategory()<br />setCategory()             | Not supported in xls files.                               |
 | Company          | string                  | getCompany()<br />setCompany()               | Not supported in xls files.                               |
 | Manager          | string                  | getManager()<br />setManager()               | Not supported in xls files.                               |
+| Language         | string                  | getLanguage()<br />setLanguage()             | A BCP 47 tag such as "en-US". Xlsx and Ods only.          |
 > **Note:** Not all Spreadsheet File Formats support all of these properties.
 > For example: "Category", "Company" and "Manager" are not supported in `xls` files.
 
