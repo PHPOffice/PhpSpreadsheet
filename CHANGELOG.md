@@ -15,6 +15,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
+- Xlsx Writer and Reader: `Chart::setDescription()` is the alternative text of a chart, written as `descr` of the chart's frame and read back, and the frame takes the chart's name; LibreOffice exports it as `/Alt` of the chart in a tagged PDF. [Issue #5038](https://github.com/PHPOffice/PhpSpreadsheet/issues/5038) [PR #5039](https://github.com/PHPOffice/PhpSpreadsheet/pull/5039)
 
 ### Removed
 
