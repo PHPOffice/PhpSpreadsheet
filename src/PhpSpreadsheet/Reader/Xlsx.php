@@ -1560,6 +1560,7 @@ class Xlsx extends BaseReader
 
                                                     $objDrawing->setName(self::getArrayItemString(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'name'));
                                                     $objDrawing->setDescription(self::getArrayItemString(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
+                                                    $objDrawing->setDecorative(self::isDecorative($oneCellAnchor->pic->nvPicPr->cNvPr));
                                                     $embedImageKey = self::getArrayItemString(
                                                         self::getAttributes($blip, $xmlNamespaceBase),
                                                         'embed'
@@ -1671,6 +1672,7 @@ class Xlsx extends BaseReader
                                                     }
                                                     $objDrawing->setName((string) self::getArrayItemString(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'name'));
                                                     $objDrawing->setDescription(self::getArrayItemString(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
+                                                    $objDrawing->setDecorative(self::isDecorative($twoCellAnchor->pic->nvPicPr->cNvPr));
                                                     $embedImageKey = self::getArrayItemString(
                                                         self::getAttributes($blip, $xmlNamespaceBase),
                                                         'embed'
@@ -2408,6 +2410,18 @@ class Xlsx extends BaseReader
     private static function getArrayItem(null|array|bool|SimpleXMLElement $array, int|string $key = 0): mixed
     {
         return ($array === null || is_bool($array)) ? null : ($array[$key] ?? null);
+    }
+
+    /**
+     * Excel and LibreOffice mark a decorative drawing in an extension of its cNvPr.
+     */
+    private static function isDecorative(SimpleXMLElement $cNvPr): bool
+    {
+        $cNvPr->registerXPathNamespace('a', Namespaces::DRAWINGML);
+        $cNvPr->registerXPathNamespace('adec', Namespaces::DECORATIVE);
+        $value = (string) (($cNvPr->xpath('a:extLst/a:ext/adec:decorative/@val') ?: [])[0] ?? '');
+
+        return $value === '1' || $value === 'true';
     }
 
     /** @param null|bool|mixed[]|SimpleXMLElement $array */

@@ -130,6 +130,8 @@ class Namespaces
 
     const DYNAMIC_ARRAY = 'http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray';
 
+    const DECORATIVE = 'http://schemas.microsoft.com/office/drawing/2017/decorative';
+
     const DYNAMIC_ARRAY_RICHDATA = 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata';
 
     const RELATIONSHIPS_RICH_VALUE_TYPES = 'http://schemas.microsoft.com/office/2017/06/relationships/rdRichValueTypes';
