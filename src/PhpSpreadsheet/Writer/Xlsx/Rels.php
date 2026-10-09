@@ -464,12 +464,18 @@ class Rels extends WriterPart
             // Loop through charts and write relationships
             $chartCount = $worksheet->getChartCount();
             if ($chartCount > 0) {
-                for ($c = 0; $c < $chartCount; ++$c) {
+                foreach ($worksheet->getChartCollection() as $chart) {
+                    ++$chartRef;
+
                     $this->writeRelationship(
                         $objWriter,
                         $i++,
-                        Namespaces::RELATIONSHIPS_CHART,
-                        '../charts/chart' . ++$chartRef . '.xml'
+                        $chart->getChartEx() === null
+                            ? Namespaces::RELATIONSHIPS_CHART
+                            : Namespaces::RELATIONSHIPS_CHART_EX,
+                        $chart->getChartEx() === null
+                            ? '../charts/chart' . $chartRef . '.xml'
+                            : '../charts/chartEx' . $chartRef . '.xml'
                     );
                 }
             }

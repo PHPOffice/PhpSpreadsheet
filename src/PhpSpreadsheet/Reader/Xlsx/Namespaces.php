@@ -30,9 +30,13 @@ class Namespaces
 
     const CHART = 'http://schemas.openxmlformats.org/drawingml/2006/chart';
 
+    const CHART_EX = 'http://schemas.microsoft.com/office/drawing/2014/chartex';
+
     const CHART_ALTERNATE = 'http://schemas.microsoft.com/office/drawing/2007/8/2/chart';
 
     const RELATIONSHIPS_CHART = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart';
+
+    const RELATIONSHIPS_CHART_EX = 'http://schemas.microsoft.com/office/2014/relationships/chartEx';
 
     const SPREADSHEET_DRAWING = 'http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing';
 

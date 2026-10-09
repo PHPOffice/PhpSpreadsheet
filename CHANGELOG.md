@@ -13,7 +13,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
+- Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
 
 ### Removed
 
@@ -34,15 +35,20 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
+- MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
 - `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
 - Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
+- Ods Writer writes a right-to-left sheet as `style:writing-mode="rl-tb"`, and Ods Reader reads it back; the direction was lost both ways. [Issue #5015](https://github.com/PHPOffice/PhpSpreadsheet/issues/5015) [PR #5016](https://github.com/PHPOffice/PhpSpreadsheet/pull/5016)
 - Ods Writer writes a link to another sheet as `#Sheet.A1`, as ODF and LibreOffice do, and Ods Reader reads that form back as `sheet://Sheet!A1`, so a Xlsx saved from it no longer gets a broken location. [Issue #5011](https://github.com/PHPOffice/PhpSpreadsheet/issues/5011) [PR #5012](https://github.com/PHPOffice/PhpSpreadsheet/pull/5012)
 - Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
 - Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008) [PR #5021](https://github.com/PHPOffice/PhpSpreadsheet/pull/5021)
 - Ods Writer keeps the hyperlink of a number, boolean or formula cell, and Ods Reader reads it back; only text cells had one. [Issue #5013](https://github.com/PHPOffice/PhpSpreadsheet/issues/5013) [PR #5014](https://github.com/PHPOffice/PhpSpreadsheet/pull/5014)
 - Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
+- Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
+- Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
 
 ## 2026-09-15 - 5.10.0
 
@@ -647,7 +653,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Changed
 
 - On read, Xlsx Reader had been breaking up union ranges into separate individual ranges. It will now try to preserve range as it was read in. [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
-- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071) 
+- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071)
 
 ### Deprecated
 
@@ -716,7 +722,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### BREAKING CHANGE
 
 - Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
-  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis 
+  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis
   tools such as PHPStan or Psalm, new errors might be found. If you find actual bugs because of the new typing, please
   open a PR that fixes it with a **detailed** explanation of the reason. We'll try to merge and release typing-related
   fixes quickly in the coming days. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
@@ -867,7 +873,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - Improved handling for @ placeholder in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
 - Improved handling for ? placeholder in Number Format Masks [PR #3394](https://github.com/PHPOffice/PhpSpreadsheet/pull/3394)
-- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374) 
+- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374)
 - Improved support for locale settings and matching in the Advanced Value Binder [PR #3376](https://github.com/PHPOffice/PhpSpreadsheet/pull/3376)
 - `toFormattedString` will now always return a string. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 - Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD is changed. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577) [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
