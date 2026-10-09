@@ -19,6 +19,7 @@ before that date.
 
 - Security patches.
 - File::realpath should not issue file_exists. Vaguely security-related backport of [PR #5043](https://github.com/PHPOffice/PhpSpreadsheet/pull/5043).
+- OLE fixes. Vaguely security-related backport of [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983).
 
 ## 2026-09-16 - 2.1.19
 
