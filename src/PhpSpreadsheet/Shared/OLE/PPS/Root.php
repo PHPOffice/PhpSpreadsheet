@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
@@ -30,27 +31,29 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  */
 class Root extends PPS
 {
+    private const BIG_BLOCK_SIZE = 512;
+
+    private const SMALL_BLOCK_SIZE = 64;
+
+    private const MAX_VERSION_3_STREAM_SIZE = 0x80000000;
+
+    private const MAX_REGULAR_SECTOR_COUNT = 0xFFFFFFFB;
+
     /**
      * @var resource
      */
     private $fileHandle;
 
-    /**
-     * @var ?int
-     */
-    private $smallBlockSize;
+    private int $smallBlockSize = self::SMALL_BLOCK_SIZE;
 
-    /**
-     * @var ?int
-     */
-    private $bigBlockSize;
+    private int $bigBlockSize = self::BIG_BLOCK_SIZE;
 
     /**
      * @param null|float|int $time_1st A timestamp
      * @param null|float|int $time_2nd A timestamp
      * @param File[] $raChild
      */
-    public function __construct($time_1st, $time_2nd, $raChild)
+    public function __construct($time_1st, $time_2nd, array $raChild)
     {
         parent::__construct(null, OLE::ascToUcs('Root Entry'), OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
@@ -66,17 +69,13 @@ class Root extends PPS
      *
      * @return bool true on success
      */
-    public function save($fileHandle)
+    public function save($fileHandle): bool
     {
         $this->fileHandle = $fileHandle;
 
-        // Initial Setting for saving
-        $this->bigBlockSize = (int) (2 ** (
-            (isset($this->bigBlockSize)) ? self::adjust2($this->bigBlockSize) : 9
-        ));
-        $this->smallBlockSize = (int) (2 ** (
-            (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
-        ));
+        // This writer implements the version-3 CFB profile only.
+        $this->bigBlockSize = self::BIG_BLOCK_SIZE;
+        $this->smallBlockSize = self::SMALL_BLOCK_SIZE;
 
         // Make an array of PPS's (for Save)
         $aList = [];
@@ -88,6 +87,7 @@ class Root extends PPS
 
         // Make Small Data string (write SBD)
         $this->_data = $this->makeSmallData($aList);
+        $this->assertVersion3StreamSize(strlen($this->_data));
 
         // Write BB
         $this->saveBigData((int) $iSBDcnt, $aList);
@@ -102,11 +102,11 @@ class Root extends PPS
     /**
      * Calculate some numbers.
      *
-     * @param array $raList Reference to an array of PPS's
+     * @param PPS[] $raList Reference to an array of PPS's
      *
      * @return float[] The array of numbers
      */
-    private function calcSize(&$raList)
+    private function calcSize(array &$raList): array
     {
         // Calculate Basic Setting
         [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
@@ -115,20 +115,22 @@ class Root extends PPS
         for ($i = 0; $i < $iCount; ++$i) {
             if ($raList[$i]->Type == OLE::OLE_PPS_TYPE_FILE) {
                 $raList[$i]->Size = $raList[$i]->getDataLen();
+                $this->assertVersion3StreamSize($raList[$i]->Size);
                 if ($raList[$i]->Size < OLE::OLE_DATA_SIZE_SMALL) {
                     $iSBcnt += floor($raList[$i]->Size / $this->smallBlockSize)
                         + (($raList[$i]->Size % $this->smallBlockSize) ? 1 : 0);
                 } else {
-                    $iBBcnt += (floor($raList[$i]->Size / $this->bigBlockSize) +
-                        (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
+                    $iBBcnt += (floor($raList[$i]->Size / $this->bigBlockSize)
+                        + (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
                 }
             }
         }
+        $this->assertVersion3MiniStreamSize((int) $iSBcnt);
         $iSmallLen = $iSBcnt * $this->smallBlockSize;
         $iSlCnt = floor($this->bigBlockSize / OLE::OLE_LONG_INT_SIZE);
         $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt) ? 1 : 0);
-        $iBBcnt += (floor($iSmallLen / $this->bigBlockSize) +
-            (($iSmallLen % $this->bigBlockSize) ? 1 : 0));
+        $iBBcnt += (floor($iSmallLen / $this->bigBlockSize)
+            + (($iSmallLen % $this->bigBlockSize) ? 1 : 0));
         $iCnt = count($raList);
         $iBdCnt = $this->bigBlockSize / OLE::OLE_PPS_SIZE;
         $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt) ? 1 : 0));
@@ -136,30 +138,22 @@ class Root extends PPS
         return [$iSBDcnt, $iBBcnt, $iPPScnt];
     }
 
-    /**
-     * Helper function for caculating a magic value for block sizes.
-     *
-     * @param int $i2 The argument
-     *
-     * @return float
-     *
-     * @see save()
-     */
-    private static function adjust2($i2)
+    public function assertVersion3StreamSize(int $size): void
     {
-        $iWk = log($i2) / log(2);
+        if ($size > self::MAX_VERSION_3_STREAM_SIZE) {
+            throw new Exception('OLE version-3 streams cannot exceed 2 GiB.');
+        }
+    }
 
-        return ($iWk > floor($iWk)) ? floor($iWk) + 1 : $iWk;
+    public function assertVersion3MiniStreamSize(int $smallBlockCount): void
+    {
+        $this->assertVersion3StreamSize($smallBlockCount * self::SMALL_BLOCK_SIZE);
     }
 
     /**
      * Save OLE header.
-     *
-     * @param int $iSBDcnt
-     * @param int $iBBcnt
-     * @param int $iPPScnt
      */
-    private function saveHeader($iSBDcnt, $iBBcnt, $iPPScnt): void
+    private function saveHeader(int $iSBDcnt, int $iBBcnt, int $iPPScnt): void
     {
         $FILE = $this->fileHandle;
 
@@ -180,10 +174,14 @@ class Root extends PPS
                 ++$iAllW;
                 $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
                 $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
-                if ($iBdCnt <= ($iBdExL * $iBlCnt + $i1stBdL)) {
+                if ($iBdCnt <= ($iBdExL * ($iBlCnt - 1) + $i1stBdL)) {
                     break;
                 }
             }
+        }
+
+        if ($iAllW + $iBdCnt > self::MAX_REGULAR_SECTOR_COUNT) {
+            throw new Exception('OLE version-3 output exceeds the maximum sector count.');
         }
 
         // Save Header
@@ -194,7 +192,7 @@ class Root extends PPS
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
-            . pack('v', 0x3b)
+            . pack('v', 0x3E)
             . pack('v', 0x03)
             . pack('v', -2)
             . pack('v', 9)
@@ -210,7 +208,7 @@ class Root extends PPS
             . pack('V', $iSBDcnt)
         );
         // Extra BDList Start, Count
-        if ($iBdCnt < $i1stBdL) {
+        if ($iBdCnt <= $i1stBdL) {
             fwrite(
                 $FILE,
                 pack('V', -2) // Extra BDList Start
@@ -235,10 +233,9 @@ class Root extends PPS
     /**
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param int $iStBlk
-     * @param array $raList Reference to array of PPS's
+     * @param PPS[] $raList Reference to array of PPS's
      */
-    private function saveBigData($iStBlk, &$raList): void
+    private function saveBigData(int $iStBlk, array &$raList): void
     {
         $FILE = $this->fileHandle;
 
@@ -255,9 +252,9 @@ class Root extends PPS
                     }
                     // Set For PPS
                     $raList[$i]->startBlock = $iStBlk;
-                    $iStBlk +=
-                        (floor($raList[$i]->Size / $this->bigBlockSize) +
-                            (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
+                    $iStBlk
+                        += ((int) floor($raList[$i]->Size / $this->bigBlockSize)
+                            + (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
                 }
             }
         }
@@ -266,11 +263,9 @@ class Root extends PPS
     /**
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param array $raList Reference to array of PPS's
-     *
-     * @return string
+     * @param PPS[] $raList Reference to array of PPS's
      */
-    private function makeSmallData(&$raList)
+    private function makeSmallData(array &$raList): string
     {
         $sRes = '';
         $FILE = $this->fileHandle;
@@ -284,7 +279,7 @@ class Root extends PPS
                     continue;
                 }
                 if ($raList[$i]->Size < OLE::OLE_DATA_SIZE_SMALL) {
-                    $iSmbCnt = floor($raList[$i]->Size / $this->smallBlockSize)
+                    $iSmbCnt = (int) floor($raList[$i]->Size / $this->smallBlockSize)
                         + (($raList[$i]->Size % $this->smallBlockSize) ? 1 : 0);
                     // Add to SBD
                     $jB = $iSmbCnt - 1;
@@ -318,9 +313,9 @@ class Root extends PPS
     /**
      * Saves all the PPS's WKs.
      *
-     * @param array $raList Reference to an array with all PPS's
+     * @param PPS[] $raList Reference to an array with all PPS's
      */
-    private function savePps(&$raList): void
+    private function savePps(array &$raList): void
     {
         // Save each PPS WK
         $iC = count($raList);
@@ -337,12 +332,8 @@ class Root extends PPS
 
     /**
      * Saving Big Block Depot.
-     *
-     * @param int $iSbdSize
-     * @param int $iBsize
-     * @param int $iPpsCnt
      */
-    private function saveBbd($iSbdSize, $iBsize, $iPpsCnt): void
+    private function saveBbd(int $iSbdSize, int $iBsize, int $iPpsCnt): void
     {
         $FILE = $this->fileHandle;
         // Calculate Basic Setting
@@ -361,7 +352,7 @@ class Root extends PPS
                 ++$iAllW;
                 $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
                 $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
-                if ($iBdCnt <= ($iBdExL * $iBbCnt + $i1stBdL)) {
+                if ($iBdCnt <= ($iBdExL * ($iBbCnt - 1) + $i1stBdL)) {
                     break;
                 }
             }
