@@ -275,6 +275,10 @@ class Workbook extends BIFFwriter
      */
     public function addColor(string $rgb, int $default = 0): int
     {
+        // Excel/Biff colors are case-insensitive. Normalizing here keeps a single cache
+        // entry (and a single palette slot) for variants such as FFFFFF and ffffff.
+        $rgb = strtoupper($rgb);
+
         if (!isset($this->colors[$rgb])) {
             $color
                 = [
@@ -290,7 +294,11 @@ class Workbook extends BIFFwriter
                 if (count($this->colors) === 0) {
                     $lastColor = 7;
                 } else {
-                    $lastColor = end($this->colors);
+                    // The next free palette index follows the highest index in use, not the
+                    // most recently inserted one: a color that matches an existing palette
+                    // entry is cached under its own (case-sensitive) key with an old index,
+                    // which would otherwise make the next custom color reuse an occupied slot.
+                    $lastColor = max($this->colors);
                 }
                 if ($lastColor < 57) {
                     // then we add a custom color altering the palette
