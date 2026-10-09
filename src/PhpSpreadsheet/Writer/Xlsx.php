@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -936,6 +937,10 @@ class Xlsx extends BaseWriter
         $filename = $drawing->getPath();
         if ($filename === '') {
             return null;
+        }
+        if ($drawing->isMetafile()) {
+            // Windows Metafiles are converted to PNG
+            return Metafile::tryToPng($drawing->getContents());
         }
         $imageData = getimagesize($filename);
 

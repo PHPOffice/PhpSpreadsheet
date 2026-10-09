@@ -36,6 +36,11 @@ class Ods extends BaseWriter
     private Thumbnails $writerPartThumbnails;
 
     /**
+     * Write Windows Metafiles (WMF, EMF, EMF+) as PNG images?
+     */
+    private bool $convertMetafilesToPng = true;
+
+    /**
      * Create a new Ods.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -154,6 +159,31 @@ class Ods extends BaseWriter
 
         // Create new ZIP stream
         return ZipStream0::newZipStream($this->fileHandle);
+    }
+
+    /**
+     * Get whether Windows Metafiles (WMF, EMF, EMF+) are written as PNG images.
+     */
+    public function getConvertMetafilesToPng(): bool
+    {
+        return $this->convertMetafilesToPng;
+    }
+
+    /**
+     * Set whether Windows Metafiles (WMF, EMF, EMF+) are written as PNG images (default),
+     * or stored as is.
+     *
+     * PNG images are displayed the same way by all applications.
+     * Metafiles stored as is keep their vector graphics, but some applications
+     * (like LibreOffice) do not support all their records.
+     *
+     * @return $this
+     */
+    public function setConvertMetafilesToPng(bool $convertMetafilesToPng): static
+    {
+        $this->convertMetafilesToPng = $convertMetafilesToPng;
+
+        return $this;
     }
 
     /**
