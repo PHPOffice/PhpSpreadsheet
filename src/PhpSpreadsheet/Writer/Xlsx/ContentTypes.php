@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
@@ -166,7 +167,10 @@ class ContentTypes extends WriterPart
             $drawing = $this->getParentWriter()->getDrawingHashTable()->getByIndex($i);
             if ($drawing instanceof WorksheetDrawing && $drawing->getPath() !== '') {
                 $extension = strtolower($drawing->getExtension());
-                if ($drawing->getIsUrl()) {
+                $metafileType = $drawing->getMetafileType();
+                if ($metafileType !== null) {
+                    $mimeType = Metafile::getMimeType($metafileType);
+                } elseif ($drawing->getIsUrl()) {
                     $mimeType = image_type_to_mime_type($drawing->getType());
                 } else {
                     $mimeType = $this->getImageMimeType($drawing->getPath());
@@ -234,7 +238,8 @@ class ContentTypes extends WriterPart
             if (count($spreadsheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
                 foreach ($spreadsheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
                     if ($image->getPath() !== '' && !isset($aMediaContentTypes[strtolower($image->getExtension())])) {
-                        $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
+                        $metafileType = $image->getMetafileType();
+                        $aMediaContentTypes[strtolower($image->getExtension())] = ($metafileType !== null) ? Metafile::getMimeType($metafileType) : $this->getImageMimeType($image->getPath());
 
                         $this->writeDefaultContentType($objWriter, strtolower($image->getExtension()), $aMediaContentTypes[strtolower($image->getExtension())]);
                     }

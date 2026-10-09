@@ -15,6 +15,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
+- Support for Windows Metafiles images (WMF, EMF and EMF+), using the `phpoffice/wmf` library: Xlsx Writer stores them as is, Ods, Xls, Html and Pdf Writers and comment backgrounds use a PNG rendering (Ods Writer can store them as is with `setConvertMetafilesToPng(false)`), and `MemoryDrawing::fromString()` / `fromStream()` accept them. New methods `Drawing::isMetafile()` and `Drawing::getMetafileType()`, and new helper `Shared\Metafile`.
 
 ### Removed
 
@@ -22,7 +23,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
-- Nothing yet.
+- `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
+- The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
 
 ### Moved
 
@@ -49,6 +51,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
+- Xls Writer no longer loses EMF and WMF images (they are written as PNG); the resulting file could not be read back (`Call to a member function getBlipType() on null`). [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xls Reader reads EMF and WMF pictures (as PNG `MemoryDrawing`); they were ignored. [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
+- Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
 
 ## 2026-09-15 - 5.10.0
 

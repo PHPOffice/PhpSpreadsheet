@@ -2034,6 +2034,41 @@ $drawing = MemoryDrawing::fromStream($imageStreamFromS3Bucket);
 
 Note that this is a memory-intensive process, like all gd images; and also creates a temporary file.
 
+### Windows Metafiles (WMF, EMF, EMF+)
+
+Windows Metafiles (`.wmf`, `.emf`, including EMF+ files) can be used like any other image,
+thanks to the [phpoffice/wmf](https://github.com/PHPOffice/WMF) library:
+
+```php
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing->setPath('./images/logo.emf');
+$drawing->setCoordinates('B2');
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
+
+$drawing->isMetafile();      // true
+$drawing->getMetafileType(); // \PhpOffice\PhpSpreadsheet\Shared\Metafile::TYPE_EMF
+```
+
+The metafile is rendered when it is loaded, in order to know its size.
+
+- The Xlsx writer stores the metafile as is.
+- The Ods writer, the Xls writer, the Html writer (and so the Pdf writers), and comment backgrounds use a PNG rendering of the metafile.
+- The Xlsx and Ods readers load metafiles as `Drawing` objects; the Xls reader loads them as PNG `MemoryDrawing` objects.
+
+PNG images are displayed the same way by all applications, while some applications
+(like LibreOffice) do not support all the records of metafiles. The Ods writer can
+nevertheless store metafiles as is, keeping their vector graphics:
+
+```php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Ods($spreadsheet);
+$writer->setConvertMetafilesToPng(false);
+$writer->save('example.ods');
+```
+
+A metafile which can not be rendered is always stored as is by the Ods writer.
+
+`MemoryDrawing::fromString()` and `MemoryDrawing::fromStream()` also accept metafiles, which are rendered as PNG.
+
 ## Reading Images from a worksheet
 
 A commonly asked question is how to retrieve the images from a workbook
