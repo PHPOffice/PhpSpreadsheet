@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
@@ -16,6 +17,9 @@ class Drawing extends WriterPart
 
     /** @var int Counter for image numbering */
     private int $imageCounter = 0;
+
+    /** @var array<int, true> Windows Metafiles written as PNG, by object id of their drawing */
+    private array $metafilesAsPng = [];
 
     /**
      * Required by WriterPart abstract class, but unused.
@@ -34,6 +38,7 @@ class Drawing extends WriterPart
     {
         $this->imageFiles = [];
         $this->imageCounter = 0;
+        $this->metafilesAsPng = [];
     }
 
     /**
@@ -59,6 +64,15 @@ class Drawing extends WriterPart
                 $imageContents = @file_get_contents($filename);
                 if ($imageContents !== false) {
                     $extension = $drawing->getExtension();
+                    if ($drawing->isMetafile() && $this->getParentWriter()->getConvertMetafilesToPng()) {
+                        // Windows Metafiles are written as PNG, unless they can not be rendered
+                        $png = Metafile::tryToPng($imageContents);
+                        if ($png !== null) {
+                            $imageContents = $png;
+                            $extension = 'png';
+                            $this->metafilesAsPng[spl_object_id($drawing)] = true;
+                        }
+                    }
                     $imagePath = "Pictures/image{$this->imageCounter}.{$extension}";
                     $drawings[$imagePath] = $imageContents;
                     $this->imageFiles[$imagePath] = $imageContents;
@@ -113,7 +127,7 @@ class Drawing extends WriterPart
     {
         $extension = 'png';
         if ($drawing instanceof WorksheetDrawing) {
-            $extension = $drawing->getExtension();
+            $extension = isset($this->metafilesAsPng[spl_object_id($drawing)]) ? 'png' : $drawing->getExtension();
         } elseif ($drawing instanceof MemoryDrawing) {
             $renderingFunction = $drawing->getRenderingFunction();
             if ($renderingFunction === MemoryDrawing::RENDERING_JPEG) {

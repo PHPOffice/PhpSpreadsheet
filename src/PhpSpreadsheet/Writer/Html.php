@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -783,7 +784,11 @@ class Html extends BaseWriter
                 $html .= $this->lineEnding;
                 $imageData = self::winFileToUrl($filename, $this instanceof Pdf\Mpdf);
 
-                if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
+                if ($drawing->isMetafile()) {
+                    // Browsers can not display Windows Metafiles : they are embedded as PNG
+                    $png = Metafile::tryToPng($drawing->getContents());
+                    $imageData = ($png === null) ? 'data:,' : 'data:image/png;base64,' . base64_encode($png);
+                } elseif ($this->embedImages || str_starts_with($imageData, 'zip://')) {
                     $imageData = 'data:,';
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
