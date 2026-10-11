@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). This is a
 
 - Security patches.
 - File::realpath should not issue file_exists. Vaguely security-related backport of [PR #5043](https://github.com/PHPOffice/PhpSpreadsheet/pull/5043).
-- OLE fixes. Vaguely security-related backport of [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983).
+- OLE fixes. Vaguely security-related backport of [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983) [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033).
 
 ## 2026-09-16 - 3.10.8
 
