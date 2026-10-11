@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Reader\Html as HtmlReader;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
@@ -171,5 +173,50 @@ class DecorativeDrawingTest extends AbstractFunctional
         $spreadsheet = $reader->load('tests/data/Reader/Ods/DecorativeImage.ods');
         self::assertSame(['Logo' => false, 'Ornament' => true], self::decorative($spreadsheet));
         $spreadsheet->disconnectWorksheets();
+    }
+
+    /** @return array<string, bool> */
+    private static function decorativeByCell(Spreadsheet $spreadsheet): array
+    {
+        $decorative = [];
+        foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
+            $decorative[$drawing->getCoordinates()] = $drawing->isDecorative();
+        }
+        ksort($decorative);
+
+        return $decorative;
+    }
+
+    public function testHtmlWritesAnEmptyAlt(): void
+    {
+        $spreadsheet = self::spreadsheet();
+        $html = (new HtmlWriter($spreadsheet))->generateHtmlAll();
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(1, substr_count($html, 'alt="Logo"'));
+        self::assertSame(2, substr_count($html, 'alt=""'));
+        self::assertStringNotContainsString('Ornament', $html);
+    }
+
+    public function testHtmlReadsAnEmptyAlt(): void
+    {
+        $src = 'tests/data/Writer/XLSX/blue_square.png';
+        $html = "<table><tr><td><img src='$src' alt=''></td><td><img src='$src' alt='Logo'></td><td><img src='$src'></td></tr></table>";
+        $spreadsheet = (new HtmlReader())->loadFromString($html);
+
+        self::assertSame(['A1' => true, 'B1' => false, 'C1' => false], self::decorativeByCell($spreadsheet));
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDecorativeSurvivesTheHtmlRoundTrip(): void
+    {
+        $spreadsheet = self::spreadsheet();
+        $writer = new HtmlWriter($spreadsheet);
+        $writer->setEmbedImages(true);
+        $reloaded = (new HtmlReader())->loadFromString($writer->generateHtmlAll());
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(['B10' => true, 'B2' => false, 'D2' => true], self::decorativeByCell($reloaded));
+        $reloaded->disconnectWorksheets();
     }
 }
