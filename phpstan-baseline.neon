@@ -136,11 +136,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, array\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/ChainedBlockStream.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
