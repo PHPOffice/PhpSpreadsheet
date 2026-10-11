@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 class ChainedBlockStream
@@ -11,31 +12,27 @@ class ChainedBlockStream
 
     /**
      * The OLE container of the file that is being read.
-     *
-     * @var null|OLE
      */
-    public $ole;
+    public ?OLE $ole = null;
 
     /**
      * Parameters specified by fopen().
      *
-     * @var array
+     * @var mixed[]
      */
-    public $params;
+    public array $params = [];
 
     /**
      * The binary data of the file.
-     *
-     * @var string
      */
-    public $data;
+    public string $data;
 
     /**
      * The file pointer.
      *
      * @var int byte offset
      */
-    public $pos;
+    public int $pos = 0;
 
     /**
      * Implements support for fopen().
@@ -45,11 +42,11 @@ class ChainedBlockStream
      *                                    ole-chainedblockstream://oleInstanceId=1
      * @param string $mode only "r" is supported
      * @param int $options mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
-     * @param string $openedPath absolute path of the opened stream (out parameter)
+     * @param ?string $openedPath absolute path of the opened stream (out parameter)
      *
      * @return bool true on success
      */
-    public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
+    public function stream_open(string $path, string $mode, int $options, ?string &$openedPath): bool // @codingStandardsIgnoreLine
     {
         if ($mode[0] !== 'r') {
             if ($options & STREAM_REPORT_ERRORS) {
@@ -69,29 +66,58 @@ class ChainedBlockStream
             return false;
         }
         $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']];
+        if (!($this->ole instanceof OLE)) {
+            throw new Exception('class is not OLE');
+        }
 
-        $blockId = $this->params['blockId'];
+        $blockId = (int) $this->params['blockId'];
+        $size = isset($this->params['size']) ? (int) $this->params['size'] : null;
+        $isRoot = isset($this->params['isRoot']) && $this->params['isRoot'] === '1';
         $this->data = '';
-        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->startBlock) {
+        if ($size !== null && $size < $this->ole->bigBlockThreshold && !$isRoot) {
             // Block id refers to small blocks
-            $rootPos = $this->ole->getBlockOffset($this->ole->root->startBlock);
+            $rootData = '';
+            if ($this->ole->root->startBlock === null) {
+                throw new Exception('Invalid OLE root mini-stream chain.');
+            }
+            $rootBlockId = (int) $this->ole->root->startBlock;
+            $rootBlocks = [];
+            while ($rootBlockId !== -2) {
+                if (isset($rootBlocks[$rootBlockId], $this->ole->bbat[$rootBlockId])) {
+                    throw new Exception('Invalid OLE root mini-stream chain.');
+                }
+                $rootBlocks[$rootBlockId] = true;
+                fseek($this->ole->_file_handle, $this->ole->getBlockOffset($rootBlockId));
+                $rootData .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
+                $rootBlockId = self::nextBlock($this->ole->bbat, $rootBlockId, 'Invalid OLE root mini-stream chain.');
+            }
+
+            $smallBlocks = [];
             while ($blockId != -2) {
-                $pos = $rootPos + $blockId * $this->ole->bigBlockSize;
-                $blockId = $this->ole->sbat[$blockId];
-                fseek($this->ole->_file_handle, $pos);
-                $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
+                if (isset($smallBlocks[$blockId], $this->ole->sbat[$blockId])) {
+                    throw new Exception('Invalid OLE mini-stream chain.');
+                }
+                $smallBlocks[$blockId] = true;
+                $pos = $blockId * $this->ole->smallBlockSize;
+                $this->data .= substr($rootData, $pos, $this->ole->smallBlockSize);
+                $blockId = self::nextBlock($this->ole->sbat, $blockId, 'Invalid OLE mini-stream chain.');
             }
         } else {
             // Block id refers to big blocks
+            $bigBlocks = [];
             while ($blockId != -2) {
+                if (isset($bigBlocks[$blockId], $this->ole->bbat[$blockId])) {
+                    throw new Exception('Invalid OLE stream chain.');
+                }
+                $bigBlocks[$blockId] = true;
                 $pos = $this->ole->getBlockOffset($blockId);
                 fseek($this->ole->_file_handle, $pos);
                 $this->data .= fread($this->ole->_file_handle, $this->ole->bigBlockSize);
-                $blockId = $this->ole->bbat[$blockId];
+                $blockId = self::nextBlock($this->ole->bbat, $blockId, 'Invalid OLE stream chain.');
             }
         }
-        if (isset($this->params['size'])) {
-            $this->data = substr($this->data, 0, $this->params['size']);
+        if ($size !== null) {
+            $this->data = substr($this->data, 0, $size);
         }
 
         if ($options & STREAM_USE_PATH) {
@@ -99,6 +125,17 @@ class ChainedBlockStream
         }
 
         return true;
+    }
+
+    /** @param mixed[] $allocationTable */
+    private static function nextBlock(array $allocationTable, int $blockId, string $message): int
+    {
+        $nextBlockId = $allocationTable[$blockId] ?? null;
+        if (!is_int($nextBlockId)) {
+            throw new Exception($message);
+        }
+
+        return $nextBlockId;
     }
 
     /**
@@ -117,7 +154,7 @@ class ChainedBlockStream
      *
      * @return false|string
      */
-    public function stream_read($count) // @codingStandardsIgnoreLine
+    public function stream_read(int $count) // @codingStandardsIgnoreLine
     {
         if ($this->stream_eof()) {
             return false;
@@ -133,7 +170,7 @@ class ChainedBlockStream
      *
      * @return bool TRUE if the file pointer is at EOF; otherwise FALSE
      */
-    public function stream_eof() // @codingStandardsIgnoreLine
+    public function stream_eof(): bool // @codingStandardsIgnoreLine
     {
         return $this->pos >= strlen($this->data);
     }
@@ -141,30 +178,29 @@ class ChainedBlockStream
     /**
      * Returns the position of the file pointer, i.e. its offset into the file
      * stream. Implements support for ftell().
-     *
-     * @return int
      */
-    public function stream_tell() // @codingStandardsIgnoreLine
+    public function stream_tell(): int // @codingStandardsIgnoreLine
     {
         return $this->pos;
     }
 
     /**
      * Implements support for fseek().
+     * Note that the first condition is always true, at least in
+     * the unit test suite. One consequence is that Phpstan's
+     * correct flagging of count($this->data) below is never
+     * executed, and would fail should it be executed.
      *
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
-     *
-     * @return bool
      */
-    public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
+    public function stream_seek(int $offset, int $whence): bool // @codingStandardsIgnoreLine
     {
         if ($whence == SEEK_SET && $offset >= 0) {
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-            // @phpstan-ignore-next-line
-        } elseif ($whence == SEEK_END && -$offset <= count(/** @scrutinizer ignore-type */ $this->data)) {
+        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore argument.type (phpstan is correct - see docBlock above)
             $this->pos = strlen($this->data) + $offset;
         } else {
             return false;
@@ -177,9 +213,9 @@ class ChainedBlockStream
      * Implements support for fstat(). Currently the only supported field is
      * "size".
      *
-     * @return array
+     * @return array{size: int}
      */
-    public function stream_stat() // @codingStandardsIgnoreLine
+    public function stream_stat(): array // @codingStandardsIgnoreLine
     {
         return [
             'size' => strlen($this->data),
