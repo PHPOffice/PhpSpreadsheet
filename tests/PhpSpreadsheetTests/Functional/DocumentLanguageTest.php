@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use Composer\Pcre\Preg;
+use PhpOffice\PhpSpreadsheet\Reader\Html as HtmlReader;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as OdsReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -141,5 +143,41 @@ class DocumentLanguageTest extends AbstractFunctional
         $spreadsheet = $reader->load(self::LIBREOFFICE_FILE);
         self::assertSame('en-US', $spreadsheet->getProperties()->getLanguage());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testHtmlWritesLangOnTheRoot(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $writer = new HtmlWriter($spreadsheet);
+        self::assertStringContainsString('<html xmlns="http://www.w3.org/1999/xhtml">', $writer->generateHTMLHeader());
+
+        $spreadsheet->getProperties()->setLanguage('uk-UA');
+        self::assertStringContainsString(
+            '<html xmlns="http://www.w3.org/1999/xhtml" lang="uk-UA">',
+            $writer->generateHTMLHeader()
+        );
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testHtmlReadsLangOfTheRoot(): void
+    {
+        foreach ([' lang="uk-UA"' => 'uk-UA', ' lang=" uk-UA "' => 'uk-UA', '' => ''] as $attributes => $expected) {
+            $html = "<html$attributes><body><table><tr><td>1</td></tr></table></body></html>";
+            $spreadsheet = (new HtmlReader())->loadFromString($html);
+
+            self::assertSame($expected, $spreadsheet->getProperties()->getLanguage());
+            $spreadsheet->disconnectWorksheets();
+        }
+    }
+
+    public function testLanguageSurvivesTheHtmlRoundTrip(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getProperties()->setLanguage('uk-UA');
+        $reloaded = (new HtmlReader())->loadFromString((new HtmlWriter($spreadsheet))->generateHtmlAll());
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame('uk-UA', $reloaded->getProperties()->getLanguage());
+        $reloaded->disconnectWorksheets();
     }
 }
