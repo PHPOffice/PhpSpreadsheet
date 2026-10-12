@@ -397,6 +397,9 @@ class Style
             'table:display',
             $worksheet->getSheetState() === Worksheet::SHEETSTATE_VISIBLE ? 'true' : 'false'
         );
+        if ($worksheet->getRightToLeft()) {
+            $this->writer->writeAttribute('style:writing-mode', 'rl-tb');
+        }
 
         $this->writer->endElement(); // Close style:table-properties
         $this->writer->endElement(); // Close style:style

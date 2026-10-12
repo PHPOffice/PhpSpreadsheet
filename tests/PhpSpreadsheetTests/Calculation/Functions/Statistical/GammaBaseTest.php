@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Calculation\Statistical\Distributions;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\GammaBase;
 use PHPUnit\Framework\TestCase;

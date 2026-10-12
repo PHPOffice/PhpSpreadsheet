@@ -5,6 +5,23 @@ declare(strict_types=1);
 setlocale(LC_ALL, 'en_US.utf8');
 ini_set('error_reporting', (string) E_ALL);
 
+if (!defined('K_PATH_FONTS')) {
+    $path1 = __DIR__ . '/..'
+        . '/vendor/tecnickcom/tc-lib-pdf-font';
+    $realpath1 = realpath($path1);
+    if ($realpath1 !== false) {
+        $path = __DIR__ . '/..'
+            . '/tclibpdffonts/fonts/';
+        $path = realpath($path);
+        if ($path !== false) {
+            define(
+                'K_PATH_FONTS',
+                $path
+            );
+        }
+    }
+}
+
 function phpunit10ErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
 {
     $x = error_reporting() & $errno;
