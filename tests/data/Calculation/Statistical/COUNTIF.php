@@ -60,9 +60,19 @@ return [
         [true, false, false, true, false, true, false, false],
         'true',
     ],
+    'text true criterion with mixed bool and string values' => [
+        2,
+        [true, false, false, 'true', false, true, false, false],
+        'true',
+    ],
     'text FALSE criterion' => [
         5,
         [true, false, false, true, false, true, false, false],
+        'FALSE',
+    ],
+    'text FALSE criterion with mixed bool and string values' => [
+        3,
+        [true, '=false', '="FALSE"', true, false, true, false, 'FALSE'],
         'FALSE',
     ],
     [

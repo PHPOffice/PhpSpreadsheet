@@ -71,4 +71,12 @@ return [
         '=TRUE',
         '=TRUE',
     ],
+    'bool TRUE matches logical TRUE' => [
+        '=TRUE',
+        true,
+    ],
+    'bool FALSE matches logical FALSE' => [
+        '=FALSE',
+        false,
+    ],
 ];
