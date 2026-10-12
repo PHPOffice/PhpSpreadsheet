@@ -163,6 +163,10 @@ class Functions
             if (is_bool($condition)) {
                 return '=' . ($condition ? 'TRUE' : 'FALSE');
             }
+            // A "TRUE" or "FALSE" criterion matches logical values, as the criterion TRUE or FALSE does
+            if ($condition === Calculation::getTRUE() || $condition === Calculation::getFALSE()) {
+                return '=' . ($condition === Calculation::getTRUE() ? 'TRUE' : 'FALSE');
+            }
             if (!is_numeric($condition)) {
                 if ($condition !== '""') { // Not an empty string
                     // Escape any quotes in the string value

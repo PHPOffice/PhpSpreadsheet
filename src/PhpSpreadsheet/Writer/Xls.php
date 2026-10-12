@@ -868,7 +868,7 @@ class Xls extends BaseWriter
         foreach ($dataSection as $dataProp) {
             /** @var array{data: array{data: string, length: int}, summary: array{pack: string, data: string}, offset: array{pack: string}, type: array{data: int, pack: string}} $dataProp */
             // Summary
-            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']); // @phpstan-ignore varTag.nativeType (I don't know what phpstan wants)
+            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
             // Offset
             $dataSection_Summary .= pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
             // DataType
