@@ -38,4 +38,5 @@ return [
     'plus/minus strings (ods diff)' => ['+2', '-3', '>', false, true],
     'plus/unsigned strings' => ['+1', '0', '<', true, true],
     'unsigned/plus strings' => ['3', '+8', '>', true, true],
+    'minus/plus strings (ods diff)' => ['-4', '+3', '>', true, false],
 ];
