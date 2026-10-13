@@ -84,7 +84,7 @@ jobs:
         php-version:
           - '8.5'
 
-    name: PHP ${{ matrix.php-version }}
+    name: PHPWin ${{ matrix.php-version }}
 
     steps:
       - name: Checkout
