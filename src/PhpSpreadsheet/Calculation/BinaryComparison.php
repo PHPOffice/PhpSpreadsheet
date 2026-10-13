@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -60,6 +61,9 @@ class BinaryComparison
             return $operand2;
         }
 
+        if (is_string($operand1) && is_string($operand2) && is_numeric($operand1) && is_numeric($operand2)) {
+            return self::numericStrings($operand1, $operand2, $operator);
+        }
         $rank1 = self::typeRank($operand1);
         $rank2 = self::typeRank($operand2);
         if ($rank1 !== null && $rank2 !== null && $rank1 !== $rank2) {
@@ -185,5 +189,58 @@ class BinaryComparison
     private static function notEqual(mixed $operand1, mixed $operand2): bool
     {
         return self::equal($operand1, $operand2) !== true;
+    }
+
+    private const EQUAL_COMPARES = ['=', '>=', '<='];
+    private const LESS_COMPARES = ['<', '<=', '<>'];
+    private const GREATER_COMPARES = ['>', '>=', '<>'];
+
+    private static function numericStrings(string $a, string $b, string $operator): bool
+    {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
+            return self::numericStringsLibre($a, $b, $operator);
+        }
+        // special handling for numeric strings starting with -
+        $a = Preg::replace('/^-/', '', $a);
+        $b = Preg::replace('/^-/', '', $b);
+        $comp = strcmp($a, $b);
+        if ($comp === 0) {
+            return in_array($operator, self::EQUAL_COMPARES, true);
+        }
+        if ($comp > 0) {
+            return in_array($operator, self::GREATER_COMPARES, true);
+        }
+
+        return in_array($operator, self::LESS_COMPARES, true);
+    }
+
+    private static function numericStringsLibre(string $a2, string $b2, string $operator): bool
+    {
+        if (str_starts_with($a2, '+')) {
+            if (str_starts_with($b2, '+')) {
+                $comp = strcmp($a2, $b2);
+            } elseif (str_starts_with($b2, '-')) {
+                $comp = 1; // "+number1" is always > "-$number2"
+            } else {
+                $comp = -1; // "+number1" is always < "$number2" unsigned
+            }
+        } elseif (str_starts_with($b2, '+')) {
+            // $a2 can't start with + here
+            if (str_starts_with($a2, '-')) {
+                $comp = -1; // "-$number1" is always < "+$number2"
+            } else {
+                $comp = 1; // unsigned "$number1" is always > "+$number2"
+            }
+        } else {
+            $comp = strcmp($a2, $b2);
+        }
+        if ($comp === 0) {
+            return in_array($operator, self::EQUAL_COMPARES, true);
+        }
+        if ($comp > 0) {
+            return in_array($operator, self::GREATER_COMPARES, true);
+        }
+
+        return in_array($operator, self::LESS_COMPARES, true);
     }
 }
