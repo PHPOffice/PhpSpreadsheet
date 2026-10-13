@@ -70,6 +70,65 @@ jobs:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
         run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
 
+name: windowsci
+on: [ push, pull_request, merge_group ]
+permissions:
+  contents: read # to fetch code (actions/checkout)
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        experimental:
+          - false
+        php-version:
+          - '8.5'
+
+    name: PHP ${{ matrix.php-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, openssl, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Delete composer lock file
+        id: composer-lock
+        if: ${{ matrix.php-version == 'nightly' }}
+        run: |
+          rm composer.lock
+          echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
+        env:
+          FAILURE_ACTION: "${{ matrix.experimental == true }}"
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
+
   phpdoc-types:
     runs-on: ubuntu-latest
     steps:
