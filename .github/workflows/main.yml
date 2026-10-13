@@ -82,6 +82,9 @@ jobs:
     name: PHPWin ${{ matrix.php-version }}
 
     steps:
+      - name: Set line ending to Unix
+        run: "C:\Program Files\Git\bin\git.exe" config --global core.autocrlf false
+
       - name: Checkout
         uses: actions/checkout@v7
 
