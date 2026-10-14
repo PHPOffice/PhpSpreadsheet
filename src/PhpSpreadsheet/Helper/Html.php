@@ -7,12 +7,16 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Html
 {
+    public const LIBXML_IS_BROKEN = \PhpOffice\PhpSpreadsheet\Reader\Html::LIBXML_IS_BROKEN;
+
     protected const COLOUR_MAP = [
         'aliceblue' => 'f0f8ff',
         'antiquewhite' => 'faebd7',
@@ -581,6 +585,8 @@ class Html
                 's' => $this->startStrikethruTag(...),
                 'sup' => $this->startSuperscriptTag(...),
                 'sub' => $this->startSubscriptTag(...),
+                'ul' => $this->ulOlTag(...),
+                'ol' => $this->ulOlTag(...),
             ];
         }
         if (!isset($this->endTagCallbacks)) {
@@ -624,13 +630,25 @@ class Html
     public function toRichTextObject(string $html, bool $preserveWhiteSpace = false): RichText
     {
         $this->initialise();
+        $scanner = new XmlScanner(XmlScanner::HTML_PATTERN);
+        $html = $scanner->scan($html);
 
         //    Create a new DOM object
         $dom = new DOMDocument();
+
+        // @codeCoverageIgnoreStart
+        if (self::LIBXML_IS_BROKEN) {
+            $domHtml = @\Dom\HTMLDocument::createFromString($html); // @phpstan-ignore class.notFound (wait till php8.4 is minimum)
+            // Start with UTF-8 BOM so that loadHTML below will use correct charset
+            $loadString = Csv::UTF8_BOM . $domHtml->saveHtml(); // @phpstan-ignore binaryOp.invalid (wait for 8.4), method.nonObject (8.4)
+        } else {
+            $loadString = "<?xml encoding=\"UTF-8\">$html";
+        }
+        // @codeCoverageIgnoreEnd
+
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
-        $prefix = '<?xml encoding="UTF-8">';
-        @$dom->loadHTML($prefix . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML($loadString, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
@@ -804,6 +822,13 @@ class Html
     protected function endStrikethruTag(): void
     {
         $this->strikethrough = false;
+    }
+
+    protected function ulOlTag(): void
+    {
+        if (substr($this->stringData, -1) !== "\n") {
+            $this->breakTag();
+        }
     }
 
     public function breakTag(): void

@@ -32,6 +32,8 @@ use Throwable;
 
 class Html extends BaseReader
 {
+    public const LIBXML_IS_BROKEN = LIBXML_VERSION >= 21504;
+
     /**
      * Sample size to read to determine if it's HTML or not.
      */

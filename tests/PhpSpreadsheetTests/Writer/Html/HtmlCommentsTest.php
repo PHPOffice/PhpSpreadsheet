@@ -99,7 +99,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
         $spreadsheet->disconnectWorksheets();
 
         $actual = $reloadedSpreadsheet->getActiveSheet()->getComment('A1')->getText()->getPlainText();
-        self::assertSame($richText->getPlainText(), $actual);
+        self::assertStringEqualsStringIgnoringLineEndings($richText->getPlainText(), $actual);
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
