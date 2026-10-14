@@ -108,10 +108,14 @@ jobs:
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
-        env:
-          FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
+      - name: "Run PHPUnit tests"
+        if: ${{ matrix.experimental == false }}
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+
+      - name: "Run PHPUnit tests Experimental"
+        if: ${{ matrix.experimental == true }}
+        continue-on-error: true
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
 
   phpdoc-types:
     runs-on: ubuntu-latest
