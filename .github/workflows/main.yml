@@ -79,6 +79,10 @@ jobs:
         php-version:
           - '8.5'
 
+        include:
+          - php-version: 'nightly'
+            experimental: true
+
     name: PHPWin ${{ matrix.php-version }}
 
     steps:
