@@ -35,6 +35,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
 - A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
 - OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
 - MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
