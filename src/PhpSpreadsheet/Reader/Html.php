@@ -900,6 +900,10 @@ class Html extends BaseReader
         if (!empty($dom->baseURI)) {
             $properties->setHyperlinkBase($dom->baseURI);
         }
+        $language = trim((string) $dom->documentElement?->getAttribute('lang'));
+        if ($language !== '') {
+            $properties->setLanguage($language);
+        }
     }
 
     /** @param string[] $matches */
