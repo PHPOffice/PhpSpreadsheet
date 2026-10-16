@@ -11,6 +11,9 @@ class RowsOnSpreadsheetTest extends AllSetupTeardown
     #[\PHPUnit\Framework\Attributes\DataProvider('providerROWSonSpreadsheet')]
     public function testRowsOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
+        if ($expectedResult === 'incomplete') {
+            self::markTestIncomplete('PhpSpreadsheet cannot match Excel for this case');
+        }
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
         $sheet->setTitle('ThisSheet');

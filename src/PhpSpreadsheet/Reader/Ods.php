@@ -738,6 +738,8 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+        $zip->close();
+        unset($this->zip);
 
         // Return
         return $spreadsheet;
