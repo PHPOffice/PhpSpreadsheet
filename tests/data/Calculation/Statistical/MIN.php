@@ -19,4 +19,8 @@ return [
         '#DIV/0!',
         1, 3, '=5/0', -2,
     ],
+    'text and logical values in an array are ignored' => [
+        4,
+        [4, 'a', true], 7,
+    ],
 ];

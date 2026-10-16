@@ -35,6 +35,9 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
+- OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
+- MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
 - `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
@@ -44,9 +47,11 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
 - Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008) [PR #5021](https://github.com/PHPOffice/PhpSpreadsheet/pull/5021)
 - Ods Writer keeps the hyperlink of a number, boolean or formula cell, and Ods Reader reads it back; only text cells had one. [Issue #5013](https://github.com/PHPOffice/PhpSpreadsheet/issues/5013) [PR #5014](https://github.com/PHPOffice/PhpSpreadsheet/pull/5014)
+- Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
 - `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
+- Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
 
 ## 2026-09-15 - 5.10.0
 
