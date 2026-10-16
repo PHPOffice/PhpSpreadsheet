@@ -767,6 +767,10 @@ class Html extends BaseWriter
             }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
+            if ($drawing->isDecorative()) {
+                // An empty alt is how HTML marks a decorative image
+                $filedesc = '';
+            }
             if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
                 $filename = $drawing->getPath();
 
