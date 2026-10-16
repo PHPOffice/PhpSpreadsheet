@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +18,7 @@ class HtmlLibxmlTest extends TestCase
 {
     public function testAll(): void
     {
-        if (Html::LIBXML_IS_BROKEN) {
+        if (!HelperHtml::isLibxmlBuggy()) {
             self::markTestSkipped('Current version of libxml has invalidated these tests');
         }
         $this->xtestLoadInvalidString();
