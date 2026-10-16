@@ -1247,6 +1247,8 @@ class Html extends BaseReader
         if ($name) {
             $drawing->setName($name);
         }
+        // An empty alt is how HTML marks a decorative image
+        $drawing->setDecorative(($attributes['alt'] ?? null) === '');
 
         /** @var null|scalar $width */
         /** @var null|scalar $height */

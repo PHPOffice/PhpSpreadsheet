@@ -24,6 +24,7 @@ class ParseFormulaTest extends TestCase
         $parser = Calculation::getInstance($spreadsheet);
         $stack = $parser->parseFormula($formula);
         self::assertEquals($expectedStack, $stack);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerBinaryOperations(): array
@@ -345,26 +346,26 @@ class ParseFormulaTest extends TestCase
                 ],
                 '=DeptSales[[Sales Person]:[Sales Amount]] DeptSales[[Region]:[% Commission]]',
             ],
-            //            'Cell Range Union' => [
-            //                [
-            //                    ['type' => 'Cell Reference', 'value' => 'A1', 'reference' => 'A1'],
-            //                    ['type' => 'Cell Reference', 'value' => 'C3', 'reference' => 'C3'],
-            //                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
-            //                    ['type' => 'Cell Reference', 'value' => 'B2', 'reference' => 'B2'],
-            //                    ['type' => 'Cell Reference', 'value' => 'D4', 'reference' => 'D4'],
-            //                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
-            //                    ['type' => 'Binary Operator', 'value' => '∪', 'reference' => null],
-            //                ],
-            //                '=A1:C3,B2:D4',
-            //            ],
-            //            'Named Range Union' => [
-            //                [
-            //                    ['type' => 'Defined Name', 'value' => 'DEFINED_NAME_1', 'reference' => 'DEFINED_NAME_1'],
-            //                    ['type' => 'Defined Name', 'value' => 'DEFINED_NAME_2', 'reference' => 'DEFINED_NAME_2'],
-            //                    ['type' => 'Binary Operator', 'value' => '∪', 'reference' => null],
-            //                ],
-            //                '=DEFINED_NAME_1,DEFINED_NAME_2',
-            //            ],
+            'Cell Range Union' => [
+                [
+                    ['type' => 'Cell Reference', 'value' => 'A1', 'reference' => 'A1'],
+                    ['type' => 'Cell Reference', 'value' => 'C3', 'reference' => 'C3'],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Cell Reference', 'value' => 'B2', 'reference' => 'B2'],
+                    ['type' => 'Cell Reference', 'value' => 'D4', 'reference' => 'D4'],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '∪', 'reference' => null],
+                ],
+                '=A1:C3,B2:D4',
+            ],
+            'Named Range Union' => [
+                [
+                    ['type' => 'Defined Name', 'value' => 'DEFINED_NAME_1', 'reference' => 'DEFINED_NAME_1'],
+                    ['type' => 'Defined Name', 'value' => 'DEFINED_NAME_2', 'reference' => 'DEFINED_NAME_2'],
+                    ['type' => 'Binary Operator', 'value' => '∪', 'reference' => null],
+                ],
+                '=DEFINED_NAME_1,DEFINED_NAME_2',
+            ],
         ];
     }
 }
