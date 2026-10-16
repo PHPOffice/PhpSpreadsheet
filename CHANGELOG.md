@@ -51,6 +51,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
+- Branch pruning no longer throws "internal error" for an IF nested in the condition of another IF inside a pruned branch. [Issue #3755](https://github.com/PHPOffice/PhpSpreadsheet/issues/3755) [Issue #3790](https://github.com/PHPOffice/PhpSpreadsheet/issues/3790) [PR #5055](https://github.com/PHPOffice/PhpSpreadsheet/pull/5055)
 
 ## 2026-09-15 - 5.10.0
 
