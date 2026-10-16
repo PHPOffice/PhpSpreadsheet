@@ -18,6 +18,12 @@ abstract class BaseWriter implements IWriter
     protected bool $preCalculateFormulas = true;
 
     /**
+     * Write Windows Metafiles (WMF, EMF, EMF+) as PNG images?
+     * Writers whose format can not hold metafiles (Xls, Html, Pdf) always write them as PNG images.
+     */
+    protected bool $convertMetafilesToPng = true;
+
+    /**
      * Use disk caching where possible?
      */
     private bool $useDiskCaching = false;
@@ -54,6 +60,34 @@ abstract class BaseWriter implements IWriter
     public function setPreCalculateFormulas(bool $precalculateFormulas): self
     {
         $this->preCalculateFormulas = $precalculateFormulas;
+
+        return $this;
+    }
+
+    /**
+     * Get whether Windows Metafiles (WMF, EMF, EMF+) are written as PNG images.
+     */
+    public function getConvertMetafilesToPng(): bool
+    {
+        return $this->convertMetafilesToPng;
+    }
+
+    /**
+     * Set whether Windows Metafiles (WMF, EMF, EMF+) are written as PNG images, or stored as is.
+     *
+     * PNG images are displayed the same way by all applications.
+     * Metafiles stored as is keep their vector graphics, but some applications
+     * (like LibreOffice, Excel for Mac, Excel for the web or Google Sheets) do not support all their records.
+     * A metafile which can not be rendered is always stored as is.
+     *
+     * This setting is used by the Xlsx (default: stored as is) and Ods (default: PNG) writers.
+     * Writers whose format can not hold metafiles (Xls, Html, Pdf) always write them as PNG images.
+     *
+     * @return $this
+     */
+    public function setConvertMetafilesToPng(bool $convertMetafilesToPng): static
+    {
+        $this->convertMetafilesToPng = $convertMetafilesToPng;
 
         return $this;
     }
