@@ -15,6 +15,9 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
+- `Document\Properties::setLanguage()`: the language of a spreadsheet as a BCP 47 tag, written and read as `dc:language` in Xlsx and Ods; the Ods writer also gives it to the default cell style, where LibreOffice keeps a spreadsheet's language, as LibreOffice writes it (the Western, Asian or complex slot by script, and `style:rfc-language-tag` for a tag with more than a language and a country), and the Ods reader reads it from there when there is no `dc:language`. Html writes and reads it as the `lang` of the `html` element. [Issue #5040](https://github.com/PHPOffice/PhpSpreadsheet/issues/5040) [PR #5041](https://github.com/PHPOffice/PhpSpreadsheet/pull/5041)
+- Xlsx Writer and Reader: `Chart::setDescription()` is the alternative text of a chart, written as `descr` of the chart's frame and read back, and the frame takes the chart's name; LibreOffice exports it as `/Alt` of the chart in a tagged PDF. [Issue #5038](https://github.com/PHPOffice/PhpSpreadsheet/issues/5038) [PR #5039](https://github.com/PHPOffice/PhpSpreadsheet/pull/5039)
+- `BaseDrawing::setDecorative()` marks an image as decorative. Xlsx writes and reads it as Excel and LibreOffice do (`adec:decorative` in the image's `cNvPr`), Ods as LibreOffice does (`loext:decorative` in the frame's graphic style, which the writer now defines; the reader also takes ODF 1.4's `draw:decorative`); LibreOffice then leaves the image out of a tagged PDF as an artifact. Html writes and reads it as an empty `alt`. [Issue #5036](https://github.com/PHPOffice/PhpSpreadsheet/issues/5036) [PR #5037](https://github.com/PHPOffice/PhpSpreadsheet/pull/5037)
 
 ### Removed
 
@@ -36,6 +39,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
+- Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
+- A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
+- OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
+- MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
 - `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
@@ -45,8 +52,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
 - Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008) [PR #5021](https://github.com/PHPOffice/PhpSpreadsheet/pull/5021)
 - Ods Writer keeps the hyperlink of a number, boolean or formula cell, and Ods Reader reads it back; only text cells had one. [Issue #5013](https://github.com/PHPOffice/PhpSpreadsheet/issues/5013) [PR #5014](https://github.com/PHPOffice/PhpSpreadsheet/pull/5014)
+- Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
+- Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
 
 ## 2026-09-15 - 5.10.0
 
