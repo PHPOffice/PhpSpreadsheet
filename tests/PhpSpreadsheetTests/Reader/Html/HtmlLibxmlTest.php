@@ -17,7 +17,7 @@ class HtmlLibxmlTest extends TestCase
 {
     public function testAll(): void
     {
-        if (LIBXML_VERSION >= 21504) {
+        if (LIBXML_VERSION >= 21400) {
             self::markTestSkipped('Current version of libxml has invalidated these tests');
         }
         $this->xtestLoadInvalidString();
