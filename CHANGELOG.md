@@ -55,7 +55,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
-- Removing or inserting a column that shifts the header row of a table no longer throws `Worksheet no longer exists`.
+- Removing or inserting a column that shifts the header row of a table no longer throws `Worksheet no longer exists`. [Issue #5058](https://github.com/PHPOffice/PhpSpreadsheet/issues/5058) [PR #5059](https://github.com/PHPOffice/PhpSpreadsheet/pull/5059)
 
 ## 2026-09-15 - 5.10.0
 
