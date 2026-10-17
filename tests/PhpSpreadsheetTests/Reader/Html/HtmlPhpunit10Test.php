@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
-use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PHPUnit\Framework\TestCase;
 
@@ -40,7 +39,7 @@ class HtmlPhpunit10Test extends TestCase
 
     private function checkLibxmlVersion(): void
     {
-        if (!HelperHtml::isLibxmlBuggy()) {
+        if (LIBXML_VERSION >= 21504) {
             self::markTestSkipped('Current version of libxml has invalidated this test');
         }
     }

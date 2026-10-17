@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
-use Dom\HTMLDocument;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -16,8 +15,6 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Html
 {
-    private static bool $libxmlIsBuggy;
-
     protected const COLOUR_MAP = [
         'aliceblue' => 'f0f8ff',
         'antiquewhite' => 'faebd7',
@@ -625,25 +622,6 @@ class Html
         $this->stringData = '';
     }
 
-    public static function isLibxmlBuggy(): bool
-    {
-        if (!isset(self::$libxmlIsBuggy)) {
-            // @codeCoverageIgnoreStart
-            if (!class_exists(HTMLDocument::class, false)) {
-                self::$libxmlIsBuggy = true;
-            } else {
-                $html = '<p>one</p><p>two</p>';
-                $dom = new DOMDocument();
-                $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                $result = $dom->saveHTML();
-                self::$libxmlIsBuggy = $result === false || trim($result) === '<p>one<p>two</p></p>';
-            }
-            // @codeCoverageIgnoreEnd
-        }
-
-        return self::$libxmlIsBuggy;
-    }
-
     /**
      * Parse HTML formatting and return the resulting RichText.
      */
@@ -656,19 +634,12 @@ class Html
         //    Create a new DOM object
         $dom = new DOMDocument();
 
-        // @codeCoverageIgnoreStart
-        if (self::isLibxmlBuggy()) {
-            $loadString = "<?xml encoding=\"UTF-8\">$html";
-        } else {
-            $domHtml = @HTMLDocument::createFromString($html); // @phpstan-ignore class.notFound (wait till php8.4 is minimum)
-            // Start with UTF-8 BOM so that loadHTML below will use correct charset
-            $loadString = Csv::UTF8_BOM . $domHtml->saveHtml(); // @phpstan-ignore binaryOp.invalid (wait for 8.4), method.nonObject (8.4)
-        }
-        // @codeCoverageIgnoreEnd
+        // Start with UTF-8 BOM so that loadHTML below will use correct charset
+        $loadString = Csv::UTF8_BOM . $html;
 
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
-        @$dom->loadHTML($loadString, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML($loadString, LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
