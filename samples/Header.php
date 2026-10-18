@@ -17,7 +17,8 @@ if ($helper->isCli()) {
     return;
 }
 ?>
-<html data-bs-theme="light">
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
 <head>
     <title><?php echo $helper->getPageTitle(); ?></title>
     <meta charset="utf-8">
@@ -40,15 +41,13 @@ if ($helper->isCli()) {
                     </button>
 
                     <a class="navbar-brand" href="/">PHPSpreadsheet</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/PHPOffice/PHPSpreadsheet">
+                    <br><a href="https://github.com/PHPOffice/PHPSpreadsheet">
                             <i class="fa fa-github fa-lg" title="GitHub"></i>
-                            &nbsp;
                           </a>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://phpspreadsheet.readthedocs.io">
-                            <i class="fa fa-book fa-lg" title="Docs"></i>
-                            &nbsp;
+                          <a href="https://phpspreadsheet.readthedocs.io">
+                            <i class="fa fa-book fa-lg" title="Docs" style="margin-left: 1em;"></i>
                           </a>
-<br><br><button class="btn btn-outline-secondary btn-sm" id="themeToggler" type="button" title="Toggle dark/light mode">
+<button class="btn btn-outline-secondary btn-sm" id="themeToggler" type="button" title="Toggle dark/light mode" style="margin-left:1em; border:none">
     <i class="fa fa-moon-o fa-lg" id="themeIcon"></i>
 </button>
                 </div>
