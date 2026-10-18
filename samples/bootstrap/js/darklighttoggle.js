@@ -3,6 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const icon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
 
+    function updateIcon(theme)
+    {
+        if (theme === 'dark') {
+            icon.className = 'fa fa-sun-o fa-lg'; // Sun icon for dark mode
+        } else {
+            icon.className = 'fa fa-moon-o fa-lg'; // Moon icon for light mode
+        }
+    }
+
     // 1. Define a helper function to get the correct initial theme
     function getPreferredTheme()
     {
@@ -31,16 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newTheme);
         updateIcon(newTheme);
     });
-
-// I think this should be indented; phpcs thinks otherwise.
-function updateIcon(theme)
-{
-    if (theme === 'dark') {
-        icon.className = 'fa fa-sun-o fa-lg'; // Sun icon for dark mode
-    } else {
-        icon.className = 'fa fa-moon-o fa-lg'; // Moon icon for light mode
-    }
-}
 
     /*
     // 4. Optional: Listen for system changes in real-time
