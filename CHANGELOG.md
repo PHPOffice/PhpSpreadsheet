@@ -55,6 +55,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
+- A fraction number format writes an integer as a fraction when the format has no integer part, so 1 is `1/1` with `0/0`, and when the last numerator placeholder is 0, so 1 is `1 0/1` with `0 0/0`, as Excel does. [Issue #3625](https://github.com/PHPOffice/PhpSpreadsheet/issues/3625) [PR #5060](https://github.com/PHPOffice/PhpSpreadsheet/pull/5060)
 
 ## 2026-09-15 - 5.10.0
 
