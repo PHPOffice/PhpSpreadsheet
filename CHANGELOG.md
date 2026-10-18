@@ -59,6 +59,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped.
 
 ## 2026-09-15 - 5.10.0
 

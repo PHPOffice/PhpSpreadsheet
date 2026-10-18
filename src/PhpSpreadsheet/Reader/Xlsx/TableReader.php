@@ -101,6 +101,10 @@ class TableReader
                 if ($attributes['totalsRowFunction']) {
                     $column->setTotalsRowFunction((string) $attributes['totalsRowFunction']);
                 }
+
+                if ($tableColumn->totalsRowFormula) {
+                    $column->setTotalsRowFormula((string) $tableColumn->totalsRowFormula);
+                }
             }
 
             if ($tableColumn->calculatedColumnFormula) {

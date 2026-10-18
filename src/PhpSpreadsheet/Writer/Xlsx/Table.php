@@ -82,16 +82,22 @@ class Table extends WriterPart
             $objWriter->writeAttribute('id', (string) ($offset + 1));
             $objWriter->writeAttribute('name', $table->getShowHeaderRow() ? $cell->getValueString() : ('Column' . ($offset + 1)));
 
+            $totalsRowFormula = $table->getShowTotalsRow() ? $column->getTotalsRowFormula() : null;
             if ($table->getShowTotalsRow()) {
                 if ($column->getTotalsRowLabel()) {
                     $objWriter->writeAttribute('totalsRowLabel', $column->getTotalsRowLabel());
                 }
                 if ($column->getTotalsRowFunction()) {
                     $objWriter->writeAttribute('totalsRowFunction', $column->getTotalsRowFunction());
+                } elseif ($totalsRowFormula) {
+                    $objWriter->writeAttribute('totalsRowFunction', 'custom');
                 }
             }
             if ($column->getColumnFormula()) {
                 $objWriter->writeElement('calculatedColumnFormula', $column->getColumnFormula());
+            }
+            if ($totalsRowFormula) {
+                $objWriter->writeElement('totalsRowFormula', ltrim($totalsRowFormula, '='));
             }
 
             $objWriter->endElement();
