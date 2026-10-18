@@ -6,11 +6,23 @@ body {
     margin-bottom: 20px;
 }
 .navbar + h1 {
-    margin-top: 70px;
+    margin-top: 20px;
 }
 .passed {
     color: #339900;
 }
 .failed {
     color: #ff0000;
+}
+/* Forces the navbar rows to drop down instead of stretching sideways */
+.navbar-nav {
+    flex-wrap: wrap !important;
+}
+
+/* Optional: Ensures the dropdown menu alignments stay bounded inside your screen */
+.dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+    max-height: 350px !important;
+    overflow-y: auto !important;
 }

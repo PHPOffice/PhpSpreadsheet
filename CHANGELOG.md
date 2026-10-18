@@ -22,7 +22,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
-- Nothing yet.
+- Update infrastructure for running samples in browser. [PR #5061](https://github.com/PHPOffice/PhpSpreadsheet/pull/5061)
 
 ### Moved
 

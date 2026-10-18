@@ -17,33 +17,28 @@ if ($helper->isCli()) {
     return;
 }
 ?>
-<html>
+<html data-bs-theme="light">
 <head>
     <title><?php echo $helper->getPageTitle(); ?></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/bootstrap/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/bootstrap/css/phpspreadsheet.css"/>
-    <script src="/bootstrap/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-
-    <style>
-        body { padding-top: 200px; }
-    </style>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?v5"/>
+    <link rel="stylesheet" href="/bootstrap/css/font-awesome.v4.used.css"/>
+    <link rel="stylesheet" href="/bootstrap/css/phpspreadsheet.css?v5"/>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/bootstrap/js/darklighttoggle.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-expand-lg bg-body-tertiary" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                        <span class="visually-hidden">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <a class="navbar-brand" href="/">PHPSpreadsheet</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/PHPOffice/PHPSpreadsheet">
                             <i class="fa fa-github fa-lg" title="GitHub"></i>
@@ -53,15 +48,17 @@ if ($helper->isCli()) {
                             <i class="fa fa-book fa-lg" title="Docs"></i>
                             &nbsp;
                           </a>
+<br><br><button class="btn btn-outline-secondary btn-sm" id="themeToggler" type="button" title="Toggle dark/light mode">
+    <i class="fa fa-moon-o fa-lg" id="themeIcon"></i>
+</button>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav"><?php
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav"><?php
                     foreach ($helper->getSamples() as $category => $files) {
-                        ?><li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category ?>
-                              <strong class="caret"></strong>
+                        ?><li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false"><?php echo $category ?>
                             </a>
-                            <ul class="dropdown-menu"><?php
+                            <ul class="dropdown-menu dropdown-menu-end text-wrap" style="max-width: 300px;"><?php
                             foreach ($files as $name => $file) {
                                 if (
                                     !in_array(
@@ -73,7 +70,7 @@ if ($helper->isCli()) {
                                         true
                                     )
                                 ) {
-                                    echo '<li><a href="/' . $file . '">' . $name . '</a></li>';
+                                    echo '<li><a class="dropdown-item" href="/' . $file . '">' . $name . '</a></li>';
                                 }
                             } ?></ul>
                         </li>
