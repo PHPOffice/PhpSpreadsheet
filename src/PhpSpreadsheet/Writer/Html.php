@@ -447,7 +447,9 @@ class Html extends BaseWriter
         $properties = $this->spreadsheet->getProperties();
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . $this->lineEnding;
         $rtl = ($this->rtlSheets && !$this->ltrSheets) ? " dir='rtl'" : '';
-        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $rtl . '>' . $this->lineEnding;
+        $language = htmlspecialchars($properties->getLanguage(), Settings::htmlEntityFlags());
+        $lang = ($language === '') ? '' : " lang=\"$language\"";
+        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $lang . $rtl . '>' . $this->lineEnding;
         $html .= '  <head>' . $this->lineEnding;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . $this->lineEnding;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet" />' . $this->lineEnding;
@@ -765,6 +767,10 @@ class Html extends BaseWriter
             }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
+            if ($drawing->isDecorative()) {
+                // An empty alt is how HTML marks a decorative image
+                $filedesc = '';
+            }
             if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
                 $filename = $drawing->getPath();
 
