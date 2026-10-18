@@ -40,7 +40,8 @@ if (!$helper->isCli()) {
         $status = $result ? 'passed' : 'failed';
         echo "<li>{$label} ... <span class='{$status}'>{$status}</span></li>";
     }
-    echo '</ul></div>';
+    echo '</ul>';
+    $helper->endWebPage();
 } else {
     echo 'Requirement check:' . PHP_EOL;
     foreach ($requirements as $label => $result) {

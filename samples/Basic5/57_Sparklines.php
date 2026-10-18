@@ -44,3 +44,4 @@ $worksheet->addSparklineGroup($winLossGroup);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);
+$helper->endWebPage();
