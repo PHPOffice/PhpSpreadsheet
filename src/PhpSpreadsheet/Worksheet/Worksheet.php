@@ -2824,8 +2824,7 @@ class Worksheet
         $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
 
         for ($c = 0, $n = min($maxPossibleColumnsToBeRemoved, $numberOfColumns); $c < $n; ++$c) {
-            $this->cellCollection->removeColumn($highestColumn);
-            $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
+            $this->cellCollection->removeColumn(Coordinate::stringFromColumnIndex($highestColumnIndex - $c));
         }
         $this->cachedHighestColumn = $newHighestColumn;
 

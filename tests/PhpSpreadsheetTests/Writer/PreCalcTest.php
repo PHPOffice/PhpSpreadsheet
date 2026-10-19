@@ -137,10 +137,8 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm that file contains B2 pre-calculated or not as appropriate
             if ($preCalc === false) {
-                self::assertStringContainsString(
-                    'table:formula="of:=3+[.A3]" office:value-type="string" office:string-value="=3+A3"',
-                    $data
-                );
+                // No cached value when pre-calc is off: the application that opens the file calculates it.
+                self::assertStringContainsString('table:formula="of:=3+[.A3]"/>', $data);
             } else {
                 self::assertStringContainsString(' table:formula="of:=3+[.A3]" office:value-type="float" office:value="14"', $data);
             }

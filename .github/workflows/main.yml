@@ -70,6 +70,53 @@ jobs:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
         run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
 
+  windowsci:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        experimental:
+          - false
+        php-version:
+          - '8.5'
+
+        include:
+          - php-version: 'nightly'
+            experimental: true
+
+    name: PHPWin ${{ matrix.php-version }}
+
+    steps:
+      - name: Set line ending to Unix
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ctype, dom, fileinfo, filter, gd, iconv, intl, libxml, mbstring, openssl, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: "Run PHPUnit tests"
+        if: ${{ matrix.experimental == false }}
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+
+      - name: "Run PHPUnit tests Experimental"
+        if: ${{ matrix.experimental == true }}
+        continue-on-error: true
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings
+
   phpdoc-types:
     runs-on: ubuntu-latest
     steps:
