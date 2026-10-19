@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:5cb7f33c-bb22-4c26-bf95-13e7cee3802d">
+  <metadata>
+    <timestamp><![CDATA[2026-10-01T13:50:19Z]]></timestamp>
+    <tools>
+      <tool>
+        <name><![CDATA[composer]]></name>
+        <version><![CDATA[2.8.11]]></version>
+      </tool>
+      <tool>
+        <vendor><![CDATA[cyclonedx]]></vendor>
+        <name><![CDATA[cyclonedx-php-composer]]></name>
+        <version><![CDATA[v6.2.0]]></version>
+        <externalReferences>
+          <reference type="distribution">
+            <url><![CDATA[https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/934440a5ef7c3c3cdb58c3c3d389d412630ccbf6]]></url>
+            <comment><![CDATA[dist reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6]]></comment>
+          </reference>
+          <reference type="vcs">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-composer.git]]></url>
+            <comment><![CDATA[source reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6]]></comment>
+          </reference>
+          <reference type="website">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-composer/#readme]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+          </reference>
+          <reference type="issue-tracker">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-composer/issues]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+          </reference>
+          <reference type="vcs">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-composer/]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+          </reference>
+        </externalReferences>
+      </tool>
+      <tool>
+        <vendor><![CDATA[cyclonedx]]></vendor>
+        <name><![CDATA[cyclonedx-library]]></name>
+        <version><![CDATA[v4.2.0]]></version>
+        <externalReferences>
+          <reference type="distribution">
+            <url><![CDATA[https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/a99d940fad1b091fe48f41b6ef1b5960bbb0fbd4]]></url>
+            <comment><![CDATA[dist reference: a99d940fad1b091fe48f41b6ef1b5960bbb0fbd4]]></comment>
+          </reference>
+          <reference type="vcs">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-library.git]]></url>
+            <comment><![CDATA[source reference: a99d940fad1b091fe48f41b6ef1b5960bbb0fbd4]]></comment>
+          </reference>
+          <reference type="website">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-library/#readme]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+          </reference>
+          <reference type="documentation">
+            <url><![CDATA[https://cyclonedx-php-library.readthedocs.io]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'support.docs']]></comment>
+          </reference>
+          <reference type="issue-tracker">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-library/issues]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+          </reference>
+          <reference type="vcs">
+            <url><![CDATA[https://github.com/CycloneDX/cyclonedx-php-library/]]></url>
+            <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+          </reference>
+        </externalReferences>
+      </tool>
+    </tools>
+    <component type="application" bom-ref="phpoffice/phpspreadsheet-dev-master">
+      <author><![CDATA[Maarten Balliauw, Mark Baker, Franck Lefevre, Erik Tilt, Adrien Crivelli, Owen Leibman]]></author>
+      <group><![CDATA[phpoffice]]></group>
+      <name><![CDATA[phpspreadsheet]]></name>
+      <version><![CDATA[dev-master]]></version>
+      <description><![CDATA[PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/phpoffice/phpspreadsheet@dev-master]]></purl>
+      <externalReferences>
+        <reference type="website">
+          <url><![CDATA[https://github.com/PHPOffice/PhpSpreadsheet]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[b03f7f3371e1dd1adafa41e4d0e47335f2d782f9]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[b03f7f3371e1dd1adafa41e4d0e47335f2d782f9]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+  </metadata>
+  <components>
+    <component type="library" bom-ref="composer/pcre-3.4.0.0">
+      <author><![CDATA[Jordi Boggiano]]></author>
+      <group><![CDATA[composer]]></group>
+      <name><![CDATA[pcre]]></name>
+      <version><![CDATA[3.4.0]]></version>
+      <description><![CDATA[PCRE wrapping library that offers type-safe preg_* replacements.]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/composer/pcre@3.4.0]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/composer/pcre/zipball/d5a341b3fb61f3001970940afb1d332968a183ed]]></url>
+          <comment><![CDATA[dist reference: d5a341b3fb61f3001970940afb1d332968a183ed]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/composer/pcre.git]]></url>
+          <comment><![CDATA[source reference: d5a341b3fb61f3001970940afb1d332968a183ed]]></comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url><![CDATA[https://github.com/composer/pcre/issues]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/composer/pcre/tree/3.4.0]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[d5a341b3fb61f3001970940afb1d332968a183ed]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[d5a341b3fb61f3001970940afb1d332968a183ed]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+    <component type="library" bom-ref="maennchen/zipstream-php-3.1.2.0">
+      <author><![CDATA[Paul Duncan, Jonatan Männchen, Jesse Donat, András Kolesár]]></author>
+      <group><![CDATA[maennchen]]></group>
+      <name><![CDATA[zipstream-php]]></name>
+      <version><![CDATA[3.1.2]]></version>
+      <description><![CDATA[ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/maennchen/zipstream-php@3.1.2]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/aeadcf5c412332eb426c0f9b4485f6accba2a99f]]></url>
+          <comment><![CDATA[dist reference: aeadcf5c412332eb426c0f9b4485f6accba2a99f]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/maennchen/ZipStream-PHP.git]]></url>
+          <comment><![CDATA[source reference: aeadcf5c412332eb426c0f9b4485f6accba2a99f]]></comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url><![CDATA[https://github.com/maennchen/ZipStream-PHP/issues]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/maennchen/ZipStream-PHP/tree/3.1.2]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[aeadcf5c412332eb426c0f9b4485f6accba2a99f]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[aeadcf5c412332eb426c0f9b4485f6accba2a99f]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+    <component type="library" bom-ref="markbaker/complex-3.0.2.0">
+      <author><![CDATA[Mark Baker]]></author>
+      <group><![CDATA[markbaker]]></group>
+      <name><![CDATA[complex]]></name>
+      <version><![CDATA[3.0.2]]></version>
+      <description><![CDATA[PHP Class for working with complex numbers]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/markbaker/complex@3.0.2]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/MarkBaker/PHPComplex/zipball/95c56caa1cf5c766ad6d65b6344b807c1e8405b9]]></url>
+          <comment><![CDATA[dist reference: 95c56caa1cf5c766ad6d65b6344b807c1e8405b9]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/MarkBaker/PHPComplex.git]]></url>
+          <comment><![CDATA[source reference: 95c56caa1cf5c766ad6d65b6344b807c1e8405b9]]></comment>
+        </reference>
+        <reference type="website">
+          <url><![CDATA[https://github.com/MarkBaker/PHPComplex]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url><![CDATA[https://github.com/MarkBaker/PHPComplex/issues]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/MarkBaker/PHPComplex/tree/3.0.2]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[95c56caa1cf5c766ad6d65b6344b807c1e8405b9]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[95c56caa1cf5c766ad6d65b6344b807c1e8405b9]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+    <component type="library" bom-ref="markbaker/matrix-3.0.1.0">
+      <author><![CDATA[Mark Baker]]></author>
+      <group><![CDATA[markbaker]]></group>
+      <name><![CDATA[matrix]]></name>
+      <version><![CDATA[3.0.1]]></version>
+      <description><![CDATA[PHP Class for working with matrices]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/markbaker/matrix@3.0.1]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/728434227fe21be27ff6d86621a1b13107a2562c]]></url>
+          <comment><![CDATA[dist reference: 728434227fe21be27ff6d86621a1b13107a2562c]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/MarkBaker/PHPMatrix.git]]></url>
+          <comment><![CDATA[source reference: 728434227fe21be27ff6d86621a1b13107a2562c]]></comment>
+        </reference>
+        <reference type="website">
+          <url><![CDATA[https://github.com/MarkBaker/PHPMatrix]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url><![CDATA[https://github.com/MarkBaker/PHPMatrix/issues]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/MarkBaker/PHPMatrix/tree/3.0.1]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[728434227fe21be27ff6d86621a1b13107a2562c]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[728434227fe21be27ff6d86621a1b13107a2562c]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+    <component type="library" bom-ref="psr/simple-cache-3.0.0.0">
+      <author><![CDATA[PHP-FIG]]></author>
+      <group><![CDATA[psr]]></group>
+      <name><![CDATA[simple-cache]]></name>
+      <version><![CDATA[3.0.0]]></version>
+      <description><![CDATA[Common interfaces for simple caching]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/psr/simple-cache@3.0.0]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/php-fig/simple-cache/zipball/764e0b3939f5ca87cb904f570ef9be2d78a07865]]></url>
+          <comment><![CDATA[dist reference: 764e0b3939f5ca87cb904f570ef9be2d78a07865]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/php-fig/simple-cache.git]]></url>
+          <comment><![CDATA[source reference: 764e0b3939f5ca87cb904f570ef9be2d78a07865]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/php-fig/simple-cache/tree/3.0.0]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[764e0b3939f5ca87cb904f570ef9be2d78a07865]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[764e0b3939f5ca87cb904f570ef9be2d78a07865]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="composer/pcre-3.4.0.0"/>
+    <dependency ref="maennchen/zipstream-php-3.1.2.0"/>
+    <dependency ref="markbaker/complex-3.0.2.0"/>
+    <dependency ref="markbaker/matrix-3.0.1.0"/>
+    <dependency ref="psr/simple-cache-3.0.0.0"/>
+    <dependency ref="phpoffice/phpspreadsheet-dev-master">
+      <dependency ref="composer/pcre-3.4.0.0"/>
+      <dependency ref="maennchen/zipstream-php-3.1.2.0"/>
+      <dependency ref="markbaker/complex-3.0.2.0"/>
+      <dependency ref="markbaker/matrix-3.0.1.0"/>
+      <dependency ref="psr/simple-cache-3.0.0.0"/>
+    </dependency>
+  </dependencies>
+</bom>

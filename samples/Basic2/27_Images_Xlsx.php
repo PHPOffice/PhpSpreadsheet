@@ -24,4 +24,4 @@ $sheet->getCell('G16')->setValue('BMP');
 $sheet->getStyle('G16')->getFont()->setName('Arial Black')->setBold(true);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Ods']);

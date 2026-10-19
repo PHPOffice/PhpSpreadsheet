@@ -203,7 +203,7 @@ class Html extends BaseReader
     {
         $meta = stream_get_meta_data($this->fileHandle);
         // Phpstan incorrectly flags following line for Php8.2-, corrected in 8.3
-        $filename = $meta['uri']; //@phpstan-ignore-line
+        $filename = $meta['uri']; //@phpstan-ignore offsetAccess.notFound (fixable when Php < 8.3 is no longer possible)
 
         clearstatcache(true, $filename);
         $size = (int) filesize($filename);
@@ -369,13 +369,13 @@ class Html extends BaseReader
                     $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
                     $sheet->setHyperlink($column . $row, $hyperlink);
                 }
-                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
+                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore property.deprecated (fixable when $this.data is removed)
             }
         } else {
             //    We have a Rich Text run.
             //    I don't actually see any way to reach this line.
             //    TODO
-            // @phpstan-ignore-next-line
+            // @phpstan-ignore property.deprecated (fixable when $this->data is removed)
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
         $cellContentx = '';
@@ -900,6 +900,10 @@ class Html extends BaseReader
         if (!empty($dom->baseURI)) {
             $properties->setHyperlinkBase($dom->baseURI);
         }
+        $language = trim((string) $dom->documentElement?->getAttribute('lang'));
+        if ($language !== '') {
+            $properties->setLanguage($language);
+        }
     }
 
     /** @param string[] $matches */
@@ -1247,6 +1251,8 @@ class Html extends BaseReader
         if ($name) {
             $drawing->setName($name);
         }
+        // An empty alt is how HTML marks a decorative image
+        $drawing->setDecorative(($attributes['alt'] ?? null) === '');
 
         /** @var null|scalar $width */
         /** @var null|scalar $height */

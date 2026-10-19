@@ -35,6 +35,15 @@ return [
         0.046011705689,
         8, 3,
     ],
+    // Large x: the old fixed 32-term series diverged badly here.
+    [
+        0.177045452100,
+        70, 60,
+    ],
+    [
+        0.064570368921,
+        100, 80,
+    ],
     [
         '#VALUE!',
         'NaN', 3,

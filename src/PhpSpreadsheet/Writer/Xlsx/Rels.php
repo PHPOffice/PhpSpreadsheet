@@ -175,9 +175,53 @@ class Rels extends WriterPart
             $this->writeRelationship($objWriter, 'Fpb', Namespaces::RELATIONSHIPS_FEATURE_PROPERTY_BAG, 'featurePropertyBag/featurePropertyBag.xml');
         }
 
+        // Write preserved pivot cache definition relationships. The r:id used
+        // here is referenced from the <pivotCaches> element in workbook.xml.
+        foreach (self::pivotCacheRelationships($spreadsheet) as $rId => $target) {
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                Namespaces::RELATIONSHIPS_PIVOT_CACHE_DEFINITION,
+                $target
+            );
+        }
+
         $objWriter->endElement();
 
         return $objWriter->getData();
+    }
+
+    /**
+     * Build the map of relationship-id => workbook-relative target for each
+     * preserved pivot cache definition. The relationship id is derived from the
+     * cache id so the workbook <pivotCaches> element can reference it.
+     *
+     * @return array<string, string>
+     */
+    public static function pivotCacheRelationships(Spreadsheet $spreadsheet): array
+    {
+        /** @var array<string, mixed> $unparsedLoadedData */
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
+        /** @var array<array<string, string>> $workbookPivotCaches */
+        $workbookPivotCaches = $unparsedLoadedData['workbookPivotCaches'] ?? [];
+
+        $relationships = [];
+        foreach ($workbookPivotCaches as $pivotCache) {
+            $target = self::relativeToWorkbook($pivotCache['cacheDefinitionPath']);
+            if ($target !== null) {
+                $relationships['_pivotCacheDef_' . $pivotCache['cacheId']] = $target;
+            }
+        }
+
+        return $relationships;
+    }
+
+    /**
+     * Convert an "xl/..." archive path to a target relative to workbook.xml.
+     */
+    private static function relativeToWorkbook(string $path): ?string
+    {
+        return str_starts_with($path, 'xl/') ? substr($path, 3) : null;
     }
 
     /**
@@ -263,7 +307,7 @@ class Rels extends WriterPart
         // Write hyperlink relationships?
         $i = 1;
         foreach ($worksheet->getHyperlinkCollection() as $hyperlink) {
-            if (!$hyperlink->isInternal()) {
+            if ($hyperlink->getUrl() !== '' && !$hyperlink->isInternal()) {
                 $this->writeRelationship(
                     $objWriter,
                     '_hyperlink_' . $i,
@@ -321,6 +365,19 @@ class Rels extends WriterPart
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'ctrlProps', Namespaces::RELATIONSHIPS_CTRLPROP);
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'vmlDrawings', Namespaces::VML);
         $this->writeUnparsedRelationship($worksheet, $objWriter, 'printerSettings', Namespaces::RELATIONSHIPS_PRINTER_SETTINGS);
+
+        // Write preserved pivot table relationships
+        $pivotTables = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pivotTables'] ?? [];
+        $pivotIndex = 1;
+        foreach ($pivotTables as $pivotTable) {
+            /** @var string[] $pivotTable */
+            $this->writeRelationship(
+                $objWriter,
+                '_pivotTable_' . $pivotIndex++,
+                Namespaces::RELATIONSHIPS_PIVOT_TABLE,
+                $pivotTable['relFilePath']
+            );
+        }
 
         $objWriter->endElement();
 
@@ -393,7 +450,7 @@ class Rels extends WriterPart
                     $objWriter,
                     $i,
                     Namespaces::IMAGE,
-                    '../media/' . $drawing->getIndexedFilename()
+                    '../media/' . $this->getParentWriter()->getDrawingMediaFilename($drawing)
                 );
 
                 $i = $this->writeDrawingHyperLink($objWriter, $drawing, $i);
@@ -407,12 +464,18 @@ class Rels extends WriterPart
             // Loop through charts and write relationships
             $chartCount = $worksheet->getChartCount();
             if ($chartCount > 0) {
-                for ($c = 0; $c < $chartCount; ++$c) {
+                foreach ($worksheet->getChartCollection() as $chart) {
+                    ++$chartRef;
+
                     $this->writeRelationship(
                         $objWriter,
                         $i++,
-                        Namespaces::RELATIONSHIPS_CHART,
-                        '../charts/chart' . ++$chartRef . '.xml'
+                        $chart->getChartEx() === null
+                            ? Namespaces::RELATIONSHIPS_CHART
+                            : Namespaces::RELATIONSHIPS_CHART_EX,
+                        $chart->getChartEx() === null
+                            ? '../charts/chart' . $chartRef . '.xml'
+                            : '../charts/chartEx' . $chartRef . '.xml'
                     );
                 }
             }
@@ -452,7 +515,7 @@ class Rels extends WriterPart
                 $objWriter,
                 $key,
                 Namespaces::IMAGE,
-                '../media/' . $value->getIndexedFilename()
+                '../media/' . $this->getParentWriter()->getDrawingMediaFilename($value)
             );
         }
 

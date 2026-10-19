@@ -37,21 +37,21 @@ class IOFactoryRegisterTest extends TestCase
     {
         $this->expectException(Writer\Exception::class);
         $this->expectExceptionMessage('writers must implement');
-        IOFactory::registerWriter('foo', 'bar'); // @phpstan-ignore-line
+        IOFactory::registerWriter('foo', 'bar'); // @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public function testRegisterInvalidReader(): void
     {
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('readers must implement');
-        IOFactory::registerReader('foo', 'bar'); // @phpstan-ignore-line
+        IOFactory::registerReader('foo', 'bar'); // @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public function testRegisterReaderNotReader2(): void
     {
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('readers must implement');
-        IOFactory::registerReader('Custom', CustomReaderNot2::class); // @phpstan-ignore-line
+        IOFactory::registerReader('Custom', CustomReaderNot2::class); // @phpstan-ignore argument.type (deliberate testing runtime)
     }
 
     public function testRegisterReader2EmptyListWorksheet(): void

@@ -457,7 +457,9 @@ class Charts32ScatterTest extends AbstractFunctional
         $file = self::DIRECTORY . '32readwriteScatterChart9.xlsx';
         $reader = new XlsxReader();
         $reader->setIncludeCharts(true);
-        $spreadsheet = $reader->load($file);
+        $oldspreadsheet = $reader->load($file);
+        $spreadsheet = clone $oldspreadsheet;
+        $oldspreadsheet->disconnectWorksheets();
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame(1, $sheet->getChartCount());
         /** @var callable */

@@ -16,8 +16,9 @@ This is the master branch, and is maintained for security and bug fixes.
 
 LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
 [end of life](https://www.php.net/supported-versions) of that PHP version.
+Dropping support for versions after that date will not be considered a breaking change.
 
-Currently the required PHP minimum version is PHP __8.1__, and we [will support that version](https://www.php.net/supported-versions.php) until 30th June 2026.
+Currently the required PHP minimum version is PHP __8.2__, and we [will support that version](https://www.php.net/supported-versions.php) until 30th June 2027.
 
 See the `composer.json` for other requirements.
 

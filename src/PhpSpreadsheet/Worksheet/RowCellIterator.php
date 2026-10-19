@@ -142,7 +142,15 @@ class RowCellIterator extends CellIterator
     {
         do {
             ++$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex)) && ($this->currentColumnIndex <= $this->endColumnIndex));
+        } while (
+            $this->onlyExistingCells
+            && $this->currentColumnIndex <= $this->endColumnIndex
+            && !$this->cellCollection->has(
+                Coordinate::stringFromColumnIndex(
+                    $this->currentColumnIndex
+                ) . $this->rowIndex
+            )
+        );
     }
 
     /**
@@ -152,7 +160,15 @@ class RowCellIterator extends CellIterator
     {
         do {
             --$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex)) && ($this->currentColumnIndex >= $this->startColumnIndex));
+        } while (
+            $this->onlyExistingCells
+            && $this->currentColumnIndex >= $this->startColumnIndex
+            && !$this->cellCollection->has(
+                Coordinate::stringFromColumnIndex(
+                    $this->currentColumnIndex
+                ) . $this->rowIndex
+            )
+        );
     }
 
     /**
@@ -177,10 +193,28 @@ class RowCellIterator extends CellIterator
     protected function adjustForExistingOnlyRange(): void
     {
         if ($this->onlyExistingCells) {
-            while ((!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->startColumnIndex) . $this->rowIndex)) && ($this->startColumnIndex <= $this->endColumnIndex)) {
+            while (
+                $this->startColumnIndex <= $this->endColumnIndex
+                && (
+                    !$this->cellCollection->has(
+                        Coordinate::stringFromColumnIndex(
+                            $this->startColumnIndex
+                        ) . $this->rowIndex
+                    )
+                )
+            ) {
                 ++$this->startColumnIndex;
             }
-            while ((!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->endColumnIndex) . $this->rowIndex)) && ($this->endColumnIndex >= $this->startColumnIndex)) {
+            while (
+                $this->endColumnIndex >= $this->startColumnIndex
+                && (
+                    !$this->cellCollection->has(
+                        Coordinate::stringFromColumnIndex(
+                            $this->endColumnIndex
+                        ) . $this->rowIndex
+                    )
+                )
+            ) {
                 --$this->endColumnIndex;
             }
         }

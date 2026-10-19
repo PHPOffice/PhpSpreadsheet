@@ -3,15 +3,22 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com)
-and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
+and this project adheres to [Semantic Versioning](https://semver.org). This is always true of the master branch.
+Dropping support for EOL versions of PHP will not be considered
+a breaking change.
 
-## TBD - 5.9.0
+Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
+
+## TBD - 5.11.0
 
 ### Added
 
-- Navigate Cell as Cursor. [Issue #863](https://github.com/PHPOffice/PhpSpreadsheet/issues/863) [PR #4909](https://github.com/PHPOffice/PhpSpreadsheet/pull/4909)
-- Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
-- Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
+- Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
+- Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
+- Support for Windows Metafiles images (WMF, EMF and EMF+), using the `phpoffice/wmf` library: Xlsx Writer stores them as is, Ods, Xls, Html and Pdf Writers and comment backgrounds use a PNG rendering; Xlsx and Ods Writers can switch with `setConvertMetafilesToPng()` (new in `BaseWriter`), and `MemoryDrawing::fromString()` / `fromStream()` accept them. New methods `Drawing::isMetafile()` and `Drawing::getMetafileType()`, and new helper `Shared\Metafile`.
+- `Document\Properties::setLanguage()`: the language of a spreadsheet as a BCP 47 tag, written and read as `dc:language` in Xlsx and Ods; the Ods writer also gives it to the default cell style, where LibreOffice keeps a spreadsheet's language, as LibreOffice writes it (the Western, Asian or complex slot by script, and `style:rfc-language-tag` for a tag with more than a language and a country), and the Ods reader reads it from there when there is no `dc:language`. Html writes and reads it as the `lang` of the `html` element. [Issue #5040](https://github.com/PHPOffice/PhpSpreadsheet/issues/5040) [PR #5041](https://github.com/PHPOffice/PhpSpreadsheet/pull/5041)
+- Xlsx Writer and Reader: `Chart::setDescription()` is the alternative text of a chart, written as `descr` of the chart's frame and read back, and the frame takes the chart's name; LibreOffice exports it as `/Alt` of the chart in a tagged PDF. [Issue #5038](https://github.com/PHPOffice/PhpSpreadsheet/issues/5038) [PR #5039](https://github.com/PHPOffice/PhpSpreadsheet/pull/5039)
+- `BaseDrawing::setDecorative()` marks an image as decorative. Xlsx writes and reads it as Excel and LibreOffice do (`adec:decorative` in the image's `cNvPr`), Ods as LibreOffice does (`loext:decorative` in the frame's graphic style, which the writer now defines; the reader also takes ODF 1.4's `draw:decorative`); LibreOffice then leaves the image out of a tagged PDF as an artifact. Html writes and reads it as an empty `alt`. [Issue #5036](https://github.com/PHPOffice/PhpSpreadsheet/issues/5036) [PR #5037](https://github.com/PHPOffice/PhpSpreadsheet/pull/5037)
 
 ### Removed
 
@@ -19,7 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Changed
 
-- Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
+- `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
+- The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
+- Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
 
 ### Moved
 
@@ -27,7 +36,83 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ### Deprecated
 
-- Nothing yet.
+- Deprecate `_calculateFormulaValue` for `calculateFormulaValue`. [PR #4992](https://github.com/PHPOffice/PhpSpreadsheet/pull/4992)
+- Tcpdf V6 is now officially deprecated. We will continue to support it for now, but are considering dropping support with the next major PhpSpreadsheet release.
+
+### Fixed
+
+- `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
+- Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
+- A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
+- OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
+- MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
+- `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
+- Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
+- Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
+- Documentation infrastructure tweaks. [PR #4994](https://github.com/PHPOffice/PhpSpreadsheet/issues/4994) [PR #4999](https://github.com/PHPOffice/PhpSpreadsheet/issues/4999)
+- Ods Writer writes a right-to-left sheet as `style:writing-mode="rl-tb"`, and Ods Reader reads it back; the direction was lost both ways. [Issue #5015](https://github.com/PHPOffice/PhpSpreadsheet/issues/5015) [PR #5016](https://github.com/PHPOffice/PhpSpreadsheet/pull/5016)
+- Ods Writer writes a link to another sheet as `#Sheet.A1`, as ODF and LibreOffice do, and Ods Reader reads that form back as `sheet://Sheet!A1`, so a Xlsx saved from it no longer gets a broken location. [Issue #5011](https://github.com/PHPOffice/PhpSpreadsheet/issues/5011) [PR #5012](https://github.com/PHPOffice/PhpSpreadsheet/pull/5012)
+- Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
+- Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008) [PR #5021](https://github.com/PHPOffice/PhpSpreadsheet/pull/5021)
+- Ods Writer keeps the hyperlink of a number, boolean or formula cell, and Ods Reader reads it back; only text cells had one. [Issue #5013](https://github.com/PHPOffice/PhpSpreadsheet/issues/5013) [PR #5014](https://github.com/PHPOffice/PhpSpreadsheet/pull/5014)
+- Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
+- Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
+- Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
+- `removeColumn()` no longer throws "Invalid column index 0" when it removes column A and every column up to the highest data column, e.g. `removeColumn('A')` on an empty sheet. [Issue #5049](https://github.com/PHPOffice/PhpSpreadsheet/issues/5049) [PR #5050](https://github.com/PHPOffice/PhpSpreadsheet/pull/5050)
+- `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
+- Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
+- Branch pruning no longer throws "internal error" for an IF nested in the condition of another IF inside a pruned branch. [Issue #3755](https://github.com/PHPOffice/PhpSpreadsheet/issues/3755) [Issue #3790](https://github.com/PHPOffice/PhpSpreadsheet/issues/3790) [PR #5055](https://github.com/PHPOffice/PhpSpreadsheet/pull/5055)
+- Xls Writer no longer loses EMF and WMF images (they are written as PNG); the resulting file could not be read back (`Call to a member function getBlipType() on null`). [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xls Reader reads EMF and WMF pictures (as PNG `MemoryDrawing`); they were ignored. [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
+- Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
+- Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
+
+## 2026-09-15 - 5.10.0
+
+### Added
+
+- XLSX password-to-open encryption and decryption using Office Agile encryption. [Issue #3878](https://github.com/PHPOffice/PhpSpreadsheet/issues/3878) [PR #4975](https://github.com/PHPOffice/PhpSpreadsheet/pull/4975) [PR #4988](https://github.com/PHPOffice/PhpSpreadsheet/pull/4988)
+- Support for Excel sparklines (line, column, and win/loss) in Xlsx reader and writer. [Issue #4941](https://github.com/PHPOffice/PhpSpreadsheet/issues/4941)
+- Read-only object model for Pivot Tables. Existing pivot tables in an Xlsx file are now parsed into `Worksheet\PivotTable\PivotTable` objects (name, location, source cache definition, and row/column/page/data field layout), accessible via `Worksheet::getPivotTableCollection()` / `getPivotTableByName()`. Pivot tables (their tables, caches and records) are now also preserved through an Xlsx load/save round-trip instead of being silently dropped. [Issue #4534](https://github.com/PHPOffice/PhpSpreadsheet/issues/4534)
+
+### Changed
+
+- Performance: avoid `Worksheet::getStyle()` on every `Cell::setValueExplicit()` unless quote-prefix must change. On a dense 40k-cell populate+save microbenchmark this cut wall time by ~5%. [PR #4958](https://github.com/PHPOffice/PhpSpreadsheet/pull/4958)
+- Infrastructure changes for documentation. [PR #4973](https://github.com/PHPOffice/PhpSpreadsheet/pull/4973)
+
+### Fixed
+
+- Security patches.
+- Xls Writer now creates conformant CFB/DIFAT metadata at FAT-sector boundaries. [Issue #4811](https://github.com/PHPOffice/PhpSpreadsheet/issues/4811) [PR #4983](https://github.com/PHPOffice/PhpSpreadsheet/pull/4983)
+- Ods Reader/Writer Drawings. [Issue #4809](https://github.com/PHPOffice/PhpSpreadsheet/issues/4809) [PR #4956](https://github.com/PHPOffice/PhpSpreadsheet/pull/4956)
+- Ods Writer no longer converts cell references or commas inside string literals, so `="THIS IS E1"` is written unchanged instead of as `="THIS IS [.E1]"`. [Issue #4454](https://github.com/PHPOffice/PhpSpreadsheet/issues/4454) [PR #4962](https://github.com/PHPOffice/PhpSpreadsheet/pull/4962)
+- Ods Reader/Writer slight improvement for Date styles. [PR #4960](https://github.com/PHPOffice/PhpSpreadsheet/pull/4960)
+- BETAINV/BETA.INV no longer abandons its search when the Beta CDF underflows to zero (wrong results for alpha above about 1080). [PR #4954](https://github.com/PHPOffice/PhpSpreadsheet/pull/4954)
+- GAMMA.INV, the GAMMA.DIST/CHISQ.DIST/F.DIST densities, and GAMMALN no longer fail or return wrong results for large shape parameters / degrees of freedom. [PR #4953](https://github.com/PHPOffice/PhpSpreadsheet/pull/4953)
+- GAMMAINV/GAMMA.INV no longer clamps upper-tail quantiles beyond alpha*beta*5. [PR #4946](https://github.com/PHPOffice/PhpSpreadsheet/pull/4946)
+- Correct incomplete gamma convergence for GAMMA.DIST/CHISQ.DIST family (wrong once the series argument reached ~32). [PR #4945](https://github.com/PHPOffice/PhpSpreadsheet/pull/4945)
+- Fix problem with VLOOKUP and whole-column ranges. [Issue #4969](https://github.com/PHPOffice/PhpSpreadsheet/issues/4969) [PR #4967](https://github.com/PHPOffice/PhpSpreadsheet/pull/4967)
+- Problem with Xlsx Writer and header-row table. [PR #4968](https://github.com/PHPOffice/PhpSpreadsheet/pull/4968)
+- Throw when Ods Reader encounters invalid Xml. [PR #4986](https://github.com/PHPOffice/PhpSpreadsheet/pull/4986)
+- Update Sheetname in Charts when Sheetname changes. [Issue #744](https://github.com/PHPOffice/PhpSpreadsheet/issues/744) [PR #4984](https://github.com/PHPOffice/PhpSpreadsheet/pull/4984)
+
+## 2026-07-12 - 5.9.0
+
+### Removed
+
+- **Drop support for PHP 8.1**, according to [our published guidelines](https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support). [PR #4907](https://github.com/PHPOffice/PhpSpreadsheet/pull/4907)
+
+### Added
+
+- Navigate Cell as Cursor. [Issue #863](https://github.com/PHPOffice/PhpSpreadsheet/issues/863) [PR #4909](https://github.com/PHPOffice/PhpSpreadsheet/pull/4909)
+- Chart DataTables. [Issue #413](https://github.com/PHPOffice/PhpSpreadsheet/issues/413) [PR #4911](https://github.com/PHPOffice/PhpSpreadsheet/pull/4911)
+- Permit Ignoring "Misleading Format" Tag. [PR #4914](https://github.com/PHPOffice/PhpSpreadsheet/pull/4914)
+
+### Changed
+
+- Restructure parsing logic in Reader/Xlsx. [PR #4830](https://github.com/PHPOffice/PhpSpreadsheet/pull/4830)
 
 ### Fixed
 
@@ -76,18 +161,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Make Reader/Csv Extendable, add new preferred Reader/CsvNoEscape class. [Issue #4836](https://github.com/PHPOffice/PhpSpreadsheet/issues/4836) [PR #4837](https://github.com/PHPOffice/PhpSpreadsheet/pull/4837) [PR #4845](https://github.com/PHPOffice/PhpSpreadsheet/pull/4845)
 - XLOOKUP function. [Issue #1453](https://github.com/PHPOffice/PhpSpreadsheet/issues/1453) [PR #4844](https://github.com/PHPOffice/PhpSpreadsheet/pull/4844)
 - Introduction of a benchmark test suite, independent of the default unit test suite. Users can use it as a template for experimenting and making decisions concerning performance. [PR #4824](https://github.com/PHPOffice/PhpSpreadsheet/pull/4824)
-
-### Removed
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
 
 ### Deprecated
 
@@ -419,18 +492,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Worksheet::getProtectedCells - use getProtectedCellRanges instead.
 - Writer/Html::isMpdf property - use instanceof Mpdf instead.
 
-### Changed
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
-
 ### Fixed
 
 - Xls writer Parser Mishandling True/False Argument. [Issue #4331](https://github.com/PHPOffice/PhpSpreadsheet/issues/4331) [PR #4333](https://github.com/PHPOffice/PhpSpreadsheet/pull/4333)
@@ -483,22 +544,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ## 2024-12-08 - 3.6.0
 
-### Added
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
-
 ### Fixed
 
 - Html Reader/Writer Better Handling of Booleans. [PR #4257](https://github.com/PHPOffice/PhpSpreadsheet/pull/4257)
@@ -511,17 +556,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ## 2024-11-22 - 3.5.0
 
-### Added
-
-- Nothing yet.
-
 ### Changed
 
 - Settings::libXmlLoaderOptions is ignored. [PR #4233](https://github.com/PHPOffice/PhpSpreadsheet/pull/4233)
-
-### Moved
-
-- Nothing yet.
 
 ### Deprecated
 
@@ -555,10 +592,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Worksheet::getProtectedCells was deprecated in release 2, but was not properly documented, and not removed in release 3. Use getProtectedCellRanges instead.
 - Writer/Html::isMpdf property was deprecated in release 2, but was not properly documented, and not removed in release 3. Use instanceof Mpdf instead.
 
-### Moved
-
-- Nothing yet.
-
 ### Fixed
 
 - Xls Writer Condtional Rules Applied to Whole Rows or Columns. [Issue #3185](https://github.com/PHPOffice/PhpSpreadsheet/issues/3185) [PR #4152](https://github.com/PHPOffice/PhpSpreadsheet/pull/4152)
@@ -590,10 +623,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Currency and Accounting Wizards are changed to act like Excel, and a new CurrencyBase Wizard is added for for non-Excel formats. [Issue #4125](https://github.com/PHPOffice/PhpSpreadsheet/issues/4125) [Issue #4124](https://github.com/PHPOffice/PhpSpreadsheet/issues/4124) [PR #4127](https://github.com/PHPOffice/PhpSpreadsheet/pull/4127)
 - Images will not be added to spreadsheet if they cannot be validated as images.
 
-### Deprecated
-
-- Nothing yet.
-
 ### Removed
 
 - The following items were deprecated in release 2 and are now removed.
@@ -601,10 +630,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Reader\Xml::trySimpleXMLLoadString (should not have been public, no public replacement).
 - Calculation\Calculation::_translateFormulaToLocale (use method name translateFormulaToLocale without leading underscore).
 - Calculation\Calculation::_translateFormulaToEnglish (use method name translateFormulaToEnglish without leading underscore).
-
-### Moved
-
-- Nothing yet.
 
 ### Fixed
 
@@ -614,22 +639,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Improve Xlsx Reader Speed. [Issue #3917](https://github.com/PHPOffice/PhpSpreadsheet/issues/3917) [PR #4153](https://github.com/PHPOffice/PhpSpreadsheet/pull/4153)
 
 ## 2024-08-07 - 2.2.2
-
-### Added
-
-- Nothing yet.
-
-### Changed
-
-- Nothing yet.
-
-### Deprecated
-
-- Nothing yet.
-
-### Moved
-
-- Nothing yet.
 
 ### Fixed
 
@@ -663,15 +672,11 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Changed
 
 - On read, Xlsx Reader had been breaking up union ranges into separate individual ranges. It will now try to preserve range as it was read in. [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
-- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071) 
+- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071)
 
 ### Deprecated
 
 - Writer\Xls\Style\ColorMap is no longer needed.
-
-### Moved
-
-- Nothing
 
 ### Fixed
 
@@ -707,17 +712,9 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Default Style Alignment Property (workaround for bug in non-Excel spreadsheet apps) [Issue #3918](https://github.com/PHPOffice/PhpSpreadsheet/issues/3918) [PR #3924](https://github.com/PHPOffice/PhpSpreadsheet/pull/3924)
 - Additional Support for Date/Time Styles [PR #3939](https://github.com/PHPOffice/PhpSpreadsheet/pull/3939)
 
-### Changed
-
-- Nothing
-
 ### Deprecated
 
 - Reader/Xml trySimpleXMLLoadString should not have had public visibility, and will be removed.
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -744,7 +741,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### BREAKING CHANGE
 
 - Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
-  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis 
+  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis
   tools such as PHPStan or Psalm, new errors might be found. If you find actual bugs because of the new typing, please
   open a PR that fixes it with a **detailed** explanation of the reason. We'll try to merge and release typing-related
   fixes quickly in the coming days. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
@@ -779,10 +776,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Deprecated
 
 - Functions `_translateFormulaToLocale` and `_translateFormulaEnglish` are replaced by versions without leading underscore. [PR #3828](https://github.com/PHPOffice/PhpSpreadsheet/pull/3828)
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -851,14 +844,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Allow `CellRange` and `CellAddress` objects for the `range` argument in the `rangeToArray()` method. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
 - Stock charts will now read and reproduce `upDownBars` and subsidiary tags; these were previously ignored on read and hard-coded on write. [PR #3515](https://github.com/PHPOffice/PhpSpreadsheet/pull/3515)
 
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Updates Cell formula absolute ranges/references, and Defined Name absolute ranges/references when inserting/deleting rows/columns. [Issue #3368](https://github.com/PHPOffice/PhpSpreadsheet/issues/3368) [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3402)
@@ -907,7 +892,7 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Improved handling for @ placeholder in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
 - Improved handling for ? placeholder in Number Format Masks [PR #3394](https://github.com/PHPOffice/PhpSpreadsheet/pull/3394)
-- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374) 
+- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374)
 - Improved support for locale settings and matching in the Advanced Value Binder [PR #3376](https://github.com/PHPOffice/PhpSpreadsheet/pull/3376)
 - `toFormattedString` will now always return a string. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 - Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD is changed. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577) [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
@@ -915,10 +900,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Deprecated
 
 - Rationalisation of Pre-defined Currency Format Masks [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -933,22 +914,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 ## 1.27.1 - 2023-02-08
 
-### Added
-
-- Nothing
-
-### Changed
-
-- Nothing
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Fix Composer --dev dependency issue with dealerdirect/phpcodesniffer-composer-installer renaming their `master` branch to `main`
@@ -962,14 +927,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Option for Cell Iterator to return a null value or create and return a new cell when accessing a cell that doesn't exist [PR #3314](https://github.com/PHPOffice/PhpSpreadsheet/pull/3314)
 - Support for Structured References in the Calculation Engine [PR #3261](https://github.com/PHPOffice/PhpSpreadsheet/pull/3261)
 - Limited Support for Form Controls [PR #3130](https://github.com/PHPOffice/PhpSpreadsheet/pull/3130) [Issue #2396](https://github.com/PHPOffice/PhpSpreadsheet/issues/2396) [Issue #1770](https://github.com/PHPOffice/PhpSpreadsheet/issues/1770) [Issue #2388](https://github.com/PHPOffice/PhpSpreadsheet/issues/2388) [Issue #2904](https://github.com/PHPOffice/PhpSpreadsheet/issues/2904) [Issue #2661](https://github.com/PHPOffice/PhpSpreadsheet/issues/2661)
-
-### Changed
-
-- Nothing
-
-### Deprecated
-
-- Nothing
 
 ### Removed
 
@@ -996,20 +953,12 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
 - Permit Date/Time Entered on Spreadsheet to be calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
 
-### Changed
-
-- Nothing
-
 ### Deprecated
 
 - Direct update of Calculation::suppressFormulaErrors is replaced with setter.
 - Font public static variable defaultColumnWidths replaced with constant DEFAULT_COLUMN_WIDTHS.
 - ExcelError public static variable errorCodes replaced with constant ERROR_CODES.
 - NumberFormat constant FORMAT_DATE_YYYYMMDD2 replaced with existing identical FORMAT_DATE_YYYYMMDD.
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -1038,22 +987,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 
 ## 1.25.2 - 2022-09-25
-
-### Added
-
-- Nothing
-
-### Changed
-
-- Nothing
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -1087,10 +1020,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 - Misspelled Properties::LINE_STYLE_DASH_SQUERE_DOT deprecated in favor of LINE_STYLE_DASH_SQUARE_DOT.
 - Clone not permitted for Spreadsheet. Spreadsheet->copy() can be used instead.
 
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Fix update to defined names when inserting/deleting rows/columns [Issue #3076](https://github.com/PHPOffice/PhpSpreadsheet/issues/3076) [PR #3077](https://github.com/PHPOffice/PhpSpreadsheet/pull/3077)
@@ -1118,18 +1047,6 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 
 - Support for SimpleCache Interface versions 1.0, 2.0 and 3.0
 - Add Chart Axis Option textRotation [Issue #2705](https://github.com/PHPOffice/PhpSpreadsheet/issues/2705) [PR #2940](https://github.com/PHPOffice/PhpSpreadsheet/pull/2940)
-
-### Changed
-
-- Nothing
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -1170,14 +1087,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
   See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
 - Improved performance for removing rows/columns from a worksheet
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -1258,10 +1167,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
   This change provides more consistency in the methods (not every "by cell address" method has an equivalent "byColumnAndRow" method);
   and the "by cell address" methods often provide more flexibility, such as allowing a range of cells, or referencing them by passing the defined name of a named range as the argument.
 
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Make allowance for the AutoFilter dropdown icon in the first row of an Autofilter range when using Autosize columns. [Issue #2413](https://github.com/PHPOffice/PhpSpreadsheet/issues/2413) [PR #2754](https://github.com/PHPOffice/PhpSpreadsheet/pull/2754)
@@ -1329,14 +1234,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Extract some methods from the Calculation Engine into dedicated classes [#2537](https://github.com/PHPOffice/PhpSpreadsheet/issues/2537)
 - Eliminate calls to `flattenSingleValue()` that are no longer required when we're checking for array values as arguments [#2590](https://github.com/PHPOffice/PhpSpreadsheet/issues/2590)
 
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Fixed `ReferenceHelper@insertNewBefore` behavior when removing column before last column with null value [PR #2541](https://github.com/PHPOffice/PhpSpreadsheet/pull/2541)
@@ -1371,14 +1268,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
 - Xlsx Writer will evaluate AutoFilter only if it is as yet unevaluated, or has changed since it was last evaluated [PR #2414](https://github.com/PHPOffice/PhpSpreadsheet/pull/2414)
 
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
 ### Fixed
 
 - Rounding in `NumberFormatter` [Issue #2385](https://github.com/PHPOffice/PhpSpreadsheet/issues/2385) [PR #2399](https://github.com/PHPOffice/PhpSpreadsheet/pull/2399)
@@ -1408,14 +1297,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
 - Drop support for PHP 7.2, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
 - Use native typing for objects that were already documented as such
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
 
 ### Fixed
 
@@ -1450,17 +1331,9 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Ability to stream to an Amazon S3 bucket [Issue #2249](https://github.com/PHPOffice/PhpSpreadsheet/issues/2249)
 - Provided a Size Helper class to validate size values (pt, px, em) [PR #1694](https://github.com/PHPOffice/PhpSpreadsheet/pull/1694)
 
-### Changed
-
-- Nothing.
-
 ### Deprecated
 
 - PHP 8.1 will deprecate auto_detect_line_endings. As a result of this change, Csv Reader using some release after PHP8.1 will no longer be able to handle a Csv with Mac line endings.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
@@ -1584,10 +1457,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
   This makes the logic in these classes easier to maintain; and will reduce the memory footprint required to execute formulae when calling these functions.
 
-### Removed
-
-- Nothing.
-
 ### Fixed
 
 - Avoid Duplicate Titles When Reading Multiple HTML Files.[Issue #1823](https://github.com/PHPOffice/PhpSpreadsheet/issues/1823) [PR #1829](https://github.com/PHPOffice/PhpSpreadsheet/pull/1829)
@@ -1616,10 +1485,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 ### Deprecated
 
 - All Excel Function implementations in `Calculation\Database`, `Calculation\DateTime`, `Calculation\Engineering`, `Calculation\Financial`, `Calculation\Logical`, `Calculation\LookupRef`, `Calculation\MathTrig`, `Calculation\Statistical`, `Calculation\TextData` and `Calculation\Web` have been moved to dedicated classes for individual functions or groups of related functions. See the docblocks against all the deprecated methods for details of the new methods to call instead. At some point, these old classes will be deleted.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
@@ -1680,10 +1545,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - **IMPORTANT NOTE:** This Introduces a **BC break** in the handling of named ranges. Previously, a named range cell reference of `B2` would be treated identically to a named range cell reference of `$B2` or `B$2` or `$B$2` because the calculation engine treated then all as absolute references. These changes "fix" that, so the calculation engine now handles relative references in named ranges correctly.
   This change that resolves previously incorrect behaviour in the calculation may affect users who have dynamically defined named ranges using relative references when they should have used absolute references.
 
-### Removed
-
-- Nothing.
-
 ### Fixed
 
 - PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544)
@@ -1693,10 +1554,6 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Bug setting Superscript/Subscript to false [#1567](https://github.com/phpoffice/phpspreadsheet/pull/1567)
 
 ## 1.14.1 - 2020-07-19
-
-### Added
-
-- nothing
 
 ### Fixed
 

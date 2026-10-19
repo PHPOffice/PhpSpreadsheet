@@ -31,6 +31,7 @@ use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
 use XMLReader;
@@ -39,6 +40,14 @@ use ZipArchive;
 class Ods extends BaseReader
 {
     const INITIAL_FILE = 'content.xml';
+
+    private const DRAW_NS = 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0';
+
+    private const LOEXT_NS = 'urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0';
+
+    private ZipArchive $zip;
+
+    private string $filename;
 
     /**
      * Create a new Ods Reader instance.
@@ -209,6 +218,7 @@ class Ods extends BaseReader
                     if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                         $rowspan = $xml->getAttribute('table:number-rows-repeated');
                         $rowspan = empty($rowspan) ? 1 : (int) $rowspan;
+                        self::checkRowsRepeated($currRow, $rowspan);
                         $currRow += $rowspan;
                         $currCol = 0;
                         // Step into the row
@@ -218,6 +228,10 @@ class Ods extends BaseReader
                             if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                 $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
+                                self::checkColumnsRepeatedInt(
+                                    $currCol,
+                                    $mergeSize
+                                );
                                 $currCol += $mergeSize;
                                 if (!$xml->isEmptyElement) {
                                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCol);
@@ -227,6 +241,11 @@ class Ods extends BaseReader
                                 }
                             } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $mergeSize = $xml->getAttribute('table:number-columns-repeated');
+                                $mergeSize = empty($mergeSize) ? 1 : (int) $mergeSize;
+                                self::checkColumnsRepeatedInt(
+                                    $currCol,
+                                    $mergeSize
+                                );
                                 $currCol += (int) $mergeSize;
                             }
                             if ($doread) {
@@ -303,7 +322,16 @@ class Ods extends BaseReader
     /** @var string[] */
     private array $numberFormats;
 
+    /** @var array<string, true> The graphic styles that make a frame decorative */
+    private array $decorativeStyles = [];
+
     private int $highestDataIndex;
+
+    /** @var array<string, string> links LibreOffice keeps in a cell style, by style name */
+    private array $styleHyperlinks = [];
+
+    /** @var array<int, string> default cell style of a column of the current sheet, only where it has a link */
+    private array $columnHyperlinkStyles = [];
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
@@ -312,7 +340,8 @@ class Ods extends BaseReader
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
-        $zip = new ZipArchive();
+        $this->zip = $zip = new ZipArchive();
+        $this->filename = $filename;
         $zip->open($filename);
 
         // Meta
@@ -322,7 +351,7 @@ class Ods extends BaseReader
                 ->scan($zip->getFromName('meta.xml'))
         );
         if ($xml === false) {
-            throw new Exception('Unable to read data from {$pFilename}');
+            throw new Exception("Unable to read data from {$filename}");
         }
 
         /** @var array{meta?: string, office?: string, dc?: string} */
@@ -333,11 +362,7 @@ class Ods extends BaseReader
         // Styles
 
         $this->allStyles = $this->numberFormats = [];
-        $dom = new DOMDocument('1.01', 'UTF-8');
-        $dom->loadXML(
-            $this->getSecurityScannerOrThrow()
-                ->scan($zip->getFromName('styles.xml'))
-        );
+        $dom = $this->loadDom('styles.xml', $zip);
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $styleNs = (string) $dom->lookupNamespaceUri('style');
         $fontNs = (string) $dom->lookupNamespaceUri('fo');
@@ -345,6 +370,15 @@ class Ods extends BaseReader
         $tableNs = (string) $dom->lookupNamespaceUri('table');
         $textNs = (string) $dom->lookupNamespaceUri('text');
         $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
+
+        // LibreOffice keeps the language of a spreadsheet there, not in dc:language; read even with readDataOnly
+        foreach ($dom->getElementsByTagNameNS($styleNs, 'default-style') as $defaultStyle) {
+            if ($spreadsheet->getProperties()->getLanguage() === '' && $defaultStyle->getAttributeNS($styleNs, 'family') === 'table-cell') {
+                foreach ($defaultStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $spreadsheet->getProperties()->setLanguage(self::languageTag($textProperty, $styleNs, $fontNs));
+                }
+            }
+        }
 
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
@@ -403,13 +437,20 @@ class Ods extends BaseReader
 
         // Main Content
 
-        $dom = new DOMDocument('1.01', 'UTF-8');
-        $dom->loadXML(
-            $this->getSecurityScannerOrThrow()
-                ->scan($zip->getFromName(self::INITIAL_FILE))
-        );
+        $dom = $this->loadDom(self::INITIAL_FILE, $zip);
 
         $pageSettings->readStyleCrossReferences($dom);
+
+        // LibreOffice writes the link of a non-text cell into its style, as
+        // <style:table-cell-properties><style:hyperlink xlink:href="..."/>, and loext:hyperlink next to it
+        $this->styleHyperlinks = [];
+        foreach ($dom->getElementsByTagNameNS($styleNs, 'table-cell-properties') as $cellProperties) {
+            foreach ($cellProperties->childNodes as $child) {
+                if ($child instanceof DOMElement && $child->localName === 'hyperlink' && $child->getAttributeNS($xlinkNs, 'href') !== '' && $cellProperties->parentNode instanceof DOMElement) {
+                    $this->styleHyperlinks[$cellProperties->parentNode->getAttributeNS($styleNs, 'name')] = $child->getAttributeNS($xlinkNs, 'href');
+                }
+            }
+        }
 
         $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
         $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
@@ -417,6 +458,20 @@ class Ods extends BaseReader
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        // Even with readDataOnly, which still reads the drawings
+        $this->decorativeStyles = [];
+        $graphicProperties = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0)?->getElementsByTagNameNS($styleNs, 'graphic-properties') ?? [];
+        foreach ($graphicProperties as $graphicProperty) {
+            $style = $graphicProperty->parentNode;
+            // loext as LibreOffice writes it, draw as ODF 1.4 does
+            if (
+                $style instanceof DOMElement
+                && $style->getAttributeNS($styleNs, 'family') === 'graphic'
+                && ($graphicProperty->getAttributeNS(self::LOEXT_NS, 'decorative') === 'true' || $graphicProperty->getAttributeNS(self::DRAW_NS, 'decorative') === 'true')
+            ) {
+                $this->decorativeStyles[$style->getAttributeNS($styleNs, 'name')] = true;
+            }
+        }
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
@@ -512,6 +567,7 @@ class Ods extends BaseReader
                 $rowID = 1;
                 $tableColumnIndex = 1;
                 $this->highestDataIndex = AddressRange::MAX_COLUMN_INT;
+                $this->columnHyperlinkStyles = [];
                 foreach ($worksheetDataSet->childNodes as $childNode) {
                     /** @var DOMElement $childNode */
 
@@ -603,6 +659,10 @@ class Ods extends BaseReader
                     }
                 }
                 $pageSettings->setVisibilityForWorksheet(
+                    $spreadsheet->getActiveSheet(),
+                    $worksheetStyleName
+                );
+                $pageSettings->setRightToLeftForWorksheet(
                     $spreadsheet->getActiveSheet(),
                     $worksheetStyleName
                 );
@@ -708,6 +768,8 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+        $zip->close();
+        unset($this->zip);
 
         // Return
         return $spreadsheet;
@@ -817,6 +879,7 @@ class Ods extends BaseReader
         } else {
             $rowRepeats = 1;
         }
+        self::checkRowsRepeated($rowID, $rowRepeats);
         $worksheet = $spreadsheet->getSheetByName($worksheetName);
 
         $columnID = 'A';
@@ -830,6 +893,8 @@ class Ods extends BaseReader
             } else {
                 $colRepeats = 1;
             }
+            $columnIndex = Coordinate::columnIndexFromString($columnID);
+            self::checkColumnsRepeated($columnID, $colRepeats);
             $styleName = $cellData->getAttributeNS($tableNs, 'style-name');
             if ($styleName === '') {
                 if ($worksheet === null || !$worksheet->columnDimensionExists($columnID)) {
@@ -881,7 +946,9 @@ class Ods extends BaseReader
                 }
                 // Fall through to process the cell, with per-column filter checks
             }
-            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
+            $tempSpannedRange = "$columnID$rowID";
+            $spannedRange = '';
+            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null) || $cellData->hasAttributeNS($tableNs, 'formula')) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
                 // and does no harm for xlsx/xls.
@@ -977,6 +1044,8 @@ class Ods extends BaseReader
                 // Filter text:p elements
                 if ($item->nodeName == 'text:p') {
                     $paragraphs[] = $item;
+                } elseif ($item->nodeName === 'draw:frame' && $worksheet !== null) {
+                    $this->processDrawFrame($spannedRange ?: $tempSpannedRange, $item, $worksheet);
                 }
             }
 
@@ -1010,17 +1079,19 @@ class Ods extends BaseReader
                     }
                 }
 
+                foreach ($paragraphs as $paragraph) {
+                    $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                    if ($link->length > 0 && $link->item(0) !== null) {
+                        $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                    }
+                }
+                // A cell without a style takes the default cell style of its column
+                $hyperlink ??= $this->styleHyperlinks[$styleName === '' ? ($this->columnHyperlinkStyles[$columnIndex] ?? '') : $styleName] ?? null;
+
                 switch ($type) {
                     case 'string':
                         $type = DataType::TYPE_STRING;
                         $dataValue = $allCellDataText;
-
-                        foreach ($paragraphs as $paragraph) {
-                            $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
-                            if ($link->length > 0 && $link->item(0) !== null) {
-                                $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
-                            }
-                        }
 
                         break;
                     case 'boolean':
@@ -1081,17 +1152,20 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $value = $cellData->getAttributeNS($officeNs, 'date-value');
                         $dataValue = Date::convertIsoDate($value);
+                        $format15 = Preg::isMatch('/\d\d\d\d/', $allCellDataText) ? NumberFormat::FORMAT_DATE_XLSX15_YYYY : NumberFormat::FORMAT_DATE_XLSX15;
 
                         if (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d$/', $allCellDataText)) {
                             $formatting = 'yyyy-mm-dd';
+                        } elseif (Preg::isMatch('/^\d\d\d\d-\d\d-\d\d \d\d:\d\d(:\d\d)?$/', $allCellDataText)) {
+                            $formatting = NumberFormat::FORMAT_DATE_DATETIME_BETTER;
                         } elseif (Preg::isMatch('/^\d\d?-[a-zA-Z]+-\d\d\d\d$/', $allCellDataText)) {
                             $formatting = 'd-mmm-yyyy';
-                        } elseif ($dataValue != floor($dataValue)) {
-                            $formatting = NumberFormat::FORMAT_DATE_XLSX15
+                        } elseif ($dataValue != floor($dataValue) || str_contains($allCellDataText, ':')) {
+                            $formatting = $format15
                                 . ' '
                                 . NumberFormat::FORMAT_DATE_TIME4;
                         } else {
-                            $formatting = NumberFormat::FORMAT_DATE_XLSX15;
+                            $formatting = $format15;
                         }
 
                         break;
@@ -1183,7 +1257,8 @@ class Ods extends BaseReader
 
                         if ($hyperlink !== null) {
                             if ($hyperlink[0] === '#') {
-                                $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                                // #Sheet.A1 as ODF writes it, #Sheet!A1 as older releases wrote it; a named range has no sheet
+                                $hyperlink = 'sheet://' . Preg::replace("/^('(?:[^']|'')*'|[^'.!]+)\\.(?=\\$?[A-Z]{1,3}\\$?\\d)/i", '$1!', substr($hyperlink, 1));
                             }
                             $cell->getHyperlink()
                                 ->setUrl($hyperlink);
@@ -1198,6 +1273,84 @@ class Ods extends BaseReader
             StringHelper::stringIncrement($columnID);
         }
         $rowID += $rowRepeats;
+    }
+
+    private function processDrawFrame(string $spannedRange, DOMElement $item, Worksheet $worksheet): void
+    {
+        $drawName = $item->getAttribute('draw:name');
+        $svgWidth = $item->getAttribute('svg:width');
+        $svgHeight = $item->getAttribute('svg:height');
+        $styleName = $item->getAttribute('draw:style-name');
+        $drawImage = null;
+        $description = '';
+        foreach ($item->childNodes as $node) {
+            // Check if the node is a standard element tag
+            if ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'draw:image' && $drawImage === null) {
+                /** @var DOMElement */
+                $drawImage = $node;
+            } elseif ($node->nodeType === XML_ELEMENT_NODE && $node->nodeName === 'svg:desc') {
+                $description = $node->textContent;
+            }
+        }
+
+        $xlinkHref = $xlinkType = $xlinkShow = '';
+        if ($drawImage !== null) {
+            $xlinkHref = $drawImage->getAttribute('xlink:href');
+            $xlinkType = $drawImage->getAttribute('xlink:type');
+            $xlinkShow = $drawImage->getAttribute('xlink:show');
+        }
+        if (
+            $drawName !== ''
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgWidth, $matchWidth)
+            && Preg::isMatch('/(\d+([.]\d+)?)(cm|in)/', $svgHeight, $matchHeight)
+            //&& $styleName === 'gr1'
+            && (str_starts_with($xlinkHref, 'Pictures/') || str_starts_with($xlinkHref, 'media/'))
+            && $xlinkType === 'simple'
+            && $xlinkShow === 'embed'
+        ) {
+            $drawing = new Drawing();
+            $drawing->setPath(
+                "zip://{$this->filename}#$xlinkHref",
+                true,
+                $this->zip,
+                false
+            );
+            $unit = [
+                'cm' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_CENTIMETERS],
+                'in' => HelperDimension::ABSOLUTE_UNITS[HelperDimension::UOM_INCHES],
+            ];
+            $width = ((float) $matchWidth[1]) * $unit[$matchWidth[3]];
+            $height = ((float) $matchHeight[1]) * $unit[$matchHeight[3]];
+            if ($drawing->getPath()) {
+                $drawing->setCoordinates($spannedRange)
+                    ->setWidth((int) $width)
+                    ->setHeight((int) $height)
+                    ->setName($drawName)
+                    ->setDescription($description)
+                    ->setDecorative(isset($this->decorativeStyles[$styleName]))
+                    ->setWorksheet($worksheet);
+            }
+        }
+    }
+
+    /**
+     * The language of text properties as a BCP 47 tag, or '' for none.
+     */
+    private static function languageTag(DOMElement $textProperties, string $styleNs, string $fontNs): string
+    {
+        $tag = $textProperties->getAttributeNS($styleNs, 'rfc-language-tag');
+        $language = strtolower($textProperties->getAttributeNS($fontNs, 'language'));
+        // zxx: no linguistic content
+        if ($tag !== '' || !Preg::isMatch('/^[a-z]{2,3}$/', $language) || $language === 'zxx') {
+            return $tag;
+        }
+        $script = $textProperties->getAttributeNS($fontNs, 'script');
+        $country = $textProperties->getAttributeNS($fontNs, 'country');
+
+        // ponytail: the Western slot only, where LibreOffice always writes one; an Asian or complex document language needs dc:language
+        return $language
+            . (Preg::isMatch('/^[a-z]{4}$/i', $script) ? '-' . ucfirst(strtolower($script)) : '')
+            . (Preg::isMatch('/^([a-z]{2}|\d{3})$/i', $country) ? '-' . strtoupper($country) : '');
     }
 
     private static function extractNodeName(string $key): string
@@ -1313,17 +1466,19 @@ class Ods extends BaseReader
         bool $processStyles = true
     ): void {
         if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
-            $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+            $colRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
         } else {
-            $rowRepeats = 1;
+            $colRepeats = 1;
         }
+        // called routine expects index to be 1 less than it is
+        self::checkColumnsRepeatedInt($tableColumnIndex - 1, $colRepeats);
         $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
         if ($processWidths) {
             if (isset($columnWidths[$tableStyleName])) {
                 $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
                     if (!$this->readEmptyCells && $tableColumnIndex2 > $this->highestDataIndex) {
                         break;
                     }
@@ -1339,10 +1494,15 @@ class Ods extends BaseReader
         }
         if ($processStyles) {
             $defaultStyleName = $childNode->getAttributeNS($tableNs, 'default-cell-style-name');
+            if (isset($this->styleHyperlinks[$defaultStyleName])) {
+                for ($column = $tableColumnIndex; $column < $tableColumnIndex + $colRepeats && $column <= AddressRange::MAX_COLUMN_INT; ++$column) {
+                    $this->columnHyperlinkStyles[$column] = $defaultStyleName;
+                }
+            }
             if ($defaultStyleName !== 'Default' && isset($this->allStyles[$defaultStyleName])) {
                 $tableColumnIndex2 = $tableColumnIndex;
                 $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex2);
-                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$rowRepeats2) {
+                for ($colRepeats2 = $colRepeats; $colRepeats2 > 0 && $tableColumnIndex2 <= AddressRange::MAX_COLUMN_INT; --$colRepeats2) {
                     $spreadsheet->getActiveSheet()
                         ->getStyle($tableColumnString)
                         ->applyFromArray(
@@ -1355,16 +1515,12 @@ class Ods extends BaseReader
                 }
             }
         }
-        $tableColumnIndex += $rowRepeats;
+        $tableColumnIndex += $colRepeats;
     }
 
     private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
     {
-        $dom = new DOMDocument('1.01', 'UTF-8');
-        $dom->loadXML(
-            $this->getSecurityScannerOrThrow()
-                ->scan($zip->getFromName('settings.xml'))
-        );
+        $dom = $this->loadDom('settings.xml', $zip);
         $configNs = (string) $dom->lookupNamespaceUri('config');
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
@@ -1751,7 +1907,7 @@ class Ods extends BaseReader
         $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
         $diagonalIndex = Borders::DIAGONAL_NONE;
         foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
-            if (str_starts_with($direction, 'diagonal')) {
+            if ($direction === 'diagonal-tl-br' || $direction === 'diagonal-bl-tr') {
                 $directionIndex = 'diagonal';
                 $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
             } else {
@@ -1779,7 +1935,7 @@ class Ods extends BaseReader
             $borders['diagonalDirection'] = $diagonalIndex;
         }
 
-        return $borders; // @phpstan-ignore-line
+        return $borders;
     }
 
     protected function processSomeNumberFormats(?DOMElement $automaticStyle0, string $numberNs, string $styleNs): void
@@ -1800,5 +1956,56 @@ class Ods extends BaseReader
                 $this->numberFormats[$styleName] = str_repeat('0', $minIntegerDigits);
             }
         }
+    }
+
+    private static function checkRowsRepeated(int $rowID, int $rowRepeats): void
+    {
+        if ($rowRepeats < 1 || $rowID + $rowRepeats - 1 > AddressRange::MAX_ROW) {
+            throw new Exception("Invalid number-rows-repeated $rowRepeats following row $rowID");
+        }
+    }
+
+    private static function checkColumnsRepeated(string $colID, int $colRepeats): void
+    {
+        $colIndex = Coordinate::columnIndexFromString($colID);
+        if ($colRepeats < 1 || $colIndex + $colRepeats - 1 > AddressRange::MAX_COLUMN_INT) {
+            throw new Exception("Invalid number-columns-repeated $colRepeats following column $colID");
+        }
+    }
+
+    private static function checkColumnsRepeatedInt(int $colIndex, int $colRepeats): void
+    {
+        // We don't have column string at this point,
+        //    and colIndex is actually 1 less than it should be.
+        if ($colRepeats < 1 || $colIndex + $colRepeats > AddressRange::MAX_COLUMN_INT) {
+            throw new Exception("Invalid number-columns-repeated $colRepeats following column index $colIndex");
+        }
+    }
+
+    private function loadDom(string $file, ZipArchive $zip): DOMDocument
+    {
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $orig = false;
+
+        try {
+            $orig = libxml_use_internal_errors(true);
+            $result = $dom->loadXML(
+                $this->getSecurityScannerOrThrow()
+                    ->scan($zip->getFromName($file))
+            );
+            if ($result === false) {
+                $fatal = false;
+                foreach (libxml_get_errors() as $err) {
+                    if ($err->level === LIBXML_ERR_FATAL) {
+                        throw new Exception($err->message);
+                    }
+                }
+            }
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($orig);
+        }
+
+        return $dom;
     }
 }
