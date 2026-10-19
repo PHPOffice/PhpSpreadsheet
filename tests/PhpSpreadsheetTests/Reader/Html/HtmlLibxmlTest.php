@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,65 +15,74 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlLibxmlTest extends TestCase
 {
-    private Spreadsheet $spreadsheet;
-
-    protected function tearDown(): void
+    public function testAll(): void
     {
-        $this->spreadsheet->disconnectWorksheets();
-        unset($this->spreadsheet);
+        if (LIBXML_VERSION >= 21400) {
+            self::markTestSkipped('Current version of libxml has invalidated these tests');
+        }
+        $this->xtestLoadInvalidString();
+        $this->xtestLoadValidString();
+        $this->xtestLoadValidStringNoSuppress();
+        $this->xtestLoadValidFile();
+        $this->xtestLoadInvalidFile();
     }
 
-    public function testLoadInvalidString(): void
+    public function xtestLoadInvalidString(): void
     {
         $libxml = libxml_use_internal_errors();
         $html = '<table<>';
         $reader = new Html();
         $reader->setSuppressLoadWarnings(true);
-        $this->spreadsheet = $reader->loadFromString($html);
+        $spreadsheet = $reader->loadFromString($html);
         self::assertNotEmpty($reader->getLibxmlMessages());
         self::assertSame($libxml, libxml_use_internal_errors());
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testLoadValidString(): void
+    public function xtestLoadValidString(): void
     {
         $libxml = libxml_use_internal_errors();
         $html = '<table>';
         $reader = new Html();
         $reader->setSuppressLoadWarnings(true);
-        $this->spreadsheet = $reader->loadFromString($html);
+        $spreadsheet = $reader->loadFromString($html);
         self::assertEmpty($reader->getLibxmlMessages());
         self::assertSame($libxml, libxml_use_internal_errors());
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testLoadValidStringNoSuppress(): void
+    public function xtestLoadValidStringNoSuppress(): void
     {
         $libxml = libxml_use_internal_errors();
         $html = '<table>';
         $reader = new Html();
-        $this->spreadsheet = $reader->loadFromString($html);
+        $spreadsheet = $reader->loadFromString($html);
         self::assertEmpty($reader->getLibxmlMessages());
         self::assertSame($libxml, libxml_use_internal_errors());
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testLoadValidFile(): void
+    public function xtestLoadValidFile(): void
     {
         $libxml = libxml_use_internal_errors();
         $reader = new Html();
         $reader->setSuppressLoadWarnings(true);
         $file = 'tests/data/Reader/HTML/charset.ISO-8859-1.html4.html';
-        $this->spreadsheet = $reader->load($file);
+        $spreadsheet = $reader->load($file);
         self::assertEmpty($reader->getLibxmlMessages());
         self::assertSame($libxml, libxml_use_internal_errors());
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function testLoadInvalidFile(): void
+    public function xtestLoadInvalidFile(): void
     {
         $libxml = libxml_use_internal_errors();
         $reader = new Html();
         $reader->setSuppressLoadWarnings(true);
         $file = 'tests/data/Reader/HTML/badhtml.html';
-        $this->spreadsheet = $reader->load($file);
+        $spreadsheet = $reader->load($file);
         self::assertNotEmpty($reader->getLibxmlMessages());
         self::assertSame($libxml, libxml_use_internal_errors());
+        $spreadsheet->disconnectWorksheets();
     }
 }
