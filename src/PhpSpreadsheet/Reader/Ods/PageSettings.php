@@ -22,6 +22,11 @@ class PageSettings
      */
     private array $tableStylesCrossReference = [];
 
+    /**
+     * @var bool[] whether a table style lays its sheet out right to left
+     */
+    private array $tableStylesRightToLeft = [];
+
     /** @var mixed[] */
     private array $pageLayoutStyles = [];
 
@@ -116,6 +121,8 @@ class PageSettings
                 $styleVisibility = 'true';
                 foreach ($styleXreferenceSet->getElementsByTagNameNS($this->stylesNs, 'table-properties') as $tableProperties) {
                     $styleVisibility = $tableProperties->getAttributeNS($this->tableNs, 'display');
+                    // rl-tb, or rl, which ODF also allows
+                    $this->tableStylesRightToLeft[$styleXRefName] = str_starts_with($tableProperties->getAttributeNS($this->stylesNs, 'writing-mode'), 'rl');
                 }
                 $this->tableStylesCrossReference[$styleXRefName] = $styleVisibility;
             }
@@ -136,6 +143,13 @@ class PageSettings
                 ? Worksheet::SHEETSTATE_HIDDEN
                 : Worksheet::SHEETSTATE_VISIBLE
         );
+    }
+
+    public function setRightToLeftForWorksheet(Worksheet $worksheet, string $styleName): void
+    {
+        if (array_key_exists($styleName, $this->tableStylesRightToLeft)) {
+            $worksheet->setRightToLeft($this->tableStylesRightToLeft[$styleName]);
+        }
     }
 
     public function setPrintSettingsForWorksheet(Worksheet $worksheet, string $styleName): void

@@ -126,4 +126,21 @@ class HyperlinkTest extends AbstractFunctional
         self::assertFalse($newSheet->getCell('A5')->hasHyperlink());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testReadLinkFromCellStyle(): void
+    {
+        // Converted by LibreOffice from a Xlsx with links on a number, percentage, boolean, formula, text formula and date
+        // cell; it keeps them in the cell style, and A1 has no style of its own but the default style of its column
+        foreach ([false, true] as $readDataOnly) {
+            $reader = new OdsReader();
+            $reader->setReadDataOnly($readDataOnly);
+            $spreadsheet = $reader->load('tests/data/Reader/Ods/StyleHyperlinks.ods');
+            $sheet = $spreadsheet->getActiveSheet();
+            foreach (range(1, 6) as $row) {
+                self::assertSame("https://example.org/$row", $sheet->getCell("A$row")->getHyperlink()->getUrl(), "A$row");
+            }
+            self::assertFalse($sheet->getCell('B1')->hasHyperlink());
+            $spreadsheet->disconnectWorksheets();
+        }
+    }
 }

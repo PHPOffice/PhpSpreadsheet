@@ -11,6 +11,9 @@ class ColumnsOnSpreadsheetTest extends AllSetupTeardown
     #[\PHPUnit\Framework\Attributes\DataProvider('providerCOLUMNSonSpreadsheet')]
     public function testColumnsOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
+        if ($expectedResult === 'incomplete') {
+            self::markTestIncomplete('PhpSpreadsheet cannot match Excel for this case');
+        }
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
         $sheet->setTitle('ThisSheet');

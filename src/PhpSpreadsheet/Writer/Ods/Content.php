@@ -101,6 +101,7 @@ class Content extends WriterPart
         // Styles XF
         $objWriter->startElement('office:automatic-styles');
         $this->writeXfStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
+        $this->drawingWriter->writeGraphicStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
         $objWriter->endElement();
 
         $objWriter->startElement('office:body');
@@ -109,9 +110,9 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
-        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
-        // Defined names (ranges and formulae)
+        // Defined names (ranges and formulae), then the database ranges, in the order of the schema
         (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
+        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
 
         $objWriter->endElement();
         $objWriter->endElement();
@@ -290,6 +291,14 @@ class Content extends WriterPart
                         }
                     }
                     $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
+                    if (!$this->getParentWriter()->getPreCalculateFormulas()) {
+                        // No cached value: the application that opens the file calculates the formula
+                        if ($cell->hasHyperlink()) {
+                            $this->writeCellText($objWriter, $cell, '');
+                        }
+
+                        break;
+                    }
                     if (is_bool($formulaValueCalc)) {
                         $objWriter->writeAttribute(
                             'office:value-type',
