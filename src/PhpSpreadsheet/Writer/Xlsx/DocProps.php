@@ -171,6 +171,11 @@ class DocProps extends WriterPart
         // cp:category
         $objWriter->writeElement('cp:category', $spreadsheet->getProperties()->getCategory());
 
+        // dc:language
+        if ($spreadsheet->getProperties()->getLanguage() !== '') {
+            $objWriter->writeElement('dc:language', $spreadsheet->getProperties()->getLanguage());
+        }
+
         $objWriter->endElement();
 
         // Return

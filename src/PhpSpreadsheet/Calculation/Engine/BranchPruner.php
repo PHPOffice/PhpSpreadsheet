@@ -80,10 +80,15 @@ class BranchPruner
     {
         if (isset($this->pendingStoreKey, $this->conditionMap[$this->pendingStoreKey]) && $this->conditionMap[$this->pendingStoreKey]) {
             $this->currentCondition = $this->pendingStoreKey;
-            $stackDepth = count($this->storeKeysStack);
-            if ($stackDepth > 1) {
-                // nested if
-                $this->previousStoreKey = $this->storeKeysStack[$stackDepth - 2];
+            // nested if: find the closest enclosing IF whose then/else branch we are in,
+            // skipping any enclosing IF where we are only part of its condition
+            for ($index = count($this->storeKeysStack) - 2; $index >= 0; --$index) {
+                $storeKey = $this->storeKeysStack[$index];
+                if (!empty($this->thenMap[$storeKey]) || !empty($this->elseMap[$storeKey])) {
+                    $this->previousStoreKey = $storeKey;
+
+                    break;
+                }
             }
         }
     }

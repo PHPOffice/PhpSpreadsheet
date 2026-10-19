@@ -1,8 +1,8 @@
 # Welcome to PhpSpreadsheet's documentation
 
-![Logo](./assets/logo.svg)
+![Logo on White Background](./assets/logowithbackground.png)
 
-PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
+[PhpSpreadsheet](https://www.github.com/PhpOffice/PhpSpreadsheet) is a library written in pure PHP and offers a set of classes that
 allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
 
 ## File formats supported
@@ -23,11 +23,9 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 Note - reading or writing certain aspects of a spreadsheet may not be supported in all formats. For more details, please consult
 [Features Cross-reference](./references/features-cross-reference.md).
 
-# Getting started
-
 ## Software requirements
 
-PHP version 8.1 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
+PHP version 8.2 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
 composer. See the `require` section of [the composer.json file](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/composer.json)
 for details.
 
@@ -36,7 +34,7 @@ for details.
 LTS: Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life of that PHP version](https://www.php.net/eol.php).
 
-Currently, the required PHP minimum version is __PHP 8.1__, and we [will support that version](https://www.php.net/eol.php) until June 2026.
+Currently, the required PHP minimum version is __PHP 8.2__, and we [will support that version](https://www.php.net/eol.php) until June 2027.
 
 Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life](https://www.php.net/supported-versions) of that PHP version.
@@ -88,12 +86,14 @@ or the appropriate PDF Writer wrapper for the library that you have chosen to in
 
 #### Chart Export
 
-For Chart export, we support following packages, which you will also need to install yourself using `composer require`
-- [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0.
+For Chart export, we support the following packages, which you will also need to install yourself using `composer require`:
+
+- [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned in composer at version 4.0.
   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
 - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) - up to date fork with modern PHP versions support and some bugs fixed.
 
 and then configure PhpSpreadsheet using:
+
 ```php
 // to use jpgraph/jpgraph
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
@@ -134,10 +134,7 @@ flag. And then serve them via PHP built-in webserver:
 ```sh
 php -S localhost:8000 -t vendor/phpoffice/phpspreadsheet/samples
 ```
-
-Then point your browser to:
-
-> http://localhost:8000/
+Then point your browser to <http://localhost:8000/>
 
 The samples may also be run directly from the command line, for example:
 
@@ -156,7 +153,81 @@ architecture](./topics/architecture.md),
 
 Or browse the [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
-# Credits
+## Dark Mode
+
+<div class='wehavedarktoggle'>
+We are experimenting with different software and themes for our documentation.
+We try to honor your browser's dark/light mode settings, which
+may defer to your system's settings.
+A button is available at the top of each page to toggle the display without having to change your browser settings.
+</div>
+<div class='wedonthavedarktoggle'>
+We are experimenting with different software and themes for our documentation.
+We try to honor your browser's dark/light mode settings, which
+may defer to your system's settings.
+This particular theme does not come with a toggle to switch back and forth.
+If you want to switch and it is inconvenient for you to change the browser setting:
+<br><br>
+<h3>Toggles If Your Browser Setting Is Dark Mode</h3>
+
+If your setting is dark mode, and your browser supports ES11, this
+<a href="javascript:(function()%7BArray.from(document.styleSheets).forEach((sheet)%20%3D%3E%20%7Bif%20(sheet.href%3F.includes('darkmode.css')%20%3F%3F%20false)%20%7Bsheet.disabled%20%3D%20!sheet.disabled%3B%7D%7D)%7D)()">DarkModeToggle</a>
+can be used as a bookmarklet. It executes:
+
+```javascript
+Array.from(document.styleSheets).forEach((sheet) => {
+    if (sheet.href?.includes('darkmode.css') ?? false) {
+        sheet.disabled = !sheet.disabled;
+    }
+});
+```
+
+<h3>Toggles If Your Browser Setting Is Light Mode</h3>
+
+If your setting is light mode, and your browser supports ES6, this
+<a href="javascript:(function()%7B(function()%7B%0A%20%20%20%20document.documentElement.style.filter%20%3D%20document.documentElement.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%0A%20%20%20%20const%20images%20%3D%20document.querySelectorAll('img')%3B%0A%20%20%20%20images.forEach(img%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(img.alt%20!%3D%20'Logo%20on%20White%20Background')%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20img.style.filter%20%3F%20''%20%3A%20'invert(100%25)%20hue-rotate(180deg)'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20if%20(document.body.getAttribute('data-md-color-scheme')%20%3D%3D%20'slate')%20%7B%0A%20%20%20%20%20%20%20%20document.body.setAttribute('data-md-color-scheme'%2C%20'default')%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20document.body.setAttribute('data-md-color-scheme'%2C%20'slate')%3B%0A%20%20%20%20%7D%0A%7D)()%3B%7D)()%3B">LightModeToggle</a>
+bookmarklet (changed 2026-09-18) can be used to toggle dark/light mode (or just reload the page to restore light mode):
+
+```javascript
+(function(){
+    document.documentElement.style.filter = document.documentElement.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        if (!img.alt.startsWith('Logo')) {
+            img.style.filter = img.style.filter ? '' : 'invert(100%) hue-rotate(180deg)';
+        }
+    });
+    if (document.body.getAttribute('data-md-color-scheme') == 'slate') {
+        document.body.setAttribute('data-md-color-scheme', 'default');
+    } else {
+        document.body.setAttribute('data-md-color-scheme', 'slate');
+    }
+})();
+```
+</div>
+<div>
+<h3>Displaying Images in Dark Mode</h3>
+Images are not normally adjusted for Dark/Light mode.
+If you also want images to display in dark mode, try <a href="javascript:(function()%7B%7B%0A%20%20%20%20const%20images%20%3D%20document.querySelectorAll('img')%3B%0A%20%20%20%20images.forEach(img%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20style%20%3D%20getComputedStyle(img)%3B%0A%20%20%20%20%20%20%20%20const%20temp%20%3D%20style.filter%3B%0A%20%20%20%20%20%20%20%20if%20(temp%20%3D%3D%20''%20%7C%7C%20temp%20%3D%3D%20'none')%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'invert(1)%20hue-rotate(180deg)'%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20img.style.filter%20%3D%20'none'%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%7D%7D)()%3B">DarkImages4</a> as a bookmarklet. It executes:
+
+```javascript
+{
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        const style = getComputedStyle(img);
+        const temp = style.filter;
+        if (temp == '' || temp == 'none') {
+            img.style.filter = 'invert(1) hue-rotate(180deg)';
+        } else {
+            img.style.filter = 'none';
+        }
+    });
+}
+```
+</div>
+
+
+## Credits
 
 Please refer to the [contributor
 list](https://github.com/PHPOffice/PhpSpreadsheet/graphs/contributors)

@@ -5,9 +5,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RichDataDrawing
 {
+    public function __construct(private ?Xlsx $writer = null)
+    {
+    }
+
     /** @var Drawing[] */
     private array $drawings = [];
 
@@ -180,7 +185,7 @@ class RichDataDrawing
             $xml->startElement('Relationship');
             $xml->writeAttribute('Id', 'rId' . ++$index);
             $xml->writeAttribute('Type', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image');
-            $xml->writeAttribute('Target', '../media/' . $drawing->getIndexedFilename());
+            $xml->writeAttribute('Target', '../media/' . ($this->writer?->getDrawingMediaFilename($drawing) ?? $drawing->getIndexedFilename()));
             $xml->endElement();
         }
 

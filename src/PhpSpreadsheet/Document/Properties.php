@@ -69,6 +69,11 @@ class Properties
     private string $category = '';
 
     /**
+     * Language, as a BCP 47 tag such as "en-US".
+     */
+    private string $language = '';
+
+    /**
      * Manager.
      */
     private string $manager = '';
@@ -274,6 +279,23 @@ class Properties
     public function setKeywords(string $keywords): self
     {
         $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set Language, as a BCP 47 tag such as "en-US".
+     *
+     * @return $this
+     */
+    public function setLanguage(string $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }
