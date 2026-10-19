@@ -145,11 +145,20 @@ class CalculationCoverageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    protected static int $winMinPhpToSkip = 80300;
-
-    protected static int $winMaxPhpToSkip = 80499;
-
-    protected static string $winIndicator = 'WIN';
+    public function testDeprecated(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $calc = Calculation::getInstance($spreadsheet);
+        $sheet = $spreadsheet->getActiveSheet();
+        $formula = '=3+ROW()';
+        $cellAddress = 'A1';
+        $cell = $sheet->getCell($cellAddress);
+        $cell->setValue($formula);
+        $result1 = $calc->_calculateFormulaValue($formula, $cellAddress, $cell, false); //* @phpstan-ignore method.deprecated (entire test will be removed when deprecated routine is removed)
+        $result2 = $calc->calculateFormulaValue($formula, $cellAddress, $cell, false);
+        self::assertSame($result1, $result2);
+        $spreadsheet->disconnectWorksheets();
+    }
 
     #[Attributes\RunInSeparateProcess]
     public function testExceptionHandler(): void

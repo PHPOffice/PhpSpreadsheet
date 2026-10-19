@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Owen Leibman</Author>
+  <LastAuthor>Owen Leibman</LastAuthor>
+  <Created>2026-09-12T08:55:46Z</Created>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>6510</WindowHeight>
+  <WindowWidth>19200</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FF0000"/>
+   <NumberFormat ss:Format="True/False"/>
+  </Style>
+  <Style ss:ID="s63">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FFCC00"/>
+   <NumberFormat ss:Format="Yes/No"/>
+  </Style>
+  <Style ss:ID="s64">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#99CC00"/>
+   <NumberFormat ss:Format="On/Off"/>
+  </Style>
+  <Style ss:ID="s65">
+   <NumberFormat ss:Format="Long Time"/>
+  </Style>
+  <Style ss:ID="s66">
+   <NumberFormat ss:Format="Percent"/>
+  </Style>
+  <Style ss:ID="s67">
+   <NumberFormat ss:Format="Currency"/>
+  </Style>
+  <Style ss:ID="s670">
+   <NumberFormat ss:Format="Euro Currency"/>
+  </Style>
+  <Style ss:ID="s671">
+   <NumberFormat ss:Format="Scientific"/>
+  </Style>
+  <Style ss:ID="s68">
+   <Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="Standard"/>
+  </Style>
+  <Style ss:ID="s69">
+   <Interior ss:Color="#92D050" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="Fixed"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="10" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="14.5">
+   <Column ss:Index="2" ss:Width="55.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">True/False</Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s62"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Yes/No</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s63"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">On/Off</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="Number">0</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Long Time</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="DateTime">1899-12-31T18:00:00.000</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Percent</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="Number">0.97</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Currency</Data></Cell>
+    <Cell ss:StyleID="s67"><Data ss:Type="Number">-1234.56</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Standard</Data></Cell>
+    <Cell ss:StyleID="s68"><Data ss:Type="Number">1234.57</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Fixed</Data></Cell>
+    <Cell ss:StyleID="s69"><Data ss:Type="Number">1234.58</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Euro Currency</Data></Cell>
+    <Cell ss:StyleID="s670"><Data ss:Type="Number">-1234.5899999999999</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">Scientific</Data></Cell>
+    <Cell ss:StyleID="s671"><Data ss:Type="Number">-1234.5899999999999</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>10</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

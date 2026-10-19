@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -19,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\ChartEx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps;
@@ -129,6 +131,8 @@ class Xlsx extends BaseWriter
 
     private Chart $writerPartChart;
 
+    private ChartEx $writerPartChartEx;
+
     private Comments $writerPartComments;
 
     private ContentTypes $writerPartContentTypes;
@@ -173,11 +177,15 @@ class Xlsx extends BaseWriter
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
+        // Windows Metafiles are stored as is by default
+        $this->convertMetafilesToPng = false;
+
         // Assign PhpSpreadsheet
         $this->setSpreadsheet($spreadsheet);
         $spreadsheet->setUsesCheckboxStyle();
 
         $this->writerPartChart = new Chart($this);
+        $this->writerPartChartEx = new ChartEx($this);
         $this->writerPartComments = new Comments($this);
         $this->writerPartContentTypes = new ContentTypes($this);
         $this->writerPartDocProps = new DocProps($this);
@@ -206,6 +214,11 @@ class Xlsx extends BaseWriter
     public function getWriterPartChart(): Chart
     {
         return $this->writerPartChart;
+    }
+
+    public function getWriterPartChartEx(): ChartEx
+    {
+        return $this->writerPartChartEx;
     }
 
     public function getWriterPartComments(): Comments
@@ -337,6 +350,7 @@ class Xlsx extends BaseWriter
 
         // garbage collect
         $this->pathNames = [];
+        $this->metafilePngs = [];
         $this->spreadSheet->garbageCollect();
 
         $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
@@ -363,7 +377,7 @@ class Xlsx extends BaseWriter
         $richDataCount = 0;
 
         if ($this->spreadSheet->hasInCellDrawings()) {
-            $richDataDrawing = new RichDataDrawing();
+            $richDataDrawing = new RichDataDrawing($this);
             $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet);
             $richDataCount = count($richDataDrawing->getDrawings());
 
@@ -448,8 +462,16 @@ class Xlsx extends BaseWriter
                 $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
                 if (count($charts) > 0) {
                     foreach ($charts as $chart) {
-                        $zipContent['xl/charts/chart' . ($chartCount + 1) . '.xml'] = $this->getWriterPartChart()->writeChart($chart, $this->preCalculateFormulas);
                         ++$chartCount;
+
+                        if ($chart->getChartEx() === null) {
+                            $zipContent['xl/charts/chart' . $chartCount . '.xml'] = $this->getWriterPartChart()->writeChart($chart, $this->preCalculateFormulas);
+                        } else {
+                            $zipContent['xl/charts/chartEx' . $chartCount . '.xml'] = $this->getWriterPartChartEx()->writeChart($chart, $this->preCalculateFormulas);
+                            $zipContent['xl/charts/_rels/chartEx' . $chartCount . '.xml.rels'] = $this->writeChartExRelationships($chartCount);
+                            $zipContent['xl/charts/style' . $chartCount . '.xml'] = $this->writeChartExStyle();
+                            $zipContent['xl/charts/colors' . $chartCount . '.xml'] = $this->writeChartExColorStyle();
+                        }
                     }
                 }
             }
@@ -560,7 +582,7 @@ class Xlsx extends BaseWriter
                 // Media
                 foreach ($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
                     if ($image->getPath() !== '') {
-                        $zipContent['xl/media/' . $image->getIndexedFilename()] = file_get_contents($image->getPath());
+                        $zipContent['xl/media/' . $this->getDrawingMediaFilename($image)] = $this->getMetafilePng($image) ?? file_get_contents($image->getPath());
                     }
                 }
             }
@@ -580,7 +602,10 @@ class Xlsx extends BaseWriter
                 if ($imagePath === '') {
                     continue;
                 }
-                if (str_contains($imagePath, 'zip://')) {
+                $metafilePng = $this->getMetafilePng($this->getDrawingHashTable()->getByIndex($i));
+                if ($metafilePng !== null) {
+                    $imageContents = $metafilePng;
+                } elseif (str_contains($imagePath, 'zip://')) {
                     $imagePath = substr($imagePath, 6);
                     $imagePathSplitted = explode('#', $imagePath);
 
@@ -593,7 +618,7 @@ class Xlsx extends BaseWriter
                     $imageContents = file_get_contents($imagePath);
                 }
 
-                $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
+                $zipContent['xl/media/' . $this->getDrawingMediaFilename($this->getDrawingHashTable()->getByIndex($i))] = $imageContents;
             } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
                 ob_start();
                 $callable = $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction();
@@ -634,6 +659,86 @@ class Xlsx extends BaseWriter
         }
 
         $this->maybeCloseFileHandle();
+    }
+
+    /**
+     * Write relationships for a ChartEx part.
+     */
+    private function writeChartExRelationships(int $chartIndex): string
+    {
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            . '<Relationship Id="rId2" Type="http://schemas.microsoft.com/office/2011/relationships/chartColorStyle" Target="colors' . $chartIndex . '.xml"/>'
+            . '<Relationship Id="rId1" Type="http://schemas.microsoft.com/office/2011/relationships/chartStyle" Target="style' . $chartIndex . '.xml"/>'
+            . '</Relationships>';
+    }
+
+    /**
+     * Write the ChartEx style part.
+     */
+    private function writeChartExStyle(): string
+    {
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            . '<cs:chartStyle xmlns:cs="http://schemas.microsoft.com/office/drawing/2012/chartStyle" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" id="406">'
+            . '<cs:axisTitle><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:axisTitle>'
+            . '<cs:categoryAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:categoryAxis>'
+            . '<cs:chartArea mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="bg1"/></a:solidFill><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="1000"/></cs:chartArea>'
+            . '<cs:dataLabel><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:dataLabel>'
+            . '<cs:dataLabelCallout><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="lt1"/></a:solidFill><a:ln><a:solidFill><a:schemeClr val="dk1"><a:lumMod val="25000"/><a:lumOff val="75000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr><cs:defRPr sz="900"/><cs:bodyPr rot="0" spcFirstLastPara="1" vertOverflow="clip" horzOverflow="clip" vert="horz" wrap="square" lIns="36576" tIns="18288" rIns="36576" bIns="18288" anchor="ctr" anchorCtr="1"><a:spAutoFit/></cs:bodyPr></cs:dataLabelCallout>'
+            . '<cs:dataPoint><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:ln><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:ln></cs:spPr></cs:dataPoint>'
+            . '<cs:dataPoint3D><cs:lnRef idx="0"/><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></cs:spPr></cs:dataPoint3D>'
+            . '<cs:dataPointLine><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="28575" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:dataPointLine>'
+            . '<cs:dataPointMarker><cs:lnRef idx="0"/><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="lt1"/></a:solidFill></a:ln></cs:spPr></cs:dataPointMarker>'
+            . '<cs:dataPointMarkerLayout symbol="circle" size="5"/>'
+            . '<cs:dataPointWireframe><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="28575" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:dataPointWireframe>'
+            . '<cs:dataTable><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:dataTable>'
+            . '<cs:downBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="dk1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr></cs:downBar>'
+            . '<cs:dropLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="35000"/><a:lumOff val="65000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:dropLine>'
+            . '<cs:errorBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:errorBar>'
+            . '<cs:floor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:floor>'
+            . '<cs:gridlineMajor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:gridlineMajor>'
+            . '<cs:gridlineMinor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:gridlineMinor>'
+            . '<cs:hiLoLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="75000"/><a:lumOff val="25000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:hiLoLine>'
+            . '<cs:leaderLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="35000"/><a:lumOff val="65000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:leaderLine>'
+            . '<cs:legend><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:legend>'
+            . '<cs:plotArea mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:plotArea>'
+            . '<cs:plotArea3D mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:plotArea3D>'
+            . '<cs:seriesAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:seriesAxis>'
+            . '<cs:seriesLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat"><a:solidFill><a:srgbClr val="D9D9D9"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:seriesLine>'
+            . '<cs:title><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="1400"/></cs:title>'
+            . '<cs:trendline><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="19050" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="sysDash"/></a:ln></cs:spPr></cs:trendline>'
+            . '<cs:trendlineLabel><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:trendlineLabel>'
+            . '<cs:upBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="lt1"/></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr></cs:upBar>'
+            . '<cs:valueAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:valueAxis>'
+            . '<cs:wall><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:wall>'
+            . '</cs:chartStyle>';
+    }
+
+    /**
+     * Write the ChartEx colour style part.
+     */
+    private function writeChartExColorStyle(): string
+    {
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            . '<cs:colorStyle xmlns:cs="http://schemas.microsoft.com/office/drawing/2012/chartStyle"'
+            . ' xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"'
+            . ' meth="cycle" id="10">'
+            . '<a:schemeClr val="accent1"/>'
+            . '<a:schemeClr val="accent2"/>'
+            . '<a:schemeClr val="accent3"/>'
+            . '<a:schemeClr val="accent4"/>'
+            . '<a:schemeClr val="accent5"/>'
+            . '<a:schemeClr val="accent6"/>'
+            . '<cs:variation/>'
+            . '<cs:variation><a:lumMod val="60000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="80000"/><a:lumOff val="20000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="80000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="60000"/><a:lumOff val="40000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="50000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="70000"/><a:lumOff val="30000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="70000"/></cs:variation>'
+            . '<cs:variation><a:lumMod val="50000"/><a:lumOff val="50000"/></cs:variation>'
+            . '</cs:colorStyle>';
     }
 
     /**
@@ -833,12 +938,51 @@ class Xlsx extends BaseWriter
         }
     }
 
+    /** @var array<string, ?string> PNG renderings of the Windows Metafiles, by path */
+    private array $metafilePngs = [];
+
+    /**
+     * Get the PNG rendering of a drawing, if it is a Windows Metafile which is written as PNG.
+     *
+     * Returns null if the drawing is not a metafile, if metafiles are stored as is,
+     * or if the metafile can not be rendered (it is then stored as is).
+     */
+    public function getMetafilePng(BaseDrawing $drawing): ?string
+    {
+        if (!$this->convertMetafilesToPng || !$drawing instanceof WorksheetDrawing || !$drawing->isMetafile()) {
+            return null;
+        }
+        $path = $drawing->getPath();
+        if (!array_key_exists($path, $this->metafilePngs)) {
+            $this->metafilePngs[$path] = Metafile::tryToPng($drawing->getContents());
+        }
+
+        return $this->metafilePngs[$path];
+    }
+
+    /**
+     * Get the name of the file of a drawing in xl/media.
+     */
+    public function getDrawingMediaFilename(WorksheetDrawing|MemoryDrawing $drawing): string
+    {
+        $filename = $drawing->getIndexedFilename();
+        if ($this->getMetafilePng($drawing) !== null) {
+            $filename = pathinfo($filename, PATHINFO_FILENAME) . '.png';
+        }
+
+        return $filename;
+    }
+
     private function processDrawing(WorksheetDrawing $drawing): string|null|false
     {
         $data = null;
         $filename = $drawing->getPath();
         if ($filename === '') {
             return null;
+        }
+        if ($drawing->isMetafile()) {
+            // Windows Metafiles are converted to PNG
+            return Metafile::tryToPng($drawing->getContents());
         }
         $imageData = getimagesize($filename);
 

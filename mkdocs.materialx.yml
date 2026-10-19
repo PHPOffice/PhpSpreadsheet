@@ -1,5 +1,5 @@
 site_name: PhpSpreadsheet Documentation
-repo_url: https://github.com/PHPOffice/phpspreadsheet
+repo_url: https://github.com/PHPOffice/PhpSpreadsheet
 edit_uri: edit/master/docs/
 
 theme:
@@ -7,6 +7,7 @@ theme:
   topbar_style: primary
   features:
       - content.code.copy
+      - content.action.edit
   palette:
     # Light mode configuration
     - media: "(prefers-color-scheme: light)"
@@ -36,6 +37,7 @@ extra_css:
     # - extra/pygments.emacs.css
     - extra/pygments.default.light.css
     - extra/pygments.lightbulb.dark.css
+    - extra/zensical.topbar.css
 extra_javascript:
     - extra/extrajs.js
 markdown_extensions:

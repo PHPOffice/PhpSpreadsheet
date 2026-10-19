@@ -275,6 +275,10 @@ class Workbook extends BIFFwriter
      */
     public function addColor(string $rgb, int $default = 0): int
     {
+        // Excel/Biff colors are case-insensitive. Normalizing here keeps a single cache
+        // entry (and a single palette slot) for variants such as FFFFFF and ffffff.
+        $rgb = strtoupper($rgb);
+
         if (!isset($this->colors[$rgb])) {
             $color
                 = [
@@ -290,7 +294,11 @@ class Workbook extends BIFFwriter
                 if (count($this->colors) === 0) {
                     $lastColor = 7;
                 } else {
-                    $lastColor = end($this->colors);
+                    // The next free palette index follows the highest index in use, not the
+                    // most recently inserted one: a color that matches an existing palette
+                    // entry is cached under its own (case-sensitive) key with an old index,
+                    // which would otherwise make the next custom color reuse an occupied slot.
+                    $lastColor = max($this->colors);
                 }
                 if ($lastColor < 57) {
                     // then we add a custom color altering the palette
@@ -427,9 +435,9 @@ class Workbook extends BIFFwriter
         }
 
         // Add part 3 of the Workbook globals
-        $this->_data .= $part3;
+        $this->biffData .= $part3;
 
-        return $this->_data;
+        return $this->biffData;
     }
 
     /**
@@ -440,7 +448,7 @@ class Workbook extends BIFFwriter
         $boundsheet_length = 10; // fixed length for a BOUNDSHEET record
 
         // size of Workbook globals part 1 + 3
-        $offset = $this->_datasize;
+        $offset = $this->biffDataSize;
 
         // add size of Workbook globals part 2, the length of the SHEET records
         $total_worksheets = count($this->spreadsheet->getAllSheets());

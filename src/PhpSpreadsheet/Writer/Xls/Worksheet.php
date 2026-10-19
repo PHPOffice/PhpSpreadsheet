@@ -605,9 +605,9 @@ class Worksheet extends BIFFwriter
     public function getData(): string
     {
         // Return data stored in memory
-        if (isset($this->_data)) {
-            $tmp = $this->_data;
-            $this->_data = null;
+        if (isset($this->biffData)) {
+            $tmp = $this->biffData;
+            $this->biffData = null;
 
             return $tmp;
         }
