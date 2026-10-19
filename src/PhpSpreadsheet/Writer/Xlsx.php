@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\Xlsx\AgileEncryption;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -176,6 +177,9 @@ class Xlsx extends BaseWriter
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
+        // Windows Metafiles are stored as is by default
+        $this->convertMetafilesToPng = false;
+
         // Assign PhpSpreadsheet
         $this->setSpreadsheet($spreadsheet);
         $spreadsheet->setUsesCheckboxStyle();
@@ -346,6 +350,7 @@ class Xlsx extends BaseWriter
 
         // garbage collect
         $this->pathNames = [];
+        $this->metafilePngs = [];
         $this->spreadSheet->garbageCollect();
 
         $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
@@ -372,7 +377,7 @@ class Xlsx extends BaseWriter
         $richDataCount = 0;
 
         if ($this->spreadSheet->hasInCellDrawings()) {
-            $richDataDrawing = new RichDataDrawing();
+            $richDataDrawing = new RichDataDrawing($this);
             $richDataFiles = $richDataDrawing->generateFiles($this->spreadSheet);
             $richDataCount = count($richDataDrawing->getDrawings());
 
@@ -577,7 +582,7 @@ class Xlsx extends BaseWriter
                 // Media
                 foreach ($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
                     if ($image->getPath() !== '') {
-                        $zipContent['xl/media/' . $image->getIndexedFilename()] = file_get_contents($image->getPath());
+                        $zipContent['xl/media/' . $this->getDrawingMediaFilename($image)] = $this->getMetafilePng($image) ?? file_get_contents($image->getPath());
                     }
                 }
             }
@@ -597,7 +602,10 @@ class Xlsx extends BaseWriter
                 if ($imagePath === '') {
                     continue;
                 }
-                if (str_contains($imagePath, 'zip://')) {
+                $metafilePng = $this->getMetafilePng($this->getDrawingHashTable()->getByIndex($i));
+                if ($metafilePng !== null) {
+                    $imageContents = $metafilePng;
+                } elseif (str_contains($imagePath, 'zip://')) {
                     $imagePath = substr($imagePath, 6);
                     $imagePathSplitted = explode('#', $imagePath);
 
@@ -610,7 +618,7 @@ class Xlsx extends BaseWriter
                     $imageContents = file_get_contents($imagePath);
                 }
 
-                $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
+                $zipContent['xl/media/' . $this->getDrawingMediaFilename($this->getDrawingHashTable()->getByIndex($i))] = $imageContents;
             } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
                 ob_start();
                 $callable = $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction();
@@ -930,12 +938,51 @@ class Xlsx extends BaseWriter
         }
     }
 
+    /** @var array<string, ?string> PNG renderings of the Windows Metafiles, by path */
+    private array $metafilePngs = [];
+
+    /**
+     * Get the PNG rendering of a drawing, if it is a Windows Metafile which is written as PNG.
+     *
+     * Returns null if the drawing is not a metafile, if metafiles are stored as is,
+     * or if the metafile can not be rendered (it is then stored as is).
+     */
+    public function getMetafilePng(BaseDrawing $drawing): ?string
+    {
+        if (!$this->convertMetafilesToPng || !$drawing instanceof WorksheetDrawing || !$drawing->isMetafile()) {
+            return null;
+        }
+        $path = $drawing->getPath();
+        if (!array_key_exists($path, $this->metafilePngs)) {
+            $this->metafilePngs[$path] = Metafile::tryToPng($drawing->getContents());
+        }
+
+        return $this->metafilePngs[$path];
+    }
+
+    /**
+     * Get the name of the file of a drawing in xl/media.
+     */
+    public function getDrawingMediaFilename(WorksheetDrawing|MemoryDrawing $drawing): string
+    {
+        $filename = $drawing->getIndexedFilename();
+        if ($this->getMetafilePng($drawing) !== null) {
+            $filename = pathinfo($filename, PATHINFO_FILENAME) . '.png';
+        }
+
+        return $filename;
+    }
+
     private function processDrawing(WorksheetDrawing $drawing): string|null|false
     {
         $data = null;
         $filename = $drawing->getPath();
         if ($filename === '') {
             return null;
+        }
+        if ($drawing->isMetafile()) {
+            // Windows Metafiles are converted to PNG
+            return Metafile::tryToPng($drawing->getContents());
         }
         $imageData = getimagesize($filename);
 
