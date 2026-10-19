@@ -16,6 +16,5 @@
 
     <!-- Include the whole PSR12 standard -->
     <rule ref="PSR12">
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
     </rule>
 </ruleset>

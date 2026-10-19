@@ -10,29 +10,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-// Original file header of PEAR::Spreadsheet_Excel_Writer_Parser (used as the base for this class):
-// -----------------------------------------------------------------------------------------
-// *  Class for parsing Excel formulas
-// *
-// *  License Information:
-// *
-// *    Spreadsheet_Excel_Writer:  A library for generating Excel Spreadsheets
-// *    Copyright (c) 2002-2003 Xavier Noguer xnoguer@rezebra.com
-// *
-// *    This library is free software; you can redistribute it and/or
-// *    modify it under the terms of the GNU Lesser General Public
-// *    License as published by the Free Software Foundation; either
-// *    version 2.1 of the License, or (at your option) any later version.
-// *
-// *    This library is distributed in the hope that it will be useful,
-// *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// *    Lesser General Public License for more details.
-// *
-// *    You should have received a copy of the GNU Lesser General Public
-// *    License along with this library; if not, write to the Free Software
-// *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-// */
+/**
+ * Based on PEAR::Spreadsheet_Excel_Writer_Parser (by Xavier Noguer)
+ * Relicensed under the MIT License by the author.
+ */
 class Parser
 {
     /**    Constants                */
@@ -1613,7 +1594,7 @@ class Parser
             $converted_tree = $this->toReversePolish($tree['left']);
             $polish .= $converted_tree;
         } elseif ($tree['left'] != '') { // It's a final node
-            $converted_tree = $this->convert($tree['left']); //* @phpstan-ignore-line
+            $converted_tree = $this->convert($tree['left']); //* @phpstan-ignore argument.type (tree[left] should be an array bug phpstan considers it mixed)
             $polish .= $converted_tree;
         }
         if (is_array($tree['right'])) {
@@ -1638,7 +1619,7 @@ class Parser
         ) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
-                $left_tree = $this->toReversePolish($tree['left']); //* @phpstan-ignore-line
+                $left_tree = $this->toReversePolish($tree['left']); //* @phpstan-ignore argument.type (tree[left] should be an array bug phpstan considers it mixed)
             } else {
                 $left_tree = '';
             }

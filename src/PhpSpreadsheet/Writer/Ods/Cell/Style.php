@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -121,6 +122,22 @@ class Style
             $border->getColor()->getRGB(),
         ));
     }
+
+    /**
+     * The languages LibreOffice keeps in the Asian and in the complex text slot
+     * (MsLangId::getScriptType); any other is Western.
+     */
+    private const LANGUAGE_SLOTS = [
+        'ja' => '-asian', 'ko' => '-asian', 'yue' => '-asian', 'zh' => '-asian',
+        'am' => '-complex', 'ar' => '-complex', 'as' => '-complex', 'bn' => '-complex', 'bo' => '-complex',
+        'brx' => '-complex', 'doi' => '-complex', 'dv' => '-complex', 'dz' => '-complex', 'fa' => '-complex',
+        'gu' => '-complex', 'he' => '-complex', 'hi' => '-complex', 'km' => '-complex', 'kn' => '-complex',
+        'kok' => '-complex', 'ks' => '-complex', 'lif' => '-complex', 'lo' => '-complex', 'mai' => '-complex',
+        'ml' => '-complex', 'mni' => '-complex', 'mr' => '-complex', 'my' => '-complex', 'ne' => '-complex',
+        'nqo' => '-complex', 'or' => '-complex', 'pa' => '-complex', 'sa' => '-complex', 'sd' => '-complex',
+        'si' => '-complex', 'skr' => '-complex', 'syr' => '-complex', 'ta' => '-complex', 'te' => '-complex',
+        'th' => '-complex', 'ti' => '-complex', 'ug' => '-complex', 'ur' => '-complex', 'yi' => '-complex',
+    ];
 
     private const MAP_BORDER_WIDTH = [
         Border::BORDER_THIN => '0.75pt',
@@ -247,7 +264,7 @@ class Style
     }
 
     /** @internal */
-    public function writeTextProperties(CellStyle $style): void
+    public function writeTextProperties(CellStyle $style, string $language = ''): void
     {
         // Font
         $this->writer->startElement('style:text-properties');
@@ -305,7 +322,40 @@ class Style
                 ->writeAttribute('style:text-line-through-type', 'single');
         }
 
+        $this->writeLanguage($language);
+
         $this->writer->endElement(); // Close style:text-properties
+    }
+
+    /**
+     * The language as LibreOffice writes it: in the slot of its script, the ISO parts,
+     * and the whole tag when it is more than a language and a country.
+     */
+    private function writeLanguage(string $language): void
+    {
+        // xsd:language
+        if (!Preg::isMatch('/^[a-z]{1,8}(?:-[a-z0-9]{1,8})*$/i', $language)) {
+            return;
+        }
+        Preg::isMatch('/^(?:([a-z]{2,3})(?:-([a-z]{4}))?(?:-([a-z]{2}))?(?=-|$))?/i', $language, $iso);
+        $code = strtolower($iso[1] ?? '');
+        $slot = self::LANGUAGE_SLOTS[$code] ?? '';
+        if (!Preg::isMatch('/^[a-z]{2,3}(?:-[a-z]{2})?$/i', $language)) {
+            $this->writer->writeAttribute("style:rfc-language-tag{$slot}", $language);
+        }
+        if ($code === '') {
+            return;
+        }
+        $prefix = $slot === '' ? 'fo:' : 'style:';
+        $script = $iso[2] ?? '';
+        $country = $iso[3] ?? '';
+        $this->writer->writeAttribute("{$prefix}language{$slot}", $code);
+        if ($script !== '') {
+            $this->writer->writeAttribute("{$prefix}script{$slot}", ucfirst(strtolower($script)));
+        }
+        if ($country !== '') {
+            $this->writer->writeAttribute("{$prefix}country{$slot}", strtoupper($country));
+        }
     }
 
     protected function writeColumnProperties(ColumnDimension $columnDimension): void
@@ -396,6 +446,9 @@ class Style
             'table:display',
             $worksheet->getSheetState() === Worksheet::SHEETSTATE_VISIBLE ? 'true' : 'false'
         );
+        if ($worksheet->getRightToLeft()) {
+            $this->writer->writeAttribute('style:writing-mode', 'rl-tb');
+        }
 
         $this->writer->endElement(); // Close style:table-properties
         $this->writer->endElement(); // Close style:style
@@ -415,6 +468,14 @@ class Style
         if ($method === null) {
             if (Preg::isMatch('/^0[0#]+$/', $numFmt)) {
                 $this->additionalNumberFormats[$numFmt] = $method = [self::class, 'formatIntLeading0'];
+            } elseif (Date::isDateTimeFormatCode($numFmt)) {
+                if (!Preg::isMatch('/[HhSs]/', $numFmt)) {
+                    $method = [self::class, 'formatDateYyyymmdd'];
+                } elseif (Preg::isMatch('/[YyDd]/', $numFmt)) {
+                    $method = [self::class, 'formatDateDatetimeBetter'];
+                } else {
+                    $method = [self::class, 'formatDateTime1'];
+                }
             } else {
                 return;
             }

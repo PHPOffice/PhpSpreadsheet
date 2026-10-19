@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PHPUnit\Framework\TestCase;
@@ -22,10 +23,17 @@ class XmlWriterTest extends TestCase
         XMLWriter::$debugEnabled = $this->debugEnabled;
     }
 
+    protected static int $versionCheck = 80600;
+
     public function testUnserialize(): void
     {
-        $this->expectException(SpreadsheetException::class);
-        $this->expectExceptionMessage('Unserialize not permitted');
+        if (PHP_VERSION_ID >= self::$versionCheck) {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Unserialization');
+        } else {
+            $this->expectException(SpreadsheetException::class);
+            $this->expectExceptionMessage('Unserialize not permitted');
+        }
         $className = XMLWriter::class;
         $classLen = strlen($className);
         $text = "O:$classLen:\"$className\":1:{";

@@ -152,7 +152,10 @@ class Subtotal
         if (array_key_exists($subtotal, self::CALL_FUNCTIONS)) {
             $call = self::CALL_FUNCTIONS[$subtotal];
 
-            return call_user_func_array($call, $aArgs); //* @phpstan-ignore-line
+            /** @var float|int|string */
+            $temp = call_user_func_array($call, $aArgs);
+
+            return $temp;
         }
 
         return ExcelError::VALUE();

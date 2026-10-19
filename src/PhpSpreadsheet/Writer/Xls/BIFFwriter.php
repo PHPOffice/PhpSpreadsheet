@@ -4,39 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-// Original file header of PEAR::Spreadsheet_Excel_Writer_BIFFwriter (used as the base for this class):
-// -----------------------------------------------------------------------------------------
-// *  Module written/ported by Xavier Noguer <xnoguer@rezebra.com>
-// *
-// *  The majority of this is _NOT_ my code.  I simply ported it from the
-// *  PERL Spreadsheet::WriteExcel module.
-// *
-// *  The author of the Spreadsheet::WriteExcel module is John McNamara
-// *  <jmcnamara@cpan.org>
-// *
-// *  I _DO_ maintain this code, and John McNamara has nothing to do with the
-// *  porting of this code to PHP.  Any questions directly related to this
-// *  class library should be directed to me.
-// *
-// *  License Information:
-// *
-// *    Spreadsheet_Excel_Writer:  A library for generating Excel Spreadsheets
-// *    Copyright (c) 2002-2003 Xavier Noguer xnoguer@rezebra.com
-// *
-// *    This library is free software; you can redistribute it and/or
-// *    modify it under the terms of the GNU Lesser General Public
-// *    License as published by the Free Software Foundation; either
-// *    version 2.1 of the License, or (at your option) any later version.
-// *
-// *    This library is distributed in the hope that it will be useful,
-// *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// *    Lesser General Public License for more details.
-// *
-// *    You should have received a copy of the GNU Lesser General Public
-// *    License along with this library; if not, write to the Free Software
-// *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-// */
+/**
+ * Based on PERL Spreadsheet::WriteExcel module (by John McNamara)
+ * Ported to PHP for PEAR::Spreadsheet_Excel_Writer_BIFFwriter (by Xavier Noguer)
+ * Relicensed under the MIT License by both authors.
+ */
 class BIFFwriter
 {
     /**
@@ -47,12 +19,12 @@ class BIFFwriter
     /**
      * The string containing the data of the BIFF stream.
      */
-    public ?string $_data;
+    protected ?string $biffData;
 
     /**
-     * The size of the data in bytes. Should be the same as strlen($this->_data).
+     * The size of the data in bytes. Should be the same as strlen($this->biffData).
      */
-    public int $_datasize;
+    protected int $biffDataSize;
 
     /**
      * The maximum length for a BIFF record (excluding record header and length field). See addContinue().
@@ -66,8 +38,8 @@ class BIFFwriter
      */
     public function __construct()
     {
-        $this->_data = '';
-        $this->_datasize = 0;
+        $this->biffData = '';
+        $this->biffDataSize = 0;
     }
 
     /**
@@ -104,12 +76,12 @@ class BIFFwriter
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
         }
-        $this->_data .= $data;
-        $this->_datasize += strlen($data);
+        $this->biffData .= $data;
+        $this->biffDataSize += strlen($data);
     }
 
     /**
-     * General storage function like append, but returns string instead of modifying $this->_data.
+     * General storage function like append, but returns string instead of modifying $this->biffData.
      *
      * @param string $data binary data to write
      */
@@ -118,7 +90,7 @@ class BIFFwriter
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
         }
-        $this->_datasize += strlen($data);
+        $this->biffDataSize += strlen($data);
 
         return $data;
     }
@@ -208,5 +180,10 @@ class BIFFwriter
         $tmp .= substr($data, $i);
 
         return $tmp;
+    }
+
+    public function getBiffDataSize(): int
+    {
+        return $this->biffDataSize;
     }
 }

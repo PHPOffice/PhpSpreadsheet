@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use GdImage;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 
 class MemoryDrawing extends BaseDrawing
 {
@@ -138,12 +139,18 @@ class MemoryDrawing extends BaseDrawing
      */
     public static function fromString(string $imageString): self
     {
-        $gdImage = @imagecreatefromstring($imageString);
-        if ($gdImage === false) {
-            throw new Exception('Value cannot be converted to an image');
-        }
+        if (Metafile::detect($imageString) !== null) {
+            // Windows Metafiles (WMF, EMF, EMF+) are rendered as PNG
+            $gdImage = Metafile::toGdImage($imageString);
+            $mimeType = self::MIMETYPE_PNG;
+        } else {
+            $gdImage = @imagecreatefromstring($imageString);
+            if ($gdImage === false) {
+                throw new Exception('Value cannot be converted to an image');
+            }
 
-        $mimeType = self::identifyMimeType($imageString);
+            $mimeType = self::identifyMimeType($imageString);
+        }
         if (imageistruecolor($gdImage) || imagecolortransparent($gdImage) >= 0) {
             imagesavealpha($gdImage, true);
         }

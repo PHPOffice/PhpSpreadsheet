@@ -2,10 +2,12 @@
 table.features-cross-reference {
     overflow: visible !important;
 }
+/*
 .rst-content table.features-cross-reference.docutils th,
 .rst-content table.features-cross-reference.docutils td {
     background-color: white;
 }
+*/
 
 /* https://github.com/mkdocs/mkdocs/discussions/3035#discussioncomment-7237037 */
 .wy-table-responsive table td, .wy-table-responsive table th {
@@ -17,3 +19,6 @@ table.features-cross-reference {
 
 /* https://github.com/readthedocs/sphinx_rtd_theme/issues/295#issuecomment-455226058 */
 .wy-nav-content {max-width: none;}
+
+.wehavedarktoggle {display: block;}
+.wedonthavedarktoggle {display: none;}

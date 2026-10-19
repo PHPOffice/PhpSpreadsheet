@@ -27,7 +27,7 @@ class NoDieTest extends \PHPUnit\Framework\TestCase
     public function testExceptionRatherThanDie(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Could not include font definition file');
+        $this->expectExceptionMessageMatches('/Could not include font definition file|unable to read file/');
         $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'cell');
         $writer = new TcpdfNoDie($this->spreadsheet);

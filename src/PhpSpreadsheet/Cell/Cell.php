@@ -370,16 +370,16 @@ class Cell implements Stringable
         $worksheet = $this->getWorksheet();
         $spreadsheet = $worksheet->getParent();
         if (isset($spreadsheet) && $spreadsheet->getIndex($worksheet, true) >= 0) {
-            $originalSelected = $worksheet->getSelectedCells();
-            $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
-            $style = $this->getStyle();
-            $oldQuotePrefix = $style->getQuotePrefix();
+            // Avoid Worksheet::getStyle() (selection + validation) unless quotePrefix must change.
+            $oldQuotePrefix = $spreadsheet->getCellXfByIndex($this->getXfIndex())->getQuotePrefix();
             if ($oldQuotePrefix !== $quotePrefix) {
-                $style->setQuotePrefix($quotePrefix);
-            }
-            $worksheet->setSelectedCells($originalSelected);
-            if ($activeSheetIndex >= 0) {
-                $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+                $originalSelected = $worksheet->getSelectedCells();
+                $activeSheetIndex = $spreadsheet->getActiveSheetIndex();
+                $this->getStyle()->setQuotePrefix($quotePrefix);
+                $worksheet->setSelectedCells($originalSelected);
+                if ($activeSheetIndex >= 0) {
+                    $spreadsheet->setActiveSheetIndex($activeSheetIndex);
+                }
             }
         }
 
@@ -1018,6 +1018,19 @@ class Cell implements Stringable
         $this->xfIndex = $indexValue;
 
         return $this->updateInCollection();
+    }
+
+    /**
+     * Set the XF index without triggering updateInCollection().
+     *
+     * This is intended for use by readers that will immediately follow with
+     * setValueExplicit(), avoiding a redundant cache write.
+     *
+     * @internal
+     */
+    public function setXfIndexNoUpdate(int $indexValue): void
+    {
+        $this->xfIndex = $indexValue;
     }
 
     /**

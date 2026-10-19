@@ -43,7 +43,9 @@ class NumberFormatCallbackTest extends TestCase
         $writer->save($this->tempfile);
         $spreadsheetOld->disconnectWorksheets();
         $reader = new OdsReader();
-        $reader->setFormatCallback($this->genericCurrencyRead(...));
+        $reader->setFormatCallback(
+            $this->genericCurrencyRead(...)
+        );
         $spreadsheet = $reader->load($this->tempfile);
         $newSheet = $spreadsheet->getActiveSheet();
         self::assertSame('1.23', $newSheet->getCell('A1')->getFormattedValue());
@@ -68,11 +70,152 @@ class NumberFormatCallbackTest extends TestCase
 
     private function genericCurrencyRead(string $type, string $text): string
     {
-        $retVal = '';
         if ($type === 'float' && mb_substr($text, 0, 1) === '¤') {
-            $retVal = '¤#,##0.000';
+            return '¤#,##0.000';
         }
 
-        return $retVal;
+        return '';
+    }
+
+    public function testMmmdyyyy(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->getCell('A1')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode('mmm d, yyyy');
+        $sheet->getCell('A2')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A2')
+            ->getNumberFormat()
+            ->setFormatCode(
+                NumberFormat::FORMAT_DATE_DATETIME_BETTER
+            );
+        $writer = new OdsWriter($spreadsheetOld);
+        $this->tempfile = File::temporaryFileName();
+        $writer = new OdsWriter($spreadsheetOld);
+        $writer->useAdditionalNumberFormats([
+            'mmm d, yyyy' => self::mmmdyyyy(...),
+        ]);
+        $writer->save($this->tempfile);
+        $spreadsheetOld->disconnectWorksheets();
+        $reader = new OdsReader();
+        $spreadsheet = $reader->load($this->tempfile);
+        $newSheet = $spreadsheet->getActiveSheet();
+        // no formatCallback used, so we can't duplicate custom format,
+        // but we will use a similar format,
+        // with same number of year digits as was written
+        self::assertSame('9-Dec-2025', $newSheet->getCell('A1')->getFormattedValue());
+        self::assertSame('2025-12-09 00:00', $newSheet->getCell('A2')->getFormattedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    private static function mmmdyyyy(Style $obj, string $name): void
+    {
+        $writer = $obj->getWriter();
+        $writer->startElement('number:date-style');
+        $writer->writeAttribute('style:name', $name);
+        $writer->startElement('number:month');
+        $writer->writeAttribute('number:textual', 'true');
+        $writer->endElement(); // number:month
+        $writer->writeElement('number:text', ' ');
+        $writer->startElement('number:day');
+        $writer->endElement(); // number:day
+        $writer->writeElement('number:text', ', ');
+        $writer->startElement('number:year');
+        $writer->writeAttribute('number:style', 'long');
+        $writer->endElement(); // number:year
+        $writer->endElement(); // number:date-style
+    }
+
+    public function testUnsupportedFormats(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->getCell('A1')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode('mmm d, yyyy');
+        $sheet->getCell('A2')->setValue(46000.5); // Dec 9, 2025 noon
+        $sheet->getStyle('A2')
+            ->getNumberFormat()
+            ->setFormatCode('mmm d, yyyy hh:mm');
+        $sheet->getCell('A3')->setValue(0.5); // noon
+        $sheet->getStyle('A3')
+            ->getNumberFormat()
+            ->setFormatCode(' hh:mm ');
+        $writer = new OdsWriter($spreadsheetOld);
+        $this->tempfile = File::temporaryFileName();
+        $writer = new OdsWriter($spreadsheetOld);
+        $writer->save($this->tempfile);
+        $spreadsheetOld->disconnectWorksheets();
+        $reader = new OdsReader();
+        $spreadsheet = $reader->load($this->tempfile);
+        $newSheet = $spreadsheet->getActiveSheet();
+        // Writer would have used default formats
+        self::assertSame('9-Dec-2025', $newSheet->getCell('A1')->getFormattedValue());
+        self::assertSame('9-Dec-2025 12:00:00', $newSheet->getCell('A2')->getFormattedValue());
+        self::assertSame('12:00:00', $newSheet->getCell('A3')->getFormattedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testReadAndWriteDateCallbacks(): void
+    {
+        $spreadsheetOld = new Spreadsheet();
+        $sheet = $spreadsheetOld->getActiveSheet();
+        $sheet->getCell('A1')->setValue(46000); // Dec 9, 2025
+        $sheet->getCell('A2')->setValue(46000); // Dec 9, 2025
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode('  mmm d, yyyy  ');
+        $sheet->getStyle('A2')
+            ->getNumberFormat()
+            ->setFormatCode('yyyy-mm-dd');
+        $writer = new OdsWriter($spreadsheetOld);
+        $this->tempfile = File::temporaryFileName();
+        $writer = new OdsWriter($spreadsheetOld);
+        $writer->useAdditionalNumberFormats([
+            '  mmm d, yyyy  ' => self::mmmdyyyyspacesWrite(...),
+        ]);
+        $writer->save($this->tempfile);
+        $spreadsheetOld->disconnectWorksheets();
+        $reader = new OdsReader();
+        $reader->setFormatCallback(
+            $this->mmmdyyyspacesRead(...)
+        );
+        $spreadsheet = $reader->load($this->tempfile);
+        $newSheet = $spreadsheet->getActiveSheet();
+        self::assertSame('  Dec 9, 2025  ', $newSheet->getCell('A1')->getFormattedValue(), 'format set in read callback');
+        self::assertSame('2025-12-09', $newSheet->getCell('A2')->getFormattedValue(), 'format not set in read callback');
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    private static function mmmdyyyyspacesWrite(Style $obj, string $name): void
+    {
+        $writer = $obj->getWriter();
+        $writer->startElement('number:date-style');
+        $writer->writeElement('number:text', '  ');
+        $writer->writeAttribute('style:name', $name);
+        $writer->startElement('number:month');
+        $writer->writeAttribute('number:textual', 'true');
+        $writer->endElement(); // number:month
+        $writer->writeElement('number:text', ' ');
+        $writer->startElement('number:day');
+        $writer->endElement(); // number:day
+        $writer->writeElement('number:text', ', ');
+        $writer->startElement('number:year');
+        $writer->writeAttribute('number:style', 'long');
+        $writer->writeElement('number:text', '  ');
+        $writer->endElement(); // number:year
+        $writer->endElement(); // number:date-style
+    }
+
+    private function mmmdyyyspacesRead(string $type, string $text): string
+    {
+        if ($type === 'date' && 1 === preg_match('/^  [A-Za-z]+ \d\d?, \d\d\d\d/  ', $text)) {
+            return '  mmm d, yyyy  ';
+        }
+
+        return '';
     }
 }

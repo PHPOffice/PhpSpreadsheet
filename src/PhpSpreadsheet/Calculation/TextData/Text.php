@@ -171,12 +171,12 @@ class Text
     {
         $columnCount = array_reduce(
             $rows,
-            fn (int $counter, array $row): int => max($counter, count($row)), //* @phpstan-ignore-line
+            fn (int $counter, array $row): int => max($counter, count($row)), //* @phpstan-ignore argument.type (I don't know)
             0
         );
 
         return array_map(
-            fn (array $row): array => (count($row) < $columnCount) //* @phpstan-ignore-line
+            fn (array $row): array => (count($row) < $columnCount) //* @phpstan-ignore argument.type (I don't know)
                     ? array_merge($row, array_fill(0, $columnCount - count($row), $padding))
                     : $row,
             $rows

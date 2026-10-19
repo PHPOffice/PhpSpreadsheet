@@ -16,7 +16,7 @@ class WebServiceTest extends TestCase
 
     private const WHITELIST = [
         'www.example.com',
-        'www.google.com',
+        'github.com',
         'www.invalid.com',
     ];
 
