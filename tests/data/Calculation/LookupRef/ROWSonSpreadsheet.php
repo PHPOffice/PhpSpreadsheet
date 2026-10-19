@@ -8,7 +8,7 @@ return [
     'global $F$4:$H$4' => [1, 'namedrange3'],
     'local in scope $F$5:$H$5' => [1, 'namedrange5'],
     'local out of scope' => ['#NAME?', 'localname'],
-    'non-existent sheet' => [5, 'UnknownSheet!B2:K6'],
+    'non-existent sheet' => ['incomplete', 'UnknownSheet!B2:K6'],
     'not enough arguments' => ['exception', 'omitted'],
     'other existing sheet' => [6, 'OtherSheet!A1:H6'],
     'qualified in scope $F$5:$H$5' => [1, 'ThisSheet!namedrange5'],

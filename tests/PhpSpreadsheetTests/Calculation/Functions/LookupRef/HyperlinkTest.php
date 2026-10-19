@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class HyperlinkTest extends AllSetupTeardown
 {
-    private bool $issue2464 = false;
+    protected bool $issue2464 = false;
 
     #[\PHPUnit\Framework\Attributes\DataProvider('providerHYPERLINK')]
     public function testHYPERLINK(mixed $expectedResult, ?string $linkUrl, ?string $description): void

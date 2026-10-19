@@ -72,7 +72,7 @@ class FunctionsTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('providerIfCondition')]
-    public function testIfCondition(string $expectedResult, string $args): void
+    public function testIfCondition(string $expectedResult, mixed $args): void
     {
         $result = Functions::ifCondition($args);
         self::assertEquals($expectedResult, $result);

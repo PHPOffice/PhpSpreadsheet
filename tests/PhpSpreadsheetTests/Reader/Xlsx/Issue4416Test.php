@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PHPUnit\Framework\TestCase;
 
@@ -49,7 +50,9 @@ class Issue4416Test extends TestCase
     {
         $file = self::$file;
         $reader = new XlsxReader();
+        self::assertInstanceOf(DefaultReadFilter::class, $reader->getReadFilter());
         $reader->setReadFilter(new Issue4416Filter());
+        self::assertInstanceOf(Issue4416Filter::class, $reader->getReadFilter());
         $spreadsheet = $reader->load($file);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEqualsWithDelta(

@@ -50,8 +50,14 @@ class Gnumeric extends BaseReader
 
     private ReferenceHelper $referenceHelper;
 
-    /** @var array{'dataType': string[]} */
-    public static array $mappings = [
+    /**
+     * @deprecated 5.10.0 No longer used, replaced by const which is not user-accessible.
+     *
+     * @var array{'dataType': string[]}
+     */
+    public static array $mappings = self::MAPPINGS;
+
+    private const MAPPINGS = [
         'dataType' => [
             '10' => DataType::TYPE_NULL,
             '20' => DataType::TYPE_BOOL,
@@ -64,6 +70,14 @@ class Gnumeric extends BaseReader
         ],
     ];
 
+    protected int $maxLength;
+
+    private const LENGTH_MULTIPLIER = [
+        'G' => 1024 * 1024 * 1024,
+        'M' => 1024 * 1024,
+        'K' => 1024,
+    ];
+
     /**
      * Create a new Gnumeric.
      */
@@ -72,6 +86,20 @@ class Gnumeric extends BaseReader
         parent::__construct();
         $this->referenceHelper = ReferenceHelper::getInstance();
         $this->securityScanner = XmlScanner::getInstance($this);
+        $limit = ini_get('memory_limit') ?: '128M';
+        $limit = trim(str_replace('-1', '128M', $limit));
+        $unit = strtoupper(substr($limit, -1));
+        $limit = (int) $limit;
+        $multiplier = self::LENGTH_MULTIPLIER[$unit] ?? 1;
+        $limit *= $multiplier;
+        $this->maxLength = intdiv($limit, 4);
+    }
+
+    public function setMaxLength(int $maxLength): self
+    {
+        $this->maxLength = $maxLength;
+
+        return $this;
     }
 
     /**
@@ -192,7 +220,7 @@ class Gnumeric extends BaseReader
             if (str_starts_with($contents, "\x1f\x8b")) {
                 // Check if gzlib functions are available
                 if (function_exists('gzdecode')) {
-                    $contents = @gzdecode($contents);
+                    $contents = @gzdecode($contents, $this->maxLength);
                     if ($contents !== false) {
                         $data = $contents;
                     }
@@ -208,10 +236,14 @@ class Gnumeric extends BaseReader
         return $data;
     }
 
-    /** @return mixed[] */
+    /**
+     * @return mixed[]
+     *
+     * @internal
+     */
     public static function gnumericMappings(): array
     {
-        return array_merge(self::$mappings, Styles::$mappings);
+        return array_merge(self::MAPPINGS, Styles::MAPPINGS);
     }
 
     private function processComments(SimpleXMLElement $sheet): void
@@ -260,8 +292,7 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($filename);
 
-        /** @var XmlScanner */
-        $securityScanner = $this->securityScanner;
+        $securityScanner = $this->getSecurityScannerOrThrow();
         $xml2 = simplexml_load_string($securityScanner->scan($gFileData));
         $xml = self::testSimpleXml($xml2);
 
@@ -311,7 +342,7 @@ class Gnumeric extends BaseReader
                 $column = Coordinate::stringFromColumnIndex($column + 1);
 
                 // Read cell?
-                if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
+                if (!$this->readFilter->readCell($column, $row, $worksheetName)) {
                     continue;
                 }
 
@@ -589,8 +620,8 @@ class Gnumeric extends BaseReader
             $type = DataType::TYPE_FORMULA;
         } elseif ($isArrayFormula === false) {
             $vtype = (string) $ValueType;
-            if (array_key_exists($vtype, self::$mappings['dataType'])) {
-                $type = self::$mappings['dataType'][$vtype];
+            if (array_key_exists($vtype, self::MAPPINGS['dataType'])) {
+                $type = self::MAPPINGS['dataType'][$vtype];
             }
             if ($vtype === '20') { //    Boolean
                 $cell = $cell == 'TRUE';

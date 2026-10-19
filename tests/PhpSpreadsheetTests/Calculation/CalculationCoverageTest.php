@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\ExceptionHandler;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\Attributes;
 use PHPUnit\Framework\TestCase;
 
 class CalculationCoverageTest extends TestCase
@@ -144,21 +145,24 @@ class CalculationCoverageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    protected static int $winMinPhpToSkip = 80300;
+    public function testDeprecated(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $calc = Calculation::getInstance($spreadsheet);
+        $sheet = $spreadsheet->getActiveSheet();
+        $formula = '=3+ROW()';
+        $cellAddress = 'A1';
+        $cell = $sheet->getCell($cellAddress);
+        $cell->setValue($formula);
+        $result1 = $calc->_calculateFormulaValue($formula, $cellAddress, $cell, false); //* @phpstan-ignore method.deprecated (entire test will be removed when deprecated routine is removed)
+        $result2 = $calc->calculateFormulaValue($formula, $cellAddress, $cell, false);
+        self::assertSame($result1, $result2);
+        $spreadsheet->disconnectWorksheets();
+    }
 
-    protected static int $winMaxPhpToSkip = 80499;
-
-    protected static string $winIndicator = 'WIN';
-
+    #[Attributes\RunInSeparateProcess]
     public function testExceptionHandler(): void
     {
-        if (
-            strtoupper(substr(PHP_OS, 0, 3)) === self::$winIndicator
-            && PHP_VERSION_ID >= self::$winMinPhpToSkip
-            && PHP_VERSION_ID <= self::$winMaxPhpToSkip
-        ) {
-            self::markTestSkipped('Mysterious problem on Windows with Php8.3/4 only');
-        }
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage('hello');
         $handler = new ExceptionHandler();

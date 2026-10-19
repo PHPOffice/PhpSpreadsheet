@@ -25,7 +25,7 @@ class AutoFilter
     {
         // Remove all "$" in the auto filter range
         $attrs = $this->worksheetXml->autoFilter->attributes() ?? [];
-        $autoFilterRange = (string) preg_replace('/\$/', '', $attrs['ref'] ?? '');
+        $autoFilterRange = (string) preg_replace('/\$/', '', (string) ($attrs['ref'] ?? ''));
         if (str_contains($autoFilterRange, ':')) {
             $this->readAutoFilter($autoFilterRange);
         }

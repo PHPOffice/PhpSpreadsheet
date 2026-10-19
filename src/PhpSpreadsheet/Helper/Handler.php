@@ -2,13 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
-class Handler
+/** @internal */
+final class Handler
 {
     private static string $invalidHex = 'Y';
 
     // A bunch of methods to show that we continue
     // to capture messages even using PhpUnit 10.
-    public static function suppressed(): bool
+    public static function suppressed(): true
     {
         return @trigger_error('hello');
     }
@@ -28,17 +29,17 @@ class Handler
         return file_get_contents(__FILE__ . 'noexist') !== false;
     }
 
-    public static function userDeprecated(): bool
+    public static function userDeprecated(): true
     {
         return trigger_error('hello', E_USER_DEPRECATED);
     }
 
-    public static function userNotice(): bool
+    public static function userNotice(): true
     {
         return trigger_error('userNotice', E_USER_NOTICE);
     }
 
-    public static function userWarning(): bool
+    public static function userWarning(): true
     {
         return trigger_error('userWarning', E_USER_WARNING);
     }

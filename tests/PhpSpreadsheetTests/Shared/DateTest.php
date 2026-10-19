@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use DateMalformedStringException;
+//use DateMalformedStringException;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class DateTest extends TestCase
 {
@@ -100,6 +101,17 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
+    #[DataProvider('providerDateTimeDateTimeToExcel')]
+    public function testDateTime2DateTimeToExcel(float|int $expectedResult, DateTimeInterface $dateTimeObject): void
+    {
+        // Show new parameter will override static value
+        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+
+        $result = Date::dateTimeToExcel($dateTimeObject, Date::CALENDAR_WINDOWS_1900);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
+        self::assertSame(Date::CALENDAR_MAC_1904, Date::getExcelCalendar());
+    }
+
     public static function providerDateTimeDateTimeToExcel(): array
     {
         return require 'tests/data/Shared/Date/DateTimeToExcel.php';
@@ -113,7 +125,7 @@ class DateTest extends TestCase
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
-        $result = Date::formattedPHPToExcel(...$args); // @phpstan-ignore-line
+        $result = Date::formattedPHPToExcel(...$args); // @phpstan-ignore argument.type (don't know how to satisfy phpstan)
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
@@ -134,6 +146,18 @@ class DateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
+    #[DataProvider('providerDateTimeExcelToTimestamp1904')]
+    public function testDateTime2ExcelToTimestamp1904(float|int $expectedResult, float|int $excelDateTimeValue): void
+    {
+        if ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN) {
+            self::markTestSkipped('Test invalid on 32-bit system.');
+        }
+
+        $result = Date::excelToTimestamp($excelDateTimeValue, calendar: Date::CALENDAR_MAC_1904);
+        self::assertEquals($expectedResult, $result);
+        self::assertSame($this->excelCalendar, Date::getExcelCalendar());
+    }
+
     public static function providerDateTimeExcelToTimestamp1904(): array
     {
         return require 'tests/data/Shared/Date/ExcelToTimestamp1904.php';
@@ -146,6 +170,14 @@ class DateTest extends TestCase
 
         $result = Date::timestampToExcel($unixTimestamp);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
+    }
+
+    #[DataProvider('providerDateTimeTimestampToExcel1904')]
+    public function testDateTime2TimestampToExcel1904(mixed $expectedResult, float|int|string $unixTimestamp): void
+    {
+        $result = Date::timestampToExcel($unixTimestamp, Date::CALENDAR_MAC_1904);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
+        self::assertSame($this->excelCalendar, Date::getExcelCalendar());
     }
 
     public static function providerDateTimeTimestampToExcel1904(): array
@@ -204,6 +236,9 @@ class DateTest extends TestCase
         self::assertNotFalse($timestamp2);
         self::assertEqualsWithDelta(45803.60277777778, $timestamp1, 1.0E-10);
         self::assertSame($timestamp1, $timestamp2);
+        $timestamp3 = Date::stringToExcel('26.05.2025 14:28:00.00', Date::CALENDAR_MAC_1904);
+        self::assertEqualsWithDelta(45803.60277777778, 1462 + $timestamp3, 1.0E-10);
+        self::assertSame($this->excelCalendar, Date::getExcelCalendar());
 
         $date = Date::PHPToExcel('2020-01-01');
         self::assertEquals(43831.0, $date);
@@ -288,6 +323,8 @@ class DateTest extends TestCase
         self::assertEquals(new DateTime('2000-01-02 03:04:05.000000'), $dti);
     }
 
+    protected string $dateMalformedStringException = 'DateMalformedStringException';
+
     /**
      * Verifies that the library's date detection functionality properly handles large numeric values.
      *
@@ -318,11 +355,17 @@ class DateTest extends TestCase
             /**
              * Starting with PHP 8.3, DateTime::modify() throws a DateMalformedStringException, and we are not wrapping
              * the E_WARNING into a PhpSpreadsheetException.
+             * Phpstan wants to flag references to DateMalformedStringException
+             *     until < Php8.3 is no longer a possibility, so we add a little kludge.
              */
-            if (PHP_VERSION_ID >= 80300) {
-                $this->expectException(DateMalformedStringException::class);
+            /** @var class-string<Throwable> */
+            $exception = $this->dateMalformedStringException;
+            if (class_exists($exception, false)) {
+                $this->expectException($exception);
             } else {
-                $this->expectException(PhpSpreadsheetException::class);
+                $this->expectException(
+                    PhpSpreadsheetException::class
+                );
             }
 
             Date::excelToDateTimeObject($value);

@@ -13,6 +13,11 @@ class Chart
     private string $name;
 
     /**
+     * Alternative text, the description of the chart's frame.
+     */
+    private string $description = '';
+
+    /**
      * Worksheet.
      */
     private ?Worksheet $worksheet = null;
@@ -36,6 +41,11 @@ class Chart
      * Y-Axis Label.
      */
     private ?Title $yAxisLabel;
+
+    /**
+     * Chart Ex Area.
+     */
+    private ?ChartEx $chartEx = null;
 
     /**
      * Chart Plot Area.
@@ -110,6 +120,37 @@ class Chart
 
     private bool $roundedCorners = false;
 
+    private bool $date1904 = false;
+
+    private string $lang = 'en-GB';
+
+    /** @var array{
+     *     b?: numeric-string,
+     *     l?: numeric-string,
+     *     r?: numeric-string,
+     *     t?: numeric-string,
+     *     header?: numeric-string,
+     *     footer?: numeric-string,
+     * }
+     */
+    private array $pageMargins = [
+        'b' => '0.75',
+        'l' => '0.7',
+        'r' => '0.7',
+        't' => '0.75',
+        'header' => '0.3',
+        'footer' => '0.3',
+    ];
+
+    /** @var array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    private array $pageSetup = [
+        'orientation' => 'portrait',
+    ];
+
     private GridLines $borderLines;
 
     private ChartColor $fillColor;
@@ -166,6 +207,18 @@ class Chart
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -273,11 +326,34 @@ class Chart
         throw new Exception('Chart has no PlotArea');
     }
 
+    public function getChartEx(): ?ChartEx
+    {
+        return $this->chartEx;
+    }
+
+    /**
+     * Set ChartEx.
+     */
+    public function setChartEx(ChartEx $chartEx): static
+    {
+        if ($this->plotArea !== null) {
+            throw new Exception('A chart cannot contain both a PlotArea and ChartEx data.');
+        }
+
+        $this->chartEx = $chartEx;
+
+        return $this;
+    }
+
     /**
      * Set Plot Area.
      */
     public function setPlotArea(PlotArea $plotArea): self
     {
+        if ($this->chartEx !== null) {
+            throw new Exception('A chart cannot contain both ChartEx and a PlotArea.');
+        }
+
         $this->plotArea = $plotArea;
 
         return $this;
@@ -584,8 +660,12 @@ class Chart
 
     public function refresh(): void
     {
-        if ($this->worksheet !== null && $this->plotArea !== null) {
-            $this->plotArea->refresh($this->worksheet);
+        if ($this->worksheet !== null) {
+            if ($this->plotArea !== null) {
+                $this->plotArea->refresh($this->worksheet);
+            } elseif ($this->chartEx !== null) {
+                $this->chartEx->refresh($this->worksheet);
+            }
         }
     }
 
@@ -680,9 +760,11 @@ class Chart
         return $this->autoTitleDeleted;
     }
 
-    public function setAutoTitleDeleted(bool $autoTitleDeleted): self
+    public function setAutoTitleDeleted(?bool $autoTitleDeleted): self
     {
-        $this->autoTitleDeleted = $autoTitleDeleted;
+        if (is_bool($autoTitleDeleted)) {
+            $this->autoTitleDeleted = $autoTitleDeleted;
+        }
 
         return $this;
     }
@@ -720,6 +802,34 @@ class Chart
     {
         if ($roundedCorners !== null) {
             $this->roundedCorners = $roundedCorners;
+        }
+
+        return $this;
+    }
+
+    public function getDate1904(): bool
+    {
+        return $this->date1904;
+    }
+
+    public function setDate1904(?bool $date1904): self
+    {
+        if ($date1904 !== null) {
+            $this->date1904 = $date1904;
+        }
+
+        return $this;
+    }
+
+    public function getLang(): string
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?string $lang): self
+    {
+        if ($lang !== null && $lang !== '') {
+            $this->lang = $lang;
         }
 
         return $this;
@@ -781,5 +891,60 @@ class Chart
         $this->yAxis = clone $this->yAxis;
         $this->borderLines = clone $this->borderLines;
         $this->fillColor = clone $this->fillColor;
+        $this->chartEx = $this->chartEx === null ? null : clone $this->chartEx;
+    }
+
+    /** @return array{
+     * b?: numeric-string,
+     * l?: numeric-string,
+     * r?: numeric-string,
+     * t?: numeric-string,
+     * header?: numeric-string,
+     * footer?: numeric-string,
+     * }
+     */
+    public function getPageMargins(): array
+    {
+        return $this->pageMargins;
+    }
+
+    /** @param mixed $pageMargins expecting array matching $this->pageMargins */
+    public function setPageMargins(mixed $pageMargins): self
+    {
+        if (is_array($pageMargins)) {
+            foreach (['b', 'l', 'r', 't', 'header', 'footer'] as $key) {
+                $value = $pageMargins[$key] ?? null;
+                if (is_string($value) && is_numeric($value)) {
+                    $this->pageMargins[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /** @return array{
+     *     paperSize?: string,
+     *     orientation?: string,
+     * }
+     */
+    public function getPageSetup(): array
+    {
+        return $this->pageSetup;
+    }
+
+    /** @param mixed $pageSetup expecting array matching $this->pageSetup */
+    public function setPageSetup(mixed $pageSetup): self
+    {
+        if (is_array($pageSetup)) {
+            foreach (['paperSize', 'orientation'] as $key) {
+                $value = $pageSetup[$key] ?? null;
+                if (is_string($value)) {
+                    $this->pageSetup[$key] = "$value";
+                }
+            }
+        }
+
+        return $this;
     }
 }

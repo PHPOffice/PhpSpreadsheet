@@ -274,8 +274,7 @@ class Rule
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
-            //    I have no idea what Phpstan is complaining about below
-            $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]); // @phpstan-ignore-line
+            $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]); // @phpstan-ignore offsetAccess.notFound (no idea what phpstan is complaining about)
         }
         $this->value = $value;
 

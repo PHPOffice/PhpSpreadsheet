@@ -36,7 +36,7 @@ class DateValueWizardTest extends TestCase
 
         $conditional = $dateWizard->getConditional();
         self::assertSame(Conditional::CONDITION_TIMEPERIOD, $conditional->getConditionType());
-        self:self::assertSame($expectedReference, $conditional->getText());
+        self::assertSame($expectedReference, $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedExpression], $conditions);
 

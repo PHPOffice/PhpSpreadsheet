@@ -40,7 +40,7 @@ class Unique
         //      so implode each row into a single string value
         array_walk(
             $lookupVector,
-            //* @phpstan-ignore-next-line
+            // @phpstan-ignore argument.type (not sure what is needed)
             function (array &$value): void {
                 $valuex = '';
                 $separator = '';
@@ -79,7 +79,7 @@ class Unique
                     if (str_ends_with($stringValue, "\x01")) {
                         // x01 should only end a string which is otherwise a float or int,
                         // so phpstan is technically correct but what it fears should not happen.
-                        $stringValue = 0 + substr($stringValue, 0, -1); //@phpstan-ignore-line
+                        $stringValue = 0 + substr($stringValue, 0, -1); //@phpstan-ignore binaryOp.invalid (stringValue might not be numeric?)
                     }
                 }
             }

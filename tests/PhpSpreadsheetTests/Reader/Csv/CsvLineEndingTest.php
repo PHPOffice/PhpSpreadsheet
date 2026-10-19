@@ -13,7 +13,7 @@ class CsvLineEndingTest extends TestCase
 {
     private string $tempFile = '';
 
-    private static bool $alwaysFalse = false;
+    protected static bool $alwaysFalse = false;
 
     protected function tearDown(): void
     {

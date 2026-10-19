@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -447,7 +448,9 @@ class Html extends BaseWriter
         $properties = $this->spreadsheet->getProperties();
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . $this->lineEnding;
         $rtl = ($this->rtlSheets && !$this->ltrSheets) ? " dir='rtl'" : '';
-        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $rtl . '>' . $this->lineEnding;
+        $language = htmlspecialchars($properties->getLanguage(), Settings::htmlEntityFlags());
+        $lang = ($language === '') ? '' : " lang=\"$language\"";
+        $html .= '<html xmlns="http://www.w3.org/1999/xhtml"' . $lang . $rtl . '>' . $this->lineEnding;
         $html .= '  <head>' . $this->lineEnding;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . $this->lineEnding;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet" />' . $this->lineEnding;
@@ -758,8 +761,17 @@ class Html extends BaseWriter
                     $opacity = "opacity:$opacityValue; ";
                 }
             }
+            $rotationValue = $drawing->getRotation();
+            if ($rotationValue !== 0) {
+                $rotation = "transform: rotate({$rotationValue}deg); ";
+                $opacity .= $rotation;
+            }
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
+            if ($drawing->isDecorative()) {
+                // An empty alt is how HTML marks a decorative image
+                $filedesc = '';
+            }
             if ($drawing instanceof Drawing && $drawing->getPath() !== '') {
                 $filename = $drawing->getPath();
 
@@ -778,7 +790,11 @@ class Html extends BaseWriter
                 $html .= $this->lineEnding;
                 $imageData = self::winFileToUrl($filename, $this instanceof Pdf\Mpdf);
 
-                if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
+                if ($drawing->isMetafile()) {
+                    // Browsers can not display Windows Metafiles : they are embedded as PNG
+                    $png = Metafile::tryToPng($drawing->getContents());
+                    $imageData = ($png === null) ? 'data:,' : 'data:image/png;base64,' . base64_encode($png);
+                } elseif ($this->embedImages || str_starts_with($imageData, 'zip://')) {
                     $imageData = 'data:,';
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
@@ -1236,6 +1252,9 @@ class Html extends BaseWriter
         $css['color'] = '#' . $font->getColor()->getRGB();
         if (!$conditional) {
             $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+            if ($this instanceof Pdf\Tcpdf) {
+                $css['font-family'] .= ', serif';
+            }
             $css['font-size'] = $font->getSize() . 'pt';
         }
 
@@ -1590,7 +1609,13 @@ class Html extends BaseWriter
                     $origData2 = $cell->getValueString();
                 }
             }
-            $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
+            $style = $worksheet->getParent()
+                ?->getCellXfByIndexOrNull(
+                    $cell->getXfIndex()
+                );
+            $formatCode = $style
+                ?->getNumberFormat()
+                ->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
                 $origData2,
@@ -1601,9 +1626,9 @@ class Html extends BaseWriter
             if ($cellData === $origData) {
                 $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
-            if ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
+            if (true === $style?->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
-            } elseif ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
+            } elseif (true === $style?->getFont()->getSubscript()) {
                 $cellData = '<sub>' . $cellData . '</sub>';
             }
         }

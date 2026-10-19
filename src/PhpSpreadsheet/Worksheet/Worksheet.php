@@ -32,6 +32,10 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\Sparkline;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineGroup;
+use PhpOffice\PhpSpreadsheet\Worksheet\Sparkline\SparklineType;
 
 class Worksheet
 {
@@ -128,6 +132,20 @@ class Worksheet
      * @var ArrayObject<int, Table>
      */
     private ArrayObject $tableCollection;
+
+    /**
+     * Collection of SparklineGroup objects.
+     *
+     * @var ArrayObject<int, SparklineGroup>
+     */
+    private ArrayObject $sparklineGroupCollection;
+
+    /**
+     * Collection of PivotTable objects.
+     *
+     * @var ArrayObject<int, PivotTable>
+     */
+    private ArrayObject $pivotTableCollection;
 
     /**
      * Worksheet title.
@@ -325,7 +343,9 @@ class Worksheet
     {
         // Set parent and title
         $this->parent = $parent;
-        $this->setTitle($title, false);
+        // Chart collection must be set before title
+        $this->chartCollection = new ArrayObject();
+        $this->setTitle($title, false, changeChartSheetNames: false);
         // setTitle can change $pTitle
         $this->setCodeName($this->getTitle());
         $this->setSheetState(self::SHEETSTATE_VISIBLE);
@@ -343,8 +363,6 @@ class Worksheet
         $this->drawingCollection = new ArrayObject();
         // In Cell Drawing collection
         $this->inCellDrawingCollection = new ArrayObject();
-        // Chart collection
-        $this->chartCollection = new ArrayObject();
         // Protection
         $this->protection = new Protection();
         // Default row dimension
@@ -355,15 +373,22 @@ class Worksheet
         $this->autoFilter = new AutoFilter('', $this);
         // Table collection
         $this->tableCollection = new ArrayObject();
+        // Sparkline group collection
+        $this->sparklineGroupCollection = new ArrayObject();
+
+        // Pivot table collection
+        $this->pivotTableCollection = new ArrayObject();
     }
 
     /**
      * Disconnect all cells from this Worksheet object,
      * typically so that the worksheet object can be unset.
+     * The worksheet will be in an unusable state after
+     * this method has completed.
      */
     public function disconnectCells(): void
     {
-        if (isset($this->cellCollection)) { //* @phpstan-ignore-line
+        if (isset($this->cellCollection)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             $this->cellCollection->unsetWorksheetCells();
             unset($this->cellCollection);
         }
@@ -380,7 +405,7 @@ class Worksheet
             ?->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter);
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->sparklineGroupCollection, $this->drawingCollection, $this->inCellDrawingCollection, $this->chartCollection, $this->autoFilter, $this->pivotTableCollection);
     }
 
     /**
@@ -462,7 +487,7 @@ class Worksheet
      */
     public function getCoordinates(bool $sorted = true): array
     {
-        if (!isset($this->cellCollection)) { //* @phpstan-ignore-line
+        if (!isset($this->cellCollection)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             return [];
         }
 
@@ -569,14 +594,14 @@ class Worksheet
     /**
      * Get a chart by its index position.
      *
-     * @param ?string $index Chart index position
+     * @param null|int|string $index Chart index position
      *
      * @return Chart|false
      */
-    public function getChartByIndex(?string $index)
+    public function getChartByIndex(null|int|string $index)
     {
         $chartCount = count($this->chartCollection);
-        if ($chartCount == 0) {
+        if ($chartCount === 0 || (is_string($index) && $index !== (string) (int) $index)) {
             return false;
         }
         if ($index === null) {
@@ -796,7 +821,9 @@ class Worksheet
             $this->activePane = $holdActivePane;
         }
         if ($activeSheet !== null && $activeSheet >= 0) {
-            $this->getParent()?->setActiveSheetIndex($activeSheet);
+            // Okay, I get it now - if $activeSheet is not null,
+            // then $this->getParent() must also be non-null.
+            $this->getParent()->setActiveSheetIndex($activeSheet);
         }
         $this->setSelectedCells($selectedCells);
 
@@ -874,7 +901,7 @@ class Worksheet
      *
      * @return $this
      */
-    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true): static
+    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true, bool $changeChartSheetNames = true): static
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $title) {
@@ -927,8 +954,59 @@ class Worksheet
                 ReferenceHelper::getInstance()->updateNamedFormulae($this->parent, $oldTitle, $newTitle);
             }
         }
+        if ($changeChartSheetNames) {
+            $this->changeChartSheetNames($oldTitle, $title);
+        }
 
         return $this;
+    }
+
+    private function changeChartSheetNames(string $oldTitle, string $title): void
+    {
+        $worksheets = [$this];
+        if ($this->parent !== null) {
+            $sheets = $this->parent->getAllSheets();
+            if (in_array($this, $sheets, true)) {
+                $worksheets = $sheets;
+            }
+        }
+        $titleq = "'$title'!";
+        $oldTitleq1 = preg_quote("'$oldTitle'!");
+        $oldTitleq2 = preg_quote("$oldTitle!");
+        $preg1 = "/$oldTitleq1|\\b$oldTitleq2/";
+        foreach ($worksheets as $sheet) {
+            foreach ($sheet->getChartCollection() as $chart) {
+                foreach (($chart->getPlotArea()?->getPlotGroup() ?? []) as $plotGroup) {
+                    foreach ($plotGroup->getPlotCategories() as $plotCategory) {
+                        $dataSource = (string) $plotCategory->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotCategory->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                    foreach ($plotGroup->getPlotLabels() as $plotLabel) {
+                        $dataSource = (string) $plotLabel->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotLabel->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                    foreach ($plotGroup->getPlotValues() as $plotValue) {
+                        $dataSource = (string) $plotValue->getDataSource();
+                        $dataSource2 = Preg::replace($preg1, $titleq, $dataSource);
+                        if ($dataSource2 !== $dataSource) {
+                            $plotValue->setDataSource(
+                                $dataSource2
+                            );
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1233,8 +1311,7 @@ class Worksheet
                     throw new Exception('Sheet not found for named range: ' . $namedRange->getName());
                 }
 
-                /** @phpstan-ignore-next-line */
-                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), (int) strrpos($namedRange->getValue(), '!')), '!');
                 $finalCoordinate = str_replace('$', '', $cellCoordinate);
             }
         }
@@ -1682,7 +1759,7 @@ class Worksheet
     public function duplicateConditionalStyle(array $styles, string $range = ''): static
     {
         foreach ($styles as $cellStyle) {
-            if (!($cellStyle instanceof Conditional)) { // @phpstan-ignore-line
+            if (!($cellStyle instanceof Conditional)) {
                 throw new Exception('Style is not a conditional style');
             }
         }
@@ -2171,6 +2248,133 @@ class Worksheet
     }
 
     /**
+     * Get collection of SparklineGroups.
+     *
+     * @return ArrayObject<int, SparklineGroup>
+     */
+    public function getSparklineGroupCollection(): ArrayObject
+    {
+        return $this->sparklineGroupCollection;
+    }
+
+    /**
+     * Add a SparklineGroup.
+     *
+     * @return $this
+     */
+    public function addSparklineGroup(SparklineGroup $sparklineGroup): self
+    {
+        $this->sparklineGroupCollection[] = $sparklineGroup;
+
+        return $this;
+    }
+
+    /**
+     * Add a single Sparkline, wrapping it in its own SparklineGroup.
+     *
+     * This is a convenience method for the common case of adding one sparkline
+     * with default formatting; the created group is returned so its formatting
+     * can be adjusted.
+     *
+     * @param SparklineType $type the type of sparkline (defaults to line)
+     */
+    public function addSparkline(Sparkline $sparkline, SparklineType $type = SparklineType::Line): SparklineGroup
+    {
+        $group = new SparklineGroup();
+        $group->setType($type);
+        $group->addSparkline($sparkline);
+        $this->addSparklineGroup($group);
+
+        return $group;
+    }
+
+    /**
+     * Remove all SparklineGroups.
+     *
+     * @return $this
+     */
+    public function removeSparklineGroupCollection(): self
+    {
+        $this->sparklineGroupCollection = new ArrayObject();
+
+        return $this;
+    }
+
+    /**
+     * Get collection of PivotTables.
+     *
+     * @return ArrayObject<int, PivotTable>
+     */
+    public function getPivotTableCollection(): ArrayObject
+    {
+        return $this->pivotTableCollection;
+    }
+
+    /**
+     * Get collection of PivotTables (alias of getPivotTableCollection()).
+     *
+     * @return ArrayObject<int, PivotTable>
+     */
+    public function getPivotTables(): ArrayObject
+    {
+        return $this->pivotTableCollection;
+    }
+
+    /**
+     * Add a PivotTable to this worksheet.
+     *
+     * @return $this
+     */
+    public function addPivotTable(PivotTable $pivotTable): self
+    {
+        $pivotTable->setWorksheet($this);
+        $this->pivotTableCollection[] = $pivotTable;
+
+        return $this;
+    }
+
+    /**
+     * @return string[] array of PivotTable names
+     */
+    public function getPivotTableNames(): array
+    {
+        $pivotTableNames = [];
+
+        foreach ($this->pivotTableCollection as $pivotTable) {
+            $pivotTableNames[] = $pivotTable->getName();
+        }
+
+        return $pivotTableNames;
+    }
+
+    /**
+     * @param string $name the pivot table name to search
+     *
+     * @return null|PivotTable The pivot table from the collection, or null if not found
+     */
+    public function getPivotTableByName(string $name): ?PivotTable
+    {
+        $name = StringHelper::strToUpper($name);
+        foreach ($this->pivotTableCollection as $pivotTable) {
+            if (StringHelper::strToUpper($pivotTable->getName()) === $name) {
+                return $pivotTable;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Remove collection of PivotTables.
+     */
+    public function removePivotTableCollection(): self
+    {
+        $this->pivotTableCollection = new ArrayObject();
+
+        return $this;
+    }
+
+    /**
      * Get Freeze Pane.
      */
     public function getFreezePane(): ?string
@@ -2442,6 +2646,18 @@ class Worksheet
         if ($row < 1) {
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
+        if ($numberOfRows === 0) {
+            return $this;
+        }
+        if ($numberOfRows < 0) {
+            $newRow = max(1, $row + $numberOfRows + 1);
+            $numberOfRows = $row - $newRow + 1;
+            $row = $newRow;
+        }
+        $newHighestRow = $this->cachedHighestRow;
+        if ($newHighestRow >= $row) {
+            $newHighestRow = max($row - 1, $this->cachedHighestRow - $numberOfRows);
+        }
         $startRow = $row;
         $endRow = $startRow + $numberOfRows - 1;
         $removeKeys = [];
@@ -2498,6 +2714,7 @@ class Worksheet
         }
 
         $this->rowDimensions = $holdRowDimensions;
+        $this->cachedHighestRow = $newHighestRow;
 
         return $this;
     }
@@ -2536,6 +2753,19 @@ class Worksheet
             throw new Exception('Column references should not be numeric.');
         }
         $startColumnInt = Coordinate::columnIndexFromString($column);
+        if ($numberOfColumns === 0) {
+            return $this;
+        }
+        if ($numberOfColumns < 0) {
+            $newStartColumnInt = max(1, $startColumnInt + $numberOfColumns + 1);
+            $numberOfColumns = $startColumnInt - $newStartColumnInt + 1;
+            $startColumnInt = $newStartColumnInt;
+            $column = Coordinate::stringFromColumnIndex($startColumnInt);
+        }
+        $newHighestColumn = $this->cachedHighestColumn;
+        if ($newHighestColumn >= $startColumnInt) {
+            $newHighestColumn = max($startColumnInt - 1, $this->cachedHighestColumn - $numberOfColumns);
+        }
         $endColumnInt = $startColumnInt + $numberOfColumns - 1;
         $removeKeys = [];
         $addKeys = [];
@@ -2586,15 +2816,17 @@ class Worksheet
         $this->columnDimensions = $holdColumnDimensions;
 
         if ($pColumnIndex > $highestColumnIndex) {
+            $this->cachedHighestColumn = $newHighestColumn;
+
             return $this;
         }
 
         $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
 
         for ($c = 0, $n = min($maxPossibleColumnsToBeRemoved, $numberOfColumns); $c < $n; ++$c) {
-            $this->cellCollection->removeColumn($highestColumn);
-            $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
+            $this->cellCollection->removeColumn(Coordinate::stringFromColumnIndex($highestColumnIndex - $c));
         }
+        $this->cachedHighestColumn = $newHighestColumn;
 
         $this->garbageCollect();
 

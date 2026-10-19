@@ -140,6 +140,7 @@ for a working example of this code.
 Prior to release 4.1.0, `identify` returns a file type.
 It may be more useful to return a fully-qualified class name,
 which can be accomplished using a parameter introduced in 4.1.0:
+
 ```php
 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName, null, true);
 ```
@@ -189,6 +190,7 @@ Data Only          | IReader::READ_DATA_ONLY             | Read data, structure 
 Charts             | IReader::LOAD_WITH_CHARTS           | Don't read charts
 
 Several flags can be combined in a single call:
+
 ```php
 $inputFileType = 'Xlsx';
 $inputFileName = './sampleData/example1.xlsx';
@@ -200,6 +202,7 @@ $reader->setFlags(IReader::IGNORE_EMPTY_CELLS | IReader::LOAD_WITH_CHARTS);
 $reader->load($inputFileName);
 ```
 or
+
 ```php
 $inputFileType = 'Xlsx';
 $inputFileName = './sampleData/example1.xlsx';
@@ -245,6 +248,7 @@ This option is also available through flags.
 
 Similar to the previous item, you can choose to ignore rows which contain no cells.
 This can also help with memory issues.
+
 ```php
 $inputFileType = 'Xlsx';
 $inputFileName = './sampleData/example1.xlsx';
@@ -469,21 +473,26 @@ Methods such as `toArray()` assume that all cells in a spreadsheet has been load
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+/**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    private $startRow = 0;
-    private $endRow   = 0;
+    private int $startRow = 0;
+    private int $endRow = 0;
 
     /**  Set the list of rows that we want to read  */
-    public function setRows($startRow, $chunkSize) {
+    public function setRows(int $startRow, int $chunkSize): void
+    {
         $this->startRow = $startRow;
-        $this->endRow   = $startRow + $chunkSize;
+        $this->endRow = $startRow + $chunkSize;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '') {
+    public function readCell(
+        string $columnAddress,
+        int $row,
+        string $worksheetName = ''
+    ): bool {
         //  Only read the heading row, and the configured rows
-        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
+        if (($row === 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
         }
         return false;
@@ -706,6 +715,7 @@ However, if the value has a thousands separator (e.g. `12,345`), or a decimal se
 If you want the Csv Reader to convert that value to a numeric when it loads the file, the you need to tell it to do so. The `castFormattedNumberToNumeric()` lets you do this.
 
 (Assuming that our server is configured with German locale settings: otherwise it may be necessary to call `setlocale()` before loading the file.)
+
 ```php
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.de.csv';

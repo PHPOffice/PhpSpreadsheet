@@ -12,6 +12,7 @@ I used Excel to create a spreadsheet, and included some dates, specifying `yyyy-
 Note that this is not a problem when using PhpSpreadsheet to set the style, only when you let Excel do it. And, in that case, after a little experimentation, I figured out a format that Excel doesn't sabotage `[Black]yyyy-mm-dd`.
 
 If you have a spreadsheet that has been altered in this way, it can be fixed with the following PhpSpreadsheet code:
+
 ```php
         foreach ($spreadsheet->getCellXfCollection() as $style) {
             $numberFormat = $style->getNumberFormat();
@@ -22,6 +23,7 @@ If you have a spreadsheet that has been altered in this way, it can be fixed wit
         }
 ```
 Starting with PhpSpreadsheet 4.5.0, this can be simplified to:
+
 ```php
         $spreadsheet->replaceBuiltinNumberFormat(
             \PhpOffice\PhpSpreadsheet\Style\NumberFormat::SHORT_DATE_INDEX,
@@ -47,4 +49,8 @@ In Excel, COUNTIF appears to ignore text cells, behavior which doesn't seem to b
 
 ## SORT on Different DataTypes
 
-Excel appears to sort so that numbers are lowest in sort order, strings are next, booleans are next (LibreOffice treats booleans as ints), and null is highest. In addition, if your sort includes a numeric string with a leading plus or minus sign, the plus sign will be considered part of the string (so that `"+1"` will sort before `"0"`), but the minus sign will be ignored (so that `"-3"` will sort between `"25"` and `"40"`). There might be nuances I haven't thought of yet. PhpSpreadsheet will not necessarily duplicate Excel's behavior. The best advice we can offer is to make sure that arrays you wish to sort consist of a single datatype, and don't contain numeric strings. Samples samples/LookupRef/SortExcel and SortExcelCols are added to give an idea of how you might emulate Excel's behavior. I am not yet convinced that there is a use case for adding it as a class member in the src tree.
+Excel appears to sort so that numbers are lowest in sort order, strings are next, booleans are next (LibreOffice treats booleans as ints), and null is highest.
+In addition, if your sort includes a numeric string with a leading plus or minus sign, the plus sign will be considered part of the string (so that `"+1"` will sort before `"0"`), but the minus sign will be ignored (so that `"-3"` will sort between `"25"` and `"40"`).
+For LibreOffice, numeric strings beginning with `-` will sort (in string order) before numeric strings beginning with `+` which will sort before unsigned numeric strings.
+There might be nuances I haven't thought of yet. PhpSpreadsheet will not necessarily duplicate Excel's/Libre's behavior. The best advice we can offer is to make sure that arrays you wish to sort consist of a single datatype, and don't contain numeric strings.
+Samples samples/LookupRef/SortExcel and SortExcelCols are added to give an idea of how you might emulate Excel's behavior. I am not yet convinced that there is a use case for adding it as a class member in the src tree.

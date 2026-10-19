@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
@@ -190,7 +191,7 @@ class Xls extends BaseWriter
         $worksheetSizes = [];
         for ($i = 0; $i < $countSheets; ++$i) {
             $this->writerWorksheets[$i]->close();
-            $worksheetSizes[] = $this->writerWorksheets[$i]->_datasize;
+            $worksheetSizes[] = $this->writerWorksheets[$i]->getBiffDataSize();
         }
 
         // add binary data for global workbook stream
@@ -416,7 +417,7 @@ class Xls extends BaseWriter
         }
 
         ob_start();
-        call_user_func($renderingFunction, $drawing->getImageResource()); // @phpstan-ignore-line
+        call_user_func($renderingFunction, $drawing->getImageResource()); // @phpstan-ignore argument.type (getImageResource may theoretically be null)
         $blipData = ob_get_contents();
         ob_end_clean();
 
@@ -438,8 +439,15 @@ class Xls extends BaseWriter
         $blipData = '';
         $filename = $drawing->getPath();
 
-        $imageSize = getimagesize($filename);
-        $imageFormat = empty($imageSize) ? 0 : ($imageSize[self::$two] ?? 0);
+        if ($drawing->isMetafile()) {
+            // Windows Metafiles are converted to PNG
+            $imageFormat = 0;
+            $blipType = BSE::BLIPTYPE_PNG;
+            $blipData = Metafile::tryToPng($drawing->getContents());
+        } else {
+            $imageSize = getimagesize($filename);
+            $imageFormat = empty($imageSize) ? 0 : ($imageSize[self::$two] ?? 0);
+        }
 
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG
@@ -794,7 +802,7 @@ class Xls extends BaseWriter
     private function writeSummaryProp(string $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
-            $dataSection[] = [
+            $dataSection[] = [ // @phpstan-ignore parameterByRef.type (I don't know what phpstan wants here)
                 'summary' => ['pack' => 'V', 'data' => $sumdata],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => $typdata], // null-terminated string prepended by dword string length

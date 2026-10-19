@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Composer\Pcre\Preg;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -180,7 +181,7 @@ class Html extends BaseReader
             return false;
         }
 
-        $beginning = preg_replace(self::STARTS_WITH_BOM, '', $this->readBeginning()) ?? '';
+        $beginning = Preg::replace(self::STARTS_WITH_BOM, '', $this->readBeginning());
 
         $startWithTag = self::startsWithTag($beginning);
         $containsTags = self::containsTags($beginning);
@@ -202,7 +203,7 @@ class Html extends BaseReader
     {
         $meta = stream_get_meta_data($this->fileHandle);
         // Phpstan incorrectly flags following line for Php8.2-, corrected in 8.3
-        $filename = $meta['uri']; //@phpstan-ignore-line
+        $filename = $meta['uri']; //@phpstan-ignore offsetAccess.notFound (fixable when Php < 8.3 is no longer possible)
 
         clearstatcache(true, $filename);
         $size = (int) filesize($filename);
@@ -368,13 +369,13 @@ class Html extends BaseReader
                     $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
                     $sheet->setHyperlink($column . $row, $hyperlink);
                 }
-                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
+                $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore property.deprecated (fixable when $this.data is removed)
             }
         } else {
             //    We have a Rich Text run.
             //    I don't actually see any way to reach this line.
             //    TODO
-            // @phpstan-ignore-next-line
+            // @phpstan-ignore property.deprecated (fixable when $this->data is removed)
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
         $cellContentx = '';
@@ -457,7 +458,7 @@ class Html extends BaseReader
                 }
                 if (isset($attributeArray['style'])) {
                     $alignStyle = $attributeArray['style'];
-                    if (preg_match('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches) === 1) {
+                    if (Preg::isMatch('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches)) {
                         $sheet->getComment($column . $row)->setAlignment($matches[1]);
                     }
                 }
@@ -772,7 +773,7 @@ class Html extends BaseReader
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
-                $domText = (string) preg_replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
+                $domText = Preg::replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
                 if ($domText === "\u{a0}") {
                     $domText = '';
                 }
@@ -883,7 +884,7 @@ class Html extends BaseReader
 
                         break;
                     default:
-                        if (preg_match('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches) === 1) {
+                        if (Preg::isMatch('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches)) {
                             match ($matches[1]) {
                                 'bool' => $properties->setCustomProperty($matches[2], (bool) $metaContent, Properties::PROPERTY_TYPE_BOOLEAN),
                                 'float' => $properties->setCustomProperty($matches[2], (float) $metaContent, Properties::PROPERTY_TYPE_FLOAT),
@@ -899,6 +900,10 @@ class Html extends BaseReader
         if (!empty($dom->baseURI)) {
             $properties->setHyperlinkBase($dom->baseURI);
         }
+        $language = trim((string) $dom->documentElement?->getAttribute('lang'));
+        if ($language !== '') {
+            $properties->setLanguage($language);
+        }
     }
 
     /** @param string[] $matches */
@@ -910,13 +915,12 @@ class Html extends BaseReader
     /** @internal */
     protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
-        if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
+        if (!Preg::isMatch(self::STARTS_WITH_BOM, $convert) && !Preg::isMatch(self::DECLARES_CHARSET, $convert)) {
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable $callback */
-            $callback = [self::class, 'replaceNonAscii'];
-            $convert = preg_replace_callback($regexp, $callback, $convert);
+            // use native preg because of "u" modifier
+            $convert = preg_replace_callback($regexp, self::replaceNonAscii(...), $convert);
         }
 
         return $convert;
@@ -1247,6 +1251,8 @@ class Html extends BaseReader
         if ($name) {
             $drawing->setName($name);
         }
+        // An empty alt is how HTML marks a decorative image
+        $drawing->setDecorative(($attributes['alt'] ?? null) === '');
 
         /** @var null|scalar $width */
         /** @var null|scalar $height */
@@ -1273,6 +1279,11 @@ class Html extends BaseReader
             if (is_numeric($opacity)) {
                 $drawing->setOpacity((int) ($opacity * 100000));
             }
+        }
+        /** @var string */
+        $transform = $styleArray['transform'] ?? '';
+        if (Preg::isMatch('/rotate[(](-?\d{1,3})deg[)]$/', $transform, $matches)) {
+            $drawing->setRotation((int) $matches[1]);
         }
     }
 

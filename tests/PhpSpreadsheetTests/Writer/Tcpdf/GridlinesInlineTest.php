@@ -47,22 +47,22 @@ class GridlinesInlineTest extends TestCase
         $writer->setUseInlineCss(true);
         $html = $writer->generateHtmlAll();
         self::assertStringContainsString(
-            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt">11</td>',
+            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:right; width:42pt">11</td>',
             $html,
             'neither gridlines nor gridlinesp'
         );
         self::assertStringContainsString(
-            '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt; border:0.1px solid black">21</td>',
+            '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:right; width:42pt; border:0.1px solid black">21</td>',
             $html,
             'gridlinesp without gridlines'
         );
         self::assertStringContainsString(
-            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt">31</td>',
+            '<td style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:right; width:42pt">31</td>',
             $html,
             'gridlines without gridlinesp'
         );
         self::assertStringContainsString(
-            '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\'; font-size:11pt; text-align:right; width:42pt; border:0.1px solid black">41</td>',
+            '<td class="gridlines gridlinesp" style="vertical-align:bottom; color:#000000; font-family:\'Calibri\', serif; font-size:11pt; text-align:right; width:42pt; border:0.1px solid black">41</td>',
             $html,
             'gridlines and gridlinesp'
         );

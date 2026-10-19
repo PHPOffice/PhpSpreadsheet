@@ -510,6 +510,7 @@ class Spreadsheet implements JsonSerializable
             unset($worksheet);
         }
         $this->workSheetCollection = [];
+        $this->activeSheetIndex = -1;
     }
 
     /**
@@ -527,7 +528,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function getCalculationEngineOrNull(): ?Calculation
     {
-        if (!isset($this->calculationEngine)) { //* @phpstan-ignore-line
+        if (!isset($this->calculationEngine)) { //* @phpstan-ignore isset.initializedProperty (may be null at destruct time)
             return null;
         }
 
@@ -1156,7 +1157,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        return unserialize(serialize($this)); //* @phpstan-ignore-line
+        return unserialize(serialize($this)); //* @phpstan-ignore return.type (phpstan is wrong)
     }
 
     /**

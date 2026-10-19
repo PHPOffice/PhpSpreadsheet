@@ -40,7 +40,7 @@ class Lookup
             $lookupColumns = self::columnCount($lookupVector);
         }
 
-        $resultVector = self::verifyResultVector($resultVector ?? $lookupVector); //* @phpstan-ignore-line
+        $resultVector = self::verifyResultVector($resultVector ?? $lookupVector); //* @phpstan-ignore argument.type (resultVector can be mixed not array<array<mixed>>)
 
         if ($lookupRows === 2 && !$hasResultVector) {
             $resultVector = array_pop($lookupVector);

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Reader\CsvNoEscape;
-use PhpOffice\PhpSpreadsheet\Reader\IReader;
+use PhpOffice\PhpSpreadsheet\Reader\IReader2 as IReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
@@ -175,6 +175,8 @@ abstract class IOFactory
      *                                 IOFactory::READER_*.
      * @param array<string, class-string<IReader>> $mergeArray supplied readers will be merged with
      *        default readers, allowing specification of a partial list.
+     *
+     * @throws Reader\Exception
      */
     public static function createReaderForFile(string $filename, ?array $readers = null, array $mergeArray = []): IReader
     {
@@ -263,8 +265,7 @@ abstract class IOFactory
      */
     public static function registerWriter(string $writerType, string $writerClass): void
     {
-        // We want phpstan to validate caller, but still need this test
-        if (!is_a($writerClass, IWriter::class, true)) { //* @phpstan-ignore-line
+        if (!is_a($writerClass, IWriter::class, true)) {
             throw new Writer\Exception('Registered writers must implement ' . IWriter::class);
         }
 
@@ -278,8 +279,7 @@ abstract class IOFactory
      */
     public static function registerReader(string $readerType, string $readerClass): void
     {
-        // We want phpstan to validate caller, but still need this test
-        if (!is_a($readerClass, IReader::class, true)) { //* @phpstan-ignore-line
+        if (!is_a($readerClass, IReader::class, true)) {
             throw new Reader\Exception('Registered readers must implement ' . IReader::class);
         }
 

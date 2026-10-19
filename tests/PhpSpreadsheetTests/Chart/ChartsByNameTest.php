@@ -19,6 +19,7 @@ class ChartsByNameTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Only Sheet');
+        self::assertFalse($sheet->getChartByIndex(null));
         $sheet->fromArray(
             [
                 ['Some Title'],
@@ -80,6 +81,13 @@ class ChartsByNameTest extends TestCase
         $sheet->setSelectedCells('D1');
         self::assertSame($chart, $sheet->getChartByName('namedchart1'));
         self::assertSame($chart, $sheet->getChartByNameOrThrow('namedchart1'));
+        self::assertSame($chart, $sheet->getChartByIndex(0));
+        self::assertSame($chart, $sheet->getChartByIndex('0'));
+        self::assertSame($chart, $sheet->getChartByIndex(null));
+        self::assertFalse($sheet->getChartByIndex(' 0'));
+        self::assertFalse($sheet->getChartByIndex(1));
+        self::assertFalse($sheet->getChartByIndex('2'));
+        self::assertFalse($sheet->getChartByIndex('x'));
         self::assertFalse($sheet->getChartByName('namedchart2'));
 
         try {

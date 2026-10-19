@@ -5,9 +5,12 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\AxisText;
+use PhpOffice\PhpSpreadsheet\Chart\BoxWhisker;
+use PhpOffice\PhpSpreadsheet\Chart\BoxWhiskerSeries;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\DataTable;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
@@ -17,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
 
@@ -91,13 +95,26 @@ class Chart
         $chartFillColor = null;
         $gradientArray = [];
         $gradientLin = null;
-        $roundedCorners = false;
+        $roundedCorners = null;
+        $date1904 = null;
+        $lang = null;
         $gapWidth = null;
         $useUpBars = null;
         $useDownBars = null;
         $noBorder = false;
+        $pageMargins = [];
+        $pageSetup = [];
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
+                case 'printSettings':
+                    if (isset($chartElement->pageMargins)) {
+                        $pageMargins = current((array) $chartElement->pageMargins->attributes());
+                    }
+                    if (isset($chartElement->pageSetup)) {
+                        $pageSetup = current((array) $chartElement->pageSetup->attributes());
+                    }
+
+                    break;
                 case 'spPr':
                     $children = $chartElementsC->spPr->children($this->aNamespace);
                     if (isset($children->noFill)) {
@@ -116,8 +133,15 @@ class Chart
 
                     break;
                 case 'roundedCorners':
-                    /** @var bool $roundedCorners */
                     $roundedCorners = self::getAttributeBoolean($chartElementsC->roundedCorners, 'val');
+
+                    break;
+                case 'date1904':
+                    $date1904 = self::getAttributeBoolean($chartElementsC->date1904, 'val');
+
+                    break;
+                case 'lang':
+                    $lang = self::getAttributeString($chartElementsC->lang, 'val');
 
                     break;
                 case 'chart':
@@ -125,7 +149,6 @@ class Chart
                         $chartDetails = Xlsx::testSimpleXml($chartDetails);
                         switch ($chartDetailsKey) {
                             case 'autoTitleDeleted':
-                                /** @var bool $autoTitleDeleted */
                                 $autoTitleDeleted = self::getAttributeBoolean($chartElementsC->chart->autoTitleDeleted, 'val');
 
                                 break;
@@ -137,7 +160,7 @@ class Chart
 
                                 break;
                             case 'plotArea':
-                                $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
+                                $plotAreaLayout = $XaxisLabel = $YaxisLabel = $dataTable = null;
                                 $plotSeries = $plotAttributes = [];
                                 $catAxRead = false;
                                 $plotNoFill = false;
@@ -359,12 +382,21 @@ class Chart
                                             $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
+                                        case 'dTable':
+                                            $dataTable = $this->readDataTable($chartDetail);
+
+                                            break;
                                     }
                                 }
                                 if ($plotAreaLayout == null) {
                                     $plotAreaLayout = new Layout();
                                 }
                                 $plotArea = new PlotArea($plotAreaLayout, $plotSeries);
+                                if ($dataTable !== null) {
+                                    $plotArea->setDataTable(
+                                        $dataTable
+                                    );
+                                }
                                 $this->setChartAttributes($plotAreaLayout, $plotAttributes);
                                 if ($plotNoFill) {
                                     $plotArea->setNoFill(true);
@@ -472,25 +504,121 @@ class Chart
         if ($chartBorderLines !== null) {
             $chart->setBorderLines($chartBorderLines);
         }
-        $chart->setNoBorder($noBorder);
-        $chart->setRoundedCorners($roundedCorners);
-        if (is_bool($autoTitleDeleted)) {
-            $chart->setAutoTitleDeleted($autoTitleDeleted);
-        }
-        if (is_int($rotX)) {
-            $chart->setRotX($rotX);
-        }
-        if (is_int($rotY)) {
-            $chart->setRotY($rotY);
-        }
-        if (is_int($rAngAx)) {
-            $chart->setRAngAx($rAngAx);
-        }
-        if (is_int($perspective)) {
-            $chart->setPerspective($perspective);
-        }
+        $chart
+            ->setNoBorder($noBorder)
+            ->setRoundedCorners($roundedCorners)
+            ->setDate1904($date1904)
+            ->setLang($lang)
+            ->setPageMargins($pageMargins)
+            ->setPageSetup($pageSetup)
+            ->setAutoTitleDeleted($autoTitleDeleted)
+            ->setRotX($rotX)
+            ->setRotY($rotY)
+            ->setRAngAx($rAngAx)
+            ->setPerspective($perspective);
 
         return $chart;
+    }
+
+    /**
+     * Read a ChartEx chart.
+     */
+    public function readChartEx(SimpleXMLElement $chartElements, string $chartName, Spreadsheet $spreadsheet): \PhpOffice\PhpSpreadsheet\Chart\Chart
+    {
+        $chartSpace = $chartElements->children(Namespaces::CHART_EX);
+
+        $dataSources = [];
+        foreach ($chartSpace->chartData->data as $data) {
+            $dataId = self::getAttributeInteger($data, 'id');
+            if ($dataId !== null && isset($data->numDim->f)) {
+                $dataSources[$dataId] = (string) $data->numDim->f;
+            }
+        }
+
+        $series = [];
+
+        foreach ($chartSpace->chart->plotArea->plotAreaRegion->series as $seriesElement) {
+            if (self::getAttributeString($seriesElement, 'layoutId') !== BoxWhisker::TYPE) {
+                continue;
+            }
+
+            $txData = $seriesElement->tx->txData;
+            $dataSource = (string) $txData->f;
+
+            $label = null;
+            if ($dataSource === '') {
+                $categories = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, pointCount: 1, dataValues: [(string) $txData->v]);
+            } else {
+                $definedName = $spreadsheet->getDefinedName($dataSource);
+                $dataSource = $definedName === null ? $dataSource : $definedName->getValue();
+
+                $categories = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_STRING,
+                    $dataSource
+                );
+
+                $label = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_STRING,
+                    $dataSource
+                );
+            }
+
+            $dataId = self::getAttributeInteger($seriesElement->dataId, 'val');
+            $valuesSource = $dataId === null ? null : ($dataSources[$dataId] ?? null);
+
+            if ($valuesSource !== null) {
+                $definedName = $spreadsheet->getDefinedName($valuesSource);
+                if ($definedName !== null) {
+                    $valuesSource = $definedName->getValue();
+                }
+
+                $values = new DataSeriesValues(
+                    DataSeriesValues::DATASERIES_TYPE_NUMBER,
+                    $valuesSource
+                );
+
+                $series[] = new BoxWhiskerSeries($categories, $values, $label);
+            }
+        }
+
+        $boxWhisker = new BoxWhisker($series);
+
+        $visibility = null;
+        $statistics = null;
+
+        foreach ($chartSpace->chart->plotArea->plotAreaRegion->series as $seriesElement) {
+            if (self::getAttributeString($seriesElement, 'layoutId') === BoxWhisker::TYPE) {
+                $visibility = $seriesElement->layoutPr->visibility ?? null;
+                $statistics = $seriesElement->layoutPr->statistics ?? null;
+
+                break;
+            }
+        }
+
+        if ($visibility !== null) {
+            $boxWhisker->setShowMeanLine(self::getAttributeBoolean($visibility, 'meanLine') ?? false)
+                ->setShowMeanMarker(self::getAttributeBoolean($visibility, 'meanMarker') ?? true)
+                ->setShowInnerPoints(self::getAttributeBoolean($visibility, 'nonoutliers') ?? false)
+                ->setShowOutliers(self::getAttributeBoolean($visibility, 'outliers') ?? true);
+        }
+
+        if ($statistics !== null) {
+            $quartileMethod = self::getAttributeString($statistics, 'quartileMethod');
+            if ($quartileMethod !== null) {
+                $boxWhisker->setQuartileMethod($quartileMethod);
+            }
+        }
+
+        $objChart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName);
+        $objChart->setChartEx($boxWhisker);
+
+        if (isset($chartSpace->chart->title->tx->txData->v)) {
+            $objChart->setTitle(
+                new Title((string) $chartSpace->chart->title->tx->txData->v)
+            );
+        }
+
+        return $objChart;
     }
 
     private function chartTitle(SimpleXMLElement $titleDetails): Title
@@ -1204,7 +1332,10 @@ class Chart
         }
         $fontArray['bold'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
         $fontArray['italic'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
-        $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        $temp = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        if (is_string($temp) && $temp !== '') {
+            $fontArray['underline'] = $temp;
+        }
         $strikethrough = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
         if ($strikethrough !== null) {
             if ($strikethrough == 'noStrike') {
@@ -1286,10 +1417,36 @@ class Chart
                         $plotAttributes['labelEffects'] = $labelEffects;
                     }
                 }
+                if (isset($txpr->bodyPr)) {
+                    $plotAttributes['bodyPr'] = current((array) $txpr->bodyPr->attributes());
+                }
             }
         }
 
         return $plotAttributes;
+    }
+
+    private function readDataTable(SimpleXMLElement $chartDetail): DataTable
+    {
+        $dataTable = new DataTable();
+        $temp = self::getAttributeBoolean($chartDetail->showHorzBorder, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowHorizontalBorder($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showVertBorder, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowVerticalBorder($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showOutline, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowOutline($temp);
+        }
+        $temp = self::getAttributeBoolean($chartDetail->showKeys, 'val');
+        if ($temp !== null) {
+            $dataTable->setShowKeys($temp);
+        }
+
+        return $dataTable;
     }
 
     /** @param array<mixed> $plotAttributes */
@@ -1329,6 +1486,11 @@ class Chart
                 case 'labelFont':
                     /** @var ?Font $plotAttributeValue */
                     $plotArea->setLabelFont($plotAttributeValue);
+
+                    break;
+                case 'bodyPr':
+                    /** @var mixed $plotAttributeValue */
+                    $plotArea->setBodyPr($plotAttributeValue);
 
                     break;
             }
