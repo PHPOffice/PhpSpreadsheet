@@ -63,8 +63,19 @@ function calculationTestDataGenerator(): array
     ];
     $set9 = ['a', $dataArray6, '=A1', 'A2'];
 
+    // Issues 3755 and 3790 - IF nested in the condition of an IF within a pruned branch
+    $set10 = [3, [], '=IF(FALSE, IF(IF(TRUE,6,2),1,2), 3)', 'E5'];
+    $formula4 = '=IF(FALSE, IF( LEFT( "0", 3 ) = "16-", 1, IF( OR( 1 = IF( "Le L" = "Le L", 6.89, 2 ), AND( 0.735 = 1, "0" <> "" ) ), "", 1 ) ), 3)';
+    $set11 = [3, [], $formula4, 'E5'];
+    $dataArray7 = [
+        [2],
+    ];
+    $formula5 = '=IF(A1=1,IF(AND(IF(1>0,1,IF(0=0,(0*0),0))>0,IF(0>0,0,IF(0=0,(0*0),0))<1),1,ROUND(IF(0>0,0,IF(1=0,(1*1),1)),0)),0)';
+    $set12 = [0, $dataArray7, $formula5, 'E5'];
+
     return [
         $set0, $set1, $set2, $set3, $set4, $set5, $set6, $set7, $set8, $set9,
+        $set10, $set11, $set12,
     ];
 }
 
