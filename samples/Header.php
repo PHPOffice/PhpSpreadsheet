@@ -41,13 +41,13 @@ if ($helper->isCli()) {
                     </button>
 
                     <a class="navbar-brand" href="/">PHPSpreadsheet</a>
-                    <br><a href="https://github.com/PHPOffice/PHPSpreadsheet">
+                    <br><a href="https://github.com/PHPOffice/PHPSpreadsheet" style="text-decoration:none;">
                             <i class="fa fa-github fa-lg" title="GitHub"></i>
                           </a>
-                          <a href="https://phpspreadsheet.readthedocs.io">
-                            <i class="fa fa-book fa-lg" title="Docs" style="margin-left: 1em;"></i>
+                          <a href="https://phpspreadsheet.readthedocs.io" style="text-decoration:none; margin-left: 1em;">
+                            <i class="fa fa-book fa-lg" title="Docs"></i>
                           </a>
-<button class="btn btn-outline-secondary btn-sm" id="themeToggler" type="button" title="Toggle dark/light mode" style="margin-left:1em; border:none">
+<button class="btn btn-outline-primary btn-sm" id="themeToggler" type="button" title="Toggle dark/light mode" style="margin-left:1em; border:none">
     <i class="fa fa-moon-o fa-lg" id="themeIcon"></i>
 </button>
                 </div>
