@@ -26,6 +26,16 @@ class CountIfTest extends AllSetupTeardown
         self::assertSame(4, $sheet->getCell('Z99')->getCalculatedValue());
     }
 
+    public function testLiteralLogicalCriterion(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray([[true], [false], [true], [1]], null, 'A1', true);
+        $sheet->getCell('Z98')->setValue('=COUNTIF(A1:A4,TRUE)');
+        $sheet->getCell('Z99')->setValue('=COUNTIF(A1:A4,FALSE)');
+        self::assertSame(2, $sheet->getCell('Z98')->getCalculatedValue());
+        self::assertSame(1, $sheet->getCell('Z99')->getCalculatedValue());
+    }
+
     public static function providerCOUNTIF(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIF.php';

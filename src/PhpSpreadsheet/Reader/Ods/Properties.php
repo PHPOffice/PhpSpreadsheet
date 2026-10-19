@@ -63,6 +63,10 @@ class Properties
                     $docProps->setDescription($propertyValue);
 
                     break;
+                case 'language':
+                    $docProps->setLanguage($propertyValue);
+
+                    break;
             }
         }
     }
