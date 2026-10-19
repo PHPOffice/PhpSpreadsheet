@@ -305,35 +305,35 @@ class DrawingsTest extends AbstractFunctional
             $comment->setBackgroundImage($drawing);
             self::fail('Should throw exception when attempting to add tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF, WMF, EMF.');
         }
 
         try {
             $drawing->getImageTypeForSave();
             self::fail('Should throw exception when attempting to get image type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF, WMF, EMF.');
         }
 
         try {
             $drawing->getMediaFilename();
             self::fail('Should throw exception when attempting to get media file name for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF, WMF, EMF.');
         }
 
         try {
             $drawing->getImageFileExtensionForSave();
             self::fail('Should throw exception when attempting to get image file extension for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF, WMF, EMF.');
         }
 
         try {
             $drawing->getImageMimeType();
             self::fail('Should throw exception when attempting to get image mime type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF, WMF, EMF.');
         }
 
         // Write file
