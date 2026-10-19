@@ -900,6 +900,10 @@ class Html extends BaseReader
         if (!empty($dom->baseURI)) {
             $properties->setHyperlinkBase($dom->baseURI);
         }
+        $language = trim((string) $dom->documentElement?->getAttribute('lang'));
+        if ($language !== '') {
+            $properties->setLanguage($language);
+        }
     }
 
     /** @param string[] $matches */
@@ -1247,6 +1251,8 @@ class Html extends BaseReader
         if ($name) {
             $drawing->setName($name);
         }
+        // An empty alt is how HTML marks a decorative image
+        $drawing->setDecorative(($attributes['alt'] ?? null) === '');
 
         /** @var null|scalar $width */
         /** @var null|scalar $height */
