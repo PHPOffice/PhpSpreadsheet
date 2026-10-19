@@ -60,7 +60,8 @@ class TableReader
         $this->readTableStyle($table, $this->tableXml->tableStyleInfo, $tableStyles, $dxfs);
 
         (new AutoFilter($table, $this->tableXml))->load();
-        $this->worksheet->addTable($table);
+        // The cells come from the file, and a read filter may have skipped the totals row
+        $this->worksheet->addTable($table, false);
     }
 
     /**
