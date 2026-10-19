@@ -16,6 +16,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Streaming Xlsx writer for large, append-only exports with memory use independent of row count. [PR #4966](https://github.com/PHPOffice/PhpSpreadsheet/pull/4966)
 - Ods Writer writes each table as a named database range, with its header row, so that LibreOffice tags the header cells of an exported PDF as `/TH`; Ods Reader reads a named database range back as a table (the anonymous range LibreOffice keeps for the filter of a sheet stays that sheet's autofilter), and an autofilter now lands on the sheet its range names. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5023](https://github.com/PHPOffice/PhpSpreadsheet/pull/5023)
 - Support for Box and Whisker charts in Xlsx reader and writer. [Issue #3493](https://github.com/PHPOffice/PhpSpreadsheet/issues/3493)
+- Support for Windows Metafiles images (WMF, EMF and EMF+), using the `phpoffice/wmf` library: Xlsx Writer stores them as is, Ods, Xls, Html and Pdf Writers and comment backgrounds use a PNG rendering; Xlsx and Ods Writers can switch with `setConvertMetafilesToPng()` (new in `BaseWriter`), and `MemoryDrawing::fromString()` / `fromStream()` accept them. New methods `Drawing::isMetafile()` and `Drawing::getMetafileType()`, and new helper `Shared\Metafile`.
+- `Document\Properties::setLanguage()`: the language of a spreadsheet as a BCP 47 tag, written and read as `dc:language` in Xlsx and Ods; the Ods writer also gives it to the default cell style, where LibreOffice keeps a spreadsheet's language, as LibreOffice writes it (the Western, Asian or complex slot by script, and `style:rfc-language-tag` for a tag with more than a language and a country), and the Ods reader reads it from there when there is no `dc:language`. Html writes and reads it as the `lang` of the `html` element. [Issue #5040](https://github.com/PHPOffice/PhpSpreadsheet/issues/5040) [PR #5041](https://github.com/PHPOffice/PhpSpreadsheet/pull/5041)
+- Xlsx Writer and Reader: `Chart::setDescription()` is the alternative text of a chart, written as `descr` of the chart's frame and read back, and the frame takes the chart's name; LibreOffice exports it as `/Alt` of the chart in a tagged PDF. [Issue #5038](https://github.com/PHPOffice/PhpSpreadsheet/issues/5038) [PR #5039](https://github.com/PHPOffice/PhpSpreadsheet/pull/5039)
+- `BaseDrawing::setDecorative()` marks an image as decorative. Xlsx writes and reads it as Excel and LibreOffice do (`adec:decorative` in the image's `cNvPr`), Ods as LibreOffice does (`loext:decorative` in the frame's graphic style, which the writer now defines; the reader also takes ODF 1.4's `draw:decorative`); LibreOffice then leaves the image out of a tagged PDF as an artifact. Html writes and reads it as an empty `alt`. [Issue #5036](https://github.com/PHPOffice/PhpSpreadsheet/issues/5036) [PR #5037](https://github.com/PHPOffice/PhpSpreadsheet/pull/5037)
 
 ### Removed
 
@@ -23,7 +27,9 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
-- Nothing yet.
+- `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
+- The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
+- Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
 
 ### Moved
 
@@ -36,6 +42,11 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
+- Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
+- A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
+- OLE Writer now validates directory names, orders and colors sibling trees correctly, writes conformant CLSIDs and timestamps, and initializes unused directory-entry pointers to NOSTREAM. [PR #5033](https://github.com/PHPOffice/PhpSpreadsheet/pull/5033)
+- MIN and MAX return #VALUE! for non-numeric text typed as an argument, and count logical values and numeric text typed as an argument, as Excel (and SUM) do. [PR #5005](https://github.com/PHPOffice/PhpSpreadsheet/pull/5005)
 - `VALUE()` no longer treats product-like text such as `5V 2.1A - EU Wall Adaptor` as a date serial. [Issue #4996](https://github.com/PHPOffice/PhpSpreadsheet/issues/4996) [PR #4997](https://github.com/PHPOffice/PhpSpreadsheet/issues/4997)
 - Minor Xml Reader Improvements. [PR #4989](https://github.com/PHPOffice/PhpSpreadsheet/issues/4989)
 - Rename and change visibility of 2 Xls Writer properties. [PR #4995](https://github.com/PHPOffice/PhpSpreadsheet/issues/4995)
@@ -45,8 +56,19 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer and Reader: the description of an image is written as `svg:desc` and read back, so that LibreOffice exports it as the alternative text of the figure. [Issue #5009](https://github.com/PHPOffice/PhpSpreadsheet/issues/5009) [PR #5010](https://github.com/PHPOffice/PhpSpreadsheet/pull/5010)
 - Ods Writer and Csv Writer (with `preferHyperlinkToLabel`) no longer add an empty hyperlink to every cell they write, which made a later Xlsx save throw "Invalid parameters passed." [Issue #5007](https://github.com/PHPOffice/PhpSpreadsheet/issues/5007) [PR #5008](https://github.com/PHPOffice/PhpSpreadsheet/pull/5008) [PR #5021](https://github.com/PHPOffice/PhpSpreadsheet/pull/5021)
 - Ods Writer keeps the hyperlink of a number, boolean or formula cell, and Ods Reader reads it back; only text cells had one. [Issue #5013](https://github.com/PHPOffice/PhpSpreadsheet/issues/5013) [PR #5014](https://github.com/PHPOffice/PhpSpreadsheet/pull/5014)
+- Don't iterate cell ranges on non-existent sheets. [Issue #5032](https://github.com/PHPOffice/PhpSpreadsheet/issues/5032) [PR #5035](https://github.com/PHPOffice/PhpSpreadsheet/pull/5035)
 - Xls Writer normalizes color strings to upper case and picks the next custom palette index from the highest index in use, so a color can no longer overwrite the palette slot of an earlier color (e.g. a font rendering in a fill color). [Issue #5019](https://github.com/PHPOffice/PhpSpreadsheet/issues/5019) [PR #5020](https://github.com/PHPOffice/PhpSpreadsheet/pull/5020)
 - Ods Reader reads the hyperlink LibreOffice keeps in the style of a number, boolean, date or formula cell (`style:hyperlink` in `style:table-cell-properties`), as it writes a link from a Xlsx file. [Issue #5017](https://github.com/PHPOffice/PhpSpreadsheet/issues/5017) [PR #5018](https://github.com/PHPOffice/PhpSpreadsheet/pull/5018)
+- `removeColumn()` no longer throws "Invalid column index 0" when it removes column A and every column up to the highest data column, e.g. `removeColumn('A')` on an empty sheet. [Issue #5049](https://github.com/PHPOffice/PhpSpreadsheet/issues/5049) [PR #5050](https://github.com/PHPOffice/PhpSpreadsheet/pull/5050)
+- `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
+- Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
+- Branch pruning no longer throws "internal error" for an IF nested in the condition of another IF inside a pruned branch. [Issue #3755](https://github.com/PHPOffice/PhpSpreadsheet/issues/3755) [Issue #3790](https://github.com/PHPOffice/PhpSpreadsheet/issues/3790) [PR #5055](https://github.com/PHPOffice/PhpSpreadsheet/pull/5055)
+- Xls Writer no longer loses EMF and WMF images (they are written as PNG); the resulting file could not be read back (`Call to a member function getBlipType() on null`). [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xls Reader reads EMF and WMF pictures (as PNG `MemoryDrawing`); they were ignored. [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
+- Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
+- Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
+- Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
 
 ## 2026-09-15 - 5.10.0
 

@@ -1539,8 +1539,10 @@ class Calculation extends CalculationLocale
                             }
 
                             $refSheet = $pCellParent;
+                            $returnRef = false;
                             if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
                                 $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
+                                $returnRef = $refSheet === null;
                             }
 
                             if (ctype_digit($val) && $val <= AddressRange::MAX_ROW) {
@@ -1554,6 +1556,9 @@ class Calculation extends CalculationLocale
                                 $stackItemType = 'Column Reference';
                                 $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow() : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
                                 $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            }
+                            if ($returnRef) {
+                                $val = ExcelError::REF();
                             }
                             $stackItemReference = $val;
                         }
@@ -1965,7 +1970,11 @@ class Calculation extends CalculationLocale
                             }
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                             if ($pCellParent !== null && $this->spreadsheet !== null) {
-                                $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
+                                if ($operand1Data['value'] === ExcelError::REF()) {
+                                    $cellValue = ExcelError::REF();
+                                } else {
+                                    $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
+                                }
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }

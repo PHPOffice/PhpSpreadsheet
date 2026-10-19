@@ -41,6 +41,10 @@ class Ods extends BaseReader
 {
     const INITIAL_FILE = 'content.xml';
 
+    private const DRAW_NS = 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0';
+
+    private const LOEXT_NS = 'urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0';
+
     private ZipArchive $zip;
 
     private string $filename;
@@ -318,6 +322,9 @@ class Ods extends BaseReader
     /** @var string[] */
     private array $numberFormats;
 
+    /** @var array<string, true> The graphic styles that make a frame decorative */
+    private array $decorativeStyles = [];
+
     private int $highestDataIndex;
 
     /** @var array<string, string> links LibreOffice keeps in a cell style, by style name */
@@ -363,6 +370,15 @@ class Ods extends BaseReader
         $tableNs = (string) $dom->lookupNamespaceUri('table');
         $textNs = (string) $dom->lookupNamespaceUri('text');
         $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
+
+        // LibreOffice keeps the language of a spreadsheet there, not in dc:language; read even with readDataOnly
+        foreach ($dom->getElementsByTagNameNS($styleNs, 'default-style') as $defaultStyle) {
+            if ($spreadsheet->getProperties()->getLanguage() === '' && $defaultStyle->getAttributeNS($styleNs, 'family') === 'table-cell') {
+                foreach ($defaultStyle->getElementsByTagNameNS($styleNs, 'text-properties') as $textProperty) {
+                    $spreadsheet->getProperties()->setLanguage(self::languageTag($textProperty, $styleNs, $fontNs));
+                }
+            }
+        }
 
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
@@ -442,6 +458,20 @@ class Ods extends BaseReader
         $automaticStyle0 = $this->readDataOnly ? null : $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
         $this->processSomeNumberFormats($automaticStyle0, $numberNs, $styleNs);
         $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        // Even with readDataOnly, which still reads the drawings
+        $this->decorativeStyles = [];
+        $graphicProperties = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0)?->getElementsByTagNameNS($styleNs, 'graphic-properties') ?? [];
+        foreach ($graphicProperties as $graphicProperty) {
+            $style = $graphicProperty->parentNode;
+            // loext as LibreOffice writes it, draw as ODF 1.4 does
+            if (
+                $style instanceof DOMElement
+                && $style->getAttributeNS($styleNs, 'family') === 'graphic'
+                && ($graphicProperty->getAttributeNS(self::LOEXT_NS, 'decorative') === 'true' || $graphicProperty->getAttributeNS(self::DRAW_NS, 'decorative') === 'true')
+            ) {
+                $this->decorativeStyles[$style->getAttributeNS($styleNs, 'name')] = true;
+            }
+        }
         foreach ($automaticStyles as $automaticStyle) {
             $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
             $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
@@ -738,6 +768,8 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+        $zip->close();
+        unset($this->zip);
 
         // Return
         return $spreadsheet;
@@ -916,7 +948,7 @@ class Ods extends BaseReader
             }
             $tempSpannedRange = "$columnID$rowID";
             $spannedRange = '';
-            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null)) && isset($this->allStyles[$styleName])) {
+            if ($worksheet !== null && ($cellData->hasChildNodes() || ($cellData->nextSibling !== null) || $cellData->hasAttributeNS($tableNs, 'formula')) && isset($this->allStyles[$styleName])) {
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
                 // and does no harm for xlsx/xls.
@@ -1295,9 +1327,30 @@ class Ods extends BaseReader
                     ->setHeight((int) $height)
                     ->setName($drawName)
                     ->setDescription($description)
+                    ->setDecorative(isset($this->decorativeStyles[$styleName]))
                     ->setWorksheet($worksheet);
             }
         }
+    }
+
+    /**
+     * The language of text properties as a BCP 47 tag, or '' for none.
+     */
+    private static function languageTag(DOMElement $textProperties, string $styleNs, string $fontNs): string
+    {
+        $tag = $textProperties->getAttributeNS($styleNs, 'rfc-language-tag');
+        $language = strtolower($textProperties->getAttributeNS($fontNs, 'language'));
+        // zxx: no linguistic content
+        if ($tag !== '' || !Preg::isMatch('/^[a-z]{2,3}$/', $language) || $language === 'zxx') {
+            return $tag;
+        }
+        $script = $textProperties->getAttributeNS($fontNs, 'script');
+        $country = $textProperties->getAttributeNS($fontNs, 'country');
+
+        // ponytail: the Western slot only, where LibreOffice always writes one; an Asian or complex document language needs dc:language
+        return $language
+            . (Preg::isMatch('/^[a-z]{4}$/i', $script) ? '-' . ucfirst(strtolower($script)) : '')
+            . (Preg::isMatch('/^([a-z]{2}|\d{3})$/i', $country) ? '-' . strtoupper($country) : '');
     }
 
     private static function extractNodeName(string $key): string

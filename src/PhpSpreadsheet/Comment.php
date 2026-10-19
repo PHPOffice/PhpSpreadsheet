@@ -319,7 +319,7 @@ class Comment implements IComparable, Stringable
             return false;
         }
 
-        return getimagesize($path) !== false;
+        return $this->backgroundImage->isMetafile() || getimagesize($path) !== false;
     }
 
     /**
@@ -335,8 +335,8 @@ class Comment implements IComparable, Stringable
      */
     public function setBackgroundImage(Drawing $objDrawing): self
     {
-        if (!array_key_exists($objDrawing->getType(), Drawing::IMAGE_TYPES_CONVERTION_MAP)) {
-            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        if (!$objDrawing->isSupportedForSave()) {
+            throw new PhpSpreadsheetException(Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE);
         }
         $this->backgroundImage = $objDrawing;
 
