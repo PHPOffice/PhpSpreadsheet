@@ -28,6 +28,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 - `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
 - The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
+- Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
 
 ### Moved
 
@@ -66,6 +67,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
 - Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
 
 ## 2026-09-15 - 5.10.0
 
