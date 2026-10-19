@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -10,6 +11,20 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Column
 {
+    /**
+     * SUBTOTAL function numbers used by Excel for the totals row functions.
+     */
+    private const TOTALS_ROW_SUBTOTALS = [
+        'average' => 101,
+        'countnums' => 102,
+        'count' => 103,
+        'max' => 104,
+        'min' => 105,
+        'stddev' => 107,
+        'sum' => 109,
+        'var' => 110,
+    ];
+
     /**
      * Table Column Index.
      */
@@ -115,6 +130,7 @@ class Column
     public function setTotalsRowLabel(string $totalsRowLabel): self
     {
         $this->totalsRowLabel = $totalsRowLabel;
+        $this->updateTotalsRowCell();
 
         return $this;
     }
@@ -133,6 +149,7 @@ class Column
     public function setTotalsRowFunction(string $totalsRowFunction): self
     {
         $this->totalsRowFunction = $totalsRowFunction;
+        $this->updateTotalsRowCell();
 
         return $this;
     }
@@ -151,8 +168,69 @@ class Column
     public function setTotalsRowFormula(string $totalsRowFormula): self
     {
         $this->totalsRowFormula = $totalsRowFormula;
+        $this->updateTotalsRowCell();
 
         return $this;
+    }
+
+    /**
+     * Set the totals row cell of this column from its totals row formula, function or label.
+     * An existing value in that cell is left alone.
+     */
+    public function updateTotalsRowCell(): void
+    {
+        $table = $this->table;
+        $worksheet = $table?->getWorksheet();
+        if ($table === null || $worksheet === null || !$table->getShowTotalsRow()) {
+            return;
+        }
+
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($table->getRange());
+        $coordinate = $this->columnIndex . $rangeEnd[1];
+        if ($worksheet->cellExists($coordinate) && $worksheet->getCell($coordinate)->getValueString() !== '') {
+            return;
+        }
+
+        $value = $this->getTotalsRowCellValue($table, $worksheet, $rangeStart);
+        if ($value !== null) {
+            $worksheet->getCell($coordinate)->setValue($value);
+        }
+    }
+
+    /**
+     * @param array{0: int, 1: int} $rangeStart
+     */
+    private function getTotalsRowCellValue(Table $table, Worksheet $worksheet, array $rangeStart): ?string
+    {
+        $function = strtolower($this->totalsRowFunction ?? '');
+        if ($this->totalsRowFormula !== null && $this->totalsRowFormula !== '' && ($function === '' || $function === 'custom')) {
+            return '=' . ltrim($this->totalsRowFormula, '=');
+        }
+
+        if (isset(self::TOTALS_ROW_SUBTOTALS[$function])) {
+            $offset = Coordinate::columnIndexFromString($this->columnIndex) - $rangeStart[0];
+            $headerCoordinate = $this->columnIndex . $rangeStart[1];
+            if (!$table->getShowHeaderRow()) {
+                $columnName = 'Column' . ($offset + 1);
+            } elseif ($worksheet->cellExists($headerCoordinate)) {
+                $columnName = $worksheet->getCell($headerCoordinate)->getValueString();
+            } else {
+                $columnName = '';
+            }
+            if ($columnName === '') {
+                return null;
+            }
+            // Special characters in a column name are escaped with an apostrophe
+            $columnName = (string) preg_replace("/(['#\\[\\]])/", "'$1", $columnName);
+
+            return '=SUBTOTAL(' . self::TOTALS_ROW_SUBTOTALS[$function] . ',' . $table->getName() . '[' . $columnName . '])';
+        }
+
+        if ($function === '' && $this->totalsRowLabel !== null && $this->totalsRowLabel !== '') {
+            return $this->totalsRowLabel;
+        }
+
+        return null;
     }
 
     /**

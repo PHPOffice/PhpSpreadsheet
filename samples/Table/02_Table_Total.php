@@ -58,15 +58,9 @@ $table->setShowTotalsRow(true);
 $table->setRange('A1:D18'); // +1 row for totalsRow
 
 $helper->log('Add Totals Row');
-// Table column label not implemented yet,
+// The totals row cells are set when the table is added to the worksheet
 $table->getColumn('A')->setTotalsRowLabel('Total');
-// So set the label directly to the cell
-$spreadsheet->getActiveSheet()->getCell('A18')->setValue('Total');
-
-// Table column function not implemented yet,
 $table->getColumn('D')->setTotalsRowFunction('sum');
-// So set the formula directly to the cell
-$spreadsheet->getActiveSheet()->getCell('D18')->setValue('=SUBTOTAL(109,SalesData[Sales])');
 
 // Add Table to Worksheet
 $helper->log('Add Table to Worksheet');

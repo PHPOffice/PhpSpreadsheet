@@ -58,7 +58,7 @@ class AutoFilter extends BaseLoader
             $table = new Table($range, $name);
             $table->setShowHeaderRow($this->getAttributeValue($databaseRange, 'contains-header') !== 'false');
             $table->setAllowFilter($this->getAttributeValue($databaseRange, 'display-filter-buttons') === 'true');
-            $worksheet->addTable($table);
+            $worksheet->addTable($table, false);
         } catch (PhpSpreadsheetException) {
         }
 

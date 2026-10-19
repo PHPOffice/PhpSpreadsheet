@@ -67,6 +67,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
 - Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped. The totals row label, function (as `SUBTOTAL`) or formula of a column also sets its totals row cell when that cell is empty, so it no longer has to be set by hand. [Issue #5063](https://github.com/PHPOffice/PhpSpreadsheet/issues/5063) [PR #5064](https://github.com/PHPOffice/PhpSpreadsheet/pull/5064)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
 
 ## 2026-09-15 - 5.10.0

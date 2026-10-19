@@ -57,26 +57,13 @@ $table->setRange('A1:G16'); // +1 row for totalsRow
 $table->getColumn('G')->setColumnFormula($columnFormula);
 
 $helper->log('Add Totals Row');
-// Table column label not implemented yet,
+// The totals row cells are set when the table is added to the worksheet
 $table->getColumn('A')->setTotalsRowLabel('Total');
-// So set the label directly to the cell
-$spreadsheet->getActiveSheet()->getCell('A16')->setValue('Total');
-
-// Table column function not implemented yet,
-$table->getColumn('G')->setTotalsRowFunction('sum');
-// So set the formula directly to the cell
-$spreadsheet->getActiveSheet()->getCell('G16')->setValue('=SUBTOTAL(109,Sales_Data[Sales])');
-
-// Table column function not implemented yet,
 $table->getColumn('C')->setTotalsRowFunction('sum');
 $table->getColumn('D')->setTotalsRowFunction('sum');
 $table->getColumn('E')->setTotalsRowFunction('sum');
 $table->getColumn('F')->setTotalsRowFunction('sum');
-// So set the formulae directly to the cells
-$spreadsheet->getActiveSheet()->getCell('C16')->setValue('=SUBTOTAL(109,Sales_Data[Q1])');
-$spreadsheet->getActiveSheet()->getCell('D16')->setValue('=SUBTOTAL(109,Sales_Data[Q2])');
-$spreadsheet->getActiveSheet()->getCell('E16')->setValue('=SUBTOTAL(109,Sales_Data[Q3])');
-$spreadsheet->getActiveSheet()->getCell('F16')->setValue('=SUBTOTAL(109,Sales_Data[Q4])');
+$table->getColumn('G')->setTotalsRowFunction('sum');
 
 // Add Table to Worksheet
 $helper->log('Add Table to Worksheet');
