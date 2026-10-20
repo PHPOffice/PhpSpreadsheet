@@ -26,6 +26,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
+- Update infrastructure for running samples in browser. [PR #5061](https://github.com/PHPOffice/PhpSpreadsheet/pull/5061)
 - `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
 - The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
 - Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
