@@ -129,7 +129,9 @@ class WorkbookTest extends TestCase
         self::assertIsArray($palette[25]);
         self::assertIsArray($palette[$last]);
         $lastColor = $this->paletteToColor($palette[$last]);
+        // The last entry is above the custom range, so it does not fill the palette (issue #5065)
         $paletteTestNine = $palette;
+        $paletteTestNine[8] = $newColor1;
 
         return [
             [[$this->paletteToColor($newColor1)], $paletteTestOne],
