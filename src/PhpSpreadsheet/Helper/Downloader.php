@@ -23,6 +23,8 @@ class Downloader
 
     protected ?IWriter $writer;
 
+    protected bool $oldIE;
+
     protected const CONTENT_TYPES = [
         'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'xls' => 'application/vnd.ms-excel',
@@ -32,7 +34,7 @@ class Downloader
         'pdf' => 'application/pdf',
     ];
 
-    public function __construct(IWriter|string $folder, string $filename, ?string $filetype = null)
+    public function __construct(IWriter|string $folder, string $filename, ?string $filetype = null, bool $oldIE = false)
     {
         if (is_string($folder)) {
             $this->writer = null;
@@ -53,6 +55,7 @@ class Downloader
             throw new Exception('Invalid filetype: file cannot be downloaded');
         }
         $this->filetype = strtolower($filetype);
+        $this->oldIE = $oldIE;
     }
 
     public function download(): void
@@ -96,15 +99,17 @@ class Downloader
 
     protected function cacheHeaders(): void
     {
-        header('Cache-Control: max-age=0');
-        // If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
+        $maxAge = 0;
+        if ($this->oldIE) {
+            // If you're serving to IE 9, then the following may be needed
+            $maxAge = 1;
 
-        // If you're serving to IE over SSL, then the following may be needed
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+            // If you're serving to IE over SSL, then the following may be needed
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        }
         $dt = new DateTimeImmutable(timezone: new DateTimeZone('UTC'));
         header('Last-Modified: ' . $dt->format('D, d M Y H:i:s') . ' GMT'); // always modified
-        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header("Cache-Control: cache, must-revalidate, max-age=$maxAge"); // HTTP/1.1
         header('Pragma: public'); // HTTP/1.0
     }
 
