@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use DateTimeImmutable;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 /**
  * Assist downloading files when samples are run in browser.
@@ -20,6 +21,8 @@ class Downloader
 
     protected string $filetype;
 
+    protected ?IWriter $writer;
+
     protected const CONTENT_TYPES = [
         'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'xls' => 'application/vnd.ms-excel',
@@ -29,15 +32,21 @@ class Downloader
         'pdf' => 'application/pdf',
     ];
 
-    public function __construct(string $folder, string $filename, ?string $filetype = null)
+    public function __construct(IWriter|string $folder, string $filename, ?string $filetype = null)
     {
-        clearstatcache();
-        $filepath = realpath("{$folder}/{$filename}");
-        if ($filepath === false || !is_file($filepath) || !is_readable($filepath)) {
-            throw new Exception('File not found, or cannot be read');
+        if (is_string($folder)) {
+            $this->writer = null;
+            clearstatcache();
+            $filepath = realpath("{$folder}/{$filename}");
+            if ($filepath === false || !is_file($filepath) || !is_readable($filepath)) {
+                throw new Exception('File not found, or cannot be read');
+            }
+            $this->filepath = $filepath;
+            $this->filename = basename($this->filepath);
+        } else {
+            $this->writer = $folder;
+            $this->filepath = $this->filename = $filename;
         }
-        $this->filepath = $filepath;
-        $this->filename = basename($this->filepath);
 
         $filetype ??= pathinfo($this->filename, PATHINFO_EXTENSION);
         if (!array_key_exists(strtolower($filetype), self::CONTENT_TYPES)) {
@@ -50,7 +59,11 @@ class Downloader
     {
         $this->headers();
 
-        readfile($this->filepath);
+        if ($this->writer === null) {
+            readfile($this->filepath);
+        } else {
+            $this->writer->save('php://output');
+        }
     }
 
     public function headers(): void
@@ -97,6 +110,8 @@ class Downloader
 
     protected function fileSize(): void
     {
-        header('Content-Length: ' . filesize($this->filepath));
+        if ($this->writer === null) {
+            header('Content-Length: ' . filesize($this->filepath));
+        }
     }
 }
