@@ -485,6 +485,7 @@ class NumberFormat extends Supervisor
      * @return string Formatted string
      *
      * @psalm-taint-specialize
+     *
      * @psalm-flow ($value, $format) -> return
      */
     public static function toFormattedString(mixed $value, string $format, ?callable $callBack = null, bool $lessFloatPrecision = false): string
