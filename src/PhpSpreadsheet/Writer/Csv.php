@@ -76,6 +76,8 @@ class Csv extends BaseWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $filename
+     *
+     * @psalm-taint-sink file $filename
      */
     public function save($filename, int $flags = 0): void
     {

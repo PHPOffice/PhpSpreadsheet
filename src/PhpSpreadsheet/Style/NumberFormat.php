@@ -483,6 +483,9 @@ class NumberFormat extends Supervisor
      * @param bool $lessFloatPrecision If true, unstyled floats will be converted to a more human-friendly but less computationally accurate value
      *
      * @return string Formatted string
+     *
+     * @psalm-taint-specialize
+     * @psalm-flow ($value, $format) -> return
      */
     public static function toFormattedString(mixed $value, string $format, ?callable $callBack = null, bool $lessFloatPrecision = false): string
     {

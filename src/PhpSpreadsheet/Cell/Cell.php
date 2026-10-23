@@ -174,12 +174,17 @@ class Cell implements Stringable
 
     /**
      * Get cell value.
+     *
+     * @psalm-taint-source input
      */
     public function getValue(): mixed
     {
         return $this->value;
     }
 
+    /**
+     * @psalm-taint-source input
+     */
     public function getValueString(): string
     {
         return StringHelper::convertToString($this->value, false);
@@ -187,6 +192,8 @@ class Cell implements Stringable
 
     /**
      * Get cell value with formatting.
+     *
+     * @psalm-taint-source input
      */
     public function getFormattedValue(): string
     {
@@ -445,6 +452,8 @@ class Cell implements Stringable
      * @param bool $resetLog Whether the calculation engine logger should be reset or not
      *
      * @throws CalculationException
+     *
+     * @psalm-taint-source input
      */
     public function getCalculatedValue(bool $resetLog = true): mixed
     {

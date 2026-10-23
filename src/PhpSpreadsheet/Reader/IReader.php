@@ -170,6 +170,8 @@ interface IReader
      *            self::ALLOW_EXTERNAL_IMAGES    Attempt to fetch images stored outside the spreadsheet.
      *            self::DONT_ALLOW_EXTERNAL_IMAGES    Don't attempt to fetch images stored outside the spreadsheet.
      *            self::CREATE_BLANK_SHEET_IF_NONE_READ    If no sheets are read, create a blank one.
+     *
+     * @psalm-taint-sink file $filename
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
 }
