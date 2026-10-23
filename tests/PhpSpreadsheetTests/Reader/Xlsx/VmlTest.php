@@ -115,7 +115,7 @@ class VmlTest extends TestCase
 
     public function testAddCommentDeleteFormControls(): void
     {
-        $infile = 'samples/Reader2/sampleData/formscomments.xlsx';
+        $infile = 'samples/Reader/sampleData/formscomments.xlsx';
         $reader = new XlsxReader();
         $reader->setLoadSheetsOnly('FormsComments');
         $spreadsheet = $reader->load($infile);
