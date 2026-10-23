@@ -1429,6 +1429,7 @@ class Xlsx extends BaseReader
                                                     if (isset($imageData['title'])) {
                                                         $hfImages[$shapeId]->setName((string) $imageData['title']);
                                                     }
+                                                    $hfImages[$shapeId]->setDescription((string) $shape['alt']);
 
                                                     $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false, $zip);
                                                     $hfImages[$shapeId]->setResizeProportional(false);
