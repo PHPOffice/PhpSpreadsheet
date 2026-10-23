@@ -257,10 +257,11 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_ERROR:
-                    $objWriter->writeAttribute('table:formula', 'of:=#NULL!');
+                    $error = $cell->getValueString();
+                    $objWriter->writeAttribute('table:formula', 'of:=' . $error);
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeAttribute('office:string-value', '');
-                    $this->writeCellText($objWriter, $cell, '#NULL!');
+                    $this->writeCellText($objWriter, $cell, $error);
 
                     break;
                 case DataType::TYPE_FORMULA:
