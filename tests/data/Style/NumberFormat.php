@@ -1727,4 +1727,49 @@ return [
         'Hello',
         '\"@\"',
     ],
+    'issue 5069 escaped character in format' => [
+        'TestX',
+        'Test',
+        '@\X',
+    ],
+    'issue 5069 quoted character in format' => [
+        'TestX',
+        'Test',
+        '@"X"',
+    ],
+    'issue 5069 escaped space after quoted text' => [
+        'Prefix Test',
+        'Test',
+        '"Prefix"\ @',
+    ],
+    'issue 5069 escaped multibyte character' => [
+        'Test様',
+        'Test',
+        '@\様',
+    ],
+    'issue 5069 escaped at sign' => [
+        'Test@',
+        'Test',
+        '@\@',
+    ],
+    'issue 5069 escaped backslash' => [
+        'Test\\',
+        'Test',
+        '@\\\\',
+    ],
+    'issue 5069 backslash in quoted text' => [
+        'a\bTest',
+        'Test',
+        '"a\b"@',
+    ],
+    'issue 5069 backslashes in text, escaped character in format' => [
+        '\\\server\share\1!',
+        '\\\server\share\1',
+        '@\!',
+    ],
+    'issue 5069 backslashes in text, quoted text in format' => [
+        'Path: \\\server\share\1',
+        '\\\server\share\1',
+        '"Path: "@',
+    ],
 ];

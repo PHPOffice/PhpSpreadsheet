@@ -69,6 +69,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
+- Text formats containing `@` treat a backslash as an escape character, as Excel does, so `@\X` displays `Test` as `TestX` instead of `Test\X`; backslashes in the text itself are kept. [Issue #5069](https://github.com/PHPOffice/PhpSpreadsheet/issues/5069) [PR #5071](https://github.com/PHPOffice/PhpSpreadsheet/pull/5071)
 
 ## 2026-09-15 - 5.10.0
 
