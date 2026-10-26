@@ -42,6 +42,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- `SEARCH()` treats `?` and `*` in the text to find as wildcards, and `~` as escaping them, as Excel does; they were matched literally. [Issue #5075](https://github.com/PHPOffice/PhpSpreadsheet/issues/5075) [PR #5076](https://github.com/PHPOffice/PhpSpreadsheet/pull/5076)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
 - Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
 - A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
