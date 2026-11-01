@@ -33,6 +33,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 use Throwable;
 use XMLReader;
 use ZipArchive;
@@ -74,15 +75,8 @@ class Ods extends BaseReader
                 $stat = $zip->statName('mimetype');
                 if (!empty($stat) && ($stat['size'] <= 255)) {
                     $mimeType = $zip->getFromName($stat['name']);
-                } elseif ($zip->statName('META-INF/manifest.xml')) {
-                    $xml = simplexml_load_string(
-                        $this->getSecurityScannerOrThrow()
-                            ->scan(
-                                $zip->getFromName(
-                                    'META-INF/manifest.xml'
-                                )
-                            )
-                    );
+                } else {
+                    $xml = $this->loadZipSimple($zip, 'META-INF/manifest.xml');
                     if ($xml !== false) {
                         $namespacesContent = $xml->getNamespaces(true);
                         if (isset($namespacesContent['manifest'])) {
@@ -118,12 +112,10 @@ class Ods extends BaseReader
         $worksheetNames = [];
 
         $xml = new XMLReader();
-        $xml->xml(
-            $this->getSecurityScannerOrThrow()
-                ->scanFile(
-                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
-                )
-        );
+        $zip = new ZipArchive();
+        $zip->open($filename);
+        $this->loadZipXml($xml, $zip, self::INITIAL_FILE);
+        $zip->close();
         $xml->setParserProperty(2, true);
 
         // Step into the first level of content of the XML
@@ -175,12 +167,10 @@ class Ods extends BaseReader
         $worksheetInfo = [];
 
         $xml = new XMLReader();
-        $xml->xml(
-            $this->getSecurityScannerOrThrow()
-                ->scanFile(
-                    'zip://' . realpath($filename) . '#' . self::INITIAL_FILE
-                )
-        );
+        $zip = new ZipArchive();
+        $zip->open($filename);
+        $this->loadZipXml($xml, $zip, self::INITIAL_FILE);
+        $zip->close();
         $xml->setParserProperty(2, true);
 
         // Step into the first level of content of the XML
@@ -346,10 +336,7 @@ class Ods extends BaseReader
 
         // Meta
 
-        $xml = @simplexml_load_string(
-            $this->getSecurityScannerOrThrow()
-                ->scan($zip->getFromName('meta.xml'))
-        );
+        $xml = @$this->loadZipSimple($zip, 'meta.xml');
         if ($xml === false) {
             throw new Exception("Unable to read data from {$filename}");
         }
@@ -1989,10 +1976,7 @@ class Ods extends BaseReader
 
         try {
             $orig = libxml_use_internal_errors(true);
-            $result = $dom->loadXML(
-                $this->getSecurityScannerOrThrow()
-                    ->scan($zip->getFromName($file))
-            );
+            $result = $this->loadZipDom($dom, $zip, $file);
             if ($result === false) {
                 $fatal = false;
                 foreach (libxml_get_errors() as $err) {
@@ -2007,5 +1991,62 @@ class Ods extends BaseReader
         }
 
         return $dom;
+    }
+
+    private function loadZipSimple(ZipArchive $zip, string $fileName): false|SimpleXMLElement
+    {
+        $retVal = false;
+        $stat = $zip->statName($fileName);
+        if ($stat !== false) {
+            if ($stat['size'] > $this->maxLength) {
+                throw new Exception(
+                    "Zip member $fileName expands to {$stat['size']} bytes, over the limit"
+                );
+            }
+            $retVal = simplexml_load_string(
+                $this->getSecurityScannerOrThrow()
+                    ->scan($zip->getFromName($fileName))
+            );
+        }
+
+        return $retVal;
+    }
+
+    private function loadZipDom(DOMDocument $dom, ZipArchive $zip, string $fileName): bool
+    {
+        $retVal = false;
+        $stat = $zip->statName($fileName);
+        if ($stat !== false) {
+            if ($stat['size'] > $this->maxLength) {
+                throw new Exception(
+                    "Zip member $fileName expands to {$stat['size']} bytes, over the limit"
+                );
+            }
+            $retVal = $dom->loadXML(
+                $this->getSecurityScannerOrThrow()
+                    ->scan($zip->getFromName($fileName))
+            );
+        }
+
+        return $retVal;
+    }
+
+    private function loadZipXml(XMLReader $xml, ZipArchive $zip, string $fileName): bool
+    {
+        $retVal = false;
+        $stat = $zip->statName($fileName);
+        if ($stat !== false) {
+            if ($stat['size'] > $this->maxLength) {
+                throw new Exception(
+                    "Zip member $fileName expands to {$stat['size']} bytes, over the limit"
+                );
+            }
+            $retVal = $xml->xml(
+                $this->getSecurityScannerOrThrow()
+                    ->scan($zip->getFromName($fileName))
+            );
+        }
+
+        return (bool) $retVal;
     }
 }
