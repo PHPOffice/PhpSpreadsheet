@@ -69,20 +69,31 @@ class PageSettings
         foreach ($styles as $styleSet) {
             $styleName = $styleSet->getAttributeNS($this->stylesNs, 'name');
             $pageLayoutProperties = $styleSet->getElementsByTagNameNS($this->stylesNs, 'page-layout-properties')[0];
-            $styleOrientation = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-orientation');
-            $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
-            $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
-            $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
+            if ($pageLayoutProperties === null) {
+                $styleOrientation = null;
+                $styleScale = null;
+                $stylePrintOrder = null;
+                $centered = null;
+                $marginLeft = null;
+                $marginRight = null;
+                $marginTop = null;
+                $marginBottom = null;
+            } else {
+                $styleOrientation = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-orientation');
+                $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
+                $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
+                $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
 
-            $marginLeft = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-left');
-            $marginRight = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-right');
-            $marginTop = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-top');
-            $marginBottom = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-bottom');
+                $marginLeft = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-left');
+                $marginRight = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-right');
+                $marginTop = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-top');
+                $marginBottom = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-bottom');
+            }
             $header = $styleSet->getElementsByTagNameNS($this->stylesNs, 'header-style')[0];
-            $headerProperties = $header->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
+            $headerProperties = ($header === null) ? null : $header->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
             $marginHeader = isset($headerProperties) ? $headerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
             $footer = $styleSet->getElementsByTagNameNS($this->stylesNs, 'footer-style')[0];
-            $footerProperties = $footer->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
+            $footerProperties = ($footer === null) ? null : $footer->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
             $marginFooter = isset($footerProperties) ? $footerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
 
             $this->pageLayoutStyles[$styleName] = (object) [
