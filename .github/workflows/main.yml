@@ -224,6 +224,9 @@ jobs:
         with:
           ref: ${{ github.ref }} # Otherwise our annotated tag is not fetched and we cannot get correct version
 
+      - name: Confirm composer.json and composer.lock are in sync
+        run: git diff --exit-code composer.lock
+
       - name: Get release info
         run: git tag --format '%(contents:body)' --points-at > release-body.txt
 
@@ -232,3 +235,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           bodyFile: release-body.txt
+          artifacts: ignore.this.file

@@ -62,7 +62,7 @@ class File
                 $zip = new ZipArchive();
                 $res = $zip->open($zipFile);
                 if ($res === true) {
-                    $returnValue = ($zip->getFromName($archiveFile) !== false);
+                    $returnValue = $zip->statName($archiveFile) !== false;
                     $zip->close();
 
                     return $returnValue;
@@ -78,8 +78,11 @@ class File
     /**
      * Returns canonicalized absolute pathname, also for ZIP archives.
      */
-    public static function realpath(string $filename): string
+    public static function realpath(string $filename, bool $trimLeadingSlash = false): string
     {
+        if ($trimLeadingSlash && substr($filename, 0, 1) === '/') { // Apache POI
+            $filename = substr($filename, 1);
+        }
         $pathArray = Preg::split('~[/\\\]~', $filename);
         while (in_array('..', $pathArray, true) && $pathArray[0] !== '..') {
             $iMax = count($pathArray);

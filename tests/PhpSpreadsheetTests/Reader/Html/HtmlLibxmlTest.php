@@ -32,6 +32,9 @@ class HtmlLibxmlTest extends TestCase
 
     public function testLoadInvalidString(): void
     {
+        if (LIBXML_VERSION >= 21400) {
+            self::markTestSkipped('Current version of libxml has invalidated these tests');
+        }
         $html = '<table<>';
         (new Html())->loadFromString($html);
         self::assertNotEmpty(libxml_get_errors());
@@ -39,6 +42,9 @@ class HtmlLibxmlTest extends TestCase
 
     public function testLoadValidString(): void
     {
+        if (LIBXML_VERSION >= 21400) {
+            self::markTestSkipped('Current version of libxml has invalidated these tests');
+        }
         $html = '<table>';
         (new Html())->loadFromString($html);
         self::assertEmpty(libxml_get_errors());
