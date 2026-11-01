@@ -3060,6 +3060,11 @@ class Xlsx extends BaseReader
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
                     }
+                    $firstColInt = Coordinate::columnIndexFromString($firstCol);
+                    $lastColInt = Coordinate::columnIndexFromString($lastCol);
+                    if ($firstRow > $lastRow || $firstColInt > $lastColInt) {
+                        throw new Exception('bad sqref in ignoredErrors');
+                    }
                     StringHelper::stringIncrement($lastCol);
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
                         for ($col = $firstCol; $col !== $lastCol; StringHelper::stringIncrement($col)) {
