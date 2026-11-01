@@ -54,6 +54,8 @@ class Xml extends BaseReader
     {
         // fffe is invalid, replace with replacement char
         $contents = str_replace("\u{fffe}", "\u{fffd}", $contents);
+        // Excel allows X; Xml does not; changing to x allows both
+        $contents = Preg::replace('/&#X(?=[0-9a-fA-F]+;)/', '&#x', $contents);
         // use positive lookahead to "protect" valid xml entities
         $contents = Preg::replace('/&(?=(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9a-fA-F]+);)/', "\u{fffe}", trim($contents));
         // now decode remaining html entities
