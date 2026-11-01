@@ -89,7 +89,10 @@ class Issue3720Test extends \PHPUnit\Framework\TestCase
         // effectively protected because sheet is locked.
         self::assertFalse($sheet->cellExists('W8'));
         self::assertFalse($sheet->rowDimensionExists(8));
-        self::assertFalse($sheet->columnDimensionExists('W'));
+        // expected result has changed.
+        // sheet contains <ns2:col style="1" width="22.0" max="16384" min="22"/>
+        // so column dimension W (index 23) does indeed exist
+        self::assertTrue($sheet->columnDimensionExists('W'));
         self::assertTrue($sheet->getCell('W8')->isLocked());
         // inherit because cell doesn't exist, row dimension exists without style, no column dimension.
         // effectively protected because sheet is locked.
@@ -97,7 +100,8 @@ class Issue3720Test extends \PHPUnit\Framework\TestCase
         self::assertTrue($sheet->rowDimensionExists(11));
         $dxf = $sheet->getRowDimension(11)->getXfIndex();
         self::assertNull($dxf);
-        self::assertFalse($sheet->columnDimensionExists('X'));
+        // see discussion above about column W
+        self::assertTrue($sheet->columnDimensionExists('X'));
         self::assertTrue($sheet->getCell('X11')->isLocked());
 
         $sheet = $spreadsheet->getSheetByNameOrThrow('Welcome');
