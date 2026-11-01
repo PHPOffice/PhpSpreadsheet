@@ -80,6 +80,88 @@ class AgileEncryptionTest extends TestCase
         }
     }
 
+    public function testEncryptedWorkbookRejectsDoctypeInEncryptionInfo(): void
+    {
+        $plainFilename = File::temporaryFilename();
+        $containerFilename = File::temporaryFilename();
+        $encryptedPackageFilename = null;
+
+        try {
+            file_put_contents($plainFilename, str_repeat('A', 8192));
+            $package = AgileEncryption::encryptFile($plainFilename, 'password');
+            $encryptedPackageFilename = $package['encryptedPackageFilename'];
+
+            $encryptionInfo = "\x04\x00\x04\x00\x40\x00\x00\x00"
+                . '<?xml version="1.0" encoding="UTF-8"?>'
+                . '<!DOCTYPE encryption>'
+                . '<encryption xmlns="http://schemas.microsoft.com/office/2006/encryption" xmlns:p="http://schemas.microsoft.com/office/2006/keyEncryptor/password"/>';
+
+            $container = fopen($containerFilename, 'w+b');
+            self::assertNotFalse($container);
+
+            try {
+                AgileEncryption::writeContainerFromFile($container, $encryptionInfo, $encryptedPackageFilename);
+            } finally {
+                fclose($container);
+            }
+
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Detected use of ENTITY');
+            (new Xlsx())->setEncryptionPassword('password')->load($containerFilename);
+        } finally {
+            @unlink($plainFilename);
+            if (is_string($encryptedPackageFilename)) {
+                @unlink($encryptedPackageFilename);
+            }
+            @unlink($containerFilename);
+        }
+    }
+
+    public function testDirectParseRejectsDoctypeInEncryptionInfo(): void
+    {
+        $package = AgileEncryption::encrypt('package', 'password', spinCount: 10);
+        $encryptionInfo = str_replace(
+            '<encryption ',
+            '<!DOCTYPE encryption [<!ENTITY e "1">]><encryption ',
+            $package['encryptionInfo']
+        );
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Detected use of ENTITY');
+        AgileEncryption::parse($encryptionInfo);
+    }
+
+    public function testEncryptedWorkbookAcceptsUtf16EncryptionInfo(): void
+    {
+        $containerFilename = File::temporaryFilename();
+        $encryptedPackageFilename = null;
+
+        try {
+            $package = AgileEncryption::encryptFile('tests/data/Reader/XLSX/threesheets.xlsx', 'password', spinCount: 10);
+            $encryptedPackageFilename = $package['encryptedPackageFilename'];
+            $xml = str_replace('encoding="UTF-8"', 'encoding="UTF-16"', substr($package['encryptionInfo'], 8));
+            $encryptionInfo = substr($package['encryptionInfo'], 0, 8) . "\xff\xfe" . mb_convert_encoding($xml, 'UTF-16LE', 'UTF-8');
+
+            $container = fopen($containerFilename, 'w+b');
+            self::assertNotFalse($container);
+
+            try {
+                AgileEncryption::writeContainerFromFile($container, $encryptionInfo, $encryptedPackageFilename);
+            } finally {
+                fclose($container);
+            }
+
+            $spreadsheet = (new Xlsx())->setEncryptionPassword('password')->load($containerFilename);
+            self::assertCount(3, $spreadsheet->getAllSheets());
+            $spreadsheet->disconnectWorksheets();
+        } finally {
+            if (is_string($encryptedPackageFilename)) {
+                @unlink($encryptedPackageFilename);
+            }
+            @unlink($containerFilename);
+        }
+    }
+
     public function testEncryptedWorkbookRejectsSpinCountAboveConfiguredMaximum(): void
     {
         $this->expectException(Exception::class);

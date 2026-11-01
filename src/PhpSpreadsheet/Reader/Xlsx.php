@@ -173,6 +173,9 @@ class Xlsx extends BaseReader
             return null;
         }
 
+        $encryptionInfo = substr($encryptionInfo, 0, 8)
+            . $this->getSecurityScannerOrThrow()->scan(substr($encryptionInfo, 8));
+
         $temporaryFilename = File::temporaryFilename();
         $encryptedPackageFilename = File::temporaryFilename();
         $encryptedPackage = fopen($encryptedPackageFilename, 'wb');
