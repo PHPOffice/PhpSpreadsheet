@@ -1057,10 +1057,21 @@ class Html extends BaseWriter
         }
 
         $css['color'] = '#' . $font->getColor()->getRGB();
-        $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+        $css['font-family'] = "'" . self::cssEscape((string) $font->getName()) . "'";
         $css['font-size'] = $font->getSize() . 'pt';
 
         return $css;
+    }
+
+    /** @param string[] $matches */
+    private static function replaceUnexpected(array $matches): string
+    {
+        return '\\' . sprintf('%x ', mb_ord($matches[0], 'UTF-8'));
+    }
+
+    public static function cssEscape(string $convert): ?string
+    {
+        return preg_replace_callback('/[^-. \w]/u', self::replaceUnexpected(...), $convert) ?? 'unparseable';
     }
 
     /**
