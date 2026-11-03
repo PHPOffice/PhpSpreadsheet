@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\File as SharedFile;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use SimpleXMLElement;
@@ -109,7 +110,7 @@ final class AgileEncryption
             throw new Exception('Unsupported XLSX encryption profile.');
         }
 
-        $xml = @simplexml_load_string(substr($encryptionInfo, 8));
+        $xml = @simplexml_load_string((new XmlScanner())->scan(substr($encryptionInfo, 8)));
         if (!$xml instanceof SimpleXMLElement) {
             throw new Exception('Malformed XLSX encryption information.');
         }
