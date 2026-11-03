@@ -14,7 +14,8 @@ use PHPUnit\Framework\TestCase;
 #[Attributes\RunTestsInSeparateProcesses]
 class Sec36jjTest extends TestCase
 {
-    private const ODS_FILE = 'tests/data/Reader/Ods/sec36jj.bomb-rels.ods';
+    private const ODS_FILE = 'tests/data/Reader/Ods/sec36jj.bomb-rels';
+    private const ODS_FILE2 = 'tests/data/Reader/Ods/sec36jj.bomb.meta';
 
     protected function setUp(): void
     {
@@ -46,6 +47,12 @@ class Sec36jjTest extends TestCase
     {
         $reader = new OdsReader();
         $reader->load(self::ODS_FILE);
+    }
+
+    public function testLoad2(): void
+    {
+        $reader = new OdsReader();
+        $reader->load(self::ODS_FILE2);
     }
 
     // Ods identify is less thorough than Xlsx - Ods passes

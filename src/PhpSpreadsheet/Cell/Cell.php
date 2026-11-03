@@ -506,7 +506,7 @@ class Cell implements Stringable
                     foreach ($result as $resultRow) {
                         if (is_array($resultRow)) {
                             $newColumn = $column;
-                            foreach ($resultRow as $resultValue) {
+                            foreach ($resultRow as $resultValue) { //* @phpstan-ignore foreach.valueOverwritten (Php syntax demands 'as')
                                 if ($row !== $newRow || $column !== $newColumn) {
                                     $maxCoordinate = $newColumn . $newRow;
                                     if ($thisworksheet->getCell($newColumn . $newRow)->getValue() !== null) {
@@ -517,7 +517,6 @@ class Cell implements Stringable
                                         }
                                     }
                                 }
-                                /** @var string $newColumn */
                                 StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;

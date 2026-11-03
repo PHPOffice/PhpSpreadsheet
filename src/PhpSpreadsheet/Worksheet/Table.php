@@ -426,7 +426,7 @@ class Table implements Stringable
      */
     public function getColumnByOffset(int $columnOffset): Table\Column
     {
-        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
+        [$rangeStart] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
 
         return $this->getColumn($pColumn);

@@ -80,7 +80,7 @@ class OdsInfoTest extends TestCase
         $this->expectException(ReaderException::class);
         $filename = __FILE__;
         $reader = new Ods();
-        $wsinfo = $reader->listWorkSheetInfo($filename);
+        $reader->listWorkSheetInfo($filename);
     }
 
     public function testReadFileInfoWithEmpties(): void
