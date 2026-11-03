@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Composer\Pcre\Preg;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -258,13 +259,22 @@ class Ods extends BaseReader
     public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         File::assertFile($filename, self::INITIAL_FILE);
-
         $zip = new ZipArchive();
-        $zip->open($filename);
 
+        try {
+            $zip->open($filename);
+
+            return $this->load2($filename, $spreadsheet, $zip);
+        } finally {
+            $zip->close();
+        }
+    }
+
+    public function load2(string $filename, Spreadsheet $spreadsheet, ZipArchive $zip): Spreadsheet
+    {
         $xml = @$this->loadZipSimple($zip, 'meta.xml');
         if ($xml === false) {
-            throw new Exception('Unable to read data from {$pFilename}');
+            throw new Exception('Unable to read data from {$filename}');
         }
 
         $namespacesMeta = $xml->getNamespaces(true);
@@ -449,16 +459,20 @@ class Ods extends BaseReader
                                 if ($cellData->hasAttributeNS($tableNs, 'number-matrix-columns-spanned')) {
                                     if ($cellData->hasAttributeNS($tableNs, 'number-matrix-rows-spanned')) {
                                         $cellDataType = 'array';
-                                        $arrayRow = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
-                                        $arrayCol = (int) $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
+                                        $arrayRow = self::boundedInteger(
+                                            $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned'),
+                                            1,
+                                            AddressRange::MAX_ROW - $rowID + 1,
+                                            'number-matrix-rows-spanned'
+                                        );
+                                        $arrayCol = self::boundedInteger(
+                                            $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned'),
+                                            1,
+                                            AddressRange::MAX_COLUMN_INT - Coordinate::columnIndexFromString($columnID) + 1,
+                                            'number-matrix-columns-spanned'
+                                        );
                                         $lastRow = $rowID + $arrayRow - 1;
-                                        $lastCol = $columnID;
-                                        while ($arrayCol > 1) {
-                                            StringHelper::stringIncrement(
-                                                $lastCol
-                                            );
-                                            --$arrayCol;
-                                        }
+                                        $lastCol = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($columnID) + $arrayCol - 1);
                                         $cellDataRef = "$columnID$rowID:$lastCol$lastRow";
                                     }
                                 }
@@ -701,8 +715,6 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
-        $zip->close();
-        unset($this->zip);
 
         // Return
         return $spreadsheet;
@@ -802,13 +814,13 @@ class Ods extends BaseReader
             }
         }
 
-        return $str;
+        return mb_substr($str, 0, DataType::MAX_STRING_LENGTH);
     }
 
     private static function getMultiplier(?DOMAttr $cAttr): int
     {
         if ($cAttr) {
-            $multiplier = (int) $cAttr->nodeValue;
+            $multiplier = max(1, min((int) $cAttr->nodeValue, DataType::MAX_STRING_LENGTH));
         } else {
             $multiplier = 1;
         }
@@ -962,5 +974,28 @@ class Ods extends BaseReader
         }
 
         return (bool) $retVal;
+    }
+
+    /** Validate the lexical value and its bound before converting to an integer. */
+    private static function boundedInteger(string $value, int $minimum, int $maximum, string $attribute): int
+    {
+        $value = trim($value);
+        if (!Preg::isMatch('/^\+?[0-9]+$/D', $value)) {
+            throw new Exception("Invalid ODS $attribute value.");
+        }
+        $digits = ltrim($value, '+0');
+        $maximumDigits = (string) $maximum;
+        if (
+            strlen($digits) > strlen($maximumDigits)
+            || (strlen($digits) === strlen($maximumDigits) && strcmp($digits, $maximumDigits) > 0)
+        ) {
+            throw new Exception("Invalid ODS $attribute value.");
+        }
+        $integer = (int) $value;
+        if ($integer < $minimum) {
+            throw new Exception("Invalid ODS $attribute value.");
+        }
+
+        return $integer;
     }
 }
