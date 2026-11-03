@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gnm:Workbook xmlns:gnm="http://www.gnumeric.org/v10.dtd">
+ <gnm:SheetNameIndex>
+  <gnm:SheetName>Sheet1</gnm:SheetName>
+ </gnm:SheetNameIndex>
+ <gnm:Sheets>
+  <gnm:Sheet>
+   <gnm:Name>Sheet1</gnm:Name>
+   <gnm:MaxCol>1</gnm:MaxCol>
+   <gnm:MaxRow>1</gnm:MaxRow>
+   <gnm:Cells/>
+   <gnm:Rows DefaultSizePts="12.0">
+    <gnm:RowInfo No="5000000" Unit="12.0"/>
+   </gnm:Rows>
+  </gnm:Sheet>
+ </gnm:Sheets>
+</gnm:Workbook>
