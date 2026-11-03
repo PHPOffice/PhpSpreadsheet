@@ -1251,7 +1251,7 @@ class Html extends BaseWriter
 
         $css['color'] = '#' . $font->getColor()->getRGB();
         if (!$conditional) {
-            $css['font-family'] = '\'' . htmlspecialchars((string) $font->getName(), ENT_QUOTES) . '\'';
+            $css['font-family'] = "'" . self::cssEscape((string) $font->getName()) . "'";
             if ($this instanceof Pdf\Tcpdf) {
                 $css['font-family'] .= ', serif';
             }
@@ -1259,6 +1259,17 @@ class Html extends BaseWriter
         }
 
         return $css;
+    }
+
+    /** @param string[] $matches */
+    private static function replaceUnexpected(array $matches): string
+    {
+        return '\\' . sprintf('%x ', mb_ord($matches[0], 'UTF-8'));
+    }
+
+    public static function cssEscape(string $convert): ?string
+    {
+        return preg_replace_callback('/[^-. \w]/u', self::replaceUnexpected(...), $convert) ?? 'unparseable';
     }
 
     /**
