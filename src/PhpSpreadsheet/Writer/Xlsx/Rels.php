@@ -450,7 +450,7 @@ class Rels extends WriterPart
                     $objWriter,
                     $i,
                     Namespaces::IMAGE,
-                    '../media/' . $drawing->getIndexedFilename()
+                    '../media/' . $this->getParentWriter()->getDrawingMediaFilename($drawing)
                 );
 
                 $i = $this->writeDrawingHyperLink($objWriter, $drawing, $i);
@@ -515,7 +515,7 @@ class Rels extends WriterPart
                 $objWriter,
                 $key,
                 Namespaces::IMAGE,
-                '../media/' . $value->getIndexedFilename()
+                '../media/' . $this->getParentWriter()->getDrawingMediaFilename($value)
             );
         }
 

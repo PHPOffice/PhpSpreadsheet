@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
 class MetaInf extends WriterPart
@@ -74,6 +75,8 @@ class MetaInf extends WriterPart
                 'png' => 'image/png',
                 'jpg', 'jpeg' => 'image/jpeg',
                 'gif' => 'image/gif',
+                'wmf' => Metafile::MIMETYPE_WMF,
+                'emf' => Metafile::MIMETYPE_EMF,
                 default => 'application/octet-stream',
             };
 

@@ -55,4 +55,28 @@ return [
         '=""',
         '""',
     ],
+    'text TRUE matches logical TRUE' => [
+        '=TRUE',
+        'TRUE',
+    ],
+    'text true matches logical TRUE' => [
+        '=TRUE',
+        'true',
+    ],
+    'text FALSE matches logical FALSE' => [
+        '=FALSE',
+        'FALSE',
+    ],
+    'text =TRUE is unchanged' => [
+        '=TRUE',
+        '=TRUE',
+    ],
+    'bool TRUE matches logical TRUE' => [
+        '=TRUE',
+        true,
+    ],
+    'bool FALSE matches logical FALSE' => [
+        '=FALSE',
+        false,
+    ],
 ];

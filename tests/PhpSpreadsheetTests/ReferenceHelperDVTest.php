@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperDVTest extends TestCase
@@ -243,5 +244,60 @@ class ReferenceHelperDVTest extends TestCase
         $sheet->getCell('B3')->setValue(1);
         self::assertFalse($sheet->getCell('B3')->hasValidValue());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    /** @param string[] $expected */
+    #[DataProvider('providerRemoveRowColumn')]
+    public function testRemoveRowColumn(string $range, bool $removeColumn, string|int $toRemove, int $count, array $expected): void
+    {
+        // Issue 5047 - removed rows/columns are taken out of data validation ranges
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $dv = new DataValidation();
+        $dv->setType(DataValidation::TYPE_LIST)
+            ->setFormula1('"Yes,No"');
+        $sheet->setDataValidation($range, $dv);
+        if ($removeColumn) {
+            $sheet->removeColumn((string) $toRemove, $count);
+        } else {
+            $sheet->removeRow((int) $toRemove, $count);
+        }
+        $dvs = $sheet->getDataValidationCollection();
+        self::assertSame($expected, array_keys($dvs));
+        foreach ($dvs as $key => $dataValidation) {
+            self::assertSame($key, $dataValidation->getSqref());
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerRemoveRowColumn(): array
+    {
+        return [
+            'only column' => ['B1:B10', true, 'B', 1, []],
+            'last column' => ['B1:C10', true, 'C', 1, ['B1:B10']],
+            'first column' => ['B1:C10', true, 'B', 1, ['B1:B10']],
+            'middle column' => ['B1:D10', true, 'C', 1, ['B1:C10']],
+            'columns before range' => ['E1:F10', true, 'B', 2, ['C1:D10']],
+            'columns after range' => ['B1:C10', true, 'D', 2, ['B1:C10']],
+            'columns overlapping end' => ['B1:D10', true, 'C', 3, ['B1:B10']],
+            'columns overlapping start' => ['C1:E10', true, 'B', 3, ['B1:B10']],
+            'columns covering range' => ['C1:D10', true, 'B', 4, []],
+            'single cell in removed column' => ['B5', true, 'B', 1, []],
+            'single cell after removed column' => ['C5', true, 'B', 1, ['B5']],
+            'whole columns' => ['B:C', true, 'C', 1, ['B:B']],
+            'whole column removed' => ['B:B', true, 'B', 1, []],
+            'only row' => ['A2:J2', false, 2, 1, []],
+            'last row' => ['A2:J3', false, 3, 1, ['A2:J2']],
+            'first row' => ['A2:J3', false, 2, 1, ['A2:J2']],
+            'middle row' => ['A2:J4', false, 3, 1, ['A2:J3']],
+            'rows overlapping end' => ['A2:J4', false, 3, 5, ['A2:J2']],
+            'rows covering range' => ['A3:J4', false, 2, 4, []],
+            'single cell in removed row' => ['B5', false, 5, 1, []],
+            'whole rows' => ['2:3', false, 3, 1, ['2:2']],
+            'whole row removed' => ['2:2', false, 2, 1, []],
+            'row in whole column' => ['B:B', false, 2, 1, ['B:B']],
+            'multiple ranges' => ['A1:A4 C5 C7:D8 E6', true, 'C', 1, ['A1:A4 C7:C8 D6']],
+            'multiple ranges all removed' => ['C1:C4 C5', true, 'C', 1, []],
+        ];
     }
 }

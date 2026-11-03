@@ -16,4 +16,15 @@ class MinTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/Statistical/MIN.php';
     }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMINLiteralArguments')]
+    public function testMINLiteralArguments(mixed $expectedResult, mixed ...$args): void
+    {
+        $this->runTestCaseDirect('MIN', $expectedResult, ...$args);
+    }
+
+    public static function providerMINLiteralArguments(): array
+    {
+        return require 'tests/data/Calculation/Statistical/MINLiteralArguments.php';
+    }
 }

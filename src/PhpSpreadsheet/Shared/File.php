@@ -62,7 +62,7 @@ class File
                 $zip = new ZipArchive();
                 $res = $zip->open($zipFile);
                 if ($res === true) {
-                    $returnValue = ($zip->getFromName($archiveFile) !== false);
+                    $returnValue = $zip->statName($archiveFile) !== false;
                     $zip->close();
 
                     return $returnValue;
@@ -78,34 +78,24 @@ class File
     /**
      * Returns canonicalized absolute pathname, also for ZIP archives.
      */
-    public static function realpath(string $filename): string
+    public static function realpath(string $filename, bool $trimLeadingSlash = false): string
     {
-        // Returnvalue
-        $returnValue = '';
-
-        // Try using realpath()
-        if (file_exists($filename)) {
-            $returnValue = realpath($filename) ?: '';
+        if ($trimLeadingSlash && substr($filename, 0, 1) === '/') { // Apache POI
+            $filename = substr($filename, 1);
         }
+        $pathArray = Preg::split('~[/\\\]~', $filename);
+        while (in_array('..', $pathArray, true) && $pathArray[0] !== '..') {
+            $iMax = count($pathArray);
+            for ($i = 1; $i < $iMax; ++$i) {
+                if ($pathArray[$i] === '..') {
+                    array_splice($pathArray, $i - 1, 2);
 
-        // Found something?
-        if ($returnValue === '') {
-            $pathArray = explode('/', $filename);
-            while (in_array('..', $pathArray) && $pathArray[0] != '..') {
-                $iMax = count($pathArray);
-                for ($i = 1; $i < $iMax; ++$i) {
-                    if ($pathArray[$i] == '..') {
-                        array_splice($pathArray, $i - 1, 2);
-
-                        break;
-                    }
+                    break;
                 }
             }
-            $returnValue = implode('/', $pathArray);
         }
 
-        // Return
-        return $returnValue;
+        return implode('/', $pathArray);
     }
 
     /**

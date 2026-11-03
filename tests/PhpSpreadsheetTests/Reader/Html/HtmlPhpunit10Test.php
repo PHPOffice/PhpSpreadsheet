@@ -37,8 +37,16 @@ class HtmlPhpunit10Test extends TestCase
         return false; // continue error handling
     }
 
+    private function checkLibxmlVersion(): void
+    {
+        if (LIBXML_VERSION >= 21400) {
+            self::markTestSkipped('Current version of libxml has invalidated this test');
+        }
+    }
+
     public function testBadHtml(): void
     {
+        $this->checkLibxmlVersion();
         $filename = 'tests/data/Reader/HTML/badhtml.html';
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
@@ -48,6 +56,7 @@ class HtmlPhpunit10Test extends TestCase
 
     public function testLoadInvalidString(): void
     {
+        $this->checkLibxmlVersion();
         $html = '<table<>';
         (new Html())->loadFromString($html);
         self::assertStringContainsString('DOMDocument::loadHTML', self::$errorString);

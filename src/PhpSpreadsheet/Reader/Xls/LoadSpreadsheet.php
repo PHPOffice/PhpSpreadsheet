@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheet\Shared\Escher as SharedEscher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
+use PhpOffice\PhpSpreadsheet\Shared\Metafile;
 use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -501,9 +502,16 @@ class LoadSpreadsheet extends Xls
                                 $BSE = $BSECollection[$BSEindex - 1];
                                 $blipType = $BSE->getBlipType();
 
-                                // need check because some blip types are not supported by Escher reader such as EMF
+                                // need check because some blip types are not supported by Escher reader such as PICT
                                 if ($blip = $BSE->getBlip()) {
-                                    $ih = imagecreatefromstring($blip->getData());
+                                    $blipData = $blip->getData();
+                                    if (Metafile::detect($blipData) !== null) {
+                                        // Windows Metafiles (WMF, EMF, EMF+) are rendered as PNG
+                                        $blipType = BSE::BLIPTYPE_PNG;
+                                        $ih = Metafile::tryToGdImage($blipData) ?? false;
+                                    } else {
+                                        $ih = imagecreatefromstring($blipData);
+                                    }
                                     if ($ih !== false) {
                                         $drawing = new MemoryDrawing();
                                         $drawing->setImageResource($ih);

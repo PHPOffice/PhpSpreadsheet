@@ -23,7 +23,7 @@ class Maximum extends MaxMinBase
         $returnValue = null;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
+        $aArgs = Functions::flattenArray(self::datatypeAdjustmentLiteralArguments($args));
         foreach ($aArgs as $arg) {
             if (ErrorValue::isError($arg, true)) {
                 $returnValue = $arg;

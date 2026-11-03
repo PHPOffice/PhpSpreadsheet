@@ -96,7 +96,8 @@ class Extract
             return $e->getMessage();
         }
 
-        return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
+        // When more characters are requested than the text contains, return all of the text
+        return mb_substr($value, max(0, mb_strlen($value, 'UTF-8') - $chars), $chars, 'UTF-8');
     }
 
     /**
