@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -486,11 +487,13 @@ class Gnumeric extends BaseReader
         $rowHeight = (float) $rowAttributes['Unit'];
         $hidden = (isset($rowAttributes['Hidden'])) && ((string) $rowAttributes['Hidden'] == '1');
         $rowCount = (int) ($rowAttributes['Count'] ?? 1);
-        while ($whichRow < $row) {
+        $limit = min($row, AddressRange::MAX_ROW);
+        while ($whichRow < $limit) {
             ++$whichRow;
             $this->setRowHeight($whichRow, $defaultHeight);
         }
-        while (($whichRow < ($row + $rowCount)) && ($whichRow < $maxRow)) {
+        $limit = min($maxRow, AddressRange::MAX_ROW);
+        while (($whichRow < ($row + $rowCount)) && ($whichRow < $limit)) {
             ++$whichRow;
             $this->setRowHeight($whichRow, $rowHeight);
             if ($hidden) {

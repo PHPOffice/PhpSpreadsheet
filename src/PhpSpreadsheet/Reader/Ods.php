@@ -266,13 +266,22 @@ class Ods extends BaseReader
     public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
     {
         File::assertFile($filename, self::INITIAL_FILE);
-
         $zip = new ZipArchive();
-        $zip->open($filename);
 
+        try {
+            $zip->open($filename);
+
+            return $this->load2($filename, $spreadsheet, $zip);
+        } finally {
+            $zip->close();
+        }
+    }
+
+    public function load2(string $filename, Spreadsheet $spreadsheet, ZipArchive $zip): Spreadsheet
+    {
         $xml = @$this->loadZipSimple($zip, 'meta.xml');
         if ($xml === false) {
-            throw new Exception('Unable to read data from {$pFilename}');
+            throw new Exception('Unable to read data from {$filename}');
         }
 
         $namespacesMeta = $xml->getNamespaces(true);
@@ -667,8 +676,6 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
-        $zip->close();
-        unset($this->zip);
 
         // Return
         return $spreadsheet;
@@ -768,13 +775,13 @@ class Ods extends BaseReader
             }
         }
 
-        return $str;
+        return mb_substr($str, 0, DataType::MAX_STRING_LENGTH);
     }
 
     private static function getMultiplier(?DOMAttr $cAttr): int
     {
         if ($cAttr) {
-            $multiplier = (int) $cAttr->nodeValue;
+            $multiplier = max(1, min((int) $cAttr->nodeValue, DataType::MAX_STRING_LENGTH));
         } else {
             $multiplier = 1;
         }
