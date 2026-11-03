@@ -146,6 +146,20 @@ class Sample
         }
     }
 
+    /**
+     * Add end tags to page. The page will render correctly
+     * without them, so this is optional, but the page will
+     * not validate unless it is called.
+     */
+    public function endWebPage(): void
+    {
+        if ($this->isCli() === false) {
+            // @codeCoverageIgnoreStart
+            echo '</div></body></html>';
+            // @codeCoverageIgnoreEnd
+        }
+    }
+
     protected function isDirOrMkdir(string $folder): bool
     {
         return \is_dir($folder) || \mkdir($folder);

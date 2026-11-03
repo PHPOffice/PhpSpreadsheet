@@ -26,6 +26,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
+- Update infrastructure for running samples in browser. [PR #5061](https://github.com/PHPOffice/PhpSpreadsheet/pull/5061) [PR #5068](https://github.com/PHPOffice/PhpSpreadsheet/pull/5068)
 - `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
 - The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
 - Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
@@ -41,6 +42,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Xlsx Reader and AgileEncryption parser reject a DOCTYPE or entity declaration in encrypted workbook metadata before parsing. [PR #5072](https://github.com/PHPOffice/PhpSpreadsheet/pull/5072)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
 - Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
 - A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
