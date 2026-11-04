@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use DateTimeImmutable;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use PhpOffice\PhpSpreadsheet\Writer;
 
 /**
  * Assist downloading files when samples are run in browser.
@@ -21,7 +21,7 @@ class Downloader
 
     protected string $filetype;
 
-    protected ?IWriter $writer;
+    protected ?Writer\IWriter $writer;
 
     protected bool $oldIE;
 
@@ -34,7 +34,7 @@ class Downloader
         'pdf' => 'application/pdf',
     ];
 
-    public function __construct(IWriter|string $folder, string $filename, ?string $filetype = null, bool $oldIE = false)
+    public function __construct(string|Writer\IWriter $folder, string $filename, ?string $filetype = null, bool $oldIE = false)
     {
         if (is_string($folder)) {
             $this->writer = null;
@@ -47,6 +47,16 @@ class Downloader
             $this->filename = basename($this->filepath);
         } else {
             $this->writer = $folder;
+            $filetype = match (true) {
+                // Pdf must come before html; order is otherwise unimportant
+                $folder instanceof Writer\Pdf => 'pdf',
+                $folder instanceof Writer\Csv => 'csv',
+                $folder instanceof Writer\Html => 'html',
+                $folder instanceof Writer\Ods => 'ods',
+                $folder instanceof Writer\Xls => 'xls',
+                $folder instanceof Writer\Xlsx => 'xlsx',
+                default => '',
+            };
             $this->filepath = $this->filename = $filename;
         }
 
@@ -55,6 +65,10 @@ class Downloader
             throw new Exception('Invalid filetype: file cannot be downloaded');
         }
         $this->filetype = strtolower($filetype);
+        $dotfiletype = '.' . $this->filetype;
+        if (!str_ends_with($this->filename, $dotfiletype)) {
+            $this->filename .= $dotfiletype;
+        }
         $this->oldIE = $oldIE;
     }
 
@@ -90,6 +104,7 @@ class Downloader
     protected function contentType(): void
     {
         header('Content-Type: ' . self::CONTENT_TYPES[$this->filetype]);
+        header('X-Content-Type-Options: nosniff');
     }
 
     protected function contentDisposition(): void
