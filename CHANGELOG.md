@@ -19,6 +19,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - `Document\Properties::setLanguage()`: the language of a spreadsheet as a BCP 47 tag, written and read as `dc:language` in Xlsx and Ods; the Ods writer also gives it to the default cell style, where LibreOffice keeps a spreadsheet's language, as LibreOffice writes it (the Western, Asian or complex slot by script, and `style:rfc-language-tag` for a tag with more than a language and a country), and the Ods reader reads it from there when there is no `dc:language`. Html writes and reads it as the `lang` of the `html` element. [Issue #5040](https://github.com/PHPOffice/PhpSpreadsheet/issues/5040) [PR #5041](https://github.com/PHPOffice/PhpSpreadsheet/pull/5041)
 - Xlsx Writer and Reader: `Chart::setDescription()` is the alternative text of a chart, written as `descr` of the chart's frame and read back, and the frame takes the chart's name; LibreOffice exports it as `/Alt` of the chart in a tagged PDF. [Issue #5038](https://github.com/PHPOffice/PhpSpreadsheet/issues/5038) [PR #5039](https://github.com/PHPOffice/PhpSpreadsheet/pull/5039)
 - `BaseDrawing::setDecorative()` marks an image as decorative. Xlsx writes and reads it as Excel and LibreOffice do (`adec:decorative` in the image's `cNvPr`), Ods as LibreOffice does (`loext:decorative` in the frame's graphic style, which the writer now defines; the reader also takes ODF 1.4's `draw:decorative`); LibreOffice then leaves the image out of a tagged PDF as an artifact. Html writes and reads it as an empty `alt`. [Issue #5036](https://github.com/PHPOffice/PhpSpreadsheet/issues/5036) [PR #5037](https://github.com/PHPOffice/PhpSpreadsheet/pull/5037)
+- Xlsx Writer and Reader: the description of a header/footer image is its alternative text, `alt` on the VML shape as Excel writes it. [Issue #5056](https://github.com/PHPOffice/PhpSpreadsheet/issues/5056) [PR #5057](https://github.com/PHPOffice/PhpSpreadsheet/pull/5057)
 
 ### Removed
 
@@ -26,6 +27,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
+- Update infrastructure for running samples in browser. [PR #5061](https://github.com/PHPOffice/PhpSpreadsheet/pull/5061) [PR #5068](https://github.com/PHPOffice/PhpSpreadsheet/pull/5068)
 - `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
 - The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
 - Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
@@ -41,6 +43,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Xlsx Reader and AgileEncryption parser reject a DOCTYPE or entity declaration in encrypted workbook metadata before parsing. [PR #5072](https://github.com/PHPOffice/PhpSpreadsheet/pull/5072)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
 - Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
 - A "TRUE" or "FALSE" criterion matches logical values in COUNTIF, SUMIF, the database functions and the others sharing their criteria, as Excel does. [PR #5006](https://github.com/PHPOffice/PhpSpreadsheet/pull/5006)
@@ -62,12 +65,14 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
 - A fraction number format writes an integer as a fraction when the format has no integer part, so 1 is `1/1` with `0/0`, and when the last numerator placeholder is 0, so 1 is `1 0/1` with `0 0/0`, as Excel does. [Issue #3625](https://github.com/PHPOffice/PhpSpreadsheet/issues/3625) [PR #5060](https://github.com/PHPOffice/PhpSpreadsheet/pull/5060)
+- Removing or inserting a column that shifts the header row of a table no longer throws `Worksheet no longer exists`. [Issue #5058](https://github.com/PHPOffice/PhpSpreadsheet/issues/5058) [PR #5059](https://github.com/PHPOffice/PhpSpreadsheet/pull/5059)
 - Branch pruning no longer throws "internal error" for an IF nested in the condition of another IF inside a pruned branch. [Issue #3755](https://github.com/PHPOffice/PhpSpreadsheet/issues/3755) [Issue #3790](https://github.com/PHPOffice/PhpSpreadsheet/issues/3790) [PR #5055](https://github.com/PHPOffice/PhpSpreadsheet/pull/5055)
 - Xls Writer no longer loses EMF and WMF images (they are written as PNG); the resulting file could not be read back (`Call to a member function getBlipType() on null`). [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
 - Xls Reader reads EMF and WMF pictures (as PNG `MemoryDrawing`); they were ignored. [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
 - Xlsx Writer declares WMF and EMF images as `image/x-wmf` and `image/x-emf` instead of `application/octet-stream`, and Ods Writer does the same in its manifest when it stores them as is.
 - Html and Pdf Writers display WMF and EMF images (as PNG) instead of an empty image.
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
+- Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped. The totals row label, function (as `SUBTOTAL`) or formula of a column also sets its totals row cell when that cell is empty, so it no longer has to be set by hand. [Issue #5063](https://github.com/PHPOffice/PhpSpreadsheet/issues/5063) [PR #5064](https://github.com/PHPOffice/PhpSpreadsheet/pull/5064)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
 
 ## 2026-09-15 - 5.10.0

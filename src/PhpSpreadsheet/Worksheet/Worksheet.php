@@ -2164,12 +2164,18 @@ class Worksheet
     /**
      * Add Table.
      *
+     * @param bool $updateTotalsRowCells Set the empty cells of the table's totals row
+     *            from the totals row formula, function or label of its columns
+     *
      * @return $this
      */
-    public function addTable(Table $table): self
+    public function addTable(Table $table, bool $updateTotalsRowCells = true): self
     {
         $table->setWorksheet($this);
         $this->tableCollection[] = $table;
+        if ($updateTotalsRowCells) {
+            $table->updateTotalsRowCells();
+        }
 
         return $this;
     }
@@ -4041,7 +4047,7 @@ class Worksheet
                     foreach ($currentCollection as $item) {
                         $newTable = clone $item;
                         $newTable->setName($item->getName() . 'clone');
-                        $this->addTable($newTable);
+                        $this->addTable($newTable, false);
                     }
                 } elseif ($key === 'chartCollection') {
                     $currentCollection = $this->chartCollection;

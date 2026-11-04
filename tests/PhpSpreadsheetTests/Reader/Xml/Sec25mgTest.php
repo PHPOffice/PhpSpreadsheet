@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xml as XmlReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Sec25mgTest extends TestCase
@@ -25,7 +26,8 @@ class Sec25mgTest extends TestCase
         }
     }
 
-    public function testNumericEntities(): void
+    #[DataProvider('providerEntity')]
+    public function testNumericEntities(string $entity): void
     {
         $this->filename = File::temporaryFilename();
         $entity_value = str_repeat('A', 100000);
@@ -34,8 +36,8 @@ class Sec25mgTest extends TestCase
         $xml = <<<EOF
             <?xml version="1.0"?>
             <?mso-application progid="Excel.Sheet"?>
-            &#38;#60;!DOCTYPE Workbook [
-                &#38;#60;!ENTITY big "$entity_value">
+            $entity!DOCTYPE Workbook [
+                $entity!ENTITY big "$entity_value">
             ]>
             <Workbook
                 xmlns="{$this->xmlns}"
@@ -92,8 +94,8 @@ class Sec25mgTest extends TestCase
     public function testNoDoctype(): void
     {
         $this->filename = File::temporaryFilename();
-        $refs = str_repeat('&amp;&pi;&#x03cF;&#48;', 200);
-        $refsOut = str_repeat('&πϏ0', 200);
+        $refs = str_repeat('&amp;&pi;&#x03cF;&#48;&#X31;', 200);
+        $refsOut = str_repeat('&πϏ01', 200);
 
         $xml = <<<EOF
             <?xml version="1.0"?>
@@ -119,14 +121,26 @@ class Sec25mgTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testIsolated(): void
+    #[DataProvider('providerEntity')]
+    public function testIsolated(string $entity): void
     {
         $scanner = new XmlScanner('<!DOCTYPE');
         $scanner->setAdditionalCallback([XmlReader::class, 'unentity']);
-        $input = '&#38;#60;!DOCTYPE test';
+        $input = $entity . '!DOCTYPE test';
         $pass1 = $scanner->scan($input);
         self::assertStringNotContainsString('<!DOCTYPE', $pass1);
         $pass2 = $scanner->scan($pass1);
         self::assertStringNotContainsString('<!DOCTYPE', $pass2);
+    }
+
+    /** @return array<array{string}> */
+    public static function providerEntity(): array
+    {
+        return [
+            'trying for pass2 success' => ['&#38;#60;'],
+            'hex lowercase x' => ['&#x3c;'],
+            'hex uppercase x' => ['&#X3c;'],
+            'numeric' => ['&#60;'],
+        ];
     }
 }
