@@ -83,9 +83,31 @@ abstract class BaseReader implements IReader2
     /** @var null|callable(string):bool function to return whether image path is okay */
     protected $isWhitelisted;
 
+    protected int $maxLength;
+
+    private const LENGTH_MULTIPLIER = [
+        'G' => 1024 * 1024 * 1024,
+        'M' => 1024 * 1024,
+        'K' => 1024,
+    ];
+
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
+        $limit = ini_get('memory_limit') ?: '128M';
+        $limit = trim(str_replace('-1', '128M', $limit));
+        $unit = strtoupper(substr($limit, -1));
+        $limit = (int) $limit;
+        $multiplier = self::LENGTH_MULTIPLIER[$unit] ?? 1;
+        $limit *= $multiplier;
+        $this->maxLength = intdiv($limit, 4);
+    }
+
+    public function setMaxLength(int $maxLength): self
+    {
+        $this->maxLength = $maxLength;
+
+        return $this;
     }
 
     public function getReadDataOnly(): bool
