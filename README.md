@@ -12,6 +12,14 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 
 This branch (3.10.x) is maintained (for security and some bug fixes), but it is *not* the latest version of PhpSpreadsheet, and may therefore lack features and bug fixes found in the latest version.
 
+## End Of Support Notice
+
+Security patches will continue to be applied to this branch
+until 2026-12-15. At that date, no further changes,
+including security patches, will be applied.
+You are encouraged to upgrade to the master branch (release 5)
+before that date.
+
 ## PHP Version Support
 
 LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
