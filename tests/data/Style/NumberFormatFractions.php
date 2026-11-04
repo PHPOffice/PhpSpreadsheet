@@ -143,4 +143,55 @@ return [
         2.65,
         '# ???/12',
     ],
+    // Integer values (issue 3625)
+    'integer in vulgar fraction' => [
+        '1/1',
+        1,
+        '0/0',
+    ],
+    'integer in vulgar fraction with ? placeholders' => [
+        '1/1',
+        1,
+        '??/???',
+    ],
+    'larger integer in vulgar fraction' => [
+        '12/1',
+        12,
+        '?/?',
+    ],
+    'negative integer in vulgar fraction' => [
+        '-3/1',
+        -3,
+        '?/?',
+    ],
+    'zero in vulgar fraction' => [
+        '0/1',
+        0,
+        '0/0',
+    ],
+    'integer in vulgar fraction with fixed denominator' => [
+        '500/100',
+        5,
+        '??/100',
+    ],
+    'integer with 0 numerator placeholder' => [
+        '1 0/1',
+        1,
+        '0 0/0',
+    ],
+    'integer with 0 numerator placeholder and fixed denominator' => [
+        '5 0/4',
+        5,
+        '0 0/4',
+    ],
+    'integer with ? numerator placeholder' => [
+        '1',
+        1,
+        '? ??/???',
+    ],
+    'integer with # whole part and ? numerator placeholder' => [
+        '7',
+        7,
+        '# ?/?',
+    ],
 ];
