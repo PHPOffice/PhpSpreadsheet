@@ -118,8 +118,6 @@ class ExtendForChartsAndImagesTest extends Functional\AbstractFunctional
         self::assertSame('', $drawing->getPath());
         $drawing->setCoordinates('E1');
         $drawing->setWorksheet($sheet);
-
-        $this->assertMaxColumnAndMaxRow($spreadsheet, 2, 3);
     }
 
     private function assertMaxColumnAndMaxRow(Spreadsheet $spreadsheet, int $expectedColumnCount, int $expectedRowCount): void

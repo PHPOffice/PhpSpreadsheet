@@ -44,10 +44,7 @@ class OdsInfoTest extends TestCase
 
         // Test "listWorksheetNames" method
 
-        self::assertSame([
-            'Sheet1',
-            'Second Sheet',
-        ], $reader->listWorksheetNames(__FILE__));
+        $reader->listWorksheetNames(__FILE__);
     }
 
     public function testReadFileInfo(): void

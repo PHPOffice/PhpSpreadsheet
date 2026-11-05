@@ -48,7 +48,6 @@ class AlignmentTest extends TestCase
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(91);
-        self::assertEquals(0, $cell1->getStyle()->getAlignment()->getTextRotation());
     }
 
     public function testRotationTooLow(): void
@@ -59,7 +58,6 @@ class AlignmentTest extends TestCase
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(-91);
-        self::assertEquals(0, $cell1->getStyle()->getAlignment()->getTextRotation());
     }
 
     public function testHorizontal(): void
