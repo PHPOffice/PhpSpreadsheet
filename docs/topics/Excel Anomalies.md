@@ -41,7 +41,7 @@ Excel does not support dates before either 1900-01-01 (Windows default) or 1904-
 
 ## Weird Fractions
 
-Similar fraction formats have inconsistent results in Excel. For example, if a cell contains the value 1 and the cell's format is `0 0/0`, it will display as `1 0/1`. But, if the cell's format is `? ??/???`, it will display as `1`. See [this issue](https://github.com/PHPOffice/PhpSpreadsheet/issues/3625), which remains open because, in the absence of usable documentation, we aren't sure how to handle things.
+Similar fraction formats have inconsistent results in Excel. For example, if a cell contains the value 1 and the cell's format is `0 0/0`, it will display as `1 0/1`. But, if the cell's format is `? ??/???`, it will display as `1`. See [this issue](https://github.com/PHPOffice/PhpSpreadsheet/issues/3625), which has remained open because, in the absence of usable documentation, we aren't sure how to handle things. [This pr](https://github.com/PHPOffice/PhpSpreadsheet/pull/5060), planned for release 5.11, makes a reasonable guess as to how it should be handled - the formatting matches Excel's in many new cases, except that Excel sometimes adds some padding which is still not accounted for.
 
 ## COUNTIF and Text Cells
 
