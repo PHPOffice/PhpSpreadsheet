@@ -54,6 +54,21 @@ class Comment implements IComparable, Stringable
     private Color $fillColor;
 
     /**
+     * Comment border color.
+     */
+    private Color $borderColor;
+
+    /**
+     * Comment fill opacity.
+     */
+    private float $fillOpacity = 1.0;
+
+    /**
+     * Comment shapeType.
+     */
+    private int $shapeType = 202;
+
+    /**
      * Alignment.
      */
     private string $alignment;
@@ -80,6 +95,7 @@ class Comment implements IComparable, Stringable
         $this->author = 'Author';
         $this->text = new RichText();
         $this->fillColor = new Color('FFFFFFE1');
+        $this->borderColor = new Color(Color::COLOR_BLACK);
         $this->alignment = Alignment::HORIZONTAL_GENERAL;
         $this->backgroundImage = new Drawing();
     }
@@ -240,6 +256,42 @@ class Comment implements IComparable, Stringable
         return $this->fillColor;
     }
 
+    public function setBorderColor(Color $color): self
+    {
+        $this->borderColor = $color;
+
+        return $this;
+    }
+
+    public function getBorderColor(): Color
+    {
+        return $this->borderColor;
+    }
+
+    public function setFillOpacity(float $opacity): self
+    {
+        $this->fillOpacity = $opacity;
+
+        return $this;
+    }
+
+    public function getFillOpacity(): float
+    {
+        return $this->fillOpacity;
+    }
+
+    public function getShapeType(): int
+    {
+        return $this->shapeType;
+    }
+
+    public function setShapeType(int $shapeType): self
+    {
+        $this->shapeType = $shapeType;
+
+        return $this;
+    }
+
     public function setAlignment(string $alignment): self
     {
         $this->alignment = $alignment;
@@ -278,6 +330,9 @@ class Comment implements IComparable, Stringable
             . $this->marginTop
             . ($this->visible ? 1 : 0)
             . $this->fillColor->getHashCode()
+            . $this->borderColor->getHashCode()
+            . $this->fillOpacity
+            . $this->shapeType
             . $this->alignment
             . $this->textboxDirection
             . ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '')
