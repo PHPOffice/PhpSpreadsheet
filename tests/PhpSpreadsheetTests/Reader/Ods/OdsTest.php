@@ -100,6 +100,7 @@ class OdsTest extends TestCase
     public function testLoadCorruptFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unable to read data from');
         $filename = 'tests/data/Reader/Ods/corruptMeta.ods';
         $reader = new Ods();
         $reader->load($filename);

@@ -38,6 +38,7 @@ class OdsInfoTest extends TestCase
     public function testReadBadFileProperties(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Could not find zip member');
 
         // Load into this instance
         $reader = new Ods();

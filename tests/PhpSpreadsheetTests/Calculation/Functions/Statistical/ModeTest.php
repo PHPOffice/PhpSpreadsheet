@@ -30,6 +30,7 @@ class ModeTest extends TestCase
     public function testMODENoArgs(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Calculation\Exception::class);
+        $this->expectExceptionMessage('Wrong number of arguments for MODE() function');
 
         $workbook = new Spreadsheet();
         $sheet = $workbook->getActiveSheet();
