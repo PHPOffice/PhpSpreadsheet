@@ -75,6 +75,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
 - Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped. The totals row label, function (as `SUBTOTAL`) or formula of a column also sets its totals row cell when that cell is empty, so it no longer has to be set by hand. [Issue #5063](https://github.com/PHPOffice/PhpSpreadsheet/issues/5063) [PR #5064](https://github.com/PHPOffice/PhpSpreadsheet/pull/5064)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
+- Text formats containing `@` treat a backslash as an escape character, as Excel does, so `@\X` displays `Test` as `TestX` instead of `Test\X`; backslashes in the text itself are kept. [Issue #5069](https://github.com/PHPOffice/PhpSpreadsheet/issues/5069) [PR #5071](https://github.com/PHPOffice/PhpSpreadsheet/pull/5071)
 
 ## 2026-09-15 - 5.10.0
 
