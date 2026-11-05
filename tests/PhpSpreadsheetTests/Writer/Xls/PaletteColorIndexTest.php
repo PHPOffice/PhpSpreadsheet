@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xls\Parser;
 use PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook;
 use PHPUnit\Framework\TestCase;
@@ -107,5 +110,43 @@ class PaletteColorIndexTest extends TestCase
         self::assertSame([0x63, 0x63, 0x63, 0x00], $palette[$grayIndex]);
         self::assertSame([0xFF, 0x00, 0x00, 0x00], $palette[$redIndex]);
         self::assertSame([0x00, 0x97, 0xFF, 0x00], $palette[$blueIndex]);
+    }
+
+    /**
+     * 333333 matches the built-in palette entry 63, above the custom range.
+     * That index must not make the palette look full for the next custom color.
+     */
+    public function testBuiltInMatchAboveCustomRangeDoesNotFillPalette(): void
+    {
+        $this->setUpWorkbook();
+
+        $darkGrayIndex = $this->workbook->addColor('333333');
+        $greenIndex = $this->workbook->addColor('72B054');
+
+        self::assertSame(63, $darkGrayIndex);
+        self::assertNotSame(0, $greenIndex);
+        self::assertLessThanOrEqual(57, $greenIndex);
+
+        $palette = $this->palette();
+        self::assertSame([0x33, 0x33, 0x33, 0x00], $palette[$darkGrayIndex]);
+        self::assertSame([0x72, 0xB0, 0x54, 0x00], $palette[$greenIndex]);
+    }
+
+    public function testFillAfterBuiltInFontColorKeepsItsColorOnReload(): void
+    {
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+        $style = $spreadsheet->getActiveSheet()->setCellValue('A1', 'x')->getStyle('A1');
+        $style->getFont()->getColor()->setRGB('333333');
+        $style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('72B054');
+
+        $filename = File::temporaryFilename();
+        IOFactory::createWriter($spreadsheet, 'Xls')->save($filename);
+        $reloaded = IOFactory::load($filename);
+        unlink($filename);
+
+        $reloadedStyle = $reloaded->getActiveSheet()->getStyle('A1');
+        self::assertSame('333333', $reloadedStyle->getFont()->getColor()->getRGB());
+        self::assertSame('72B054', $reloadedStyle->getFill()->getStartColor()->getRGB());
+        $reloaded->disconnectWorksheets();
     }
 }

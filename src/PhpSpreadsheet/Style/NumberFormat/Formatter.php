@@ -135,7 +135,7 @@ class Formatter extends BaseFormatter
         // Process a single block format code containing @ for text substitution
         $formatx = str_replace('\"', self::QUOTE_REPLACEMENT, $format);
         if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $formatx) === 1) {
-            if (!str_contains($format, '"')) {
+            if (!str_contains($format, '"') && !str_contains($format, '\\')) {
                 $temp = str_replace('@', StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision), $format);
                 if (is_callable($callBack)) {
                     $temp = $callBack($temp, $format);
@@ -143,10 +143,12 @@ class Formatter extends BaseFormatter
 
                 return $temp;
             }
-            //escape any dollar signs on the string, so they are not replaced with an empty value
+            // Convert any escaped characters to quoted strings, e.g. (\X to "X")
+            $formatx = (string) preg_replace('/\\\(.)(?=(?:[^"]|"[^"]*")*$)/u', '"${1}"', $formatx);
+            //escape any backslashes and dollar signs on the string, so they are not treated as references
             $value = str_replace(
-                ['$', '"'],
-                ['\$', self::QUOTE_REPLACEMENT],
+                ['\\', '$', '"'],
+                ['\\\\', '\$', self::QUOTE_REPLACEMENT],
                 StringHelper::convertToString($value, lessFloatPrecision: $lessFloatPrecision)
             );
             $temp = preg_replace(self::SYMBOL_AT, $value, $formatx) ?? $value;

@@ -43,6 +43,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Xls Writer: a color matching a built-in palette entry above the custom range (e.g. `333333`) no longer makes the palette look full, so later custom colors are no longer written as black. [Issue #5065](https://github.com/PHPOffice/PhpSpreadsheet/issues/5065) [PR #5066](https://github.com/PHPOffice/PhpSpreadsheet/pull/5066)
 - Xlsx Reader and AgileEncryption parser reject a DOCTYPE or entity declaration in encrypted workbook metadata before parsing. [PR #5072](https://github.com/PHPOffice/PhpSpreadsheet/pull/5072)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
 - Comparison operators order values of different types as Excel does (numbers < text < FALSE < TRUE), so `=""<75` is FALSE. [PR #5004](https://github.com/PHPOffice/PhpSpreadsheet/pull/5004)
@@ -64,6 +65,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - `removeColumn()` no longer throws "Invalid column index 0" when it removes column A and every column up to the highest data column, e.g. `removeColumn('A')` on an empty sheet. [Issue #5049](https://github.com/PHPOffice/PhpSpreadsheet/issues/5049) [PR #5050](https://github.com/PHPOffice/PhpSpreadsheet/pull/5050)
 - `removeColumn()` and `removeRow()` take the removed columns/rows out of data validation ranges: a validation that lies only on them is deleted, and a range that ends on them shrinks, instead of covering the column/row that slides into their place. [Issue #5047](https://github.com/PHPOffice/PhpSpreadsheet/issues/5047) [PR #5048](https://github.com/PHPOffice/PhpSpreadsheet/pull/5048)
 - Minor cleanup in Ods Reader to fix test which was not working in Windows. [PR #5052](https://github.com/PHPOffice/PhpSpreadsheet/pull/5052)
+- A fraction number format writes an integer as a fraction when the format has no integer part, so 1 is `1/1` with `0/0`, and when the last numerator placeholder is 0, so 1 is `1 0/1` with `0 0/0`, as Excel does. [Issue #3625](https://github.com/PHPOffice/PhpSpreadsheet/issues/3625) [PR #5060](https://github.com/PHPOffice/PhpSpreadsheet/pull/5060)
 - Removing or inserting a column that shifts the header row of a table no longer throws `Worksheet no longer exists`. [Issue #5058](https://github.com/PHPOffice/PhpSpreadsheet/issues/5058) [PR #5059](https://github.com/PHPOffice/PhpSpreadsheet/pull/5059)
 - Branch pruning no longer throws "internal error" for an IF nested in the condition of another IF inside a pruned branch. [Issue #3755](https://github.com/PHPOffice/PhpSpreadsheet/issues/3755) [Issue #3790](https://github.com/PHPOffice/PhpSpreadsheet/issues/3790) [PR #5055](https://github.com/PHPOffice/PhpSpreadsheet/pull/5055)
 - Xls Writer no longer loses EMF and WMF images (they are written as PNG); the resulting file could not be read back (`Call to a member function getBlipType() on null`). [Issue #274](https://github.com/PHPOffice/PhpSpreadsheet/issues/274)
@@ -73,6 +75,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
 - Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped. The totals row label, function (as `SUBTOTAL`) or formula of a column also sets its totals row cell when that cell is empty, so it no longer has to be set by hand. [Issue #5063](https://github.com/PHPOffice/PhpSpreadsheet/issues/5063) [PR #5064](https://github.com/PHPOffice/PhpSpreadsheet/pull/5064)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
+- `getDataValidation()` and `dataValidationExists()` no longer throw "Cell coordinate string can not be a range of cells" for a range once a validation on a range exists; a range gets the validation set on exactly that range, or a new one. [Issue #5073](https://github.com/PHPOffice/PhpSpreadsheet/issues/5073) [PR #5074](https://github.com/PHPOffice/PhpSpreadsheet/pull/5074)
+- Text formats containing `@` treat a backslash as an escape character, as Excel does, so `@\X` displays `Test` as `TestX` instead of `Test\X`; backslashes in the text itself are kept. [Issue #5069](https://github.com/PHPOffice/PhpSpreadsheet/issues/5069) [PR #5071](https://github.com/PHPOffice/PhpSpreadsheet/pull/5071)
 
 ## 2026-09-15 - 5.10.0
 
