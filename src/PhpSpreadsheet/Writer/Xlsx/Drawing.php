@@ -550,6 +550,10 @@ class Drawing extends WriterPart
         $objWriter->writeAttribute('o:spid', '_x0000_s' . $id);
         $objWriter->writeAttribute('type', '#_x0000_t75');
         $objWriter->writeAttribute('style', "position:absolute;margin-left:{$marginLeft}px;margin-top:{$marginTop}px;width:{$width}px;height:{$height}px;z-index:1");
+        // The alternative text, as Excel writes it; o:title below is the name
+        if ($image->getDescription() !== '') {
+            $objWriter->writeAttribute('alt', $image->getDescription());
+        }
 
         // v:imagedata
         $objWriter->startElement('v:imagedata');

@@ -291,15 +291,14 @@ class Workbook extends BIFFwriter
             if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                if (count($this->colors) === 0) {
-                    $lastColor = 7;
-                } else {
-                    // The next free palette index follows the highest index in use, not the
-                    // most recently inserted one: a color that matches an existing palette
-                    // entry is cached under its own (case-sensitive) key with an old index,
-                    // which would otherwise make the next custom color reuse an occupied slot.
-                    $lastColor = max($this->colors);
-                }
+                // The next free palette index follows the highest index in use, not the
+                // most recently inserted one: a color that matches an existing palette
+                // entry is cached under its own (case-sensitive) key with an old index,
+                // which would otherwise make the next custom color reuse an occupied slot.
+                // Only indexes in the custom range count: a match on one of the built-in
+                // entries above it (e.g. 333333 at 63) must not make the palette look full.
+                $customIndexes = array_filter($this->colors, fn (int $index): bool => $index <= 57);
+                $lastColor = $customIndexes === [] ? 7 : max($customIndexes);
                 if ($lastColor < 57) {
                     // then we add a custom color altering the palette
                     $colorIndex = $lastColor + 1;
