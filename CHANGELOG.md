@@ -43,6 +43,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Csv Writer: a text cell is written as it is, and only a value that is entirely a number is limited to 15 digits, so text that begins with a long number is no longer cut down to that number. [Issue #5092](https://github.com/PHPOffice/PhpSpreadsheet/issues/5092) [PR #5094](https://github.com/PHPOffice/PhpSpreadsheet/pull/5094)
 - Xls Writer: a color matching a built-in palette entry above the custom range (e.g. `333333`) no longer makes the palette look full, so later custom colors are no longer written as black. [Issue #5065](https://github.com/PHPOffice/PhpSpreadsheet/issues/5065) [PR #5066](https://github.com/PHPOffice/PhpSpreadsheet/pull/5066)
 - Xlsx Reader and AgileEncryption parser reject a DOCTYPE or entity declaration in encrypted workbook metadata before parsing. [PR #5072](https://github.com/PHPOffice/PhpSpreadsheet/pull/5072)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
