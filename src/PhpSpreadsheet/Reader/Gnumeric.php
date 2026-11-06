@@ -590,12 +590,10 @@ class Gnumeric extends BaseReader
                 // Shared Formula
                 $expression = $this->expressions[$ExprID];
 
-                $cell = $this->referenceHelper->updateFormulaReferences(
+                $cell = $this->referenceHelper->updateFormulaReferencesAnyWorksheet(
                     $expression['formula'],
-                    'A1',
                     $cellAttributes->Col - $expression['column'],
-                    $cellAttributes->Row - $expression['row'],
-                    $worksheetName
+                    $cellAttributes->Row - $expression['row']
                 );
             }
             $type = DataType::TYPE_FORMULA;

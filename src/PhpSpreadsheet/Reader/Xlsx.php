@@ -503,7 +503,7 @@ class Xlsx extends BaseReader
                 $difference[0] = $current[0] - $master[0];
                 $difference[1] = $current[1] - $master[1];
 
-                $value = $this->referenceHelper->updateFormulaReferences($this->sharedFormulae[$instance]->formula(), 'A1', $difference[0], $difference[1]);
+                $value = $this->referenceHelper->updateFormulaReferencesAnyWorksheet($this->sharedFormulae[$instance]->formula(), $difference[0], $difference[1]);
             }
         }
     }

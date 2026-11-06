@@ -935,6 +935,19 @@ class ReferenceHelper
      */
     public function updateFormulaReferencesAnyWorksheet(string $formula = '', int $numberOfColumns = 0, int $numberOfRows = 0): string
     {
+        $formulaBlocks = explode('"', $formula);
+        foreach ($formulaBlocks as $index => $formulaBlock) {
+            //    Ignore blocks that were enclosed in quotes (alternating entries in the $formulaBlocks array after the explode)
+            if ($index % 2 === 0) {
+                $formulaBlocks[$index] = $this->updateFormulaBlockAnyWorksheet($formulaBlock, $numberOfColumns, $numberOfRows);
+            }
+        }
+
+        return implode('"', $formulaBlocks);
+    }
+
+    private function updateFormulaBlockAnyWorksheet(string $formula, int $numberOfColumns, int $numberOfRows): string
+    {
         $formula = $this->updateCellReferencesAllWorksheets($formula, $numberOfColumns, $numberOfRows);
 
         if ($numberOfColumns !== 0) {
