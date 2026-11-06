@@ -90,7 +90,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
     public function testYearGroupBadRuleType(): void
@@ -110,7 +109,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 'xyz'
             );
-        self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
     public function testYearMonthGroup(): void
