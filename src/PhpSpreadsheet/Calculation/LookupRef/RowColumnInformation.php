@@ -164,7 +164,7 @@ class RowColumnInformation
 
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $rowKey => $rowValue) {
-                foreach ($rowValue as $columnKey => $cellValue) {
+                foreach ($rowValue as $cellValue) { //* @phpstan-ignore foreach.unusedValue (Php syntax requires 'as')
                     return (int) preg_replace('/\D/', '', $rowKey);
                 }
             }

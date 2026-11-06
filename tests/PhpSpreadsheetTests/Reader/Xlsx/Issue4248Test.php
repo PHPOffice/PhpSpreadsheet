@@ -87,9 +87,6 @@ class Issue4248Test extends TestCase
         $spreadsheet = $reader->load($file);
         $writer = new HtmlWriter($spreadsheet);
 
-        $file = 'zip://';
-        $file .= $this->outfile;
-        $file .= '#xl/styles.xml';
         $data = str_replace(["\r", "\n"], '', $writer->generateHtmlAll());
         $expected = '          <tr class="row17">' // Cell D18
             . '            <td class="column0 style0">&nbsp;</td>'

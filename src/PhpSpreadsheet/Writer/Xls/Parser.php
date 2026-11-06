@@ -1000,7 +1000,7 @@ class Parser
             if ($i < ($formula_length - 1)) {
                 $this->lookAhead = $formula[$i + 1];
             }
-            $token = '';
+            //$token = '';
         }
 
         while ($i < $formula_length) {
