@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- `Functions::flattenArray()` and `flattenArray2()` are linear instead of quadratic, speeding up MAX, MATCH, COUNTIF and other functions on large ranges.
 
 ## 2026-11-07 - 5.11.0
 
