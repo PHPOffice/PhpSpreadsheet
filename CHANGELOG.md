@@ -77,6 +77,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
 - `getDataValidation()` and `dataValidationExists()` no longer throw "Cell coordinate string can not be a range of cells" for a range once a validation on a range exists; a range gets the validation set on exactly that range, or a new one. [Issue #5073](https://github.com/PHPOffice/PhpSpreadsheet/issues/5073) [PR #5074](https://github.com/PHPOffice/PhpSpreadsheet/pull/5074)
 - Text formats containing `@` treat a backslash as an escape character, as Excel does, so `@\X` displays `Test` as `TestX` instead of `Test\X`; backslashes in the text itself are kept. [Issue #5069](https://github.com/PHPOffice/PhpSpreadsheet/issues/5069) [PR #5071](https://github.com/PHPOffice/PhpSpreadsheet/pull/5071)
+- Xlsx and Gnumeric Readers: a shared formula now shifts references to other worksheets for each cell that shares it, and `ReferenceHelper::updateFormulaReferencesAnyWorksheet()` no longer changes text in quotes. [Issue #5091](https://github.com/PHPOffice/PhpSpreadsheet/issues/5091) [PR #5097](https://github.com/PHPOffice/PhpSpreadsheet/pull/5097)
 
 ## 2026-09-15 - 5.10.0
 
