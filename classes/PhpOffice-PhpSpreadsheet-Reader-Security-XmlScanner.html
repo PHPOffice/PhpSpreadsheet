@@ -145,6 +145,25 @@
 
 
 
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_HTML_PATTERN">HTML_PATTERN</a>
+    <span>
+        &nbsp;= &#039;&lt;!ENTITY&#039;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_XML_PATTERN">XML_PATTERN</a>
+    <span>
+        &nbsp;= &#039;&lt;!DOCTYPE&#039;                            </span>
+</dt>
+
+    </dl>
 
 
 
@@ -191,6 +210,75 @@
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_HTML_PATTERN">
+        HTML_PATTERN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_HTML_PATTERN" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">17</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">HTML_PATTERN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;&lt;!ENTITY&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_XML_PATTERN">
+        XML_PATTERN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_XML_PATTERN" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">XML_PATTERN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;&lt;!DOCTYPE&#039;</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+            </section>
 
         
 
@@ -214,14 +302,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pattern</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&lt;!DOCTYPE&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pattern</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::XML_PATTERN</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -232,7 +320,7 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$pattern</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&lt;!DOCTYPE&#039;</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::XML_PATTERN</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -258,7 +346,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -306,7 +394,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -355,7 +443,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
@@ -404,7 +492,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php"><a href="files/src-phpspreadsheet-reader-security-xmlscanner.html"><abbr title="src/PhpSpreadsheet/Reader/Security/XmlScanner.php">XmlScanner.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
@@ -541,9 +629,17 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#toc-constants">Constants</a></li>
                                                                                 <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_HTML_PATTERN">HTML_PATTERN</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html#constant_XML_PATTERN">XML_PATTERN</a></li>
+                                            </ul>
+                </li>
             
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>

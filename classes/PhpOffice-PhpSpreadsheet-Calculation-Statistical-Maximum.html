@@ -177,6 +177,14 @@
                                 &nbsp;: int|float    </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html#method_datatypeAdjustmentLiteralArguments">datatypeAdjustmentLiteralArguments()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>As in Excel (and SUM), a logical value or a text representation of a number
+typed directly into the argument list counts, and any other text typed there is #VALUE!.</dd>
+
     </dl>
 
 
@@ -316,7 +324,7 @@ MAXA(value1[,value2[, ...]])</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-maxminbase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php">MaxMinBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
@@ -347,6 +355,58 @@ MAXA(value1[,value2[, ...]])</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int|float</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_datatypeAdjustmentLiteralArguments">
+        datatypeAdjustmentLiteralArguments()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html#method_datatypeAdjustmentLiteralArguments" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php"><a href="files/src-phpspreadsheet-calculation-statistical-maxminbase.html"><abbr title="src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php">MaxMinBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">31</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">As in Excel (and SUM), a logical value or a text representation of a number
+typed directly into the argument list counts, and any other text typed there is #VALUE!.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">datatypeAdjustmentLiteralArguments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>References and arrays are left unchanged, so that their non-numeric values are ignored.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$args</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             </section>
 
 </article>
@@ -468,6 +528,7 @@ MAXA(value1[,value2[, ...]])</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Maximum.html#method_max">max()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Maximum.html#method_maxA">maxA()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html#method_datatypeAdjustmentAllowStrings">datatypeAdjustmentAllowStrings()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html#method_datatypeAdjustmentLiteralArguments">datatypeAdjustmentLiteralArguments()</a></li>
                                     </ul>
             </li>
                     </ul>

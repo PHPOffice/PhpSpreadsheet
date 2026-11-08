@@ -209,20 +209,6 @@ Relicensed under the MIT License by both authors.</p>
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a>
-    <span>
-                        &nbsp;: string|null            </span>
-</dt>
-<dd>The string containing the data of the BIFF stream.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a>
-    <span>
-                        &nbsp;: int            </span>
-</dt>
-<dd>The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#property_fontHashIndex">$fontHashIndex</a>
     <span>
                         &nbsp;: array&lt;string|int, int|string&gt;            </span>
@@ -235,6 +221,20 @@ Relicensed under the MIT License by both authors.</p>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>            </span>
 </dt>
 <dd>Sheet object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffData">$biffData</a>
+    <span>
+                        &nbsp;: string|null            </span>
+</dt>
+<dd>The string containing the data of the BIFF stream.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffDataSize">$biffDataSize</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd>The size of the data in bytes. Should be the same as strlen($this-&gt;biffData).</dd>
 
     </dl>
 
@@ -263,6 +263,12 @@ and to the end of the workbook.</dd>
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_getAllowThrow">getAllowThrow()</a>
     <span>
                                 &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getBiffDataSize">getBiffDataSize()</a>
+    <span>
+                                &nbsp;: int    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -357,7 +363,7 @@ correspond to Excel&#039;s defaults.</dd>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>General storage function like append, but returns string instead of modifying $this-&gt;_data.</dd>
+<dd>General storage function like append, but returns string instead of modifying $this-&gt;biffData.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a>
@@ -660,84 +666,6 @@ sub-stream in the BIFF file.</dd>
             -public
                                                                     "
 >
-    <h4 class="phpdocumentor-element__name" id="property__data">
-        $_data
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                            </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">22</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The string containing the data of the BIFF stream.</p>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$_data</span>
-    </code>
-
-    
-    
-    
-
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                                    "
->
-    <h4 class="phpdocumentor-element__name" id="property__datasize">
-        $_datasize
-        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                            </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">27</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</p>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$_datasize</span>
-    </code>
-
-    
-    
-    
-
-    
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                                    "
->
     <h4 class="phpdocumentor-element__name" id="property_fontHashIndex">
         $fontHashIndex
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#property_fontHashIndex" class="headerlink"><i class="fas fa-link"></i></a>
@@ -798,6 +726,84 @@ sub-stream in the BIFF file.</dd>
         <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
     <span class="phpdocumentor-signature__name">$phpSheet</span>
+    </code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_biffData">
+        $biffData
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffData" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The string containing the data of the BIFF stream.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$biffData</span>
+    </code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_biffDataSize">
+        $biffDataSize
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffDataSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">27</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The size of the data in bytes. Should be the same as strlen($this-&gt;biffData).</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$biffDataSize</span>
     </code>
 
     
@@ -1018,6 +1024,44 @@ and to the end of the workbook.</p>
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getBiffDataSize">
+        getBiffDataSize()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getBiffDataSize" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getBiffDataSize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getByteOrder">
@@ -1112,7 +1156,7 @@ sized chunks.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2537</span>
+    <span class="phpdocumentor-element-found-in__line">2529</span>
 
     </aside>
 
@@ -1151,7 +1195,7 @@ sized chunks.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2170</span>
+    <span class="phpdocumentor-element-found-in__line">2162</span>
 
     </aside>
 
@@ -1273,7 +1317,7 @@ sized chunks.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2249</span>
+    <span class="phpdocumentor-element-found-in__line">2241</span>
 
     </aside>
 
@@ -1471,7 +1515,7 @@ percentage of 1024.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2434</span>
+    <span class="phpdocumentor-element-found-in__line">2426</span>
 
     </aside>
 
@@ -1550,7 +1594,7 @@ MSDN library.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2396</span>
+    <span class="phpdocumentor-element-found-in__line">2388</span>
 
     </aside>
 
@@ -1670,7 +1714,7 @@ MSDN library.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2545</span>
+    <span class="phpdocumentor-element-found-in__line">2537</span>
 
     </aside>
 
@@ -1863,7 +1907,7 @@ a BLANK record unless a format is specified.</p>
 
     </aside>
 
-        <p class="phpdocumentor-summary">General storage function like append, but returns string instead of modifying $this-&gt;_data.</p>
+        <p class="phpdocumentor-summary">General storage function like append, but returns string instead of modifying $this-&gt;biffData.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2295,10 +2339,10 @@ sub-stream in the BIFF file.</p>
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a></li>
-                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#property_fontHashIndex">$fontHashIndex</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#property_phpSheet">$phpSheet</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffData">$biffData</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_biffDataSize">$biffDataSize</a></li>
                                             </ul>
                 </li>
             
@@ -2308,6 +2352,7 @@ sub-stream in the BIFF file.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_close">close()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_getAllowThrow">getAllowThrow()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getBiffDataSize">getBiffDataSize()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_getData">getData()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_getEscher">getEscher()</a></li>

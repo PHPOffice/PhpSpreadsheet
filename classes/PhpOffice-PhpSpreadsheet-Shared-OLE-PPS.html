@@ -120,7 +120,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -183,6 +183,13 @@
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Array of child PPS&#039;s (only used by Root and Dir PPS&#039;s).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Color">$Color</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd>The color in the directory entry red-black tree.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps">$DirPps</a>
@@ -295,8 +302,8 @@
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd>Updates index and pointers to previous, next and children PPS&#039;s for this
-PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
+<dd>Assigns directory IDs and sibling/child pointers using CFB name order
+and valid red-black trees, recursively including nested storages.</dd>
 
     </dl>
 
@@ -328,7 +335,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -367,7 +374,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -396,6 +403,45 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             -public
                                                                     "
 >
+    <h4 class="phpdocumentor-element__name" id="property_Color">
+        $Color
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Color" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">72</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The color in the directory entry red-black tree.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$Color</span>
+     = <span class="phpdocumentor-signature__default-value">self::COLOR_BLACK</span></code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                                    "
+>
     <h4 class="phpdocumentor-element__name" id="property_DirPps">
         $DirPps
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps" class="headerlink"><i class="fas fa-link"></i></a>
@@ -406,7 +452,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
@@ -445,7 +491,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -484,7 +530,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
@@ -523,7 +569,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -562,7 +608,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -601,7 +647,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -640,7 +686,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
@@ -679,7 +725,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -718,7 +764,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -757,7 +803,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
@@ -796,7 +842,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
@@ -840,7 +886,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">125</span>
 
     </aside>
 
@@ -968,7 +1014,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -1011,7 +1057,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 
     </aside>
 
@@ -1054,12 +1100,12 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">196</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Updates index and pointers to previous, next and children PPS&#039;s for this
-PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</p>
+        <p class="phpdocumentor-summary">Assigns directory IDs and sibling/child pointers using CFB name order
+and valid red-black trees, recursively including nested storages.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1228,6 +1274,7 @@ container</p>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property__data">$_data</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_children">$children</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Color">$Color</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps">$DirPps</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Name">$Name</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_NextPps">$NextPps</a></li>
