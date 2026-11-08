@@ -97,7 +97,7 @@ abstract class DefinedName
             $value = substr($value, 1);
         }
 
-        if (is_numeric($value)) {
+        if (is_numeric($value) || $value === 'TRUE' || $value === 'FALSE') {
             return true;
         }
 
