@@ -12,19 +12,14 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 
 This branch (1.30.x) is *not* the latest version of PhpSpreadsheet, and may therefore lack features and bug fixes found in the latest version.
 
-## End Of Support Notice
+## This Branch Is Now Out Of Support
 
-Security patches will continue to be applied to this branch
-until 2027-02-28. At that date, no further changes,
-including security patches, will be applied.
+Although I had hoped to maintain this branch a little longer,
+the volume of AI-generated security advisories has made it impossible to maintain branches other than master.
+After this release, no further changes,
+including security patches, will be applied to this branch.
 You are encouraged to upgrade to the master branch (release 5)
-before that date.
-
-## Security Changes Only
-
-Except for security changes, no further maintenance will be applied to this branch.
-You are encouraged to upgrade to a maintained branch as soon as possible.
-Maintained branches are master (preferred - version is 5.4.0 as of the date when this is being written), 3.10.x (current version is 3.10.3), and 2.4.x (2.4.3).
+as soon as possible.
 
 Of particular note is that this branch should not run under Php 8.5, and will *not* be updated to avoid deprecation notices which will be introduced with Php 8.5.
 
