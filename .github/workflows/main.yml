@@ -236,3 +236,4 @@ jobs:
         with:
           bodyFile: release-body.txt
           artifacts: end-of-support.md
+          makeLatest: false
