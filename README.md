@@ -21,13 +21,14 @@ including security patches, will be applied to this branch.
 You are encouraged to upgrade to the master branch (release 5)
 as soon as possible.
 
-## Security Changes Only
+## This Branch Is Now Out of Support
 
-Except for security changes, no further maintenance will be applied to this branch.
-You are encouraged to upgrade to a maintained branch as soon as possible.
-Maintained branches are master (preferred - version is 5.4.0 as of the date when this is being written), 3.10.x (current version is 3.10.3), and 2.4.x (2.4.3).
-
-Of particular note is that this branch should not run under Php 8.5, and will *not* be updated to avoid deprecation notices which will be introduced with Php 8.5.
+Although I had hoped to maintain this branch a little longer,
+the volume of AI-generated security advisories has made it impossible to maintain branches other than master.
+After this release, no further changes,
+including security patches, will be applied to this branch.
+You are encouraged to upgrade to the master branch (release 5)
+as soon as possible.
 
 ## PHP Version Support
 
