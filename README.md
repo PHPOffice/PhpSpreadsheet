@@ -21,15 +21,6 @@ including security patches, will be applied to this branch.
 You are encouraged to upgrade to the master branch (release 5)
 as soon as possible.
 
-## This Branch Is Now Out of Support
-
-Although I had hoped to maintain this branch a little longer,
-the volume of AI-generated security advisories has made it impossible to maintain branches other than master.
-After this release, no further changes,
-including security patches, will be applied to this branch.
-You are encouraged to upgrade to the master branch (release 5)
-as soon as possible.
-
 ## PHP Version Support
 
 LTS: For maintained branches, support for PHP versions will only be maintained for a period of six months beyond the
