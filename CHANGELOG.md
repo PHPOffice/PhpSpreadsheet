@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- Xlsx Reader: a column range that runs to the last column (`<col min="4" max="16384" .../>`, how Excel saves a style or width applied to whole columns up to the end of the sheet) again gives a column dimension to its first column only, as before 5.11.0. Expanding it created 16,384 column dimensions, made `XFD` the highest column, so that `toArray()` returned rows of 16,384 cells, and made the Xlsx Writer write a `<col>` element for each column. [Issue #5102](https://github.com/PHPOffice/PhpSpreadsheet/issues/5102) [PR #5103](https://github.com/PHPOffice/PhpSpreadsheet/pull/5103)
 
 ## 2026-11-07 - 5.11.0
 

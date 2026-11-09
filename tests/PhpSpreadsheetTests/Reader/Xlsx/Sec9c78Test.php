@@ -26,7 +26,9 @@ class Sec9c78Test extends TestCase
         $spreadsheet = $reader->load($infile);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEqualsWithDelta(10.0, $sheet->getColumnDimension('A')->getWidth(), 1e-8);
-        self::assertEqualsWithDelta(10.0, $sheet->getColumnDimension('XFD')->getWidth(), 1e-8);
+        // range runs to the last column, only its first column gets a dimension
+        self::assertFalse($sheet->columnDimensionExists('XFD'));
+        self::assertSame('A', $sheet->getHighestColumn());
         $spreadsheet->disconnectWorksheets();
     }
 }

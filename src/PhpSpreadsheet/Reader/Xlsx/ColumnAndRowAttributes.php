@@ -157,6 +157,14 @@ class ColumnAndRowAttributes extends BaseParserClass
                 if ($minCol > $maxCol) {
                     throw new ReaderException('min col > max col');
                 }
+                // A range that runs to the last column is how Excel saves
+                // a style or width applied to whole columns up to the end of the sheet.
+                // Expanding it would create a dimension for each of up to 16,384 columns
+                // and make XFD the highest column of the sheet,
+                // so only the first column of the range gets a dimension.
+                if ($maxCol === AddressRange::MAX_COLUMN_INT) {
+                    $maxCol = $minCol;
+                }
                 for ($col = $minCol; $col <= $maxCol; ++$col) {
                     $columnAddress = Coordinate::stringFromColumnIndex($col);
                     $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
