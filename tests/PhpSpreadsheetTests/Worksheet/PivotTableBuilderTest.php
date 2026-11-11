@@ -680,6 +680,290 @@ class PivotTableBuilderTest extends TestCase
     }
 
     /**
+     * Two or more data fields are laid out across the column axis under the
+     * virtual "Values" field, which OOXML addresses with the reserved index
+     * -2. Without it Excel reports the workbook as damaged and drops the
+     * pivot table entirely.
+     *
+     * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/5106
+     */
+    public function testMultipleDataFieldsEmitValuesFieldOnColumnAxis(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->addDataField('Product', PivotField::SUBTOTAL_COUNT)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'TwoDataFields');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<colFields count="1"><field x="-2"/></colFields>', $definition);
+        self::assertStringContainsString('<colItems count="2"><i><x/></i><i i="1"><x v="1"/></i></colItems>', $definition);
+        // colFields/colItems must precede dataFields in schema order.
+        self::assertLessThan(
+            strpos($definition, '<dataFields'),
+            (int) strpos($definition, '<colFields'),
+            'colFields must precede dataFields'
+        );
+    }
+
+    /**
+     * A single data field needs no "Values" field: Excel places it implicitly.
+     */
+    public function testSingleDataFieldDoesNotEmitValuesField(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'OneDataField');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringNotContainsString('x="-2"', $definition);
+        self::assertStringNotContainsString('<colFields', $definition);
+    }
+
+    /**
+     * A real column field and several data fields share the column axis: the
+     * virtual "Values" field is appended after the real one.
+     */
+    public function testValuesFieldAppendedAfterRealColumnField(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->addDataField('Amount', PivotField::SUBTOTAL_COUNT)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'Mixed');
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString(
+            '<colFields count="2"><field x="1"/><field x="-2"/></colFields>',
+            $definition
+        );
+    }
+
+    /**
+     * The same source column may be aggregated more than once. Each
+     * aggregation is its own <dataFields> row referring to the same fld, while
+     * <pivotFields> still carries exactly one entry per source column.
+     *
+     * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/5106
+     */
+    public function testRepeatedDataFieldOnSameColumnKeepsEveryAggregation(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->addDataField('Amount', PivotField::SUBTOTAL_AVERAGE)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'TwoAggregations');
+
+        self::assertCount(2, $pivotTable->getDataFieldDefinitions());
+        // One pivot field per source column, regardless of aggregation count.
+        self::assertCount(3, $pivotTable->getFields());
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $cache = (string) $zip->getFromName('xl/pivotCache/pivotCacheDefinition1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<dataFields count="2">', $definition);
+        self::assertStringContainsString('<dataField name="Sum of Amount" fld="2"', $definition);
+        self::assertStringContainsString('<dataField name="Average of Amount" fld="2" subtotal="average"', $definition);
+        // Two data fields need the virtual "Values" field on the column axis.
+        self::assertStringContainsString('<colFields count="1"><field x="-2"/></colFields>', $definition);
+        // The source column is still described once in each per-column list.
+        self::assertStringContainsString('<pivotFields count="3">', $definition);
+        self::assertStringContainsString('<cacheFields count="3">', $cache);
+    }
+
+    /**
+     * A repeated data field widens the rendered range: each data field gets
+     * its own column.
+     */
+    public function testRepeatedDataFieldWidensLocation(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->addDataField('Amount', PivotField::SUBTOTAL_AVERAGE)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'TwoAggregations');
+
+        // 1 row label + 2 data columns; header + 2 regions + grand total.
+        self::assertSame('A3:C6', $pivotTable->getLocation());
+    }
+
+    /**
+     * Re-placing a field on a row/column/page axis replaces the earlier axis
+     * rather than accumulating, so a field never sits on two axes at once.
+     */
+    public function testReplacingAnAxisPlacementDoesNotAccumulate(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addColumnField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'MovedField');
+
+        self::assertSame([], $this->fieldNames($pivotTable->getRowFields()));
+        self::assertSame(['Region'], $this->fieldNames($pivotTable->getColumnFields()));
+    }
+
+    /**
+     * The declared range must stay inside the sheet. A target cell near the
+     * right edge used to push the computed last column past XFD, which made
+     * Coordinate::stringFromColumnIndex() throw instead of saving.
+     */
+    public function testLocationIsClampedToTheLastColumn(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'XFC1', 'EdgePivot');
+
+        self::assertSame('XFC1:XFD5', $pivotTable->getLocation());
+    }
+
+    /**
+     * The same applies to the bottom edge: a ref past row 1048576 is invalid.
+     */
+    public function testLocationIsClampedToTheLastRow(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A1048575', 'BottomPivot');
+
+        self::assertSame('A1048575:D1048576', $pivotTable->getLocation());
+    }
+
+    /**
+     * A lowercase or absolute target cell must still produce a canonical ref:
+     * the range start used to be echoed back verbatim while the end was
+     * rebuilt from a normalized column index.
+     */
+    public function testLocationIsNormalised(): void
+    {
+        $spreadsheet = $this->sampleSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:C5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), '$b$3', 'CasePivot');
+
+        self::assertSame('B3:C6', $pivotTable->getLocation());
+    }
+
+    /**
+     * Each column-field value repeats once per data field, and so does the
+     * grand total, so the width has to scale with the data-field count.
+     */
+    public function testLocationWidthAccountsForDataFieldsUnderColumnFields(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $data = $spreadsheet->getActiveSheet();
+        $data->setTitle('Data');
+        $data->fromArray([
+            ['Region', 'Product', 'Amount', 'Qty'],
+            ['East', 'Widget', 100, 1],
+            ['West', 'Widget', 150, 2],
+            ['East', 'Gadget', 200, 3],
+            ['West', 'Gadget', 250, 4],
+        ], null, 'A1');
+        $pivotSheet = $spreadsheet->createSheet();
+        $pivotSheet->setTitle('Pivot');
+
+        $builder = new PivotTableBuilder($data, 'A1:D5');
+        $pivotTable = $builder
+            ->addRowField('Region')
+            ->addColumnField('Product')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->addDataField('Qty', PivotField::SUBTOTAL_SUM)
+            ->build($pivotSheet, 'A3', 'WidePivot');
+
+        // 1 row label + (2 products + 1 grand total) x 2 data fields = 7 columns.
+        self::assertSame('A3:G7', $pivotTable->getLocation());
+    }
+
+    /**
+     * A grouped field renders one row per group bucket, which bears no
+     * relation to how many distinct values the source column holds. The
+     * location has to follow the bucket count, not the raw value count.
+     */
+    public function testLocationFollowsGroupedItemCount(): void
+    {
+        $spreadsheet = $this->groupingSpreadsheet();
+        $builder = new PivotTableBuilder($spreadsheet->getSheetByNameOrThrow('Data'), 'A1:D5');
+        $pivotTable = $builder
+            ->groupFieldByNumericRange('Age', 10.0, 0.0, 100.0)
+            ->addRowField('Age')
+            ->addDataField('Amount', PivotField::SUBTOTAL_SUM)
+            ->build($spreadsheet->getSheetByNameOrThrow('Pivot'), 'A3', 'GroupedPivot');
+
+        // 10 buckets + 2 out-of-range bounds = 12 rows, + header + grand total.
+        self::assertSame('A3:B16', $pivotTable->getLocation());
+
+        $outputFile = $this->save($spreadsheet);
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        // The declared body must be able to hold every item the field declares.
+        self::assertStringContainsString('<items count="13">', $definition);
+    }
+
+    /**
+     * The item count the pivot field declares, the group items in the cache
+     * and the rendered location all derive from one enumeration, so a group
+     * that would exceed Excel's ceiling stays within it including the two
+     * out-of-range bounds.
+     */
+    public function testGroupItemCountStaysWithinExcelLimit(): void
+    {
+        $group = PivotFieldGroup::numeric(1.0, 0.0, 1.0e9);
+
+        self::assertSame(PivotFieldGroup::MAX_ITEMS, $group->renderedItemCount());
+    }
+
+    /**
      * @param PivotField[] $fields
      *
      * @return string[]
