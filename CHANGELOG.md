@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- OFFSET whose reference argument is the result of INDEX, CHOOSE or IF now anchors on the referenced cell and sheet rather than on the calling cell. [Issue #5090](https://github.com/PHPOffice/PhpSpreadsheet/issues/5090)
 
 ## 2026-11-07 - 5.11.0
 
