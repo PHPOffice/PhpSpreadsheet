@@ -2267,9 +2267,11 @@ class Calculation extends CalculationLocale
                     // get the arguments for this function
                     $args = $argArrayVals = [];
                     $emptyArguments = [];
+                    $argReferences = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
                         $a = $argCount - $i - 1;
+                        $argReferences[$a] = is_array($arg) && is_string($arg['reference'] ?? null) ? $arg['reference'] : null;
                         if (
                             ($passByReference)
                             && (isset($phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) //* @phpstan-ignore offsetAccess.nonOffsetAccessible (possibly need to pass 2 arguments to isset)
@@ -2369,7 +2371,7 @@ class Calculation extends CalculationLocale
                     if ($functionName !== 'MKMATRIX') {
                         $this->debugLog->writeDebugLog('Evaluation Result for %s() function call is %s', self::localeFunc($functionName), $this->showTypeDetails($result));
                     }
-                    $stack->push('Value', self::wrapResult($result));
+                    $stack->push('Value', self::wrapResult($result), self::referenceReturnedByFunction($functionName, $args, $argReferences));
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }
@@ -2930,6 +2932,71 @@ class Calculation extends CalculationLocale
         }
 
         return $defaultValue;
+    }
+
+    /**
+     * INDEX, CHOOSE and IF can return a reference rather than a value,
+     * which functions like OFFSET need in order to anchor on the right cell.
+     *
+     * @param mixed[] $args Evaluated arguments, in order
+     * @param array<int, ?string> $argReferences Reference (if any) of each argument, keyed by position
+     */
+    private static function referenceReturnedByFunction(string $functionName, array $args, array $argReferences): ?string
+    {
+        $args = array_values($args);
+        if ($functionName === 'CHOOSE') {
+            $index = $args[0] ?? null;
+            if (is_numeric($index) && (int) $index >= 1) {
+                return $argReferences[(int) $index] ?? null;
+            }
+        } elseif ($functionName === 'IF') {
+            $condition = $args[0] ?? null;
+            if (is_bool($condition) || is_int($condition) || is_float($condition)) {
+                return $argReferences[$condition ? 1 : 2] ?? null;
+            }
+        } elseif ($functionName === 'INDEX') {
+            return self::indexReference($args, $argReferences[0] ?? null);
+        }
+
+        return null;
+    }
+
+    /** @param mixed[] $args */
+    private static function indexReference(array $args, ?string $reference): ?string
+    {
+        if ($reference === null || !preg_match('/^(.*!)?\$?([A-Z]{1,3})\$?(\d+)(?::\$?([A-Z]{1,3})\$?(\d+))?$/i', $reference, $m)) {
+            return null;
+        }
+        $row = $args[1] ?? 0;
+        $column = $args[2] ?? null;
+        if (!is_int($row) || ($column !== null && !is_int($column)) || $row < 0 || $column < 0) {
+            return null;
+        }
+        $firstColumn = Coordinate::columnIndexFromString($m[2]);
+        $firstRow = (int) $m[3];
+        $lastColumn = ($m[4] ?? '') === '' ? $firstColumn : Coordinate::columnIndexFromString($m[4]);
+        $lastRow = ($m[5] ?? '') === '' ? $firstRow : (int) $m[5];
+        $rows = $lastRow - $firstRow + 1;
+        $columns = $lastColumn - $firstColumn + 1;
+        if ($column === null) {
+            // A single row or column of data is indexed by the one argument
+            if ($rows === 1 && $columns > 1) {
+                [$row, $column] = [0, $row];
+            } else {
+                $column = $columns === 1 ? 1 : 0;
+            }
+        }
+        if ($row > $rows || $column > $columns) {
+            return null;
+        }
+        $startRow = $row === 0 ? $firstRow : $firstRow + $row - 1;
+        $endRow = $row === 0 ? $lastRow : $startRow;
+        $startColumn = $column === 0 ? $firstColumn : $firstColumn + $column - 1;
+        $endColumn = $column === 0 ? $lastColumn : $startColumn;
+        $start = Coordinate::stringFromColumnIndex($startColumn) . $startRow;
+        $end = Coordinate::stringFromColumnIndex($endColumn) . $endRow;
+
+        return $m[1] . ($start === $end ? $start : "$start:$end");
     }
 
     /**
