@@ -12,25 +12,19 @@ use PHPUnit\Framework\TestCase;
  * although it will generate warning messages.
  * This member demonstrates a method less intrusive than
  * set_error_handler to detect if there has been a problem.
+ * libxml 2.14.00 is more tolerant than earlier versions.
+ * Html which generates warning messages before and after
+ * includes the following samples:
+ * <div></span>
+ * <meta http-equiv="Content-Type" content="text/html; charset=invalid-charset">
+ * <meta charset='UTF-8'>\xFF\xFE
  */
 class HtmlLibxmlTest extends TestCase
 {
-    public function testAll(): void
-    {
-        if (LIBXML_VERSION >= 21400) {
-            self::markTestSkipped('Current version of libxml has invalidated these tests');
-        }
-        $this->xtestLoadInvalidString();
-        $this->xtestLoadValidString();
-        $this->xtestLoadValidStringNoSuppress();
-        $this->xtestLoadValidFile();
-        $this->xtestLoadInvalidFile();
-    }
-
-    public function xtestLoadInvalidString(): void
+    public function testLoadInvalidString(): void
     {
         $libxml = libxml_use_internal_errors();
-        $html = '<table<>';
+        $html = '<div></span>';
         $reader = new Html();
         $reader->setSuppressLoadWarnings(true);
         $spreadsheet = $reader->loadFromString($html);
@@ -39,7 +33,7 @@ class HtmlLibxmlTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function xtestLoadValidString(): void
+    public function testLoadValidString(): void
     {
         $libxml = libxml_use_internal_errors();
         $html = '<table>';
@@ -51,7 +45,7 @@ class HtmlLibxmlTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function xtestLoadValidStringNoSuppress(): void
+    public function testLoadValidStringNoSuppress(): void
     {
         $libxml = libxml_use_internal_errors();
         $html = '<table>';
@@ -62,7 +56,7 @@ class HtmlLibxmlTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function xtestLoadValidFile(): void
+    public function testLoadValidFile(): void
     {
         $libxml = libxml_use_internal_errors();
         $reader = new Html();
@@ -74,7 +68,7 @@ class HtmlLibxmlTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function xtestLoadInvalidFile(): void
+    public function testLoadInvalidFile(): void
     {
         $libxml = libxml_use_internal_errors();
         $reader = new Html();
