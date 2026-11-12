@@ -162,7 +162,7 @@ class PcntlBackend implements BackendInterface
                 // class the envelope legitimately carries may be instantiated
                 $envelope = @unserialize($content, ['allowed_classes' => [ParallelTaskError::class]]);
             } catch (Throwable) {
-                $envelope = false;
+                $envelope = false; //* @phpstan-ignore assign.redundant (code clarity)
             }
         }
 
