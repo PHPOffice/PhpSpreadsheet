@@ -83,7 +83,6 @@ class HtmlConditionalFormattingTest extends TestCase
         $sheet->getStyle('A1:A5')
             ->getNumberFormat()
             ->setFormatCode('0.00%');
-        $conditionals = [];
         $conditional1 = new Conditional();
         $colorscale = new ConditionalColorScale();
         $min = new ConditionalFormatValueObject('min');
@@ -130,7 +129,6 @@ class HtmlConditionalFormattingTest extends TestCase
         $sheet->getStyle('A1:A5')
             ->getNumberFormat()
             ->setFormatCode('0.00%');
-        $conditionals = [];
         $conditional1 = new Conditional();
         $colorscale = new ConditionalColorScale();
         $min = new ConditionalFormatValueObject('min');
@@ -175,7 +173,6 @@ class HtmlConditionalFormattingTest extends TestCase
         $sheet->getStyle('A1:A5')
             ->getNumberFormat()
             ->setFormatCode('0.00%');
-        $conditionals = [];
         $conditional1 = new Conditional();
         $colorscale = new ConditionalColorScale();
         $min = new ConditionalFormatValueObject('min');

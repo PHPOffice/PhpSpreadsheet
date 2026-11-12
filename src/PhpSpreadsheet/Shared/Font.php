@@ -375,7 +375,7 @@ class Font
             $lineTexts = explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {
-                $lineWidths[] = self::calculateColumnWidth($font, $lineText, $rotation = 0, $defaultFont, $filterAdjustment);
+                $lineWidths[] = self::calculateColumnWidth($font, $lineText, 0, $defaultFont, $filterAdjustment);
             }
 
             return max($lineWidths); // width of longest line in cell

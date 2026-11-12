@@ -2054,7 +2054,6 @@ class Xls extends XlsBase
                         $len = min($charsLeft, $limitpos - $pos);
                         $retstr .= substr($recordData, $pos, $len);
                         $charsLeft -= $len;
-                        $isCompressed = true;
                     } elseif (!$isCompressed && ($option != 0)) {
                         // 1st fragment uncompressed
                         // this fragment uncompressed
@@ -2062,7 +2061,6 @@ class Xls extends XlsBase
                         $len = min($charsLeft * 2, $limitpos - $pos);
                         $retstr .= substr($recordData, $pos, $len);
                         $charsLeft -= $len / 2;
-                        $isCompressed = false;
                     } elseif (!$isCompressed /*&& ($option == 0)*/) {
                         // 1st fragment uncompressed
                         // this fragment compressed
@@ -2070,7 +2068,6 @@ class Xls extends XlsBase
                         // Pad each byte with a null byte to expand to UTF-16LE
                         $retstr .= chunk_split(substr($recordData, $pos, $len), 1, "\x00");
                         $charsLeft -= $len;
-                        $isCompressed = false;
                     } else {
                         // 1st fragment compressed
                         // this fragment uncompressed
@@ -3391,8 +3388,6 @@ class Xls extends XlsBase
 
         // offset: 4; size: 2; index to first visible colum
         //$firstVisibleColumn = self::getUInt2d($recordData, 4);
-        $zoomscaleInPageBreakPreview = 0;
-        $zoomscaleInNormalView = 0;
         if ($this->version === self::XLS_BIFF8) {
             // offset:  8; size: 2; not used
             // offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
@@ -4042,7 +4037,7 @@ class Xls extends XlsBase
 
             // offset: var; size: 4; the encrypted password (only 16-bit although field is 32-bit)
             $wPassword = self::getInt4d($recordData, $offset);
-            $offset += 4;
+            //$offset += 4;
 
             // Apply range protection to sheet
             if ($cellRanges) {
@@ -4382,7 +4377,6 @@ class Xls extends XlsBase
     {
         // offset: 0; size: 1; token id
         $id = ord($formulaData[0]); // token id
-        $name = false; // initialize token name
 
         switch ($id) {
             case 0x03:
