@@ -87,16 +87,11 @@ class PreCalcTest extends AbstractFunctional
 
     private static function readFile(string $file): string
     {
-        $dataOut = '';
         $data = file_get_contents($file);
         // confirm that file contains B2 pre-calculated or not as appropriate
-        if ($data === false) {
-            self::fail("Unable to read $file");
-        } else {
-            $dataOut = $data;
-        }
+        self::assertNotFalse($data);
 
-        return $dataOut;
+        return $data;
     }
 
     private function verifyXlsx(?bool $preCalc, string $type): void

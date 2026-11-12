@@ -646,8 +646,8 @@ abstract class Coordinate
 
             // Range...
             [$rangeStart, $rangeEnd] = $range;
-            [$startColumnIndex, $startRow, $startColumn] = self::indexesFromString($rangeStart);
-            [$endColumnIndex, $endRow, $endColumn] = self::indexesFromString($rangeEnd);
+            [$startColumnIndex, $startRow] = self::indexesFromString($rangeStart);
+            [$endColumnIndex, $endRow] = self::indexesFromString($rangeEnd);
             ++$endColumnIndex;
 
             // Current data

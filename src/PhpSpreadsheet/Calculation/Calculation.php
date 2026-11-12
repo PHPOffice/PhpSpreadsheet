@@ -1443,7 +1443,7 @@ class Calculation extends CalculationLocale
                     $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
                     if ($ax) {
                         $stack->push('Operand Count for Function ' . $valToUpper . ')', 0);
-                        $expectingOperator = true;
+                        $expectingOperator = true; //* @phpstan-ignore assign.redundant (code clarity)
                     } else {
                         $stack->push('Operand Count for Function ' . $valToUpper . ')', 1);
                         $expectingOperator = false;
@@ -1506,7 +1506,7 @@ class Calculation extends CalculationLocale
                     $outputItem = $stack->getStackItem(Operands\StructuredReference::NAME, $structuredReference, null);
 
                     $output[] = $outputItem;
-                    $expectingOperator = true;
+                    $expectingOperator = true; //* @phpstan-ignore assign.redundant (code clarity)
                 } else {
                     // it's a variable, constant, string, number or boolean
                     $localeConstant = false;
@@ -1546,7 +1546,7 @@ class Calculation extends CalculationLocale
                         } else {
                             /** @var non-empty-string $startRowColRef */
                             $startRowColRef = $output[count($output) - 1]['value'] ?? '';
-                            [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
+                            [$rangeWS1] = Worksheet::extractSheetTitle($startRowColRef, true);
                             $rangeSheetRef = $rangeWS1;
                             if ($rangeWS1 !== '') {
                                 $rangeWS1 .= '!';
@@ -2115,13 +2115,13 @@ class Calculation extends CalculationLocale
 
                         break;
                 }
-            } elseif (($token === '~') || ($token === '%')) { // @phpstan-ignore booleanOr.alwaysFalse (phpstan says token can't be plain string), identical.alwaysFalse (ditto), identical.alwaysFalse (ditto)
+            } elseif (($token === '~') || ($token === '%')) {
                 // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
                 $arg = $arg['value'];
-                if ($token === '~') { // @phpstan-ignore identical.alwaysFalse (phpstan says token can't be plain string)
+                if ($token === '~') {
                     $this->debugLog->writeDebugLog('Evaluating Negation of %s', $this->showValue($arg));
                     $multiplier = -1;
                 } else {
@@ -2407,7 +2407,7 @@ class Calculation extends CalculationLocale
                         $branchStore[$storeKey] = self::EXCEL_CONSTANTS[$excelConstant];
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::EXCEL_CONSTANTS[$excelConstant]));
-                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) { //* @phpstan-ignore function.alreadyNarrowedType (phpstan says is_bool has argument of *NEVER*?), equal.alwaysFalse (ditto)
+                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
                     /** @var array{type: string, reference: ?string} $tokenData */
                     $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {

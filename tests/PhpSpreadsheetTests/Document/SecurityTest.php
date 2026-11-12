@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Document;
 
-use PhpOffice\PhpSpreadsheet\Document\Security;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -140,14 +139,13 @@ class SecurityTest extends AbstractFunctional
 
     public function testBadAlgorithm(): void
     {
-        $security = new Security();
         $password = '12345';
         $algorithm = 'SHA-513';
         $salt = 'KX7zweex4Ay6KVZu9JU6Gw==';
         $spinCount = 100_000;
 
         try {
-            $hash = PasswordHasher::hashPassword($password, $algorithm, $salt, $spinCount);
+            PasswordHasher::hashPassword($password, $algorithm, $salt, $spinCount);
             self::fail('hashPassword should have thrown exception');
         } catch (SpreadsheetException $e) {
             self::assertStringContainsString('Unsupported password algorithm', $e->getMessage());

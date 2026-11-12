@@ -638,7 +638,7 @@ class Worksheet
      */
     public function getChartByName(string $chartName)
     {
-        foreach ($this->chartCollection as $index => $chart) {
+        foreach ($this->chartCollection as $chart) {
             if ($chart->getName() == $chartName) {
                 return $chart;
             }
@@ -3386,7 +3386,6 @@ class Worksheet
         $hideColumns = !empty($hiddenColumns);
 
         $keys = $this->cellCollection->getSortedCoordinatesInt();
-        $keyIndex = 0;
         $keysCount = count($keys);
         // Loop through rows
         for ($row = $minRow; $row <= $maxRow; ++$row) {
