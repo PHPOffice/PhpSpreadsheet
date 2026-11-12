@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
  * <div></span>
  * <meta http-equiv="Content-Type" content="text/html; charset=invalid-charset">
  * <meta charset='UTF-8'>\xFF\xFE
+ * and some others which I won't list here.
  */
 class HtmlLibxmlTest extends TestCase
 {
