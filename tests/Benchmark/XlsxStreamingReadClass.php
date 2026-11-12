@@ -333,9 +333,7 @@ class XlsxStreamingReadClass extends Xlsx
                 $master = Coordinate::indexesFromString($this->sharedFormulae[$instance]->master());
                 $current = Coordinate::indexesFromString($r);
 
-                $difference = [0, 0];
-                $difference[0] = $current[0] - $master[0];
-                $difference[1] = $current[1] - $master[1];
+                $difference = [$current[0] - $master[0], $current[1] - $master[1]];
 
                 $value = $this->referenceHelper->updateFormulaReferences(
                     $this->sharedFormulae[$instance]->formula(),

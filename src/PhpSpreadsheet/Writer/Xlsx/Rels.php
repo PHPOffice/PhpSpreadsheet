@@ -342,7 +342,7 @@ class Rels extends WriterPart
 
         // Write Table
         $tableCount = $worksheet->getTableCollection()->count();
-        for ($i = 1; $i <= $tableCount; ++$i) {
+        for ($i = 1; $i <= $tableCount; ++$i) { //* @phpstan-ignore assign.redundant (Phpstan is being unreasonably strict)
             $this->writeRelationship(
                 $objWriter,
                 '_table_' . $i,

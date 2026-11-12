@@ -600,7 +600,7 @@ class Html extends BaseWriter
             $this->sheetDrawings = [];
             $condStylesCollection = $sheet->getConditionalStylesCollection();
             foreach ($condStylesCollection as $condStyles) {
-                foreach ($condStyles as $key => $cs) {
+                foreach ($condStyles as $cs) {
                     if ($cs->getConditionType() === Conditional::CONDITION_COLORSCALE) {
                         $cs->getColorScale()?->setScaleArray();
                     }
@@ -1677,7 +1677,7 @@ class Html extends BaseWriter
                         $dataType = DataType::TYPE_STRING;
                     }
                 } catch (CalculationException $exception) {
-                    $calculatedValue = '#ERROR';
+                    $calculatedValue = '#ERROR'; //* @phpstan-ignore assign.unused (I think Phpstan is wrong)
                     $dataType = DataType::TYPE_ERROR;
                 }
             }
@@ -1733,7 +1733,6 @@ class Html extends BaseWriter
 
     /**
      * @param string|string[] $cssClass
-     * @param Conditional[] $condStyles
      */
     private function generateRowWriteCell(
         string &$html,
@@ -1746,8 +1745,7 @@ class Html extends BaseWriter
         array|string $cssClass,
         int $colNum,
         int $sheetIndex,
-        int $row,
-        array $condStyles = []
+        int $row
     ): void {
         // Image?
         $htmlx = $this->writeImageInCell($coordinate);
@@ -1957,9 +1955,6 @@ class Html extends BaseWriter
             // Cell Data
             $cellData = $this->generateRowCellData($worksheet, $cell, $cssClass);
 
-            // Get an array of all styles
-            $condStyles = $worksheet->getStyle($coordinate)->getConditionalStyles();
-
             // Hyperlink?
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
                 $url = $worksheet->getHyperlink($coordinate)->getUrl();
@@ -2010,7 +2005,7 @@ class Html extends BaseWriter
 
             // Write
             if ($writeCell) {
-                $this->generateRowWriteCell($html, $worksheet, $coordinate, $cellType, $cellData, $colSpan, $rowSpan, $cssClass, $colNum, $sheetIndex, $row, $condStyles);
+                $this->generateRowWriteCell($html, $worksheet, $coordinate, $cellType, $cellData, $colSpan, $rowSpan, $cssClass, $colNum, $sheetIndex, $row);
             }
 
             // Next column
@@ -2196,8 +2191,6 @@ class Html extends BaseWriter
         foreach ($sheetIndexes as $sheetIndex) {
             $sheet = $this->spreadsheet->getSheet($sheetIndex);
 
-            $candidateSpannedRow = [];
-
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
                 [$cells] = Coordinate::splitRange($cells);
@@ -2213,9 +2206,6 @@ class Html extends BaseWriter
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;
                 while ($r++ < $lr) {
-                    // also, flag this row as a HTML row that is candidate to be omitted
-                    $candidateSpannedRow[$r] = $r;
-
                     $c = $fc - 1;
                     while ($c++ < $lc) {
                         if (!($c == $fc && $r == $fr)) {
@@ -2415,7 +2405,7 @@ class Html extends BaseWriter
         return $this;
     }
 
-    private static function nl2brx(string $string, bool $useXhtml = false): string
+    private static function nl2brx(string $string): string
     {
         return str_replace(
             ["\r\n", "\n\r", "\r", "\n"],

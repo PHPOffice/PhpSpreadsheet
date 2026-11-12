@@ -1091,7 +1091,7 @@ class Chart
         $formatCode = '';
         $pointCount = 0;
 
-        foreach ($seriesValueSet->lvl as $seriesLevelIdx => $seriesLevel) {
+        foreach ($seriesValueSet->lvl as $seriesLevel) {
             foreach ($seriesLevel as $seriesValueIdx => $seriesValue) {
                 $seriesValue = Xlsx::testSimpleXml($seriesValue);
                 switch ($seriesValueIdx) {
