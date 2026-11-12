@@ -67,9 +67,6 @@ class RandArrayTest extends AllSetupTeardown
         self::assertSame(ExcelError::VALUE(), $result);
 
         $rows = 3;
-        $cols = 2;
-        $min = 2;
-        $max = -2;
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
         self::assertSame(ExcelError::VALUE(), $result);

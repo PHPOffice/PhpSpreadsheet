@@ -38,16 +38,14 @@ class OdsInfoTest extends TestCase
     public function testReadBadFileProperties(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Could not find zip member');
 
         // Load into this instance
         $reader = new Ods();
 
         // Test "listWorksheetNames" method
 
-        self::assertSame([
-            'Sheet1',
-            'Second Sheet',
-        ], $reader->listWorksheetNames(__FILE__));
+        $reader->listWorksheetNames(__FILE__);
     }
 
     public function testReadFileInfo(): void
@@ -80,7 +78,7 @@ class OdsInfoTest extends TestCase
         $this->expectException(ReaderException::class);
         $filename = __FILE__;
         $reader = new Ods();
-        $wsinfo = $reader->listWorkSheetInfo($filename);
+        $reader->listWorkSheetInfo($filename);
     }
 
     public function testReadFileInfoWithEmpties(): void

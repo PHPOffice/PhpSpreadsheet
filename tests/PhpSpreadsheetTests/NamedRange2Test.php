@@ -98,7 +98,6 @@ class NamedRange2Test extends TestCase
         $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getSheet(0);
         $sheet->getStyle($name)->getNumberFormat()->setFormatCode('yyyy-mm-dd');
-        self::assertSame('yyyy-mm-dd', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
     }
 
     public static function providerRangeOrFormula(): array

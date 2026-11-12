@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:5cb7f33c-bb22-4c26-bf95-13e7cee3802d">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:f6239ae5-ce42-4bed-a1a3-d76ea10ee57d">
   <metadata>
-    <timestamp><![CDATA[2026-10-01T13:50:19Z]]></timestamp>
+    <timestamp><![CDATA[2026-11-08T04:34:55Z]]></timestamp>
     <tools>
       <tool>
         <name><![CDATA[composer]]></name>
@@ -85,8 +85,8 @@
         </reference>
       </externalReferences>
       <properties>
-        <property name="cdx:composer:package:distReference"><![CDATA[b03f7f3371e1dd1adafa41e4d0e47335f2d782f9]]></property>
-        <property name="cdx:composer:package:sourceReference"><![CDATA[b03f7f3371e1dd1adafa41e4d0e47335f2d782f9]]></property>
+        <property name="cdx:composer:package:distReference"><![CDATA[214bb2ede7e45e7016efa6336406a0096057089f]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[214bb2ede7e45e7016efa6336406a0096057089f]]></property>
         <property name="cdx:composer:package:type"><![CDATA[library]]></property>
       </properties>
     </component>
@@ -244,6 +244,46 @@
         <property name="cdx:composer:package:type"><![CDATA[library]]></property>
       </properties>
     </component>
+    <component type="library" bom-ref="phpoffice/wmf-0.2.1.0">
+      <author><![CDATA[Progi1984]]></author>
+      <group><![CDATA[phpoffice]]></group>
+      <name><![CDATA[wmf]]></name>
+      <version><![CDATA[0.2.1]]></version>
+      <description><![CDATA[WMF - Manipulate WMF Images]]></description>
+      <licenses>
+        <license>
+          <id><![CDATA[MIT]]></id>
+        </license>
+      </licenses>
+      <purl><![CDATA[pkg:composer/phpoffice/wmf@0.2.1]]></purl>
+      <externalReferences>
+        <reference type="distribution">
+          <url><![CDATA[https://api.github.com/repos/PHPOffice/WMF/zipball/d1eafbab74509ee2adfcdda3888737cd8d349820]]></url>
+          <comment><![CDATA[dist reference: d1eafbab74509ee2adfcdda3888737cd8d349820]]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/PHPOffice/WMF.git]]></url>
+          <comment><![CDATA[source reference: d1eafbab74509ee2adfcdda3888737cd8d349820]]></comment>
+        </reference>
+        <reference type="website">
+          <url><![CDATA[https://phpoffice.github.io/WMF/]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'homepage']]></comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url><![CDATA[https://github.com/PHPOffice/WMF/issues]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.issues']]></comment>
+        </reference>
+        <reference type="vcs">
+          <url><![CDATA[https://github.com/PHPOffice/WMF/tree/0.2.1]]></url>
+          <comment><![CDATA[as detected from Composer manifest 'support.source']]></comment>
+        </reference>
+      </externalReferences>
+      <properties>
+        <property name="cdx:composer:package:distReference"><![CDATA[d1eafbab74509ee2adfcdda3888737cd8d349820]]></property>
+        <property name="cdx:composer:package:sourceReference"><![CDATA[d1eafbab74509ee2adfcdda3888737cd8d349820]]></property>
+        <property name="cdx:composer:package:type"><![CDATA[library]]></property>
+      </properties>
+    </component>
     <component type="library" bom-ref="psr/simple-cache-3.0.0.0">
       <author><![CDATA[PHP-FIG]]></author>
       <group><![CDATA[psr]]></group>
@@ -282,12 +322,14 @@
     <dependency ref="maennchen/zipstream-php-3.1.2.0"/>
     <dependency ref="markbaker/complex-3.0.2.0"/>
     <dependency ref="markbaker/matrix-3.0.1.0"/>
+    <dependency ref="phpoffice/wmf-0.2.1.0"/>
     <dependency ref="psr/simple-cache-3.0.0.0"/>
     <dependency ref="phpoffice/phpspreadsheet-dev-master">
       <dependency ref="composer/pcre-3.4.0.0"/>
       <dependency ref="maennchen/zipstream-php-3.1.2.0"/>
       <dependency ref="markbaker/complex-3.0.2.0"/>
       <dependency ref="markbaker/matrix-3.0.1.0"/>
+      <dependency ref="phpoffice/wmf-0.2.1.0"/>
       <dependency ref="psr/simple-cache-3.0.0.0"/>
     </dependency>
   </dependencies>

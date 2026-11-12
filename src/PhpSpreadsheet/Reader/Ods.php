@@ -200,14 +200,12 @@ class Ods extends BaseReader
                 $visibility = $xml->getAttribute('table:display');
                 $tableVisibility[$lastTableStyle] = ($visibility === 'false') ? Worksheet::SHEETSTATE_HIDDEN : Worksheet::SHEETSTATE_VISIBLE;
             } elseif ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
-                $worksheetNames[] = $xml->getAttribute('table:name');
-
                 $styleName = $xml->getAttribute('table:style-name') ?? '';
                 $visibility = $tableVisibility[$styleName] ?? '';
                 $tmpInfo = [
                     'worksheetName' => (string) $xml->getAttribute('table:name'),
-                    'lastColumnLetter' => 'A',
-                    'lastColumnIndex' => 0,
+                    'lastColumnLetter' => 'A', //* @phpstan-ignore array.offsetOverwritten (preserve array order)
+                    'lastColumnIndex' => 0, //* @phpstan-ignore array.offsetOverwritten (preserve array order)
                     'totalRows' => 0,
                     'totalColumns' => 0,
                     'sheetState' => $visibility,
@@ -1140,15 +1138,12 @@ class Ods extends BaseReader
                         $type = DataType::TYPE_NUMERIC;
                         $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                        $currency = $cellData->getAttributeNS($officeNs, 'currency');
                         if ($leftHandCurrency) {
-                            $typeValue = 'currency';
                             $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_USD : NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
                             if ($symbol !== '$') {
                                 $formatting = str_replace('$', $symbol, $formatting);
                             }
                         } elseif (str_contains($allCellDataText, '€')) {
-                            $typeValue = 'currency';
                             $formatting = str_contains($allCellDataText, '.') ? NumberFormat::FORMAT_CURRENCY_EUR : NumberFormat::FORMAT_CURRENCY_EUR_INTEGER;
                         }
 
@@ -1221,7 +1216,7 @@ class Ods extends BaseReader
 
                         break;
                     default:
-                        $dataValue = null;
+                        $dataValue = null; //* @phpstan-ignore assign.redundant (phpstan probably correct but it's hard to see why)
                 }
                 if ($customFormatting !== '') {
                     $formatting = $customFormatting;
@@ -1953,7 +1948,6 @@ class Ods extends BaseReader
     protected function getBorderStyles(DOMElement $tableCellProperties, string $fontNs, string $styleNs): array
     {
         $borders = [];
-        $temp = $tableCellProperties->getAttributeNs($fontNs, 'border');
         $diagonalIndex = Borders::DIAGONAL_NONE;
         foreach (['bottom', 'left', 'right', 'top', 'diagonal-tl-br', 'diagonal-bl-tr'] as $direction) {
             if ($direction === 'diagonal-tl-br' || $direction === 'diagonal-bl-tr') {
@@ -1971,7 +1965,6 @@ class Ods extends BaseReader
                 } elseif ($width >= 1.75) {
                     $style = self::MAP_BORDER_MEDIUM[$style] ?? $style;
                 }
-                $color = $matches[3];
                 $borders[$directionIndex] = ['borderStyle' => $style, 'color' => ['rgb' => $matches[3]]];
                 if ($direction === 'diagonal-tl-br') {
                     $diagonalIndex = Borders::DIAGONAL_DOWN;
@@ -2070,7 +2063,6 @@ class Ods extends BaseReader
             $orig = libxml_use_internal_errors(true);
             $result = $this->loadZipDom($dom, $zip, $file);
             if ($result === false) {
-                $fatal = false;
                 foreach (libxml_get_errors() as $err) {
                     if ($err->level === LIBXML_ERR_FATAL) {
                         throw new Exception($err->message);

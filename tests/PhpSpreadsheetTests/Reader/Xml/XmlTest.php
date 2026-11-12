@@ -66,8 +66,7 @@ class XmlTest extends TestCase
         $this->expectExceptionMessage('Problem reading');
 
         $xmlReader = new Xml();
-        $names = @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
-        self::assertNotEmpty($names);
+        @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
     }
 
     public function testListWorksheetInfoCorruptedFile(): void
@@ -76,8 +75,7 @@ class XmlTest extends TestCase
         $this->expectExceptionMessage('Problem reading');
 
         $xmlReader = new Xml();
-        $info = @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
-        self::assertNotEmpty($info);
+        @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
     }
 
     public function testInvalidXMLFromString(): void
