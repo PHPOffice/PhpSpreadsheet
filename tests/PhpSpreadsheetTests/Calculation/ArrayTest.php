@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
+use ArrayObject;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ArrayTest extends TestCase
 {
@@ -56,6 +60,98 @@ class ArrayTest extends TestCase
         self::assertCount(2, $values);
         self::assertSame('PHP', $values[0]);
         self::assertSame('Spreadsheet', $values[1]);
+    }
+
+    /**
+     * @param mixed[] $expected
+     * @param mixed[] $array
+     */
+    #[DataProvider('providerFlattenArray')]
+    public function testFlattenArray(array $expected, array $array): void
+    {
+        self::assertSame($expected, Functions::flattenArray($array));
+        self::assertSame($expected, Functions::flattenArray2($array));
+        self::assertSame($expected, Functions::flattenArray2(...array_values($array)));
+    }
+
+    public static function providerFlattenArray(): array
+    {
+        return [
+            'empty array' => [[], []],
+            'flat list unchanged' => [[1, 2, 3], [1, 2, 3]],
+            'keys dropped, order kept' => [
+                ['x', 'y', 'z'],
+                ['b' => 'x', 3 => 'y', 'a' => 'z'],
+            ],
+            'range read row by row' => [
+                [1, 2, 3, 4, 5, 6],
+                [[1 => ['A' => 1, 'B' => 2], 2 => ['A' => 3, 'B' => 4], 3 => ['A' => 5, 'B' => 6]]],
+            ],
+            'deep nesting, issue 2955' => [
+                [1, 2, 3, 4, 5, 6],
+                [1, [2, [3, [4, [5]]]], 6],
+            ],
+            'depth first' => [
+                ['a', 'b', 'c', 'd', 'e', 'f'],
+                [['a', ['b']], 'c', [[['d']], 'e'], 'f'],
+            ],
+            'empty nested arrays add nothing' => [
+                [1, 2],
+                [[], 1, [[]], [[], [[[]]]], 2, []],
+            ],
+            'only empty nested arrays' => [
+                [],
+                [[], [[]], [[[]]]],
+            ],
+            'scalars, null and errors kept' => [
+                [null, true, false, '', 0, '0', 1.5, ExcelError::NA()],
+                [[null, true], [false, ['', 0]], '0', [[1.5]], ExcelError::NA()],
+            ],
+        ];
+    }
+
+    public function testObjectsAreNotFlattened(): void
+    {
+        $arrayObject = new ArrayObject([1, 2]);
+        $object = new stdClass();
+        $array = [[$arrayObject], [[$object, null]]];
+
+        self::assertSame([$arrayObject, $object, null], Functions::flattenArray($array));
+        self::assertSame([$arrayObject, $object, null], Functions::flattenArray2(...$array));
+    }
+
+    public function testFlattenArrayOfNonArray(): void
+    {
+        self::assertSame([], Functions::flattenArray(null));
+        self::assertSame(['abc'], Functions::flattenArray('abc'));
+        self::assertSame([1.5], Functions::flattenArray(1.5));
+        self::assertSame([false], Functions::flattenArray(false));
+    }
+
+    public function testFlattenArray2Variadic(): void
+    {
+        self::assertSame([], Functions::flattenArray2());
+        self::assertSame([null], Functions::flattenArray2(null));
+        self::assertSame(['abc'], Functions::flattenArray2('abc'));
+        self::assertSame(
+            [1, 2, 3, 'x', null, 4],
+            Functions::flattenArray2(1, [2, [3]], 'x', [[null]], [], [[4]])
+        );
+    }
+
+    public function testLargeRangeIsFlattenedInOrder(): void
+    {
+        $range = [];
+        $expected = [];
+        for ($row = 1; $row <= 3000; ++$row) {
+            foreach (['A', 'B', 'C'] as $column) {
+                $range[$row][$column] = $column . $row;
+                $expected[] = $column . $row;
+            }
+        }
+
+        self::assertSame($expected, Functions::flattenArray([$range]));
+        self::assertSame($expected, Functions::flattenArray2($range));
     }
 
     public function testSetArrayReturnTypeWithValidValue(): void
