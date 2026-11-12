@@ -178,7 +178,7 @@ class ConditionalFormatting extends Xls
                 return;
             }
 
-            $offset += $size2;
+            $offset += $size2; //* @phpstan-ignore assign.unused (code clarity)
         }
 
         $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style, $noFormatSet, $xls);

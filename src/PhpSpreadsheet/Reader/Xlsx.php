@@ -384,8 +384,8 @@ class Xlsx extends BaseReader
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) self::getAttributes($eleSheet)['name'],
-                            'lastColumnLetter' => 'A',
-                            'lastColumnIndex' => 0,
+                            'lastColumnLetter' => 'A', //* @phpstan-ignore array.offsetOverwritten (preserve array order)
+                            'lastColumnIndex' => 0, //* @phpstan-ignore array.offsetOverwritten (preserve array order)
                             'totalRows' => 0,
                             'totalColumns' => 0,
                         ];
@@ -499,7 +499,6 @@ class Xlsx extends BaseReader
                 $master = Coordinate::indexesFromString($this->sharedFormulae[$instance]->master());
                 $current = Coordinate::indexesFromString($r);
 
-                $difference = [0, 0];
                 $difference[0] = $current[0] - $master[0];
                 $difference[1] = $current[1] - $master[1];
 
@@ -710,7 +709,7 @@ class Xlsx extends BaseReader
 
                     $worksheets = [];
                     $pivotCacheRels = [];
-                    $macros = $customUI = null;
+                    $macros = null;
                     foreach ($relsWorkbook->Relationship as $elex) {
                         $ele = self::getAttributes($elex);
                         switch ($ele['Type']) {
@@ -934,7 +933,6 @@ class Xlsx extends BaseReader
                     // Set protection
                     $this->readProtection($excel, $xmlWorkbook);
 
-                    $sheetId = 0; // keep track of new sheet id in final workbook
                     $oldSheetId = -1; // keep track of old sheet id in final workbook
                     $countSkippedSheets = 0; // keep track of number of skipped sheets
                     $mapSheetId = []; // mapping of sheet ids from old to new
@@ -1181,7 +1179,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Loop through comments
-                                foreach ($comments as $relName => $relPath) {
+                                foreach ($comments as $relPath) {
                                     // Load comments file
                                     if (substr($relPath, 0, 1) === '/') {
                                         $relPath = File::realpath(substr($relPath, 1));
@@ -1855,8 +1853,8 @@ class Xlsx extends BaseReader
                             }
 
                             /** @var mixed[][][][] $unparsedLoadedData */
-                            $this->readFormControlProperties($excel, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
-                            $this->readPrinterSettings($excel, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readFormControlProperties($dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readPrinterSettings($dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
 
                             // Loop through definedNames
                             if ($xmlWorkbook->definedNames) {
@@ -1933,9 +1931,6 @@ class Xlsx extends BaseReader
                                     }
                                 }
                             }
-
-                            // Next sheet id
-                            ++$sheetId;
                         }
 
                         // Loop through definedNames
@@ -2632,7 +2627,7 @@ class Xlsx extends BaseReader
     }
 
     /** @param mixed[][][][] $unparsedLoadedData */
-    private function readFormControlProperties(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
+    private function readFormControlProperties(string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         $zip = $this->zip;
         if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels') === false) {
@@ -2661,7 +2656,7 @@ class Xlsx extends BaseReader
     }
 
     /** @param mixed[][][][] $unparsedLoadedData */
-    private function readPrinterSettings(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
+    private function readPrinterSettings(string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         if ($this->readDataOnly) {
             return;

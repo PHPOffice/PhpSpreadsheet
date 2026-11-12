@@ -597,7 +597,6 @@ class Xlsx extends BaseWriter
         // Add media
         for ($i = 0; $i < $this->getDrawingHashTable()->count(); ++$i) {
             if ($this->getDrawingHashTable()->getByIndex($i) instanceof WorksheetDrawing) {
-                $imageContents = null;
                 $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
                 if ($imagePath === '') {
                     continue;

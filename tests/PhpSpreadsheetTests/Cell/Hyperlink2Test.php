@@ -21,6 +21,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', "=HYPERLINK(\"$actualUrl\", \"$toolTip\")");
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.net', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());
@@ -46,6 +47,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', "=HYPERLINK(A1, \"$toolTip\")");
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.org', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());
@@ -71,6 +73,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', "=HYPERLINK(\"$actualUrl\", B1)");
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.edu', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());
@@ -96,6 +99,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', '=HYPERLINK(A1, B1)');
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.com', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());
@@ -121,6 +125,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', '=HYPERLINK(A1, B1)');
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.com', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());
@@ -143,6 +148,7 @@ class Hyperlink2Test extends TestCase
         $sheet->setCellValue('B1', $toolTip);
         $sheet->setCellValue('C1', '=HYPERLINK(A1, B1)');
         $result = $sheet->getCell('C1')->getCalculatedValue();
+        self::assertSame('Link to example.com', $result);
         self::assertSame($toolTip, $sheet->getCell('C1')->getCalculatedValue());
         $hyperlink = $sheet->getCell('C1')->getHyperlink();
         self::assertSame($actualUrl, $hyperlink->getUrl());

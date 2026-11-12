@@ -66,11 +66,7 @@ class RowCellIterator2Test extends TestCase
         if (isset($existing)) {
             $iterator->setIterateOnlyExistingCells($existing);
         }
-        $numCells = 0;
-        foreach ($iterator as $cell) {
-            ++$numCells;
-        }
-        self::assertSame($expectedResult, $numCells);
+        self::assertSame($expectedResult, iterator_count($iterator));
     }
 
     public static function providerEmptyRow(): array
