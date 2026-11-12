@@ -209,13 +209,12 @@ class Xml extends BaseReader
             $worksheet_ss = self::getAttributes($worksheet, self::NAMESPACES_SS);
 
             $tmpInfo = [];
-            $tmpInfo['worksheetName'] = '';
-            $tmpInfo['lastColumnLetter'] = 'A';
+            $tmpInfo['worksheetName'] = "Worksheet_{$worksheetID}";
+            $tmpInfo['lastColumnLetter'] = 'A'; //* @phpstan-ignore assign.overwritten (preserve array order)
             $tmpInfo['lastColumnIndex'] = 0;
             $tmpInfo['totalRows'] = 0;
-            $tmpInfo['totalColumns'] = 0;
+            $tmpInfo['totalColumns'] = 0; //* @phpstan-ignore assign.overwritten (preserve array order)
 
-            $tmpInfo['worksheetName'] = "Worksheet_{$worksheetID}";
             if (isset($worksheet_ss['Name'])) {
                 $tmpInfo['worksheetName'] = (string) $worksheet_ss['Name'];
             }
@@ -617,7 +616,7 @@ class Xml extends BaseReader
                     $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnRightPane;
                     $leftTopCoordinateParm = null;
                     if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
-                        $leftTopCoordinateParm = $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
+                        $leftTopCoordinateParm = $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1); //* @phpstan-ignore assign.overwritten (Phpstan is probably right but it's hard to see why)
                     }
                     $spreadsheet->getActiveSheet()->freezePane(
                         Coordinate::stringFromColumnIndex(

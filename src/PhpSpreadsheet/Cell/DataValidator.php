@@ -30,7 +30,7 @@ class DataValidator
             return false;
         }
 
-        $returnValue = false;
+        $returnValue = null;
         $type = $dataValidation->getType();
         if ($type === DataValidation::TYPE_LIST) {
             $returnValue = $this->isValueInList($cell);
@@ -50,7 +50,7 @@ class DataValidator
             $returnValue = $this->numericOperator($dataValidation, mb_strlen($cell->getValueString()), $cell);
         }
 
-        return $returnValue;
+        return $returnValue ?? false;
     }
 
     private const TWO_FORMULAS = [DataValidation::OPERATOR_BETWEEN, DataValidation::OPERATOR_NOTBETWEEN];

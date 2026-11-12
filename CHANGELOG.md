@@ -9,7 +9,33 @@ a breaking change.
 
 Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.11.0
+## TBD - 5.12.0
+
+### Added
+
+- Nothing yet.
+
+### Removed
+
+- Nothing yet.
+
+### Changed
+
+- Nothing yet.
+
+### Moved
+
+- Nothing yet.
+
+### Deprecated
+
+- Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2026-11-07 - 5.11.0
 
 ### Added
 
@@ -21,20 +47,12 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - `BaseDrawing::setDecorative()` marks an image as decorative. Xlsx writes and reads it as Excel and LibreOffice do (`adec:decorative` in the image's `cNvPr`), Ods as LibreOffice does (`loext:decorative` in the frame's graphic style, which the writer now defines; the reader also takes ODF 1.4's `draw:decorative`); LibreOffice then leaves the image out of a tagged PDF as an artifact. Html writes and reads it as an empty `alt`. [Issue #5036](https://github.com/PHPOffice/PhpSpreadsheet/issues/5036) [PR #5037](https://github.com/PHPOffice/PhpSpreadsheet/pull/5037)
 - Xlsx Writer and Reader: the description of a header/footer image is its alternative text, `alt` on the VML shape as Excel writes it. [Issue #5056](https://github.com/PHPOffice/PhpSpreadsheet/issues/5056) [PR #5057](https://github.com/PHPOffice/PhpSpreadsheet/pull/5057)
 
-### Removed
-
-- Nothing yet.
-
 ### Changed
 
 - Update infrastructure for running samples in browser. [PR #5061](https://github.com/PHPOffice/PhpSpreadsheet/pull/5061) [PR #5068](https://github.com/PHPOffice/PhpSpreadsheet/pull/5068)
 - `phpoffice/wmf` is a new required dependency, used to render Windows Metafiles images.
 - The exception thrown for an unsupported comment background image now lists WMF and EMF among the supported types (`Drawing::UNSUPPORTED_IMAGE_TYPE_MESSAGE`).
 - Some Windows environments are added to CI unit tests. [PR #5053](https://github.com/PHPOffice/PhpSpreadsheet/pull/5053)
-
-### Moved
-
-- Nothing yet.
 
 ### Deprecated
 

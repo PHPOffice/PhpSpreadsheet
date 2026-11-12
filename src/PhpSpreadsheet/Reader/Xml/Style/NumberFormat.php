@@ -42,7 +42,7 @@ class NumberFormat extends StyleBase
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];
 
-        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+        foreach ($styleAttributes as $styleAttributeValue) {
             $styleAttributeValue = (string) $styleAttributeValue;
             $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
             if (array_key_exists($styleAttributeValue, $numberFormatMappings)) {
