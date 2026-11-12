@@ -1761,13 +1761,16 @@ class Calculation extends CalculationLocale
                 $storeValue = $branchStore[$onlyIfStoreKey] ?? null;
                 $storeValueAsBool = ($storeValue === null)
                     ? true : (bool) Functions::flattenSingleValue($storeValue);
+                // An array condition is evaluated element by element, so no branch can be pruned
+                $storeValueIsArray = is_array($storeValue) && count(Functions::flattenArray($storeValue)) > 1;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
-                    (isset($storeValue) || $tokenData['reference'] === 'NULL')
+                    !$storeValueIsArray
+                    && (isset($storeValue) || $tokenData['reference'] === 'NULL')
                     && (!$storeValueAsBool || Information\ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is not true, we don't need to compute
@@ -1796,13 +1799,16 @@ class Calculation extends CalculationLocale
                 $storeValue = $branchStore[$onlyIfNotStoreKey] ?? null;
                 $storeValueAsBool = ($storeValue === null)
                     ? true : (bool) Functions::flattenSingleValue($storeValue);
+                // An array condition is evaluated element by element, so no branch can be pruned
+                $storeValueIsArray = is_array($storeValue) && count(Functions::flattenArray($storeValue)) > 1;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
-                    (isset($storeValue) || $tokenData['reference'] === 'NULL')
+                    !$storeValueIsArray
+                    && (isset($storeValue) || $tokenData['reference'] === 'NULL')
                     && ($storeValueAsBool || Information\ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute

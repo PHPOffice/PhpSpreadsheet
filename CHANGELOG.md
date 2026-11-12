@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- IF and IFS with an array condition (e.g. `SUM(IF(A1:A4>3,A1:A4,0))`) now evaluate element by element instead of using only one element. [Issue #5089](https://github.com/PHPOffice/PhpSpreadsheet/issues/5089)
 
 ## 2026-11-07 - 5.11.0
 

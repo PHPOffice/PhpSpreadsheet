@@ -48,6 +48,9 @@ class Conditional
      */
     public static function statementIf(mixed $condition = true, mixed $returnIfTrue = 0, mixed $returnIfFalse = false): mixed
     {
+        if (is_array($condition)) {
+            return self::evaluateArrayArguments([self::class, 'statementIf'], $condition, $returnIfTrue, $returnIfFalse);
+        }
         $condition = ($condition === null) ? true : Functions::flattenSingleValue($condition);
 
         if (ErrorValue::isError($condition, true)) {
@@ -193,6 +196,12 @@ class Conditional
 
         if ($argumentCount % 2 != 0) {
             return ExcelError::NA();
+        }
+        for ($i = 0; $i < $argumentCount; $i += 2) {
+            if (is_array($arguments[$i])) {
+                // An array condition is evaluated element by element
+                return self::evaluateArrayArguments([self::class, 'IFS'], ...$arguments);
+            }
         }
         // We use instance of Exception as a falseValue in order to prevent string collision with value in cell
         $falseValueException = new Exception();
